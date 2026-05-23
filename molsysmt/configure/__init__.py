@@ -81,4 +81,53 @@ min_length_protein = 50
 use_gpu = False          # True | False | 'auto'
 gpu_threshold = 3_000_000  # payload (n_structures * n_atoms * 3) above which 'auto' uses GPU
 
+# Dynamic Parallel JIT & Thread Controls
+parallel_mode = 'auto'         # 'auto' | True | False
+num_threads = -1               # -1 (all available cores) | positive integer
+parallel_threshold = 500_000   # payload size threshold (n_structures * n_atoms * 3)
+min_payload_per_thread = 250_000 # workload-based optimal scale per thread
+
+class configure_context:
+    """Context manager to temporarily override global configurations in a thread-safe manner."""
+    def __init__(self, **kwargs):
+        self.new_values = kwargs
+        self.old_values = {}
+
+    def __enter__(self):
+        import sys
+        module = sys.modules[__name__]
+        for k, v in self.new_values.items():
+            if hasattr(module, k):
+                self.old_values[k] = getattr(module, k)
+            setattr(module, k, v)
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        import sys
+        module = sys.modules[__name__]
+        for k, v in self.old_values.items():
+            setattr(module, k, v)
+
+def context(**kwargs):
+    """Return a configure_context to temporarily modify configuration attributes."""
+    return configure_context(**kwargs)
+
+def with_configure_overrides(func):
+    """Decorator to automatically apply parallel and num_threads local overrides thread-safely."""
+    from functools import wraps
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        parallel = kwargs.get('parallel', None)
+        num_threads = kwargs.get('num_threads', None)
+        
+        ctx_kwargs = {}
+        if parallel is not None:
+            ctx_kwargs['parallel_mode'] = parallel
+        if num_threads is not None:
+            ctx_kwargs['num_threads'] = num_threads
+            
+        with context(**ctx_kwargs):
+            return func(*args, **kwargs)
+    return wrapper
+
 

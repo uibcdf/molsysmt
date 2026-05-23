@@ -84,8 +84,22 @@ def lazy_njit(signature, cache=True, **kwargs):
     def decorator(func):
         @lru_cache(maxsize=1)
         def _compiled():
+            # Check global parallel_mode configuration
+            import molsysmt.configure as config
+            compile_parallel = kwargs.get('parallel', False)
+            if compile_parallel and config.parallel_mode is False:
+                compile_parallel = False
+
+            # Build compilation keyword arguments
+            jit_kwargs = kwargs.copy()
+            jit_kwargs['parallel'] = compile_parallel
+            if 'fastmath' not in jit_kwargs:
+                jit_kwargs['fastmath'] = True
+
             if wrapper in _COMPILING:
-                return nb.njit(signature, cache=cache, **kwargs)(func)
+                compiled_dispatcher = nb.njit(signature, cache=cache, **jit_kwargs)(func)
+                compiled_dispatcher._compiled_parallel = compile_parallel
+                return compiled_dispatcher
 
             _COMPILING.add(wrapper)
             try:
@@ -98,13 +112,59 @@ def lazy_njit(signature, cache=True, **kwargs):
                         func.__globals__[name] = _WRAPPER_COMPILED[value]()
 
                 _emit_numba_jit_warning(func)
-                return nb.njit(signature, cache=cache, **kwargs)(func)
+                compiled_dispatcher = nb.njit(signature, cache=cache, **jit_kwargs)(func)
+                compiled_dispatcher._compiled_parallel = compile_parallel
+                return compiled_dispatcher
             finally:
                 _COMPILING.discard(wrapper)
 
         @wraps(func)
         def wrapper(*args, **kwds):
-            return _compiled()(*args, **kwds)
+            compiled_dispatcher = _compiled()
+            
+            # Manage thread pool at runtime if compiled as a parallel JIT kernel
+            if getattr(compiled_dispatcher, '_compiled_parallel', False):
+                try:
+                    import molsysmt.configure as config
+                    import numpy as np
+                    p_mode = config.parallel_mode
+                    n_threads = config.num_threads
+
+                    if p_mode is False:
+                        nb.set_num_threads(1)
+                    elif p_mode == 'auto':
+                        # Determine payload size from largest numpy array argument
+                        payload_size = 0
+                        for arg in args:
+                            if isinstance(arg, np.ndarray):
+                                if arg.size > payload_size:
+                                    payload_size = arg.size
+
+                        if payload_size < config.parallel_threshold:
+                            nb.set_num_threads(1)
+                        else:
+                            # Workload-based optimal scaling
+                            optimal = max(1, payload_size // config.min_payload_per_thread)
+                            
+                            # Limit max threads
+                            if n_threads == -1:
+                                import multiprocessing
+                                max_cores = multiprocessing.cpu_count()
+                            else:
+                                max_cores = n_threads
+                            
+                            final_threads = min(max_cores, optimal)
+                            nb.set_num_threads(final_threads)
+                    elif p_mode is True:
+                        if n_threads == -1:
+                            import multiprocessing
+                            nb.set_num_threads(multiprocessing.cpu_count())
+                        else:
+                            nb.set_num_threads(n_threads)
+                except Exception:
+                    pass
+
+            return compiled_dispatcher(*args, **kwds)
 
         _WRAPPER_COMPILED[wrapper] = _compiled
         _COMPILED_FACTORIES.append(_compiled)

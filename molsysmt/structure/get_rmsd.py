@@ -45,11 +45,14 @@ class _RMSDReducer(Reducer):
         self._chunks.extend(other._chunks)
 
 
+from molsysmt.configure import with_configure_overrides
+
 @signal(tags=['api', 'structure'])
 @arg_digest()
+@with_configure_overrides
 def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', use_gpu=None):
+          syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', use_gpu=None, parallel=None, num_threads=None):
     """
     Compute the RMSD between structures without prior superposition.
 
@@ -72,29 +75,29 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
     Parameters
     ----------
     molecular_system : molecular system
-        Query system in any form supported by MolSysMT.
-    selection : str, list, tuple or numpy.ndarray, default 'atom_type!="H"'
-        Atoms used for the RMSD calculation (heavy atoms by default).
+        The candidate system containing the structures to evaluate.
+    selection : str or array-like, default 'atom_type!="H"'
+        Atoms to include in the RMSD calculation.
     structure_indices : 'all' or array-like, default 'all'
-        Frame indices of the query system.
-    reference_molecular_system : molecular system or None, default None
-        Reference system.  When ``None``, ``molecular_system`` itself is used as
-        the reference.
-    reference_selection : str, list, tuple or numpy.ndarray or None, default None
-        Atoms in the reference system.  When ``None``, the same expression as
-        ``selection`` is applied to the reference.  The resolved atom count must
-        match ``selection``.
+        Candidate frames to evaluate.
+    reference_molecular_system : molecular system, optional
+        The reference system. Defaults to ``molecular_system``.
+    reference_selection : str or array-like, optional
+        Reference atoms. Defaults to ``selection``.
     reference_structure_index : int, default 0
-        Single frame index within the reference system used as the reference
-        structure.
+        Reference structure frame index.
     syntax : str, default 'MolSysMT'
-        Selection syntax used for both selections.
+        Atom selection syntax.
     engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for the RMSD computation.
-    heavy_mode : {'auto', 'force', 'off'}, default 'auto'
-        Chunked execution strategy.  ``'auto'`` activates chunking when the
-        estimated memory footprint exceeds the configured threshold; ``'force'``
-        always uses chunking; ``'off'`` always loads all frames at once.
+        Calculation backend.
+    heavy_mode : str, default 'auto'
+        Chunked execution path: 'auto' | 'force' | 'off'.
+    use_gpu : bool or 'auto', optional
+        Whether to run calculations on GPU if supported.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
 
     Returns
     -------

@@ -31,16 +31,15 @@ arguments=[
     nb.float64[:], # weights: [n_atoms]
 ]
 output=nb.float64[:,:,:]
-@lazy_njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True, parallel=True)
 def get_center(coordinates, weights):
 
     n_structures, n_atoms = coordinates.shape[0:2]
     center=np.zeros((n_structures, 1, 3), dtype=nb.float64)
-    aux_coors=np.zeros((3), dtype=nb.float64)
 
-    for ii in range(n_structures):
+    for ii in nb.prange(n_structures):
         aux_weight=0.0
-        aux_coors[:]=0.0
+        aux_coors=np.zeros((3), dtype=nb.float64)
         for jj in range(n_atoms):
             aux_coors[:]+=weights[jj]*coordinates[ii,jj,:]
             aux_weight+=weights[jj]
@@ -82,7 +81,7 @@ arguments=[
     nb.float64[:], # weights [n_atoms]
 ]
 output=nb.float64[:,:,:] # center: [n_structures, n_groups, 3]
-@lazy_njit(make_numba_signature(arguments,output), cache=True)
+@lazy_njit(make_numba_signature(arguments,output), cache=True, parallel=True)
 def get_center_groups_of_atoms(coordinates, atoms_per_group, weights):
 
     n_structures, n_atoms = coordinates.shape[0:2]
@@ -90,10 +89,10 @@ def get_center_groups_of_atoms(coordinates, atoms_per_group, weights):
     n_groups = atoms_per_group.shape[0]
 
     center=np.zeros((n_structures, n_groups, 3), dtype=nb.float64)
-    aux_coors=np.zeros((3), dtype=nb.float64)
 
-    for ii in range(n_structures):
+    for ii in nb.prange(n_structures):
         jj=0 
+        aux_coors=np.zeros((3), dtype=nb.float64)
         for kk in range(n_groups):
             aux_weight=0.0
             aux_coors[:]=0.0

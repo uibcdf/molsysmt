@@ -21,14 +21,14 @@ def get_distance_two_points_single_structure(point1, point2):
 arguments=[nb.float64[:,:,:], # coordinates
           ]
 output=nb.float64[:,:,:]
-@lazy_njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True, parallel=True)
 def get_distances_single_system(coordinates):
 
     n_structures, n_atoms = coordinates.shape[0:2]
 
     distances = np.zeros((n_structures, n_atoms, n_atoms), dtype=np.float64)
 
-    for ii in range(n_structures):
+    for ii in nb.prange(n_structures):
         for jj in range(n_atoms):
             point1 = coordinates[ii,jj,:]
             for kk in range(jj+1, n_atoms):
@@ -44,7 +44,7 @@ arguments=[nb.float64[:,:,:], # coordinates1
            nb.float64[:,:,:], # coordinates2
           ]
 output=nb.float64[:,:,:]
-@lazy_njit(make_numba_signature(arguments, output), cache=True)
+@lazy_njit(make_numba_signature(arguments, output), cache=True, parallel=True)
 def get_distances(coordinates1, coordinates2):
 
     n_structures1, n_atoms1 = coordinates1.shape[0:2]
@@ -52,7 +52,7 @@ def get_distances(coordinates1, coordinates2):
 
     distances = np.zeros((n_structures1, n_atoms1, n_atoms2), dtype=np.float64)
 
-    for ii in range(n_structures1):
+    for ii in nb.prange(n_structures1):
         for jj in range(n_atoms1):
             point1 = coordinates1[ii,jj,:]
             for kk in range(n_atoms2):

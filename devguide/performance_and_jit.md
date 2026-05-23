@@ -251,6 +251,36 @@ including:
 This list matters because it means the pattern is no longer experimental. It is
 part of the active architecture.
 
+## Dynamic Parallel JIT & Thread Controls (1.0.0 Stabilization)
+
+To achieve maximum performance scaling on multi-core systems while completely avoiding performance degradation from over-threading on smaller systems or server environments, MolSysMT implements a dynamic JIT parallelization and thread pool scaling architecture.
+
+### 1. Global Configurations
+- `msm.configure.parallel_mode`: Sets the active parallelization posture.
+  - `'auto'` (default): Scales active threads dynamically between `1` and `num_threads` based on the payload size (workload-based thread scaling). Parallelizes only if payload exceeds `parallel_threshold`.
+  - `True`: Forces parallel compilation and execution across the maximum configured threads (`num_threads`), completely bypassing size checks and workload-based scaling.
+  - `False`: Completely deactivates parallel JIT. All kernels compile and execute in 100% sequential serial mode.
+- `msm.configure.num_threads`: The maximum number of threads dedicated to parallel loops (default `-1` to use all available CPU cores).
+- `msm.configure.parallel_threshold`: The payload size threshold (default `500,000` float64 items, i.e., structures * atoms * 3) above which `'auto'` enables parallel execution.
+- `msm.configure.min_payload_per_thread`: The minimum payload size (default `250,000` items) allocated per thread under `'auto'` mode.
+
+### 2. Workload-Based Thread Scaling Heuristic
+Under `'auto'` mode, running too many threads on small or medium payloads frequently degrades performance due to cache bouncing and thread synchronization overhead. MolSysMT automatically scales the dedicated threads according to the estimated workload size:
+$$\text{optimal\_threads} = \max\left(1, \frac{\text{payload\_size}}{250,000}\right)$$
+$$\text{active\_threads} = \min(\text{num\_threads}, \text{optimal\_threads})$$
+
+### 3. Local Function Overrides & Thread-Safe Context Manager
+- **Context Manager**: Developers and users can temporarily override parallel settings within a thread-safe context block using:
+  ```python
+  with msm.configure.context(parallel_mode=True, num_threads=4):
+      # parallel execution with exactly 4 threads
+  ```
+- **Local Overrides**: Public structural and mathematical functions (e.g. `get_center`, `get_distances`, `get_rmsd`) accept `parallel` and `num_threads` keyword arguments. These parameters are automatically intercepted and applied thread-safely via the `@with_configure_overrides` decorator.
+
+### 4. Zero-Copy Views and Write-Protection
+To completely eliminate memory allocation and deep-copy overhead when retrieving coordinates or box vectors, the native `Structures` class getter properties return direct, zero-copy NumPy views. 
+To prevent accidental side-effects and mutation of the native state, returned views are write-protected (`val.flags.writeable = False`). In-place mutators within `Structures` (such as `set_coordinates` and `set_box`) temporarily unlock the writeability flag inside a `try...finally` block, perform the update, and immediately re-lock it to guarantee lifecycle integrity.
+
 ## Fast Paths and Fast Tracks
 The current ecosystem now has two related but distinct ideas that should not be
 confused.

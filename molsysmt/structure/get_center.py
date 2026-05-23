@@ -49,11 +49,14 @@ class _CenterReducer(Reducer):
         self._chunks.extend(other._chunks)
 
 
+from molsysmt.configure import with_configure_overrides
+
 @signal(tags=['api', 'structure'])
 @arg_digest()
+@with_configure_overrides
 def get_center(molecular_system, selection='all', weights=None,
         structure_indices='all', syntax='MolSysMT', engine='MolSysMT',
-        heavy_mode='auto', skip_digestion=False):
+        heavy_mode='auto', parallel=None, num_threads=None, skip_digestion=False):
     """
     Computing centers (centroids or weighted centers) of atom selections.
 
@@ -73,6 +76,10 @@ def get_center(molecular_system, selection='all', weights=None,
         Backend.
     heavy_mode : str, default 'auto'
         Chunked execution mode: 'auto' | 'force' | 'off'.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
     skip_digestion : bool, default False
         Whether to skip argument digestion.
 

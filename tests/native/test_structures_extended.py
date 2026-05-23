@@ -45,7 +45,7 @@ def _energy(n_structures=1):
 def test_n_structures_from_velocities():
     """n_structures falls back to velocities when coordinates is None."""
     s = Structures()
-    s.velocities = _coords(n_structures=3)
+    s.velocities = _velocity(n_structures=3)
     assert s.n_structures == 3
 
 
@@ -69,7 +69,7 @@ def test_n_structures_empty():
 def test_n_atoms_from_velocities():
     """n_atoms falls back to velocities when coordinates is None."""
     s = Structures()
-    s.velocities = _coords(n_structures=1, n_atoms=7)
+    s.velocities = _velocity(n_structures=1, n_atoms=7)
     assert s.n_atoms == 7
 
 

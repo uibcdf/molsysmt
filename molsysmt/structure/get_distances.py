@@ -90,12 +90,15 @@ class _DistancesReducer(Reducer):
         self._chunks.extend(other._chunks)
 
 
+from molsysmt.configure import with_configure_overrides
+
 @signal(tags=['api', 'structure'])
 @arg_digest()
+@with_configure_overrides
 def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
         molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
         pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
-        engine='MolSysMT', syntax='MolSysMT', heavy_mode='auto', use_gpu=None, skip_digestion=False):
+        engine='MolSysMT', syntax='MolSysMT', heavy_mode='auto', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False):
     """
     Computing distances between atoms or centers of selections.
 
@@ -127,6 +130,10 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
         Backend for the calculation.
     syntax : str, default 'MolSysMT'
         Selection syntax when using strings.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
     skip_digestion : bool, default False
         Whether to skip argument digestion.
 

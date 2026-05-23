@@ -41,11 +41,17 @@ class Structures:
     def coordinates(self):
         if self._coordinates is None:
             return None
+        # Return a view wrapped in quantity. The view inherits writeable = False.
         return puw.quantity(self._coordinates, 'nm')
 
     @coordinates.setter
     def coordinates(self, value):
-        self._coordinates = _raw_value(value, 'nm')
+        val = _raw_value(value, 'nm')
+        if val is not None:
+            val = np.asarray(val, dtype=np.float64)
+            # Make the array read-only to prevent side-effects in views
+            val.flags.writeable = False
+        self._coordinates = val
 
     @property
     def velocities(self):
@@ -65,7 +71,12 @@ class Structures:
 
     @box.setter
     def box(self, value):
-        self._box = _raw_value(value, 'nm')
+        val = _raw_value(value, 'nm')
+        if val is not None:
+            val = np.asarray(val, dtype=np.float64)
+            # Make the array read-only to prevent side-effects in views
+            val.flags.writeable = False
+        self._box = val
 
     @property
     def b_factor(self):
@@ -290,12 +301,15 @@ class Structures:
     def _append_coordinates(self, coordinates, atom_indices='all', structure_indices='all', skip_digestion=False):
         if self._coordinates is None:
             if is_all(atom_indices) and is_all(structure_indices):
-                self._coordinates = coordinates
+                self.coordinates = coordinates
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(atom_indices) and is_all(structure_indices):
-                self._coordinates = self._puw_concatenate([self._coordinates, coordinates], axis=0)
+                coords_raw = _raw_value(coordinates, 'nm')
+                new_coords = np.concatenate([self._coordinates, coords_raw], axis=0)
+                new_coords.flags.writeable = False
+                self._coordinates = new_coords
             else:
                 raise NotImplementedMethodError()
 
@@ -316,12 +330,15 @@ class Structures:
     def _append_box(self, box, structure_indices='all', skip_digestion=False):
         if self._box is None:
             if is_all(structure_indices):
-                self._box = box
+                self.box = box
             else:
                 raise NotImplementedMethodError()
         else:
             if is_all(structure_indices):
-                self._box = self._puw_concatenate([self._box, box], axis=0)
+                box_raw = _raw_value(box, 'nm')
+                new_box = np.concatenate([self._box, box_raw], axis=0)
+                new_box.flags.writeable = False
+                self._box = new_box
             else:
                 raise NotImplementedMethodError()
 
@@ -523,28 +540,27 @@ class Structures:
 
     @arg_digest()
     def set_coordinates(self, indices='all', structure_indices='all', value=None, skip_digestion=False):
-    
-        if is_all(indices):
-            if is_all(structure_indices):
-    
-                self.coordinates = value
-    
-                if self.box is not None and self.box.shape[0] > 0:
-                    if self.box.shape[0]!=self.n_structures:
-                        if self.box.shape[0]==1:
-                            from molsysmt import pyunitwizard as puw
-                            self.box = puw.utils.numpy.repeat(self.box, self.n_structures, axis=0)
-                        else:
-                            # If we can't broadcast, we set it to None or keep it as is?
-                            # For 1.0.0 stability, if it doesn't match and isn't 1, we invalidate the box.
-                            self.box = None
+        if self._coordinates is None:
+            return
+
+        self._coordinates.flags.writeable = True
+        try:
+            raw_val = _raw_value(value, 'nm')
+            if is_all(indices):
+                if is_all(structure_indices):
+                    self._coordinates.flags.writeable = False
+                    self.coordinates = value
+                    return
+                else:
+                    self._coordinates[structure_indices,:,:] = raw_val[:,:,:]
             else:
-                self.coordinates[structure_indices,:,:] = value[:,:,:]
-        else:
-            if is_all(structure_indices):
-                self.coordinates[:,indices,:] = value[:,:,:]
-            else:
-                self.coordinates[np.ix_(structure_indices, indices)]=value[:,:,:]
+                if is_all(structure_indices):
+                    self._coordinates[:,indices,:] = raw_val[:,:,:]
+                else:
+                    self._coordinates[np.ix_(structure_indices, indices)] = raw_val[:,:,:]
+        finally:
+            if self._coordinates is not None:
+                self._coordinates.flags.writeable = False
     
         pass
 
@@ -669,11 +685,20 @@ class Structures:
 
     @arg_digest()
     def set_box(self, structure_indices='all', value=None, skip_digestion=False):
-    
-        if is_all(structure_indices):
-            self.box = value
-        else:
-            self.box[structure_indices,:,:] = value[:,:,:]
+        if self._box is None:
+            return
+
+        self._box.flags.writeable = True
+        try:
+            raw_val = _raw_value(value, 'nm')
+            if is_all(structure_indices):
+                self._box.flags.writeable = False
+                self.box = value
+            else:
+                self._box[structure_indices,:,:] = raw_val[:,:,:]
+        finally:
+            if self._box is not None:
+                self._box.flags.writeable = False
     
         pass
 
