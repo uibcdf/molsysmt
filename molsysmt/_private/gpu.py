@@ -77,9 +77,14 @@ def resolve_use_gpu(use_gpu_arg, payload_size: int = 0) -> bool:
     import molsysmt.configure as config
 
     # Determine effective setting
-    effective = use_gpu_arg if use_gpu_arg is not None else config.use_gpu
+    global_use_gpu = getattr(config, 'gpu_mode', None)
+    if global_use_gpu is None:
+        global_use_gpu = getattr(config, 'use_gpu', False)
+
+    effective = use_gpu_arg if use_gpu_arg is not None else global_use_gpu
 
     if effective is False:
+
         return False
 
     if effective is True:

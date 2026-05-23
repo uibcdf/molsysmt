@@ -81,7 +81,8 @@ del _os
 min_length_protein = 50
 
 # GPU acceleration
-use_gpu = False          # True | False | 'auto'
+gpu_mode = 'auto'          # 'auto' | True | False
+use_gpu = 'auto'           # kept for backward compatibility; alias for gpu_mode
 gpu_threshold = 3_000_000  # payload (n_structures * n_atoms * 3) above which 'auto' uses GPU
 
 # Dynamic Parallel JIT & Thread Controls
@@ -93,12 +94,19 @@ min_payload_per_thread = 250_000 # workload-based optimal scale per thread
 class configure_context:
     """Context manager to temporarily override global configurations in a thread-safe manner."""
     def __init__(self, **kwargs):
-        self.new_values = kwargs
+        self.new_values = dict(kwargs)
         self.old_values = {}
 
     def __enter__(self):
         import sys
         module = sys.modules[__name__]
+
+        # Symmetrically synchronize gpu_mode and use_gpu aliases if one is specified
+        if 'gpu_mode' in self.new_values and 'use_gpu' not in self.new_values:
+            self.new_values['use_gpu'] = self.new_values['gpu_mode']
+        elif 'use_gpu' in self.new_values and 'gpu_mode' not in self.new_values:
+            self.new_values['gpu_mode'] = self.new_values['use_gpu']
+
         for k, v in self.new_values.items():
             if hasattr(module, k):
                 self.old_values[k] = getattr(module, k)
@@ -111,26 +119,36 @@ class configure_context:
         for k, v in self.old_values.items():
             setattr(module, k, v)
 
+
 def context(**kwargs):
     """Return a configure_context to temporarily modify configuration attributes."""
     return configure_context(**kwargs)
 
 def with_configure_overrides(func):
-    """Decorator to automatically apply parallel and num_threads local overrides thread-safely."""
+    """Decorator to automatically apply parallel, num_threads, and gpu_mode local overrides thread-safely."""
     from functools import wraps
     @wraps(func)
     def wrapper(*args, **kwargs):
         parallel = kwargs.get('parallel', None)
         num_threads = kwargs.get('num_threads', None)
+        use_gpu_val = kwargs.get('use_gpu', None)
+        gpu_mode_val = kwargs.get('gpu_mode', None)
         
         ctx_kwargs = {}
         if parallel is not None:
             ctx_kwargs['parallel_mode'] = parallel
         if num_threads is not None:
             ctx_kwargs['num_threads'] = num_threads
+        if use_gpu_val is not None:
+            ctx_kwargs['gpu_mode'] = use_gpu_val
+            ctx_kwargs['use_gpu'] = use_gpu_val
+        if gpu_mode_val is not None:
+            ctx_kwargs['gpu_mode'] = gpu_mode_val
+            ctx_kwargs['use_gpu'] = gpu_mode_val
             
         with context(**ctx_kwargs):
             return func(*args, **kwargs)
     return wrapper
+
 
 

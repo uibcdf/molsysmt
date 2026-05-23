@@ -84,3 +84,29 @@ def test_parallel_execution_modes():
     assert r_auto is not None
     assert r_true is not None
     assert r_false is not None
+
+def test_gpu_mode_configuration():
+    """Verify that default, context manager overrides, and resolution of gpu_mode function correctly."""
+    # Verify default config values
+    assert msm.configure.gpu_mode == 'auto'
+    assert msm.configure.use_gpu == 'auto'
+    assert msm.configure.gpu_threshold == 3_000_000
+
+    # Test context manager temporary overrides
+    with msm.configure.context(gpu_mode=True):
+        assert msm.configure.gpu_mode is True
+        assert msm.configure.use_gpu is True
+
+    with msm.configure.context(gpu_mode=False):
+        assert msm.configure.gpu_mode is False
+        assert msm.configure.use_gpu is False
+
+    # Test resolve_use_gpu utility
+    from molsysmt._private.gpu import resolve_use_gpu
+    
+    with msm.configure.context(gpu_mode=False):
+        # Even if per-call is auto, if global is False, resolve_use_gpu returns False
+        assert resolve_use_gpu('auto', payload_size=5_000_000) is False
+        # If per-call is False, it returns False
+        assert resolve_use_gpu(False, payload_size=5_000_000) is False
+
