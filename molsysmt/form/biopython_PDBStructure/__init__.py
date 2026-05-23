@@ -15,6 +15,7 @@ _convert_to = {
 }
 
 from .is_form import is_form
+from .attributes import attributes
+from .has_attribute import has_attribute
 # from .get_topological_attributes import *
 from .get_structural_attributes import *
-# from .has_attribute import has_attribute
