@@ -3,6 +3,8 @@ MolSysMT
 This must be a short description of the project
 """
 
+import importlib
+
 # versioningit
 from importlib.metadata import version, PackageNotFoundError
 
@@ -20,67 +22,112 @@ from molsysmt._private.smonitor import PACKAGE_ROOT as _SMONITOR_PACKAGE_ROOT
 
 _ensure_smonitor_configured(_SMONITOR_PACKAGE_ROOT)
 
-#__documentation_web__ = 'https://www.uibcdf.org/MolSysMT'
-#__github_web__ = 'https://github.com/uibcdf/MolSysMT'
-#__github_issues_web__ = __github_web__ + '/issues'
 
-# Starting the modules
-from . import configure
+# Central lazy-loading registry mapping public attribute/submodule names
+# to their respective internal import submodules.
+_LAZY_ATTRIBUTES = {
+    # Submodules
+    'configure': '.configure',
+    'basic': '.basic',
+    'form': '.form',
+    'element': '.element',
+    'attribute': '.attribute',
+    'topology': '.topology',
+    'structure': '.structure',
+    'build': '.build',
+    'supported': '.supported',
+    'pbc': '.pbc',
+    'physchem': '.physchem',
+    'molecular_mechanics': '.molecular_mechanics',
+    'hbonds': '.hbonds',
+    'third_party': '.third_party',
+    'thirds': '.third_party',
+    'systems': ('.systems', 'systems'),
 
-from ._pyunitwizard import puw as pyunitwizard
+    # warmup functions
+    'warmup': ('.warmup', 'warmup'),
+    'warmup_numba': ('.warmup', 'warmup_numba'),
 
-from ._private.smonitor import (
-    ArgumentError,
-    ArgumentChoiceError,
-    ArgumentLengthError,
-    ArgumentConflictError,
-    StructuralInconsistencyError,
-    InternalAlgorithmError,
-    IteratorError,
-    LibraryNotFoundError,
-    MolecularSystemNeededError,
-    MolecularSystemsNeededError,
-    NotCompatibleConversionError,
-    NotImplementedConversionError,
-    NotImplementedIteratorError,
-    NotImplementedMethodError,
-    NotSupportedFormError,
-    NotSupportedSyntaxError,
-    NotWithThisFormError,
-    FileAlreadyHandledError,
-    FileContentError,
-    warn,
-    warn_once,
-)
+    # pyunitwizard alias
+    'pyunitwizard': ('._pyunitwizard', 'puw'),
 
-from .basic import *
-from . import basic
+    # Native classes
+    'MolSysBuilder': ('.native', 'MolSysBuilder'),
+    'MolSysDict': ('.native', 'MolSysDict'),
+    'TopologyDict': ('.native', 'TopologyDict'),
 
-from . import form
-from . import element
-from . import attribute
+    # Basic functions
+    'is_a_molecular_system': ('.basic', 'is_a_molecular_system'),
+    'are_multiple_molecular_systems': ('.basic', 'are_multiple_molecular_systems'),
+    'has_attribute': ('.basic', 'has_attribute'),
+    'where_is_attribute': ('.basic', 'where_is_attribute'),
+    'get_attributes': ('.basic', 'get_attributes'),
+    'get_label': ('.basic', 'get_label'),
+    'get_form': ('.basic', 'get_form'),
+    'select': ('.basic', 'select'),
+    'convert': ('.basic', 'convert'),
+    'copy': ('.basic', 'copy'),
+    'extract': ('.basic', 'extract'),
+    'get': ('.basic', 'get'),
+    'set': ('.basic', 'set'),
+    'info': ('.basic', 'info'),
+    'remove': ('.basic', 'remove'),
+    'merge': ('.basic', 'merge'),
+    'add': ('.basic', 'add'),
+    'concatenate_structures': ('.basic', 'concatenate_structures'),
+    'append_structures': ('.basic', 'append_structures'),
+    'is_composed_of': ('.basic', 'is_composed_of'),
+    'contains': ('.basic', 'contains'),
+    'compare': ('.basic', 'compare'),
+    'view': ('.basic', 'view'),
+    'Iterator': ('.basic', 'Iterator'),
 
-from . import topology
-from . import structure
-from . import build
-from .native import MolSysBuilder, MolSysDict, TopologyDict
+    # SMonitor exceptions / helpers
+    'ArgumentError': ('._private.smonitor', 'ArgumentError'),
+    'ArgumentChoiceError': ('._private.smonitor', 'ArgumentChoiceError'),
+    'ArgumentLengthError': ('._private.smonitor', 'ArgumentLengthError'),
+    'ArgumentConflictError': ('._private.smonitor', 'ArgumentConflictError'),
+    'StructuralInconsistencyError': ('._private.smonitor', 'StructuralInconsistencyError'),
+    'InternalAlgorithmError': ('._private.smonitor', 'InternalAlgorithmError'),
+    'IteratorError': ('._private.smonitor', 'IteratorError'),
+    'LibraryNotFoundError': ('._private.smonitor', 'LibraryNotFoundError'),
+    'MolecularSystemNeededError': ('._private.smonitor', 'MolecularSystemNeededError'),
+    'MolecularSystemsNeededError': ('._private.smonitor', 'MolecularSystemsNeededError'),
+    'NotCompatibleConversionError': ('._private.smonitor', 'NotCompatibleConversionError'),
+    'NotImplementedConversionError': ('._private.smonitor', 'NotImplementedConversionError'),
+    'NotImplementedIteratorError': ('._private.smonitor', 'NotImplementedIteratorError'),
+    'NotImplementedMethodError': ('._private.smonitor', 'NotImplementedMethodError'),
+    'NotSupportedFormError': ('._private.smonitor', 'NotSupportedFormError'),
+    'NotSupportedSyntaxError': ('._private.smonitor', 'NotSupportedSyntaxError'),
+    'NotWithThisFormError': ('._private.smonitor', 'NotWithThisFormError'),
+    'FileAlreadyHandledError': ('._private.smonitor', 'FileAlreadyHandledError'),
+    'FileContentError': ('._private.smonitor', 'FileContentError'),
+    'warn': ('._private.smonitor', 'warn'),
+    'warn_once': ('._private.smonitor', 'warn_once'),
+}
 
-from . import supported
-from . import pbc
-from . import physchem
-from . import molecular_mechanics
-#from . import molecular_dynamics
-from . import hbonds
-from . import third_party
-from . import third_party as thirds
 
-from .systems import systems
-from .warmup_numba import warmup_numba
+def __getattr__(name: str):
+    if name in _LAZY_ATTRIBUTES:
+        target = _LAZY_ATTRIBUTES[name]
+        if isinstance(target, str):
+            # Target is a submodule to import perezosamente
+            mod = importlib.import_module(target, __name__)
+            globals()[name] = mod
+            return mod
+        elif isinstance(target, tuple):
+            # Target is an attribute (function, class, exception) inside a submodule
+            submod_path, attr_name = target
+            mod = importlib.import_module(submod_path, __name__)
+            val = getattr(mod, attr_name)
+            globals()[name] = val
+            return val
 
-# NGLView support uses a local MolSysMT adapter and does not patch site-packages.
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
-# With the following list sphinx can document de methods in the api section without adding the
-# module files names explicitly:
+def __dir__():
+    return sorted(list(globals().keys()) + list(_LAZY_ATTRIBUTES.keys()))
+
 
 __all__ = []

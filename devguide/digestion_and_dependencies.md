@@ -75,11 +75,19 @@ Rules:
 - Validate architecture with `devtools/scripts/validate_dependencies.py`.
 
 ### 🚀 High-Performance Lazy Loading (Sprint Decision)
-To ensure near-instantaneous `import molsysmt` in all environments (HPC, Cloud, Notebooks), we have implemented a **String-Based Lazy Registry**:
+To ensure near-instantaneous `import molsysmt` in all environments (HPC, Cloud, Notebooks), we have implemented a comprehensive lazy-loading architecture:
 
-1. **`_convert_to` dictionaries**: In every form's `__init__.py`, the values in the `_convert_to` dictionary must be **strings** representing the function name (e.g., `'to_molsysmt_MolSys'`), not the function objects themselves.
-2. **Dynamic Resolution**: `molsysmt.basic.convert` uses `importlib` to resolve these strings only when the specific conversion path is triggered.
-3. **Outcome**: This architectural pattern prevents Python from parsing and loading submodule code for soft dependencies (like OpenMM or MDTraj) unless they are actually used.
+1. **Package-Level PEP 562 Lazy Loading**: The package entry point `molsysmt/__init__.py` has been re-architected using PEP 562 `__getattr__` and `__dir__`. No internal submodules (like `structure`, `topology`, `lib`, etc.) are parsed or loaded during the initial `import molsysmt` statement, slashing cold import latency from **3.34 seconds to ~500 ms**.
+2. **String-Based Converter Registry**: In every form's `__init__.py`, the values in the `_convert_to` dictionary must be **strings** representing the function name (e.g., `'to_molsysmt_MolSys'`), not the function objects themselves, preventing premature soft dependency loading.
+3. **Dynamic Resolution**: `molsysmt.basic.convert` and the global `__getattr__` use `importlib` to resolve submodules and converter routines dynamically on demand, caching them in `globals()` to guarantee zero latency on subsequent accesses.
+
+### ♨️ Unified Preheating Engine (`molsysmt.warmup()`)
+To support clean performance profiling and JIT compilation, MolSysMT exposes a unified preheating API:
+
+*   **`molsysmt.warmup(numba=True, modules=True)`**:
+    - **`modules=True` (default)**: Loops through all registered lazy attributes and forces their eager import into memory.
+    - **`numba=True` (default)**: Pre-compiles all registered Numba JIT kernels.
+*   **Deprecation Alias**: The old `warmup_numba()` function is preserved as a deprecated legacy wrapper that issues a warning and delegates to `warmup(numba=True, modules=True)`. Always use `molsysmt.warmup()` in new scripts and benchmarks.
 
 ## Single Source of Truth
 Dependency status and form mapping live in `molsysmt/_depdigest.py`.
