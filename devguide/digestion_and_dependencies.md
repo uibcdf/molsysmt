@@ -60,7 +60,8 @@ Always use `ValidatedPayload` for high-frequency internal function calls to main
 
 #### 4. Passports (`ValidatedPayload`) vs. `skip_digestion=True`
 
-- **`skip_digestion=True`** is a coarse-grained override. It bypasses digestion for *all* arguments of a function call. It is useful in very low-level internal kernels, but it is fragile because it disables all type safety and requires manual propagation down the call stack.
+- **`skip_digestion=True`** is a coarse-grained override. It bypasses digestion for *all* arguments of a function call. It is useful in very low-level internal kernels, but it is fragile because it disables all type safety and requires manual propagation down the call stack. 
+  *(Performance Note, May 2026)*: The `@arg_digest` decorator has been optimized to handle `skip_digestion=True` via an ultra-fast `O(1)` fast-path. When this keyword argument is detected, the decorator immediately exits and calls the wrapped function directly, completely bypassing `bind_arguments` and `inspect.signature` with zero overhead.
 - **`ValidatedPayload` (Passports)** is a fine-grained, value-level bypass. It only bypasses validation for the specific arguments that have already been validated, leaving other arguments (such as new selections or flags) subject to normal validation. This keeps the execution safe while achieving zero-latency for heavy objects.
 - **Audit Rule**: Avoid passing `skip_digestion=True` in internal calls if the only reason was to avoid double-digesting a specific heavy argument (like coordinates). Instead, wrap that argument in a `ValidatedPayload` and let normal validation run for other parameters. Use `skip_digestion=True` only when *none* of the arguments in the call need any validation or normalization whatsoever.
 
