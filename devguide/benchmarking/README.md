@@ -72,6 +72,34 @@ To ensure baseline reproducibility, benchmarks must be executed with:
 
 ---
 
+---
+
+## The Public Benchmarking Dashboard
+
+To present our performance telemetry transparently, MolSysMT features a premium, interactive **Single-Page Benchmarking Dashboard** embedded directly in the Sphinx developer documentation.
+
+### 1. Dashboard Architecture
+- **HTML/JS Source**: [docs/_static/benchmarks_dashboard.html](file:///home/diego/repos@uibcdf/molsysmt/docs/_static/benchmarks_dashboard.html)
+- **Dynamic Fetch Data**: Loads baseline JSON metrics dynamically from [docs/_static/benchmarks_data/](file:///home/diego/repos@uibcdf/molsysmt/docs/_static/benchmarks_data/) (which holds static copies of baseline JSON files copied during compilation / manual handoffs).
+- **Core Libraries**: Built using Tailwind CSS (for custom glassmorphic aesthetics on a sleek dark-mode canvas) and Chart.js (for animated, responsive data visualizations).
+- **Interactive Tabs**:
+  1. *Ecosystem Competitors*: Bar and doughnut charts illustrating CPU speedups and peak memory RSS deltas comparing MolSysMT, MDTraj, and MDAnalysis.
+  2. *API vs. JIT (Overhead)*: Displays the overhead comparison between public API validation boundaries and raw JIT math kernels.
+  3. *Trajectory Scalability*: Visualizes performance across eager, iterator, and chunked trajectory streaming models.
+  4. *Micro Overhead*: Tracks microsecond digestion and physical unit checking taxes.
+
+### 2. Documentation Embed
+The dashboard is embedded cleanly into [docs/content/developer/benchmarks.md](file:///home/diego/repos@uibcdf/molsysmt/docs/content/developer/benchmarks.md) using a responsive, shadow-styled HTML iframe:
+```markdown
+.. raw:: html
+
+   <iframe src="../../_static/benchmarks_dashboard.html" 
+           style="width: 100%; height: 950px; border: none; border-radius: 16px; ...">
+   </iframe>
+```
+
+---
+
 ## Directory Navigation
 
 - [Current Baseline Status](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarking/status.md) — Current inventory of benchmark scripts and timing metrics.
@@ -79,3 +107,5 @@ To ensure baseline reproducibility, benchmarks must be executed with:
 - [Experimental Ideas](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarking/ideas.md) — Numba cache solutions, memory views, and profiling tools under study.
 - [Competitive Comparison Strategy](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarking/competitive_comparison.md) — Strategy and protocols for comparison with MDTraj, MDAnalysis, OpenMM, and BioPython.
 - [Competitive Comparison Results](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarking/competitive_comparison_results.md) — Live benchmark timings, competitive analysis, and safety-versus-performance trade-offs.
+- [Sphinx Benchmarks Page](file:///home/diego/repos@uibcdf/molsysmt/docs/content/developer/benchmarks.md) — The compiled documentation guide embedding the live dashboard.
+
