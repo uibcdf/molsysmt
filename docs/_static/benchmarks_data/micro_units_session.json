@@ -1,0 +1,93 @@
+{
+  "environment": {
+    "machine": "x86_64",
+    "molsysmt_version": "0.18.0",
+    "os": "Linux",
+    "os_release": "6.17.0-14-generic",
+    "python": "3.13.12"
+  },
+  "generated_at_utc": "2026-05-22T07:48:42.854955+00:00",
+  "results": {
+    "unit_dimensionality_check": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 1000,
+      "max_seconds": 0.0003331267200410366,
+      "median_seconds": 0.0003265831423923373,
+      "min_seconds": 0.00032059322018176316,
+      "name": "unit_dimensionality_check",
+      "repeats": 5,
+      "stddev_seconds": 4.708541797940128e-06,
+      "timestamp_utc": "2026-05-22T07:48:42.854886+00:00"
+    },
+    "unit_fast_track_parse": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 1000,
+      "max_seconds": 0.0002775092832744122,
+      "median_seconds": 0.00027058025542646646,
+      "min_seconds": 0.0002603656770661473,
+      "name": "unit_fast_track_parse",
+      "repeats": 5,
+      "stddev_seconds": 6.8889487885598004e-06,
+      "timestamp_utc": "2026-05-22T07:48:38.441512+00:00"
+    },
+    "unit_get_value_no_conversion": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 1000,
+      "max_seconds": 1.4146997593343258e-05,
+      "median_seconds": 1.3287917710840702e-05,
+      "min_seconds": 1.2792374007403851e-05,
+      "name": "unit_get_value_no_conversion",
+      "repeats": 5,
+      "stddev_seconds": 5.869928580364074e-07,
+      "timestamp_utc": "2026-05-22T07:48:39.818147+00:00"
+    },
+    "unit_get_value_with_conversion": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 1000,
+      "max_seconds": 0.0002884922837838531,
+      "median_seconds": 0.0002825727295130491,
+      "min_seconds": 0.0002665262958034873,
+      "name": "unit_get_value_with_conversion",
+      "repeats": 5,
+      "stddev_seconds": 8.687471613265554e-06,
+      "timestamp_utc": "2026-05-22T07:48:41.223390+00:00"
+    },
+    "unit_standard_parse": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 1000,
+      "max_seconds": 0.0002702626930549741,
+      "median_seconds": 0.00026022240426391363,
+      "min_seconds": 0.000254640968516469,
+      "name": "unit_standard_parse",
+      "repeats": 5,
+      "stddev_seconds": 5.8631275236981625e-06,
+      "timestamp_utc": "2026-05-22T07:48:39.751136+00:00"
+    }
+  },
+  "session_name": "micro-units-performance"
+}

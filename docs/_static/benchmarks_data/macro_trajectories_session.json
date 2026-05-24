@@ -1,0 +1,61 @@
+{
+  "environment": {
+    "machine": "x86_64",
+    "molsysmt_version": "0.18.0",
+    "os": "Linux",
+    "os_release": "6.17.0-14-generic",
+    "python": "3.13.12"
+  },
+  "generated_at_utc": "2026-05-22T10:18:38.505055+00:00",
+  "results": {
+    "macro_trajectory_chunked_executor": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.3595636525191367,
+      "median_seconds": 0.35659650070592763,
+      "min_seconds": 0.3482924048788846,
+      "name": "macro_trajectory_chunked_executor",
+      "repeats": 5,
+      "stddev_seconds": 0.004711185972936613,
+      "timestamp_utc": "2026-05-22T10:18:37.998981+00:00"
+    },
+    "macro_trajectory_eager_load": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.17943911328911782,
+      "median_seconds": 0.16416810415685176,
+      "min_seconds": 0.15727064646780492,
+      "name": "macro_trajectory_eager_load",
+      "repeats": 5,
+      "stddev_seconds": 0.008403242337667918,
+      "timestamp_utc": "2026-05-22T10:18:08.250754+00:00"
+    },
+    "macro_trajectory_iterator": {
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.23038464244455098,
+      "median_seconds": 0.22505497327074409,
+      "min_seconds": 0.2212370889261365,
+      "name": "macro_trajectory_iterator",
+      "repeats": 5,
+      "stddev_seconds": 0.004404481876146968,
+      "timestamp_utc": "2026-05-22T10:18:19.760980+00:00"
+    }
+  },
+  "session_name": "macro-trajectory-streaming"
+}

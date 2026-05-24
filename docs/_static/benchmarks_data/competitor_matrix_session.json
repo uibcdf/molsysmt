@@ -1,0 +1,412 @@
+{
+  "environment": {
+    "machine": "x86_64",
+    "molsysmt_version": "0.18.0",
+    "os": "Linux",
+    "os_release": "6.17.0-14-generic",
+    "python": "3.13.12"
+  },
+  "generated_at_utc": "2026-05-22T22:24:32.301556+00:00",
+  "results": {
+    "competitor_center_mdanalysis": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 20,
+      "max_seconds": 0.17468781215138734,
+      "median_seconds": 0.169992481963709,
+      "min_seconds": 0.16245738468132914,
+      "name": "competitor_center_mdanalysis",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.004642756311935705,
+      "timestamp_utc": "2026-05-22T22:22:29.183824+00:00"
+    },
+    "competitor_center_mdtraj": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.001670453120023012,
+      "median_seconds": 0.0016020050458610058,
+      "min_seconds": 0.0015465901233255863,
+      "name": "competitor_center_mdtraj",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 4.751078797017476e-05,
+      "timestamp_utc": "2026-05-22T22:22:12.030604+00:00"
+    },
+    "competitor_center_molsysmt_jit": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.008712406810373068,
+      "median_seconds": 0.00820476669818163,
+      "min_seconds": 0.00815003976225853,
+      "name": "competitor_center_molsysmt_jit",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.00022913365140268487,
+      "timestamp_utc": "2026-05-22T22:22:11.629272+00:00"
+    },
+    "competitor_center_molsysmt_public": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 20,
+      "max_seconds": 0.2915693325921893,
+      "median_seconds": 0.28032382861711086,
+      "min_seconds": 0.27584842587821184,
+      "name": "competitor_center_molsysmt_public",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.007426062450066715,
+      "timestamp_utc": "2026-05-22T22:22:09.539281+00:00"
+    },
+    "competitor_distances_mdanalysis": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.16770298648625612,
+      "median_seconds": 0.16315051866695285,
+      "min_seconds": 0.1602899937517941,
+      "name": "competitor_distances_mdanalysis",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.0033235624356847543,
+      "timestamp_utc": "2026-05-22T22:24:32.301472+00:00"
+    },
+    "competitor_distances_mdtraj": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.0003104829043149948,
+      "median_seconds": 0.00030602432787418365,
+      "min_seconds": 0.00029830798506736756,
+      "name": "competitor_distances_mdtraj",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 4.732131376218564e-06,
+      "timestamp_utc": "2026-05-22T22:23:51.169383+00:00"
+    },
+    "competitor_distances_molsysmt_jit": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.001475956905633211,
+      "median_seconds": 0.001440883781760931,
+      "min_seconds": 0.0014214644394814969,
+      "name": "competitor_distances_molsysmt_jit",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 2.12854515785827e-05,
+      "timestamp_utc": "2026-05-22T22:23:51.092343+00:00"
+    },
+    "competitor_distances_molsysmt_public": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 20,
+      "max_seconds": 0.3461530686821789,
+      "median_seconds": 0.32496527917683127,
+      "min_seconds": 0.32396311559714375,
+      "name": "competitor_distances_molsysmt_public",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.009330935517519184,
+      "timestamp_utc": "2026-05-22T22:23:50.311070+00:00"
+    },
+    "competitor_loading_mdanalysis": {
+      "base_rss_mb": 815.484375,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.04213175661861897,
+      "median_seconds": 0.041232002433389425,
+      "min_seconds": 0.03971205018460751,
+      "name": "competitor_loading_mdanalysis",
+      "peak_rss_mb": 815.484375,
+      "repeats": 5,
+      "stddev_seconds": 0.0009714002130414167,
+      "timestamp_utc": "2026-05-22T22:21:05.228993+00:00"
+    },
+    "competitor_loading_mdtraj": {
+      "base_rss_mb": 779.06640625,
+      "delta_rss_mb": 36.41796875,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.026739449147135018,
+      "median_seconds": 0.026089868694543838,
+      "min_seconds": 0.025775362644344567,
+      "name": "competitor_loading_mdtraj",
+      "peak_rss_mb": 815.484375,
+      "repeats": 5,
+      "stddev_seconds": 0.0003838896724100983,
+      "timestamp_utc": "2026-05-22T22:21:03.055689+00:00"
+    },
+    "competitor_loading_molsysmt": {
+      "base_rss_mb": 424.3125,
+      "delta_rss_mb": 354.75390625,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.16615794245153664,
+      "median_seconds": 0.15304837059229612,
+      "min_seconds": 0.15115580102428794,
+      "name": "competitor_loading_molsysmt",
+      "peak_rss_mb": 779.06640625,
+      "repeats": 5,
+      "stddev_seconds": 0.0061768334705536165,
+      "timestamp_utc": "2026-05-22T22:21:01.520607+00:00"
+    },
+    "competitor_rmsd_mdanalysis": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 20,
+      "max_seconds": 0.16293395953252912,
+      "median_seconds": 0.16178701668977738,
+      "min_seconds": 0.16089083142578603,
+      "name": "competitor_rmsd_mdanalysis",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.0008202699912059736,
+      "timestamp_utc": "2026-05-22T22:23:16.961685+00:00"
+    },
+    "competitor_rmsd_mdtraj": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.0003150077536702156,
+      "median_seconds": 0.0002957024052739143,
+      "min_seconds": 0.00022739991545677184,
+      "name": "competitor_rmsd_mdtraj",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 3.488593317443777e-05,
+      "timestamp_utc": "2026-05-22T22:23:00.483597+00:00"
+    },
+    "competitor_rmsd_molsysmt_jit": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.008380031045526266,
+      "median_seconds": 0.007936533987522126,
+      "min_seconds": 0.0074010915495455265,
+      "name": "competitor_rmsd_molsysmt_jit",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.0003650262382862115,
+      "timestamp_utc": "2026-05-22T22:23:00.409420+00:00"
+    },
+    "competitor_rmsd_molsysmt_public": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 20,
+      "max_seconds": 0.2985699562355876,
+      "median_seconds": 0.28453430188819767,
+      "min_seconds": 0.2827468928415328,
+      "name": "competitor_rmsd_molsysmt_public",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.007547614690335734,
+      "timestamp_utc": "2026-05-22T22:22:58.434123+00:00"
+    },
+    "competitor_selection_mdanalysis_complex": {
+      "base_rss_mb": 2193.8515625,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.0007067543640732765,
+      "median_seconds": 0.0006586219556629657,
+      "min_seconds": 0.0006334571167826653,
+      "name": "competitor_selection_mdanalysis_complex",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 2.7884001782127075e-05,
+      "timestamp_utc": "2026-05-22T22:21:34.837701+00:00"
+    },
+    "competitor_selection_mdanalysis_simple": {
+      "base_rss_mb": 998.05859375,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.00024744972586631774,
+      "median_seconds": 0.0001878860779106617,
+      "min_seconds": 0.00016706733033061027,
+      "name": "competitor_selection_mdanalysis_simple",
+      "peak_rss_mb": 998.05859375,
+      "repeats": 5,
+      "stddev_seconds": 3.1301609352180426e-05,
+      "timestamp_utc": "2026-05-22T22:21:14.174906+00:00"
+    },
+    "competitor_selection_mdtraj_complex": {
+      "base_rss_mb": 998.05859375,
+      "delta_rss_mb": 1195.79296875,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.05361691357567906,
+      "median_seconds": 0.049672903921455146,
+      "min_seconds": 0.046580422297120096,
+      "name": "competitor_selection_mdtraj_complex",
+      "peak_rss_mb": 2193.8515625,
+      "repeats": 5,
+      "stddev_seconds": 0.002840748639353719,
+      "timestamp_utc": "2026-05-22T22:21:34.669719+00:00"
+    },
+    "competitor_selection_mdtraj_simple": {
+      "base_rss_mb": 998.05859375,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.003717726469039917,
+      "median_seconds": 0.0035682601481676103,
+      "min_seconds": 0.003435135465115309,
+      "name": "competitor_selection_mdtraj_simple",
+      "peak_rss_mb": 998.05859375,
+      "repeats": 5,
+      "stddev_seconds": 0.00011199102670050526,
+      "timestamp_utc": "2026-05-22T22:21:14.125453+00:00"
+    },
+    "competitor_selection_molsysmt_complex": {
+      "base_rss_mb": 998.05859375,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.009222209677100182,
+      "median_seconds": 0.008540019411593675,
+      "min_seconds": 0.008406827561557292,
+      "name": "competitor_selection_molsysmt_complex",
+      "peak_rss_mb": 998.05859375,
+      "repeats": 5,
+      "stddev_seconds": 0.0003347418463021933,
+      "timestamp_utc": "2026-05-22T22:21:16.356805+00:00"
+    },
+    "competitor_selection_molsysmt_simple": {
+      "base_rss_mb": 998.05859375,
+      "delta_rss_mb": 0.0,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.18.0",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 50,
+      "max_seconds": 0.006020059697329998,
+      "median_seconds": 0.005570257995277644,
+      "min_seconds": 0.005182918701320887,
+      "name": "competitor_selection_molsysmt_simple",
+      "peak_rss_mb": 998.05859375,
+      "repeats": 5,
+      "stddev_seconds": 0.00035668950637407054,
+      "timestamp_utc": "2026-05-22T22:21:12.800750+00:00"
+    }
+  },
+  "session_name": "competitive-performance-matrix"
+}

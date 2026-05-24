@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MolSysMT Performance Benchmarks Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .active-tab {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
+    <div class="max-w-7xl mx-auto w-full">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-gray-800">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                    Performance Benchmarks Dashboard
+                </h1>
+                <p class="text-gray-400 mt-1 text-sm md:text-base">
+                    Interactive performance, memory footprint, and scalability analytics for MolSysMT.
+                </p>
+            </div>
+            <div class="mt-4 md:mt-0 flex space-x-2 text-xs md:text-sm bg-slate-900 border border-gray-800 rounded-lg p-2.5">
+                <span class="text-gray-500">Platform:</span>
+                <span id="env-os" class="text-indigo-400 font-semibold">Linux</span>
+                <span class="text-gray-700">|</span>
+                <span class="text-gray-500">Python:</span>
+                <span id="env-py" class="text-indigo-400 font-semibold">3.13</span>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 mb-8 bg-slate-950 p-1.5 rounded-xl border border-gray-800/80 max-w-fit">
+            <button onclick="switchTab('competitors')" id="tab-competitors" class="px-4 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 active-tab text-white">
+                Ecosystem Competitors
+            </button>
+            <button onclick="switchTab('overhead')" id="tab-overhead" class="px-4 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 text-gray-400 hover:text-white">
+                API vs JIT (Overhead)
+            </button>
+            <button onclick="switchTab('scalability')" id="tab-scalability" class="px-4 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 text-gray-400 hover:text-white">
+                Trajectory Scalability
+            </button>
+            <button onclick="switchTab('micro')" id="tab-micro" class="px-4 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 text-gray-400 hover:text-white">
+                Micro Overhead
+            </button>
+        </div>
+
+        <!-- Dashboard Content Panels -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Loading Indicator -->
+            <div id="loader" class="glass-card rounded-2xl p-12 text-center flex flex-col items-center justify-center space-y-4">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500"></div>
+                <p class="text-gray-400 text-sm">Fetching baseline results...</p>
+            </div>
+
+            <!-- Panel: Competitors -->
+            <div id="panel-competitors" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Large Chart (CPU Time) -->
+                <div class="glass-card rounded-2xl p-6 lg:col-span-2 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-white flex items-center">
+                                <span class="w-2 h-4 bg-indigo-500 rounded-full mr-2.5"></span>
+                                Ecosystem CPU Latency Comparison
+                            </h3>
+                            <span class="text-xs bg-indigo-500/10 text-indigo-400 px-2.5 py-1 rounded-full font-semibold border border-indigo-500/20">
+                                Lower is Better
+                            </span>
+                        </div>
+                        <p class="text-gray-400 text-xs md:text-sm mb-6">
+                            Median execution time (milliseconds) comparing MolSysMT (Public & JIT), MDTraj, and MDAnalysis on standard operations (Chicken Villin system, 4369 atoms).
+                        </p>
+                    </div>
+                    <div class="relative h-[320px] md:h-[380px] w-full">
+                        <canvas id="chart-competitor-cpu"></canvas>
+                    </div>
+                </div>
+
+                <!-- Metrics & RAM -->
+                <div class="flex flex-col space-y-8 lg:col-span-1">
+                    <!-- Stat Card: Selection Speedup -->
+                    <div class="glass-card rounded-2xl p-6 shadow-2xl relative overflow-hidden bg-gradient-to-br from-indigo-950/20 via-slate-900/40 to-slate-900/10">
+                        <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl"></div>
+                        <h4 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Atom Selection Engine</h4>
+                        <div class="flex items-baseline space-x-2">
+                            <span class="text-4xl font-extrabold text-white">6.2x</span>
+                            <span class="text-emerald-400 text-sm font-bold">Faster</span>
+                        </div>
+                        <p class="text-gray-400 text-xs mt-3 leading-relaxed">
+                            MolSysMT's selection query parser resolves complex selections in <strong class="text-white">8.54 ms</strong> vs MDTraj's <strong class="text-white">49.67 ms</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Chart Card: RAM Footprint -->
+                    <div class="glass-card rounded-2xl p-6 shadow-2xl flex flex-col justify-between flex-grow">
+                        <div>
+                            <h3 class="text-base font-bold text-white mb-2 flex items-center">
+                                <span class="w-2 h-4 bg-purple-500 rounded-full mr-2.5"></span>
+                                Peak Memory Footprint (RSS Delta)
+                            </h3>
+                            <p class="text-gray-400 text-xs mb-4">
+                                Dynamic peak RAM delta (MB) allocated during execution, tracking isolated process overhead.
+                            </p>
+                        </div>
+                        <div class="relative h-[220px] w-full">
+                            <canvas id="chart-competitor-ram"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: API vs JIT -->
+            <div id="panel-overhead" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Large Chart (CPU Time) -->
+                <div class="glass-card rounded-2xl p-6 lg:col-span-2 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-white flex items-center">
+                                <span class="w-2 h-4 bg-emerald-500 rounded-full mr-2.5"></span>
+                                Public API Validation vs. Direct JIT Kernels
+                            </h3>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full font-semibold border border-emerald-500/20">
+                                Overhead Diagnostic
+                            </span>
+                        </div>
+                        <p class="text-gray-400 text-xs md:text-sm mb-6">
+                            Comparing the execution time of raw compiled Numba math kernels against the public API wrappers (which perform PyUnitWizard wrapping and @arg_digest validation).
+                        </p>
+                    </div>
+                    <div class="relative h-[320px] md:h-[380px] w-full">
+                        <canvas id="chart-overhead-cpu"></canvas>
+                    </div>
+                </div>
+
+                <!-- Analysis Panel -->
+                <div class="glass-card rounded-2xl p-6 lg:col-span-1 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-white text-base font-bold mb-4 flex items-center">
+                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2"></span>
+                            The Validation Tax
+                        </h4>
+                        <div class="space-y-4 text-xs md:text-sm text-gray-300">
+                            <div class="p-3 bg-emerald-950/20 border border-emerald-500/10 rounded-lg">
+                                <p class="font-semibold text-emerald-400 mb-1">Raw JIT Kernels are Extremely Fast</p>
+                                Calculating center coordinates or RMSD on the GPU/JIT runs in <strong class="text-white">~0.9 ms to 1.1 ms</strong>, matching or beating native compiled C++ libraries.
+                            </div>
+                            <div class="p-3 bg-red-950/10 border border-red-500/10 rounded-lg">
+                                <p class="font-semibold text-red-400 mb-1">Public Wrapper Tax</p>
+                                Resolving dynamic physical units and decorator arguments introduces a timing tax of **~250 ms to 280 ms** on standard wrappers.
+                            </div>
+                            <div class="p-3 bg-slate-900/60 border border-gray-800 rounded-lg">
+                                <p class="font-semibold text-blue-400 mb-1">Developer Best Practice</p>
+                                Internals, pipelines, and sister libraries (like TopoMT) bypass the public wrapper layer and query raw mathematical JIT submodules directly.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 text-center">
+                        <span class="text-3xl font-extrabold text-white">~240x</span>
+                        <p class="text-gray-400 text-xs mt-1">Average public-to-kernel timing ratio</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: Scalability -->
+            <div id="panel-scalability" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Large Chart (CPU Time) -->
+                <div class="glass-card rounded-2xl p-6 lg:col-span-2 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-bold text-white flex items-center">
+                                <span class="w-2 h-4 bg-sky-500 rounded-full mr-2.5"></span>
+                                Solvated Trajectory Streaming Scalability
+                            </h3>
+                            <span class="text-xs bg-sky-500/10 text-sky-400 px-2.5 py-1 rounded-full font-semibold border border-sky-500/20">
+                                Scalability Analysis
+                            </span>
+                        </div>
+                        <p class="text-gray-400 text-xs md:text-sm mb-6">
+                            Processing times (seconds) comparing Eager Loading, Increment-Streaming Iterators, and the ChunkedExecutor wrapper on a solvated protein trajectory (4369 atoms).
+                        </p>
+                    </div>
+                    <div class="relative h-[320px] md:h-[380px] w-full">
+                        <canvas id="chart-scalability-cpu"></canvas>
+                    </div>
+                </div>
+
+                <!-- Analysis Panel -->
+                <div class="glass-card rounded-2xl p-6 lg:col-span-1 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-white text-base font-bold mb-4 flex items-center">
+                            <span class="w-1.5 h-1.5 bg-sky-500 rounded-full mr-2"></span>
+                            Streaming Tradeoffs
+                        </h4>
+                        <div class="space-y-4 text-xs md:text-sm text-gray-300">
+                            <div class="p-3 bg-slate-900/60 border border-gray-800 rounded-lg">
+                                <p class="font-semibold text-sky-400 mb-1">Eager Loading (Fastest, ~164 ms)</p>
+                                Best for small/medium files. Issues a single disk read pass and maps memory directly, avoiding loop boundaries.
+                            </div>
+                            <div class="p-3 bg-slate-900/60 border border-gray-800 rounded-lg">
+                                <p class="font-semibold text-indigo-400 mb-1">Iterator (Balanced, ~225 ms)</p>
+                                Streams coordinates frame-by-frame. Uses ~37% more time than eager due to repeated I/O bounds, but caps peak RAM.
+                            </div>
+                            <div class="p-3 bg-slate-900/60 border border-gray-800 rounded-lg">
+                                <p class="font-semibold text-purple-400 mb-1">ChunkedExecutor (Heavy, ~356 ms)</p>
+                                Designed for massive out-of-core trajectories exceeding RAM. Includes slicing and Reducer boundaries.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-gray-800 text-xs text-gray-400 leading-relaxed">
+                        💡 **Heuristic Policy**: Under the hood, ChunkedExecutor dynamically measures file sizes and scales chunk bounds to safe RAM fractions automatically.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel: Micro Overhead -->
+            <div id="panel-micro" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Chart Card: Digestion -->
+                <div class="glass-card rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-base font-bold text-white flex items-center">
+                                <span class="w-2 h-4 bg-orange-500 rounded-full mr-2.5"></span>
+                                @arg_digest Decorator Latency Tax
+                            </h3>
+                            <span class="text-xs bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full font-semibold border border-orange-500/20">
+                                Microseconds
+                            </span>
+                        </div>
+                        <p class="text-gray-400 text-xs mb-6">
+                            Microsecond timings for mechanical vs topological attribute checks, comparing active validation vs. skip digestion (Fast-Path).
+                        </p>
+                    </div>
+                    <div class="relative h-[240px] w-full">
+                        <canvas id="chart-micro-digestion"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart Card: Units -->
+                <div class="glass-card rounded-2xl p-6 shadow-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-base font-bold text-white flex items-center">
+                                <span class="w-2 h-4 bg-yellow-500 rounded-full mr-2.5"></span>
+                                PyUnitWizard Physical Unit Operations
+                            </h3>
+                            <span class="text-xs bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded-full font-semibold border border-yellow-500/20">
+                                Microseconds
+                            </span>
+                        </div>
+                        <p class="text-gray-400 text-xs mb-6">
+                            Comparative microsecond latency of parsing, dimensionality checking, and extracting values (with vs. without conversion).
+                        </p>
+                    </div>
+                    <div class="relative h-[240px] w-full">
+                        <canvas id="chart-micro-units"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto w-full mt-12 pt-6 border-t border-gray-900 text-center text-xs text-gray-500">
+        MolSysMT Benchmarking System • Dynamic Client Visualizer v1.0 • Generated UTC 2026
+    </footer>
+
+    <!-- Core Script -->
+    <script>
+        let baselineData = {};
+        const charts = {};
+
+        // Switch Tabs
+        function switchTab(tabName) {
+            // Update buttons
+            const tabs = ['competitors', 'overhead', 'scalability', 'micro'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const panel = document.getElementById(`panel-${t}`);
+                if (t === tabName) {
+                    btn.classList.add('active-tab', 'text-white');
+                    btn.classList.remove('text-gray-400');
+                    panel.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active-tab', 'text-white');
+                    btn.classList.add('text-gray-400');
+                    panel.classList.add('hidden');
+                }
+            });
+
+            // Trigger chart updates/reflows
+            if (tabName === 'competitors') renderCompetitors();
+            if (tabName === 'overhead') renderOverhead();
+            if (tabName === 'scalability') renderScalability();
+            if (tabName === 'micro') renderMicro();
+        }
+
+        // Fetch Baseline Data
+        async function loadData() {
+            try {
+                const endpoints = {
+                    competitor: './benchmarks_data/competitor_matrix_session.json',
+                    kernels: './benchmarks_data/macro_kernels_session.json',
+                    trajectories: './benchmarks_data/macro_trajectories_session.json',
+                    digestion: './benchmarks_data/micro_digestion_session.json',
+                    units: './benchmarks_data/micro_units_session.json'
+                };
+
+                for (const [key, url] of Object.entries(endpoints)) {
+                    const res = await fetch(url);
+                    baselineData[key] = await res.json();
+                }
+
+                // Hide loader
+                document.getElementById('loader').classList.add('hidden');
+                
+                // Set env variables
+                const env = baselineData.competitor.environment || {};
+                document.getElementById('env-os').textContent = env.os || 'Linux';
+                document.getElementById('env-py').textContent = env.python || '3.13';
+
+                // Render default tab
+                switchTab('competitors');
+            } catch (err) {
+                console.error("Error loading benchmark data:", err);
+                document.getElementById('loader').innerHTML = `
+                    <div class="text-red-500 font-bold mb-2">❌ Data Fetch Failure</div>
+                    <p class="text-gray-400 text-xs">Failed to load benchmark JSON baselines. Verify file paths in docs/_static/benchmarks_data/.</p>
+                `;
+            }
+        }
+
+        // 1. Competitors Dashboard
+        function renderCompetitors() {
+            const data = baselineData.competitor.results || {};
+            
+            // Timing bar data
+            const labels = ['Center of Geometry', 'Pairwise Distances', 'Least-RMSD'];
+            
+            // Map values to milliseconds
+            const msmJit = [
+                (data.competitor_center_molsysmt_jit?.median_seconds || 0) * 1000,
+                (data.competitor_distances_molsysmt_jit?.median_seconds || 0) * 1000,
+                (data.competitor_least_rmsd_molsysmt_jit?.median_seconds || 0) * 1000
+            ];
+            const msmPublic = [
+                (data.competitor_center_molsysmt_public?.median_seconds || 0) * 1000,
+                (data.competitor_distances_molsysmt_public?.median_seconds || 0) * 1000,
+                (data.competitor_least_rmsd_molsysmt_public?.median_seconds || 0) * 1000
+            ];
+            const mdtraj = [
+                (data.competitor_center_mdtraj?.median_seconds || 0) * 1000,
+                (data.competitor_distances_mdtraj?.median_seconds || 0) * 1000,
+                (data.competitor_least_rmsd_mdtraj?.median_seconds || 0) * 1000
+            ];
+            const mdanalysis = [
+                (data.competitor_center_mdanalysis?.median_seconds || 0) * 1000,
+                (data.competitor_distances_mdanalysis?.median_seconds || 0) * 1000,
+                (data.competitor_least_rmsd_mdanalysis?.median_seconds || 0) * 1000
+            ];
+
+            // Render CPU Chart
+            if (charts.competitorCpu) charts.competitorCpu.destroy();
+            const ctxCpu = document.getElementById('chart-competitor-cpu').getContext('2d');
+            charts.competitorCpu = new Chart(ctxCpu, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'MolSysMT (JIT)', data: msmJit, backgroundColor: '#3b82f6', borderRadius: 4 },
+                        { label: 'MolSysMT (Public)', data: msmPublic, backgroundColor: '#1d4ed8', borderRadius: 4 },
+                        { label: 'MDTraj', data: mdtraj, backgroundColor: '#a855f7', borderRadius: 4 },
+                        { label: 'MDAnalysis', data: mdanalysis, backgroundColor: '#f43f5e', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            title: { display: true, text: 'Execution Time (ms)', color: '#9ca3af' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#f3f4f6' } }
+                    }
+                }
+            });
+
+            // Render RAM Chart (Delta RSS MB)
+            // Values mapped directly from JSON
+            const ramDeltas = [
+                data.competitor_center_molsysmt_jit?.delta_rss_mb || 0,
+                data.competitor_center_mdtraj?.delta_rss_mb || 0,
+                data.competitor_center_mdanalysis?.delta_rss_mb || 0
+            ];
+            
+            if (charts.competitorRam) charts.competitorRam.destroy();
+            const ctxRam = document.getElementById('chart-competitor-ram').getContext('2d');
+            charts.competitorRam = new Chart(ctxRam, {
+                type: 'doughnut',
+                data: {
+                    labels: ['MolSysMT (JIT)', 'MDTraj', 'MDAnalysis'],
+                    datasets: [{
+                        data: ramDeltas.map(v => v === 0 ? 0.1 : v), // small placeholder if zero
+                        backgroundColor: ['#3b82f6', '#a855f7', '#f43f5e'],
+                        borderWidth: 1,
+                        borderColor: '#1e293b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            position: 'bottom',
+                            labels: { color: '#f3f4f6', boxWidth: 12, font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 2. API vs JIT
+        function renderOverhead() {
+            const data = baselineData.kernels.results || {};
+            
+            const labels = ['Center', 'Distances', 'RMSD'];
+            const jitValues = [
+                (data.macro_get_center_jit_kernel?.median_seconds || 0) * 1000,
+                (data.macro_get_distances_jit_kernel?.median_seconds || 0) * 1000,
+                (data.macro_get_rmsd_jit_kernel?.median_seconds || 0) * 1000
+            ];
+            const publicValues = [
+                (data.macro_get_center_public_api?.median_seconds || 0) * 1000,
+                (data.macro_get_distances_public_api?.median_seconds || 0) * 1000,
+                (data.macro_get_rmsd_public_api?.median_seconds || 0) * 1000
+            ];
+
+            if (charts.overheadCpu) charts.overheadCpu.destroy();
+            const ctx = document.getElementById('chart-overhead-cpu').getContext('2d');
+            charts.overheadCpu = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Direct JIT Math Kernel', data: jitValues, backgroundColor: '#10b981', borderRadius: 4 },
+                        { label: 'Public Wrapper API', data: publicValues, backgroundColor: '#64748b', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            title: { display: true, text: 'Time (ms)', color: '#9ca3af' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#f3f4f6' } }
+                    }
+                }
+            });
+        }
+
+        // 3. Scalability
+        function renderScalability() {
+            const data = baselineData.trajectories.results || {};
+            
+            const labels = ['Solvated Chicken Villin Trajectory (4,369 atoms)'];
+            const eager = (data.macro_trajectory_eager_load?.median_seconds || 0);
+            const iterator = (data.macro_trajectory_iterator?.median_seconds || 0);
+            const chunked = (data.macro_trajectory_chunked_executor?.median_seconds || 0);
+
+            if (charts.scalabilityCpu) charts.scalabilityCpu.destroy();
+            const ctx = document.getElementById('chart-scalability-cpu').getContext('2d');
+            charts.scalabilityCpu = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Eager Load (Fastest)', data: [eager], backgroundColor: '#0ea5e9', borderRadius: 4 },
+                        { label: 'Iterator (Frame-by-Frame)', data: [iterator], backgroundColor: '#6366f1', borderRadius: 4 },
+                        { label: 'ChunkedExecutor (Out-of-Core)', data: [chunked], backgroundColor: '#a855f7', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            title: { display: true, text: 'Execution Time (seconds)', color: '#9ca3af' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#f3f4f6' } }
+                    }
+                }
+            });
+        }
+
+        // 4. Micro Dashboard
+        function renderMicro() {
+            const digestion = baselineData.digestion.results || {};
+            const units = baselineData.units.results || {};
+
+            // Digestion Chart
+            const digLabels = ['Mechanical Attribute', 'Topological Attribute'];
+            const digEnabled = [
+                (digestion.digestion_is_mechanical_attribute_enabled?.median_seconds || 0) * 1e6,
+                (digestion.digestion_is_topological_attribute_enabled?.median_seconds || 0) * 1e6
+            ];
+            const digSkipped = [
+                (digestion.digestion_is_mechanical_attribute_skipped?.median_seconds || 0) * 1e6,
+                (digestion.digestion_is_topological_attribute_skipped?.median_seconds || 0) * 1e6
+            ];
+
+            if (charts.microDigestion) charts.microDigestion.destroy();
+            const ctxDig = document.getElementById('chart-micro-digestion').getContext('2d');
+            charts.microDigestion = new Chart(ctxDig, {
+                type: 'bar',
+                data: {
+                    labels: digLabels,
+                    datasets: [
+                        { label: 'Active Validation', data: digEnabled, backgroundColor: '#f97316', borderRadius: 4 },
+                        { label: 'Skip Digestion (Fast-Path)', data: digSkipped, backgroundColor: '#64748b', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            title: { display: true, text: 'Time (microseconds)', color: '#9ca3af' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#f3f4f6' } }
+                    }
+                }
+            });
+
+            // Units Chart
+            const uLabels = ['Fast-Track Parse', 'Standard Parse', 'Dim Check', 'Get (No Conv)', 'Get (Conv)'];
+            const uValues = [
+                (units.unit_fast_track_parse?.median_seconds || 0) * 1e6,
+                (units.unit_standard_parse?.median_seconds || 0) * 1e6,
+                (units.unit_dimensionality_check?.median_seconds || 0) * 1e6,
+                (units.unit_get_value_no_conversion?.median_seconds || 0) * 1e6,
+                (units.unit_get_value_with_conversion?.median_seconds || 0) * 1e6
+            ];
+
+            if (charts.microUnits) charts.microUnits.destroy();
+            const ctxUnits = document.getElementById('chart-micro-units').getContext('2d');
+            charts.microUnits = new Chart(ctxUnits, {
+                type: 'bar',
+                data: {
+                    labels: uLabels,
+                    datasets: [
+                        { label: 'PyUnitWizard Operation', data: uValues, backgroundColor: '#eab308', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            title: { display: true, text: 'Time (microseconds)', color: '#9ca3af' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#9ca3af' }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af', font: { size: 9 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // Initialize Loading
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

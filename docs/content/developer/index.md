@@ -36,6 +36,14 @@ internal rules and conventions is `devguide/`. If there is any conflict,
 
 ```{eval-rst}
 .. toctree::
+   :caption: Performance & Benchmarking
+
+   benchmarks.md
+
+```
+
+```{eval-rst}
+.. toctree::
    :caption: Warnings
 
    warnings.md
