@@ -127,6 +127,7 @@ devtools/playground/*
 !molsysmt/lib
 molsysmt/_version.py
 !*.nbconvert.log
+.numba_cache/
 
 # devtools/tests generated artifacts
 devtools/tests/coverage.json
