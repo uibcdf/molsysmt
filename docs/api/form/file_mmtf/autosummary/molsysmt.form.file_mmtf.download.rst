@@ -1,12 +1,6 @@
 ﻿molsysmt.form.file\_mmtf.download
 =================================
 
-.. automodule:: molsysmt.form.file_mmtf.download
+.. currentmodule:: molsysmt.form.file_mmtf
 
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      download
-   
+.. autofunction:: download

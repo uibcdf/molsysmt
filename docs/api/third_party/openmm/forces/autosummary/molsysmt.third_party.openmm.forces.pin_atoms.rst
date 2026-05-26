@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.forces.pin\_atoms
-========================================
+﻿molsysmt.third\_party.openmm.forces.pin\_atoms
+==============================================
 
 .. currentmodule:: molsysmt.third_party.openmm.forces
 

@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.show\_as\_surface
-=========================================
+﻿molsysmt.third\_party.nglview.show\_as\_surface
+===============================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

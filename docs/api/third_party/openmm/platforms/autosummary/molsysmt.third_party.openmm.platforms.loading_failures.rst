@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.platforms.loading\_failures
-==================================================
+﻿molsysmt.third\_party.openmm.platforms.loading\_failures
+========================================================
 
 .. currentmodule:: molsysmt.third_party.openmm.platforms
 

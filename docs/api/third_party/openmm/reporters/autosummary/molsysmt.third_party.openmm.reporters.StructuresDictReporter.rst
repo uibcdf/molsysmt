@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.reporters.StructuresDictReporter
-=======================================================
+﻿molsysmt.third\_party.openmm.reporters.StructuresDictReporter
+=============================================================
 
 .. currentmodule:: molsysmt.third_party.openmm.reporters
 

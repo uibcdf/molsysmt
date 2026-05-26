@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.show\_as\_balls\_and\_sticks
-====================================================
+﻿molsysmt.third\_party.nglview.show\_as\_balls\_and\_sticks
+==========================================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

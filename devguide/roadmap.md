@@ -3,9 +3,9 @@
 This roadmap is a curated view of `ROADMAP.md` for developer planning.
 
 ## Near Term
-- Finalize API stability for 1.0.
-- Execute the Specialized Paths (Courses) documentation pass.
-- Stabilize tests and coverage.
+- ~~Finalize API stability for 1.0.~~ ✅
+- ~~Execute the Specialized Paths (Courses) documentation pass.~~ ✅
+- ~~Stabilize tests and coverage.~~ ✅
 - Keep `molecular_dynamics` out of the 1.0 support contract and out of the
   1.0 coverage baseline until it is intentionally promoted later.
 

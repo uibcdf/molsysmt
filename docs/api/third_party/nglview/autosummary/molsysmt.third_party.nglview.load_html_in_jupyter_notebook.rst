@@ -1,6 +1,12 @@
-﻿molsysmt.third_party.nglview.load\_html\_in\_jupyter\_notebook
-=========================================================
+﻿molsysmt.third\_party.nglview.load\_html\_in\_jupyter\_notebook
+===============================================================
 
-.. currentmodule:: molsysmt.third_party.nglview
+.. automodule:: molsysmt.third_party.nglview.load_html_in_jupyter_notebook
 
-.. autofunction:: load_html_in_jupyter_notebook
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      load_html_in_jupyter_notebook
+   

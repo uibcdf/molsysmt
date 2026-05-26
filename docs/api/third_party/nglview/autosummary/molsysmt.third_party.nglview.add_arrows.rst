@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.add\_arrows
-===================================
+﻿molsysmt.third\_party.nglview.add\_arrows
+=========================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.set\_color\_by\_value
-=============================================
+﻿molsysmt.third\_party.nglview.set\_color\_by\_value
+===================================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

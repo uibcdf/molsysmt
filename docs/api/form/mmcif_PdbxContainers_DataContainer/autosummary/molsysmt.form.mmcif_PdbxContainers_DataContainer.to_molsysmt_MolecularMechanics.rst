@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mmcif\_PdbxContainers\_DataContainer.to\_molsysmt\_MolecularMechanics
 ===================================================================================
 
-.. currentmodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer
+.. automodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolecularMechanics
 
-.. autofunction:: to_molsysmt_MolecularMechanics
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_MolecularMechanics
+   

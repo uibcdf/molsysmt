@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mmcif\_PdbxContainers\_DataContainer.to\_string\_amino\_acids\_3
 ==============================================================================
 
-.. currentmodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer
+.. automodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer.to_string_amino_acids_3
 
-.. autofunction:: to_string_amino_acids_3
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_string_amino_acids_3
+   

@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.reporters.H5MSMReporter
-==============================================
+﻿molsysmt.third\_party.openmm.reporters.H5MSMReporter
+====================================================
 
 .. currentmodule:: molsysmt.third_party.openmm.reporters
 

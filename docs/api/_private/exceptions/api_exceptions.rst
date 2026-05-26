@@ -1,7 +1,7 @@
 Exceptions
 ==========
 
-.. currentmodule:: molsysmt._private.exceptions
+.. currentmodule:: molsysmt._private.smonitor
 
 .. autosummary::
    :toctree: autosummary

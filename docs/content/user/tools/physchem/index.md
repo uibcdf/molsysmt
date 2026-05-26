@@ -3,7 +3,7 @@
 |      |      |
 | :--- | :--- |
 | [Get area buried](get_area_buried.ipynb) | To be written... |
-| [Get atomic radius](get_atom_radius.ipynb) | To be written... |
+| [Get atomic radius](get_atomic_radius.ipynb) | Getting the atomic radius of a molecular system (supports vdw and protor definitions) |
 | [Get SASA](get_sasa.ipynb) | Getting the solvent accesible surface area of a molecular system |
 
 ```{eval-rst}

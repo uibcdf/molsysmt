@@ -14,7 +14,8 @@ from molsysmt.configure import with_configure_overrides
 @arg_digest()
 def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          syntax='MolSysMT', engine='MolSysMT', parallel=None, num_threads=None, skip_digestion=False):
+          syntax='MolSysMT', engine='MolSysMT', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False):
+
 
     """
     Compute the least-RMSD (optimal superposition RMSD) between structures.
@@ -108,12 +109,30 @@ def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indic
                 caller="molsysmt.structure.get_least_rmsd"
             )
 
-        if coordinates.shape[0]==1 and reference_coordinates.shape[0]>1:
-            rmsd_val = msmlib.structure.get_least_rmsd_with_single_reference_structure(reference_coordinates, coordinates[0])
-        elif coordinates.shape[0]>1 and reference_coordinates.shape[0]==1:
-            rmsd_val = msmlib.structure.get_least_rmsd_with_single_reference_structure(coordinates, reference_coordinates[0])
+        from molsysmt._private.gpu import resolve_use_gpu
+
+        payload = coordinates.shape[0] * coordinates.shape[1] * 3
+        _use_gpu = resolve_use_gpu(use_gpu, payload)
+
+        if _use_gpu:
+            from molsysmt.lib.structure.get_least_rmsd_cuda import (
+                get_least_rmsd as get_least_rmsd_cuda,
+                get_least_rmsd_with_single_reference_structure as get_least_rmsd_with_single_ref_cuda
+            )
+            if coordinates.shape[0] == 1 and reference_coordinates.shape[0] > 1:
+                rmsd_val = get_least_rmsd_with_single_ref_cuda(reference_coordinates, coordinates[0])
+            elif coordinates.shape[0] > 1 and reference_coordinates.shape[0] == 1:
+                rmsd_val = get_least_rmsd_with_single_ref_cuda(coordinates, reference_coordinates[0])
+            else:
+                rmsd_val = get_least_rmsd_cuda(coordinates, reference_coordinates)
         else:
-            rmsd_val = msmlib.structure.get_least_rmsd(coordinates, reference_coordinates)
+            if coordinates.shape[0] == 1 and reference_coordinates.shape[0] > 1:
+                rmsd_val = msmlib.structure.get_least_rmsd_with_single_reference_structure(reference_coordinates, coordinates[0])
+            elif coordinates.shape[0] > 1 and reference_coordinates.shape[0] == 1:
+                rmsd_val = msmlib.structure.get_least_rmsd_with_single_reference_structure(coordinates, reference_coordinates[0])
+            else:
+                rmsd_val = msmlib.structure.get_least_rmsd(coordinates, reference_coordinates)
+
 
         rmsd_val = puw.quantity(rmsd_val, length_unit, standardized=True)
 

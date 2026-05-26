@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.forces.add\_forbidden\_z\_region
-=======================================================
+﻿molsysmt.third\_party.openmm.forces.add\_forbidden\_z\_region
+=============================================================
 
 .. currentmodule:: molsysmt.third_party.openmm.forces
 

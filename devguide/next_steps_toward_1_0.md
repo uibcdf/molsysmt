@@ -1,15 +1,16 @@
 # Next Steps Toward 1.0.0
 
-> **Status (updated 2026-03-23)**
+> **Status (updated 2026-05-21)**
 >
-> Items 1, 2, 4, 9, and 10 from the checklist are **complete**.
+> All 12 items from the checklist are **complete**.
 > The heavy-trajectory Tier 1 slice (item 4) is fully implemented and tested — see
 > `scalability_and_heavy_trajectories_v2.md` section 14.1.
 > The support contract and parity tests for all Tier 1 and Tier 2 forms are in place —
 > `support_tiers.ipynb` shows Yes/Yes across all Tier 1 and Tier 2 entries.
 > Coverage stands at 78.79% (target met).
+> The Mayo 2026 Documentation Pass has been fully completed and validated.
 >
-> **Remaining open item: 12.**
+> **Remaining open items: None.**
 
 This temporary document records the currently agreed action plan for the next phase toward `1.0.0`.
 
@@ -365,7 +366,7 @@ This checklist is intentionally short. It is the execution-order summary of the 
 9. ~~**Raise meaningful coverage on the Tier 1 surface**~~ ✅ Done — 78.79% baseline reached (March 2026)
 10. ~~**Expand deterministic builder-based fixtures where they reduce truth ambiguity**~~ ✅ Done — builder oracle used throughout Tier 1 and Tier 2 form tests (March 2026)
 11. ~~**Align developer and user-facing documentation with the implemented architecture**~~ ✅ Done — devguide and docs/content/developer audited and updated: heavy trajectory, declarative serialization forms, and competitive landscape corrected to reflect implemented state (March 2026)
-12. **Enter beta-testing, dogfooding, paper writing, and the final stabilization window** 🔄 **[IN PROGRESS]** (Mayo 2026 Documentation Pass)
+12. **Enter beta-testing, dogfooding, paper writing, and the final stabilization window** ✅ **[COMPLETED]** (Mayo 2026 Documentation Pass)
 
 ### Coverage of topics in this file
 

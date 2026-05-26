@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.show\_as\_cartoon
-=========================================
+﻿molsysmt.third\_party.nglview.show\_as\_cartoon
+===============================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

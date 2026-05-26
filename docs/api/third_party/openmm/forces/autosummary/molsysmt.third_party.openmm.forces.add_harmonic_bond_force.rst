@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.forces.add\_harmonic\_bond\_force
-========================================================
+﻿molsysmt.third\_party.openmm.forces.add\_harmonic\_bond\_force
+==============================================================
 
 .. currentmodule:: molsysmt.third_party.openmm.forces
 

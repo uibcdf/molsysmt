@@ -4,3 +4,9 @@
 .. automodule:: molsysmt.form.mdtraj_Topology.set
 
    
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      set_atom_id_to_atom
+   

@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.standardize\_view
-=========================================
+﻿molsysmt.third\_party.nglview.standardize\_view
+===============================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mmcif\_PdbxContainers\_DataContainer.to\_molsysmt\_Topology
 =========================================================================
 
-.. currentmodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer
+.. automodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

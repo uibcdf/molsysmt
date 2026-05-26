@@ -11,7 +11,7 @@ definitions = {
     'get_polarity': ['grantham', 'zimmerman'],
     'get_area_buried': ['rose'],
     'get_buried_fraction': ['janin'],
-    'get_atomic_radius': ['vdw'],
+    'get_atomic_radius': ['vdw', 'protor'],
     'get_transmembrane_tendency': ['zhao', 'senes'],
 }
 

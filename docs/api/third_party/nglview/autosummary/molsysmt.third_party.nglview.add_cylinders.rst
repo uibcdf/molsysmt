@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.add\_cylinders
-======================================
+﻿molsysmt.third\_party.nglview.add\_cylinders
+============================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

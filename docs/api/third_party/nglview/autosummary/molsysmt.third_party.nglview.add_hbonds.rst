@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.add\_hbonds
-===================================
+﻿molsysmt.third\_party.nglview.add\_hbonds
+=========================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

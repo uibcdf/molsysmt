@@ -215,8 +215,8 @@
       get_n_amino_acids_from_component
       get_n_amino_acids_from_entity
       get_n_amino_acids_from_group
+      get_n_amino_acids_from_molecule
       get_n_amino_acids_from_system
-      get_n_aminoacids_from_molecule
       get_n_atoms_from_atom
       get_n_atoms_from_chain
       get_n_atoms_from_component

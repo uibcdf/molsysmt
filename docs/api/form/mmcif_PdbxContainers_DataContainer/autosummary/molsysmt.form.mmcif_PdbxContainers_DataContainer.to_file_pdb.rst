@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mmcif\_PdbxContainers\_DataContainer.to\_file\_pdb
 ================================================================
 
-.. currentmodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer
+.. automodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer.to_file_pdb
 
-.. autofunction:: to_file_pdb
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_pdb
+   

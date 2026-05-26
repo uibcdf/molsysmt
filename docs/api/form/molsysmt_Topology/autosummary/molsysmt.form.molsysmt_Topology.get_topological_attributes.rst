@@ -172,6 +172,7 @@
       get_inner_bond_index_from_entity
       get_inner_bond_index_from_group
       get_inner_bond_index_from_molecule
+      get_inner_bond_index_from_system
       get_inner_bonded_atom_pairs_from_atom
       get_inner_bonded_atom_pairs_from_chain
       get_inner_bonded_atom_pairs_from_component

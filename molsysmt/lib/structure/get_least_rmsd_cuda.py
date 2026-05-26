@@ -258,6 +258,124 @@ try:
         msd = max(0.0, (x_norm + y_norm) - 2.0 * F[3, 3]) / n_atoms
         out[ii] = math.sqrt(msd)
 
+    @cuda.jit(device=True)
+    def _quaternion_to_rotation_matrix(q, U):
+        q0 = q[0]
+        q1 = q[1]
+        q2 = q[2]
+        q3 = q[3]
+
+        q00 = 2.0 * q0 * q0
+        q11 = 2.0 * q1 * q1
+        q22 = 2.0 * q2 * q2
+        q33 = 2.0 * q3 * q3
+
+        q01 = 2.0 * q0 * q1
+        q02 = 2.0 * q0 * q2
+        q03 = 2.0 * q0 * q3
+        q12 = 2.0 * q1 * q2
+        q13 = 2.0 * q1 * q3
+        q23 = 2.0 * q2 * q3
+
+        U[0, 0] = q00 + q11 - 1.0
+        U[1, 1] = q00 + q22 - 1.0
+        U[2, 2] = q00 + q33 - 1.0
+
+        U[0, 1] = q12 - q03
+        U[1, 0] = q12 + q03
+
+        U[0, 2] = q13 + q02
+        U[2, 0] = q13 - q02
+
+        U[1, 2] = q23 - q01
+        U[2, 1] = q23 + q01
+
+    @cuda.jit
+    def _least_rmsd_fit_kernel(coords_to_move, fit_coords, ref_coords, ref_is_single):
+        ii = cuda.grid(1)
+        if ii >= coords_to_move.shape[0]:
+            return
+
+        n_fit_atoms = fit_coords.shape[1]
+        n_move_atoms = coords_to_move.shape[1]
+
+        # Compute query centroid
+        c_query = cuda.local.array(3, dtype=nb.float64)
+        c_query[0] = 0.0
+        c_query[1] = 0.0
+        c_query[2] = 0.0
+        for j in range(n_fit_atoms):
+            for a in range(3):
+                c_query[a] += fit_coords[ii, j, a]
+        for a in range(3):
+            c_query[a] /= n_fit_atoms
+
+        # Compute reference centroid
+        c_ref = cuda.local.array(3, dtype=nb.float64)
+        c_ref[0] = 0.0
+        c_ref[1] = 0.0
+        c_ref[2] = 0.0
+        ref_idx = 0 if ref_is_single else ii
+        for j in range(n_fit_atoms):
+            for a in range(3):
+                c_ref[a] += ref_coords[ref_idx, j, a]
+        for a in range(3):
+            c_ref[a] /= n_fit_atoms
+
+        # Compute covariance matrix R (3x3)
+        R = cuda.local.array((3, 3), dtype=nb.float64)
+        for ll in range(3):
+            for mm in range(3):
+                val = 0.0
+                for j in range(n_fit_atoms):
+                    dx = ref_coords[ref_idx, j, ll] - c_ref[ll]
+                    dy = fit_coords[ii, j, mm] - c_query[mm]
+                    val += dx * dy
+                R[ll, mm] = val
+
+        # Construct F matrix (4x4)
+        F = cuda.local.array((4, 4), dtype=nb.float64)
+        F[0,0] = R[0,0] + R[1,1] + R[2,2]
+        F[1,0] = R[1,2] - R[2,1]
+        F[2,0] = R[2,0] - R[0,2]
+        F[3,0] = R[0,1] - R[1,0]
+        F[0,1] = F[1,0]
+        F[1,1] = R[0,0] - R[1,1] - R[2,2]
+        F[2,1] = R[0,1] + R[1,0]
+        F[3,1] = R[0,2] + R[2,0]
+        F[0,2] = F[2,0]
+        F[1,2] = F[2,1]
+        F[2,2] = -R[0,0] + R[1,1] - R[2,2]
+        F[3,2] = R[1,2] + R[2,1]
+        F[0,3] = F[3,0]
+        F[1,3] = F[3,1]
+        F[2,3] = F[3,2]
+        F[3,3] = -R[0,0] - R[1,1] + R[2,2]
+
+        V = cuda.local.array((4, 4), dtype=nb.float64)
+        _jacobi_eigh4(F, V)
+
+        # Quaternion q is at the 4th column of V (index 3)
+        q = cuda.local.array(4, dtype=nb.float64)
+        q[0] = V[0, 3]
+        q[1] = V[1, 3]
+        q[2] = V[2, 3]
+        q[3] = V[3, 3]
+
+        # Rotation matrix U (3x3)
+        U = cuda.local.array((3, 3), dtype=nb.float64)
+        _quaternion_to_rotation_matrix(q, U)
+
+        # Rotate and translate coords_to_move in-place
+        for j in range(n_move_atoms):
+            dx = coords_to_move[ii, j, 0] - c_query[0]
+            dy = coords_to_move[ii, j, 1] - c_query[1]
+            dz = coords_to_move[ii, j, 2] - c_query[2]
+
+            coords_to_move[ii, j, 0] = U[0,0] * dx + U[0,1] * dy + U[0,2] * dz + c_ref[0]
+            coords_to_move[ii, j, 1] = U[1,0] * dx + U[1,1] * dy + U[1,2] * dz + c_ref[1]
+            coords_to_move[ii, j, 2] = U[2,0] * dx + U[2,1] * dy + U[2,2] * dz + c_ref[2]
+
     _CUDA_AVAILABLE = True
 
 except Exception:
@@ -300,3 +418,32 @@ def get_least_rmsd_with_single_reference_structure(coordinates: np.ndarray, refe
 
     _get_least_rmsd_single_ref_kernel[blocks_per_grid, threads_per_block](coordinates, reference_coordinates, out)
     return out
+
+
+def least_rmsd_fit(coords_to_move: np.ndarray, fit_coords: np.ndarray, ref_coords: np.ndarray) -> np.ndarray:
+    """
+    Align a set of coordinates entirely on the GPU.
+
+    Modifies coords_to_move in-place.
+    """
+    if not _CUDA_AVAILABLE:
+        raise RuntimeError("Numba CUDA is not available.")
+
+    n_structures = coords_to_move.shape[0]
+    ref_is_single = (ref_coords.shape[0] == 1)
+
+    # Cast to float64 for CUDA Jacobi solver precision
+    d_move = cuda.to_device(coords_to_move.astype(np.float64))
+    d_fit = cuda.to_device(fit_coords.astype(np.float64))
+    d_ref = cuda.to_device(ref_coords.astype(np.float64))
+
+    threads_per_block = 256
+    blocks_per_grid = (n_structures + threads_per_block - 1) // threads_per_block
+
+    _least_rmsd_fit_kernel[blocks_per_grid, threads_per_block](d_move, d_fit, d_ref, ref_is_single)
+    cuda.synchronize()
+
+    # Copy modified coordinates back to host
+    out_coords = np.empty_like(coords_to_move, dtype=coords_to_move.dtype)
+    d_move.copy_to_host(out_coords)
+    return out_coords

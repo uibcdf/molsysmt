@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.clear
-=============================
+﻿molsysmt.third\_party.nglview.clear
+===================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.forces.add\_constant\_force
-==================================================
+﻿molsysmt.third\_party.openmm.forces.add\_constant\_force
+========================================================
 
 .. currentmodule:: molsysmt.third_party.openmm.forces
 

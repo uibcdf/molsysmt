@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.show\_gui
-=================================
+﻿molsysmt.third\_party.nglview.show\_gui
+=======================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

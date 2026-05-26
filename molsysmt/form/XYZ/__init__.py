@@ -33,6 +33,8 @@ from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
 
+from .to_cupy_ndarray import to_cupy_ndarray
+
 _convert_to={
         'XYZ': to_XYZ,
         'file:xyznpy': to_file_xyznpy,
@@ -40,4 +42,5 @@ _convert_to={
         'molsysmt.Structures': to_molsysmt_Structures,
         'molsysmt.Topology': to_molsysmt_Topology,
         'molsysmt.MolecularMechanics': to_molsysmt_MolecularMechanics,
+        'cupy_ndarray': to_cupy_ndarray,
         }

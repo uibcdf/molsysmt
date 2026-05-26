@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.show\_as\_licorice
-==========================================
+﻿molsysmt.third\_party.nglview.show\_as\_licorice
+================================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

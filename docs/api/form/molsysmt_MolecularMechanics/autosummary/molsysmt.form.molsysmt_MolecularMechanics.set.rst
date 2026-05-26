@@ -8,6 +8,7 @@
 
    .. autosummary::
    
+      set_atom_ff_type_to_atom
       set_constraints_to_system
       set_cutoff_distance_to_system
       set_dispersion_correction_to_system

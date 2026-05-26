@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.write\_html
-===================================
+﻿molsysmt.third\_party.nglview.write\_html
+=========================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

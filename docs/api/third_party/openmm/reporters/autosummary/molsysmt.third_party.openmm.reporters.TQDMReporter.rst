@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.openmm.reporters.TQDMReporter
-=============================================
+﻿molsysmt.third\_party.openmm.reporters.TQDMReporter
+===================================================
 
 .. currentmodule:: molsysmt.third_party.openmm.reporters
 

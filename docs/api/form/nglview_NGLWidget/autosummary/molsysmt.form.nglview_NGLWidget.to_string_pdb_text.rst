@@ -1,6 +1,12 @@
 ﻿molsysmt.form.nglview\_NGLWidget.to\_string\_pdb\_text
 ======================================================
 
-.. currentmodule:: molsysmt.form.nglview_NGLWidget
+.. automodule:: molsysmt.form.nglview_NGLWidget.to_string_pdb_text
 
-.. autofunction:: to_string_pdb_text
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_string_pdb_text
+   

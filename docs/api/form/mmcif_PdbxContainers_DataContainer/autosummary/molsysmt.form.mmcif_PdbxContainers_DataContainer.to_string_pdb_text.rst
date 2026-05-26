@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mmcif\_PdbxContainers\_DataContainer.to\_string\_pdb\_text
 ========================================================================
 
-.. currentmodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer
+.. automodule:: molsysmt.form.mmcif_PdbxContainers_DataContainer.to_string_pdb_text
 
-.. autofunction:: to_string_pdb_text
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_string_pdb_text
+   

@@ -9,3 +9,5 @@ from .get_hydrophobicity import get_hydrophobicity
 from .get_sasa import get_sasa
 from .get_surface_area import get_surface_area
 from .get_volume import get_volume
+
+from molsysmt.physchem.atoms.protor import get_protor_atom_type, get_protor_vdw_radius

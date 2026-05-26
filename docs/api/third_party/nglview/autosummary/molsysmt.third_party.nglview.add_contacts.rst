@@ -1,5 +1,5 @@
-﻿molsysmt.third_party.nglview.add\_contacts
-=====================================
+﻿molsysmt.third\_party.nglview.add\_contacts
+===========================================
 
 .. currentmodule:: molsysmt.third_party.nglview
 

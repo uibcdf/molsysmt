@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_H5MSMFileHandler.to\_molsysmt\_MolSys
 =============================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_H5MSMFileHandler
+.. automodule:: molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_MolSys
 
-.. autofunction:: to_molsysmt_MolSys
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_MolSys
+   
