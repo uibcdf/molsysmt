@@ -8,6 +8,9 @@ _PROTOR_FALLBACK_RADII = {
     'N': 1.64,
     'O': 1.42,
     'S': 1.77,
+    # Neutral dummy / placeholder elements (atoms named DUM or X); no excluded volume.
+    'Du': 0.0,
+    'X': 0.0,
 }
 
 # Radii mapped by type in Angstroms

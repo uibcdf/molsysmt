@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt.physchem.groups._lookup import group_table_value
 from molsysmt._private.smonitor import NotImplementedMethodError
 import numpy as np
 
@@ -59,7 +60,7 @@ def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition=
     output = []
 
     for ii in group_types:
-        output.append(values[ii.upper()])
+        output.append(group_table_value(values, ii))
 
     output = np.array(output)
 

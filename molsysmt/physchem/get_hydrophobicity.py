@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
+from molsysmt.physchem.groups._lookup import group_table_value
+from molsysmt._private.smonitor import InternalAlgorithmError
 import numpy as np
 
 @arg_digest()
@@ -102,7 +103,7 @@ def get_hydrophobicity(molecular_system, element='group', selection='all', defin
     output = []
 
     for ii in group_types:
-        output.append(values[ii.upper()])
+        output.append(group_table_value(values, ii))
 
     output = np.array(output)
 

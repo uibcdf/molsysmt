@@ -1,7 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt.physchem.groups._lookup import group_table_value
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt import pyunitwizard as puw
-import numpy as np
 
 @arg_digest()
 def get_polarity(molecular_system, element='group', selection = 'all', syntax='MolSysMT', definition='grantham',
@@ -70,7 +69,7 @@ def get_polarity(molecular_system, element='group', selection = 'all', syntax='M
     output = []
 
     for ii in group_names:
-        output.append(values[ii.upper()])
+        output.append(group_table_value(values, ii))
 
     return output
 

@@ -1,6 +1,7 @@
 from .get_mass import get_mass
 from .get_charge import get_charge
 from .get_atomic_radius import get_atomic_radius
+from .get_electronegativity import get_electronegativity
 from .get_polarity import get_polarity
 from .get_transmembrane_tendency import get_transmembrane_tendency
 from .get_area_buried import get_area_buried

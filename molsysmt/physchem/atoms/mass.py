@@ -118,5 +118,9 @@ physical = {
 	"Mc" : 288.0,
 	"Lv" : 293.0,
 	"Ts" : 294.0,
-	"Og" : 294.0
+	"Og" : 294.0,
+
+	# Neutral dummy / placeholder elements (atoms named DUM or X); massless.
+	"Du" : 0.0,
+	"X" : 0.0
 }

@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt.physchem.groups._lookup import group_table_value
 import numpy as np
 
 @arg_digest()
@@ -61,7 +62,7 @@ def get_area_buried(molecular_system, element='group', selection='all', definiti
     output = []
 
     for ii in group_types:
-        output.append(values[ii.upper()])
+        output.append(group_table_value(values, ii))
 
     output = np.array(output)
 

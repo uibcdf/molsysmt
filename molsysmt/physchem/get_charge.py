@@ -1,5 +1,6 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentChoiceError, ArgumentConflictError
+from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentChoiceError
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt.physchem.groups._lookup import group_table_value
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
@@ -101,20 +102,20 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
 
             group_names = get(molecular_system, element=element, selection=selection, group_name=True)
             for ii in group_names:
-                output.append(values[ii.upper()])
+                output.append(group_table_value(values, ii))
             output = puw.quantity(np.array(output), units)
 
         elif element in ['component', 'molecule', 'chain', 'entity']:
 
             group_names = get(molecular_system, element=element, selection=selection, group_name=True)
             for aux in group_names:
-                output.append(np.sum([values[ii.upper()] for ii in aux]))
+                output.append(np.sum([group_table_value(values, ii) for ii in aux]))
             output = puw.quantity(np.array(output), units)
 
         elif element=='system':
 
             group_names = get(molecular_system, element='group', selection='all', group_names=True)
-            output = puw.quantity(np.sum([values[ii.upper()] for ii in group_names]), units)
+            output = puw.quantity(np.sum([group_table_value(values, ii) for ii in group_names]), units)
 
     elif definition == 'OpenMM':
 

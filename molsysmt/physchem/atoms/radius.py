@@ -118,5 +118,9 @@ vdw ={
 	"Mc" : None,
 	"Lv" : None,
 	"Ts" : None,
-	"Og" : None
+	"Og" : None,
+
+	# Neutral dummy / placeholder elements (atoms named DUM or X); no excluded volume.
+	"Du" : 0.0,
+	"X" : 0.0
 }

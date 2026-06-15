@@ -1,6 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt.physchem.groups._lookup import group_table_value
 from molsysmt._private.smonitor import NotImplementedMethodError
-import numpy as np
 
 @arg_digest()
 def get_surface_area(molecular_system, element='group', selection='all', syntax='MolSysMT', definition='collantes',
@@ -20,7 +20,7 @@ def get_surface_area(molecular_system, element='group', selection='all', syntax=
     output = []
 
     for ii in group_types:
-        output.append(values[ii.upper()])
+        output.append(group_table_value(values, ii))
 
     return output
 

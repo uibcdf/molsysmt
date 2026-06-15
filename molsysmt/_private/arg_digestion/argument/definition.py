@@ -12,6 +12,7 @@ definitions = {
     'get_area_buried': ['rose'],
     'get_buried_fraction': ['janin'],
     'get_atomic_radius': ['vdw', 'protor'],
+    'get_electronegativity': ['pauling'],
     'get_transmembrane_tendency': ['zhao', 'senes'],
 }
 
@@ -65,6 +66,11 @@ def digest_definition(definition, caller=None):
     elif caller=='molsysmt.physchem.get_atomic_radius.get_atomic_radius':
         if isinstance(definition, str):
             if definition in definitions['get_atomic_radius']:
+                return definition
+
+    elif caller=='molsysmt.physchem.get_electronegativity.get_electronegativity':
+        if isinstance(definition, str):
+            if definition in definitions['get_electronegativity']:
                 return definition
 
     elif caller=='molsysmt.physchem.get_transmembrane_tendency.get_transmembrane_tendency':
