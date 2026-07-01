@@ -1,6 +1,24 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 
+
+def _openff_bond_metadata(bond):
+    order = getattr(bond, "bond_order", None)
+    aromatic = bool(getattr(bond, "is_aromatic", False))
+    if aromatic:
+        return "aromatic", "aromatic"
+    if order is None:
+        return None, None
+    try:
+        if float(order).is_integer():
+            order_value = str(int(order))
+        else:
+            order_value = str(order)
+    except Exception:
+        order_value = str(order)
+    return order_value, order_value
+
+
 @arg_digest(form='openff.Molecule')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
@@ -28,8 +46,23 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item.atoms['atom_type'] = atom_type
 
     if n_bonds > 0:
-        bonded_atoms = [[b.atom1_index, b.atom2_index] for b in item.bonds]
+        bonded_atoms = []
+        metadata_by_pair = {}
+        for bond in item.bonds:
+            atom_i = bond.atom1_index
+            atom_j = bond.atom2_index
+            bonded_atoms.append([atom_i, atom_j])
+            metadata_by_pair[tuple(sorted((atom_i, atom_j)))] = _openff_bond_metadata(bond)
         tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
+        bond_orders = []
+        bond_types = []
+        for _, row in tmp_item.bonds.iterrows():
+            key = tuple(sorted((int(row['atom1_index']), int(row['atom2_index']))))
+            order, bond_type = metadata_by_pair.get(key, (None, None))
+            bond_orders.append(order)
+            bond_types.append(bond_type)
+        tmp_item.bonds['order'] = bond_orders
+        tmp_item.bonds['type'] = bond_types
 
     tmp_item.rebuild_components()
     tmp_item.rebuild_molecules()

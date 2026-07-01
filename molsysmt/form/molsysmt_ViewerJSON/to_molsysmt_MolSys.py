@@ -100,6 +100,7 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     chain_id_raw = _safe_array(atoms.get('chain_id', None), len(atom_name) or None, dtype=object)
     entity_id_raw = _safe_array(atoms.get('entity_id', None), len(atom_name) or None, dtype=object)
     formal_charge = _safe_array(atoms.get('formal_charge', None), len(atom_name) or None, dtype=object)
+    partial_charge = _safe_array(atoms.get('partial_charge', None), len(atom_name) or None, dtype=object)
 
     n_atoms = len(atom_name) if atom_name is not None else len(atom_id)
     if n_atoms is None:
@@ -154,6 +155,8 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
         topo.bonds['atom1_index'] = pd.Series(atom1_index, dtype='Int64')
         topo.bonds['atom2_index'] = pd.Series(atom2_index, dtype='Int64')
         topo.bonds['order'] = pd.Series(bonds.get('order', []), dtype=str)
+        if 'type' in bonds:
+            topo.bonds['type'] = pd.Series(bonds.get('type', []), dtype=str)
 
     coordinates, times, boxes = _collect_coordinates(frames, n_atoms if n_atoms > 0 else None)
     structures = Structures(
@@ -166,6 +169,15 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     molsys = MolSys(skip_digestion=True)
     molsys.topology = topo
     molsys.structures = structures
-    molsys.molecular_mechanics = molsys.molecular_mechanics.copy()
+    if formal_charge is not None or partial_charge is not None:
+        from molsysmt.native import MolecularMechanics
+        kwargs = {}
+        if formal_charge is not None:
+            kwargs['formal_charge'] = formal_charge.tolist()
+        if partial_charge is not None:
+            kwargs['partial_charge'] = partial_charge.tolist()
+        molsys.molecular_mechanics = MolecularMechanics(**kwargs)
+    else:
+        molsys.molecular_mechanics = molsys.molecular_mechanics.copy()
 
     return molsys

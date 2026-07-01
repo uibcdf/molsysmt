@@ -62,6 +62,7 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     bonds_block = data["bonds"]
     bonds_block["atom_pairs"] = [list(pair) for pair in atom_pairs]
     bonds_block["order"] = _series_to_list(bonds_df['order']) if 'order' in bonds_df else []
+    bonds_block["type"] = _series_to_list(bonds_df['type']) if 'type' in bonds_df else []
     bonds_block["indexA"] = [pair[0] for pair in atom_pairs]
     bonds_block["indexB"] = [pair[1] for pair in atom_pairs]
 

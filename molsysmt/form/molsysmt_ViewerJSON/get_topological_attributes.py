@@ -69,6 +69,80 @@ def _reshape_coordinates(frames, n_atoms):
     return np.stack(coords), structure_indices
 
 
+@arg_digest(form=form)
+def get_n_atoms_from_system(item, skip_digestion=False):
+
+    return _n_atoms_from_atoms(_atoms_dict(item)) or 0
+
+
+@arg_digest(form=form)
+def get_n_bonds_from_system(item, skip_digestion=False):
+
+    bonds = _bonds_dict(item)
+    pairs = bonds.get('atom_pairs', None)
+    if pairs is not None:
+        return len(pairs)
+    index_a = bonds.get('indexA', None)
+    if index_a is not None:
+        return len(index_a)
+    return 0
+
+
+@arg_digest(form=form)
+def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
+
+    atoms = _atoms_dict(item)
+    values = _normalize_list(atoms.get('formal_charge', None), get_n_atoms_from_system(item, skip_digestion=True))
+    if is_all(indices):
+        return values.tolist()
+    return values[indices].tolist()
+
+
+@arg_digest(form=form)
+def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
+
+    atoms = _atoms_dict(item)
+    values = atoms.get('partial_charge', None)
+    if values is None:
+        return None
+    values = _normalize_list(values, get_n_atoms_from_system(item, skip_digestion=True))
+    if is_all(indices):
+        return values.tolist()
+    return values[indices].tolist()
+
+
+@arg_digest(form=form)
+def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
+
+    n_bonds = get_n_bonds_from_system(item, skip_digestion=True)
+    if is_all(indices):
+        return np.arange(n_bonds)
+    return indices
+
+
+@arg_digest(form=form)
+def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
+
+    bonds = _bonds_dict(item)
+    values = _normalize_list(bonds.get('order', None), get_n_bonds_from_system(item, skip_digestion=True))
+    if is_all(indices):
+        return values.tolist()
+    return values[indices].tolist()
+
+
+@arg_digest(form=form)
+def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
+
+    bonds = _bonds_dict(item)
+    values = bonds.get('type', None)
+    if values is None:
+        return None
+    values = _normalize_list(values, get_n_bonds_from_system(item, skip_digestion=True))
+    if is_all(indices):
+        return values.tolist()
+    return values[indices].tolist()
+
+
 # List of functions to be imported
 import types
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
