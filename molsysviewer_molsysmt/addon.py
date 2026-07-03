@@ -7,7 +7,7 @@ from molsysviewer import (
     AddonPanelSpec,
     AddonShapeProviderSpec,
     AddonSpec,
-    AddonWorkbenchSectionSpec,
+    AddonSectionSpec,
     AddonWorkspaceSpec,
 )
 
@@ -226,19 +226,19 @@ addon = AddonSpec(
             order=40,
         ),
     ),
-    workbench_sections=(
-        AddonWorkbenchSectionSpec(
+    addon_sections=(
+        AddonSectionSpec(
             id="system-info",
             title="System Info",
             entry="molsysviewer_molsysmt.workbench.system_info",
-            target_panel="workbench",
+            target_panel="addons",
             order=10,
         ),
-        AddonWorkbenchSectionSpec(
+        AddonSectionSpec(
             id="structure-stats",
             title="Structure Stats",
             entry="molsysviewer_molsysmt.workbench.structure_stats",
-            target_panel="workbench",
+            target_panel="addons",
             order=20,
         ),
     ),
