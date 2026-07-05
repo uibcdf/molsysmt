@@ -190,7 +190,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
             tmp_bonds = []
             for bond in bonds:
                 if (bond[0] in mask) and (bond[1] in mask):
-                    tmp_bonds += bond
+                    tmp_bonds.append(bond)
             bonds = tmp_bonds
 
         # remove old bonds

@@ -6,26 +6,41 @@ from typing import Any
 
 from molsysviewer import AddonPanelWidget
 
+from ..access import has_system
+from ..adapters.pbc import pbc_status as get_pbc_status
+from ..adapters.pbc import transform_pbc
+from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
 
 _ESM = """
 export function render({ model, el }) {
-  let state = { pbc_status: null, last_op: null, status: "idle", error: null };
+  let state = {
+    pbc_status: null,
+    last_op: null,
+    update_mode: null,
+    mutation_warning: null,
+    status: "idle",
+    error: null
+  };
 
   el.innerHTML = `
     <div class="msmt-panel">
-      <div class="msmt-row">
-        <span class="msmt-label">PBC status</span>
-        <span id="pbc-status-badge" class="msmt-badge">unknown</span>
+      <div data-molsysviewer-addon-section="molsysmt:pbc-status">
+        <div class="msmt-row">
+          <span class="msmt-label">PBC status</span>
+          <span id="pbc-status-badge" class="msmt-badge">unknown</span>
+        </div>
+        <button class="msmt-btn" id="pbc-check">Check PBC</button>
       </div>
-      <button class="msmt-btn" id="pbc-check">Check PBC</button>
 
-      <div class="msmt-section-title">Wrapping</div>
-      <button class="msmt-btn msmt-btn--primary" id="pbc-wrap">Wrap to PBC</button>
-      <button class="msmt-btn msmt-btn--primary" id="pbc-mic">Wrap to MIC</button>
-      <button class="msmt-btn" id="pbc-unwrap">Unwrap</button>
-      <div class="msmt-note">Reloads viewer with transformed coordinates.</div>
+      <div data-molsysviewer-addon-section="molsysmt:pbc-wrapping">
+        <div class="msmt-section-title">Wrapping</div>
+        <button class="msmt-btn msmt-btn--primary" id="pbc-wrap">Wrap to PBC</button>
+        <button class="msmt-btn msmt-btn--primary" id="pbc-mic">Wrap to MIC</button>
+        <button class="msmt-btn" id="pbc-unwrap">Unwrap</button>
+        <div class="msmt-note">Updates coordinates in place and preserves viewer overlays.</div>
+      </div>
 
       <div class="msmt-status" id="pbc-op-status"></div>
     </div>
@@ -55,7 +70,8 @@ export function render({ model, el }) {
       opStatusEl.textContent = "Working…"; opStatusEl.className = "msmt-status msmt-status--busy";
       setButtons(true);
     } else if (state.status === "done") {
-      opStatusEl.textContent = state.last_op ? `Done: ${state.last_op}.` : "Done.";
+      const detail = state.mutation_warning ? ` ${state.mutation_warning}` : "";
+      opStatusEl.textContent = state.last_op ? `Done: ${state.last_op}.${detail}` : `Done.${detail}`;
       opStatusEl.className = "msmt-status msmt-status--ok";
       setButtons(false);
     } else if (state.status === "error" && state.error) {
@@ -73,7 +89,20 @@ export function render({ model, el }) {
   micBtn.addEventListener("click",   () => { model.send({ type: "action", id: "wrap_mic",   payload: {} }); });
   unwrapBtn.addEventListener("click",() => { model.send({ type: "action", id: "unwrap_pbc", payload: {} }); });
 
-  model.on("msg:custom", (msg) => { if (msg?.type === "state") applyState(msg.state); });
+  function syncModelState() {
+    const updates = {};
+    Object.keys(state).forEach((key) => {
+      const value = model.get(key);
+      if (value !== undefined) updates[key] = value;
+    });
+    applyState(updates);
+  }
+
+  Object.keys(state).forEach((key) => {
+    model.on(`change:${key}`, (_model, value) => applyState({ [key]: value }));
+  });
+  syncModelState();
+
 
   applyState(state);
 }
@@ -105,60 +134,77 @@ class MolSysMTPBCPanel(AddonPanelWidget):
     def on_mount(self, view: Any) -> None:
         runtime = ensure_runtime(view)
         pbc_status = None
-        if runtime.molecular_system is not None:
+        if has_system(view):
             try:
-                import molsysmt as msm
-                pbc_status = bool(msm.pbc.has_pbc(runtime.molecular_system))
+                pbc_status = get_pbc_status(view).has_pbc
             except Exception:
                 pass
         runtime.pbc_status = pbc_status
-        self.push_state({"pbc_status": pbc_status, "last_op": None, "status": "idle", "error": None})
+        self.set_state({
+            "pbc_status": pbc_status,
+            "last_op": None,
+            "update_mode": None,
+            "mutation_warning": None,
+            "status": "idle",
+            "error": None,
+        })
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
         if action_id == "check_pbc":
-            if runtime.molecular_system is None:
-                self.push_state({"status": "error", "error": "No molecular system attached."})
+            if not has_system(view):
+                self.set_state({"status": "error", "error": "No molecular system attached."})
                 return
             try:
-                import molsysmt as msm
-                pbc_status = bool(msm.pbc.has_pbc(runtime.molecular_system))
+                pbc_status = get_pbc_status(view).has_pbc
                 runtime.pbc_status = pbc_status
-                self.push_state({"pbc_status": pbc_status, "status": "done", "error": None})
+                self.set_state({"pbc_status": pbc_status, "status": "done", "error": None})
             except Exception as exc:
-                self.push_state({"status": "error", "error": str(exc)})
+                self.set_state(panel_error_state(view, panel="pbc", action=action_id, exc=exc))
             return
 
-        if runtime.molecular_system is None:
-            self.push_state({"status": "error", "error": "No molecular system attached."})
+        if not has_system(view):
+            self.set_state({"status": "error", "error": "No molecular system attached."})
             return
 
-        self.push_state({"status": "running"})
+        self.set_state({"status": "running"})
         try:
-            import molsysmt as msm
-            ms = runtime.molecular_system
-
             if action_id == "wrap_pbc":
-                new_ms = msm.pbc.wrap_to_pbc(ms)
-                runtime.molecular_system = new_ms
-                view.load(new_ms, mode="replace")
+                result = transform_pbc(view, "wrap_pbc")
+                view.set_coordinates(result.coordinates)
                 record_event(view, "panel_pbc", op="wrap_to_pbc")
-                self.push_state({"last_op": "wrap to PBC", "status": "done", "error": None})
+                self.set_state({
+                    "last_op": "wrap to PBC",
+                    "update_mode": "coordinates",
+                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                    "status": "done",
+                    "error": None,
+                })
 
             elif action_id == "wrap_mic":
-                new_ms = msm.pbc.wrap_to_mic(ms)
-                runtime.molecular_system = new_ms
-                view.load(new_ms, mode="replace")
+                result = transform_pbc(view, "wrap_mic")
+                view.set_coordinates(result.coordinates)
                 record_event(view, "panel_pbc", op="wrap_to_mic")
-                self.push_state({"last_op": "wrap to MIC", "status": "done", "error": None})
+                self.set_state({
+                    "last_op": "wrap to MIC",
+                    "update_mode": "coordinates",
+                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                    "status": "done",
+                    "error": None,
+                })
 
             elif action_id == "unwrap_pbc":
-                new_ms = msm.pbc.unwrap(ms)
-                runtime.molecular_system = new_ms
-                view.load(new_ms, mode="replace")
+                result = transform_pbc(view, "unwrap_pbc")
+                view.set_coordinates(result.coordinates)
                 record_event(view, "panel_pbc", op="unwrap")
-                self.push_state({"last_op": "unwrap", "status": "done", "error": None})
+                self.set_state({
+                    "last_op": "unwrap",
+                    "update_mode": "coordinates",
+                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                    "status": "done",
+                    "error": None,
+                })
 
         except Exception as exc:
-            self.push_state({"status": "error", "error": str(exc)})
+            self.set_state(panel_error_state(view, panel="pbc", action=action_id, exc=exc))

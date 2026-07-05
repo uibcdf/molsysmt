@@ -6,6 +6,11 @@ from typing import Any
 
 from molsysviewer import AddonPanelWidget
 
+from ..access import has_system
+from ..adapters.structure import pca
+from ..adapters.structure import rmsd
+from ..adapters.structure import rmsf
+from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
 
@@ -22,24 +27,33 @@ export function render({ model, el }) {
 
   el.innerHTML = `
     <div class="msmt-panel">
-      <div class="msmt-section-title">Contacts</div>
-      <div class="msmt-row">
-        <label class="msmt-label">Threshold (Å)</label>
-        <input class="msmt-input" id="st-threshold" type="number" value="12" min="1" max="30" />
+      <div data-molsysviewer-addon-section="molsysmt:structure-contacts">
+        <div class="msmt-section-title">Contacts</div>
+        <div class="msmt-row">
+          <label class="msmt-label">Threshold (Å)</label>
+          <input class="msmt-input" id="st-threshold" type="number" value="12" min="1" max="30" />
+        </div>
+        <div class="msmt-row msmt-row--gap">
+          <button class="msmt-btn msmt-btn--primary" id="st-contacts">Compute Contacts</button>
+          <button class="msmt-btn" id="st-clear-contacts">Clear</button>
+        </div>
+        <div class="msmt-result" id="st-contacts-result"></div>
       </div>
-      <button class="msmt-btn msmt-btn--primary" id="st-contacts">Compute Contacts</button>
-      <div class="msmt-result" id="st-contacts-result"></div>
 
-      <div class="msmt-section-title">RMSD / RMSF</div>
-      <div class="msmt-row msmt-row--gap">
-        <button class="msmt-btn" id="st-rmsd">Compute RMSD</button>
-        <button class="msmt-btn" id="st-rmsf">Compute RMSF</button>
+      <div data-molsysviewer-addon-section="molsysmt:structure-rms">
+        <div class="msmt-section-title">RMSD / RMSF</div>
+        <div class="msmt-row msmt-row--gap">
+          <button class="msmt-btn" id="st-rmsd">Compute RMSD</button>
+          <button class="msmt-btn" id="st-rmsf">Compute RMSF</button>
+        </div>
+        <div class="msmt-result" id="st-rmsd-result"></div>
       </div>
-      <div class="msmt-result" id="st-rmsd-result"></div>
 
-      <div class="msmt-section-title">PCA</div>
-      <button class="msmt-btn msmt-btn--primary" id="st-pca">Run PCA → Vectors</button>
-      <div class="msmt-result" id="st-pca-result"></div>
+      <div data-molsysviewer-addon-section="molsysmt:structure-pca">
+        <div class="msmt-section-title">PCA</div>
+        <button class="msmt-btn msmt-btn--primary" id="st-pca">Run PCA → Vectors</button>
+        <div class="msmt-result" id="st-pca-result"></div>
+      </div>
 
       <div class="msmt-status" id="st-status"></div>
     </div>
@@ -47,6 +61,7 @@ export function render({ model, el }) {
 
   const thresholdEl      = el.querySelector("#st-threshold");
   const contactsBtn      = el.querySelector("#st-contacts");
+  const clearContactsBtn = el.querySelector("#st-clear-contacts");
   const rmsdBtn          = el.querySelector("#st-rmsd");
   const rmsfBtn          = el.querySelector("#st-rmsf");
   const pcaBtn           = el.querySelector("#st-pca");
@@ -57,7 +72,7 @@ export function render({ model, el }) {
 
   function applyState(s) {
     state = { ...state, ...s };
-    if (state.contacts_n !== null) contactsResultEl.textContent = `Contacts: ${state.contacts_n}`;
+    contactsResultEl.textContent = state.contacts_n !== null ? `Contacts: ${state.contacts_n}` : "";
     if (state.rmsd !== null) rmsdResultEl.textContent = `RMSD: ${state.rmsd.toFixed(3)} nm  |  mean RMSF: ${state.rmsf_mean !== null ? state.rmsf_mean.toFixed(3) : "—"} nm`;
     if (state.pca_variance !== null) pcaResultEl.textContent = `PC1 variance: ${(state.pca_variance * 100).toFixed(1)}%`;
 
@@ -79,6 +94,9 @@ export function render({ model, el }) {
   contactsBtn.addEventListener("click", () => {
     model.send({ type: "action", id: "compute_contacts", payload: { threshold_angstroms: parseFloat(thresholdEl.value) } });
   });
+  clearContactsBtn.addEventListener("click", () => {
+    model.send({ type: "action", id: "clear_contacts", payload: {} });
+  });
   rmsdBtn.addEventListener("click", () => {
     model.send({ type: "action", id: "compute_rmsd", payload: {} });
   });
@@ -89,9 +107,20 @@ export function render({ model, el }) {
     model.send({ type: "action", id: "compute_pca", payload: {} });
   });
 
-  model.on("msg:custom", (msg) => {
-    if (msg?.type === "state") applyState(msg.state);
+  function syncModelState() {
+    const updates = {};
+    Object.keys(state).forEach((key) => {
+      const value = model.get(key);
+      if (value !== undefined) updates[key] = value;
+    });
+    applyState(updates);
+  }
+
+  Object.keys(state).forEach((key) => {
+    model.on(`change:${key}`, (_model, value) => applyState({ [key]: value }));
   });
+  syncModelState();
+
 
   applyState(state);
 }
@@ -120,7 +149,7 @@ class MolSysMTStructurePanel(AddonPanelWidget):
     _css: str = _CSS
 
     def on_mount(self, view: Any) -> None:
-        self.push_state({
+        self.set_state({
             "contacts_n": None, "rmsd": None, "rmsf_mean": None,
             "pca_variance": None, "status": "idle", "error": None,
         })
@@ -128,57 +157,52 @@ class MolSysMTStructurePanel(AddonPanelWidget):
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
-        if runtime.molecular_system is None:
-            self.push_state({"status": "error", "error": "No molecular system attached."})
+        if action_id == "clear_contacts":
+            try:
+                runtime.show.clear_contacts()
+                self.set_state({"contacts_n": None, "status": "idle", "error": None})
+            except Exception as exc:
+                self.set_state(panel_error_state(view, panel="structure", action=action_id, exc=exc))
             return
 
-        self.push_state({"status": "running"})
+        if not has_system(view):
+            self.set_state({"status": "error", "error": "No molecular system attached."})
+            return
+
+        self.set_state({"status": "running"})
         try:
-            import molsysmt as msm
-            import numpy as np
-
-            ms = runtime.molecular_system
-
             if action_id == "compute_contacts":
                 threshold_ang = payload.get("threshold_angstroms", 12.0)
-                contacts = msm.structure.get_contacts(ms, threshold=f"{threshold_ang} angstroms")
-                runtime.contacts_result = contacts
-                n_contacts = int(np.asarray(contacts).sum()) // 2
-                record_event(view, "panel_contacts", n_contacts=n_contacts)
-                self.push_state({"contacts_n": n_contacts, "status": "done", "error": None})
+                result = runtime.show.contacts(threshold=f"{threshold_ang} angstroms")
+                self.set_state({
+                    "contacts_n": result.n_contacts,
+                    "status": "done",
+                    "error": None,
+                })
 
             elif action_id == "compute_rmsd":
-                rmsd = msm.structure.get_rmsd(ms)
-                runtime.rmsd_result = rmsd
-                rmsd_arr = np.asarray(rmsd).flatten()
-                mean_rmsd = float(rmsd_arr.mean()) if len(rmsd_arr) else 0.0
-                record_event(view, "panel_rmsd", mean_rmsd=mean_rmsd)
-                self.push_state({"rmsd": mean_rmsd, "status": "done", "error": None})
+                result = rmsd(view)
+                runtime.rmsd_result = result.values
+                record_event(view, "panel_rmsd", mean_rmsd=result.mean)
+                self.set_state({"rmsd": result.mean, "status": "done", "error": None})
 
             elif action_id == "compute_rmsf":
-                rmsf = msm.structure.get_rmsf(ms)
-                runtime.rmsf_result = rmsf
-                rmsf_arr = np.asarray(rmsf).flatten()
-                mean_rmsf = float(rmsf_arr.mean()) if len(rmsf_arr) else 0.0
-                record_event(view, "panel_rmsf", mean_rmsf=mean_rmsf)
-                self.push_state({"rmsf_mean": mean_rmsf, "status": "done", "error": None})
+                result = rmsf(view)
+                runtime.rmsf_result = result.values
+                record_event(view, "panel_rmsf", mean_rmsf=result.mean)
+                self.set_state({"rmsf_mean": result.mean, "status": "done", "error": None})
 
             elif action_id == "compute_pca":
-                principal_components, variances = msm.structure.principal_component_analysis(ms)
-                runtime.pca_result = (principal_components, variances)
-                variances_arr = np.asarray(variances).flatten()
-                pc1_variance = float(variances_arr[0]) if len(variances_arr) else 0.0
-                # Show PC1 vectors as displacement arrows
-                origins = None
-                pc1 = np.asarray(principal_components[0]) if hasattr(principal_components, "__len__") else np.asarray(principal_components)
+                result = pca(view)
+                runtime.pca_result = (result.principal_components, result.variances)
                 view.shapes.add_displacement_vectors(
                     origins=None,
-                    vectors=pc1,
-                    atom_indices=list(range(len(pc1))),
+                    vectors=result.pc1_vectors,
+                    atom_indices=result.atom_indices,
                     tag="msmt-pca-pc1",
                 )
-                record_event(view, "panel_pca", pc1_variance=pc1_variance)
-                self.push_state({"pca_variance": pc1_variance, "status": "done", "error": None})
+                record_event(view, "panel_pca", pc1_variance=result.pc1_variance)
+                self.set_state({"pca_variance": result.pc1_variance, "status": "done", "error": None})
 
         except Exception as exc:
-            self.push_state({"status": "error", "error": str(exc)})
+            self.set_state(panel_error_state(view, panel="structure", action=action_id, exc=exc))

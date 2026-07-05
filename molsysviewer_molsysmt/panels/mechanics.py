@@ -6,41 +6,61 @@ from typing import Any
 
 from molsysviewer import AddonPanelWidget
 
+from ..access import has_system
+from ..adapters.molecular_mechanics import compute_forces
+from ..adapters.molecular_mechanics import minimize_energy
+from ..adapters.molecular_mechanics import potential_energy
+from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
 
 _ESM = """
 export function render({ model, el }) {
-  let state = { energy: null, n_vectors: null, status: "idle", error: null };
+  let state = {
+    energy: null,
+    n_vectors: null,
+    update_mode: null,
+    mutation_warning: null,
+    status: "idle",
+    error: null
+  };
 
   el.innerHTML = `
     <div class="msmt-panel">
-      <div class="msmt-section-title">Forces</div>
-      <div class="msmt-row">
-        <label class="msmt-label">Force field</label>
-        <select class="msmt-select" id="mec-ff">
-          <option value="AMBER14">AMBER14</option>
-          <option value="CHARMM36">CHARMM36</option>
-        </select>
+      <div data-molsysviewer-addon-section="molsysmt:mechanics-forces">
+        <div class="msmt-section-title">Forces</div>
+        <div class="msmt-row msmt-row--gap">
+          <button class="msmt-btn msmt-btn--primary" id="mec-forces">Compute Forces → Vectors</button>
+          <button class="msmt-btn" id="mec-clear">Clear</button>
+        </div>
+        <div class="msmt-result" id="mec-forces-result"></div>
       </div>
-      <div class="msmt-row msmt-row--gap">
-        <button class="msmt-btn msmt-btn--primary" id="mec-forces">Compute Forces → Vectors</button>
-        <button class="msmt-btn" id="mec-clear">Clear</button>
+
+      <div data-molsysviewer-addon-section="molsysmt:mechanics-energy">
+        <div class="msmt-section-title">Energy</div>
+        <div class="msmt-row">
+          <label class="msmt-label">Platform</label>
+          <select class="msmt-select" id="mec-platform">
+            <option value="CPU">CPU</option>
+            <option value="Reference">Reference</option>
+            <option value="CUDA">CUDA</option>
+            <option value="OpenCL">OpenCL</option>
+          </select>
+        </div>
+        <button class="msmt-btn" id="mec-energy">Compute Potential Energy</button>
+        <div class="msmt-result" id="mec-energy-result"></div>
       </div>
-      <div class="msmt-result" id="mec-forces-result"></div>
 
-      <div class="msmt-section-title">Energy</div>
-      <button class="msmt-btn" id="mec-energy">Compute Potential Energy</button>
-      <div class="msmt-result" id="mec-energy-result"></div>
-
-      <div class="msmt-section-title">Minimization</div>
-      <button class="msmt-btn msmt-btn--warn" id="mec-minimize">Energy Minimize → Reload</button>
+      <div data-molsysviewer-addon-section="molsysmt:mechanics-minimization">
+        <div class="msmt-section-title">Minimization</div>
+        <button class="msmt-btn msmt-btn--warn" id="mec-minimize">Energy Minimize → Update Coordinates</button>
+      </div>
 
       <div class="msmt-status" id="mec-status"></div>
     </div>
   `;
 
-  const ffEl          = el.querySelector("#mec-ff");
+  const platformEl    = el.querySelector("#mec-platform");
   const forcesBtn     = el.querySelector("#mec-forces");
   const clearBtn      = el.querySelector("#mec-clear");
   const energyBtn     = el.querySelector("#mec-energy");
@@ -63,7 +83,8 @@ export function render({ model, el }) {
       statusEl.textContent = "Computing…"; statusEl.className = "msmt-status msmt-status--busy";
       setButtons(true);
     } else if (state.status === "done") {
-      statusEl.textContent = "Done."; statusEl.className = "msmt-status msmt-status--ok";
+      const detail = state.mutation_warning ? ` ${state.mutation_warning}` : "";
+      statusEl.textContent = `Done.${detail}`; statusEl.className = "msmt-status msmt-status--ok";
       setButtons(false);
     } else if (state.status === "error" && state.error) {
       statusEl.textContent = "Error: " + state.error; statusEl.className = "msmt-status msmt-status--error";
@@ -74,19 +95,33 @@ export function render({ model, el }) {
   }
 
   forcesBtn.addEventListener("click", () => {
-    model.send({ type: "action", id: "compute_forces", payload: { forcefield: ffEl.value } });
+    model.send({ type: "action", id: "compute_forces", payload: {} });
   });
   clearBtn.addEventListener("click", () => {
     model.send({ type: "action", id: "clear_forces", payload: {} });
   });
   energyBtn.addEventListener("click", () => {
-    model.send({ type: "action", id: "compute_energy", payload: { forcefield: ffEl.value } });
+    model.send({ type: "action", id: "compute_energy", payload: { platform: platformEl.value } });
   });
   minimizeBtn.addEventListener("click", () => {
-    model.send({ type: "action", id: "minimize_energy", payload: { forcefield: ffEl.value } });
+    if (!window.confirm("Energy minimization updates coordinates in place. Continue?")) return;
+    model.send({ type: "action", id: "minimize_energy", payload: { platform: platformEl.value } });
   });
 
-  model.on("msg:custom", (msg) => { if (msg?.type === "state") applyState(msg.state); });
+  function syncModelState() {
+    const updates = {};
+    Object.keys(state).forEach((key) => {
+      const value = model.get(key);
+      if (value !== undefined) updates[key] = value;
+    });
+    applyState(updates);
+  }
+
+  Object.keys(state).forEach((key) => {
+    model.on(`change:${key}`, (_model, value) => applyState({ [key]: value }));
+  });
+  syncModelState();
+
 
   applyState(state);
 }
@@ -111,6 +146,16 @@ _CSS = """
 """
 
 _FORCES_TAG = "msmt-mechanics-forces"
+_SUPPORTED_PLATFORMS = {"CPU", "Reference", "CUDA", "OpenCL"}
+
+
+def _platform_from_payload(payload: dict) -> str:
+    if "forcefield" in payload:
+        raise ValueError("Unsupported molecular-mechanics argument: 'forcefield'")
+    platform = payload.get("platform", "CPU")
+    if platform not in _SUPPORTED_PLATFORMS:
+        raise ValueError(f"Unsupported OpenMM platform: {platform!r}")
+    return platform
 
 
 class MolSysMTMechanicsPanel(AddonPanelWidget):
@@ -118,56 +163,65 @@ class MolSysMTMechanicsPanel(AddonPanelWidget):
     _css: str = _CSS
 
     def on_mount(self, view: Any) -> None:
-        self.push_state({"energy": None, "n_vectors": None, "status": "idle", "error": None})
+        self.set_state({
+            "energy": None,
+            "n_vectors": None,
+            "update_mode": None,
+            "mutation_warning": None,
+            "status": "idle",
+            "error": None,
+        })
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
-        if runtime.molecular_system is None:
-            self.push_state({"status": "error", "error": "No molecular system attached."})
+        if action_id == "clear_forces":
+            try:
+                if runtime.forces_tag:
+                    view.shapes.clear(tag=runtime.forces_tag)
+                    runtime.forces_tag = None
+                self.set_state({"n_vectors": None, "status": "idle", "error": None})
+            except Exception as exc:
+                self.set_state({"status": "error", "error": str(exc)})
             return
 
-        self.push_state({"status": "running"})
+        if not has_system(view):
+            self.set_state({"status": "error", "error": "No molecular system attached."})
+            return
+
+        self.set_state({"status": "running"})
         try:
-            import molsysmt as msm
-            import numpy as np
-            ms = runtime.molecular_system
-            ff = payload.get("forcefield", "AMBER14")
+            platform = _platform_from_payload(payload)
 
             if action_id == "compute_forces":
-                forces = msm.molecular_mechanics.get_forces(ms, forcefield=ff)
-                runtime.forces_result = forces
-                forces_arr = np.asarray(forces)
-                if forces_arr.ndim == 3:
-                    forces_arr = forces_arr[0]  # first frame
+                result = compute_forces(view)
+                runtime.forces_result = result.forces
                 view.shapes.add_displacement_vectors(
-                    origins=None, vectors=forces_arr,
-                    atom_indices=list(range(len(forces_arr))),
+                    origins=None,
+                    vectors=result.vectors,
+                    atom_indices=result.atom_indices,
                     tag=_FORCES_TAG,
                 )
                 runtime.forces_tag = _FORCES_TAG
-                record_event(view, "panel_forces", n_vectors=len(forces_arr))
-                self.push_state({"n_vectors": len(forces_arr), "status": "done", "error": None})
-
-            elif action_id == "clear_forces":
-                if runtime.forces_tag:
-                    view.shapes.remove(runtime.forces_tag)
-                    runtime.forces_tag = None
-                self.push_state({"n_vectors": None, "status": "idle", "error": None})
+                record_event(view, "panel_forces", n_vectors=result.n_vectors)
+                self.set_state({"n_vectors": result.n_vectors, "status": "done", "error": None})
 
             elif action_id == "compute_energy":
-                energy = msm.molecular_mechanics.get_potential_energy(ms, forcefield=ff)
-                runtime.energy_result = energy
-                energy_val = float(np.asarray(energy).flatten()[0])
-                record_event(view, "panel_energy", energy=energy_val)
-                self.push_state({"energy": energy_val, "status": "done", "error": None})
+                result = potential_energy(view, platform=platform)
+                runtime.energy_result = result.energy
+                record_event(view, "panel_energy", energy=result.value)
+                self.set_state({"energy": result.value, "status": "done", "error": None})
 
             elif action_id == "minimize_energy":
-                new_ms = msm.molecular_mechanics.potential_energy_minimization(ms, forcefield=ff)
-                runtime.molecular_system = new_ms
-                view.load(new_ms, mode="replace")
+                result = minimize_energy(view, platform=platform)
+                view.set_coordinates(result.coordinates)
                 record_event(view, "panel_minimize")
-                self.push_state({"status": "done", "error": None})
+                self.set_state({
+                    "update_mode": "coordinates",
+                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                    "status": "done",
+                    "error": None,
+                })
 
         except Exception as exc:
-            self.push_state({"status": "error", "error": str(exc)})
+            self.set_state(panel_error_state(view, panel="molecular_mechanics", action=action_id, exc=exc))

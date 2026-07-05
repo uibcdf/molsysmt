@@ -6,6 +6,9 @@ from typing import Any
 
 from molsysviewer import AddonPanelWidget
 
+from ..access import has_system
+from ..adapters.topology import bond_graph_links, dihedral_quartets
+from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
 
@@ -15,16 +18,20 @@ export function render({ model, el }) {
 
   el.innerHTML = `
     <div class="msmt-panel">
-      <div class="msmt-section-title">Bond Graph</div>
-      <div class="msmt-row">
-        <button class="msmt-btn msmt-btn--primary" id="tp-bonds">Show Bonds as Links</button>
-        <button class="msmt-btn" id="tp-bonds-clear">Clear</button>
+      <div data-molsysviewer-addon-section="molsysmt:topology-bonds">
+        <div class="msmt-section-title">Bond Graph</div>
+        <div class="msmt-row">
+          <button class="msmt-btn msmt-btn--primary" id="tp-bonds">Show Bonds as Links</button>
+          <button class="msmt-btn" id="tp-bonds-clear">Clear</button>
+        </div>
+        <div class="msmt-result" id="tp-bonds-result"></div>
       </div>
-      <div class="msmt-result" id="tp-bonds-result"></div>
 
-      <div class="msmt-section-title">Dihedral Quartets</div>
-      <button class="msmt-btn" id="tp-dihedrals">Count Dihedral Quartets</button>
-      <div class="msmt-result" id="tp-dih-result"></div>
+      <div data-molsysviewer-addon-section="molsysmt:topology-dihedrals">
+        <div class="msmt-section-title">Dihedral Quartets</div>
+        <button class="msmt-btn" id="tp-dihedrals">Count Dihedral Quartets</button>
+        <div class="msmt-result" id="tp-dih-result"></div>
+      </div>
 
       <div class="msmt-status" id="tp-status"></div>
     </div>
@@ -56,7 +63,20 @@ export function render({ model, el }) {
   bondsClearBtn.addEventListener("click", () => { model.send({ type: "action", id: "clear_bonds", payload: {} }); });
   dihedralBtn.addEventListener("click", () => { model.send({ type: "action", id: "count_dihedrals", payload: {} }); });
 
-  model.on("msg:custom", (msg) => { if (msg?.type === "state") applyState(msg.state); });
+  function syncModelState() {
+    const updates = {};
+    Object.keys(state).forEach((key) => {
+      const value = model.get(key);
+      if (value !== undefined) updates[key] = value;
+    });
+    applyState(updates);
+  }
+
+  Object.keys(state).forEach((key) => {
+    model.on(`change:${key}`, (_model, value) => applyState({ [key]: value }));
+  });
+  syncModelState();
+
 
   applyState(state);
 }
@@ -84,49 +104,41 @@ class MolSysMTTopologyPanel(AddonPanelWidget):
     _css: str = _CSS
 
     def on_mount(self, view: Any) -> None:
-        self.push_state({"n_bonds": None, "n_dihedrals": None, "status": "idle", "error": None})
+        self.set_state({"n_bonds": None, "n_dihedrals": None, "status": "idle", "error": None})
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
         if action_id == "show_bonds":
-            if runtime.molecular_system is None:
-                self.push_state({"status": "error", "error": "No molecular system attached."})
+            if not has_system(view):
+                self.set_state({"status": "error", "error": "No molecular system attached."})
                 return
-            self.push_state({"status": "running"})
+            self.set_state({"status": "running"})
             try:
-                import molsysmt as msm
-                ms = runtime.molecular_system
-                bondgraph = msm.topology.get_bondgraph(ms)
-                runtime.bondgraph_result = bondgraph
-                # bondgraph is a networkx Graph; extract edges as [atom_i, atom_j] pairs
-                edges = [[int(u), int(v)] for u, v in bondgraph.edges()]
-                view.shapes.add_links(atom_pairs=edges, tag=_BONDS_TAG)
-                record_event(view, "panel_topology_bonds", n_bonds=len(edges))
-                self.push_state({"n_bonds": len(edges), "status": "done", "error": None})
+                result = bond_graph_links(view)
+                runtime.bondgraph_result = result.graph
+                view.shapes.add_links(atom_pairs=result.atom_pairs, tag=_BONDS_TAG)
+                record_event(view, "panel_topology_bonds", n_bonds=result.n_bonds)
+                self.set_state({"n_bonds": result.n_bonds, "status": "done", "error": None})
             except Exception as exc:
-                self.push_state({"status": "error", "error": str(exc)})
+                self.set_state(panel_error_state(view, panel="topology", action=action_id, exc=exc))
 
         elif action_id == "clear_bonds":
             try:
-                view.shapes.remove(_BONDS_TAG)
-                self.push_state({"n_bonds": None, "status": "idle", "error": None})
+                view.shapes.clear(tag=_BONDS_TAG)
+                self.set_state({"n_bonds": None, "status": "idle", "error": None})
             except Exception as exc:
-                self.push_state({"status": "error", "error": str(exc)})
+                self.set_state(panel_error_state(view, panel="topology", action=action_id, exc=exc))
 
         elif action_id == "count_dihedrals":
-            if runtime.molecular_system is None:
-                self.push_state({"status": "error", "error": "No molecular system attached."})
+            if not has_system(view):
+                self.set_state({"status": "error", "error": "No molecular system attached."})
                 return
-            self.push_state({"status": "running"})
+            self.set_state({"status": "running"})
             try:
-                import molsysmt as msm
-                import numpy as np
-                ms = runtime.molecular_system
-                quartets = msm.topology.get_dihedral_quartets(ms)
-                runtime.dihedral_quartets_result = quartets
-                n = int(np.asarray(quartets).shape[0]) if quartets is not None else 0
-                record_event(view, "panel_topology_dihedrals", n_dihedrals=n)
-                self.push_state({"n_dihedrals": n, "status": "done", "error": None})
+                result = dihedral_quartets(view)
+                runtime.dihedral_quartets_result = result.quartets
+                record_event(view, "panel_topology_dihedrals", n_dihedrals=result.n_dihedrals)
+                self.set_state({"n_dihedrals": result.n_dihedrals, "status": "done", "error": None})
             except Exception as exc:
-                self.push_state({"status": "error", "error": str(exc)})
+                self.set_state(panel_error_state(view, panel="topology", action=action_id, exc=exc))

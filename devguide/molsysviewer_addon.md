@@ -8,53 +8,79 @@ action.
 
 | # | Panel ID | `widget_class` | MolSysMT module(s) | Viewer bridge |
 |---|----------|----------------|--------------------|---------------|
-| 1 | system   | `MolSysMTSystemPanel`     | `msm.get()`                       | display only |
-| 2 | select   | `MolSysMTSelectPanel`     | `msm.select()`                    | `view.whole.set_color_by_values()` |
-| 3 | color    | `MolSysMTColorPanel`      | `msm.physchem.*`, `msm.structure.get_rmsf()`, `msm.structure.get_secondary_structure()` | `view.whole.set_color_by_values()` |
-| 4 | structure | `MolSysMTStructurePanel` | `msm.structure.*` (contacts, RMSD, RMSF, PCA) | `view.shapes.add_links()`, `view.shapes.add_displacement_vectors()` |
-| 5 | transform | `MolSysMTTransformPanel` | `msm.structure.center()`, `least_rmsd_fit()`, `least_rmsd_align()`, `align_principal_axes()` | `view.load(ms, mode="replace")` |
-| 6 | hbonds   | `MolSysMTHBondsPanel`     | `msm.hbonds.get_buch_hbonds()`    | `view.shapes.links.add_hbonds()` |
-| 7 | topology | `MolSysMTTopologyPanel`   | `msm.topology.*` (bondgraph, dihedral_quartets) | `view.shapes.add_links()` |
-| 8 | pbc      | `MolSysMTPBCPanel`        | `msm.pbc.*` (has_pbc, wrap, unwrap) | `view.load(ms, mode="replace")` |
-| 9 | mechanics | `MolSysMTMechanicsPanel` | `msm.molecular_mechanics.*` (forces, energy, minimization) | `view.shapes.add_displacement_vectors()` |
-| 10 | build   | `MolSysMTBuildPanel`      | `msm.build.*` (add_missing_*, make_bioassembly, mutate, solvate) | `view.load(ms, mode="replace")` |
+| 1 | basic | `MolSysMTBasicPanel` | `msm.get()`, `msm.select()` | inspect counts, create viewer selections |
+| 2 | topology | `MolSysMTTopologyPanel` | `msm.topology.*` | links and topology summaries |
+| 3 | structure | `MolSysMTStructurePanel` | `msm.structure.*` | contacts links, analysis summaries, PCA vectors |
+| 4 | hbonds | `MolSysMTHBondsPanel` | `msm.hbonds.*` | `view.shapes.links.add_hbonds()` |
+| 5 | pbc | `MolSysMTPBCPanel` | `msm.pbc.*` | status and coordinate transforms |
+| 6 | physchem | `MolSysMTColorPanel` | `msm.physchem.*` | `view.whole.set_color_by_values()` |
+| 7 | molecular_mechanics | `MolSysMTMechanicsPanel` | `msm.molecular_mechanics.*` | vectors, energy summaries, minimization |
+| 8 | build | `MolSysMTBuildPanel` | `msm.build.*` | append atoms or replace topology/system as needed |
+
+There is no root-level `transform` panel. Transform-like operations belong under
+their real MolSysMT namespaces (`structure`, `pbc`, or `build`).
 
 ## Runtime state
 
-All state lives in `MolSysMTAddonRuntime` (one instance per view, stored as
-`view._molsysmt_addon_runtime`).  Fields are grouped by panel to avoid collisions.
+All state lives in `view.addons.molsysmt` (`MolSysMTAddonRuntime`, one instance
+per view). The runtime holds UI/session state and cached results only; it does
+not store a molecular system.
+
+The public namespace is an active facade over the current view. Panels, context
+actions, and direct Python calls share the same adapter layer, so GUI actions
+and scripted calls remain equivalent. The current runtime also keeps the legacy
+private alias `view._molsysmt_addon_runtime` only as a compatibility bridge; new
+code should use `view.addons.molsysmt`.
 
 ## Context actions
 
 | ID | Target | Action |
 |----|--------|--------|
-| inspect-system | structure | fills system panel with atom/group/chain/structure counts |
+| inspect-system | structure | fills basic panel with atom/group/chain/structure counts |
 | select-and-highlight | structure | runs selection and highlights in viewer |
 | color-by-property | structure | colors by last chosen property |
 | compute-contacts | structure | computes contact map |
-| fit-to-reference | structure | RMSD-fits to reference structure |
-| compute-hbonds | structure | computes H-bonds and renders links |
-| wrap-to-pbc | structure | wraps to PBC box and reloads |
-| build-bioassembly | structure | expands asymmetric unit and reloads |
-
-## Shape providers
-
-| ID | Shape type | Panel |
-|----|-----------|-------|
-| contacts-links | links | structure |
-| hbond-links | h-bond links | hbonds |
-| displacement-vectors | arrows | structure, mechanics |
-| bond-links | links | topology |
+The current spec intentionally does not declare shape providers; panels and
+facade calls create concrete MolSysViewer shapes directly.
 
 ## Workbench sections
 
 | ID | Panel |
 |----|-------|
-| system-info | system |
-| structure-stats | structure |
+| system-info | global |
+| mvp-overlays | global |
+| basic-inspect | basic |
+| basic-select | basic |
+| topology-bonds | topology |
+| topology-dihedrals | topology |
+| structure-contacts | structure |
+| structure-rms | structure |
+| structure-pca | structure |
+| hbonds-buch | hbonds |
+| pbc-status | pbc |
+| pbc-wrapping | pbc |
+| physchem-color | physchem |
+| mechanics-forces | molecular_mechanics |
+| mechanics-energy | molecular_mechanics |
+| mechanics-minimization | molecular_mechanics |
+| build-preparation | build |
+| build-solvation | build |
 
 ## Export helpers
 
 | ID | Formats |
 |----|---------|
 | system-export | json |
+
+## Current verification status
+
+As of 2026-07-05, the addon has passed the focused Python test battery
+(`tests/molsysviewer_molsysmt/`: 106 passed), a backend smoke test on real
+`MolSysView` demo systems (16 ok, 0 failed), simulated entry-point discovery,
+and a Playwright visual smoke of the standalone Add-ons workspace. The visual
+smoke confirmed that the MolSysMT workspace and all eight panel tabs render, and
+that the `Basic` panel mounts its subsections without JavaScript errors.
+
+The remaining manual validation is a live Jupyter/Qt widget smoke test, because
+the static standalone HTML verifies frontend rendering/navigation but not
+button-to-Python execution.

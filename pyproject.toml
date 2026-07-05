@@ -51,6 +51,9 @@ keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory
 "Documentation" = "https://uibcdf.org/MolSysMT"
 "Issues" = "https://github.com/uibcdf/MolSysMT/issues"
 
+[project.entry-points."molsysviewer.addons"]
+molsysmt = "molsysviewer_molsysmt"
+
 [project.optional-dependencies]
 soft = [
   "mmtf-python",

@@ -6,7 +6,9 @@ from typing import Any
 
 from molsysviewer import AddonPanelWidget
 
-from ..runtime import ensure_runtime, record_event
+from ..access import has_system
+from ..diagnostics import panel_error_state
+from ..runtime import ensure_runtime
 
 
 _ESM = """
@@ -15,12 +17,14 @@ export function render({ model, el }) {
 
   el.innerHTML = `
     <div class="msmt-panel">
-      <div class="msmt-section-title">Hydrogen Bonds (Baker-Hubbard)</div>
-      <div class="msmt-row">
-        <button class="msmt-btn msmt-btn--primary" id="hb-compute">Compute H-Bonds</button>
-        <button class="msmt-btn" id="hb-clear">Clear</button>
+      <div data-molsysviewer-addon-section="molsysmt:hbonds-buch">
+        <div class="msmt-section-title">Hydrogen Bonds (Buch)</div>
+        <div class="msmt-row">
+          <button class="msmt-btn msmt-btn--primary" id="hb-compute">Compute H-Bonds</button>
+          <button class="msmt-btn" id="hb-clear">Clear</button>
+        </div>
+        <div class="msmt-result" id="hb-result"></div>
       </div>
-      <div class="msmt-result" id="hb-result"></div>
       <div class="msmt-status" id="hb-status"></div>
     </div>
   `;
@@ -63,9 +67,20 @@ export function render({ model, el }) {
     model.send({ type: "action", id: "clear_hbonds", payload: {} });
   });
 
-  model.on("msg:custom", (msg) => {
-    if (msg?.type === "state") applyState(msg.state);
+  function syncModelState() {
+    const updates = {};
+    Object.keys(state).forEach((key) => {
+      const value = model.get(key);
+      if (value !== undefined) updates[key] = value;
+    });
+    applyState(updates);
+  }
+
+  Object.keys(state).forEach((key) => {
+    model.on(`change:${key}`, (_model, value) => applyState({ [key]: value }));
   });
+  syncModelState();
+
 
   applyState(state);
 }
@@ -91,49 +106,25 @@ class MolSysMTHBondsPanel(AddonPanelWidget):
     _css: str = _CSS
 
     def on_mount(self, view: Any) -> None:
-        self.push_state({"n_hbonds": None, "status": "idle", "error": None})
+        self.set_state({"n_hbonds": None, "status": "idle", "error": None})
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
         if action_id == "compute_hbonds":
-            if runtime.molecular_system is None:
-                self.push_state({"status": "error", "error": "No molecular system attached."})
+            if not has_system(view):
+                self.set_state({"status": "error", "error": "No molecular system attached."})
                 return
-            self.push_state({"status": "running"})
+            self.set_state({"status": "running"})
             try:
-                import molsysmt as msm
-                import numpy as np
-
-                ms = runtime.molecular_system
-                atoms_per_structure, _distances = msm.hbonds.get_buch_hbonds(ms)
-                runtime.hbonds_result = atoms_per_structure
-
-                # Build per-structure list of [donor, acceptor] pairs
-                structures = []
-                total = 0
-                for frame_atoms in atoms_per_structure:
-                    if frame_atoms is None or len(frame_atoms) == 0:
-                        structures.append(None)
-                    else:
-                        arr = np.asarray(frame_atoms)
-                        pairs = [[int(arr[i, 0]), int(arr[i, 2])] for i in range(len(arr))]
-                        structures.append(pairs)
-                        total += len(pairs)
-
-                tag = "msmt-hbonds"
-                view.shapes.links.add_hbonds(structures=structures, tag=tag)
-                runtime.hbonds_tag = tag
-                record_event(view, "panel_hbonds", n_hbonds=total)
-                self.push_state({"n_hbonds": total, "status": "done", "error": None})
+                result = runtime.show.hbonds()
+                self.set_state({"n_hbonds": result.n_hbonds, "status": "done", "error": None})
             except Exception as exc:
-                self.push_state({"status": "error", "error": str(exc)})
+                self.set_state(panel_error_state(view, panel="hbonds", action=action_id, exc=exc))
 
         elif action_id == "clear_hbonds":
             try:
-                if runtime.hbonds_tag:
-                    view.shapes.remove(runtime.hbonds_tag)
-                    runtime.hbonds_tag = None
-                self.push_state({"n_hbonds": None, "status": "idle", "error": None})
+                runtime.show.clear_hbonds()
+                self.set_state({"n_hbonds": None, "status": "idle", "error": None})
             except Exception as exc:
-                self.push_state({"status": "error", "error": str(exc)})
+                self.set_state(panel_error_state(view, panel="hbonds", action=action_id, exc=exc))

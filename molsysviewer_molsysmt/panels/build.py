@@ -6,22 +6,37 @@ from typing import Any
 
 from molsysviewer import AddonPanelWidget
 
+from ..access import has_system
+from ..adapters.build import run_build_operation
+from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
 
 _ESM = """
 export function render({ model, el }) {
-  let state = { last_op: null, log: [], status: "idle", error: null };
+  let state = {
+    last_op: null,
+    log: [],
+    update_mode: null,
+    n_added: null,
+    mutation_warning: null,
+    status: "idle",
+    error: null
+  };
 
   el.innerHTML = `
     <div class="msmt-panel">
-      <div class="msmt-section-title">Structure Preparation</div>
-      <button class="msmt-btn msmt-btn--primary" id="bd-hydrogens">Add Missing Hydrogens</button>
-      <button class="msmt-btn msmt-btn--primary" id="bd-bonds">Add Missing Bonds</button>
-      <button class="msmt-btn msmt-btn--primary" id="bd-bioassembly">Make Bioassembly</button>
+      <div data-molsysviewer-addon-section="molsysmt:build-preparation">
+        <div class="msmt-section-title">Structure Preparation</div>
+        <button class="msmt-btn msmt-btn--primary" id="bd-hydrogens">Add Missing Hydrogens</button>
+        <button class="msmt-btn msmt-btn--primary" id="bd-bonds">Add Missing Bonds</button>
+        <button class="msmt-btn msmt-btn--primary" id="bd-bioassembly">Make Bioassembly</button>
+      </div>
 
-      <div class="msmt-section-title">Solvation</div>
-      <button class="msmt-btn" id="bd-solvate">Solvate (water box)</button>
+      <div data-molsysviewer-addon-section="molsysmt:build-solvation">
+        <div class="msmt-section-title">Solvation</div>
+        <button class="msmt-btn" id="bd-solvate">Solvate (water box)</button>
+      </div>
 
       <div class="msmt-log" id="bd-log"></div>
       <div class="msmt-status" id="bd-status"></div>
@@ -51,7 +66,8 @@ export function render({ model, el }) {
       statusEl.textContent = "Working…"; statusEl.className = "msmt-status msmt-status--busy";
       setButtons(true);
     } else if (state.status === "done") {
-      statusEl.textContent = state.last_op ? `Done: ${state.last_op}.` : "Done.";
+      const detail = state.mutation_warning ? ` ${state.mutation_warning}` : "";
+      statusEl.textContent = state.last_op ? `Done: ${state.last_op}.${detail}` : `Done.${detail}`;
       statusEl.className = "msmt-status msmt-status--ok";
       setButtons(false);
     } else if (state.status === "error" && state.error) {
@@ -63,11 +79,30 @@ export function render({ model, el }) {
   }
 
   hydrogenBtn.addEventListener("click",    () => { model.send({ type: "action", id: "add_hydrogens",  payload: {} }); });
-  bondsBtn.addEventListener("click",       () => { model.send({ type: "action", id: "add_bonds",      payload: {} }); });
-  bioassemblyBtn.addEventListener("click", () => { model.send({ type: "action", id: "bioassembly",    payload: {} }); });
+  bondsBtn.addEventListener("click",       () => {
+    if (!window.confirm("Adding missing bonds may replace the loaded view and reset overlays. Continue?")) return;
+    model.send({ type: "action", id: "add_bonds", payload: {} });
+  });
+  bioassemblyBtn.addEventListener("click", () => {
+    if (!window.confirm("Bioassembly may replace the loaded view and reset overlays. Continue?")) return;
+    model.send({ type: "action", id: "bioassembly", payload: {} });
+  });
   solvateBtn.addEventListener("click",     () => { model.send({ type: "action", id: "solvate",        payload: {} }); });
 
-  model.on("msg:custom", (msg) => { if (msg?.type === "state") applyState(msg.state); });
+  function syncModelState() {
+    const updates = {};
+    Object.keys(state).forEach((key) => {
+      const value = model.get(key);
+      if (value !== undefined) updates[key] = value;
+    });
+    applyState(updates);
+  }
+
+  Object.keys(state).forEach((key) => {
+    model.on(`change:${key}`, (_model, value) => applyState({ [key]: value }));
+  });
+  syncModelState();
+
 
   applyState(state);
 }
@@ -94,9 +129,12 @@ class MolSysMTBuildPanel(AddonPanelWidget):
 
     def on_mount(self, view: Any) -> None:
         runtime = ensure_runtime(view)
-        self.push_state({
+        self.set_state({
             "last_op": runtime.last_build_op,
             "log": list(runtime.build_log),
+            "update_mode": None,
+            "n_added": None,
+            "mutation_warning": None,
             "status": "idle",
             "error": None,
         })
@@ -104,50 +142,38 @@ class MolSysMTBuildPanel(AddonPanelWidget):
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
-        if runtime.molecular_system is None:
-            self.push_state({"status": "error", "error": "No molecular system attached."})
+        if not has_system(view):
+            self.set_state({"status": "error", "error": "No molecular system attached."})
             return
 
-        self.push_state({"status": "running"})
+        self.set_state({"status": "running"})
         try:
-            import molsysmt as msm
-            ms = runtime.molecular_system
-
-            if action_id == "add_hydrogens":
-                new_ms = msm.build.add_missing_hydrogens(ms)
-                runtime.molecular_system = new_ms
-                runtime.last_build_op = "add_missing_hydrogens"
-                runtime.build_log.append("Added missing hydrogens.")
-                view.load(new_ms, mode="replace")
-                record_event(view, "panel_build", op="add_hydrogens")
-                self.push_state({"last_op": "add hydrogens", "log": list(runtime.build_log), "status": "done", "error": None})
-
-            elif action_id == "add_bonds":
-                new_ms = msm.build.add_missing_bonds(ms)
-                runtime.molecular_system = new_ms
-                runtime.last_build_op = "add_missing_bonds"
-                runtime.build_log.append("Added missing bonds.")
-                view.load(new_ms, mode="replace")
-                record_event(view, "panel_build", op="add_bonds")
-                self.push_state({"last_op": "add bonds", "log": list(runtime.build_log), "status": "done", "error": None})
-
-            elif action_id == "bioassembly":
-                new_ms = msm.build.make_bioassembly(ms)
-                runtime.molecular_system = new_ms
-                runtime.last_build_op = "make_bioassembly"
-                runtime.build_log.append("Biological assembly expanded.")
-                view.load(new_ms, mode="replace")
-                record_event(view, "panel_build", op="bioassembly")
-                self.push_state({"last_op": "make bioassembly", "log": list(runtime.build_log), "status": "done", "error": None})
-
-            elif action_id == "solvate":
-                new_ms = msm.build.solvate(ms)
-                runtime.molecular_system = new_ms
-                runtime.last_build_op = "solvate"
-                runtime.build_log.append("System solvated.")
-                view.load(new_ms, mode="replace")
-                record_event(view, "panel_build", op="solvate")
-                self.push_state({"last_op": "solvate", "log": list(runtime.build_log), "status": "done", "error": None})
+            if action_id in {"add_hydrogens", "add_bonds", "bioassembly", "solvate"}:
+                result = run_build_operation(view, action_id)
+                runtime.last_build_op = result.operation
+                runtime.build_log.append(result.log_message)
+                if result.mode == "append":
+                    # Overlay-preserving: appends the new atoms and reconciles
+                    # regions/selections/colors instead of resetting the viewer.
+                    view.add(result.added_system)
+                    mutation_warning = "Appended atoms; viewer overlays preserved."
+                elif result.mode == "replace":
+                    # Restructured system: a full (destructive) reload.
+                    view.load(result.molecular_system, mode="replace")
+                    mutation_warning = "Replaced system; viewer overlays reset."
+                else:
+                    mutation_warning = "No structural changes detected."
+                # "noop": nothing changed, nothing to apply.
+                record_event(view, "panel_build", op=result.operation, mode=result.mode)
+                self.set_state({
+                    "last_op": result.label,
+                    "log": list(runtime.build_log),
+                    "update_mode": result.mode,
+                    "n_added": result.n_added,
+                    "mutation_warning": mutation_warning,
+                    "status": "done",
+                    "error": None,
+                })
 
         except Exception as exc:
-            self.push_state({"status": "error", "error": str(exc)})
+            self.set_state(panel_error_state(view, panel="build", action=action_id, exc=exc))
