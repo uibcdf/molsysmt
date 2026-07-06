@@ -213,34 +213,46 @@ system produce a new object that is pushed back through
 `view.load(new_ms, mode="replace")`, which makes the view (as form) the single
 source of truth again on the next action.
 
-## MolSysViewer already owns system mutation
+## MolSysViewer owns reconciliation, MolSysMT owns mutation semantics
 
-A late but important verification: MolSysViewer already implements atom/structure
-removal and addition as first-class, self-reconciling operations, so the addon
-must not rebuild them.
+A late but important verification: MolSysViewer already implements the hard part
+of live edits — reconciling viewer state after the underlying molecular system
+changes. That includes remapping and replaying regions, selections, visibility,
+colors, shapes, annotations, measurements, scene look, and the index mapper.
 
-- `view.remove(selection=..., syntax="MolSysMT")`
-  (`molsysviewer/viewer/molsysmt_interface.py`) computes the removed atoms, builds
-  an old→new `atom_index_map`, calls `msm.remove` on `view._molsys`, and rebuilds
-  the view through `_rebuild_view_from_current_molsys`.
-- That rebuild remaps and replays **all index-keyed state** through the map:
-  regions (remap, drop when empty — the least-surprising static policy),
-  named + active selections, visibility mask, representations/layers, shapes,
-  annotations, measurements, scene look, and the index mapper. It is covered by
-  MolSysViewer tests (`test_live_edit_rebuild`, `test_rebuild_persistence`,
-  `test_rebuild_visibility`, `test_selections`).
-- `view.add(...)` mutates in place and rebuilds analogously.
+The architecture direction has been refined since the first assessment. The
+viewer should keep the reconciliation primitive, but the molecular edit
+semantics should live in the MolSysMT addon:
+
+- MolSysViewer now exposes `view.apply_system_edit(new_molsys,
+  atom_index_map=None, ...)` as the public low-level reconciliation primitive.
+- Compatibility methods such as `view.remove(...)` and `view.add(...)` still
+  exist, but internally route through that primitive.
+- `view.addons.molsysmt.basic.remove(...)`,
+  `view.addons.molsysmt.basic.add(...)`,
+  `view.addons.molsysmt.basic.set(...)`, and
+  `view.addons.molsysmt.basic.append_structures(...)` are no longer conceptual
+  Tier-A aliases: they are addon-owned operations that call MolSysMT and then
+  ask MolSysViewer to reconcile through `apply_system_edit(...)`.
 
 Consequences for the addon:
 
-- "Remove the waters" is `view.remove(selection='molecule_type=="water"')` — a
-  native viewer capability, not something the addon should rebuild. The addon
-  exposes it only as a **Tier A alias** (`view.addons.molsysmt.basic.remove`).
-- Fixed gap: per-atom color overrides (`_atom_color_map`, set by
-  `view.whole.set_color_by_values`) are now remapped and replayed by the
-  MolSysViewer rebuild after atom-index-changing edits. This matters for the
-  addon because color overlays applied before `view.remove(...)` can survive the
-  native reconciliation path.
+- "Remove the waters" should become
+  `view.addons.molsysmt.basic.remove(selection='molecule_type=="water"')` in the
+  target 1.0-facing API.
+- Existing core methods remain a transition/compatibility surface while the
+  wider MolSysViewer proposal (`move_molecular_editing_to_molsysmt_addon.md`)
+  decides how to deprecate `view.remove/add`, `molsysviewer.tools.basic`, and
+  `view.whole` molecular edit delegations.
+- The addon now exposes a `remove-selected-atoms` context action, including a
+  selection-driven dynamic item. This is the target GUI route for atom removal;
+  the older core context-menu action remains a compatibility path until the host
+  migration is completed.
+- Per-atom color overrides (`_atom_color_map`, set by
+  `view.whole.set_color_by_values`) are remapped and replayed by the
+  MolSysViewer reconciliation primitive after atom-index-changing edits. This
+  matters for the addon because color overlays applied before a MolSysMT edit can
+  survive the reconciliation path.
 
 ## Other problems
 
@@ -597,11 +609,9 @@ the public behavior of the addon:
 
 5. What should `view.addons.molsysmt` expose? **Resolved (direction).** An
    **active facade** mirroring the MolSysMT module layout (`.basic`,
-   `.structure`, …), with three tiers of entries: (A) **aliases** to native
-   viewer methods where MolSysViewer already owns the operation with full
-   reconciliation (`basic.remove` → `view.remove`, `basic.add` → `view.add`);
-   (B) **viewer-aware implementations** for MolSysMT ops with no native viewer
-   method; (C) an **addon-native** area (`.show` / `.overlays`) for
+   `.structure`, …). `basic` owns live-view molecular edit semantics by calling
+   MolSysMT and then MolSysViewer's reconciliation primitive
+   (`apply_system_edit(...)`). `.show` / `.overlays` covers addon-native
    compute-and-render flows with no MolSysMT analog. Only entries that add value
    over a bare `msm.verb(view)` belong there. Fine placement settles with usage.
 
@@ -615,12 +625,11 @@ the public behavior of the addon:
    same helper as they are migrated.
 
 7. Which operations should mutate the current viewer, and which should produce
-   a new view or require confirmation? **Largely answered:** system mutations
-   already live natively in MolSysViewer — `view.remove(selection, syntax)` and
-   `view.add(...)` mutate `view._molsys` in place and fully reconcile viewer
-   state (see "MolSysViewer already owns system mutation" above). The addon does
-   not re-implement them; it aliases them (Tier A). Confirmation UX for
-   destructive edits is a panel concern, not new mutation logic.
+   a new view or require confirmation? **Largely answered:** MolSysMT owns the
+   molecular edit semantics; MolSysViewer owns reconciliation. The addon now
+   implements `basic.remove/add/set/append_structures` over MolSysMT plus
+   `view.apply_system_edit(...)` while core view mutators remain compatibility
+   methods during the transition.
 
 8. How should addon-created tags and layers be named and cleaned?
 
@@ -645,12 +654,11 @@ the public behavior of the addon:
 
 ## Work ahead
 
-> **Note:** this list predates the phased implementation plan
-> (`molsysviewer_molsysmt_addon_implementation_plan.md`), which now tracks live
-> execution status — several items below (the system-access helper, the adapter
-> layer, `state_factory` / the public namespace) are already done there. Treat
-> the plan as the source of truth for done-vs-pending; the outline below stays as
-> the analysis-level view.
+> **Note:** the phased implementation this outline anticipated is **complete** —
+> the addon is built and tested (facade, adapters, panels with subtabs,
+> diagnostics, packaging, mutation reconciliation, and the selection hook). The
+> steps below are kept as the original analysis-level view; they no longer track
+> pending work.
 
 The next technical phase should be:
 

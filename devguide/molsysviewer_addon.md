@@ -32,12 +32,22 @@ and scripted calls remain equivalent. The current runtime also keeps the legacy
 private alias `view._molsysmt_addon_runtime` only as a compatibility bridge; new
 code should use `view.addons.molsysmt`.
 
+`view.addons.molsysmt.basic.remove(...)`,
+`view.addons.molsysmt.basic.add(...)`, `view.addons.molsysmt.basic.set(...)`,
+and `view.addons.molsysmt.basic.append_structures(...)` are live-view MolSysMT
+operations, not aliases to the corresponding view mutators. They call MolSysMT
+to produce or mutate the molecular system, then ask MolSysViewer to reconcile
+the visual state through `view.apply_system_edit(...)`. A legacy fallback to the
+old view methods exists only for viewer objects that do not yet expose that
+primitive.
+
 ## Context actions
 
 | ID | Target | Action |
 |----|--------|--------|
 | inspect-system | structure | fills basic panel with atom/group/chain/structure counts |
 | select-and-highlight | structure | runs selection and highlights in viewer |
+| remove-selected-atoms | structure | removes selected atoms through `view.addons.molsysmt.basic.remove(...)` |
 | color-by-property | structure | colors by last chosen property |
 | compute-contacts | structure | computes contact map |
 The current spec intentionally does not declare shape providers; panels and
@@ -74,8 +84,8 @@ facade calls create concrete MolSysViewer shapes directly.
 
 ## Current verification status
 
-As of 2026-07-05, the addon has passed the focused Python test battery
-(`tests/molsysviewer_molsysmt/`: 106 passed), a backend smoke test on real
+As of 2026-07-06, the addon has passed the focused Python test battery
+(`tests/molsysviewer_molsysmt/`: 110 passed), a backend smoke test on real
 `MolSysView` demo systems (16 ok, 0 failed), simulated entry-point discovery,
 and a Playwright visual smoke of the standalone Add-ons workspace. The visual
 smoke confirmed that the MolSysMT workspace and all eight panel tabs render, and
