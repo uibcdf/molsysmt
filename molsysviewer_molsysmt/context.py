@@ -62,6 +62,24 @@ def compute_contacts(view: Any, payload: dict[str, Any] | None = None) -> dict[s
     }
 
 
+def remove_selected_atoms(view: Any, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Remove selected atoms through the MolSysMT addon facade."""
+    payload = dict(payload or {})
+    atom_indices = payload.get("atom_indices")
+    if not atom_indices:
+        atom_indices = (payload.get("addon_action_payload") or {}).get("atom_indices")
+    if not atom_indices:
+        active_selection = getattr(view, "active_selection", None)
+        atom_indices = [] if active_selection is None else list(active_selection.atom_indices)
+    atom_indices = list(atom_indices or [])
+    if not atom_indices:
+        raise ValueError("MolSysMT remove-selected-atoms requires a non-empty atom selection.")
+
+    ensure_runtime(view).basic.remove(selection=atom_indices)
+    record_event(view, "context_remove_selected_atoms", n_atoms=len(atom_indices))
+    return {"n_removed": len(atom_indices)}
+
+
 def expand_selection_to_residues(view: Any, payload: dict[str, Any] | None = None) -> dict[str, Any]:
     """Expand the selected atoms to their whole residues and highlight them.
 

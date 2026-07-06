@@ -155,7 +155,7 @@ class MolSysMTBuildPanel(AddonPanelWidget):
                 if result.mode == "append":
                     # Overlay-preserving: appends the new atoms and reconciles
                     # regions/selections/colors instead of resetting the viewer.
-                    view.add(result.added_system)
+                    runtime.basic.add(result.added_system)
                     mutation_warning = "Appended atoms; viewer overlays preserved."
                 elif result.mode == "replace":
                     # Restructured system: a full (destructive) reload.
