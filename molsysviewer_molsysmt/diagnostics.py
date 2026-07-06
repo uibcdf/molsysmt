@@ -22,29 +22,51 @@ def emit_panel_exception(
     action: str,
     exc: Exception,
 ) -> None:
-    """Emit an SMonitor diagnostic for a panel failure, best-effort only."""
+    """Emit an SMonitor diagnostic for a panel failure.
+
+    Uses the canonical ``context_extra`` schema so addon-panel failures triage
+    identically to core viewer / MolSysMT failures. Emission is best-effort, but
+    it is *not* silently swallowed: if SMonitor is installed and emission still
+    fails, a ``RuntimeWarning`` is raised (honoring the "No Silent Emission
+    Failures" directive). The local addon event log is always updated afterwards.
+    """
+    # 1. Structured emission to SMonitor.
     try:
-        from smonitor.integrations import emit_from_catalog
+        from smonitor.integrations import context_extra, emit_from_catalog
+
         from molsysmt._private.smonitor import CATALOG, META, PACKAGE_ROOT
 
-        entry_key = "LibraryNotFoundError" if isinstance(exc, (ImportError, ModuleNotFoundError)) else "InternalAlgorithmError"
+        entry_key = (
+            "LibraryNotFoundError"
+            if isinstance(exc, (ImportError, ModuleNotFoundError))
+            else "InternalAlgorithmError"
+        )
         entry = CATALOG["exceptions"][entry_key]
         emit_from_catalog(
             entry,
             package_root=PACKAGE_ROOT,
             meta=META,
-            extra={
-                **META,
-                "addon": "molsysmt",
-                "panel": panel,
-                "action": action,
-                "exception_type": exc.__class__.__name__,
-                "reason": str(exc),
-            },
+            extra=context_extra(
+                caller=f"molsysviewer_molsysmt.panels.{panel}.{action}",
+                operation=action,
+                failure_class="addon-panel-action",
+                last_failure_reason=compact_error_message(exc),
+                causal_chain=[exc.__class__.__name__],
+                evidence={"expected": "calculation ok", "observed": exc.__class__.__name__},
+            ),
         )
-    except Exception:
-        pass
+    except (ImportError, ModuleNotFoundError):
+        pass  # SMonitor not installed; expected on light deployments.
+    except Exception as err:  # SMonitor present but emission failed -> do not stay silent.
+        import warnings
 
+        warnings.warn(
+            f"SMonitor integration failed to emit panel diagnostics: {err}",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+
+    # 2. Preserve the addon's local event log for panel state (crucial).
     try:
         from .runtime import record_event
 

@@ -15,9 +15,27 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from smonitor import signal
+
+
+def _get_n_atoms_safe(args: tuple) -> int:
+    """n_atoms for a namespace's attached view, or 0. Never raises.
+
+    Used as an ``@signal`` ``extra_factory`` helper so slow-signal telemetry can
+    report the system size. Reads the raw ``self._state._view`` attribute rather
+    than calling ``_view()`` (which raises when the runtime is unattached).
+    """
+    try:
+        view = args[0]._state._view
+        if view is not None and getattr(view, "molsys", None) is not None:
+            return int(view.molsys.get_n_atoms())
+    except Exception:
+        pass
+    return 0
+
 
 class _BasicNamespace:
-    """Native MolSysViewer operations exposed under the MolSysMT addon facade."""
+    """MolSysMT basic operations applied to the live MolSysViewer view."""
 
     def __init__(self, state: MolSysMTAddonRuntime) -> None:
         self._state = state
@@ -28,15 +46,164 @@ class _BasicNamespace:
             raise RuntimeError("MolSysMT addon state is not attached to a view.")
         return view
 
-    @property
-    def add(self) -> Any:
-        """Alias to ``view.add``; MolSysViewer owns reconciliation."""
-        return self._view().add
+    @signal(tags=["molsysmt-addon", "basic", "mutation"])
+    def add(
+        self,
+        from_molecular_system: Any,
+        *,
+        selection: str | Any = "all",
+        structure_indices: str | Any = "all",
+        keep_ids: bool = True,
+        syntax: str = "MolSysMT",
+        label: str | None = None,
+        skip_digestion: bool = False,
+    ) -> None:
+        """Add another molecular system through MolSysMT and reconcile the view."""
+        view = self._view()
 
-    @property
-    def remove(self) -> Any:
-        """Alias to ``view.remove``; MolSysViewer owns reconciliation."""
-        return self._view().remove
+        import molsysmt as msm
+
+        if getattr(view, "molsys", None) is None:
+            raise ValueError("No molecular system attached.")
+
+        added_molsys = msm.convert(
+            from_molecular_system,
+            to_form="molsysmt.MolSys",
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            skip_digestion=True,
+        )
+        added_n_atoms = int(added_molsys.get_n_atoms())
+        visible = view.visible_atom_indices
+        msm.add(
+            view.molsys,
+            added_molsys,
+            selection="all",
+            structure_indices="all",
+            keep_ids=keep_ids,
+            in_place=True,
+            syntax=syntax,
+            skip_digestion=True,
+        )
+        view.apply_system_edit(
+            view.molsys,
+            label=label,
+            visible_atom_indices=visible,
+            load_blocks="append",
+            appended_n_atoms=added_n_atoms,
+        )
+        record_event(view, "facade_basic_add", n_added=added_n_atoms, label=label)
+
+    @signal(tags=["molsysmt-addon", "basic", "mutation"])
+    def remove(
+        self,
+        *,
+        selection: str | Any | None = None,
+        structure_indices: str | Any | None = None,
+        syntax: str = "MolSysMT",
+        skip_digestion: bool = False,
+    ) -> None:
+        """Remove atoms/structures through MolSysMT and reconcile the view."""
+        view = self._view()
+
+        import molsysmt as msm
+
+        if getattr(view, "molsys", None) is None:
+            raise ValueError("No molecular system attached.")
+
+        visible_old = view.visible_atom_indices or []
+        atom_index_map: dict[int, int] | None = None
+        if selection is not None:
+            removed = set(msm.select(view.molsys, selection=selection, syntax=syntax, skip_digestion=True))
+            n_atoms = int(msm.get(view.molsys, element="system", n_atoms=True, skip_digestion=True))
+            kept = [index for index in range(n_atoms) if index not in removed]
+            atom_index_map = {old: new for new, old in enumerate(kept)}
+
+        new_molsys = msm.remove(
+            view.molsys,
+            selection=selection,
+            structure_indices=structure_indices,
+            to_form="molsysmt.MolSys",
+            syntax=syntax,
+            skip_digestion=True,
+        )
+        view.apply_system_edit(
+            new_molsys,
+            atom_index_map=atom_index_map,
+            visible_atom_indices=visible_old,
+            load_blocks="collapse",
+        )
+        record_event(view, "facade_basic_remove", selection=selection, structure_indices=structure_indices)
+
+    @signal(tags=["molsysmt-addon", "basic", "mutation"])
+    def set(
+        self,
+        *,
+        element: str | None = None,
+        selection: str | Any = "all",
+        structure_indices: str | Any = "all",
+        syntax: str = "MolSysMT",
+        skip_digestion: bool = False,
+        **kwargs: Any,
+    ) -> None:
+        """Set MolSysMT attributes on the live view and reconcile viewer state."""
+        view = self._view()
+
+        import molsysmt as msm
+
+        if getattr(view, "molsys", None) is None:
+            raise ValueError("No molecular system attached.")
+
+        visible = view.visible_atom_indices
+        msm.set(
+            view.molsys,
+            element=element,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            skip_digestion=True,
+            **kwargs,
+        )
+        view.apply_system_edit(view.molsys, visible_atom_indices=visible)
+        record_event(
+            view,
+            "facade_basic_set",
+            element=element,
+            selection=selection,
+            attributes=sorted(kwargs),
+        )
+
+    @signal(tags=["molsysmt-addon", "basic", "mutation"])
+    def append_structures(
+        self,
+        from_molecular_system: Any,
+        *,
+        selection: str | Any = "all",
+        structure_indices: str | Any = "all",
+        syntax: str = "MolSysMT",
+        skip_digestion: bool = False,
+    ) -> None:
+        """Append structures through MolSysMT and reconcile viewer state."""
+        view = self._view()
+
+        import molsysmt as msm
+
+        if getattr(view, "molsys", None) is None:
+            raise ValueError("No molecular system attached.")
+
+        visible = view.visible_atom_indices
+        msm.append_structures(
+            view.molsys,
+            from_molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            in_place=True,
+            skip_digestion=True,
+        )
+        view.apply_system_edit(view.molsys, visible_atom_indices=visible)
+        record_event(view, "facade_basic_append_structures", selection=selection, structure_indices=structure_indices)
 
 
 class _EmptyNamespace:
@@ -61,6 +228,10 @@ class _ShowNamespace:
             raise RuntimeError("MolSysMT addon state is not attached to a view.")
         return view
 
+    @signal(
+        tags=["molsysmt-addon", "show", "structure"],
+        extra_factory=lambda args, kwargs: {"n_atoms": _get_n_atoms_safe(args)},
+    )
     def color_by(self, property: str = "charge", palette: Any = "viridis") -> Any:
         """Compute a MolSysMT scalar property and apply it as viewer colors."""
         from .adapters.color import property_values
@@ -78,6 +249,7 @@ class _ShowNamespace:
         record_event(view, "facade_color", property=result.property, element=result.element)
         return result
 
+    @signal(tags=["molsysmt-addon", "show"])
     def reset_colors(self) -> None:
         """Clear MolSysViewer per-atom color overrides for the whole view."""
         view = self._view()
@@ -85,6 +257,10 @@ class _ShowNamespace:
         self._state.last_color_property = None
         record_event(view, "facade_reset_colors")
 
+    @signal(
+        tags=["molsysmt-addon", "show", "structure"],
+        extra_factory=lambda args, kwargs: {"n_atoms": _get_n_atoms_safe(args)},
+    )
     def contacts(
         self,
         *,
@@ -123,6 +299,7 @@ class _ShowNamespace:
         )
         return result
 
+    @signal(tags=["molsysmt-addon", "show"])
     def clear_contacts(self, tag: str | None = None) -> None:
         """Clear contact links created by the MolSysMT addon."""
         view = self._view()
@@ -132,6 +309,10 @@ class _ShowNamespace:
             self._state.contacts_tag = None
         record_event(view, "facade_clear_contacts", tag=resolved_tag)
 
+    @signal(
+        tags=["molsysmt-addon", "show", "structure"],
+        extra_factory=lambda args, kwargs: {"n_atoms": _get_n_atoms_safe(args)},
+    )
     def hbonds(
         self,
         *,
@@ -160,6 +341,7 @@ class _ShowNamespace:
         record_event(view, "facade_hbonds", n_hbonds=result.n_hbonds, tag=tag)
         return result
 
+    @signal(tags=["molsysmt-addon", "show"])
     def clear_hbonds(self, tag: str | None = None) -> None:
         """Clear H-bond links created by the MolSysMT addon."""
         view = self._view()
@@ -169,6 +351,10 @@ class _ShowNamespace:
             self._state.hbonds_tag = None
         record_event(view, "facade_clear_hbonds", tag=resolved_tag)
 
+    @signal(
+        tags=["molsysmt-addon", "show", "structure"],
+        extra_factory=lambda args, kwargs: {"n_atoms": _get_n_atoms_safe(args)},
+    )
     def select(
         self,
         selection: Any = "all",
@@ -211,6 +397,7 @@ class _ShowNamespace:
         )
         return result
 
+    @signal(tags=["molsysmt-addon", "show"])
     def clear_selection(self, tag: str | None = None) -> None:
         """Clear the MolSysMT active/persistent viewer selection."""
         view = self._view()

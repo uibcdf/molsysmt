@@ -5,7 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from smonitor import signal
+
 from ..access import has_system
+from ._telemetry import adapter_n_atoms
 
 
 @dataclass(frozen=True)
@@ -81,6 +84,10 @@ def contact_pairs(
     )
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def rmsd(
     view: Any,
     *,
@@ -92,8 +99,9 @@ def rmsd(
     if not has_system(view):
         raise ValueError("No molecular system attached.")
 
-    import molsysmt as msm
     import numpy as np
+
+    import molsysmt as msm
 
     values = msm.structure.get_rmsd(
         view,
@@ -106,6 +114,10 @@ def rmsd(
     return RMSDResult(values=values, mean=mean)
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def rmsf(
     view: Any,
     *,
@@ -117,8 +129,9 @@ def rmsf(
     if not has_system(view):
         raise ValueError("No molecular system attached.")
 
-    import molsysmt as msm
     import numpy as np
+
+    import molsysmt as msm
 
     values = msm.structure.get_rmsf(
         view,
@@ -131,6 +144,10 @@ def rmsf(
     return RMSFResult(values=values, mean=mean)
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def pca(
     view: Any,
     *,
@@ -142,8 +159,9 @@ def pca(
     if not has_system(view):
         raise ValueError("No molecular system attached.")
 
-    import molsysmt as msm
     import numpy as np
+
+    import molsysmt as msm
 
     principal_components, variances = msm.structure.principal_component_analysis(
         view,
