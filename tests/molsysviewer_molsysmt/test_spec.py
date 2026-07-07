@@ -27,8 +27,8 @@ _EXPECTED_PANELS = [
     "pbc", "physchem", "molecular_mechanics", "build",
 ]
 _EXPECTED_CONTEXT_ACTIONS = [
-    "inspect-system", "select-and-highlight", "color-by-property",
-    "compute-contacts",
+    "inspect-system", "select-and-highlight", "remove-selected-atoms",
+    "color-by-property", "compute-contacts",
 ]
 _EXPECTED_PANEL_SECTIONS = {
     "basic-inspect": "basic",
@@ -183,6 +183,29 @@ def test_context_action_dispatches_to_mvp_facade():
     molsysviewer.addons.clear()
 
 
+def test_context_action_remove_selected_atoms_uses_basic_facade():
+    pytest.importorskip("molsysmt")
+    import molsysmt as msm
+
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon(), lifecycle=lifecycle)
+    view = molsysviewer.demo["dialanine"]
+    n0 = int(msm.get(view, n_atoms=True))
+
+    handled = view.addons.handle_context_action(
+        "molsysmt",
+        "remove-selected-atoms",
+        {"atom_indices": [0]},
+    )
+
+    assert handled is True
+    assert int(msm.get(view, n_atoms=True)) == n0 - 1
+    assert view.addons.molsysmt.last_context_action["action_id"] == "remove-selected-atoms"
+    assert view.addons.molsysmt.event_log[-1]["event"] == "context_remove_selected_atoms"
+
+    molsysviewer.addons.clear()
+
+
 # ---------------------------------------------------------------------------
 # Runtime dataclass
 # ---------------------------------------------------------------------------
@@ -259,4 +282,3 @@ def test_color_panel_optional_dependency_error_is_compact_and_logged(monkeypatch
     assert runtime.event_log[-1]["action"] == "apply_color"
 
     molsysviewer.addons.clear()
-

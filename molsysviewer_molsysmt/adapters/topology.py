@@ -5,7 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from smonitor import signal
+
 from ..access import has_system, system_for_verbs
+from ._telemetry import adapter_n_atoms
 
 
 @dataclass(frozen=True)
@@ -32,6 +35,10 @@ class DihedralQuartets:
         return len(self.quartets)
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def bond_graph_links(
     view: Any,
     *,
@@ -53,6 +60,10 @@ def bond_graph_links(
     return BondGraphLinks(graph=graph, atom_pairs=atom_pairs)
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def dihedral_quartets(
     view: Any,
     *,

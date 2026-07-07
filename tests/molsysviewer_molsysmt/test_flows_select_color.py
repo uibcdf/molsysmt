@@ -303,8 +303,9 @@ def test_active_selection_hook_returns_items_for_selection():
     view = molsysviewer.demo["dialanine"]
 
     items = on_active_selection_changed(view, {"atom_indices": [5]})
-    assert [item["id"] for item in items] == ["molsysmt-expand-residues"]
+    assert [item["id"] for item in items] == ["remove-selected-atoms", "molsysmt-expand-residues"]
     assert items[0]["payload"]["atom_indices"] == [5]
+    assert items[1]["payload"]["atom_indices"] == [5]
     # nothing selected -> no items
     assert on_active_selection_changed(view, {"atom_indices": []}) == []
 
@@ -332,5 +333,4 @@ def test_context_expand_residues_sets_whole_residue_active_selection():
     assert sorted(view.active_selection.atom_indices) == expected
 
     molsysviewer.addons.clear()
-
 

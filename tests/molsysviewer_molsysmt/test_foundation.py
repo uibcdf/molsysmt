@@ -115,30 +115,62 @@ def test_public_namespace_exposes_active_facade_shape():
     molsysviewer.addons.clear()
 
 
-def test_basic_facade_aliases_native_view_methods():
+def test_basic_facade_remove_uses_apply_system_edit_on_real_view():
+    pytest.importorskip("molsysmt")
+    import molsysmt as msm
+
+    molsysviewer.addons.clear()
+
+
+def test_basic_facade_set_uses_apply_system_edit_on_real_view():
+    pytest.importorskip("molsysmt")
+
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
-    view = molsysviewer.MolSysView()
+    view = molsysviewer.demo["dialanine"]
     calls = []
+    original_apply = view.apply_system_edit
 
-    def fake_add(*args, **kwargs):
-        calls.append(("add", args, kwargs))
-        return "added"
+    def recording_apply(new_molsys, **kwargs):
+        calls.append((new_molsys, kwargs))
+        return original_apply(new_molsys, **kwargs)
 
-    def fake_remove(*args, **kwargs):
-        calls.append(("remove", args, kwargs))
-        return "removed"
+    view.apply_system_edit = recording_apply
 
-    view.add = fake_add
-    view.remove = fake_remove
+    view.addons.molsysmt.basic.set(element="group", selection=[0], group_name="ACE2")
 
-    ns = view.addons.molsysmt
-    assert ns.basic.add("system", mode="add") == "added"
-    assert ns.basic.remove(selection="water") == "removed"
-    assert calls == [
-        ("add", ("system",), {"mode": "add"}),
-        ("remove", (), {"selection": "water"}),
-    ]
+    assert len(calls) == 1
+    assert calls[0][1]["visible_atom_indices"] == list(range(22))
+    payload_msg = next(msg for msg in view._message_history if msg.get("op") == "load_molsys_payload")
+    assert payload_msg["payload"]["atoms"]["residue_name"][:5] == ["ACE2"] * 5
+    assert view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_set"
+
+    molsysviewer.addons.clear()
+
+
+def test_basic_facade_append_structures_uses_apply_system_edit_on_real_view():
+    pytest.importorskip("molsysmt")
+
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.demo["dialanine"]
+    calls = []
+    original_apply = view.apply_system_edit
+
+    def recording_apply(new_molsys, **kwargs):
+        calls.append((new_molsys, kwargs))
+        return original_apply(new_molsys, **kwargs)
+
+    view.apply_system_edit = recording_apply
+
+    view.addons.molsysmt.basic.append_structures(molsysviewer.demo["dialanine"]._molsys)  # noqa: SLF001
+
+    assert len(calls) == 1
+    assert calls[0][1]["visible_atom_indices"] == list(range(22))
+    payload_msg = next(msg for msg in view._message_history if msg.get("op") == "load_molsys_payload")
+    assert payload_msg["multiple_structures"] is True
+    assert len(payload_msg["payload"]["structures"]) == 2
+    assert view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_append_structures"
 
     molsysviewer.addons.clear()
 

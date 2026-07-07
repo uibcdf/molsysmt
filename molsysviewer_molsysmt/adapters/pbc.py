@@ -5,8 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal
 
-from ..access import has_system, materialize_system, system_for_verbs
+from smonitor import signal
 
+from ..access import has_system, materialize_system, system_for_verbs
+from ._telemetry import adapter_n_atoms
 
 PBCOperation = Literal["wrap_pbc", "wrap_mic", "unwrap_pbc"]
 
@@ -42,6 +44,10 @@ def pbc_status(view: Any) -> PBCStatus:
     return PBCStatus(has_pbc=bool(msm.pbc.has_pbc(system_for_verbs(view))))
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def transform_pbc(view: Any, operation: PBCOperation) -> PBCTransform:
     """Materialize the viewer system and apply a MolSysMT PBC transform."""
     if not has_system(view):

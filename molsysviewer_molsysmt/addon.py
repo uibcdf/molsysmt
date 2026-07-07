@@ -35,6 +35,7 @@ def on_context_action(view, action_id: str, payload: dict) -> None:
         "select-and-highlight": context.select_and_highlight,
         "color-by-property": context.color_by_property,
         "compute-contacts": context.compute_contacts,
+        "remove-selected-atoms": context.remove_selected_atoms,
         "molsysmt-expand-residues": context.expand_selection_to_residues,
     }
     handler = handlers.get(action_id)
@@ -54,6 +55,15 @@ def on_active_selection_changed(view, selection):
     if not atom_indices:
         return []
     return [
+        {
+            "id": "remove-selected-atoms",
+            "title": f"MolSysMT: remove selected atoms ({len(atom_indices)})",
+            "group": "molsysmt",
+            "order": 5,
+            "enabled": True,
+            "target_kinds": ["structure"],
+            "payload": {"atom_indices": atom_indices},
+        },
         {
             "id": "molsysmt-expand-residues",
             "title": f"MolSysMT: expand to whole residues ({len(atom_indices)} atoms)",
@@ -242,6 +252,14 @@ def get_addon():
                 target_kinds=("structure",),
                 group="molsysmt",
                 order=20,
+            ),
+            AddonContextActionSpec(
+                id="remove-selected-atoms",
+                title="Remove Selected Atoms",
+                entry="molsysviewer_molsysmt.context.remove_selected_atoms",
+                target_kinds=("structure",),
+                group="molsysmt",
+                order=25,
             ),
             AddonContextActionSpec(
                 id="color-by-property",

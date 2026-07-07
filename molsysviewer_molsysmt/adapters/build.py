@@ -5,8 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Literal
 
-from ..access import has_system, materialize_system
+from smonitor import signal
 
+from ..access import has_system, materialize_system
+from ._telemetry import adapter_n_atoms
 
 BuildOperation = Literal["add_hydrogens", "add_bonds", "bioassembly", "solvate"]
 ReconcileMode = Literal["append", "replace", "noop"]
@@ -20,8 +22,9 @@ class BuildResult:
     losing overlays:
 
     - ``"append"``: the operation only added atoms at the end (original atoms
-      keep their indices), so apply it with ``view.add(added_system)`` — which
-      reconciles regions/selections/colors instead of resetting them.
+      keep their indices), so apply it with ``view.addons.molsysmt.basic.add(
+      added_system)`` — which reconciles regions/selections/colors instead of
+      resetting them.
     - ``"replace"``: the operation restructured the system, so apply it with
       ``view.load(molecular_system, mode="replace")`` (destructive — overlays are
       cleared).
@@ -48,6 +51,10 @@ def _prefix_unchanged(original: Any, new: Any, n0: int) -> bool:
     return new_names[:n0] == original_names
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def run_build_operation(view: Any, operation: BuildOperation) -> BuildResult:
     """Materialize the active viewer system and run one build operation.
 

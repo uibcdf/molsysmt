@@ -5,7 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from smonitor import signal
+
 from ..access import has_system, materialize_system, system_for_verbs
+from ._telemetry import adapter_n_atoms
 
 
 @dataclass(frozen=True)
@@ -51,6 +54,10 @@ def _first_structure_forces(forces: Any) -> Any:
     return forces_arr
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def compute_forces(
     view: Any,
     *,
@@ -75,6 +82,10 @@ def compute_forces(
     return ForcesResult(forces=forces, vectors=vectors, atom_indices=atom_indices)
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def potential_energy(
     view: Any,
     *,
@@ -87,8 +98,9 @@ def potential_energy(
     if not has_system(view):
         raise ValueError("No molecular system attached.")
 
-    import molsysmt as msm
     import numpy as np
+
+    import molsysmt as msm
 
     energy = msm.molecular_mechanics.get_potential_energy(
         system_for_verbs(view),
@@ -101,6 +113,10 @@ def potential_energy(
     return PotentialEnergyResult(energy=energy, value=value)
 
 
+@signal(
+    tags=["molsysmt-addon", "adapter", "structure"],
+    extra_factory=adapter_n_atoms,
+)
 def minimize_energy(
     view: Any,
     *,
