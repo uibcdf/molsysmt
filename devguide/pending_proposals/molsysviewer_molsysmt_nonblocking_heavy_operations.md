@@ -5,6 +5,14 @@ with a small touch point in the MolSysViewer panel-widget base if needed.
 Follow-up to the addon telemetry work (the slow-signal instrumentation is the
 *diagnostic*; this is the *fix*).
 
+## Pending validation: slow-signal end-to-end (ops / manual)
+
+The addon's `@signal` slow-signal instrumentation is verified analytically and via
+console output, but there is no automated test (SMonitor's slow-signal buffer needs
+a configured handler). Confirm end-to-end by running with a SMonitor handler and
+`SMONITOR_SLOW_SIGNAL_MS` set, on a large system. Opportunistic; carried over from
+the (now-removed) MolSysViewer editing-move handoff note.
+
 ## Summary
 
 Heavy addon panel operations — energy minimization, contacts, hydrogen bonds,
