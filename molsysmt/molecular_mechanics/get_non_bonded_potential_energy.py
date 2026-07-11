@@ -43,7 +43,7 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
 
         elif form_in == 'openmm.Simulation':
 
-            context = item.context
+            context = molecular_system.context
 
         else:
 

@@ -46,7 +46,7 @@ def test_cutoff_distance_radius_and_force_digesters_accept_valid_quantities():
     assert msm.pyunitwizard.get_value(radius) == pytest.approx(0.2)
 
     force = digest_force("2.0 kilojoule/(nanometer mol)")
-    assert msm.pyunitwizard.get_value(force) == pytest.approx(2.0)
+    assert msm.pyunitwizard.get_value(force, to_unit="kilojoule/(nanometer mol)") == pytest.approx(2.0)
 
     with pytest.raises(ArgumentError):
         digest_cutoff_distance("90 degrees")
@@ -61,7 +61,7 @@ def test_cutoff_distance_radius_and_force_digesters_accept_valid_quantities():
 def test_force_constant_supports_scalar_and_list_outputs_for_supported_callers():
     scalar = digest_force_constant("5 kilojoule/(nanometer**2 mol)", caller=FORCE_CONSTANT_CALLER)
     assert len(scalar) == 1
-    assert msm.pyunitwizard.get_value(scalar[0]) == pytest.approx(5.0)
+    assert msm.pyunitwizard.get_value(scalar[0], to_unit="kilojoule/(nanometer**2 mol)") == pytest.approx(5.0)
 
     values = [
         msm.pyunitwizard.quantity(5.0, "kilojoule/(nanometer**2 mol)"),
@@ -69,10 +69,10 @@ def test_force_constant_supports_scalar_and_list_outputs_for_supported_callers()
     ]
     sequence = digest_force_constant(values, caller=FORCE_CONSTANT_CALLER)
     assert len(sequence) == 2
-    assert [msm.pyunitwizard.get_value(item) for item in sequence] == [pytest.approx(5.0), pytest.approx(7.0)]
+    assert [msm.pyunitwizard.get_value(item, to_unit="kilojoule/(nanometer**2 mol)") for item in sequence] == [pytest.approx(5.0), pytest.approx(7.0)]
 
     single = digest_force_constant("5 kilojoule/(nanometer**2 mol)")
-    assert msm.pyunitwizard.get_value(single) == pytest.approx(5.0)
+    assert msm.pyunitwizard.get_value(single, to_unit="kilojoule/(nanometer**2 mol)") == pytest.approx(5.0)
 
     with pytest.raises(ArgumentError):
         digest_force_constant([msm.pyunitwizard.quantity(5.0, "nanometers")], caller=FORCE_CONSTANT_CALLER)

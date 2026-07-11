@@ -8,5 +8,5 @@ def digest_reference_center_of_selection(reference_center_of_selection, syntax="
     try:
         return digest_selection(reference_center_of_selection, syntax=syntax, caller=caller)
     except Exception:
-        raise ArgumentError('reference_center_of_selection', value=center_of_selection, caller=caller, message=None)
+        raise ArgumentError('reference_center_of_selection', value=reference_center_of_selection, caller=caller, message=None)
 

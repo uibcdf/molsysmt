@@ -1,6 +1,6 @@
 # J. M. Zimmerman, N. Eliezer, R. Simha, J. Theor. Biol. 1968, 21, 170–201.
 
-zimmerman: {
+zimmerman = {
     'ALA': 11.500,
     'ARG': 14.280,
     'ASP': 11.680,

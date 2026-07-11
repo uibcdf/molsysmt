@@ -4,7 +4,7 @@ import numpy as np
 @arg_digest(form='nglview.NGLWidget')
 def to_string_amino_acids_3(item, group_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
+    from .to_molsysmt_Topology import to_molsysmt_Topology
     from molsysmt.form.molsysmt_Topology import to_string_amino_acids_3 as molsysmt_Topology_to_string_amino_acids_3
     from . import get_atom_index_from_group
 

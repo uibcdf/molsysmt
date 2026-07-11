@@ -165,7 +165,7 @@ def digest_forcefield(forcefield, engine, implicit_solvent=None, water_model=Non
     if type(forcefield) not in [list, tuple]:
         forcefield=[forcefield]
 
-    engine = digest_engine(engine)
+    engine = arg_digest_engine(engine)
 
     for ff in forcefield:
         try:

@@ -7,7 +7,7 @@ def complementary_group_indices(molecular_system, group_indices):
     n_groups = get(molecular_system, element='system', n_groups=True)
 
     mask = np.ones(n_groups,dtype=bool)
-    mask[atom_indices]=False
+    mask[group_indices]=False
     return list(np.where(mask)[0])
 
 def group_indices_to_csv(group_indices):

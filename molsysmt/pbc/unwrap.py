@@ -45,9 +45,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
         from molsysmt.basic import select, get, set, extract, copy
 
-        coordinates= get(molecular_system, element='atom', selection=selection, coordinates=True, skip_digestion=True)
-        n_structures = coordinates.shape[0]
-        n_atoms = coordinates.shape[1]
+        coordinates = get(molecular_system, element='atom', selection=selection, coordinates=True, skip_digestion=True)
         box = get(molecular_system, element='system', structure_indices=structure_indices, box=True, skip_digestion=True)
 
         coordinates, length_units = puw.get_value_and_unit(coordinates)

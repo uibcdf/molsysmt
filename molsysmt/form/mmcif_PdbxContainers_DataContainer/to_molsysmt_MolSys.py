@@ -834,6 +834,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     # Extract
 
+    tmp_item.topology._components_dirty = False
+    tmp_item.topology._molecules_dirty = False
+    tmp_item.topology._entities_dirty = False
+
     tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
                                 copy_if_all=False, skip_digestion=True)
 

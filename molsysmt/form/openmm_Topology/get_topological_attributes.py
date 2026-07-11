@@ -207,7 +207,7 @@ def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
     from molsysmt.element.entity import get_entity_index as _get
-    return _get(item, element='atom', selection=indices, redefine_molecules=True,
+    return _get(item, element='atom', selection=indices,
             redefine_indices=True, skip_digestion=True)
 
 

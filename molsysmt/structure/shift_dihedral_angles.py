@@ -88,7 +88,7 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
 
     if len(shape)==1:
         if shape[0]==4:
-            dihedral_quartets=dihedra_quartets.reshape([1,4])
+            dihedral_quartets=dihedral_quartets.reshape([1,4])
         else:
             raise ArgumentError(
                 argument="dihedral_quartets",

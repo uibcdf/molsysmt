@@ -80,6 +80,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Avoid adding new external dependencies without considering their impact; reuse existing libraries and utilities already in the project when possible.
 - Automated agents must respect sandboxing and should avoid network access unless explicitly required and permitted by the execution environment.
 - In native MolSysMT objects (for example, `molsysmt.Topology` and `molsysmt.MolSys`), element IDs (`*_id` fields) are stored as strings; normalize incoming numeric IDs to strings and keep this invariant in converters, rebuilders, and tests.
+- Always verify style and syntax safety using Ruff before committing or pushing. You must run the check command locally (e.g., `ruff check molsysmt`) or execute it via standard development environment scripts as needed.
 
 For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `docs/`, `coding/`, `molsysmt/form/`, and `tests/`.
 

@@ -385,7 +385,7 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
 
             # Also include neighbour atom indices from adjacent groups for backbone N
             # N-H placement needs C(i-1) — bond partner from bonds DataFrame
-            def _get_pos(aname):
+            def _get_pos(aname, name_to_idx=name_to_idx):
                 """Coords (n_s,3) for atom_name in this group, or None."""
                 idx = name_to_idx.get(aname)
                 if idx is None:

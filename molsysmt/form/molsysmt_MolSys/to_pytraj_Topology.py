@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='molsysmt.MolSys')
 def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology
+    from .to_molsysmt_Topology import to_molsysmt_Topology
     from molsysmt.form.molsysmt_Topology import to_pytraj_Topology as molsysmt_Topology_to_pytraj_Topology
 
     tmp_item = to_molsysmt_Topology(item, skip_digestion=True)

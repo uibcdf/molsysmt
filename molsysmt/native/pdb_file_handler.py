@@ -375,9 +375,9 @@ def parse_format33(file):
                 if line[8:10]=='  ':
                     mdltyp = MdltypRecord()
                     pdb.title.mdltyp = mdltyp
-                    dmltyp.comment = ''
+                    mdltyp.comment = ''
 
-                dmltyp += line[10:80].strip()
+                mdltyp.comment += line[10:80].strip()
 
                 counter += 1
                 line = lines[counter]

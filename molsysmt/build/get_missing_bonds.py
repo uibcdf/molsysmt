@@ -9,7 +9,7 @@ import warnings
 
 @arg_digest()
 def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_bond_length='2 angstroms',
-                      disulfide_bonds=False, disulfide_group_names=['CYS'], pbc=True,
+                      disulfide_bonds=False, disulfide_group_names=None, pbc=True,
                       syntax='MolSysMT', engine='MolSysMT', sorted=True, skip_digestion=False):
 
     """
@@ -88,6 +88,9 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
 
     .. versionadded:: 1.0.0
     """
+
+    if disulfide_group_names is None:
+        disulfide_group_names = ['CYS']
 
     bonds = []
 

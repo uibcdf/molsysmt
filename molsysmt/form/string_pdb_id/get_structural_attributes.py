@@ -15,7 +15,7 @@ form='string:pdb_id'
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_coordinates_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -26,7 +26,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_occupancy_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -37,7 +37,7 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
 @arg_digest(form=form)
 def get_alternate_location_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_alternate_location_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -48,7 +48,7 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
 @arg_digest(form=form)
 def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_b_factor_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -59,7 +59,7 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
 @arg_digest(form=form)
 def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_formal_charge_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -70,7 +70,7 @@ def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_partial_charge_from_atom as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -86,7 +86,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
     if is_all(structure_indices):
 
-        from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+        from .to_molsysmt_MolSys import to_molsysmt_MolSys
         from molsysmt.form.molsysmt_MolSys import get_n_structures_from_system as aux_get
 
         tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -101,7 +101,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_coordinates_from_system as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -112,7 +112,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_box_from_system as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -123,7 +123,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_time_from_system as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -134,7 +134,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_structure_id_from_system as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -145,7 +145,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_bioassembly_from_system(item, skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_bioassembly_from_system as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -156,7 +156,7 @@ def get_bioassembly_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_n_bioassemblies_from_system as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -167,7 +167,7 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_alternate_location_from_system (item, structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import get_alternate_location_from_system as aux_get
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)

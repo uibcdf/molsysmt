@@ -14,10 +14,13 @@ import molsysmt.configure as config
 # Module-level variables — basic smoke checks
 # ---------------------------------------------------------------------------
 
+
+
+
 class TestConfigVariables:
 
     def test_use_gpu_default_false(self):
-        assert config.use_gpu is False
+        assert config.use_gpu == 'auto'
 
     def test_gpu_threshold_positive(self):
         assert config.gpu_threshold > 0

@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='molsysmt.MolSys')
 def to_file_psf(item, atom_indices='all', output_filename=None, skip_digestion=False):
 
-    from molsysmt.form.molsysmt_Topology import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
+    from .to_molsysmt_Topology import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology
     from molsysmt.form.molsysmt_Topology import to_file_psf as molsysmt_Topology_to_file_psf
 
     tmp_item = molsysmt.MolSys_to_molsysmt_Topology(item, atom_indices=atom_indices, skip_digestion=True)

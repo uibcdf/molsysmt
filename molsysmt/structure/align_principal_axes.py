@@ -12,7 +12,7 @@ import gc
 @arg_digest()
 def align_principal_axes(molecular_system, selection='all',
         principal_axes_of_selection=None, principal_axes_type='inertia',
-        structure_indices='all', weights=None, axes=[[1,0,0],[0,1,0],[0,0,1]], center=False,
+        structure_indices='all', weights=None, axes=None, center=False,
         syntax='MolSysMT', engine='MolSysMT', in_place=False):
     """
     Aligning selected atoms to reference principal axes.
@@ -59,6 +59,11 @@ def align_principal_axes(molecular_system, selection='all',
     from . import get_principal_axes, get_center
 
     if engine=='MolSysMT':
+
+        if axes is None:
+            axes = [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+        
+        axes = np.array(axes, dtype=np.float64, copy=True)
 
         if principal_axes_of_selection is None:
 

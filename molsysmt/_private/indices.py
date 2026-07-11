@@ -20,7 +20,7 @@ def indices_iterator(indices=None, start=0, stop=None, step=1, chunk=1):
             stop=len(indices)
         output = indices[slice(start, stop, step)]
     
-    if chunk>1:
+    if chunk>=1:
         coutput = []
         chunks = len(output)//chunk
         where = 0

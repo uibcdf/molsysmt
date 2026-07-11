@@ -43,7 +43,7 @@ def get_potential_energy(molecular_system, selection='all', decomposition=False,
 
             if is_all(selection):
 
-                context = item.context
+                context = molecular_system.context
 
             else:
 

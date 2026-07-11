@@ -46,7 +46,7 @@ def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
 
     spc216_gro_path = files('molsysmt.data.gro').joinpath('spc216.gro')
     aux_item = to_molsysmt_Structures(spc216_gro_path)
-    tile = puw.get_value(aux_item.coordinates[0], to_unit='nm')
+    tile = puw.get_value(aux_item.coordinates[0], to_unit='nm').copy()
     length_tile = 1.86206 # nm
     tile += length_tile/2.0
     del(aux_item)

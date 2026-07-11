@@ -185,10 +185,21 @@ def test_access_helpers_on_view_without_system():
 def test_importing_addon_does_not_import_molsysviewer():
     import os
     import subprocess
+    from pathlib import Path
+
+    extra_paths = []
+    for pkg_name in ['smonitor', 'argdigest', 'depdigest', 'molsysmt', 'molsysviewer']:
+        try:
+            pkg = import_module(pkg_name)
+            if hasattr(pkg, '__file__') and pkg.__file__:
+                extra_paths.append(str(Path(pkg.__file__).parent.parent))
+        except ImportError:
+            pass
 
     code = "import sys; import molsysviewer_molsysmt; print('molsysviewer' in sys.modules)"
     env = dict(os.environ)
-    env["PYTHONPATH"] = os.pathsep.join(sys.path)
+    all_paths = extra_paths + sys.path
+    env["PYTHONPATH"] = os.pathsep.join(all_paths)
     result = subprocess.run(
         [sys.executable, "-c", code],
         capture_output=True,

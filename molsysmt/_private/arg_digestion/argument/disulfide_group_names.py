@@ -4,6 +4,9 @@ from numpy import ndarray
 
 def digest_disulfide_group_names(disulfide_group_names, caller=None):
 
+    if disulfide_group_names is None:
+        return None
+
     output = True
 
     if not isinstance(disulfide_group_names, (list, tuple, ndarray)):

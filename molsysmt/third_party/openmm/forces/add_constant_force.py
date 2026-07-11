@@ -13,12 +13,13 @@ def add_constant_force(molecular_system, selection='all',
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
     potential = "-(px*x+py*y+pz*z)"
-    force = puw.convert(force, to_form='openmm.unit')
+    force = puw.convert(force, to_unit='kJ/(mole*nm)', to_form='openmm.unit')
+    force_values = puw.get_value(force)
 
     ommforce = CustomExternalForce(potential)
-    ommforce.addGlobalParameter('px', force[0])
-    ommforce.addGlobalParameter('py', force[1])
-    ommforce.addGlobalParameter('pz', force[2])
+    ommforce.addGlobalParameter('px', float(force_values[0]))
+    ommforce.addGlobalParameter('py', float(force_values[1]))
+    ommforce.addGlobalParameter('pz', float(force_values[2]))
 
     for ii in atom_indices:
         ommforce.addParticle(int(ii))

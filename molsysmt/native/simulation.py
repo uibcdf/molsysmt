@@ -59,7 +59,7 @@ class Simulation():
 
         tmp_simulation.initial_velocities_to_temperature = self.initial_velocities_to_temperature
 
-        tmp_constraint_tolerance = self.constraint_tolerance
+        tmp_simulation.constraint_tolerance = self.constraint_tolerance
 
         tmp_simulation.platform = self.platform
         tmp_simulation.cuda_precision = self.cuda_precision

@@ -5,9 +5,12 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
     from molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_Structures import to_molsysmt_Structures as mdtraj_DCDTrajectoryFile_to_molsysmt_Structures
+    import molsysmt as msm
 
     tmp_item = to_mdtraj_DCDTrajectoryFile(item)
-    tmp_item = mdtraj_DCDTrajectoryFile_to_molsysmt_Structures(tmp_item, atom_indices=atom_indices,
+    res_item = mdtraj_DCDTrajectoryFile_to_molsysmt_Structures(tmp_item, atom_indices=atom_indices,
             structure_indices=structure_indices, skip_digestion=True)
 
-    return tmp_item
+    msm.form.close(tmp_item)
+
+    return res_item

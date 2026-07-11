@@ -5,8 +5,14 @@ topological_attributes = []
 structural_attributes = []
 mechanical_attributes = []
 
-def add_attribute(name, synonyms=[], depends_on=[], dependants=[], runs_on_elements=False, runs_on_structures=False,
-        topological=False, structural=False, mechanical=False, dynamical=False, get_from=[], set_to=None, values=[]):
+def add_attribute(name, synonyms=None, depends_on=None, dependants=None, runs_on_elements=False, runs_on_structures=False,
+        topological=False, structural=False, mechanical=False, dynamical=False, get_from=None, set_to=None, values=None):
+
+    synonyms = synonyms or []
+    depends_on = depends_on or []
+    dependants = dependants or []
+    get_from = get_from or []
+    values = values or []
 
     attributes[name] = {
             'synonyms' : synonyms,

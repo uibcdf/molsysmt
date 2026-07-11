@@ -4,6 +4,15 @@ import pytest
 import molsysmt as msm
 from molsysmt import systems
 
+@pytest.fixture(autouse=True)
+def restore_pyunitwizard_config():
+    yield
+    import pyunitwizard as puw
+    puw.configure.set_default_form('pint')
+    puw.configure.set_default_parser('pint')
+    puw.configure.set_standard_units(['nm', 'ps', 'K', 'mole', 'dalton', 'e',
+                                     'kJ/mol', 'kJ/(mol*nm)', 'kJ/(mol*nm**2)', 'radians'])
+
 
 # ---------------------------------------------------------------------------
 # Auto-apply tier marks to tests under tests/form/<form_dir>/

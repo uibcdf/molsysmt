@@ -22,6 +22,25 @@ from .is_item import is_item
 from .is_file import is_file
 from .is_string import is_string
 
+RESOURCE_FORMS = {
+    'mdtraj.HDF5TrajectoryFile',
+    'mdtraj.XTCTrajectoryFile',
+    'mdtraj.DCDTrajectoryFile',
+    'molsysmt.H5MSMFileHandler',
+    'molsysmt.GROFileHandler',
+    'molsysmt.PDBFileHandler',
+}
+
+def close(item):
+    """Explicitly close a resource form if it is registered in RESOURCE_FORMS."""
+    from molsysmt.basic import get_form
+    try:
+        form = get_form(item)
+        if form in RESOURCE_FORMS:
+            item.close()
+    except Exception:
+        pass
+
 piped_topological_attribute = None
 piped_structural_attribute = None
 piped_any_attribute = None

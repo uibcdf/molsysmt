@@ -89,6 +89,16 @@ class Structures:
         self._b_factor = _raw_value(value, 'nm**2')
 
     @property
+    def occupancy(self):
+        if self._occupancy is None:
+            raise AttributeError("'Structures' object has no attribute 'occupancy'")
+        return self._occupancy
+
+    @occupancy.setter
+    def occupancy(self, value):
+        self._occupancy = value
+
+    @property
     def temperature(self):
         if self._temperature is None:
             return None
@@ -144,7 +154,8 @@ class Structures:
             id_step=None, constant_box=False,
             structure_id=None, time=None, coordinates=None, velocities=None, box=None,
             b_factor=None, alternate_location=None, bioassembly=None,
-            temperature=None, potential_energy=None, kinetic_energy=None, skip_digestion=False):
+            temperature=None, potential_energy=None, kinetic_energy=None,
+            occupancy=None, skip_digestion=False):
 
         self._time_step = None
         self._time = None
@@ -152,6 +163,7 @@ class Structures:
         self._velocities = None
         self._box = None
         self._b_factor = None
+        self._occupancy = None
         self._temperature = None
         self._potential_energy = None
         self._kinetic_energy = None
@@ -173,12 +185,13 @@ class Structures:
         self.temperature = temperature
         self.potential_energy = potential_energy
         self.kinetic_energy = kinetic_energy
+        self.occupancy = occupancy
 
     @signal(tags=['native'])
     @arg_digest()
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
                box=None, temperature=None, potential_energy=None, kinetic_energy=None,
-               b_factor=None, alternate_location=None,
+               b_factor=None, alternate_location=None, occupancy=None,
                atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append one or more structures and associated metadata to this object."""
 
@@ -243,6 +256,9 @@ class Structures:
         if alternate_location is not None:
             self._append_alternate_location(alternate_location, structure_indices=structure_indices, skip_digestion=True)
 
+        if occupancy is not None:
+            self._append_occupancy(occupancy, structure_indices=structure_indices, skip_digestion=True)
+
         return
 
     @signal(tags=['native'])
@@ -253,6 +269,7 @@ class Structures:
                            velocities=item.velocities, box=item.box, temperature=item.temperature,
                            potential_energy=item.potential_energy, kinetic_energy=item.kinetic_energy,
                            b_factor=item.b_factor, alternate_location=item.alternate_location,
+                           occupancy=item.occupancy,
                            atom_indices='all', structure_indices=structure_indices, skip_digestion=True)
 
     def _puw_concatenate(self, items, axis=0):
@@ -407,6 +424,19 @@ class Structures:
             else:
                 raise NotImplementedMethodError()
 
+    @arg_digest()
+    def _append_occupancy(self, occupancy, structure_indices='all', skip_digestion=False):
+        if self._occupancy is None:
+            if is_all(structure_indices):
+                self._occupancy = occupancy
+            else:
+                raise NotImplementedMethodError()
+        else:
+            if is_all(structure_indices):
+                self._occupancy = np.concatenate([self._occupancy, occupancy])
+            else:
+                raise NotImplementedMethodError()
+
     def copy(self):
         from copy import deepcopy
         return deepcopy(self)
@@ -480,6 +510,18 @@ class Structures:
                 tmp_item.alternate_location = deepcopy(self.alternate_location)
             else:
                 tmp_item.alternate_location = deepcopy(self.alternate_location[structure_indices])
+
+        if self._occupancy is not None:
+            if is_all(structure_indices):
+                if is_all(atom_indices):
+                    tmp_item.occupancy = deepcopy(self._occupancy)
+                else:
+                    tmp_item.occupancy = deepcopy(self._occupancy[:, atom_indices])
+            else:
+                if is_all(atom_indices):
+                    tmp_item.occupancy = deepcopy(self._occupancy[structure_indices, :])
+                else:
+                    tmp_item.occupancy = deepcopy(self._occupancy[np.ix_(structure_indices, atom_indices)])
 
         if self.bioassembly is not None:
             tmp_item.bioassembly = deepcopy(self.bioassembly)
@@ -628,6 +670,40 @@ class Structures:
                 self.b_factor[np.ix_(structure_indices, indices)]=value[:,:]
     
         pass
+
+
+    @arg_digest()
+    def get_occupancy(self, indices='all', structure_indices='all', skip_digestion=False):
+        if self._occupancy is None:
+            return None
+        if is_all(indices):
+            if is_all(structure_indices):
+                return self._occupancy.copy()
+            else:
+                return self._occupancy[structure_indices,:].copy()
+        else:
+            if is_all(structure_indices):
+                return self._occupancy[:,indices].copy()
+            else:
+                return self._occupancy[np.ix_(structure_indices, indices)].copy()
+
+
+    @arg_digest()
+    def set_occupancy(self, indices='all', structure_indices='all', value=None, skip_digestion=False):
+        if self._occupancy is None:
+            n_structures = self.coordinates.shape[0] if self.coordinates is not None else 1
+            n_atoms = self.coordinates.shape[1] if self.coordinates is not None else 0
+            self._occupancy = np.empty((n_structures, n_atoms), dtype=object)
+        if is_all(indices):
+            if is_all(structure_indices):
+                self._occupancy = value
+            else:
+                self._occupancy[structure_indices,:] = value[:,:]
+        else:
+            if is_all(structure_indices):
+                self._occupancy[:,indices] = value[:,:]
+            else:
+                self._occupancy[np.ix_(structure_indices, indices)]=value[:,:]
 
 
     @arg_digest()

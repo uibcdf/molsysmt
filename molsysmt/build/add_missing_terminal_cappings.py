@@ -244,7 +244,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
                     continue
                 gmask = topo_a.atoms['group_index'] == group_idx
                 grow = topo_a.atoms[gmask]
-                def _pos(aname):
+                def _pos(aname, grow=grow):
                     r = grow[grow['atom_name'] == aname]
                     return coords_a[:, r.index[0], :] if len(r) else None
                 C_pos  = _pos('C')
@@ -302,7 +302,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
                 if not missing_h:
                     continue
 
-                def _pos_n(aname):
+                def _pos_n(aname, grow=grow):
                     r = grow[grow['atom_name'] == aname]
                     return coords_n[:, r.index[0], :] if len(r) else None
 
@@ -385,7 +385,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
                     # Get N, CA, C of the first residue
                     first_g_mask = topo.atoms['group_index'] == first_g
                     first_g_rows = topo.atoms[first_g_mask]
-                    def _get_pos(atom_name_lookup):
+                    def _get_pos(atom_name_lookup, first_g_rows=first_g_rows):
                         rows = first_g_rows[first_g_rows['atom_name'] == atom_name_lookup]
                         if len(rows) == 0:
                             return None
@@ -405,7 +405,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
                     # Get C, CA, N of the last residue
                     last_g_mask = topo.atoms['group_index'] == last_g
                     last_g_rows = topo.atoms[last_g_mask]
-                    def _get_pos_last(atom_name_lookup):
+                    def _get_pos_last(atom_name_lookup, last_g_rows=last_g_rows):
                         rows = last_g_rows[last_g_rows['atom_name'] == atom_name_lookup]
                         if len(rows) == 0:
                             return None

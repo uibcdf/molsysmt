@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='string:alphafold_id')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)

@@ -185,42 +185,44 @@ def test_checkpoint_resume(tmp_path, pentalanine_h5msm):
     molsys = msm.convert(pentalanine_h5msm, to_form='molsysmt.H5MSMFileHandler')
     try:
         ckpt_dir = str(tmp_path)
+        import molsysmt.configure as config
 
-        # --- Pass 1: run with checkpoint every 5 chunks (chunk_size=100 → 50 chunks total)
-        r1 = CheckpointCollector()
-        executor1 = ChunkedExecutor(
-            molecular_system=molsys,
-            form='molsysmt.H5MSMFileHandler',
-            operation='test_ckpt',
-            reducer=r1,
-            chunk_size=100,
-            heavy_mode='force',
-            attributes=['coordinates'],
-            checkpoint_interval=5,
-            checkpoint_path=ckpt_dir,
-        )
-        full_result = executor1.execute()
+        with config.context(chunk_memory_fraction=None):
+            # --- Pass 1: run with checkpoint every 5 chunks (chunk_size=100 → 50 chunks total)
+            r1 = CheckpointCollector()
+            executor1 = ChunkedExecutor(
+                molecular_system=molsys,
+                form='molsysmt.H5MSMFileHandler',
+                operation='test_ckpt',
+                reducer=r1,
+                chunk_size=100,
+                heavy_mode='force',
+                attributes=['coordinates'],
+                checkpoint_interval=5,
+                checkpoint_path=ckpt_dir,
+            )
+            full_result = executor1.execute()
 
-        # Find the last checkpoint file written
-        ckpt_files = sorted(
-            [f for f in os.listdir(ckpt_dir) if f.endswith('.pkl')],
-        )
-        assert len(ckpt_files) > 0, "No checkpoint file was written"
-        last_ckpt = os.path.join(ckpt_dir, ckpt_files[-1])
+            # Find the last checkpoint file written
+            ckpt_files = sorted(
+                [f for f in os.listdir(ckpt_dir) if f.endswith('.pkl')],
+            )
+            assert len(ckpt_files) > 0, "No checkpoint file was written"
+            last_ckpt = os.path.join(ckpt_dir, ckpt_files[-1])
 
-        # --- Pass 2: restore from last checkpoint and continue
-        r2 = CheckpointCollector()
-        executor2 = ChunkedExecutor(
-            molecular_system=molsys,
-            form='molsysmt.H5MSMFileHandler',
-            operation='test_ckpt',
-            reducer=r2,
-            chunk_size=100,
-            heavy_mode='force',
-            attributes=['coordinates'],
-            restore_from=last_ckpt,
-        )
-        resumed_result = executor2.execute()
+            # --- Pass 2: restore from last checkpoint and continue
+            r2 = CheckpointCollector()
+            executor2 = ChunkedExecutor(
+                molecular_system=molsys,
+                form='molsysmt.H5MSMFileHandler',
+                operation='test_ckpt',
+                reducer=r2,
+                chunk_size=100,
+                heavy_mode='force',
+                attributes=['coordinates'],
+                restore_from=last_ckpt,
+            )
+            resumed_result = executor2.execute()
 
         # Both must cover all frames
         assert full_result.shape == (N_STRUCTURES, N_ATOMS, 3)

@@ -5,7 +5,7 @@ import pandas as pd
 from smonitor import signal
 
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError
+from molsysmt._private.smonitor import StructuralInconsistencyError, ArgumentChoiceError
 class MolSysBuilder:
     """Building a native molecular system incrementally from declared elements."""
 
@@ -23,7 +23,12 @@ class MolSysBuilder:
             self.topology = molecular_system.topology.copy()
             self.structures = molecular_system.structures.copy()
         else:
-            raise TypeError("MolSysBuilder can only be initialized from None or molsysmt.MolSys.")
+            raise ArgumentChoiceError(
+                argument="molecular_system",
+                choices=["None", "molsysmt.MolSys"],
+                caller="molsysmt.native.MolSysBuilder.__init__",
+                message="MolSysBuilder can only be initialized from None or molsysmt.MolSys."
+            )
 
     @property
     def n_atoms(self):

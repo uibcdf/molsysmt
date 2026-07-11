@@ -7,7 +7,7 @@ import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
-def flip(molecular_system, vector=[0,0,1], point='[0,0,0] nm', selection='all', structure_indices='all',
+def flip(molecular_system, vector=None, point='[0,0,0] nm', selection='all', structure_indices='all',
         syntax='MolSysMT', in_place=False):
     """
     Reflect (flip) atomic coordinates of a selection through a plane defined by a vector and a point.
@@ -55,6 +55,8 @@ def flip(molecular_system, vector=[0,0,1], point='[0,0,0] nm', selection='all', 
     point = puw.get_value(point, to_unit=length_unit)
 
     coordinates = np.asarray(coordinates, dtype=np.float64)
+    if vector is None:
+        vector = [0.0, 0.0, 1.0]
     vector = np.asarray(vector, dtype=np.float64)
     point = np.asarray(point, dtype=np.float64)
 

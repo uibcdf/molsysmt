@@ -11,6 +11,6 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', skip
     
     # Step 2: Convert the OpenMM object to native Topology
     tmp_item = openmm_AmberPrmtopFile_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices,
-                                                           structure_indices=structure_indices, skip_digestion=True)
+                                                           skip_digestion=True)
 
     return tmp_item

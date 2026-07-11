@@ -5,7 +5,7 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='nglview.NGLWidget')
 def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from ..molsysmt_MolSys.merge import merge as merge_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
 

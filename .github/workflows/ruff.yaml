@@ -1,0 +1,38 @@
+name: Ruff
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "molsysmt/**/*.py"
+      - "pyproject.toml"
+      - ".github/workflows/ruff.yaml"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "molsysmt/**/*.py"
+      - "pyproject.toml"
+      - ".github/workflows/ruff.yaml"
+  workflow_dispatch:
+
+jobs:
+  ruff:
+    name: Ruff lint checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Run Ruff check
+        run: ruff check molsysmt

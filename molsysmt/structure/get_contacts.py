@@ -114,6 +114,12 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
     else:
         atom_indices_2 = select(molecular_system, selection=selection_2, syntax=syntax)
 
+    from molsysmt._private.variables import is_iterable_of_iterables
+    if is_iterable_of_iterables(atom_indices):
+        center_of_atoms = True
+    if is_iterable_of_iterables(atom_indices_2):
+        center_of_atoms_2 = True
+
     # Check if GPU execution is requested and resolved
     from molsysmt._private.gpu import resolve_use_gpu
     import molsysmt.configure as config

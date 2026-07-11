@@ -69,7 +69,7 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
     --------
     >>> import molsysmt as msm
     >>> molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'])
-    >>> attributes = msm.get_attributes(molsys)
+    >>> attributes = msm.get_attributes(molsys, output_type='dictionary')
     >>> attributes['box']
     True
     >>> attributes['forcefield']

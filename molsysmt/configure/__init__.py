@@ -30,6 +30,7 @@ default_attribute = {
         'temperature':'0.0 kelvin',
         'friction':'1.0/picoseconds',
         'platform':'CUDA',
+        'time_step':'1.0 femtoseconds',
         }
 
 # Default viewer

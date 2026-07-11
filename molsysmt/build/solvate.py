@@ -724,10 +724,13 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
                 accepted_positions.append(o_pos)
 
             if len(accepted_positions) < n_ions_total:
-                raise ValueError(
-                    f"Could not place all {n_ions_total} ions: only "
-                    f"{len(accepted_positions)} valid water positions found. "
-                    "Try reducing ionic_strength or increasing clearance."
+                raise InternalAlgorithmError(
+                    caller="molsysmt.build.solvate",
+                    message=(
+                        f"Could not place all {n_ions_total} ions: only "
+                        f"{len(accepted_positions)} valid water positions found. "
+                        "Try reducing ionic_strength or increasing clearance."
+                    )
                 )
 
             # Remove the selected water molecules

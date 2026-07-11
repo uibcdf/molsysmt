@@ -5,9 +5,9 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
 
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_MolSys
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, skip_digestion=True)
 

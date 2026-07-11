@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_all
 
-def digest_output_atom_indices(output_indices, caller=None):
+def digest_output_atom_indices(output_atom_indices, caller=None):
 
     if caller=='molsysmt.structure.get_distances.get_distances':
 

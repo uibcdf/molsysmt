@@ -4,6 +4,9 @@ from numpy import ndarray
 
 def digest_group_names(group_names, caller=None):
 
+    if group_names is None:
+        return None
+
     output = True
 
     if not isinstance(group_names, (list, tuple, ndarray)):

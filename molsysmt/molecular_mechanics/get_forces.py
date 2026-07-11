@@ -34,7 +34,7 @@ def get_forces(molecular_system, element='atom', selection='all', magnitude=Fals
 
             if is_all(selection):
 
-                context = item.context
+                context = molecular_system.context
 
             else:
 
