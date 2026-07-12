@@ -101,16 +101,14 @@ def resolve_use_gpu(use_gpu_arg, payload_size: int = 0) -> bool:
 
 
 def _warn_gpu_unavailable() -> None:
+    import warnings
     try:
-        from molsysmt._private.smonitor import warn, GpuNotAvailableWarning
-        warn(GpuNotAvailableWarning,
-             message="use_gpu=True was requested but no CUDA GPU is available. "
-                     "Falling back to CPU kernel.")
+        from molsysmt._private.smonitor import GpuNotAvailableWarning
+        warnings.warn(GpuNotAvailableWarning(reason='no CUDA GPU is accessible'), stacklevel=4)
     except Exception:
-        import warnings
+        # The diagnostics layer itself failed: never lose the warning
         warnings.warn(
-            "use_gpu=True was requested but no CUDA GPU is available. "
-            "Falling back to CPU kernel.",
+            "GPU acceleration was requested but is not available. Falling back to the CPU kernel.",
             RuntimeWarning,
             stacklevel=4,
         )

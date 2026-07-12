@@ -135,10 +135,8 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                     taichi_available = False
                     import warnings
                     from molsysmt._private.smonitor import GpuNotAvailableWarning
-                    warnings.warn(
-                        "taichi package not found. Falling back to Numba CUDA backend.",
-                        GpuNotAvailableWarning
-                    )
+                    warnings.warn(GpuNotAvailableWarning(
+                        reason='the taichi package is not installed'))
 
                 if taichi_available:
                     if box is not None:

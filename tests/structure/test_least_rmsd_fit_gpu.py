@@ -3,6 +3,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 import molsysmt as msm
 from molsysmt.configure import context
+from molsysmt._private.smonitor import GpuNotAvailableWarning
 
 
 def test_least_rmsd_fit_gpu_vacuum():
@@ -41,7 +42,7 @@ def test_least_rmsd_fit_gpu_vacuum():
     )
 
     # Perform alignment on GPU (converts to CPU fallback gracefully or runs CUDA)
-    with pytest.warns(RuntimeWarning, match="use_gpu=True was requested but no CUDA GPU is available|Platform fallback"):
+    with pytest.warns(GpuNotAvailableWarning, match="GPU acceleration was requested but is not available"):
         fitted_gpu = msm.structure.least_rmsd_fit(
             query_coords,
             selection='all',
@@ -80,7 +81,7 @@ def test_least_rmsd_fit_precision_policies():
 
     # Single precision (float32)
     with context(precision='single'):
-        with pytest.warns(RuntimeWarning, match="use_gpu=True was requested but no CUDA GPU is available|Platform fallback"):
+        with pytest.warns(GpuNotAvailableWarning, match="GPU acceleration was requested but is not available"):
             fitted_single = msm.structure.least_rmsd_fit(
                 ref_coords,
                 selection='all',

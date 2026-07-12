@@ -137,10 +137,8 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
                     taichi_available = False
                     import warnings
                     from molsysmt._private.smonitor import GpuNotAvailableWarning
-                    warnings.warn(
-                        "taichi package not found. Falling back to Numba CUDA backend.",
-                        GpuNotAvailableWarning
-                    )
+                    warnings.warn(GpuNotAvailableWarning(
+                        reason='the taichi package is not installed'))
 
                 if taichi_available:
                     from molsysmt.lib.structure.get_least_rmsd_taichi import least_rmsd_fit as _kernel
