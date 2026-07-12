@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.smonitor import ArgumentError, MultipleMolecularSystemsError
 from pathlib import PosixPath
 from argdigest.core.caller import caller_matches
 
@@ -44,6 +44,12 @@ def digest_molecular_system(molecular_system, caller=None):
 
     if is_a_molecular_system(molecular_system):
         return molecular_system
+
+    if are_multiple_molecular_systems(molecular_system):
+        from molsysmt.basic import get_form
+        raise MultipleMolecularSystemsError(n_systems=len(molecular_system),
+                                            forms=get_form(molecular_system),
+                                            caller=caller)
 
     raise ArgumentError('molecular_system', value=molecular_system, caller=caller, message=None)
 
