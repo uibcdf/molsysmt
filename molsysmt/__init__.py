@@ -94,6 +94,7 @@ _LAZY_ATTRIBUTES = {
     'LibraryNotFoundError': ('._private.smonitor', 'LibraryNotFoundError'),
     'MolecularSystemNeededError': ('._private.smonitor', 'MolecularSystemNeededError'),
     'MolecularSystemsNeededError': ('._private.smonitor', 'MolecularSystemsNeededError'),
+    'MultipleMolecularSystemsError': ('._private.smonitor', 'MultipleMolecularSystemsError'),
     'NotCompatibleConversionError': ('._private.smonitor', 'NotCompatibleConversionError'),
     'NotImplementedConversionError': ('._private.smonitor', 'NotImplementedConversionError'),
     'NotImplementedIteratorError': ('._private.smonitor', 'NotImplementedIteratorError'),

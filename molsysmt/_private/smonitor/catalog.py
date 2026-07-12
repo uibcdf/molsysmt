@@ -200,6 +200,12 @@ CATALOG = {
             "category": "system",
             "level": "ERROR",
         },
+        "MultipleMolecularSystemsError": {
+            "code": "MSM-ERR-SYS-003",
+            "source": "molsysmt.error.multiple_molecular_systems",
+            "category": "system",
+            "level": "ERROR",
+        },
         "NotCompatibleConversionError": {
             "code": "MSM-ERR-CONV-001",
             "source": "molsysmt.error.not_compatible_conversion",
@@ -322,6 +328,18 @@ CODES = {
         "qa_hint": "Review selection parsing and defaults. Docs: {doc_url}",
         "agent_message": "Selection warning in '{caller}'.",
         "agent_hint": "Review selection parsing and defaults. Docs: {doc_url}",
+    },
+    "MSM-WARN-GPU-001": {
+        "title": "GPU acceleration not available",
+        "user_message": "GPU acceleration was requested but is not available: {reason}",
+        "user_hint": "The calculation falls back to the CPU kernel and the result is unchanged. "
+                     "Set molsysmt.configure.gpu_mode = False to stop requesting the GPU. Docs: {doc_url}",
+        "dev_message": "GPU unavailable in '{caller}': {reason}",
+        "dev_hint": "Dispatch fell back to the CPU kernel. Check molsysmt._private.gpu.gpu_available().",
+        "qa_message": "GPU unavailable in '{caller}': {reason}",
+        "qa_hint": "The CPU fallback path was exercised; GPU kernels were not covered by this run.",
+        "agent_message": "GPU unavailable in '{caller}': {reason}. Fell back to CPU.",
+        "agent_hint": "Results are valid; only the execution backend changed.",
     },
     "MSM-WARN-DEP-001": {
         "title": "Deprecated API",
@@ -532,6 +550,19 @@ CODES = {
         "agent_message": "Multiple molecular systems required in '{caller}'.",
         "agent_hint": "Validate inputs and update error handling. Docs: {doc_url}",
     },
+    "MSM-ERR-SYS-003": {
+        "title": "Several molecular systems given where one was expected",
+        "user_message": "The input was read as {n_systems} separate molecular systems, not as a single one.",
+        "user_hint": "A list is understood as one system split into complementary items, such as a topology "
+                     "and its coordinates. To combine several systems into one, merge them first with "
+                     "molsysmt.merge() and pass the result. Docs: {doc_url}",
+        "dev_message": "{n_systems} molecular systems given to '{caller}', which expects a single one.",
+        "dev_hint": "Forms received: {forms}. Route through molsysmt.merge() before this call. Docs: {doc_url}",
+        "qa_message": "{n_systems} molecular systems given to '{caller}', which expects a single one.",
+        "qa_hint": "Forms received: {forms}. Check whether the test meant to merge them first.",
+        "agent_message": "{n_systems} separate molecular systems given to '{caller}'; one expected.",
+        "agent_hint": "Combine them with molsysmt.merge() and pass the merged system instead.",
+    },
     "MSM-ERR-CONV-001": {
         "title": "Incompatible conversion",
         "user_message": "Incompatible conversion from '{from_form}' to '{to_form}'.",
@@ -631,6 +662,17 @@ CODES = {
         "agent_message": "Invalid file content in '{caller}': {reason}. Record: {record}. File: {filename}.",
         "agent_hint": "The file does not follow the expected standard. Check if it is corrupted or incomplete. Docs: {doc_url}",
     },
+    "MSM-ERR-IO-003": {
+        "title": "Format error",
+        "user_message": "The data does not follow the expected format: {reason}.",
+        "user_hint": "Check the source of the data and its format. Docs: {doc_url} | Issues: {issues_url}",
+        "dev_message": "Format error in '{caller}': {reason}.",
+        "dev_hint": "Check parser logic and upstream data integrity. Docs: {doc_url} | Issues: {issues_url}",
+        "qa_message": "Format error in '{caller}': {reason}.",
+        "qa_hint": "Check parser logic and upstream data integrity. Docs: {doc_url}",
+        "agent_message": "Format error in '{caller}': {reason}.",
+        "agent_hint": "The data does not follow the expected format. Check if it is corrupted or incomplete.",
+    },
     "MSM-INFO-HVY-001": {
         "title": "Heavy trajectory path selected",
         "user_message": "Processing '{operation}' on '{form}' in heavy (chunked) mode. Estimated footprint: {footprint_bytes} bytes (budget: {max_ram_usage} bytes).",
@@ -652,6 +694,29 @@ CODES = {
         "qa_hint": "Confirm that the eager path produces correct results for this operation.",
         "agent_message": "Eager (in-memory) path accepted for '{operation}'. Footprint: {footprint_bytes} bytes.",
         "agent_hint": "Footprint is within the configured RAM budget. No chunking needed.",
+    },
+    "MSM-INFO-HVY-003": {
+        "title": "Chunk processed",
+        "user_message": "'{operation}': chunk {chunk_index} of {n_chunks} processed in {elapsed_s} s.",
+        "user_hint": "Estimated time to completion: {eta_s} s.",
+        "dev_message": "'{operation}': chunk {chunk_index}/{n_chunks} took {elapsed_s} s (ETA {eta_s} s).",
+        "dev_hint": "Chunk timings feed the EMA estimate used to report progress.",
+        "qa_message": "'{operation}': chunk {chunk_index}/{n_chunks} took {elapsed_s} s (ETA {eta_s} s).",
+        "qa_hint": "The chunked heavy path was exercised for this operation.",
+        "agent_message": "'{operation}': chunk {chunk_index}/{n_chunks} done ({elapsed_s} s, ETA {eta_s} s).",
+        "agent_hint": "Heavy mode is progressing normally; no action needed.",
+    },
+    "MSM-DBG-PROBE-001": {
+        "title": "Form detection probe missed",
+        "user_message": "A form detection probe did not succeed for '{form}': {error_type}.",
+        "user_hint": "This is a diagnostic trace of form autodetection, not an error by itself.",
+        "dev_message": "Detection probe on '{form}' raised {error_type}: {error_message}.",
+        "dev_hint": "The probe was swallowed by the caller. Check whether the form adapter is incomplete "
+                    "rather than the input being invalid.",
+        "qa_message": "Detection probe on '{form}' raised {error_type}: {error_message}.",
+        "qa_hint": "A swallowed probe can hide an incomplete form adapter. Confirm this is the intended path.",
+        "agent_message": "Detection probe on '{form}' raised {error_type}: {error_message}.",
+        "agent_hint": "The probe failure was discarded by the caller.",
     },
     "MSM-WARN-HVY-001": {
         "title": "Slow chunk I/O detected",
