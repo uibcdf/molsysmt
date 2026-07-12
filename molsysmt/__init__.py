@@ -113,7 +113,7 @@ def __getattr__(name: str):
     if name in _LAZY_ATTRIBUTES:
         target = _LAZY_ATTRIBUTES[name]
         if isinstance(target, str):
-            # Target is a submodule to import perezosamente
+            # Target is a submodule to import lazily
             mod = importlib.import_module(target, __name__)
             globals()[name] = mod
             return mod
