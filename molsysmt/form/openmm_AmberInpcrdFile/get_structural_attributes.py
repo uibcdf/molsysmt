@@ -25,6 +25,30 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     return output
 
 @arg_digest(form=form)
+def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+
+    # An inpcrd file only carries velocities when it comes from a restart
+    try:
+        tmp_velocities = item.getVelocities()
+    except AttributeError:
+        return None
+
+    if tmp_velocities is None:
+        return None
+
+    tmp_velocities = puw.get_value(tmp_velocities, to_unit='nanometers/picosecond')
+    tmp_velocities = np.array(tmp_velocities)
+
+    if not is_all(indices):
+        tmp_velocities = tmp_velocities[indices,:]
+
+    output = np.zeros([1, tmp_velocities.shape[0], 3])
+    output[0,:,:] = tmp_velocities
+    output = output * puw.unit('nanometers/picosecond')
+
+    return output
+
+@arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     try:
