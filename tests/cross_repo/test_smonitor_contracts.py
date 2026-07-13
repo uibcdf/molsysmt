@@ -6,6 +6,16 @@ These tests guard diagnostics wiring between pyunitwizard/depdigest and smonitor
 import pytest
 
 
+@pytest.fixture(autouse=True)
+def _restore_smonitor_profile():
+    import smonitor
+
+    manager = smonitor.get_manager()
+    original_profile = manager.config.profile
+    yield
+    manager.configure(profile=original_profile)
+
+
 def test_pyunitwizard_parser_error_has_message():
     """Parser exceptions should resolve to non-empty catalog-backed messages."""
     from pyunitwizard.parse import parse
@@ -114,7 +124,10 @@ def test_molsysmt_cross_chain_bond_warning_exposes_pair_count():
 
 def test_not_implemented_method_error_resolves_with_method_context():
     """Method-not-implemented diagnostics should expose method and arguments."""
+    import smonitor
     from molsysmt._private.smonitor import NotImplementedMethodError
+
+    smonitor.configure(profile="qa")
 
     exc = NotImplementedMethodError(
         method="append_structures",
