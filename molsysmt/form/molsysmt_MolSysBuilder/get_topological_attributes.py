@@ -252,7 +252,8 @@ def get_n_entities_from_system(item, skip_digestion=False):
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
     if item.topology.n_bonds == 0:
         return []
-    return item.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int).tolist()
+    bonds = item.topology._get_chemical_state_bonds()
+    return bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int).tolist()
 
 
 @arg_digest(form=form)

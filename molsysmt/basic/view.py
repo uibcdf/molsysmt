@@ -51,7 +51,8 @@ def view(molecular_system=None, selection='all', structure_indices='all',
     NotSupportedFormError
         If the molecular system is provided in an unsupported form.
     ArgumentError
-        If one or more input arguments are invalid.
+        If one or more input arguments are invalid, including a malformed
+        selection or an out-of-range element or structure index.
     ModuleNotFoundError
         If the requested viewer backend is not available in the current environment.
 
@@ -59,6 +60,7 @@ def view(molecular_system=None, selection='all', structure_indices='all',
     -----
     - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
+    - Selections and structure indices are validated before the viewer backend is created.
 
     See Also
     --------
@@ -95,6 +97,20 @@ def view(molecular_system=None, selection='all', structure_indices='all',
         raise LibraryNotFoundError(
             library=viewer,
             caller='molsysmt.basic.view'
+        )
+
+    if molecular_system is not None:
+        from . import select
+        from ._index_validation import validate_structure_indices
+
+        selection = select(
+            molecular_system,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+        )
+        structure_indices = validate_structure_indices(
+            molecular_system, structure_indices, 'molsysmt.view'
         )
 
     return _dict_view[viewer](

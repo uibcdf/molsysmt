@@ -32,6 +32,12 @@ def test_parity_n_atoms(yaml_file, source_structures):
     assert msm.get(yaml_file, element='system', n_atoms=True) == source_structures.n_atoms
 
 
+def test_parity_atom_indices(yaml_file, source_structures):
+    expected = list(range(source_structures.n_atoms))
+
+    assert msm.get(yaml_file, element='atom', atom_index=True) == expected
+
+
 def test_parity_n_structures(yaml_file, source_structures):
     assert msm.get(yaml_file, element='system', n_structures=True) == source_structures.n_structures
 
@@ -42,3 +48,17 @@ def test_parity_coordinates(yaml_file, source_structures):
     )
     src_coords = puw.get_value(source_structures.coordinates, to_unit='nm')
     assert np.allclose(yaml_coords, src_coords)
+
+
+def test_optional_atom_fields_are_delivered(builder_pdb_molsys, tmp_path):
+    structures = builder_pdb_molsys.structures
+    structures.occupancy = np.array([[1.0, 0.8, 0.6, 0.4]])
+    structures.alternate_location = [{1: {'location_id': np.array(['A', 'B'])}}]
+    path = str(tmp_path / 'optional-fields.yaml')
+    msm.convert(structures, to_form='file:structures_yaml', output_filename=path)
+
+    occupancy = msm.get(path, element='atom', selection=[1, 3], occupancy=True)
+    alternate_location = msm.get(path, element='atom', alternate_location=True)
+
+    assert np.allclose(occupancy, [[0.8, 0.4]])
+    assert list(alternate_location[0]) == ['1']

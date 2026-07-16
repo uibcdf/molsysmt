@@ -150,6 +150,7 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     topo    = native_molsys.topology
     structs = native_molsys.structures
     n_orig  = topo.n_atoms
+    component_indices = topo._get_component_indices()
 
     all_coords = puw.get_value(structs.coordinates, to_unit="nm")   # (n_s, n_a, 3)
     n_structures = all_coords.shape[0]
@@ -162,7 +163,7 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
         new_atom_idx = n_orig + len(new_rows)
         group_mask = topo.atoms["group_index"] == group_idx
         first_row  = topo.atoms[group_mask].iloc[0]
-        comp_idx   = first_row["component_index"]
+        comp_idx   = component_indices.loc[group_mask].iloc[0]
         chain_idx  = first_row["chain_index"]
 
         new_rows.append({
@@ -176,10 +177,10 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
         new_coords_list.append(atom_coords)
 
     # --- Build new topology ---
-    new_topo = Topology(skip_digestion=True)
-
+    base_atoms = topo.atoms.copy()
+    base_atoms["component_index"] = component_indices.array
     new_atoms = pd.concat(
-        [topo.atoms, pd.DataFrame(new_rows)],
+        [base_atoms, pd.DataFrame(new_rows)],
         ignore_index=True,
     )
     new_atoms["group_index"]     = new_atoms["group_index"].astype("Int64")
@@ -202,7 +203,10 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
         all_coords_combined = all_coords.copy()
     new_all_coords = all_coords_combined[:, new_order, :]
 
-    new_topo.atoms     = new_atoms
+    new_component_indices = new_atoms["component_index"].copy()
+    new_topo = Topology(n_atoms=len(new_atoms), skip_digestion=True)
+    new_topo.atoms     = new_atoms.drop(columns="component_index")
+    new_topo._set_component_indices(new_component_indices)
     new_topo.groups    = topo.groups.copy()
     new_topo.components = topo.components.copy()
     new_topo.molecules  = topo.molecules.copy()
@@ -210,23 +214,20 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     new_topo.chains     = topo.chains.copy()
 
     # Build new bonds: first combine old bonds and new bonds, then remap indices.
-    bonds_copy = topo.bonds.copy()
+    bonds_copy = topo._get_chemical_state_bonds().copy()
     if new_bonds_info:
         extra = Bonds_DataFrame(n_bonds=len(new_bonds_info))
         for k, (i1, i2) in enumerate(new_bonds_info):
             extra.loc[k, "atom1_index"] = int(i1)
             extra.loc[k, "atom2_index"] = int(i2)
-        new_bonds = pd.concat([bonds_copy, extra], ignore_index=True)
+        new_bonds = topo._concatenate_bond_tables(bonds_copy, extra)
     else:
         new_bonds = bonds_copy
     # Remap all atom indices to account for the sort reordering
     if old_to_new:
-        new_bonds["atom1_index"] = new_bonds["atom1_index"].map(old_to_new)
-        new_bonds["atom2_index"] = new_bonds["atom2_index"].map(old_to_new)
-    new_bonds["atom1_index"] = new_bonds["atom1_index"].astype("Int64")
-    new_bonds["atom2_index"] = new_bonds["atom2_index"].astype("Int64")
+        new_bonds = topo._remap_bond_atom_indices(new_bonds, old_to_new)
     _sort_bonds_inplace(new_bonds)
-    new_topo.bonds = new_bonds
+    new_topo._set_chemical_state_bonds(new_bonds)
 
     # --- Assemble new MolSys ---
     new_molsys = MolSys()
@@ -483,6 +484,7 @@ def rebuild_molsys_with_new_groups(
     topo    = native_molsys.topology
     structs = native_molsys.structures
     n_structures = structs.n_structures
+    component_indices = topo._get_component_indices()
 
     all_coords = puw.get_value(structs.coordinates, to_unit="nm")   # (n_s, n_orig, 3)
 
@@ -536,7 +538,7 @@ def rebuild_molsys_with_new_groups(
                 gmask     = topo.atoms["group_index"] == g
                 first_row = topo.atoms[gmask].iloc[0]
                 chain_idx = first_row["chain_index"]
-                comp_idx  = first_row["component_index"]
+                comp_idx  = component_indices.loc[gmask].iloc[0]
                 _add_group_from_dict(cap_name, str(len(new_group_rows)), "terminal capping",
                                      cap_atoms, comp_idx, chain_idx, mol_idx)
 
@@ -552,6 +554,7 @@ def rebuild_molsys_with_new_groups(
             old_to_new_atom[int(old_idx)] = new_idx
             row = topo.atoms.iloc[int(old_idx)].to_dict()
             row["group_index"] = orig_g_new
+            row["component_index"] = component_indices.iloc[int(old_idx)]
             new_atom_rows.append(row)
             new_atom_coords.append(all_coords[:, int(old_idx), :])   # (n_structures, 3)
 
@@ -568,7 +571,7 @@ def rebuild_molsys_with_new_groups(
                 gmask     = topo.atoms["group_index"] == g
                 last_row  = topo.atoms[gmask].iloc[-1]
                 chain_idx = last_row["chain_index"]
-                comp_idx  = last_row["component_index"]
+                comp_idx  = component_indices.loc[gmask].iloc[-1]
                 _add_group_from_dict(cap_name, str(len(new_group_rows)), "terminal capping",
                                      cap_atoms, comp_idx, chain_idx, mol_idx)
 
@@ -599,16 +602,29 @@ def rebuild_molsys_with_new_groups(
 
     # --- Remap existing bonds ---
     new_bonds_rows = []
-    for _, brow in topo.bonds.iterrows():
+    for _, brow in topo._get_chemical_state_bonds().iterrows():
         o1 = int(brow["atom1_index"])
         o2 = int(brow["atom2_index"])
         if o1 in old_to_new_atom and o2 in old_to_new_atom:
-            new_bonds_rows.append({
-                "atom1_index": old_to_new_atom[o1],
-                "atom2_index": old_to_new_atom[o2],
-                "order": brow.get("order", pd.NA),
-                "type":  brow.get("type", pd.NA),
-            })
+            remapped_row = brow.to_dict()
+            for column in (
+                "atom1_index", "atom2_index", "stereo_atom1_index",
+                "stereo_atom2_index", "donor_atom_index", "acceptor_atom_index",
+            ):
+                value = remapped_row.get(column, pd.NA)
+                if pd.notna(value):
+                    remapped_row[column] = old_to_new_atom.get(int(value), pd.NA)
+            if any(
+                pd.isna(remapped_row.get(column, pd.NA))
+                for column in ("stereo_atom1_index", "stereo_atom2_index")
+                if column in remapped_row
+            ):
+                for column in (
+                    "stereo_atom1_index", "stereo_atom2_index", "stereochemistry"
+                ):
+                    if column in remapped_row:
+                        remapped_row[column] = pd.NA
+            new_bonds_rows.append(remapped_row)
 
     # --- Peptide bonds for inserted groups ---
     # Build name→idx lookup per new group
@@ -631,7 +647,6 @@ def rebuild_molsys_with_new_groups(
                     new_bonds_rows.append({
                         "atom1_index": cap_n2i[b1],
                         "atom2_index": cap_n2i[b2],
-                        "order": pd.NA, "type": pd.NA,
                     })
 
         # Inter-group peptide bond
@@ -641,7 +656,6 @@ def rebuild_molsys_with_new_groups(
                 new_bonds_rows.append({
                     "atom1_index": cap_n2i["C"],
                     "atom2_index": next_n2i["N"],
-                    "order": pd.NA, "type": pd.NA,
                 })
         elif cap_name == "NME" and new_g - 1 >= 0:
             prev_n2i = _name_to_idx_for_group(new_g - 1)
@@ -649,7 +663,6 @@ def rebuild_molsys_with_new_groups(
                 new_bonds_rows.append({
                     "atom1_index": prev_n2i["C"],
                     "atom2_index": cap_n2i["N"],
-                    "order": pd.NA, "type": pd.NA,
                 })
 
     # Build bonds DataFrame
@@ -663,14 +676,16 @@ def rebuild_molsys_with_new_groups(
     new_coords = np.stack(new_atom_coords, axis=1)   # (n_structures, n_new_atoms, 3)
 
     # --- Assemble Topology ---
-    new_topo = Topology(skip_digestion=True)
-    new_topo.atoms      = atoms_df
+    new_topo = Topology(n_atoms=len(atoms_df), skip_digestion=True)
+    new_component_indices = atoms_df["component_index"].copy()
+    new_topo.atoms      = atoms_df.drop(columns="component_index")
+    new_topo._set_component_indices(new_component_indices)
     new_topo.groups     = groups_df
     new_topo.components = topo.components.copy()
     new_topo.molecules  = topo.molecules.copy()
     new_topo.entities   = topo.entities.copy()
     new_topo.chains     = topo.chains.copy()
-    new_topo.bonds      = bonds_df
+    new_topo._set_chemical_state_bonds(bonds_df)
 
     # --- Assemble MolSys ---
     new_molsys = MolSys()

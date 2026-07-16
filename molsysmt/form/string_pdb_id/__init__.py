@@ -1,5 +1,4 @@
 from .to_openmm_Modeller import to_openmm_Modeller
-from .to_file_mmtf import to_file_mmtf
 from .to_file_fasta import to_file_fasta
 from .to_file_cif import to_file_cif
 from .to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer
@@ -16,8 +15,6 @@ from .to_file_cif_gz import to_file_cif_gz
 from .to_file_h5msm import to_file_h5msm
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_openmm_Topology import to_openmm_Topology
-from .to_file_msmpk import to_file_msmpk
-from .to_mmtf_MMTFDecoder import to_mmtf_MMTFDecoder
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_string_pdb_id import to_string_pdb_id
 from .to_openmm_PDBFile import to_openmm_PDBFile
@@ -65,15 +62,12 @@ from .iterators import StructuresIterator, TopologyIterator
 _convert_to={
     'string:pdb_id': to_string_pdb_id,
     'file:pdb': to_file_pdb,
-    'file:mmtf': to_file_mmtf,
-    'file:msmpk': to_file_msmpk,
     'file:h5msm': to_file_h5msm,
     'file:fasta': to_file_fasta,
     'file:bcif': to_file_bcif,
     'file:bcif.gz': to_file_bcif_gz,
     'file:cif': to_file_cif,
     'file:cif.gz': to_file_cif_gz,
-    'mmtf.MMTFDecoder': to_mmtf_MMTFDecoder,
     'molsysmt.MolSys': to_molsysmt_MolSys,
     'molsysmt.Topology': to_molsysmt_Topology,
     'molsysmt.Structures': to_molsysmt_Structures,

@@ -56,3 +56,41 @@ def test_parity_coordinates(xyznpy_file, source_xyz):
     back = puw.get_value(xyz_back, to_unit='nm')
     orig = puw.get_value(source_xyz, to_unit='nm')
     assert np.allclose(back, orig)
+
+
+def test_get_coordinates_from_atoms_with_subsets(xyznpy_file, source_xyz):
+    output = msm.get(
+        xyznpy_file,
+        element='atom',
+        selection=[0, 2],
+        structure_indices=[0],
+        coordinates=True,
+    )
+
+    observed = puw.get_value(output, to_unit='nm')
+    expected = puw.get_value(source_xyz, to_unit='nm')[np.ix_([0], [0, 2])]
+    assert np.allclose(observed, expected)
+
+
+def test_get_coordinates_from_system(xyznpy_file, source_xyz):
+    output = msm.get(
+        xyznpy_file,
+        element='system',
+        structure_indices=[0],
+        coordinates=True,
+    )
+
+    observed = puw.get_value(output, to_unit='nm')
+    expected = puw.get_value(source_xyz, to_unit='nm')[[0], :, :]
+    assert np.allclose(observed, expected)
+
+
+def test_get_coordinates_returns_none_for_none_indices(xyznpy_file):
+    output = msm.get(
+        xyznpy_file,
+        element='atom',
+        selection=None,
+        coordinates=True,
+    )
+
+    assert output is None

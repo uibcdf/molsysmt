@@ -1,10 +1,7 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt import lib as msmlib
-from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
-from scipy.spatial.transform import Rotation as R
 import numpy as np
 import gc
 
@@ -25,12 +22,13 @@ def align_principal_axes(molecular_system, selection='all',
         Atoms to rotate.
     principal_axes_of_selection : str, list, tuple or numpy.ndarray, optional
         Atoms used to compute principal axes; defaults to `selection`.
-    principal_axes_type : {'inertia'}, default 'inertia'
+    principal_axes_type : {'inertia', 'geometric'}, default 'inertia'
         Type of principal axes to compute.
     structure_indices : 'all' or array-like, default 'all'
         Structures/frames to align.
-    weights : array-like, optional
-        Weights for axis computation.
+    weights : array-like, quantity, 'masses' or None, default None
+        Non-negative weights used for both the axes and center. ``None`` uses
+        unit weights. Use ``'masses'`` for physical inertia axes.
     axes : array-like shape (3,3), default identity
         Target axes to align to.
     center : bool, default False
@@ -51,6 +49,41 @@ def align_principal_axes(molecular_system, selection='all',
     ------
     NotImplementedMethodError
         If an unsupported engine is requested.
+    StructuralInconsistencyError
+        If target axes are not a right-handed orthonormal basis or if principal
+        moments are degenerate and do not define three unique axes.
+
+    Notes
+    -----
+    Target axes are supplied as rows. Alignment is intentionally rejected when
+    two principal moments are equal within numerical tolerance because the
+    corresponding individual axes are not uniquely defined.
+
+    See Also
+    --------
+    :func:`molsysmt.structure.get_principal_axes`
+        Compute principal axes and moments without changing coordinates.
+    :func:`molsysmt.structure.least_rmsd_fit`
+        Fit coordinates to an explicit reference structure.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(
+    ...     msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
+    ... )
+    >>> aligned = msm.structure.align_principal_axes(
+    ...     molsys, structure_indices=0, weights='masses', center=True
+    ... )
+    >>> axes, _ = msm.structure.get_principal_axes(
+    ...     aligned, structure_indices=0, weights='masses'
+    ... )
+    >>> np.allclose(np.abs(axes[0]), np.eye(3), atol=1.0e-10)
+    True
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_Align_principal_axes`.
 
     .. versionadded:: 1.0.0
     """
@@ -65,14 +98,44 @@ def align_principal_axes(molecular_system, selection='all',
         
         axes = np.array(axes, dtype=np.float64, copy=True)
 
+        if not np.all(np.isfinite(axes)):
+            raise StructuralInconsistencyError(
+                reason="Target axes must contain only finite values.",
+                caller="molsysmt.structure.align_principal_axes",
+            )
+        if not np.allclose(axes @ axes.T, np.eye(3), rtol=0.0, atol=1.0e-10):
+            raise StructuralInconsistencyError(
+                reason="Target axes must be orthonormal.",
+                caller="molsysmt.structure.align_principal_axes",
+            )
+        if not np.isclose(np.linalg.det(axes), 1.0, rtol=0.0, atol=1.0e-10):
+            raise StructuralInconsistencyError(
+                reason="Target axes must form a right-handed basis.",
+                caller="molsysmt.structure.align_principal_axes",
+            )
+
         if principal_axes_of_selection is None:
 
             principal_axes_of_selection = selection
 
-        aux_axes, _ = get_principal_axes(molecular_system,
+        aux_axes, moments = get_principal_axes(molecular_system,
                 selection=principal_axes_of_selection, structure_indices=structure_indices,
                 principal_axes_type=principal_axes_type,
                 weights=weights, syntax=syntax)
+
+        for structure_index, structure_moments in enumerate(moments):
+            scale = max(
+                float(np.max(np.abs(structure_moments))),
+                np.finfo(np.float64).tiny,
+            )
+            if np.any(np.diff(structure_moments) <= 1.0e-10 * scale):
+                raise StructuralInconsistencyError(
+                    reason=(
+                        "Principal axes are not unique because structure "
+                        f"{structure_index} has degenerate principal moments."
+                    ),
+                    caller="molsysmt.structure.align_principal_axes",
+                )
 
         aux_center = get_center(molecular_system, selection=principal_axes_of_selection,
                 structure_indices=structure_indices, weights=weights, syntax=syntax)
@@ -87,17 +150,9 @@ def align_principal_axes(molecular_system, selection='all',
 
         n_structures = coordinates.shape[0]
 
-        if np.dot(np.cross(axes[0], axes[1]), axes[2])<0.0:
-            axes[2]=-axes[2]
-
         for ii in range(n_structures):
-
-            if np.dot(np.cross(aux_axes[ii,0], aux_axes[ii,1]), aux_axes[ii,2])<0.0:
-                aux_axes[ii,2]=-aux_axes[ii,2]
-
-            rot, val_aux = R.align_vectors(axes, aux_axes[ii])
             coordinates[ii,:,:]=coordinates[ii,:,:]-aux_center[ii,0,:]
-            coordinates[ii,:,:]=rot.apply(coordinates[ii,:,:])
+            coordinates[ii,:,:]=coordinates[ii,:,:] @ aux_axes[ii].T @ axes
             if not center:
                 coordinates[ii,:,:]=coordinates[ii,:,:]+aux_center[ii]
 
@@ -107,7 +162,7 @@ def align_principal_axes(molecular_system, selection='all',
 
             set(molecular_system, selection=atom_indices, structure_indices=structure_indices,
                 syntax=syntax, coordinates=coordinates)
-            del(coordinates, aux_center, aux_axes, atom_indices)
+            del(coordinates, aux_center, aux_axes, moments, atom_indices)
             gc.collect()
 
         else:
@@ -115,7 +170,7 @@ def align_principal_axes(molecular_system, selection='all',
             tmp_molecular_system = copy(molecular_system)
             set(tmp_molecular_system, selection=atom_indices, structure_indices=structure_indices,
                 syntax=syntax, coordinates=coordinates)
-            del(coordinates, aux_center, aux_axes, atom_indices)
+            del(coordinates, aux_center, aux_axes, moments, atom_indices)
             gc.collect()
 
             return tmp_molecular_system

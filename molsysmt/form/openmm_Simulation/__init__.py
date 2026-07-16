@@ -6,7 +6,6 @@ from .to_molsysmt_MolSys import to_molsysmt_MolSys
 from .to_openmm_Context import to_openmm_Context
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_openmm_Topology import to_openmm_Topology
-from .to_file_msmpk import to_file_msmpk
 from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'openmm.Simulation'
 form_type = 'class'
@@ -30,6 +29,7 @@ from .merge import merge
 from .append_structures import append_structures
 from .get_topological_attributes import *
 from .get_structural_attributes import *
+from .get_dynamical_attributes import *
 from .set import *
 from .iterators import StructuresIterator, TopologyIterator
 
@@ -37,7 +37,6 @@ from .iterators import StructuresIterator, TopologyIterator
 _convert_to={
         'openmm.Simulation': to_openmm_Simulation,
         'file:pdb': to_file_pdb,
-        'file:msmpk': to_file_msmpk,
         'openmm.Context': to_openmm_Context,
         'openmm.Topology': to_openmm_Topology,
         'molsysmt.MolSys': to_molsysmt_MolSys,

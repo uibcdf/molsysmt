@@ -7,8 +7,19 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
     output = attributes[attribute]
 
-    if not include_none:
-        pass
+    if output and not include_none and attribute in {
+        'formal_charge', 'bond_type', 'bond_order', 'fractional_bond_order',
+        'bond_is_aromatic', 'bond_evidence', 'connectivity_completeness',
+    }:
+        from molsysmt.form.MDAnalysis_Topology.has_attribute import (
+            has_attribute as topology_has_attribute,
+        )
 
-    return output
+        output = topology_has_attribute(
+            molecular_system._topology,
+            attribute,
+            include_none=False,
+            skip_digestion=True,
+        )
 
+    return bool(output)

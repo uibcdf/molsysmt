@@ -103,8 +103,29 @@ def _convert_one_to_one(molecular_system,
 
     elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
 
+        intermediate_function = _dict_modules[from_form]._convert_to['molsysmt.MolSys']
+        if isinstance(intermediate_function, str):
+            from importlib import import_module
+            module_name = f"{_dict_modules[from_form].__name__}.{intermediate_function}"
+            module = import_module(module_name)
+            intermediate_function = getattr(module, intermediate_function)
+
+        intermediate_signature = inspect.signature(intermediate_function)
+        accepts_arbitrary_kwargs = any(
+            parameter.kind is inspect.Parameter.VAR_KEYWORD
+            for parameter in intermediate_signature.parameters.values()
+        )
+        if accepts_arbitrary_kwargs:
+            intermediate_kwargs = kwargs
+        else:
+            intermediate_kwargs = {
+                key: value
+                for key, value in kwargs.items()
+                if key in intermediate_signature.parameters
+            }
+
         output = _convert_one_to_one(molecular_system, from_form, to_form='molsysmt.MolSys', selection=selection,
-                structure_indices=structure_indices, syntax=syntax, **kwargs)
+                structure_indices=structure_indices, syntax=syntax, **intermediate_kwargs)
         output = _convert_one_to_one(output, 'molsysmt.MolSys', to_form=to_form, **kwargs)
 
     return output
@@ -437,6 +458,8 @@ def convert(molecular_system,
             selection='all',
             structure_indices='all',
             syntax='MolSysMT',
+            strict=False,
+            return_report=False,
             skip_digestion=False,
             **kwargs):
     """
@@ -462,6 +485,12 @@ def convert(molecular_system,
         0-based indices of the structures to include in the conversion. The default 'all' includes all structures.
     syntax : str, default 'MolSysMT'
         Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
+    strict : bool, default=False
+        Whether to reject the conversion before execution when the chemical
+        preflight identifies supplied semantics that the target cannot preserve.
+    return_report : bool, default=False
+        Whether to return an immutable :class:`molsysmt.ConversionReport`
+        together with the converted object.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -478,22 +507,32 @@ def convert(molecular_system,
 
     Returns
     -------
-    molecular system or list of molecular systems
+    molecular system or list of molecular systems or tuple
         The converted molecular system in the requested `to_form`. If `to_form` is a list,
-        a list of converted systems is returned (one per target form).
+        a list of converted systems is returned. With `return_report=True`, returns
+        ``(output, report)`` or ``(outputs, reports)`` for multiple targets.
 
     Raises
     ------
     NotSupportedFormError
         If the input system or the requested target form is not supported.
+    NotCompatibleConversionError
+        If `strict=True` and the preflight classifies the conversion as lossy.
     ArgumentError
-        If any of the input arguments is invalid or inconsistent.
+        If any input argument is invalid or inconsistent, including an
+        out-of-range structure index.
 
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+    - Explicit structure indices are validated before a conversion adapter is called.
+    - Reports classify audited chemical semantics as ``exact``, ``equivalent``,
+      or ``lossy``. Strict lossy conversions are rejected before target creation.
+    - Missing source information is not a loss. A report issue is created only
+      for an attribute available on the source instance or for an audited
+      adapter limitation.
 
     See Also
     --------
@@ -513,6 +552,9 @@ def convert(molecular_system,
     >>> molsys_B = msm.convert(molsys_A, to_form='openmm.Topology')
     >>> msm.get_form(molsys_B)
     'openmm.Topology'
+    >>> _, report = msm.convert(molsys_B, to_form='molsysmt.Topology', return_report=True)
+    >>> report.outcome in {'exact', 'equivalent', 'lossy'}
+    True
 
     .. admonition:: Tutorial with more examples
 
@@ -535,15 +577,45 @@ def convert(molecular_system,
             molecular_system = molecular_system[0]
             from_form = from_form[0]
 
+    from ._index_validation import validate_structure_indices
+
+    structure_indices = validate_structure_indices(
+        molecular_system, structure_indices, 'molsysmt.convert'
+    )
+
     # If to_form is a list, convert is invoked iteratively
 
     if isinstance(to_form, (list, tuple)):
         output=[]
+        reports=[]
         for item_out in to_form:
-            output.append(
-                convert(molecular_system, to_form=item_out, selection=selection, structure_indices=structure_indices,
-                        syntax=syntax, skip_digestion=True, **kwargs))
-        return output
+            converted = convert(
+                molecular_system, to_form=item_out, selection=selection,
+                structure_indices=structure_indices, syntax=syntax, strict=strict,
+                return_report=return_report, skip_digestion=True, **kwargs
+            )
+            if return_report:
+                item_output, item_report = converted
+                output.append(item_output)
+                reports.append(item_report)
+            else:
+                output.append(converted)
+        return (output, reports) if return_report else output
+
+    from molsysmt._private.conversion_report import build_conversion_report
+
+    report = build_conversion_report(molecular_system, from_form, to_form)
+    if strict and report.is_lossy:
+        raise NotCompatibleConversionError(
+            report.from_form,
+            report.to_form,
+            {issue.attribute for issue in report.issues},
+            caller='molsysmt.convert',
+            message=(
+                'Strict conversion rejected supplied semantics that the target '
+                f'cannot preserve: {[issue.attribute for issue in report.issues]}'
+            ),
+        )
 
     # If one to one
     if not isinstance(from_form, (list, tuple)):
@@ -577,5 +649,4 @@ def convert(molecular_system,
         if len(output) == 1:
             output = output[0]
 
-    return output
-
+    return (output, report) if return_report else output

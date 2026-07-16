@@ -10,6 +10,9 @@ Each recipe is designed to be a "Superpower": a self-contained solution to a rea
 *   [**Building Complex Dimers**](./01_Building_Complex_Dimers.ipynb): Harvesting, aligning, and merging monomers from disparate PDB sources.
 *   [**Structural Surgery (Mutagenesis)**](./08_Structural_Surgery_Mutagenesis.ipynb): Performing in-memory mutations and automatic side-chain repair.
 *   [**From PDB to Solvated Box**](./05_From_PDB_to_Solvated_Box.ipynb): Automating the geometry and chemistry of your simulation box setup.
+*   **Declared systems from scratch:** use `molsysmt.MolSysBuilder`, declare
+    topology before atom-dependent arrays, attach optional bond metadata with
+    `add_bond(..., bond_order=2, bond_type="covalent")`, then call `build()`.
 
 ### 🧪 Analysis & Discovery
 *   [**Binding Pocket Isolation**](./06_Binding_Pocket_Isolation.ipynb): Extracting active sites using advanced spatial selection strings.

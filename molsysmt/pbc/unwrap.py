@@ -37,22 +37,51 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     ------
     NotImplementedMethodError
         If an unsupported engine is requested.
+    StructuralInconsistencyError
+        If box vectors are missing, malformed, non-finite, or singular.
+
+    Notes
+    -----
+    This operation restores temporal continuity independently for every atom.
+    It does not reconstruct a molecule within one frame. Use
+    :func:`molsysmt.pbc.wrap_to_pbc` or :func:`molsysmt.pbc.wrap_to_mic` with
+    ``keep_covalent_bonds=True`` for covalent reconstruction.
 
     .. versionadded:: 1.0.0
     """
 
     if engine=='MolSysMT':
 
-        from molsysmt.basic import select, get, set, extract, copy
+        from molsysmt.basic import get, set, copy
 
-        coordinates = get(molecular_system, element='atom', selection=selection, coordinates=True, skip_digestion=True)
+        coordinates = get(
+            molecular_system,
+            element='atom',
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=True,
+            skip_digestion=True,
+        )
         box = get(molecular_system, element='system', structure_indices=structure_indices, box=True, skip_digestion=True)
 
         coordinates, length_units = puw.get_value_and_unit(coordinates)
+        from molsysmt._private.pbc_validation import validate_box_array
+
+        if box is None:
+            validate_box_array(
+                box,
+                np.asarray(coordinates).shape[0],
+                caller="molsysmt.pbc.unwrap",
+            )
         box = puw.get_value(box, to_unit=length_units)
 
         coordinates = np.asarray(coordinates, dtype=np.float64)
-        box = np.asarray(box, dtype=np.float64)
+        box = validate_box_array(
+            box,
+            coordinates.shape[0],
+            caller="molsysmt.pbc.unwrap",
+        )
 
         msmlib.pbc.unwrap(coordinates, box)
 

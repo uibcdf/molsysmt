@@ -83,6 +83,22 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
+
+@arg_digest(form=form)
+def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+    if structure_indices is None:
+        return None
+
+    getter = getattr(item.integrator, 'getTemperature', None)
+    if getter is None:
+        return None
+
+    temperature = getter()
+    output = puw.standardize(np.asarray([puw.get_value(temperature)]) * puw.get_unit(temperature))
+    if not is_all(structure_indices):
+        output = output[structure_indices]
+    return output
+
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
@@ -91,4 +107,3 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

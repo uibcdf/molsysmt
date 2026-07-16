@@ -1,3 +1,5 @@
+import pandas as pd
+
 from molsysmt._private.arg_digestion import arg_digest
 
 
@@ -10,7 +12,8 @@ def to_molsysmt_Topology(item, skip_digestion=False):
     builder = MolSysBuilder()
     data = item.to_dict(copy=True)
 
-    for atom in data.get('atoms', []) or []:
+    atoms = data.get('atoms', []) or []
+    for atom in atoms:
         builder.add_atom(
             atom_id=atom.get('atom_id', None),
             atom_name=atom.get('atom_name', None),
@@ -57,4 +60,9 @@ def to_molsysmt_Topology(item, skip_digestion=False):
             entity_type=entity.get('entity_type', None),
         )
 
-    return builder.build(skip_digestion=True).topology
+    topology = builder.build(skip_digestion=True).topology
+    if any(atom.get('isotope', None) is not None for atom in atoms):
+        topology.atoms['isotope'] = pd.array(
+            [atom.get('isotope', None) for atom in atoms], dtype='UInt16'
+        )
+    return topology

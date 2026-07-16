@@ -71,7 +71,8 @@ def info(molecular_system,
     NotSupportedFormError
         If the molecular system has an unsupported form.
     ArgumentError
-        If any input argument is invalid or inconsistent.
+        If any input argument is invalid or inconsistent, including an
+        out-of-range structure index.
 
     Notes
     -----
@@ -117,7 +118,12 @@ def info(molecular_system,
     """
 
     from . import get_form, get, convert, select
+    from ._index_validation import validate_structure_indices
     from molsysmt.form import _dict_modules
+
+    structure_indices = validate_structure_indices(
+        molecular_system, structure_indices, 'molsysmt.info'
+    )
 
     form = get_form(molecular_system)
 

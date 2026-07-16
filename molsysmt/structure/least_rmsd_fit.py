@@ -73,7 +73,40 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
         If an unsupported engine is requested.
     StructuralInconsistencyError
         If the number of atoms resolved by ``selection_fit`` and
-        ``reference_selection_fit`` differ.
+        ``reference_selection_fit`` differ, or if either fit selection is
+        collinear and therefore cannot define a unique three-dimensional
+        rigid transformation.
+
+    Notes
+    -----
+    A unique three-dimensional rotation requires at least three non-collinear
+    fit atoms in both systems. A fit based on one atom, two atoms, or collinear
+    atoms is rejected instead of returning an arbitrary rotation.
+
+    See Also
+    --------
+    :func:`molsysmt.structure.get_rmsd`
+        Compute RMSD without changing coordinates.
+    :func:`molsysmt.structure.rotate`
+        Apply an explicit proper rotation.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(
+    ...     msm.systems['pentalanine']['traj_pentalanine.h5msm'],
+    ...     structure_indices=[0, 1],
+    ... )
+    >>> fitted = msm.structure.least_rmsd_fit(
+    ...     molsys, selection_fit='atom_type!="H"', structure_indices=[0, 1],
+    ...     reference_structure_index=0, use_gpu=False
+    ... )
+    >>> msm.get(fitted, element='system', n_structures=True)
+    2
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_Least_rmsd_fit`.
 
     .. versionadded:: 1.0.0
     """
@@ -111,6 +144,27 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
             raise StructuralInconsistencyError(
                 reason="reference selection and selection needs to have the same number of atoms",
                 caller="molsysmt.structure.least_rmsd_fit"
+            )
+
+        def _has_unique_rotation(frame):
+            centered = frame - np.mean(frame, axis=0)
+            return np.linalg.matrix_rank(centered) >= 2
+
+        if not all(_has_unique_rotation(frame) for frame in fit_coords):
+            raise StructuralInconsistencyError(
+                reason=(
+                    "selection_fit must contain at least three non-collinear "
+                    "points to define a unique three-dimensional rotation"
+                ),
+                caller="molsysmt.structure.least_rmsd_fit",
+            )
+        if not all(_has_unique_rotation(frame) for frame in ref_coords):
+            raise StructuralInconsistencyError(
+                reason=(
+                    "reference_selection_fit must contain at least three "
+                    "non-collinear points to define a unique three-dimensional rotation"
+                ),
+                caller="molsysmt.structure.least_rmsd_fit",
             )
 
         # Estimate payload size and resolve GPU execution

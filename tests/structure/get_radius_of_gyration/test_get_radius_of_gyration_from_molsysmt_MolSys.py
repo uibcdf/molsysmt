@@ -32,3 +32,31 @@ def test_get_radius_of_gyration_uniform_vs_mass_weighted_differ():
     rg_geom_val = msm.pyunitwizard.get_value(rg_geom, to_unit='nm')
     rg_mass_val = msm.pyunitwizard.get_value(rg_mass, to_unit='nm')
     assert not np.allclose(rg_geom_val, rg_mass_val, atol=1e-6)
+
+
+def test_get_radius_of_gyration_heavy_mode_matches_eager():
+    """Chunked Rg agrees with eager execution for selected trajectory frames."""
+
+    path = systems['pentalanine']['traj_pentalanine.h5msm']
+    molsys = msm.convert(path, to_form='molsysmt.MolSys')
+    structure_indices = [0, 100, 1000, 4999]
+    eager = msm.structure.get_radius_of_gyration(
+        molsys,
+        selection='atom_type!="H"',
+        structure_indices=structure_indices,
+        heavy_mode="off",
+        use_gpu=False,
+    )
+    chunked = msm.structure.get_radius_of_gyration(
+        path,
+        selection='atom_type!="H"',
+        structure_indices=structure_indices,
+        heavy_mode="force",
+    )
+
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(chunked, to_unit="nm"),
+        msm.pyunitwizard.get_value(eager, to_unit="nm"),
+        rtol=0.0,
+        atol=1.0e-12,
+    )

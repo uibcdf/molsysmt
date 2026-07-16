@@ -116,14 +116,14 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
         n_molecules=max(len(unique_group_ids), 1),
         n_entities=max(len(entity_id_raw) if entity_id_raw is not None else 1, 1),
         n_chains=max(len(unique_chain_ids), 1),
-        n_bonds=len(bonds.get('atom_pairs', [])) if bonds else 0,
+        n_bonds=0,
         skip_digestion=True,
     )
 
     topo.atoms['atom_id'] = pd.Series(atom_id, dtype='Int64')
     topo.atoms['atom_name'] = pd.Series(atom_name, dtype=str)
     topo.atoms['group_index'] = pd.Series(group_indices, dtype='Int64')
-    topo.atoms['component_index'] = pd.Series(group_indices, dtype='Int64')
+    topo._set_component_indices(pd.Series(group_indices, dtype='Int64'))
     topo.atoms['chain_index'] = pd.Series(chain_indices, dtype='Int64')
 
     topo.groups['group_id'] = pd.Series(unique_group_ids, dtype='Int64')
@@ -150,13 +150,18 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
 
     if bonds:
         atom_pairs = bonds.get('atom_pairs', [])
-        atom1_index = [pair[0] for pair in atom_pairs]
-        atom2_index = [pair[1] for pair in atom_pairs]
-        topo.bonds['atom1_index'] = pd.Series(atom1_index, dtype='Int64')
-        topo.bonds['atom2_index'] = pd.Series(atom2_index, dtype='Int64')
-        topo.bonds['order'] = pd.Series(bonds.get('order', []), dtype=str)
-        if 'type' in bonds:
-            topo.bonds['type'] = pd.Series(bonds.get('type', []), dtype=str)
+        bond_orders = bonds.get('order', None)
+        bond_types = bonds.get('type', None)
+        if bond_orders is not None and len(bond_orders) == 0:
+            bond_orders = None
+        if bond_types is not None and len(bond_types) == 0:
+            bond_types = None
+        topo._append_chemical_state_bonds(
+            atom_pairs,
+            orders=bond_orders,
+            types=bond_types,
+            sort=False,
+        )
 
     coordinates, times, boxes = _collect_coordinates(frames, n_atoms if n_atoms > 0 else None)
     structures = Structures(

@@ -9,13 +9,11 @@ systems = {}
 # 1SUX
 #systems['1SUX'] = {}
 #systems['1SUX']['1sux.pdb'] = path('molsysmt.data.pdb','1sux.pdb')
-#systems['1SUX']['1sux.mmtf'] = path('molsysmt.data.mmtf','1sux.mmtf')
 
 
 # 5ZMZ
 #systems['5ZMZ'] = {}
 #systems['5ZMZ']['5zmz.pdb'] = path('molsysmt.data.pdb', '5zmz.pdb')
-#systems['5ZMZ']['5zmz.mmtf'] = path('molsysmt.data.mmtf', '5zmz.mmtf')
 
 
 # Alanine dipeptide
@@ -59,11 +57,9 @@ systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5msm'] = path
 
 systems['T4 lysozyme L99A'] = {}
 systems['T4 lysozyme L99A']['181l.pdb'] = path('molsysmt.data.pdb', '181l.pdb')
-systems['T4 lysozyme L99A']['181l.mmtf'] = path('molsysmt.data.mmtf', '181l.mmtf')
 systems['T4 lysozyme L99A']['181l.bcif.gz'] = path('molsysmt.data.bcif_gz', '181l.bcif.gz')
 systems['T4 lysozyme L99A']['181l.h5msm'] = path('molsysmt.data.h5msm', '181l.h5msm')
 systems['T4 lysozyme L99A']['1l17.pdb'] = path('molsysmt.data.pdb', '1l17.pdb')
-systems['T4 lysozyme L99A']['1l17.mmtf'] = path('molsysmt.data.mmtf', '1l17.mmtf')
 systems['T4 lysozyme L99A']['1l17.h5msm'] = path('molsysmt.data.h5msm', '1l17.h5msm')
 systems['T4 lysozyme L99A']['t4_lysozyme_L99A.h5msm'] = path('molsysmt.data.h5msm', 't4_lysozyme_L99A.h5msm')
 
@@ -186,5 +182,4 @@ systems['2HGR']['2hgr.pdb'] = path('molsysmt.data.pdb', '2hgr.pdb')
 systems['4V4Z'] = {}
 systems['4V4Z']['4v4z.bcif.gz'] = path('molsysmt.data.bcif_gz', '4v4z.bcif.gz')
 systems['4V4Z']['4v4z_openmm.pdb'] = path('molsysmt.data.pdb', '4v4z_openmm.pdb')
-
 

@@ -16,7 +16,8 @@
 | [Get neighbors](get_neighbors.ipynb) | Getting the list of neighboring elements or groups of elements of a molecular system from specific elements or group of elements of another molecular system |
 | [Get principal axes](get_principal_axes.ipynb) | Getting the principal inertia or geometric axes of a molecular system |
 | [Get radius of gyration](get_radius_of_gyration.ipynb) | Getting radius of gyration of a molecular system |
-| [Get RMSD](get_radius_of_gyration.ipynb) | Getting the RMSD of a molecular system from a reference molecular system |
+| [Get RMSD](get_rmsd.ipynb) | Getting the RMSD of a molecular system from a reference molecular system |
+| [Get RMSF](get_rmsf.ipynb) | Getting per-atom root-mean-square fluctuations over a trajectory |
 | [Least RMSD align](least_rmsd_align.ipynb) | Aligning the structure of a molecular system over a reference molecular system|
 | [Least RMSD fit](least_rmsd_fit.ipynb) | Fitting the structure of a molecular system over a reference molecular system|
 | [Move away](move_away.ipynb) | Moving away a molecular system from another molecular system |
@@ -48,6 +49,7 @@
    get_principal_axes.ipynb
    get_radius_of_gyration.ipynb
    get_rmsd.ipynb
+   get_rmsf.ipynb
    least_rmsd_align.ipynb
    least_rmsd_fit.ipynb
    move_away.ipynb

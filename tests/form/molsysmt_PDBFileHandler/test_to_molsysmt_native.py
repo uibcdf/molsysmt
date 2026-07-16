@@ -36,3 +36,18 @@ def test_pdb_file_handler_from_builder_fixture_preserves_declared_truth(builder_
     assert molsys.topology.atoms['atom_name'].tolist() == builder_pdb_molsys.topology.atoms['atom_name'].tolist()
     assert molsys.topology.groups['group_name'].tolist() == builder_pdb_molsys.topology.groups['group_name'].tolist()
     assert molsys.topology.chains['chain_id'].tolist() == builder_pdb_molsys.topology.chains['chain_id'].tolist()
+
+
+def test_get_uses_native_attribute_pipes(builder_pdb_handler):
+    atom_indices, group_names, coordinates = msm.get(
+        builder_pdb_handler,
+        element='atom',
+        selection=[0, 1],
+        atom_index=True,
+        group_name=True,
+        coordinates=True,
+    )
+
+    assert atom_indices == [0, 1]
+    assert group_names == ['ALA', 'ALA']
+    assert coordinates.shape[1:] == (2, 3)

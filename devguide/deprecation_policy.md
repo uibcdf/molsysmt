@@ -1,6 +1,6 @@
 # Deprecation Policy for the 1.x Line
 
-> **Status (updated 2026-03-23)**
+> **Status (updated 2026-07-15)**
 >
 > This document defines the official deprecation policy for MolSysMT starting
 > with the `1.0.0` release. It applies to all symbols classified as **Stable**
@@ -84,14 +84,16 @@ renaming), the maintainers should prefer a two-minor-release warning period.
 
 ### 4.2 How to signal deprecation in code
 
-Use the `msm.warn_once` mechanism (backed by SMonitor) to emit a one-time
-structured deprecation warning on first use:
+Use the internal `warn_once` mechanism (backed by SMonitor) to emit a one-time
+deprecation warning on first use:
 
 ```python
-msm.warn_once(
-    "DeprecationWarning",
-    message="msm.foo() is deprecated since 1.N.0 and will be removed in 1.(N+1).0. Use msm.bar() instead.",
-    caller="msm.foo",
+from molsysmt._private.smonitor import MolSysMTDeprecationWarning, warn_once
+
+warn_once(
+    "msm.foo() is deprecated since 1.N.0 and will be removed in "
+    "1.(N+1).0. Use msm.bar() instead.",
+    MolSysMTDeprecationWarning,
 )
 ```
 
@@ -161,8 +163,15 @@ MolSysMT follows semantic versioning (`MAJOR.MINOR.PATCH`):
 
 The deprecation policy is tied to the stability classification in
 `devguide/api_surface.md`, not to the form support tiers in
-`devguide/support_tiers.ipynb`.
+`molsysmt/_private/form_tier.py`.
 
 A Tier 1 form being reclassified (e.g., demoted from Tier 1 to Tier 2) is a
 breaking change for users who depend on that form's contractual guarantees and
 follows the same deprecation process.
+
+## 8. Active form deprecations
+
+There are no active form deprecations. MMTF and MSMPK were removed before the
+1.0 public contract was established, so they do not require a compatibility
+window. BinaryCIF/mmCIF are the supported structural exchange formats and H5MSM
+is the native persistence format.

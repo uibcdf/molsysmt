@@ -1,40 +1,91 @@
 # MolSysMT Core Algorithms
 
-This document specifies the internal algorithms that power the interoperability and performance of the MolSysMT framework.
+This document records current normalization and native-rebuild behavior. It
+describes implemented algorithms, not desired chemical perception capabilities.
 
----
+## Atom-type inference from atom names
 
-## 1. Topological Normalization Specification
+`molsysmt.element.atom.get_atom_type_from_atom_name()` performs an exact lookup
+in `molsysmt/element/atom/names.py`.
 
-### 1.1 Overview
-MolSysMT implements a **Normalization Engine** to resolve nomenclatural inconsistencies across force fields (AMBER, CHARMM, GROMOS) and data sources (PDB, MMTF).
+- Known names return the mapped element symbol.
+- An unknown name emits `UnknownAtomNameWarning` and returns `"UNK"`.
+- The lookup does not perform a general element inference algorithm from an
+  arbitrary PDB atom-name grammar.
+Unexpected mapping failures propagate instead of being treated as unknown
+names.
 
-### 1.2 Atom Name Pacification
-- **Inference:** When a system is loaded, MolSysMT infers the chemical element (atom type) from the atom name.
-- **Single Source of Truth:** `molsysmt/element/atom/names.py` contains ~250 mappings (e.g., `HN1` $\rightarrow$ `H`, `OW` $\rightarrow$ `O`).
-- **Rule:** If a name is unrecognized, it produces `UNK` and a warning.
+## Group-type inference
 
-### 1.3 Residue (Group) Normalization
-- **Mapping:** `molsysmt/element/group/amino_acid/group_types.py` (~817 entries).
-- **Behavior:** Normalizes protonation states (`HIE` $\rightarrow$ `HIS`) and terminal variants.
+Name-based classification is implemented by
+`molsysmt.element.group.get_group_type_from_group_name()` with this precedence:
 
----
+1. water;
+2. ion;
+3. amino acid;
+4. terminal capping;
+5. nucleotide;
+6. small molecule;
+7. lipid;
+8. saccharide;
+9. unknown.
 
-## 2. Precision Policy Specification
+These decisions use maintained name collections. A group is not classified as an
+ion merely because it contains one atom, and arbitrary atomic composition does
+not by itself establish a group type.
 
-### 2.1 Supported Precisions
-1. **Single Precision (`float32`):** Used for disk I/O (XTC/DCD).
-2. **Double Precision (`float64`):** The native standard for `molsysmt.MolSys` and internal performance kernels (`molsysmt.lib`).
+During native topology rebuild,
+`molsysmt.native._topology_infer.infer_group_types_from_topology()` first applies
+the name-based classifier. A name reserved as a small molecule is reclassified
+as an amino acid only when its atom names contain the set `N`, `CA`, `C`, `O`,
+and `CB`. This heuristic does not cover every chemically valid amino acid, such
+as glycine identified only by composition, and must not be described as general
+chemical perception.
 
-### 2.2 Boundary Hardening
-- **Public-to-Kernel:** Public wrappers (e.g., `get_rmsd()`) MUST cast input arrays to `np.float64` before calling JIT kernels.
-- **In-memory Promotion:** When converting to `MolSys`, coordinates are promoted to `float64` to avoid redundant casting in subsequent analysis.
+## Component inference
 
----
+Components are covalently connected atom sets. Native component indices are
+computed from the bond pairs and stored at atom level. Groups do not store a
+canonical `component_index` column.
 
-## 4. Group Type Inference Algorithm
-MolSysMT classifies groups based on their atomic composition and name:
-- **`water`:** Any group with a name in the canonical `_WATER_NAMES` set (`HOH`, `SOL`, `WAT`, etc.).
-- **`ion`:** Any single-atom group representing a standard cation or anion.
-- **`amino acid`:** Any group containing the minimal backbone quartet: `N`, `CA`, `C`, and `O`.
-- **`small molecule`:** Any group not fitting the above criteria but having a consistent covalent block.
+With no bonds, the connectivity routine determines the fallback component
+partition. Callers must not infer semantic molecules from components without the
+separate molecule-rebuild rules.
+
+## Molecule inference
+
+Molecule inference operates over ordered groups and their atom-level chain
+membership. Polymer-like group types may continue the current molecule within a
+chain. Standalone types (`ion`, `water`, and `small molecule`) start distinct
+molecules. Chain changes and transitions between polymer and standalone classes
+split molecules.
+
+Component and molecule partitions are orthogonal: a covalent component may span
+more than one semantic molecule.
+
+## Entity inference
+
+Entities are derived from rebuilt molecule information. Molecules sharing the
+same inferred semantic identity may map to one entity; water molecules are
+grouped according to the native entity rules. Entity inference must use local
+topology evidence and must not fetch external chemical metadata.
+
+## Precision and units
+
+Native `Structures` stores coordinates and box vectors as read-only `float64`
+arrays in nm behind quantity-returning properties. Time is stored in ps.
+
+The default kernel boundary is double precision. Selected execution paths can
+use `molsysmt.configure.precision = "single"`, so documentation and tests must
+state when single precision is supported and use tolerances appropriate to that
+path. Trajectory file precision is format- and writer-dependent; it is not
+correct to state that every XTC or DCD value is always stored in one universal
+dtype.
+
+## Rebuild discipline
+
+Native rebuild functions use only evidence already present in the native
+topology and canonical local tables. They must not call public dispatchers or
+silently enrich the system from network services. Rebuild order matters because
+later molecule and entity inference consumes earlier group, component, and chain
+results.

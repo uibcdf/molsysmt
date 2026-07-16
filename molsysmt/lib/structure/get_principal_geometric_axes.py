@@ -45,6 +45,7 @@ def get_principal_geometric_axes_single_structure(coordinates, weights):
     matrix[:,:] = matrix/aux_weight
 
     eigenvalues, eigenvectors = np.linalg.eigh(matrix)
+    eigenvectors[:,:] = eigenvectors[:,:].transpose()
 
     return eigenvalues, eigenvectors
 
@@ -98,5 +99,6 @@ def get_principal_geometric_axes(coordinates, weights):
         matrix[:,:] = matrix/aux_weight
 
         eigenvalues[jj,:], eigenvectors[jj,:,:] = np.linalg.eigh(matrix)
+        eigenvectors[jj,:,:] = eigenvectors[jj,:,:].transpose()
 
     return eigenvalues, eigenvectors

@@ -31,3 +31,12 @@ def test_concatenate_explicit_to_form(traj_pentalanine_h5_molsys):
     n = msm.get(result, element='system', n_structures=True)
     n_orig = msm.get(traj_pentalanine_h5_molsys, element='system', n_structures=True)
     assert n == 2 * n_orig
+
+
+def test_concatenate_flat_structure_indices_are_per_system(traj_pentalanine_h5_molsys):
+    """A flat list selects one distinct frame from each input trajectory."""
+    result = msm.concatenate_structures(
+        [traj_pentalanine_h5_molsys, traj_pentalanine_h5_molsys],
+        structure_indices=[0, 1],
+    )
+    assert msm.get(result, element='system', n_structures=True) == 2

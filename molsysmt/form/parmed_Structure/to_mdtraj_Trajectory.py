@@ -1,17 +1,34 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.variables import is_all
+from depdigest import dep_digest
+import numpy as np
 
 @arg_digest(form='parmed.Structure')
+@dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.mdtraj_Topology import to_mdtraj_Topology
-    from . import get_coordinates_from_atom, get_box_from_system
-    from molsysmt.form.mdtraj_Topology import to_mdtraj_Trajectory as openmm_Topology_to_openmm_Modeller
+    from .to_mdtraj_Topology import to_mdtraj_Topology
+    from mdtraj import Trajectory
 
-    tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                            skip_digestion=True)
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
-    tmp_item = mdtraj_Topology_to_mdtraj_Trajectory(tmp_item, coordinates=coordinates, box=box, skip_digestion=True)
+    topology = to_mdtraj_Topology(
+        item,
+        atom_indices=atom_indices,
+        skip_digestion=True,
+    )
+    coordinates = item.get_coordinates('all')
+    if not is_all(structure_indices):
+        coordinates = coordinates[structure_indices]
+    if not is_all(atom_indices):
+        coordinates = coordinates[:, atom_indices, :]
+    tmp_item = Trajectory(np.asarray(coordinates, dtype=float) / 10.0, topology)
+
+    if item.box is not None:
+        box = np.asarray(item.box, dtype=float).reshape((-1, 6))
+        if len(box) == 1 and tmp_item.n_frames > 1:
+            box = np.repeat(box, tmp_item.n_frames, axis=0)
+        elif not is_all(structure_indices):
+            box = box[structure_indices]
+        tmp_item.unitcell_lengths = box[:, :3] / 10.0
+        tmp_item.unitcell_angles = box[:, 3:]
 
     return tmp_item
-

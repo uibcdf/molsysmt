@@ -4,9 +4,12 @@ independent_attributes = []
 topological_attributes = []
 structural_attributes = []
 mechanical_attributes = []
+chemical_state_attributes = []
 
 def add_attribute(name, synonyms=None, depends_on=None, dependants=None, runs_on_elements=False, runs_on_structures=False,
-        topological=False, structural=False, mechanical=False, dynamical=False, get_from=None, set_to=None, values=None):
+        topological=False, structural=False, mechanical=False, chemical_state=False,
+        dynamical=False, get_from=None, set_to=None, values=None, domain=None,
+        dtype=None, nullable=None, units=None):
 
     synonyms = synonyms or []
     depends_on = depends_on or []
@@ -14,17 +17,29 @@ def add_attribute(name, synonyms=None, depends_on=None, dependants=None, runs_on
     get_from = get_from or []
     values = values or []
 
+    if isinstance(depends_on, str):
+        depends_on = [depends_on]
+    if isinstance(dependants, str):
+        dependants = [dependants]
+
     attributes[name] = {
             'synonyms' : synonyms,
+            'depends_on' : depends_on,
+            'dependants' : dependants,
             'runs_on_elements' :  runs_on_elements,
             'runs_on_structures' :  runs_on_structures,
             'topological' :  topological,
             'structural' :  structural,
             'mechanical' :  mechanical,
+            'chemical_state' : chemical_state,
             'dynamical' :  dynamical,
             'get_from' : get_from,
             'set_to' : set_to,
             'values' : values,
+            'domain' : domain,
+            'dtype' : dtype,
+            'nullable' : nullable,
+            'units' : units,
             }
 
     for alternative_name in synonyms:
@@ -41,6 +56,9 @@ def add_attribute(name, synonyms=None, depends_on=None, dependants=None, runs_on
 
     if mechanical:
         mechanical_attributes.append(name)
+
+    if chemical_state:
+        chemical_state_attributes.append(name)
 
 ###
 ### TOPOLOGICAL ATTRIBUTES
@@ -61,6 +79,31 @@ add_attribute('atom_id', synonyms=['atom_ids'], runs_on_elements=True, topologic
 ## atom_type
 add_attribute('atom_type', synonyms=['atom_types'], runs_on_elements=True, topological=True,
         get_from=['atom','group','component','molecule','chain','entity'], set_to='atom')
+
+add_attribute('isotope', synonyms=['isotopes'], runs_on_elements=True, topological=True,
+        get_from=['atom'], set_to='atom', domain='atom', dtype='UInt16', nullable=True)
+
+add_attribute('chemical_state_index', synonyms=['chemical_state_indices'],
+        depends_on=['n_chemical_states'], chemical_state=True, get_from=['system'],
+        domain='chemical_state', dtype='Int64', nullable=False)
+add_attribute('chemical_state_id', synonyms=['chemical_state_ids'],
+        depends_on=['chemical_state_index'], chemical_state=True, get_from=['system'],
+        domain='chemical_state', dtype='string', nullable=True)
+add_attribute('n_chemical_states', synonyms=['n_chemical_state'],
+        dependants=['chemical_state_index'], chemical_state=True, get_from=['system'],
+        domain='system', dtype='int', nullable=False)
+add_attribute('reference_chemical_state_index', depends_on=['chemical_state_index'],
+        chemical_state=True, get_from=['system'], domain='system', dtype='Int64',
+        nullable=True)
+add_attribute('connectivity_completeness', chemical_state=True, get_from=['system'],
+        domain='chemical_state', dtype='string', nullable=False,
+        values=['unavailable', 'partial', 'complete'])
+add_attribute('component_completeness', chemical_state=True, get_from=['system'],
+        domain='chemical_state', dtype='string', nullable=False,
+        values=['unavailable', 'partial', 'complete'])
+add_attribute('component_evidence', chemical_state=True, get_from=['system'],
+        domain='chemical_state', dtype='string', nullable=False,
+        values=['explicit', 'inferred', 'user_defined', 'unknown'])
 
 ## group_index
 add_attribute('group_index', synonyms=['group_indices', 'residue_indices', 'residue_index'],
@@ -84,19 +127,22 @@ add_attribute('group_type', synonyms=['group_types', 'residue_types', 'residue_t
 
 ## component_index
 add_attribute('component_index', synonyms=['component_indices'], dependants=['n_components'],
-              runs_on_elements=True, topological=True,
+              runs_on_elements=True, topological=True, chemical_state=True,
               get_from=['atom','group','component','molecule','chain','entity'])
 
 ## component_name
 add_attribute('component_name', synonyms=['component_names'], runs_on_elements=True, topological=True,
+        chemical_state=True,
         get_from=['atom','group','component','molecule','chain','entity'], set_to='component')
 
 ## component_id
 add_attribute('component_id', synonyms=['component_ids'], runs_on_elements=True, topological=True,
+        chemical_state=True,
         get_from=['atom','group','component','molecule','chain','entity'], set_to='component')
 
 ## component_type
 add_attribute('component_type', synonyms=['component_types'], runs_on_elements=True, topological=True,
+        chemical_state=True,
         get_from=['atom','group','component','molecule','chain','entity'], set_to='component')
 
 ## chain_index
@@ -154,41 +200,73 @@ add_attribute('entity_type', synonyms=['entity_types'], runs_on_elements=True, t
 
 ## bond_index
 add_attribute('bond_index', synonyms=['bond_indices'], dependants=['n_bonds'], runs_on_elements=True,
-              topological=True, get_from=['atom','bond'])
+              topological=True, chemical_state=True, get_from=['atom','bond','system'])
 
 ## bond_id
 add_attribute('bond_id', synonyms=['bond_ids'], runs_on_elements=True, topological=True,
-        get_from=['bond'], set_to='bond')
+        chemical_state=True,
+        get_from=['bond'], set_to='bond', domain='bond', dtype='string', nullable=True)
 
 ## bond_type
 add_attribute('bond_type', synonyms=['bond_types'], runs_on_elements=True, topological=True,
-        get_from=['bond'], set_to='bond')
+        chemical_state=True,
+        get_from=['bond'], set_to='bond', domain='bond', dtype='string', nullable=True,
+        values=['covalent', 'dative', 'unknown'])
 
 ## bond_order
 add_attribute('bond_order', synonyms=['bonds_order'], runs_on_elements=True, topological=True,
-        get_from=['bond'], set_to='bond')
+        chemical_state=True,
+        get_from=['bond'], set_to='bond', domain='bond', dtype='UInt8', nullable=True)
+
+add_attribute('fractional_bond_order', synonyms=['fractional_bond_orders'], runs_on_elements=True,
+        chemical_state=True, get_from=['bond'], set_to='bond',
+        domain='bond', dtype='Float64', nullable=True)
+add_attribute('bond_is_aromatic', synonyms=['bonds_are_aromatic'], runs_on_elements=True,
+        chemical_state=True, get_from=['bond'], set_to='bond',
+        domain='bond', dtype='boolean', nullable=True)
+add_attribute('bond_is_conjugated', synonyms=['bonds_are_conjugated'], runs_on_elements=True,
+        chemical_state=True, get_from=['bond'], set_to='bond',
+        domain='bond', dtype='boolean', nullable=True)
+add_attribute('bond_stereochemistry', synonyms=['bond_stereochemistries'], runs_on_elements=True,
+        chemical_state=True, depends_on=['bond_stereo_atom_indices'],
+        get_from=['bond'], set_to='bond', domain='bond', dtype='string', nullable=True)
+add_attribute('bond_stereo_atom_indices', runs_on_elements=True, chemical_state=True,
+        dependants=['bond_stereochemistry'], get_from=['bond'],
+        set_to='bond', domain='bond', dtype='Int64', nullable=True)
+add_attribute('bond_donor_atom_index', synonyms=['bond_donor_atom_indices'], runs_on_elements=True,
+        chemical_state=True, get_from=['bond'], set_to='bond',
+        domain='bond', dtype='Int64', nullable=True)
+add_attribute('bond_acceptor_atom_index', synonyms=['bond_acceptor_atom_indices'], runs_on_elements=True,
+        chemical_state=True, get_from=['bond'], set_to='bond',
+        domain='bond', dtype='Int64', nullable=True)
+add_attribute('bond_joins_components', runs_on_elements=True, chemical_state=True,
+        get_from=['bond'], set_to='bond', domain='bond',
+        dtype='boolean', nullable=True)
+add_attribute('bond_evidence', runs_on_elements=True, chemical_state=True,
+        get_from=['bond'], set_to='bond', domain='bond',
+        dtype='string', nullable=True)
 
 ## bonded_atoms
 add_attribute('bonded_atoms', synonyms=['bonded_atom'], dependants=['inner_bonded_atoms'],
               runs_on_elements=True, topological=True,
-              get_from=['atom','bond'], set_to='bond')
+              get_from=['atom','bond','system'], set_to='bond')
 
 ## bonded_atoms
 add_attribute('bonded_atom_pairs', synonyms=['bonded_atoms_pairs'], dependants=['inner_bonded_atom_pairs'],
               runs_on_elements=True, topological=True,
-              get_from=['atom','bond'], set_to='bond')
+              get_from=['atom','bond','system'], set_to='bond')
 
 ## inner_bonded_atoms
 add_attribute('inner_bonded_atoms', synonyms=['inner_bonded_atom'], depends_on=['bonded_atoms'],
-              runs_on_elements=True, topological=True, get_from=['atom'])
+              runs_on_elements=True, topological=True, get_from=['atom','system'])
 
 ## inner_bonded_atoms
 add_attribute('inner_bonded_atom_pairs', synonyms=['inner_bonded_atoms_pairs'], depends_on=['bonded_atom_pairs'],
-              runs_on_elements=True, topological=True, get_from=['atom'])
+              runs_on_elements=True, topological=True, get_from=['atom','system'])
 
 ## inner_bond_index
 add_attribute('inner_bond_index', synonyms=['inner_bond_indices'], depends_on=['bonded_atoms'],
-              runs_on_elements=True, topological=True, get_from=['atom'])
+              runs_on_elements=True, topological=True, get_from=['atom','system'])
 
 ## n_atoms
 add_attribute('n_atoms', synonyms=['n_atom'], depends_on=['atom_index'], runs_on_elements=True,
@@ -304,6 +382,21 @@ add_attribute('structure_id', synonyms=['structure_ids', 'structures_id', 'struc
                                         'md_steps', 'mdstep', 'mdsteps'],
                runs_on_structures=True, structural=True, get_from=['system'], set_to='system')
 
+## structure_chemical_state_index
+add_attribute(
+    'structure_chemical_state_index',
+    synonyms=['structure_chemical_state_indices'],
+    depends_on=['structure_index', 'chemical_state_index'],
+    runs_on_structures=True,
+    structural=True,
+    chemical_state=True,
+    get_from=['system'],
+    set_to='system',
+    domain='structure',
+    dtype='Int64',
+    nullable=True,
+)
+
 ## time
 add_attribute('time', synonyms=['times'], runs_on_structures=True, structural=True,
               get_from=['system'], set_to='system')
@@ -383,9 +476,26 @@ add_attribute('n_bioassemblies', synonyms=['n_bioassembly'], structural=True,
 ### MECHANICAL ATTRIBUTES
 ###
 
-## formal_charge
-add_attribute('formal_charge', synonyms=['formal_charges'], runs_on_elements=True, mechanical=True,
-        get_from=['atom','system'], set_to='atom')
+## chemical-state atom attributes
+add_attribute('formal_charge', synonyms=['formal_charges'], runs_on_elements=True,
+        chemical_state=True, get_from=['atom','system'], set_to='atom',
+        domain='atom', dtype='Int16', nullable=True, units='elementary_charge')
+add_attribute('atom_is_aromatic', synonyms=['atoms_are_aromatic'], runs_on_elements=True,
+        chemical_state=True, get_from=['atom'], set_to='atom',
+        domain='atom', dtype='boolean', nullable=True)
+add_attribute('n_unpaired_electrons', runs_on_elements=True, chemical_state=True,
+        get_from=['atom'], set_to='atom', domain='atom',
+        dtype='UInt8', nullable=True)
+add_attribute('n_implicit_hydrogens', runs_on_elements=True, chemical_state=True,
+        get_from=['atom'], set_to='atom', domain='atom',
+        dtype='UInt8', nullable=True)
+add_attribute('allows_implicit_hydrogens', runs_on_elements=True, chemical_state=True,
+        get_from=['atom'], set_to='atom', domain='atom',
+        dtype='boolean', nullable=True)
+add_attribute('atom_stereochemistry', synonyms=['atom_stereochemistries'], runs_on_elements=True,
+        chemical_state=True, get_from=['atom'], set_to='atom',
+        domain='atom', dtype='string', nullable=True,
+        values=['R', 'S', 'r', 's', 'unspecified', 'unknown'])
 
 ## partial_charge
 add_attribute('partial_charge', synonyms=['partial_charges'], runs_on_elements=True, mechanical=True,
@@ -501,6 +611,3 @@ add_attribute('friction', synonyms=['damping'], dynamical=True,
 ## time_step
 add_attribute('time_step', synonyms=['time_steps', 'timestep', 'timesteps'], dynamical=True,
         get_from=['system'], set_to='system')
-
-
-

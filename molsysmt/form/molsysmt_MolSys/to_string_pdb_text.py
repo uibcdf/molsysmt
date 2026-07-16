@@ -144,11 +144,12 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', pdb_ch
         if with_multiple_models:
             tmp_item += "ENDMDL\n"
 
-    if item.topology.bonds.shape[0] > 0:
+    bonds = item.topology._get_chemical_state_bonds()
+    if bonds.shape[0] > 0:
         atom_index_in_output = set(int(ii) for ii in source_atom_indices)
         bonded_pairs_written = set()
 
-        for bond in item.topology.bonds.itertuples():
+        for bond in bonds.itertuples():
             atom1_index = int(bond.atom1_index)
             atom2_index = int(bond.atom2_index)
 

@@ -9,6 +9,9 @@ form='openmm.AmberInpcrdFile'
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    if indices is None or structure_indices is None:
+        return None
+
     # OpenMM returns positions as a list of Vec3 with units
     tmp_positions = item.getPositions()
     # Convert to pure numpy array in nanometers
@@ -22,10 +25,16 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     output[0,:,:] = tmp_positions
     output = output * puw.unit('nanometers')
 
+    if not is_all(structure_indices):
+        output = output[structure_indices, :, :]
+
     return output
 
 @arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+
+    if indices is None or structure_indices is None:
+        return None
 
     # An inpcrd file only carries velocities when it comes from a restart
     try:
@@ -46,10 +55,16 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     output[0,:,:] = tmp_velocities
     output = output * puw.unit('nanometers/picosecond')
 
+    if not is_all(structure_indices):
+        output = output[structure_indices, :, :]
+
     return output
 
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+
+    if structure_indices is None:
+        return None
 
     try:
         tmp_box = item.getBoxVectors()
@@ -62,12 +77,23 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
         output = np.zeros([1, 3, 3])
         output[0,:,:] = tmp_box
         output = output * puw.unit('nanometers')
+        if not is_all(structure_indices):
+            output = output[structure_indices, :, :]
         return output
     return None
 
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
-    return 1
+    if structure_indices is None:
+        return 0
+    if is_all(structure_indices):
+        return 1
+    return len(structure_indices)
+
+
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+    return None
 
 # List of functions to be imported
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]

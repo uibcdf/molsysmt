@@ -3,9 +3,11 @@ from molsysmt._private.variables import is_all, is_iterable_of_iterables
 import numpy as np
 
 from smonitor import signal
+from molsysmt._private.chemical_state import resolve_chemical_state
 
 @signal(tags=['api', 'get'])
 @arg_digest()
+@resolve_chemical_state
 def get(molecular_system,
         element='system',
         selection='all',
@@ -14,6 +16,7 @@ def get(molecular_system,
         syntax='MolSysMT',
         get_missing_bonds=True,
         output_type='values',
+        chemical_state='reference',
         skip_digestion=False,
         **kwargs):
     """
@@ -36,11 +39,13 @@ def get(molecular_system,
         :ref:`Introduction_Selection`.
     structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
         0-based indices of structures to include in the query. Required for structural attributes (e.g., coordinates, box, time).
-    mask : array-like of bool, optional
-        Boolean mask to apply after selection and structure filtering. Must match the shape of the selected elements.
+    mask : str or array-like, optional
+        Additional subset applied after selection. It can be a selection string,
+        a collection of 0-based element indices, or a Boolean array with one
+        entry per element.
     syntax : str, default 'MolSysMT'
         Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    get_missing_bonds : bool, default False
+    get_missing_bonds : bool, default True
         Whether to infer and return bond information on the fly when bond-related attributes
         are requested and the input form lacks explicit connectivity. The inference uses the
         form backend’s heuristics (distance/chemistry-aware thresholds).
@@ -48,9 +53,15 @@ def get(molecular_system,
         Output format:
         - ``value` — **convenience mode**:
           * if exactly **one** attribute is requested, return its value directly;
-          * if **multiple** attributes are requested, return a **tuple** of values following
+          * if **multiple** attributes are requested, return a **list** of values following
             the order in which the attributes were provided in `**kwargs`.
         - ``'dictionary'`` — return a dictionary mapping attribute names to values.
+    chemical_state : {'reference', 'structure'} or int, default 'reference'
+        Chemical state used to resolve state-dependent atom, component, and bond
+        attributes. A non-negative integer selects a state by its 0-based index.
+        ``'structure'`` resolves the unique state associated with the requested
+        structures of a native MolSys. State identifiers are not accepted
+        because they need not be unique.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -68,11 +79,11 @@ def get(molecular_system,
 
     Returns
     -------
-    Any or tuple or dict or None
+    Any or list or dict or None
         Depending on `output_type`:
         - If ``output_type == 'values'`` and a single attribute is requested: the attribute value. This value can be
         `None` if the attribute is not found in the system.
-        - If ``output_type == 'values'`` and multiple attributes are requested: a tuple with values
+        - If ``output_type == 'values'`` and multiple attributes are requested: a list with values
           in the order given by `**kwargs`.
         - If ``output_type == 'dictionary'``: a dictionary ``{attribute_name: value}``.
 
@@ -81,13 +92,46 @@ def get(molecular_system,
     NotSupportedFormError
         If the molecular system has an unsupported form.
     ArgumentError
-        If any input argument is invalid or inconsistent.
+        If any input argument is invalid or inconsistent, including malformed
+        selections and out-of-range element, mask, or structure indices.
+    NotWithThisFormError
+        If a form declares a requested attribute but provides neither a
+        compatible direct getter, registered derivation, nor usable attribute
+        pipe.
 
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+    - A request may combine attributes from different element levels when an
+      incompatible attribute has exactly one catalog-supported level. MolSysMT
+      evaluates that attribute at its supported level and preserves the input
+      attribute order. For example, with ``element='atom'``, ``coordinates``
+      are evaluated on atoms while ``structure_id`` is evaluated on the system.
+      The atom selection is not applied to system-level attributes.
+    - Native Structures and MolSys objects expose stored temperature, potential
+      energy, and kinetic energy series. Total energy is returned only when both
+      energy components are present. OpenMM Context and Simulation objects expose
+      temperature only when their integrator defines it.
+    - Native Topology and MolSys objects resolve state-dependent atom chemistry,
+      components, and bonds from ``chemical_state``. The default uses the
+      reference-state rules. Access is rejected when multiple states exist
+      without a reference and no explicit index is supplied.
+    - ``isotope`` is stable atom metadata. Rich bond attributes keep integral
+      and fractional order, relationship type, aromaticity, conjugation,
+      stereochemistry and reference atoms, direction, component participation,
+      and evidence independent.
+    - State inventory attributes such as ``chemical_state_index`` and
+      ``chemical_state_id`` continue to describe every state even when
+      ``chemical_state`` selects one state for other requested attributes.
+    - Explicit integer state selection currently requires a native Topology or
+      MolSys. Convert an external form before querying a non-reference state.
+    - ``chemical_state='structure'`` requires a native MolSys and rejects
+      missing associations or structure selections spanning multiple states.
+    - Form-independent attributes such as box lengths, angles, shape, and volume
+      are derived from the box matrix when the source form exposes that matrix
+      but does not implement a dedicated getter.
 
     See Also
     --------
@@ -107,6 +151,23 @@ def get(molecular_system,
     136
     >>> msm.get(molsys, element='bond', selection=[0,1,2,3,4], bonded_atoms=True)
     [0, 1, 2, 3, 4, 8]
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_atoms=3)
+    >>> msm.set(topology, element='atom', formal_charge=[0, -1, 1])
+    >>> msm.get(topology, element='atom', chemical_state=0, formal_charge=True)
+    [0, -1, 1]
+    >>> msm.set(topology, element='atom', isotope=[13, None, 2])
+    >>> msm.get(topology, element='atom', isotope=True)[0]
+    13
+    >>> msm.get(topology, element='system', n_chemical_states=True,
+    ...         reference_chemical_state_index=True)
+    [1, 0]
+    >>> import numpy as np
+    >>> from molsysmt.native import MolSys
+    >>> molsys = MolSys(n_atoms=1)
+    >>> molsys.structures.coordinates = msm.pyunitwizard.quantity(np.zeros((2, 1, 3)), 'nm')
+    >>> msm.get(molsys, structure_chemical_state_index=True)
+    [0, 0]
 
     .. admonition:: Tutorial with more examples
 
@@ -144,85 +205,61 @@ def get(molecular_system,
         molecular_system = [molecular_system]
         form = [form]
 
-    # Correction from element='system' to element='atom' if:
-    #   selection is not 'all' or indices is not None
-    #   all attributes are attributable to atoms
+    if not in_attributes:
+        return {} if output_type == 'dictionary' else []
 
-    if (element=='system') and (not is_all(selection)):
+    if any(attributes[attribute]['runs_on_structures'] for attribute in in_attributes):
+        from ._index_validation import validate_structure_indices
 
-        from molsysmt.attribute import attributes as _attributes
+        structure_indices = validate_structure_indices(
+            molecular_system, structure_indices, 'molsysmt.get'
+        )
 
-        attributes_from_atom = []
-        attributes_from_system = []
-        for ii in in_attributes:
-            if 'atom' in _attributes[ii]['get_from']:
-                attributes_from_atom.append(ii)
-            elif 'system' in _attributes[ii]['get_from']:
-                attributes_from_system.append(ii)
+    attribute_groups = _group_attributes_by_element(element, selection, in_attributes)
 
-        aux_result_atoms = {}
-        aux_result_system = {}
+    if attribute_groups and (len(attribute_groups) > 1 or element not in attribute_groups):
+        output_dictionary = {}
 
-        if len(attributes_from_atom) > 0:
-            aux_result_atoms = get(molecular_system, element='atom', selection=selection,
-                                    structure_indices=structure_indices, mask=mask, syntax=syntax,
-                                    get_missing_bonds=get_missing_bonds, output_type='dictionary',
-                                    skip_digestion=True, **{ii:True for ii in attributes_from_atom})
-
-        if len(attributes_from_system) > 0:
-            aux_result_system = get(molecular_system, element='system', selection='all',
-                                    structure_indices=structure_indices,
-                                    get_missing_bonds=get_missing_bonds, output_type='dictionary',
-                                    skip_digestion=True, **{ii:True for ii in attributes_from_system})
-
-        aux_result = aux_result_atoms | aux_result_system
-
-        output = []
-        for ii in in_attributes:
-            output.append(aux_result[ii])
-
-        import pyunitwizard as puw
-
-        _CANONICAL_UNITS = {
-            'coordinates': 'nm',
-            'box': 'nm',
-            'box_lengths': 'nm',
-            'box_angles': 'radians',
-            'box_volume': 'nm**3',
-            'velocities': 'nm/ps',
-            'time': 'ps',
-            'time_step': 'ps',
-            'potential_energy': 'kJ/mol',
-            'kinetic_energy': 'kJ/mol',
-            'total_energy': 'kJ/mol',
-            'temperature': 'K',
-            'b_factor': 'nm**2',
-        }
-
-        def _standardize(value, attribute):
-            if value is None:
-                return None
-            if puw.is_quantity(value):
-                return puw.standardize(value)
-            if attribute in _CANONICAL_UNITS:
-                return puw.quantity(value, _CANONICAL_UNITS[attribute])
-            return value
-
-        if output_type=='values':
-            if len(output) == 1:
-                return _standardize(output[0], in_attributes[0])
+        for target_element, target_attributes in attribute_groups.items():
+            if element == 'system' and not is_all(selection):
+                use_requested_selection = target_element == 'atom'
             else:
-                return [_standardize(val, attr) for val, attr in zip(output, in_attributes)]
-        elif output_type=='dictionary':
-            return {ii: _standardize(jj, ii) for ii, jj in zip(in_attributes, output)}
+                use_requested_selection = target_element == element
+            target_selection = selection if use_requested_selection else 'all'
+            target_mask = mask if use_requested_selection else None
+            output_dictionary.update(
+                get(
+                    molecular_system,
+                    element=target_element,
+                    selection=target_selection,
+                    structure_indices=structure_indices,
+                    chemical_state=chemical_state,
+                    mask=target_mask,
+                    syntax=syntax,
+                    get_missing_bonds=get_missing_bonds,
+                    output_type='dictionary',
+                    skip_digestion=True,
+                    **{attribute: True for attribute in target_attributes},
+                )
+            )
+
+        if output_type == 'dictionary':
+            return {attribute: output_dictionary[attribute] for attribute in in_attributes}
+
+        output = [output_dictionary[attribute] for attribute in in_attributes]
+        return output[0] if len(output) == 1 else output
 
     if not is_all(selection):
-        indices = select(molecular_system, element=element, selection=selection, mask=mask, syntax=syntax, skip_digestion=True)
+        indices = select(molecular_system, element=element, selection=selection,
+                         chemical_state=chemical_state, mask=mask, syntax=syntax,
+                         skip_digestion=True)
     else:
         if (mask is None) or (is_all(mask)):
             indices = 'all'
         else:
-            indices = select(molecular_system, element=element, selection=mask, syntax=syntax, skip_digestion=True)
+            indices = select(molecular_system, element=element, selection=mask,
+                             chemical_state=chemical_state, syntax=syntax,
+                             skip_digestion=True)
 
     piped_molecular_systems, piped_attributes = _piped_molecular_system(molecular_system, element, in_attributes)
 
@@ -246,8 +283,36 @@ def get(molecular_system,
                 if aux_item is None:
                     result = None
                 else:
-                    aux_get = getattr(_dict_modules[aux_form], f'get_{in_attribute}_from_{element}')
-                    result = aux_get(aux_item, **dict_indices)
+                    getter_name = f'get_{in_attribute}_from_{element}'
+                    aux_get = getattr(_dict_modules[aux_form], getter_name, None)
+                    if aux_get is None:
+                        from molsysmt._private.attribute_derivation import (
+                            NOT_DERIVABLE,
+                            derive_attribute,
+                        )
+
+                        result = derive_attribute(
+                            _dict_modules[aux_form],
+                            aux_item,
+                            in_attribute,
+                            element,
+                            structure_indices=dict_indices.get('structure_indices', 'all'),
+                        )
+                        if result is NOT_DERIVABLE:
+                            from molsysmt._private.smonitor import NotWithThisFormError
+
+                            raise NotWithThisFormError(
+                                caller='molsysmt.get',
+                                form=aux_form,
+                                requested_attribute=in_attribute,
+                                message=(
+                                    f"Form {aux_form!r} declares attribute {in_attribute!r} but "
+                                    f"does not implement {getter_name!r}, a registered derivation, "
+                                    "or a usable attribute pipe."
+                                ),
+                            )
+                    else:
+                        result = aux_get(aux_item, **dict_indices)
 
                 if (result is not None) and in_attribute.endswith('_id'):
                     result = _coerce_ids_to_string(result)
@@ -270,7 +335,8 @@ def get(molecular_system,
                 aux_molecular_system = molecular_system
 
             aux_dict = get(aux_molecular_system, element=element, selection=indices,
-                           structure_indices=structure_indices, mask=mask, syntax=syntax,
+                           structure_indices=structure_indices, chemical_state=chemical_state,
+                           mask=mask, syntax=syntax,
                            get_missing_bonds=get_missing_bonds, output_type='dictionary', skip_digestion=False,
                            **{ii:True for ii in aux_attributes})
 
@@ -344,6 +410,28 @@ def _coerce_alternate_location_ids(value):
         output.append(new_struct)
     return output
 
+
+def _group_attributes_by_element(element, selection, in_attributes):
+    """Group attributes by an unambiguous catalog-compatible element."""
+    from molsysmt.attribute import attributes
+
+    output = {}
+    atom_selection_from_system = element == 'system' and not is_all(selection)
+
+    for attribute in in_attributes:
+        supported_elements = attributes[attribute]['get_from']
+        target_element = element
+
+        if atom_selection_from_system and 'atom' in supported_elements:
+            target_element = 'atom'
+        elif supported_elements and element not in supported_elements:
+            if len(supported_elements) == 1:
+                target_element = supported_elements[0]
+
+        output.setdefault(target_element, []).append(attribute)
+
+    return output
+
 def _piped_molecular_system(molecular_system, element, in_attributes):
     """Resolve piped attributes across items for get(); returns tuple (item, attribute list) or (None, None)."""
 
@@ -372,7 +460,25 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
                 all([ii is None for ii in structural_pipes.values()]) & \
                 all([ii is None for ii in any_pipes.values()])  
 
-    if not_piped or len(in_attributes)==1:
+    single_attribute_has_direct_getter = False
+    if len(in_attributes) == 1:
+        in_attribute = next(iter(in_attributes))
+        _, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
+        if aux_form is not None:
+            getter_name = f'get_{in_attribute}_from_{element}'
+            single_attribute_has_direct_getter = (
+                getattr(_dict_modules[aux_form], getter_name, None) is not None
+            )
+            if not single_attribute_has_direct_getter:
+                from molsysmt._private.attribute_derivation import can_derive_attribute
+
+                single_attribute_has_direct_getter = can_derive_attribute(
+                    _dict_modules[aux_form],
+                    in_attribute,
+                    element,
+                )
+
+    if not_piped or single_attribute_has_direct_getter:
 
         return None, None
 

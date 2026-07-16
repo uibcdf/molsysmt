@@ -30,6 +30,9 @@ import pytest
 from molsysmt.native import Structures
 from molsysmt import pyunitwizard as puw
 import molsysmt.form.molsysmt_Structures.get_structural_attributes as aux
+from molsysmt.form.molsysmt_Structures.get_topological_attributes import (
+    get_atom_index_from_atom,
+)
 from molsysmt.form.molsysmt_Structures.set import (
     set_occupancy_to_atom,
     set_b_factor_to_atom,
@@ -89,9 +92,47 @@ def _make_alt_loc_entry():
     }
 
 
+def test_structure_thermodynamic_series_and_total_energy():
+    structures = _make_structures(n_structs=3, n_atoms=2)
+    structures.temperature = puw.quantity([300.0, 301.0, 302.0], 'K')
+    structures.potential_energy = puw.quantity([-10.0, -8.0, -6.0], 'kJ/mol')
+    structures.kinetic_energy = puw.quantity([3.0, 4.0, 5.0], 'kJ/mol')
+
+    temperature = aux.get_temperature_from_system(
+        structures,
+        structure_indices=np.array([0, 2]),
+        skip_digestion=True,
+    )
+    total_energy = aux.get_total_energy_from_system(
+        structures,
+        structure_indices=np.array([0, 2]),
+        skip_digestion=True,
+    )
+
+    np.testing.assert_allclose(puw.get_value(temperature, to_unit='K'), [300.0, 302.0])
+    np.testing.assert_allclose(puw.get_value(total_energy, to_unit='kJ/mol'), [-7.0, -1.0])
+
+
+def test_missing_occupancy_returns_none():
+    structures = _make_structures(n_structs=1, n_atoms=2)
+
+    assert aux.get_occupancy_from_atom(structures, skip_digestion=True) is None
+
+
 # ===========================================================================
 # get_n_atoms_from_system
 # ===========================================================================
+
+def test_get_atom_index_from_atom():
+    structures = _make_structures(n_structs=2, n_atoms=4)
+
+    assert get_atom_index_from_atom(structures, skip_digestion=True) == [0, 1, 2, 3]
+    assert get_atom_index_from_atom(
+        structures,
+        indices=[3, 1],
+        skip_digestion=True,
+    ) == [3, 1]
+
 
 class TestGetNAtomsFromSystem:
 
@@ -204,6 +245,16 @@ class TestGetCoordinatesFromAtom:
 
 class TestGetVelocitiesFromAtom:
 
+    def test_missing_velocities_with_subsets_returns_none(self):
+        s = _make_structures(n_structs=2, n_atoms=3, with_velocities=False)
+        result = aux.get_velocities_from_atom(
+            s,
+            indices=np.array([0, 1]),
+            structure_indices=np.array([1]),
+            skip_digestion=True,
+        )
+        assert result is None
+
     def test_all_returns_full_array(self):
         s = _make_structures(n_structs=3, n_atoms=4, with_velocities=True)
         result = aux.get_velocities_from_atom(s, skip_digestion=True)
@@ -263,13 +314,9 @@ class TestGetOccupancyFromAtom:
         set_occupancy_to_atom(s, value=occupancy, skip_digestion=True)
         return s, occupancy
 
-    def test_raises_when_no_occupancy_attribute(self):
-        # get_occupancy_from_atom accesses item.occupancy directly without a
-        # hasattr guard. When the attribute has not been set (via
-        # set_occupancy_to_atom), an AttributeError is the current behaviour.
+    def test_returns_none_when_no_occupancy_attribute(self):
         s = _make_structures(n_structs=2, n_atoms=3)
-        with pytest.raises(AttributeError):
-            aux.get_occupancy_from_atom(s, skip_digestion=True)
+        assert aux.get_occupancy_from_atom(s, skip_digestion=True) is None
 
     def test_all_indices_returns_full_array(self):
         s, occ = self._make_with_occupancy(n_structs=2, n_atoms=3)
@@ -463,6 +510,15 @@ class TestGetCoordinatesFromSystem:
 # ===========================================================================
 
 class TestGetVelocitiesFromSystem:
+
+    def test_missing_velocities_with_subset_returns_none(self):
+        s = _make_structures(n_structs=2, n_atoms=3, with_velocities=False)
+        result = aux.get_velocities_from_system(
+            s,
+            structure_indices=np.array([1]),
+            skip_digestion=True,
+        )
+        assert result is None
 
     def test_all_returns_full_array(self):
         s = _make_structures(n_structs=3, n_atoms=4, with_velocities=True)
@@ -756,12 +812,22 @@ class TestGetStructureIdFromSystem:
         )
         assert result is None
 
-    def test_no_time_returns_none(self):
-        # structure_id getter checks item.time — if time is None, returns None
+    def test_structure_ids_do_not_require_time(self):
         s = _make_structures(
             n_structs=2, n_atoms=2, with_time=False, with_structure_id=True
         )
         result = aux.get_structure_id_from_system(s, skip_digestion=True)
+        np.testing.assert_array_equal(result, [0, 1])
+
+    def test_missing_structure_ids_with_subset_returns_none(self):
+        s = _make_structures(
+            n_structs=2, n_atoms=2, with_time=True, with_structure_id=False
+        )
+        result = aux.get_structure_id_from_system(
+            s,
+            structure_indices=np.array([1]),
+            skip_digestion=True,
+        )
         assert result is None
 
     def test_values_are_correct(self):
@@ -776,12 +842,9 @@ class TestGetStructureIdFromSystem:
 
 class TestGetOccupancyFromSystem:
 
-    def test_raises_when_no_occupancy_attribute(self):
-        # Delegates to get_occupancy_from_atom which raises AttributeError
-        # when the occupancy attribute has not been set.
+    def test_returns_none_when_no_occupancy_attribute(self):
         s = _make_structures(n_structs=2, n_atoms=3)
-        with pytest.raises(AttributeError):
-            aux.get_occupancy_from_system(s, skip_digestion=True)
+        assert aux.get_occupancy_from_system(s, skip_digestion=True) is None
 
     def test_returns_full_array_when_set(self):
         s = _make_structures(n_structs=2, n_atoms=3)

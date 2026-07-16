@@ -39,14 +39,34 @@ def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False)
                                           id=str(group.group_id))
         list_new_residues.append(tmp_residue)
 
+    formal_charges = item._get_chemical_state_atom_attribute('formal_charge')
     for atom in item.atoms.itertuples(index=True):
         tmp_element = app.Element.getBySymbol(atom.atom_type) if atom.atom_type else None
-        tmp_atom = tmp_item.addAtom(atom.atom_name, tmp_element, list_new_residues[int(atom.group_index)],
-                                    id=str(atom.atom_id))
+        formal_charge = None
+        if formal_charges is not None and not pd.isna(formal_charges.iloc[atom.Index]):
+            formal_charge = int(formal_charges.iloc[atom.Index])
+        tmp_atom = tmp_item.addAtom(
+            atom.atom_name, tmp_element, list_new_residues[int(atom.group_index)],
+            id=str(atom.atom_id), formalCharge=formal_charge,
+        )
         list_new_atoms.append(tmp_atom)
 
-    for bond in item.bonds.itertuples(index=True):
-        tmp_item.addBond(list_new_atoms[int(bond.atom1_index)], list_new_atoms[int(bond.atom2_index)])
+    bonds = item._get_chemical_state_bonds()
+    type_by_order = {1: app.Single, 2: app.Double, 3: app.Triple}
+    for bond in bonds.itertuples(index=True):
+        order = None
+        bond_type = None
+        if hasattr(bond, 'bond_order') and not pd.isna(bond.bond_order):
+            order = int(bond.bond_order)
+            bond_type = type_by_order.get(order)
+        if hasattr(bond, 'is_aromatic') and not pd.isna(bond.is_aromatic) and bond.is_aromatic:
+            bond_type = app.Aromatic
+        tmp_item.addBond(
+            list_new_atoms[int(bond.atom1_index)],
+            list_new_atoms[int(bond.atom2_index)],
+            type=bond_type,
+            order=order,
+        )
 
     del list_new_atoms, list_new_residues, list_new_chains
 

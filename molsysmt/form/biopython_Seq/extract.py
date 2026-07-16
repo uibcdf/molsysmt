@@ -1,4 +1,3 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from depdigest import dep_digest
@@ -14,7 +13,8 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         else:
             tmp_item = item
     else:
+        from Bio.Seq import Seq
 
-        raise NotImplementedMethodError
+        tmp_item = Seq(''.join(str(item[index]) for index in atom_indices))
 
     return tmp_item

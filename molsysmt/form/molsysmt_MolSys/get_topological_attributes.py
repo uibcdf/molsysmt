@@ -12,6 +12,89 @@ form = 'molsysmt.MolSys'
 
 # From atom
 
+def _get_atom_state_attribute(item, attribute, indices='all'):
+    from molsysmt.form import molsysmt_Topology
+
+    getter = getattr(molsysmt_Topology, f'get_{attribute}_from_atom')
+    return getter(item.topology, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'formal_charge', indices)
+
+
+@arg_digest(form=form)
+def get_formal_charge_from_system(item, skip_digestion=False):
+    return get_formal_charge_from_atom(item, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_atom_is_aromatic_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'atom_is_aromatic', indices)
+
+
+@arg_digest(form=form)
+def get_n_unpaired_electrons_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'n_unpaired_electrons', indices)
+
+
+@arg_digest(form=form)
+def get_n_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'n_implicit_hydrogens', indices)
+
+
+@arg_digest(form=form)
+def get_allows_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'allows_implicit_hydrogens', indices)
+
+
+@arg_digest(form=form)
+def get_atom_stereochemistry_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'atom_stereochemistry', indices)
+
+
+def _get_chemical_state_system_attribute(item, attribute):
+    from molsysmt.form import molsysmt_Topology
+
+    getter = getattr(molsysmt_Topology, f'get_{attribute}_from_system')
+    return getter(item.topology, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_chemical_state_index_from_system(item, skip_digestion=False):
+    return _get_chemical_state_system_attribute(item, 'chemical_state_index')
+
+
+@arg_digest(form=form)
+def get_chemical_state_id_from_system(item, skip_digestion=False):
+    return _get_chemical_state_system_attribute(item, 'chemical_state_id')
+
+
+@arg_digest(form=form)
+def get_n_chemical_states_from_system(item, skip_digestion=False):
+    return _get_chemical_state_system_attribute(item, 'n_chemical_states')
+
+
+@arg_digest(form=form)
+def get_reference_chemical_state_index_from_system(item, skip_digestion=False):
+    return _get_chemical_state_system_attribute(item, 'reference_chemical_state_index')
+
+
+@arg_digest(form=form)
+def get_connectivity_completeness_from_system(item, skip_digestion=False):
+    return _get_chemical_state_system_attribute(item, 'connectivity_completeness')
+
+
+@arg_digest(form=form)
+def get_component_completeness_from_system(item, skip_digestion=False):
+    return _get_chemical_state_system_attribute(item, 'component_completeness')
+
+
+@arg_digest(form=form)
+def get_component_evidence_from_system(item, skip_digestion=False):
+    return _get_chemical_state_system_attribute(item, 'component_evidence')
+
 @arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
@@ -36,6 +119,13 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     from molsysmt.form.molsysmt_Topology import get_atom_type_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_isotope_from_atom(item, indices='all', skip_digestion=False):
+
+    from molsysmt.form.molsysmt_Topology import get_isotope_from_atom as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 
 
@@ -1832,11 +1922,29 @@ def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 # From bond
 
 
+def _get_bond_state_attribute(item, attribute, indices):
+    """Delegate a canonical bond-state read to the native topology form."""
+
+    from importlib import import_module
+
+    topology_get = import_module(
+        'molsysmt.form.molsysmt_Topology.get_topological_attributes'
+    )
+    function = getattr(topology_get, f'get_{attribute}_from_bond')
+    return function(item.topology, indices=indices, skip_digestion=True)
+
+
 @arg_digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
     from molsysmt.form.molsysmt_Topology import get_bond_index_from_bond as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_id', indices)
 
 
 @arg_digest(form=form)
@@ -1851,6 +1959,60 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     from molsysmt.form.molsysmt_Topology import get_bond_type_from_bond as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_fractional_bond_order_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'fractional_bond_order', indices)
+
+
+@arg_digest(form=form)
+def get_bond_is_aromatic_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_is_aromatic', indices)
+
+
+@arg_digest(form=form)
+def get_bond_is_conjugated_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_is_conjugated', indices)
+
+
+@arg_digest(form=form)
+def get_bond_stereochemistry_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_stereochemistry', indices)
+
+
+@arg_digest(form=form)
+def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_stereo_atom_indices', indices)
+
+
+@arg_digest(form=form)
+def get_bond_donor_atom_index_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_donor_atom_index', indices)
+
+
+@arg_digest(form=form)
+def get_bond_acceptor_atom_index_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_acceptor_atom_index', indices)
+
+
+@arg_digest(form=form)
+def get_bond_joins_components_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_joins_components', indices)
+
+
+@arg_digest(form=form)
+def get_bond_evidence_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_bond_state_attribute(item, 'bond_evidence', indices)
 
 
 @arg_digest(form=form)
@@ -2047,4 +2209,3 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

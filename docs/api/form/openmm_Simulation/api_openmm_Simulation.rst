@@ -18,7 +18,6 @@ openmm.Simulation
    TopologyIterator
    merge
    set
-   to_file_msmpk
    to_file_pdb
    to_molsysmt_MolSys
    to_molsysmt_Structures
@@ -27,4 +26,3 @@ openmm.Simulation
    to_openmm_Modeller
    to_openmm_Topology
    to_pdbfixer_PDBFixer
-

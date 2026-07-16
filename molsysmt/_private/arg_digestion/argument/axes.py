@@ -5,6 +5,9 @@ from molsysmt._private.smonitor import ArgumentError
 
 def digest_axes(axes, caller=None):
 
+    if axes is None:
+        return None
+
     if caller=='molsysmt.structure.align_principal_axes.align_principal_axes':
 
         if isinstance(axes, (list, tuple)):
@@ -16,4 +19,3 @@ def digest_axes(axes, caller=None):
                 return axes
 
     raise ArgumentError('axes', value=axes, caller=caller, message=None)
-

@@ -1,27 +1,48 @@
 # Viewers and Visualization
 
-## Supported Viewers
-- `MolSysViewer` (default)
-- `NGLView` (optional)
+`molsysmt.basic.view()` currently dispatches to `MolSysViewer` by default and
+supports `NGLView` when its optional dependency is available. Viewer packages
+must remain lazily imported.
 
-## 🥇 The "System-Transparent" Viewer Policy
-As of MolSysMT 1.0.0, visualization objects are no longer just "output widgets"; they are **active molecular systems**.
+## Viewer objects as forms
 
-1. **Introspection**: You can call `msm.get(view, coordinates=True)` or `msm.select(view, selection='protein')` directly on a viewer object.
-2. **Parity**: The state shown in the viewer (coordinates, topology) must match the underlying MolSysMT model.
-3. **Form Implementation**: Every viewer must have a corresponding form module in `molsysmt/form/` (e.g., `molsysviewer_MolSysView`) that implements the full suite of MolSysMT basic functions (`get`, `set`, `select`, `extract`).
+MolSysMT registers adapters for:
 
-## MolSysViewer (The House Standard)
-MolSysViewer is the primary visualization engine. It is optimized for MolSysMT through the `ViewerJSON` format, which ensures high-speed data transfer between Python and the browser.
+- `molsysviewer.MolSysView`;
+- `nglview.NGLWidget`.
 
-- **Hardening**: The `molsysviewer_MolSysView` form is now a Tier 2 hardened form.
-- **Lazy Loading**: The `molsysviewer` backend is only loaded when `msm.view()` is called.
+Recognition as a form enables the adapter capabilities that are actually
+implemented and tested. It does not require or guarantee the full MolSysMT basic
+API. The MolSysViewer adapter currently exposes conversion, `get`, `extract`,
+`copy`, `append_structures`, and attribute getters; NGLView exposes a different,
+broader set. Always consult adapter code and public delivery tests.
 
-## NGLView (The Community Standard)
-NGLView is fully supported as a robust alternative.
+Both viewers are explicitly registered as Tier 1 for compatibility with the
+existing support policy. That classification is not independent evidence of
+complete capability or scientific fidelity; consult delivery and parity tests
+for the workflow being claimed.
 
-- **Adapter**: MolSysMT uses a custom `MolSysMTTrajectory` adapter to pipe data into NGLView.
-- **Hardening**: The `nglview_NGLWidget` form is now recognized by `get_form()` and `is_a_molecular_system()`.
+## State and fidelity
 
-## API Surface
-`molsysmt.basic.view` returns a viewer object. This object must implement the MolSysMT API, allowing it to be used as input for further analysis or conversion.
+Viewer state can diverge from the source through selection, trajectory slicing,
+interactive edits, representation state, or lossy serialization. Claims that a
+viewer is a transparent molecular system require tests for:
+
+- topology and structure retrieved from the current view;
+- selection and frame ordering;
+- mutations and edits in both directions where supported;
+- unit and identifier preservation;
+- behavior after widget disposal or backend disconnection.
+
+Visual representations, colors, cameras, and UI selections are not molecular
+attributes unless an explicit schema says so.
+
+## Failure behavior
+
+Unavailable viewers should fail with an actionable dependency/capability error.
+Notebook rendering and browser success are separate from Python backend
+correctness. Headless tests, widget integration tests, and browser tests provide
+different evidence and should be reported separately.
+
+The MolSysViewer addon contract and dated verification notes are in
+`molsysviewer_addon.md`.

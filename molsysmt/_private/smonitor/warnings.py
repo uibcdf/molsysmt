@@ -95,13 +95,6 @@ class SlowChunkIOWarning(MolSysMTCatalogWarning):
         super().__init__(extra={"chunk_index": chunk_index, "io_time_s": io_time_s})
 
 
-class CorruptFrameSkippedWarning(MolSysMTCatalogWarning):
-    catalog_key = "CorruptFrameSkippedWarning"
-
-    def __init__(self, chunk_index, frame_index, reason):
-        super().__init__(extra={"chunk_index": chunk_index, "frame_index": frame_index, "reason": reason})
-
-
 class MemoryPressureWarning(MolSysMTCatalogWarning):
     catalog_key = "MemoryPressureWarning"
 
@@ -111,6 +104,24 @@ class MemoryPressureWarning(MolSysMTCatalogWarning):
             "rss_bytes": rss_bytes,
             "budget_bytes": budget_bytes,
             "pressure_pct": pressure_pct,
+        })
+
+
+class UnknownAtomNameWarning(MolSysMTCatalogWarning):
+    catalog_key = "UnknownAtomNameWarning"
+
+    def __init__(self, atom_name):
+        super().__init__(extra={"atom_name": atom_name})
+
+
+class WarmupFailureWarning(MolSysMTCatalogWarning):
+    catalog_key = "WarmupFailureWarning"
+
+    def __init__(self, attribute, error_type, reason):
+        super().__init__(extra={
+            "attribute": attribute,
+            "error_type": error_type,
+            "reason": reason,
         })
 
 
@@ -132,8 +143,9 @@ __all__ = [
     "NotDigestedArgumentWarning",
     "MolecularSystemMismatchWarning",
     "SlowChunkIOWarning",
-    "CorruptFrameSkippedWarning",
     "MemoryPressureWarning",
+    "UnknownAtomNameWarning",
+    "WarmupFailureWarning",
     "GpuNotAvailableWarning",
     "warn",
     "warn_once",

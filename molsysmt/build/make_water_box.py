@@ -103,7 +103,7 @@ def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
     output.topology.atoms['atom_name'] = np.tile(['OW','HW1','HW2'], n_waters)
     output.topology.atoms['atom_type'] = np.tile(['O','H','H'], n_waters)
     output.topology.atoms['group_index'] = np.repeat(np.arange(n_waters), 3)
-    output.topology.atoms['component_index'] = np.repeat(np.arange(n_waters), 3)
+    output.topology._set_component_indices(np.repeat(np.arange(n_waters), 3))
     output.topology.atoms['chain_index'] = 0
     output.topology.groups['group_id'] = np.arange(n_waters)
     output.topology.groups['group_name'] = 'WAT'
@@ -129,9 +129,10 @@ def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
     mask = np.arange(1,n_waters*2,2)
     aux[mask] = np.arange(2,n_atoms,3)
 
-    output.topology.bonds['atom1_index']=np.repeat(np.arange(n_waters)*3,2)
-    output.topology.bonds['atom2_index']=aux
-    output.topology.bonds._remove_empty_columns()
+    bonds = output.topology._get_chemical_state_bonds()
+    bonds['atom1_index'] = np.repeat(np.arange(n_waters) * 3, 2)
+    bonds['atom2_index'] = aux
+    bonds._remove_empty_columns()
 
     del(aux, mask)
 

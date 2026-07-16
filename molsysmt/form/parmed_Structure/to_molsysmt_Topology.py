@@ -2,6 +2,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.element.group import get_group_type_from_group_name
 from molsysmt.element.atom import get_atom_type_from_atom_name
 import numpy as np
+import pandas as pd
 
 @arg_digest(form='parmed.Structure')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
@@ -77,10 +78,25 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     # Bonds
     if n_bonds > 0:
-        bonded_atoms = []
-        for bond in item.bonds:
-            bonded_atoms.append([bond.atom1.idx, bond.atom2.idx])
-        tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
+        from ._chemical_state import bond_table_from_structure
+
+        bond_table, omitted_relationship = bond_table_from_structure(item)
+        tmp_item._set_chemical_state_bonds(bond_table)
+        tmp_item._chemical_states[0].connectivity_completeness = (
+            'partial' if omitted_relationship else 'complete'
+        )
+
+    formal_charges = [getattr(atom, 'formal_charge', None) for atom in item.atoms]
+    if any(value is not None for value in formal_charges):
+        tmp_item._set_chemical_state_atom_attribute(
+            'formal_charge', pd.array(formal_charges, dtype='Int16')
+        )
+
+    aromaticities = [getattr(atom, 'aromatic', None) for atom in item.atoms]
+    if any(value is not None for value in aromaticities):
+        tmp_item._set_chemical_state_atom_attribute(
+            'is_aromatic', pd.array(aromaticities, dtype='boolean')
+        )
 
     # Rebuild remaining hierarchy
     tmp_item.rebuild_components()

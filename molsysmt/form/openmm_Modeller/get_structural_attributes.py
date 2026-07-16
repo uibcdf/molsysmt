@@ -47,7 +47,11 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     from molsysmt.form.openmm_Topology import get_box_from_system as aux_get
 
-    output = aux_get(item.topology, skip_digestion=True)
+    output = aux_get(
+        item.topology,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
 
     return output
 

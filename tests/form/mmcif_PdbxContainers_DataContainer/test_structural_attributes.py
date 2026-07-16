@@ -2,7 +2,7 @@
 Structural attribute tests for mmcif.PdbxContainers.DataContainer form.
 
 Covers get_structural_attributes functions that were previously broken
-due to MMTF-style attribute access (item.x_coord_list, item.num_models,
+due to object attributes not provided by a DataContainer (item.x_coord_list, item.num_models,
 item.unit_cell, item.bio_assembly).
 
 Oracle: HP35 (1vii) — single-model X-ray structure with unit cell.

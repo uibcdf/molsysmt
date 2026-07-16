@@ -45,6 +45,16 @@ def test_nglwidget_is_created(ngl_widget):
     assert isinstance(ngl_widget, nglview.NGLWidget)
 
 
+def test_nglwidget_does_not_claim_metadata_it_cannot_preserve(ngl_widget):
+    available = msm.get_attributes(ngl_widget)
+
+    assert 'occupancy' not in available
+    assert 'temperature' not in available
+    assert 'potential_energy' not in available
+    assert 'kinetic_energy' not in available
+    assert 'total_energy' not in available
+
+
 # ---------------------------------------------------------------------------
 # Parity: MolSys → NGLWidget → MolSys preserves topology
 # ---------------------------------------------------------------------------

@@ -19,11 +19,10 @@ for filename in files_to_be_purged:
         os.remove(filepath)
 
 
-# 1tcd pdb, mmtf and msmpk files
+# 1tcd structure files
 print('Protein Data Bank files...')
 _ = msm.convert('pdb_id:1l2y', to_form='1l2y.pdb')
 shutil.move('1l2y.pdb', Path(data_dir, 'pdb/1l2y.pdb'))
 _ = msm.convert('pdb_id:1l2y', to_form='1l2y.h5msm')
 shutil.move('1l2y.h5msm', Path(data_dir, 'h5msm/1l2y.h5msm'))
-
 

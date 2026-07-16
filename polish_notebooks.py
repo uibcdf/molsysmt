@@ -55,14 +55,7 @@ def polish_content(text, is_markdown=True):
                 new_lines.append(line)
         text = '\n'.join(new_lines)
 
-    # 2. Format Modernization
-    # mmtf -> bcif.gz
-    text = text.replace('mmtf', 'bcif.gz')
-    
-    # Path systems['T4 lysozyme L99A']['181l.bcif.gz']
-    text = re.sub(r"systems\['T4 lysozyme L99A'\]\['181l\.(h5msm|pdb|mmtf)'\]", "systems['T4 lysozyme L99A']['181l.bcif.gz']", text)
-
-    # 3. Visual Standards (Admonitions)
+    # 2. Visual Standards (Admonitions)
     if is_markdown:
         # Convert > **Note:** Content to ```{note} Content ```
         # Handle multi-line if needed, but start with single line

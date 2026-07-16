@@ -2,15 +2,18 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from smonitor import signal
+from molsysmt._private.chemical_state import resolve_chemical_state
 
 
 @signal(tags=['api', 'set'])
 @arg_digest()
+@resolve_chemical_state
 def set(molecular_system,
         element=None,
         selection='all',
         structure_indices='all',
         syntax='MolSysMT',
+        chemical_state='reference',
         skip_digestion=False,
         **kwargs):
     """
@@ -40,6 +43,10 @@ def set(molecular_system,
         structures.
     syntax : str, default='MolSysMT'
         Syntax used to interpret the `selection` string. See :ref:`Introduction_Selection` for details.
+    chemical_state : {'reference', 'structure'} or int, default 'reference'
+        Chemical state on which state-dependent atom, component, and bond
+        attributes are modified. Integer values are 0-based state indices;
+        ``'structure'`` resolves a unique state from `structure_indices`.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -59,7 +66,8 @@ def set(molecular_system,
     NotSupportedFormError
         If the molecular system is provided in an unsupported form.
     ArgumentError
-        If the input arguments do not meet the expected requirements.
+        If the input arguments do not meet the expected requirements, including
+        an out-of-range structure index for a structural attribute.
 
     Notes
     -----
@@ -67,6 +75,21 @@ def set(molecular_system,
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - If `element` is not specified, it is inferred from the attribute definition.
     - If the attribute runs over structures, `structure_indices` must be defined accordingly.
+    - Setting ``formal_charge``, atom aromaticity, radical state,
+      implicit-hydrogen semantics, atom stereochemistry, components, or bonds on
+      a native Topology or MolSys writes the state selected by
+      ``chemical_state``. Formal charge accepts integer counts or quantities
+      compatible with elementary charge.
+    - ``isotope`` sets the stable nullable isotope mass number. It does not set
+      atomic mass and is independent of ``chemical_state``.
+    - Rich bond order, fractional order, type, aromaticity, conjugation,
+      stereochemistry and reference atoms, direction, component participation,
+      and evidence are independent attributes; setting one does not infer the
+      others.
+    - Explicit integer state selection currently requires a native Topology or
+      MolSys. Convert external forms before editing a non-reference state.
+    - ``structure_chemical_state_index`` sets the nullable MolSys association
+      aligned to `structure_indices`; it does not change the topology reference.
 
     See Also
     --------
@@ -84,6 +107,14 @@ def set(molecular_system,
     >>> msm.basic.set(molsys, selection='group_index==30', group_name='HSD')
     >>> msm.basic.get(molsys, element='group', selection='group_index==30', group_name=True)
     ['HSD']
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_atoms=2)
+    >>> msm.set(topology, element='atom', chemical_state=0, formal_charge=[1, -1])
+    >>> msm.get(topology, element='atom', chemical_state=0, formal_charge=True)
+    [1, -1]
+    >>> msm.set(topology, element='atom', isotope=[13, 2])
+    >>> msm.get(topology, element='atom', isotope=True)
+    [13, 2]
 
     .. admonition:: Tutorial with more examples
 
@@ -106,6 +137,13 @@ def set(molecular_system,
 
     in_attributes = value_of_in_attribute.keys()
 
+    if any(attributes[in_attribute]['runs_on_structures'] for in_attribute in in_attributes):
+        from ._index_validation import validate_structure_indices
+
+        structure_indices = validate_structure_indices(
+            molecular_system, structure_indices, 'molsysmt.set'
+        )
+
     element_indices = {}
 
     if element is None:
@@ -118,7 +156,7 @@ def set(molecular_system,
                         element_indices[element] = 'all'
                     else:
                         element_indices[element] = select(molecular_system, element=element, selection=selection,
-                                                          syntax=syntax)
+                                                          chemical_state=chemical_state, syntax=syntax)
 
         for in_attribute in in_attributes:
 
@@ -143,7 +181,8 @@ def set(molecular_system,
             if is_all(selection):
                 indices = 'all'
             else:
-                indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
+                indices = select(molecular_system, element=element, selection=selection,
+                                 chemical_state=chemical_state, syntax=syntax)
 
         # doing the work here
         for in_attribute in in_attributes:
@@ -160,4 +199,3 @@ def set(molecular_system,
             set_function(item, **dict_indices, value=in_value)
 
     pass
-

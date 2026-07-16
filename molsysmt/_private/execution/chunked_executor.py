@@ -215,7 +215,7 @@ class ChunkedExecutor:
         from .memory_policy import check_disk_budget
         from .persistent_result import PersistentResultHandle
         from molsysmt._private.smonitor import (
-            SlowChunkIOWarning, CorruptFrameSkippedWarning, MemoryPressureWarning, info,
+            SlowChunkIOWarning, MemoryPressureWarning, info,
         )
         import warnings
         import molsysmt.configure as config
@@ -282,24 +282,15 @@ class ChunkedExecutor:
 
         chunk_index = start_chunk
         t_ema = None   # exponential moving average of per-chunk elapsed time
+        memory_pressure_active = False
 
         with self._get_form_iterator(structure_indices, self.chunk_size) as it:
             for raw_chunk in it:
                 t0 = time.perf_counter()
 
-                try:
-                    chunk = self._build_chunk(raw_chunk)
-                    for reducer in self._reducers:
-                        reducer.consume(chunk)
-                except Exception as exc:
-                    if config.emit_heavy_telemetry:
-                        warnings.warn(CorruptFrameSkippedWarning(
-                            chunk_index=chunk_index,
-                            frame_index=chunk_index * self.chunk_size,
-                            reason=str(exc),
-                        ))
-                    chunk_index += 1
-                    continue
+                chunk = self._build_chunk(raw_chunk)
+                for reducer in self._reducers:
+                    reducer.consume(chunk)
 
                 elapsed = time.perf_counter() - t0
 
@@ -334,13 +325,16 @@ class ChunkedExecutor:
                         import psutil as _psutil
                         rss = _psutil.Process().memory_info().rss
                         pressure = rss / config.max_ram_usage
-                        if pressure > config.memory_pressure_threshold:
+                        if pressure > config.memory_pressure_threshold and not memory_pressure_active:
                             warnings.warn(MemoryPressureWarning(
                                 chunk_index=chunk_index,
                                 rss_bytes=rss,
                                 budget_bytes=config.max_ram_usage,
                                 pressure_pct=round(pressure * 100, 1),
                             ))
+                            memory_pressure_active = True
+                        elif pressure <= config.memory_pressure_threshold:
+                            memory_pressure_active = False
                     except ImportError:
                         pass  # psutil not installed; skip RSS check
 

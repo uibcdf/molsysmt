@@ -13,8 +13,39 @@ form = 'molsysmt.MolSys'
 
 # From atom
 
+@arg_digest(form=form)
+def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.molsysmt_Topology import get_formal_charge_from_atom as aux_get
+    return aux_get(item.topology, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.molsysmt_MolecularMechanics import get_partial_charge_from_atom as aux_get
+    return aux_get(item.molecular_mechanics, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
+    from molsysmt.form.molsysmt_MolecularMechanics import get_atom_ff_type_from_atom as aux_get
+    return aux_get(item.molecular_mechanics, indices=indices, skip_digestion=True)
+
 
 # From system
+
+@arg_digest(form=form)
+def get_formal_charge_from_system(item, skip_digestion=False):
+    return get_formal_charge_from_atom(item, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_partial_charge_from_system(item, skip_digestion=False):
+    return get_partial_charge_from_atom(item, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_atom_ff_type_from_system(item, skip_digestion=False):
+    return get_atom_ff_type_from_atom(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
@@ -117,4 +148,3 @@ def get_kappa_from_system(item, skip_digestion=False):
 
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

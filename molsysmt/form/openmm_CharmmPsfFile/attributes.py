@@ -10,7 +10,6 @@ attributes['group_index'] = True
 attributes['group_id'] = True
 attributes['group_name'] = True
 attributes['group_type'] = True
-attributes['coordinates'] = True
 attributes['box'] = True
 
 del(_all_attributes)

@@ -42,9 +42,9 @@ attributes['n_polysaccharides'] = True
 attributes['n_saccharides'] = True     
 
 attributes['bond_index'] = True
-attributes['bond_id'] = True
-attributes['bond_type'] = True
-attributes['bond_order'] = True
+attributes['bond_id'] = False
+attributes['bond_type'] = False
+attributes['bond_order'] = False
 attributes['bonded_atoms'] = True
 attributes['inner_bond_index'] = True
 attributes['inner_bonded_atoms'] = True
@@ -65,8 +65,9 @@ attributes['box_angles'] = True
 attributes['box_lengths'] = True
 attributes['box_volume'] = True
 attributes['coordinates'] = True
-attributes['alternate_location'] = True
-attributes['b_factor'] = True
+# PDBFixer retains OpenMM topology and positions but not these source-PDB fields.
+attributes['alternate_location'] = False
+attributes['b_factor'] = False
 attributes['n_structures'] = True
 
 del(_all_attributes)

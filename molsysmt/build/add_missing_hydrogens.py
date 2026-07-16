@@ -210,14 +210,14 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
             g_atoms = topo.atoms[topo.atoms['group_index'] == g]
             if g_atoms.empty:
                 continue
-            c_idx = int(g_atoms.iloc[0]['component_index'])
+            c_idx = int(topo._get_component_indices().loc[g_atoms.index[0]])
             if c_idx not in comp_first:
                 comp_first[c_idx] = g
             comp_last[c_idx] = g
 
         # Detect disulfide bonds: CYS–CYS SG–SG bonds
         disulfide_groups = {}   # used as a set (keys only)
-        bonds = topo.bonds
+        bonds = topo._get_chemical_state_bonds()
         if bonds is not None and len(bonds) > 0:
             for _, brow in bonds.iterrows():
                 a1 = int(brow['atom1_index'])
@@ -311,7 +311,7 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
                 continue   # skip non-amino-acid groups
 
             # Terminal status
-            c_idx = int(g_atoms.iloc[0]['component_index'])
+            c_idx = int(topo._get_component_indices().loc[g_atoms.index[0]])
             is_n_term = (comp_first.get(c_idx) == g)
             is_c_term = (comp_last.get(c_idx) == g)
             is_disulfide = (g in disulfide_groups)
@@ -461,4 +461,3 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
 
 
     return output_molecular_system
-

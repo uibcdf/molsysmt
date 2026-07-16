@@ -5,7 +5,7 @@ This guide applies to files under `molsysmt/data/`.
 ## Source of truth
 
 - Bundled data artifacts in `molsysmt/data/` are generated from the scripts in `molsysmt/data/_make/`.
-- Do not hand-edit generated binary assets (`.h5msm`, `.msmpk`, trajectories, compressed structure files) unless there is no reproducible generator path.
+- Do not hand-edit generated binary assets (`.h5msm`, trajectories, compressed structure files) unless there is no reproducible generator path.
 - If a bundled artifact violates a contract, rerun the relevant generator first and inspect the regenerated result before patching the artifact.
 
 ## Regeneration workflow

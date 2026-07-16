@@ -137,6 +137,16 @@ class MultipleMolecularSystemsError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class MolecularSystemVerificationError(MolSysMTCatalogException):
+    catalog_key = "MolecularSystemVerificationError"
+
+    def __init__(self, forms, reason, caller=None, message=None):
+        extra = {"forms": forms, "reason": reason}
+        if caller:
+            extra["caller"] = caller
+        super().__init__(message=message, extra=extra)
+
+
 class NotCompatibleConversionError(MolSysMTCatalogException):
     catalog_key = "NotCompatibleConversionError"
 
@@ -287,6 +297,7 @@ __all__ = [
     "MolecularSystemNeededError",
     "MolecularSystemsNeededError",
     "MultipleMolecularSystemsError",
+    "MolecularSystemVerificationError",
     "NotCompatibleConversionError",
     "NotImplementedConversionError",
     "NotImplementedIteratorError",

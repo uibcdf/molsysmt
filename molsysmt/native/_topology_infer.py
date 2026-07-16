@@ -58,13 +58,17 @@ def project_group_type_from_topology(topology, *, element="group", redefine_type
 def infer_component_indices_from_topology(topology):
     """Return per-atom component_index array.
 
-    Architecture invariant: component_index is defined at the ATOM level only.
+    Architecture invariant: component_index is atom-aligned state data.
     Groups do NOT have a component_index column.
     """
     from molsysmt.lib.topology import get_component_index_from_bonded_atom_pairs
 
     n_atoms = topology.n_atoms
-    bonded_atom_pairs = topology.bonds[["atom1_index", "atom2_index"]].to_numpy()
+    bonds = topology._get_chemical_state_bonds()
+    if 'joins_components' in bonds.columns:
+        participates = ~bonds['joins_components'].eq(False).fillna(False)
+        bonds = bonds.loc[participates]
+    bonded_atom_pairs = bonds[["atom1_index", "atom2_index"]].to_numpy()
     bonded_atom_pairs = np.asarray(bonded_atom_pairs, dtype=np.int64)
 
     if bonded_atom_pairs.size == 0:
@@ -78,9 +82,14 @@ def infer_component_indices_from_topology(topology):
 
 
 def _component_index_per_group(topology):
-    """Derive per-group component_index from atoms (component_index is atom-level only)."""
+    """Derive per-group component membership from atom-aligned state data."""
     n_groups = topology.n_groups
-    _adf = topology.atoms[["group_index", "component_index"]].dropna()
+    _adf = pd.DataFrame(
+        {
+            "group_index": topology.atoms["group_index"],
+            "component_index": topology._get_component_indices(),
+        }
+    ).dropna()
     _gc = _adf.groupby("group_index", sort=False)["component_index"].first()
     result = np.full(n_groups, -1, dtype=np.int64)
     result[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy(dtype=np.int64)
@@ -426,9 +435,13 @@ def _needs_columns(table, columns):
 
 def prepare_topology_for_molecule_queries(topology, *, element="molecule", redefine_indices=False, redefine_names=False, redefine_types=False):
     need_groups = redefine_indices or redefine_names or redefine_types or _needs_columns(topology.groups, ["molecule_index"])
-    need_components = redefine_indices or redefine_names or redefine_types or _needs_columns(
-        topology.groups, ["component_index"]
-    ) or _needs_columns(topology.components, ["component_type", "component_name"])
+    need_components = (
+        redefine_indices
+        or redefine_names
+        or redefine_types
+        or topology._component_indices_are_missing()
+        or _needs_columns(topology.components, ["component_type", "component_name"])
+    )
     need_molecules = redefine_indices or redefine_names or redefine_types or _needs_columns(
         topology.molecules, ["molecule_name", "molecule_type"]
     )
@@ -633,10 +646,14 @@ def project_entity_type_from_topology(topology, *, element="entity", redefine_in
 
 def prepare_topology_for_component_queries(topology, *, redefine_indices=False, redefine_names=False, redefine_types=False):
     need_groups = redefine_indices or redefine_names or redefine_types or _needs_columns(topology.groups, ["group_type"])
-    # component_index lives on atoms, not groups — check atoms
-    need_components = redefine_indices or redefine_names or redefine_types or _needs_columns(
-        topology.atoms, ["component_index"]
-    ) or _needs_columns(topology.components, ["component_type", "component_name"])
+    # Component membership is atom-aligned state data, never group storage.
+    need_components = (
+        redefine_indices
+        or redefine_names
+        or redefine_types
+        or topology._component_indices_are_missing()
+        or _needs_columns(topology.components, ["component_type", "component_name"])
+    )
 
     if not any([need_groups, need_components]):
         return topology
@@ -665,7 +682,7 @@ def project_component_index_from_topology(topology, *, element="component", rede
 
     tmp_topology = prepare_topology_for_component_queries(topology, redefine_indices=redefine_indices)
 
-    # component_index is atom-level; derive per-group from atoms
+    # Derive group membership from atom-aligned state data.
     component_index_from_group = _component_index_per_group(tmp_topology)
 
     if element == "component":
@@ -717,10 +734,12 @@ def project_component_type_from_topology(topology, *, element="component", redef
 
 
 def prepare_topology_for_chain_queries(topology, *, redefine_indices=False, redefine_names=False, redefine_types=False):
-    # chain_index and component_index live on atoms, not groups
+    # chain_index is stable atom data; component_index is atom-aligned state data.
     need_groups = redefine_indices or redefine_names or redefine_types or _needs_columns(topology.groups, ["molecule_index"])
-    need_components = redefine_types or _needs_columns(topology.atoms, ["component_index"]) or _needs_columns(
-        topology.components, ["component_type", "component_name"]
+    need_components = (
+        redefine_types
+        or topology._component_indices_are_missing()
+        or _needs_columns(topology.components, ["component_type", "component_name"])
     )
     need_molecules = redefine_types or _needs_columns(topology.molecules, ["molecule_name", "molecule_type"])
     need_chains = redefine_indices or redefine_names or redefine_types or _needs_columns(

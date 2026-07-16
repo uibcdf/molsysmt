@@ -29,18 +29,32 @@ def test_slow_chunk_io_warning():
     assert isinstance(w, Warning)
 
 
-def test_corrupt_frame_skipped_warning():
-    from molsysmt._private.smonitor.warnings import CorruptFrameSkippedWarning
-    w = CorruptFrameSkippedWarning(chunk_index=0, frame_index=10, reason='checksum mismatch')
-    assert isinstance(w, Warning)
-
-
 def test_memory_pressure_warning():
     from molsysmt._private.smonitor.warnings import MemoryPressureWarning
     w = MemoryPressureWarning(
         chunk_index=1, rss_bytes=1024**3, budget_bytes=2 * 1024**3, pressure_pct=50.0
     )
     assert isinstance(w, Warning)
+
+
+def test_unknown_atom_name_warning():
+    from molsysmt._private.smonitor.warnings import UnknownAtomNameWarning
+
+    warning = UnknownAtomNameWarning(atom_name="XX")
+
+    assert isinstance(warning, Warning)
+
+
+def test_warmup_failure_warning():
+    from molsysmt._private.smonitor.warnings import WarmupFailureWarning
+
+    warning = WarmupFailureWarning(
+        attribute="broken",
+        error_type="RuntimeError",
+        reason="failure",
+    )
+
+    assert isinstance(warning, Warning)
 
 
 def test_download_warning_instantiable():

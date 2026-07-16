@@ -1,9 +1,13 @@
 from molsysmt._private.arg_digestion import arg_digest
 from smonitor import signal
+from molsysmt._private.chemical_state import resolve_chemical_state
 
 @signal(tags=['api', 'get'])
 @arg_digest()
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+@resolve_chemical_state
+def has_attribute(molecular_system, attribute, include_none=False,
+                  structure_indices='all', chemical_state='reference',
+                  skip_digestion=False):
     """
     Checking whether a molecular system has a specific attribute.
 
@@ -19,6 +23,12 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     include_none : bool, default False
         Whether to consider attributes currently holding `None` as **available**.
         If `True`, an attribute that exists but is `None` will return `True`.
+    structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
+        Structures used when ``chemical_state='structure'`` resolves
+        state-dependent availability.
+    chemical_state : {'reference', 'structure'} or int, default 'reference'
+        Chemical state used to resolve state-dependent attribute availability.
+        ``'structure'`` uses the unique state associated with `structure_indices`.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -47,6 +57,10 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+    - For native multi-state systems, ``chemical_state`` resolves availability
+      without changing the topology's reference state.
+    - Explicit integer state selection currently requires a native Topology or
+      MolSys.
 
     See Also
     --------
@@ -91,4 +105,3 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
             break
 
     return output
-

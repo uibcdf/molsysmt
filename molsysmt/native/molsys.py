@@ -1,6 +1,7 @@
 from molsysmt._private.variables import is_all
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
+import pandas as pd
 from smonitor import signal
 
 class MolSys:
@@ -20,6 +21,198 @@ class MolSys:
                                  n_bonds=n_bonds, skip_digestion=True)
         self.structures = Structures(skip_digestion=True)
         self.molecular_mechanics = MolecularMechanics()
+        self._structure_chemical_state_indices = None
+
+    def __setstate__(self, state):
+        """Restore a molecular system and finish coordinated legacy migration."""
+
+        self.__dict__.update(state)
+        if '_structure_chemical_state_indices' not in self.__dict__:
+            legacy_indices = getattr(self.structures, '_chemical_state_indices', None)
+            self._structure_chemical_state_indices = (
+                None
+                if legacy_indices is None
+                else pd.array(
+                    [
+                        pd.NA if pd.isna(value) or int(value) < 0 else int(value)
+                        for value in legacy_indices
+                    ],
+                    dtype='Int64',
+                )
+            )
+        self.structures.__dict__.pop('_chemical_state_indices', None)
+        topology_formal_charge = getattr(
+            self.topology, '_legacy_formal_charge', None
+        )
+        mechanics_formal_charge = getattr(
+            self.molecular_mechanics, '_legacy_formal_charge', None
+        )
+        if topology_formal_charge is not None and mechanics_formal_charge is not None:
+            topology_values = np.asarray(topology_formal_charge)
+            mechanics_values = np.asarray(mechanics_formal_charge)
+            if topology_values.shape != mechanics_values.shape or not np.array_equal(
+                topology_values, mechanics_values
+            ):
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason=(
+                        'Legacy formal charge is present with conflicting values in topology '
+                        'and molecular mechanics; explicit resolution is required.'
+                    ),
+                    caller='molsysmt.native.MolSys.__setstate__',
+                )
+
+        formal_charge = topology_formal_charge
+        formal_charge_origin = 'legacy_topology'
+        if formal_charge is None:
+            formal_charge = mechanics_formal_charge
+            formal_charge_origin = 'legacy_molecular_mechanics'
+        if formal_charge is not None:
+            self.topology._set_chemical_state_atom_attribute(
+                'formal_charge', formal_charge
+            )
+            self.topology._reference_chemical_state._formal_charge_migration_origin = (
+                formal_charge_origin
+            )
+
+        topology_partial_charge = getattr(
+            self.topology, '_legacy_partial_charge', None
+        )
+        mechanics_partial_charge = getattr(
+            self.molecular_mechanics, '_legacy_partial_charge', None
+        )
+        partial_charge = mechanics_partial_charge
+        if partial_charge is None:
+            partial_charge = topology_partial_charge
+        if partial_charge is not None:
+            self.molecular_mechanics.partial_charge = partial_charge
+
+        for owner in (self.topology, self.molecular_mechanics):
+            owner.__dict__.pop('_legacy_formal_charge', None)
+            owner.__dict__.pop('_legacy_partial_charge', None)
+
+    def _get_structure_chemical_state_indices(self, structure_indices='all', resolved=True):
+        """Return explicit or implicitly resolved state indices aligned to structures."""
+
+        n_structures = self.structures.n_structures
+        if is_all(structure_indices):
+            indices = np.arange(n_structures, dtype=np.int64)
+        else:
+            indices = np.asarray(structure_indices, dtype=np.int64)
+            if indices.ndim != 1 or np.any(indices < 0) or np.any(indices >= n_structures):
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason='Structure indices for chemical-state association are out of range.',
+                    caller='molsysmt.native.MolSys',
+                )
+
+        if self._structure_chemical_state_indices is None:
+            if resolved and len(self.topology._chemical_states) == 1:
+                return pd.array(np.zeros(len(indices), dtype=np.int64), dtype='Int64')
+            return pd.array([pd.NA] * len(indices), dtype='Int64')
+
+        values = self._structure_chemical_state_indices[indices]
+        n_states = len(self.topology._chemical_states)
+        known = pd.Series(values).dropna()
+        if not known.empty and ((known < 0).any() or (known >= n_states).any()):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason='Structure-to-state association contains an invalid chemical-state index.',
+                caller='molsysmt.native.MolSys',
+            )
+        return pd.array(values, dtype='Int64')
+
+    def _set_structure_chemical_state_indices(self, values, structure_indices='all'):
+        """Set nullable state indices for all or selected structures."""
+
+        n_structures = self.structures.n_structures
+        if is_all(structure_indices):
+            indices = np.arange(n_structures, dtype=np.int64)
+        else:
+            indices = np.asarray(structure_indices, dtype=np.int64)
+            if indices.ndim != 1 or np.any(indices < 0) or np.any(indices >= n_structures):
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason='Structure indices for chemical-state association are out of range.',
+                    caller='molsysmt.native.MolSys',
+                )
+
+        if values is None and is_all(structure_indices):
+            self._structure_chemical_state_indices = None
+            return
+
+        if values is None or values is pd.NA:
+            normalized = [pd.NA] * len(indices)
+        elif np.isscalar(values):
+            normalized = [values] * len(indices)
+        else:
+            normalized = list(values)
+            if len(normalized) != len(indices):
+                from molsysmt._private.smonitor import ArgumentLengthError
+
+                raise ArgumentLengthError(
+                    argument='structure_chemical_state_index',
+                    expected=len(indices),
+                    actual=len(normalized),
+                    caller='molsysmt.native.MolSys',
+                )
+
+        array = pd.array(normalized, dtype='Int64')
+        n_states = len(self.topology._chemical_states)
+        known = pd.Series(array).dropna()
+        if not known.empty and ((known < 0).any() or (known >= n_states).any()):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason=(
+                    'Structure-to-state association values must reference existing '
+                    'chemical-state indices.'
+                ),
+                caller='molsysmt.native.MolSys',
+            )
+
+        if self._structure_chemical_state_indices is None:
+            self._structure_chemical_state_indices = pd.array(
+                [pd.NA] * n_structures, dtype='Int64'
+            )
+        self._structure_chemical_state_indices[indices] = array
+
+    def _resolve_structure_chemical_state_index(self, structure_indices='all'):
+        """Resolve one state shared by the requested structures or fail closed."""
+
+        values = self._get_structure_chemical_state_indices(
+            structure_indices=structure_indices, resolved=True
+        )
+        if len(values) == 0:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason='No structures are available to resolve a chemical state.',
+                caller='molsysmt.native.MolSys',
+            )
+        if pd.isna(values).any():
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason='At least one selected structure has no chemical-state association.',
+                caller='molsysmt.native.MolSys',
+            )
+        unique = np.unique(np.asarray(values, dtype=np.int64))
+        if len(unique) != 1:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason=(
+                    'The selected structures span multiple chemical states and cannot '
+                    'resolve one state-dependent result.'
+                ),
+                caller='molsysmt.native.MolSys',
+            )
+        return int(unique[0])
 
     @signal(tags=['native'])
     @arg_digest()
@@ -35,12 +228,25 @@ class MolSys:
 
         else:
 
+            if not is_all(atom_indices):
+                atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
+
             tmp_item = MolSys()
             tmp_item.topology = self.topology.extract(atom_indices=atom_indices, copy_if_all=True, skip_digestion=True)
             tmp_item.structures = self.structures.extract(atom_indices=atom_indices,
                                                           structure_indices=structure_indices, copy_if_all=True,
                                                           skip_digestion=True)
             tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+            if self._structure_chemical_state_indices is not None:
+                if is_all(structure_indices):
+                    tmp_item._structure_chemical_state_indices = (
+                        self._structure_chemical_state_indices.copy()
+                    )
+                else:
+                    tmp_item._structure_chemical_state_indices = pd.array(
+                        self._structure_chemical_state_indices[structure_indices],
+                        dtype='Int64',
+                    )
 
             return tmp_item
 
@@ -87,6 +293,26 @@ class MolSys:
     def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
         """Append structures from another MolSys while aligning atom indices."""
 
+        source_topology = item.topology.extract(
+            atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
+        )
+        if not self.topology._chemical_state_inventory_equals(source_topology):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason=(
+                    'Structures can only be appended when the ordered chemical-state '
+                    'inventories match exactly.'
+                ),
+                caller='molsysmt.native.MolSys.append_structures',
+            )
+
+        source_state_indices = item._get_structure_chemical_state_indices(
+            structure_indices=structure_indices, resolved=True
+        )
+        target_state_indices = self._get_structure_chemical_state_indices(
+            resolved=True
+        )
         other = item.structures.extract(atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True, skip_digestion=True)
         self.structures.append(
             structure_id=other.structure_id,
@@ -103,6 +329,16 @@ class MolSys:
             structure_indices='all',
             skip_digestion=True,
         )
+        if (
+            len(self.topology._chemical_states) > 1
+            or self._structure_chemical_state_indices is not None
+            or item._structure_chemical_state_indices is not None
+        ):
+            combined = pd.array(
+                list(target_state_indices) + list(source_state_indices), dtype='Int64'
+            )
+            self._structure_chemical_state_indices = None
+            self._set_structure_chemical_state_indices(combined)
 
     @signal(tags=['native'])
     def copy(self):
@@ -112,6 +348,10 @@ class MolSys:
         tmp_item.topology = self.topology.copy()
         tmp_item.structures = self.structures.copy()
         tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+        if self._structure_chemical_state_indices is not None:
+            tmp_item._structure_chemical_state_indices = (
+                self._structure_chemical_state_indices.copy()
+            )
         return tmp_item
 
 
@@ -125,8 +365,7 @@ class MolSys:
                                    syntax=syntax, engine='MolSysMT', with_templates=True, with_distances=False,
                                    skip_digestion=True)
 
-        self.topology.bonds['atom1_index'] = np.array(bonds, dtype=int)[:,0]
-        self.topology.bonds['atom2_index'] = np.array(bonds, dtype=int)[:,1]
+        self.topology.add_bonds(bonds, skip_digestion=True)
 
     def rebuild_atoms(self, redefine_ids=True, redefine_types=True):
         """Recompute atom ids/types from the present topology."""
@@ -208,4 +447,3 @@ class MolSys:
 
     def get_n_atoms(self):
         return self.topology.get_n_atoms()
-

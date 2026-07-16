@@ -3,7 +3,7 @@ name: CI weekly
 # Runs every Monday at 09:00 UTC, or manually via workflow_dispatch.
 # Executes the full test suite with coverage on ubuntu-latest × {3.11, 3.12, 3.13}.
 # Coverage report is uploaded to Codecov from the Python 3.13 run only.
-# Python 3.10 is excluded: it reaches EOL in October 2026.
+# Supported Python versions are 3.11, 3.12, and 3.13.
 
 on:
   schedule:
@@ -60,6 +60,12 @@ jobs:
         run: |
           cd
           python -c "import molsysmt; print('Version:', molsysmt.__version__)"
+
+      - name: Run scientific truth gate
+        shell: bash -l {0}
+        run: |
+          python -c "import MDAnalysis, mdtraj; print('MDAnalysis:', MDAnalysis.__version__); print('MDTraj:', mdtraj.__version__)"
+          pytest -q tests/scientific_truth --color=yes
 
       - name: Run full test suite with coverage
         shell: bash -l {0}

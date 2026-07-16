@@ -1,5 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
+from molsysmt._private.smonitor import InternalAlgorithmError
+from molsysmt._private.variables import is_all
 import numpy as np
 import h5py
 
@@ -51,6 +52,8 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
     if not file_is_h5msm:
         raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.form.molsysmt_Topology.to_file_h5msm")
+    if not is_all(atom_indices):
+        item = item.extract(atom_indices=atom_indices, skip_digestion=True)
     int_precision = file.attrs['int_precision']
     float_precision = file.attrs['float_precision']
 
@@ -78,15 +81,17 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
     atoms['atom_id'].resize((n_atoms,))
     atoms['atom_name'].resize((n_atoms,))
     atoms['atom_type'].resize((n_atoms,))
+    if 'isotope' in atoms:
+        atoms['isotope'].resize((n_atoms,))
     atoms['group_index'].resize((n_atoms,))
-    atoms['component_index'].resize((n_atoms,))
     atoms['chain_index'].resize((n_atoms,))
 
     atoms['atom_id'][:] = atoms_df['atom_id'].to_numpy(dtype='S')
     atoms['atom_name'][:] = atoms_df['atom_name'].to_numpy(dtype='S')
     atoms['atom_type'][:] = atoms_df['atom_type'].to_numpy(dtype='S')
+    if 'isotope' in atoms:
+        atoms['isotope'][:] = atoms_df['isotope'].fillna(0).to_numpy(dtype=np.uint16)
     atoms['group_index'][:] = atoms_df['group_index'].fillna(-1).to_numpy(dtype=int_type)
-    atoms['component_index'][:] = atoms_df['component_index'].fillna(-1).to_numpy(dtype=int_type)
     atoms['chain_index'][:] = atoms_df['chain_index'].fillna(-1).to_numpy(dtype=int_type)
 
     # Groups
@@ -153,26 +158,6 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         entities['entity_name'][:] = entities_df['entity_name'].to_numpy(dtype='S')
         entities['entity_type'][:] = entities_df['entity_type'].to_numpy(dtype='S')
 
-    # Components
-
-    components_df = item.components
-
-    n_components = components_df.shape[0]
-
-    file['topology'].attrs['n_components'] = n_components
-
-    components = file['topology']['components']
-
-    if n_components > 0:
-
-        components['component_id'].resize((n_components,))
-        components['component_name'].resize((n_components,))
-        components['component_type'].resize((n_components,))
-
-        components['component_id'][:] = components_df['component_id'].to_numpy(dtype=str)
-        components['component_name'][:] = components_df['component_name'].to_numpy(dtype=str)
-        components['component_type'][:] = components_df['component_type'].to_numpy(dtype=str)
-
     # Chains
 
     chains_df = item.chains
@@ -193,33 +178,16 @@ def dump_topology_to_h5msm(item, file, atom_indices='all'):
         chains['chain_name'][:] = chains_df['chain_name'].to_numpy(dtype='S')
         chains['chain_type'][:] = chains_df['chain_type'].to_numpy(dtype='S')
 
-    del(atoms_df, groups_df, components_df, molecules_df, entities_df, chains_df)
+    del atoms_df, groups_df, molecules_df, entities_df, chains_df
 
-    # Bonds
+    dataset_options = {
+        'compression': file['topology']['atoms']['atom_id'].compression,
+    }
+    if dataset_options['compression'] == 'gzip':
+        dataset_options['compression_opts'] = file['topology']['atoms']['atom_id'].compression_opts
+    from ._h5msm_chemical_states import write_chemical_states
 
-    bonds_df = item.bonds
-
-    n_bonds = bonds_df.shape[0]
-
-    file['topology'].attrs['n_bonds'] = n_bonds
-
-    bonds = file['topology']['bonds']
-
-    if n_bonds>0:
-
-        bonds['atom1_index'].resize((n_bonds,))
-        bonds['atom2_index'].resize((n_bonds,))
-
-        bonds['atom1_index'][:] = bonds_df['atom1_index'].fillna(-1).to_numpy(dtype=int_type)
-        bonds['atom2_index'][:] = bonds_df['atom2_index'].fillna(-1).to_numpy(dtype=int_type)
-
-        if 'order' in bonds_df:
-            bonds['order'].resize((n_bonds,))
-            bonds['order'][:] = bonds_df['order'].to_numpy(dtype=str)
-
-        if 'type' in bonds_df:
-            bonds['type'].resize((n_bonds,))
-            bonds['type'][:] = bonds_df['type'].to_numpy(dtype=str)
+    write_chemical_states(item, file['topology'], dataset_options)
 
     # Modification time
 

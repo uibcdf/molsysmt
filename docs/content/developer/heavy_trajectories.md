@@ -8,7 +8,7 @@ Read it if you want to:
 - write a custom `Reducer`, or
 - understand the execution flow for debugging.
 
-The canonical design document is `devguide/scalability_and_heavy_trajectories_v2.md`.
+The canonical design document is `devguide/SCALABILITY.md`.
 
 ---
 
@@ -33,6 +33,11 @@ ChunkedExecutor
 5. feeds each chunk to all reducers;
 6. saves checkpoints at configurable intervals;
 7. emits SMonitor telemetry at each step.
+
+Chunk processing is fail-fast. Exceptions from the iterator, chunk
+normalization, or a reducer propagate to the caller, and the executor does not
+finalize or return partial results. There is no implicit corrupt-frame skipping
+policy.
 
 ---
 
@@ -344,7 +349,6 @@ strip units and produce a canonical float64 chunk.
 | `MSM-INFO-HVY-002` | `EagerPathAccepted` | footprint within budget |
 | `MSM-INFO-HVY-003` | `ChunkProcessed` | after each successful chunk |
 | `MSM-WARN-HVY-001` | `SlowChunkIOWarning` | chunk I/O > 5 s |
-| `MSM-WARN-HVY-002` | `CorruptFrameSkippedWarning` | chunk raised an exception |
 | `MSM-WARN-HVY-003` | `MemoryPressureWarning` | RSS > `memory_pressure_threshold × max_ram_usage` |
 | `MSM-ERROR-HVY-001` | `UnsupportedHeavyOperationError` | form/attribute not supported |
 | `MSM-ERROR-HVY-002` | `HeavyOutputFailureError` | disk budget exceeded |

@@ -69,10 +69,8 @@ attributes['velocities'] = False
 attributes['n_structures'] = True
 
 
-attributes['forcefield'] = True
 attributes['temperature'] = True
-attributes['pressure'] = True
 attributes['integrator'] = True
-attributes['damping'] = True
+attributes['friction'] = True
 
 del(_all_attributes)

@@ -1,0 +1,53 @@
+{
+  "environment": {
+    "git_commit": "2ce68070f3227e0c9b731ab9edd6d26c18f040d6",
+    "git_dirty": true,
+    "machine": "x86_64",
+    "molsysmt_version": "0.20.0+59.g7b2939a11",
+    "os": "Linux",
+    "os_release": "6.17.0-35-generic",
+    "python": "3.13.12"
+  },
+  "generated_at_utc": "2026-07-16T10:19:30.813690+00:00",
+  "results": {
+    "topology_direct_gather_100000_atoms": {
+      "base_rss_mb": 202.96484375,
+      "delta_rss_mb": 6.44140625,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.20.0+59.g7b2939a11",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.035197934787720445,
+      "median_seconds": 0.03497516810894012,
+      "min_seconds": 0.03490779628045857,
+      "name": "topology_direct_gather_100000_atoms",
+      "peak_rss_mb": 209.40625,
+      "repeats": 5,
+      "stddev_seconds": 0.0001272564936836569,
+      "timestamp_utc": "2026-07-16T10:19:28.143854+00:00"
+    },
+    "topology_merge_expansion_100000_atoms": {
+      "base_rss_mb": 202.96484375,
+      "delta_rss_mb": 19.265625,
+      "environment": {
+        "machine": "x86_64",
+        "molsysmt_version": "0.20.0+59.g7b2939a11",
+        "python_version": "3.13.12",
+        "system": "Linux"
+      },
+      "iterations": 10,
+      "max_seconds": 0.05221353587694466,
+      "median_seconds": 0.05191889186389744,
+      "min_seconds": 0.05088510410860181,
+      "name": "topology_merge_expansion_100000_atoms",
+      "peak_rss_mb": 222.23046875,
+      "repeats": 5,
+      "stddev_seconds": 0.000639576727267738,
+      "timestamp_utc": "2026-07-16T10:19:30.813487+00:00"
+    }
+  },
+  "session_name": "micro-topology-expansion"
+}

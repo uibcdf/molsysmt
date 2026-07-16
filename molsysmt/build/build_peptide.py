@@ -1506,7 +1506,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
         temp_item.topology.atoms['atom_name'] = atom_names
         temp_item.topology.atoms['atom_type'] = atom_types
         temp_item.topology.atoms['group_index'] = atom_group_indices
-        temp_item.topology.atoms['component_index'] = atom_component_indices
+        temp_item.topology._set_component_indices(atom_component_indices)
         temp_item.topology.atoms['chain_index'] = atom_chain_indices
 
         temp_item.topology.groups['group_id'] = np.arange(n_groups)
@@ -1532,9 +1532,10 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
         temp_item.topology.chains['chain_type'] = ['protein']
 
         if n_bonds > 0:
-            temp_item.topology.bonds['atom1_index'] = np.array([bond[0] for bond in all_bonds], dtype=int)
-            temp_item.topology.bonds['atom2_index'] = np.array([bond[1] for bond in all_bonds], dtype=int)
-        temp_item.topology.bonds._remove_empty_columns()
+            bonds = temp_item.topology._get_chemical_state_bonds()
+            bonds['atom1_index'] = np.array([bond[0] for bond in all_bonds], dtype=int)
+            bonds['atom2_index'] = np.array([bond[1] for bond in all_bonds], dtype=int)
+        temp_item.topology._get_chemical_state_bonds()._remove_empty_columns()
 
         temp_item.molecular_mechanics.atom_ff_type = atom_ff_types
 

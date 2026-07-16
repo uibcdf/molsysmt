@@ -64,6 +64,27 @@ class TestGetCoordinatesFromAtom:
         val = puw.get_value(coords, to_unit='nm')
         assert val.shape == (2, 2, 3)
 
+    def test_unsorted_and_repeated_atom_indices_preserve_requested_order(self):
+        requested = [5, 0, 5, 2]
+        structures = [0, 10]
+
+        observed = aux.get_coordinates_from_atom(
+            file_traj,
+            indices=requested,
+            structure_indices=structures,
+            skip_digestion=True,
+        )
+        complete = aux.get_coordinates_from_atom(
+            file_traj,
+            structure_indices=structures,
+            skip_digestion=True,
+        )
+
+        np.testing.assert_array_equal(
+            puw.get_value(observed, to_unit='nm'),
+            puw.get_value(complete, to_unit='nm')[:, requested, :],
+        )
+
     def test_single_structure(self):
         coords = aux.get_coordinates_from_atom(file_bb, skip_digestion=True)
         val = puw.get_value(coords, to_unit='nm')

@@ -10,7 +10,7 @@ from molsysmt import pyunitwizard as puw
 import numpy as np
 import pandas as pd
 
-# https://github.com/rcsb/mmtf/blob/master/spec.md
+# https://mmcif.wwpdb.org/dictionaries/mmcif_pdbx_v50.dic/Index/
 
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
@@ -20,6 +20,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     from molsysmt.element.group import get_group_type_from_group_name
     from molsysmt.build import get_missing_bonds
     from molsysmt.configure import min_length_protein
+    from ._bond_state import BondAccumulator, metadata_from_chem_comp_bond
 
     if isinstance(item, str):
         from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
@@ -36,6 +37,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     atom_name = np.empty(n_atoms, dtype=object)
     atom_id = np.empty(n_atoms, dtype=int)
     atom_type = np.empty(n_atoms, dtype=object)
+    formal_charge = [pd.NA] * n_atoms
 
     group_index_from_atom = np.empty(n_atoms, dtype=int)
     chain_index_from_atom = np.empty(n_atoms, dtype=int)
@@ -76,6 +78,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atom_id[atom_index] = atom_record[index_att['id']]
         atom_type[atom_index] = atom_record[index_att['type_symbol']].upper()
         atom_name[atom_index] = atom_record[index_att['auth_atom_id']]
+        if 'pdbx_formal_charge' in index_att:
+            charge = atom_record[index_att['pdbx_formal_charge']]
+            if str(charge).strip() not in {'', '.', '?'}:
+                formal_charge[atom_index] = int(charge)
 
         coordinates[0,atom_index,0] = atom_record[index_att['Cartn_x']]
         coordinates[0,atom_index,1] = atom_record[index_att['Cartn_y']]
@@ -351,7 +357,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     # bonds
 
-    atom_pairs_bonded = []
+    bond_accumulator = BondAccumulator()
 
     ## bonds intra-group
 
@@ -360,12 +366,17 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     if item.exists('chem_comp_bond'):
 
         bonds_intra_group = {}
+        chem_comp_bond_attributes = {
+            name: index
+            for index, name in enumerate(item.getObj('chem_comp_bond').getAttributeList())
+        }
 
         for record in item.getObj('chem_comp_bond'):
-            try:
-                bonds_intra_group[record[0]].append([record[1], record[2]])
-            except Exception:
-                bonds_intra_group[record[0]]=[[record[1], record[2]]]
+            component = record[chem_comp_bond_attributes['comp_id']]
+            atom1 = record[chem_comp_bond_attributes['atom_id_1']]
+            atom2 = record[chem_comp_bond_attributes['atom_id_2']]
+            metadata = metadata_from_chem_comp_bond(record, chem_comp_bond_attributes)
+            bonds_intra_group.setdefault(component, []).append((atom1, atom2, metadata))
 
         for aux_group_index, aux_atom_indices in group_index_to_atom_indices.items():
 
@@ -382,11 +393,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 dict_aux = {ii:jj for ii,jj in zip(aux_atom_names, aux_atom_indices)}
                 dict_mask = {ii:False for ii in aux_atom_names}
 
-                aux_atom_pairs_bonded = []
+                aux_bond_records = []
 
-                for at1, at2 in bonds_intra_group[aux_group_name]:
+                for at1, at2, metadata in bonds_intra_group[aux_group_name]:
                     try:
-                        aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
+                        aux_bond_records.append((sorted([dict_aux[at1],dict_aux[at2]]), metadata))
                         dict_mask[at1]=True
                         dict_mask[at2]=True
                     except Exception:
@@ -396,20 +407,30 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
                 if len(remains):
                     if set(remains)==set(['H1','H3']):
+                        for pair, metadata in aux_bond_records:
+                            bond_accumulator.add(pair, **metadata)
                         for at1, at2 in [['N', 'H1'], ['N', 'H3']]:
-                            aux_atom_pairs_bonded.append(sorted([dict_aux[at1],dict_aux[at2]]))
-                        atom_pairs_bonded += aux_atom_pairs_bonded
-                    elif len(aux_atom_indices)==1:
-                        atom_pairs_bonded += []
+                            bond_accumulator.add(
+                                sorted([dict_aux[at1],dict_aux[at2]]),
+                                bond_type='covalent',
+                                evidence='inferred',
+                            )
+                    elif len(aux_atom_indices) == 1:
+                        pass
                     else:
                         aux_atom_pairs_bonded = get_bonded_atom_pairs(aux_group_name, aux_atom_names, aux_atom_indices,
                                                                      sorted=False)
                         if aux_atom_pairs_bonded is None:
                             atoms_without_bonds += aux_atom_indices
                         else:
-                            atom_pairs_bonded += aux_atom_pairs_bonded
+                            bond_accumulator.extend(
+                                aux_atom_pairs_bonded,
+                                bond_type='covalent',
+                                evidence='inferred',
+                            )
                 else:
-                    atom_pairs_bonded += aux_atom_pairs_bonded
+                    for pair, metadata in aux_bond_records:
+                        bond_accumulator.add(pair, **metadata)
 
     else:
 
@@ -421,7 +442,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
             if aux_atom_pairs_bonded is None:
                 atoms_without_bonds += aux_atom_indices
             else:
-                atom_pairs_bonded += aux_atom_pairs_bonded
+                bond_accumulator.extend(
+                    aux_atom_pairs_bonded,
+                    bond_type='covalent',
+                    evidence='inferred',
+                )
 
     ## bonds extra-group
 
@@ -466,7 +491,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atom_indices_2 = group_index_to_atom_indices[group_index_2]
         N_index = np.argwhere(atom_name[atom_indices_2]=='N')
         if len(C_index) and len(N_index):
-            atom_pairs_bonded.append([atom_indices_1[C_index[0,0]], atom_indices_2[N_index[0,0]]])
+            bond_accumulator.add(
+                [atom_indices_1[C_index[0,0]], atom_indices_2[N_index[0,0]]],
+                bond_type='covalent',
+                evidence='inferred',
+            )
 
     ### bonds in struct_conn
 
@@ -503,19 +532,14 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 atom_index_2 = [ii for ii in atom_indices_2 if atom_name[ii]==atom_name_2]
                 atom_index_2 = atom_index_2[0]
 
-                if [atom_index_1, atom_index_2] not in atom_pairs_bonded and \
-                   [atom_index_2, atom_index_1] not in atom_pairs_bonded:
+                if [atom_index_1, atom_index_2] not in bond_accumulator:
 
                     atom_pairs_bonded_by_struct_conn.append(sorted([atom_index_1, atom_index_2]))
-
-    atom_pairs_bonded += atom_pairs_bonded_by_struct_conn
-
-    ### bonds
-
-    atom_pairs_bonded = np.array(sorted(atom_pairs_bonded))
-    bond_atom1_index = atom_pairs_bonded[:,0]
-    bond_atom2_index = atom_pairs_bonded[:,1]
-    del(atom_pairs_bonded)
+                bond_accumulator.add(
+                    [atom_index_1, atom_index_2],
+                    bond_type='covalent',
+                    evidence='explicit',
+                )
 
     # alternate locations
 
@@ -579,22 +603,14 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         atom_name = atom_name[atom_indices_to_be_kept]
         atom_id = atom_id[atom_indices_to_be_kept]
         atom_type = atom_type[atom_indices_to_be_kept]
+        formal_charge = [formal_charge[index] for index in atom_indices_to_be_kept]
         group_index_from_atom = group_index_from_atom[atom_indices_to_be_kept]
         chain_index_from_atom = chain_index_from_atom[atom_indices_to_be_kept]
 
-        for old_atom, new_atom in to_be_fixed_in_bonds.items():
-            bond_atom1_index[bond_atom1_index==old_atom]=new_atom
-            bond_atom2_index[bond_atom2_index==old_atom]=new_atom
-
-        mask1 = np.isin(bond_atom1_index, atom_indices_to_be_kept)
-        mask2 = np.isin(bond_atom2_index, atom_indices_to_be_kept)
-        mask = mask1*mask2
-
-        vaux_dict = np.vectorize(dict_old_to_new_atom_indices.__getitem__)
-        bond_atom1_index = bond_atom1_index[mask]
-        bond_atom1_index = vaux_dict(bond_atom1_index)
-        bond_atom2_index = bond_atom2_index[mask]
-        bond_atom2_index = vaux_dict(bond_atom2_index)
+        bond_accumulator = bond_accumulator.remap(
+            atom_indices_to_be_kept,
+            replacements=to_be_fixed_in_bonds,
+        )
         
         coordinates = coordinates[:,atom_indices_to_be_kept,:]
         b_factor = b_factor[:,atom_indices_to_be_kept]
@@ -602,7 +618,13 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         if len(atom_pairs_bonded_by_struct_conn):
             aux_list = []
             for ii,jj in atom_pairs_bonded_by_struct_conn:
-                aux_list.append([dict_old_to_new_atom_indices[ii], dict_old_to_new_atom_indices[jj]])
+                ii = to_be_fixed_in_bonds.get(ii, ii)
+                jj = to_be_fixed_in_bonds.get(jj, jj)
+                if ii in dict_old_to_new_atom_indices and jj in dict_old_to_new_atom_indices:
+                    aux_list.append([
+                        dict_old_to_new_atom_indices[ii],
+                        dict_old_to_new_atom_indices[jj],
+                    ])
             atom_pairs_bonded_by_struct_conn = aux_list
 
     # coordinates, box, bioassembly, b-factor
@@ -723,6 +745,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.topology.atoms["atom_type"] = atom_type
     tmp_item.topology.atoms["group_index"] = group_index_from_atom
     tmp_item.topology.atoms["chain_index"] = chain_index_from_atom
+    if any(value is not pd.NA for value in formal_charge):
+        tmp_item.topology._set_chemical_state_atom_attribute(
+            'formal_charge',
+            pd.array(formal_charge, dtype='Int16'),
+        )
 
     tmp_item.topology.groups["group_name"] = group_name
     tmp_item.topology.groups["group_id"] = group_id
@@ -756,17 +783,19 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
         missing_bonds = get_missing_bonds(tmp_item, selection=atoms_without_bonds, skip_digestion=False)
 
         if len(missing_bonds):
-            missing_bonds = np.array(missing_bonds)
-            bond_atom1_index = np.concatenate([bond_atom1_index, missing_bonds[:,0]])
-            bond_atom2_index = np.concatenate([bond_atom2_index, missing_bonds[:,1]])
+            bond_accumulator.extend(
+                missing_bonds,
+                bond_type='covalent',
+                evidence='inferred',
+            )
 
-    n_bonds = bond_atom1_index.shape[0]
-
-    tmp_item.topology.bonds._reset(n_bonds=n_bonds)
-    tmp_item.topology.bonds["atom1_index"] = bond_atom1_index
-    tmp_item.topology.bonds["atom2_index"] = bond_atom2_index
-    tmp_item.topology.bonds._remove_empty_columns()
-    tmp_item.topology.bonds._sort_bonds()
+    tmp_item.topology._set_chemical_state_bonds(bond_accumulator.to_dataframe())
+    reference_state = tmp_item.topology._reference_chemical_state
+    reference_state.connectivity_completeness = (
+        'partial'
+        if bond_accumulator.has_inference or bond_accumulator.has_conflict
+        else 'complete'
+    )
 
     # Rebuild components
 
@@ -821,13 +850,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
 
     # Clean up
 
-    del(atom_name, atom_id, atom_type, group_index_from_atom, chain_index_from_atom)
+    del(atom_name, atom_id, atom_type, formal_charge, group_index_from_atom, chain_index_from_atom)
     del(group_name, group_id)
     del(molecule_name, molecule_type, entity_index)
     del(chain_name, chain_id)
     del(entity_name, entity_id, entity_type)
-    del(bond_atom1_index, bond_atom2_index)
-
     # Warnings on struct conn new covalent bonds
     if len(atom_pairs_bonded_by_struct_conn):
         warn(CrossChainCovalentBondsWarning(tmp_item, atom_pairs_bonded_by_struct_conn, caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys"))

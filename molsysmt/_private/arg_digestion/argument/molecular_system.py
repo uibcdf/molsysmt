@@ -1,4 +1,3 @@
-from molsysmt._private.smonitor import ArgumentError, MultipleMolecularSystemsError
 from pathlib import PosixPath
 from argdigest.core.caller import caller_matches
 
@@ -22,8 +21,12 @@ def digest_molecular_system(molecular_system, caller=None):
         MolecularSystemNeededError
             If the given object is not a molecular system.
     """
-    from molsysmt.basic import is_a_molecular_system, are_multiple_molecular_systems
+    from molsysmt.basic import are_multiple_molecular_systems
     from molsysmt.basic import merge
+    from molsysmt._private.molecular_system_validation import (
+        assess_molecular_system,
+        validate_molecular_system_argument,
+    )
 
     if isinstance(molecular_system, PosixPath):
         molecular_system = molecular_system.absolute().__str__()
@@ -36,20 +39,16 @@ def digest_molecular_system(molecular_system, caller=None):
     if molecular_system is None and caller_matches(caller, 'editable'):
         return None
 
+    assessment = assess_molecular_system(molecular_system)
+
     if caller=='molsysmt.basic.view.view':
-        if is_a_molecular_system(molecular_system):
+        if assessment.is_valid_single_system:
             return molecular_system
         elif are_multiple_molecular_systems(molecular_system):
             return merge(molecular_system, to_form='molsysmt.MolSys')
 
-    if is_a_molecular_system(molecular_system):
-        return molecular_system
-
-    if are_multiple_molecular_systems(molecular_system):
-        from molsysmt.basic import get_form
-        raise MultipleMolecularSystemsError(n_systems=len(molecular_system),
-                                            forms=get_form(molecular_system),
-                                            caller=caller)
-
-    raise ArgumentError('molecular_system', value=molecular_system, caller=caller, message=None)
-
+    return validate_molecular_system_argument(
+        molecular_system,
+        argument='molecular_system',
+        caller=caller,
+    )

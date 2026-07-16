@@ -10,6 +10,8 @@ attributes['atom_index'] = True
 attributes['atom_id'] = True
 attributes['atom_name'] = True
 attributes['atom_type'] = True
+attributes['formal_charge'] = True
+attributes['connectivity_completeness'] = True
 attributes['group_index'] = True
 attributes['group_id'] = True
 attributes['group_name'] = True
@@ -50,9 +52,12 @@ attributes['n_polysaccharides'] = True
 attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True
-attributes['bond_id'] = True
+attributes['bond_id'] = False
 attributes['bond_type'] = True
 attributes['bond_order'] = True
+attributes['bond_is_aromatic'] = True
+attributes['bond_is_conjugated'] = True
+attributes['bond_evidence'] = True
 attributes['bonded_atoms'] = True
 attributes['inner_bond_index'] = True
 attributes['inner_bonded_atoms'] = True
@@ -85,7 +90,6 @@ attributes['n_bioassemblies'] = True
 ###
 
 
-attributes['formal_charge'] = True
-attributes['partial_charge'] = True
+attributes['partial_charge'] = False
 
 del(_all_attributes)

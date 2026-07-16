@@ -3,6 +3,16 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
 
 
+def _to_builtin(value):
+    if hasattr(value, 'tolist'):
+        value = value.tolist()
+    if isinstance(value, dict):
+        return {key: _to_builtin(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_to_builtin(item) for item in value]
+    return value
+
+
 def _serialize_quantity(value, unit):
     if value is None:
         return None
@@ -21,12 +31,16 @@ def to_file_structures_yaml(item, output_filename, skip_digestion=False):
     for key in ['structure_id', 'alternate_location']:
         value = item.get(key, None)
         if value is not None:
-            structures[key] = value.tolist() if hasattr(value, 'tolist') else value
+            structures[key] = _to_builtin(value)
 
-    for key, unit in [('time', 'ps'), ('box', 'nm'), ('coordinates', 'nm'), ('velocities', 'nm/ps'), ('b_factor', 'nm**2'), ('occupancy', 'dimensionless')]:
+    for key, unit in [('time', 'ps'), ('box', 'nm'), ('coordinates', 'nm'), ('velocities', 'nm/ps'), ('b_factor', 'nm**2')]:
         value = item.get(key, None)
         if value is not None:
             structures[key] = _serialize_quantity(value, unit)
+
+    occupancy = item.get('occupancy', None)
+    if occupancy is not None:
+        structures['occupancy'] = _to_builtin(occupancy)
 
     data = {
         'format': 'molsysmt',

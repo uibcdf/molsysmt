@@ -4,6 +4,12 @@
 **Requester:** MolSysViewer
 **Owner:** MolSysMT
 
+> **Architectural review required:** The minimal `bond_type="aromatic"` and
+> `formal_charge`-in-`MolecularMechanics` assumptions in this older proposal are
+> not an accepted future contract. Before implementation, reconcile this work
+> with the orthogonal bond semantics and formal-charge decision described in
+> [Attribute-Centric Molecular-System Architecture](attribute_centric_molecular_system_model.md).
+
 ## Context
 
 The pre-1.0 baseline is intentionally small: MolSysMT should preserve basic

@@ -1,0 +1,5 @@
+
+[NbConvertApp] Converting notebook docs/content/user/tools/basic/get_v2.ipynb to notebook
+/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.13/lib/python3.13/site-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  validate(nb)
+[NbConvertApp] Writing 11542 bytes to docs/content/user/tools/basic/get_v2.ipynb

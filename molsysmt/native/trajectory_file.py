@@ -30,8 +30,6 @@ class TrajectoryFile():
                 self.mount_point = convert(filepath, to_form='openmm.PDBFile')
             elif self.form == 'file:inpcrd':
                 self.mount_point = convert(filepath, to_form='mdtraj.AmberRestartFile')
-            elif self.form == 'file:mmtf':
-                self.mount_point = convert(filepath, to_form='mmtf.MMTFDecoder')
             elif self.form == 'file:gro':
                 self.mount_point = convert(filepath, to_form='openmm.GromacsGroFile')
             else:

@@ -17,6 +17,9 @@ form='openmm.Topology'
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+    if structure_indices is None:
+        return None
+
     box = item.getPeriodicBoxVectors()
 
     output = None
@@ -27,6 +30,8 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
         box = box.reshape(1, box.shape[0], box.shape[1])
         box = box * unit
         output = puw.standardize(box)
+        if not is_all(structure_indices):
+            output = output[structure_indices, :, :]
 
     return output
 
@@ -35,4 +40,3 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

@@ -1,6 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
+import pandas as pd
 
 @arg_digest(form='openmm.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
@@ -35,6 +36,11 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
         group_index_of_atoms.append(atom.residue.index)
         chain_index_of_atoms.append(atom.residue.chain.index)
 
+    formal_charge = [
+        pd.NA if getattr(atom, 'formalCharge', None) is None else int(atom.formalCharge)
+        for atom in item.atoms()
+    ]
+
     for residue in item.residues():
         group_id.append(str(residue.id))
         group_name.append(residue.name)
@@ -46,6 +52,7 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
     tmp_item.atoms['atom_type'] = atom_type
     tmp_item.atoms['group_index'] = group_index_of_atoms
     tmp_item.atoms['chain_index'] = chain_index_of_atoms
+    tmp_item._set_chemical_state_atom_attribute('formal_charge', formal_charge)
 
     tmp_item.groups['group_id'] = group_id
     tmp_item.groups['group_name'] = group_name
@@ -63,10 +70,19 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
 
     # Bonds
     if n_bonds > 0:
-        bonded_atoms = []
-        for bond in item.bonds():
-            bonded_atoms.append([bond.atom1.index, bond.atom2.index])
-        tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
+        bonds = list(item.bonds())
+        type_names = [str(getattr(bond, 'type', '')).lower() for bond in bonds]
+        tmp_item._append_chemical_state_bonds(
+            [[bond.atom1.index, bond.atom2.index] for bond in bonds],
+            bond_order=[
+                pd.NA if getattr(bond, 'order', None) is None else int(bond.order)
+                for bond in bonds
+            ],
+            bond_type=['covalent'] * len(bonds),
+            is_aromatic=['aromatic' in value for value in type_names],
+            evidence=['explicit'] * len(bonds),
+        )
+        tmp_item._chemical_states[0].connectivity_completeness = 'complete'
     elif get_missing_bonds:
         from molsysmt.build import get_missing_bonds as _get_missing_bonds
         try:
@@ -74,9 +90,14 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
             # This works well for water/ions even without coordinates if names are standard
             bonded_atoms = _get_missing_bonds(item, skip_digestion=True)
             if bonded_atoms is not None and len(bonded_atoms)>0:
-                tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
+                tmp_item._append_chemical_state_bonds(
+                    bonded_atoms, evidence=['inferred'] * len(bonded_atoms)
+                )
+                tmp_item._chemical_states[0].connectivity_completeness = 'partial'
         except Exception:
             pass
+    else:
+        tmp_item._chemical_states[0].connectivity_completeness = 'complete'
 
     # Rebuild remaining hierarchy
     tmp_item.rebuild_components()

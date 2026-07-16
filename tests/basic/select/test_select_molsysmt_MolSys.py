@@ -22,8 +22,8 @@ def test_select_2(tctim_h5msm_molsys):
 
 def test_select_3(tctim_h5msm_molsys):
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, element='molecule', selection=[3900, 3910, 3920])
-    true_output = np.array([3900, 3910, 3920])
+    output = msm.select(molsys, element='molecule', selection=[0, 1, 2])
+    true_output = np.array([0, 1, 2])
     assert np.all(output==true_output)
 
 def test_select_4(tctim_h5msm_molsys):
@@ -253,4 +253,3 @@ def test_select_43_returns_list_when_mask_is_applied(tctim_h5msm_molsys):
     output = msm.select(molsys, selection='all', mask=[0, 1, 2])
     assert isinstance(output, list)
     assert output == [0, 1, 2]
-

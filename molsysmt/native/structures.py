@@ -187,6 +187,26 @@ class Structures:
         self.kinetic_energy = kinetic_energy
         self.occupancy = occupancy
 
+    def __setstate__(self, state):
+        """Restore current storage or migrate legacy public array fields."""
+
+        restored = type(self)(skip_digestion=True)
+        self.__dict__.update(restored.__dict__)
+        if '_coordinates' in state:
+            self.__dict__.update(state)
+            return
+
+        legacy_fields = {
+            'time', 'coordinates', 'velocities', 'box', 'b_factor', 'occupancy',
+            'temperature', 'potential_energy', 'kinetic_energy',
+        }
+        for field in legacy_fields:
+            if field in state:
+                setattr(self, field, state[field])
+        for key, value in state.items():
+            if key not in legacy_fields and key not in {'n_atoms', 'n_structures'}:
+                self.__dict__[key] = value
+
     @signal(tags=['native'])
     @arg_digest()
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
@@ -777,4 +797,3 @@ class Structures:
                 self._box.flags.writeable = False
     
         pass
-

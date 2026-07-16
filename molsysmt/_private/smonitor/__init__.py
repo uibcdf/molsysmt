@@ -21,7 +21,8 @@ __all__ = [
     "UnsupportedHeavyOperationError",
     "HeavyOutputFailureError",
     "SlowChunkIOWarning",
-    "CorruptFrameSkippedWarning",
     "MemoryPressureWarning",
+    "UnknownAtomNameWarning",
+    "WarmupFailureWarning",
     "GpuNotAvailableWarning",
 ]

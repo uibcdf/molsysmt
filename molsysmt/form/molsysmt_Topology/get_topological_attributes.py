@@ -7,8 +7,129 @@ import types
 from networkx import Graph
 from collections import defaultdict
 from itertools import chain, compress
+from molsysmt._private.variables import is_all
 
 form = 'molsysmt.Topology'
+
+_PUBLIC_TO_NATIVE_ATOM_STATE = {
+    'formal_charge': 'formal_charge',
+    'atom_is_aromatic': 'is_aromatic',
+    'n_unpaired_electrons': 'n_unpaired_electrons',
+    'n_implicit_hydrogens': 'n_implicit_hydrogens',
+    'allows_implicit_hydrogens': 'allows_implicit_hydrogens',
+    'atom_stereochemistry': 'stereochemistry',
+}
+
+
+def _get_atom_state_attribute(item, attribute, indices='all'):
+    values = item._get_chemical_state_atom_attribute(
+        _PUBLIC_TO_NATIVE_ATOM_STATE[attribute]
+    )
+    if values is None:
+        return None
+    if is_all(indices):
+        return values.to_list()
+    return values.iloc[indices].to_list()
+
+
+@arg_digest(form=form)
+def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
+    """Getting formal charges from the resolved chemical state."""
+
+    return _get_atom_state_attribute(item, 'formal_charge', indices=indices)
+
+
+@arg_digest(form=form)
+def get_formal_charge_from_system(item, skip_digestion=False):
+    """Getting atom-aligned formal charges from the resolved chemical state."""
+
+    return get_formal_charge_from_atom(item, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_atom_is_aromatic_from_atom(item, indices='all', skip_digestion=False):
+    """Getting atom aromaticity from the resolved chemical state."""
+
+    return _get_atom_state_attribute(item, 'atom_is_aromatic', indices=indices)
+
+
+@arg_digest(form=form)
+def get_n_unpaired_electrons_from_atom(item, indices='all', skip_digestion=False):
+    """Getting unpaired-electron counts from the resolved chemical state."""
+
+    return _get_atom_state_attribute(item, 'n_unpaired_electrons', indices=indices)
+
+
+@arg_digest(form=form)
+def get_n_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+    """Getting implicit-hydrogen counts from the resolved chemical state."""
+
+    return _get_atom_state_attribute(item, 'n_implicit_hydrogens', indices=indices)
+
+
+@arg_digest(form=form)
+def get_allows_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+    """Getting implicit-hydrogen permission flags from the resolved chemical state."""
+
+    return _get_atom_state_attribute(item, 'allows_implicit_hydrogens', indices=indices)
+
+
+@arg_digest(form=form)
+def get_atom_stereochemistry_from_atom(item, indices='all', skip_digestion=False):
+    """Getting atom stereochemistry from the resolved chemical state."""
+
+    return _get_atom_state_attribute(item, 'atom_stereochemistry', indices=indices)
+
+
+@arg_digest(form=form)
+def get_chemical_state_index_from_system(item, skip_digestion=False):
+    """Getting the ordered chemical-state indices."""
+
+    return list(range(len(item._chemical_states)))
+
+
+@arg_digest(form=form)
+def get_chemical_state_id_from_system(item, skip_digestion=False):
+    """Getting the ordered chemical-state identifiers."""
+
+    return [state.state_id for state in item._chemical_states]
+
+
+@arg_digest(form=form)
+def get_n_chemical_states_from_system(item, skip_digestion=False):
+    """Getting the number of chemical states."""
+
+    return len(item._chemical_states)
+
+
+@arg_digest(form=form)
+def get_reference_chemical_state_index_from_system(item, skip_digestion=False):
+    """Getting the reference chemical-state index."""
+
+    if len(item._chemical_states) == 1:
+        return 0
+    return item._reference_chemical_state_index
+
+
+@arg_digest(form=form)
+def get_connectivity_completeness_from_system(item, skip_digestion=False):
+    """Getting connectivity completeness for every chemical state."""
+
+    return [state.connectivity_completeness for state in item._chemical_states]
+
+
+@arg_digest(form=form)
+def get_component_completeness_from_system(item, skip_digestion=False):
+    """Getting component completeness for every chemical state."""
+
+    return [state.component_completeness for state in item._chemical_states]
+
+
+@arg_digest(form=form)
+def get_component_evidence_from_system(item, skip_digestion=False):
+    """Getting component evidence for every chemical state."""
+
+    return [state.component_evidence for state in item._chemical_states]
 
 
 #######################################################################
@@ -72,6 +193,14 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
     del atom_type_from_atom
 
     return output
+
+
+@arg_digest(form=form)
+def get_isotope_from_atom(item, indices='all', skip_digestion=False):
+
+    values = item.atoms['isotope']
+    values = values if is_all(indices) else values.iloc[indices]
+    return values.to_list()
 
 
 @arg_digest(form=form)
@@ -314,7 +443,7 @@ def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices=='all':
         output = component_index_from_atom.tolist()
@@ -329,7 +458,7 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
 
     if indices=='all':
@@ -346,7 +475,7 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
 
     if indices=='all':
@@ -363,7 +492,7 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components['component_type'].to_numpy()
 
     if indices=='all':
@@ -711,7 +840,7 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False):
     if indices=='all':
         output = item.components.shape[0]
     else:
-        component_indices_from_atoms = item.atoms['component_index'].to_numpy()
+        component_indices_from_atoms = item._get_component_indices().to_numpy()
         output = np.unique(component_indices_from_atoms[indices]).size
         del component_indices_from_atoms
 
@@ -1414,7 +1543,7 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
     group_index_from_atom = item.atoms['group_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices =='all':
         from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_groups_from_system
@@ -1442,7 +1571,7 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
 def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
     group_index_from_atom = item.atoms['group_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
 
     if indices =='all':
@@ -1474,7 +1603,7 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
 def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
     group_index_from_atom = item.atoms['group_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
 
     if indices =='all':
@@ -1506,7 +1635,7 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
 def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
     group_index_from_atom = item.atoms['group_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components['component_type'].to_numpy()
 
     if indices =='all':
@@ -2565,7 +2694,7 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices =='all':
 
@@ -2597,7 +2726,7 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
 
     if indices =='all':
@@ -2630,7 +2759,7 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
 
     if indices =='all':
@@ -2663,7 +2792,7 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_type'].to_numpy()
 
     if indices =='all':
@@ -3848,7 +3977,7 @@ def get_component_index_from_entity(item, indices='all', skip_digestion=False):
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices =='all':
 
@@ -3883,7 +4012,7 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
 
     if indices =='all':
@@ -3920,7 +4049,7 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
 
     if indices =='all':
@@ -3957,7 +4086,7 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components['component_type'].to_numpy()
 
     if indices =='all':
@@ -4758,7 +4887,7 @@ def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_index_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices =='all':
 
@@ -4785,7 +4914,7 @@ def get_atom_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     atom_id_from_atom = item.atoms['atom_id'].to_numpy()
 
     if indices =='all':
@@ -4813,7 +4942,7 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     atom_name_from_atom = item.atoms['atom_name'].to_numpy()
 
     if indices =='all':
@@ -4841,7 +4970,7 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     atom_type_from_atom = item.atoms['atom_type'].to_numpy()
 
     if indices =='all':
@@ -4869,7 +4998,7 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
 
     if indices =='all':
@@ -4900,7 +5029,7 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_id_from_group = item.groups['group_id'].to_numpy()
 
@@ -4932,7 +5061,7 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_name_from_group = item.groups['group_name'].to_numpy()
 
@@ -4964,7 +5093,7 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_type_from_group = item.groups['group_type'].to_numpy()
 
@@ -4996,7 +5125,7 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -5029,7 +5158,7 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -5063,7 +5192,7 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -5097,7 +5226,7 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom.astype(int)]
@@ -5131,7 +5260,7 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -5167,7 +5296,7 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -5204,7 +5333,7 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -5241,7 +5370,7 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -5334,7 +5463,7 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
 
     if indices =='all':
@@ -5364,7 +5493,7 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_id_from_chain = item.chains['chain_id'].to_numpy()
 
@@ -5395,7 +5524,7 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_name_from_chain = item.chains['chain_name'].to_numpy()
 
@@ -5426,7 +5555,7 @@ def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_component(item, indices='all', skip_digestion=False):
 
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_type_from_chain = item.chains['chain_type'].to_numpy()
 
@@ -6570,7 +6699,7 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices =='all':
 
@@ -6600,7 +6729,7 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
 
     if indices =='all':
@@ -6631,7 +6760,7 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
 
     if indices =='all':
@@ -6663,7 +6792,7 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    component_index_from_atom = item.atoms['component_index'].to_numpy()
+    component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components['component_type'].to_numpy()
     n_atoms = item.atoms.shape[0]
 
@@ -7380,6 +7509,17 @@ def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 # From bond
 
 
+def _get_optional_bond_attribute(item, column, indices):
+    """Return one nullable canonical bond column without inferring values."""
+
+    bonds = item._get_chemical_state_bonds()
+    n_values = len(bonds) if is_all(indices) else len(indices)
+    if column not in bonds:
+        return [None] * n_values
+    values = bonds[column] if is_all(indices) else bonds.iloc[indices][column]
+    return values.to_list()
+
+
 @arg_digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
@@ -7393,57 +7533,95 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
+def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'bond_id', indices)
+
+
+@arg_digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
-    if 'order' in item.bonds:
-
-        if indices=='all':
-            output = item.bonds['order'].to_list()
-        else:
-            output = item.bonds['order'][indices].to_list()
-
-    else:
-
-        if indices=='all':
-            n_aux = get_n_bonds_from_system(item, skip_digestion=True)
-            output = [None] * n_aux
-        else:
-            output = [None] * len(indices)
-
-    return output
+    return _get_optional_bond_attribute(item, 'bond_order', indices)
 
 
 @arg_digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
-    if 'type' in item.bonds:
+    return _get_optional_bond_attribute(item, 'bond_type', indices)
 
-        if indices=='all':
-            output = item.bonds['type'].to_list()
-        else:
-            output = item.bonds['type'][indices].to_list()
 
-    else:
+@arg_digest(form=form)
+def get_fractional_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
-        if indices=='all':
-            n_aux = get_n_bonds_from_system(item, skip_digestion=True)
-            output = [None] * n_aux
-        else:
-            output = [None] * len(indices)
+    return _get_optional_bond_attribute(item, 'fractional_bond_order', indices)
 
-    return output
+
+@arg_digest(form=form)
+def get_bond_is_aromatic_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'is_aromatic', indices)
+
+
+@arg_digest(form=form)
+def get_bond_is_conjugated_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'is_conjugated', indices)
+
+
+@arg_digest(form=form)
+def get_bond_stereochemistry_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'stereochemistry', indices)
+
+
+@arg_digest(form=form)
+def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=False):
+
+    bonds = item._get_chemical_state_bonds()
+    n_values = len(bonds) if is_all(indices) else len(indices)
+    columns = ('stereo_atom1_index', 'stereo_atom2_index')
+    if not set(columns) <= set(bonds.columns):
+        return [[None, None] for _ in range(n_values)]
+    values = bonds if is_all(indices) else bonds.iloc[indices]
+    return values.loc[:, columns].values.tolist()
+
+
+@arg_digest(form=form)
+def get_bond_donor_atom_index_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'donor_atom_index', indices)
+
+
+@arg_digest(form=form)
+def get_bond_acceptor_atom_index_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'acceptor_atom_index', indices)
+
+
+@arg_digest(form=form)
+def get_bond_joins_components_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'joins_components', indices)
+
+
+@arg_digest(form=form)
+def get_bond_evidence_from_bond(item, indices='all', skip_digestion=False):
+
+    return _get_optional_bond_attribute(item, 'evidence', indices)
 
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
+    bonds = item._get_chemical_state_bonds()
+
     if indices=='all':
 
-        output = np.unique([item.bonds.atom1_index, item.bonds.atom2_index]).tolist()
+        output = np.unique([bonds.atom1_index, bonds.atom2_index]).tolist()
 
     else:
 
-        output = [[bond.atom1_index, bond.atom2_index] for bond in item.bonds.iloc[indices].itertuples(index=False)]
+        output = [[bond.atom1_index, bond.atom2_index] for bond in bonds.iloc[indices].itertuples(index=False)]
         output = np.unique(output).tolist()
 
     return output
@@ -7452,13 +7630,15 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 
+    bonds = item._get_chemical_state_bonds()
+
     if indices=='all':
 
-        output = [[bond.atom1_index, bond.atom2_index] for bond in item.bonds.itertuples(index=False)]
+        output = [[bond.atom1_index, bond.atom2_index] for bond in bonds.itertuples(index=False)]
 
     else:
 
-        output = [[bond.atom1_index, bond.atom2_index] for bond in item.bonds.iloc[indices].itertuples(index=False)]
+        output = [[bond.atom1_index, bond.atom2_index] for bond in bonds.iloc[indices].itertuples(index=False)]
 
     return output
 
@@ -7510,7 +7690,7 @@ def get_n_entities_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
 
-    if item._components_dirty or item.atoms['component_index'].isnull().any():
+    if item._components_dirty or item._component_indices_are_missing():
         item.rebuild_components(force=True)
 
     return item.components.shape[0]
@@ -7525,7 +7705,7 @@ def get_n_chains_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
 
-    return item.bonds.shape[0]
+    return item._get_chemical_state_bonds().shape[0]
 
 
 @arg_digest(form=form)
@@ -7663,4 +7843,3 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

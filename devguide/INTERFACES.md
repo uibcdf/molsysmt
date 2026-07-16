@@ -1,41 +1,73 @@
-# MolSysMT Interface Specification
+# Interface Contract
 
-## 1. Selection Language & Syntax
-Selections are the primary way users address subsets of a molecular system.
+This document defines cross-form public behavior. Operation-specific docstrings
+and tests remain the authority for arguments and return values.
 
-### 1.1 Grammar Principles
-- **0-based indexing:** All numeric indices start from 0.
-- **Form-agnostic:** The same selection string (e.g., `'chain_name == "A"'`) must work across all forms (PDB, native, etc.) due to Topological Normalization.
-- **Syntaxes:** The default is `MolSysMT`. Other syntaxes (like `MDTraj` or `Amber`) may be supported depending on the backend.
+## Molecular-system forms
 
-### 1.2 Syntax Responsibilities
-- Parsing logic lives in `molsysmt/_private/selection/`.
-- If a requested syntax is not supported for a specific form, a `NotSupportedSyntaxError` must be raised.
+A form is an in-memory object, file representation, or recognized string kind
+registered under `molsysmt/form`. Public operations discover forms lazily and
+delegate to adapters or convert through an available route.
 
----
+The same public operation should have equivalent scientific semantics across
+supported forms, but support is capability-specific. A form being recognized
+does not guarantee that it can deliver every topology or structure attribute.
+Consult `molsysmt._private.form_tier.FORM_TIERS`, adapter declarations, and delivery
+tests.
 
-## 2. I/O and File Registry
-MolSysMT treats files as just another Form of a molecular system.
+## Selections
 
-### 2.1 File Handlers
-- Every supported file format has a corresponding handler in `molsysmt/form/`.
-- **Lazy Loading Policy:** Only **Binary Formats** (e.g., `H5MSM`, `XTC`, `DCD`) support true lazy loading of coordinates. **Text Formats** (e.g., `PDB`, `GRO`) generally perform **Eager Loading** of structural data during the initial topology parsing due to format constraints.
+- MolSysMT indices are zero-based.
+- The default syntax is `MolSysMT` unless a public signature says otherwise.
+- A selection can require topology conversion or adapter getters; identical
+  syntax does not imply identical cost across forms.
+- Alternative syntaxes are supported only on explicitly implemented paths.
+- Unsupported syntaxes or parameter combinations must fail with a typed,
+  actionable error rather than being silently reinterpreted.
 
-### 2.2 Remote PDB Retrieval
-- When a `pdb_id` string is provided, MolSysMT attempts retrieval in a fixed priority order:
-  1. `bcif.gz` (High-performance standard)
-  2. `bcif`
-  3. `cif.gz`
-  4. `pdb` (Legacy standard)
+Selection normalization does not excuse loss of topology. Forms lacking the
+attributes required by an expression must fail or use a tested conversion path.
 
----
+## Attribute delivery
 
-## 3. Third-party Bridges
-MolSysMT acts as a middleware between structural biology engines.
+Adapter `attributes` declarations are capability metadata, not proof of working
+delivery. Public `get()` may use direct getters or piping to another form. Tests
+must therefore exercise the public path and verify values, shapes, units, and
+ordering; structural validation of the adapter module is insufficient.
 
-### 3.1 Diplomatic Policy
-- MolSysMT does not replace MDAnalysis or OpenMM; it provides native adapters to "teleport" data into them.
-- Bridges are maintained in `molsysmt/third_party/`.
+Canonical structural conventions are:
 
-### 3.2 Conversion Integrity
-- Any conversion to a third-party object (e.g., `to_form='openmm.Modeller'`) must preserve the fundamental topology (atoms, bonds, residues) defined in the MolSysMT Trinity.
+- coordinates: `(n_structures, n_atoms, 3)`, nm;
+- box: `(n_structures, 3, 3)`, nm;
+- time: ps;
+- charge: elementary charge.
+
+## Files, remote identifiers, and iterators
+
+File forms differ in random access, lazy I/O, topology content, and writable
+capabilities. Do not infer lazy loading from a binary extension or eager loading
+from a text extension. Heavy compatibility requires an implemented
+`StructuresIterator`, explicit `_heavy_support`, and operation-level tests.
+
+Remote identifier forms perform network I/O only when a conversion requiring a
+download is requested. Download source, priority, cache, and offline behavior
+are implementation-specific and must be tested independently; they are not a
+universal interface promise.
+
+## Third-party bridges
+
+Third-party adapters are optional and must be imported lazily. A conversion
+contract identifies the attributes it preserves. “Conversion succeeded” does
+not by itself guarantee bond orders, identifiers, metadata, precision, unit
+provenance, or round-trip equivalence.
+
+Every supported bridge needs tests appropriate to its declared fidelity. Lossy
+conversions should be documented explicitly and, when scientifically relevant,
+emit structured diagnostics.
+
+## Failure behavior
+
+Expected form probes return `False`. Once an operation accepts an item as a
+molecular system, unsupported capabilities, malformed content, or conversion
+failures must not be hidden as a probe miss or a successful `None` result. See
+`error_policy.md` and `DIAGNOSTICS.md`.

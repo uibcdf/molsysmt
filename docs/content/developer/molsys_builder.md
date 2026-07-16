@@ -3,7 +3,7 @@
 `MolSysBuilder` is the native editable form for constructing or editing a
 molecular system before materializing it as `molsysmt.MolSys`.
 
-The canonical internal design notes live in `devguide/molsys_builder.md`. This
+The canonical internal design notes live in `devguide/BUILDER_API.md`. This
 developer page highlights the practical reason the builder matters for daily
 development and testing.
 
@@ -55,6 +55,14 @@ helpers:
 - `MolSysBuilder.add_bond(...)`
 - `MolSysBuilder.remove_bonds(...)`
 - `MolSysBuilder.assign_groups_to_new_chain(...)`
+
+`add_bond()` accepts optional `bond_order` and `bond_type` labels. Bond order
+may be a string or a numeric scalar and is stored canonically as a string;
+bond type is a string label:
+
+```python
+builder.add_bond(atom_0, atom_1, bond_order=2, bond_type="double")
+```
 
 ## Preferred testing pattern
 

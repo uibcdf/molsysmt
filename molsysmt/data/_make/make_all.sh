@@ -33,13 +33,13 @@ python trp-cage.py
 echo "DONE"
 
 echo -n "barnase_barstar.py   "
-python trp-cage.py
+python barnase_barstar.py
 echo "DONE"
 
 echo -n "two_lj_particles.py   "
 python two_lj_particles.py
 echo "DONE"
 
-echo -n "popc.py   "
-python popc.py
+echo -n "migrate_h5msm_demos_v04.py   "
+python migrate_h5msm_demos_v04.py
 echo "DONE"

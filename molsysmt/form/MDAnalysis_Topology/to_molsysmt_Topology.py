@@ -1,6 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
+import pandas as pd
 
 @arg_digest(form='MDAnalysis.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
@@ -47,9 +48,18 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     # Bonds
     if hasattr(item, 'bonds'):
-        bond_values = item.bonds.values
-        if len(bond_values) > 0:
-            tmp_item.add_bonds(bond_values.tolist(), skip_digestion=True)
+        from ._chemical_state import bond_table_from_topology
+
+        bond_table = bond_table_from_topology(item)
+        tmp_item._set_chemical_state_bonds(bond_table)
+        tmp_item._chemical_states[0].connectivity_completeness = 'partial'
+
+    if hasattr(item, 'formalcharges'):
+        formal_charges = item.formalcharges.values
+        if np.any(pd.notna(formal_charges)):
+            tmp_item._set_chemical_state_atom_attribute(
+                'formal_charge', pd.array(formal_charges, dtype='Int16')
+            )
 
     # Rebuild remaining hierarchy
     tmp_item.rebuild_components()

@@ -5,10 +5,6 @@ form_name = 'pytraj.Topology'
 form_type = 'class'
 form_info = ["", ""]
 
-piped_topological_attribute = None
-piped_structural_attribute = None
-piped_any_attribute = None
-
 from .is_form import is_form
 
 from .attributes import attributes
@@ -32,7 +28,7 @@ _convert_to={
         }
 
 
-piped_topological_attribute = None
+piped_topological_attribute = 'molsysmt.Topology'
 piped_structural_attribute = None
 piped_any_attribute = None
 bonds_are_explicit = False

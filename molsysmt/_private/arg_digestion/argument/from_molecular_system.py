@@ -1,10 +1,9 @@
-from molsysmt._private.smonitor import ArgumentError
-
 def digest_from_molecular_system(from_molecular_system, caller=None):
 
-    from molsysmt.basic import is_a_molecular_system
+    from molsysmt._private.molecular_system_validation import validate_molecular_system_argument
 
-    if is_a_molecular_system(from_molecular_system):
-        return from_molecular_system
-
-    raise ArgumentError('from_molecular_system', value=from_molecular_system, caller=caller, message=None)
+    return validate_molecular_system_argument(
+        from_molecular_system,
+        argument='from_molecular_system',
+        caller=caller,
+    )

@@ -6,4 +6,6 @@ for ii, jj in _all_attributes.items():
     if jj['topological']:
         attributes[ii] = True
 
+attributes['isotope'] = False
+
 del _all_attributes

@@ -49,9 +49,11 @@ attributes['n_polysaccharides'] = True
 attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True
-attributes['bond_id'] = True
+attributes['bond_id'] = False
 attributes['bond_type'] = True
 attributes['bond_order'] = True
+attributes['formal_charge'] = True
+attributes['bond_is_aromatic'] = True
 attributes['bonded_atoms'] = True
 attributes['bonded_atom_pairs'] = True
 attributes['n_bonds'] = True

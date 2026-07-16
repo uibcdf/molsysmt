@@ -9,11 +9,168 @@ import os
 import sys
 import importlib
 import inspect
+import ast
+import json
 
 # Add repository root to python path to import molsysmt correctly
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+ATTRIBUTE_DELIVERY_BASELINE = os.path.join(
+    REPO_ROOT,
+    "devtools",
+    "data",
+    "form_attribute_delivery_baseline.json",
+)
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
+
+
+def _discover_declared_form_names(form_dir, adapters):
+    """Return adapter-to-form mappings without importing adapter modules."""
+    output = {}
+    errors = []
+    for adapter_name in adapters:
+        init_file = os.path.join(form_dir, adapter_name, "__init__.py")
+        if not os.path.isfile(init_file):
+            continue
+        with open(init_file, encoding="utf-8") as file:
+            tree = ast.parse(file.read(), filename=init_file)
+        values = []
+        for node in tree.body:
+            if not isinstance(node, ast.Assign):
+                continue
+            if any(isinstance(target, ast.Name) and target.id == "form_name" for target in node.targets):
+                if isinstance(node.value, ast.Constant) and isinstance(node.value.value, str):
+                    values.append(node.value.value)
+        if len(values) != 1:
+            errors.append(
+                f"{adapter_name}: expected one literal form_name declaration, found {len(values)}."
+            )
+        else:
+            output[adapter_name] = values[0]
+    return output, errors
+
+
+def _directly_delivers(module, attribute_name, attribute_spec):
+    """Return whether an adapter exposes a getter supported by the catalog."""
+    return any(
+        callable(getattr(module, f"get_{attribute_name}_from_{element}", None))
+        for element in attribute_spec["get_from"]
+    )
+
+
+def _delivery_pipe(module, attribute_spec):
+    """Return the pipe used by a single-attribute get request, if any."""
+    if attribute_spec["structural"]:
+        return module.piped_structural_attribute
+    if attribute_spec["topological"] or attribute_spec["chemical_state"]:
+        return module.piped_topological_attribute
+    return None
+
+
+def _attribute_is_deliverable(form_name, attribute_name, modules, catalog, visited=None):
+    """Check direct and transitively piped delivery for one declared attribute."""
+    attribute_spec = catalog[attribute_name]
+    if not attribute_spec["get_from"]:
+        return True
+
+    visited = set() if visited is None else visited
+    if form_name in visited:
+        return False
+    visited = visited | {form_name}
+
+    module = modules[form_name]
+    if _directly_delivers(module, attribute_name, attribute_spec):
+        return True
+
+    from molsysmt._private.attribute_derivation import can_derive_attribute
+
+    if any(
+        can_derive_attribute(module, attribute_name, element)
+        for element in attribute_spec["get_from"]
+    ):
+        return True
+
+    pipe = _delivery_pipe(module, attribute_spec)
+    if pipe is None or pipe not in modules:
+        return False
+    converter = module._convert_to.get(pipe)
+    if not (callable(converter) or isinstance(converter, str)):
+        return False
+    if not modules[pipe].attributes.get(attribute_name, False):
+        return False
+    return _attribute_is_deliverable(pipe, attribute_name, modules, catalog, visited)
+
+
+def _audit_attribute_delivery(modules):
+    """Return declared attributes unreachable through getters or valid pipes."""
+    from molsysmt.attribute import attributes as catalog
+
+    violations = {}
+    for form_name, module in sorted(modules.items()):
+        unreachable = sorted(
+            attribute_name
+            for attribute_name, declared in module.attributes.items()
+            if declared
+            and (
+                attribute_name not in catalog
+                or not _attribute_is_deliverable(
+                    form_name,
+                    attribute_name,
+                    modules,
+                    catalog,
+                )
+            )
+        )
+        if unreachable:
+            violations[form_name] = unreachable
+    return violations
+
+
+def _load_attribute_delivery_baseline():
+    """Load the accepted delivery debt used as a monotonic regression ratchet."""
+    with open(ATTRIBUTE_DELIVERY_BASELINE, encoding="utf-8") as file:
+        baseline = json.load(file)
+    attribute_order = baseline["attribute_order"]
+    output = {}
+    for form_name, hexadecimal_mask in baseline["form_masks"].items():
+        mask = int(hexadecimal_mask, 16)
+        output[form_name] = {
+            attribute_name
+            for index, attribute_name in enumerate(attribute_order)
+            if mask & (1 << index)
+        }
+    return output
+
+
+def _compact_delivery_baseline(violations):
+    """Encode the exact violation sets as compact, subset-comparable bit masks."""
+    attribute_order = sorted({name for names in violations.values() for name in names})
+    attribute_indices = {name: index for index, name in enumerate(attribute_order)}
+    form_masks = {}
+    for form_name, names in sorted(violations.items()):
+        mask = 0
+        for name in names:
+            mask |= 1 << attribute_indices[name]
+        form_masks[form_name] = hex(mask)
+    return {"attribute_order": attribute_order, "form_masks": form_masks}
+
+
+def _compare_delivery_with_baseline(violations):
+    """Return newly introduced and resolved delivery violations."""
+    baseline = _load_attribute_delivery_baseline()
+    current = {form_name: set(names) for form_name, names in violations.items()}
+    forms = set(baseline) | set(current)
+    new = {
+        form_name: sorted(current.get(form_name, set()) - baseline.get(form_name, set()))
+        for form_name in forms
+        if current.get(form_name, set()) - baseline.get(form_name, set())
+    }
+    resolved = {
+        form_name: sorted(baseline.get(form_name, set()) - current.get(form_name, set()))
+        for form_name in forms
+        if baseline.get(form_name, set()) - current.get(form_name, set())
+    }
+    return new, resolved
 
 
 def main():
@@ -34,9 +191,36 @@ def main():
 
     print(f"Found {len(adapters)} form adapters to audit.\n")
 
+    from molsysmt._private.form_tier import FORM_TIERS
+
+    declared_forms, registry_errors = _discover_declared_form_names(form_dir, adapters)
+    discovered_names = set(declared_forms.values())
+    duplicate_names = sorted({name for name in discovered_names if list(declared_forms.values()).count(name) > 1})
+    missing_tiers = sorted(discovered_names - set(FORM_TIERS))
+    stale_tiers = sorted(set(FORM_TIERS) - discovered_names)
+    invalid_tiers = sorted(name for name, tier in FORM_TIERS.items() if tier not in {1, 2, 3})
+
+    if duplicate_names:
+        registry_errors.append(f"Duplicate form_name declarations: {duplicate_names}")
+    if missing_tiers:
+        registry_errors.append(f"Forms missing explicit tier entries: {missing_tiers}")
+    if stale_tiers:
+        registry_errors.append(f"Tier entries without form adapters: {stale_tiers}")
+    if invalid_tiers:
+        registry_errors.append(f"Forms with invalid tier values: {invalid_tiers}")
+
+    if registry_errors:
+        print("FORM TIER REGISTRY VIOLATIONS:")
+        for error in registry_errors:
+            print(f"  - {error}")
+        sys.exit(1)
+
+    print(f"Explicit form-tier registry: {len(FORM_TIERS)}/{len(adapters)} adapters classified.\n")
+
     passed_count = 0
     failed_count = 0
     failures = {}
+    loaded_modules = {}
 
     for adapter_name in adapters:
         module_path = f"molsysmt.form.{adapter_name}"
@@ -45,6 +229,7 @@ def main():
         # 1. Laziness and Import Check
         try:
             mod = importlib.import_module(module_path)
+            loaded_modules[mod.form_name] = mod
         except Exception as exc:
             errors.append(f"Import Failure: Module could not be imported. "
                           f"This indicates illegal top-level eager imports or syntax errors: {exc}")
@@ -141,6 +326,38 @@ def main():
             passed_count += 1
             print(f"✅ {adapter_name:<40} [PASS]")
 
+    delivery_violations = _audit_attribute_delivery(loaded_modules)
+    new_delivery_violations, resolved_delivery_violations = _compare_delivery_with_baseline(
+        delivery_violations
+    )
+    n_delivery_violations = sum(len(names) for names in delivery_violations.values())
+
+    print("\n" + "=" * 80)
+    print("ATTRIBUTE DELIVERY AUDIT")
+    print("=" * 80)
+    print(
+        f"Current accepted debt: {n_delivery_violations} unreachable declarations "
+        f"across {len(delivery_violations)} forms."
+    )
+    if resolved_delivery_violations:
+        n_resolved = sum(len(names) for names in resolved_delivery_violations.values())
+        print(f"Resolved since baseline: {n_resolved}")
+    if new_delivery_violations:
+        print("New unreachable declarations:")
+        for form_name, names in sorted(new_delivery_violations.items()):
+            print(f"  - {form_name}: {', '.join(names)}")
+        failed_count += 1
+        failures["attribute_delivery"] = [
+            "Declared attributes must have a catalog-compatible getter or a usable pipe."
+        ]
+    else:
+        print("Delivery ratchet: PASS (no new unreachable declarations)")
+
+    if "--print-delivery-baseline" in sys.argv:
+        print("\nBEGIN ATTRIBUTE DELIVERY BASELINE")
+        print(json.dumps(_compact_delivery_baseline(delivery_violations), indent=2, sort_keys=True))
+        print("END ATTRIBUTE DELIVERY BASELINE")
+
     print("\n" + "=" * 80)
     print("AUDIT RESULTS SUMMARY")
     print("=" * 80)
@@ -162,7 +379,7 @@ def main():
         # but in CI/CD we should exit with 1. We'll exit with 1 here to be a strict regression gate.
         sys.exit(1)
     else:
-        print("\nAudit Status: SUCCESS (all active forms conform to the repository standard)")
+        print("\nAudit Status: SUCCESS (structural checks passed; delivery debt did not regress)")
         print("=" * 80)
         sys.exit(0)
 

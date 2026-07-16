@@ -26,13 +26,15 @@ def merge(molecular_systems,
     ----------
     molecular_systems : list of molecular systems
         Input systems, each in one of the :ref:`supported forms <Introduction_Forms>`.
-    selections : list of (tuple, list, numpy.ndarray or str) or 'all', default 'all'
-        Atom selections for each input system. A single value applies to all systems; otherwise
-        provide a list with the same length as `molecular_systems`. Selection strings follow
-        :ref:`Introduction_Selection`. If `'all'`, all atoms from every system are included.
-    structure_indices : list of (int, tuple, list, numpy.ndarray) or 'all', default 'all'
-        0-based indices of the structures to include from each system. A single value applies
-        to all systems; otherwise provide a list matching `molecular_systems`.
+    selections : list, tuple, numpy.ndarray, int, str or 'all', default 'all'
+        Atom selections for the input systems. A list or tuple contains one selection per
+        system and must match `molecular_systems` in length. A scalar, string, NumPy array,
+        or range is applied to every system. Nest index collections to provide a different
+        collection for each system. Selection strings follow :ref:`Introduction_Selection`.
+    structure_indices : list, tuple, numpy.ndarray, range, int or 'all', default 'all'
+        0-based structure indices to include. A list or tuple contains one value or index
+        collection per system and must match `molecular_systems` in length. A scalar, NumPy
+        array, range, or `'all'` is applied to every system.
     keep_ids : bool, default True
         Whether to preserve original ids (atom, group, molecule) from the inputs. If `False`,
         ids are reassigned in the merged system.
@@ -74,6 +76,8 @@ def merge(molecular_systems,
     - All input systems must be aligned in **number of structures** or explicitly aligned via
       `structure_indices`. Internal conversions are performed when the input forms differ from
       the chosen `to_form`.
+    - Lists and tuples always express per-system intent. Use a NumPy array or range when one
+      index collection should be applied to every system.
 
     See Also
     --------
@@ -169,4 +173,3 @@ def merge(molecular_systems,
     output = merge_function(aux_molecular_systems, **merge_arguments)
 
     return output
-

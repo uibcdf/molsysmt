@@ -136,7 +136,6 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     from molsysmt.basic import select, get, get_attributes, get_form
     from molsysmt.attribute import attributes, _topological_attributes, _structural_attributes, _mechanical_attributes
-    from molsysmt.basic.get import _piped_molecular_system
 
     if redefine_indices:
         
@@ -199,9 +198,6 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
 
     atts_required = set(atts_to_be_compared) & set(atts_of_A) & set(atts_of_B)
 
-    piped_system_A, piped_atts_A = _piped_molecular_system(molecular_system, 'atom', atts_required)
-    piped_system_B, piped_atts_B = _piped_molecular_system(molecular_system_2, 'atom', atts_required)
-
     dict_A = {}
     dict_B = {}
 
@@ -225,35 +221,28 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         element=aux2[0]
         atts = atts_required & aux2[1]
 
-        if piped_system_A is None:
-            aux_molecular_system = molecular_system
-        else:
-            for aux_molecular_system, aux_atts in zip(piped_system_A, piped_atts_A):
-                if atts.issubset(aux_atts):
-                    break
-            if aux_molecular_system is None:
-                aux_molecular_system = molecular_system
-
-        dict_aux = get(aux_molecular_system, element=element, selection=selection,
-                       structure_indices=structure_indices, syntax=syntax,
-                       output_type='dictionary', **{ii:True for ii in atts})
-
-        dict_A.update(dict_aux)
-
-        if piped_system_B is None:
-            aux_molecular_system = molecular_system_2
-        else:
-            for aux_molecular_system, aux_atts in zip(piped_system_B, piped_atts_B):
-                if atts.issubset(aux_atts):
-                    break
-            if aux_molecular_system is None:
-                aux_molecular_system = molecular_system_2
-
-        dict_aux = get(aux_molecular_system, element=element, selection=selection_2,
-                       structure_indices=structure_indices_2, syntax=syntax,
-                       output_type='dictionary', **{ii:True for ii in atts})
-
-        dict_B.update(dict_aux)
+        # Resolve each attribute independently. A bulk request may need a pipe
+        # for one derived field and must not replace directly available source
+        # values for the other fields with values synthesized by that pipe.
+        for attribute in atts:
+            dict_A.update(get(
+                molecular_system,
+                element=element,
+                selection=selection,
+                structure_indices=structure_indices,
+                syntax=syntax,
+                output_type='dictionary',
+                **{attribute: True},
+            ))
+            dict_B.update(get(
+                molecular_system_2,
+                element=element,
+                selection=selection_2,
+                structure_indices=structure_indices_2,
+                syntax=syntax,
+                output_type='dictionary',
+                **{attribute: True},
+            ))
 
     # Normalization for comparison
     def array_equal_normalized(a, b, attr_name=None):

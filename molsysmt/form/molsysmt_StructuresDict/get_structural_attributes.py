@@ -65,15 +65,26 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
+def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
     velocities = item.get('velocities', None)
-    if velocities is None:
+    if velocities is None or indices is None or structure_indices is None:
         return None
 
     velocities = copy(velocities)
-    if is_all(structure_indices):
-        return velocities
-    return velocities[structure_indices, :, :]
+    if not is_all(structure_indices):
+        velocities = velocities[structure_indices, :, :]
+    if not is_all(indices):
+        velocities = velocities[:, indices, :]
+    return velocities
+
+
+@arg_digest(form=form)
+def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
+    return get_velocities_from_atom(
+        item,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
@@ -91,8 +102,48 @@ def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_di
 
 
 @arg_digest(form=form)
+def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    occupancy = item.get('occupancy', None)
+    if occupancy is None or indices is None or structure_indices is None:
+        return None
+
+    occupancy = copy(occupancy)
+    if not is_all(structure_indices):
+        occupancy = occupancy[structure_indices, :]
+    if not is_all(indices):
+        occupancy = occupancy[:, indices]
+    return occupancy
+
+
+@arg_digest(form=form)
+def get_alternate_location_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    alternate_location = item.get('alternate_location', None)
+    if alternate_location is None or indices is None or structure_indices is None:
+        return None
+
+    alternate_location = copy(alternate_location)
+    if not is_all(indices):
+        selected = []
+        for locations in alternate_location:
+            selected.append({index: locations[index] for index in indices if index in locations})
+        alternate_location = selected
+    if not is_all(structure_indices):
+        alternate_location = [alternate_location[index] for index in structure_indices]
+    return alternate_location
+
+
+@arg_digest(form=form)
 def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
     return get_b_factor_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
+    return get_alternate_location_from_atom(
+        item,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
 
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):

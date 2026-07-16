@@ -25,3 +25,11 @@ At the moment the heavier `MolSys/HDF5` profile is intentionally left out of
 the default baseline because a local Numba cache-locator issue interferes with
 those paths during development runs. That follow-up remains tracked in
 `devguide/performance_and_jit.md`.
+
+### Native topology storage
+
+Run `python benchmarks/micro/test_topology_storage.py` to record construction
+time, materialized bytes per atom, and the incremental cost of materializing
+the optional `formal_charge` chemical-state column. The 1,000- and 100,000-atom
+cases make regressions in fixed overhead and scaling visible without treating
+the measurements as hard cross-machine limits.

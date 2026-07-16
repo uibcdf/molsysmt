@@ -38,7 +38,11 @@ def get_component_index(molecular_system, element='component', selection='all', 
 
         if form == 'molsysmt.Topology':
             n_atoms = molecular_system.n_atoms
-            bonded_atom_pairs = molecular_system.bonds[['atom1_index', 'atom2_index']].to_numpy()
+            bonds = molecular_system._get_chemical_state_bonds()
+            if 'joins_components' in bonds.columns:
+                participates = ~bonds['joins_components'].eq(False).fillna(False)
+                bonds = bonds.loc[participates]
+            bonded_atom_pairs = bonds[['atom1_index', 'atom2_index']].to_numpy()
         else:
             from molsysmt import get
             n_atoms, bonded_atom_pairs = get(

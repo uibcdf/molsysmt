@@ -55,11 +55,11 @@ def has_attribute(form, attribute, skip_digestion=False):
     The following example illustrates the use of the function.
 
     >>> import molsysmt as msm
-    >>> msm.form.has_attribute('file:mmtf', 'box')
+    >>> msm.form.has_attribute('file:pdb', 'box')
     True
-    >>> msm.form.has_attribute('file:mmtf', 'forcefield')
+    >>> msm.form.has_attribute('file:pdb', 'forcefield')
     False
-    >>> msm.form.has_attribute(['file:mmtf','molsysmt.MoleculeMechanicsDict'], 'forcefield')
+    >>> msm.form.has_attribute(['file:pdb','molsysmt.MolecularMechanicsDict'], 'forcefield')
     True
 
 
@@ -84,4 +84,3 @@ def has_attribute(form, attribute, skip_digestion=False):
                 return True
 
     return output
-

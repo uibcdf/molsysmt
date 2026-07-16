@@ -45,6 +45,13 @@ def test_fixer_is_created(fixer):
     assert isinstance(fixer, PDBFixer)
 
 
+def test_source_pdb_metadata_not_retained_by_pdbfixer():
+    from molsysmt.form.pdbfixer_PDBFixer.attributes import attributes
+
+    assert attributes['alternate_location'] is False
+    assert attributes['b_factor'] is False
+
+
 def test_fixer_topology_atom_count(fixer_topology):
     assert fixer_topology.n_atoms == N_ATOMS
 

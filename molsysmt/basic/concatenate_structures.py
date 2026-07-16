@@ -19,13 +19,15 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     molecular_systems : list of molecular systems
         List of input molecular systems in any of the :ref:`supported forms <Introduction_Forms>`.
         Structures will be taken from these systems.
-    selections : list of (str, tuple, list, numpy.ndarray) or 'all', default 'all'
-        Atom selections to extract structures from each molecular system. Provide a single value (applied to all
-        systems) or a list of selections with the same length as `molecular_systems`. Each entry can be a 0-based index collection or a
-        selection string parsed according to :ref:`Introduction_Selection`.
-    structure_indices : list of (int, tuple, list, numpy.ndarray) or 'all', default 'all'
-        Structure indices (0-based) per system to include. Provide a single value (applied to all
-        systems) or a list matching `molecular_systems` in length.
+    selections : list, tuple, numpy.ndarray, int, str or 'all', default 'all'
+        Atom selections for the input systems. A list or tuple contains one selection per
+        system and must match `molecular_systems` in length. A scalar, string, NumPy array,
+        or range is applied to every system. Nest index collections to provide a different
+        collection for each system.
+    structure_indices : list, tuple, numpy.ndarray, range, int or 'all', default 'all'
+        0-based structure indices to include. A list or tuple contains one value or index
+        collection per system and must match `molecular_systems` in length. A scalar, NumPy
+        array, range, or `'all'` is applied to every system.
     to_form : str or None, default None
         Output form for the resulting molecular system. If `None`, the form is inherited from the
         first input system.
@@ -63,6 +65,10 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
       Use `selections` to align subsets when needed.
     - Structural attributes concatenated include `coordinates`, `velocities`, `box`, `time`
       (when available in the inputs).
+    - Native MolSys outputs preserve structure-to-chemical-state associations
+      and reject incompatible ordered state inventories.
+    - Lists and tuples always express per-system intent. Use a NumPy array or range when one
+      index collection should be applied to every system.
 
     See Also
     --------
@@ -126,6 +132,18 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
 
+        if to_form == 'molsysmt.MolSys':
+            source = extract(
+                aux_molecular_system,
+                selection=aux_selection,
+                structure_indices=aux_structure_indices,
+                syntax=syntax,
+                to_form='molsysmt.MolSys',
+                skip_digestion=True,
+            )
+            to_molecular_system.append_structures(source, skip_digestion=True)
+            continue
+
         coordinates, velocities = get(aux_molecular_system, element='atom', selection=aux_selection,
                           structure_indices=aux_structure_indices, coordinates=True, velocities=True)
         structure_id, time, box = get(aux_molecular_system, structure_indices=aux_structure_indices, structure_id=True, time=True,
@@ -137,4 +155,3 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     output = to_molecular_system
 
     return output
-

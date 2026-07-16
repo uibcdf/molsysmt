@@ -2,8 +2,151 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import pandas as pd
 
 form='molsysmt.Topology'
+
+_PUBLIC_TO_NATIVE_ATOM_STATE = {
+    'formal_charge': 'formal_charge',
+    'atom_is_aromatic': 'is_aromatic',
+    'n_unpaired_electrons': 'n_unpaired_electrons',
+    'n_implicit_hydrogens': 'n_implicit_hydrogens',
+    'allows_implicit_hydrogens': 'allows_implicit_hydrogens',
+    'atom_stereochemistry': 'stereochemistry',
+}
+
+_PUBLIC_TO_NATIVE_BOND_STATE = {
+    'bond_id': 'bond_id',
+    'bond_order': 'bond_order',
+    'fractional_bond_order': 'fractional_bond_order',
+    'bond_type': 'bond_type',
+    'bond_is_aromatic': 'is_aromatic',
+    'bond_is_conjugated': 'is_conjugated',
+    'bond_stereochemistry': 'stereochemistry',
+    'bond_donor_atom_index': 'donor_atom_index',
+    'bond_acceptor_atom_index': 'acceptor_atom_index',
+    'bond_joins_components': 'joins_components',
+    'bond_evidence': 'evidence',
+}
+
+
+def _set_atom_state_attribute(item, attribute, indices, value):
+    if attribute == 'formal_charge' and puw.is_quantity(value):
+        value = puw.get_value(value, to_unit='elementary_charge')
+    atom_indices = None if is_all(indices) else indices
+    item._set_chemical_state_atom_attribute(
+        _PUBLIC_TO_NATIVE_ATOM_STATE[attribute], value, atom_indices=atom_indices
+    )
+
+
+@arg_digest(form=form)
+def set_formal_charge_to_atom(item, indices='all', value=None, skip_digestion=False):
+    """Setting formal charges on the resolved chemical state."""
+
+    _set_atom_state_attribute(item, 'formal_charge', indices, value)
+
+
+@arg_digest(form=form)
+def set_atom_is_aromatic_to_atom(item, indices='all', value=None, skip_digestion=False):
+    """Setting atom aromaticity on the resolved chemical state."""
+
+    _set_atom_state_attribute(item, 'atom_is_aromatic', indices, value)
+
+
+@arg_digest(form=form)
+def set_n_unpaired_electrons_to_atom(item, indices='all', value=None, skip_digestion=False):
+    """Setting unpaired-electron counts on the resolved chemical state."""
+
+    _set_atom_state_attribute(item, 'n_unpaired_electrons', indices, value)
+
+
+@arg_digest(form=form)
+def set_n_implicit_hydrogens_to_atom(item, indices='all', value=None, skip_digestion=False):
+    """Setting implicit-hydrogen counts on the resolved chemical state."""
+
+    _set_atom_state_attribute(item, 'n_implicit_hydrogens', indices, value)
+
+
+@arg_digest(form=form)
+def set_allows_implicit_hydrogens_to_atom(item, indices='all', value=None, skip_digestion=False):
+    """Setting implicit-hydrogen permission flags on the resolved chemical state."""
+
+    _set_atom_state_attribute(item, 'allows_implicit_hydrogens', indices, value)
+
+
+@arg_digest(form=form)
+def set_atom_stereochemistry_to_atom(item, indices='all', value=None, skip_digestion=False):
+    """Setting atom stereochemistry on the resolved chemical state."""
+
+    _set_atom_state_attribute(item, 'atom_stereochemistry', indices, value)
+
+
+def _set_bond_state_attribute(item, attribute, indices, value):
+    """Set one public bond-state attribute through canonical native storage."""
+
+    item._set_chemical_state_bond_attribute(
+        _PUBLIC_TO_NATIVE_BOND_STATE[attribute], value, bond_indices=indices
+    )
+
+
+@arg_digest(form=form)
+def set_bond_id_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_id', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_order_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_order', indices, value)
+
+
+@arg_digest(form=form)
+def set_fractional_bond_order_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'fractional_bond_order', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_type_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_type', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_is_aromatic_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_is_aromatic', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_is_conjugated_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_is_conjugated', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_stereochemistry_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_stereochemistry', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_stereo_atom_indices_to_bond(item, indices='all', value=None, skip_digestion=False):
+    item._set_chemical_state_bond_stereo_atom_indices(value, bond_indices=indices)
+
+
+@arg_digest(form=form)
+def set_bond_donor_atom_index_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_donor_atom_index', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_acceptor_atom_index_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_acceptor_atom_index', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_joins_components_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_joins_components', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_evidence_to_bond(item, indices='all', value=None, skip_digestion=False):
+    _set_bond_state_attribute(item, 'bond_evidence', indices, value)
 
 
 ###### Set
@@ -16,7 +159,7 @@ def set_atom_id_to_atom(item, indices='all', value=None, skip_digestion=False):
     if is_all(indices):
         item.atoms.atom_id=value
     else:
-        item.atoms.iloc[indices, 0]=value
+        item.atoms.loc[indices, 'atom_id']=value
 
     pass
 
@@ -26,7 +169,7 @@ def set_atom_name_to_atom(item, indices='all', value=None, skip_digestion=False)
     if is_all(indices):
         item.atoms.atom_name=value
     else:
-        item.atoms.iloc[indices, 1]=value
+        item.atoms.loc[indices, 'atom_name']=value
 
     pass
 
@@ -36,9 +179,22 @@ def set_atom_type_to_atom(item, indices='all', value=None, skip_digestion=False)
     if is_all(indices):
         item.atoms.atom_type=value
     else:
-        item.atoms.iloc[indices, 2]=value
+        item.atoms.loc[indices, 'atom_type']=value
 
     pass
+
+
+@arg_digest(form=form)
+def set_isotope_to_atom(item, indices='all', value=None, skip_digestion=False):
+
+    if is_all(indices):
+        if value is None or value is pd.NA or np.isscalar(value):
+            value = [value] * item.n_atoms
+        item.atoms['isotope'] = pd.array(value, dtype='UInt16')
+    else:
+        isotope = item.atoms['isotope'].copy()
+        isotope.iloc[indices] = value
+        item.atoms['isotope'] = pd.array(isotope, dtype='UInt16')
 
 @arg_digest(form=form)
 def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=False):
@@ -46,7 +202,7 @@ def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
     if is_all(indices):
         item.atoms.group_index=value
     else:
-        item.atoms.iloc[indices, 3]=value
+        item.atoms.loc[indices, 'group_index']=value
 
     pass
 
@@ -55,17 +211,17 @@ def set_component_index_to_atom(item, indices='all', value=None, skip_digestion=
 
     if is_all(indices):
         if len(value)==1:
-            item.atoms.component_index=value[0]
+            item._set_component_indices([value[0]] * item.n_atoms)
             n_components = 1
         else:
-            item.atoms.component_index=value
+            item._set_component_indices(value)
             n_components = np.unique(value).shape[0]
         if n_components!=item.components.shape[0]:
             item.reset_components(n_components=n_components)
             item.rebuild_components(redefine_indices=True, redefine_ids=True,
                                     redefine_types=True, redefine_names=True)
     else:
-        item.atoms.iloc[indices, 4]=value
+        item._set_component_indices(value, atom_indices=indices)
 
     pass
 
@@ -84,7 +240,7 @@ def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
             item.rebuild_chains(redefine_indices=True, redefine_ids=True,
                                 redefine_types=True, redefine_names=True)
     else:
-        item.atoms.iloc[indices, 5]=value
+        item.atoms.loc[indices, 'chain_index']=value
 
     pass
 
@@ -171,11 +327,12 @@ def set_group_type_to_atom(item, indices='all', value=None, skip_digestion=False
 def set_component_id_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
-        bridge = item.atoms['component_index'].to_numpy()
+        bridge = item._get_component_indices().to_numpy()
         _set_by_bridge(item.components, 'component_id', bridge, value)
     else:
+        component_indices = item._get_component_indices()
         for i, ai in enumerate(list(indices)):
-            ci = item.atoms.at[ai, 'component_index']
+            ci = component_indices.loc[ai]
             item.components.at[int(ci), 'component_id'] = value[i]
 
     pass
@@ -185,11 +342,12 @@ def set_component_id_to_atom(item, indices='all', value=None, skip_digestion=Fal
 def set_component_name_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
-        bridge = item.atoms['component_index'].to_numpy()
+        bridge = item._get_component_indices().to_numpy()
         _set_by_bridge(item.components, 'component_name', bridge, value)
     else:
+        component_indices = item._get_component_indices()
         for i, ai in enumerate(list(indices)):
-            ci = item.atoms.at[ai, 'component_index']
+            ci = component_indices.loc[ai]
             item.components.at[int(ci), 'component_name'] = value[i]
 
     pass
@@ -199,11 +357,12 @@ def set_component_name_to_atom(item, indices='all', value=None, skip_digestion=F
 def set_component_type_to_atom(item, indices='all', value=None, skip_digestion=False):
 
     if is_all(indices):
-        bridge = item.atoms['component_index'].to_numpy()
+        bridge = item._get_component_indices().to_numpy()
         _set_by_bridge(item.components, 'component_type', bridge, value)
     else:
+        component_indices = item._get_component_indices()
         for i, ai in enumerate(list(indices)):
-            ci = item.atoms.at[ai, 'component_index']
+            ci = component_indices.loc[ai]
             item.components.at[int(ci), 'component_type'] = value[i]
 
     pass
@@ -748,7 +907,7 @@ def _get_chain_index_for_component(item):
     n_components = len(item.components)
     bridge = np.zeros(n_components, dtype=int)
     seen = np.zeros(n_components, dtype=bool)
-    comp_idx = item.atoms['component_index'].to_numpy()
+    comp_idx = item._get_component_indices().to_numpy()
     chain_idx = item.atoms['chain_index'].to_numpy()
     for ai in range(len(comp_idx)):
         ci = int(comp_idx[ai])
@@ -779,7 +938,7 @@ def _get_molecule_index_for_component(item):
     n_components = len(item.components)
     bridge = np.zeros(n_components, dtype=int)
     seen = np.zeros(n_components, dtype=bool)
-    comp_idx = item.atoms['component_index'].to_numpy()
+    comp_idx = item._get_component_indices().to_numpy()
     group_idx = item.atoms['group_index'].to_numpy()
     mol_idx_arr = item.groups['molecule_index'].to_numpy()
     for ai in range(len(comp_idx)):
@@ -796,7 +955,7 @@ def _get_component_index_for_group(item):
     bridge = np.zeros(n_groups, dtype=int)
     seen = np.zeros(n_groups, dtype=bool)
     group_idx = item.atoms['group_index'].to_numpy()
-    comp_idx = item.atoms['component_index'].to_numpy()
+    comp_idx = item._get_component_indices().to_numpy()
     for ai in range(len(group_idx)):
         gi = int(group_idx[ai])
         if not seen[gi]:
@@ -894,8 +1053,9 @@ def set_component_id_to_group(item, indices='all', value=None, skip_digestion=Fa
         bridge = _get_component_index_for_group(item)
         _set_by_bridge(item.components, 'component_id', bridge, value)
     else:
+        component_indices = item._get_component_indices()
         for i, gi in enumerate(list(indices)):
-            ci = item.atoms.loc[item.atoms['group_index'] == gi, 'component_index'].iloc[0]
+            ci = component_indices.loc[item.atoms['group_index'] == gi].iloc[0]
             item.components.at[int(ci), 'component_id'] = value[i]
 
     pass
@@ -908,8 +1068,9 @@ def set_component_name_to_group(item, indices='all', value=None, skip_digestion=
         bridge = _get_component_index_for_group(item)
         _set_by_bridge(item.components, 'component_name', bridge, value)
     else:
+        component_indices = item._get_component_indices()
         for i, gi in enumerate(list(indices)):
-            ci = item.atoms.loc[item.atoms['group_index'] == gi, 'component_index'].iloc[0]
+            ci = component_indices.loc[item.atoms['group_index'] == gi].iloc[0]
             item.components.at[int(ci), 'component_name'] = value[i]
 
     pass
@@ -922,8 +1083,9 @@ def set_component_type_to_group(item, indices='all', value=None, skip_digestion=
         bridge = _get_component_index_for_group(item)
         _set_by_bridge(item.components, 'component_type', bridge, value)
     else:
+        component_indices = item._get_component_indices()
         for i, gi in enumerate(list(indices)):
-            ci = item.atoms.loc[item.atoms['group_index'] == gi, 'component_index'].iloc[0]
+            ci = component_indices.loc[item.atoms['group_index'] == gi].iloc[0]
             item.components.at[int(ci), 'component_type'] = value[i]
 
     pass
@@ -1115,7 +1277,7 @@ def set_chain_type_to_component(item, indices='all', value=None, skip_digestion=
 def set_chain_index_to_component(item, indices='all', value=None, skip_digestion=False):
     """Reassign atoms' chain_index using a per-component mapping."""
 
-    comp_idx = item.atoms['component_index'].to_numpy()
+    comp_idx = item._get_component_indices().to_numpy()
     new_chain = item.atoms['chain_index'].copy().to_numpy()
 
     if is_all(indices):
@@ -1260,7 +1422,7 @@ def set_molecule_type_to_component(item, indices='all', value=None, skip_digesti
 def set_molecule_index_to_component(item, indices='all', value=None, skip_digestion=False):
     """Reassign groups' molecule_index using a per-component mapping."""
 
-    comp_idx = item.atoms['component_index'].to_numpy()
+    comp_idx = item._get_component_indices().to_numpy()
     group_idx = item.atoms['group_index'].to_numpy()
     mol_idx_arr = item.groups['molecule_index'].copy().to_numpy()
 
@@ -1427,4 +1589,3 @@ def set_entity_type_to_component(item, indices='all', value=None, skip_digestion
             item.entities.at[int(ei), 'entity_type'] = value[i]
 
     pass
-

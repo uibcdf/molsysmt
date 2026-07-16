@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt import pyunitwizard as puw
 
@@ -21,6 +22,21 @@ def digest_formal_charge(formal_charge, caller=None):
 
     if formal_charge is None:
         return None
+
+    if isinstance(formal_charge, (int, np.integer)):
+        return int(formal_charge)
+
+    if isinstance(formal_charge, (list, tuple, np.ndarray)):
+        value = np.asarray(formal_charge, dtype=object)
+        if value.ndim == 1 and all(
+            entry is None or entry is pd.NA
+            or isinstance(entry, (int, np.integer)) and not isinstance(entry, bool)
+            for entry in value
+        ):
+            if any(entry is None or entry is pd.NA for entry in value):
+                return value.tolist()
+            return value.astype(np.int16)
+        raise ArgumentError('formal_charge', value=formal_charge, caller=caller, message=None)
 
     value = puw.get_value(formal_charge)
     unit = puw.get_unit(formal_charge)

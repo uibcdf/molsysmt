@@ -1,5 +1,8 @@
 import numpy as np
+import pytest
 
+from molsysmt._private.smonitor import StructuralInconsistencyError
+from molsysmt.native import Topology
 from molsysmt.native._topology_infer import (
     fallback_ids,
     infer_component_indices_from_topology,
@@ -53,8 +56,18 @@ def test_infer_component_indices_matches_rebuild_components(t4_h5msm_molsys):
         force=True,
     )
 
-    assert atom_component_index.tolist() == rebuilt.atoms["component_index"].to_list()
+    assert atom_component_index.tolist() == rebuilt._get_component_indices().to_list()
     assert "component_index" not in rebuilt.groups.columns
+
+
+def test_component_inference_fails_closed_without_reference_chemical_state():
+    topology = Topology(n_atoms=3)
+    topology._append_chemical_state_bonds([[0, 1]])
+    topology._append_chemical_state(state_id='product')
+    topology._set_reference_chemical_state_index(None)
+
+    with pytest.raises(StructuralInconsistencyError, match='ambiguous'):
+        infer_component_indices_from_topology(topology)
 
 
 def test_prepare_topology_for_component_queries_populates_missing_columns(t4_h5msm_molsys):
@@ -70,10 +83,10 @@ def test_prepare_topology_for_component_queries_populates_missing_columns(t4_h5m
     )
 
     assert "component_index" not in prepared.groups.columns
-    assert "component_index" in prepared.atoms.columns
+    assert "component_index" not in prepared.atoms.columns
     assert "component_name" in prepared.components.columns
     assert "component_type" in prepared.components.columns
-    assert prepared.atoms["component_index"].isnull().sum() == 0
+    assert prepared._get_component_indices().isnull().sum() == 0
 
 
 def test_project_component_queries_follow_prepared_topology(t4_h5msm_molsys):
@@ -99,7 +112,7 @@ def test_prepare_topology_for_molecule_queries_populates_missing_columns(t4_h5ms
     prepared = prepare_topology_for_molecule_queries(topology, element="entity")
 
     assert "component_index" not in prepared.groups.columns
-    assert "component_index" in prepared.atoms.columns
+    assert "component_index" not in prepared.atoms.columns
     assert prepared.groups["molecule_index"].isnull().sum() == 0
     assert prepared.molecules["entity_index"].isnull().sum() == 0
 

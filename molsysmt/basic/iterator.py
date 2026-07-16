@@ -129,7 +129,8 @@ class Iterator():
         NotSupportedFormError
             If the input system has an unsupported form.
         ArgumentError
-            If any input argument is invalid or inconsistent.
+            If any input argument is invalid or inconsistent, including an
+            out-of-range structure index.
         """
 
         from . import select, get_form, where_is_attribute, convert
@@ -139,7 +140,11 @@ class Iterator():
         self.molecular_system = molecular_system
         self.element = element
         self.indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
-        self.structure_indices = structure_indices
+        from ._index_validation import validate_structure_indices
+
+        self.structure_indices = validate_structure_indices(
+            molecular_system, structure_indices, 'molsysmt.Iterator'
+        )
         self.start = start
         self.stop = stop
         self.step = step
@@ -259,4 +264,3 @@ class Iterator():
             set(self._output_molecular_system, element='system', box=self._output_dictionary['box'],
                     structure_id=self._output_dictionary['structure_id'], time=self._output_dictionary['time'])
             return self._output_molecular_system
-

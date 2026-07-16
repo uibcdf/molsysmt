@@ -38,10 +38,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
         bonds = _get_missing_bonds(tmp_item)
         bonds = np.array(bonds)
-        tmp_item.topology.reset_bonds(n_bonds=bonds.shape[0])
-        tmp_item.topology.bonds.drop(['order', 'type'], axis=1, inplace=True)
-        tmp_item.topology.bonds.atom1_index=bonds[:,0]
-        tmp_item.topology.bonds.atom2_index=bonds[:,1]
+        tmp_item.topology._reset_chemical_state_bonds(n_bonds=0)
+        tmp_item.topology._append_chemical_state_bonds(bonds, sort=False)
 
         del(bonds)
 
@@ -54,4 +52,3 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     tmp_item = tmp_item.extract(atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
 
     return tmp_item
-

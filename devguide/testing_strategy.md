@@ -3,10 +3,12 @@
 ## Framework
 Use `pytest`. Tests live under `tests/` and should mirror package structure.
 
-## 🥇 Contract Testing (The 1.0.0 Standard)
+## Contract testing
 Contract tests are the primary defense against regressions in interoperability.
 
-The support contract is defined in `devguide/support_tiers.ipynb`. Testing must derive from that document rather than from informal expectations.
+Runtime form tiers are defined in `molsysmt/_private/form_tier.py`; the notebook
+is only an executable view of that registry. Actual support obligations require
+both an API scope and tests. They must not be inferred from a tier number alone.
 
 Two parity axes must remain explicit:
 
@@ -23,24 +25,29 @@ Tier 2 and Tier 3 forms may still have valuable tests, but their parity obligati
 
 ## Contract-driven test prioritization
 
-The support contract is not only a list of forms. It also includes the `Contractual capability matrix` in `devguide/support_tiers.ipynb`. Test priorities must therefore follow both axes:
+Test priorities must follow both the form tier and the capability explicitly
+documented for that form:
 
 - the tier of the form;
 - the contractual capability being claimed for that tier.
 
 When choosing what to test next, prioritize in this order:
 
-1. Tier 1 contract tests for the capabilities marked as `Full` in the capability matrix;
+1. Tier 1 contract tests for explicitly documented capabilities;
 2. Tier 1 form parity tests inside the documented supported scope of those capabilities;
 3. execution parity tests for any operation entering the heavy-processing contract;
 4. Tier 2 best-effort regressions for capabilities marked as partial or lossy;
 5. Tier 3 or legacy coverage only when it reveals real risk or blocks cleanup.
 
-Coverage percentage alone must not drive test priorities. The first objective is to harden the contractual support surface defined in `devguide/support_tiers.ipynb`.
+Coverage percentage alone must not drive test priorities. The first objective is
+to harden the contractual support surface defined by
+`molsysmt/_private/form_tier.py` and the documented public contract.
 
 ## Capability-driven parity obligations
 
-The capability matrix in `devguide/support_tiers.ipynb` should be read as the source of truth for parity obligations. In practice, each capability implies a characteristic family of tests:
+Tier classification alone does not prove contract or parity coverage. Those
+claims require the corresponding tests. In practice, each capability implies a
+characteristic family of tests:
 
 - **Basic introspection**
   - contract tests for `msm.get`, `msm.info`, and `msm.compare`;
@@ -72,9 +79,29 @@ The capability matrix in `devguide/support_tiers.ipynb` should be read as the so
 - **Heavy / chunked execution**
   - eager vs heavy parity tests;
   - `MSM-*-HVY-*` telemetry contract tests;
-  - failure-policy tests for unsupported combinations and recoverable frame-skipping behavior.
+  - failure-policy tests for unsupported combinations and propagation of
+    scientific exceptions. Any explicitly supported corrupt-frame recovery must
+    preserve exact output provenance and alignment.
 
 This separation matters because `contract verification`, `form parity`, and `execution parity` are related but not identical obligations.
+
+## Independent scientific validation
+
+Contract and parity tests must be complemented by expected values that do not
+originate from the MolSysMT implementation under test. The normative evidence
+hierarchy, tolerance policy, box convention, and validation index are defined in
+[`scientific_validation.md`](scientific_validation.md).
+
+The executable suite lives under `tests/scientific_truth/` and separates:
+
+- analytic oracles for exact or closed-form systems;
+- external-oracle comparisons with MDTraj, MDAnalysis, OpenMM, RDKit, or other
+  appropriate reference implementations;
+- metamorphic checks for invariants such as translation or rotation invariance.
+
+External comparisons are complementary evidence, not the sole source of truth.
+They must use independently constructed fixtures and must not validate a converter
+against data produced through that same converter.
 
 ## pytest marks and useful -m combinations
 
@@ -82,7 +109,7 @@ This separation matters because `contract verification`, `form parity`, and `exe
 
 | Mark | Applied by | Meaning |
 |------|-----------|---------|
-| `tier1` | `conftest.py` (automatic) | Form is Tier 1 — contractual, 1.x stable |
+| `tier1` | `conftest.py` (automatic) | Form is explicitly classified as contractual Tier 1 |
 | `tier2` | `conftest.py` (automatic) | Form is Tier 2 — best-effort |
 | `tier3` | `conftest.py` (automatic) | Form is Tier 3 — experimental / niche |
 | `network` | test author (manual) | Requires a live network connection |
@@ -93,6 +120,10 @@ Tier marks are applied automatically by `tests/conftest.py` to all tests under
 `molsysmt/_private/form_tier.py` — updating a form's tier there propagates to
 tests automatically.  Tests outside `tests/form/` (e.g. `tests/basic/`,
 `tests/build/`) receive no tier mark.
+
+Absence from `FORM_TIERS` is an error. The mark proves an explicit tier decision,
+but it does not by itself prove every declared attribute or conversion is
+deliverable; those claims require their corresponding contract tests.
 
 `redundant` is applied manually with `pytestmark = pytest.mark.redundant` at the
 module level (or `@pytest.mark.redundant` on individual functions).  Use it when a
@@ -133,7 +164,7 @@ The standard working pattern for raising test coverage is:
    `get_topological_attributes` in `mdtraj.Topology`"; the user supplies any known
    constraints (which attributes are supported, known bugs, reference system to use).
 
-3. **Claude reads the implementation before writing tests** — always read the form
+3. **The contributor reads the implementation before writing tests** — always read the form
    adapter, the `attributes.py`, and any relevant element API code before proposing
    tests; never write tests against a function without first verifying its signature,
    return type, and documented behaviour.
@@ -159,7 +190,7 @@ The standard working pattern for raising test coverage is:
 See `devguide/testing_form_adapters.md` for the concrete implementation patterns (builder
 fixture, parametrize structure, None handling, convert-then-delegate, etc.).
 
-## 🧹 Legacy Cleanup Policy
+## Legacy cleanup policy
 The 1.0.0 transition (specifically Lazy Loading 2.0) has rendered many old tests obsolete or broken due to changed import patterns.
 - **Rule**: If a test in `tests/form/` or `tests/basic/` fails because of architectural changes, do not "patch" it with dirty hacks. If the test is redundant with a new Contract Test, **delete it**. If it tests unique logic, **refactor it** to use absolute imports and ArgDigest-compliant calls.
 
@@ -175,7 +206,7 @@ Tests that require soft dependencies must guard availability and skip cleanly.
 Tests must be deterministic and reasonably fast. Use bundled systems in
 `molsysmt.systems` when possible.
 
-## Sequential validation rule for stabilization sprints
+## Validation execution policy
 
 When the suite is in broad stabilization mode, prefer sequential validation by
 top-level test directories over a single very large `pytest` invocation. This
@@ -203,7 +234,7 @@ Coverage-specific rule:
   a full-package coverage sweep, then inspect the module-level report from that
   full run instead of trying to instrument only a subset.
 
-Current validated sequence in the March 2026 pass:
+The March 2026 stabilization pass used this sequence:
 - `tests/basic`
 - `tests/build`
 - `tests/form`
@@ -219,31 +250,24 @@ Current validated sequence in the March 2026 pass:
 - `tests/supported`
 - full-suite confirmation with `pytest -q tests -x`
 
-Current status (March 2026):
-- the full `tests/` tree passes (green);
-- coverage is **78.79%** overall (Codecov, March 2026) — considered sufficient for the 1.0.0 stabilization
-  pass; active coverage pursuit is paused in favour of functional correctness of
-  new features;
-- the suite runs in ~10 minutes on 14 cores (`-n 14 --dist loadfile`);
-- the sequential rule remains recommended for stabilization work because it
-  produces better checkpoints and faster diagnosis when the suite is not yet
-  green;
-- broad validation and coverage sweeps should prefer `-n 12` or `-n 14` in the
-  reference workstation;
-- targeted coverage instrumentation remains a known tooling limitation and
-  should not be used as the default workflow until the `numpy`/coverage import
-  issue is understood and resolved.
+Those results were a checkpoint, not a current guarantee. Do not retain test
+counts, elapsed time, or coverage percentages in this normative policy. Record
+new measurements in a dated validation artifact. Choose `pytest-xdist` worker
+counts from the available machine rather than treating 12 or 14 workers as a
+portable default.
 
 ## Heavy-mode parity policy
 
-The heavy-trajectory roadmap is defined in `devguide/scalability_and_heavy_trajectories_v2.md`.
+The heavy-trajectory contract and roadmap are defined in `devguide/SCALABILITY.md`.
 
 When an operation enters the committed heavy slice, it must gain:
 - eager vs heavy parity tests;
 - telemetry contract tests for the reserved `MSM-*-HVY-*` codes;
 - failure-policy tests for unsupported combinations and recoverable frame-skipping behavior where applicable.
 
-Heavy-mode support is not inferred from ordinary form support. Tests must reflect the heavy-status declarations in `devguide/support_tiers.ipynb`.
+Heavy-mode support is not inferred from ordinary form support. Tests must follow
+the explicit operation/form contract in `SCALABILITY.md` and the adapter's heavy
+capability metadata.
 
 ## Peptide Builder Validation Policy
 `build_peptide(engine="MolSysMT")` must be validated against `engine="LEaP"`
@@ -298,14 +322,14 @@ power.  The real implementation under test is always the piped-to form.  Once
 the conversion path `form → piped form` is verified (which IS tested), the
 getter delegation is correct by construction.
 
-The excluded forms as of March 2026 are (24 total):
+The excluded forms as of July 2026 are (23 total):
 
 *Piped to `molsysmt.Topology` (21 forms):*
 `string:pdb_id`, `string:alphafold_id`, `string:pdb_text`, `string:smiles`,
 `file:pdb`, `file:bcif`, `file:bcif_gz`, `file:cif`, `file:cif_gz`,
 `file:prmtop`, `file:psf`, `file:smi`, `file:topology_yaml`,
 `MDAnalysis.AtomGroup`, `mmcif.PdbxContainers.DataContainer`,
-`mmtf.MMTFDecoder`, `molsysmt.GROFileHandler`, `molsysmt.TopologyDict`,
+`molsysmt.GROFileHandler`, `molsysmt.TopologyDict`,
 `nglview.NGLWidget`, `openff.Molecule`, `openff.Topology`.
 
 *Piped to `openmm.Topology` (3 forms):*

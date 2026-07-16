@@ -1,0 +1,26 @@
+name: Developer guide integrity
+
+on:
+  push:
+    paths:
+      - "devguide/**"
+      - "devtools/scripts/validate_devguide.py"
+      - ".github/workflows/ci-devguide.yaml"
+  pull_request:
+    paths:
+      - "devguide/**"
+      - "devtools/scripts/validate_devguide.py"
+      - ".github/workflows/ci-devguide.yaml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Validate developer guide
+        run: python devtools/scripts/validate_devguide.py

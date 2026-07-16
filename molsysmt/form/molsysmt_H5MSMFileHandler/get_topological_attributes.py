@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.variables import is_all
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import pandas as pd
@@ -9,6 +10,124 @@ from collections import defaultdict
 from itertools import chain, compress
 
 form='molsysmt.H5MSMFileHandler'
+
+
+def _get_atom_state_attribute(item, attribute, indices='all'):
+    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.form.molsysmt_Topology import get_topological_attributes
+
+    topology = to_molsysmt_Topology(item, skip_digestion=True)
+    function = getattr(
+        get_topological_attributes, f'get_{attribute}_from_atom'
+    )
+    return function(topology, indices=indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'formal_charge', indices)
+
+
+@arg_digest(form=form)
+def get_formal_charge_from_system(item, skip_digestion=False):
+    return get_formal_charge_from_atom(item, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def get_atom_is_aromatic_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'atom_is_aromatic', indices)
+
+
+@arg_digest(form=form)
+def get_n_unpaired_electrons_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'n_unpaired_electrons', indices)
+
+
+@arg_digest(form=form)
+def get_n_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'n_implicit_hydrogens', indices)
+
+
+@arg_digest(form=form)
+def get_allows_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'allows_implicit_hydrogens', indices)
+
+
+@arg_digest(form=form)
+def get_atom_stereochemistry_from_atom(item, indices='all', skip_digestion=False):
+    return _get_atom_state_attribute(item, 'atom_stereochemistry', indices)
+
+
+def _get_state_metadata(item):
+    if item.format_version == '0.3':
+        membership = item.file['topology']['atoms']['component_index'][:]
+        component_completeness = 'partial' if np.any(membership < 0) else 'complete'
+        return {
+            'chemical_state_index': [0],
+            'chemical_state_id': [None],
+            'n_chemical_states': 1,
+            'reference_chemical_state_index': 0,
+            'connectivity_completeness': ['complete'],
+            'component_completeness': [component_completeness],
+            'component_evidence': ['unknown'],
+        }
+
+    states = item.file['topology']['chemical_states']
+    n_states = int(states.attrs['n_chemical_states'])
+    reference_index = int(states.attrs['reference_chemical_state_index'])
+    state_groups = [states[str(index)] for index in range(n_states)]
+    return {
+        'chemical_state_index': list(range(n_states)),
+        'chemical_state_id': [group.attrs.get('state_id') for group in state_groups],
+        'n_chemical_states': n_states,
+        'reference_chemical_state_index': None if reference_index < 0 else reference_index,
+        'connectivity_completeness': [
+            group.attrs['connectivity_completeness'] for group in state_groups
+        ],
+        'component_completeness': [
+            group.attrs['component_completeness'] for group in state_groups
+        ],
+        'component_evidence': [group.attrs['component_evidence'] for group in state_groups],
+    }
+
+
+def _get_state_metadata_attribute(item, attribute):
+    return _get_state_metadata(item)[attribute]
+
+
+@arg_digest(form=form)
+def get_chemical_state_index_from_system(item, skip_digestion=False):
+    return _get_state_metadata_attribute(item, 'chemical_state_index')
+
+
+@arg_digest(form=form)
+def get_chemical_state_id_from_system(item, skip_digestion=False):
+    return _get_state_metadata_attribute(item, 'chemical_state_id')
+
+
+@arg_digest(form=form)
+def get_n_chemical_states_from_system(item, skip_digestion=False):
+    return _get_state_metadata_attribute(item, 'n_chemical_states')
+
+
+@arg_digest(form=form)
+def get_reference_chemical_state_index_from_system(item, skip_digestion=False):
+    return _get_state_metadata_attribute(item, 'reference_chemical_state_index')
+
+
+@arg_digest(form=form)
+def get_connectivity_completeness_from_system(item, skip_digestion=False):
+    return _get_state_metadata_attribute(item, 'connectivity_completeness')
+
+
+@arg_digest(form=form)
+def get_component_completeness_from_system(item, skip_digestion=False):
+    return _get_state_metadata_attribute(item, 'component_completeness')
+
+
+@arg_digest(form=form)
+def get_component_evidence_from_system(item, skip_digestion=False):
+    return _get_state_metadata_attribute(item, 'component_evidence')
 
 #######################################################################
 #                 To be customized for each form                      #
@@ -59,6 +178,23 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
         output = item.file['topology']['atoms']['atom_type'][indices].astype('str')
 
     return output.tolist()
+
+
+@arg_digest(form=form)
+def get_isotope_from_atom(item, indices='all', skip_digestion=False):
+
+    atoms = item.file['topology']['atoms']
+    if 'isotope' not in atoms:
+        n_values = get_n_atoms_from_system(item, skip_digestion=True)
+        values = np.zeros(n_values, dtype=np.uint16)
+        if indices != 'all':
+            values = values[indices]
+    elif indices == 'all':
+        values = atoms['isotope'][:]
+    else:
+        values = atoms['isotope'][indices]
+
+    return [None if value == 0 else int(value) for value in values]
 
 
 @arg_digest(form=form)
@@ -450,24 +586,16 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
 def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
-    output = []
-    for ii in aux_indices:
-        aux_vals = get_bond_type_from_bond(item, indices=ii, skip_digestion=True)
-        output.append(aux_vals)
-
-    return output
+    values = get_bond_type_from_bond(item, skip_digestion=True)
+    return [[values[bond_index] for bond_index in atom_bonds] for atom_bonds in aux_indices]
 
 
 @arg_digest(form=form)
 def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
 
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
-    output = []
-    for ii in aux_indices:
-        aux_vals = get_bond_order_from_bond(item, indices=ii, skip_digestion=True)
-        output.append(aux_vals)
-
-    return output
+    values = get_bond_order_from_bond(item, skip_digestion=True)
+    return [[values[bond_index] for bond_index in atom_bonds] for atom_bonds in aux_indices]
 
 
 @arg_digest(form=form)
@@ -3312,7 +3440,7 @@ def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
+    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = molecule_types.count('polysaccharide')
 
     return output
@@ -7283,6 +7411,63 @@ def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 ## From bond
 
 
+def _get_v04_bond_attribute(item, attribute, indices):
+    """Read a canonical 0.4 bond attribute without rebuilding a topology."""
+
+    from molsysmt._private.smonitor import StructuralInconsistencyError
+
+    states = item.file['topology']['chemical_states']
+    reference_index = int(states.attrs['reference_chemical_state_index'])
+    if reference_index < 0:
+        raise StructuralInconsistencyError(
+            reason='The H5MSM topology has no reference chemical state.',
+            caller='molsysmt.form.molsysmt_H5MSMFileHandler.get',
+        )
+    bonds = states[str(reference_index)]['bonds']
+    storage_names = {
+        'bond_is_aromatic': 'is_aromatic',
+        'bond_is_conjugated': 'is_conjugated',
+        'bond_stereochemistry': 'stereochemistry',
+        'bond_donor_atom_index': 'donor_atom_index',
+        'bond_acceptor_atom_index': 'acceptor_atom_index',
+        'bond_joins_components': 'joins_components',
+        'bond_evidence': 'evidence',
+    }
+
+    if attribute == 'bond_stereo_atom_indices':
+        atom1 = _get_v04_bond_column(bonds, 'stereo_atom1_index', indices)
+        atom2 = _get_v04_bond_column(bonds, 'stereo_atom2_index', indices)
+        return [[value1, value2] for value1, value2 in zip(atom1, atom2)]
+    return _get_v04_bond_column(bonds, storage_names.get(attribute, attribute), indices)
+
+
+def _get_v04_bond_column(bonds, name, indices):
+    """Read one nullable bond column from a version 0.4 state group."""
+
+    n_bonds = len(bonds['atom1_index'])
+    selected = np.arange(n_bonds, dtype=np.int64) if is_all(indices) else np.asarray(indices)
+    if name not in bonds:
+        return [None] * len(selected)
+
+    dataset = bonds[name]
+    values = dataset.asstr()[:] if dataset.dtype.kind in {'O', 'S', 'U'} else dataset[:]
+    null_name = f'{name}__is_null'
+    nulls = bonds[null_name][:].astype(bool) if null_name in bonds else np.zeros(n_bonds, dtype=bool)
+    output = []
+    for index in selected:
+        if nulls[index]:
+            output.append(None)
+        else:
+            value = values[index]
+            output.append(value.item() if isinstance(value, np.generic) else value)
+    return output
+
+
+def _missing_bond_attribute(item, indices, pair=False):
+    n_values = get_n_bonds_from_system(item, skip_digestion=True) if is_all(indices) else len(indices)
+    return [[None, None] for _ in range(n_values)] if pair else [None] * n_values
+
+
 @arg_digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
@@ -7296,14 +7481,26 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
+def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
+
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_id', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
+
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_order', indices)
 
     if 'order' in item.file['topology']['bonds']:
         if  item.file['topology']['bonds']['order'].size > 0:
             if indices=='all':
-                return item.file['topology']['bonds']['order'][:].astype('str').tolist()
+                output = item.file['topology']['bonds']['order'][:].astype('str').tolist()
             else:
-                return item.file['topology']['bonds']['order'][indices].astype('str').tolist()
+                output = item.file['topology']['bonds']['order'][indices].astype('str').tolist()
+            return [None if value == '<NA>' else value for value in output]
 
     if indices=='all':
         n_aux = get_n_bonds_from_system(item, skip_digestion=True)
@@ -7315,18 +7512,85 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_type', indices)
+
     if 'type' in item.file['topology']['bonds']:
         if  item.file['topology']['bonds']['type'].size > 0:
             if indices=='all':
-                return item.file['topology']['bonds']['type'][:].astype('str').tolist()
+                output = item.file['topology']['bonds']['type'][:].astype('str').tolist()
             else:
-                return item.file['topology']['bonds']['type'][indices].astype('str').tolist()
+                output = item.file['topology']['bonds']['type'][indices].astype('str').tolist()
+            return [None if value == '<NA>' else value for value in output]
 
     if indices=='all':
         n_aux = get_n_bonds_from_system(item, skip_digestion=True)
         return [None] * n_aux
     else:
         return [None] * len(indices)
+
+
+@arg_digest(form=form)
+def get_fractional_bond_order_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'fractional_bond_order', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
+def get_bond_is_aromatic_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_is_aromatic', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
+def get_bond_is_conjugated_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_is_conjugated', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
+def get_bond_stereochemistry_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_stereochemistry', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
+def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_stereo_atom_indices', indices)
+    return _missing_bond_attribute(item, indices, pair=True)
+
+
+@arg_digest(form=form)
+def get_bond_donor_atom_index_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_donor_atom_index', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
+def get_bond_acceptor_atom_index_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_acceptor_atom_index', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
+def get_bond_joins_components_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_joins_components', indices)
+    return _missing_bond_attribute(item, indices)
+
+
+@arg_digest(form=form)
+def get_bond_evidence_from_bond(item, indices='all', skip_digestion=False):
+    if item.format_version == '0.4':
+        return _get_v04_bond_attribute(item, 'bond_evidence', indices)
+    return _missing_bond_attribute(item, indices)
 
 
 @arg_digest(form=form)

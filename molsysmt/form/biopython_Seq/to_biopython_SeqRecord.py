@@ -13,7 +13,12 @@ def to_biopython_SeqRecord(item, group_indices='all', id=None, name=None, descri
     if description is None:
         description = 'None'
 
-    tmp_item = extract(item, group_indices=group_indices, copy_if_all=False)
+    tmp_item = extract(
+        item,
+        atom_indices=group_indices,
+        copy_if_all=False,
+        skip_digestion=True,
+    )
     tmp_item = Bio_SeqRecord(tmp_item, id=id, name=name, description=description)
 
     return tmp_item

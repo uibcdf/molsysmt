@@ -1,235 +1,85 @@
 # Declarative Serialization Forms
 
-## Purpose
+MolSysMT provides human-readable YAML forms for small deterministic fixtures,
+debugging, and hand-authored systems. They complement rather than replace H5MSM,
+which is the compact native persistence path for larger data.
 
-MolSysMT needs a simple, human-readable serialization path for deterministic
-fixtures, debugging, and small hand-authored molecular systems.
+## Implemented forms
 
-This new serialization line should not compete with `h5msm`. The intended role
-is different:
-- `h5msm` remains the native compact and robust persistence format;
-- declarative serialization should remain small, legible, editable, and easy to
-  version in the repository.
+In memory:
 
-## Design decision
-
-The serialization design is split across two axes:
-- semantic in-memory forms;
-- physical file forms.
-
-These axes must not be collapsed into a single naming layer.
-
-### In-memory semantic forms
-
-The planned in-memory declarative forms are:
-- `molsysmt.MolSysDict`
-- `molsysmt.TopologyDict`
-- `molsysmt.StructuresDict`
-
-These are semantic forms. They describe what kind of molecular data is held in
-memory.
-
-### File forms
-
-The planned file forms are:
-- `file:molsys_yaml`
-- `file:topology_yaml`
-- `file:structures_yaml`
-
-Later, if there is a clear need, the same semantic payloads may also be written
-as JSON through:
-- `file:molsys_json`
-- `file:topology_json`
-- `file:structures_json`
-
-The file forms are real MolSysMT forms, just like `file:pdb` or
-`file:h5msm`.
-
-## File naming and extensions
-
-The declarative YAML and JSON families should use normal `*.yaml` / `*.yml`
-and `*.json` extensions. Their semantic kind must be declared inside the file
-payload itself.
-
-Required top-level discriminator fields:
-- `format: molsysmt`
-- `kind: molsys` / `topology` / `structures`
-
-This keeps the files easy to inspect with normal YAML/JSON tooling while still
-allowing robust form detection by content. Existing native formats such as
-`*.h5msm` keep their current naming and are not part of this rule.
-
-## Why this split matters
-
-This separation keeps the API coherent:
-- `molsysmt.*Dict` objects are native declarative objects in memory;
-- `file:*_yaml` and `file:*_json` are serialized forms on disk.
-
-This also keeps the conversion graph clean. For example, a future direct path
-such as `file:topology_yaml -> openmm.Topology` makes conceptual sense and does
-not need to pretend that the source was a full molecular system.
-
-## Scope for the first slice
-
-The first implemented slice remains deliberately narrow:
-- `molsysmt.MolSysDict`
-- `file:molsys_yaml`
-- `molsysmt.MolSys <-> molsysmt.MolSysDict`
-- `molsysmt.MolSysDict <-> file:molsys_yaml`
-
-`TopologyDict` and the serialized topology/structures forms should come after
-that first slice.
-
-The canonical first-slice pipeline is therefore:
-- `MolSys <-> MolSysDict`
-- `MolSysDict <-> file:molsys_yaml`
-
-That first slice was intentionally implemented before direct builder
-integration. The current checkpoint now also includes:
-- `MolSysBuilder <-> MolSysDict`
-
-Status:
-- implemented in the repository;
-- validated through focused tests for `MolSysDict`, `file:molsys_yaml`, and
-  supported-form metadata;
-- extended with direct declared-state conversion between `MolSysBuilder` and
-  `MolSysDict`.
-
-## Schema shape for `MolSysDict` v1
-
-`MolSysDict` v1 should use a declared, level-oriented schema, not the current
-columnar atom-centric style used by `UniversalJSON`.
-
-The expected high-level shape is:
-- `metadata`
-- `topology`
-  - `atoms`
-  - `groups`
-  - `bonds`
-  - `chains`
-  - `molecules`
-  - `entities`
-- `structures`
-  - `structure_id`
-  - `time`
-  - `box`
-  - `coordinates`
-
-Each topology level should be represented declaratively, with explicit member
-indices at the level where that membership is declared.
-
-`molecular_mechanics` stays out of scope for the first slice.
-
-## Relationship with MolSysBuilder
-
-`MolSysBuilder` is the native editable form for declared molecular systems.
-`MolSysDict` should be the declarative serializable counterpart.
-
-The intended long-term direction is:
-- `MolSysBuilder` for native in-memory editing;
-- `MolSysDict` for declarative in-memory serialization;
-- `file:molsys_yaml` for human-authored serialized fixtures.
-
-This means the builder and the declarative serializer should stay aligned in
-hierarchy semantics and in the meaning of declared state.
-
-In practice, this means `MolSysBuilder` and `MolSysDict` should describe the
-same declared hierarchy with different operational goals:
-- the builder is mutable and editable;
-- the dict form is serializable and stable.
-
-The direct conversion path now follows those semantics explicitly:
-- `MolSysBuilder -> MolSysDict` preserves declared state without invoking
-  `build()`;
-- `MolSysDict -> MolSysBuilder` recreates declared state without applying
-  fallback hierarchy;
-- `MolSysDict -> MolSys` still materializes through the builder and then calls
-  `build()`.
-
-## Relationship with existing forms
-
-### `molsysmt.ViewerJSON`
-
-`ViewerJSON` keeps its current role. It is a viewer transport format and should
-not be repurposed as the general declarative serializer.
-
-### `molsysmt.StructuresDict`
-
-The current `StructuresDict` form should not be treated as the foundation of the
-new declarative serializer family. It has a more limited structural role.
-
-It may still inform naming or implementation details later, but it should not
-anchor the new design.
-
-### Legacy JSON precursor
-
-`UniversalJSON` has been removed from the active form graph. It did not sustain
-any critical workflow and it is not the semantic basis of the declarative
-serializer family.
-
-## Why YAML first
-
-YAML is preferred for the first serialized file form because the initial target
-is human-edited fixtures and developer-authored examples.
-
-JSON can still be added later, but YAML is the better first backend for:
-- readability;
-- hand editing;
-- review diffs in version control.
-
-## Non-goals for the first slice
-
-The first declarative serializer slice should not try to solve everything.
-These items should stay out of scope initially:
-- `molecular_mechanics` serialization;
-- direct third-party conversions from the serialized file forms;
-- compression features;
-- full migration of all current JSON-like forms;
-- replacement of `h5msm`.
-
-## Current architectural decision
-
-Before implementation, the repository now treats the following as the intended
-architecture:
-- semantic forms: `MolSysDict`, `TopologyDict`, `StructuresDict`;
-- file forms: `file:molsys_yaml`, `file:topology_yaml`, `file:structures_yaml`;
-- `ViewerJSON` retained for visualization-specific transport.
-
-## First-slice implementation checkpoint
-
-The repository now includes:
-- native `molsysmt.MolSysDict`;
-- form integration for `molsysmt.MolSysDict`;
-- file form integration for `file:molsys_yaml`;
-- focused round-trip tests through `MolSys`.
-
-This first slice is intentionally conversion-centric. It is sufficient to:
-- serialize small deterministic molecular systems to human-readable YAML;
-- read them back as `MolSysDict` or `MolSys`;
-- use the resulting forms in supported-form discovery and basic attribute
-  queries.
-
-Future slices should add:
-- `TopologyDict`;
-- `StructuresDict`;
-- YAML file forms for topology and structures with content-based detection;
-- optional JSON backends.
-
-
-## Second slice checkpoint
-
-The second declarative serializer slice is now available:
-
+- `molsysmt.MolSysDict`;
 - `molsysmt.TopologyDict`;
+- `molsysmt.StructuresDict`.
+
+On disk:
+
+- `file:molsys_yaml`;
 - `file:topology_yaml`;
-- `molsysmt.Topology <-> molsysmt.TopologyDict`;
-- `molsysmt.TopologyDict <-> file:topology_yaml`.
+- `file:structures_yaml`.
 
+The YAML forms require the optional `yaml` dependency. JSON counterparts are
+not currently part of this declarative family. `molsysmt.ViewerJSON` remains a
+viewer transport form.
 
-## Third slice checkpoint
+## Discriminator and version
 
-The third declarative serializer slice is now available:
+Declarative payloads use top-level fields:
 
-- `file:structures_yaml`;
-- `molsysmt.Structures <-> file:structures_yaml`;
-- `molsysmt.StructuresDict <-> file:structures_yaml`.
+```yaml
+format: molsysmt
+kind: molsys  # or topology / structures
+version: "0.1"
+```
+
+File detection reads content rather than assigning semantics from the `.yaml`
+extension alone. New schema versions require explicit migration and backwards-
+compatibility tests; `version` must not be ignored when incompatible changes are
+introduced.
+
+## Schemas
+
+`MolSysDict` contains metadata, a level-oriented topology (`atoms`, `groups`,
+`bonds`, `chains`, `molecules`, `entities`), and a deliberately small structural
+payload (`structure_id`, `time`, `box`, and `coordinates`). Components are
+reconstructed when the payload is materialized; component metadata is not stored
+by schema version 0.1. `TopologyDict`
+contains the same topology levels without the enclosing `topology` key.
+`StructuresDict` is the existing dictionary-based structural form; its YAML
+serializer stores structural fields under `structures`.
+
+Structural YAML values are serialized in canonical units when the corresponding
+schema carries them:
+
+- coordinates and box: nm;
+- time: ps;
+- velocities: nm/ps;
+- B factors: nm²;
+- occupancy: dimensionless.
+
+In particular, velocities, B factors, occupancy, and thermodynamic observables
+are supported by `StructuresDict` but are not fields of `MolSysDict` schema 0.1.
+Adding them to `MolSysDict` requires a versioned schema migration rather than
+silently changing the meaning of existing payloads.
+
+Element IDs materialized into native MolSysMT objects must remain strings.
+
+## Builder relationship
+
+`MolSysBuilder <-> MolSysDict` preserves declared state without applying native
+hierarchy fallback. `MolSysDict -> MolSys` materializes through the builder and
+`build()`. Tests must distinguish declared-state fidelity from the completed
+native hierarchy.
+
+## Fidelity and intended scale
+
+Round-trip tests cover the implemented forms, but YAML is not intended for
+large trajectories or high-throughput storage. Tests must cover schema version,
+units, IDs, ordering, missing optional fields, malformed content, and dependency
+absence. Unknown fields and future versions need an explicit policy before the
+format can be called long-term stable.
+
+Conversion selection is part of the contract: `MolSys -> MolSysDict` and
+`MolSys -> file:molsys_yaml` apply both the requested atom selection and
+`structure_indices`. Atom subsets are materialized in canonical increasing
+source-index order, consistently with native `MolSys.extract`.

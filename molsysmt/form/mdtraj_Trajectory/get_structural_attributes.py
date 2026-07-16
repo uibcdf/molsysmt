@@ -35,11 +35,16 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+    if structure_indices is None:
+        return None
+
     output = None
 
     if item.unitcell_vectors is not None:
 
         output = item.unitcell_vectors * puw.unit('nanometers')
+        if not is_all(structure_indices):
+            output = output[structure_indices, :, :]
         output = puw.standardize(output)
 
     return output

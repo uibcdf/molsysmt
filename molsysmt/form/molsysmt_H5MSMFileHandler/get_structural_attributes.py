@@ -12,24 +12,37 @@ import numpy as np
 form='molsysmt.H5MSMFileHandler'
 
 
+def _h5py_atom_indices(indices):
+    """Returning sorted unique indices and an inverse map for h5py reads."""
+
+    requested = np.asarray(indices, dtype=np.int64)
+    unique, inverse = np.unique(requested, return_inverse=True)
+    return unique, inverse
+
+
 ## From atom
 
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    if not is_all(indices):
+        read_indices, restore_order = _h5py_atom_indices(indices)
+
     if is_all(structure_indices):
         if is_all(indices):
             output = item.file['structures']['coordinates'][:,:,:].astype('float')
         else:
-            output = item.file['structures']['coordinates'][:,indices,:].astype('float')
+            output = item.file['structures']['coordinates'][:,read_indices,:].astype('float')
+            output = output[:,restore_order,:]
     else:
         output = []
         for ii in structure_indices:
             if is_all(indices):
                 output.append(item.file['structures']['coordinates'][ii,:,:].astype('float'))
             else:
-                output.append(item.file['structures']['coordinates'][ii,indices,:].astype('float'))
+                frame = item.file['structures']['coordinates'][ii,read_indices,:].astype('float')
+                output.append(frame[restore_order,:])
         output = np.array(output)
 
     output = puw.quantity(output, item.file.attrs['length_unit'], standardized=True)
@@ -42,18 +55,23 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     if item.file['structures']['velocities'].shape[0] == 0:
         return None
 
+    if not is_all(indices):
+        read_indices, restore_order = _h5py_atom_indices(indices)
+
     if is_all(structure_indices):
         if is_all(indices):
             output = item.file['structures']['velocities'][:,:,:].astype('float')
         else:
-            output = item.file['structures']['velocities'][:,indices,:].astype('float')
+            output = item.file['structures']['velocities'][:,read_indices,:].astype('float')
+            output = output[:,restore_order,:]
     else:
         output = []
         for ii in structure_indices:
             if is_all(indices):
                 output.append(item.file['structures']['velocities'][ii,:,:].astype('float'))
             else:
-                output.append(item.file['structures']['velocities'][ii,indices,:].astype('float'))
+                frame = item.file['structures']['velocities'][ii,read_indices,:].astype('float')
+                output.append(frame[restore_order,:])
         output = np.array(output)
 
     output = puw.quantity(output, item.file.attrs['length_unit']+'/'+item.file.attrs['time_unit'], standardized=True)
@@ -69,18 +87,23 @@ def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_di
     if item.file['structures']['b_factor'].shape[0] == 0:
         return None
 
+    if not is_all(indices):
+        read_indices, restore_order = _h5py_atom_indices(indices)
+
     if is_all(structure_indices):
         if is_all(indices):
             output = item.file['structures']['b_factor'][:, :].astype('float')
         else:
-            output = item.file['structures']['b_factor'][:, indices].astype('float')
+            output = item.file['structures']['b_factor'][:, read_indices].astype('float')
+            output = output[:, restore_order]
     else:
         output = []
         for ii in structure_indices:
             if is_all(indices):
                 output.append(item.file['structures']['b_factor'][ii, :].astype('float'))
             else:
-                output.append(item.file['structures']['b_factor'][ii, indices].astype('float'))
+                frame = item.file['structures']['b_factor'][ii, read_indices].astype('float')
+                output.append(frame[restore_order])
         output = np.array(output)
 
     unit = item.file['structures'].attrs.get('b_factor_unit', 'nanometer**2')
@@ -166,6 +189,33 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
             output = item.file['structures']['id'][structure_indices]
 
     return output
+
+
+@arg_digest(form=form)
+def get_structure_chemical_state_index_from_system(
+    item, structure_indices='all', skip_digestion=False
+):
+    """Getting nullable chemical-state indices aligned to stored structures."""
+
+    structures = item.file['structures']
+    n_structures = int(structures.attrs.get('n_structures_written', 0))
+    if is_all(structure_indices):
+        indices = range(n_structures)
+    else:
+        indices = structure_indices
+
+    if 'chemical_state_index' in structures and structures['chemical_state_index'].size:
+        dataset = structures['chemical_state_index']
+        return [
+            None if int(dataset[int(index)]) < 0 else int(dataset[int(index)])
+            for index in indices
+        ]
+
+    from .get_topological_attributes import get_n_chemical_states_from_system
+
+    n_states = get_n_chemical_states_from_system(item, skip_digestion=True)
+    implicit = 0 if n_states == 1 else None
+    return [implicit for _ in indices]
 
 @arg_digest(form=form)
 def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
@@ -342,5 +392,3 @@ def get_box_volume_from_system(item, structure_indices='all', skip_digestion=Fal
     if box is None:
         return None
     return get_volume_from_box(box)
-
-

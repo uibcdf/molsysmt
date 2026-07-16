@@ -1,173 +1,137 @@
 # MolSysMT Developer Guide
 
-This folder is the single source of truth for developer-facing conventions,
-invariants, and internal policies in MolSysMT. Other files (for example,
-`docs/content/developer/*`, `README.md`, and tutorials) must
-align with these rules. If conflicts exist, **`devguide/` takes precedence**.
+`devguide/` contains the maintained engineering and scientific-development
+contract for MolSysMT. It is not a session log and it is not a claim that every
+described capability is implemented.
 
-## Current checkpoint (March 2026)
+## How to interpret this directory
 
-The current stabilization pass is focused on finishing the path to `1.0.0`
-with broad sequential validation and targeted fixes instead of architectural
-rewrites.
+Documents have one of four roles:
 
-Recent completed work (March 2026, session 2):
-- `get_non_standard_residues`, `get_missing_heavy_atoms`, and
-  `get_missing_terminal_cappings` nativized: new `engine='MolSysMT'` (default)
-  requires no external dependency and works with any supported form; PDBFixer
-  preserved as `engine='PDBFixer'` fallback;
-- `element/group/amino_acid/get_standard_name` and `get_expected_heavy_atoms`
-  added as public helpers; tightest-fit topology variant selection avoids
-  OXT false-positives for internal residues;
-- `data/databases/residue_templates/` populated with 30 JSON 3D coordinate
-  templates (20 AA + ACE + NME + 8 nucleotides) from PDBFixer source files
-  (Angstroms → nm); a `make_residue_templates_db.py` generation script is
-  included;
-- `build.get_missing_residues` bug fixed: iterating over PDBFixer's
-  `missingResidues` dict now uses `.items()` correctly;
-- `auxiliary_data_and_nativization.md` added to devguide: documents the
-  `element/` and `data/databases/` canonical data repositories, nativized
-  functions, remaining PDBFixer-only functions, and the design principles for
-  future nativization;
+1. **Normative** documents define current invariants, interfaces, or policies.
+2. **Operational** documents describe maintained development and validation
+   workflows.
+3. **Pending** documents record unresolved bugs or proposals. They are not part
+   of the implemented contract.
+4. **Archived** documents preserve dated assessments and release planning. They
+   provide historical context only.
 
-Recent completed work (March 2026):
-- native rebuild and public `molsysmt.element` semantics were separated and documented;
-- H5MSM now preserves `b_factor` and the bundled `181l.h5msm` artifact was regenerated;
-- `nglview` round-trips and color-by-value tests were made deterministic offline;
-- `smonitor` and MolSysMT diagnostics were hardened for developer and QA workflows;
-- structural and PBC hot paths now use explicit kernel-facing preparation where
-  needed, without changing the user-facing unit policy of the public API;
-- a first `MolSysBuilder` slice is implemented and validated for creation from
-  scratch, `MolSys -> MolSysBuilder`, and `MolSysBuilder -> MolSys`;
-- `molsysmt.build.editable(...)` now provides the ergonomic entrypoint for
-  editing an existing molecular system through the builder.
-- declared-state form coverage now exists for `MolSysBuilder` through `get`,
-  `set`, `info`, and `select`.
-- the first declarative serializer slice is now implemented:
-  `molsysmt.MolSysDict`, `molsysmt.TopologyDict`, `file:molsys_yaml`, and `file:topology_yaml` are available, with focused
-  round-trip tests and supported-form coverage.
-- the structure hot-path audit clarified that `molsysmt.lib.structure` kernels
-  are unit-agnostic and should receive prepared numeric arrays without forcing
-  a canonical unit such as `nm`;
-- local helpers under `molsysmt.lib.structure._kernel_inputs` now centralize
-  coordinate rank normalization and paired-input alignment for hot structure
-  wrappers;
-- this work now sits cleanly on top of PyUnitWizard's expanded extraction API
-  (`value_type`, `dtype`) instead of overloading generic public digestion.
-- a first lightweight benchmark harness now exists in `benchmarks/` and the
-  initial `XYZ` baseline confirms that `_kernel_inputs` is not the dominant
-  cost in hot structure wrappers.
-- comprehensive test suites are now in place for the two primary topology
-  interoperability forms:
-  - `mdtraj.Topology`: 384 tests against the standard reference molecular system
-    (builder fixture) + 15 PDB oracle tests against `1l2y.pdb` (Trp-cage);
-  - `openmm.Topology`: 393 builder tests + 15 PDB oracle tests using the same
-    oracle and reference system;
-  - this work required fixing multiple latent bugs in both adapters — the full
-    bug inventory is recorded in `testing_form_adapters.md`;
-- all missing `get_total_n_*` scalar-returning aggregation functions were added
-  to the `openmm.Topology` adapter (~97 functions);
-- the `devtools/tests/Makefile` `coverage-top` target was updated to always
-  print depth=0 (whole-package total) before the user-requested depth.
-- `string:pdb_id` and `string:alphafold_id` promoted to Tier 1; identity-converter
-  import bugs fixed in their `to_openmm_Topology`, `to_openmm_PDBFile`, and
-  `to_mdtraj_Topology` converters;
-- `file:bcif` and `file:bcif.gz` topological getter stubs filled (342 functions
-  each), enabling `select()`, `get()`, and `Iterator()` on these forms;
-- `file:dcd` now implements `get_n_atoms_from_system` by reading the binary header,
-  allowing `is_a_molecular_system()` to correctly detect incompatible pairing;
-- `Topology.extract()` now correctly reindexes `groups['component_index']` when
-  that column is present, fixing `infer_molecule_types_from_topology` after `remove()`;
-- pytest mark system introduced: `tier1 / tier2 / tier3 / network / redundant /
-  peptide_parity`; tier marks auto-applied from `FORM_TIERS` via `conftest.py` hook;
-  `MSM_RUN_EXTENDED_PEPTIDE_PARITY` env var replaced by `@pytest.mark.peptide_parity`;
-- `devtools/tests/Makefile` now includes `DOCTEST_DIR` so `molsysmt/basic/` doctests
-  are always part of `make test` and `make coverage`; `peptide_parity` tests are
-  auto-deselected at collection time by `tests/conftest.py` (not via a Makefile flag);
+When documents disagree, use this order of authority:
 
-Validation status at this checkpoint:
-- the full test suite passes with `pytest -q tests -x`;
-- the earlier sequential validation batches also passed independently for
-  `tests/basic`, `tests/build`, `tests/form`, `tests/structure`,
-  `tests/thirds`, `tests/topology`, `tests/native`, `tests/cross_repo`,
-  `tests/hbonds`, `tests/molecular_mechanics`, `tests/pbc`,
-  `tests/physchem`, and `tests/supported`;
-- `tests/form/mdtraj_Topology` (399 tests) and `tests/form/openmm_Topology`
-  (408 tests) now pass cleanly as part of the `tests/form` batch;
-- for broad validation work from this checkpoint onward, the default execution
-  mode on the reference workstation is distributed `pytest-xdist`
-  (`-n 12` or `-n 14 --dist loadfile`) rather than fully sequential execution;
-- the low-priority cleanup identified during the validation pass was closed:
-  `show_contacts` no longer emits undigested-argument warnings for `style` and
-  `show`, and `.codecov.yml` now tracks core `form`, `_private`, and `lib`
-  modules again.
-- `molsysmt.molecular_dynamics` remains in the repository but is explicitly outside the `1.0.0` support contract;
-- local and Codecov coverage baselines intentionally exclude `molsysmt/molecular_dynamics/**` until that area is promoted into a supported post-1.0 line.
-- overall test coverage is approximately 78% at this checkpoint — considered
-  sufficient for the 1.0.0 stabilization pass; active coverage pursuit is
-  paused in favour of functional correctness of new features.
+1. repository-wide and local `AGENTS.md` instructions;
+2. current code plus executable tests;
+3. normative documents listed below;
+4. operational documents;
+5. pending and archived material.
 
-Current post-validation status (May 2026):
-- All 1.0.0 stabilization pillars are fully completed: support contract formalization, API surface stability sweeps, deprecation policies, package baseline freezes, visual portal upgrades, and the ProtOr physical chemistry documentation integration.
-- The repository stands completely green and verified for release.
+An implementation-status statement is trustworthy only when it points to code,
+tests, or reproducible validation evidence. Dated benchmark numbers are
+observations from a particular environment, not timeless performance guarantees.
 
-## Release checkpoint meaning: `0.15.0`, `0.16.0`, and `0.17.0`
+See [DOCUMENT_POLICY.md](DOCUMENT_POLICY.md) for maintenance and status rules.
 
-`0.15.0` is the first post-`0.14.0` stabilization checkpoint defined by a
-green full-suite test state instead of partial confidence or local subsystem
-confidence.
+## Start here
 
-`0.16.0` is the first post-`0.15.0` feature checkpoint that keeps that green
-full-suite baseline while adding a new native editable form (`MolSysBuilder`)
-and the first deterministic builder-based converter fixtures.
+Read these documents in order when first working on MolSysMT:
 
-`0.17.0` should capture the first declarative-serialization checkpoint built on
-top of that builder work:
-- `MolSysDict`, `TopologyDict`, and `StructuresDict`;
-- YAML-backed declarative file forms discovered by content;
-- direct `MolSysBuilder <-> MolSysDict` declared-state conversion;
-- removal of the legacy public topology-editing helpers in `molsysmt.build`.
+1. [Core specification](CORE_SPECIFICATION.md) — native model, hierarchy, and
+   package boundaries.
+2. [Public API surface](api_surface.md) — stability classification and public
+   contract.
+3. [Interfaces](INTERFACES.md) — form-agnostic behavior and I/O boundaries.
+4. [Forms and conversions](forms_and_conversions.md) — adapter and conversion
+   semantics.
+5. [Testing strategy](testing_strategy.md) — evidence required for a supported
+   claim.
+6. [Scientific validation](scientific_validation.md) — independent evidence,
+   conventions, and tolerance governance.
+7. [Diagnostics](DIAGNOSTICS.md) and [error policy](error_policy.md) — failure
+   and observability behavior.
+8. [Performance and JIT](performance_and_jit.md) and
+   [scalability](SCALABILITY.md) — trusted kernels and heavy trajectories.
 
-For development, this means:
-- `0.15.0` starts from `pytest -q tests -x` passing cleanly in the reference
-  environment;
-- `0.16.0` keeps that full-suite-green baseline while extending the core data
-  model with `MolSysBuilder`;
-- `0.17.0` keeps that same baseline while adding the first declarative forms
-  and consolidating explicit topology editing on `MolSysBuilder`;
-- new work after `0.15.0` should be treated as regression-sensitive by
-  default;
-- any support-tier or API-contract reduction must be explicit and documented,
-  not accidental fallout from refactors;
-- future stabilization tags should be interpreted against this new baseline:
-  a tag is not considered equivalent in quality unless it starts from a green
-  suite or documents precisely why it does not.
+## Maintained normative documents
 
-## Recommended Reading Order
-1) `competitive_landscape_and_vision.md` (Strategic vision: strengths, gaps, and targets vs mdtraj/MDAnalysis)
-2) `1.0.0_maturity_audit.md` (Technical depth audit)
-3) `1.0.0_road_to_excellence.md` (Strategic weaknesses and path to 1.0)
-4) `next_steps_toward_1_0.md` (Ordered remaining work toward 1.0.0)
-6) `support_tiers.ipynb` (Form classification — notebook has live tier query from `form_tier.py`)
-7) `digestion_and_dependencies.md` (Lazy Loading & ArgDigest policies)
-8) `forms_and_conversions.md` (Graph conversion rules)
-9) `viewers_and_visualization.md` (Visual backend policy)
-10) `architecture.md`
-11) `element_and_native_rebuild.md`
-12) `auxiliary_data_and_nativization.md` (element/ and data/databases/ as canonical data stores; nativized build/ functions)
-13) `molsys_builder.md`
-14) `declarative_serialization_forms.md`
-15) `api_surface.md`
-16) `testing_strategy.md`
-17) `testing_form_adapters.md`
-18) `devtools_and_ci.md` (Local test/coverage toolbox and active CI)
-19) `scalability_and_heavy_trajectories_v2.md` (Pre-1.0.0 heavy trajectory design)
-20) `smonitor_feedback_proposals.md` (Temporary diagnostic improvements under evaluation)
-21) [`benchmarking/README.md`](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarking/README.md) (Performance Benchmarking Strategy, Policies, and Competitive Comparisons)
-22) [`benchmarks_positives_and_negatives.md`](file:///home/diego/repos@uibcdf/molsysmt/devguide/benchmarks_positives_and_negatives.md) (Structured positive and negative benchmarking observations for academic reporting)
+### Architecture and data model
 
-## Scope
-These documents define how MolSysMT should be implemented and maintained:
-API boundaries, data conventions, forms, dependency rules, diagnostics, and
-performance strategy. User-facing documentation lives under `docs/`, but must
-follow this guidance.
+- [CORE_SPECIFICATION.md](CORE_SPECIFICATION.md)
+- [ALGORITHMS.md](ALGORITHMS.md)
+- [INTERFACES.md](INTERFACES.md)
+- [api_surface.md](api_surface.md)
+- [BUILDER_API.md](BUILDER_API.md)
+- [BUILD_ECOSYSTEM.md](BUILD_ECOSYSTEM.md)
+- [declarative_serialization_forms.md](declarative_serialization_forms.md)
+- [h5msm_format.md](h5msm_format.md)
+- [forms_and_conversions.md](forms_and_conversions.md)
+- [form_adapter_implementation.md](form_adapter_implementation.md)
+
+### Scientific construction and analysis
+
+- [scientific_validation.md](scientific_validation.md)
+- [structure_preparation_pipeline.md](structure_preparation_pipeline.md)
+- [performance_and_jit.md](performance_and_jit.md)
+- [SCALABILITY.md](SCALABILITY.md)
+- [gpu_acceleration.md](gpu_acceleration.md) — design and capability map; each
+  backend claim must still be confirmed by its tests.
+
+### Reliability and governance
+
+- [testing_strategy.md](testing_strategy.md)
+- [testing_form_adapters.md](testing_form_adapters.md)
+- [devtools_and_ci.md](devtools_and_ci.md)
+- [DIAGNOSTICS.md](DIAGNOSTICS.md)
+- [error_policy.md](error_policy.md)
+- [deprecation_policy.md](deprecation_policy.md)
+- [digestion_and_dependencies.md](digestion_and_dependencies.md)
+- [support_tier_protocol.md](support_tier_protocol.md)
+- [support_tiers.ipynb](support_tiers.ipynb) — executable report, not a second
+  tier registry.
+
+### Documentation, education, and visualization
+
+- [documentation_sync.md](documentation_sync.md)
+- [course_structure.md](course_structure.md)
+- [viewers_and_visualization.md](viewers_and_visualization.md)
+- [molsysviewer_addon.md](molsysviewer_addon.md)
+
+### Strategy and measurements
+
+- [competitive_landscape_and_vision.md](competitive_landscape_and_vision.md)
+- [roadmap.md](roadmap.md)
+- [benchmarking/README.md](benchmarking/README.md)
+
+Strategic documents describe direction. They do not override the API, testing,
+dependency, or scientific contracts above.
+
+## Work queues
+
+- [Pending bugs](pending_bugs/README.md) contain reproduced or suspected defects.
+- [Pending proposals](pending_proposals/README.md) contain ideas awaiting a
+  decision or implementation.
+- [Archived material](archive/README.md) contains dated audits, assessments, and
+  release checkpoints.
+
+Moving a document into a pending or archived directory changes its documentary
+status; it does not close a bug, accept a proposal, or certify an implementation.
+
+## Essential external guides
+
+The repository root contains required integration guidance that complements this
+directory:
+
+- [`SMONITOR_GUIDE.md`](../SMONITOR_GUIDE.md)
+- [`ARGDIGEST_GUIDE.md`](../ARGDIGEST_GUIDE.md)
+- [`PYUNITWIZARD_GUIDE.md`](../PYUNITWIZARD_GUIDE.md)
+- [`DEPDIGEST_GUIDE.md`](../DEPDIGEST_GUIDE.md)
+
+## Maintenance check
+
+Run the developer-guide validator after changing this directory:
+
+```bash
+python devtools/scripts/validate_devguide.py
+```
+
+The validator checks local Markdown targets, forbidden machine-specific links,
+and references to retired document names. It does not prove that scientific or
+implementation claims are true; those require tests and reproducible evidence.

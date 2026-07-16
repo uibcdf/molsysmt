@@ -99,6 +99,21 @@ def test_get_center_flat_with_nonuniform_weights(pentalanine):
     assert not np.allclose(val_u, val_s)
 
 
+def test_get_center_accepts_mass_weights(pentalanine):
+    """The declared 'masses' mode computes a finite center of mass."""
+
+    center = msm.structure.get_center(
+        pentalanine,
+        selection='atom_name=="CA"',
+        weights="masses",
+        structure_indices=0,
+    )
+    values = msm.pyunitwizard.get_value(center, to_unit="nm")
+
+    assert values.shape == (1, 1, 3)
+    assert np.all(np.isfinite(values))
+
+
 # ---------------------------------------------------------------------------
 # specific structure_indices (not 'all')
 # ---------------------------------------------------------------------------

@@ -10,6 +10,126 @@ form='molsysmt.MolSys'
 
 ## to atom
 
+def _set_atom_state_attribute(item, attribute, indices, value):
+    if attribute == 'formal_charge' and puw.is_quantity(value):
+        value = puw.get_value(value, to_unit='elementary_charge')
+    native_attribute = {
+        'formal_charge': 'formal_charge',
+        'atom_is_aromatic': 'is_aromatic',
+        'n_unpaired_electrons': 'n_unpaired_electrons',
+        'n_implicit_hydrogens': 'n_implicit_hydrogens',
+        'allows_implicit_hydrogens': 'allows_implicit_hydrogens',
+        'atom_stereochemistry': 'stereochemistry',
+    }[attribute]
+    atom_indices = None if is_all(indices) else indices
+    item.topology._set_chemical_state_atom_attribute(
+        native_attribute, value, atom_indices=atom_indices
+    )
+    if attribute == 'formal_charge':
+        item.molecular_mechanics.formal_charge = None
+
+
+@arg_digest(form=form)
+def set_formal_charge_to_atom(item, indices='all', value=None, skip_digestion=False):
+    return _set_atom_state_attribute(item, 'formal_charge', indices, value)
+
+
+@arg_digest(form=form)
+def set_atom_is_aromatic_to_atom(item, indices='all', value=None, skip_digestion=False):
+    return _set_atom_state_attribute(item, 'atom_is_aromatic', indices, value)
+
+
+@arg_digest(form=form)
+def set_n_unpaired_electrons_to_atom(item, indices='all', value=None, skip_digestion=False):
+    return _set_atom_state_attribute(item, 'n_unpaired_electrons', indices, value)
+
+
+@arg_digest(form=form)
+def set_n_implicit_hydrogens_to_atom(item, indices='all', value=None, skip_digestion=False):
+    return _set_atom_state_attribute(item, 'n_implicit_hydrogens', indices, value)
+
+
+@arg_digest(form=form)
+def set_allows_implicit_hydrogens_to_atom(item, indices='all', value=None, skip_digestion=False):
+    return _set_atom_state_attribute(item, 'allows_implicit_hydrogens', indices, value)
+
+
+@arg_digest(form=form)
+def set_atom_stereochemistry_to_atom(item, indices='all', value=None, skip_digestion=False):
+    return _set_atom_state_attribute(item, 'atom_stereochemistry', indices, value)
+
+
+def _set_bond_state_attribute(item, attribute, indices, value):
+    """Delegate a canonical bond-state assignment to the native topology."""
+
+    from importlib import import_module
+
+    topology_set = import_module('molsysmt.form.molsysmt_Topology.set')
+    function = getattr(topology_set, f'set_{attribute}_to_bond')
+    return function(
+        item.topology, indices=indices, value=value, skip_digestion=True
+    )
+
+
+@arg_digest(form=form)
+def set_bond_id_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_id', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_order_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_order', indices, value)
+
+
+@arg_digest(form=form)
+def set_fractional_bond_order_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'fractional_bond_order', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_type_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_type', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_is_aromatic_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_is_aromatic', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_is_conjugated_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_is_conjugated', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_stereochemistry_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_stereochemistry', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_stereo_atom_indices_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_stereo_atom_indices', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_donor_atom_index_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_donor_atom_index', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_acceptor_atom_index_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_acceptor_atom_index', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_joins_components_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_joins_components', indices, value)
+
+
+@arg_digest(form=form)
+def set_bond_evidence_to_bond(item, indices='all', value=None, skip_digestion=False):
+    return _set_bond_state_attribute(item, 'bond_evidence', indices, value)
+
 @arg_digest(form=form)
 def set_atom_index_to_atom(item, indices='all', value=None, skip_digestion=False):
 
@@ -36,6 +156,13 @@ def set_atom_type_to_atom(item, indices='all', value=None, skip_digestion=False)
 
     from ..molsysmt_Topology.set import set_atom_type_to_atom as aux_set
 
+    return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def set_isotope_to_atom(item, indices='all', value=None, skip_digestion=False):
+
+    from ..molsysmt_Topology.set import set_isotope_to_atom as aux_set
     return aux_set(item.topology, indices=indices, value=value, skip_digestion=True)
 
 @arg_digest(form=form)
@@ -690,6 +817,17 @@ def set_structure_id_to_system(item, structure_indices='all', value=None, skip_d
 
     return aux_set(item.structures, structure_indices=structure_indices,
                                                           value=value, skip_digestion=True)
+
+
+@arg_digest(form=form)
+def set_structure_chemical_state_index_to_system(
+    item, structure_indices='all', value=None, skip_digestion=False
+):
+    """Setting nullable chemical-state indices aligned to structures."""
+
+    return item._set_structure_chemical_state_indices(
+        value, structure_indices=structure_indices
+    )
 
 @arg_digest(form=form)
 def set_time_to_system(item, structure_indices='all', value=None, skip_digestion=False):

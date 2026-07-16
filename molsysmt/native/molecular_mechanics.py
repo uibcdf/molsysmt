@@ -67,6 +67,19 @@ class MolecularMechanics():
         self.salt_concentration = salt_concentration
         self.kappa = kappa
 
+    def __setstate__(self, state):
+        """Restore current storage or stage legacy charge arrays for MolSys."""
+
+        legacy_formal_charge = state.pop('formal_charge', None)
+        legacy_partial_charge = state.pop('partial_charge', None)
+        restored = type(self)()
+        self.__dict__.update(restored.__dict__)
+        self.__dict__.update(state)
+        if legacy_formal_charge is not None:
+            self._legacy_formal_charge = legacy_formal_charge
+        if legacy_partial_charge is not None:
+            self._legacy_partial_charge = legacy_partial_charge
+
     # ------------------------------------------------------------------
     # atoms_ff helpers
     # ------------------------------------------------------------------

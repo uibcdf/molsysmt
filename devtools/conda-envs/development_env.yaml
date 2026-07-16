@@ -19,7 +19,6 @@ dependencies:
 - networkx
 - tqdm
 - matplotlib
-- mmtf-python
 - openmm
 - pdbfixer
 - ambertools

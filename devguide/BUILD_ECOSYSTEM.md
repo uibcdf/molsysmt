@@ -110,7 +110,8 @@ data/water/             # pre-equilibrated water box PDB files (see below)
 
 ### `residue_templates/`
 
-Introduced in March 2026 to support future `add_missing_heavy_atoms(engine='MolSysMT')`.
+Used by native structure-placement paths including
+`add_missing_heavy_atoms(engine='MolSysMT')`.
 Contains one JSON file per residue:
 
 ```json
@@ -145,7 +146,8 @@ groups so that downstream OpenMM conversion sees correct connectivity.
 ```bash
 python molsysmt/data/databases/residue_templates/make_residue_templates_db.py
 ```
-Requires PDBFixer source available at `~/repos@others/pdbfixer`.
+Requires an explicitly supplied or locally available compatible PDBFixer source
+tree. Do not hard-code a developer-machine checkout path in the generator.
 
 ### `data/water/` — pre-equilibrated water boxes
 
@@ -188,8 +190,10 @@ dicts or lists in `.py` files).
 Several functions in `molsysmt/build/` originally depended on PDBFixer as their
 only backend. The nativization effort (March 2026) follows these principles:
 
-1. **Native as default** — `engine='MolSysMT'` is the default. It works with
-   any supported form and requires no external dependency.
+1. **Native where explicitly selected** — Native implementations use
+   `engine='MolSysMT'` and require no optional reconstruction dependency after
+   conversion to the required native representation. Defaults remain
+   function-specific for compatibility.
 
 2. **PDBFixer as fallback** — `engine='PDBFixer'` is preserved for parity and
    for cases where PDBFixer's richer template library gives better results.
@@ -228,8 +232,9 @@ tightest-fit topology variant, computes the set difference, and excludes
 
 **PDBFixer engine**: delegates to `pdbfixer.findMissingAtoms`.
 
-Both engines return identical results on Barnase-Barstar (1brs, 25 residues
-with missing sidechain/backbone atoms).
+A March 2026 parity case on Barnase-Barstar (1brs) reported agreement for 25
+residues with missing sidechain/backbone atoms. This is a regression fixture,
+not evidence of universal cross-engine equivalence.
 
 Key detail: `get_expected_heavy_atoms` selects among all topology variants the
 one whose heavy atoms are a superset of the present heavy atoms AND that has
@@ -322,9 +327,10 @@ HH31/HH32/HH33 on ACE CH3; H on NME N; H1/H2/H3 on NME C.
 **PDBFixer engine**: delegates to `pdbfixer.addMissingHydrogens(pH)` which
 uses the same fixed-threshold pH model via OpenMM force-field templates.
 
-**Both engines use the same pH model** (fixed pKa thresholds). Neither
-implements environment-dependent pKa prediction (PROPKA-style), which is a
-post-1.0 item.
+The native engine uses fixed pKa thresholds. PDBFixer/OpenMM use their own
+template-based placement behavior for the requested pH. Neither route should be
+described as an environment-dependent pKa calculation, and parity must be tested
+for each claimed residue state.
 
 ### `build.solvate`
 
@@ -425,21 +431,25 @@ PDBFixer and OpenMM.  Ignores the `sequence` argument.
 
 ---
 
-## Native Coverage of `build/` (as of March 2026)
+## Native coverage and current defaults
 
-All public `build/` functions now have `engine='MolSysMT'` as the default:
+Defaults are part of the public API and must be read from the function
+signatures. The current engine-bearing build surface includes:
 
-| Function | Notes |
-|----------|-------|
-| `add_missing_heavy_atoms` | Kabsch alignment against JSON residue templates |
-| `add_missing_terminal_cappings` | Case A (free termini) + Case B (ACE/NME) |
-| `add_missing_hydrogens` | Fixed pKa thresholds; ACE/NME fully supported via templates |
-| `solvate` | All four orthogonal/non-orthogonal box shapes; ions via rejection sampling |
-| `mutate` | Kabsch sidechain placement; PyRosetta engine is post-1.0 |
-| `get_missing_residues` | SequenceMatcher + SEQRES/bcif auto-detection |
-| `get_missing_heavy_atoms` | Template lookup |
-| `get_missing_terminal_cappings` | Template lookup |
-| `get_non_standard_residues` | Residue name lookup |
+| Function | Default engine | Native option |
+|----------|----------------|---------------|
+| `add_missing_heavy_atoms` | `MolSysMT` | Yes |
+| `add_missing_terminal_cappings` | `MolSysMT` | Yes |
+| `add_missing_hydrogens` | `OpenMM` | Yes |
+| `solvate` | `OpenMM` | Yes |
+| `mutate` | `MolSysMT` | Yes |
+| `get_missing_residues` | `MolSysMT` | Yes |
+| `get_missing_heavy_atoms` | `MolSysMT` | Yes |
+| `get_missing_terminal_cappings` | `MolSysMT` | Yes |
+| `get_non_standard_residues` | `MolSysMT` | Yes |
+| `build_peptide` | `LEaP` | Yes |
+
+This table records dispatch defaults, not scientific parity among engines.
 
 ---
 
@@ -486,13 +496,12 @@ both engines on the same structure and checks they agree:
 | `add_missing_hydrogens` | `test_add_missing_hydrogens_parity.py` |
 | `mutate` | `test_mutate_parity.py` |
 
-**Note on `add_missing_hydrogens` parity:** both engines (MolSysMT and
-PDBFixer) use the same fixed-threshold pH model and are at parity for standard
-residues. For neutral internal residues the H counts are identical. Small
-differences (< 15 %) can arise from terminal handling (OXT, HXT, N-terminal
-protonation variants) and are expected — the parity test allows a ±15 %
-tolerance for real proteins. Environment-dependent pKa prediction (PROPKA-
-style) is a post-1.0 item.
+**Scope of `add_missing_hydrogens` parity:** focused tests require exact counts
+for a neutral internal residue and structural validity of added H atoms. A real
+protein regression currently checks only that total H counts remain within 15%
+between engines. That tolerance detects gross divergence; it does not establish
+per-residue protonation or tautomer parity and must not be presented as
+scientific equivalence.
 
 ---
 

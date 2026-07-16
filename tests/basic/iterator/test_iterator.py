@@ -31,12 +31,9 @@ def test_iterator_2():
     assert coordinates.shape == (5, 294, 3)
 
 #def test_iterator_3():
-#    msmpk = systems['POPC membrane']['popc_membrane.msmpk']
-#    molsys = msm.convert(msmpk)
 #    iterator = msm.Iterator(molsys, selection='atom_name == "P"', coordinates=True)
 #    coordinates = []
 #    for aux_coordinates in iterator:
 #        coordinates.append(aux_coordinates[0])
 #    coordinates = puw.utils.sequences.concatenate(coordinates, value_type='numpy.ndarray')
 #    assert coordinates.shape == (5, 294, 3)
-

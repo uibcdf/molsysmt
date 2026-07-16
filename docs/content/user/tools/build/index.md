@@ -1,5 +1,16 @@
 # Build
 
+For explicit topology construction, use `molsysmt.MolSysBuilder`. Declare atoms
+and groups first, add bonds with optional metadata such as
+`builder.add_bond(atom_0, atom_1, bond_order=2, bond_type="covalent")`, assign
+coordinates with `set_coordinates()`, and call `build()` to materialize a native
+system. The four course paths include complete builder examples.
+
+`bond_order` is the formal numeric order; `bond_type` describes the chemical
+relationship and accepts `covalent`, `dative`, or explicitly `unknown`.
+Aromaticity, fractional order, and force-field parameter classes are distinct
+concepts and are not encoded as arbitrary `bond_type` labels.
+
 
 |      |      |
 | :--- | :--- |
@@ -53,4 +64,3 @@
    solvate.ipynb
    solve_atoms_with_alternate_locations.ipynb
 ```
-

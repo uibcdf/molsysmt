@@ -25,6 +25,34 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
     input_file_handler = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
     input_file = input_file_handler.file
 
+    if input_file_handler.format_version == '0.4':
+        from molsysmt.form.molsysmt_H5MSMFileHandler.to_molsysmt_MolSys import (
+            to_molsysmt_MolSys,
+        )
+        from molsysmt.form.molsysmt_MolSys.to_file_h5msm import to_file_h5msm
+
+        molsys = to_molsysmt_MolSys(input_file_handler, skip_digestion=True)
+        subset = molsys.extract(
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            copy_if_all=copy_if_all,
+            skip_digestion=True,
+        )
+        compression = input_file['topology']['atoms']['atom_id'].compression
+        compression_opts = input_file['topology']['atoms']['atom_id'].compression_opts
+        int_precision = input_file.attrs['int_precision']
+        float_precision = input_file.attrs['float_precision']
+        input_file_handler.close()
+        return to_file_h5msm(
+            subset,
+            output_filename=output_filename,
+            compression=compression,
+            compression_opts=compression_opts,
+            int_precision=int_precision,
+            float_precision=float_precision,
+            skip_digestion=True,
+        )
+
     int_precision = input_file.attrs['int_precision']
     float_precision = input_file.attrs['float_precision']
     length_unit = input_file.attrs['length_unit']
@@ -43,7 +71,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             int_precision=int_precision, float_precision=float_precision,
             length_unit=length_unit, time_unit=time_unit, energy_unit=energy_unit,
             temperature_unit=temperature_unit, charge_unit=charge_unit,
-            mass_unit=mass_unit)
+            mass_unit=mass_unit, format_version='0.3')
     output_file = output_file_handler.file
 
     topo_in = input_file['topology']
@@ -104,12 +132,16 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
                 topo_out['chains'][field][:] = topo_in['chains'][field][:]
 
         # --- bonds ---
-        n_bonds = topo_in.attrs['n_bonds']
-        topo_out.attrs['n_bonds'] = n_bonds
-        if n_bonds:
-            for field in ('atom1_index', 'atom2_index', 'order', 'type'):
-                topo_out['bonds'][field].resize((n_bonds,))
-                topo_out['bonds'][field][:] = topo_in['bonds'][field][:]
+            n_bonds = topo_in.attrs['n_bonds']
+            topo_out.attrs['n_bonds'] = n_bonds
+            if n_bonds:
+                for field in ('atom1_index', 'atom2_index'):
+                    topo_out['bonds'][field].resize((n_bonds,))
+                    topo_out['bonds'][field][:] = topo_in['bonds'][field][:]
+                for field in ('order', 'type'):
+                    if topo_in['bonds'][field].size == n_bonds:
+                        topo_out['bonds'][field].resize((n_bonds,))
+                        topo_out['bonds'][field][:] = topo_in['bonds'][field][:]
 
     else:
 
@@ -215,15 +247,13 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             topo_out['bonds']['atom2_index'][:] = np.searchsorted(
                 atom_indices, topo_in['bonds']['atom2_index'][mask].astype(np.int64), side='left')
 
-            n_bonds_order = int(np.sum(mask & (topo_in['bonds']['order'].asstr()[:] != ''))) if n_bonds else 0
-            if n_bonds_order:
-                topo_out['bonds']['order'].resize((n_bonds,))
-                topo_out['bonds']['order'][:] = topo_in['bonds']['order'][mask]
-
-            n_bonds_type = int(np.sum(mask & (topo_in['bonds']['type'].asstr()[:] != ''))) if n_bonds else 0
-            if n_bonds_type:
-                topo_out['bonds']['type'].resize((n_bonds,))
-                topo_out['bonds']['type'][:] = topo_in['bonds']['type'][mask]
+            for field in ('order', 'type'):
+                source = topo_in['bonds'][field]
+                if source.size == mask.shape[0]:
+                    selected_values = source.asstr()[:][mask]
+                    if np.any(selected_values != ''):
+                        topo_out['bonds'][field].resize((n_bonds,))
+                        topo_out['bonds'][field][:] = source[mask]
 
     # -----------------------------------------------------------------------
     # Structures section

@@ -33,7 +33,8 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
     center_coordinates : quantity, default '[0,0,0] nanometers'
         Target coordinates for centering the `center_of_selection`.
     keep_covalent_bonds : bool, default False
-        Placeholder (not implemented) to preserve covalent connectivity across PBC.
+        Whether to reconstruct bonded atoms through minimum-image displacements
+        and wrap each connected block as a unit. Requires topology with bonds.
     syntax : str, default 'MolSysMT'
         Selection syntax for string selections.
     engine : {'MolSysMT'}, default 'MolSysMT'
@@ -52,13 +53,23 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
     ------
     NotImplementedMethodError
         If an unsupported engine is requested.
+    StructuralInconsistencyError
+        If box vectors are invalid, or if ``keep_covalent_bonds=True`` and
+        bonds are unavailable.
+
+    Notes
+    -----
+    With ``keep_covalent_bonds=False``, atoms are wrapped independently. With
+    ``keep_covalent_bonds=True``, bonded blocks are reconstructed with
+    minimum-image bond displacements and each block center is wrapped into the
+    requested cell.
 
     .. versionadded:: 1.0.0
     """
 
     if engine=='MolSysMT':
 
-        from molsysmt.basic import select, get, set, extract, copy
+        from molsysmt.basic import select, get, set, copy
         from molsysmt.structure import center
 
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
@@ -77,14 +88,70 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
         original_length_units = puw.get_unit(coordinates)
         coordinates, length_units = puw.get_value_and_unit(coordinates, standardized=True)
         coordinates = np.asarray(coordinates, dtype=np.float64)
+        from molsysmt._private.pbc_validation import validate_box_array
+
+        if box is None:
+            validate_box_array(
+                box,
+                coordinates.shape[0],
+                caller="molsysmt.pbc.wrap_to_pbc",
+            )
         box = puw.get_value(box, standardized=True)
-        box = np.asarray(box, dtype=np.float64)
+        box = validate_box_array(
+            box,
+            coordinates.shape[0],
+            caller="molsysmt.pbc.wrap_to_pbc",
+        )
 
-        n_structures = coordinates.shape[0]
-        if box.shape[0]==1 and n_structures>1:
-            box = np.repeat(box, repeats=n_structures, axis=0)
+        if keep_covalent_bonds:
+            from molsysmt._private.pbc_reconstruction import (
+                localize_bonded_pairs,
+                reconstruct_and_wrap_covalent_blocks,
+            )
+            from molsysmt._private.smonitor import (
+                NotImplementedConversionError,
+                NotImplementedMethodError,
+                NotSupportedFormError,
+                StructuralInconsistencyError,
+            )
 
-        if box_center is None:
+            try:
+                bonded_pairs = get(
+                    molecular_system,
+                    element='atom',
+                    selection=atom_indices,
+                    inner_bonded_atom_pairs=True,
+                    skip_digestion=True,
+                )
+            except (
+                NotImplementedConversionError,
+                NotImplementedMethodError,
+                NotSupportedFormError,
+            ) as error:
+                raise StructuralInconsistencyError(
+                    reason="keep_covalent_bonds requires a topology that provides bonds.",
+                    caller="molsysmt.pbc.wrap_to_pbc",
+                ) from error
+            bonded_pairs = localize_bonded_pairs(atom_indices, bonded_pairs)
+            if box_center is None:
+                origin = np.asarray(
+                    puw.get_value(box_origin, standardized=True), dtype=np.float64
+                )
+                mode = 'pbc'
+            else:
+                origin = np.asarray(
+                    puw.get_value(box_center, standardized=True), dtype=np.float64
+                )
+                mode = 'pbc_center'
+            reconstruct_and_wrap_covalent_blocks(
+                coordinates,
+                box,
+                bonded_pairs,
+                origin=origin,
+                mode=mode,
+            )
+
+        elif box_center is None:
 
             box_origin = puw.get_value(box_origin, standardized=True)
             box_origin = np.asarray(box_origin, dtype=np.float64)
@@ -118,7 +185,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
 
     if in_place:
 
-        set(molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
+        set(molecular_system, selection=atom_indices, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
 
         del(coordinates, atom_indices, structure_indices)
@@ -130,7 +197,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
     else:
 
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, selection='atom_index in @atom_indices', structure_indices=structure_indices,
+        set(tmp_molecular_system, selection=atom_indices, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
 
         del(coordinates, atom_indices, structure_indices)

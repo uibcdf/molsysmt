@@ -199,7 +199,15 @@ pytest -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_M
 
 ## Active CI (GitHub Actions)
 
-Three workflows live in `.github/workflows/`:
+The repository currently contains these testing and validation workflows:
+
+### `ci-devguide.yaml` — developer-guide changes
+
+- Trigger: changes to `devguide/`, its validator, or the workflow itself.
+- Runs: `python devtools/scripts/validate_devguide.py` without installing
+  scientific dependencies.
+- Purpose: reject broken local links, machine-specific paths, and references to
+  retired developer-guide filenames.
 
 ### `ci-smoke.yaml` — on every push / PR to `main`
 
@@ -208,6 +216,8 @@ Three workflows live in `.github/workflows/`:
 - Matrix: `ubuntu-latest`, Python `3.13` only.
 - Timeout: 15 minutes.
 - Runs: `devtools/tests/run_tiers.sh smoke` (~4 tests).
+- Also runs: `python devtools/scripts/validate_form_adapters.py`, including the
+  explicit-tier completeness check and attribute-delivery debt ratchet.
 - Purpose: fast signal that nothing is catastrophically broken.
 - Concurrency: cancels in-progress runs on the same ref.
 
@@ -216,9 +226,12 @@ Three workflows live in `.github/workflows/`:
 - Trigger: weekly schedule + manual dispatch.
 - Matrix: `ubuntu-latest` × `{3.11, 3.12, 3.13}`.
 - Timeout: 180 minutes per combination.
+- Runs the Scientific Truth Suite as an explicit early gate after importing and
+  reporting the resolved MDTraj and MDAnalysis versions. The test environment
+  includes both external oracles, so this gate must not rely on optional skips.
 - Runs: full suite with `--cov=molsysmt --cov-report=xml --junitxml=junit.xml`.
 - Coverage and test results uploaded to Codecov from the Python `3.13` run only.
-- Python `3.10` excluded: reaches EOL October 2026, not worth the CI cost.
+- Supported Python versions: `3.11`, `3.12`, and `3.13`.
 
 ### `ci-full.yaml` — manual dispatch only (pre-release gate)
 
@@ -228,10 +241,22 @@ Three workflows live in `.github/workflows/`:
 - Runs: `pytest -q --color=yes --junitxml=junit.xml` (no coverage upload).
 - Purpose: validate all supported platforms before release candidates.
 
+### Other validation and delivery workflows
+
+- `ruff.yaml` runs the configured Ruff correctness checks on Python changes.
+- `benchmarks.yml` compares a benchmark run with the stored baseline on pull
+  requests. Because hosted runners are noisy, investigate a failure before
+  treating a 15% delta as a deterministic regression.
+- `test_import.yaml` provides a manually dispatched import check.
+- `sphinx_docs_to_gh_pages.yaml` builds and publishes documentation.
+- `build_and_upload_conda_packages.yaml` builds Conda packages when dispatched.
+- `pr_agent.yaml` is repository automation, not a software validation gate.
+
 ### Python version policy
 
-Supported versions for CI and the support contract: **3.11, 3.12, 3.13**.
-Python 3.10 is intentionally excluded (EOL October 2026).
+Package metadata and release workflows support Python **3.11–3.13**. Python
+3.10 is outside the package contract and must not be reintroduced into package
+classifiers, `requires-python`, Conda build matrices, or support badges.
 
 ### Skipping CI
 
@@ -242,4 +267,5 @@ ignore this tag.
 ### Release validation scripts (run manually)
 
 - `devtools/scripts/validate_dependencies.py`
+- `devtools/scripts/validate_devguide.py`
 - `devtools/scripts/validate_resources.py`

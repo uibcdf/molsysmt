@@ -72,3 +72,9 @@ def test_context_coordinates_are_finite(context_structures):
 def test_context_coordinates_shape(context_structures):
     coords = puw.get_value(context_structures.coordinates, to_unit='nm')
     assert coords.shape == (1, N_ATOMS, 3)
+
+
+def test_context_reports_integrator_temperature(context):
+    temperature = msm.get(context, temperature=True)
+
+    np.testing.assert_allclose(puw.get_value(temperature, to_unit='K'), [300.0])

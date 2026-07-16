@@ -10,7 +10,7 @@ def get_component_name(molecular_system, element='component', selection='all', r
     -----
     Explicit names are preserved when available. If `redefine_names=True`, the
     names may be inferred from local topology evidence using the canonical
-    naming rules documented in `devguide/element_and_native_rebuild.md`.
+    naming rules documented in `devguide/CORE_SPECIFICATION.md`.
     """
 
     if isinstance(selection, str) and selection == 'all':

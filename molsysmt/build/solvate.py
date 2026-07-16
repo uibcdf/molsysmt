@@ -38,9 +38,10 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     from molsysmt.native.topology import Bonds_DataFrame
 
     topo = water_tile.topology
+    topo_bonds = topo._get_chemical_state_bonds()
     n_atoms_tile  = topo.n_atoms
     n_groups_tile = topo.n_groups
-    n_bonds_tile  = len(topo.bonds)
+    n_bonds_tile  = len(topo_bonds)
 
     # ── build offset grid ───────────────────────────────────────────────────
     ix = np.arange(n_x, dtype=np.float64)
@@ -91,8 +92,8 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     group_ids    = np.arange(1, n_total_groups + 1, dtype=object).astype(str)
 
     # bonds
-    b1_base = topo.bonds['atom1_index'].to_numpy(dtype=np.int64)
-    b2_base = topo.bonds['atom2_index'].to_numpy(dtype=np.int64)
+    b1_base = topo_bonds['atom1_index'].to_numpy(dtype=np.int64)
+    b2_base = topo_bonds['atom2_index'].to_numpy(dtype=np.int64)
     bond_offsets = np.repeat(np.arange(n_tiles, dtype=np.int64) * n_atoms_tile, n_bonds_tile)
     b1 = np.tile(b1_base, n_tiles) + bond_offsets
     b2 = np.tile(b2_base, n_tiles) + bond_offsets
@@ -112,7 +113,7 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     new_topo.atoms['atom_name']      = atom_names
     new_topo.atoms['atom_type']      = atom_types
     new_topo.atoms['group_index']    = pd.array(group_indices, dtype='Int64')
-    new_topo.atoms['component_index']= pd.array(component_indices, dtype='Int64')
+    new_topo._set_component_indices(component_indices)
     new_topo.atoms['chain_index']    = pd.array(chain_indices, dtype='Int64')
 
     new_topo.groups['group_id']      = pd.array(group_ids, dtype='string')
@@ -128,7 +129,7 @@ def _build_tiled_water(water_tile, n_x, n_y, n_z, tile_nm):
     bonds_df = Bonds_DataFrame(n_total_bonds)
     bonds_df['atom1_index'] = pd.array(b1, dtype='Int64')
     bonds_df['atom2_index'] = pd.array(b2, dtype='Int64')
-    new_topo._bonds = bonds_df
+    new_topo._set_chemical_state_bonds(bonds_df)
 
     # ── assemble Structures ──────────────────────────────────────────────────
     new_struc = Structures(
@@ -173,7 +174,7 @@ def _build_ions(ion_name, atom_name, atom_type, positions):
     new_topo.atoms['atom_name']       = np.full(n_ions, atom_name, dtype=object)
     new_topo.atoms['atom_type']       = np.full(n_ions, atom_type, dtype=object)
     new_topo.atoms['group_index']     = pd.array(np.arange(n_ions, dtype=np.int64), dtype='Int64')
-    new_topo.atoms['component_index'] = pd.array(np.arange(n_ions, dtype=np.int64), dtype='Int64')
+    new_topo._set_component_indices(np.arange(n_ions, dtype=np.int64))
     new_topo.atoms['chain_index']     = pd.array(np.zeros(n_ions, dtype=np.int64), dtype='Int64')
 
     new_topo.groups['group_id']       = pd.array([str(i + 1) for i in range(n_ions)], dtype='string')

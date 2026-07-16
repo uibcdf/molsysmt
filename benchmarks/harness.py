@@ -10,11 +10,37 @@ import gc
 import json
 import os
 import platform
+import subprocess
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
 from statistics import median, stdev
 from time import perf_counter
 from typing import Callable, Any
+
+
+def _get_git_metadata() -> dict[str, str | bool | None]:
+    """Return the repository revision and dirty-state evidence."""
+
+    repository = Path(__file__).resolve().parents[1]
+    try:
+        commit = subprocess.run(
+            ['git', 'rev-parse', 'HEAD'],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        status = subprocess.run(
+            ['git', 'status', '--porcelain'],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return {'git_commit': None, 'git_dirty': None}
+    return {'git_commit': commit, 'git_dirty': bool(status.strip())}
 
 
 def _get_peak_rss_mb() -> float:
@@ -169,6 +195,7 @@ def save_session_results(session_name: str, results: list[dict[str, Any]], outpu
             "python": platform.python_version(),
             "machine": platform.machine(),
             "molsysmt_version": msm.__version__,
+            **_get_git_metadata(),
         },
         "results": {r["name"]: r for r in results},
     }

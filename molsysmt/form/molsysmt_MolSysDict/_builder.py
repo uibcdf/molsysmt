@@ -11,7 +11,8 @@ def build_molsys_builder_from_molsys_dict(item):
 
     builder = MolSysBuilder(skip_digestion=True)
 
-    for atom in topology.get("atoms", []) or []:
+    atoms = topology.get("atoms", []) or []
+    for atom in atoms:
         builder.add_atom(
             atom_id=atom.get("atom_id", None),
             atom_name=atom.get("atom_name", None),
@@ -63,6 +64,11 @@ def build_molsys_builder_from_molsys_dict(item):
             entity_type=entity.get("entity_type", None),
             skip_digestion=True,
         )
+
+    if any(atom.get("isotope", None) is not None for atom in atoms):
+        builder.topology.atoms["isotope"] = [
+            atom.get("isotope", None) for atom in atoms
+        ]
 
     if structures.get("coordinates", None) is not None:
         builder.set_coordinates(puw.quantity(structures["coordinates"], "nm"), skip_digestion=True)

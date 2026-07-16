@@ -2935,7 +2935,7 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
-    from molsysmt.form.molsysmt_Topology import get_atom_index_from_entity as aux_get
+    from molsysmt.form.molsysmt_Topology import get_entity_index_from_entity as aux_get
 
     bonds_required = bonds_are_required_to_get_attribute('entity_index', 'entity')
     tmp_item = to_molsysmt_Topology(item, get_missing_bonds=bonds_required, skip_digestion=True)
@@ -4488,4 +4488,3 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

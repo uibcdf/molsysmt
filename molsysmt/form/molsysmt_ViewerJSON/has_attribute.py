@@ -1,7 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
 from . import attributes
 from . import get_topological_attributes as get_topo
-from . import get_structural_attributes as get_struc
 
 
 @arg_digest(form='molsysmt.ViewerJSON')
@@ -11,13 +10,27 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     if not attributes[attribute]:
         return False
 
+    if include_none:
+        return True
+
+    atoms = molecular_system.data.get('atoms', {}) or {}
+    bonds = molecular_system.data.get('bonds', {}) or {}
+    if isinstance(bonds, dict) and 'sets' in bonds:
+        sets = bonds.get('sets', [])
+        bonds = sets[0] if sets else {}
+    structures = molecular_system.data.get(
+        'structures',
+        molecular_system.data.get('estructures', molecular_system.data.get('frames', [])),
+    ) or []
+
     checkers = {
-        'atom_id': lambda: get_topo.get_atom_id_from_atom(molecular_system, skip_digestion=True),
-        'atom_name': lambda: get_topo.get_atom_name_from_atom(molecular_system, skip_digestion=True),
-        'group_id': lambda: get_topo.get_group_id_from_atom(molecular_system, skip_digestion=True),
-        'group_name': lambda: get_topo.get_group_name_from_atom(molecular_system, skip_digestion=True),
-        'chain_id': lambda: get_topo.get_chain_id_from_atom(molecular_system, skip_digestion=True),
-        'entity_id': lambda: get_topo.get_entity_id_from_atom(molecular_system, skip_digestion=True),
+        'atom_index': lambda: range(get_topo.get_n_atoms_from_system(molecular_system, skip_digestion=True)),
+        'atom_id': lambda: atoms.get('atom_id', None),
+        'atom_name': lambda: atoms.get('atom_name', None),
+        'group_id': lambda: atoms.get('group_id', atoms.get('group_ig', None)),
+        'group_name': lambda: atoms.get('group_name', None),
+        'chain_id': lambda: atoms.get('chain_id', None),
+        'entity_id': lambda: atoms.get('entity_id', None),
         'formal_charge': lambda: get_topo.get_formal_charge_from_atom(molecular_system, skip_digestion=True),
         'partial_charge': lambda: get_topo.get_partial_charge_from_atom(molecular_system, skip_digestion=True),
         'n_atoms': lambda: get_topo.get_n_atoms_from_system(molecular_system, skip_digestion=True),
@@ -25,19 +38,16 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
         'bond_index': lambda: get_topo.get_bond_index_from_bond(molecular_system, skip_digestion=True),
         'bond_order': lambda: get_topo.get_bond_order_from_bond(molecular_system, skip_digestion=True),
         'bond_type': lambda: get_topo.get_bond_type_from_bond(molecular_system, skip_digestion=True),
-        'bonded_atoms': lambda: get_topo.get_bonded_atoms_from_atom(molecular_system, skip_digestion=True),
-        'coordinates': lambda: get_struc.get_coordinates_from_atom(molecular_system, skip_digestion=True),
-        'time': lambda: get_struc.get_time_from_system(molecular_system, skip_digestion=True),
-        'n_structures': lambda: get_struc.get_n_structures_from_system(molecular_system, skip_digestion=True),
+        'bonded_atoms': lambda: bonds.get('atom_pairs', None),
+        'coordinates': lambda: [frame.get('coordinates') for frame in structures if frame.get('coordinates') is not None],
+        'time': lambda: [frame.get('time') for frame in structures if frame.get('time') is not None],
+        'n_structures': lambda: structures,
     }
 
     try:
         value = checkers[attribute]()
     except Exception:
         return False
-
-    if include_none:
-        return True
 
     if value is None:
         return False

@@ -39,7 +39,7 @@ def get_chain_type(molecular_system, element='atom', selection='all',
 
     if redefine_types:
 
-        molecule_types_from_chain = get_molecule_type(molecular_system, element='chain', selection=selection,
+        molecule_types_from_chain = get_molecule_type(molecular_system, element='chain', selection='all',
                                                       redefine_indices=redefine_molecule_indices,
                                                       redefine_types=redefine_molecule_types)
 
@@ -86,7 +86,9 @@ def get_chain_type(molecular_system, element='atom', selection='all',
                       chain_index=True)
             output = np.array(chain_types_from_chain, dtype=object)[aux].tolist()
         elif element == 'chain':
-            output = chain_types_from_chain
+            aux = get(molecular_system, element='chain', selection=selection, syntax=syntax,
+                      chain_index=True)
+            output = np.array(chain_types_from_chain, dtype=object)[aux].tolist()
         elif element == 'entity':
             aux = get(molecular_system, element='entity', selection=selection, syntax=syntax,
                       chain_index=True)

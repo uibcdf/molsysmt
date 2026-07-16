@@ -18,7 +18,6 @@ license = { text = "MIT" }
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -27,7 +26,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Chemistry",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
-requires-python = ">=3.10.0,<3.14.0"
+requires-python = ">=3.11.0,<3.14.0"
 # Declare any run-time dependencies that should be installed with the package.
 dependencies = [
     "h5py",
@@ -56,7 +55,6 @@ molsysmt = "molsysviewer_molsysmt"
 
 [project.optional-dependencies]
 soft = [
-  "mmtf-python",
   "mdtraj",
   "openmm",
   "openmmtools",
@@ -140,7 +138,7 @@ markers = [
 ]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 exclude = [
     "molsysmt/third_party",
     "molsysmt/molecular_dynamics",

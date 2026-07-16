@@ -11,7 +11,7 @@ def select(molecular_system, selection='all', structure_indices='all'):
     else:
         tmp_item = convert(molecular_system, to_form='mdtraj.Topology')
 
-    atom_indices = tmp_item.select(selection)
+    atom_indices = tmp_item.select(selection).tolist()
 
     return atom_indices
 
@@ -30,4 +30,3 @@ def indices_to_selection(molecular_system, indices, element='atom'):
         raise NotImplementedMethodError(caller='molsysmt.basic.selector.mdtraj.indices_to_selection')
 
     return output_string
-

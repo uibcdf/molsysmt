@@ -50,9 +50,9 @@ attributes['n_polysaccharides'] = True
 attributes['n_saccharides'] = True
 
 attributes['bond_index'] = True
-attributes['bond_id'] = True
-attributes['bond_type'] = True
-attributes['bond_order'] = True
+attributes['bond_id'] = False
+attributes['bond_type'] = False
+attributes['bond_order'] = False
 attributes['bonded_atoms'] = True
 attributes['inner_bond_index'] = True
 attributes['inner_bonded_atoms'] = True

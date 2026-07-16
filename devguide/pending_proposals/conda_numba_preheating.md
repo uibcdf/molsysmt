@@ -1,5 +1,14 @@
 # Proposal: Conda Installation-Time JIT Preheating and Cache Generation
 
+**Status:** exploratory; do not implement without packaging and portability
+validation.
+
+> This proposal depends on the current `molsysmt.warmup()` contract and Numba
+> cache behavior. Post-link scripts, ignored failures, writable cache locations,
+> CPU portability, and package-manager policy must be validated experimentally.
+> The "recommended" label below reflects the original proposal, not an accepted
+> repository decision.
+
 ## Abstract
 
 We propose compiling Numba JIT functions automatically during the conda/mamba package installation process. This eliminates the initial dynamic compilation lag (~4.0 seconds) that users experience during their first molecular operations in interactive environments like Jupyter notebooks or `molsysviewer` sessions. By integrating JIT preheating into the conda packaging workflow (via a host-side `post-link` script or build-time precompilation), we can ensure a seamless, instant-start experience for the end user.
@@ -39,7 +48,7 @@ In the conda recipe (`recipe/`), we introduce a `post-link.sh` script (and a cor
 if [ -n "${PYTHON}" ]; then
     echo "Preheating MolSysMT JIT caches (this may take a few seconds)..."
     # Execute warmup and ignore errors to prevent conda install failures
-    "${PYTHON}" -c "import molsysmt; molsysmt.warmup(async_mode=False)" >/dev/null 2>&1 || true
+    "${PYTHON}" -c "import molsysmt; molsysmt.warmup(strict=True)" >/dev/null 2>&1 || true
 fi
 ```
 
@@ -61,7 +70,7 @@ In the recipe's `build.sh` script, after copying the package into `$SP_DIR`:
 ```bash
 # recipe/build.sh
 export NUMBA_CACHE_DIR="${SP_DIR}/molsysmt/.numba_cache"
-python -c "import molsysmt; molsysmt.warmup(async_mode=False)"
+python -c "import molsysmt; molsysmt.warmup(strict=True)"
 ```
 
 #### Advantages

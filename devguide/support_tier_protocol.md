@@ -1,14 +1,14 @@
 # Support Tier Protocol — MolSysMT Integration
 
-## What was implemented
+## Scope
 
-In March 2026, MolSysMT adopted the **support-tier protocol** introduced in SMonitor as
-part of the MolSysSuite 1.0.0 stabilization effort.  The protocol communicates to users
-which parts of the API carry a formal support guarantee at runtime, using structured
-SMonitor diagnostics rather than ad-hoc comments or docstrings.
+MolSysMT uses the SMonitor support-tier protocol to communicate which parts of
+the API carry a formal support guarantee at runtime. This document defines the
+MolSysMT integration; implementation details must be confirmed against the
+referenced code and tests.
 
-See `smonitor/devguide/support_tier_protocol.md` for the authoritative protocol
-specification.  This document covers the MolSysMT-specific choices.
+The SMonitor integration guide defines the generic protocol. This document
+covers MolSysMT-specific choices visible in this repository.
 
 ---
 
@@ -24,40 +24,17 @@ specification.  This document covers the MolSysMT-specific choices.
 
 ## Form classification
 
-Forms are classified in `molsysmt/_private/form_tier.py`.  Only Tier 2 and Tier 3
-forms are listed there; absence from the dict implies Tier 1 (silence).
+Forms are classified only in `molsysmt/_private/form_tier.py`. Every discovered
+form, including Tier 1 forms, has an explicit entry. Unknown forms are registry
+integrity failures and are never interpreted as Tier 1.
 
-### Tier 1 (contractual, not listed)
+Run `devguide/support_tiers.ipynb` to display the live classification. Do not add
+a manually maintained form list to this document: it would become a second and
+potentially contradictory registry.
 
-`molsysmt.MolSys`, `molsysmt.Topology`, `molsysmt.Structures`,
-`molsysmt.MolSysBuilder`, `molsysmt.MolSysDict`, `molsysmt.TopologyDict`,
-`molsysmt.StructuresDict`, `file:h5msm`, `file:molsys_yaml`, `file:topology_yaml`,
-`file:structures_yaml`, `file:bcif`, `file:bcif_gz`, `openmm.Topology`,
-`mdtraj.Trajectory`, `mdtraj.Topology`, `file:pdb`, `file:xtc`.
-
-### Tier 2 — best-effort (13 forms)
-
-`MDAnalysis.Universe`, `MDAnalysis.AtomGroup`, `MDAnalysis.Topology`,
-`openmm.Modeller`, `openmm.Context`, `openmm.Simulation`, `rdkit.Mol`,
-`biopython.PDBStructure`, `parmed.Structure`, `molsysviewer.MolSysView`,
-`nglview.NGLWidget`, `string:pdb_id`, `string:alphafold_id`.
-
-### Tier 3 — experimental / niche (~48 forms)
-
-`networkx.Graph`, `pytraj.Trajectory`, `pytraj.Topology`, `biopython.Seq`,
-`biopython.SeqRecord`, `XYZ`, `file:mmtf`, `file:dcd`, `file:mol2`, `file:crd`,
-`file:inpcrd`, `file:prmtop`, `file:psf`, `file:gro`, `file:h5`, `file:trjpk`,
-`file:msmpk`, `file:xyznpy`, `file:cif`, `file:cif.gz`,
-`mmcif.PdbxContainers.DataContainer`, `mmtf.MMTFDecoder`,
-`openmm.AmberInpcrdFile`, `openmm.AmberPrmtopFile`, `openmm.CharmmCrdFile`,
-`openmm.CharmmPsfFile`, `openmm.GromacsGroFile`, `openmm.GromacsTopFile`,
-`openmm.PDBFile`, `openmm.State`, `openmm.System`, `pdbfixer.PDBFixer`,
-`string:amino_acids_1`, `string:amino_acids_3`, `string:pdb_text`,
-`mdtraj.DCDTrajectoryFile`, `mdtraj.HDF5TrajectoryFile`, `mdtraj.XTCTrajectoryFile`,
-`molsysmt.CIFFileHandler`, `molsysmt.GROFileHandler`, `molsysmt.MolecularMechanics`,
-`molsysmt.MolecularMechanicsDict`, `molsysmt.ViewerJSON`,
-`string:smiles`, `file:smi`, `file:fasta`, `file:pir`,
-`openff.Molecule`, `openff.Topology`.
+The form-adapter validator and focused registry tests require exact agreement
+between adapter `form_name` declarations and `FORM_TIERS`. Adding or renaming an
+adapter therefore requires an explicit support decision.
 
 ---
 
@@ -75,10 +52,9 @@ Individual functions are decorated rather than the module to keep the signal gra
 
 ## How the hook works
 
-`molsysmt/basic/get_form.py` is the single hook point for form tier signals.
-Every public MolSysMT API function calls `get_form()` to resolve the input form,
-so placing `check_form_tier(output)` there ensures the signal fires exactly once
-per form per session regardless of which public function the user called.
+`molsysmt/basic/get_form.py` is the hook point for form tier signals. Public
+operations that resolve an input through `get_form()` trigger the check. Public
+utilities without a molecular-system form do not necessarily pass this hook.
 
 ```python
 # get_form.py (simplified)
@@ -124,19 +100,15 @@ def my_experimental_function(...):
 
 ---
 
-## What remains pending / future ideas
+## Pending design questions
 
 - **Function-level Tier 2**: no MolSysMT functions are currently classified Tier 2, but
   `@support_tier(2)` is available if needed.
 - **`molecular_dynamics` module expansion**: if more functions are added to this module,
   apply `@support_tier(3)` to each.
-- **Tier 1 function audit**: explicitly document which public API functions are Tier 1
-  (currently implicit — all decorated functions not using `@support_tier` are Tier 1 by
-  silence).
-- **Auto-population of form tiers from module attributes**: if each form module exposed
-  a `form_tier: int` attribute, `check_form_tier()` could look it up dynamically instead
-  of consulting a centralized dict.  This would eliminate the need to update
-  `form_tier.py` when adding a new form.
+- **Tier 1 function audit**: explicitly classify public API functions. Silence
+  currently does not distinguish an approved Tier 1 function from an
+  unclassified function.
 - **`support_tier` as a module-level decorator**: for marking entire sub-packages (e.g.,
   `molecular_dynamics`) as Tier 3 without decorating every function individually.
 - **CLI / session report**: a `smonitor report` section listing Tier 2/3 items used in

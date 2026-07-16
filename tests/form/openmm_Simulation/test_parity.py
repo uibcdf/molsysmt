@@ -11,6 +11,7 @@ counts and names as loading the same PDB directly as molsysmt.Topology.
 
 import pytest
 from pathlib import Path
+import numpy as np
 import molsysmt as msm
 
 
@@ -68,3 +69,16 @@ def test_parity_chain_count(simulation_topology, source_topology):
 
 def test_parity_group_names(simulation_topology, source_topology):
     assert simulation_topology.groups['group_name'].tolist() == source_topology.groups['group_name'].tolist()
+
+
+def test_simulation_reports_canonical_dynamical_metadata(simulation):
+    temperature, integrator, friction = msm.get(
+        simulation,
+        temperature=True,
+        integrator=True,
+        friction=True,
+    )
+
+    np.testing.assert_allclose(msm.pyunitwizard.get_value(temperature, to_unit='K'), [300.0])
+    assert integrator == 'Langevin'
+    assert np.isclose(msm.pyunitwizard.get_value(friction, to_unit='1/ps'), 1.0)

@@ -8,5 +8,13 @@ for ii, jj in _all_attributes.items():
 
 attributes['formal_charge'] = True
 attributes['partial_charge'] = True
+attributes['atom_is_aromatic'] = True
+attributes['atom_stereochemistry'] = True
+attributes['bond_id'] = True
+attributes['fractional_bond_order'] = True
+attributes['bond_is_aromatic'] = True
+attributes['bond_joins_components'] = True
+attributes['bond_evidence'] = True
+attributes['isotope'] = False
 
 del _all_attributes

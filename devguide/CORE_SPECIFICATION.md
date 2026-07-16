@@ -1,6 +1,8 @@
 # MolSysMT Core Technical Specification (v1.0.0)
 
-This document is the **Single Source of Truth** for the architectural invariants, object models, and core data structures of the MolSysMT framework.
+This document defines the maintained architectural invariants, object models,
+and core data structures of MolSysMT. Current code and executable tests remain
+the implementation evidence for these rules.
 
 ---
 
@@ -27,7 +29,8 @@ molsysmt/
 ---
 
 ## 2. The Trinity: Native Data Model
-MolSysMT treats every molecular system as an orchestration of three independent pillars. This separation allows for high-performance trajectory processing and memory-efficient analysis.
+MolSysMT exposes three native types: the `MolSys` orchestrator and its two
+payloads, `Topology` and `Structures`.
 
 ### 2.1 `molsysmt.native.MolSys`
 The top-level orchestrator. It synchronizes a `Topology` and a `Structures` object.
@@ -45,7 +48,9 @@ The static blueprint of the system. It manages identities, hierarchies, and conn
 
 ### 2.3 `molsysmt.native.Structures`
 The dynamic payload of the system. It manages time-dependent geometric and physical data.
-- **Attributes:** Coordinates, velocities, box vectors, time, energies, and B-factors.
+- **Attributes:** Structure IDs, coordinates, velocities, box vectors, time,
+  energies, temperature, B-factors, occupancy, alternate locations, and
+  bioassembly metadata where available.
 - **Centralized Logic:** `Structures` centralizes all low-level property access via methods (`get_coordinates`, `set_coordinates`, etc.).
 
 ---
@@ -55,7 +60,9 @@ The dynamic payload of the system. It manages time-dependent geometric and physi
 ### 3.1 Numeric Tensors
 - **Coordinates:** NumPy arrays with shape `(n_structures, n_atoms, 3)`.
 - **Simulation Box:** NumPy arrays with shape `(n_structures, 3, 3)`.
-- **Precision:** `float64` is the standard for internal MolSysMT native objects and kernels. `float32` is accepted during ingestion but promoted to `float64` at kernel boundaries.
+- **Precision:** Native coordinates and box vectors are stored as `float64`.
+  Double precision is the default kernel policy; selected paths may opt into the
+  configured single-precision mode and must document their tolerances.
 
 ### 3.2 Standard Units
 MolSysMT enforces physical integrity via `molsysmt.pyunitwizard`.
@@ -95,4 +102,9 @@ Inference in `native/_topology_infer.py` uses group types to partition atoms int
 
 ## 5. Persistence & Observability
 - **H5MSM:** The canonical high-performance file format for MolSysMT systems.
-- **SMonitor:** Every core operation must emit signals through `smonitor` for structured diagnostics and error traceability.
+  New files follow the version 0.4 chemical-state layout defined in
+  [h5msm_format.md](h5msm_format.md); version 0.3 remains a read-compatibility
+  input.
+- **SMonitor:** Public and failure-prone boundaries use the structured diagnostic
+  catalog. Functions should remain silent on success unless telemetry is part of
+  their documented contract; direct `print` calls are not a diagnostic channel.

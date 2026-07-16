@@ -25,9 +25,7 @@ Form
    file_h5/api_file_h5.rst
    file_h5msm/api_file_h5msm.rst
    file_inpcrd/api_file_inpcrd.rst
-   file_mmtf/api_file_mmtf.rst
    file_mol2/api_file_mol2.rst
-   file_msmpk/api_file_msmpk.rst
    file_pdb/api_file_pdb.rst
    file_prmtop/api_file_prmtop.rst
    file_psf/api_file_psf.rst
@@ -42,7 +40,6 @@ Form
    mdtraj_Trajectory/api_mdtraj_Trajectory.rst
    mdtraj_XTCTrajectoryFile/api_mdtraj_XTCTrajectoryFile.rst
    mmcif_PdbxContainers_DataContainer/api_mmcif_PdbxContainers_DataContainer.rst
-   mmtf_MMTFDecoder/api_mmtf_MMTFDecoder.rst
    molsysmt_CIFFileHandler/api_molsysmt_CIFFileHandler.rst
    molsysmt_GROFileHandler/api_molsysmt_GROFileHandler.rst
    molsysmt_H5MSMFileHandler/api_molsysmt_H5MSMFileHandler.rst
@@ -78,4 +75,3 @@ Form
    string_pdb_id/api_string_pdb_id.rst
    string_pdb_text/api_string_pdb_text.rst
    XYZ/api_XYZ.rst
-

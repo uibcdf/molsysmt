@@ -18,6 +18,7 @@ attributes['chain_index'] = True
 attributes['chain_id'] = True
 attributes['chain_name'] = True
 attributes['chain_type'] = True
+attributes['n_atoms'] = True
 
 attributes['coordinates'] = True
 attributes['velocities'] = True

@@ -1,6 +1,10 @@
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 import numpy as np
+import pytest
+import warnings
+
+from molsysmt._private.smonitor import ArgumentError
 
 
 def test_molsys_builder_builds_from_declared_atoms_groups_and_bonds():
@@ -211,3 +215,18 @@ def test_molsys_builder_assign_groups_to_new_chain_reassigns_declared_membership
     assert msm.get(builder, element="chain", chain_id=True)[new_chain_index] == "W"
     assert msm.get(builder, element="chain", chain_name=True)[new_chain_index] == "waters"
     assert msm.get(builder, element="group", selection=water_group_indices[:3], chain_index=True) == [new_chain_index] * min(3, len(water_group_indices[:3]))
+
+
+def test_molsys_builder_add_chain_digests_allow_reassign():
+    builder = msm.MolSysBuilder()
+    atom_index = builder.add_atom(atom_name="Ar")
+    group_index = builder.add_group([atom_index], group_name="GAS")
+
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        assert builder.add_chain([group_index], allow_reassign=False) == 0
+
+    assert all(warning.category.__name__ != "DigestNotDigestedWarning" for warning in caught)
+
+    with pytest.raises(ArgumentError):
+        builder.add_chain([group_index], allow_reassign="yes")

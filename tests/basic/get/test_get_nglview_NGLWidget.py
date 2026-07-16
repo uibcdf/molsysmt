@@ -38,8 +38,9 @@ def test_get_nglview_NGLWidget_1():
                         'entity_id': True,
                         'entity_type': True,
                         'bond_index': True,
-                        'bond_type': True,
-                        'bond_order': True,
+                        # GRO/XTC supplies connectivity but no order or type.
+                        # Instance-aware comparison omits all-null optional
+                        # bond metadata when include_none=False.
                         'bonded_atom_pairs': True,
                         'inner_bonded_atom_pairs': True,
                         'inner_bond_index': True,

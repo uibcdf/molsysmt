@@ -8,13 +8,11 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 SRC_ROOT = os.path.join(PROJECT_ROOT, 'molsysmt')
 SOFT_DEPENDENCIES = {
     'mdtraj', 'MDAnalysis', 'openmm', 'openmmtools', 'parmed', 
-    'pytraj', 'nglview', 'pdbfixer', 'biopython', 'plotly', 'mmtf'
+    'pytraj', 'nglview', 'pdbfixer', 'biopython', 'plotly'
 }
 # Files exempt from the check (infrastructure)
 EXEMPT_FILES = {
     os.path.join(SRC_ROOT, '_depdigest.py'),
-    # Legacy/Third-party code wrapper (hard to refactor safely without breaking upstream compatibility)
-    os.path.join(SRC_ROOT, 'form', 'file_mmtf', 'to_mdtraj.py'), 
 }
 
 # Directories exempt from the check (Development tools, Tests, etc.)

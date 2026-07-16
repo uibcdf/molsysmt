@@ -1,7 +1,7 @@
 import numpy as np
 
 from molsysmt.native import ViewerJSON
-from molsysmt import convert
+from molsysmt import convert, get
 
 
 def _viewer_json():
@@ -28,3 +28,19 @@ def test_viewerjson_to_topology():
     assert topo.atoms.shape[0] == 2
     assert topo.bonds.shape[0] == 1
     assert list(topo.atoms["group_index"]) == [0, 0]
+
+
+def test_get_uses_native_attribute_pipes():
+    vjson = _viewer_json()
+
+    atom_indices, atom_ids, group_names = get(
+        vjson,
+        element='atom',
+        atom_index=True,
+        atom_id=True,
+        group_name=True,
+    )
+
+    assert atom_indices == [0, 1]
+    assert atom_ids == ['0', '1']
+    assert group_names == ['GRP', 'GRP']

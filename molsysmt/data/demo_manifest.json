@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "h5msm_target_version": "0.4",
+  "units": {
+    "coordinates": "nm",
+    "box": "nm",
+    "time": "ps"
+  },
+  "migration": {
+    "script": "molsysmt/data/_make/migrate_h5msm_demos_v04.py",
+    "source_format": "H5MSM 0.3",
+    "formal_charge": "unavailable_in_legacy_source",
+    "component_evidence": "unknown"
+  },
+  "artifacts": [
+    {"file":"181l.h5msm","source":{"kind":"pdb","id":"181L"},"recipe":"molsysmt/data/_make/t4_lysozyme_L99A.py","source_sha256":"9a5ca27dd389627c038d901c186f7e437f7955281bda333b42ec7ddb4676bb34","expected":[1441,302,141,141,5,6,1322,1]},
+    {"file":"1brs.h5msm","source":{"kind":"pdb","id":"1BRS"},"recipe":"molsysmt/data/_make/barnase_barstar.py","source_sha256":"b9597bf4dfccae4811682e27d85978bdf6c29da5dff522f647a0109d91d09928","expected":[5151,1101,521,519,3,12,4738,1]},
+    {"file":"1l17.h5msm","source":{"kind":"pdb","id":"1L17"},"recipe":"molsysmt/data/_make/t4_lysozyme_L99A.py","source_sha256":"0781814941dd4ed0b816d120072c092b07083e1e67e6bbf331183b819d280d11","expected":[1460,316,153,153,2,2,1328,1]},
+    {"file":"1l2y.h5msm","source":{"kind":"pdb","id":"1L2Y"},"recipe":"molsysmt/data/_make/trp-cage.py","source_sha256":"3e53a14f77dc2679efce353821740d61f736a919d99f8c18e80f90a2e0eb8253","expected":[304,20,1,1,1,1,310,38]},
+    {"file":"1tcd.h5msm","source":{"kind":"pdb","id":"1TCD"},"recipe":"molsysmt/data/_make/TcTIM.py","source_sha256":"ca630e35e4350b77dccfd9ab20c23320108a5c56bf96b0dbccb71ce4465f5808","expected":[3983,662,167,167,2,4,3890,1]},
+    {"file":"2nzt.h5msm","source":{"kind":"pdb","id":"2NZT"},"recipe":"molsysmt/data/_make/hexokinase_2.py","source_sha256":"d10d5ec8100236ea2883efa6074dc13e2be425ca0d81e8a49c1e971bf674216b","expected":[13546,1871,146,135,5,40,13618,1]},
+    {"file":"alanine_dipeptide.h5msm","source":{"kind":"builder","id":"AceAlaNme"},"recipe":"molsysmt/data/_make/alanine_dipeptide.py","source_sha256":"c8618b439694df3f4c41ec3451ac5a5981ea89446e50946cf5b8846918f29874","expected":[22,3,1,1,1,1,21,1]},
+    {"file":"barnase_barstar.h5msm","source":{"kind":"prepared_pdb","id":"1BRS-protein-complex"},"recipe":"molsysmt/data/_make/barnase_barstar.py","source_sha256":"2c915f8c8e62f3f2ee11499d47740beb12e703fd44356dc92907030bb94fa024","expected":[3159,199,2,2,2,1,3193,1]},
+    {"file":"chicken_villin_HP35.h5msm","source":{"kind":"prepared_pdb","id":"1VII-capped-pH7.4"},"recipe":"molsysmt/data/_make/chicken_villin_HP35.py","source_sha256":"74fc3771d9335f4ed039e15b0bbec4004e1e44a3773d42cbbec89771e877dd28","expected":[605,38,1,1,1,1,611,1]},
+    {"file":"chicken_villin_HP35_solvated.h5msm","source":{"kind":"prepared_pdb","id":"1VII-capped-pH7.4-solvated"},"recipe":"molsysmt/data/_make/chicken_villin_HP35.py","source_sha256":"d5c75e7dfc7b892676fb7a5cd44577f093c5697b0c32c49bf8a2fab900c7055d","expected":[4369,1294,1257,1257,3,2,3119,1]},
+    {"file":"lysine_dipeptide.h5msm","source":{"kind":"builder","id":"AceLysNme"},"recipe":"molsysmt/data/_make/lysine_dipeptide.py","source_sha256":"55edbb655e8634d1decc7d28702711991af84bca9eb59e82c1b4b29ad717a50b","expected":[34,3,1,1,1,1,33,1]},
+    {"file":"met_enkephalin.h5msm","source":{"kind":"builder","id":"TyrGlyGlyPheMet"},"recipe":"molsysmt/data/_make/met_enkephalin.py","source_sha256":"65655d23414022c69667ea1e2ca4f98aad37b73ea541efe7db2a512ff7b25f8c","expected":[72,5,1,1,1,1,73,1]},
+    {"file":"proline_dipeptide.h5msm","source":{"kind":"builder","id":"AceProNme"},"recipe":"molsysmt/data/_make/proline_dipeptide.py","source_sha256":"e165643b372675963a2118d3c5f1bdf75cd1ef315154e04e91b7c64a9eac2f7e","expected":[26,3,1,1,1,1,26,1]},
+    {"file":"t4_lysozyme_L99A.h5msm","source":{"kind":"prepared_pdb","id":"181L-protein-capped-pH7.4"},"recipe":"molsysmt/data/_make/t4_lysozyme_L99A.py","source_sha256":"d77926815f7cc3abc307f51b1abfb846f7d7056d4822e17b58e21cd799970e27","expected":[2626,166,3,3,3,3,2645,1]},
+    {"file":"traj_chicken_villin_HP35_solvated.h5msm","source":{"kind":"openmm_trajectory","id":"1VII-solvated-1ns"},"recipe":"molsysmt/data/_make/chicken_villin_HP35.py","source_sha256":"acf9f33d011130e53a1980799166ab7e2f601cf59b57670a0c5751dcbbff9aeb","expected":[4369,1294,1257,1257,3,2,3119,1]},
+    {"file":"traj_pentalanine.h5msm","source":{"kind":"bundled_trajectory","id":"pentalanine-5000-frames"},"recipe":"schema migration from independently counted legacy asset","source_sha256":"3eda9e887845b27073a498ae2d6e564596abbe52d1cbdca76870dd23fd98a285","expected":[62,7,1,1,1,1,61,5000]},
+    {"file":"valine_dipeptide.h5msm","source":{"kind":"builder","id":"AceValNme"},"recipe":"molsysmt/data/_make/valine_dipeptide.py","source_sha256":"6f32fadeb7feafafb3c14331838985634c6231bc949fbe6f7ff616488b78d828","expected":[28,3,1,1,1,1,27,1]}
+  ],
+  "expected_order": ["atoms", "groups", "components", "molecules", "entities", "chains", "bonds", "structures"]
+}

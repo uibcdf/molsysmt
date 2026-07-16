@@ -1,17 +1,21 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, NotSupportedSyntaxError
+from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError, NotSupportedSyntaxError
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt.element import _singular_element_to_plural
 from .selector import _dict_select, _dict_indices_to_selection
+from ._index_validation import normalize_mask, validate_element_indices, validate_structure_indices
+from molsysmt._private.chemical_state import resolve_chemical_state
 
 
 from smonitor import signal
 
 @signal(tags=['api', 'selection'])
 @arg_digest()
+@resolve_chemical_state
 def select(molecular_system, selection='all', structure_indices='all', element='atom',
-           mask=None, syntax='MolSysMT', to_syntax=None, skip_digestion=False):
+           mask=None, syntax='MolSysMT', to_syntax=None, chemical_state='reference',
+           skip_digestion=False):
     """
     Selecting elements from a molecular system.
 
@@ -36,11 +40,17 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
         Structural level on which the selection is applied. Returned indices correspond to this level.
     mask : str, tuple, list or numpy.ndarray, optional
-        Optional subset of elements to restrict the selection. It is applied as an intersection filter.
+        Optional subset of elements to restrict the selection. It can be a
+        selection string, a collection of 0-based indices, or a Boolean array
+        with one entry per element. It is applied as an intersection filter.
     syntax : str, default='MolSysMT'
         Syntax used to interpret the `selection` string. See :ref:`Introduction_Selection` for available syntaxes.
     to_syntax : str, optional
         If provided, returns the translated selection query string in the target syntax instead of indices.
+    chemical_state : {'reference', 'structure'} or int, default 'reference'
+        Chemical state used by state-dependent predicates and hierarchy
+        resolution. Integer values are 0-based state indices. ``'structure'``
+        resolves the unique state associated with `structure_indices`.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -63,18 +73,32 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     NotSupportedFormError
         Raised if the molecular system is provided in an unsupported form.
     ArgumentError
-        Raised if one or more input arguments are invalid.
+        Raised if a selection cannot be parsed or if an element, mask, or
+        structure index is outside the valid range.
 
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - The selection is always returned as indices corresponding to the specified element level,
-    unless a translation to another syntax is explicitly requested via `to_syntax`.
+      unless a translation to another syntax is explicitly requested via `to_syntax`.
+    - Explicit element and structure indices are non-negative and range checked.
+      Supported parser failures are exposed as :class:`molsysmt.ArgumentError`
+      while retaining the original exception as their cause.
     - When using the MolSysMT syntax, numeric comparisons on `*_id` fields (for example,
       ``atom_id<10``) are allowed as a convenience: if the underlying IDs are integer-like strings,
       they are temporarily converted to integers inside this function; otherwise a warning is issued
       and the comparison uses string semantics.
+    - Native chemical-state atom attributes, components, and connectivity are
+      resolved through ``chemical_state``. Missing values and ambiguous
+      multi-state systems raise explicit diagnostics instead of producing an
+      empty selection.
+    - With ``element='bond'``, MolSysMT predicates over canonical bond
+      attributes are evaluated directly and return bond indices.
+    - Explicit integer state selection currently requires a native Topology or
+      MolSys and the MolSysMT selection syntax.
+    - A structure selection spanning multiple associated states cannot return
+      one ordinary atom-index selection and is rejected.
 
     See Also
     --------
@@ -89,6 +113,18 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     >>> msm.basic.select(molsys, element='group', selection='group_name in ["HIS", "THR"]')
     [20, 25, 30, 33, 53, 58, 108, 114, 141, 150, 151, 154, 156]
 
+    Chemical-state attributes, such as ``formal_charge``, are also selectable
+    when available in the resolved native state.
+
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_atoms=3)
+    >>> msm.set(topology, element='atom', formal_charge=[0, 1, -1])
+    >>> msm.select(topology, 'formal_charge!=0', chemical_state=0)
+    [1, 2]
+    >>> topology._append_chemical_state_bonds([[0, 1]], is_aromatic=[True])
+    >>> msm.select(topology, 'bond_is_aromatic==True', element='bond')
+    [0]
+
     .. admonition:: Tutorial with more examples
 
        See the following tutorial for a practical demonstration of how to use this function,
@@ -101,6 +137,13 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     from molsysmt.basic import where_is_attribute
     from molsysmt.form import _dict_modules
 
+    if chemical_state != 'reference' and syntax != 'MolSysMT' and isinstance(selection, str):
+        raise ArgumentError(
+            argument='syntax',
+            value=syntax,
+            caller='molsysmt.select',
+        )
+
     if is_all(selection):
 
         attribute = 'n_'+_singular_element_to_plural[element]
@@ -111,7 +154,9 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
     elif isinstance(selection, (int, np.int64, np.int32)):
 
-        output_indices = [selection]
+        output_indices = validate_element_indices(
+            molecular_system, [selection], element, 'selection', 'molsysmt.select'
+        )
 
     elif selection is None:
 
@@ -121,7 +166,9 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
         if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
 
-            output_indices = list(selection)
+            output_indices = validate_element_indices(
+                molecular_system, selection, element, 'selection', 'molsysmt.select'
+            )
 
         else:
 
@@ -130,7 +177,8 @@ def select(molecular_system, selection='all', structure_indices='all', element='
             for tmp_selection in selection:
 
                 tmp_indices = select(molecular_system, selection=tmp_selection,
-                                     structure_indices=structure_indices, element=element, syntax=syntax,
+                                     structure_indices=structure_indices, element=element,
+                                     chemical_state=chemical_state, syntax=syntax,
                                      skip_digestion=True)
 
                 output_indices.append(tmp_indices)
@@ -138,12 +186,47 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     else:
 
         if syntax in _dict_select:
-            atom_indices = _dict_select[syntax](molecular_system, selection, structure_indices)
+            try:
+                structure_indices = validate_structure_indices(
+                    molecular_system, structure_indices, 'molsysmt.select'
+                )
+                direct_bond_selection = False
+                if syntax == 'MolSysMT' and element == 'bond':
+                    from .selector.molsysmt import (
+                        select_bonds_standard,
+                        selection_uses_bond_attributes,
+                    )
+
+                    direct_bond_selection = selection_uses_bond_attributes(selection)
+                if direct_bond_selection:
+                    output_indices = select_bonds_standard(molecular_system, selection)
+                else:
+                    atom_indices = _dict_select[syntax](molecular_system, selection, structure_indices)
+            except ArgumentError:
+                raise
+            except Exception as exc:
+                from smonitor.integrations import CatalogException
+
+                if isinstance(exc, CatalogException):
+                    raise
+                raise ArgumentError(
+                    argument='selection',
+                    value=selection,
+                    caller='molsysmt.select',
+                    cause=exc,
+                    message=(
+                        f"The selection could not be parsed with the {syntax!r} syntax: {exc}"
+                    ),
+                ) from exc
         else:
 
             raise NotSupportedSyntaxError(syntax=syntax)
 
-        if element == 'atom':
+        if direct_bond_selection:
+
+            pass
+
+        elif element == 'atom':
 
             output_indices = atom_indices
 
@@ -181,7 +264,10 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
     if (mask is not None) and (output_indices is not None):
         if isinstance(mask, str):
-            mask = select(molecular_system, selection=mask, element=element, syntax=syntax, skip_digestion=True)
+            mask = select(molecular_system, selection=mask, element=element,
+                          chemical_state=chemical_state, syntax=syntax, skip_digestion=True)
+        else:
+            mask = normalize_mask(molecular_system, mask, element, 'molsysmt.select')
         output_indices = np.intersect1d(output_indices, mask, assume_unique=True).tolist()
 
     if to_syntax is None:

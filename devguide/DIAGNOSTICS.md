@@ -1,31 +1,55 @@
-# SMonitor Integration
+# Diagnostics Contract
 
-MolSysMT uses SMonitor as the single diagnostics layer. All warnings and
-errors must be emitted through the catalog.
+SMonitor is the preferred structured diagnostics layer for MolSysMT. The
+catalog, exception classes, warning classes, and emitters live under
+`molsysmt/_private/smonitor`, with package configuration in
+`molsysmt/_smonitor.py`.
 
-## Required Files
-- `molsysmt/_smonitor.py`
-- `molsysmt/_private/smonitor/catalog.py`
-- `molsysmt/_private/smonitor/meta.py`
+This is a target contract, not a claim that all legacy paths have migrated.
+Direct `print`, standard warnings, bare exceptions, and swallowed emission
+failures still exist and must be treated as technical debt.
 
-## Rules
-- Emit through catalog entries only.
-- Use `molsysmt._private.smonitor.warn` for user warnings.
-- Inherit from `CatalogException` for all errors.
-- Keep user messages explicit and actionable.
-- Keep URLs in `meta.py` for consistent hints.
-- **Noise Control**: Use the `silence` list in `_smonitor.py` to suppress noisy third-party loggers (e.g., `pint`, `networkx`).
-- **Template Wiring**: Keep `CODES` and `SIGNALS` wired from `molsysmt/_private/smonitor/catalog.py` as the single source of truth.
-- **No Silent Emission Failures**: Avoid `except Exception: pass` in diagnostic emission paths; fallback to explicit warnings/logs.
-- **Probe Contract**: detection/probing paths must classify expected misses as
-  `DEBUG` telemetry, never as user-facing `ERROR`.
-- **Severity Contract**:
-  - `DEBUG`: expected probe misses and internal exploratory failures.
-  - `WARNING`: recoverable anomalies that may require user attention.
-  - `ERROR`: operation-level failures that prevent the requested result.
+## Severity
 
-## Implementation
-The diagnostic plumbing is centralized in `molsysmt/_private/smonitor/`.
-- `emitter.py`: Defines the `DiagnosticBundle` instance (`bundle`) and exports `warn`, `warn_once`, and `resolve`.
-- `exceptions.py`: Implementation of catalog-backed exceptions.
-- `warnings.py`: Implementation of catalog-backed warnings.
+- `DEBUG`: expected probes, internal decision context, and development detail;
+- `INFO`: relevant successful execution decisions or progress;
+- `WARNING`: recoverable behavior that may affect cost, fidelity, or outcome;
+- `ERROR`: a failure that prevents the requested result.
+
+An expected form/type probe miss returns `False` and must not appear as a
+user-facing error. A caught scientific failure is not a probe miss.
+
+## Catalog use
+
+- Reuse a suitable catalog entry before adding a new one.
+- Keep code, message template, severity, hints, and required `extra` fields
+  coherent.
+- Use catalog-backed exception and warning classes on maintained public paths.
+- Include `caller`, operation, form/backend, and scientifically relevant context
+  when the signal contract supports them.
+- Never let telemetry failure replace or hide the original scientific error.
+
+`warn()` and `warn_once()` centralize emission. Python's `warnings.warn()` is
+acceptable when emitting a catalog-backed warning instance if that is the local
+tested pattern; hardcoded strings and `print("Warning...")` are not equivalent.
+
+## Failure integrity
+
+- Do not use `except Exception: pass` around diagnostics, import warm-up, or
+  scientific execution without a narrowly justified fallback.
+- Do not downgrade arbitrary reducer or converter exceptions into corrupt-input
+  warnings.
+- Fallback must preserve the original cause and make any fidelity change
+  observable.
+- Success signals must be emitted only after the operation has produced a valid
+  result.
+
+## Validation
+
+Tests should assert exception/warning category, code or catalog key, actionable
+message, and required structured context. Catalog validation does not prove
+that every code path uses the catalog; migration requires source checks and
+behavioral tests.
+
+See `error_policy.md`, `SMONITOR_GUIDE.md`, and the confirmed diagnostic defects
+under `pending_bugs/`.

@@ -104,6 +104,8 @@ The builder API is intentionally strict:
 - `add_group()` accepts existing `atom_indices`, not unresolved references;
 - higher-level `add_*()` methods accept existing lower-level indices only;
 - `component` is never added manually and is always derived in `build()`.
+- `add_bond(..., bond_order=...)` accepts string or numeric scalar labels and
+  normalizes them to strings; `bond_type` accepts a string label.
 
 These rules keep the builder deterministic and avoid silent ambiguity during
 construction.

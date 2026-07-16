@@ -3,6 +3,7 @@ import pytest
 
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.arg_digestion.argument.atom_name import digest_atom_name
+from molsysmt._private.arg_digestion.argument.atom_ff_type import digest_atom_ff_type
 from molsysmt._private.arg_digestion.argument.atom_type import digest_atom_type
 from molsysmt._private.arg_digestion.argument.group_name import digest_group_name
 from molsysmt._private.arg_digestion.argument.group_type import digest_group_type
@@ -40,6 +41,12 @@ def test_name_and_type_digesters_accept_builder_optional_none_values():
     assert digest_molecule_type(None, caller="molsysmt.native.molsys_builder.MolSysBuilder.add_molecule") is None
     assert digest_entity_name(None, caller="molsysmt.native.molsys_builder.MolSysBuilder.add_entity") is None
     assert digest_entity_type(None, caller="molsysmt.native.molsys_builder.MolSysBuilder.add_entity") is None
+
+
+def test_atom_ff_type_supports_flags_and_label_collections():
+    assert digest_atom_ff_type(True, caller=GET_CALLER) is True
+    assert digest_atom_ff_type(('CT', 'HC')) == ['CT', 'HC']
+    assert digest_atom_ff_type(np.array(['CT', 'HC'])) == ['CT', 'HC']
 
 
 def test_name_and_type_digesters_support_boolean_and_form_converter_semantics():

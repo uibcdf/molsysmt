@@ -23,7 +23,6 @@ molsysmt.MolSys
    to_biopython_Seq
    to_biopython_SeqRecord
    to_file_h5msm
-   to_file_msmpk
    to_file_pdb
    to_file_psf
    to_mdtraj_Topology
@@ -46,4 +45,3 @@ molsysmt.MolSys
    to_string_amino_acids_3
    to_string_pdb_text
    to_XYZ
-

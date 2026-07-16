@@ -86,4 +86,3 @@ def get_form(molecular_system):
     check_form_tier(output)
 
     return output
-

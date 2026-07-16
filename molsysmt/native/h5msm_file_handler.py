@@ -1,16 +1,19 @@
 import h5py
 import numpy as np
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import FormatError
 from datetime import datetime
 
-h5msm_version = "0.3"
+h5msm_version = "0.4"
+supported_h5msm_versions = frozenset({'0.3', '0.4'})
 
 class H5MSMFileHandler():
     """Lightweight handler for reading and writing h5msm files."""
 
     def __init__(self, filename, io_mode='r', creator='MolSysMT', compression="gzip", compression_opts=4,
                  int_precision='single', float_precision='single', length_unit=None, time_unit=None, energy_unit=None,
-                 temperature_unit=None, charge_unit=None, mass_unit=None, closed=False, skip_digestion=False):
+                 temperature_unit=None, charge_unit=None, mass_unit=None, format_version=None,
+                 closed=False, skip_digestion=False):
         """Open or create an h5msm file with the desired storage options."""
 
         self.file = None
@@ -22,7 +25,8 @@ class H5MSMFileHandler():
                     compression_opts=compression_opts, int_precision=int_precision,
                     float_precision=float_precision, length_unit=length_unit, time_unit=time_unit,
                     energy_unit=energy_unit, temperature_unit=temperature_unit,
-                    charge_unit=charge_unit, mass_unit=mass_unit)
+                    charge_unit=charge_unit, mass_unit=mass_unit,
+                    format_version=format_version)
 
         elif io_mode=='r':
 
@@ -31,6 +35,20 @@ class H5MSMFileHandler():
         else:
 
             raise NotImplementedError
+
+        raw_version = self.file.attrs.get('version')
+        if isinstance(raw_version, bytes):
+            raw_version = raw_version.decode()
+        self.format_version = None if raw_version is None else str(raw_version)
+        if self.format_version not in supported_h5msm_versions:
+            self.file.close()
+            raise FormatError(
+                reason=(
+                    f'Unsupported H5MSM version {self.format_version!r}; '
+                    f'expected one of {sorted(supported_h5msm_versions)}.'
+                ),
+                caller='molsysmt.native.H5MSMFileHandler',
+            )
 
         if closed:
             self.file.close()
@@ -75,7 +93,7 @@ class H5MSMFileHandler():
 def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_opts=4,
         int_precision='single', float_precision='single', length_unit=None,
         time_unit=None, energy_unit=None, temperature_unit=None, charge_unit=None,
-        mass_unit=None):
+        mass_unit=None, format_version=None):
     """Create a new h5msm file on disk and initialize datasets."""
 
     if compression == 'lzf':
@@ -93,7 +111,14 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
 
     file = h5py.File(filename, "w")
 
-    file.attrs['version'] = h5msm_version
+    if format_version is None:
+        format_version = h5msm_version
+    if format_version not in supported_h5msm_versions:
+        raise FormatError(
+            reason=f'Cannot create unsupported H5MSM version {format_version!r}.',
+            caller='molsysmt.native.H5MSMFileHandler',
+        )
+    file.attrs['version'] = format_version
     file.attrs['type'] = "h5msm"
     file.attrs['creator'] = creator
     file.attrs['int_precision'] = int_precision
@@ -153,6 +178,8 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     atoms.create_dataset('atom_id', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('atom_name', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('atom_type', (0,), dtype=h5py.string_dtype(), maxshape=(None,), **global_dataset_options)
+    if format_version == '0.4':
+        atoms.create_dataset('isotope', (0,), dtype=np.uint16, maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('group_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('chain_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
     atoms.create_dataset('component_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options)
@@ -234,5 +261,8 @@ def _new_msmfile(filename, creator='MolSysMT', compression="gzip", compression_o
     structures_sd.create_dataset('kinetic_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
     structures_sd.create_dataset('potential_energy', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
     structures_sd.create_dataset('temperature', (0,), dtype=float_type, maxshape=(None,), **global_dataset_options)
+    structures_sd.create_dataset(
+        'chemical_state_index', (0,), dtype=int_type, maxshape=(None,), **global_dataset_options
+    )
 
     return file

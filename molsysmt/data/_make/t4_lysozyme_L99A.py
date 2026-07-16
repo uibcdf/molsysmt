@@ -20,14 +20,14 @@ for filename in files_to_be_purged:
     if os.path.isfile(filepath):
         os.remove(filepath)
 
-# 181l pdb, mmtf, h5msm files
+# 181l PDB and H5MSM files
 #print('Protein Data Bank files...')
 msm.convert('pdb_id:181l', to_form='181l.pdb')
 msm.convert('pdb_id:181l', to_form='181l.h5msm')
 shutil.move('181l.pdb', Path(data_dir, 'pdb/181l.pdb'))
 shutil.move('181l.h5msm', Path(data_dir, 'h5msm/181l.h5msm'))
 
-# 1l17 pdb, mmtf, h5msm files
+# 1l17 PDB and H5MSM files
 msm.convert('pdb_id:1l17', to_form='1l17.pdb')
 msm.convert('pdb_id:1l17', to_form='1l17.h5msm')
 shutil.move('1l17.pdb', Path(data_dir, 'pdb/1l17.pdb'))
@@ -42,4 +42,3 @@ molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_ter
 molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4)
 _ = msm.convert(molsys, to_form='t4_lysozyme_L99A.h5msm')
 shutil.move('t4_lysozyme_L99A.h5msm', Path(data_dir, 'h5msm/t4_lysozyme_L99A.h5msm'))
-

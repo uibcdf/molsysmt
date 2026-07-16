@@ -94,3 +94,7 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           devtools/tests/run_tiers.sh smoke
+
+      - name: Validate form contracts
+        shell: bash -l {0}
+        run: python devtools/scripts/validate_form_adapters.py

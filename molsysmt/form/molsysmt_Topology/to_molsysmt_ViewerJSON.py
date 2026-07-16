@@ -55,14 +55,25 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     atoms_block["chain_id"] = chain_id
     atoms_block["entity_id"] = entity_id
     atoms_block["element_symbol"] = _series_to_list(atoms_df['atom_type'])
-    atoms_block["formal_charge"] = []
+    formal_charge = topo._get_chemical_state_atom_attribute('formal_charge')
+    atoms_block["formal_charge"] = (
+        [] if formal_charge is None else _series_to_list(formal_charge)
+    )
 
-    bonds_df = topo.bonds
+    bonds_df = topo._get_chemical_state_bonds()
     atom_pairs = list(zip(_series_to_list(bonds_df['atom1_index']), _series_to_list(bonds_df['atom2_index'])))
     bonds_block = data["bonds"]
     bonds_block["atom_pairs"] = [list(pair) for pair in atom_pairs]
-    bonds_block["order"] = _series_to_list(bonds_df['order']) if 'order' in bonds_df else []
-    bonds_block["type"] = _series_to_list(bonds_df['type']) if 'type' in bonds_df else []
+    if 'bond_order' in bonds_df:
+        bonds_block["order"] = _series_to_list(bonds_df['bond_order'])
+    elif 'is_aromatic' in bonds_df:
+        bonds_block["order"] = [
+            'aromatic' if value is not None and bool(value) else None
+            for value in _series_to_list(bonds_df['is_aromatic'])
+        ]
+    else:
+        bonds_block["order"] = []
+    bonds_block["type"] = _series_to_list(bonds_df['bond_type']) if 'bond_type' in bonds_df else []
     bonds_block["indexA"] = [pair[0] for pair in atom_pairs]
     bonds_block["indexB"] = [pair[1] for pair in atom_pairs]
 

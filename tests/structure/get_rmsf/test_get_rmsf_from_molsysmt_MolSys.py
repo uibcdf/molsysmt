@@ -29,3 +29,30 @@ def test_get_rmsf_single_structure_is_zero():
     rmsf = msm.structure.get_rmsf(molsys, selection='backbone')
     rmsf_val = msm.pyunitwizard.get_value(rmsf, to_unit='nm')
     assert np.allclose(rmsf_val, 0.0, atol=1e-10)
+
+
+def test_get_rmsf_heavy_mode_matches_eager():
+    """Streaming RMSF agrees with eager execution across multiple chunks."""
+
+    path = systems['pentalanine']['traj_pentalanine.h5msm']
+    molsys = msm.convert(path, to_form='molsysmt.MolSys')
+    structure_indices = list(range(0, 5000, 37))
+    eager = msm.structure.get_rmsf(
+        molsys,
+        selection="backbone",
+        structure_indices=structure_indices,
+        heavy_mode="off",
+    )
+    chunked = msm.structure.get_rmsf(
+        path,
+        selection="backbone",
+        structure_indices=structure_indices,
+        heavy_mode="force",
+    )
+
+    np.testing.assert_allclose(
+        msm.pyunitwizard.get_value(chunked, to_unit="nm"),
+        msm.pyunitwizard.get_value(eager, to_unit="nm"),
+        rtol=0.0,
+        atol=1.0e-12,
+    )

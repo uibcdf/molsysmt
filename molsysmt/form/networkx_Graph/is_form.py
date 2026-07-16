@@ -1,7 +1,4 @@
 def is_form(item):
+    import networkx as nx
 
-    item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
-    output = (item_fullname == 'networkx.Graph')
-
-    return output
-
+    return isinstance(item, nx.Graph)

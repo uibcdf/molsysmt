@@ -50,12 +50,12 @@ def get_attributes(form, output_type='dictionary', skip_digestion=False):
     The following example illustrates the use of the function.
 
     >>> import molsysmt as msm
-    >>> dict_attributes = msm.form.get_attributes('file:mmtf')
+    >>> dict_attributes = msm.form.get_attributes('file:pdb')
     >>> dict_attributes['box']
     True
     >>> dict_attributes['forcefield']
     False
-    >>> dict_attributes = msm.form.get_attributes(['file:mmtf','molsysmt.MolecularMechanicsDict'])
+    >>> dict_attributes = msm.form.get_attributes(['file:pdb','molsysmt.MolecularMechanicsDict'])
     >>> dict_attributes['box']
     True
     >>> dict_attributes['forcefield']
@@ -87,4 +87,3 @@ def get_attributes(form, output_type='dictionary', skip_digestion=False):
         return output
     elif output_type=='list':
         return [att for att in output if output[att]]
-

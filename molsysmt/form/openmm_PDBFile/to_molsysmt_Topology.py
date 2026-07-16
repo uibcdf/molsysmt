@@ -12,7 +12,10 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', skip
     from molsysmt.form.openmm_Topology.to_molsysmt_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology
 
     tmp_item = item.topology
-    tmp_item = openmm_Topology_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, 
-                                                    structure_indices=structure_indices, skip_digestion=True)
+    tmp_item = openmm_Topology_to_molsysmt_Topology(
+        tmp_item,
+        atom_indices=atom_indices,
+        skip_digestion=True,
+    )
 
     return tmp_item

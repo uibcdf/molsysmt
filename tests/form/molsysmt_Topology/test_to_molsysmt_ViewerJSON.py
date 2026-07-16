@@ -18,7 +18,7 @@ def _minimal_topology():
     topo.atoms.loc[:, "atom_id"] = ["0", "1"]
     topo.atoms.loc[:, "atom_name"] = ["A", "B"]
     topo.atoms.loc[:, "group_index"] = [0, 0]
-    topo.atoms.loc[:, "component_index"] = [0, 0]
+    topo._set_component_indices([0, 0])
     topo.atoms.loc[:, "chain_index"] = [0, 0]
 
     topo.groups.loc[:, "group_id"] = ["10"]
@@ -41,7 +41,7 @@ def _minimal_topology():
 
     topo.bonds.loc[0, "atom1_index"] = 0
     topo.bonds.loc[0, "atom2_index"] = 1
-    topo.bonds.loc[0, "order"] = "1"
+    topo.bonds.loc[0, "bond_order"] = 1
 
     return topo
 

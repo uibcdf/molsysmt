@@ -1,8 +1,7 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
 from smonitor import signal
 import numpy as np
-from scipy.spatial.transform import Rotation
 from molsysmt import pyunitwizard as puw
 import gc
 
@@ -19,24 +18,24 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
 
     Two rotation representations are accepted:
 
-    * **numpy.ndarray** of shape ``(n_structures, n_groups, 3, 3)`` or
-      ``(1, 1, 3, 3)``: a per-structure (or broadcast) rotation matrix.
-    * **scipy.spatial.transform.Rotation**: a single ``Rotation`` object applied
-      to every frame.
+    * Array-like matrices of shape ``(3, 3)``, ``(n_structures, 3, 3)``, or
+      ``(n_structures, n_atoms, 3, 3)``.
+    * An object providing an ``apply(coordinates)`` method, such as
+      ``scipy.spatial.transform.Rotation``. SciPy is not required.
 
     Parameters
     ----------
     molecular_system : molecular system
         Input system in any form supported by MolSysMT.
-    rotation : numpy.ndarray or scipy.spatial.transform.Rotation or None
+    rotation : array-like or rotation-like object
         Rotation to apply.
 
-        * ``numpy.ndarray`` of shape ``(n_structures, 1, 3, 3)``: different
+        * array-like of shape ``(n_structures, 3, 3)``: different
           rotation per frame, same rotation for all atoms within a frame.
-        * ``numpy.ndarray`` of shape ``(1, 1, 3, 3)``: single rotation broadcast
-          to all frames.
-        * ``scipy.spatial.transform.Rotation``: single rotation applied to every
-          frame.
+        * array-like of shape ``(3, 3)``: single rotation broadcast to all frames.
+        * array-like of shape ``(n_structures, n_atoms, 3, 3)``: one rotation
+          per atom and frame.
+        * rotation-like object: its ``apply`` method is used for every frame.
     rotation_center : quantity or None, default None
         Centre of rotation as a PyUnitWizard length quantity of shape
         ``(n_structures, 1, 3)`` or ``(1, 1, 3)``.  When provided, coordinates
@@ -63,8 +62,39 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
 
     Raises
     ------
+    ArgumentError
+        If a matrix has an invalid shape, non-finite values, is not orthonormal,
+        or has a determinant other than +1.
     NotImplementedMethodError
         If ``rotation`` is not a supported type.
+    StructuralInconsistencyError
+        If the number of per-frame or per-atom matrices cannot be broadcast to
+        the selected coordinates.
+
+    Notes
+    -----
+    MolSysMT uses active proper rotations on row-vector coordinates. Distances
+    and handedness are therefore preserved.
+
+    See Also
+    --------
+    :func:`molsysmt.structure.translate`
+        Translate selected coordinates.
+    :func:`molsysmt.structure.least_rmsd_fit`
+        Estimate and apply a least-RMSD rigid transformation.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> coordinates = msm.pyunitwizard.quantity([[[1.0, 0.0, 0.0]]], 'nm')
+    >>> rotation = [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+    >>> rotated = msm.structure.rotate(coordinates, rotation=rotation)
+    >>> msm.pyunitwizard.get_value(rotated, to_unit='nm').round(12).tolist()
+    [[[0.0, 1.0, 0.0]]]
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_Rotate`.
 
     .. versionadded:: 1.0.0
     """
@@ -85,25 +115,41 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
 
         shape=rotation.shape
 
+        if shape[0] not in (1, coordinates.shape[0]):
+            raise StructuralInconsistencyError(
+                reason=(
+                    f"Rotation matrices provide {shape[0]} frames but the "
+                    f"coordinate selection contains {coordinates.shape[0]}."
+                ),
+                caller="molsysmt.structure.rotate",
+            )
+        if shape[1] not in (1, coordinates.shape[1]):
+            raise StructuralInconsistencyError(
+                reason=(
+                    f"Rotation matrices provide {shape[1]} atoms but the "
+                    f"coordinate selection contains {coordinates.shape[1]}."
+                ),
+                caller="molsysmt.structure.rotate",
+            )
+
         if shape[:2]==(1,1):
-            rotator = Rotation.from_matrix(rotation[0,0,:,:])
             for ii in range(coordinates.shape[0]):
-                coordinates[ii,:,:] = rotator.apply(coordinates[ii,:,:])
+                coordinates[ii,:,:] = coordinates[ii,:,:] @ rotation[0,0,:,:].T
         elif shape[1]==1:
             for ii in range(coordinates.shape[0]):
-                rotator = Rotation.from_matrix(rotation[ii,0,:,:])
-                coordinates[ii,:,:] = rotator.apply(coordinates[ii,:,:])
+                coordinates[ii,:,:] = coordinates[ii,:,:] @ rotation[ii,0,:,:].T
         else:
             for ii in range(coordinates.shape[0]):
+                rotation_frame = 0 if shape[0] == 1 else ii
                 for jj in range(coordinates.shape[1]):
-                    rotator = Rotation.from_matrix(rotation[ii,jj,:,:])
-                    coordinates[ii,jj,:] = rotator.apply(coordinates[ii,jj,:])
+                    coordinates[ii,jj,:] = (
+                        coordinates[ii,jj,:] @ rotation[rotation_frame,jj,:,:].T
+                    )
 
-    elif isinstance(rotation, Rotation):
+    elif callable(getattr(rotation, "apply", None)):
 
-        rotator = rotation
         for ii in range(coordinates.shape[0]):
-            coordinates[ii,:,:] = rotator.apply(coordinates[ii,:,:])
+            coordinates[ii,:,:] = rotation.apply(coordinates[ii,:,:])
 
     else:
 
@@ -132,4 +178,3 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
         gc.collect()
 
         return tmp_molecular_system
-

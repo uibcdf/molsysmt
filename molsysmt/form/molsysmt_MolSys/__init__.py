@@ -27,7 +27,6 @@ from .to_file_molsys_yaml import to_file_molsys_yaml
 from .to_molsysmt_Structures import to_molsysmt_Structures
 from .to_openmm_Topology import to_openmm_Topology
 from .to_XYZ import to_XYZ
-from .to_file_msmpk import to_file_msmpk
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_MolSysBuilder import to_molsysmt_MolSysBuilder
 from .to_molsysmt_MolSysDict import to_molsysmt_MolSysDict
@@ -94,7 +93,6 @@ _convert_to={
         'string:pdb_text': 'to_string_pdb_text',
         'string:amino_acids_1': 'to_string_amino_acids_1',
         'string:amino_acids_3': 'to_string_amino_acids_3',
-        'file:msmpk': 'to_file_msmpk',
         'file:h5msm': 'to_file_h5msm',
         'file:molsys_yaml': 'to_file_molsys_yaml',
         'file:pdb': 'to_file_pdb',

@@ -298,7 +298,7 @@ def test_memory_pressure_warning_emitted(pentalanine_h5msm, monkeypatch):
                 executor.execute()
 
             pressure_warnings = [w for w in caught if issubclass(w.category, MemoryPressureWarning)]
-            assert len(pressure_warnings) > 0, "MemoryPressureWarning was not emitted"
+            assert len(pressure_warnings) == 1
         finally:
             config.memory_pressure_threshold = old_threshold
             config.emit_heavy_telemetry = old_telemetry

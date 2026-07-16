@@ -31,7 +31,6 @@ omit =
     */form/file_topology_yaml/get_topological_attributes.py
     */form/MDAnalysis_AtomGroup/get_topological_attributes.py
     */form/mmcif_PdbxContainers_DataContainer/get_topological_attributes.py
-    */form/mmtf_MMTFDecoder/get_topological_attributes.py
     */form/molsysmt_GROFileHandler/get_topological_attributes.py
     */form/molsysmt_TopologyDict/get_topological_attributes.py
     */form/nglview_NGLWidget/get_topological_attributes.py
@@ -44,4 +43,3 @@ omit =
 
 [report]
 show_missing = True
-

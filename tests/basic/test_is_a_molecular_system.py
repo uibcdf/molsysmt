@@ -22,8 +22,12 @@ def test_native_structures_is_true(hp35_molsys):
     assert is_a_molecular_system(structs) is True
 
 
-def test_string_is_true():
-    assert is_a_molecular_system('some_string') is True
+def test_supported_string_is_true():
+    assert is_a_molecular_system('AVLYAWPA') is True
+
+
+def test_unsupported_string_is_false():
+    assert is_a_molecular_system('some_string') is False
 
 
 def test_invalid_object_is_false():

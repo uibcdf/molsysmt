@@ -31,6 +31,19 @@ This serializer family does **not** replace `h5msm`. The roles are different:
 - `h5msm` remains the compact native persistence format;
 - `molsys_yaml` is intended to stay readable, versionable, and easy to edit.
 
+## MolSysDict 0.1 fidelity boundary
+
+`MolSysDict` schema 0.1 stores atoms, groups, bonds, chains, molecules, entities,
+and the structural fields `structure_id`, `time`, `box`, and `coordinates`.
+Components are reconstructed during native materialization; their metadata is
+not serialized. Velocities, B factors, occupancy, and thermodynamic observables
+are available in `StructuresDict`, but not in `MolSysDict` 0.1. Extending this
+boundary requires a versioned schema migration.
+
+Conversions from `MolSys` to `MolSysDict` or `file:molsys_yaml` apply atom and
+structure selections before serialization. Atom subsets follow the canonical
+increasing source-index order used by native extraction.
+
 ## Naming model
 
 The design separates:

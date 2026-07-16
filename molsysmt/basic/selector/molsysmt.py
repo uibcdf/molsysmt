@@ -56,8 +56,17 @@ def select_standard(item, selection):
 
     form_in = get_form(item)
 
-    if form_in == 'molsysmt.Topology':
-        tmp_item = item
+    from molsysmt.native import MolSys, Topology
+
+    native_topologies = []
+    for candidate in item if isinstance(item, (list, tuple)) else [item]:
+        if isinstance(candidate, Topology):
+            native_topologies.append(candidate)
+        elif isinstance(candidate, MolSys):
+            native_topologies.append(candidate.topology)
+
+    if len(native_topologies) == 1:
+        tmp_item = native_topologies[0]
     else:
 
         conversion_needs_missing_bonds=False
@@ -137,6 +146,21 @@ def select_standard(item, selection):
         molecule_columns = []
         entity_columns = []
         chain_columns = []
+        atom_state_columns = {
+            'formal_charge': 'formal_charge',
+            'atom_is_aromatic': 'is_aromatic',
+            'n_unpaired_electrons': 'n_unpaired_electrons',
+            'n_implicit_hydrogens': 'n_implicit_hydrogens',
+            'allows_implicit_hydrogens': 'allows_implicit_hydrogens',
+            'atom_stereochemistry': 'stereochemistry',
+        }
+        requested_atom_state_columns = [
+            public_name for public_name in atom_state_columns
+            if public_name in tmp_selection
+        ]
+
+        if 'component_index' in tmp_selection:
+            atom_columns.append('component_index')
 
         for column in tmp_item.atoms.keys():
             if column in tmp_selection:
@@ -182,52 +206,33 @@ def select_standard(item, selection):
             if 'chain_index' not in atom_columns:
                 atom_columns.append('chain_index')
 
-        aux_df = None
+        from molsysmt._private.topology_expansion import expand_atom_dataframe
 
-        if len(entity_columns):
+        aux_df = expand_atom_dataframe(
+            tmp_item,
+            atom_columns=atom_columns,
+            group_columns=group_columns,
+            component_columns=component_columns,
+            molecule_columns=molecule_columns,
+            entity_columns=entity_columns,
+            chain_columns=chain_columns,
+        )
 
-            aux_df = pd.merge(tmp_item.molecules[molecule_columns], tmp_item.entities[entity_columns],
-                              left_on='entity_index', right_index=True)
+        for public_name in requested_atom_state_columns:
+            values = tmp_item._get_chemical_state_atom_attribute(
+                atom_state_columns[public_name]
+            )
+            if values is None:
+                from molsysmt._private.smonitor import StructuralInconsistencyError
 
-        if len(molecule_columns):
-
-            if aux_df is None:
-
-                aux_df = pd.merge(tmp_item.groups[group_columns], tmp_item.molecules[molecule_columns],
-                                  left_on='molecule_index', right_index=True)
-
-            else:
-
-                aux_df = pd.merge(tmp_item.groups[group_columns], aux_df,
-                                  left_on='molecule_index', right_index=True)
-
-        if len(group_columns):
-
-            if aux_df is None:
-
-                aux_df = pd.merge(tmp_item.atoms[atom_columns], tmp_item.groups[group_columns],
-                                  left_on='group_index', right_index=True)
-
-            else:
-
-                aux_df = pd.merge(tmp_item.atoms[atom_columns], aux_df,
-                                  left_on='group_index', right_index=True)
-
-        else:
-
-            aux_df = tmp_item.atoms[atom_columns]
-
-        if len(component_columns):
-
-            aux_df = pd.merge(aux_df, tmp_item.components[component_columns],
-                              left_on='component_index', right_index=True)
-
-        if len(chain_columns):
-
-            aux_df = pd.merge(aux_df, tmp_item.chains[chain_columns],
-                              left_on='chain_index', right_index=True)
-
-        aux_df = _collapse_merged_columns(aux_df.copy())
+                raise StructuralInconsistencyError(
+                    reason=(
+                        f'Selection requires chemical-state attribute {public_name!r}, '
+                        'but it is unavailable in the resolved state.'
+                    ),
+                    caller='molsysmt.basic.selector.molsysmt.select',
+                )
+            aux_df[public_name] = values
 
         id_columns = [column for column in aux_df.columns if column.endswith('_id')]
         numeric_id_columns = _id_columns_with_numeric_comparisons(tmp_selection, id_columns)
@@ -255,6 +260,72 @@ def select_standard(item, selection):
         del aux_df
 
     return output
+
+
+_PUBLIC_BOND_QUERY_COLUMNS = {
+    'bond_id': 'bond_id',
+    'bond_order': 'bond_order',
+    'fractional_bond_order': 'fractional_bond_order',
+    'bond_type': 'bond_type',
+    'bond_is_aromatic': 'is_aromatic',
+    'bond_is_conjugated': 'is_conjugated',
+    'bond_stereochemistry': 'stereochemistry',
+    'bond_donor_atom_index': 'donor_atom_index',
+    'bond_acceptor_atom_index': 'acceptor_atom_index',
+    'bond_joins_components': 'joins_components',
+    'bond_evidence': 'evidence',
+}
+
+
+def selection_uses_bond_attributes(selection):
+    """Return whether a query references a canonical bond-domain attribute."""
+
+    return any(attribute in selection for attribute in _PUBLIC_BOND_QUERY_COLUMNS)
+
+
+def select_bonds_standard(item, selection):
+    """Evaluate a MolSysMT query directly on the resolved bond table."""
+
+    from molsysmt.basic import convert
+    from molsysmt.native import MolSys, Topology
+    from molsysmt._private.smonitor import StructuralInconsistencyError
+
+    candidates = item if isinstance(item, (list, tuple)) else [item]
+    native_topologies = [
+        candidate.topology if isinstance(candidate, MolSys) else candidate
+        for candidate in candidates
+        if isinstance(candidate, (MolSys, Topology))
+    ]
+    topology = (
+        native_topologies[0]
+        if len(native_topologies) == 1
+        else convert(item, to_form='molsysmt.Topology', skip_digestion=True)
+    )
+    bonds = topology._get_chemical_state_bonds()
+    query = selection
+    query_frame = pd.DataFrame(index=range(len(bonds)))
+    query_frame['bond_index'] = np.arange(len(bonds), dtype=np.int64)
+
+    for public_name, native_name in _PUBLIC_BOND_QUERY_COLUMNS.items():
+        if public_name not in query:
+            continue
+        if native_name not in bonds:
+            raise StructuralInconsistencyError(
+                reason=(
+                    f'Selection requires chemical-state attribute {public_name!r}, '
+                    'but it is unavailable in the resolved state.'
+                ),
+                caller='molsysmt.basic.selector.molsysmt.select_bonds_standard',
+            )
+        query_frame[public_name] = bonds[native_name]
+
+    id_columns = [column for column in query_frame if column.endswith('_id')]
+    for column in _id_columns_with_numeric_comparisons(query, id_columns):
+        if _column_has_integer_strings(query_frame[column]):
+            query_frame[column] = pd.to_numeric(query_frame[column], errors='coerce')
+
+    query = query.replace('bond_index', 'index')
+    return query_frame.query(query, engine='python').index.to_list()
 
 
 def select_within(molecular_system, selection, structure_indices):
@@ -317,46 +388,6 @@ def select_bonded_to(molecular_system, selection):
 
 
 
-
-def _collapse_merged_columns(df):
-    suffix_pairs = {}
-    for column in df.columns:
-        if column.endswith('_x'):
-            base = column[:-2]
-            other = base + '_y'
-            if other in df.columns:
-                suffix_pairs[base] = (column, other)
-
-    for base, (left, right) in suffix_pairs.items():
-        left_series = df[left]
-        right_series = df[right]
-        if left_series.equals(right_series):
-            df[base] = left_series
-        else:
-            df[base] = left_series.where(~left_series.isna(), right_series)
-        df.drop(columns=[left, right], inplace=True)
-
-    return df
-
-def _collapse_merged_columns(df):
-    suffix_pairs = {}
-    for column in df.columns:
-        if column.endswith('_x'):
-            base = column[:-2]
-            other = base + '_y'
-            if other in df.columns:
-                suffix_pairs[base] = (column, other)
-
-    for base, (left, right) in suffix_pairs.items():
-        left_series = df[left]
-        right_series = df[right]
-        if left_series.equals(right_series):
-            df[base] = left_series
-        else:
-            df[base] = left_series.where(~left_series.isna(), right_series)
-        df.drop(columns=[left, right], inplace=True)
-
-    return df
 
 _aux_dict_in_elements_in = {
         'groups': ['components',

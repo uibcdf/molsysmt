@@ -1,82 +1,153 @@
-"""Support-tier mapping for MolSysMT forms.
-
-Only Tier 2 and Tier 3 forms are listed here.  Tier 1 forms produce no runtime
-signal, so they are omitted.  Unregistered forms are treated as Tier 1 by the
-SupportTierRegistry (i.e., silence).
+"""Defining the explicit support tier for every MolSysMT form adapter.
 
 Tier semantics
 --------------
 - Tier 1 (contractual): regressions are patch-priority; API is stable for 1.x.
 - Tier 2 (best-effort): supported and maintained, but not contractually
-  guaranteed for all workflows.  Emits a WARNING once per form per session.
+  guaranteed for all workflows. Emits a warning once per form per session.
 - Tier 3 (experimental / niche): available but outside the contractual 1.0.0
-  core.  Emits an INFO once per form per session.
+  core. Emits an info signal once per form per session.
 
-See devguide/support_tiers.ipynb for the authoritative tier classification.
+Every adapter must appear in :data:`FORM_TIERS`. Unknown forms are registry
+integrity failures; absence never implies Tier 1.
 """
 
 from __future__ import annotations
 
-#: Mapping from form name to support tier (2 or 3).
-#: Tier 1 forms are not listed; absence from this dict implies Tier 1.
+
+_TIER_1_FORMS = (
+    "MDAnalysis.topology.PDBParser",
+    "XYZ",
+    "cupy_ndarray",
+    "file:bcif",
+    "file:bcif.gz",
+    "file:cif",
+    "file:cif.gz",
+    "file:h5msm",
+    "file:mdcrd",
+    "file:molsys_yaml",
+    "file:pdb",
+    "file:structures_yaml",
+    "file:top",
+    "file:topology_yaml",
+    "file:xtc",
+    "file:xyz",
+    "file:xyznpy",
+    "mdtraj.AmberRestartFile",
+    "mdtraj.GroTrajectoryFile",
+    "mdtraj.PDBTrajectoryFile",
+    "mdtraj.Topology",
+    "mdtraj.Trajectory",
+    "mmcif.PdbxContainers.DataContainer",
+    "molsysmt.H5MSMFileHandler",
+    "molsysmt.MolSys",
+    "molsysmt.MolSysBuilder",
+    "molsysmt.MolSysDict",
+    "molsysmt.PDBFileHandler",
+    "molsysmt.Structures",
+    "molsysmt.StructuresDict",
+    "molsysmt.Topology",
+    "molsysmt.TopologyDict",
+    "molsysmt.ViewerJSON",
+    "molsysviewer.MolSysView",
+    "networkx.Graph",
+    "nglview.NGLWidget",
+    "openmm.AmberInpcrdFile",
+    "openmm.AmberPrmtopFile",
+    "openmm.CharmmCrdFile",
+    "openmm.CharmmPsfFile",
+    "openmm.Context",
+    "openmm.GromacsGroFile",
+    "openmm.GromacsTopFile",
+    "openmm.Modeller",
+    "openmm.PDBFile",
+    "openmm.Simulation",
+    "openmm.State",
+    "openmm.System",
+    "openmm.Topology",
+    "parmed.GromacsTopologyFile",
+    "pdbfixer.PDBFixer",
+    "string:alphafold_id",
+    "string:amino_acids_1",
+    "string:amino_acids_3",
+    "string:pdb_id",
+    "string:pdb_text",
+    "string:uniprot_id",
+)
+
+_TIER_2_FORMS = (
+    "biopython.Seq",
+    "biopython.SeqRecord",
+    "file:h5",
+    "mdtraj.HDF5TrajectoryFile",
+    "molsysmt.CIFFileHandler",
+    "molsysmt.GROFileHandler",
+)
+
+_TIER_3_FORMS = (
+    "MDAnalysis.AtomGroup",
+    "MDAnalysis.Topology",
+    "MDAnalysis.Universe",
+    "biopython.PDBStructure",
+    "file:crd",
+    "file:dcd",
+    "file:fasta",
+    "file:gro",
+    "file:inpcrd",
+    "file:mol2",
+    "file:pir",
+    "file:prmtop",
+    "file:psf",
+    "file:smi",
+    "file:trjpk",
+    "mdtraj.DCDTrajectoryFile",
+    "mdtraj.XTCTrajectoryFile",
+    "molsysmt.MolecularMechanics",
+    "molsysmt.MolecularMechanicsDict",
+    "openff.Molecule",
+    "openff.Topology",
+    "parmed.Structure",
+    "pytraj.Topology",
+    "pytraj.Trajectory",
+    "rdkit.Mol",
+    "string:smiles",
+)
+
 FORM_TIERS: dict[str, int] = {
-
-    # ------------------------------------------------------------------
-    # Tier 2 — best-effort
-    # ------------------------------------------------------------------
-    "file:mmtf":                   2,
-    "mmtf.MMTFDecoder":            2,
-    "biopython.Seq":               2,
-    "biopython.SeqRecord":         2,
-    "file:h5":                     2,
-    "molsysmt.CIFFileHandler":     2,
-    "molsysmt.GROFileHandler":     2,
-    "mdtraj.HDF5TrajectoryFile":   2,
-
-    # ------------------------------------------------------------------
-    # Tier 3 — experimental / niche
-    # ------------------------------------------------------------------
-    "parmed.Structure":            3,
-    "rdkit.Mol":                   3,
-    "biopython.PDBStructure":      3,
-    "MDAnalysis.Universe":         3,
-    "MDAnalysis.AtomGroup":        3,
-    "MDAnalysis.Topology":         3,
-    "pytraj.Trajectory":           3,
-    "pytraj.Topology":             3,
-    "file:fasta":                  3,
-    "file:pir":                    3,
-    "string:smiles":               3,
-    "file:smi":                    3,
-    "openff.Molecule":             3,
-    "openff.Topology":             3,
-    "file:dcd":                    3,
-    "file:mol2":                   3,
-    "file:crd":                    3,
-    "file:inpcrd":                 3,
-    "file:prmtop":                 3,
-    "file:psf":                    3,
-    "file:gro":                    3,
-    "file:trjpk":                  3,
-    "mdtraj.DCDTrajectoryFile":    3,
-    "mdtraj.XTCTrajectoryFile":    3,
-    "molsysmt.MolecularMechanics": 3,
-    "molsysmt.MolecularMechanicsDict": 3,
+    **dict.fromkeys(_TIER_1_FORMS, 1),
+    **dict.fromkeys(_TIER_2_FORMS, 2),
+    **dict.fromkeys(_TIER_3_FORMS, 3),
 }
 
 
+def get_form_tier(form_name: str) -> int | None:
+    """Returning the explicitly registered tier for a form."""
+    return FORM_TIERS.get(form_name)
+
+
 def check_form_tier(form_name: str) -> None:
-    """Emit a support-tier signal for *form_name* if it is Tier 2 or Tier 3.
+    """Emitting the explicitly registered support-tier signal for a form.
 
-    Signals are deduplicated: each form name fires at most once per session
-    regardless of how many times this function is called.
-
-    Tier 1 forms (and any form not in :data:`FORM_TIERS`) produce no signal.
+    Tier 1 forms produce no signal. Tier 2 and Tier 3 signals are deduplicated
+    by SMonitor. An unknown form indicates drift between adapter discovery and
+    the registry and therefore fails explicitly.
     """
-    tier = FORM_TIERS.get(form_name)
+    tier = get_form_tier(form_name)
     if tier is None:
+        from molsysmt._private.smonitor import InternalAlgorithmError
+
+        raise InternalAlgorithmError(
+            reason=(
+                f"Form '{form_name}' has no explicit support-tier entry. "
+                "Register it in molsysmt._private.form_tier.FORM_TIERS."
+            ),
+            caller="molsysmt._private.form_tier.check_form_tier",
+        )
+    if tier == 1:
         return
+
     from molsysmt._private.smonitor import bundle
+
     registry = bundle.tier_registry()
     if form_name not in registry._tiers:
         registry.register(form_name, tier)

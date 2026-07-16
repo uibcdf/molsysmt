@@ -17,7 +17,7 @@ def restore_pyunitwizard_config():
 # ---------------------------------------------------------------------------
 # Auto-apply tier marks to tests under tests/form/<form_dir>/
 # Tier is derived from molsysmt._private.form_tier.FORM_TIERS (single source
-# of truth).  Absence from that dict means Tier 1.
+# of truth). Every adapter must be registered explicitly.
 # ---------------------------------------------------------------------------
 
 def _build_form_dir_tier_map():
@@ -39,7 +39,7 @@ def _build_form_dir_tier_map():
         m = pattern.search(text)
         if m:
             form_name = m.group(1)
-            tier = FORM_TIERS.get(form_name, 1)
+            tier = FORM_TIERS[form_name]
             mapping[form_dir.name] = tier
     return mapping
 
@@ -156,12 +156,6 @@ def _base_hp35_pdb_molsys():
     assert molsys is not None
     return molsys
 
-
-@pytest.fixture(scope="session")
-def _base_hp35_mmtf_molsys():
-    molsys = msm.convert(systems['chicken villin HP35']['1vii.bcif'], to_form='molsysmt.MolSys')
-    assert molsys is not None
-    return molsys
 
 # T4 lysozyme variants
 
@@ -501,10 +495,6 @@ def lysine_molsys(_base_lysine_molsys):
 @pytest.fixture()
 def hp35_pdb_molsys(_base_hp35_pdb_molsys):
     return _base_hp35_pdb_molsys.copy()
-
-@pytest.fixture()
-def hp35_mmtf_molsys(_base_hp35_mmtf_molsys):
-    return _base_hp35_mmtf_molsys.copy()
 
 @pytest.fixture()
 def t4_h5msm_molsys(_base_t4_h5msm_molsys):

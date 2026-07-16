@@ -13,6 +13,47 @@ def ala_val_pro():
     return msm.build.build_peptide('AlaValPro', engine='MolSysMT')
 
 
+def test_tiled_water_uses_authoritative_bond_table():
+    from molsysmt.build.solvate import _build_tiled_water
+    from molsysmt.native import MolSys
+
+    tile = MolSys(
+        n_atoms=3,
+        n_groups=1,
+        n_components=1,
+        n_molecules=1,
+        n_chains=1,
+        n_bonds=2,
+        skip_digestion=True,
+    )
+    tile.topology.atoms['atom_name'] = ['O', 'H1', 'H2']
+    tile.topology.atoms['atom_type'] = ['O', 'H', 'H']
+    tile.topology.atoms['group_index'] = [0, 0, 0]
+    tile.topology._set_component_indices([0, 0, 0])
+    tile.topology.atoms['chain_index'] = [0, 0, 0]
+    tile.topology.groups['group_name'] = ['HOH']
+    tile.topology.groups['group_type'] = ['water']
+    tile.topology.groups['molecule_index'] = [0]
+    tile.topology.chains['chain_id'] = ['A']
+    tile.topology.chains['chain_name'] = ['A']
+    tile.topology.chains['chain_type'] = ['water']
+    tile.topology.bonds['atom1_index'] = [0, 0]
+    tile.topology.bonds['atom2_index'] = [1, 2]
+    tile.structures.coordinates = puw.quantity(
+        np.array([[[0.0, 0.0, 0.0], [0.1, 0.0, 0.0], [0.0, 0.1, 0.0]]]),
+        'nm',
+    )
+
+    tiled = _build_tiled_water(tile, 2, 1, 1, 1.0)
+
+    assert tiled.topology.bonds[['atom1_index', 'atom2_index']].values.tolist() == [
+        [0, 1],
+        [0, 2],
+        [3, 4],
+        [3, 5],
+    ]
+
+
 # ── basic smoke test ──────────────────────────────────────────────────────────
 
 def test_solvate_returns_molsys(ala_val_pro):

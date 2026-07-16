@@ -5,6 +5,7 @@ from molsysmt import lib as msmlib
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.execution import Reducer
+from molsysmt._private.weighted_geometry import prepare_weights
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
@@ -66,8 +67,10 @@ def get_center(molecular_system, selection='all', weights=None,
         Input system.
     selection : str, list, tuple or numpy.ndarray, default 'all'
         Atoms (or groups of atoms) to center; nested iterables are treated as groups.
-    weights : array-like, optional
-        Weights per atom (or concatenated per group) when computing centers.
+    weights : array-like or 'masses', optional
+        Non-negative weights per atom (or per group) when computing centers.
+        Use ``'masses'`` to compute centers of mass. Every group must have a
+        positive total weight.
     structure_indices : 'all' or array-like, default 'all'
         Structures/frames over which centers are computed.
     syntax : str, default 'MolSysMT'
@@ -90,13 +93,31 @@ def get_center(molecular_system, selection='all', weights=None,
 
     Raises
     ------
+    ArgumentError
+        If the atom or frame selection is empty, or weights are non-finite,
+        negative, or have zero total weight.
+    ArgumentLengthError
+        If the number of weights does not match the selected atoms.
     NotImplementedMethodError
         If an unsupported engine is requested.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
+    >>> msm.structure.get_center(molsys, weights='masses').shape
+    (1, 1, 3)
 
     .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import select, get
+    from molsysmt._private.structure_indices import ensure_nonempty_structure_indices
+
+    ensure_nonempty_structure_indices(
+        structure_indices,
+        caller="molsysmt.structure.get_center",
+    )
 
     if engine == 'MolSysMT':
 
@@ -108,10 +129,14 @@ def get_center(molecular_system, selection='all', weights=None,
                 get(molecular_system, element='system', n_atoms=True)
             n_structures = get(molecular_system, element='system', n_structures=True)
 
-            if weights is None:
-                weights_arr = np.ones((n_atoms,), dtype=np.float64)
-            else:
-                weights_arr = np.asarray(weights, dtype=np.float64)
+            weights_arr = prepare_weights(
+                weights,
+                n_atoms,
+                molecular_system=molecular_system,
+                selection=atom_indices,
+                syntax=syntax,
+                caller="molsysmt.structure.get_center",
+            )
 
             from molsysmt._private.execution import ChunkedExecutor
             from molsysmt._private.execution.memory_policy import estimate_footprint, decide_mode
@@ -153,10 +178,18 @@ def get_center(molecular_system, selection='all', weights=None,
             n_atoms_flat = len(groups_of_atoms)
             n_structures = get(molecular_system, element='system', n_structures=True)
 
-            if weights is None:
-                weights_arr = np.ones((n_atoms_flat,), dtype=np.float64)
-            else:
-                weights_arr = np.concatenate(weights).astype(np.float64)
+            if weights is not None and not isinstance(weights, str):
+                if is_iterable_of_iterables(weights):
+                    weights = np.concatenate(weights)
+            weights_arr = prepare_weights(
+                weights,
+                n_atoms_flat,
+                molecular_system=molecular_system,
+                selection=groups_of_atoms,
+                syntax=syntax,
+                group_sizes=atoms_per_group,
+                caller="molsysmt.structure.get_center",
+            )
 
             from molsysmt._private.execution.memory_policy import estimate_footprint, decide_mode
             from molsysmt.basic import get_form

@@ -9,7 +9,6 @@ data_dir = Path('../../../data')
 
 files_to_be_purged = [
         'pdb/5zmz.pdb',
-        'mmtf/5zmz.mmtf',
         ]
 
 for filename in files_to_be_purged:
@@ -22,8 +21,4 @@ for filename in files_to_be_purged:
 msm.convert('pdb_id:5zmz', to_form='5zmz.pdb')
 shutil.move('5zmz.pdb', Path(data_dir, 'pdb/5zmz.pdb'))
 
-msm.convert('pdb_id:5zmz', to_form='5zmz.mmtf')
-shutil.move('5zmz.mmtf', Path(data_dir, 'mmtf/5zmz.mmtf'))
-
 print('DONE')
-

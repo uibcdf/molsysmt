@@ -56,7 +56,8 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     NotSupportedFormError
         If the input or requested output form is not supported.
     ArgumentError
-        If input arguments are invalid or inconsistent.
+        If input arguments are invalid or inconsistent, including an
+        out-of-range structure index.
 
     Notes
     -----
@@ -99,6 +100,12 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     if output_filename is not None:
         to_form=output_filename
 
+    from ._index_validation import validate_structure_indices
+
+    structure_indices = validate_structure_indices(
+        molecular_system, structure_indices, 'molsysmt.extract'
+    )
+
     if to_form is not None:
 
         return convert(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
@@ -127,4 +134,3 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         output=output[0]
 
     return output
-

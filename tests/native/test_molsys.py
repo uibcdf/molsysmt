@@ -1,4 +1,5 @@
 import numpy as np
+import molsysmt as msm
 
 from molsysmt import pyunitwizard as puw
 from molsysmt.native.molsys import MolSys
@@ -80,7 +81,7 @@ def test_rebuild_wrappers_delegate_to_topology():
     molsys.topology.molecules = molsys.topology.molecules.iloc[0:0].copy()
     molsys.topology.entities = molsys.topology.entities.iloc[0:0].copy()
     molsys.topology.chains = molsys.topology.chains.iloc[0:0].copy()
-    molsys.topology.atoms['component_index'] = np.nan
+    molsys.topology._set_component_indices(np.nan)
     molsys.topology.atoms['chain_index'] = np.nan
     molsys.topology.groups['molecule_index'] = np.nan
 
@@ -105,3 +106,23 @@ def test_to_form_returns_topology_and_get_proxy_work():
 
     assert topology.n_atoms == molsys.topology.n_atoms
     assert atom_names == ['N', 'CA', 'O', 'H']
+
+
+def test_add_missing_bonds_appends_inferred_pairs_without_replacing_existing(monkeypatch):
+    molsys = build_minimal_molsys(n_structures=1)
+    original_pairs = molsys.topology._get_chemical_state_bonds()[
+        ['atom1_index', 'atom2_index']
+    ].values.tolist()
+
+    monkeypatch.setattr(
+        msm.build,
+        'get_missing_bonds',
+        lambda *args, **kwargs: [[2, 3]],
+    )
+
+    molsys.add_missing_bonds(skip_digestion=True)
+
+    pairs = molsys.topology._get_chemical_state_bonds()[
+        ['atom1_index', 'atom2_index']
+    ].values.tolist()
+    assert pairs == sorted(original_pairs + [[2, 3]])

@@ -25,6 +25,7 @@ def to_molsysmt_TopologyDict(item, skip_digestion=False):
             'atom_id': None if _normalize_scalar(row['atom_id']) is None else str(_normalize_scalar(row['atom_id'])),
             'atom_name': _normalize_scalar(row['atom_name']),
             'atom_type': _normalize_scalar(row['atom_type']),
+            'isotope': _normalize_scalar(row['isotope']),
         })
 
     atom_group_index = item.atoms['group_index'].to_numpy(dtype=object)
@@ -39,16 +40,23 @@ def to_molsysmt_TopologyDict(item, skip_digestion=False):
         })
 
     bonds = []
-    for bond_index in range(item.n_bonds):
-        row = item.bonds.iloc[bond_index]
+    bonds_df = item._get_chemical_state_bonds()
+    for bond_index in range(bonds_df.shape[0]):
+        row = bonds_df.iloc[bond_index]
         bond = {
             'atom_index_1': int(row['atom1_index']),
             'atom_index_2': int(row['atom2_index']),
         }
-        if 'order' in item.bonds.columns and _normalize_scalar(row.get('order', None)) is not None:
-            bond['bond_order'] = _normalize_scalar(row['order'])
-        if 'type' in item.bonds.columns and _normalize_scalar(row.get('type', None)) is not None:
-            bond['bond_type'] = _normalize_scalar(row['type'])
+        if 'bond_order' in bonds_df.columns and _normalize_scalar(row.get('bond_order', None)) is not None:
+            bond['bond_order'] = _normalize_scalar(row['bond_order'])
+        elif (
+            'is_aromatic' in bonds_df.columns
+            and _normalize_scalar(row.get('is_aromatic', None)) is not None
+            and bool(row['is_aromatic'])
+        ):
+            bond['bond_order'] = 'aromatic'
+        if 'bond_type' in bonds_df.columns and _normalize_scalar(row.get('bond_type', None)) is not None:
+            bond['bond_type'] = _normalize_scalar(row['bond_type'])
         bonds.append(bond)
 
     chains = []

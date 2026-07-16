@@ -59,7 +59,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 - **Normalization Passports**: Use `ValidatedPayload` from `argdigest` for internal high-frequency calls to bypass redundant unit and shape validation.
 - **Fast-Track Units**: Register canonical units (nm, ps, Da, K) in `puw.fast_track` within `molsysmt/_pyunitwizard.py` to enable instant unit bypass.
-- **Chunked Execution**: Large trajectories must be processed via the `ChunkedExecutor` (see `devguide/scalability_and_heavy_trajectories_v2.md`).
+- **Chunked Execution**: Large trajectories must be processed via the `ChunkedExecutor` (see `devguide/SCALABILITY.md`).
 
 ## Testing and validation
 

@@ -38,6 +38,9 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
     tmp_velocities = copy(item.velocities)
 
+    if tmp_velocities is None:
+        return None
+
     if not is_all(structure_indices):
         if not is_all(indices):
             tmp_velocities = tmp_velocities[np.ix_(structure_indices, indices)]
@@ -53,6 +56,9 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     if (indices is None) or (structure_indices is None):
+        return None
+
+    if getattr(item, '_occupancy', None) is None:
         return None
 
     tmp_occupancy = copy(item.occupancy)
@@ -147,6 +153,9 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
+        return None
+
+    if item.velocities is None:
         return None
 
     if is_all(structure_indices):
@@ -248,13 +257,53 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
         output = item.time[structure_indices]
     return output
 
+
+def _get_structure_series(value, structure_indices):
+    if structure_indices is None or value is None:
+        return None
+    if is_all(structure_indices):
+        return copy(value)
+    return value[structure_indices]
+
+
+@arg_digest(form=form)
+def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+    return _get_structure_series(item.temperature, structure_indices)
+
+
+@arg_digest(form=form)
+def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    return _get_structure_series(item.potential_energy, structure_indices)
+
+
+@arg_digest(form=form)
+def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    return _get_structure_series(item.kinetic_energy, structure_indices)
+
+
+@arg_digest(form=form)
+def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    potential_energy = get_potential_energy_from_system(
+        item,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    kinetic_energy = get_kinetic_energy_from_system(
+        item,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    if potential_energy is None or kinetic_energy is None:
+        return None
+    return potential_energy + kinetic_energy
+
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
     if structure_indices is None:
         return None
 
-    if item.time is None:
+    if item.structure_id is None:
         return None
 
     if is_all(structure_indices):
@@ -295,4 +344,3 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

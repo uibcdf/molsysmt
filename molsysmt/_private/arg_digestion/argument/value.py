@@ -38,6 +38,10 @@ def digest_value(value, caller=None):
             from .atom_type import digest_atom_type
             return digest_atom_type(value, caller=caller)
 
+        if caller.endswith('set_isotope_to_atom'):
+            from .isotope import digest_isotope
+            return digest_isotope(value, caller=caller)
+
         if caller.endswith('set_group_index_to_atom'):
             from .group_index import digest_group_index
             return digest_group_index(value, caller=caller)
@@ -117,6 +121,30 @@ def digest_value(value, caller=None):
         if caller.endswith('set_entity_type_to_atom'):
             from .entity_type import digest_entity_type
             return digest_entity_type(value, caller=caller)
+
+        if caller.endswith('set_formal_charge_to_atom'):
+            from .formal_charge import digest_formal_charge
+            return digest_formal_charge(value, caller=caller)
+
+        if caller.endswith('set_atom_is_aromatic_to_atom'):
+            from .atom_is_aromatic import digest_atom_is_aromatic
+            return digest_atom_is_aromatic(value, caller=caller)
+
+        if caller.endswith('set_n_unpaired_electrons_to_atom'):
+            from .n_unpaired_electrons import digest_n_unpaired_electrons
+            return digest_n_unpaired_electrons(value, caller=caller)
+
+        if caller.endswith('set_n_implicit_hydrogens_to_atom'):
+            from .n_implicit_hydrogens import digest_n_implicit_hydrogens
+            return digest_n_implicit_hydrogens(value, caller=caller)
+
+        if caller.endswith('set_allows_implicit_hydrogens_to_atom'):
+            from .allows_implicit_hydrogens import digest_allows_implicit_hydrogens
+            return digest_allows_implicit_hydrogens(value, caller=caller)
+
+        if caller.endswith('set_atom_stereochemistry_to_atom'):
+            from .atom_stereochemistry import digest_atom_stereochemistry
+            return digest_atom_stereochemistry(value, caller=caller)
 
         if caller.endswith('set_coordinates_to_atom'):
             from .coordinates import digest_coordinates
@@ -390,6 +418,33 @@ def digest_value(value, caller=None):
             from .entity_type import digest_entity_type
             return digest_entity_type(value, caller=caller)
 
+    # Bond chemical-state attributes
+
+    if caller.endswith('_to_bond'):
+        bond_attributes = (
+            'bond_id',
+            'bond_order',
+            'fractional_bond_order',
+            'bond_type',
+            'bond_is_aromatic',
+            'bond_is_conjugated',
+            'bond_stereochemistry',
+            'bond_stereo_atom_indices',
+            'bond_donor_atom_index',
+            'bond_acceptor_atom_index',
+            'bond_joins_components',
+            'bond_evidence',
+        )
+        for attribute in bond_attributes:
+            if caller.endswith(f'set_{attribute}_to_bond'):
+                from importlib import import_module
+
+                module = import_module(
+                    f'molsysmt._private.arg_digestion.argument.{attribute}'
+                )
+                digest = getattr(module, f'digest_{attribute}')
+                return digest(value, caller='molsysmt.basic.set.set')
+
 
     # System
 
@@ -398,6 +453,13 @@ def digest_value(value, caller=None):
         if caller.endswith('set_structure_id_to_system'):
             from .structure_id import digest_structure_id
             return digest_structure_id(value, caller=caller)
+
+        if caller.endswith('set_structure_chemical_state_index_to_system'):
+            from .structure_chemical_state_index import (
+                digest_structure_chemical_state_index,
+            )
+
+            return digest_structure_chemical_state_index(value, caller=caller)
 
         if caller.endswith('set_time_to_system'):
             from .time import digest_time

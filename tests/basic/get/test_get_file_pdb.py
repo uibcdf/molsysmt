@@ -27,6 +27,18 @@ def test_get_file_pdb_group_names(t4_pdb_file):
     assert np.all(group_names == expected)
 
 
+def test_get_file_pdb_single_attribute_through_topology_pipe(t4_pdb_file, t4_pdb_molsys):
+    atom_types = msm.get(t4_pdb_file, element='atom', selection=[0, 1, 2], atom_type=True)
+    expected = msm.get(t4_pdb_molsys, element='atom', selection=[0, 1, 2], atom_type=True)
+
+    assert np.array_equal(atom_types, expected)
+
+
+def test_get_file_pdb_does_not_claim_unstored_bond_ids(t4_pdb_file):
+    assert not msm.has_attribute(t4_pdb_file, attribute='bond_id')
+    assert msm.get(t4_pdb_file, element='bond', bond_id=True) is None
+
+
 def test_get_file_pdb_multimodel_counts(md_1u19_pdb_file, md_1u19_pdb_molsys):
     n_atoms, n_structures = msm.get(md_1u19_pdb_file, element='system', n_atoms=True, n_structures=True)
 

@@ -22,13 +22,10 @@ string:pdb_id
    to_file_bcif
    to_file_fasta
    to_file_h5msm
-   to_file_mmtf
-   to_file_msmpk
    to_file_pdb
    to_mdtraj_Topology
    to_mdtraj_Trajectory
    to_mmcif_PdbxContainers_DataContainer
-   to_mmtf_MMTFDecoder
    to_molsysmt_MolSys
    to_molsysmt_Structures
    to_molsysmt_Topology
@@ -38,4 +35,3 @@ string:pdb_id
    to_openmm_Topology
    to_pdbfixer_PDBFixer
    to_string_pdb_text
-

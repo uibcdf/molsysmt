@@ -13,7 +13,7 @@ form_name = 'file:h5'
 form_type = 'file'
 form_info = ["", ""]
 
-piped_topological_attribute = None
+piped_topological_attribute = 'mdtraj.Topology'
 piped_structural_attribute = None
 piped_any_attribute = None
 bonds_are_explicit = True

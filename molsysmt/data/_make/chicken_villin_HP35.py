@@ -29,7 +29,7 @@ for filename in files_to_be_purged:
 
 # Make
 
-# 1vii pdb and mmtf files
+# 1vii structure files
 print('Protein Data Bank files...')
 msm.convert('pdb_id:1vii', to_form='1vii.pdb')
 msm.convert('pdb_id:1vii', to_form='1vii.bcif')
@@ -84,4 +84,3 @@ final_positions = simulation.context.getState(getPositions=True).getPositions()
 shutil.move('traj_chicken_villin_HP35_solvated.dcd', Path(data_dir, 'dcd/traj_chicken_villin_HP35_solvated.dcd'))
 shutil.move('traj_chicken_villin_HP35_solvated.h5', Path(data_dir, 'h5/traj_chicken_villin_HP35_solvated.h5'))
 shutil.move('traj_chicken_villin_HP35_solvated.h5msm', Path(data_dir, 'h5msm/traj_chicken_villin_HP35_solvated.h5msm'))
-

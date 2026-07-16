@@ -68,6 +68,9 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     - All forms listed in :ref:`Introduction_Forms` are accepted for both source and target systems.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+    - Native MolSys targets preserve structure-to-chemical-state associations.
+      Multi-state structures are appended only when the ordered state
+      inventories match exactly.
 
     See Also
     --------
@@ -131,6 +134,18 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
 
     for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
 
+        if aux_to_form == 'molsysmt.MolSys':
+            source = extract(
+                from_molecular_system,
+                selection=selection,
+                structure_indices=structure_indices,
+                syntax=syntax,
+                to_form='molsysmt.MolSys',
+                skip_digestion=True,
+            )
+            aux_to_item.append_structures(source, skip_digestion=True)
+            continue
+
         _dict_modules[aux_to_form].append_structures(aux_to_item, structure_id=structure_id, time=time, coordinates=coordinates, box=box,
                 velocities=velocities)
 
@@ -138,4 +153,3 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         return to_molecular_system if _input_was_sequence else to_molecular_system[0]
     else:
         pass
-

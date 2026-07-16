@@ -1,4 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.variables import is_all
 from depdigest import dep_digest
 
 @arg_digest(form='molsysmt.MolSys')
@@ -16,9 +17,21 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
     tmp_item = StringIO(tmp_item)
     tmp_item = PDBFixer(pdbfile=tmp_item)
 
-    if item.topology.bonds.shape[0]>0:
+    bonds = item.topology._get_chemical_state_bonds()
+    if bonds.shape[0] > 0:
 
-        bonds_before = item.topology.bonds[['atom1_index', 'atom2_index']].to_numpy().tolist()
+        if is_all(atom_indices):
+            selected_atom_indices = list(range(item.topology.n_atoms))
+        else:
+            selected_atom_indices = [int(ii) for ii in atom_indices]
+        output_index = {source_index: target_index for target_index, source_index in enumerate(selected_atom_indices)}
+
+        bonds_before = []
+        for bond in bonds.itertuples(index=False):
+            atom1_index = int(bond.atom1_index)
+            atom2_index = int(bond.atom2_index)
+            if atom1_index in output_index and atom2_index in output_index:
+                bonds_before.append(sorted((output_index[atom1_index], output_index[atom2_index])))
 
         bonds_after = []
         for ii in tmp_item.topology.bonds():
@@ -27,7 +40,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
             else:
                 bonds_after.append([ii.atom2.index, ii.atom1.index])
 
-        missing_bonds = set([tuple(ii) for ii in bonds_before]) - set([tuple(ii) for ii in bonds_after])
+        missing_bonds = {tuple(ii) for ii in bonds_before} - {tuple(ii) for ii in bonds_after}
 
         if len(missing_bonds):
 

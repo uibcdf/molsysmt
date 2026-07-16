@@ -53,7 +53,8 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     NotSupportedFormError
         If the molecular system is provided in an unsupported form.
     ArgumentError
-        If the selection or structure_indices are invalid or incompatible with the system.
+        If the selection or `structure_indices` are invalid or incompatible
+        with the system. Explicit structure indices are range checked.
 
     Notes
     -----
@@ -94,6 +95,13 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     atom_indices_to_be_kept = 'all'
     structure_indices_to_be_kept = 'all'
 
+    if structure_indices is not None:
+        from ._index_validation import validate_structure_indices
+
+        structure_indices = validate_structure_indices(
+            molecular_system, structure_indices, 'molsysmt.remove'
+        )
+
     if selection is not None:
         atom_indices_to_be_removed = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
         atom_indices_to_be_kept = complementary_atom_indices(molecular_system, atom_indices_to_be_removed)
@@ -113,4 +121,3 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
             tmp_item = tmp_item[0]
 
     return tmp_item
-

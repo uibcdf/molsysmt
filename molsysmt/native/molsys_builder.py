@@ -132,7 +132,7 @@ class MolSysBuilder:
         self.topology.atoms.loc[atom_index, "atom_type"] = self._normalize_optional_string(atom_type, default="UNK")
 
         self.topology.atoms.loc[atom_index, "group_index"] = pd.NA
-        self.topology.atoms.loc[atom_index, "component_index"] = pd.NA
+        self.topology._set_component_indices(pd.NA, atom_indices=atom_index)
         self.topology.atoms.loc[atom_index, "chain_index"] = pd.NA
 
         return atom_index
@@ -164,26 +164,72 @@ class MolSysBuilder:
     @signal(tags=["native", "builder"])
     @arg_digest()
     def add_bond(self, atom_index_1, atom_index_2, bond_order=None, bond_type=None, skip_digestion=False):
+        """Adding a bond between two declared atoms.
+
+        Parameters
+        ----------
+        atom_index_1 : int
+            Index of the first bonded atom.
+        atom_index_2 : int
+            Index of the second bonded atom.
+        bond_order : str, int or float, optional
+            Formal or fractional bond order. The legacy labels ``single``,
+            ``double``, ``triple``, ``quadruple``, and ``aromatic`` are
+            normalized into their dedicated chemical fields.
+        bond_type : str, optional
+            Chemical relationship kind: ``covalent``, ``dative``, or
+            explicitly ``unknown``. Legacy order labels supplied here are
+            normalized as bond order rather than retained as bond type.
+        skip_digestion : bool, default False
+            Whether to skip argument digestion.
+
+        Returns
+        -------
+        int
+            Index of the added bond after canonical bond sorting.
+
+        Raises
+        ------
+        ArgumentError
+            If a bond label has an unsupported type.
+        StructuralInconsistencyError
+            If either atom index is outside the declared topology.
+
+        Examples
+        --------
+        >>> import molsysmt as msm
+        >>> builder = msm.MolSysBuilder()
+        >>> atom_1 = builder.add_atom(atom_name="C")
+        >>> atom_2 = builder.add_atom(atom_name="O")
+        >>> builder.add_bond(atom_1, atom_2, bond_order=2, bond_type="covalent")
+        0
+
+        .. versionadded:: 1.0.0
+        """
 
         atom_indices = np.asarray([atom_index_1, atom_index_2], dtype=int)
         self._validate_existing_indices(atom_indices, upper_bound=self.topology.n_atoms, element_name="Bond")
 
-        bond_index = self.topology.n_bonds
-        self.topology.bonds.loc[bond_index, "atom1_index"] = int(atom_index_1)
-        self.topology.bonds.loc[bond_index, "atom2_index"] = int(atom_index_2)
-        self.topology.bonds.loc[bond_index, "order"] = self._normalize_optional_string(bond_order, default=pd.NA)
-        self.topology.bonds.loc[bond_index, "type"] = self._normalize_optional_string(bond_type, default=pd.NA)
-        self.topology.bonds._sort_bonds()
-        self.topology.bonds.reset_index(drop=True, inplace=True)
+        self.topology._append_chemical_state_bonds(
+            [[int(atom_index_1), int(atom_index_2)]],
+            orders=self._normalize_optional_string(bond_order, default=pd.NA),
+            types=self._normalize_optional_string(bond_type, default=pd.NA),
+        )
 
-        return bond_index
+        endpoint_pair = sorted((int(atom_index_1), int(atom_index_2)))
+        bonds = self.topology._get_chemical_state_bonds()
+        matches = (
+            bonds['atom1_index'].eq(endpoint_pair[0])
+            & bonds['atom2_index'].eq(endpoint_pair[1])
+        )
+        return int(np.flatnonzero(matches.to_numpy())[0])
 
     @signal(tags=["native", "builder"])
     @arg_digest()
     def remove_bonds(self, bond_indices="all", skip_digestion=False):
 
         if bond_indices == "all":
-            self.topology.bonds = self.topology.bonds.__class__(n_bonds=0)
+            self.topology._remove_chemical_state_bonds(bond_indices="all")
             return
 
         bond_indices = self._indices_array(bond_indices)
@@ -193,8 +239,7 @@ class MolSysBuilder:
             element_name="Bond",
         )
 
-        self.topology.bonds.drop(bond_indices, inplace=True)
-        self.topology.bonds.reset_index(drop=True, inplace=True)
+        self.topology._remove_chemical_state_bonds(bond_indices=bond_indices)
 
     @signal(tags=["native", "builder"])
     @arg_digest()
@@ -386,7 +431,7 @@ class MolSysBuilder:
         if topology.n_groups == 0:
             return
         atom_component_index = infer_component_indices_from_topology(topology)
-        topology.atoms["component_index"] = atom_component_index.astype(int)
+        topology._set_component_indices(atom_component_index)
         n_components = int(np.max(atom_component_index)) + 1 if len(atom_component_index) > 0 else 0
         topology.reset_components(n_components=n_components)
         topology.rebuild_components(redefine_indices=False, redefine_ids=True, redefine_types=True, redefine_names=True)
@@ -452,12 +497,11 @@ class MolSysBuilder:
     def _finalize_topology(self):
         topology = self.topology.copy()
         topology._coerce_id_columns_to_string()
-        if not hasattr(topology.bonds, "_sort_bonds"):
-            tmp_bonds = topology.bonds.copy()
-            topology.reset_bonds(n_bonds=tmp_bonds.shape[0])
-            for column in tmp_bonds.columns:
-                topology.bonds[column] = tmp_bonds[column].values
-        topology.bonds._sort_bonds()
+        bonds = topology._get_chemical_state_bonds()
+        if not hasattr(bonds, "_sort_bonds"):
+            topology._set_chemical_state_bonds(bonds)
+            bonds = topology._get_chemical_state_bonds()
+        bonds._sort_bonds()
         self._ensure_group_membership(topology)
         topology.groups["group_id"] = self._fill_missing_string_ids(topology.groups["group_id"])
         topology.rebuild_groups(redefine_ids=False, redefine_types=True)

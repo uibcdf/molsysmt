@@ -185,6 +185,25 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     tmp_item.close()
     return output
 
+
+@arg_digest(form=form)
+def get_structure_chemical_state_index_from_system(
+    item, structure_indices='all', skip_digestion=False
+):
+    """Getting nullable chemical-state indices aligned to stored structures."""
+
+    from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+    from molsysmt.form.molsysmt_H5MSMFileHandler import (
+        get_structure_chemical_state_index_from_system as aux_get,
+    )
+
+    tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    output = aux_get(
+        tmp_item, structure_indices=structure_indices, skip_digestion=True
+    )
+    tmp_item.close()
+    return output
+
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
@@ -255,4 +274,3 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
 # List of functions to be imported
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-

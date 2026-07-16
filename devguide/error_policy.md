@@ -1,55 +1,55 @@
-"""
-MolSysMT Developer Guide — Error and Warning Policy
-"""
-
 # Error and Warning Policy
 
-## Single Source of Truth
-All diagnostics must emit through SMonitor catalogs. Do not hardcode warning
-or error messages in code paths.
+Maintained public paths should use the catalog-backed classes and helpers in
+`molsysmt._private.smonitor`. Legacy deviations do not establish precedent.
 
-## Argument Errors
-Use specific subclasses for argument validation issues to provide richer feedback:
+## Choosing a failure
 
-- `ArgumentChoiceError`: When a value is not in the allowed set of choices.
-- `ArgumentLengthError`: When list/array lengths do not match expected dimensions.
-- `ArgumentConflictError`: When mutually exclusive arguments are provided.
+- Use a specific argument exception for invalid choices, lengths, conflicts,
+  shapes, units, or types.
+- Use capability/conversion exceptions for unsupported forms, engines,
+  syntaxes, methods, or routes.
+- Use structural or algorithm errors when accepted molecular data violate an
+  invariant or computation cannot produce a scientifically valid result.
+- Preserve the original exception with chaining when translating an external
+  dependency failure.
 
 Example:
+
 ```python
 raise ArgumentChoiceError(
     argument="element",
     value=element,
     choices=["atom", "group"],
-    caller="my_func"
+    caller="molsysmt.example",
 )
 ```
 
-## Exceptions
-All custom exceptions must inherit from `smonitor.integrations.CatalogException` (or a local wrapper). 
-They should define a `catalog_key` that matches an entry in `molsysmt/_private/smonitor/catalog.py`.
+Do not introduce new bare `Exception`, `NotImplementedError`, `ValueError`, or
+hardcoded warning strings on public paths when a domain exception exists.
 
-Example:
-```python
-class ArgumentError(MolSysMTCatalogException):
-    catalog_key = "ArgumentError"
-```
+## Predicates and probes
 
-## Warning Categories
-Warnings should inherit from `smonitor.integrations.CatalogWarning`. Use the `warn` or `warn_once` helpers from `molsysmt._private.smonitor` to emit them.
+`is_form`, `is_item`, `is_quantity`, and similar probes return `False` for a
+normal non-match. They may report that outcome at debug level. Malformed data
+after a positive identification, dependency failures, and internal defects must
+not be swallowed as `False`.
 
-## Probing Policy (Form/Type Detection)
-Exploratory checks such as `is_form`, `is_item`, `is_quantity`, and `is_unit`
-must behave as predicates:
+## Recoverable behavior
 
-- A non-matching candidate is an expected outcome and must return `False`.
-- Expected probe misses must not surface as `ERROR` in user-facing profiles.
-- Probe misses may be emitted as `DEBUG` for developer telemetry.
-- `WARNING` and `ERROR` are reserved for actionable anomalies and real failures.
+A warning is appropriate only when the operation can still return a valid,
+well-defined result. The warning must state the fallback, scientific impact, or
+user action. If validity or alignment is uncertain, fail instead.
 
-This policy applies across the MolSysSuite stack (`molsysmt`, `pyunitwizard`,
-`argdigest`, `depdigest`, and `smonitor`) to avoid noisy diagnostics during
-normal detection paths.
+## Structured context
 
-## Required Extras
-Follow `SIGNALS` contracts in `molsysmt/_private/smonitor/catalog.py`.
+Follow the catalog signal contract. Prefer stable context fields such as
+`caller`, `operation`, `form`, `engine`, `backend`, `argument`, and original
+cause. Avoid embedding all context only in prose.
+
+## Migration rule
+
+When touching a legacy path with `print`, bare exceptions, or silent fallback,
+migrate the affected branch and add a regression test when this can be done
+without expanding the requested change materially. Broader migration belongs in
+an explicit proposal and should be prioritized by public/scientific risk.

@@ -1,68 +1,72 @@
+"""Converting an OpenFF molecule into normalized native chemical-state storage."""
+
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 
 
-def _openff_bond_metadata(bond):
-    order = getattr(bond, "bond_order", None)
-    aromatic = bool(getattr(bond, "is_aromatic", False))
-    if aromatic:
-        return "aromatic", "aromatic"
-    if order is None:
-        return None, None
+def _formal_charge_value(atom):
+    charge = getattr(atom, 'formal_charge', None)
     try:
-        if float(order).is_integer():
-            order_value = str(int(order))
-        else:
-            order_value = str(order)
+        return int(charge.m)
     except Exception:
-        order_value = str(order)
-    return order_value, order_value
+        try:
+            return int(charge)
+        except Exception:
+            return None
+
+
+def _fractional_order_value(bond):
+    value = getattr(bond, 'fractional_bond_order', None)
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except Exception:
+        return None
 
 
 @arg_digest(form='openff.Molecule')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """Converting independent OpenFF atom and bond chemical fields."""
 
+    import pandas as pd
     from molsysmt.native import Topology
 
-    n_atoms = item.n_atoms
-    n_bonds = item.n_bonds
+    tmp_item = Topology(n_atoms=item.n_atoms)
+    atoms = list(item.atoms)
+    tmp_item.atoms['atom_id'] = [str(atom.molecule_atom_index) for atom in atoms]
+    tmp_item.atoms['atom_name'] = [
+        atom.name if atom.name else f'{atom.symbol}{atom.molecule_atom_index}'
+        for atom in atoms
+    ]
+    tmp_item.atoms['atom_type'] = [atom.symbol for atom in atoms]
 
-    tmp_item = Topology(n_atoms=n_atoms)
+    atom_attributes = {
+        'formal_charge': [_formal_charge_value(atom) for atom in atoms],
+        'is_aromatic': [bool(atom.is_aromatic) for atom in atoms],
+        'stereochemistry': [
+            atom.stereochemistry if atom.stereochemistry is not None else pd.NA
+            for atom in atoms
+        ],
+    }
+    for attribute, values in atom_attributes.items():
+        tmp_item._set_chemical_state_atom_attribute(attribute, values)
 
-    atom_id = []
-    atom_name = []
-    atom_type = []
-
-    for atom in item.atoms:
-        idx = atom.molecule_atom_index
-        symbol = atom.symbol
-        name = atom.name if atom.name else symbol + str(idx)
-        atom_id.append(str(idx))
-        atom_name.append(name)
-        atom_type.append(symbol)
-
-    tmp_item.atoms['atom_id'] = atom_id
-    tmp_item.atoms['atom_name'] = atom_name
-    tmp_item.atoms['atom_type'] = atom_type
-
-    if n_bonds > 0:
-        bonded_atoms = []
-        metadata_by_pair = {}
-        for bond in item.bonds:
-            atom_i = bond.atom1_index
-            atom_j = bond.atom2_index
-            bonded_atoms.append([atom_i, atom_j])
-            metadata_by_pair[tuple(sorted((atom_i, atom_j)))] = _openff_bond_metadata(bond)
-        tmp_item.add_bonds(bonded_atoms, skip_digestion=True)
-        bond_orders = []
-        bond_types = []
-        for _, row in tmp_item.bonds.iterrows():
-            key = tuple(sorted((int(row['atom1_index']), int(row['atom2_index']))))
-            order, bond_type = metadata_by_pair.get(key, (None, None))
-            bond_orders.append(order)
-            bond_types.append(bond_type)
-        tmp_item.bonds['order'] = bond_orders
-        tmp_item.bonds['type'] = bond_types
+    bonds = list(item.bonds)
+    if bonds:
+        tmp_item._append_chemical_state_bonds(
+            [[bond.atom1_index, bond.atom2_index] for bond in bonds],
+            bond_id=[str(index) for index in range(len(bonds))],
+            bond_order=[
+                pd.NA if bond.bond_order is None else int(bond.bond_order)
+                for bond in bonds
+            ],
+            fractional_bond_order=[_fractional_order_value(bond) for bond in bonds],
+            bond_type=['covalent'] * len(bonds),
+            is_aromatic=[bool(bond.is_aromatic) for bond in bonds],
+            evidence=['explicit'] * len(bonds),
+        )
+    tmp_item._chemical_states[0].connectivity_completeness = 'complete'
 
     tmp_item.rebuild_components()
     tmp_item.rebuild_molecules()
@@ -70,6 +74,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     if not is_all(atom_indices):
         from molsysmt.form.molsysmt_Topology.extract import extract
+
         tmp_item = extract(tmp_item, atom_indices=atom_indices, skip_digestion=True)
 
     return tmp_item

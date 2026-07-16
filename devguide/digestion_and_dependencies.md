@@ -1,7 +1,9 @@
 # Digestion and Dependencies
 
 ## Argument Digestion (`arg_digest`)
-- All public functions must validate inputs with `@arg_digest`.
+- Public functions that accept user-facing values requiring normalization should
+  validate them with `@arg_digest`; classes, predicates, compatibility wrappers,
+  and thin helpers follow their local contract.
 - The ArgDigest configuration lives in `molsysmt/_argdigest.py`.
 - Place `@dep_digest` **below** `@arg_digest` so it works on normalized args.
 - For quantity strings, digesters must parse with `puw.parse.parse(...)`
@@ -25,15 +27,23 @@ example was structural coordinates:
 - `molsysmt.lib.structure._kernel_inputs` now holds the extra preparation
   required specifically by structure kernels.
 
-### Universal Digestion
-As of the 1.0.0 stabilization, *every* function in *every* form module (including internal delegates like `get`, `set`, and `extract` inside `__init__.py`) must be decorated with `@arg_digest`. This ensures that data normalization happens even in deep conversion chains.
+### Digestion boundaries
+
+Public functions and adapter entry points use `@arg_digest` when they accept
+user-facing values requiring normalization. Small private helpers must remain
+focused and should not be decorated merely to satisfy a blanket rule. Trusted
+internal calls may use passports or `skip_digestion=True` only after their
+inputs have been normalized at a clear boundary.
 
 ### 🎫 The Passport Protocol (`ValidatedPayload` Bypass)
 
 To avoid crippling overhead when a decorated public function internally calls another decorated function, MolSysMT implements the **Passport Protocol** utilizing `argdigest`'s `ValidatedPayload`.
 
 #### 1. What is the Passport Protocol?
-When an object is validated once at the entry boundary of the public API, it can be wrapped in a `ValidatedPayload` (a passport). When this passport is passed as an argument to another function decorated with `@arg_digest`, the decorator automatically detects it, **bypasses standard digestion entirely (Zero-Latency)**, and forwards the pre-validated value to the function body.
+When an object is validated once at the entry boundary of the public API, it can
+be wrapped in a `ValidatedPayload` (a passport). A compatible digester can then
+bypass the applicable repeated normalization. This reduces work but is not a
+literal zero-latency guarantee.
 
 #### 2. How to Use It
 If you have already validated or normalized an object (e.g., coordinates, box, or selection thresholds) and need to pass it to an internal delegate or another public API:
@@ -53,16 +63,19 @@ coordinates_passport = ValidatedPayload(
 result = another_decorated_function(molecular_system, coordinates=coordinates_passport)
 ```
 
-#### 3. Empirical Performance Wins
-Empirical benchmarking shows that applying the Passport Protocol on even a single simple parameter like `threshold` delivers an immediate **1.51x speedup** on function execution times by completely skipping redundant Pint physical unit validation and type-safety check blocks.
+#### 3. Performance evidence
 
-Always use `ValidatedPayload` for high-frequency internal function calls to maintain both API type safety and bare-metal execution speeds.
+A May 2026 benchmark pass measured a 1.51x improvement for one threshold case.
+That result is environment- and workload-specific. Use `ValidatedPayload` only
+where profiling identifies repeated normalization and tests prove that the
+payload metadata is correct.
 
 #### 4. Passports (`ValidatedPayload`) vs. `skip_digestion=True`
 
 - **`skip_digestion=True`** is a coarse-grained override. It bypasses digestion for *all* arguments of a function call. It is useful in very low-level internal kernels, but it is fragile because it disables all type safety and requires manual propagation down the call stack. 
-  *(Performance Note, May 2026)*: The `@arg_digest` decorator has been optimized to handle `skip_digestion=True` via an ultra-fast `O(1)` fast-path. When this keyword argument is detected, the decorator immediately exits and calls the wrapped function directly, completely bypassing `bind_arguments` and `inspect.signature` with zero overhead.
-- **`ValidatedPayload` (Passports)** is a fine-grained, value-level bypass. It only bypasses validation for the specific arguments that have already been validated, leaving other arguments (such as new selections or flags) subject to normal validation. This keeps the execution safe while achieving zero-latency for heavy objects.
+  The decorator provides a direct fast path for `skip_digestion=True`; it still
+  incurs ordinary Python call overhead and must not be described as zero cost.
+- **`ValidatedPayload` (Passports)** is a fine-grained, value-level bypass. It only bypasses validation for the specific arguments that have already been validated, leaving other arguments (such as new selections or flags) subject to normal validation. It reduces repeated work but still has Python dispatch and contract-check overhead.
 - **Audit Rule**: Avoid passing `skip_digestion=True` in internal calls if the only reason was to avoid double-digesting a specific heavy argument (like coordinates). Instead, wrap that argument in a `ValidatedPayload` and let normal validation run for other parameters. Use `skip_digestion=True` only when *none* of the arguments in the call need any validation or normalization whatsoever.
 
 ## Dependency Policy
@@ -75,20 +88,38 @@ Rules:
 - Use `@dep_digest(library)` to guard optional functionality.
 - Validate architecture with `devtools/scripts/validate_dependencies.py`.
 
-### 🚀 High-Performance Lazy Loading (Sprint Decision)
-To ensure near-instantaneous `import molsysmt` in all environments (HPC, Cloud, Notebooks), we have implemented a comprehensive lazy-loading architecture:
+### Package lazy loading
+MolSysMT uses lazy loading to reduce import work without promising a fixed
+startup time across environments:
 
-1. **Package-Level PEP 562 Lazy Loading**: The package entry point `molsysmt/__init__.py` has been re-architected using PEP 562 `__getattr__` and `__dir__`. No internal submodules (like `structure`, `topology`, `lib`, etc.) are parsed or loaded during the initial `import molsysmt` statement, slashing cold import latency from **3.34 seconds to ~500 ms**.
-2. **String-Based Converter Registry**: In every form's `__init__.py`, the values in the `_convert_to` dictionary must be **strings** representing the function name (e.g., `'to_molsysmt_MolSys'`), not the function objects themselves, preventing premature soft dependency loading.
-3. **Dynamic Resolution**: `molsysmt.basic.convert` and the global `__getattr__` use `importlib` to resolve submodules and converter routines dynamically on demand, caching them in `globals()` to guarantee zero latency on subsequent accesses.
+1. **Package-Level PEP 562 Lazy Loading**: The package entry point uses PEP 562
+   `__getattr__` and `__dir__` for the registered public surface. Core startup
+   configuration and diagnostics are still imported eagerly. A May 2026 run
+   measured a reduction from 3.34 seconds to approximately 500 ms; reproduce
+   that benchmark before treating it as current.
+2. **Lazy converter registry**: `_convert_to` currently accepts callables and
+   strings naming converter modules. Prefer strings where importing the
+   converter would eagerly load optional or expensive code. Existing callable
+   entries remain valid and should be migrated only with tests.
+3. **Dynamic Resolution**: `molsysmt.basic.convert` and the package-level
+   `__getattr__` resolve registered code on demand and cache package attributes
+   after successful resolution.
 
 ### ♨️ Unified Preheating Engine (`molsysmt.warmup()`)
 To support clean performance profiling and JIT compilation, MolSysMT exposes a unified preheating API:
 
-*   **`molsysmt.warmup(numba=True, modules=True)`**:
-    - **`modules=True` (default)**: Loops through all registered lazy attributes and forces their eager import into memory.
+*   **`molsysmt.warmup(numba=True, modules=True, strict=False, return_report=False)`**:
+    - **`modules=True` (default)**: Attempts to resolve all registered lazy
+      attributes.
     - **`numba=True` (default)**: Pre-compiles all registered Numba JIT kernels.
+    - **`strict=True`**: Propagates unexpected lazy-import failures for QA.
+    - **`return_report=True`**: Reports compiled kernels, loaded attributes,
+      expected optional-dependency skips, and unexpected failures.
 *   **Deprecation Alias**: The old `warmup_numba()` function is preserved as a deprecated legacy wrapper that issues a warning and delegates to `warmup(numba=True, modules=True)`. Always use `molsysmt.warmup()` in new scripts and benchmarks.
+
+The default return value remains the number of compiled kernels for backward
+compatibility. Missing soft dependencies are recorded as skipped capabilities;
+other failures emit `WarmupFailureWarning` unless strict mode propagates them.
 
 ## Single Source of Truth
 Dependency status and form mapping live in `molsysmt/_depdigest.py`.
@@ -105,7 +136,7 @@ When moving a dependency from hard → soft:
 2) Add `@dep_digest`.
 3) Update `_depdigest.py`.
 4) Ensure form mapping exists.
-5) Ensure `_convert_to` uses strings.
+5) Prefer lazy string converter entries when they avoid eager optional imports.
 
 ## PyUnitWizard Interaction Policy
 

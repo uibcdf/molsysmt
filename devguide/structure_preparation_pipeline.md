@@ -4,9 +4,10 @@
 
 Before a protein structure can be used for molecular dynamics simulation it
 typically needs to be "prepared": missing atoms must be added, termini must be
-completed, hydrogens placed, and the system solvated.  MolSysMT provides native
-implementations of each step so the full pipeline can be run without any
-external dependency.
+completed, hydrogens placed, and the system solvated. MolSysMT provides native
+implementations for the preparation steps shown below, so an explicitly
+selected native pipeline can run without an optional reconstruction dependency.
+Energy minimization still requires an MD engine.
 
 This document describes:
 
@@ -52,7 +53,7 @@ If the PDB file contains atoms with alternate location indicators (column 17),
 only one conformer should be kept before proceeding.
 
 ```python
-mol = msm.build.solve_atoms_with_alternate_location(mol, criterion='occupancy')
+msm.build.solve_atoms_with_alternate_location(mol, location_id='occupancy')
 ```
 
 **Engine:** `engine='MolSysMT'` (only option). Selects the conformer with the
@@ -74,9 +75,12 @@ mol = msm.build.add_missing_heavy_atoms(mol, engine='MolSysMT')
 | `'MolSysMT'` | Kabsch alignment against 3D residue templates in `data/databases/residue_templates/` | none |
 | `'PDBFixer'` | PDBFixer `findMissingAtoms` + `addMissingAtoms` | pdbfixer, openmm |
 
-**MolSysMT limitations:** residue templates exist for the 20 standard amino
-acids, ACE, NME, and the 8 standard DNA/RNA nucleotides.  Non-standard residues
-fall back to no-op (atoms not added).
+**MolSysMT limitations:** the current missing-heavy-atom implementation targets
+amino-acid groups using the standard residue templates. The presence of ACE,
+NME, and nucleotide template files supports other build paths but does not by
+itself make nucleotide heavy-atom reconstruction part of this function's
+contract. Non-standard residues without a supported canonical template are not
+completed.
 
 ---
 
@@ -105,7 +109,7 @@ mol = msm.build.add_missing_terminal_cappings(
 )
 ```
 
-**Key rule:** call `topology.rebuild_components()` is handled internally before
+**Key rule:** `topology.rebuild_components()` is called internally before
 querying `component_type`, so the function is robust to any input origin.
 
 **MolSysMT limitations:** only ACE and NME are supported as capping groups.
@@ -128,11 +132,12 @@ mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
 | `'PDBFixer'` | Same fixed pKa thresholds via OpenMM `addMissingHydrogens` | pdbfixer, openmm |
 | `'OpenMM'` | Same fixed pKa thresholds via `Modeller.addHydrogens` | openmm |
 
-All three engines use **the same pH model** (fixed thresholds): ASP and GLU
-deprotonated at pH ≥ 4.4, HIS in HIE tautomer at pH ≥ 6.5, LYS protonated
-below pH 10.5, CYS HG removed when in a disulfide bond.  There is no
-environment-dependent pKa prediction (PROPKA-style) in any engine; that is a
-post-1.0 item.
+The native engine uses documented fixed pKa and tautomer rules. OpenMM and
+PDBFixer apply their own template-based hydrogen-placement behavior for the
+requested pH. None of these choices should be presented as an
+environment-dependent pKa calculation comparable to PROPKA. Cross-engine
+agreement must be demonstrated for each tested residue state rather than
+assumed globally.
 
 **Note on capping groups:** ACE/NME are fully supported by `engine='MolSysMT'`:
 - Groups inserted by `add_missing_terminal_cappings(engine='MolSysMT')` (Case B)
@@ -209,7 +214,7 @@ mol = msm.convert('181L', to_form='molsysmt.MolSys',
                   selection='molecule_type=="protein"')
 
 # --- Optional: resolve alternate locations ---
-# mol = msm.build.solve_atoms_with_alternate_location(mol, criterion='occupancy')
+# msm.build.solve_atoms_with_alternate_location(mol, location_id='occupancy')
 
 # --- Step 1: complete heavy atoms ---
 mol = msm.build.add_missing_heavy_atoms(mol, engine='MolSysMT')
@@ -248,15 +253,15 @@ mol = msm.build.solvate(
 | `add_missing_terminal_cappings` | `MolSysMT` | Capping groups other than ACE/NME |
 | `add_missing_hydrogens` | `MolSysMT` | H on capping groups (ACE/NME) required |
 | `solvate` | `MolSysMT` | TIP5P or other unsupported water models; box shapes beyond cubic/rectangular/truncated octahedral/rhombic dodecahedral |
-| Minimization | — | Always OpenMM (outside MolSysMT scope) |
+| Minimization | — | Use a suitable external MD engine; the example uses OpenMM |
 
 ---
 
 ## See Also
 
-- `devguide/auxiliary_data_and_nativization.md` — how native engine data is
-  organized, the `set()` guard pattern for PDBFixer branches, parity tests
-- `devguide/element_and_native_rebuild.md` — component vs molecule concepts,
-  when to call `rebuild_components()`
+- `devguide/BUILD_ECOSYSTEM.md` — how native chemical knowledge and build data
+  are organized and maintained
+- `devguide/CORE_SPECIFICATION.md` — component vs molecule concepts and native
+  molecular-system invariants
 - `tests/build/test_structure_preparation_pipeline.py` — end-to-end integration
   test covering this pipeline on a real PDB structure

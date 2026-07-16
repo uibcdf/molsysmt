@@ -14,18 +14,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     tmp_item.structures = to_molsysmt_Structures(item, atom_indices=atom_indices,
                                                  structure_indices=structure_indices, skip_digestion=True)
 
-    formal_charge = []
-    for atom in item.atoms:
-        charge = getattr(atom, "formal_charge", None)
-        try:
-            charge = int(charge.m)
-        except Exception:
-            try:
-                charge = int(charge)
-            except Exception:
-                charge = None
-        formal_charge.append(charge)
-
     partial_charge = []
     charges = getattr(item, "partial_charges", None)
     has_partial_charge = False
@@ -42,11 +30,10 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                 has_partial_charge = False
 
     if not is_all(atom_indices):
-        formal_charge = [formal_charge[ii] for ii in atom_indices]
         if has_partial_charge:
             partial_charge = [partial_charge[ii] for ii in atom_indices]
 
-    kwargs = {"formal_charge": formal_charge}
+    kwargs = {}
     if has_partial_charge:
         kwargs["partial_charge"] = partial_charge
     tmp_item.molecular_mechanics = MolecularMechanics(**kwargs)

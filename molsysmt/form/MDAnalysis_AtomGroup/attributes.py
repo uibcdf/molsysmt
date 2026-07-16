@@ -12,3 +12,4 @@ for ii, jj in _all_attributes.items():
 # Mechanical attributes might be restricted depending on the universe
 attributes['formal_charge'] = True
 attributes['partial_charge'] = True
+attributes['isotope'] = False

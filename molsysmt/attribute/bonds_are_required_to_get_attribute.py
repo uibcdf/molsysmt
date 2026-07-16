@@ -18,8 +18,18 @@ bond_dependent_attributes = [
     'chain_type', 
     'n_entities', 
     'bond_index', 
+    'bond_id',
     'bond_type', 
     'bond_order', 
+    'fractional_bond_order',
+    'bond_is_aromatic',
+    'bond_is_conjugated',
+    'bond_stereochemistry',
+    'bond_stereo_atom_indices',
+    'bond_donor_atom_index',
+    'bond_acceptor_atom_index',
+    'bond_joins_components',
+    'bond_evidence',
     'bonded_atoms', 
     'bonded_atom_pairs', 
     'inner_bond_index', 
@@ -50,4 +60,3 @@ def bonds_are_required_to_get_attribute(attribute, from_element=None, skip_diges
         output = output | (from_element in bond_dependent_elements)
 
     return output
-

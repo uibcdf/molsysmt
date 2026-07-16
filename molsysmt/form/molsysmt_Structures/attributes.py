@@ -28,6 +28,11 @@ attributes['b_factor'] = True
 attributes['alternate_location'] = True
 attributes['bioassembly'] = True
 attributes['n_bioassemblies'] = True
+attributes['temperature'] = True
+attributes['potential_energy'] = True
+attributes['kinetic_energy'] = True
+attributes['total_energy'] = True
+attributes['occupancy'] = True
 
 
 del(_all_attributes)
