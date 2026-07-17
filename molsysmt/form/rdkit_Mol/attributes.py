@@ -2,12 +2,18 @@ from molsysmt.attribute import attributes as _all_attributes
 
 attributes = {ii: False for ii in _all_attributes.keys()}
 
-# rdkit.Mol supports topological and structural attributes
+# RDKit molecules expose their chemical graph through the native topology seam.
 for ii, jj in _all_attributes.items():
-    if jj['topological'] or jj['structural']:
+    if jj['topological'] or jj['chemical_state']:
         attributes[ii] = True
 
-# Mechanical attributes are partially supported via properties
+# Conformers contain coordinates but no time, box, velocities, or per-frame
+# thermodynamic metadata.
+for ii in ('coordinates', 'structure_id', 'structure_index', 'n_structures'):
+    attributes[ii] = True
+
+# Partial charge is optional per-atom metadata rather than intrinsic RDKit
+# graph state. The instance-aware adapter checks supported property names.
 attributes['formal_charge'] = True
 attributes['partial_charge'] = True
 attributes['atom_is_aromatic'] = True
@@ -26,3 +32,5 @@ attributes['bond_joins_components'] = True
 attributes['bond_evidence'] = True
 attributes['isotope'] = True
 attributes['structure_chemical_state_index'] = False
+
+del _all_attributes

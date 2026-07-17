@@ -29,7 +29,7 @@ def test_get_file_xtc_mixed_atom_and_system_attributes_preserves_order():
 
     assert msm.pyunitwizard.get_value(coordinates).shape == (2, 2, 3)
     assert np.allclose(msm.pyunitwizard.get_value(time), [0.0, 20.0])
-    assert structure_id is None
+    assert structure_id == ['0', '10000']
 
 
 def test_get_file_xtc_mixed_atom_and_system_attributes_preserves_dictionary_order():
@@ -47,6 +47,6 @@ def test_get_file_xtc_mixed_atom_and_system_attributes_preserves_dictionary_orde
     )
 
     assert list(output) == ['structure_id', 'coordinates', 'time']
-    assert output['structure_id'] is None
+    assert output['structure_id'] == ['0', '10000']
     assert msm.pyunitwizard.get_value(output['coordinates']).shape == (2, 2, 3)
     assert np.allclose(msm.pyunitwizard.get_value(output['time']), [0.0, 20.0])

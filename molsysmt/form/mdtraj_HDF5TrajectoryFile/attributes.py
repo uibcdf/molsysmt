@@ -51,7 +51,6 @@ attributes['n_saccharides'] = True
 
 
 attributes['bond_index'] = True
-attributes['bond_id'] = True
 attributes['bond_type'] = True
 attributes['bond_order'] = True
 attributes['bonded_atoms'] = True
@@ -62,7 +61,6 @@ attributes['n_bonds'] = True
 ###
 
 attributes['structure_index'] = True
-attributes['structure_id'] = True
 attributes['time'] = True
 attributes['temperature'] = True
 attributes['box'] = True

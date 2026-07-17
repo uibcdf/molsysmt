@@ -10,16 +10,19 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     tmp_item = Structures()
 
-    n_conformers = item.GetNumConformers()
+    conformers = list(item.GetConformers())
+    n_conformers = len(conformers)
     
     if n_conformers > 0:
         if is_all(structure_indices):
             structure_indices = range(n_conformers)
         
         coords = []
-        for conf_id in structure_indices:
-            conf = item.GetConformer(conf_id)
+        structure_id = []
+        for conformer_index in structure_indices:
+            conf = conformers[conformer_index]
             coords.append(conf.GetPositions())
+            structure_id.append(conf.GetId())
         
         # RDKit uses Angstroms
         output = np.array(coords)
@@ -29,6 +32,10 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         if not is_all(atom_indices):
             output = output[:, atom_indices, :]
 
-        tmp_item.append(coordinates=output, skip_digestion=True)
+        tmp_item.append(
+            structure_id=np.asarray(structure_id, dtype=np.int64),
+            coordinates=output,
+            skip_digestion=True,
+        )
 
     return tmp_item

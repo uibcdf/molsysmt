@@ -6,28 +6,41 @@ import types
 
 form = 'mdtraj.DCDTrajectoryFile'
 
+
+def _read_from_start(item, atom_indices=None):
+    """Reading a DCD payload without changing the caller's file position."""
+
+    position = item.tell()
+    try:
+        item.seek(0)
+        return item.read(atom_indices=atom_indices)
+    finally:
+        item.seek(position)
+
+
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    tmp_item = _read_from_start(
+        item,
+        atom_indices=indices if not is_all(indices) else None,
+    )
     if is_all(structure_indices):
-        tmp_item = item.read(atom_indices=indices if not is_all(indices) else None)
         output = tmp_item[0] # coordinates
     else:
-        # Seeking might be needed for large files, but for now simple read and slice
-        tmp_item = item.read(atom_indices=indices if not is_all(indices) else None)
         output = tmp_item[0][structure_indices, :, :]
 
-    output = output * puw.unit('nanometer')
+    output = output * puw.unit('angstrom')
     return output
 
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
-    tmp_item = item.read()
-    if tmp_item[2] is not None: # cell_lengths
+    tmp_item = _read_from_start(item)
+    if tmp_item[1] is not None: # cell_lengths
         from molsysmt.pbc import get_box_from_lengths_and_angles
-        lengths = tmp_item[2] * puw.unit('nanometer')
-        angles = tmp_item[3] * puw.unit('degree')
+        lengths = tmp_item[1] * puw.unit('angstrom')
+        angles = tmp_item[2] * puw.unit('degree')
         output = get_box_from_lengths_and_angles(lengths, angles)
         if not is_all(structure_indices):
             output = output[structure_indices, :, :]

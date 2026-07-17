@@ -9,7 +9,7 @@ for ii, jj in _all_attributes.items():
         attributes[ii] = True
 
 attributes['formal_charge'] = True
-attributes['partial_charge'] = True
+attributes['partial_charge'] = False
 attributes['isotope'] = False
 
 del _all_attributes

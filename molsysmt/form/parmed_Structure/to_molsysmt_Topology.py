@@ -36,7 +36,12 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         # ParmEd serials start at 1 usually, number attribute is the serial
         atom_id.append(str(atom.number))
         atom_name.append(atom.name)
-        atom_type.append(get_atom_type_from_atom_name(atom.name))
+        source_atom_type = getattr(atom, 'type', None)
+        atom_type.append(
+            str(source_atom_type)
+            if source_atom_type not in {None, ''}
+            else get_atom_type_from_atom_name(atom.name)
+        )
         group_index_of_atoms.append(atom.residue.idx)
 
     tmp_item.atoms['atom_id'] = atom_id

@@ -5,10 +5,13 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
     from . import attributes
 
-    output = attributes[attribute]
+    if not attributes.get(attribute, False):
+        return False
+    if attribute in {'partial_charge', 'box'}:
+        from ._reader import _source_metadata
 
-    if not include_none:
-        pass
-
-    return output
-
+        metadata = _source_metadata(molecular_system)
+        if attribute == 'partial_charge':
+            return metadata['charge_type'] != 'NO_CHARGES'
+        return metadata['has_crysin']
+    return True

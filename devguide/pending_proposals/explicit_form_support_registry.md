@@ -1,11 +1,11 @@
 # Explicit Form Support Registry
 
-**Status:** explicit tier registry implemented 2026-07-13; capability evidence pending
+**Status:** explicit tier registry and current pre-1.0 evidence cohorts implemented
 
 ## Why
 
 The original registry listed only Tier 2 and Tier 3 forms and silently treated
-absence as Tier 1. The registry now contains all 92 discovered forms, and tests
+absence as Tier 1. The registry now contains all 89 discovered forms, and tests
 plus the adapter validator require exact agreement. Unknown forms fail instead
 of receiving contractual support.
 
@@ -25,6 +25,11 @@ defaulting to Tier 1.
 5. Make CI fail for adapters missing from the registry or stale registry names.
    **Implemented in the adapter validator and focused tests.**
 6. Generate the support report/notebook from the registry. **Implemented.**
+
+The trajectory, MDAnalysis, and chemical-interoperability cohorts now have
+focused contract tests and zero unreachable Tier 1 attribute declarations. The
+chemical and topology/mechanics cohorts comprise RDKit, OpenFF
+Molecule/Topology, ParmEd Structure, SMILES/SMI, MOL2, and PSF.
 
 ## Acceptance criteria
 

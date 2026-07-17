@@ -25,5 +25,3 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
 
         raise NotImplementedMethodError()
 
-    return tmp_item
-

@@ -6,6 +6,11 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     from molsysmt.native.molsys import MolSys
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from .to_molsysmt_Structures import to_molsysmt_Structures
+    from molsysmt._private.variables import is_all
+    import numpy as np
+
+    if not is_all(atom_indices):
+        atom_indices = np.unique(np.asarray(atom_indices, dtype=np.int64))
 
     tmp_item = MolSys()
 
@@ -14,4 +19,3 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
                                                     structure_indices=structure_indices, skip_digestion=True)
 
     return tmp_item
-

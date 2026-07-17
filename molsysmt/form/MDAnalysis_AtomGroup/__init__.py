@@ -9,6 +9,7 @@ bonds_are_explicit = True
 bonds_can_be_computed = True
 
 _convert_to = {
+    'MDAnalysis.AtomGroup': 'extract',
     'molsysmt.MolSys': 'to_molsysmt_MolSys',
     'molsysmt.Topology': 'to_molsysmt_Topology',
     'MDAnalysis.Universe': 'to_MDAnalysis_Universe',

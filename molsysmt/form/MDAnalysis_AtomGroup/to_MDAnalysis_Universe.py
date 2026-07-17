@@ -5,11 +5,14 @@ def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', sk
 
     from molsysmt._private.variables import is_all
 
-    if is_all(atom_indices) and is_all(structure_indices):
-        return item.universe.copy().atoms[item.indices].universe
-    else:
-        # Complex filtering via conversion to MolSys and back
-        from molsysmt.basic import convert
-        tmp_item = convert(item, to_form='molsysmt.MolSys', atom_indices=atom_indices, 
-                           structure_indices=structure_indices, skip_digestion=True)
-        return convert(tmp_item, to_form='MDAnalysis.Universe', skip_digestion=True)
+    indices = item.indices
+    if not is_all(atom_indices):
+        indices = indices[atom_indices]
+
+    from molsysmt.form.MDAnalysis_Universe._subset import subset_universe
+
+    return subset_universe(
+        item.universe,
+        atom_indices=indices,
+        structure_indices=structure_indices,
+    )

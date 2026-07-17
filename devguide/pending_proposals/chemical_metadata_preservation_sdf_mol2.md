@@ -20,6 +20,27 @@ chemical metadata already represented by native forms and needed by viewers:
 The remaining SDF/MOL2 work is useful, but it requires broader schema and API
 decisions. It should not block MolSysMT 1.0.
 
+## Pre-1.0 MOL2 update (2026-07-17)
+
+The narrow MOL2 fidelity work is now implemented rather than deferred. The
+`file:mol2` adapter uses `parmed.formats.mol2.Mol2File.parse(...,
+structure=True)` strictly as a parser and normalizes the result directly into
+MolSysMT native objects. A small source reader retains and validates Tripos bond
+tokens before ParmEd can collapse them:
+
+- integral tokens become formal bond orders;
+- `ar` becomes aromaticity plus fractional order 1.5;
+- `am` becomes fractional order 1.25 without mislabelling it as aromatic;
+- unsupported relationship tokens fail explicitly;
+- multi-record MOL2 files fail explicitly until a multi-molecule file contract
+  exists.
+
+Atom serials, names, Tripos atom types, groups, coordinates, optional box,
+partial charges, bond IDs, molecule name, and selection alignment are covered
+by tests. ParmEd remains an encapsulated backend rather than part of the public
+representation. The still-deferred scope below concerns SDF, arbitrary
+property/annotation blocks, multi-record files, and a possible native parser.
+
 ## Deferred Scope
 
 - Add first-class `file:sdf` support, including multi-molecule SDF files.
@@ -27,9 +48,8 @@ decisions. It should not block MolSysMT 1.0.
   scores, supplier IDs, names, and custom fields.
 - Preserve molecule/component boundaries and per-molecule property blocks for
   multi-ligand files.
-- Revisit `file:mol2 -> MolSys` backend selection so cheminformatics-oriented
-  parsing can be preferred when metadata fidelity matters, while preserving a
-  stable fallback for geometry/topology loading.
+- Evaluate replacing the encapsulated ParmEd backend with a native parser only
+  after the post-1.0 parser strategy acceptance gates are met.
 - Normalize aromaticity semantics across RDKit, OpenFF, SDF, and MOL2 beyond the
   minimal pre-1.0 `bond_type="aromatic"` contract.
 - Decide whether partial charges and other atom-level chemical annotations are

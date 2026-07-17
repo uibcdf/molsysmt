@@ -188,21 +188,6 @@ def build_conversion_report(molecular_system, from_form, to_form):
                         )
                     )
 
-        if source_form == 'openff.Molecule' and target_form in {
-            'molsysmt.Topology', 'molsysmt.MolSys'
-        }:
-            if any(bond.stereochemistry is not None for bond in source_item.bonds):
-                issues.append(
-                    ConversionIssue(
-                        attribute='bond_stereochemistry',
-                        reason=(
-                            'OpenFF supplies E/Z semantics without the two reference atoms '
-                            'required by the native bond-state contract.'
-                        ),
-                        kind='adapter_limitation',
-                    )
-                )
-
         if source_form in {'MDAnalysis.Topology', 'MDAnalysis.Universe'} and target_form in {
             'molsysmt.Topology', 'molsysmt.MolSys'
         }:
@@ -276,10 +261,13 @@ def build_conversion_report(molecular_system, from_form, to_form):
                         kind='adapter_limitation',
                     )
                 )
-    outcome = 'lossy' if issues else ('exact' if source_form == target_form else 'equivalent')
+    same_form = source_form == target_form
+    outcome = 'lossy' if issues else ('exact' if same_form else 'equivalent')
     return ConversionReport(
         from_form=source_form,
         to_form=target_form,
         outcome=outcome,
+        audited_scopes=('all',) if same_form else ('chemical_state',),
+        is_exhaustive=same_form,
         issues=tuple(issues),
     )

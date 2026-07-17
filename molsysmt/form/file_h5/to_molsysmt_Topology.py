@@ -8,9 +8,13 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     import molsysmt as msm
 
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item, skip_digestion=True)
-    res_item = mdtraj_HDF5TrajectoryFile_to_molsysmt_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)
-
-    msm.form.close(tmp_item)
+    try:
+        res_item = mdtraj_HDF5TrajectoryFile_to_molsysmt_Topology(
+            tmp_item,
+            atom_indices=atom_indices,
+            skip_digestion=True,
+        )
+    finally:
+        msm.form.close(tmp_item)
 
     return res_item
-

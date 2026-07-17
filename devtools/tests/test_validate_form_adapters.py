@@ -100,3 +100,15 @@ def test_delivery_baseline_comparison_is_a_monotonic_ratchet(monkeypatch):
 
     assert new == {"source": ["new_debt"]}
     assert resolved == {"source": ["resolved_debt"]}
+
+
+def test_tier_1_delivery_debt_is_never_accepted():
+    violations = {
+        "contractual": ["atom_name"],
+        "best_effort": ["group_name"],
+    }
+    tiers = {"contractual": 1, "best_effort": 2}
+
+    assert validator._tier_1_delivery_violations(violations, tiers) == {
+        "contractual": ["atom_name"]
+    }

@@ -240,15 +240,8 @@ class Iterator():
             When no further items are available.
         """
 
-        try:
-
-            for iterator in self._iterators:
-
-                self._output_dictionary.update(iterator.__next__())
-
-        except Exception:
-
-            raise StopIteration
+        for iterator in self._iterators:
+            self._output_dictionary.update(iterator.__next__())
 
         if self._output_molecular_system is None:
             if self._output_type=='values':

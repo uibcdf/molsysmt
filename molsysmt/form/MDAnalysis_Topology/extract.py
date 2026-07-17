@@ -1,4 +1,3 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from depdigest import dep_digest
@@ -7,16 +6,21 @@ from depdigest import dep_digest
 @dep_digest('MDAnalysis')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
 
-    if is_all(atom_indices) and is_all(structure_indices):
+    if not is_all(structure_indices):
+        from molsysmt._private.smonitor import NotCompatibleConversionError
 
-        if copy_if_all:
-            from copy import deepcopy
-            tmp_item = deepcopy(item)
-        else:
-            tmp_item = item
-    else:
+        raise NotCompatibleConversionError(
+            'MDAnalysis.Topology',
+            'MDAnalysis.Topology',
+            {'structure_indices'},
+            caller='molsysmt.form.MDAnalysis_Topology.extract',
+            message='MDAnalysis.Topology does not contain structures.',
+        )
 
-        raise NotImplementedMethodError()
+    if is_all(atom_indices):
+        return item.copy() if copy_if_all else item
 
-    return tmp_item
+    import MDAnalysis as mda
 
+    universe = mda.Universe(item)
+    return mda.Merge(universe.atoms[atom_indices])._topology

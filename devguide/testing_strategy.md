@@ -328,7 +328,7 @@ power.  The real implementation under test is always the piped-to form.  Once
 the conversion path `form → piped form` is verified (which IS tested), the
 getter delegation is correct by construction.
 
-The excluded forms as of July 2026 are (23 total):
+The excluded forms as of July 2026 are (24 total):
 
 *Piped to `molsysmt.Topology` (21 forms):*
 `string:pdb_id`, `string:alphafold_id`, `string:pdb_text`, `string:smiles`,

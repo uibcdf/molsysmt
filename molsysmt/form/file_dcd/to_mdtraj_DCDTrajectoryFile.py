@@ -1,7 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.files_and_directories import str_filename
+from depdigest import dep_digest
 
 @arg_digest(form='file:dcd')
+@dep_digest('mdtraj')
 def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from mdtraj.formats import DCDTrajectoryFile

@@ -7,5 +7,6 @@ for ii, jj in _all_attributes.items():
         attributes[ii] = True
 
 attributes['isotope'] = False
+attributes['partial_charge'] = True
 
 del _all_attributes

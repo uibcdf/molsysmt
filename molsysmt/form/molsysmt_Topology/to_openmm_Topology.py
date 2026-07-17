@@ -3,6 +3,23 @@ from molsysmt._private.variables import is_all
 from depdigest import dep_digest
 import pandas as pd
 
+
+def _openmm_element(atom_type, app):
+    """Resolve direct symbols and unambiguous dotted Tripos atom types."""
+
+    if atom_type is None or pd.isna(atom_type):
+        return None
+    value = str(atom_type).strip()
+    candidates = [value]
+    if '.' in value:
+        candidates.append(value.split('.', maxsplit=1)[0])
+    for candidate in candidates:
+        try:
+            return app.Element.getBySymbol(candidate)
+        except KeyError:
+            continue
+    return None
+
 @arg_digest(form='molsysmt.Topology')
 @dep_digest('openmm')
 def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False):
@@ -41,7 +58,7 @@ def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False)
 
     formal_charges = item._get_chemical_state_atom_attribute('formal_charge')
     for atom in item.atoms.itertuples(index=True):
-        tmp_element = app.Element.getBySymbol(atom.atom_type) if atom.atom_type else None
+        tmp_element = _openmm_element(atom.atom_type, app)
         formal_charge = None
         if formal_charges is not None and not pd.isna(formal_charges.iloc[atom.Index]):
             formal_charge = int(formal_charges.iloc[atom.Index])

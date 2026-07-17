@@ -237,6 +237,17 @@ class MolSys:
                                                           structure_indices=structure_indices, copy_if_all=True,
                                                           skip_digestion=True)
             tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
+            if (
+                not is_all(atom_indices)
+                and tmp_item.molecular_mechanics is not None
+                and tmp_item.molecular_mechanics.atoms_ff is not None
+            ):
+                tmp_item.molecular_mechanics.atoms_ff = (
+                    tmp_item.molecular_mechanics.atoms_ff
+                    .iloc[atom_indices]
+                    .reset_index(drop=True)
+                    .copy()
+                )
             if self._structure_chemical_state_indices is not None:
                 if is_all(structure_indices):
                     tmp_item._structure_chemical_state_indices = (

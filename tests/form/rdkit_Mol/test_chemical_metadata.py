@@ -1,9 +1,11 @@
 import pytest
 import pandas as pd
+import numpy as np
 
 Chem = pytest.importorskip("rdkit.Chem")
 
 import molsysmt as msm
+from molsysmt import pyunitwizard as puw
 
 
 def test_rdkit_mol_to_molsys_preserves_bond_order_and_formal_charge():
@@ -97,3 +99,40 @@ def test_rdkit_isotope_is_preserved_and_no_longer_reported_as_loss():
     assert msm.get(topology, element='atom', isotope=True) == [13]
     assert report.outcome == 'equivalent'
     assert report.issues == ()
+
+
+def test_rdkit_native_roundtrip_preserves_supported_chemical_semantics():
+    smiles = 'C[N+](C)(C)C.F[13C@](Cl)(Br)I.C/C=C/C.c1ccccc1'
+    molecule = Chem.MolFromSmiles(smiles)
+    charges = np.linspace(-0.4, 0.4, molecule.GetNumAtoms())
+    for atom, charge in zip(molecule.GetAtoms(), charges):
+        atom.SetDoubleProp('_MolSysMTPartialCharge', float(charge))
+
+    native = msm.convert(molecule, to_form='molsysmt.MolSys')
+    recovered = msm.convert(native, to_form='rdkit.Mol')
+
+    assert Chem.MolToSmiles(recovered, isomericSmiles=True) == Chem.MolToSmiles(
+        molecule, isomericSmiles=True
+    )
+    recovered_charges = msm.get(
+        recovered, element='atom', partial_charge=True
+    )
+    np.testing.assert_allclose(
+        puw.get_value(recovered_charges, to_unit='elementary_charge'), charges
+    )
+
+
+def test_rdkit_native_roundtrip_preserves_namespaced_atom_identity():
+    molecule = Chem.MolFromSmiles('CO')
+    molecule.GetAtomWithIdx(0).SetProp('_MolSysMTAtomID', 'carbon-alpha')
+    molecule.GetAtomWithIdx(0).SetProp('_MolSysMTAtomName', 'CA')
+
+    native = msm.convert(molecule, to_form='molsysmt.MolSys')
+    recovered = msm.convert(native, to_form='rdkit.Mol')
+    second_native = msm.convert(recovered, to_form='molsysmt.MolSys')
+
+    assert native.topology.atoms['atom_id'].tolist() == ['carbon-alpha', '1']
+    assert second_native.topology.atoms['atom_id'].tolist() == [
+        'carbon-alpha', '1'
+    ]
+    assert second_native.topology.atoms['atom_name'].tolist() == ['CA', 'O1']

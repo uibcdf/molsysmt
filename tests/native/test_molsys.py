@@ -33,6 +33,34 @@ def test_extract_subsets_atoms_and_structures():
     assert extracted.structures.structure_id.tolist() == ['1']
 
 
+def test_extract_keeps_per_atom_mechanics_aligned_with_sorted_subset():
+    molsys = build_minimal_molsys(n_structures=1)
+    molsys.molecular_mechanics.partial_charge = [0.1, 0.2, 0.3, 0.4]
+    molsys.molecular_mechanics.atom_ff_type = ['A', 'B', 'C', 'D']
+
+    extracted = molsys.extract(
+        atom_indices=[3, 1], structure_indices='all', skip_digestion=True
+    )
+
+    assert extracted.topology.atoms['atom_id'].tolist() == ['1', '3']
+    assert extracted.molecular_mechanics.partial_charge.tolist() == [0.2, 0.4]
+    assert extracted.molecular_mechanics.atom_ff_type.tolist() == ['B', 'D']
+
+
+def test_merge_drops_incomplete_per_atom_mechanics_without_stale_rows():
+    left = build_minimal_molsys(n_structures=1)
+    right = build_minimal_molsys(n_structures=1)
+    left.molecular_mechanics.partial_charge = [0.1, 0.2, 0.3, 0.4]
+
+    merged = msm.merge([left, right], keep_ids=False)
+
+    assert merged.topology.n_atoms == 8
+    assert merged.molecular_mechanics.atoms_ff is None
+    extracted = merged.extract(atom_indices=[0, 7], skip_digestion=True)
+    assert extracted.topology.n_atoms == 2
+    assert extracted.molecular_mechanics.atoms_ff is None
+
+
 def test_remove_atoms_and_structures():
     molsys = build_minimal_molsys(n_structures=3)
     trimmed = molsys.remove(atom_indices=[2, 3], structure_indices=[0, 2], skip_digestion=True)

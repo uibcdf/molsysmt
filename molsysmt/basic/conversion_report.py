@@ -39,7 +39,13 @@ class ConversionReport:
     to_form : str
         Canonical target form.
     outcome : {'exact', 'equivalent', 'lossy', 'rejected'}
-        Fidelity classification for the audited conversion.
+        Fidelity classification within ``audited_scopes``.
+    audited_scopes : tuple of str
+        Semantic scopes inspected by the preflight. ``('all',)`` is reserved
+        for a conversion whose complete represented state was audited.
+    is_exhaustive : bool
+        Whether the report covers every represented source semantic rather
+        than only the named scopes.
     issues : tuple of ConversionIssue
         Structured semantic limitations detected by the preflight.
 
@@ -55,6 +61,8 @@ class ConversionReport:
     'exact'
     >>> report.is_lossy
     False
+    >>> report.audited_scopes
+    ('all',)
 
     .. versionadded:: 1.0.0
     """
@@ -62,6 +70,8 @@ class ConversionReport:
     from_form: str | tuple[str, ...]
     to_form: str
     outcome: str
+    audited_scopes: tuple[str, ...] = ('chemical_state',)
+    is_exhaustive: bool = False
     issues: tuple[ConversionIssue, ...] = ()
 
     @property

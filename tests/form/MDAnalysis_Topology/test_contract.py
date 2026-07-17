@@ -83,3 +83,14 @@ def test_parity_atom_names(roundtrip_topology, source_topology):
 
 def test_parity_group_names(roundtrip_topology, source_topology):
     assert roundtrip_topology.groups['group_name'].tolist() == source_topology.groups['group_name'].tolist()
+
+
+def test_topology_self_conversion_applies_atom_subset(mda_topology):
+    output = msm.convert(
+        mda_topology,
+        to_form='MDAnalysis.Topology',
+        selection=[2, 0],
+    )
+
+    assert output.n_atoms == 2
+    assert output.ids.values.tolist() == [3, 1]

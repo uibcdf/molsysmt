@@ -19,11 +19,14 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     coordinates = payload[0]
     time = payload[1]
+    structure_id = payload[2]
     box = payload[3]
     if not is_all(structure_indices):
         coordinates = coordinates[structure_indices]
         if time is not None:
             time = time[structure_indices]
+        if structure_id is not None:
+            structure_id = structure_id[structure_indices]
         if box is not None:
             box = box[structure_indices]
 
@@ -31,6 +34,11 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     time = None if time is None else time * puw.unit('picosecond')
     box = None if box is None or len(box) == 0 else box * puw.unit('nanometer')
 
-    tmp_item.append(structure_id=None, time=time, box=box, coordinates=coordinates)
+    tmp_item.append(
+        structure_id=structure_id,
+        time=time,
+        box=box,
+        coordinates=coordinates,
+    )
 
     return tmp_item

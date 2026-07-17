@@ -7,10 +7,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     from .to_molsysmt_GROFileHandler import to_molsysmt_GROFileHandler
     from molsysmt.form.molsysmt_GROFileHandler.to_molsysmt_MolSys import to_molsysmt_MolSys as molsysmt_GROFileHandler_to_molsysmt_MolSys
 
-    tmp_item = to_molsysmt_GROFileHandler(item)
+    tmp_item = to_molsysmt_GROFileHandler(item, skip_digestion=True)
     tmp_item = molsysmt_GROFileHandler_to_molsysmt_MolSys(tmp_item, atom_indices=atom_indices,
                                                           structure_indices=structure_indices,
                                                           get_missing_bonds=get_missing_bonds, skip_digestion=True)
 
     return tmp_item
-

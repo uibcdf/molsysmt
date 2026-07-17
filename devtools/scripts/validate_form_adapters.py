@@ -173,6 +173,16 @@ def _compare_delivery_with_baseline(violations):
     return new, resolved
 
 
+def _tier_1_delivery_violations(violations, form_tiers):
+    """Return every unreachable declaration on the contractual form surface."""
+
+    return {
+        form_name: sorted(names)
+        for form_name, names in violations.items()
+        if form_tiers.get(form_name) == 1 and names
+    }
+
+
 def main():
     print("=" * 80)
     print("MOLSYSMT FORM ADAPTERS STRUCTURAL CONFORMANCE AUDIT")
@@ -327,6 +337,10 @@ def main():
             print(f"✅ {adapter_name:<40} [PASS]")
 
     delivery_violations = _audit_attribute_delivery(loaded_modules)
+    tier_1_delivery_violations = _tier_1_delivery_violations(
+        delivery_violations,
+        FORM_TIERS,
+    )
     new_delivery_violations, resolved_delivery_violations = _compare_delivery_with_baseline(
         delivery_violations
     )
@@ -342,6 +356,14 @@ def main():
     if resolved_delivery_violations:
         n_resolved = sum(len(names) for names in resolved_delivery_violations.values())
         print(f"Resolved since baseline: {n_resolved}")
+    if tier_1_delivery_violations:
+        print("Tier 1 unreachable declarations:")
+        for form_name, names in sorted(tier_1_delivery_violations.items()):
+            print(f"  - {form_name}: {', '.join(names)}")
+        failed_count += 1
+        failures["tier_1_attribute_delivery"] = [
+            "Tier 1 forms cannot carry accepted unreachable declaration debt."
+        ]
     if new_delivery_violations:
         print("New unreachable declarations:")
         for form_name, names in sorted(new_delivery_violations.items()):

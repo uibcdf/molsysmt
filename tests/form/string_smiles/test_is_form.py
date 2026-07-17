@@ -123,3 +123,25 @@ def test_roundtrip_rdkit_mol():
     back = msm.convert(mol, to_form='string:smiles')
     assert back.startswith('smiles:')
     assert msm.get(back, element='system', n_atoms=True) == 14
+
+
+@needs_rdkit
+def test_smiles_selection_preserves_an_intact_aromatic_component():
+    from rdkit import Chem
+
+    source = 'smiles:c1ccccc1.CCO'
+
+    topology = msm.convert(
+        source,
+        to_form='molsysmt.Topology',
+        selection=list(range(6)),
+    )
+    molecule = msm.convert(
+        source,
+        to_form='rdkit.Mol',
+        selection=list(range(6)),
+    )
+
+    assert topology.n_atoms == 6
+    assert all(msm.get(topology, element='bond', bond_is_aromatic=True))
+    assert Chem.MolToSmiles(molecule) == 'c1ccccc1'

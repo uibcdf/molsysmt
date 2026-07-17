@@ -5,7 +5,14 @@ from depdigest import dep_digest
 
 @arg_digest(form='file:psf')
 @dep_digest('openmm')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+def extract(
+    item,
+    atom_indices='all',
+    structure_indices='all',
+    output_filename=None,
+    copy_if_all=True,
+    skip_digestion=False,
+):
 
     if output_filename is None:
         output_filename = item
@@ -23,7 +30,6 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             tmp_item = item
     else:
 
-        raise NotImplementedMethodError
+        raise NotImplementedMethodError()
 
     return tmp_item
-

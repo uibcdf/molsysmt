@@ -38,3 +38,48 @@ def test_form_tier_lookup_never_defaults_unknown_form_to_tier_1():
 def test_tier_1_form_is_explicit_and_silent():
     assert get_form_tier("molsysmt.MolSys") == 1
     assert check_form_tier("molsysmt.MolSys") is None
+
+
+@pytest.mark.parametrize(
+    "form_name",
+    [
+        "file:dcd",
+        "file:gro",
+        "file:h5",
+        "mdtraj.DCDTrajectoryFile",
+        "mdtraj.HDF5TrajectoryFile",
+        "mdtraj.XTCTrajectoryFile",
+        "molsysmt.GROFileHandler",
+    ],
+)
+def test_pre_1_0_trajectory_cohort_is_contractual(form_name):
+    assert get_form_tier(form_name) == 1
+
+
+@pytest.mark.parametrize(
+    "form_name",
+    [
+        "MDAnalysis.AtomGroup",
+        "MDAnalysis.Topology",
+        "MDAnalysis.Universe",
+    ],
+)
+def test_pre_1_0_mdanalysis_cohort_is_contractual(form_name):
+    assert get_form_tier(form_name) == 1
+
+
+@pytest.mark.parametrize(
+    "form_name",
+    [
+        "file:mol2",
+        "file:psf",
+        "file:smi",
+        "openff.Molecule",
+        "openff.Topology",
+        "parmed.Structure",
+        "rdkit.Mol",
+        "string:smiles",
+    ],
+)
+def test_pre_1_0_chemical_interoperability_cohort_is_contractual(form_name):
+    assert get_form_tier(form_name) == 1

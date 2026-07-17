@@ -1,15 +1,7 @@
-from molsysmt.attribute import attributes as _all_attributes
+from molsysmt.form.MDAnalysis_Universe.attributes import (
+    attributes as _universe_attributes,
+)
 
-attributes = {ii: False for ii in _all_attributes.keys()}
+attributes = dict(_universe_attributes)
 
-# MDAnalysis.AtomGroup supports most topological and structural attributes
-# because it can delegate to its parent universe.
-
-for ii, jj in _all_attributes.items():
-    if jj['topological'] or jj['structural']:
-        attributes[ii] = True
-
-# Mechanical attributes might be restricted depending on the universe
-attributes['formal_charge'] = True
-attributes['partial_charge'] = True
-attributes['isotope'] = False
+del _universe_attributes

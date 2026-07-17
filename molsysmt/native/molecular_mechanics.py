@@ -102,7 +102,9 @@ class MolecularMechanics():
         """Write *value* into the given atoms_ff column."""
         if value is None:
             if self.atoms_ff is not None and column in self.atoms_ff.columns:
-                self.atoms_ff[column] = None
+                self.atoms_ff = self.atoms_ff.drop(columns=column)
+                if self.atoms_ff.shape[1] == 0:
+                    self.atoms_ff = None
             return
         self._ensure_atoms_ff(len(value))
         self.atoms_ff[column] = value

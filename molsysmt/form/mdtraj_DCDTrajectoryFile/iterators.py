@@ -62,21 +62,28 @@ class StructuresIterator():
             coordinates = []
             box_lengths = []
             box_angles = []
+            box_is_available = True
             if isinstance(indices, (list, tuple, np.ndarray)):
 
                 for ii in indices:
                     self.molecular_system.seek(int(ii))
                     coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
                     coordinates.append(np.float64(coordinates_aux[0]))
-                    box_lengths.append(np.float64(box_lengths_aux[0]))
-                    box_angles.append(np.float64(box_angles_aux[0]))
+                    if box_lengths_aux is None or box_angles_aux is None:
+                        box_is_available = False
+                    elif box_is_available:
+                        box_lengths.append(np.float64(box_lengths_aux[0]))
+                        box_angles.append(np.float64(box_angles_aux[0]))
                     del(coordinates_aux, box_lengths_aux, box_angles_aux)
             else:
                 self.molecular_system.seek(int(indices))
                 coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
                 coordinates=np.float64(coordinates_aux)
-                box_lengths=np.float64(box_lengths_aux)
-                box_angles=np.float64(box_angles_aux)
+                if box_lengths_aux is None or box_angles_aux is None:
+                    box_is_available = False
+                else:
+                    box_lengths=np.float64(box_lengths_aux)
+                    box_angles=np.float64(box_angles_aux)
                 del(coordinates_aux, box_lengths_aux, box_angles_aux)
 
             for argument in self.arguments:
@@ -87,11 +94,14 @@ class StructuresIterator():
                 elif argument == 'structure_id':
                     self._output_dictionary['structure_id'] = indices
                 elif argument == 'box':
-                    box_lengths = puw.quantity(np.array(box_lengths), 'angstroms', standardized=True)
-                    box_angles = puw.quantity(np.array(box_angles), 'degrees', standardized=True)
-                    self._output_dictionary['box'] = get_box_from_lengths_and_angles(box_lengths, box_angles,
-                                                                                     skip_digestion=True)
-                    del(box_lengths, box_angles)
+                    if box_is_available:
+                        box_lengths = puw.quantity(np.array(box_lengths), 'angstroms', standardized=True)
+                        box_angles = puw.quantity(np.array(box_angles), 'degrees', standardized=True)
+                        self._output_dictionary['box'] = get_box_from_lengths_and_angles(box_lengths, box_angles,
+                                                                                         skip_digestion=True)
+                        del(box_lengths, box_angles)
+                    else:
+                        self._output_dictionary['box'] = None
 
             if self._output_type=='values':
                 output = list(self._output_dictionary.values())
@@ -112,4 +122,3 @@ class StructuresIterator():
     def __exit__(self, *args):
         if hasattr(self.molecular_system, 'close'):
             self.molecular_system.close()
-

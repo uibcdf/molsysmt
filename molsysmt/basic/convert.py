@@ -528,8 +528,10 @@ def convert(molecular_system,
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
     - Explicit structure indices are validated before a conversion adapter is called.
-    - Reports classify audited chemical semantics as ``exact``, ``equivalent``,
-      or ``lossy``. Strict lossy conversions are rejected before target creation.
+    - Reports classify semantics only within their ``audited_scopes``. Inspect
+      ``is_exhaustive`` before treating an ``equivalent`` outcome as a claim
+      about the complete represented source state. Strict lossy conversions
+      are rejected before target creation.
     - Missing source information is not a loss. A report issue is created only
       for an attribute available on the source instance or for an audited
       adapter limitation.

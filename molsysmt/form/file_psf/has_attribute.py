@@ -5,10 +5,4 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
     from . import attributes
 
-    output = attributes[attribute]
-
-    if not include_none:
-        pass
-
-    return output
-
+    return bool(attributes.get(attribute, False))

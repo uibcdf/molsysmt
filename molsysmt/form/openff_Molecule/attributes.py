@@ -16,5 +16,9 @@ attributes['bond_is_aromatic'] = True
 attributes['bond_joins_components'] = True
 attributes['bond_evidence'] = True
 attributes['isotope'] = False
+attributes['coordinates'] = True
+attributes['structure_id'] = True
+attributes['structure_index'] = True
+attributes['n_structures'] = True
 
 del _all_attributes

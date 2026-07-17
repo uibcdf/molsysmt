@@ -12,6 +12,7 @@ chain count, atom names, group names).
 """
 
 import pytest
+import warnings
 from pathlib import Path
 import molsysmt as msm
 
@@ -80,3 +81,9 @@ def test_parity_atom_names(universe_topology, source_topology):
 
 def test_parity_group_names(universe_topology, source_topology):
     assert universe_topology.groups['group_name'].tolist() == source_topology.groups['group_name'].tolist()
+
+
+def test_pdb_universe_does_not_invent_time(universe):
+    with warnings.catch_warnings():
+        warnings.simplefilter('error', UserWarning)
+        assert msm.get(universe, element='system', time=True) is None

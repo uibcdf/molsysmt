@@ -1,8 +1,14 @@
-from molsysmt._private.smonitor import NotImplementedIteratorError
-from molsysmt._private.variables import is_all
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.indices import indices_iterator
-import numpy as np
+
+
+_ATOM_STRUCTURAL_ATTRIBUTES = {
+    'alternate_location',
+    'b_factor',
+    'coordinates',
+    'occupancy',
+    'velocities',
+}
 
 class StructuresIterator():
 
@@ -51,21 +57,24 @@ class StructuresIterator():
         if indices is not None:
 
             for argument in self.arguments:
+                from . import get_structural_attributes as getters
 
-                if argument == 'coordinates':
-                    coordinates = self.molecular_system.coordinates[indices,:,:]
-                    if isinstance(indices, int):
-                        coordinates = coordinates[np.newaxis,:,:]
-                    if not is_all(self.atom_indices):
-                        coordinates = coordinates[:, self.atom_indices, :]
-                    self._output_dictionary['coordinates'] = coordinates
-                    del(coordinates)
-                elif argument == 'time':
-                    self._output_dictionary['time'] = self.time[indices]
-                elif argument == 'id':
-                    self._output_dictionary['id'] = indices
-                elif argument == 'box':
-                    self._output_dictionary['box'] = self.box[indices,:,:]
+                if argument in _ATOM_STRUCTURAL_ATTRIBUTES:
+                    getter = getattr(getters, f'get_{argument}_from_atom')
+                    output = getter(
+                        self.molecular_system,
+                        indices=self.atom_indices,
+                        structure_indices=indices,
+                        skip_digestion=True,
+                    )
+                else:
+                    getter = getattr(getters, f'get_{argument}_from_system')
+                    output = getter(
+                        self.molecular_system,
+                        structure_indices=indices,
+                        skip_digestion=True,
+                    )
+                self._output_dictionary[argument] = output
 
             if self._output_type=='values':
                 output = list(self._output_dictionary.values())
@@ -79,4 +88,3 @@ class StructuresIterator():
         else:
 
             raise StopIteration
-

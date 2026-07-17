@@ -7,6 +7,7 @@ import molsysmt as msm
 from molsysmt.form.mdtraj_XTCTrajectoryFile import (
     get_box_from_system,
     get_coordinates_from_atom,
+    get_structure_id_from_system,
     get_time_from_system,
 )
 
@@ -29,12 +30,17 @@ def test_structural_getters_preserve_cursor_and_can_be_composed():
             reader,
             structure_indices=[0, 25, 50],
         )
+        structure_id = get_structure_id_from_system(
+            reader,
+            structure_indices=[0, 25, 50],
+        )
 
         assert reader.tell() == 7
 
     assert msm.pyunitwizard.get_value(coordinates).shape == (3, 2, 3)
     np.testing.assert_allclose(msm.pyunitwizard.get_value(time), [0.0, 500.0, 1000.0])
     assert msm.pyunitwizard.get_value(box).shape == (3, 3, 3)
+    np.testing.assert_array_equal(structure_id, [0, 250000, 500000])
 
 
 def test_xtc_conversion_reads_coordinates_time_and_box_together():
@@ -50,3 +56,7 @@ def test_xtc_conversion_reads_coordinates_time_and_box_together():
     assert molecular_system.structures.coordinates.shape == (3, 5547, 3)
     assert molecular_system.structures.time.shape == (3,)
     assert molecular_system.structures.box.shape == (3, 3, 3)
+    np.testing.assert_array_equal(
+        molecular_system.structures.structure_id,
+        [0, 250000, 500000],
+    )

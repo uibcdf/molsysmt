@@ -8,10 +8,14 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     import molsysmt as msm
 
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item, skip_digestion=True)
-    res_item = mdtraj_HDF5TrajectoryFile_to_molsysmt_Structures(tmp_item, atom_indices=atom_indices,
-                                                                structure_indices=structure_indices, skip_digestion=True)
-
-    msm.form.close(tmp_item)
+    try:
+        res_item = mdtraj_HDF5TrajectoryFile_to_molsysmt_Structures(
+            tmp_item,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
+    finally:
+        msm.form.close(tmp_item)
 
     return res_item
-

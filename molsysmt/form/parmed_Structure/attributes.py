@@ -8,6 +8,7 @@ attributes['atom_id'] = True
 attributes['atom_name'] = True
 attributes['atom_type'] = True
 attributes['formal_charge'] = True
+attributes['partial_charge'] = True
 attributes['atom_is_aromatic'] = True
 attributes['bond_index'] = True
 attributes['bond_id'] = True

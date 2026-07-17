@@ -1,6 +1,7 @@
 """Testing canonical chemical-state conversion from OpenFF Molecule."""
 
 import pytest
+import pandas as pd
 
 Molecule = pytest.importorskip('openff.toolkit.topology').Molecule
 
@@ -40,14 +41,24 @@ def test_openff_keeps_formal_fractional_order_and_aromaticity_independent():
     assert any(msm.get(molecule, element='bond', bond_is_aromatic=True))
 
 
-def test_openff_ez_stereo_limitation_is_reported_and_strictly_rejected():
+def test_openff_ez_stereo_and_reference_atoms_are_preserved():
     molecule = Molecule.from_smiles('F/C=C/F')
 
-    _, report = msm.convert(
+    topology, report = msm.convert(
         molecule, to_form='molsysmt.Topology', return_report=True
     )
 
-    assert report.outcome == 'lossy'
-    assert {issue.attribute for issue in report.issues} == {'bond_stereochemistry'}
-    with pytest.raises(msm.NotCompatibleConversionError):
-        msm.convert(molecule, to_form='molsysmt.Topology', strict=True)
+    stereo = msm.get(topology, element='bond', bond_stereochemistry=True)
+    stereo_references = msm.get(
+        topology, element='bond', bond_stereo_atom_indices=True
+    )
+    stereo_index = next(
+        index
+        for index, value in enumerate(stereo)
+        if not pd.isna(value) and value == 'E'
+    )
+    assert all(
+        not pd.isna(value) for value in stereo_references[stereo_index]
+    )
+    assert report.outcome == 'equivalent'
+    assert report.issues == ()

@@ -63,6 +63,12 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+    tmp_item = _read_from_start(item)
+    if tmp_item[2] is not None:
+        output = tmp_item[2]
+        if not is_all(structure_indices):
+            output = output[structure_indices]
+        return output
     return None
 
 # List of functions to be imported

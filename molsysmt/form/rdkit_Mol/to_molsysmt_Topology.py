@@ -73,11 +73,20 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item = Topology(n_atoms=item.GetNumAtoms())
 
     atoms = list(item.GetAtoms())
-    tmp_item.atoms['atom_id'] = [str(atom.GetIdx()) for atom in atoms]
+    tmp_item.atoms['atom_id'] = [
+        atom.GetProp('_MolSysMTAtomID')
+        if atom.HasProp('_MolSysMTAtomID')
+        else str(atom.GetIdx())
+        for atom in atoms
+    ]
     tmp_item.atoms['atom_name'] = [
-        atom.GetPDBResidueInfo().GetName().strip()
-        if atom.GetPDBResidueInfo() is not None
-        else f'{atom.GetSymbol()}{atom.GetIdx()}'
+        atom.GetProp('_MolSysMTAtomName')
+        if atom.HasProp('_MolSysMTAtomName')
+        else (
+            atom.GetPDBResidueInfo().GetName().strip()
+            if atom.GetPDBResidueInfo() is not None
+            else f'{atom.GetSymbol()}{atom.GetIdx()}'
+        )
         for atom in atoms
     ]
     tmp_item.atoms['atom_type'] = [atom.GetSymbol() for atom in atoms]

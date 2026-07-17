@@ -58,14 +58,28 @@ class StructuresIterator():
             coords_list = []
             box_list = []
             time_list = []
+            structure_id_list = []
+            box_is_available = True
+            time_is_available = True
+            structure_id_is_available = True
 
             for ii in idx_array:
                 self.molecular_system.seek(int(ii))
                 xyz, time, step, box = self.molecular_system.read(1,
                         atom_indices=self._mdtraj_atom_indices)
                 coords_list.append(np.float64(xyz[0]))
-                box_list.append(np.float64(box[0]))
-                time_list.append(np.float64(time[0]))
+                if box is None:
+                    box_is_available = False
+                elif box_is_available:
+                    box_list.append(np.float64(box[0]))
+                if time is None:
+                    time_is_available = False
+                elif time_is_available:
+                    time_list.append(np.float64(time[0]))
+                if step is None:
+                    structure_id_is_available = False
+                elif structure_id_is_available:
+                    structure_id_list.append(int(step[0]))
 
             for argument in self.arguments:
 
@@ -74,15 +88,22 @@ class StructuresIterator():
                             np.array(coords_list), 'nanometer', standardized=True)
 
                 elif argument == 'box':
-                    self._output_dictionary['box'] = puw.quantity(
-                            np.array(box_list), 'nanometer', standardized=True)
+                    self._output_dictionary['box'] = (
+                        puw.quantity(np.array(box_list), 'nanometer', standardized=True)
+                        if box_is_available else None
+                    )
 
                 elif argument == 'time':
-                    self._output_dictionary['time'] = puw.quantity(
-                            np.array(time_list), 'picosecond', standardized=True)
+                    self._output_dictionary['time'] = (
+                        puw.quantity(np.array(time_list), 'picosecond', standardized=True)
+                        if time_is_available else None
+                    )
 
                 elif argument == 'structure_id':
-                    self._output_dictionary['structure_id'] = idx_array
+                    self._output_dictionary['structure_id'] = (
+                        np.asarray(structure_id_list, dtype=np.int64)
+                        if structure_id_is_available else None
+                    )
 
             if self._output_type == 'values':
                 output = list(self._output_dictionary.values())

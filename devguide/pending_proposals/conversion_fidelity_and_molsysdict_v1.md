@@ -46,6 +46,70 @@ multiple structures, and triclinic boxes. The first slice verifies:
 
 ## Remaining Tier 1 fidelity matrix
 
+### Pre-1.0 promotion scope
+
+The pre-1.0 conversion contract must not leave strategically central adapters
+classified as experimental merely because their target models are narrower than
+native MolSysMT. Tier 1 means that a documented scope is stable and executable;
+it does not mean that the form represents every molecular-system attribute.
+
+The following cohorts are explicit pre-1.0 Tier 1 promotion targets. Promotion
+is performed per form only after its declared read, write, selection, unit,
+missing-data, and intentional-loss scope has executable evidence.
+
+1. Trajectory and simulation exchange: `file:gro`, `file:dcd`,
+   `mdtraj.DCDTrajectoryFile`, `mdtraj.XTCTrajectoryFile`, `file:h5`, and
+   `mdtraj.HDF5TrajectoryFile`.
+2. MDAnalysis interoperability: `MDAnalysis.Universe`,
+   `MDAnalysis.AtomGroup`, and `MDAnalysis.Topology`.
+3. Chemical and drug-design exchange: `rdkit.Mol`, `openff.Molecule`,
+   `openff.Topology`, `string:smiles`, `file:smi`, and `file:mol2`.
+4. Topology and mechanics exchange: `file:psf` and `parmed.Structure`.
+
+A promotion gate requires:
+
+- no declared conversion route in the contractual scope is broken;
+- declared attributes are publicly deliverable;
+- optional dependencies are guarded explicitly rather than hidden by broad
+  exception handling;
+- selections and structure subsets remain aligned whenever the form can
+  represent them;
+- units, precision, missing values, and target inference have explicit tests;
+- unavoidable losses are represented by the conversion report and strict mode;
+- documentation states directional or reduced support instead of implying a
+  round trip that the target model cannot provide.
+
+Adapters that cannot meet this gate before 1.0 must be deliberately narrowed or
+removed from the advertised scope. They must not remain accidentally
+experimental without a decision.
+
+**Implementation checkpoint (2026-07-17):** the first three promotion cohorts are
+complete for `file:gro`, `molsysmt.GROFileHandler`, `file:dcd`,
+`mdtraj.DCDTrajectoryFile`, `mdtraj.XTCTrajectoryFile`, `file:h5`, and
+`mdtraj.HDF5TrajectoryFile`, plus `MDAnalysis.Universe`,
+`MDAnalysis.AtomGroup`, and `MDAnalysis.Topology`. Their reduced read scope,
+cursor or active-frame preservation, unit boundaries, non-monotonic subsets,
+subset alignment, velocities, thermodynamic metadata, triclinic boxes, and
+chemical-state import have executable tests where applicable. AtomGroup
+conversion no longer reintroduces its parent atoms, and MDAnalysis self
+conversion now materializes atom and frame subsets. The adapter validator now
+rejects every unreachable Tier 1 attribute declaration even when the same debt
+existed in the historical baseline.
+
+The chemical/drug-design cohort is complete for `rdkit.Mol`,
+`openff.Molecule`, `openff.Topology`, `string:smiles`, `file:smi`, and
+`file:mol2`; `parmed.Structure` and `file:psf` are also promoted from the topology/mechanics
+cohort. Tests cover rich atom/bond chemistry, E/Z and R/S stereo, conformer and
+atom subsets, complete partial charges, local duplicate IDs, reduced SMILES/SMI
+semantics, Tripos types and `ar`/`am` bonds, multiple ParmEd frames and boxes,
+and explicit unsupported-input rejection. PSF tests additionally cover source
+IDs, CHARMM atom types, partial charges, complete explicit connectivity without
+invented bond orders, atom/mechanics subset alignment, and self-copy output.
+All promoted forms have zero unreachable declarations. The global adapter audit
+has 101 accepted unreachable declarations across 10 non-Tier-1 forms, down by
+320 from the baseline. Write/append extensions outside the documented read
+contracts remain pending.
+
 ### How
 
 1. Generate the matrix from the explicit form registry and direct conversion

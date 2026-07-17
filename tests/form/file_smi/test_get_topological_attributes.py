@@ -93,3 +93,24 @@ def test_roundtrip_rdkit_mol(smi_caffeine, tmp_path):
     result = msm.convert(mol, to_form='file:smi', output_filename=out)
     assert msm.get_form(result) == 'file:smi'
     assert msm.get(result, element='system', n_atoms=True) == 14
+
+
+@needs_rdkit
+def test_multi_record_file_converts_to_one_disconnected_rdkit_graph(smi_two_mols):
+    molecule = msm.convert(smi_two_mols, to_form='rdkit.Mol')
+    topology = msm.convert(smi_two_mols, to_form='molsysmt.Topology')
+
+    assert msm.get_form(molecule) == 'rdkit.Mol'
+    assert molecule.GetNumAtoms() == 17
+    assert topology.n_components == 2
+
+
+@needs_rdkit
+def test_invalid_smiles_record_fails_with_public_format_error(tmp_path):
+    from molsysmt._private.smonitor import FormatError
+
+    path = tmp_path / 'invalid.smi'
+    path.write_text('CCO ethanol\nthis-is-not-smiles broken\n')
+
+    with pytest.raises(FormatError, match='line 2'):
+        msm.convert(str(path), to_form='rdkit.Mol')

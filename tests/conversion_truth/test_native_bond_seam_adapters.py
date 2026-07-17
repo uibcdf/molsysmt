@@ -164,6 +164,24 @@ def test_pdb_targets_report_unrepresentable_rich_bond_metadata(
     assert report.outcome == 'lossy'
 
 
+def test_conversion_report_exposes_its_audit_boundary(rich_molsys):
+    _, same_form_report = msm.convert(
+        rich_molsys,
+        to_form="molsysmt.MolSys",
+        return_report=True,
+    )
+    _, reduced_report = msm.convert(
+        rich_molsys,
+        to_form="mdtraj.Topology",
+        return_report=True,
+    )
+
+    assert same_form_report.audited_scopes == ("all",)
+    assert same_form_report.is_exhaustive is True
+    assert reduced_report.audited_scopes == ("chemical_state",)
+    assert reduced_report.is_exhaustive is False
+
+
 def test_pdbfixer_reports_known_empty_connectivity_inference(rich_molsys):
     rich_molsys.topology._reset_chemical_state_bonds(n_bonds=0)
 
