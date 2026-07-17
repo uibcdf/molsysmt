@@ -5,11 +5,21 @@ on:
     paths:
       - "devguide/**"
       - "devtools/scripts/validate_devguide.py"
+      - "devtools/scripts/validate_api_stability.py"
+      - "devtools/scripts/validate_scientific_evidence.py"
+      - "devtools/data/public_api_stability.json"
+      - "tests/scientific_truth/evidence/**"
+      - "molsysmt/**/__init__.py"
       - ".github/workflows/ci-devguide.yaml"
   pull_request:
     paths:
       - "devguide/**"
       - "devtools/scripts/validate_devguide.py"
+      - "devtools/scripts/validate_api_stability.py"
+      - "devtools/scripts/validate_scientific_evidence.py"
+      - "devtools/data/public_api_stability.json"
+      - "tests/scientific_truth/evidence/**"
+      - "molsysmt/**/__init__.py"
       - ".github/workflows/ci-devguide.yaml"
   workflow_dispatch:
 
@@ -19,8 +29,22 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
       - name: Validate developer guide
         run: python devtools/scripts/validate_devguide.py
+      - name: Validate public API stability registry
+        run: python devtools/scripts/validate_api_stability.py
+      - name: Validate scientific evidence registry
+        run: python devtools/scripts/validate_scientific_evidence.py
+      - name: Reject forbidden API stability transitions
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -n "$BASE_SHA" ] && git cat-file -e "$BASE_SHA:devtools/data/public_api_stability.json"; then
+            git show "$BASE_SHA:devtools/data/public_api_stability.json" > /tmp/public_api_stability_baseline.json
+            python devtools/scripts/validate_api_stability.py --baseline /tmp/public_api_stability_baseline.json
+          fi

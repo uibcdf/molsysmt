@@ -64,6 +64,7 @@ jobs:
       - name: Run scientific truth gate
         shell: bash -l {0}
         run: |
+          python devtools/scripts/validate_scientific_evidence.py
           python -c "import MDAnalysis, mdtraj; print('MDAnalysis:', MDAnalysis.__version__); print('MDTraj:', mdtraj.__version__)"
           pytest -q tests/scientific_truth --color=yes
 

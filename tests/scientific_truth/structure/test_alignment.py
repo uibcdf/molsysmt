@@ -34,3 +34,40 @@ def test_least_rmsd_fit_recovers_reference_after_rigid_transform(float64_kernel_
         rtol=0.0,
         atol=float64_kernel_atol,
     )
+
+
+def test_least_rmsd_align_recovers_homologous_rigid_transform(float64_kernel_atol):
+    """Recover all coordinates after sequence-aware alignment of one peptide."""
+
+    reference = msm.convert(
+        msm.systems["Met-enkephalin"]["met_enkephalin.h5msm"],
+        to_form="molsysmt.MolSys",
+    )
+    rotation = np.array(
+        [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
+    )
+    transformed = msm.structure.rotate(reference, rotation=rotation, in_place=False)
+    transformed = msm.structure.translate(
+        transformed,
+        translation=np.array([2.0, -3.0, 0.5]) * msm.pyunitwizard.unit("nm"),
+        in_place=False,
+    )
+
+    aligned = msm.structure.least_rmsd_align(
+        transformed,
+        selection='atom_name=="CA"',
+        reference_molecular_system=reference,
+        reference_selection='atom_name=="CA"',
+        in_place=False,
+        use_gpu=False,
+    )
+    observed = msm.pyunitwizard.get_value(
+        msm.get(aligned, coordinates=True), to_unit="nm"
+    )
+    expected = msm.pyunitwizard.get_value(
+        msm.get(reference, coordinates=True), to_unit="nm"
+    )
+
+    np.testing.assert_allclose(
+        observed, expected, rtol=0.0, atol=float64_kernel_atol
+    )

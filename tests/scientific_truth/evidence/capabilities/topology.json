@@ -1,0 +1,82 @@
+{
+  "molsysmt.topology.get_bondgraph": {
+    "domain": "topology",
+    "status": "validated",
+    "claim": "Constructing the covalent graph represented by chemical-state bonds.",
+    "units": [
+      "graph"
+    ],
+    "periodic_behavior": "Not periodic or not applicable to this contract.",
+    "contract_test_area": "tests/topology",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+        "oracle": "Synthetic seven-node path plus one isolated atom with explicitly declared edges.",
+        "comparison": "exact",
+        "tolerance": null
+      }
+    ],
+    "gap": null
+  },
+  "molsysmt.topology.get_covalent_blocks": {
+    "domain": "topology",
+    "status": "validated",
+    "claim": "Identifying connected components of the covalent graph.",
+    "units": [
+      "indices"
+    ],
+    "periodic_behavior": "Not periodic or not applicable to this contract.",
+    "contract_test_area": "tests/topology",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+        "oracle": "Closed-form connected components of a seven-node path and isolated atom.",
+        "comparison": "exact",
+        "tolerance": null
+      }
+    ],
+    "gap": null
+  },
+  "molsysmt.topology.get_covalent_chains": {
+    "domain": "topology",
+    "status": "validated",
+    "claim": "Identifying ordered covalent paths under the documented chain convention.",
+    "units": [
+      "indices"
+    ],
+    "periodic_behavior": "Not periodic or not applicable to this contract.",
+    "contract_test_area": "tests/topology",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_chains_match_explicit_named_paths",
+        "oracle": "Two explicit C-N-CA-C paths in a named synthetic bond graph.",
+        "comparison": "exact",
+        "tolerance": null
+      }
+    ],
+    "gap": null
+  },
+  "molsysmt.topology.get_dihedral_quartets": {
+    "domain": "topology",
+    "status": "validated",
+    "claim": "Enumerating bonded atom quartets that define covalent dihedrals.",
+    "units": [
+      "indices"
+    ],
+    "periodic_behavior": "Not periodic or not applicable to this contract.",
+    "contract_test_area": "tests/topology",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths",
+        "oracle": "The two phi quartets implied by explicit names and bonds in the synthetic graph.",
+        "comparison": "exact",
+        "tolerance": null
+      }
+    ],
+    "gap": null
+  }
+}

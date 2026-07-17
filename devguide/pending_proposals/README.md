@@ -20,7 +20,6 @@ scientific-validation requirements.
 - `technical_and_scientific_quality_improvement_program.md` — umbrella quality
   program; split accepted work into smaller changes.
 - `explicit_form_support_registry.md` — removing implicit Tier 1 classification.
-- `machine_readable_api_stability_registry.md` — explicit symbol stability.
 - `documentation_lifecycle_manifest.md` — API-to-doc/course traceability.
 - `catalog_diagnostics_migration.md` — risk-ranked diagnostics cleanup.
 - `benchmark_regression_gate_reliability.md` — statistically credible gates.
@@ -35,6 +34,8 @@ scientific-validation requirements.
 
 ### Scientific and ecosystem requests
 
+- `trajectory_projection_onto_principal_components.md` — explicit per-frame
+  projection onto a fitted PCA basis without confusing scores with eigenvectors.
 - `chemical_metadata_preservation_sdf_mol2.md`
 - `physchem_electronegativity_per_element.md`
 - `physchem_support_dummy_atoms.md`

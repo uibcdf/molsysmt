@@ -99,6 +99,12 @@ The executable suite lives under `tests/scientific_truth/` and separates:
   appropriate reference implementations;
 - metamorphic checks for invariants such as translation or rotation invariance.
 
+Stable scientific operations are inventoried from the public API registry and
+classified in `tests/scientific_truth/evidence/capabilities/`. CI validates
+that each operation appears exactly once, that registered pytest nodes exist,
+and that `validated` is never inferred from parity or metamorphic evidence
+alone.
+
 External comparisons are complementary evidence, not the sole source of truth.
 They must use independently constructed fixtures and must not validate a converter
 against data produced through that same converter.

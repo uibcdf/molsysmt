@@ -1,28 +1,42 @@
 """Governed numerical tolerances for the Scientific Truth Suite."""
 
+import json
+from pathlib import Path
+
 import numpy as np
 import pytest
+
+
+with (Path(__file__).with_name("evidence") / "tolerances.json").open(
+    encoding="utf-8"
+) as file:
+    _TOLERANCES = json.load(file)
+
+
+def _atol(name):
+    """Return one governed absolute tolerance from the evidence registry."""
+    return float(_TOLERANCES[name]["atol"])
 
 
 @pytest.fixture(scope="session")
 def public_six_decimal_atol():
     """Absolute tolerance for public geometry values rounded to six decimals."""
 
-    return 5.0e-7
+    return _atol("public_six_decimal_atol")
 
 
 @pytest.fixture(scope="session")
 def float64_kernel_atol():
     """Absolute tolerance for small, well-conditioned float64 analytic kernels."""
 
-    return 1.0e-12
+    return _atol("float64_kernel_atol")
 
 
 @pytest.fixture(scope="session")
 def external_float32_atol():
     """Absolute tolerance for external geometry paths using float32 storage."""
 
-    return 1.0e-6
+    return _atol("external_float32_atol")
 
 
 @pytest.fixture(scope="session")

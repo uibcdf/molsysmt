@@ -1,0 +1,14 @@
+{
+  "schema_version": "molsysmt.scientific-evidence@1",
+  "stable_api_scopes": [
+    "molsysmt.pbc",
+    "molsysmt.structure",
+    "molsysmt.physchem",
+    "molsysmt.topology"
+  ],
+  "status_definitions": {
+    "validated": "At least one analytic, external, or versioned-reference oracle is executable.",
+    "partial": "Evidence exists but does not independently establish the complete declared claim.",
+    "gap": "No governed independent scientific oracle is currently registered."
+  }
+}

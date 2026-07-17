@@ -128,6 +128,7 @@ devtools/playground/*
 molsysmt/_version.py
 !*.nbconvert.log
 .numba_cache/
+*.xtc_offsets.npz
 
 # devtools/tests generated artifacts
 devtools/tests/coverage.json

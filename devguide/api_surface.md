@@ -1,9 +1,9 @@
 # Public API Surface and Stability
 
 This document defines how the public surface is identified and how stability
-claims are made. The dated, manually curated pre-1.0 classification is archived
-under `archive/assessments/` because it cannot be kept authoritative without an
-executable registry.
+claims are made. The normative classification is the machine-readable registry
+in `devtools/data/public_api_stability.json`; its generated human-readable view
+is `api_stability_registry.md`.
 
 ## What is public
 
@@ -20,21 +20,29 @@ Modules under `molsysmt/_private` are internal. `molsysmt.third_party` is a
 bridge implementation namespace and is not a stable user contract unless an
 individual symbol is documented otherwise.
 
-## Current stability evidence
+## Normative stability contract
 
-The repository does not yet contain a machine-readable, release-approved
-stability registry for every public symbol. Therefore:
+Every export in the root lazy registry and the release-contract namespaces is
+classified as `stable`, `experimental`, or `outside-contract`. The registry is
+validated against source code with the Python AST, without importing MolSysMT
+or optional dependencies. CI fails when an export is added without a decision,
+when a registered export disappears, or when the generated table is stale.
 
-- presence in an `__init__.py` establishes discoverability, not a promise of
-  stability throughout the `1.x` line;
-- a docstring `versionadded` directive records introduction, not maturity;
-- form tiers classify adapter support, not function stability;
-- tests demonstrate covered behavior, not an irrevocable compatibility policy.
+The exact member inventories currently tracked are `molsysmt`, `basic`,
+`structure`, `build`, `pbc`, `physchem`, `topology`, `hbonds`, and
+`molecular_mechanics`. Other root namespaces have an explicit subtree policy:
+their members inherit the namespace's Experimental or Outside-contract status
+until that namespace is promoted into exact member tracking.
 
-Until the registry proposed in
-`pending_proposals/machine_readable_api_stability_registry.md` exists, stability
-must be stated narrowly in release notes or an explicitly approved public API
-document. Do not label the entire current surface Stable by inference.
+`pre-1.0` in the introduction field means that the symbol was already present
+during pre-release development and that no trustworthy finer-grained public
+release provenance exists. It is not an inferred maturity claim.
+
+Presence in an `__init__.py`, a docstring `versionadded` directive, form tier,
+or test suite still does not establish stability on its own. Only the registry
+does. A previous registry can be passed to the validator as a baseline; Stable
+symbols cannot be demoted or removed and deprecated lifecycle state cannot be
+silently reverted.
 
 ## Root compatibility points
 
@@ -42,9 +50,9 @@ The root registry currently exposes both `molsysmt.warmup()` and the deprecated
 compatibility alias `molsysmt.warmup_numba()`. New documentation and code should
 use `warmup()`.
 
-Exceptions re-exported at the root are intended for user-side handling, but
-their constructor details and catalog payloads still require compatibility
-tests before stronger guarantees are made.
+Exceptions re-exported at the root are Stable user-side handling points. Their
+catalog prose may improve, but their import paths and intended exception roles
+belong to the `1.x` compatibility contract.
 
 ## Evolution rules
 

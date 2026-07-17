@@ -68,6 +68,8 @@ Read these documents in order when first working on MolSysMT:
 ### Scientific construction and analysis
 
 - [scientific_validation.md](scientific_validation.md)
+- [scientific_evidence_matrix.md](scientific_evidence_matrix.md) — generated
+  status view backed by the executable Scientific Truth evidence registry.
 - [structure_preparation_pipeline.md](structure_preparation_pipeline.md)
 - [performance_and_jit.md](performance_and_jit.md)
 - [SCALABILITY.md](SCALABILITY.md)

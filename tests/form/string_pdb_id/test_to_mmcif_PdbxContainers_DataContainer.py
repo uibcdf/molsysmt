@@ -1,8 +1,11 @@
 """Tests for string_pdb_id -> mmcif DataContainer conversion behavior."""
 
 import importlib
+import shutil
 
 import pytest
+
+import molsysmt as msm
 
 
 def test_to_mmcif_pdbxcontainers_datacontainer_reports_aggregated_offline_error(monkeypatch):
@@ -52,3 +55,28 @@ def test_to_mmcif_pdbxcontainers_datacontainer_reports_aggregated_offline_error(
     assert "bcif offline" in text
     assert "cif.gz offline" in text
     assert "cif offline" in text
+
+
+def test_convert_multimodel_pdb_id_uses_all_nmr_models_offline(monkeypatch):
+    """Convert the public 1L2Y identifier into its complete NMR ensemble."""
+
+    source = msm.systems["Trp-Cage"]["1l2y.bcif.gz"]
+    requested_ids = []
+
+    def use_bundled_bcif(pdb_id=None, output_filename=None, **kwargs):
+        requested_ids.append(pdb_id)
+        shutil.copyfile(source, output_filename)
+        return output_filename
+
+    file_bcif_gz = importlib.import_module("molsysmt.form.file_bcif_gz")
+    monkeypatch.setattr(file_bcif_gz, "download", use_bundled_bcif)
+
+    ensemble = msm.convert("1L2Y")
+
+    assert requested_ids == ["1L2Y"]
+    assert msm.get_form(ensemble) == "molsysmt.MolSys"
+    assert ensemble.topology.n_atoms == 304
+    assert ensemble.topology.n_groups == 20
+    assert ensemble.structures.n_structures == 38
+    assert ensemble.structures.coordinates.shape == (38, 304, 3)
+    assert ensemble.structures.occupancy is None

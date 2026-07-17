@@ -70,6 +70,19 @@ def test_structure_analysis_adapters_raise_without_system():
         pca(view)
 
 
+def test_pca_adapter_maps_flat_pc1_to_selected_atom_vectors():
+    msm = pytest.importorskip("molsysmt")
+    from molsysviewer_molsysmt.adapters.structure import pca
+
+    view = molsysviewer.demo["dialanine"]
+    result = pca(view, selection='atom_name=="CA"')
+    expected_atom_indices = msm.select(view, element="atom", selection='atom_name=="CA"')
+
+    assert result.pc1_vectors.shape == (len(result.atom_indices), 3)
+    assert result.atom_indices == list(expected_atom_indices)
+    assert result.principal_components.shape[1] == 3 * len(result.atom_indices)
+
+
 def test_show_facade_contacts_renders_links_and_tracks_tag():
     pytest.importorskip("molsysmt")
     molsysviewer.addons.clear()
@@ -282,5 +295,3 @@ def test_topology_adapters_raise_without_system():
         bond_graph_links(view)
     with pytest.raises(ValueError, match="No molecular system"):
         dihedral_quartets(view)
-
-

@@ -91,7 +91,7 @@ class Structures:
     @property
     def occupancy(self):
         if self._occupancy is None:
-            raise AttributeError("'Structures' object has no attribute 'occupancy'")
+            return None
         return self._occupancy
 
     @occupancy.setter

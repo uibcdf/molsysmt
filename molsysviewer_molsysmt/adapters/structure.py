@@ -169,17 +169,18 @@ def pca(
         structure_indices=structure_indices,
         syntax=syntax,
     )
-    variances_arr = np.asarray(variances).flatten()
+    variances_arr = np.asarray(msm.pyunitwizard.get_value(variances)).flatten()
     pc1_variance = float(variances_arr[0]) if len(variances_arr) else 0.0
-    pc1_vectors = (
-        np.asarray(principal_components[0])
-        if hasattr(principal_components, "__len__")
-        else np.asarray(principal_components)
+    atom_indices = np.asarray(
+        msm.select(view, element="atom", selection=selection, syntax=syntax),
+        dtype=int,
     )
+    pc1_flat = np.asarray(principal_components[0], dtype=float)
+    pc1_vectors = pc1_flat.reshape(3, len(atom_indices)).T
     return PCAResult(
         principal_components=principal_components,
         variances=variances,
         pc1_vectors=pc1_vectors,
         pc1_variance=pc1_variance,
-        atom_indices=list(range(len(pc1_vectors))),
+        atom_indices=atom_indices.tolist(),
     )

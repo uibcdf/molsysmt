@@ -14,7 +14,14 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
         weights=None, syntax='MolSysMT', engine='MolSysMT', use_gpu=None,
         skip_digestion=False):
     """
-    Performing principal component analysis (PCA) on selected atoms.
+    Computing covariance eigenvectors and eigenvalues for selected atoms.
+
+    The selected Cartesian coordinates are flattened in ``x``, ``y``, ``z``
+    blocks, centered over the requested structures, and used to construct the
+    population covariance matrix. The function returns its eigenvectors and
+    eigenvalues in descending eigenvalue order. The first row is therefore the
+    principal vector that captures the largest mean squared dispersion. The
+    function does not project the input trajectory onto those eigenvectors.
 
     Parameters
     ----------
@@ -25,7 +32,7 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
     structure_indices : 'all' or array-like, default 'all'
         Structures/frames to analyze.
     weights : array-like, optional
-        Weights per atom.
+        Dimensionless weights per atom. Unit weights are used by default.
     syntax : str, default 'MolSysMT'
         Selection syntax when using strings.
     engine : {'MolSysMT'}, default 'MolSysMT'
@@ -36,12 +43,47 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
     Returns
     -------
     tuple
-        `(principal_components, variances)` as returned by the backend.
+        ``(eigenvectors, eigenvalues)``. Eigenvectors are a dimensionless
+        ``numpy.ndarray`` with shape ``(3*n_atoms, 3*n_atoms)`` and one
+        eigenvector per row, ordered from largest to smallest eigenvalue.
+        Eigenvalues are a quantity with shape
+        ``(3*n_atoms,)`` and squared-coordinate units (normally ``nm**2``).
 
     Raises
     ------
     NotImplementedMethodError
         If the engine is unsupported.
+
+    Notes
+    -----
+    The covariance uses population normalization by ``n_structures``. Each row
+    of the first output is an eigenvector; eigenvector signs are arbitrary. The
+    first row captures the largest mean squared dispersion. The output does not
+    contain per-structure projections.
+
+    See Also
+    --------
+    :func:`molsysmt.structure.get_principal_axes` :
+        Compute geometric or inertia principal axes for individual structures.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import molsysmt as msm
+    >>> from molsysmt.native import Structures
+    >>> coordinates = np.array([[[-1.0, 0.0, 0.0]], [[1.0, 0.0, 0.0]]])
+    >>> system = Structures(coordinates=coordinates * msm.pyunitwizard.unit('nm'))
+    >>> eigenvectors, eigenvalues = msm.structure.principal_component_analysis(
+    ...     system, use_gpu=False
+    ... )
+    >>> eigenvectors.shape
+    (3, 3)
+    >>> msm.pyunitwizard.get_value(eigenvalues, to_unit='nm**2').tolist()
+    [1.0, 0.0, 0.0]
+
+    .. admonition:: Tutorial with more examples
+
+       See the User Guide tutorial on principal component analysis.
 
     .. versionadded:: 1.0.0
     """
@@ -54,7 +96,7 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
 
         coordinates = get(molecular_system, element='atom', selection=atom_indices,
                 structure_indices=structure_indices, coordinates=True)
-        coordinates, _ = extract_coordinates_value_and_unit(coordinates)
+        coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
         if weights is None:
             weights = np.ones((coordinates.shape[1]), dtype=np.float64)
@@ -66,15 +108,22 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
             from molsysmt.lib.structure.principal_component_analysis_cuda import (
                 principal_component_analysis as _gpu_pca,
             )
-            variances, principal_components = _gpu_pca(coordinates, weights)
+            eigenvalues, eigenvectors = _gpu_pca(coordinates, weights)
         else:
-            variances, principal_components = msmlib.structure.principal_component_analysis(coordinates, weights)
+            eigenvalues, eigenvectors = msmlib.structure.principal_component_analysis(
+                coordinates, weights
+            )
+
+        eigenvalues = eigenvalues[::-1].copy()
+        eigenvectors = eigenvectors[::-1].copy()
+        eigenvalues = puw.quantity(eigenvalues, length_unit**2)
+        eigenvalues = puw.standardize(eigenvalues)
 
         del(coordinates, atom_indices, weights)
 
         gc.collect()
 
-        return principal_components, variances
+        return eigenvectors, eigenvalues
 
     else:
 

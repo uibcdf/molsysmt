@@ -171,6 +171,21 @@ def test_append_none_does_nothing():
     assert s.n_structures == 0
 
 
+def test_append_structures_accepts_missing_optional_occupancy():
+    """Append coordinate frames when neither source declares occupancy."""
+
+    target = Structures(coordinates=_coords(n_structures=1, n_atoms=4))
+    source = Structures(coordinates=_coords(n_structures=2, n_atoms=4))
+
+    assert target.occupancy is None
+    assert source.occupancy is None
+
+    target.append_structures(source)
+
+    assert target.n_structures == 3
+    assert target.occupancy is None
+
+
 # ---------------------------------------------------------------------------
 # extract with specific indices
 # ---------------------------------------------------------------------------

@@ -63,8 +63,12 @@ itself prove scientific correctness.
 
 - Runtime form tiers are defined by
   `molsysmt/_private/form_tier.py`. The support notebook reports that registry.
-- Public exports define discoverability. `api_surface.md` defines the stability
-  process; a complete symbol-level stability registry is still pending.
+- Public exports define discoverability. The normative symbol-level stability
+  registry is `devtools/data/public_api_stability.json`; `api_surface.md` and
+  its generated registry view explain and render that contract.
+- Scientific evidence classifications and numerical tolerances are defined by
+  the domain-split registry under `tests/scientific_truth/evidence/`;
+  `scientific_evidence_matrix.md` is its generated review view.
 - Diagnostic codes and templates are defined by the SMonitor catalog in code.
 - Dependency classification is defined by `molsysmt/_depdigest.py`.
 - Heavy-execution behavior is defined by current code and contract tests, with

@@ -4,6 +4,13 @@ This normative document defines the evidence required before MolSysMT describes
 a stable scientific operation as scientifically validated. The executable suite
 lives under `tests/scientific_truth/`.
 
+The machine-readable evidence contract lives under
+`tests/scientific_truth/evidence/`. Its domain files must classify every Stable
+scientific API exactly once as `validated`, `partial`, or `gap`. The generated
+status view is [`scientific_evidence_matrix.md`](scientific_evidence_matrix.md).
+A `gap` records absent governed independent evidence; it does not imply that an
+operation lacks ordinary tests or that its implementation is incorrect.
+
 ## Evidence hierarchy
 
 Scientific validation requires at least one expected result that is independent
@@ -31,7 +38,8 @@ box matrix and return the shortest periodic displacement supported by the cell.
 ## Tolerance governance
 
 The executable tolerance source for this suite is
-`tests/scientific_truth/conftest.py`.
+`tests/scientific_truth/evidence/tolerances.json`. The fixtures in
+`tests/scientific_truth/conftest.py` expose those governed values to pytest.
 
 - Public box lengths, angles, and reconstructed matrices are rounded to six
   decimal places by their current API implementation. Their absolute tolerance
@@ -58,7 +66,14 @@ take precedence over external numerical artifacts. For example, the identity
 least-RMSD is exactly zero even when a float32 QCP implementation reports a
 small positive value for a five-atom self-comparison.
 
-## Initial validation index
+## Scientific evidence index
+
+The complete symbol-level status and pytest-node mapping is generated in
+[`scientific_evidence_matrix.md`](scientific_evidence_matrix.md). The tables
+below explain the established validation scenarios and conventions; they are
+not a second authoritative inventory.
+
+## Initial validation scenarios
 
 | Quantity | Public API | Evidence | Analytic system | Tolerance |
 |---|---|---|---|---|
@@ -100,6 +115,27 @@ three non-collinear points because they cannot determine a unique 3D rotation.
 Chunked Rg and RMSF are required to agree with eager execution to `1e-12 nm`
 on the bundled pentaalanine trajectory. This is execution-parity evidence and
 does not replace the analytic oracles above.
+
+## Physicochemical validation index
+
+| Quantity | Public API | Evidence | Reference system | Tolerance |
+|---|---|---|---|---|
+| Standard atomic mass | `molsysmt.physchem.get_mass` | Versioned reference and analytic aggregation | H, C, N, O, and Cl atoms divided between two groups | `1e-12 Da` |
+| OpenMM particle mass | `molsysmt.physchem.get_mass` | External | Three particles with arbitrary explicit masses | `1e-12 Da` |
+| Elemental van der Waals radius | `molsysmt.physchem.get_atomic_radius` | Versioned reference | H, C, N, O, and Cl atoms | `1e-12 nm` |
+| ProtOr radius | `molsysmt.physchem.get_atomic_radius` | Versioned reference | Typed alanine heavy atoms | `1e-12 nm` |
+| Residue-scale charge | `molsysmt.physchem.get_charge` | Versioned reference and analytic aggregation | Arg, Asp, and Ala under the `physical_pH7` and Collantes definitions | `1e-12 e` |
+| OpenMM partial charge | `molsysmt.physchem.get_charge` | External | Three particles with arbitrary explicit `NonbondedForce` charges | `1e-12 e` |
+
+Reference values are transcribed directly in the Scientific Truth tests rather
+than imported from MolSysMT's implementation tables. OpenMM evidence constructs
+the particles and force parameters independently before invoking MolSysMT.
+
+The PCA contract is checked against eight Cartesian sign combinations with
+exact population covariance `diag(1, 4, 9)`. It returns dimensionless
+eigenvectors and squared-coordinate eigenvalues in descending order, so PC1 is
+the first row and captures the largest mean squared dispersion. Per-frame
+projection is not part of this function.
 
 ## External geometry validation index
 

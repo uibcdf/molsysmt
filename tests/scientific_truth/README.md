@@ -49,5 +49,7 @@ in this suite. They must not call a MolSysMT converter to construct the oracle.
 9. Distinguish temporal unwrapping from single-frame molecular reconstruction;
    test both contracts independently when periodic coordinates are involved.
 
-The maintained validation index and tolerance rationale are in
-`devguide/scientific_validation.md`.
+The executable evidence registry is split by domain under `evidence/`, with
+governed numerical thresholds in `evidence/tolerances.json`. The validator
+generates `devguide/scientific_evidence_matrix.md`; conventions and rationale
+are maintained in `devguide/scientific_validation.md`.

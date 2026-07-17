@@ -22,7 +22,9 @@ reliable window to adapt their code before a breaking change takes effect.
 
 ## 2. Scope
 
-This policy applies to symbols classified as **Stable** in `devguide/api_surface.md`:
+This policy applies to symbols classified as **Stable** in the normative
+`devtools/data/public_api_stability.json` registry, rendered for review in
+`devguide/api_stability_registry.md`:
 
 - all functions in `msm.basic`;
 - structural analysis and manipulation functions in `msm.structure` (Stable subset);

@@ -1,6 +1,9 @@
-# Machine-Readable Public API Stability Registry
+# Machine-Readable Public API Stability Registry — Resolution
 
-**Status:** Proposed
+> Archived implementation record dated 2026-07-17. The current contract lives
+> in `devtools/data/public_api_stability.json` and `devguide/api_surface.md`.
+
+**Status:** Implemented on 2026-07-17
 
 ## Why
 
@@ -42,3 +45,23 @@ against `molsysmt._LAZY_ATTRIBUTES` plus public namespace exports.
 - Deprecated symbols identify replacement and timeline.
 - Documentation is generated or checked from the registry.
 - CI detects both newly exported and removed symbols.
+
+## Resolution
+
+The normative registry now lives in
+`devtools/data/public_api_stability.json`. It explicitly classifies the root
+surface and all members of the first release-contract namespaces. Namespace
+trees not yet promoted into exact member tracking inherit an explicit
+Experimental or Outside-contract policy from their registered root namespace;
+discoverability is therefore never interpreted as Stable by default.
+
+`devtools/scripts/validate_api_stability.py` discovers exports through the AST,
+validates metadata and documentation/test paths, rejects missing and stale
+entries, and generates `devguide/api_stability_registry.md`. Its optional
+baseline comparison forbids Stable demotion/removal and silent reversal of a
+deprecated lifecycle. Focused validator tests and the developer-guide CI job
+enforce the contract.
+
+The `pre-1.0` introduction marker is deliberately supported for symbols whose
+fine-grained development history predates a trustworthy public release record.
+New symbols must use an actual semantic version.

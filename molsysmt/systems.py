@@ -108,6 +108,7 @@ systems['TcTIM']['1tcd.h5msm'] = path('molsysmt.data.h5msm', '1tcd.h5msm')
 
 systems['Trp-Cage'] = {}
 systems['Trp-Cage']['1l2y.pdb'] = path('molsysmt.data.pdb', '1l2y.pdb')
+systems['Trp-Cage']['1l2y.bcif.gz'] = path('molsysmt.data.bcif_gz', '1l2y.bcif.gz')
 systems['Trp-Cage']['1l2y.h5msm'] = path('molsysmt.data.h5msm', '1l2y.h5msm')
 
 
@@ -182,4 +183,3 @@ systems['2HGR']['2hgr.pdb'] = path('molsysmt.data.pdb', '2hgr.pdb')
 systems['4V4Z'] = {}
 systems['4V4Z']['4v4z.bcif.gz'] = path('molsysmt.data.bcif_gz', '4v4z.bcif.gz')
 systems['4V4Z']['4v4z_openmm.pdb'] = path('molsysmt.data.pdb', '4v4z_openmm.pdb')
-
