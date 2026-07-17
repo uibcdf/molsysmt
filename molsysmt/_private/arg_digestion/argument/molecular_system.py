@@ -1,5 +1,18 @@
-from pathlib import PosixPath
+from os import PathLike
+from pathlib import Path
 from argdigest.core.caller import caller_matches
+
+
+def normalize_molecular_system_paths(molecular_system):
+    """Normalize path-like molecular-system inputs without changing container intent."""
+
+    if isinstance(molecular_system, PathLike):
+        return str(Path(molecular_system).absolute())
+    if isinstance(molecular_system, list):
+        return [normalize_molecular_system_paths(item) for item in molecular_system]
+    if isinstance(molecular_system, tuple):
+        return tuple(normalize_molecular_system_paths(item) for item in molecular_system)
+    return molecular_system
 
 def digest_molecular_system(molecular_system, caller=None):
     """ Check if an object is a molecular system.
@@ -28,13 +41,7 @@ def digest_molecular_system(molecular_system, caller=None):
         validate_molecular_system_argument,
     )
 
-    if isinstance(molecular_system, PosixPath):
-        molecular_system = molecular_system.absolute().__str__()
-
-    if isinstance(molecular_system, (list,tuple)):
-        for ii in range(len(molecular_system)):
-            if isinstance(molecular_system[ii], PosixPath):
-                molecular_system[ii] = molecular_system[ii].absolute().__str__()
+    molecular_system = normalize_molecular_system_paths(molecular_system)
 
     if molecular_system is None and caller_matches(caller, 'editable'):
         return None

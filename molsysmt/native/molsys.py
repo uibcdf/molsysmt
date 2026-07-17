@@ -296,24 +296,34 @@ class MolSys:
         source_topology = item.topology.extract(
             atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
         )
-        if not self.topology._chemical_state_inventory_equals(source_topology):
+        if self.topology.n_atoms != source_topology.n_atoms:
             from molsysmt._private.smonitor import StructuralInconsistencyError
 
             raise StructuralInconsistencyError(
                 reason=(
-                    'Structures can only be appended when the ordered chemical-state '
-                    'inventories match exactly.'
+                    f'Source structures contain {source_topology.n_atoms} selected atoms, '
+                    f'but the target contains {self.topology.n_atoms} atoms.'
                 ),
                 caller='molsysmt.native.MolSys.append_structures',
             )
 
-        source_state_indices = item._get_structure_chemical_state_indices(
-            structure_indices=structure_indices, resolved=True
-        )
+        inventories_match = self.topology._chemical_state_inventory_equals(source_topology)
         target_state_indices = self._get_structure_chemical_state_indices(
             resolved=True
         )
         other = item.structures.extract(atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=True, skip_digestion=True)
+        if inventories_match:
+            source_state_indices = item._get_structure_chemical_state_indices(
+                structure_indices=structure_indices, resolved=True
+            )
+        elif len(self.topology._chemical_states) == 1:
+            source_state_indices = pd.array(
+                np.zeros(other.n_structures, dtype=np.int64), dtype='Int64'
+            )
+        else:
+            source_state_indices = pd.array(
+                [pd.NA] * other.n_structures, dtype='Int64'
+            )
         self.structures.append(
             structure_id=other.structure_id,
             time=other.time,
@@ -332,7 +342,10 @@ class MolSys:
         if (
             len(self.topology._chemical_states) > 1
             or self._structure_chemical_state_indices is not None
-            or item._structure_chemical_state_indices is not None
+            or (
+                inventories_match
+                and item._structure_chemical_state_indices is not None
+            )
         ):
             combined = pd.array(
                 list(target_state_indices) + list(source_state_indices), dtype='Int64'

@@ -22,6 +22,9 @@ def digest_molecular_systems(molecular_systems, caller=None):
             If the given object is not a list of molecular systems.
     """
     from molsysmt.basic import are_multiple_molecular_systems
+    from .molecular_system import normalize_molecular_system_paths
+
+    molecular_systems = normalize_molecular_system_paths(molecular_systems)
 
     if not are_multiple_molecular_systems(molecular_systems):
         raise ArgumentError(molecular_systems, value=molecular_systems, caller=caller, message=None)

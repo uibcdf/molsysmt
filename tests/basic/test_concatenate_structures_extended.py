@@ -40,3 +40,18 @@ def test_concatenate_flat_structure_indices_are_per_system(traj_pentalanine_h5_m
         structure_indices=[0, 1],
     )
     assert msm.get(result, element='system', n_structures=True) == 2
+
+
+def test_concatenate_accepts_multiple_topology_free_xtc_sources(md_1u19_pdb_molsys):
+    """A native topology can lead several coordinate-only trajectory sources."""
+    xtc = msm.systems['nglview']['md_1u19.xtc']
+    result = msm.concatenate_structures(
+        [md_1u19_pdb_molsys, xtc, xtc],
+        structure_indices=[[0], [0, 1], [2, 3]],
+        to_form='molsysmt.MolSys',
+    )
+
+    assert msm.get(result, n_atoms=True) == msm.get(xtc, n_atoms=True)
+    assert msm.get(result, n_structures=True) == 5
+    assert result._structure_chemical_state_indices is None
+    assert msm.get(result, structure_chemical_state_index=True) == [0] * 5

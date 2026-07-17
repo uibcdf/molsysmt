@@ -15,10 +15,11 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     (`to_molecular_system`). The result is a molecular system with additional structures
     (frames or conformations).
     
-    The appended structures must correspond to the same number of atoms as the target system.
-    If the number of atoms differs, a selection of atoms from the source system must be
-    provided using the `selection` argument. Only the structural attributes of the selected atoms
-    will be appended, and they must match the number of atoms in the target system.
+    The appended structures must correspond to the same number and ordering of atoms as the
+    target system. The source does not need to provide topology; coordinate-only forms such as
+    XTC, DCD, and XYZ are accepted. If the number of atoms differs, a selection of atoms from
+    the source system must be provided using the `selection` argument. Matching atom ordering
+    is the caller's responsibility when the source has no topology.
     
     By default, the operation modifies the input molecular system in place. This behavior can be
     changed by setting `in_place=False`, in which case a new molecular system is returned.
@@ -57,9 +58,8 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     ------
     NotSupportedFormError
         If either molecular system is not provided in a supported form.
-    ArgumentError
-        If arguments are inconsistent or conditions are not met, such as mismatched
-        atom counts without a proper selection.
+    StructuralInconsistencyError
+        If the selected source atom count differs from the target atom count.
     SyntaxError
         If the selection syntax is not recognized.
 
@@ -68,9 +68,11 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     - All forms listed in :ref:`Introduction_Forms` are accepted for both source and target systems.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
-    - Native MolSys targets preserve structure-to-chemical-state associations.
-      Multi-state structures are appended only when the ordered state
-      inventories match exactly.
+    - Source topology is optional. Atom-count compatibility is always required, while chemical
+      identity is not inferred from coordinates alone.
+    - A target with one chemical state associates new structures with that state implicitly.
+      Multi-state targets preserve explicit source associations when inventories match and use
+      an unknown association only when the incoming state cannot be determined.
 
     See Also
     --------
@@ -103,7 +105,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     .. versionadded:: 1.0.0
     """
 
-    from . import get_form, convert, extract, get, copy
+    from . import get_form, extract, get, copy
     from molsysmt.form import _dict_modules
 
     if not in_place:
@@ -115,6 +117,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         to_molecular_system = [to_molecular_system]
 
     to_forms = get_form(to_molecular_system)
+    from_form = get_form(from_molecular_system)
 
     coordinates, velocities = get(from_molecular_system, element='atom', selection=selection, syntax=syntax,
                       structure_indices=structure_indices, coordinates=True, velocities=True, skip_digestion=True)
@@ -122,19 +125,40 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     structure_id, time, box = get(from_molecular_system, element='system', structure_indices=structure_indices,
                                   syntax=syntax, structure_id=True, time=True, box=True, skip_digestion=True)
 
-    if selection != 'all':
-        n_sel = coordinates.shape[1]
-        n_target_atoms = get(to_molecular_system, element='system', n_atoms=True)
-        if n_sel != n_target_atoms:
-            raise StructuralInconsistencyError(
-                reason=f"Selected atoms ({n_sel}) do not match target n_atoms ({n_target_atoms}). "
-                       "Adjust `selection` or ensure systems have the same number of atoms.",
-                caller='molsysmt.basic.append_structures'
-            )
+    if coordinates is not None:
+        n_source_atoms = coordinates.shape[1]
+    elif velocities is not None:
+        n_source_atoms = velocities.shape[1]
+    else:
+        atom_indices = get(
+            from_molecular_system,
+            element='atom',
+            selection=selection,
+            syntax=syntax,
+            atom_index=True,
+            skip_digestion=True,
+        )
+        n_source_atoms = len(atom_indices)
 
     for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
 
-        if aux_to_form == 'molsysmt.MolSys':
+        n_target_atoms = get(
+            aux_to_item,
+            element='system',
+            n_atoms=True,
+            skip_digestion=True,
+        )
+        if n_source_atoms != n_target_atoms:
+            raise StructuralInconsistencyError(
+                reason=(
+                    f"Selected source atoms ({n_source_atoms}) do not match target "
+                    f"n_atoms ({n_target_atoms}). Adjust `selection` or ensure the "
+                    "source structures use the target atom ordering."
+                ),
+                caller='molsysmt.basic.append_structures',
+            )
+
+        if aux_to_form == 'molsysmt.MolSys' and from_form == 'molsysmt.MolSys':
             source = extract(
                 from_molecular_system,
                 selection=selection,

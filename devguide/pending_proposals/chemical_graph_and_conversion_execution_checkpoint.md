@@ -349,9 +349,12 @@ and bonds without mutating the stored reference. State IDs remain non-unique
 labels rather than selectors. External forms fail closed for explicit indices
 until their mappings are audited. `structure_chemical_state_index` is the
 public nullable association owned by MolSys. Native copy, extraction, removal,
-append, and concatenation preserve it; incompatible state inventories fail
-closed. H5MSM 0.4 persists the real association and never promotes a global
-reference into per-structure evidence. RDKit and OpenFF now populate independent
+append, and concatenation preserve compatible explicit associations. Structural
+append and concatenation remain atom-count operations: topology-free sources are
+accepted, a single target state applies implicitly, and only an ambiguous
+multi-state association becomes nullable unknown. H5MSM 0.4 persists the real
+association and never promotes a multi-state global reference into per-structure
+evidence. RDKit and OpenFF now populate independent
 atom and bond semantics; MDTraj and OpenMM preserve their documented reduced
 subset in both directions. Immutable conversion preflight reports classify
 exact, equivalent, and lossy outcomes, and `strict=True` rejects detected loss

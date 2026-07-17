@@ -65,8 +65,11 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
       Use `selections` to align subsets when needed.
     - Structural attributes concatenated include `coordinates`, `velocities`, `box`, `time`
       (when available in the inputs).
-    - Native MolSys outputs preserve structure-to-chemical-state associations
-      and reject incompatible ordered state inventories.
+    - Input topology is optional after the first system establishes the output topology.
+      Atom-count and ordering compatibility remain the caller's responsibility.
+    - A native target with one chemical state associates new structures with that state
+      implicitly. Multi-state targets preserve compatible explicit associations and use an
+      unknown association only when the incoming state cannot be determined.
     - Lists and tuples always express per-system intent. Use a NumPy array or range when one
       index collection should be applied to every system.
 
@@ -96,8 +99,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     .. versionadded:: 1.0.0
     """
 
-    from . import convert, extract, get, get_form
-    from molsysmt.form import _dict_modules
+    from . import append_structures, convert, extract, get_form
     from molsysmt._private.smonitor import ArgumentLengthError
 
     n_molecular_systems = len(molecular_systems)
@@ -131,26 +133,15 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
                                       structure_indices=structure_indices[0])
 
     for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
-
-        if to_form == 'molsysmt.MolSys':
-            source = extract(
-                aux_molecular_system,
-                selection=aux_selection,
-                structure_indices=aux_structure_indices,
-                syntax=syntax,
-                to_form='molsysmt.MolSys',
-                skip_digestion=True,
-            )
-            to_molecular_system.append_structures(source, skip_digestion=True)
-            continue
-
-        coordinates, velocities = get(aux_molecular_system, element='atom', selection=aux_selection,
-                          structure_indices=aux_structure_indices, coordinates=True, velocities=True)
-        structure_id, time, box = get(aux_molecular_system, structure_indices=aux_structure_indices, structure_id=True, time=True,
-                              box=True)
-
-        _dict_modules[to_form].append_structures(to_molecular_system, structure_id=structure_id, time=time, coordinates=coordinates,
-                velocities=velocities, box=box)
+        append_structures(
+            to_molecular_system,
+            aux_molecular_system,
+            selection=aux_selection,
+            structure_indices=aux_structure_indices,
+            syntax=syntax,
+            in_place=True,
+            skip_digestion=True,
+        )
 
     output = to_molecular_system
 

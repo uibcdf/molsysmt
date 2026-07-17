@@ -35,7 +35,10 @@ def append_structures(to_item, item=None, structure_id=None, time=None, coordina
             or structure_chemical_state_index is not None
         ):
             if structure_chemical_state_index is None:
-                incoming = [pd.NA] * n_new_structures
+                if len(to_item.topology._chemical_states) == 1:
+                    incoming = [0] * n_new_structures
+                else:
+                    incoming = [pd.NA] * n_new_structures
             elif structure_chemical_state_index is pd.NA or np.isscalar(
                 structure_chemical_state_index
             ):

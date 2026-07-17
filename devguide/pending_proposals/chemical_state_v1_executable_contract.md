@@ -131,6 +131,17 @@ structures. A single state may apply implicitly to every structure; multiple
 states require explicit association when an operation resolves state through
 structure indices.
 
+Structural growth does not require incoming topology. `append_structures()` and
+`concatenate_structures()` accept coordinate-only sources when the selected atom
+count matches the target; matching atom ordering is then the caller's
+responsibility. For the ordinary classical-MD case with one target chemical
+state, every incoming structure resolves implicitly to that state and no
+per-structure association column needs to be materialized. Exact inventory
+comparison is used only to preserve explicit associations between compatible
+multi-state native systems. A multi-state target uses a nullable unknown value
+when the incoming source cannot identify its state; this ambiguity does not
+block storage of otherwise compatible coordinates.
+
 The accepted physical authority is
 `MolSys._structure_chemical_state_indices`. `Structures` must not own a copy.
 The canonical public attribute is `structure_chemical_state_index`; like

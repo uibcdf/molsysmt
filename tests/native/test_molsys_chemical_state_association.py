@@ -158,7 +158,7 @@ def test_copy_extract_and_remove_preserve_aligned_association_independently():
     assert msm.get(removed, structure_chemical_state_index=True) == [0, 1]
 
 
-def test_native_append_preserves_exact_inventory_and_rejects_mismatch():
+def test_native_append_preserves_exact_inventory_and_marks_mismatch_unknown():
     target = _multistate_molsys((0,))
     source = _multistate_molsys((1, 1))
 
@@ -167,8 +167,11 @@ def test_native_append_preserves_exact_inventory_and_rejects_mismatch():
 
     incompatible = _multistate_molsys((1,))
     incompatible.topology._chemical_states[1].bonds.at[0, 'bond_order'] = 3
-    with pytest.raises(StructuralInconsistencyError, match='inventories match exactly'):
-        target.append_structures(incompatible, skip_digestion=True)
+    target.append_structures(incompatible, skip_digestion=True)
+
+    association = msm.get(target, structure_chemical_state_index=True)
+    assert association[:3] == [0, 1, 1]
+    assert pd.isna(association[3])
 
 
 def test_public_concatenation_preserves_association_for_native_molsys():

@@ -7,6 +7,10 @@ objects.
 import molsysmt as msm
 from molsysmt import systems
 import numpy as np
+import pytest
+
+from molsysmt._private.smonitor import StructuralInconsistencyError
+from molsysmt.native import MolSys, Structures
 
 def test_append_structures_with_molsysmt_MolSys_1(proline_molsys):
     molsys_A = proline_molsys
@@ -33,3 +37,64 @@ def test_append_structures_with_molsysmt_MolSys_2(proline_molsys):
     assert n_atoms_C == n_atoms_A
     assert n_structures_C == n_structures_A + n_structures_B
 
+
+def test_append_structures_accepts_coordinate_only_native_source(proline_molsys):
+    source = Structures(
+        coordinates=proline_molsys.structures.coordinates.copy(),
+        skip_digestion=True,
+    )
+    initial_n_structures = proline_molsys.structures.n_structures
+
+    msm.append_structures(proline_molsys, source)
+
+    assert proline_molsys.structures.n_structures == initial_n_structures + 1
+    assert msm.get(proline_molsys, structure_chemical_state_index=True) == [0, 0]
+
+
+def test_append_structures_keeps_single_state_association_implicit():
+    target = MolSys(n_atoms=1)
+    target.structures.coordinates = msm.pyunitwizard.quantity(
+        np.zeros((1, 1, 3)), 'nm'
+    )
+    source = Structures(
+        coordinates=msm.pyunitwizard.quantity(np.ones((1, 1, 3)), 'nm'),
+        skip_digestion=True,
+    )
+
+    msm.append_structures(target, source)
+
+    assert target._structure_chemical_state_indices is None
+    assert msm.get(target, structure_chemical_state_index=True) == [0, 0]
+
+
+def test_append_structures_accepts_topology_free_xtc(md_1u19_pdb_molsys):
+    xtc = systems['nglview']['md_1u19.xtc']
+    expected = msm.get(
+        xtc,
+        element='atom',
+        structure_indices=[0, 1],
+        coordinates=True,
+    )
+    initial_n_structures = md_1u19_pdb_molsys.structures.n_structures
+
+    msm.append_structures(
+        md_1u19_pdb_molsys,
+        xtc,
+        structure_indices=[0, 1],
+    )
+
+    assert md_1u19_pdb_molsys.structures.n_structures == initial_n_structures + 2
+    assert np.allclose(
+        msm.pyunitwizard.get_value(md_1u19_pdb_molsys.structures.coordinates[-2:]),
+        msm.pyunitwizard.get_value(expected),
+    )
+
+
+def test_append_structures_rejects_coordinate_only_atom_count_mismatch(proline_molsys):
+    source = Structures(
+        coordinates=proline_molsys.structures.coordinates[:, :-1, :],
+        skip_digestion=True,
+    )
+
+    with pytest.raises(StructuralInconsistencyError, match='do not match target'):
+        msm.append_structures(proline_molsys, source)
