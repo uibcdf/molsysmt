@@ -3,6 +3,30 @@
 ## Framework
 Use `pytest`. Tests live under `tests/` and should mirror package structure.
 
+Doctests in source modules are collected by `--doctest-modules` (see `pytest.ini`,
+`testpaths = tests molsysmt/basic`) and run in the **same process** as the functional
+suite. That combined gate is supported and is the default `pytest` invocation.
+
+### Source-doctest collection order is a hard contract
+
+Public functions in `molsysmt.basic` are re-exported from same-named modules
+(`molsysmt/basic/convert.py` is re-exported as `convert` via `from .convert import
+convert`). Under `--import-mode=importlib`, if pytest collects such a source file for
+`--doctest-modules` *before* anything else imports its package, pytest re-executes the
+file as a fresh module and unconditionally rebinds it onto the parent package
+(`setattr(molsysmt.basic, 'convert', <module>)`, pytest issue #12194). The public
+symbol then resolves to a module and `msm.convert(...)` raises `TypeError: 'module'
+object is not callable` for the rest of the session.
+
+This is defused in the repository-root `conftest.py`: `pytest_configure` pre-imports
+every first-party source package listed in `testpaths` (currently `molsysmt/basic`)
+before collection starts, so all submodules are already in `sys.modules` and pytest's
+own `import_path` short-circuit skips the shadowing re-execution. **Any new
+`molsysmt/<pkg>` source directory added to `testpaths` is covered automatically** — do
+not add ad-hoc doctest source directories that bypass this safeguard. The regression is
+`tests/_private/test_doctest_module_shadowing.py`; the full analysis lives in
+`devguide/archive/resolved_bugs/doctest_module_collection_can_shadow_public_convert.md`.
+
 ## Contract testing
 Contract tests are the primary defense against regressions in interoperability.
 
