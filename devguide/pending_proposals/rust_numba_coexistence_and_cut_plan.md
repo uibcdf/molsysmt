@@ -1,7 +1,8 @@
 # Rust/Numba coexistence and the cut to Rust
 
-**Status:** stages 1–2 implemented on `main` (2026-07-24); stage 3 (CI wheels) and the cut
-decision are open. Default kernel is Numba, main is byte-identical by default.
+**Status:** stages 1–2 implemented on `main` (2026-07-24); **default kernel is now `'auto'`**
+(Rust where the wheel is importable, else Numba). Stage 3 (CI wheels) and the hard-`'rust'`
+cut are open.
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
 `linear_algebra_backend_for_rust_kernels.md`,
 `rust_kernel_redesign_beyond_faithful_ports.md`, `rust_gpu_backend_options.md`,
@@ -69,8 +70,15 @@ backend). GPU-from-Rust is its own decision — see `rust_gpu_backend_options.md
 wheels) and the cut (when to flip the default and delete Numba). Both are gated on
 dogfooding with `configure.kernel='rust'`, which is now possible across the whole surface.
 
-**Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are
-repository infrastructure and are the gate for flipping the default to `'auto'`/`'rust'`.
+**Default flipped to `'auto'` (2026-07-24), validated.** The full suite was run forcing
+`configure.kernel='rust'` and compared against Numba: both give **9489 passes and the same
+48 failures**, all pre-existing chemical-state/conversion WIP unrelated to the kernels
+(no numerical/tolerance failure, no wired-kernel failure). Rust introduces zero regressions,
+so `'auto'` is safe. `'auto'` (not hard `'rust'`) keeps the no-hard-dependency property:
+Rust runs where the wheel is present, Numba otherwise.
+
+**Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are the gate
+for a hard `'rust'` default; until then `'auto'` degrades gracefully where the wheel is absent.
 
 ## 0. Where we are
 

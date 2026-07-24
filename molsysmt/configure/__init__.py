@@ -97,12 +97,15 @@ min_payload_per_thread = 250_000 # workload-based optimal scale per thread
 
 # Compute kernel backend (Rust migration coexistence; see
 # devguide/pending_proposals/rust_numba_coexistence_and_cut_plan.md).
-#   'numba' : the JIT kernels (default; unchanged behaviour, no Rust wheel needed)
-#   'rust'  : the Rust kernels (requires the optional 'msm_rust_kernels' wheel)
-#   'auto'  : Rust when the wheel is importable, else Numba
-# Numba remains the default until Rust wheels are proven across platforms; the flip to
-# 'auto'/'rust' is the dogfooding step, not this landing.
-kernel = 'numba'               # 'numba' | 'rust' | 'auto'
+#   'numba' : the JIT kernels (no Rust wheel needed)
+#   'rust'  : the Rust kernels (raises if the optional 'msm_rust_kernels' wheel is absent)
+#   'auto'  : Rust when the wheel is importable, else Numba  <-- dogfooding default
+# Default is 'auto': Rust where available, Numba otherwise, so there is still no hard
+# dependency. Validated 2026-07-24 — the full suite gives the same 9489 passes and the
+# same 48 pre-existing (chemical-state/conversion WIP) failures on both backends, i.e.
+# Rust introduces zero regressions. The remaining gate before a hard 'rust' default is
+# CI wheels (stage 3).
+kernel = 'auto'                # 'numba' | 'rust' | 'auto'
 
 class configure_context:
     """Context manager to temporarily override global configurations in a thread-safe manner."""
