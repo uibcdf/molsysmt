@@ -87,28 +87,28 @@ def _use_rust(backend):
 # Faithful 1:1 dispatch of molsysmt.lib.structure.get_mic_distances.* — the Rust and
 # Numba implementations produce identical results (bit-for-bit; see tests/rust/).
 
-def get_mic_distances_single_system(coordinates, box, backend="numba"):
+def get_mic_distances_single_system(coordinates, box, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_distances_single_system(coordinates, box)
     from molsysmt.lib.structure.get_mic_distances import get_mic_distances_single_system as _nb
     return _nb(coordinates, box)
 
 
-def get_mic_distances(coordinates1, coordinates2, box, backend="numba"):
+def get_mic_distances(coordinates1, coordinates2, box, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_distances(coordinates1, coordinates2, box)
     from molsysmt.lib.structure.get_mic_distances import get_mic_distances as _nb
     return _nb(coordinates1, coordinates2, box)
 
 
-def get_mic_distances_pairs(coordinates1, coordinates2, box, backend="numba"):
+def get_mic_distances_pairs(coordinates1, coordinates2, box, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_distances_pairs(coordinates1, coordinates2, box)
     from molsysmt.lib.structure.get_mic_distances import get_mic_distances_pairs as _nb
     return _nb(coordinates1, coordinates2, box)
 
 
-def get_mic_distances_single_system_single_structure(coordinates, box, backend="numba"):
+def get_mic_distances_single_system_single_structure(coordinates, box, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_distances_single_system_single_structure(coordinates, box)
     from molsysmt.lib.structure.get_mic_distances import (
@@ -116,14 +116,14 @@ def get_mic_distances_single_system_single_structure(coordinates, box, backend="
     return _nb(coordinates, box)
 
 
-def get_mic_distances_single_structure(coordinates1, coordinates2, box, backend="numba"):
+def get_mic_distances_single_structure(coordinates1, coordinates2, box, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_distances_single_structure(coordinates1, coordinates2, box)
     from molsysmt.lib.structure.get_mic_distances import get_mic_distances_single_structure as _nb
     return _nb(coordinates1, coordinates2, box)
 
 
-def get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box, backend="numba"):
+def get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box)
     from molsysmt.lib.structure.get_mic_distances import (
@@ -136,7 +136,7 @@ def get_mic_distances_pairs_single_structure(coordinates1, coordinates2, box, ba
 # kernel behind get_contacts and get_neighbors). Bit-for-bit identical results.
 
 def neighbor_list_csr_multi(query_coords, ref_coords=None, box=None, cutoff=None,
-                            exclude_self=True, sort_by_distance=False, backend="numba"):
+                            exclude_self=True, sort_by_distance=False, backend=None):
     if _use_rust(backend):
         import numpy as np
         q = np.ascontiguousarray(query_coords, dtype=np.float64)
@@ -154,7 +154,7 @@ def neighbor_list_csr_multi(query_coords, ref_coords=None, box=None, cutoff=None
 # (molsysmt.lib.structure.get_sasa.{get_sasa_cell_list, get_mic_sasa_cell_list}).
 
 def get_sasa_cell_list(coordinates, radii, sphere_points, probe_radius, cutoff,
-                       backend="numba"):
+                       backend=None):
     if _use_rust(backend):
         return _rust.get_sasa_cell_list(coordinates, radii, sphere_points,
                                         float(probe_radius), float(cutoff))
@@ -163,7 +163,7 @@ def get_sasa_cell_list(coordinates, radii, sphere_points, probe_radius, cutoff,
 
 
 def get_mic_sasa_cell_list(coordinates, box, radii, sphere_points, probe_radius, cutoff,
-                           backend="numba"):
+                           backend=None):
     if _use_rust(backend):
         return _rust.get_mic_sasa_cell_list(coordinates, box, radii, sphere_points,
                                             float(probe_radius), float(cutoff))
@@ -175,28 +175,28 @@ def get_mic_sasa_cell_list(coordinates, box, radii, sphere_points, probe_radius,
 # Dispatch of molsysmt.lib.structure.{get_angles, get_mic_angles}.* — on the
 # hbonds.get_luzard_chandler_hbonds path.
 
-def get_angles(coordinates, triplets, backend="numba"):
+def get_angles(coordinates, triplets, backend=None):
     if _use_rust(backend):
         return _rust.get_angles(coordinates, triplets)
     from molsysmt.lib.structure.get_angles import get_angles as _nb
     return _nb(coordinates, triplets)
 
 
-def get_angles_single_structure(coordinates, triplets, backend="numba"):
+def get_angles_single_structure(coordinates, triplets, backend=None):
     if _use_rust(backend):
         return _rust.get_angles_single_structure(coordinates, triplets)
     from molsysmt.lib.structure.get_angles import get_angles_single_structure as _nb
     return _nb(coordinates, triplets)
 
 
-def get_mic_angles(coordinates, box, triplets, backend="numba"):
+def get_mic_angles(coordinates, box, triplets, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_angles(coordinates, box, triplets)
     from molsysmt.lib.structure.get_mic_angles import get_mic_angles as _nb
     return _nb(coordinates, box, triplets)
 
 
-def get_mic_angles_single_structure(coordinates, box, triplets, backend="numba"):
+def get_mic_angles_single_structure(coordinates, box, triplets, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_angles_single_structure(coordinates, box, triplets)
     from molsysmt.lib.structure.get_mic_angles import get_mic_angles_single_structure as _nb
@@ -207,28 +207,28 @@ def get_mic_angles_single_structure(coordinates, box, triplets, backend="numba")
 # Dispatch of molsysmt.lib.structure.get_distances.* (the vacuum counterpart of the MIC
 # family; the full-matrix fallback used by get_neighbors / get_contacts).
 
-def get_distances_single_system(coordinates, backend="numba"):
+def get_distances_single_system(coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_distances_single_system(coordinates)
     from molsysmt.lib.structure.get_distances import get_distances_single_system as _nb
     return _nb(coordinates)
 
 
-def get_distances(coordinates1, coordinates2, backend="numba"):
+def get_distances(coordinates1, coordinates2, backend=None):
     if _use_rust(backend):
         return _rust.get_distances(coordinates1, coordinates2)
     from molsysmt.lib.structure.get_distances import get_distances as _nb
     return _nb(coordinates1, coordinates2)
 
 
-def get_distances_pairs(coordinates1, coordinates2, backend="numba"):
+def get_distances_pairs(coordinates1, coordinates2, backend=None):
     if _use_rust(backend):
         return _rust.get_distances_pairs(coordinates1, coordinates2)
     from molsysmt.lib.structure.get_distances import get_distances_pairs as _nb
     return _nb(coordinates1, coordinates2)
 
 
-def get_distances_single_system_single_structure(coordinates, backend="numba"):
+def get_distances_single_system_single_structure(coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_distances_single_system_single_structure(coordinates)
     from molsysmt.lib.structure.get_distances import (
@@ -236,14 +236,14 @@ def get_distances_single_system_single_structure(coordinates, backend="numba"):
     return _nb(coordinates)
 
 
-def get_distances_single_structure(coordinates1, coordinates2, backend="numba"):
+def get_distances_single_structure(coordinates1, coordinates2, backend=None):
     if _use_rust(backend):
         return _rust.get_distances_single_structure(coordinates1, coordinates2)
     from molsysmt.lib.structure.get_distances import get_distances_single_structure as _nb
     return _nb(coordinates1, coordinates2)
 
 
-def get_distances_pairs_single_structure(coordinates1, coordinates2, backend="numba"):
+def get_distances_pairs_single_structure(coordinates1, coordinates2, backend=None):
     if _use_rust(backend):
         return _rust.get_distances_pairs_single_structure(coordinates1, coordinates2)
     from molsysmt.lib.structure.get_distances import (
@@ -254,14 +254,14 @@ def get_distances_pairs_single_structure(coordinates1, coordinates2, backend="nu
 # --------------------------------------------------------------------------- dihedrals
 # Dispatch of molsysmt.lib.structure.{get_dihedral_angles, get_mic_dihedral_angles}.*
 
-def get_dihedral_angles(coordinates, quartets, backend="numba"):
+def get_dihedral_angles(coordinates, quartets, backend=None):
     if _use_rust(backend):
         return _rust.get_dihedral_angles(coordinates, quartets)
     from molsysmt.lib.structure.get_dihedral_angles import get_dihedral_angles as _nb
     return _nb(coordinates, quartets)
 
 
-def get_dihedral_angles_single_structure(coordinates, quartets, backend="numba"):
+def get_dihedral_angles_single_structure(coordinates, quartets, backend=None):
     if _use_rust(backend):
         return _rust.get_dihedral_angles_single_structure(coordinates, quartets)
     from molsysmt.lib.structure.get_dihedral_angles import (
@@ -269,14 +269,14 @@ def get_dihedral_angles_single_structure(coordinates, quartets, backend="numba")
     return _nb(coordinates, quartets)
 
 
-def get_mic_dihedral_angles(coordinates, box, quartets, backend="numba"):
+def get_mic_dihedral_angles(coordinates, box, quartets, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_dihedral_angles(coordinates, box, quartets)
     from molsysmt.lib.structure.get_mic_dihedral_angles import get_mic_dihedral_angles as _nb
     return _nb(coordinates, box, quartets)
 
 
-def get_mic_dihedral_angles_single_structure(coordinates, box, quartets, backend="numba"):
+def get_mic_dihedral_angles_single_structure(coordinates, box, quartets, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_dihedral_angles_single_structure(coordinates, box, quartets)
     from molsysmt.lib.structure.get_mic_dihedral_angles import (
@@ -289,42 +289,42 @@ def get_mic_dihedral_angles_single_structure(coordinates, box, quartets, backend
 # the Numba version rotates its argument in place and returns None, the Rust one
 # returns the rotated vector — the seam normalises both to "return the rotated vector".
 
-def matmul(m, v, backend="numba"):
+def matmul(m, v, backend=None):
     if _use_rust(backend):
         return _rust.matmul(m, v)
     from molsysmt.lib.math import matmul as _nb
     return _nb(m, v)
 
 
-def transpmatmul(m, v, backend="numba"):
+def transpmatmul(m, v, backend=None):
     if _use_rust(backend):
         return _rust.transpmatmul(m, v)
     from molsysmt.lib.math import transpmatmul as _nb
     return _nb(m, v)
 
 
-def normalize_vector(a, backend="numba"):
+def normalize_vector(a, backend=None):
     if _use_rust(backend):
         return _rust.normalize_vector(a)
     from molsysmt.lib.math import normalize_vector as _nb
     return _nb(a)
 
 
-def inverse_matrix_3x3(m, backend="numba"):
+def inverse_matrix_3x3(m, backend=None):
     if _use_rust(backend):
         return _rust.inverse_matrix_3x3(m)
     from molsysmt.lib.math import inverse_matrix_3x3 as _nb
     return _nb(m)
 
 
-def quaternion_to_rotation_matrix(q, backend="numba"):
+def quaternion_to_rotation_matrix(q, backend=None):
     if _use_rust(backend):
         return _rust.quaternion_to_rotation_matrix(q)
     from molsysmt.lib.math import quaternion_to_rotation_matrix as _nb
     return _nb(q)
 
 
-def rodrigues_rotation(vector, unit_vector, angle, backend="numba"):
+def rodrigues_rotation(vector, unit_vector, angle, backend=None):
     """Returns the rotated vector (never mutates the caller's array)."""
     import numpy as np
     if _use_rust(backend):
@@ -347,7 +347,7 @@ def _dihedral_edit(name, rust_fn, args, backend):
     return getattr(mod, name if not name.endswith("_single") else name)(*args)
 
 
-def shift_dihedral_angles_single_structure(coordinates, angles, quartets, blocks, backend="numba"):
+def shift_dihedral_angles_single_structure(coordinates, angles, quartets, blocks, backend=None):
     if _use_rust(backend):
         return _rust.shift_dihedral_angles_single_structure(coordinates, angles, quartets, blocks)
     from molsysmt.lib.structure.shift_dihedral_angles import (
@@ -355,7 +355,7 @@ def shift_dihedral_angles_single_structure(coordinates, angles, quartets, blocks
     return _nb(coordinates, angles, quartets, blocks)
 
 
-def set_dihedral_angles_single_structure(coordinates, angles, quartets, blocks, backend="numba"):
+def set_dihedral_angles_single_structure(coordinates, angles, quartets, blocks, backend=None):
     if _use_rust(backend):
         return _rust.set_dihedral_angles_single_structure(coordinates, angles, quartets, blocks)
     from molsysmt.lib.structure.set_dihedral_angles import (
@@ -363,14 +363,14 @@ def set_dihedral_angles_single_structure(coordinates, angles, quartets, blocks, 
     return _nb(coordinates, angles, quartets, blocks)
 
 
-def shift_dihedral_angles(coordinates, angles, quartets, blocks, structure_indices, backend="numba"):
+def shift_dihedral_angles(coordinates, angles, quartets, blocks, structure_indices, backend=None):
     if _use_rust(backend):
         return _rust.shift_dihedral_angles(coordinates, angles, quartets, blocks, structure_indices)
     from molsysmt.lib.structure.shift_dihedral_angles import shift_dihedral_angles as _nb
     return _nb(coordinates, angles, quartets, blocks, structure_indices)
 
 
-def set_dihedral_angles(coordinates, angles, quartets, blocks, backend="numba"):
+def set_dihedral_angles(coordinates, angles, quartets, blocks, backend=None):
     """Upstream takes no structure_indices (it walks every structure) and is the only
     variant that broadcasts a size-1 `angles` dimension."""
     if _use_rust(backend):
@@ -380,7 +380,7 @@ def set_dihedral_angles(coordinates, angles, quartets, blocks, backend="numba"):
 
 
 def shift_mic_dihedral_angles_single_structure(coordinates, box, angles, quartets, blocks,
-                                               backend="numba"):
+                                               backend=None):
     if _use_rust(backend):
         return _rust.shift_mic_dihedral_angles_single_structure(
             coordinates, box, angles, quartets, blocks)
@@ -390,7 +390,7 @@ def shift_mic_dihedral_angles_single_structure(coordinates, box, angles, quartet
 
 
 def set_mic_dihedral_angles_single_structure(coordinates, box, angles, quartets, blocks,
-                                             backend="numba"):
+                                             backend=None):
     if _use_rust(backend):
         return _rust.set_mic_dihedral_angles_single_structure(
             coordinates, box, angles, quartets, blocks)
@@ -403,7 +403,7 @@ def set_mic_dihedral_angles_single_structure(coordinates, box, angles, quartets,
 # structure_indices, shift_* do. See devguide/pending_bugs/
 # dihedral_angles_broadcast_mismatch_pbc.md
 
-def set_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, backend="numba"):
+def set_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, backend=None):
     if _use_rust(backend):
         return _rust.set_mic_dihedral_angles(coordinates, box, angles, quartets, blocks)
     from molsysmt.lib.structure.set_mic_dihedral_angles import set_mic_dihedral_angles as _nb
@@ -411,7 +411,7 @@ def set_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, backend=
 
 
 def shift_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, structure_indices,
-                              backend="numba"):
+                              backend=None):
     if _use_rust(backend):
         return _rust.shift_mic_dihedral_angles(coordinates, box, angles, quartets, blocks,
                                                structure_indices)
@@ -429,49 +429,49 @@ def shift_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, struct
 # `wrap_to_pbc`, `wrap_to_pbc_center`, `wrap_to_mic` and `unwrap` mutate `coordinates`
 # in place and return None, on both backends.
 
-def box_is_orthogonal_single_structure(box, backend="numba"):
+def box_is_orthogonal_single_structure(box, backend=None):
     if _use_rust(backend):
         return _rust.box_is_orthogonal_single_structure(box)
     from molsysmt.lib.pbc.box_is_orthogonal import box_is_orthogonal_single_structure as _nb
     return _nb(box)
 
 
-def box_is_orthogonal(box, backend="numba"):
+def box_is_orthogonal(box, backend=None):
     if _use_rust(backend):
         return _rust.box_is_orthogonal(box)
     from molsysmt.lib.pbc.box_is_orthogonal import box_is_orthogonal as _nb
     return _nb(box)
 
 
-def get_lengths_from_box_single_structure(box, backend="numba"):
+def get_lengths_from_box_single_structure(box, backend=None):
     if _use_rust(backend):
         return _rust.get_lengths_from_box_single_structure(box)
     from molsysmt.lib.pbc.get_lengths_from_box import get_lengths_from_box_single_structure as _nb
     return _nb(box)
 
 
-def get_lengths_from_box(box, backend="numba"):
+def get_lengths_from_box(box, backend=None):
     if _use_rust(backend):
         return _rust.get_lengths_from_box(box)
     from molsysmt.lib.pbc.get_lengths_from_box import get_lengths_from_box as _nb
     return _nb(box)
 
 
-def get_angles_from_box_single_structure(box, backend="numba"):
+def get_angles_from_box_single_structure(box, backend=None):
     if _use_rust(backend):
         return _rust.get_angles_from_box_single_structure(box)
     from molsysmt.lib.pbc.get_angles_from_box import get_angles_from_box_single_structure as _nb
     return _nb(box)
 
 
-def get_angles_from_box(box, backend="numba"):
+def get_angles_from_box(box, backend=None):
     if _use_rust(backend):
         return _rust.get_angles_from_box(box)
     from molsysmt.lib.pbc.get_angles_from_box import get_angles_from_box as _nb
     return _nb(box)
 
 
-def get_lengths_and_angles_from_box_single_structure(box, backend="numba"):
+def get_lengths_and_angles_from_box_single_structure(box, backend=None):
     if _use_rust(backend):
         return _rust.get_lengths_and_angles_from_box_single_structure(box)
     from molsysmt.lib.pbc.get_lengths_and_angles_from_box import (
@@ -479,7 +479,7 @@ def get_lengths_and_angles_from_box_single_structure(box, backend="numba"):
     return _nb(box)
 
 
-def get_lengths_and_angles_from_box(box, backend="numba"):
+def get_lengths_and_angles_from_box(box, backend=None):
     if _use_rust(backend):
         return _rust.get_lengths_and_angles_from_box(box)
     from molsysmt.lib.pbc.get_lengths_and_angles_from_box import (
@@ -487,7 +487,7 @@ def get_lengths_and_angles_from_box(box, backend="numba"):
     return _nb(box)
 
 
-def get_box_from_lengths_and_angles_single_structure(lengths, angles, backend="numba"):
+def get_box_from_lengths_and_angles_single_structure(lengths, angles, backend=None):
     if _use_rust(backend):
         return _rust.get_box_from_lengths_and_angles_single_structure(lengths, angles)
     from molsysmt.lib.pbc.get_box_from_lengths_and_angles import (
@@ -495,7 +495,7 @@ def get_box_from_lengths_and_angles_single_structure(lengths, angles, backend="n
     return _nb(lengths, angles)
 
 
-def get_box_from_lengths_and_angles(lengths, angles, backend="numba"):
+def get_box_from_lengths_and_angles(lengths, angles, backend=None):
     if _use_rust(backend):
         return _rust.get_box_from_lengths_and_angles(lengths, angles)
     from molsysmt.lib.pbc.get_box_from_lengths_and_angles import (
@@ -504,7 +504,7 @@ def get_box_from_lengths_and_angles(lengths, angles, backend="numba"):
 
 
 def wrap_to_pbc_vector_single_structure(vector, box, inv_box=None, orthogonal=None,
-                                        backend="numba"):
+                                        backend=None):
     if _use_rust(backend):
         return _rust.wrap_to_pbc_vector_single_structure(vector, box)
     from molsysmt.lib.pbc.wrap_to_pbc import wrap_to_pbc_vector_single_structure as _nb
@@ -512,7 +512,7 @@ def wrap_to_pbc_vector_single_structure(vector, box, inv_box=None, orthogonal=No
 
 
 def wrap_to_pbc_center_vector_single_structure(vector, box, inv_box=None, orthogonal=None,
-                                               backend="numba"):
+                                               backend=None):
     if _use_rust(backend):
         return _rust.wrap_to_pbc_center_vector_single_structure(vector, box)
     from molsysmt.lib.pbc.wrap_to_pbc import wrap_to_pbc_center_vector_single_structure as _nb
@@ -520,35 +520,35 @@ def wrap_to_pbc_center_vector_single_structure(vector, box, inv_box=None, orthog
 
 
 def wrap_to_mic_vector_single_structure(vector, box, inv_box=None, orthogonal=None,
-                                        backend="numba"):
+                                        backend=None):
     if _use_rust(backend):
         return _rust.wrap_to_mic_vector_single_structure(vector, box)
     from molsysmt.lib.pbc.wrap_to_mic import wrap_to_mic_vector_single_structure as _nb
     return _nb(vector, box, inv_box, orthogonal)
 
 
-def wrap_to_pbc(coordinates, box, box_origin, backend="numba"):
+def wrap_to_pbc(coordinates, box, box_origin, backend=None):
     if _use_rust(backend):
         return _rust.wrap_to_pbc(coordinates, box, box_origin)
     from molsysmt.lib.pbc.wrap_to_pbc import wrap_to_pbc as _nb
     return _nb(coordinates, box, box_origin)
 
 
-def wrap_to_pbc_center(coordinates, box, box_center, backend="numba"):
+def wrap_to_pbc_center(coordinates, box, box_center, backend=None):
     if _use_rust(backend):
         return _rust.wrap_to_pbc_center(coordinates, box, box_center)
     from molsysmt.lib.pbc.wrap_to_pbc import wrap_to_pbc_center as _nb
     return _nb(coordinates, box, box_center)
 
 
-def wrap_to_mic(coordinates, box, mic_origin, backend="numba"):
+def wrap_to_mic(coordinates, box, mic_origin, backend=None):
     if _use_rust(backend):
         return _rust.wrap_to_mic(coordinates, box, mic_origin)
     from molsysmt.lib.pbc.wrap_to_mic import wrap_to_mic as _nb
     return _nb(coordinates, box, mic_origin)
 
 
-def unwrap(coordinates, box, backend="numba"):
+def unwrap(coordinates, box, backend=None):
     if _use_rust(backend):
         return _rust.unwrap(coordinates, box)
     from molsysmt.lib.pbc.unwrap import unwrap as _nb
@@ -559,14 +559,14 @@ def unwrap(coordinates, box, backend="numba"):
 # Block 10: the mechanical long tail — weighted geometry, series encoding and the
 # connected-component kernel.
 
-def get_center_single_structure(coordinates, weights, backend="numba"):
+def get_center_single_structure(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_center_single_structure(coordinates, weights)
     from molsysmt.lib.structure.get_center import get_center_single_structure as _nb
     return _nb(coordinates, weights)
 
 
-def get_center(coordinates, weights, backend="numba"):
+def get_center(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_center(coordinates, weights)
     from molsysmt.lib.structure.get_center import get_center as _nb
@@ -574,7 +574,7 @@ def get_center(coordinates, weights, backend="numba"):
 
 
 def get_center_groups_of_atoms_single_structure(coordinates, atoms_per_group, weights,
-                                                backend="numba"):
+                                                backend=None):
     if _use_rust(backend):
         return _rust.get_center_groups_of_atoms_single_structure(
             coordinates, atoms_per_group, weights)
@@ -583,28 +583,28 @@ def get_center_groups_of_atoms_single_structure(coordinates, atoms_per_group, we
     return _nb(coordinates, atoms_per_group, weights)
 
 
-def get_center_groups_of_atoms(coordinates, atoms_per_group, weights, backend="numba"):
+def get_center_groups_of_atoms(coordinates, atoms_per_group, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_center_groups_of_atoms(coordinates, atoms_per_group, weights)
     from molsysmt.lib.structure.get_center import get_center_groups_of_atoms as _nb
     return _nb(coordinates, atoms_per_group, weights)
 
 
-def flip_single_structure(coordinates, vector, point, backend="numba"):
+def flip_single_structure(coordinates, vector, point, backend=None):
     if _use_rust(backend):
         return _rust.flip_single_structure(coordinates, vector, point)
     from molsysmt.lib.structure.flip import flip_single_structure as _nb
     return _nb(coordinates, vector, point)
 
 
-def flip(coordinates, vector, point, backend="numba"):
+def flip(coordinates, vector, point, backend=None):
     if _use_rust(backend):
         return _rust.flip(coordinates, vector, point)
     from molsysmt.lib.structure.flip import flip as _nb
     return _nb(coordinates, vector, point)
 
 
-def get_radius_of_gyration_single_structure(coordinates, weights, backend="numba"):
+def get_radius_of_gyration_single_structure(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_radius_of_gyration_single_structure(coordinates, weights)
     from molsysmt.lib.structure.get_radius_of_gyration import (
@@ -612,14 +612,14 @@ def get_radius_of_gyration_single_structure(coordinates, weights, backend="numba
     return _nb(coordinates, weights)
 
 
-def get_radius_of_gyration(coordinates, weights, backend="numba"):
+def get_radius_of_gyration(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_radius_of_gyration(coordinates, weights)
     from molsysmt.lib.structure.get_radius_of_gyration import get_radius_of_gyration as _nb
     return _nb(coordinates, weights)
 
 
-def get_rmsf(coordinates, backend="numba"):
+def get_rmsf(coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_rmsf(coordinates)
     from molsysmt.lib.structure.get_rmsf import get_rmsf as _nb
@@ -628,21 +628,21 @@ def get_rmsf(coordinates, backend="numba"):
 
 # ------------------------------------------------------------------------------ series
 
-def serie_to_chunks(serie, backend="numba"):
+def serie_to_chunks(serie, backend=None):
     if _use_rust(backend):
         return _rust.serie_to_chunks(serie)
     from molsysmt.lib.series import serie_to_chunks as _nb
     return _nb(serie)
 
 
-def chunks_to_serie(starts, chunk_size, backend="numba"):
+def chunks_to_serie(starts, chunk_size, backend=None):
     if _use_rust(backend):
         return _rust.chunks_to_serie(starts, chunk_size)
     from molsysmt.lib.series import chunks_to_serie as _nb
     return _nb(starts, chunk_size)
 
 
-def jit_serialize(item, backend="numba"):
+def jit_serialize(item, backend=None):
     """`item` is a sequence of integer sequences.
 
     Numba needs it reflected into a typed list of typed lists; the Rust port takes the
@@ -666,14 +666,14 @@ def jit_serialize(item, backend="numba"):
     return _nb(typed)
 
 
-def occurrence_order(serie, backend="numba"):
+def occurrence_order(serie, backend=None):
     if _use_rust(backend):
         return _rust.occurrence_order(serie)
     from molsysmt.lib.series import occurrence_order as _nb
     return _nb(serie)
 
 
-def occurrence_order_sorted_serie(serie, backend="numba"):
+def occurrence_order_sorted_serie(serie, backend=None):
     if _use_rust(backend):
         return _rust.occurrence_order_sorted_serie(serie)
     from molsysmt.lib.series import occurrence_order_sorted_serie as _nb
@@ -682,7 +682,7 @@ def occurrence_order_sorted_serie(serie, backend="numba"):
 
 # ---------------------------------------------------------------------------- topology
 
-def get_component_index_from_bonded_atom_pairs(bonded_atom_pairs, n_atoms, backend="numba"):
+def get_component_index_from_bonded_atom_pairs(bonded_atom_pairs, n_atoms, backend=None):
     if _use_rust(backend):
         return _rust.get_component_index_from_bonded_atom_pairs(bonded_atom_pairs, n_atoms)
     from molsysmt.lib.topology.get_component_index_from_bonded_atom_pairs import (
@@ -690,7 +690,7 @@ def get_component_index_from_bonded_atom_pairs(bonded_atom_pairs, n_atoms, backe
     return _nb(bonded_atom_pairs, n_atoms)
 
 
-def _find_root(parent, node, backend="numba"):
+def _find_root(parent, node, backend=None):
     """Path-halving find. Mutates `parent` in place on both backends."""
     if _use_rust(backend):
         return _rust._find_root(parent, node)
@@ -698,7 +698,7 @@ def _find_root(parent, node, backend="numba"):
     return _nb(parent, node)
 
 
-def _union(parent, rank, node_1, node_2, backend="numba"):
+def _union(parent, rank, node_1, node_2, backend=None):
     """Union by rank. Mutates `parent` and `rank` in place on both backends."""
     if _use_rust(backend):
         return _rust._union(parent, rank, node_1, node_2)
@@ -712,14 +712,14 @@ def _union(parent, rank, node_1, node_2, backend="numba"):
 # `nalgebra` rather than LAPACK. Parity is at tolerance there -- different eigensolver,
 # `fastmath`, and upstream's pairwise `np.sum` for the centroid.
 
-def get_rmsd_single_structure(coordinates, reference_coordinates, backend="numba"):
+def get_rmsd_single_structure(coordinates, reference_coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_rmsd_single_structure(coordinates, reference_coordinates)
     from molsysmt.lib.structure.get_rmsd import get_rmsd_single_structure as _nb
     return _nb(coordinates, reference_coordinates)
 
 
-def get_rmsd(coordinates, reference_coordinates, backend="numba"):
+def get_rmsd(coordinates, reference_coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_rmsd(coordinates, reference_coordinates)
     from molsysmt.lib.structure.get_rmsd import get_rmsd as _nb
@@ -727,7 +727,7 @@ def get_rmsd(coordinates, reference_coordinates, backend="numba"):
 
 
 def get_rmsd_with_single_reference_structure(coordinates, reference_coordinates,
-                                             backend="numba"):
+                                             backend=None):
     if _use_rust(backend):
         return _rust.get_rmsd_with_single_reference_structure(
             coordinates, reference_coordinates)
@@ -736,14 +736,14 @@ def get_rmsd_with_single_reference_structure(coordinates, reference_coordinates,
     return _nb(coordinates, reference_coordinates)
 
 
-def get_least_rmsd_single_structure(coordinates, reference_coordinates, backend="numba"):
+def get_least_rmsd_single_structure(coordinates, reference_coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_least_rmsd_single_structure(coordinates, reference_coordinates)
     from molsysmt.lib.structure.get_least_rmsd import get_least_rmsd_single_structure as _nb
     return _nb(coordinates, reference_coordinates)
 
 
-def get_least_rmsd(coordinates, reference_coordinates, backend="numba"):
+def get_least_rmsd(coordinates, reference_coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_least_rmsd(coordinates, reference_coordinates)
     from molsysmt.lib.structure.get_least_rmsd import get_least_rmsd as _nb
@@ -751,7 +751,7 @@ def get_least_rmsd(coordinates, reference_coordinates, backend="numba"):
 
 
 def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordinates,
-                                                   backend="numba"):
+                                                   backend=None):
     if _use_rust(backend):
         return _rust.get_least_rmsd_with_single_reference_structure(
             coordinates, reference_coordinates)
@@ -761,7 +761,7 @@ def get_least_rmsd_with_single_reference_structure(coordinates, reference_coordi
 
 
 def get_least_rmsd_rotation_and_translation_single_structure(
-        coordinates, reference_coordinates, backend="numba"):
+        coordinates, reference_coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_least_rmsd_rotation_and_translation_single_structure(
             coordinates, reference_coordinates)
@@ -771,7 +771,7 @@ def get_least_rmsd_rotation_and_translation_single_structure(
 
 
 def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates,
-                                            backend="numba"):
+                                            backend=None):
     if _use_rust(backend):
         return _rust.get_least_rmsd_rotation_and_translation(
             coordinates, reference_coordinates)
@@ -781,7 +781,7 @@ def get_least_rmsd_rotation_and_translation(coordinates, reference_coordinates,
 
 
 def get_least_rmsd_rotation_and_translation_with_single_reference_structure(
-        coordinates, reference_coordinates, backend="numba"):
+        coordinates, reference_coordinates, backend=None):
     if _use_rust(backend):
         return _rust.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
             coordinates, reference_coordinates)
@@ -797,7 +797,7 @@ def get_least_rmsd_rotation_and_translation_with_single_reference_structure(
 # the Rust port fixes the sign deterministically (largest-magnitude component positive),
 # so switching backend cannot flip an axis. Compare eigenvectors up to sign.
 
-def get_principal_inertia_axes_single_structure(coordinates, weights, backend="numba"):
+def get_principal_inertia_axes_single_structure(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_principal_inertia_axes_single_structure(coordinates, weights)
     from molsysmt.lib.structure.get_principal_inertia_axes import (
@@ -805,7 +805,7 @@ def get_principal_inertia_axes_single_structure(coordinates, weights, backend="n
     return _nb(coordinates, weights)
 
 
-def get_principal_inertia_axes(coordinates, weights, backend="numba"):
+def get_principal_inertia_axes(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_principal_inertia_axes(coordinates, weights)
     from molsysmt.lib.structure.get_principal_inertia_axes import (
@@ -813,7 +813,7 @@ def get_principal_inertia_axes(coordinates, weights, backend="numba"):
     return _nb(coordinates, weights)
 
 
-def get_principal_geometric_axes_single_structure(coordinates, weights, backend="numba"):
+def get_principal_geometric_axes_single_structure(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_principal_geometric_axes_single_structure(coordinates, weights)
     from molsysmt.lib.structure.get_principal_geometric_axes import (
@@ -821,7 +821,7 @@ def get_principal_geometric_axes_single_structure(coordinates, weights, backend=
     return _nb(coordinates, weights)
 
 
-def get_principal_geometric_axes(coordinates, weights, backend="numba"):
+def get_principal_geometric_axes(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.get_principal_geometric_axes(coordinates, weights)
     from molsysmt.lib.structure.get_principal_geometric_axes import (
@@ -836,7 +836,7 @@ def get_principal_geometric_axes(coordinates, weights, backend="numba"):
 # ambiguity (fixed deterministically here) and, when n_structures < n_features, a
 # degenerate null space that no element-wise comparison can match.
 
-def principal_component_analysis(coordinates, weights, backend="numba"):
+def principal_component_analysis(coordinates, weights, backend=None):
     if _use_rust(backend):
         return _rust.principal_component_analysis(coordinates, weights)
     from molsysmt.lib.structure.principal_component_analysis import (
@@ -848,7 +848,7 @@ def principal_component_analysis(coordinates, weights, backend="numba"):
 # molsysmt.lib.math brute-force minimum-distance kernels (used by build_peptide).
 
 def minimum_distance_masked_not_bonded(coordinates, include_mask, bonded_matrix,
-                                       backend="numba"):
+                                       backend=None):
     if _use_rust(backend):
         return _rust.minimum_distance_masked_not_bonded(coordinates, include_mask,
                                                         bonded_matrix)
@@ -859,7 +859,7 @@ def minimum_distance_masked_not_bonded(coordinates, include_mask, bonded_matrix,
 def minimum_distance_between_coordinate_sets(existing_coordinates, existing_mask,
                                              candidate_coordinates, candidate_mask,
                                              candidate_start_index, bonded_matrix,
-                                             backend="numba"):
+                                             backend=None):
     if _use_rust(backend):
         return _rust.minimum_distance_between_coordinate_sets(
             existing_coordinates, existing_mask, candidate_coordinates, candidate_mask,
@@ -872,14 +872,14 @@ def minimum_distance_between_coordinate_sets(existing_coordinates, existing_mask
 # ------------------------------------------------------------------- brute-force SASA
 # The small-system Shrake-Rupley path (below configure CELL_LIST_MIN_ATOMS).
 
-def get_sasa(coordinates, radii, sphere_points, probe_radius, backend="numba"):
+def get_sasa(coordinates, radii, sphere_points, probe_radius, backend=None):
     if _use_rust(backend):
         return _rust.get_sasa(coordinates, radii, sphere_points, probe_radius)
     from molsysmt.lib.structure.get_sasa import get_sasa as _nb
     return _nb(coordinates, radii, sphere_points, probe_radius)
 
 
-def get_mic_sasa(coordinates, box, radii, sphere_points, probe_radius, backend="numba"):
+def get_mic_sasa(coordinates, box, radii, sphere_points, probe_radius, backend=None):
     if _use_rust(backend):
         return _rust.get_mic_sasa(coordinates, box, radii, sphere_points, probe_radius)
     from molsysmt.lib.structure.get_sasa import get_mic_sasa as _nb
