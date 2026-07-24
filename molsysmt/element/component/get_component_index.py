@@ -31,7 +31,7 @@ def get_component_index(molecular_system, element='component', selection='all', 
 
     if redefine_indices:
 
-        from molsysmt.lib.topology import get_component_index_from_bonded_atom_pairs
+        from molsysmt._private.rust_backend import get_component_index_from_bonded_atom_pairs
         from molsysmt.basic import get_form
 
         form = get_form(molecular_system)

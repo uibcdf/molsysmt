@@ -61,7 +61,7 @@ def infer_component_indices_from_topology(topology):
     Architecture invariant: component_index is atom-aligned state data.
     Groups do NOT have a component_index column.
     """
-    from molsysmt.lib.topology import get_component_index_from_bonded_atom_pairs
+    from molsysmt._private.rust_backend import get_component_index_from_bonded_atom_pairs
 
     n_atoms = topology.n_atoms
     bonds = topology._get_chemical_state_bonds()

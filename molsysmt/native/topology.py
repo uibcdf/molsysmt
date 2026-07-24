@@ -3,7 +3,7 @@ import numpy as np
 from molsysmt._private.variables import is_all
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
-from molsysmt.lib.series import occurrence_order
+from molsysmt._private.rust_backend import occurrence_order
 import string
 from contextlib import contextmanager
 from contextvars import ContextVar
