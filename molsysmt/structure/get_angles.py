@@ -2,7 +2,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt.configure import with_configure_overrides
 import gc
 
@@ -116,12 +116,12 @@ def get_angles(molecular_system, triplets, structure_indices='all', pbc=False, u
             box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
             if box is not None and box[0] is not None:
                 box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
-                angles = msmlib.structure.get_mic_angles(coordinates, box, triplets)
+                angles = _kernels.get_mic_angles(coordinates, box, triplets)
                 del(coordinates, box, triplets)
             else:
                 pbc = False
         if not pbc:
-            angles = msmlib.structure.get_angles(coordinates, triplets)
+            angles = _kernels.get_angles(coordinates, triplets)
             del(coordinates, triplets)
 
     angles = puw.quantity(angles, 'radians')

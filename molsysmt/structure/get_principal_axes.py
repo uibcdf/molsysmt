@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt._private.weighted_geometry import prepare_weights
 from molsysmt import pyunitwizard as puw
 import numpy as np
@@ -124,7 +124,7 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
                 )
                 variances, axes = _gpu_geo(coordinates, weights)
             else:
-                variances, axes = msmlib.structure.get_principal_geometric_axes(coordinates, weights)
+                variances, axes = _kernels.get_principal_geometric_axes(coordinates, weights)
             moments = variances
 
         elif principal_axes_type == 'inertia':
@@ -134,7 +134,7 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
                 )
                 moments, axes = _gpu_inertia(coordinates, weights)
             else:
-                moments, axes = msmlib.structure.get_principal_inertia_axes(coordinates, weights)
+                moments, axes = _kernels.get_principal_inertia_axes(coordinates, weights)
 
         for structure_index in range(axes.shape[0]):
             if np.linalg.det(axes[structure_index]) < 0.0:

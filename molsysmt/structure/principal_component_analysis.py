@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
@@ -110,7 +110,7 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
             )
             eigenvalues, eigenvectors = _gpu_pca(coordinates, weights)
         else:
-            eigenvalues, eigenvectors = msmlib.structure.principal_component_analysis(
+            eigenvalues, eigenvectors = _kernels.principal_component_analysis(
                 coordinates, weights
             )
 

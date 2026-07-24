@@ -3,7 +3,7 @@ from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 import gc
 
@@ -98,7 +98,7 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
             if box is not None:
                 if box[0] is not None:
                     box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
-                    msmlib.structure.set_mic_dihedral_angles(coordinates, box, angles, dihedral_quartets,
+                    _kernels.set_mic_dihedral_angles(coordinates, box, angles, dihedral_quartets,
                             on_in_blocks)
                     del(box, dihedral_quartets, angles, blocks, on_in_blocks)
                 else:
@@ -108,7 +108,7 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
 
         if not pbc:
 
-            msmlib.structure.set_dihedral_angles(coordinates, angles, dihedral_quartets, on_in_blocks)
+            _kernels.set_dihedral_angles(coordinates, angles, dihedral_quartets, on_in_blocks)
 
             del(dihedral_quartets, angles, blocks, on_in_blocks)
 
