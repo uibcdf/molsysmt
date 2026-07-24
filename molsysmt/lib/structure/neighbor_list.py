@@ -30,6 +30,8 @@ import numpy as np
 import numba as nb
 import math
 
+from molsysmt._private.jit import lazy_njit
+
 
 # ---------------------------------------------------------------------------
 # Minimum-image-convention helpers (shared periodic-wrap primitives)
@@ -404,3 +406,390 @@ def neighbor_pairs(query_coords, ref_coords=None, box=None, cutoff=None,
     offsets, indices = neighbor_list_csr(query_coords, ref_coords, box, cutoff,
                                          exclude_self=exclude_self, half=half)
     return _csr_to_pairs(offsets, indices)
+
+
+# ---------------------------------------------------------------------------
+# Multi-structure CSR neighbour list (flattened parallelism)
+# ---------------------------------------------------------------------------
+#
+# Builds one linked-cell grid per structure (parallel over structures) and then
+# runs a ``prange`` over the flattened (structure, query-atom) space, so both a
+# single large structure and many structures parallelise. The result is a global
+# flat CSR over all structures: the neighbours of query atom ``iq`` in structure
+# ``s`` live at ``indices[offsets[s*n_query + iq] : offsets[s*n_query + iq + 1]]``,
+# optionally sorted by ascending distance. Distances are returned squared; callers
+# take the square root only if they need actual distances.
+
+@lazy_njit(
+    nb.types.Tuple((nb.int64[:], nb.int64[:], nb.float64[:]))(
+        nb.float64[:, :, :], nb.float64[:, :, :], nb.float64, nb.boolean, nb.boolean),
+    parallel=True,
+    cache=True,
+)
+def _neighbor_csr_multi_vacuum(query, ref, cutoff, exclude_self, sort_by_distance):
+    n_structures = query.shape[0]
+    n_query = query.shape[1]
+    n_ref = ref.shape[1]
+    cutoff_sq = cutoff * cutoff
+
+    g_nx = np.empty(n_structures, dtype=np.int64)
+    g_ny = np.empty(n_structures, dtype=np.int64)
+    g_nz = np.empty(n_structures, dtype=np.int64)
+    g_xmin = np.empty(n_structures, dtype=np.float64)
+    g_ymin = np.empty(n_structures, dtype=np.float64)
+    g_zmin = np.empty(n_structures, dtype=np.float64)
+    g_cdx = np.empty(n_structures, dtype=np.float64)
+    g_cdy = np.empty(n_structures, dtype=np.float64)
+    g_cdz = np.empty(n_structures, dtype=np.float64)
+    cell_offsets = np.zeros(n_structures + 1, dtype=np.int64)
+
+    for ss in range(n_structures):
+        xmin = query[ss, 0, 0]; xmax = query[ss, 0, 0]
+        ymin = query[ss, 0, 1]; ymax = query[ss, 0, 1]
+        zmin = query[ss, 0, 2]; zmax = query[ss, 0, 2]
+        for a in range(n_query):
+            if query[ss, a, 0] < xmin: xmin = query[ss, a, 0]
+            if query[ss, a, 0] > xmax: xmax = query[ss, a, 0]
+            if query[ss, a, 1] < ymin: ymin = query[ss, a, 1]
+            if query[ss, a, 1] > ymax: ymax = query[ss, a, 1]
+            if query[ss, a, 2] < zmin: zmin = query[ss, a, 2]
+            if query[ss, a, 2] > zmax: zmax = query[ss, a, 2]
+        for a in range(n_ref):
+            if ref[ss, a, 0] < xmin: xmin = ref[ss, a, 0]
+            if ref[ss, a, 0] > xmax: xmax = ref[ss, a, 0]
+            if ref[ss, a, 1] < ymin: ymin = ref[ss, a, 1]
+            if ref[ss, a, 1] > ymax: ymax = ref[ss, a, 1]
+            if ref[ss, a, 2] < zmin: zmin = ref[ss, a, 2]
+            if ref[ss, a, 2] > zmax: zmax = ref[ss, a, 2]
+        lx = max(cutoff, xmax - xmin + 1e-5)
+        ly = max(cutoff, ymax - ymin + 1e-5)
+        lz = max(cutoff, zmax - zmin + 1e-5)
+        nx = max(1, int(math.floor(lx / cutoff)))
+        ny = max(1, int(math.floor(ly / cutoff)))
+        nz = max(1, int(math.floor(lz / cutoff)))
+        g_nx[ss] = nx; g_ny[ss] = ny; g_nz[ss] = nz
+        g_xmin[ss] = xmin; g_ymin[ss] = ymin; g_zmin[ss] = zmin
+        g_cdx[ss] = lx / nx; g_cdy[ss] = ly / ny; g_cdz[ss] = lz / nz
+        cell_offsets[ss + 1] = cell_offsets[ss] + nx * ny * nz
+
+    head = np.full(cell_offsets[n_structures], -1, dtype=np.int64)
+    nxt = np.empty((n_structures, n_ref), dtype=np.int64)
+
+    for ss in nb.prange(n_structures):
+        nx = g_nx[ss]; ny = g_ny[ss]
+        xmin = g_xmin[ss]; ymin = g_ymin[ss]; zmin = g_zmin[ss]
+        cdx = g_cdx[ss]; cdy = g_cdy[ss]; cdz = g_cdz[ss]
+        base = cell_offsets[ss]
+        for a in range(n_ref):
+            cx = min(nx - 1, max(0, int(math.floor((ref[ss, a, 0] - xmin) / cdx))))
+            cy = min(ny - 1, max(0, int(math.floor((ref[ss, a, 1] - ymin) / cdy))))
+            cz = min(g_nz[ss] - 1, max(0, int(math.floor((ref[ss, a, 2] - zmin) / cdz))))
+            c = base + cx + nx * (cy + ny * cz)
+            nxt[ss, a] = head[c]
+            head[c] = a
+
+    n_work = n_structures * n_query
+    counts = np.zeros(n_work, dtype=np.int64)
+
+    for w in nb.prange(n_work):
+        ss = w // n_query
+        iq = w % n_query
+        nx = g_nx[ss]; ny = g_ny[ss]; nz = g_nz[ss]
+        xmin = g_xmin[ss]; ymin = g_ymin[ss]; zmin = g_zmin[ss]
+        cdx = g_cdx[ss]; cdy = g_cdy[ss]; cdz = g_cdz[ss]
+        base = cell_offsets[ss]
+        qx = query[ss, iq, 0]; qy = query[ss, iq, 1]; qz = query[ss, iq, 2]
+        cx = min(nx - 1, max(0, int(math.floor((qx - xmin) / cdx))))
+        cy = min(ny - 1, max(0, int(math.floor((qy - ymin) / cdy))))
+        cz = min(nz - 1, max(0, int(math.floor((qz - zmin) / cdz))))
+        cnt = 0
+        for ox in range(max(0, cx - 1), min(nx, cx + 2)):
+            for oy in range(max(0, cy - 1), min(ny, cy + 2)):
+                for oz in range(max(0, cz - 1), min(nz, cz + 2)):
+                    c = base + ox + nx * (oy + ny * oz)
+                    j = head[c]
+                    while j != -1:
+                        if not (exclude_self and j == iq):
+                            rx = ref[ss, j, 0] - qx
+                            ry = ref[ss, j, 1] - qy
+                            rz = ref[ss, j, 2] - qz
+                            if rx * rx + ry * ry + rz * rz <= cutoff_sq:
+                                cnt += 1
+                        j = nxt[ss, j]
+        counts[w] = cnt
+
+    offsets = np.zeros(n_work + 1, dtype=np.int64)
+    for w in range(n_work):
+        offsets[w + 1] = offsets[w] + counts[w]
+
+    total = offsets[n_work]
+    indices = np.empty(total, dtype=np.int64)
+    distances = np.empty(total, dtype=np.float64)
+
+    for w in nb.prange(n_work):
+        ss = w // n_query
+        iq = w % n_query
+        base_w = offsets[w]
+        if offsets[w + 1] == base_w:
+            continue
+        nx = g_nx[ss]; ny = g_ny[ss]; nz = g_nz[ss]
+        xmin = g_xmin[ss]; ymin = g_ymin[ss]; zmin = g_zmin[ss]
+        cdx = g_cdx[ss]; cdy = g_cdy[ss]; cdz = g_cdz[ss]
+        base = cell_offsets[ss]
+        qx = query[ss, iq, 0]; qy = query[ss, iq, 1]; qz = query[ss, iq, 2]
+        cx = min(nx - 1, max(0, int(math.floor((qx - xmin) / cdx))))
+        cy = min(ny - 1, max(0, int(math.floor((qy - ymin) / cdy))))
+        cz = min(nz - 1, max(0, int(math.floor((qz - zmin) / cdz))))
+        cand = np.empty(n_ref, dtype=np.int64)
+        csq = np.empty(n_ref, dtype=np.float64)
+        m = 0
+        for ox in range(max(0, cx - 1), min(nx, cx + 2)):
+            for oy in range(max(0, cy - 1), min(ny, cy + 2)):
+                for oz in range(max(0, cz - 1), min(nz, cz + 2)):
+                    c = base + ox + nx * (oy + ny * oz)
+                    j = head[c]
+                    while j != -1:
+                        if not (exclude_self and j == iq):
+                            rx = ref[ss, j, 0] - qx
+                            ry = ref[ss, j, 1] - qy
+                            rz = ref[ss, j, 2] - qz
+                            d2 = rx * rx + ry * ry + rz * rz
+                            if d2 <= cutoff_sq:
+                                cand[m] = j
+                                csq[m] = d2
+                                m += 1
+                        j = nxt[ss, j]
+        if sort_by_distance:
+            order = np.argsort(csq[:m])
+            for p in range(m):
+                indices[base_w + p] = cand[order[p]]
+                distances[base_w + p] = math.sqrt(csq[order[p]])
+        else:
+            for p in range(m):
+                indices[base_w + p] = cand[p]
+                distances[base_w + p] = math.sqrt(csq[p])
+
+    return offsets, indices, distances
+
+
+@lazy_njit(
+    nb.types.Tuple((nb.int64[:], nb.int64[:], nb.float64[:]))(
+        nb.float64[:, :, :], nb.float64[:, :, :], nb.float64[:, :, :], nb.float64,
+        nb.boolean, nb.boolean),
+    parallel=True,
+    cache=True,
+)
+def _neighbor_csr_multi_pbc(query, ref, box, cutoff, exclude_self, sort_by_distance):
+    n_structures = query.shape[0]
+    n_query = query.shape[1]
+    n_ref = ref.shape[1]
+    cutoff_sq = cutoff * cutoff
+
+    g_nx = np.empty(n_structures, dtype=np.int64)
+    g_ny = np.empty(n_structures, dtype=np.int64)
+    g_nz = np.empty(n_structures, dtype=np.int64)
+    cell_offsets = np.zeros(n_structures + 1, dtype=np.int64)
+    for ss in range(n_structures):
+        nx = max(1, int(math.floor(box[ss, 0, 0] / cutoff)))
+        ny = max(1, int(math.floor(box[ss, 1, 1] / cutoff)))
+        nz = max(1, int(math.floor(box[ss, 2, 2] / cutoff)))
+        g_nx[ss] = nx; g_ny[ss] = ny; g_nz[ss] = nz
+        cell_offsets[ss + 1] = cell_offsets[ss] + nx * ny * nz
+
+    head = np.full(cell_offsets[n_structures], -1, dtype=np.int64)
+    nxt = np.empty((n_structures, n_ref), dtype=np.int64)
+
+    for ss in nb.prange(n_structures):
+        box_s = box[ss]
+        nx = g_nx[ss]; ny = g_ny[ss]; nz = g_nz[ss]
+        base = cell_offsets[ss]
+        b00 = box_s[0, 0]; b01 = box_s[0, 1]; b02 = box_s[0, 2]
+        b10 = box_s[1, 0]; b11 = box_s[1, 1]; b12 = box_s[1, 2]
+        b20 = box_s[2, 0]; b21 = box_s[2, 1]; b22 = box_s[2, 2]
+        det = (b00 * (b11 * b22 - b12 * b21) - b01 * (b10 * b22 - b12 * b20)
+               + b02 * (b10 * b21 - b11 * b20))
+        inv00 = (b11 * b22 - b12 * b21) / det
+        inv01 = (b02 * b21 - b01 * b22) / det
+        inv02 = (b01 * b12 - b02 * b11) / det
+        inv10 = (b12 * b20 - b10 * b22) / det
+        inv11 = (b00 * b22 - b02 * b20) / det
+        inv12 = (b02 * b10 - b00 * b12) / det
+        inv20 = (b10 * b21 - b11 * b20) / det
+        inv21 = (b01 * b20 - b00 * b21) / det
+        inv22 = (b00 * b11 - b01 * b10) / det
+        for a in range(n_ref):
+            rx = ref[ss, a, 0]; ry = ref[ss, a, 1]; rz = ref[ss, a, 2]
+            sx = inv00 * rx + inv01 * ry + inv02 * rz
+            sy = inv10 * rx + inv11 * ry + inv12 * rz
+            sz = inv20 * rx + inv21 * ry + inv22 * rz
+            sx -= math.floor(sx); sy -= math.floor(sy); sz -= math.floor(sz)
+            cx = int(math.floor(sx * nx)) % nx
+            cy = int(math.floor(sy * ny)) % ny
+            cz = int(math.floor(sz * nz)) % nz
+            c = base + cx + nx * (cy + ny * cz)
+            nxt[ss, a] = head[c]
+            head[c] = a
+
+    n_work = n_structures * n_query
+    counts = np.zeros(n_work, dtype=np.int64)
+
+    for w in nb.prange(n_work):
+        ss = w // n_query
+        iq = w % n_query
+        box_s = box[ss]
+        nx = g_nx[ss]; ny = g_ny[ss]; nz = g_nz[ss]
+        base = cell_offsets[ss]
+        b00 = box_s[0, 0]; b01 = box_s[0, 1]; b02 = box_s[0, 2]
+        b10 = box_s[1, 0]; b11 = box_s[1, 1]; b12 = box_s[1, 2]
+        b20 = box_s[2, 0]; b21 = box_s[2, 1]; b22 = box_s[2, 2]
+        det = (b00 * (b11 * b22 - b12 * b21) - b01 * (b10 * b22 - b12 * b20)
+               + b02 * (b10 * b21 - b11 * b20))
+        inv00 = (b11 * b22 - b12 * b21) / det
+        inv01 = (b02 * b21 - b01 * b22) / det
+        inv02 = (b01 * b12 - b02 * b11) / det
+        inv10 = (b12 * b20 - b10 * b22) / det
+        inv11 = (b00 * b22 - b02 * b20) / det
+        inv12 = (b02 * b10 - b00 * b12) / det
+        inv20 = (b10 * b21 - b11 * b20) / det
+        inv21 = (b01 * b20 - b00 * b21) / det
+        inv22 = (b00 * b11 - b01 * b10) / det
+        qx = query[ss, iq, 0]; qy = query[ss, iq, 1]; qz = query[ss, iq, 2]
+        sx = inv00 * qx + inv01 * qy + inv02 * qz
+        sy = inv10 * qx + inv11 * qy + inv12 * qz
+        sz = inv20 * qx + inv21 * qy + inv22 * qz
+        sx -= math.floor(sx); sy -= math.floor(sy); sz -= math.floor(sz)
+        cx = int(math.floor(sx * nx)) % nx
+        cy = int(math.floor(sy * ny)) % ny
+        cz = int(math.floor(sz * nz)) % nz
+        cnt = 0
+        for ox in range(cx - 1, cx + 2):
+            w_cx = (ox + nx) % nx
+            for oy in range(cy - 1, cy + 2):
+                w_cy = (oy + ny) % ny
+                for oz in range(cz - 1, cz + 2):
+                    w_cz = (oz + nz) % nz
+                    c = base + w_cx + nx * (w_cy + ny * w_cz)
+                    j = head[c]
+                    while j != -1:
+                        if not (exclude_self and j == iq):
+                            dx = ref[ss, j, 0] - qx
+                            dy = ref[ss, j, 1] - qy
+                            dz = ref[ss, j, 2] - qz
+                            dx, dy, dz = _mic_wrap_vector(dx, dy, dz, box_s)
+                            if dx * dx + dy * dy + dz * dz <= cutoff_sq:
+                                cnt += 1
+                        j = nxt[ss, j]
+        counts[w] = cnt
+
+    offsets = np.zeros(n_work + 1, dtype=np.int64)
+    for w in range(n_work):
+        offsets[w + 1] = offsets[w] + counts[w]
+
+    total = offsets[n_work]
+    indices = np.empty(total, dtype=np.int64)
+    distances = np.empty(total, dtype=np.float64)
+
+    for w in nb.prange(n_work):
+        ss = w // n_query
+        iq = w % n_query
+        base_w = offsets[w]
+        if offsets[w + 1] == base_w:
+            continue
+        box_s = box[ss]
+        nx = g_nx[ss]; ny = g_ny[ss]; nz = g_nz[ss]
+        base = cell_offsets[ss]
+        b00 = box_s[0, 0]; b01 = box_s[0, 1]; b02 = box_s[0, 2]
+        b10 = box_s[1, 0]; b11 = box_s[1, 1]; b12 = box_s[1, 2]
+        b20 = box_s[2, 0]; b21 = box_s[2, 1]; b22 = box_s[2, 2]
+        det = (b00 * (b11 * b22 - b12 * b21) - b01 * (b10 * b22 - b12 * b20)
+               + b02 * (b10 * b21 - b11 * b20))
+        inv00 = (b11 * b22 - b12 * b21) / det
+        inv01 = (b02 * b21 - b01 * b22) / det
+        inv02 = (b01 * b12 - b02 * b11) / det
+        inv10 = (b12 * b20 - b10 * b22) / det
+        inv11 = (b00 * b22 - b02 * b20) / det
+        inv12 = (b02 * b10 - b00 * b12) / det
+        inv20 = (b10 * b21 - b11 * b20) / det
+        inv21 = (b01 * b20 - b00 * b21) / det
+        inv22 = (b00 * b11 - b01 * b10) / det
+        qx = query[ss, iq, 0]; qy = query[ss, iq, 1]; qz = query[ss, iq, 2]
+        sx = inv00 * qx + inv01 * qy + inv02 * qz
+        sy = inv10 * qx + inv11 * qy + inv12 * qz
+        sz = inv20 * qx + inv21 * qy + inv22 * qz
+        sx -= math.floor(sx); sy -= math.floor(sy); sz -= math.floor(sz)
+        cx = int(math.floor(sx * nx)) % nx
+        cy = int(math.floor(sy * ny)) % ny
+        cz = int(math.floor(sz * nz)) % nz
+        cand = np.empty(n_ref, dtype=np.int64)
+        csq = np.empty(n_ref, dtype=np.float64)
+        m = 0
+        for ox in range(cx - 1, cx + 2):
+            w_cx = (ox + nx) % nx
+            for oy in range(cy - 1, cy + 2):
+                w_cy = (oy + ny) % ny
+                for oz in range(cz - 1, cz + 2):
+                    w_cz = (oz + nz) % nz
+                    c = base + w_cx + nx * (w_cy + ny * w_cz)
+                    j = head[c]
+                    while j != -1:
+                        if not (exclude_self and j == iq):
+                            dx = ref[ss, j, 0] - qx
+                            dy = ref[ss, j, 1] - qy
+                            dz = ref[ss, j, 2] - qz
+                            dx, dy, dz = _mic_wrap_vector(dx, dy, dz, box_s)
+                            d2 = dx * dx + dy * dy + dz * dz
+                            if d2 <= cutoff_sq:
+                                cand[m] = j
+                                csq[m] = d2
+                                m += 1
+                        j = nxt[ss, j]
+        if sort_by_distance:
+            order = np.argsort(csq[:m])
+            for p in range(m):
+                indices[base_w + p] = cand[order[p]]
+                distances[base_w + p] = math.sqrt(csq[order[p]])
+        else:
+            for p in range(m):
+                indices[base_w + p] = cand[p]
+                distances[base_w + p] = math.sqrt(csq[p])
+
+    return offsets, indices, distances
+
+
+def neighbor_list_csr_multi(query_coords, ref_coords=None, box=None, cutoff=None,
+                            exclude_self=True, sort_by_distance=False):
+    """Multi-structure CSR neighbour list over the flattened (structure, atom) work.
+
+    Parameters
+    ----------
+    query_coords : (n_structures, n_query, 3) array
+    ref_coords : (n_structures, n_ref, 3) array or None
+        ``None`` means ``ref == query`` (self search); pass ``exclude_self=True``.
+    box : (n_structures, 3, 3) array or None
+        Per-structure periodic box; ``None`` selects the vacuum search.
+    cutoff : float
+    exclude_self : bool, default True
+        Drop ``j == iq`` (only meaningful when ``ref`` is ``query``).
+    sort_by_distance : bool, default False
+        Sort each query atom's neighbours by ascending distance.
+
+    Returns
+    -------
+    offsets : (n_structures * n_query + 1,) int64 array
+        Neighbours of query ``iq`` in structure ``s`` are the slice
+        ``[offsets[s*n_query + iq] : offsets[s*n_query + iq + 1]]``.
+    indices : (n_neighbours,) int64 array
+        Reference-atom indices.
+    distances : (n_neighbours,) float64 array
+        Distance for each entry (minimum-image when ``box`` is given), in the
+        coordinate unit.
+    """
+    if cutoff is None:
+        raise ValueError("neighbor_list_csr_multi requires a cutoff.")
+    query = np.ascontiguousarray(query_coords, dtype=np.float64)
+    ref = query if ref_coords is None else np.ascontiguousarray(ref_coords, dtype=np.float64)
+    cutoff = float(cutoff)
+    if box is None:
+        return _neighbor_csr_multi_vacuum(query, ref, cutoff, exclude_self, sort_by_distance)
+    box_s = np.ascontiguousarray(box, dtype=np.float64)
+    return _neighbor_csr_multi_pbc(query, ref, box_s, cutoff, exclude_self, sort_by_distance)

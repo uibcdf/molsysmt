@@ -276,16 +276,18 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
             n_elements_2 = tmp_coords_2_val.shape[1]
             contact_map = np.zeros((num_structures, n_elements_1, n_elements_2), dtype=bool)
 
-            from molsysmt.lib.structure.neighbor_list import neighbor_pairs
-            for ii in range(num_structures):
-                box_ii = box_val[ii] if box_val is not None else None
-                ref_ii = None if is_self else tmp_coords_2_val[ii]
-                # half=False keeps both directions (i->j and j->i) so the map is
-                # symmetric; exclude_self drops the diagonal in the self case.
-                pr = neighbor_pairs(coords_val[ii], ref_ii, box=box_ii,
-                                    cutoff=threshold_val, half=False, exclude_self=is_self)
-                if pr.shape[0]:
-                    contact_map[ii, pr[:, 0], pr[:, 1]] = True
+            # One parallel multi-structure neighbour search over the flattened
+            # (structure, query-atom) space, then a vectorised fill of the map.
+            from molsysmt.lib.structure.neighbor_list import neighbor_list_csr_multi
+            ref_val = None if is_self else tmp_coords_2_val
+            offsets, indices, _ = neighbor_list_csr_multi(
+                coords_val, ref_val, box=box_val, cutoff=threshold_val,
+                exclude_self=is_self, sort_by_distance=False)
+            counts = np.diff(offsets)
+            w_of_entry = np.repeat(np.arange(num_structures * n_elements_1), counts)
+            s_of_entry = w_of_entry // n_elements_1
+            iq_of_entry = w_of_entry % n_elements_1
+            contact_map[s_of_entry, iq_of_entry, indices] = True
 
             if is_self:
                 contact_map[:, np.arange(n_elements_1), np.arange(n_elements_1)] = True

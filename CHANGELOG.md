@@ -32,22 +32,29 @@ individual entries are finalized as the release is cut.
   by the native `MolSysMT` and the `mdtraj` engines.
 - Reusable CPU cell-list neighbour-search primitive
   (`molsysmt.lib.structure.neighbor_list`): `neighbor_list_csr` (CSR offsets/indices,
-  vacuum and periodic, query/ref generality) and `neighbor_pairs`, shared by
-  `physchem.get_sasa` and `structure.get_contacts` (the former per-function
-  `get_contacts_cell_list` implementation was folded into this primitive). The
-  primitive also optionally returns neighbour distances (`return_distances`).
+  vacuum and periodic, query/ref generality), `neighbor_pairs`, and a
+  `neighbor_list_csr_multi` kernel that processes all structures in one pass,
+  parallelising over the flattened (structure, atom) space and returning a flat CSR
+  (offsets/indices/distances, optionally sorted by distance). Shared by
+  `physchem.get_sasa`, `structure.get_neighbors`, `structure.get_contacts` and the
+  h-bond engines (the former per-function `get_contacts_cell_list` implementation was
+  folded into this primitive).
 - `physchem.get_sasa` gains a `use_cell_list` argument (default `'auto'`) that
   accelerates the native CPU Shrake–Rupley occlusion scan from O(N²) to ~O(N) for
   large systems, with numerically identical results. The kernel builds a
   per-structure cell list and parallelises over the flattened (structure, atom)
   work, so both a single large structure and many structures scale (subject to the
   usual `configure.parallel_mode` / `parallel_threshold` gating).
-- `structure.get_neighbors` threshold mode now uses the cell-list primitive on the
-  native path (atom neighbour search, `output_type='numpy.ndarray'`), replacing the
-  full O(N·M) distance matrix with an ~O(N) search; results are identical and it
-  transparently falls back to the distance-matrix path for the other cases. The
-  h-bond engines (`hbonds.get_buch_hbonds`, `hbonds.get_luzard_chandler_hbonds`)
-  inherit the speed-up since they generate candidates through `get_neighbors`.
+- `structure.get_neighbors` threshold mode now runs the parallel multi-structure
+  cell-list kernel on the native path (search, distances and per-atom sort all done
+  in the compiled kernel), replacing the full O(N·M) distance matrix with an ~O(N)
+  parallel search; results are identical and it transparently falls back to the
+  distance-matrix path for the other cases. It gains an `output_type='csr'` returning
+  the flat CSR `(offsets, indices, distances)`. The h-bond engines
+  (`hbonds.get_buch_hbonds`, `hbonds.get_luzard_chandler_hbonds`) consume the CSR
+  output directly, and `structure.get_contacts` builds its contact map from the same
+  multi-structure kernel — so contacts, neighbours and h-bonds all scale with
+  structures on one shared parallel path.
 - First-class support for dummy atoms/groups (`DUM`/`X`) in `physchem`: neutral
   pseudo-elements with zero mass and radius, and neutral group-property fallback
   in the residue-level getters (`get_charge`, `get_hydrophobicity`, `get_polarity`,

@@ -71,3 +71,19 @@ def test_get_neighbors_cell_list_self_pbc():
     ms = msm.convert(systems['pentalanine']['traj_pentalanine.h5msm'], to_form='molsysmt.MolSys')
     ms = msm.extract(ms, structure_indices=[0, 1, 2])
     _assert_parity(ms, 'all', None, '5 angstroms', pbc=True)
+
+
+def test_get_neighbors_csr_matches_numpy_output():
+    ms = msm.convert(systems['Trp-Cage']['1l2y.h5msm'], to_form='molsysmt.MolSys')
+    ms = msm.extract(ms, structure_indices=[0, 1])
+    neighs, dists = msm.structure.get_neighbors(ms, threshold='5 angstroms', pbc=False)
+    offsets, indices, distances = msm.structure.get_neighbors(
+        ms, threshold='5 angstroms', pbc=False, output_type='csr')
+    dvals = puw.get_value(distances, to_unit='nm')
+    ns, nq = neighs.shape
+    for s in range(ns):
+        for ii in range(nq):
+            w = s * nq + ii
+            assert np.array_equal(np.asarray(neighs[s, ii]), indices[offsets[w]:offsets[w + 1]])
+            expected = puw.get_value(dists[s, ii], to_unit='nm') if len(neighs[s, ii]) else np.array([])
+            assert np.allclose(expected, dvals[offsets[w]:offsets[w + 1]], atol=1e-9)

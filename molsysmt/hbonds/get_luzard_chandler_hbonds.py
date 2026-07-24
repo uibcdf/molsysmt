@@ -69,6 +69,9 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
 
         n_acceptors = acceptors.shape[0]
         n_donors = donors.shape[0]
+        unique_donors, donor_restore = np.unique(
+            donors[:, 0], return_inverse=True
+        )
 
         if (selection_2 is None) and (acceptors_2 is None) and (donors_2 is None):
 
@@ -76,9 +79,11 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
             output_distances=[]
             output_angles=[]
 
-            neighs, distances = get_neighbors(molecular_system, selection=donors[:,0], selection_2=acceptors,
-                structure_indices=structure_indices, structure_indices_2=structure_indices_2,
-                threshold=distance_threshold, pbc=pbc)
+            n_unique = len(unique_donors)
+            offsets, indices, distances = get_neighbors(molecular_system, selection=unique_donors,
+                selection_2=acceptors, structure_indices=structure_indices,
+                structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
+                output_type='csr')
 
             for ll,mm in enumerate(structure_indices):
 
@@ -89,10 +94,13 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
                 for ii in range(n_donors):
                     atom_d = donors[ii,0]
                     atom_h = donors[ii,1]
-                    for jj, dist in zip(neighs[ll,ii], distances[ll,ii]):
+                    donor_row = donor_restore[ii]
+                    w = ll * n_unique + donor_row
+                    for p in range(offsets[w], offsets[w+1]):
+                        jj = indices[p]
                         if atom_d!=acceptors[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors[jj]])
-                            tmp_distances.append(dist)
+                            tmp_distances.append(distances[p])
 
                 tmp_atoms = np.array(tmp_atoms)
                 tmp_distances = puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray')
@@ -129,18 +137,25 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
 
             n_acceptors_2 = acceptors_2.shape[0]
             n_donors_2 = donors_2.shape[0]
+            unique_donors_2, donor_restore_2 = np.unique(
+                donors_2[:, 0], return_inverse=True
+            )
 
             output_atoms=[]
             output_distances=[]
             output_angles=[]
 
-            neighs, distances = get_neighbors(molecular_system, selection=donors[:,0],
+            n_unique = len(unique_donors)
+            n_unique_2 = len(unique_donors_2)
+            offsets, indices, distances = get_neighbors(molecular_system, selection=unique_donors,
                     selection_2=acceptors_2, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc)
+                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
+                    output_type='csr')
 
-            neighs_2, distances_2 = get_neighbors(molecular_system, selection=donors_2[:,0],
+            offsets_2, indices_2, distances_2 = get_neighbors(molecular_system, selection=unique_donors_2,
                     selection_2=acceptors, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc)
+                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
+                    output_type='csr')
 
             for ll,mm in enumerate(structure_indices):
 
@@ -150,18 +165,24 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
                 for ii in range(n_donors):
                     atom_d = donors[ii,0]
                     atom_h = donors[ii,1]
-                    for jj, dist in zip(neighs[ll,ii], distances[ll,ii]):
+                    donor_row = donor_restore[ii]
+                    w = ll * n_unique + donor_row
+                    for p in range(offsets[w], offsets[w+1]):
+                        jj = indices[p]
                         if atom_d!=acceptors_2[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors_2[jj]])
-                            tmp_distances.append(dist)
+                            tmp_distances.append(distances[p])
 
                 for ii in range(n_donors_2):
                     atom_d = donors_2[ii,0]
                     atom_h = donors_2[ii,1]
-                    for jj, dist in zip(neighs_2[ll,ii], distances_2[ll,ii]):
+                    donor_row = donor_restore_2[ii]
+                    w = ll * n_unique_2 + donor_row
+                    for p in range(offsets_2[w], offsets_2[w+1]):
+                        jj = indices_2[p]
                         if atom_d!=acceptors[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors[jj]])
-                            tmp_distances.append(dist)
+                            tmp_distances.append(distances_2[p])
 
                 tmp_atoms = np.array(tmp_atoms)
                 tmp_distances = puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray')

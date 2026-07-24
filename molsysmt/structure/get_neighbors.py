@@ -8,17 +8,19 @@ from smonitor import signal
 
 
 def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
-                                       structure_indices, pbc, threshold, same_set):
-    """Threshold-mode neighbour search via the shared cell-list primitive.
+                                       structure_indices, pbc, threshold, same_set,
+                                       output_type):
+    """Threshold-mode neighbour search via the shared multi-structure cell list.
 
-    Returns ``(neighs, dists)`` object arrays with the same contract as the
-    ``get_distances``-based path (per query element: neighbour indices and
-    distances sorted by ascending distance, self excluded for a self-search), or
-    ``None`` when the cell-list cannot serve the request (e.g. non-positive
-    cutoff), so the caller can fall back to the distance-matrix path.
+    The heavy work (search, distances, per-atom sort) runs in a single parallel
+    kernel over the flattened (structure, atom) space. Returns either object arrays
+    ``(neighs, dists)`` (``output_type='numpy.ndarray'``) assembled by cheap
+    slicing, or the flat CSR ``(offsets, indices, distances)`` (``'csr'``). Returns
+    ``None`` when the cell list cannot serve the request (non-positive cutoff), so
+    the caller can fall back to the distance-matrix path.
     """
     from molsysmt.basic import get
-    from molsysmt.lib.structure.neighbor_list import neighbor_list_csr
+    from molsysmt.lib.structure.neighbor_list import neighbor_list_csr_multi
 
     q = get(molecular_system, element='atom', selection=selection,
             structure_indices=structure_indices, coordinates=True)
@@ -43,23 +45,23 @@ def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
         if box_q is not None and box_q[0] is not None:
             box = np.ascontiguousarray(puw.get_value(box_q, to_unit=length_units), dtype=np.float64)
 
+    offsets, indices, distances = neighbor_list_csr_multi(
+        q_val, r_val, box=box, cutoff=threshold_val,
+        exclude_self=same_set, sort_by_distance=True)
+
+    if output_type == 'csr':
+        return offsets, indices, distances * length_units
+
     nstructures = q_val.shape[0]
     nelements_1 = q_val.shape[1]
     neighs = np.empty((nstructures, nelements_1), dtype=object)
     dists = np.empty((nstructures, nelements_1), dtype=object)
-
     for s in range(nstructures):
-        box_s = box[s] if box is not None else None
-        ref_s = None if same_set else r_val[s]
-        offsets, indices, dd = neighbor_list_csr(
-            q_val[s], ref_s, box=box_s, cutoff=threshold_val,
-            exclude_self=same_set, return_distances=True)
+        row = s * nelements_1
         for ii in range(nelements_1):
-            a = indices[offsets[ii]:offsets[ii + 1]]
-            d = dd[offsets[ii]:offsets[ii + 1]]
-            order = np.lexsort((a, d))  # by distance, ties broken by ascending index
-            neighs[s, ii] = a[order]
-            dists[s, ii] = d[order]
+            w = row + ii
+            neighs[s, ii] = indices[offsets[w]:offsets[w + 1]]
+            dists[s, ii] = distances[offsets[w]:offsets[w + 1]]
 
     dists = dists * length_units
     return neighs, dists
@@ -133,12 +135,17 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
     pbc : bool, default True
         Whether to apply periodic boundary conditions.  The actual PBC state is
         queried from the system; this flag disables the query when set to ``False``.
-    output_type : {'numpy.ndarray', 'pairs'}, default 'numpy.ndarray'
+    output_type : {'numpy.ndarray', 'pairs', 'csr'}, default 'numpy.ndarray'
         Format of the returned neighbor data.
 
         * ``'numpy.ndarray'``: return ``(neighs, dists)`` arrays directly.
         * ``'pairs'``: return a list of ``[query_idx, neighbor_idx]`` pairs per
           frame together with the corresponding distances.
+        * ``'csr'``: return the flat CSR ``(offsets, indices, distances)`` over all
+          structures; the neighbours of query atom ``ii`` in structure ``s`` are the
+          slice ``[offsets[s*n_query+ii] : offsets[s*n_query+ii+1]]``. Only available
+          on the cell-list fast path (threshold mode, native engine, plain atom
+          selections); otherwise ``NotImplementedMethodError`` is raised.
     output_indices : {None, 'selection', 'atom'}, default None
         Index convention used in ``'pairs'`` output mode.
     output_structure_indices : array-like or None, default None
@@ -199,22 +206,28 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
 
     same_set= same_selections and same_structures
 
-    # Fast path: threshold-mode atom neighbour search via the shared cell-list
-    # primitive (O(N) vs the full O(N*M) distance matrix). Restricted to the
-    # cases whose contract it reproduces exactly; everything else falls back.
-    if (engine == 'MolSysMT' and threshold is not None and n_neighbors is None
-            and output_type == 'numpy.ndarray'
-            and output_indices is None and output_structure_indices is None
-            and not center_of_atoms and not center_of_atoms_2
-            and molecular_system_2 is None and structure_indices_2 is None
-            and not pairs and weights is None and weights_2 is None
-            and not is_iterable_of_iterables(selection)
-            and not is_iterable_of_iterables(selection_2)):
+    # Fast path: threshold-mode atom neighbour search via the shared multi-structure
+    # cell list (O(N) vs the full O(N*M) distance matrix). Restricted to the cases
+    # whose contract it reproduces exactly; everything else falls back.
+    _cell_list_eligible = (
+        engine == 'MolSysMT' and threshold is not None and n_neighbors is None
+        and output_type in ('numpy.ndarray', 'csr')
+        and output_indices is None and output_structure_indices is None
+        and not center_of_atoms and not center_of_atoms_2
+        and molecular_system_2 is None and structure_indices_2 is None
+        and not pairs and weights is None and weights_2 is None
+        and not is_iterable_of_iterables(selection)
+        and not is_iterable_of_iterables(selection_2))
+    if _cell_list_eligible:
         _cell_list_result = _threshold_neighbors_via_cell_list(
             molecular_system, selection, selection_2, structure_indices, pbc,
-            threshold, same_set)
+            threshold, same_set, output_type)
         if _cell_list_result is not None:
             return _cell_list_result
+
+    if output_type == 'csr':
+        # 'csr' output is only produced by the cell-list fast path.
+        raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
 
     output_get_distances = get_distances(molecular_system=molecular_system, selection=selection,
                structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,

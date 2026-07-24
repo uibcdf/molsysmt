@@ -63,23 +63,27 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
 
         if (selection_2 is None) and (acceptors_2 is None) and (donors_2 is None):
 
-            neighs, distances = get_neighbors(molecular_system, selection=donors[:,1], selection_2=acceptors,
-                structure_indices=structure_indices, structure_indices_2=structure_indices_2,
-                threshold=distance_threshold, pbc=pbc)
+            offsets, indices, distances = get_neighbors(molecular_system, selection=donors[:,1],
+                selection_2=acceptors, structure_indices=structure_indices,
+                structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
+                output_type='csr')
 
             output_atoms=[]
             output_distances=[]
 
-            for structure_index in range(len(neighs)):
+            n_structures = (len(offsets) - 1) // n_donors
+            for structure_index in range(n_structures):
                 tmp_atoms=[]
                 tmp_distances=[]
                 for ii in range(n_donors):
                     atom_d = donors[ii,0]
                     atom_h = donors[ii,1]
-                    for jj, dist in zip(neighs[structure_index,ii], distances[structure_index,ii]):
+                    w = structure_index * n_donors + ii
+                    for p in range(offsets[w], offsets[w+1]):
+                        jj = indices[p]
                         if atom_d!=acceptors[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors[jj]])
-                            tmp_distances.append(dist)
+                            tmp_distances.append(distances[p])
                 output_atoms.append(np.array(tmp_atoms))
                 output_distances.append(puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray'))
 
@@ -106,18 +110,21 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
             n_acceptors_2 = acceptors_2.shape[0]
             n_donors_2 = donors_2.shape[0]
 
-            neighs, distances = get_neighbors(molecular_system, selection=donors[:,1],
+            offsets, indices, distances = get_neighbors(molecular_system, selection=donors[:,1],
                     selection_2=acceptors_2, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc)
+                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
+                    output_type='csr')
 
-            neighs_2, distances_2 = get_neighbors(molecular_system, selection=donors_2[:,1],
+            offsets_2, indices_2, distances_2 = get_neighbors(molecular_system, selection=donors_2[:,1],
                     selection_2=acceptors, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc)
+                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
+                    output_type='csr')
 
             output_atoms=[]
             output_distances=[]
 
-            for structure_index in range(len(neighs)):
+            n_structures = (len(offsets) - 1) // n_donors
+            for structure_index in range(n_structures):
 
                 tmp_atoms=[]
                 tmp_distances=[]
@@ -125,18 +132,22 @@ def get_buch_hbonds(molecular_system, selection='all', acceptors=None, donors=No
                 for ii in range(n_donors):
                     atom_d = donors[ii,0]
                     atom_h = donors[ii,1]
-                    for jj, dist in zip(neighs[structure_index,ii], distances[structure_index,ii]):
+                    w = structure_index * n_donors + ii
+                    for p in range(offsets[w], offsets[w+1]):
+                        jj = indices[p]
                         if atom_d!=acceptors_2[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors_2[jj]])
-                            tmp_distances.append(dist)
+                            tmp_distances.append(distances[p])
 
                 for ii in range(n_donors_2):
                     atom_d = donors_2[ii,0]
                     atom_h = donors_2[ii,1]
-                    for jj, dist in zip(neighs_2[structure_index,ii], distances_2[structure_index,ii]):
+                    w = structure_index * n_donors_2 + ii
+                    for p in range(offsets_2[w], offsets_2[w+1]):
+                        jj = indices_2[p]
                         if atom_d!=acceptors[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors[jj]])
-                            tmp_distances.append(dist)
+                            tmp_distances.append(distances_2[p])
 
                 output_atoms.append(np.array(tmp_atoms))
                 output_distances.append(puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray'))

@@ -6,7 +6,7 @@ reference that uses the same minimum-image convention as the codebase.
 
 import numpy as np
 from molsysmt.lib.structure.neighbor_list import (
-    neighbor_list_csr, neighbor_pairs, _mic_wrap_vector)
+    neighbor_list_csr, neighbor_pairs, neighbor_list_csr_multi, _mic_wrap_vector)
 
 
 def _brute(query, ref, cutoff, box=None, exclude_self=True, half=False):
@@ -91,6 +91,53 @@ def test_neighbor_list_return_distances_matches_brute():
                 assert np.isclose(np.linalg.norm(dv), dist[p], atol=1e-9)
     # Default call stays a 2-tuple (backward compatible).
     assert len(neighbor_list_csr(x, cutoff=0.6)) == 2
+
+
+def _multi_sets(offsets, indices, n_query):
+    return {(w // n_query, w % n_query): set(indices[offsets[w]:offsets[w + 1]].tolist())
+            for w in range(len(offsets) - 1)}
+
+
+def test_neighbor_list_csr_multi_matches_brute():
+    rng = np.random.default_rng(11)
+    ns, nq = 3, 120
+    q = rng.uniform(0, 3, size=(ns, nq, 3))
+    box = np.stack([np.array([[3.0, 0, 0], [0.3, 3.0, 0], [0.2, 0.1, 3.0]])] * ns)
+
+    def brute(query, ref, cutoff, box=None, excl=True):
+        out = {}
+        for s in range(query.shape[0]):
+            for i in range(query.shape[1]):
+                row = []
+                for j in range(ref.shape[1]):
+                    if excl and j == i:
+                        continue
+                    d = ref[s, j] - query[s, i]
+                    if box is not None:
+                        d = np.array(_mic_wrap_vector(d[0], d[1], d[2], box[s]))
+                    if d @ d <= cutoff * cutoff:
+                        row.append(j)
+                out[(s, i)] = set(row)
+        return out
+
+    # self, vacuum, sorted by distance
+    off, idx, dist = neighbor_list_csr_multi(q, cutoff=0.6, sort_by_distance=True)
+    assert _multi_sets(off, idx, nq) == brute(q, q, 0.6)
+    for w in range(len(off) - 1):
+        s, i = w // nq, w % nq
+        dd = dist[off[w]:off[w + 1]]
+        assert np.all(np.diff(dd) >= -1e-9)
+        for p in range(off[w], off[w + 1]):
+            assert np.isclose(np.linalg.norm(q[s, idx[p]] - q[s, i]), dist[p], atol=1e-9)
+
+    # disjoint sets, vacuum
+    r = rng.uniform(0, 3, size=(ns, 90, 3))
+    off, idx, _ = neighbor_list_csr_multi(q, r, cutoff=0.6, exclude_self=False)
+    assert _multi_sets(off, idx, nq) == brute(q, r, 0.6, excl=False)
+
+    # self, PBC
+    off, idx, _ = neighbor_list_csr_multi(q, box=box, cutoff=0.6)
+    assert _multi_sets(off, idx, nq) == brute(q, q, 0.6, box=box)
 
 
 def test_neighbor_pairs_half_are_ordered():
