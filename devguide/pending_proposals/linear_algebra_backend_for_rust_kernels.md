@@ -1,6 +1,7 @@
 # Linear-algebra backend for the Rust kernels
 
-**Status:** evidence-based recommendation (2026-07-24), pending decision.
+**Status:** **accepted and implemented** (2026-07-24) for the 10 small-matrix kernels;
+the PCA item in section 6.2 remains open.
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
 `rusterization_heavy_computations.md`,
 `trajectory_projection_onto_principal_components.md`.

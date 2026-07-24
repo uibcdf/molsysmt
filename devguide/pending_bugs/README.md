@@ -31,6 +31,9 @@ that the affected surface is fully verified.
 ### Contract and maintainability
 
 - `course_module_numbering_overlaps.md`
+- `principal_axes_eigenvector_sign_unspecified.md` — the principal axes are returned with
+  whatever sign LAPACK produced, so the output is not a function of the input alone and can
+  flip with a LAPACK version, thread count or compute backend.
 - `sasa_is_orthogonal_typo.md` — `_is_orthogonal` tests a box length instead of an
   off-diagonal, so the orthogonal fast path in the SASA MIC wrap is unreachable. Results
   stay correct; the cost is that cubic boxes pay for the triclinic branch.
