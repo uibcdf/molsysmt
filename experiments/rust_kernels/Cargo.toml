@@ -1,0 +1,28 @@
+[package]
+name = "msm_rust_kernels"
+version = "0.1.0"
+edition = "2021"
+description = "Experimental Rust reimplementation of selected MolSysMT numeric kernels (Numba-replacement pilot). Self-contained; not part of the molsysmt build."
+
+[lib]
+name = "msm_rust_kernels"
+# rlib is needed so `cargo test` can build a test harness for the unit tests.
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.23", features = ["abi3-py311"] }
+numpy = "0.23"
+rayon = "1.10"
+nalgebra = { version = "0.35.0", default-features = false, features = ["std"] }
+faer = "0.24.4"
+
+# `extension-module` must be off when running `cargo test` (otherwise the test binary
+# cannot link the Python symbols). Build the wheel with the default features on;
+# run unit tests with `cargo test --no-default-features`.
+[features]
+default = ["extension-module"]
+extension-module = ["pyo3/extension-module"]
+
+[profile.release]
+opt-level = 3
+lto = true

@@ -7,6 +7,38 @@
 `neighbor_list_consumer_migration.md`.
 **Pilot location:** branch `experiment/rust-numba-pilot`, dir `experiments/rust_kernels/`.
 
+## Landing status (2026-07-24)
+
+**Stage 1 — infrastructure — landed on `main`, inert by default:**
+
+- The Rust crate source lives in `experiments/rust_kernels/` (path kept for continuity with
+  the pilot docs; a permanent-home rename is a cosmetic follow-up).
+- The dispatch seam `molsysmt/_private/rust_backend.py` is on `main`, with a guarded import
+  so it is a no-op when the wheel is absent.
+- `molsysmt.configure.kernel` (`'numba'|'rust'|'auto'`, default `'numba'`) plus the uniform
+  per-call `kernel=` override are wired through `with_configure_overrides`.
+- The seam reads `configure.kernel` when no explicit `backend=` is passed, and emits a
+  single `DeprecationWarning` only on the *default* Numba path while a Rust wheel is
+  present (explicit `backend='numba'`, used by tests and internal callers, stays quiet).
+- The 166 Rust parity/property tests live at `tests/rust/` and pass.
+
+Verified: `import molsysmt` is unchanged, a real `get_rmsd` call is byte-identical by
+default, `configure.context(kernel='rust')` flips resolution and restores. **Main behaves
+exactly as before** — nothing routes to Rust unless explicitly selected, and no public
+function is wired to the seam yet.
+
+**Stage 2 — consumer wiring — not started.** Making `configure.kernel='rust'` take effect
+at the public API means routing the *high-level analysis kernels* (the RMSD/geometry/axes/
+PCA/SASA/angle/dihedral/pbc leaves) through the seam. It cannot be done by replacing
+kernel names at module level: several primitives (`dot_product`, `get_distance_two_points`,
+the MIC and `math` helpers) are called *inside* other `njit` kernels, and rebinding those
+to a Python dispatcher breaks Numba compilation. So routing must be at the high-level
+consumers, done incrementally and validated with the test suite — not a blind sweep. This
+is the dogfooding work.
+
+**Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are
+repository infrastructure and are the gate for flipping the default to `'auto'`/`'rust'`.
+
 ## 0. Where we are
 
 All 97 CPU `njit` kernels in `molsysmt.lib` have a Rust port behind an opt-in seam

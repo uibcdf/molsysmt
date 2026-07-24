@@ -95,6 +95,15 @@ num_threads = -1               # -1 (all available cores) | positive integer
 parallel_threshold = 500_000   # payload size threshold (n_structures * n_atoms * 3)
 min_payload_per_thread = 250_000 # workload-based optimal scale per thread
 
+# Compute kernel backend (Rust migration coexistence; see
+# devguide/pending_proposals/rust_numba_coexistence_and_cut_plan.md).
+#   'numba' : the JIT kernels (default; unchanged behaviour, no Rust wheel needed)
+#   'rust'  : the Rust kernels (requires the optional 'msm_rust_kernels' wheel)
+#   'auto'  : Rust when the wheel is importable, else Numba
+# Numba remains the default until Rust wheels are proven across platforms; the flip to
+# 'auto'/'rust' is the dogfooding step, not this landing.
+kernel = 'numba'               # 'numba' | 'rust' | 'auto'
+
 class configure_context:
     """Context manager to temporarily override global configurations in a thread-safe manner."""
     def __init__(self, **kwargs):
@@ -140,7 +149,8 @@ def with_configure_overrides(func):
         gpu_backend_val = kwargs.get('gpu_backend', None)
         precision_val = kwargs.get('precision', None)
         cell_list_val = kwargs.get('cell_list', None)
-        
+        kernel_val = kwargs.get('kernel', None)
+
         ctx_kwargs = {}
         if parallel is not None:
             ctx_kwargs['parallel_mode'] = parallel
@@ -158,7 +168,9 @@ def with_configure_overrides(func):
             ctx_kwargs['precision'] = precision_val
         if cell_list_val is not None:
             ctx_kwargs['cell_list'] = cell_list_val
-            
+        if kernel_val is not None:
+            ctx_kwargs['kernel'] = kernel_val
+
         with context(**ctx_kwargs):
             return func(*args, **kwargs)
     return wrapper

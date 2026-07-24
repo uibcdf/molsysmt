@@ -1,0 +1,53 @@
+# SKELETON — not wired to run (lives under experiments/, not .github/workflows/).
+# Dimensions the real packaging cost of shipping the Rust kernels as prebuilt wheels.
+#
+# Model: compile ONCE here (per platform), publish binary wheels to PyPI. The user
+# then `pip install`s a prebuilt binary — no Rust toolchain, no compile at install,
+# no compile at import, no warmup. Compile-at-install only happens as an sdist
+# fallback when no matching wheel exists (which needs Rust on the user's machine —
+# the thing to avoid).
+#
+# abi3 (abi3-py311 in Cargo.toml) => ONE wheel per (os, arch) covers 3.11/3.12/3.13,
+# so the matrix is (os x arch), NOT (os x arch x python-version).
+
+name: build-rust-wheels
+on:
+  workflow_dispatch: {}
+
+jobs:
+  wheels:
+    name: ${{ matrix.os }} / ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest,  target: x86_64,  manylinux: auto }
+          - { os: ubuntu-latest,  target: aarch64, manylinux: auto }   # cross-compiled
+          - { os: macos-latest,   target: x86_64,  manylinux: "off" }
+          - { os: macos-latest,   target: aarch64, manylinux: "off" }  # Apple Silicon
+          - { os: windows-latest, target: x64,     manylinux: "off" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: PyO3/maturin-action@v1
+        with:
+          command: build
+          # --release + abi3 => a single cp311-abi3 wheel per platform (3.11-3.13).
+          args: --release --out dist --manifest-path experiments/rust_kernels/Cargo.toml
+          target: ${{ matrix.target }}
+          manylinux: ${{ matrix.manylinux }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.target }}
+          path: dist/*.whl
+
+  # A publish job (twine/maturin upload to PyPI on tag) would follow, gated on tests.
+
+# Cost summary (the real packaging decision):
+#   - 5 build legs (linux x86_64/aarch64, macos x86_64/aarch64, windows x64).
+#     With abi3 that is 5 wheels total, not 15 (no per-python-version multiplication).
+#   - aarch64 legs are cross-compiled/emulated (slower CI, but standard via maturin-action).
+#   - Ongoing maintenance: keep the Rust toolchain pinned, react to pyo3/rust-numpy
+#     releases, and run the parity suite on every platform in CI before publishing.
+#   - This is the true cost of "eliminate warmup for the end user": moderate CI setup
+#     + a second toolchain to maintain, in exchange for binary installs with no JIT.
