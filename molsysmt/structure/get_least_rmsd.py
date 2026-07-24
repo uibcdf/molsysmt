@@ -3,6 +3,7 @@ from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
@@ -127,11 +128,11 @@ def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indic
                 rmsd_val = get_least_rmsd_cuda(coordinates, reference_coordinates)
         else:
             if coordinates.shape[0] == 1 and reference_coordinates.shape[0] > 1:
-                rmsd_val = msmlib.structure.get_least_rmsd_with_single_reference_structure(reference_coordinates, coordinates[0])
+                rmsd_val = _kernels.get_least_rmsd_with_single_reference_structure(reference_coordinates, coordinates[0])
             elif coordinates.shape[0] > 1 and reference_coordinates.shape[0] == 1:
-                rmsd_val = msmlib.structure.get_least_rmsd_with_single_reference_structure(coordinates, reference_coordinates[0])
+                rmsd_val = _kernels.get_least_rmsd_with_single_reference_structure(coordinates, reference_coordinates[0])
             else:
-                rmsd_val = msmlib.structure.get_least_rmsd(coordinates, reference_coordinates)
+                rmsd_val = _kernels.get_least_rmsd(coordinates, reference_coordinates)
 
 
         rmsd_val = puw.quantity(rmsd_val, length_unit, standardized=True)

@@ -27,14 +27,26 @@ default, `configure.context(kernel='rust')` flips resolution and restores. **Mai
 exactly as before** — nothing routes to Rust unless explicitly selected, and no public
 function is wired to the seam yet.
 
-**Stage 2 — consumer wiring — not started.** Making `configure.kernel='rust'` take effect
-at the public API means routing the *high-level analysis kernels* (the RMSD/geometry/axes/
-PCA/SASA/angle/dihedral/pbc leaves) through the seam. It cannot be done by replacing
-kernel names at module level: several primitives (`dot_product`, `get_distance_two_points`,
-the MIC and `math` helpers) are called *inside* other `njit` kernels, and rebinding those
-to a Python dispatcher breaks Numba compilation. So routing must be at the high-level
-consumers, done incrementally and validated with the test suite — not a blind sweep. This
-is the dogfooding work.
+**Stage 2 — consumer wiring — in progress. RMSD family done (the proven pattern).**
+Making `configure.kernel='rust'` take effect at the public API means routing the
+*high-level analysis kernels* (the RMSD/geometry/axes/PCA/SASA/angle/dihedral/pbc leaves)
+through the seam. It cannot be done by replacing kernel names at module level: several
+primitives (`dot_product`, `get_distance_two_points`, the MIC and `math` helpers) are
+called *inside* other `njit` kernels, and rebinding those to a Python dispatcher breaks
+Numba compilation. So routing is at the high-level consumers, one family at a time, each
+validated with its test group.
+
+The **RMSD family** is wired and validated as the reference pattern: `get_rmsd`,
+`get_least_rmsd`, `least_rmsd_fit` and the `_native_placers` build path now call the seam
+(`from molsysmt._private import rust_backend as _kernels`) instead of `msmlib.structure.*`,
+so they honour `configure.kernel` with no per-function argument. The 20 existing
+RMSD/least-RMSD/fit tests pass on **both** the default Numba path and with
+`configure.kernel='rust'`, and the two agree to the last bit end-to-end on a real
+trajectory. `_private/gpu.py` (the GPU dispatch) is intentionally left for the GPU wiring —
+Rust here is the CPU backend.
+
+Remaining families (geometry, axes, PCA, SASA, angles, dihedrals, pbc, distances,
+neighbours) follow the same recipe.
 
 **Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are
 repository infrastructure and are the gate for flipping the default to `'auto'`/`'rust'`.

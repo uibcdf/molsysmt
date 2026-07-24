@@ -4,6 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt._private.execution import Reducer
 from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
@@ -27,7 +28,7 @@ class _RMSDReducer(Reducer):
 
     def consume(self, chunk):
         coords = np.array(chunk['coordinates'], dtype=np.float64)  # writable copy
-        rmsd_chunk = msmlib.structure.get_rmsd_with_single_reference_structure(coords, self._ref)
+        rmsd_chunk = _kernels.get_rmsd_with_single_reference_structure(coords, self._ref)
         self._chunks.append(rmsd_chunk)
 
     def finalize(self):
@@ -213,13 +214,13 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
                     rmsd_val = _gpu_rmsd(coordinates, reference_coordinates)
             else:
                 if reference_coordinates.shape[0] == 1:
-                    rmsd_val = msmlib.structure.get_rmsd_with_single_reference_structure(
+                    rmsd_val = _kernels.get_rmsd_with_single_reference_structure(
                         coordinates, reference_coordinates[0])
                 elif coordinates.shape[0] == 1:
-                    rmsd_val = msmlib.structure.get_rmsd_with_single_reference_structure(
+                    rmsd_val = _kernels.get_rmsd_with_single_reference_structure(
                         reference_coordinates, coordinates[0])
                 else:
-                    rmsd_val = msmlib.structure.get_rmsd(coordinates, reference_coordinates)
+                    rmsd_val = _kernels.get_rmsd(coordinates, reference_coordinates)
 
             rmsd_val = puw.quantity(rmsd_val, length_unit)
 

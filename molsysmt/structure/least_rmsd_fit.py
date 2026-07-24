@@ -4,6 +4,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all
 import numpy as np
 from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
 import gc
 
@@ -237,14 +238,14 @@ def least_rmsd_fit(molecular_system=None, selection='all', selection_fit='atom_t
 
             if fit_coords.shape[0]==1 and ref_coords.shape[0]>1:
                 rotation_center, rotation, translation = \
-                        msmlib.structure.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
+                        _kernels.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
                             ref_coords, fit_coords[0])
             elif fit_coords.shape[0]>1 and ref_coords.shape[0]==1:
                 rotation_center, rotation, translation = \
-                        msmlib.structure.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
+                        _kernels.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
                             fit_coords, ref_coords[0])
             else:
-                rotation_center, rotation, translation = msmlib.structure.get_least_rmsd_rotation_and_translation(
+                rotation_center, rotation, translation = _kernels.get_least_rmsd_rotation_and_translation(
                     fit_coords, ref_coords)
 
             rotation_center = puw.quantity(rotation_center, length_unit, standardized=True)

@@ -75,7 +75,7 @@ def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, templa
     -------
     dict  {atom_name: ndarray(n_structures, 3)}
     """
-    from molsysmt.lib.structure.get_least_rmsd_rotation_and_translation import (
+    from molsysmt._private.rust_backend import (
         get_least_rmsd_rotation_and_translation_single_structure,
     )
 
