@@ -23,6 +23,10 @@ that the affected surface is fully verified.
 - `dihedral_angles_broadcast_mismatch_pbc.md` — a documented broadcast-shaped `angles`
   argument is honoured on the non-periodic path of `set_dihedral_angles` but read out of
   bounds (unchecked, `njit`) on the periodic one.
+- `wrap_to_mic_triclinic_not_minimum_image.md` — `wrap_to_mic` applies the minimum image
+  convention on orthogonal boxes but not on triclinic ones (55/300 sampled vectors), because
+  its 27-image search iterates images of the original vector instead of the wrapped one.
+  `unwrap.py` already implements the correct pattern.
 
 ### Contract and maintainability
 
