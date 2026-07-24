@@ -2,9 +2,12 @@
 
 **Status:** **accepted and fully implemented** (2026-07-24). The 10 small-matrix
 kernels use `nalgebra`; PCA (section 6.2) is ported with `faer` per the second option, so
-all 97 CPU kernels are now in Rust. Measured PCA speedup was a modest 2-3x, not the
-covariance-only 48-132x: capturing the covariance made `faer`'s dense eigensolver the
-bottleneck, which is slower than LAPACK — the accepted cost of taking no BLAS dependency.
+all 97 CPU kernels are now in Rust. Measured PCA speedup is 1.5-5.5x (growing with the
+number of structures, since the covariance cost is `O(n_structures · n_f²)`): the covariance
+rewrite dominates the win, and faer's dense eigensolver is competitive on the residual —
+~1.8x behind multi-threaded MKL on a 2400×2400 matrix, closer against OpenBLAS. Note faer's
+high-level eigensolver defaults to sequential and must be told to parallelise, and that
+parallelism must be driven from `molsysmt.configure`, not a per-function argument.
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
 `rusterization_heavy_computations.md`,
 `trajectory_projection_onto_principal_components.md`.
