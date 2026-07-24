@@ -20,10 +20,12 @@ that the affected surface is fully verified.
 ### Incorrect success or hidden failure
 
 - `smonitor_warn_drops_structured_extra.md`
+- `dihedral_angles_broadcast_mismatch_pbc.md` — a documented broadcast-shaped `angles`
+  argument is honoured on the non-periodic path of `set_dihedral_angles` but read out of
+  bounds (unchecked, `njit`) on the periodic one.
 
 ### Contract and maintainability
 
-- `configure_context_is_not_thread_safe.md`
 - `course_module_numbering_overlaps.md`
 
 Severity within a group still depends on the affected public workflow. Confirmed
