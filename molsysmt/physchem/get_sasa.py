@@ -212,26 +212,18 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                 _use_cell_list = bool(use_cell_list)
 
             if _use_cell_list:
-                from molsysmt.lib.structure.neighbor_list import neighbor_list_csr
                 # Safe candidate cutoff: an occluder l can reach a test point of
                 # atom i only within (r_i + probe) + (r_l + probe); bound it above
-                # by 2*max_radius + 2*probe for a single global cutoff.
+                # by 2*max_radius + 2*probe for a single global cutoff. The kernels
+                # build a per-structure cell list internally and run in parallel over
+                # structures.
                 cutoff = 2.0 * float(radii_val.max()) + 2.0 * probe_radius
-                n_structures = coordinates.shape[0]
-                sasa_array = np.empty((n_structures, n_atoms_total), dtype=np.float64)
-                for ff in range(n_structures):
-                    coords_ff = np.ascontiguousarray(coordinates[ff])
-                    if box is not None:
-                        box_ff = np.ascontiguousarray(box[ff])
-                        offsets, indices = neighbor_list_csr(coords_ff, box=box_ff,
-                                                             cutoff=cutoff, exclude_self=True)
-                        sasa_array[ff] = msmlib.structure.get_mic_sasa_cell_list(
-                            coords_ff, box_ff, radii_val, sphere_pts, probe_radius, offsets, indices)
-                    else:
-                        offsets, indices = neighbor_list_csr(coords_ff, cutoff=cutoff,
-                                                             exclude_self=True)
-                        sasa_array[ff] = msmlib.structure.get_sasa_cell_list(
-                            coords_ff, radii_val, sphere_pts, probe_radius, offsets, indices)
+                if box is not None:
+                    sasa_array = msmlib.structure.get_mic_sasa_cell_list(
+                        coordinates, box, radii_val, sphere_pts, probe_radius, cutoff)
+                else:
+                    sasa_array = msmlib.structure.get_sasa_cell_list(
+                        coordinates, radii_val, sphere_pts, probe_radius, cutoff)
             elif box is not None:
                 sasa_array = msmlib.structure.get_mic_sasa(coordinates, box, radii_val, sphere_pts, probe_radius)
             else:

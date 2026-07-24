@@ -38,7 +38,10 @@ individual entries are finalized as the release is cut.
   primitive also optionally returns neighbour distances (`return_distances`).
 - `physchem.get_sasa` gains a `use_cell_list` argument (default `'auto'`) that
   accelerates the native CPU Shrake–Rupley occlusion scan from O(N²) to ~O(N) for
-  large systems via the cell-list primitive, with numerically identical results.
+  large systems, with numerically identical results. The kernel builds a
+  per-structure cell list and parallelises over the flattened (structure, atom)
+  work, so both a single large structure and many structures scale (subject to the
+  usual `configure.parallel_mode` / `parallel_threshold` gating).
 - `structure.get_neighbors` threshold mode now uses the cell-list primitive on the
   native path (atom neighbour search, `output_type='numpy.ndarray'`), replacing the
   full O(N·M) distance matrix with an ~O(N) search; results are identical and it
