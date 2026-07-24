@@ -34,10 +34,17 @@ individual entries are finalized as the release is cut.
   (`molsysmt.lib.structure.neighbor_list`): `neighbor_list_csr` (CSR offsets/indices,
   vacuum and periodic, query/ref generality) and `neighbor_pairs`, shared by
   `physchem.get_sasa` and `structure.get_contacts` (the former per-function
-  `get_contacts_cell_list` implementation was folded into this primitive).
+  `get_contacts_cell_list` implementation was folded into this primitive). The
+  primitive also optionally returns neighbour distances (`return_distances`).
 - `physchem.get_sasa` gains a `use_cell_list` argument (default `'auto'`) that
   accelerates the native CPU Shrake–Rupley occlusion scan from O(N²) to ~O(N) for
   large systems via the cell-list primitive, with numerically identical results.
+- `structure.get_neighbors` threshold mode now uses the cell-list primitive on the
+  native path (atom neighbour search, `output_type='numpy.ndarray'`), replacing the
+  full O(N·M) distance matrix with an ~O(N) search; results are identical and it
+  transparently falls back to the distance-matrix path for the other cases. The
+  h-bond engines (`hbonds.get_buch_hbonds`, `hbonds.get_luzard_chandler_hbonds`)
+  inherit the speed-up since they generate candidates through `get_neighbors`.
 - First-class support for dummy atoms/groups (`DUM`/`X`) in `physchem`: neutral
   pseudo-elements with zero mass and radius, and neutral group-property fallback
   in the residue-level getters (`get_charge`, `get_hydrophobicity`, `get_polarity`,

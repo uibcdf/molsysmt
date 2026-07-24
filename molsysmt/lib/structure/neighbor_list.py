@@ -168,9 +168,10 @@ def _neighbor_csr_vacuum(query, ref, cutoff, exclude_self, half):
         offsets[i + 1] = offsets[i] + counts[i]
 
     indices = np.empty(offsets[n_q], dtype=np.int64)
+    sqdist = np.empty(offsets[n_q], dtype=np.float64)
     pos = offsets[:-1].copy()
 
-    # Pass 2: fill neighbour indices (same enumeration).
+    # Pass 2: fill neighbour indices and squared distances (same enumeration).
     for i in range(n_q):
         qx = query[i, 0]
         qy = query[i, 1]
@@ -189,12 +190,14 @@ def _neighbor_csr_vacuum(query, ref, cutoff, exclude_self, half):
                             rx = ref[j, 0] - qx
                             ry = ref[j, 1] - qy
                             rz = ref[j, 2] - qz
-                            if rx * rx + ry * ry + rz * rz <= cutoff_sq:
+                            d2 = rx * rx + ry * ry + rz * rz
+                            if d2 <= cutoff_sq:
                                 indices[pos[i]] = j
+                                sqdist[pos[i]] = d2
                                 pos[i] += 1
                         j = next_ref[j]
 
-    return offsets, indices
+    return offsets, indices, sqdist
 
 
 @nb.njit(cache=True)
@@ -287,6 +290,7 @@ def _neighbor_csr_pbc(query, ref, box_s, cutoff, exclude_self, half):
         offsets[i + 1] = offsets[i] + counts[i]
 
     indices = np.empty(offsets[n_q], dtype=np.int64)
+    sqdist = np.empty(offsets[n_q], dtype=np.float64)
     pos = offsets[:-1].copy()
 
     for i in range(n_q):
@@ -315,12 +319,14 @@ def _neighbor_csr_pbc(query, ref, box_s, cutoff, exclude_self, half):
                             dy = ref[j, 1] - qy
                             dz = ref[j, 2] - qz
                             dx, dy, dz = _mic_wrap_vector(dx, dy, dz, box_s)
-                            if dx * dx + dy * dy + dz * dz <= cutoff_sq:
+                            d2 = dx * dx + dy * dy + dz * dz
+                            if d2 <= cutoff_sq:
                                 indices[pos[i]] = j
+                                sqdist[pos[i]] = d2
                                 pos[i] += 1
                         j = next_ref[j]
 
-    return offsets, indices
+    return offsets, indices, sqdist
 
 
 @nb.njit(cache=True)
@@ -337,7 +343,7 @@ def _csr_to_pairs(offsets, indices):
 
 
 def neighbor_list_csr(query_coords, ref_coords=None, box=None, cutoff=None,
-                      exclude_self=True, half=False):
+                      exclude_self=True, half=False, return_distances=False):
     """CSR neighbour list of query atoms within ``cutoff`` of reference atoms.
 
     Parameters
@@ -359,12 +365,18 @@ def neighbor_list_csr(query_coords, ref_coords=None, box=None, cutoff=None,
     half : bool, default False
         Keep only ``j > i`` (unique unordered pairs; only meaningful when ``ref``
         is ``query``). Useful to avoid double-counting in symmetric consumers.
+    return_distances : bool, default False
+        If ``True``, also return the neighbour distances (same length unit as the
+        coordinates, minimum-image when ``box`` is given), aligned with ``indices``.
 
     Returns
     -------
     offsets : (n_query + 1,) int64 array
     indices : (n_neighbours,) int64 array
         Neighbours of query ``i`` are ``indices[offsets[i]:offsets[i + 1]]``.
+    distances : (n_neighbours,) float64 array
+        Only when ``return_distances=True``; the distance for each entry of
+        ``indices``.
     """
     if cutoff is None:
         raise ValueError("neighbor_list_csr requires a cutoff.")
@@ -372,9 +384,13 @@ def neighbor_list_csr(query_coords, ref_coords=None, box=None, cutoff=None,
     ref = query if ref_coords is None else np.ascontiguousarray(ref_coords, dtype=np.float64)
     cutoff = float(cutoff)
     if box is None:
-        return _neighbor_csr_vacuum(query, ref, cutoff, exclude_self, half)
-    box_s = np.ascontiguousarray(box, dtype=np.float64)
-    return _neighbor_csr_pbc(query, ref, box_s, cutoff, exclude_self, half)
+        offsets, indices, sqdist = _neighbor_csr_vacuum(query, ref, cutoff, exclude_self, half)
+    else:
+        box_s = np.ascontiguousarray(box, dtype=np.float64)
+        offsets, indices, sqdist = _neighbor_csr_pbc(query, ref, box_s, cutoff, exclude_self, half)
+    if return_distances:
+        return offsets, indices, np.sqrt(sqdist)
+    return offsets, indices
 
 
 def neighbor_pairs(query_coords, ref_coords=None, box=None, cutoff=None,

@@ -1,8 +1,30 @@
 # Proposal: migrate remaining spatial consumers onto the shared neighbour-list primitive
 
-**Status:** pending (post-1.0)
+**Status:** DONE for the common paths (see resolution note); residual output-mode
+paths remain on the distance-matrix implementation by design.
 **Owner:** MolSysMT
 **Related:** `sasa_methodologies_and_acceleration_post_1_0.md`
+
+> **Resolution.**
+> - **`get_neighbors` threshold mode — migrated.** A cell-list fast path now serves
+>   the native atom neighbour search (`engine='MolSysMT'`, threshold mode,
+>   `output_type='numpy.ndarray'`, plain atom selections, single system/frame set),
+>   using `neighbor_list_csr(..., return_distances=True)`; it replaces the full
+>   O(N·M) distance matrix with an ~O(N) search (measured ~17–27× on 300–3800-atom
+>   systems) and returns identical neighbours and distances. It **transparently
+>   falls back** to the distance-matrix path for the cases whose contract it does
+>   not reproduce: `n_neighbors` (k-nearest) mode, `output_type='pairs'` /
+>   `output_indices` (with the `mutual_only` / `unique_pairs` post-processing),
+>   `center_of_atoms`, group (nested) selections, a second system, or cross-frame
+>   `structure_indices_2`. Parity tests:
+>   `tests/structure/get_neighbors/test_get_neighbors_cell_list.py`.
+> - **h-bonds — accelerated transitively.** Both engines (`get_buch_hbonds`,
+>   `get_luzard_chandler_hbonds`) already generate donor–acceptor candidates via
+>   `get_neighbors(threshold=...)`, so they inherit the speed-up with no code change;
+>   covered by `tests/hbonds/`.
+>
+> The residual matrix-path output modes are a deliberate scope boundary, not a
+> pending task. The historical migration plan is retained below.
 
 ## Context
 

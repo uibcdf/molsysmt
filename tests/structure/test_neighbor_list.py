@@ -75,6 +75,24 @@ def test_neighbor_list_pbc_triclinic():
     assert _csr_to_dict(off, idx) == _brute(x, x, 0.6, box=box)
 
 
+def test_neighbor_list_return_distances_matches_brute():
+    rng = np.random.default_rng(6)
+    x = rng.uniform(0, 3, size=(200, 3))
+    box = np.array([[3.0, 0.0, 0.0],
+                    [0.3, 3.0, 0.0],
+                    [0.2, 0.1, 3.0]], dtype=np.float64)
+    for kw in ({}, {'box': box}):
+        off, idx, dist = neighbor_list_csr(x, cutoff=0.6, return_distances=True, **kw)
+        for i in range(len(x)):
+            for p in range(off[i], off[i + 1]):
+                dv = x[idx[p]] - x[i]
+                if 'box' in kw:
+                    dv = np.array(_mic_wrap_vector(dv[0], dv[1], dv[2], box))
+                assert np.isclose(np.linalg.norm(dv), dist[p], atol=1e-9)
+    # Default call stays a 2-tuple (backward compatible).
+    assert len(neighbor_list_csr(x, cutoff=0.6)) == 2
+
+
 def test_neighbor_pairs_half_are_ordered():
     rng = np.random.default_rng(5)
     x = rng.uniform(0, 3, size=(120, 3))
