@@ -250,8 +250,10 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
     if contact_map is None:
         _use_cell_list = config.cell_list
         if _use_cell_list == 'auto':
-            # Threshold: 2000 elements (e.g. coordinates or products of coordinates)
-            _use_cell_list = (coords_val.shape[1] > 2000)
+            # The cell-list beats the dense O(N^2) matrix from ~500 query atoms (measured
+            # 8-180x); below ~300 both paths are sub-ms. The threshold is tuned for the
+            # Rust kernel, which is the target implementation (Numba is being retired).
+            _use_cell_list = (coords_val.shape[1] > 400)
 
         if _use_cell_list and not pairs:
             if coords_2_val is None:
