@@ -20,7 +20,7 @@ def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
     the caller can fall back to the distance-matrix path.
     """
     from molsysmt.basic import get
-    from molsysmt.lib.structure.neighbor_list import neighbor_list_csr_multi
+    from molsysmt._private.rust_backend import neighbor_list_csr_multi
 
     q = get(molecular_system, element='atom', selection=selection,
             structure_indices=structure_indices, coordinates=True)

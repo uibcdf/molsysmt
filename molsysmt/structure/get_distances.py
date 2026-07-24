@@ -3,7 +3,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt._private.execution import Reducer
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
@@ -45,9 +45,9 @@ class _DistancesReducer(Reducer):
         coords = np.array(chunk['coordinates'], dtype=np.float64)  # writable
         if self._pbc and chunk.get('box') is not None:
             box = np.array(chunk['box'], dtype=np.float64)
-            result = msmlib.structure.get_mic_distances_single_system(coords, box)
+            result = _kernels.get_mic_distances_single_system(coords, box)
         else:
-            result = msmlib.structure.get_distances_single_system(coords)
+            result = _kernels.get_distances_single_system(coords)
 
         if self._output_handle is not None:
             n = result.shape[0]
@@ -601,14 +601,14 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
                         )
                         distances = _gpu_mic_dist(coordinates, box)
                     else:
-                        distances = msmlib.structure.get_mic_distances_single_system(coordinates, box)
+                        distances = _kernels.get_mic_distances_single_system(coordinates, box)
                 elif _use_gpu:
                     from molsysmt.lib.structure.get_distances_cuda import (
                         get_distances_single_system as _gpu_dist,
                     )
                     distances = _gpu_dist(coordinates)
                 else:
-                    distances = msmlib.structure.get_distances_single_system(coordinates)
+                    distances = _kernels.get_distances_single_system(coordinates)
             else:
                 if _use_gpu:
                     from molsysmt.lib.structure.get_distances_cuda import (
@@ -616,7 +616,7 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
                     )
                     distances = _gpu_dist(coordinates)
                 else:
-                    distances = msmlib.structure.get_distances_single_system(coordinates)
+                    distances = _kernels.get_distances_single_system(coordinates)
 
         else:
 
@@ -636,14 +636,14 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
                         )
                         distances = _gpu_mic_dist2(coordinates, coordinates_2, box)
                     else:
-                        distances = msmlib.structure.get_mic_distances(coordinates, coordinates_2, box)
+                        distances = _kernels.get_mic_distances(coordinates, coordinates_2, box)
                 elif _use_gpu:
                     from molsysmt.lib.structure.get_distances_cuda import (
                         get_distances as _gpu_dist2,
                     )
                     distances = _gpu_dist2(coordinates, coordinates_2)
                 else:
-                    distances = msmlib.structure.get_distances(coordinates, coordinates_2)
+                    distances = _kernels.get_distances(coordinates, coordinates_2)
             else:
                 if _use_gpu:
                     from molsysmt.lib.structure.get_distances_cuda import (
@@ -651,7 +651,7 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
                     )
                     distances = _gpu_dist2(coordinates, coordinates_2)
                 else:
-                    distances = msmlib.structure.get_distances(coordinates, coordinates_2)
+                    distances = _kernels.get_distances(coordinates, coordinates_2)
 
     else: # pairs=True
 
@@ -663,11 +663,11 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
             box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
             if box is not None and box[0] is not None:
                 box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
-                distances = msmlib.structure.get_mic_distances_pairs(coordinates, coordinates_2, box)
+                distances = _kernels.get_mic_distances_pairs(coordinates, coordinates_2, box)
             else:
-                distances = msmlib.structure.get_distances_pairs(coordinates, coordinates_2)
+                distances = _kernels.get_distances_pairs(coordinates, coordinates_2)
         else:
-            distances = msmlib.structure.get_distances_pairs(coordinates, coordinates_2)
+            distances = _kernels.get_distances_pairs(coordinates, coordinates_2)
 
     distances = puw.quantity(distances, length_unit)
     # We do NOT force standardize here to save time. 

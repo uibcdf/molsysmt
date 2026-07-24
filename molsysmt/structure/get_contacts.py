@@ -278,7 +278,7 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
 
             # One parallel multi-structure neighbour search over the flattened
             # (structure, query-atom) space, then a vectorised fill of the map.
-            from molsysmt.lib.structure.neighbor_list import neighbor_list_csr_multi
+            from molsysmt._private.rust_backend import neighbor_list_csr_multi
             ref_val = None if is_self else tmp_coords_2_val
             offsets, indices, _ = neighbor_list_csr_multi(
                 coords_val, ref_val, box=box_val, cutoff=threshold_val,
