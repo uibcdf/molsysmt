@@ -50,8 +50,31 @@ The **geometry family** (`get_center` incl. groups, `get_radius_of_gyration`, `g
 end-to-end. Consumers importing the *public* `structure.get_center` (e.g. `center`,
 `move_away`, `align_principal_axes`) inherit the routing for free.
 
-Remaining families (axes, PCA, SASA, angles, dihedrals, pbc, distances, neighbours) follow
-the same recipe.
+All analysis families are now routed and validated on both backends (default Numba and
+`configure.kernel='rust'` forced), each against its own test group:
+
+| family | consumers routed | tests (numba / rust) |
+|---|---|---|
+| RMSD | get_rmsd, get_least_rmsd, least_rmsd_fit, _native_placers | 20 / 20 |
+| geometry | get_center, get_radius_of_gyration, get_rmsf, flip | 37 / 37 |
+| axes + PCA | get_principal_axes, principal_component_analysis | 2 / 2 |
+| angles + dihedrals | get_angles, get_dihedral_angles, set/shift_dihedral_angles | 11 / 11 |
+| pbc | box geometry + wrap/unwrap + PDB handler | 52 / 52 |
+| topology/series | component index, occurrence_order (convert path) | 22 / 22 |
+| distances/neighbours/contacts | get_distances, get_neighbors, get_contacts | 88 / 88 |
+| SASA | get_sasa (cell-list variants) | 16 / 16 |
+
+**Documented exceptions, left on Numba deliberately:**
+
+- The **brute-force** `get_sasa`/`get_mic_sasa` kernels (small-system path, below
+  `CELL_LIST_MIN_ATOMS`) were never ported — only the cell-list variants exist in Rust.
+  Completing them is a small crate-level port, not wiring.
+- The two `minimum_distance_*` math kernels (in `build_peptide`) were never ported.
+- `_private/gpu.py` is the GPU dispatch, orthogonal to the CPU numba/rust choice; it is
+  wired when the GPU backends are addressed.
+
+With these, `configure.kernel='rust'` now exercises Rust across the whole analysis surface
+in dogfooding, while the default stays Numba and byte-identical.
 
 **Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are
 repository infrastructure and are the gate for flipping the default to `'auto'`/`'rust'`.

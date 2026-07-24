@@ -199,6 +199,7 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                     box = None
 
             from molsysmt import lib as msmlib
+            from molsysmt._private import rust_backend as _kernels
             from molsysmt.lib.structure.get_sasa_cuda import get_fibonacci_sphere_points
             sphere_pts = get_fibonacci_sphere_points(n_sphere_points)
 
@@ -219,10 +220,10 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                 # structures.
                 cutoff = 2.0 * float(radii_val.max()) + 2.0 * probe_radius
                 if box is not None:
-                    sasa_array = msmlib.structure.get_mic_sasa_cell_list(
+                    sasa_array = _kernels.get_mic_sasa_cell_list(
                         coordinates, box, radii_val, sphere_pts, probe_radius, cutoff)
                 else:
-                    sasa_array = msmlib.structure.get_sasa_cell_list(
+                    sasa_array = _kernels.get_sasa_cell_list(
                         coordinates, radii_val, sphere_pts, probe_radius, cutoff)
             elif box is not None:
                 sasa_array = msmlib.structure.get_mic_sasa(coordinates, box, radii_val, sphere_pts, probe_radius)
