@@ -1,8 +1,28 @@
 # TopoMT-Requested Spatial Helpers and SASA Configuration
 
-**Status:** pending  
+**Status:** partially resolved — Part 1 (configurable probe radius) implemented; Part 2 (grid helpers) pending a module-taxonomy decision  
 **Requester:** TopoMT  
 **Owner:** MolSysMT
+
+> **Part 1 — DONE.** `physchem.get_sasa` now accepts a unit-aware
+> `probe_radius` argument (explicit default `'1.4 angstroms'`) and an
+> `n_sphere_points` argument controlling the Shrake–Rupley sampling density, both
+> honoured by the native `MolSysMT` engine (CPU JIT and the CUDA/Taichi GPU
+> kernels, which already threaded both parameters) and the `mdtraj` engine. The
+> sampling density was unified to a default of 240 sphere points across both
+> engines (previously native 100 / mdtraj 960), a balance between speed and
+> angular quantization error. Digesters were added under
+> `_private/arg_digestion/argument/{probe_radius,n_sphere_points}.py`. Regression
+> tests: `tests/physchem/get_sasa/test_get_sasa_probe_radius.py` and
+> `test_get_sasa_n_sphere_points.py`. Both current engines support the arguments,
+> so no capability-error path was needed; the `else` branch still raises
+> `NotImplementedMethodError` for unknown engines. Follow-on accuracy/performance
+> methodologies are tracked in `sasa_methodologies_and_acceleration_post_1_0.md`.
+>
+> **Part 2 — still pending.** The generic `grid_volume` / `overlap_matrices`
+> helpers require first deciding whether MolSysMT owns generic spatial-analysis
+> primitives (candidate `molsysmt.analysis` module) and confirming a second
+> sibling consumer. Tracked below.
 
 ## Purpose
 

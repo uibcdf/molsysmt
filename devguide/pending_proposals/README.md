@@ -37,10 +37,13 @@ scientific-validation requirements.
 - `trajectory_projection_onto_principal_components.md` — explicit per-frame
   projection onto a fitted PCA basis without confusing scores with eigenvectors.
 - `chemical_metadata_preservation_sdf_mol2.md`
-- `physchem_electronegativity_per_element.md`
-- `physchem_support_dummy_atoms.md`
 - `proposal_protor_atom_typing_and_radii.md`
-- `topomt_requested_spatial_helpers_and_sasa.md`
+- `topomt_requested_spatial_helpers_and_sasa.md` — Part 1 (configurable
+  `probe_radius` / `n_sphere_points`) done; Part 2 (grid helpers) pending.
+- `sasa_methodologies_and_acceleration_post_1_0.md` — cell-list acceleration and
+  alternative SASA methodologies (LCPO, Lee–Richards).
+- `neighbor_list_consumer_migration.md` — migrate `get_neighbors` (threshold mode)
+  and h-bond candidate generation onto the shared cell-list neighbour-list primitive.
 - `molsysviewer_molsysmt_nonblocking_heavy_operations.md`
 
 ### Exploratory architecture and operations

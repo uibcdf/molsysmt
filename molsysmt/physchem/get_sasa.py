@@ -7,11 +7,18 @@ from molsysmt.configure import with_configure_overrides
 import numpy as np
 
 
+# Atom-count threshold above which ``use_cell_list='auto'`` enables the
+# cell-list occlusion search on the native CPU path. Below it the brute-force
+# kernel is used, where the neighbour-list build does not pay off.
+CELL_LIST_MIN_ATOMS = 1000
+
+
 @signal(tags=['api', 'physchem'])
 @arg_digest()
 @with_configure_overrides
 def get_sasa(molecular_system, element='atom', selection='all', structure_indices='all',
-             syntax='MolSysMT', engine='MolSysMT', use_gpu=None, gpu_backend=None, skip_digestion=False):
+             syntax='MolSysMT', engine='MolSysMT', probe_radius='1.4 angstroms', n_sphere_points=240,
+             use_cell_list='auto', use_gpu=None, gpu_backend=None, skip_digestion=False):
     """
     Solvent-accessible surface area (SASA) per atom or residue group.
 
@@ -35,6 +42,25 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
         Selection syntax.
     engine : {'MolSysMT', 'MDTraj'}, default 'MolSysMT'
         Backend used for the SASA calculation.
+    probe_radius : quantity or str, default '1.4 angstroms'
+        Radius of the rolling solvent probe as a unit-aware length quantity
+        (e.g. ``puw.quantity(1.4, 'angstroms')`` or ``'0.14 nm'``). The default is
+        the standard water-probe radius of 1.4 Å. Both the ``'MolSysMT'`` and
+        ``'MDTraj'`` engines honour it.
+    n_sphere_points : int, default 240
+        Number of points of the Shrake–Rupley test sphere used to sample each
+        atom's surface. More points reduce the angular quantization error at a
+        proportional cost (the occlusion cost scales linearly with this number).
+        The default of 240 is a balance between FreeSASA's default of 100 (faster,
+        ~1–2% error) and MDTraj's default of 960 (slower, <0.5% error); both
+        engines use this value so their results agree closely.
+    use_cell_list : bool or 'auto', default 'auto'
+        Only for the native ``'MolSysMT'`` CPU path. When enabled, the O(N²)
+        occlusion scan is restricted to a cell-list of candidate neighbours,
+        reducing the per-frame cost to roughly O(N) for large systems with
+        numerically identical results. ``'auto'`` enables it above
+        ``CELL_LIST_MIN_ATOMS`` atoms, where the neighbour-list build pays off.
+        Ignored by the GPU kernels and the ``'MDTraj'`` engine.
     use_gpu : bool or 'auto' or None, default None
         Whether to run calculation on GPU.
     gpu_backend : {'cuda', 'taichi'} or None, default None
@@ -69,7 +95,11 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                            structure_indices=structure_indices)
 
         from mdtraj import shrake_rupley
-        sasa_array = shrake_rupley(tmp_item, mode='atom')
+        if isinstance(probe_radius, str):
+            probe_radius = puw.parse.parse(probe_radius)
+        mdtraj_probe_radius = puw.get_value(probe_radius, to_unit='nm')
+        sasa_array = shrake_rupley(tmp_item, probe_radius=mdtraj_probe_radius,
+                                   n_sphere_points=n_sphere_points, mode='atom')
 
         if element == 'atom':
 
@@ -108,8 +138,10 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
         radii = get_atomic_radius(molecular_system, element='atom', selection='all', definition='vdw')
         radii_val = puw.get_value(radii, to_unit=length_unit)
 
-        # 1.4 angstroms probe radius
-        probe_radius = puw.get_value(puw.quantity(1.4, 'angstroms'), to_unit=length_unit)
+        # Rolling solvent probe radius (default: 1.4 angstroms, the standard water probe)
+        if isinstance(probe_radius, str):
+            probe_radius = puw.parse.parse(probe_radius)
+        probe_radius = puw.get_value(probe_radius, to_unit=length_unit)
 
         payload = coordinates.shape[0] * coordinates.shape[1]
         _use_gpu = resolve_use_gpu(use_gpu, payload)
@@ -141,19 +173,19 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                 if taichi_available:
                     if box is not None:
                         from molsysmt.lib.structure.get_sasa_taichi import get_mic_sasa as _kernel
-                        sasa_array = _kernel(coordinates, box, radii_val, probe_radius)
+                        sasa_array = _kernel(coordinates, box, radii_val, probe_radius, n_points=n_sphere_points)
                     else:
                         from molsysmt.lib.structure.get_sasa_taichi import get_sasa as _kernel
-                        sasa_array = _kernel(coordinates, radii_val, probe_radius)
+                        sasa_array = _kernel(coordinates, radii_val, probe_radius, n_points=n_sphere_points)
 
             # Numba CUDA backend
             if sasa_array is None:
                 if box is not None:
                     from molsysmt.lib.structure.get_sasa_cuda import get_mic_sasa as _kernel
-                    sasa_array = _kernel(coordinates, box, radii_val, probe_radius)
+                    sasa_array = _kernel(coordinates, box, radii_val, probe_radius, n_points=n_sphere_points)
                 else:
                     from molsysmt.lib.structure.get_sasa_cuda import get_sasa as _kernel
-                    sasa_array = _kernel(coordinates, radii_val, probe_radius)
+                    sasa_array = _kernel(coordinates, radii_val, probe_radius, n_points=n_sphere_points)
 
         # Fallback to JIT CPU backend
         if sasa_array is None:
@@ -168,9 +200,39 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
 
             from molsysmt import lib as msmlib
             from molsysmt.lib.structure.get_sasa_cuda import get_fibonacci_sphere_points
-            sphere_pts = get_fibonacci_sphere_points(100)
+            sphere_pts = get_fibonacci_sphere_points(n_sphere_points)
 
-            if box is not None:
+            radii_val = np.ascontiguousarray(radii_val, dtype=np.float64)
+            coordinates = np.ascontiguousarray(coordinates, dtype=np.float64)
+
+            n_atoms_total = coordinates.shape[1]
+            if use_cell_list == 'auto':
+                _use_cell_list = n_atoms_total >= CELL_LIST_MIN_ATOMS
+            else:
+                _use_cell_list = bool(use_cell_list)
+
+            if _use_cell_list:
+                from molsysmt.lib.structure.neighbor_list import neighbor_list_csr
+                # Safe candidate cutoff: an occluder l can reach a test point of
+                # atom i only within (r_i + probe) + (r_l + probe); bound it above
+                # by 2*max_radius + 2*probe for a single global cutoff.
+                cutoff = 2.0 * float(radii_val.max()) + 2.0 * probe_radius
+                n_structures = coordinates.shape[0]
+                sasa_array = np.empty((n_structures, n_atoms_total), dtype=np.float64)
+                for ff in range(n_structures):
+                    coords_ff = np.ascontiguousarray(coordinates[ff])
+                    if box is not None:
+                        box_ff = np.ascontiguousarray(box[ff])
+                        offsets, indices = neighbor_list_csr(coords_ff, box=box_ff,
+                                                             cutoff=cutoff, exclude_self=True)
+                        sasa_array[ff] = msmlib.structure.get_mic_sasa_cell_list(
+                            coords_ff, box_ff, radii_val, sphere_pts, probe_radius, offsets, indices)
+                    else:
+                        offsets, indices = neighbor_list_csr(coords_ff, cutoff=cutoff,
+                                                             exclude_self=True)
+                        sasa_array[ff] = msmlib.structure.get_sasa_cell_list(
+                            coords_ff, radii_val, sphere_pts, probe_radius, offsets, indices)
+            elif box is not None:
                 sasa_array = msmlib.structure.get_mic_sasa(coordinates, box, radii_val, sphere_pts, probe_radius)
             else:
                 sasa_array = msmlib.structure.get_sasa(coordinates, radii_val, sphere_pts, probe_radius)

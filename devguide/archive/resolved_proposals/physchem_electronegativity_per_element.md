@@ -1,8 +1,25 @@
 # Proposal: per-element electronegativity / polarity property in `physchem`
 
-**Status:** pending
+**Status:** RESOLVED — implemented and released
 **Requester:** TopoMT
 **Owner:** MolSysMT
+
+> **RESOLVED — implemented and released.** Delivered in commit `90b2a491a`
+> (2026-06-15, on `main`). The proposal below is retained for design provenance;
+> it does not define current behavior.
+>
+> **What was implemented:** a dedicated public `physchem.get_electronegativity`
+> (Pauling scale, per-atom, dimensionless; unknown/dummy elements → `NaN` rather
+> than raising), backed by the `physchem/atoms/electronegativity.py` data table,
+> a `definition` digester entry, and a public export. The separate-function
+> route was chosen over extending `get_polarity` to `element='atom'`.
+>
+> **Regression evidence:** `tests/physchem/get_electronegativity/test_get_electronegativity.py`
+> (green as of 2026-07-23).
+>
+> **TopoMT cleanup (downstream, out of scope here):** replace the local
+> `probe_weights` table with the upstream lookup, keeping only the topography-
+> specific scoring formula in TopoMT.
 
 ## Problem
 

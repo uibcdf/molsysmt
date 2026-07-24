@@ -1,5 +1,29 @@
 # Proposal: handle DUM (dummy) atoms/groups in `physchem`
 
+> **RESOLVED — implemented and released.** Delivered in commit `90b2a491a`
+> (2026-06-15, on `main`). The proposal below is retained for design provenance;
+> it does not define current behavior.
+>
+> **What was implemented** (the "minimal, conservative" option from *Proposed
+> behaviour*, not the `missing=` policy variant):
+> - Neutral pseudo-elements `Du` (DUM convention) and `X` — zero mass and radius
+>   in `physchem/atoms/{mass,radius,protor}.py`; `get_mass` and
+>   `get_atomic_radius` no longer raise on dummy systems.
+> - Dummy residues `DUM`/`X` resolve to neutral group properties through a shared
+>   `physchem/groups/_lookup.group_table_value` helper
+>   (`NEUTRAL_GROUP_NAMES = {'DUM', 'X'}`), wired into the eight group getters
+>   `get_charge`, `get_hydrophobicity`, `get_polarity`, `get_volume`,
+>   `get_surface_area`, `get_area_buried`, `get_buried_fraction`,
+>   `get_transmembrane_tendency`. Genuine unknown residues still raise `KeyError`
+>   so real gaps are not masked.
+> - `DUM`/`X` recognised as a standalone, bondless `ion` group type.
+>
+> **Regression evidence:** `tests/physchem/dummy_residues/test_dummy_residue_tolerance.py`
+> (green as of 2026-07-23).
+>
+> **TopoMT follow-up (downstream, out of scope here):** replace the local dummy
+> handling once consumers adopt the upstream behavior.
+
 ## Problem
 
 The `physchem` per-residue functions raise on systems built from **dummy

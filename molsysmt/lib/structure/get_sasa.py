@@ -193,3 +193,128 @@ def get_mic_sasa(
             out[ii, jj] = 4.0 * math.pi * r_i_ext * r_i_ext * (accessible_count / n_points)
 
     return out
+
+
+# ---------------------------------------------------------------------------
+# Cell-list accelerated Shrake-Rupley (single frame, CSR candidate neighbours)
+# ---------------------------------------------------------------------------
+#
+# The occlusion scan is restricted to the CSR candidate neighbours of each atom
+# (built with a safe cutoff of ``2*max_radius + 2*probe_radius``), turning the
+# per-frame cost from O(N**2 * n_points) into ~O(N * n_points). Results are
+# numerically identical to the brute-force kernels above.
+
+@lazy_njit(
+    nb.float64[:](nb.float64[:,:], nb.float64[:], nb.float64[:,:], nb.float64,
+                  nb.int64[:], nb.int64[:]),
+    parallel=True,
+    cache=True
+)
+def get_sasa_cell_list(
+    coordinates: np.ndarray,
+    radii: np.ndarray,
+    sphere_points: np.ndarray,
+    probe_radius: float,
+    neighbor_offsets: np.ndarray,
+    neighbor_indices: np.ndarray,
+) -> np.ndarray:
+    """Single-frame SASA over CSR candidate neighbours (vacuum)."""
+    n_atoms = coordinates.shape[0]
+    n_points = sphere_points.shape[0]
+    out = np.zeros(n_atoms, dtype=np.float64)
+
+    for jj in nb.prange(n_atoms):
+        r_i_ext = radii[jj] + probe_radius
+        if r_i_ext <= probe_radius:
+            out[jj] = 0.0
+            continue
+
+        start = neighbor_offsets[jj]
+        end = neighbor_offsets[jj + 1]
+
+        accessible_count = 0
+        for kk in range(n_points):
+            px = coordinates[jj, 0] + r_i_ext * sphere_points[kk, 0]
+            py = coordinates[jj, 1] + r_i_ext * sphere_points[kk, 1]
+            pz = coordinates[jj, 2] + r_i_ext * sphere_points[kk, 2]
+
+            is_accessible = True
+            for p in range(start, end):
+                ll = neighbor_indices[p]
+                r_l_ext = radii[ll] + probe_radius
+                if r_l_ext <= probe_radius:
+                    continue
+
+                dx = px - coordinates[ll, 0]
+                dy = py - coordinates[ll, 1]
+                dz = pz - coordinates[ll, 2]
+
+                if dx*dx + dy*dy + dz*dz < r_l_ext * r_l_ext:
+                    is_accessible = False
+                    break
+
+            if is_accessible:
+                accessible_count += 1
+
+        out[jj] = 4.0 * math.pi * r_i_ext * r_i_ext * (accessible_count / n_points)
+
+    return out
+
+
+@lazy_njit(
+    nb.float64[:](nb.float64[:,:], nb.float64[:,:], nb.float64[:], nb.float64[:,:],
+                  nb.float64, nb.int64[:], nb.int64[:]),
+    parallel=True,
+    cache=True
+)
+def get_mic_sasa_cell_list(
+    coordinates: np.ndarray,
+    box_s: np.ndarray,
+    radii: np.ndarray,
+    sphere_points: np.ndarray,
+    probe_radius: float,
+    neighbor_offsets: np.ndarray,
+    neighbor_indices: np.ndarray,
+) -> np.ndarray:
+    """Single-frame SASA over CSR candidate neighbours with minimum-image PBC."""
+    n_atoms = coordinates.shape[0]
+    n_points = sphere_points.shape[0]
+    out = np.zeros(n_atoms, dtype=np.float64)
+
+    for jj in nb.prange(n_atoms):
+        r_i_ext = radii[jj] + probe_radius
+        if r_i_ext <= probe_radius:
+            out[jj] = 0.0
+            continue
+
+        start = neighbor_offsets[jj]
+        end = neighbor_offsets[jj + 1]
+
+        accessible_count = 0
+        for kk in range(n_points):
+            px = coordinates[jj, 0] + r_i_ext * sphere_points[kk, 0]
+            py = coordinates[jj, 1] + r_i_ext * sphere_points[kk, 1]
+            pz = coordinates[jj, 2] + r_i_ext * sphere_points[kk, 2]
+
+            is_accessible = True
+            for p in range(start, end):
+                ll = neighbor_indices[p]
+                r_l_ext = radii[ll] + probe_radius
+                if r_l_ext <= probe_radius:
+                    continue
+
+                dx = px - coordinates[ll, 0]
+                dy = py - coordinates[ll, 1]
+                dz = pz - coordinates[ll, 2]
+                dx, dy, dz = _mic_wrap_vector(dx, dy, dz, box_s)
+
+                if dx*dx + dy*dy + dz*dz < r_l_ext * r_l_ext:
+                    is_accessible = False
+                    break
+
+            if is_accessible:
+                accessible_count += 1
+
+        out[jj] = 4.0 * math.pi * r_i_ext * r_i_ext * (accessible_count / n_points)
+
+    return out

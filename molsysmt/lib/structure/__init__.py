@@ -72,5 +72,9 @@ from .get_rmsf import get_rmsf
 
 from .get_sasa import get_sasa
 from .get_sasa import get_mic_sasa
+from .get_sasa import get_sasa_cell_list
+from .get_sasa import get_mic_sasa_cell_list
+from .neighbor_list import neighbor_list_csr
+from .neighbor_list import neighbor_pairs
 
 

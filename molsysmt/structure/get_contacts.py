@@ -276,20 +276,16 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
             n_elements_2 = tmp_coords_2_val.shape[1]
             contact_map = np.zeros((num_structures, n_elements_1, n_elements_2), dtype=bool)
 
-            if box_val is not None:
-                from molsysmt.lib.structure.get_contacts_cell_list import get_contacts_cell_list_pbc as _cell_list_solver
-                for ii in range(num_structures):
-                    pairs_list = _cell_list_solver(coords_val[ii], tmp_coords_2_val[ii], box_val[ii], threshold_val)
-                    for i, j in pairs_list:
-                        if not is_self or i != j:
-                            contact_map[ii, i, j] = True
-            else:
-                from molsysmt.lib.structure.get_contacts_cell_list import get_contacts_cell_list_vacuum as _cell_list_solver
-                for ii in range(num_structures):
-                    pairs_list = _cell_list_solver(coords_val[ii], tmp_coords_2_val[ii], threshold_val)
-                    for i, j in pairs_list:
-                        if not is_self or i != j:
-                            contact_map[ii, i, j] = True
+            from molsysmt.lib.structure.neighbor_list import neighbor_pairs
+            for ii in range(num_structures):
+                box_ii = box_val[ii] if box_val is not None else None
+                ref_ii = None if is_self else tmp_coords_2_val[ii]
+                # half=False keeps both directions (i->j and j->i) so the map is
+                # symmetric; exclude_self drops the diagonal in the self case.
+                pr = neighbor_pairs(coords_val[ii], ref_ii, box=box_ii,
+                                    cutoff=threshold_val, half=False, exclude_self=is_self)
+                if pr.shape[0]:
+                    contact_map[ii, pr[:, 0], pr[:, 1]] = True
 
             if is_self:
                 contact_map[:, np.arange(n_elements_1), np.arange(n_elements_1)] = True
