@@ -269,8 +269,93 @@ pub fn py_rodrigues_rotation<'py>(py: Python<'py>, vector: PyReadonlyArray1<'py,
     Array1::from_vec(r.to_vec()).into_pyarray(py)
 }
 
+// --------------------------------------------------------- minimum-distance kernels
+
+/// Mirrors `math.py::minimum_distance_masked_not_bonded`: the shortest distance between
+/// any two *included, non-bonded* atoms. Returns `+inf` when no such pair exists, matching
+/// upstream's `np.inf`, so a caller probing for a clash can treat "nothing found" as
+/// "infinitely far". The mask and bonded matrix are `u8` (0/non-zero), as upstream.
+#[pyfunction]
+pub fn minimum_distance_masked_not_bonded(
+    coordinates: PyReadonlyArray2<'_, f64>,
+    include_mask: PyReadonlyArray1<'_, u8>,
+    bonded_matrix: PyReadonlyArray2<'_, u8>,
+) -> f64 {
+    let c = coordinates.as_array();
+    let m = include_mask.as_array();
+    let b = bonded_matrix.as_array();
+    let n = c.shape()[0];
+    let mut min_sq = f64::INFINITY;
+    for i in 0..n.saturating_sub(1) {
+        if m[i] == 0 {
+            continue;
+        }
+        let (x1, y1, z1) = (c[[i, 0]], c[[i, 1]], c[[i, 2]]);
+        for j in (i + 1)..n {
+            if m[j] == 0 || b[[i, j]] != 0 {
+                continue;
+            }
+            let dx = x1 - c[[j, 0]];
+            let dy = y1 - c[[j, 1]];
+            let dz = z1 - c[[j, 2]];
+            let d = dx * dx + dy * dy + dz * dz;
+            if d < min_sq {
+                min_sq = d;
+            }
+        }
+    }
+    if min_sq.is_infinite() { f64::INFINITY } else { min_sq.sqrt() }
+}
+
+/// Mirrors `math.py::minimum_distance_between_coordinate_sets`: the shortest distance from
+/// any included existing atom to any included candidate atom that is not bonded to it.
+/// `candidate_start_index` offsets the candidate's local index into the (global) bonded
+/// matrix. Returns `+inf` when no admissible pair exists.
+#[pyfunction]
+pub fn minimum_distance_between_coordinate_sets(
+    existing_coordinates: PyReadonlyArray2<'_, f64>,
+    existing_mask: PyReadonlyArray1<'_, u8>,
+    candidate_coordinates: PyReadonlyArray2<'_, f64>,
+    candidate_mask: PyReadonlyArray1<'_, u8>,
+    candidate_start_index: i64,
+    bonded_matrix: PyReadonlyArray2<'_, u8>,
+) -> f64 {
+    let e = existing_coordinates.as_array();
+    let em = existing_mask.as_array();
+    let cc = candidate_coordinates.as_array();
+    let cm = candidate_mask.as_array();
+    let b = bonded_matrix.as_array();
+    let (n_existing, n_candidate) = (e.shape()[0], cc.shape()[0]);
+    let mut min_sq = f64::INFINITY;
+    for ei in 0..n_existing {
+        if em[ei] == 0 {
+            continue;
+        }
+        let (x1, y1, z1) = (e[[ei, 0]], e[[ei, 1]], e[[ei, 2]]);
+        for cl in 0..n_candidate {
+            if cm[cl] == 0 {
+                continue;
+            }
+            let cg = (candidate_start_index + cl as i64) as usize;
+            if b[[ei, cg]] != 0 {
+                continue;
+            }
+            let dx = x1 - cc[[cl, 0]];
+            let dy = y1 - cc[[cl, 1]];
+            let dz = z1 - cc[[cl, 2]];
+            let d = dx * dx + dy * dy + dz * dz;
+            if d < min_sq {
+                min_sq = d;
+            }
+        }
+    }
+    if min_sq.is_infinite() { f64::INFINITY } else { min_sq.sqrt() }
+}
+
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(matmul, m)?)?;
+    m.add_function(wrap_pyfunction!(minimum_distance_masked_not_bonded, m)?)?;
+    m.add_function(wrap_pyfunction!(minimum_distance_between_coordinate_sets, m)?)?;
     m.add_function(wrap_pyfunction!(transpmatmul, m)?)?;
     m.add_function(wrap_pyfunction!(py_dot_product, m)?)?;
     m.add_function(wrap_pyfunction!(py_cross_product, m)?)?;

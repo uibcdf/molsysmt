@@ -64,14 +64,19 @@ All analysis families are now routed and validated on both backends (default Num
 | distances/neighbours/contacts | get_distances, get_neighbors, get_contacts | 88 / 88 |
 | SASA | get_sasa (cell-list variants) | 16 / 16 |
 
-**Documented exceptions, left on Numba deliberately:**
+**Coverage is now complete for the CPU surface.** The brute-force `get_sasa`/`get_mic_sasa`
+kernels and the two `minimum_distance_*` math kernels — the only ported-gap left after the
+first stage-2 pass — are now ported (`get_mic_sasa` corrects the same `_is_orthogonal` typo
+as its cell-list sibling) and their consumers (`physchem.get_sasa` brute-force path,
+`build.build_peptide`) route through the seam. Validated on both backends: brute-force SASA
+is byte-identical end-to-end, its 9 direct parity tests pass, the 16 SASA tests pass on
+both paths, and the build_peptide suite passes identically (148/148) under Numba and forced
+Rust.
 
-- The **brute-force** `get_sasa`/`get_mic_sasa` kernels (small-system path, below
-  `CELL_LIST_MIN_ATOMS`) were never ported — only the cell-list variants exist in Rust.
-  Completing them is a small crate-level port, not wiring.
-- The two `minimum_distance_*` math kernels (in `build_peptide`) were never ported.
-- `_private/gpu.py` is the GPU dispatch, orthogonal to the CPU numba/rust choice; it is
-  wired when the GPU backends are addressed.
+**The one remaining exception, deliberate:** `_private/gpu.py` is the GPU dispatch,
+orthogonal to the CPU numba/rust choice (`use_gpu` selects GPU; `kernel` selects the CPU
+backend). GPU-from-Rust is its own decision — see
+`rust_gpu_backend_options.md`.
 
 With these, `configure.kernel='rust'` now exercises Rust across the whole analysis surface
 in dogfooding, while the default stays Numba and byte-identical.

@@ -345,9 +345,153 @@ pub fn get_mic_sasa_cell_list<'py>(
     Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
 }
 
+// ---------------------------------------------------------- brute-force Shrake–Rupley
+//
+// The O(N² · n_points) kernels `get_sasa` / `get_mic_sasa`, the small-system path below
+// `CELL_LIST_MIN_ATOMS`. Numerically the same occlusion test as the cell-list kernels,
+// just without the grid: every sphere point is checked against every other atom.
+//
+// The MIC wrap here matches upstream's `_mic_wrap_vector`: a centred fractional wrap using
+// the *full* 3x3 inverse (no 27-image search), and the same corrected orthogonality check
+// as the cell-list path (upstream's `_is_orthogonal` has the `box_s[2,2]` typo, so on a
+// cubic box the two branches agree to ~1e-15 rather than bit-for-bit — see the module
+// docs and `devguide/pending_bugs/sasa_is_orthogonal_typo.md`).
+
+#[inline]
+fn atom_sasa_bruteforce(
+    coords: &ArrayView3<f64>, s: usize, jj: usize, radii: &ArrayView1<f64>,
+    sphere: &ArrayView2<f64>, probe: f64, na: usize,
+    wrap: Option<(&Mat3, &Mat3, bool)>,
+) -> f64 {
+    let r_i_ext = radii[jj] + probe;
+    if r_i_ext <= probe {
+        return 0.0;
+    }
+    let n_points = sphere.shape()[0];
+    let (ax, ay, az) = (coords[[s, jj, 0]], coords[[s, jj, 1]], coords[[s, jj, 2]]);
+    let mut accessible = 0usize;
+    for kk in 0..n_points {
+        let px = ax + r_i_ext * sphere[[kk, 0]];
+        let py = ay + r_i_ext * sphere[[kk, 1]];
+        let pz = az + r_i_ext * sphere[[kk, 2]];
+        let mut is_accessible = true;
+        for ll in 0..na {
+            if ll == jj {
+                continue;
+            }
+            let r_l_ext = radii[ll] + probe;
+            if r_l_ext <= probe {
+                continue;
+            }
+            let mut dx = px - coords[[s, ll, 0]];
+            let mut dy = py - coords[[s, ll, 1]];
+            let mut dz = pz - coords[[s, ll, 2]];
+            if let Some((b, inv, ortho)) = wrap {
+                let w = mic_wrap_bruteforce(dx, dy, dz, b, inv, ortho);
+                dx = w[0];
+                dy = w[1];
+                dz = w[2];
+            }
+            if dx * dx + dy * dy + dz * dz < r_l_ext * r_l_ext {
+                is_accessible = false;
+                break;
+            }
+        }
+        if is_accessible {
+            accessible += 1;
+        }
+    }
+    4.0 * std::f64::consts::PI * r_i_ext * r_i_ext * (accessible as f64 / n_points as f64)
+}
+
+/// Centred minimum-image wrap via the full inverse, matching `_mic_wrap_vector`.
+#[inline]
+fn mic_wrap_bruteforce(dx: f64, dy: f64, dz: f64, b: &Mat3, inv: &Mat3, ortho: bool) -> [f64; 3] {
+    if ortho {
+        return [
+            dx - b[0][0] * (dx / b[0][0] + 0.5).floor(),
+            dy - b[1][1] * (dy / b[1][1] + 0.5).floor(),
+            dz - b[2][2] * (dz / b[2][2] + 0.5).floor(),
+        ];
+    }
+    let mut sx = inv[0][0] * dx + inv[0][1] * dy + inv[0][2] * dz;
+    let mut sy = inv[1][0] * dx + inv[1][1] * dy + inv[1][2] * dz;
+    let mut sz = inv[2][0] * dx + inv[2][1] * dy + inv[2][2] * dz;
+    sx -= (sx + 0.5).floor();
+    sy -= (sy + 0.5).floor();
+    sz -= (sz + 0.5).floor();
+    [
+        b[0][0] * sx + b[0][1] * sy + b[0][2] * sz,
+        b[1][0] * sx + b[1][1] * sy + b[1][2] * sz,
+        b[2][0] * sx + b[2][1] * sy + b[2][2] * sz,
+    ]
+}
+
+#[pyfunction]
+pub fn get_sasa<'py>(
+    py: Python<'py>,
+    coordinates: PyReadonlyArray3<'py, f64>,
+    radii: PyReadonlyArray1<'py, f64>,
+    sphere_points: PyReadonlyArray2<'py, f64>,
+    probe_radius: f64,
+) -> Bound<'py, PyArray2<f64>> {
+    let c = coordinates.as_array();
+    let r = radii.as_array();
+    let sp = sphere_points.as_array();
+    let (ns, na) = (c.shape()[0], c.shape()[1]);
+    let flat: Vec<f64> = py.allow_threads(|| {
+        (0..ns * na)
+            .into_par_iter()
+            .map(|idx| atom_sasa_bruteforce(&c, idx / na, idx % na, &r, &sp, probe_radius, na, None))
+            .collect()
+    });
+    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
+}
+
+#[pyfunction]
+pub fn get_mic_sasa<'py>(
+    py: Python<'py>,
+    coordinates: PyReadonlyArray3<'py, f64>,
+    boxes: PyReadonlyArray3<'py, f64>,
+    radii: PyReadonlyArray1<'py, f64>,
+    sphere_points: PyReadonlyArray2<'py, f64>,
+    probe_radius: f64,
+) -> Bound<'py, PyArray2<f64>> {
+    let c = coordinates.as_array();
+    let bx = boxes.as_array();
+    let r = radii.as_array();
+    let sp = sphere_points.as_array();
+    let (ns, na) = (c.shape()[0], c.shape()[1]);
+    // one box per structure; precompute inverse and orthogonality once each
+    let parts: Vec<(Mat3, Mat3, bool)> = (0..ns)
+        .map(|s| {
+            let b = [
+                [bx[[s, 0, 0]], bx[[s, 0, 1]], bx[[s, 0, 2]]],
+                [bx[[s, 1, 0]], bx[[s, 1, 1]], bx[[s, 1, 2]]],
+                [bx[[s, 2, 0]], bx[[s, 2, 1]], bx[[s, 2, 2]]],
+            ];
+            let ortho = is_orthogonal(&b);
+            (b, if ortho { [[0.0; 3]; 3] } else { inv3(&b) }, ortho)
+        })
+        .collect();
+    let flat: Vec<f64> = py.allow_threads(|| {
+        (0..ns * na)
+            .into_par_iter()
+            .map(|idx| {
+                let (s, jj) = (idx / na, idx % na);
+                let (b, inv, ortho) = &parts[s];
+                atom_sasa_bruteforce(&c, s, jj, &r, &sp, probe_radius, na, Some((b, inv, *ortho)))
+            })
+            .collect()
+    });
+    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
+}
+
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_sasa_cell_list, m)?)?;
     m.add_function(wrap_pyfunction!(get_mic_sasa_cell_list, m)?)?;
+    m.add_function(wrap_pyfunction!(get_sasa, m)?)?;
+    m.add_function(wrap_pyfunction!(get_mic_sasa, m)?)?;
     Ok(())
 }
 

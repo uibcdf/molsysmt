@@ -226,9 +226,9 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                     sasa_array = _kernels.get_sasa_cell_list(
                         coordinates, radii_val, sphere_pts, probe_radius, cutoff)
             elif box is not None:
-                sasa_array = msmlib.structure.get_mic_sasa(coordinates, box, radii_val, sphere_pts, probe_radius)
+                sasa_array = _kernels.get_mic_sasa(coordinates, box, radii_val, sphere_pts, probe_radius)
             else:
-                sasa_array = msmlib.structure.get_sasa(coordinates, radii_val, sphere_pts, probe_radius)
+                sasa_array = _kernels.get_sasa(coordinates, radii_val, sphere_pts, probe_radius)
 
         # Filter and accumulate results based on selection
         if element == 'atom':

@@ -252,7 +252,7 @@ def _minimum_nonbonded_heavy_distance(existing_coordinates, existing_atom_types,
         return np.inf
 
     if existing_bonded_matrix is not None:
-        from molsysmt.lib.math import minimum_distance_between_coordinate_sets
+        from molsysmt._private.rust_backend import minimum_distance_between_coordinate_sets
 
         return minimum_distance_between_coordinate_sets(
             np.asarray(existing_coordinates, dtype=np.float64),
@@ -336,7 +336,7 @@ def _minimum_nonbonded_heavy_distance_full(coordinates, atom_types=None, bonds=N
     if np.count_nonzero(heavy_mask) < 2:
         return np.inf
 
-    from molsysmt.lib.math import minimum_distance_masked_not_bonded
+    from molsysmt._private.rust_backend import minimum_distance_masked_not_bonded
 
     return minimum_distance_masked_not_bonded(
         np.asarray(coordinates, dtype=np.float64),

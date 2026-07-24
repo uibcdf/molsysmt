@@ -842,3 +842,45 @@ def principal_component_analysis(coordinates, weights, backend="numba"):
     from molsysmt.lib.structure.principal_component_analysis import (
         principal_component_analysis as _nb)
     return _nb(coordinates, weights)
+
+
+# ------------------------------------------------------------------- minimum distance
+# molsysmt.lib.math brute-force minimum-distance kernels (used by build_peptide).
+
+def minimum_distance_masked_not_bonded(coordinates, include_mask, bonded_matrix,
+                                       backend="numba"):
+    if _use_rust(backend):
+        return _rust.minimum_distance_masked_not_bonded(coordinates, include_mask,
+                                                        bonded_matrix)
+    from molsysmt.lib.math import minimum_distance_masked_not_bonded as _nb
+    return _nb(coordinates, include_mask, bonded_matrix)
+
+
+def minimum_distance_between_coordinate_sets(existing_coordinates, existing_mask,
+                                             candidate_coordinates, candidate_mask,
+                                             candidate_start_index, bonded_matrix,
+                                             backend="numba"):
+    if _use_rust(backend):
+        return _rust.minimum_distance_between_coordinate_sets(
+            existing_coordinates, existing_mask, candidate_coordinates, candidate_mask,
+            candidate_start_index, bonded_matrix)
+    from molsysmt.lib.math import minimum_distance_between_coordinate_sets as _nb
+    return _nb(existing_coordinates, existing_mask, candidate_coordinates, candidate_mask,
+               candidate_start_index, bonded_matrix)
+
+
+# ------------------------------------------------------------------- brute-force SASA
+# The small-system Shrake-Rupley path (below configure CELL_LIST_MIN_ATOMS).
+
+def get_sasa(coordinates, radii, sphere_points, probe_radius, backend="numba"):
+    if _use_rust(backend):
+        return _rust.get_sasa(coordinates, radii, sphere_points, probe_radius)
+    from molsysmt.lib.structure.get_sasa import get_sasa as _nb
+    return _nb(coordinates, radii, sphere_points, probe_radius)
+
+
+def get_mic_sasa(coordinates, box, radii, sphere_points, probe_radius, backend="numba"):
+    if _use_rust(backend):
+        return _rust.get_mic_sasa(coordinates, box, radii, sphere_points, probe_radius)
+    from molsysmt.lib.structure.get_sasa import get_mic_sasa as _nb
+    return _nb(coordinates, box, radii, sphere_points, probe_radius)

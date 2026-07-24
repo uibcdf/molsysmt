@@ -69,6 +69,11 @@ scientific-validation requirements.
   matrices, and PCA spends 76-93% of its time building the covariance rather than
   diagonalising it, so the useful property is fast BLAS, not a fast eigensolver.
   Recommends pure Rust (`nalgebra`, `faer`) over a BLAS system dependency.
+- `rust_gpu_backend_options.md` — whether the Rust layer should also target the GPU.
+  Recommendation: no, near-term — GPU stays on the existing Numba-CUDA/Taichi backends,
+  orthogonal to the CPU numba/rust choice. If ever pursued, `wgpu` is the portable
+  (default-wheel-compatible) option and CUDA (`cudarc`) belongs only in an optional wheel
+  variant. Separate, optional, post-cut; must not block the CPU cut.
 - `rust_kernel_redesign_beyond_faithful_ports.md` — where a redesign beats the faithful
   ports. Measured: the obvious in-kernel micro-opts are already in the Numba original, and
   real-workload time is dominated by `get_contacts` going through the dense distance matrix
