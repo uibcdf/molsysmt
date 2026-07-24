@@ -14,8 +14,20 @@ equivalents, plus a real production kernel and the packaging/opt-in questions.
 
 ## 2. Evidence
 
-Parity is **exact (bit-for-bit)** in every case, including a production kernel compiled
-with Numba `fastmath=True`.
+Parity was **exact (bit-for-bit)** in every kernel tested at the time of this pilot,
+including a production kernel compiled with Numba `fastmath=True`.
+
+> **Superseded in part (2026-07-24, blocks 9 and 10).** That result does not generalise.
+> `lazy_njit` sets `fastmath=True`, which lets LLVM contract three-term dot products into
+> FMAs and vectorise long accumulation loops into partial sums; Rust does neither by
+> default. Wherever a kernel contains such a reduction the two disagree at ~1e-15, and no
+> amount of care on the Rust side closes it. This was verified, not inferred: rebuilding
+> the same kernels with `fastmath=False` reproduces the Rust results exactly (0 differing
+> elements), and the fastmath-vs-no-fastmath divergence count matches the Rust-vs-Numba
+> one element for element. The pilot's kernels happened to give fastmath nothing to
+> exploit. **Bit-for-bit parity is therefore an outcome, not a gate the migration can rest
+> on**; the affected kernels are gated at a documented scientific tolerance instead. See
+> `linear_algebra_backend_for_rust_kernels.md`, which depends on this correction.
 
 | Axis | Finding |
 |---|---|

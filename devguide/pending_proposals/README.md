@@ -59,6 +59,11 @@ scientific-validation requirements.
 - `rusterization_pilot_conclusions_and_adoption.md` — hands-on pilot results and a
   recommended incremental adoption path (start migrating kernels behind an opt-in seam
   now; keep shipping Rust wheels a post-1.0 infrastructure decision).
+- `linear_algebra_backend_for_rust_kernels.md` — whether the Rust kernels should link
+  LAPACK/MKL. Measured answer: 10 of the 11 blocked kernels only diagonalise 3x3 and 4x4
+  matrices, and PCA spends 76-93% of its time building the covariance rather than
+  diagonalising it, so the useful property is fast BLAS, not a fast eigensolver.
+  Recommends pure Rust (`nalgebra`, `faer`) over a BLAS system dependency.
 - `rusterization_heavy_computations.md`
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`
