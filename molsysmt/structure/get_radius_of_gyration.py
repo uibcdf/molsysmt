@@ -20,11 +20,11 @@ class _RadiusOfGyrationReducer(Reducer):
         self._chunks = []
 
     def consume(self, chunk):
-        from molsysmt import lib as msmlib
+        from molsysmt._private import rust_backend as _kernels
 
         coordinates = np.array(chunk["coordinates"], dtype=np.float64)
         self._chunks.append(
-            msmlib.structure.get_radius_of_gyration(coordinates, self._weights)
+            _kernels.get_radius_of_gyration(coordinates, self._weights)
         )
 
     def finalize(self):
@@ -116,7 +116,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
     if engine == 'MolSysMT':
 
         from molsysmt.basic import select, get
-        from molsysmt import lib as msmlib
+        from molsysmt._private import rust_backend as _kernels
 
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
         n_atoms = len(np.atleast_1d(atom_indices))
@@ -166,7 +166,7 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
             )
             rg_val = _gpu_kernel(coordinates, weights_arr)
         else:
-            rg_val = msmlib.structure.get_radius_of_gyration(coordinates, weights_arr)
+            rg_val = _kernels.get_radius_of_gyration(coordinates, weights_arr)
         rg = puw.quantity(rg_val, length_unit)
         rg = puw.standardize(rg)
 

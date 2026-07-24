@@ -152,7 +152,7 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
     if engine == 'MolSysMT':
 
         from molsysmt.basic import select, get
-        from molsysmt import lib as msmlib
+        from molsysmt._private import rust_backend as _kernels
 
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
         n_atoms = len(np.atleast_1d(atom_indices))
@@ -194,7 +194,7 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
                           coordinates=True)
         coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-        rmsf_val = msmlib.structure.get_rmsf(coordinates)
+        rmsf_val = _kernels.get_rmsf(coordinates)
         rmsf = puw.quantity(rmsf_val, length_unit)
         rmsf = puw.standardize(rmsf)
 

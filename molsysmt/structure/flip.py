@@ -2,7 +2,7 @@ from molsysmt._private.arg_digestion import arg_digest
 from smonitor import signal
 import numpy as np
 from molsysmt import pyunitwizard as puw
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 import gc
 
 @signal(tags=['api', 'structure'])
@@ -14,7 +14,7 @@ def flip(molecular_system, vector=None, point='[0,0,0] nm', selection='all', str
 
     Each selected atom's position is reflected across the plane that passes through ``point``
     and is perpendicular to ``vector``.  The Numba JIT kernel
-    ``msmlib.structure.flip`` performs the reflection in-place on the coordinate array.
+    The reflection is performed in-place on the coordinate array by the compute kernel.
 
     Parameters
     ----------
@@ -62,7 +62,7 @@ def flip(molecular_system, vector=None, point='[0,0,0] nm', selection='all', str
 
     point = point[0]
 
-    coordinates = msmlib.structure.flip(coordinates, vector, point)
+    coordinates = _kernels.flip(coordinates, vector, point)
 
     coordinates = puw.quantity(coordinates, unit=length_unit)
 

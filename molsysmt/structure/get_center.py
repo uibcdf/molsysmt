@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.execution import Reducer
@@ -30,9 +30,9 @@ class _CenterReducer(Reducer):
         coords = chunk['coordinates']  # (chunk_size, n_atoms, 3), float64, read-only
         coords_w = np.array(coords, dtype=np.float64)  # writable copy for kernel
         if self._atoms_per_group is None:
-            result = msmlib.structure.get_center(coords_w, self._weights)
+            result = _kernels.get_center(coords_w, self._weights)
         else:
-            result = msmlib.structure.get_center_groups_of_atoms(coords_w, self._atoms_per_group, self._weights)
+            result = _kernels.get_center_groups_of_atoms(coords_w, self._atoms_per_group, self._weights)
         self._chunks.append(result)
 
     def finalize(self):
@@ -166,7 +166,7 @@ def get_center(molecular_system, selection='all', weights=None,
                         structure_indices=structure_indices, coordinates=True)
                 coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-                center = msmlib.structure.get_center(coordinates, weights_arr)
+                center = _kernels.get_center(coordinates, weights_arr)
                 center = puw.quantity(center, length_unit)
 
                 del coordinates, length_unit
@@ -219,7 +219,7 @@ def get_center(molecular_system, selection='all', weights=None,
                         structure_indices=structure_indices, coordinates=True)
                 coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-                center = msmlib.structure.get_center_groups_of_atoms(coordinates, atoms_per_group, weights_arr)
+                center = _kernels.get_center_groups_of_atoms(coordinates, atoms_per_group, weights_arr)
                 center = puw.quantity(center, length_unit)
 
                 del coordinates, length_unit, groups_of_atoms, weights_arr

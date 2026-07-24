@@ -45,8 +45,13 @@ RMSD/least-RMSD/fit tests pass on **both** the default Numba path and with
 trajectory. `_private/gpu.py` (the GPU dispatch) is intentionally left for the GPU wiring —
 Rust here is the CPU backend.
 
-Remaining families (geometry, axes, PCA, SASA, angles, dihedrals, pbc, distances,
-neighbours) follow the same recipe.
+The **geometry family** (`get_center` incl. groups, `get_radius_of_gyration`, `get_rmsf`,
+`flip`) is wired the same way; its 37 tests pass on both backends and agree to the last bit
+end-to-end. Consumers importing the *public* `structure.get_center` (e.g. `center`,
+`move_away`, `align_principal_axes`) inherit the routing for free.
+
+Remaining families (axes, PCA, SASA, angles, dihedrals, pbc, distances, neighbours) follow
+the same recipe.
 
 **Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are
 repository infrastructure and are the gate for flipping the default to `'auto'`/`'rust'`.
