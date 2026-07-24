@@ -1,7 +1,10 @@
 # Linear-algebra backend for the Rust kernels
 
-**Status:** **accepted and implemented** (2026-07-24) for the 10 small-matrix kernels;
-the PCA item in section 6.2 remains open.
+**Status:** **accepted and fully implemented** (2026-07-24). The 10 small-matrix
+kernels use `nalgebra`; PCA (section 6.2) is ported with `faer` per the second option, so
+all 97 CPU kernels are now in Rust. Measured PCA speedup was a modest 2-3x, not the
+covariance-only 48-132x: capturing the covariance made `faer`'s dense eigensolver the
+bottleneck, which is slower than LAPACK — the accepted cost of taking no BLAS dependency.
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
 `rusterization_heavy_computations.md`,
 `trajectory_projection_onto_principal_components.md`.
