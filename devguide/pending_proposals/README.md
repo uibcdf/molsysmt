@@ -56,6 +56,11 @@ scientific-validation requirements.
 - `optional_native_columns_memory_model.md` — post-1.0 evaluation of
   schema-aware optional physical columns so topology memory scales with the
   information an instance actually contains.
+- `rust_numba_coexistence_and_cut_plan.md` — the migration plan now that all 97 CPU kernels
+  are ported: a `configure.kernel` global + uniform `kernel=` override (reusing the existing
+  parallel=/num_threads= pattern, not per-function args), the packaging gate (CI wheels; hard
+  dependency vs graceful `'auto'`), the announced tolerance-level numerical change, the 1.0
+  deprecation of Numba, and where redesign levers A/B (now) and C/D/E (post-cut) fit.
 - `rusterization_pilot_conclusions_and_adoption.md` — hands-on pilot results and a
   recommended incremental adoption path (start migrating kernels behind an opt-in seam
   now; keep shipping Rust wheels a post-1.0 infrastructure decision).
