@@ -1,11 +1,13 @@
 # Rust/Numba coexistence and the cut to Rust
 
-**Status:** migration plan (2026-07-24), pending decision to start.
+**Status:** stages 1–2 implemented on `main` (2026-07-24); stage 3 (CI wheels) and the cut
+decision are open. Default kernel is Numba, main is byte-identical by default.
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
 `linear_algebra_backend_for_rust_kernels.md`,
-`rust_kernel_redesign_beyond_faithful_ports.md`,
+`rust_kernel_redesign_beyond_faithful_ports.md`, `rust_gpu_backend_options.md`,
 `neighbor_list_consumer_migration.md`.
-**Pilot location:** branch `experiment/rust-numba-pilot`, dir `experiments/rust_kernels/`.
+**Crate location:** `experiments/rust_kernels/` on `main` (the pilot branch
+`experiment/rust-numba-pilot` is historical/superseded).
 
 ## Landing status (2026-07-24)
 
@@ -27,31 +29,16 @@ default, `configure.context(kernel='rust')` flips resolution and restores. **Mai
 exactly as before** — nothing routes to Rust unless explicitly selected, and no public
 function is wired to the seam yet.
 
-**Stage 2 — consumer wiring — in progress. RMSD family done (the proven pattern).**
-Making `configure.kernel='rust'` take effect at the public API means routing the
-*high-level analysis kernels* (the RMSD/geometry/axes/PCA/SASA/angle/dihedral/pbc leaves)
-through the seam. It cannot be done by replacing kernel names at module level: several
-primitives (`dot_product`, `get_distance_two_points`, the MIC and `math` helpers) are
-called *inside* other `njit` kernels, and rebinding those to a Python dispatcher breaks
-Numba compilation. So routing is at the high-level consumers, one family at a time, each
-validated with its test group.
-
-The **RMSD family** is wired and validated as the reference pattern: `get_rmsd`,
-`get_least_rmsd`, `least_rmsd_fit` and the `_native_placers` build path now call the seam
-(`from molsysmt._private import rust_backend as _kernels`) instead of `msmlib.structure.*`,
-so they honour `configure.kernel` with no per-function argument. The 20 existing
-RMSD/least-RMSD/fit tests pass on **both** the default Numba path and with
-`configure.kernel='rust'`, and the two agree to the last bit end-to-end on a real
-trajectory. `_private/gpu.py` (the GPU dispatch) is intentionally left for the GPU wiring —
-Rust here is the CPU backend.
-
-The **geometry family** (`get_center` incl. groups, `get_radius_of_gyration`, `get_rmsf`,
-`flip`) is wired the same way; its 37 tests pass on both backends and agree to the last bit
-end-to-end. Consumers importing the *public* `structure.get_center` (e.g. `center`,
-`move_away`, `align_principal_axes`) inherit the routing for free.
-
-All analysis families are now routed and validated on both backends (default Numba and
-`configure.kernel='rust'` forced), each against its own test group:
+**Stage 2 — consumer wiring — COMPLETE.** `configure.kernel='rust'` now takes effect
+across the whole CPU analysis surface. Routing is at the *high-level consumers*, family by
+family, each validated against its own test group on both backends: it could not be done by
+replacing kernel names at module level, because several primitives (`dot_product`,
+`get_distance_two_points`, the MIC/`math` helpers) are called *inside* other `njit` kernels
+and rebinding those to a Python dispatcher breaks Numba compilation. Each consumer instead
+calls the seam (`from molsysmt._private import rust_backend as _kernels`) instead of
+`msmlib.structure.*`, honouring `configure.kernel` with no per-function argument. Consumers
+that go through a *public* function (e.g. `center`, `move_away`, `align_principal_axes` via
+`structure.get_center`) inherit the routing for free.
 
 | family | consumers routed | tests (numba / rust) |
 |---|---|---|
@@ -62,38 +49,39 @@ All analysis families are now routed and validated on both backends (default Num
 | pbc | box geometry + wrap/unwrap + PDB handler | 52 / 52 |
 | topology/series | component index, occurrence_order (convert path) | 22 / 22 |
 | distances/neighbours/contacts | get_distances, get_neighbors, get_contacts | 88 / 88 |
-| SASA | get_sasa (cell-list variants) | 16 / 16 |
+| SASA | get_sasa (cell-list + brute-force), physchem.get_sasa | 16 / 16 |
+| build (min-distance) | build_peptide | 148 / 148 |
 
-**Coverage is now complete for the CPU surface.** The brute-force `get_sasa`/`get_mic_sasa`
-kernels and the two `minimum_distance_*` math kernels — the only ported-gap left after the
-first stage-2 pass — are now ported (`get_mic_sasa` corrects the same `_is_orthogonal` typo
-as its cell-list sibling) and their consumers (`physchem.get_sasa` brute-force path,
-`build.build_peptide`) route through the seam. Validated on both backends: brute-force SASA
-is byte-identical end-to-end, its 9 direct parity tests pass, the 16 SASA tests pass on
-both paths, and the build_peptide suite passes identically (148/148) under Numba and forced
-Rust.
+Each pair agrees to the last bit end-to-end on the (small) test systems; on large systems
+the agreement is at the documented scientific tolerance.
+
+**CPU coverage is 100%.** After the first stage-2 pass the only ported-gap left was the
+brute-force `get_sasa`/`get_mic_sasa` (small-system path) and the two `minimum_distance_*`
+math kernels; those were then ported (`get_mic_sasa` corrects the same `_is_orthogonal`
+typo as its cell-list sibling) and their consumers wired. The full Rust suite is 175 passed,
+3 skipped.
 
 **The one remaining exception, deliberate:** `_private/gpu.py` is the GPU dispatch,
 orthogonal to the CPU numba/rust choice (`use_gpu` selects GPU; `kernel` selects the CPU
-backend). GPU-from-Rust is its own decision — see
-`rust_gpu_backend_options.md`.
+backend). GPU-from-Rust is its own decision — see `rust_gpu_backend_options.md`.
 
-With these, `configure.kernel='rust'` now exercises Rust across the whole analysis surface
-in dogfooding, while the default stays Numba and byte-identical.
+**What is left is no longer porting or wiring — it is the two open decisions:** stage 3 (CI
+wheels) and the cut (when to flip the default and delete Numba). Both are gated on
+dogfooding with `configure.kernel='rust'`, which is now possible across the whole surface.
 
 **Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are
 repository infrastructure and are the gate for flipping the default to `'auto'`/`'rust'`.
 
 ## 0. Where we are
 
-All 97 CPU `njit` kernels in `molsysmt.lib` have a Rust port behind an opt-in seam
-(`molsysmt/_private/rust_backend.py`, `backend='numba'|'rust'|'auto'`), with 69 Rust unit
-tests and 166 Python parity tests. `molsysmt` never imports the crate; Numba is the
-default; there is **zero 1.0 debt**. The remaining work is not porting — it is a decision
-about whether and how to make Rust the implementation and retire Numba.
-
-This document is the plan for that decision. It should be the first thing that moves toward
-`main`; the mechanisms follow it, not the other way round.
+All 97 CPU `njit` kernels in `molsysmt.lib` have a Rust port in `experiments/rust_kernels/`
+on `main` (69 Rust unit tests, 175 Python parity tests, 3 documented skips), reached
+through the dispatch seam `molsysmt/_private/rust_backend.py`. The seam is wired into the
+public analysis surface and reads `configure.kernel`; when the Rust wheel is absent, or
+`configure.kernel='numba'` (the default), it is a no-op and MolSysMT behaves exactly as
+before — the import is guarded, so there is **no hard dependency and no 1.0 debt**. The
+remaining work is not porting or wiring — it is the two decisions below: CI wheels, and the
+cut (flip the default, retire Numba), both gated on dogfooding.
 
 ## 1. The mechanism: reuse `configure`, do not add per-function arguments
 
