@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 import numpy as np
 import gc
 
@@ -150,7 +150,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
                 mode='mic',
             )
         else:
-            msmlib.pbc.wrap_to_mic(coordinates, box, mic_origin)
+            _kernels.wrap_to_mic(coordinates, box, mic_origin)
 
         coordinates=puw.quantity(coordinates, length_units)
         coordinates=puw.convert(coordinates, to_unit=original_length_units)

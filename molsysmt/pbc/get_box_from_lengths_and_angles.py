@@ -1,5 +1,5 @@
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 import numpy as np
 from molsysmt import pyunitwizard as puw
 
@@ -36,7 +36,7 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
         lengths_value = puw.get_value(box_lengths)
     angles_value = puw.get_value(box_angles, to_unit='radians')
 
-    box = msmlib.pbc.get_box_from_lengths_and_angles(np.array(lengths_value, dtype=np.float64), np.array(angles_value, dtype=np.float64))
+    box = _kernels.get_box_from_lengths_and_angles(np.array(lengths_value, dtype=np.float64), np.array(angles_value, dtype=np.float64))
     box = box.round(6)*units
 
     del(lengths_value, angles_value)

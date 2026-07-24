@@ -150,7 +150,7 @@ def _parse_topology_from_lines(lines):
 def _build_structures_from_lines(lines, entry):
     from molsysmt.native import Structures
     from molsysmt import pyunitwizard as puw
-    from molsysmt import lib as msmlib
+    from molsysmt._private import rust_backend as _kernels
 
     models = []
     current_model = []
@@ -212,7 +212,7 @@ def _build_structures_from_lines(lines, entry):
     if cryst1 is not None:
         lengths = np.array([cryst1.a, cryst1.b, cryst1.c], dtype=float) * puw.unit("angstroms")
         angles = np.array([cryst1.alpha, cryst1.beta, cryst1.gamma], dtype=float) * puw.unit("degrees")
-        single_box_value = msmlib.pbc.get_box_from_lengths_and_angles_single_structure(
+        single_box_value = _kernels.get_box_from_lengths_and_angles_single_structure(
             np.array(puw.get_value(lengths), dtype=np.float64),
             np.array(puw.get_value(angles, to_unit="radians"), dtype=np.float64),
         )

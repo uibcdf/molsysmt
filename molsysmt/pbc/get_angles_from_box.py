@@ -1,6 +1,6 @@
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 
 @arg_digest()
 def get_angles_from_box(box, skip_digestion=False):
@@ -24,7 +24,7 @@ def get_angles_from_box(box, skip_digestion=False):
 
     box_value, box_unit  = puw.get_value_and_unit(box)
     import numpy as np
-    angles = msmlib.pbc.get_angles_from_box(np.asarray(box_value, dtype=np.float64))
+    angles = _kernels.get_angles_from_box(np.asarray(box_value, dtype=np.float64))
     angles = puw.quantity(angles.round(6), 'radians')
     angles = puw.standardize(angles)
 

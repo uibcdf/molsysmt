@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 import numpy as np
 import gc
 
@@ -159,7 +159,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
             if np.all(np.isclose(box_origin, 0, atol=1e-4)):
                 box_origin = np.zeros((3), dtype=np.float64)
 
-            msmlib.pbc.wrap_to_pbc(coordinates, box, box_origin)
+            _kernels.wrap_to_pbc(coordinates, box, box_origin)
 
         else:
 
@@ -169,7 +169,7 @@ def wrap_to_pbc(molecular_system, selection='all', structure_indices='all',
             if np.all(np.isclose(box_center, 0, atol=1e-4)):
                 box_origin = np.zeros((3), dtype=np.float64)
 
-            msmlib.pbc.wrap_to_pbc_center(coordinates, box, box_center)
+            _kernels.wrap_to_pbc_center(coordinates, box, box_center)
 
 
         coordinates=puw.quantity(coordinates, length_units)

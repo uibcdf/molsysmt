@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt import pyunitwizard as puw
-from molsysmt import lib as msmlib
+from molsysmt._private import rust_backend as _kernels
 import numpy as np
 import gc
 
@@ -83,7 +83,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
             caller="molsysmt.pbc.unwrap",
         )
 
-        msmlib.pbc.unwrap(coordinates, box)
+        _kernels.unwrap(coordinates, box)
 
         coordinates=puw.quantity(coordinates, length_units)
 
