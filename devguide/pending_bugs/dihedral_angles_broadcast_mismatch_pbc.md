@@ -67,8 +67,15 @@ restrict to a subset.
 
 ## Note for the Rust migration
 
-The Rust ports in `experiment/rust-numba-pilot` **replicate this asymmetry faithfully**,
-including the broadcasting in the vacuum kernel and its absence in the periodic one. That
-is deliberate: bit-for-bit parity against the Numba oracle is the safety mechanism of the
-migration, so behaviour changes must not be smuggled in inside a port. Fix this upstream
-first; the ports then follow the corrected behaviour.
+The Rust ports in `experiment/rust-numba-pilot` **broadcast on both paths**, i.e. they
+implement the documented contract rather than replicating the out-of-bounds read.
+
+The migration's policy is that bit-for-bit parity against the Numba oracle is the safety
+mechanism *only where the oracle is defined*. Here it is not: an unchecked out-of-range
+read has no correct value to match, so there is nothing to be faithful to. The parity test
+`test_broadcast_angles_deliberate_divergence_on_the_periodic_path` pins the divergence
+instead of hiding it. Compare with `sasa_is_orthogonal_typo.md`, where the oracle is
+well-defined but merely takes the slow branch, and the Rust correction shifts parity from
+bit-for-bit to a 1e-9 tolerance.
+
+Fixing this upstream will therefore bring Python *to* the Rust behaviour, not the reverse.

@@ -27,6 +27,9 @@ that the affected surface is fully verified.
 ### Contract and maintainability
 
 - `course_module_numbering_overlaps.md`
+- `sasa_is_orthogonal_typo.md` — `_is_orthogonal` tests a box length instead of an
+  off-diagonal, so the orthogonal fast path in the SASA MIC wrap is unreachable. Results
+  stay correct; the cost is that cubic boxes pay for the triclinic branch.
 
 Severity within a group still depends on the affected public workflow. Confirmed
 bugs require a regression test; suspected bugs require a minimal reproduction
