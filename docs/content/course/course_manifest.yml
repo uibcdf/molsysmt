@@ -1,0 +1,783 @@
+# Course module manifest — canonical identity for every notebook.
+# id: semantic permanent slug (§3b). path/display_number/title are presentation.
+# Generated for the Option-A renumbering (core 1-20, paths 21-54).
+- id: course-core-the-form-agnostic-philosophy
+  path: 00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb
+  section: core
+  display_number: 1
+  title: "The Form-Agnostic Philosophy"
+- id: course-core-native-forms-and-the-trinity
+  path: 00_Common_Core/02_Native_Forms_and_The_Trinity.ipynb
+  section: core
+  display_number: 2
+  title: "Native Forms and The Trinity"
+- id: course-core-combined-sources
+  path: 00_Common_Core/03_Combined_Sources.ipynb
+  section: core
+  display_number: 3
+  title: "Combined Sources (Trajectories)"
+- id: course-core-visualizing-anything
+  path: 00_Common_Core/04_Visualizing_Anything.ipynb
+  section: core
+  display_number: 4
+  title: "Visualizing Anything"
+- id: course-core-selection-basics
+  path: 00_Common_Core/05_Selection_Basics.ipynb
+  section: core
+  display_number: 5
+  title: "Selection Language Basics"
+- id: course-core-interactive-selection
+  path: 00_Common_Core/06_Interactive_Selection.ipynb
+  section: core
+  display_number: 6
+  title: "Interactive Selection"
+- id: course-core-programmatic-extraction
+  path: 00_Common_Core/07_Programmatic_Extraction.ipynb
+  section: core
+  display_number: 7
+  title: "Programmatic Extraction"
+- id: course-core-unit-safety
+  path: 00_Common_Core/08_Unit_Safety.ipynb
+  section: core
+  display_number: 8
+  title: "Unit Safety with PyUnitWizard"
+- id: course-core-system-modification
+  path: 00_Common_Core/09_System_Modification.ipynb
+  section: core
+  display_number: 9
+  title: "System Modification"
+- id: course-core-discovery-and-attributes
+  path: 00_Common_Core/10_Discovery_and_Attributes.ipynb
+  section: core
+  display_number: 10
+  title: "Discovery & Attributes"
+- id: course-core-hierarchical-levels
+  path: 00_Common_Core/11_Hierarchical_Levels.ipynb
+  section: core
+  display_number: 11
+  title: "Hierarchical Levels"
+- id: course-core-navigating-between-levels
+  path: 00_Common_Core/12_Navigating_Between_Levels.ipynb
+  section: core
+  display_number: 12
+  title: "Navigating Between Levels"
+- id: course-core-iterating-over-hierarchies
+  path: 00_Common_Core/13_Iterating_over_Hierarchies.ipynb
+  section: core
+  display_number: 13
+  title: "Iterating over Hierarchies"
+- id: course-core-system-auditing-and-curing
+  path: 00_Common_Core/14_System_Auditing_and_Curing.ipynb
+  section: core
+  display_number: 14
+  title: "System Auditing and Curing"
+- id: course-core-covalent-connectivity
+  path: 00_Common_Core/15_Covalent_Connectivity.ipynb
+  section: core
+  display_number: 15
+  title: "Covalent Connectivity"
+- id: course-core-comparing-systems
+  path: 00_Common_Core/16_Comparing_Systems.ipynb
+  section: core
+  display_number: 16
+  title: "Comparing Systems"
+- id: course-core-semantic-labeling
+  path: 00_Common_Core/17_Semantic_Labeling.ipynb
+  section: core
+  display_number: 17
+  title: "Semantic Labeling"
+- id: course-core-merging-and-growing-systems
+  path: 00_Common_Core/18_Merging_and_Growing_Systems.ipynb
+  section: core
+  display_number: 18
+  title: "Merging and Growing Systems"
+- id: course-core-surgical-extraction-and-removal
+  path: 00_Common_Core/19_Surgical_Extraction_and_Removal.ipynb
+  section: core
+  display_number: 19
+  title: "Surgical Extraction and Removal"
+- id: course-core-the-specialized-domains
+  path: 00_Common_Core/20_The_Specialized_Domains.ipynb
+  section: core
+  display_number: 20
+  title: "The Specialized Domains (The Atlas)"
+- id: course-alzheimer-surgical-extraction
+  path: 01_Path_Alzheimer/21_Surgical_Extraction.ipynb
+  section: alzheimer
+  display_number: 21
+  title: "Surgical Extraction & Deletion"
+- id: course-alzheimer-structural-auditing
+  path: 01_Path_Alzheimer/22_Structural_Auditing.ipynb
+  section: alzheimer
+  display_number: 22
+  title: "Structural Auditing (Diagnostics)"
+- id: course-alzheimer-structural-repair
+  path: 01_Path_Alzheimer/23_Structural_Repair.ipynb
+  section: alzheimer
+  display_number: 23
+  title: "Structural Repair & Mutagenesis"
+- id: course-alzheimer-peptide-synthesis
+  path: 01_Path_Alzheimer/24_Peptide_Synthesis.ipynb
+  section: alzheimer
+  display_number: 24
+  title: "Peptide Synthesis"
+- id: course-alzheimer-solvation-engineering
+  path: 01_Path_Alzheimer/25_Solvation_Engineering.ipynb
+  section: alzheimer
+  display_number: 25
+  title: "Solvation & Ion Engineering"
+- id: course-alzheimer-attribute-engineering
+  path: 01_Path_Alzheimer/26_Attribute_Engineering.ipynb
+  section: alzheimer
+  display_number: 26
+  title: "Attribute Engineering (Patching)"
+- id: course-alzheimer-conformational-engineering
+  path: 01_Path_Alzheimer/27_Conformational_Engineering.ipynb
+  section: alzheimer
+  display_number: 27
+  title: "Conformational Engineering"
+- id: course-alzheimer-molsysbuilder
+  path: 01_Path_Alzheimer/28_MolSysBuilder.ipynb
+  section: alzheimer
+  display_number: 28
+  title: "The MolSysBuilder API"
+- id: course-alzheimer-pdb-frontier
+  path: 01_Path_Alzheimer/29_PDB_Frontier.ipynb
+  section: alzheimer
+  display_number: 29
+  title: "PDB Bioassemblies & AltLocs"
+- id: course-alzheimer-geometrical-measurements
+  path: 01_Path_Alzheimer/30_Geometrical_Measurements.ipynb
+  section: alzheimer
+  display_number: 30
+  title: "Geometrical Measurements"
+- id: course-alzheimer-proximity-neighborhoods
+  path: 01_Path_Alzheimer/31_Proximity_Neighborhoods.ipynb
+  section: alzheimer
+  display_number: 31
+  title: "Proximity & Neighborhoods"
+- id: course-alzheimer-interaction-matrices
+  path: 01_Path_Alzheimer/32_Interaction_Matrices.ipynb
+  section: alzheimer
+  display_number: 32
+  title: "Visualizing Interaction Matrices"
+- id: course-alzheimer-ensemble-descriptors
+  path: 01_Path_Alzheimer/33_Ensemble_Descriptors.ipynb
+  section: alzheimer
+  display_number: 33
+  title: "Ensemble Descriptors (Global Metrics)"
+- id: course-alzheimer-comparison-superposition
+  path: 01_Path_Alzheimer/34_Comparison_Superposition.ipynb
+  section: alzheimer
+  display_number: 34
+  title: "Comparison & Superposition"
+- id: course-alzheimer-principal-components
+  path: 01_Path_Alzheimer/35_Principal_Components.ipynb
+  section: alzheimer
+  display_number: 35
+  title: "Principal Components (PCA) & Axes"
+- id: course-alzheimer-secondary-structure
+  path: 01_Path_Alzheimer/36_Secondary_Structure.ipynb
+  section: alzheimer
+  display_number: 36
+  title: "Secondary Structure & Folds"
+- id: course-alzheimer-interaction-networks
+  path: 01_Path_Alzheimer/37_Interaction_Networks.ipynb
+  section: alzheimer
+  display_number: 37
+  title: "Hydrogen Bonds & Salt Bridges"
+- id: course-alzheimer-advanced-hbonds
+  path: 01_Path_Alzheimer/38_Advanced_HBonds.ipynb
+  section: alzheimer
+  display_number: 38
+  title: "Advanced H-Bond Algorithms"
+- id: course-alzheimer-physicochemical-properties
+  path: 01_Path_Alzheimer/39_Physicochemical_Properties.ipynb
+  section: alzheimer
+  display_number: 39
+  title: "Physicochemical Properties"
+- id: course-alzheimer-pbc-geometry
+  path: 01_Path_Alzheimer/40_PBC_Geometry.ipynb
+  section: alzheimer
+  display_number: 40
+  title: "PBC Geometry & Conventions"
+- id: course-alzheimer-wrapping-unwrapping
+  path: 01_Path_Alzheimer/41_Wrapping_Unwrapping.ipynb
+  section: alzheimer
+  display_number: 41
+  title: "Wrapping & Unwrapping"
+- id: course-alzheimer-molecular-mechanics
+  path: 01_Path_Alzheimer/42_Molecular_Mechanics.ipynb
+  section: alzheimer
+  display_number: 42
+  title: "Molecular Mechanics (Energies)"
+- id: course-alzheimer-energy-minimization
+  path: 01_Path_Alzheimer/43_Energy_Minimization.ipynb
+  section: alzheimer
+  display_number: 43
+  title: "Energy Minimization"
+- id: course-alzheimer-amber-tleap
+  path: 01_Path_Alzheimer/44_AMBER_TLeap.ipynb
+  section: alzheimer
+  display_number: 44
+  title: "AMBER TLeap Integration"
+- id: course-alzheimer-openmm-integration
+  path: 01_Path_Alzheimer/45_OpenMM_Integration.ipynb
+  section: alzheimer
+  display_number: 45
+  title: "OpenMM Integration"
+- id: course-alzheimer-geometric-transformations
+  path: 01_Path_Alzheimer/46_Geometric_Transformations.ipynb
+  section: alzheimer
+  display_number: 46
+  title: "Geometric Transformations (Space)"
+- id: course-alzheimer-trajectory-management
+  path: 01_Path_Alzheimer/47_Trajectory_Management.ipynb
+  section: alzheimer
+  display_number: 47
+  title: "Trajectory Management (Slicing)"
+- id: course-alzheimer-scalability-heavy-trajectories
+  path: 01_Path_Alzheimer/48_Scalability_Heavy_Trajectories.ipynb
+  section: alzheimer
+  display_number: 48
+  title: "Scalability & Heavy Trajectories"
+- id: course-alzheimer-performance-optimization
+  path: 01_Path_Alzheimer/49_Performance_Optimization.ipynb
+  section: alzheimer
+  display_number: 49
+  title: "Performance Optimization"
+- id: course-alzheimer-virtual-forms
+  path: 01_Path_Alzheimer/50_Virtual_Forms.ipynb
+  section: alzheimer
+  display_number: 50
+  title: "Virtual Forms & Memory I/O"
+- id: course-alzheimer-custom-functions
+  path: 01_Path_Alzheimer/51_Custom_Functions.ipynb
+  section: alzheimer
+  display_number: 51
+  title: "Writing Your Own Form-Agnostic Functions"
+- id: course-alzheimer-framework-reliability
+  path: 01_Path_Alzheimer/52_Framework_Reliability.ipynb
+  section: alzheimer
+  display_number: 52
+  title: "Framework Reliability & SMonitor"
+- id: course-alzheimer-capability-matrix
+  path: 01_Path_Alzheimer/53_Capability_Matrix.ipynb
+  section: alzheimer
+  display_number: 53
+  title: "Capability Matrix & Config"
+- id: course-alzheimer-final-project
+  path: 01_Path_Alzheimer/54_Final_Project.ipynb
+  section: alzheimer
+  display_number: 54
+  title: "Final Project: From Sequence to Analysis"
+- id: course-enzyme-surgical-extraction
+  path: 02_Path_Enzyme/21_Surgical_Extraction.ipynb
+  section: enzyme
+  display_number: 21
+  title: "Surgical Extraction & Deletion"
+- id: course-enzyme-structural-auditing
+  path: 02_Path_Enzyme/22_Structural_Auditing.ipynb
+  section: enzyme
+  display_number: 22
+  title: "Structural Auditing (Diagnostics)"
+- id: course-enzyme-structural-repair
+  path: 02_Path_Enzyme/23_Structural_Repair.ipynb
+  section: enzyme
+  display_number: 23
+  title: "Structural Repair & Mutagenesis"
+- id: course-enzyme-peptide-synthesis
+  path: 02_Path_Enzyme/24_Peptide_Synthesis.ipynb
+  section: enzyme
+  display_number: 24
+  title: "Peptide Synthesis"
+- id: course-enzyme-solvation-engineering
+  path: 02_Path_Enzyme/25_Solvation_Engineering.ipynb
+  section: enzyme
+  display_number: 25
+  title: "Solvation & Ion Engineering"
+- id: course-enzyme-attribute-engineering
+  path: 02_Path_Enzyme/26_Attribute_Engineering.ipynb
+  section: enzyme
+  display_number: 26
+  title: "Attribute Engineering (Patching)"
+- id: course-enzyme-conformational-engineering
+  path: 02_Path_Enzyme/27_Conformational_Engineering.ipynb
+  section: enzyme
+  display_number: 27
+  title: "Conformational Engineering"
+- id: course-enzyme-molsysbuilder
+  path: 02_Path_Enzyme/28_MolSysBuilder.ipynb
+  section: enzyme
+  display_number: 28
+  title: "The MolSysBuilder API"
+- id: course-enzyme-pdb-frontier
+  path: 02_Path_Enzyme/29_PDB_Frontier.ipynb
+  section: enzyme
+  display_number: 29
+  title: "PDB Bioassemblies & AltLocs"
+- id: course-enzyme-geometrical-measurements
+  path: 02_Path_Enzyme/30_Geometrical_Measurements.ipynb
+  section: enzyme
+  display_number: 30
+  title: "Geometrical Measurements"
+- id: course-enzyme-proximity-neighborhoods
+  path: 02_Path_Enzyme/31_Proximity_Neighborhoods.ipynb
+  section: enzyme
+  display_number: 31
+  title: "Proximity & Neighborhoods"
+- id: course-enzyme-interaction-matrices
+  path: 02_Path_Enzyme/32_Interaction_Matrices.ipynb
+  section: enzyme
+  display_number: 32
+  title: "Visualizing Interaction Matrices"
+- id: course-enzyme-ensemble-descriptors
+  path: 02_Path_Enzyme/33_Ensemble_Descriptors.ipynb
+  section: enzyme
+  display_number: 33
+  title: "Ensemble Descriptors (Global Metrics)"
+- id: course-enzyme-comparison-superposition
+  path: 02_Path_Enzyme/34_Comparison_Superposition.ipynb
+  section: enzyme
+  display_number: 34
+  title: "Comparison & Superposition"
+- id: course-enzyme-principal-components
+  path: 02_Path_Enzyme/35_Principal_Components.ipynb
+  section: enzyme
+  display_number: 35
+  title: "Principal Components (PCA) & Axes"
+- id: course-enzyme-secondary-structure
+  path: 02_Path_Enzyme/36_Secondary_Structure.ipynb
+  section: enzyme
+  display_number: 36
+  title: "Secondary Structure & Folds"
+- id: course-enzyme-interaction-networks
+  path: 02_Path_Enzyme/37_Interaction_Networks.ipynb
+  section: enzyme
+  display_number: 37
+  title: "Hydrogen Bonds & Salt Bridges"
+- id: course-enzyme-advanced-hbonds
+  path: 02_Path_Enzyme/38_Advanced_HBonds.ipynb
+  section: enzyme
+  display_number: 38
+  title: "Advanced H-Bond Algorithms"
+- id: course-enzyme-physicochemical-properties
+  path: 02_Path_Enzyme/39_Physicochemical_Properties.ipynb
+  section: enzyme
+  display_number: 39
+  title: "Physicochemical Properties"
+- id: course-enzyme-pbc-geometry
+  path: 02_Path_Enzyme/40_PBC_Geometry.ipynb
+  section: enzyme
+  display_number: 40
+  title: "PBC Geometry & Conventions"
+- id: course-enzyme-wrapping-unwrapping
+  path: 02_Path_Enzyme/41_Wrapping_Unwrapping.ipynb
+  section: enzyme
+  display_number: 41
+  title: "Wrapping & Unwrapping"
+- id: course-enzyme-molecular-mechanics
+  path: 02_Path_Enzyme/42_Molecular_Mechanics.ipynb
+  section: enzyme
+  display_number: 42
+  title: "Molecular Mechanics (Energies)"
+- id: course-enzyme-energy-minimization
+  path: 02_Path_Enzyme/43_Energy_Minimization.ipynb
+  section: enzyme
+  display_number: 43
+  title: "Energy Minimization"
+- id: course-enzyme-amber-tleap
+  path: 02_Path_Enzyme/44_AMBER_TLeap.ipynb
+  section: enzyme
+  display_number: 44
+  title: "AMBER TLeap Integration"
+- id: course-enzyme-openmm-integration
+  path: 02_Path_Enzyme/45_OpenMM_Integration.ipynb
+  section: enzyme
+  display_number: 45
+  title: "OpenMM Integration"
+- id: course-enzyme-geometric-transformations
+  path: 02_Path_Enzyme/46_Geometric_Transformations.ipynb
+  section: enzyme
+  display_number: 46
+  title: "Geometric Transformations (Space)"
+- id: course-enzyme-trajectory-management
+  path: 02_Path_Enzyme/47_Trajectory_Management.ipynb
+  section: enzyme
+  display_number: 47
+  title: "Trajectory Management (Slicing)"
+- id: course-enzyme-scalability-heavy-trajectories
+  path: 02_Path_Enzyme/48_Scalability_Heavy_Trajectories.ipynb
+  section: enzyme
+  display_number: 48
+  title: "Scalability & Heavy Trajectories"
+- id: course-enzyme-performance-optimization
+  path: 02_Path_Enzyme/49_Performance_Optimization.ipynb
+  section: enzyme
+  display_number: 49
+  title: "Performance Optimization"
+- id: course-enzyme-virtual-forms
+  path: 02_Path_Enzyme/50_Virtual_Forms.ipynb
+  section: enzyme
+  display_number: 50
+  title: "Virtual Forms & Memory I/O"
+- id: course-enzyme-custom-functions
+  path: 02_Path_Enzyme/51_Custom_Functions.ipynb
+  section: enzyme
+  display_number: 51
+  title: "Writing Your Own Form-Agnostic Functions"
+- id: course-enzyme-framework-reliability
+  path: 02_Path_Enzyme/52_Framework_Reliability.ipynb
+  section: enzyme
+  display_number: 52
+  title: "Framework Reliability & SMonitor"
+- id: course-enzyme-capability-matrix
+  path: 02_Path_Enzyme/53_Capability_Matrix.ipynb
+  section: enzyme
+  display_number: 53
+  title: "Capability Matrix & Config"
+- id: course-enzyme-final-project
+  path: 02_Path_Enzyme/54_Final_Project.ipynb
+  section: enzyme
+  display_number: 54
+  title: "Final Project: Rational Enzyme Engineering"
+- id: course-antiviral-surgical-extraction
+  path: 03_Path_Antiviral/21_Surgical_Extraction.ipynb
+  section: antiviral
+  display_number: 21
+  title: "Surgical Extraction & Deletion"
+- id: course-antiviral-structural-auditing
+  path: 03_Path_Antiviral/22_Structural_Auditing.ipynb
+  section: antiviral
+  display_number: 22
+  title: "Structural Auditing (Diagnostics)"
+- id: course-antiviral-structural-repair
+  path: 03_Path_Antiviral/23_Structural_Repair.ipynb
+  section: antiviral
+  display_number: 23
+  title: "Structural Repair & Mutagenesis"
+- id: course-antiviral-peptide-synthesis
+  path: 03_Path_Antiviral/24_Peptide_Synthesis.ipynb
+  section: antiviral
+  display_number: 24
+  title: "Peptide Synthesis"
+- id: course-antiviral-solvation-engineering
+  path: 03_Path_Antiviral/25_Solvation_Engineering.ipynb
+  section: antiviral
+  display_number: 25
+  title: "Solvation & Ion Engineering"
+- id: course-antiviral-attribute-engineering
+  path: 03_Path_Antiviral/26_Attribute_Engineering.ipynb
+  section: antiviral
+  display_number: 26
+  title: "Attribute Engineering (Patching)"
+- id: course-antiviral-conformational-engineering
+  path: 03_Path_Antiviral/27_Conformational_Engineering.ipynb
+  section: antiviral
+  display_number: 27
+  title: "Conformational Engineering"
+- id: course-antiviral-molsysbuilder
+  path: 03_Path_Antiviral/28_MolSysBuilder.ipynb
+  section: antiviral
+  display_number: 28
+  title: "The MolSysBuilder API"
+- id: course-antiviral-pdb-frontier
+  path: 03_Path_Antiviral/29_PDB_Frontier.ipynb
+  section: antiviral
+  display_number: 29
+  title: "PDB Bioassemblies & AltLocs"
+- id: course-antiviral-geometrical-measurements
+  path: 03_Path_Antiviral/30_Geometrical_Measurements.ipynb
+  section: antiviral
+  display_number: 30
+  title: "Geometrical Measurements"
+- id: course-antiviral-proximity-neighborhoods
+  path: 03_Path_Antiviral/31_Proximity_Neighborhoods.ipynb
+  section: antiviral
+  display_number: 31
+  title: "Proximity & Neighborhoods"
+- id: course-antiviral-interaction-matrices
+  path: 03_Path_Antiviral/32_Interaction_Matrices.ipynb
+  section: antiviral
+  display_number: 32
+  title: "Visualizing Interaction Matrices"
+- id: course-antiviral-ensemble-descriptors
+  path: 03_Path_Antiviral/33_Ensemble_Descriptors.ipynb
+  section: antiviral
+  display_number: 33
+  title: "Ensemble Descriptors (Global Metrics)"
+- id: course-antiviral-comparison-superposition
+  path: 03_Path_Antiviral/34_Comparison_Superposition.ipynb
+  section: antiviral
+  display_number: 34
+  title: "Comparison & Superposition"
+- id: course-antiviral-principal-components
+  path: 03_Path_Antiviral/35_Principal_Components.ipynb
+  section: antiviral
+  display_number: 35
+  title: "Principal Components (PCA) & Axes"
+- id: course-antiviral-secondary-structure
+  path: 03_Path_Antiviral/36_Secondary_Structure.ipynb
+  section: antiviral
+  display_number: 36
+  title: "Secondary Structure & Folds"
+- id: course-antiviral-interaction-networks
+  path: 03_Path_Antiviral/37_Interaction_Networks.ipynb
+  section: antiviral
+  display_number: 37
+  title: "Hydrogen Bonds & Salt Bridges"
+- id: course-antiviral-advanced-hbonds
+  path: 03_Path_Antiviral/38_Advanced_HBonds.ipynb
+  section: antiviral
+  display_number: 38
+  title: "Advanced H-Bond Algorithms"
+- id: course-antiviral-physicochemical-properties
+  path: 03_Path_Antiviral/39_Physicochemical_Properties.ipynb
+  section: antiviral
+  display_number: 39
+  title: "Physicochemical Properties"
+- id: course-antiviral-pbc-geometry
+  path: 03_Path_Antiviral/40_PBC_Geometry.ipynb
+  section: antiviral
+  display_number: 40
+  title: "PBC Geometry & Conventions"
+- id: course-antiviral-wrapping-unwrapping
+  path: 03_Path_Antiviral/41_Wrapping_Unwrapping.ipynb
+  section: antiviral
+  display_number: 41
+  title: "Wrapping & Unwrapping"
+- id: course-antiviral-molecular-mechanics
+  path: 03_Path_Antiviral/42_Molecular_Mechanics.ipynb
+  section: antiviral
+  display_number: 42
+  title: "Molecular Mechanics (Energies)"
+- id: course-antiviral-energy-minimization
+  path: 03_Path_Antiviral/43_Energy_Minimization.ipynb
+  section: antiviral
+  display_number: 43
+  title: "Energy Minimization"
+- id: course-antiviral-amber-tleap
+  path: 03_Path_Antiviral/44_AMBER_TLeap.ipynb
+  section: antiviral
+  display_number: 44
+  title: "AMBER TLeap Integration"
+- id: course-antiviral-openmm-integration
+  path: 03_Path_Antiviral/45_OpenMM_Integration.ipynb
+  section: antiviral
+  display_number: 45
+  title: "OpenMM Integration"
+- id: course-antiviral-geometric-transformations
+  path: 03_Path_Antiviral/46_Geometric_Transformations.ipynb
+  section: antiviral
+  display_number: 46
+  title: "Geometric Transformations (Space)"
+- id: course-antiviral-trajectory-management
+  path: 03_Path_Antiviral/47_Trajectory_Management.ipynb
+  section: antiviral
+  display_number: 47
+  title: "Trajectory Management (Slicing)"
+- id: course-antiviral-scalability-heavy-trajectories
+  path: 03_Path_Antiviral/48_Scalability_Heavy_Trajectories.ipynb
+  section: antiviral
+  display_number: 48
+  title: "Scalability & Heavy Trajectories"
+- id: course-antiviral-performance-optimization
+  path: 03_Path_Antiviral/49_Performance_Optimization.ipynb
+  section: antiviral
+  display_number: 49
+  title: "Performance Optimization"
+- id: course-antiviral-virtual-forms
+  path: 03_Path_Antiviral/50_Virtual_Forms.ipynb
+  section: antiviral
+  display_number: 50
+  title: "Virtual Forms & Memory I/O"
+- id: course-antiviral-custom-functions
+  path: 03_Path_Antiviral/51_Custom_Functions.ipynb
+  section: antiviral
+  display_number: 51
+  title: "Writing Your Own Form-Agnostic Functions"
+- id: course-antiviral-framework-reliability
+  path: 03_Path_Antiviral/52_Framework_Reliability.ipynb
+  section: antiviral
+  display_number: 52
+  title: "Framework Reliability & SMonitor"
+- id: course-antiviral-capability-matrix
+  path: 03_Path_Antiviral/53_Capability_Matrix.ipynb
+  section: antiviral
+  display_number: 53
+  title: "Capability Matrix & Config"
+- id: course-antiviral-final-project
+  path: 03_Path_Antiviral/54_Final_Project.ipynb
+  section: antiviral
+  display_number: 54
+  title: "Final Project: Antiviral Drug Hunter"
+- id: course-biophysics-surgical-extraction
+  path: 04_Path_Biophysics/21_Surgical_Extraction.ipynb
+  section: biophysics
+  display_number: 21
+  title: "Surgical Extraction & Deletion"
+- id: course-biophysics-structural-auditing
+  path: 04_Path_Biophysics/22_Structural_Auditing.ipynb
+  section: biophysics
+  display_number: 22
+  title: "Structural Auditing (Diagnostics)"
+- id: course-biophysics-structural-repair
+  path: 04_Path_Biophysics/23_Structural_Repair.ipynb
+  section: biophysics
+  display_number: 23
+  title: "Structural Repair & Mutagenesis"
+- id: course-biophysics-peptide-synthesis
+  path: 04_Path_Biophysics/24_Peptide_Synthesis.ipynb
+  section: biophysics
+  display_number: 24
+  title: "Peptide Synthesis"
+- id: course-biophysics-solvation-engineering
+  path: 04_Path_Biophysics/25_Solvation_Engineering.ipynb
+  section: biophysics
+  display_number: 25
+  title: "Solvation & Ion Engineering"
+- id: course-biophysics-attribute-engineering
+  path: 04_Path_Biophysics/26_Attribute_Engineering.ipynb
+  section: biophysics
+  display_number: 26
+  title: "Attribute Engineering (Patching)"
+- id: course-biophysics-conformational-engineering
+  path: 04_Path_Biophysics/27_Conformational_Engineering.ipynb
+  section: biophysics
+  display_number: 27
+  title: "Conformational Engineering"
+- id: course-biophysics-molsysbuilder
+  path: 04_Path_Biophysics/28_MolSysBuilder.ipynb
+  section: biophysics
+  display_number: 28
+  title: "The MolSysBuilder API"
+- id: course-biophysics-pdb-frontier
+  path: 04_Path_Biophysics/29_PDB_Frontier.ipynb
+  section: biophysics
+  display_number: 29
+  title: "PDB Bioassemblies & AltLocs"
+- id: course-biophysics-geometrical-measurements
+  path: 04_Path_Biophysics/30_Geometrical_Measurements.ipynb
+  section: biophysics
+  display_number: 30
+  title: "Geometrical Measurements"
+- id: course-biophysics-proximity-neighborhoods
+  path: 04_Path_Biophysics/31_Proximity_Neighborhoods.ipynb
+  section: biophysics
+  display_number: 31
+  title: "Proximity & Neighborhoods"
+- id: course-biophysics-interaction-matrices
+  path: 04_Path_Biophysics/32_Interaction_Matrices.ipynb
+  section: biophysics
+  display_number: 32
+  title: "Visualizing Interaction Matrices"
+- id: course-biophysics-ensemble-descriptors
+  path: 04_Path_Biophysics/33_Ensemble_Descriptors.ipynb
+  section: biophysics
+  display_number: 33
+  title: "Ensemble Descriptors (Global Metrics)"
+- id: course-biophysics-comparison-superposition
+  path: 04_Path_Biophysics/34_Comparison_Superposition.ipynb
+  section: biophysics
+  display_number: 34
+  title: "Comparison & Superposition"
+- id: course-biophysics-principal-components
+  path: 04_Path_Biophysics/35_Principal_Components.ipynb
+  section: biophysics
+  display_number: 35
+  title: "Principal Components (PCA) & Axes"
+- id: course-biophysics-secondary-structure
+  path: 04_Path_Biophysics/36_Secondary_Structure.ipynb
+  section: biophysics
+  display_number: 36
+  title: "Secondary Structure & Folds"
+- id: course-biophysics-interaction-networks
+  path: 04_Path_Biophysics/37_Interaction_Networks.ipynb
+  section: biophysics
+  display_number: 37
+  title: "Hydrogen Bonds & Salt Bridges"
+- id: course-biophysics-advanced-hbonds
+  path: 04_Path_Biophysics/38_Advanced_HBonds.ipynb
+  section: biophysics
+  display_number: 38
+  title: "Advanced H-Bond Algorithms"
+- id: course-biophysics-physicochemical-properties
+  path: 04_Path_Biophysics/39_Physicochemical_Properties.ipynb
+  section: biophysics
+  display_number: 39
+  title: "Physicochemical Properties"
+- id: course-biophysics-pbc-geometry
+  path: 04_Path_Biophysics/40_PBC_Geometry.ipynb
+  section: biophysics
+  display_number: 40
+  title: "PBC Geometry & Conventions"
+- id: course-biophysics-wrapping-unwrapping
+  path: 04_Path_Biophysics/41_Wrapping_Unwrapping.ipynb
+  section: biophysics
+  display_number: 41
+  title: "Wrapping & Unwrapping"
+- id: course-biophysics-molecular-mechanics
+  path: 04_Path_Biophysics/42_Molecular_Mechanics.ipynb
+  section: biophysics
+  display_number: 42
+  title: "Molecular Mechanics (Energies)"
+- id: course-biophysics-energy-minimization
+  path: 04_Path_Biophysics/43_Energy_Minimization.ipynb
+  section: biophysics
+  display_number: 43
+  title: "Energy Minimization"
+- id: course-biophysics-amber-tleap
+  path: 04_Path_Biophysics/44_AMBER_TLeap.ipynb
+  section: biophysics
+  display_number: 44
+  title: "AMBER TLeap Integration"
+- id: course-biophysics-openmm-integration
+  path: 04_Path_Biophysics/45_OpenMM_Integration.ipynb
+  section: biophysics
+  display_number: 45
+  title: "OpenMM Integration"
+- id: course-biophysics-geometric-transformations
+  path: 04_Path_Biophysics/46_Geometric_Transformations.ipynb
+  section: biophysics
+  display_number: 46
+  title: "Geometric Transformations (Space)"
+- id: course-biophysics-trajectory-management
+  path: 04_Path_Biophysics/47_Trajectory_Management.ipynb
+  section: biophysics
+  display_number: 47
+  title: "Trajectory Management (Slicing)"
+- id: course-biophysics-scalability-heavy-trajectories
+  path: 04_Path_Biophysics/48_Scalability_Heavy_Trajectories.ipynb
+  section: biophysics
+  display_number: 48
+  title: "Scalability & Heavy Trajectories"
+- id: course-biophysics-performance-optimization
+  path: 04_Path_Biophysics/49_Performance_Optimization.ipynb
+  section: biophysics
+  display_number: 49
+  title: "Performance Optimization"
+- id: course-biophysics-virtual-forms
+  path: 04_Path_Biophysics/50_Virtual_Forms.ipynb
+  section: biophysics
+  display_number: 50
+  title: "Virtual Forms & Memory I/O"
+- id: course-biophysics-custom-functions
+  path: 04_Path_Biophysics/51_Custom_Functions.ipynb
+  section: biophysics
+  display_number: 51
+  title: "Writing Your Own Form-Agnostic Functions"
+- id: course-biophysics-framework-reliability
+  path: 04_Path_Biophysics/52_Framework_Reliability.ipynb
+  section: biophysics
+  display_number: 52
+  title: "Framework Reliability & SMonitor"
+- id: course-biophysics-capability-matrix
+  path: 04_Path_Biophysics/53_Capability_Matrix.ipynb
+  section: biophysics
+  display_number: 53
+  title: "Capability Matrix & Config"
+- id: course-biophysics-final-project
+  path: 04_Path_Biophysics/54_Final_Project.ipynb
+  section: biophysics
+  display_number: 54
+  title: "Final Project: Computational Biophysics of Ion Permeation"

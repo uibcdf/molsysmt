@@ -1,6 +1,6 @@
 # The Four Paths of the MolSysMT's Master
 
-Welcome to the definitive curriculum for **Computational Structural Biology** and **Molecular Systems Engineering** using MolSysMT. This course is not just a tutorial; it is a 50-module odyssey designed to transform you into a master of molecular models.
+Welcome to the definitive curriculum for **Computational Structural Biology** and **Molecular Systems Engineering** using MolSysMT. This course is not just a tutorial; it is a 54-module odyssey designed to transform you into a master of molecular models.
 
 ---
 
@@ -17,7 +17,7 @@ The curriculum is organized into 6 operational phases that follow a **spiral lea
 
 ---
 
-## 🏗️ The Common Core (Modules 1-16)
+## 🏗️ The Common Core (Modules 1-20)
 
 Every Master begins their journey in the **Common Core**. Here, you will use the **T4 Lysozyme (PDB 181L)** as your primary training system. 
 
@@ -25,7 +25,7 @@ Through this classic model, you will learn the universal language of MolSysMT: S
 
 ---
 
-## 🛣️ Choose Your Path (Modules 17-50)
+## 🛣️ Choose Your Path (Modules 21-54)
 
 Upon mastering the foundations, you must select one of the **Four Specialized Paths** to complete your training:
 
