@@ -1,6 +1,9 @@
 # Triclinic cell-list completeness (Rust neighbour list and cell-list SASA)
 
-**Status:** evidence-based task (2026-07-25), pending implementation.
+**Status:** **RESOLVED (2026-07-25)** — implemented in `neighbors.rs` and `sasa.rs`.
+The Rust cell list and cell-list SASA are now correct on triclinic boxes, validated against
+an all-pairs ±2 ground truth (neighbour list) and the brute-force SASA (0 difference) on
+mild and heavily-skewed boxes. Kept for the record of the diagnosis and fix.
 **Relates to:** `rust_kernel_redesign_beyond_faithful_ports.md`,
 `wrap_to_mic_triclinic_not_minimum_image.md`.
 **Crate:** `experiments/rust_kernels/src/neighbors.rs`, `src/sasa.rs`.
@@ -62,3 +65,25 @@ own change and validation. Until then the grid kernels keep their committed beha
 **Scope note:** for MD-normal boxes (tilt within the OpenMM/LAMMPS reduction limit and
 `cutoff < L/2`), the grid is already complete; this bites only skewed boxes read from
 non-reduced input. Reducing the input box on load (as OpenMM/LAMMPS do) would also avoid it.
+
+
+## Resolution
+
+Three fixes made the grid kernels correct on triclinic (and small) boxes:
+
+1. **Perpendicular-thickness grid sizing** (`grid_dims`): cells sized by `V/|b_j×b_k|`, not
+   the box-vector lengths, so a ±1 stencil covers the cutoff on a skewed box.
+2. **Correct lattice fractional binning**: `cell()` uses `inv^T · p` (the true fractional
+   coordinate), not `inv · p`, which only agrees for orthogonal boxes and mis-binned
+   triclinic ones so the ±1 stencil no longer matched spatial ±1. This was the dominant
+   error (the perpendicular sizing alone left the misses).
+3. **Reduced-cell minimum image** for the candidate distance (`mic::mic_vector`), so a
+   gathered candidate gets its true minimum-image distance rather than the single centred
+   wrap.
+
+Plus a `n<3` fix (`axis_cells`): on a box smaller than 3× the cutoff the ±1 periodic
+stencil revisited cells and double-counted; the stencil now visits each cell once.
+
+Cost: the triclinic neighbour list is ~1.7× the orthogonal one (the 8-corner reduced wrap
+per candidate); orthogonal is unchanged. Correctness first; the wrap could be shortened
+later with an early-exit around the centred round.

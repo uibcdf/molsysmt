@@ -48,10 +48,15 @@ def test_mic_sasa_cell_list(box, ns):
     """
     coords, radii, sphere, cutoff = _setup(ns, 250)
     b = np.repeat(box, ns, axis=0)
-    nb = rb.get_mic_sasa_cell_list(coords, b, radii, sphere, PROBE, cutoff, backend="numba")
     rs = rb.get_mic_sasa_cell_list(coords, b, radii, sphere, PROBE, cutoff, backend="rust")
-    assert nb.shape == (ns, 250)
-    assert np.allclose(nb, rs, atol=1e-9)
+    assert rs.shape == (ns, 250)
+    # The property that matters: the cell-list SASA must equal the brute-force SASA (the
+    # O(N^2) reference that checks every atom). This holds exactly on both orthogonal and
+    # triclinic boxes now that the cell list uses the reduced-cell minimum image and the
+    # perpendicular-thickness grid. Numba is not a valid oracle here on triclinic boxes:
+    # its cell list mis-bins the skewed grid (see triclinic_cell_list_completeness.md).
+    brute = rb.get_mic_sasa(coords, b, radii, sphere, PROBE, backend="rust")
+    assert np.allclose(rs, brute, atol=1e-9), "cell-list SASA disagrees with brute force"
 
 
 def test_zero_radius_atoms_are_zero_in_both():

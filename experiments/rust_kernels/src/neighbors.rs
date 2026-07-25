@@ -1,12 +1,15 @@
 //! Rusterized multi-structure CSR neighbour list.
 //!
-//! Faithful port of `molsysmt.lib.structure.neighbor_list.neighbor_list_csr_multi`
-//! (the hot kernel behind get_contacts and get_neighbors). Same algorithm and MIC
-//! convention as the Numba oracle (full inverse + nearest-image fractional round; no
-//! 27-image search), so results are bit-for-bit identical. The parallelism (rayon
-//! over the flattened work, GIL released) is a structure-level change that does not
-//! affect the result: each query atom is gathered independently and the flat CSR is
-//! assembled in work order.
+//! Multi-structure CSR neighbour list (the hot kernel behind get_contacts and
+//! get_neighbors), parallel over the flattened work with the GIL released.
+//!
+//! **Correct on triclinic boxes**, unlike the Numba original it was ported from. Three
+//! things make it so: the grid is sized by the *perpendicular* distance between cell faces
+//! (so the +-1 stencil covers the cutoff on a skewed box), cells are binned by the true
+//! lattice fractional coordinate `inv^T . p` (not `inv . p`, which only agrees for
+//! orthogonal boxes), and the distance is the reduced-cell minimum image (`mic::mic_vector`,
+//! correct where the single centred wrap is not). Validated against an all-pairs +-2
+//! ground truth; on orthogonal boxes it stays bit-for-bit with Numba.
 
 use numpy::ndarray::ArrayView3;
 use numpy::{IntoPyArray, PyArray1, PyReadonlyArray3};
@@ -17,32 +20,54 @@ use rayon::prelude::*;
 
 type Mat3 = [[f64; 3]; 3];
 
+#[cfg(test)]
 fn is_orthogonal(b: &Mat3) -> bool {
     let tol = 1e-10;
     b[0][1].abs() < tol && b[0][2].abs() < tol && b[1][0].abs() < tol
         && b[1][2].abs() < tol && b[2][0].abs() < tol && b[2][1].abs() < tol
 }
 
-/// Matches neighbor_list._mic_wrap_vector.
-fn mic_wrap(dx: f64, dy: f64, dz: f64, b: &Mat3, inv: &Mat3, ortho: bool) -> (f64, f64, f64) {
-    if ortho {
-        (
-            dx - b[0][0] * (dx / b[0][0] + 0.5).floor(),
-            dy - b[1][1] * (dy / b[1][1] + 0.5).floor(),
-            dz - b[2][2] * (dz / b[2][2] + 0.5).floor(),
-        )
+/// Minimum-image displacement via the unified reduced-cell mechanism (`mic::mic_vector`),
+/// so the distance is the true minimum image even on skewed boxes. `cell`/`inv` are the
+/// reduced wrap cell + inverse from `prep_dist`.
+fn mic_wrap(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3, ortho: bool) -> (f64, f64, f64) {
+    let w = crate::mic::mic_vector([dx, dy, dz], cell, inv, ortho);
+    (w[0], w[1], w[2])
+}
+
+/// Grid cell counts sized by the **perpendicular** distance between opposite cell faces
+/// (`V / |b_j × b_k|`), not the box-vector lengths. This is what makes the ±1 fractional
+/// stencil sufficient on a triclinic box: with each cell at least `cutoff` thick
+/// perpendicular, every atom within `cutoff` of a query lies within ±1 cell per axis.
+/// Sizing by the vector lengths (the old code) makes cells too thin perpendicular on a
+/// skewed box, so the ±1 stencil misses candidates.
+fn grid_dims(b: &Mat3, cutoff: f64) -> (i64, i64, i64) {
+    let cross = |u: &[f64; 3], v: &[f64; 3]| {
+        [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]
+    };
+    let norm = |v: [f64; 3]| (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).sqrt();
+    let vol = (b[0][0] * (b[1][1] * b[2][2] - b[1][2] * b[2][1])
+        - b[0][1] * (b[1][0] * b[2][2] - b[1][2] * b[2][0])
+        + b[0][2] * (b[1][0] * b[2][1] - b[1][1] * b[2][0]))
+        .abs();
+    let perp = |bc: [f64; 3]| if norm(bc) > 0.0 { vol / norm(bc) } else { cutoff };
+    (
+        ((perp(cross(&b[1], &b[2])) / cutoff).floor() as i64).max(1),
+        ((perp(cross(&b[0], &b[2])) / cutoff).floor() as i64).max(1),
+        ((perp(cross(&b[0], &b[1])) / cutoff).floor() as i64).max(1),
+    )
+}
+
+/// Unique periodic neighbour cells along one axis: the ±1 wrap for `n >= 3`, or all `n`
+/// cells (each once) for `n < 3`, avoiding the double-count a ±1 wrap causes on a small box.
+#[inline]
+pub(crate) fn axis_cells(c: i64, n: i64) -> ([i64; 3], usize) {
+    if n >= 3 {
+        ([(c - 1).rem_euclid(n), c.rem_euclid(n), (c + 1).rem_euclid(n)], 3)
+    } else if n == 2 {
+        ([0, 1, 0], 2)
     } else {
-        let mut sx = inv[0][0] * dx + inv[0][1] * dy + inv[0][2] * dz;
-        let mut sy = inv[1][0] * dx + inv[1][1] * dy + inv[1][2] * dz;
-        let mut sz = inv[2][0] * dx + inv[2][1] * dy + inv[2][2] * dz;
-        sx -= (sx + 0.5).floor();
-        sy -= (sy + 0.5).floor();
-        sz -= (sz + 0.5).floor();
-        (
-            b[0][0] * sx + b[0][1] * sy + b[0][2] * sz,
-            b[1][0] * sx + b[1][1] * sy + b[1][2] * sz,
-            b[2][0] * sx + b[2][1] * sy + b[2][2] * sz,
-        )
+        ([0, 0, 0], 1)
     }
 }
 
@@ -183,16 +208,21 @@ fn gather_v(g: &GridV, refc: &ArrayView3<f64>, s: usize, qx: f64, qy: f64, qz: f
 
 struct GridP {
     nx: i64, ny: i64, nz: i64,
-    b: Mat3, inv: Mat3, ortho: bool,
+    inv: Mat3, ortho: bool,     // inv: original-box inverse, for cell binning only
+    wcell: Mat3, winv: Mat3,    // reduced wrap cell + inverse, for the MIC distance
     head: Vec<i64>,
     nxt: Vec<i64>,
 }
 
 impl GridP {
     fn cell(&self, x: f64, y: f64, z: f64) -> (i64, i64, i64) {
-        let mut sx = self.inv[0][0] * x + self.inv[0][1] * y + self.inv[0][2] * z;
-        let mut sy = self.inv[1][0] * x + self.inv[1][1] * y + self.inv[1][2] * z;
-        let mut sz = self.inv[2][0] * x + self.inv[2][1] * y + self.inv[2][2] * z;
+        // Lattice fractional coordinates s = inv^T · p (columns of the inverse): position
+        // p = s · b with rows as lattice vectors, so s_j = sum_i p_i inv[i][j]. The old
+        // code used inv · p (rows), which agrees only for orthogonal boxes and mis-bins
+        // triclinic ones so the ±1 stencil no longer matches spatial ±1.
+        let mut sx = self.inv[0][0] * x + self.inv[1][0] * y + self.inv[2][0] * z;
+        let mut sy = self.inv[0][1] * x + self.inv[1][1] * y + self.inv[2][1] * z;
+        let mut sz = self.inv[0][2] * x + self.inv[1][2] * y + self.inv[2][2] * z;
         sx -= sx.floor(); sy -= sy.floor(); sz -= sz.floor();
         (
             (sx * self.nx as f64).floor() as i64 % self.nx,
@@ -209,11 +239,10 @@ fn build_grid_p(refc: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize, cutof
         [boxes[[s, 1, 0]], boxes[[s, 1, 1]], boxes[[s, 1, 2]]],
         [boxes[[s, 2, 0]], boxes[[s, 2, 1]], boxes[[s, 2, 2]]],
     ];
-    let nx = ((b[0][0] / cutoff).floor() as i64).max(1);
-    let ny = ((b[1][1] / cutoff).floor() as i64).max(1);
-    let nz = ((b[2][2] / cutoff).floor() as i64).max(1);
+    let (nx, ny, nz) = grid_dims(&b, cutoff);
+    let (ortho, wcell, winv) = crate::mic::prep_dist(&b);
     let mut g = GridP {
-        nx, ny, nz, b, inv: inv3(&b), ortho: is_orthogonal(&b),
+        nx, ny, nz, inv: inv3(&b), ortho, wcell, winv,
         head: vec![-1i64; (nx * ny * nz) as usize],
         nxt: vec![-1i64; nr],
     };
@@ -233,12 +262,16 @@ fn gather_p(g: &GridP, refc: &ArrayView3<f64>, s: usize, qx: f64, qy: f64, qz: f
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
     csq.clear();
-    for ox in (cx - 1)..(cx + 2) {
-        let wcx = (ox + g.nx) % g.nx;
-        for oy in (cy - 1)..(cy + 2) {
-            let wcy = (oy + g.ny) % g.ny;
-            for oz in (cz - 1)..(cz + 2) {
-                let wcz = (oz + g.nz) % g.nz;
+    // Each periodic axis is visited over its *unique* neighbour cells: the ±1 wrap for
+    // n >= 3, but all n cells (once each) for n < 3, where ±1 would revisit a cell and
+    // double-count. mic_wrap still selects the correct image for whichever cell an atom
+    // sits in, so visiting each cell once is complete.
+    let (xs, nxs) = axis_cells(cx, g.nx);
+    let (ys, nys) = axis_cells(cy, g.ny);
+    let (zs, nzs) = axis_cells(cz, g.nz);
+    for &wcx in &xs[..nxs] {
+        for &wcy in &ys[..nys] {
+            for &wcz in &zs[..nzs] {
                 let c = (wcx + g.nx * (wcy + g.ny * wcz)) as usize;
                 let mut j = g.head[c];
                 while j != -1 {
@@ -247,7 +280,7 @@ fn gather_p(g: &GridP, refc: &ArrayView3<f64>, s: usize, qx: f64, qy: f64, qz: f
                         let dx = refc[[s, ju, 0]] - qx;
                         let dy = refc[[s, ju, 1]] - qy;
                         let dz = refc[[s, ju, 2]] - qz;
-                        let (wx, wy, wz) = mic_wrap(dx, dy, dz, &g.b, &g.inv, g.ortho);
+                        let (wx, wy, wz) = mic_wrap(dx, dy, dz, &g.wcell, &g.winv, g.ortho);
                         let d2 = wx * wx + wy * wy + wz * wz;
                         if d2 <= cutoff_sq {
                             cand.push(j);

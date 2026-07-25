@@ -69,11 +69,10 @@ scientific-validation requirements.
   matrices, and PCA spends 76-93% of its time building the covariance rather than
   diagonalising it, so the useful property is fast BLAS, not a fast eigensolver.
   Recommends pure Rust (`nalgebra`, `faer`) over a BLAS system dependency.
-- `triclinic_cell_list_completeness.md` — the Rust cell list / cell-list SASA still miss
-  some true neighbours on skewed boxes: the reduced-cell wrap fixed the distances but the
-  grid's ±1 stencil does not gather all candidates. Measured (250 atoms, mild triclinic):
-  Rust 20 missing / 0 spurious vs Numba 78 missing / 82 spurious. Fix: grid on the reduced
-  cell, or a skew-aware stencil.
+- `triclinic_cell_list_completeness.md` — **RESOLVED**. The Rust cell list and cell-list
+  SASA are now correct on triclinic (and small) boxes: perpendicular-thickness grid sizing,
+  lattice fractional binning (`inv^T·p`), reduced-cell minimum image, and a unique-cell
+  stencil for n<3. Validated against an all-pairs ±2 ground truth and the brute-force SASA.
 - `rust_gpu_backend_options.md` — whether the Rust layer should also target the GPU.
   Recommendation: no, near-term — GPU stays on the existing Numba-CUDA/Taichi backends,
   orthogonal to the CPU numba/rust choice. If ever pursued, `wgpu` is the portable

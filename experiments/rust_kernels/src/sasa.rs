@@ -15,6 +15,10 @@
 //! max |diff| ~ 1.78e-15. So on orthogonal boxes this kernel is compared to the Numba
 //! oracle at scientific tolerance rather than bit-for-bit. Reported upstream in
 //! `devguide/pending_bugs/sasa_is_orthogonal_typo.md`.
+//!
+//! The cell-list SASA is correct on triclinic boxes (it equals the brute-force SASA
+//! exactly): reduced-cell minimum image, perpendicular-thickness grid, and lattice
+//! fractional binning `inv^T . p` — same fixes as the neighbour list.
 
 use numpy::ndarray::{Array2, ArrayView1, ArrayView2, ArrayView3};
 use numpy::{IntoPyArray, PyArray2, PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3};
@@ -27,46 +31,16 @@ type Mat3 = [[f64; 3]; 3];
 
 /// The check `get_sasa.py::_is_orthogonal` *intends* (upstream tests `b[2][2]`, a box
 /// length, which can never be below the tolerance — see the module docs).
+#[cfg(test)]
 fn is_orthogonal(b: &Mat3) -> bool {
     let tol = 1e-10;
     b[0][1].abs() < tol && b[0][2].abs() < tol && b[1][0].abs() < tol
         && b[1][2].abs() < tol && b[2][0].abs() < tol && b[2][1].abs() < tol
 }
 
-fn mic_wrap(dx: f64, dy: f64, dz: f64, b: &Mat3) -> (f64, f64, f64) {
-    if is_orthogonal(b) {
-        (
-            dx - b[0][0] * (dx / b[0][0] + 0.5).floor(),
-            dy - b[1][1] * (dy / b[1][1] + 0.5).floor(),
-            dz - b[2][2] * (dz / b[2][2] + 0.5).floor(),
-        )
-    } else {
-        let (b00, b01, b02) = (b[0][0], b[0][1], b[0][2]);
-        let (b10, b11, b12) = (b[1][0], b[1][1], b[1][2]);
-        let (b20, b21, b22) = (b[2][0], b[2][1], b[2][2]);
-        let det = b00 * (b11 * b22 - b12 * b21) - b01 * (b10 * b22 - b12 * b20)
-            + b02 * (b10 * b21 - b11 * b20);
-        let inv00 = (b11 * b22 - b12 * b21) / det;
-        let inv01 = (b02 * b21 - b01 * b22) / det;
-        let inv02 = (b01 * b12 - b02 * b11) / det;
-        let inv10 = (b12 * b20 - b10 * b22) / det;
-        let inv11 = (b00 * b22 - b02 * b20) / det;
-        let inv12 = (b02 * b10 - b00 * b12) / det;
-        let inv20 = (b10 * b21 - b11 * b20) / det;
-        let inv21 = (b01 * b20 - b00 * b21) / det;
-        let inv22 = (b00 * b11 - b01 * b10) / det;
-        let mut sx = inv00 * dx + inv01 * dy + inv02 * dz;
-        let mut sy = inv10 * dx + inv11 * dy + inv12 * dz;
-        let mut sz = inv20 * dx + inv21 * dy + inv22 * dz;
-        sx -= (sx + 0.5).floor();
-        sy -= (sy + 0.5).floor();
-        sz -= (sz + 0.5).floor();
-        (
-            b00 * sx + b01 * sy + b02 * sz,
-            b10 * sx + b11 * sy + b12 * sz,
-            b20 * sx + b21 * sy + b22 * sz,
-        )
-    }
+fn mic_wrap(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3, ortho: bool) -> (f64, f64, f64) {
+    let w = crate::mic::mic_vector([dx, dy, dz], cell, inv, ortho);
+    (w[0], w[1], w[2])
 }
 
 struct Grid {
@@ -119,20 +93,34 @@ fn build_grid(coords: &ArrayView3<f64>, s: usize, n_atoms: usize, cutoff: f64) -
     g
 }
 
+/// Grid cell counts sized by the perpendicular distance between opposite cell faces
+/// (`V/|b_j x b_k|`), so a +-1 fractional stencil covers the cutoff on triclinic boxes.
+fn grid_dims(b: &Mat3, cutoff: f64) -> (i64, i64, i64) {
+    let cross = |u: &[f64; 3], v: &[f64; 3]| [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+    let norm = |v: [f64; 3]| (v[0]*v[0]+v[1]*v[1]+v[2]*v[2]).sqrt();
+    let vol = (b[0][0]*(b[1][1]*b[2][2]-b[1][2]*b[2][1]) - b[0][1]*(b[1][0]*b[2][2]-b[1][2]*b[2][0])
+        + b[0][2]*(b[1][0]*b[2][1]-b[1][1]*b[2][0])).abs();
+    let perp = |bc: [f64;3]| if norm(bc) > 0.0 { vol/norm(bc) } else { cutoff };
+    (((perp(cross(&b[1],&b[2]))/cutoff).floor() as i64).max(1),
+     ((perp(cross(&b[0],&b[2]))/cutoff).floor() as i64).max(1),
+     ((perp(cross(&b[0],&b[1]))/cutoff).floor() as i64).max(1))
+}
+
 /// Periodic (fractional) grid, mirroring get_mic_sasa_cell_list: cells come from the
 /// box lengths and the 27-cell stencil wraps around.
 struct GridP {
     nx: i64, ny: i64, nz: i64,
-    b: Mat3, inv: Mat3,
+    inv: Mat3,               // original-box inverse, for cell binning only
+    wcell: Mat3, winv: Mat3, ortho: bool,   // reduced wrap cell, for the MIC distance
     head: Vec<i64>,
     nxt: Vec<i64>,
 }
 
 impl GridP {
     fn cell(&self, x: f64, y: f64, z: f64) -> (i64, i64, i64) {
-        let mut sx = self.inv[0][0] * x + self.inv[0][1] * y + self.inv[0][2] * z;
-        let mut sy = self.inv[1][0] * x + self.inv[1][1] * y + self.inv[1][2] * z;
-        let mut sz = self.inv[2][0] * x + self.inv[2][1] * y + self.inv[2][2] * z;
+        let mut sx = self.inv[0][0] * x + self.inv[1][0] * y + self.inv[2][0] * z;
+        let mut sy = self.inv[0][1] * x + self.inv[1][1] * y + self.inv[2][1] * z;
+        let mut sz = self.inv[0][2] * x + self.inv[1][2] * y + self.inv[2][2] * z;
         sx -= sx.floor(); sy -= sy.floor(); sz -= sz.floor();
         (
             (sx * self.nx as f64).floor() as i64 % self.nx,
@@ -149,11 +137,10 @@ fn build_grid_p(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize,
         [boxes[[s, 1, 0]], boxes[[s, 1, 1]], boxes[[s, 1, 2]]],
         [boxes[[s, 2, 0]], boxes[[s, 2, 1]], boxes[[s, 2, 2]]],
     ];
-    let nx = ((b[0][0] / cutoff).floor() as i64).max(1);
-    let ny = ((b[1][1] / cutoff).floor() as i64).max(1);
-    let nz = ((b[2][2] / cutoff).floor() as i64).max(1);
+    let (nx, ny, nz) = grid_dims(&b, cutoff);
+    let (ortho, wcell, winv) = crate::mic::prep_dist(&b);
     let mut g = GridP {
-        nx, ny, nz, b, inv: inv3(&b),
+        nx, ny, nz, inv: inv3(&b), wcell, winv, ortho,
         head: vec![-1i64; (nx * ny * nz) as usize],
         nxt: vec![-1i64; n_atoms],
     };
@@ -200,12 +187,14 @@ fn gather_p(g: &GridP, coords: &ArrayView3<f64>, s: usize, jj: usize,
             qx: f64, qy: f64, qz: f64, cutoff_sq: f64, cand: &mut Vec<i64>) {
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
-    for ox in (cx - 1)..(cx + 2) {
-        let wcx = (ox + g.nx) % g.nx;
-        for oy in (cy - 1)..(cy + 2) {
-            let wcy = (oy + g.ny) % g.ny;
-            for oz in (cz - 1)..(cz + 2) {
-                let wcz = (oz + g.nz) % g.nz;
+    // Unique periodic neighbour cells per axis (see neighbors::axis_cells): ±1 for n>=3,
+    // all cells once for n<3, so a small box does not gather a candidate twice.
+    let (xs, nxs) = crate::neighbors::axis_cells(cx, g.nx);
+    let (ys, nys) = crate::neighbors::axis_cells(cy, g.ny);
+    let (zs, nzs) = crate::neighbors::axis_cells(cz, g.nz);
+    for &wcx in &xs[..nxs] {
+        for &wcy in &ys[..nys] {
+            for &wcz in &zs[..nzs] {
                 let c = (wcx + g.nx * (wcy + g.ny * wcz)) as usize;
                 let mut j = g.head[c];
                 while j != -1 {
@@ -214,7 +203,7 @@ fn gather_p(g: &GridP, coords: &ArrayView3<f64>, s: usize, jj: usize,
                         let dx = coords[[s, ju, 0]] - qx;
                         let dy = coords[[s, ju, 1]] - qy;
                         let dz = coords[[s, ju, 2]] - qz;
-                        let (dx, dy, dz) = mic_wrap(dx, dy, dz, &g.b);
+                        let (dx, dy, dz) = mic_wrap(dx, dy, dz, &g.wcell, &g.winv, g.ortho);
                         if dx * dx + dy * dy + dz * dz <= cutoff_sq {
                             cand.push(j);
                         }
@@ -230,7 +219,7 @@ fn gather_p(g: &GridP, coords: &ArrayView3<f64>, s: usize, jj: usize,
 #[allow(clippy::too_many_arguments)]
 fn atom_sasa(coords: &ArrayView3<f64>, s: usize, _jj: usize, radii: &ArrayView1<f64>,
              sphere: &ArrayView2<f64>, probe: f64, r_i_ext: f64,
-             qx: f64, qy: f64, qz: f64, cand: &[i64], boxm: Option<&Mat3>) -> f64 {
+             qx: f64, qy: f64, qz: f64, cand: &[i64], boxm: Option<(&Mat3, &Mat3, bool)>) -> f64 {
     let n_points = sphere.shape()[0];
     let mut accessible = 0usize;
     for kk in 0..n_points {
@@ -249,7 +238,7 @@ fn atom_sasa(coords: &ArrayView3<f64>, s: usize, _jj: usize, radii: &ArrayView1<
             let dz = pz - coords[[s, ll, 2]];
             let (dx, dy, dz) = match boxm {
                 None => (dx, dy, dz),
-                Some(b) => mic_wrap(dx, dy, dz, b),
+                Some((cell, inv, ortho)) => mic_wrap(dx, dy, dz, cell, inv, ortho),
             };
             if dx * dx + dy * dy + dz * dz < r_l_ext * r_l_ext {
                 ok = false;
@@ -304,7 +293,7 @@ fn core_pbc(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, radii: &ArrayView
             let g = &grids[s];
             let (qx, qy, qz) = (coords[[s, jj, 0]], coords[[s, jj, 1]], coords[[s, jj, 2]]);
             gather_p(g, coords, s, jj, qx, qy, qz, cutoff_sq, cand);
-            atom_sasa(coords, s, jj, radii, sphere, probe, r_i_ext, qx, qy, qz, cand, Some(&g.b))
+            atom_sasa(coords, s, jj, radii, sphere, probe, r_i_ext, qx, qy, qz, cand, Some((&g.wcell, &g.winv, g.ortho)))
         })
         .collect()
 }
@@ -407,24 +396,7 @@ fn atom_sasa_bruteforce(
 /// Centred minimum-image wrap via the full inverse, matching `_mic_wrap_vector`.
 #[inline]
 fn mic_wrap_bruteforce(dx: f64, dy: f64, dz: f64, b: &Mat3, inv: &Mat3, ortho: bool) -> [f64; 3] {
-    if ortho {
-        return [
-            dx - b[0][0] * (dx / b[0][0] + 0.5).floor(),
-            dy - b[1][1] * (dy / b[1][1] + 0.5).floor(),
-            dz - b[2][2] * (dz / b[2][2] + 0.5).floor(),
-        ];
-    }
-    let mut sx = inv[0][0] * dx + inv[0][1] * dy + inv[0][2] * dz;
-    let mut sy = inv[1][0] * dx + inv[1][1] * dy + inv[1][2] * dz;
-    let mut sz = inv[2][0] * dx + inv[2][1] * dy + inv[2][2] * dz;
-    sx -= (sx + 0.5).floor();
-    sy -= (sy + 0.5).floor();
-    sz -= (sz + 0.5).floor();
-    [
-        b[0][0] * sx + b[0][1] * sy + b[0][2] * sz,
-        b[1][0] * sx + b[1][1] * sy + b[1][2] * sz,
-        b[2][0] * sx + b[2][1] * sy + b[2][2] * sz,
-    ]
+    crate::mic::mic_vector([dx, dy, dz], b, inv, ortho)
 }
 
 #[pyfunction]
@@ -470,8 +442,8 @@ pub fn get_mic_sasa<'py>(
                 [bx[[s, 1, 0]], bx[[s, 1, 1]], bx[[s, 1, 2]]],
                 [bx[[s, 2, 0]], bx[[s, 2, 1]], bx[[s, 2, 2]]],
             ];
-            let ortho = is_orthogonal(&b);
-            (b, if ortho { [[0.0; 3]; 3] } else { inv3(&b) }, ortho)
+            let (ortho, cell, inv) = crate::mic::prep_dist(&b);
+            (cell, inv, ortho)
         })
         .collect();
     let flat: Vec<f64> = py.allow_threads(|| {
@@ -515,7 +487,7 @@ mod tests {
 
     #[test]
     fn mic_wrap_returns_the_nearest_image() {
-        let (x, _, _) = mic_wrap(5.0, 0.0, 0.0, &ORTHO);
+        let (x, _, _) = mic_wrap(5.0, 0.0, 0.0, &ORTHO, &[[0.0;3];3], true);
         assert!((x - (-1.0)).abs() < 1e-12, "got {x}");
     }
 

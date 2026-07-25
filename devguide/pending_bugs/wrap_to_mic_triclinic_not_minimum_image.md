@@ -101,7 +101,8 @@ Related: `sasa_is_orthogonal_typo.md`, `dihedral_angles_broadcast_mismatch_pbc.m
 The Rust MIC now uses a reduced-cell minimum image (`mic::mic_vector`) on every wrap-based
 kernel — distances, angles, dihedrals, set/shift dihedral ops. On those paths the bug is
 fixed: the reduced cell finds the true minimum image (validated against a ±2 all-pairs
-ground truth), where the ±1 (27-image) search could miss a second-neighbour image. The
-grid-based cell list and cell-list SASA are **not** yet fixed — their triclinic
-incompleteness is in the grid gathering, not only the wrap — and are tracked in
-`pending_proposals/triclinic_cell_list_completeness.md`.
+ground truth), where the ±1 (27-image) search could miss a second-neighbour image. The grid-based cell list and cell-list SASA are **now also fixed** (perpendicular-thickness
+grid sizing + lattice fractional binning + reduced-cell wrap), validated against an all-pairs
+±2 ground truth and the brute-force SASA; see the resolved
+`pending_proposals/triclinic_cell_list_completeness.md`. The whole Rust MIC surface is now
+correct on triclinic boxes.
