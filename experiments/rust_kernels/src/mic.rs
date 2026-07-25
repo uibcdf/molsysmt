@@ -149,26 +149,33 @@ pub(crate) fn wrap_to_mic_vector_reduced(v: [f64; 3], red: &Mat3, inv: &Mat3) ->
         inv[0][1] * v[0] + inv[1][1] * v[1] + inv[2][1] * v[2],
         inv[0][2] * v[0] + inv[1][2] * v[1] + inv[2][2] * v[2],
     ];
-    let fl = [s[0].floor(), s[1].floor(), s[2].floor()];
-    let mut best = [0.0; 3];
-    let mut dmin = f64::INFINITY;
-    for a in 0..2 {
-        for b2 in 0..2 {
-            for c in 0..2 {
-                let n = [fl[0] + a as f64, fl[1] + b2 as f64, fl[2] + c as f64];
-                // residual r = red^T * (s - n)  (rows of `red` are the lattice vectors)
-                let ds = [s[0] - n[0], s[1] - n[1], s[2] - n[2]];
-                let r = [
-                    red[0][0] * ds[0] + red[1][0] * ds[1] + red[2][0] * ds[2],
-                    red[0][1] * ds[0] + red[1][1] * ds[1] + red[2][1] * ds[2],
-                    red[0][2] * ds[0] + red[1][2] * ds[1] + red[2][2] * ds[2],
-                ];
-                let dd = r[0] * r[0] + r[1] * r[1] + r[2] * r[2];
-                if dd < dmin {
-                    dmin = dd;
-                    best = r;
-                }
-            }
+    // The 8 candidates are the corners floor(s) + δ, δ ∈ {0,1}³, and the residual is
+    // r(δ) = red^T·(frac − δ) with frac = s − floor(s). Factor out the shared base
+    // `rf = red^T·frac`: each corner is then `rf` minus a subset of the lattice-vector
+    // rows, so the eight matrix–vector products collapse to one plus vector subtractions.
+    let frac = [s[0] - s[0].floor(), s[1] - s[1].floor(), s[2] - s[2].floor()];
+    let rf = [
+        red[0][0] * frac[0] + red[1][0] * frac[1] + red[2][0] * frac[2],
+        red[0][1] * frac[0] + red[1][1] * frac[1] + red[2][1] * frac[2],
+        red[0][2] * frac[0] + red[1][2] * frac[1] + red[2][2] * frac[2],
+    ];
+    let mut best = rf;
+    let mut dmin = rf[0] * rf[0] + rf[1] * rf[1] + rf[2] * rf[2];
+    for delta in 1u8..8 {
+        let mut r = rf;
+        if delta & 1 != 0 {
+            r = [r[0] - red[0][0], r[1] - red[0][1], r[2] - red[0][2]];
+        }
+        if delta & 2 != 0 {
+            r = [r[0] - red[1][0], r[1] - red[1][1], r[2] - red[1][2]];
+        }
+        if delta & 4 != 0 {
+            r = [r[0] - red[2][0], r[1] - red[2][1], r[2] - red[2][2]];
+        }
+        let dd = r[0] * r[0] + r[1] * r[1] + r[2] * r[2];
+        if dd < dmin {
+            dmin = dd;
+            best = r;
         }
     }
     best
