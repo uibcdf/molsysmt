@@ -13,7 +13,7 @@ use numpy::{IntoPyArray, PyArray1, PyArray2, PyReadonlyArray2, PyReadonlyArray3}
 use pyo3::prelude::*;
 
 use crate::mathlib::dihedral_angle;
-use crate::mic::{box_2d, box_at, prep, wrap_to_mic_vector, Mat3};
+use crate::mic::{box_2d, box_at, mic_vector, prep_dist, Mat3};
 
 #[inline]
 fn quartet(q: &ArrayView2<i64>, j: usize) -> (usize, usize, usize, usize) {
@@ -85,11 +85,11 @@ pub fn get_dihedral_angles_single_structure<'py>(
 // --------------------------------------------------------------------------- periodic
 
 #[inline]
-fn mic_dihedral(v0: [f64; 3], v1: [f64; 3], v2: [f64; 3], b: &Mat3, inv: &Mat3, ortho: bool) -> f64 {
+fn mic_dihedral(v0: [f64; 3], v1: [f64; 3], v2: [f64; 3], cell: &Mat3, inv: &Mat3, ortho: bool) -> f64 {
     dihedral_angle(
-        wrap_to_mic_vector(v0, b, inv, ortho),
-        wrap_to_mic_vector(v1, b, inv, ortho),
-        wrap_to_mic_vector(v2, b, inv, ortho),
+        mic_vector(v0, cell, inv, ortho),
+        mic_vector(v1, cell, inv, ortho),
+        mic_vector(v2, cell, inv, ortho),
     )
 }
 
@@ -108,11 +108,11 @@ pub fn get_mic_dihedral_angles<'py>(
     let mut out = Array2::<f64>::zeros((ns, nq));
     for s in 0..ns {
         let bs = box_at(&b, s);
-        let (ortho, inv) = prep(&bs);
+        let (ortho, cell, inv) = prep_dist(&bs);
         for j in 0..nq {
             let (a0, a1, a2, a3) = quartet(&q, j);
             let (v0, v1, v2) = quartet_vectors_3d(&c, s, a0, a1, a2, a3);
-            out[[s, j]] = mic_dihedral(v0, v1, v2, &bs, &inv, ortho);
+            out[[s, j]] = mic_dihedral(v0, v1, v2, &cell, &inv, ortho);
         }
     }
     out.into_pyarray(py)
@@ -127,14 +127,14 @@ pub fn get_mic_dihedral_angles_single_structure<'py>(
 ) -> Bound<'py, PyArray1<f64>> {
     let c = coordinates.as_array();
     let bs = box_2d(&boxes.as_array());
-    let (ortho, inv) = prep(&bs);
+    let (ortho, cell, inv) = prep_dist(&bs);
     let q = quartets.as_array();
     let nq = q.shape()[0];
     let mut out = Array1::<f64>::zeros(nq);
     for j in 0..nq {
         let (a0, a1, a2, a3) = quartet(&q, j);
         let (v0, v1, v2) = quartet_vectors_2d(&c, a0, a1, a2, a3);
-        out[j] = mic_dihedral(v0, v1, v2, &bs, &inv, ortho);
+        out[j] = mic_dihedral(v0, v1, v2, &cell, &inv, ortho);
     }
     out.into_pyarray(py)
 }

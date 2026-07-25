@@ -1,13 +1,27 @@
 //! Rusterized MIC (minimum-image) distance family.
 //!
-//! Faithful ports of `molsysmt.lib.structure.get_mic_distances.*`. Names match the
-//! Numba functions 1:1 so the opt-in seam can dispatch by name. The Numba versions
-//! remain the oracle; parity is checked bit-for-bit in the test suite.
+//! Names match `molsysmt.lib.structure.get_mic_distances.*` 1:1 so the opt-in seam can
+//! dispatch by name. **This is the definitive implementation; the Numba kernels are
+//! provisional and will be removed.** The distance path uses the reduced-cell minimum
+//! image (`prep_dist` + `mic_distance_auto`), which is *correct on skewed boxes* — unlike
+//! the exhaustive ±1 (27-image) search, whose shell can miss a second-neighbour minimum
+//! image (see the module tests and `wrap_to_mic_triclinic_not_minimum_image.md`). It is
+//! therefore no longer bit-for-bit with Numba on skewed boxes (Rust is the correct one);
+//! on orthogonal and mildly-tilted boxes the two still agree to tolerance.
+//!
+//! Every wrap-based MIC kernel — distances, angles, dihedrals, the set/shift dihedral
+//! ops — now goes through the reduced-cell `mic_vector`. The exhaustive ±1
+//! `wrap_to_mic_vector` and `mic_distance` are retained **only as mild-box test
+//! references** (they are `#[cfg(test)]`). The grid-based cell list and cell-list SASA
+//! keep their own centred-wrap for now: their grid gathering has a separate triclinic
+//! completeness limitation that the wrap change alone does not resolve — see
+//! `devguide/pending_proposals/triclinic_cell_list_completeness.md`.
 
 use numpy::ndarray::{Array1, Array2, Array3};
 use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray2, PyReadonlyArray3};
 use pyo3::prelude::*;
 
+#[cfg(test)]
 use crate::mathlib::inverse_matrix_3x3;
 
 pub type Mat3 = [[f64; 3]; 3];
@@ -18,7 +32,9 @@ pub(crate) fn box_is_orthogonal(b: &Mat3) -> bool {
     dot(&b[0], &b[1]).abs() <= 1e-4 && dot(&b[0], &b[2]).abs() <= 1e-4 && dot(&b[1], &b[2]).abs() <= 1e-4
 }
 
-/// Mirrors molsysmt.lib.pbc.wrap_to_mic.wrap_to_mic_vector_single_structure.
+/// The exhaustive ±1 (27-image) wrap — the mild-box reference kept only for tests
+/// (production uses the reduced-cell `mic_vector`).
+#[cfg(test)]
 pub(crate) fn wrap_to_mic_vector(v: [f64; 3], b: &Mat3, inv: &Mat3, orthogonal: bool) -> [f64; 3] {
     if orthogonal {
         [
@@ -60,10 +76,149 @@ pub(crate) fn wrap_to_mic_vector(v: [f64; 3], b: &Mat3, inv: &Mat3, orthogonal: 
     }
 }
 
+/// The ±1 exhaustive distance, kept only as a mild-box reference for the tests (the
+/// production distance path is `mic_distance_auto`, which is correct on skewed boxes too).
+#[cfg(test)]
 #[inline]
 fn mic_distance(p1: [f64; 3], p2: [f64; 3], b: &Mat3, inv: &Mat3, ortho: bool) -> f64 {
     let v = [p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]];
     let w = wrap_to_mic_vector(v, b, inv, ortho);
+    (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt()
+}
+
+// ---------------------------------------------------------- reduced-cell fast MIC path
+//
+// Reduce the cell once per box (MD-style lattice reduction, as OpenMM/LAMMPS require of
+// their input boxes) so the minimum image is found among the 8 corners of the fractional
+// cell instead of 27 images. Unlike the unreduced ±1 search, this is correct for skewed
+// cells — the ±1 shell can miss a second-neighbour minimum image. Validated in the unit
+// tests below against a wide (±2) ground-truth search (not against the ±1 wrap, which is
+// itself wrong on skewed boxes); the two agree on mild boxes and the reduced path is never
+// worse on skewed ones. Fixes `wrap_to_mic_triclinic_not_minimum_image.md` on these paths.
+
+/// MD-style lattice reduction: greedily shorten each basis vector by the nearest-integer
+/// multiple of the others until stable. Returns an equivalent basis (same lattice) whose
+/// vectors are short enough that per-coordinate rounding locates the closest lattice point.
+pub(crate) fn reduce_cell(b: &Mat3) -> Mat3 {
+    let dot = |u: &[f64; 3], v: &[f64; 3]| u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
+    let mut m = *b;
+    for _ in 0..100 {
+        let mut changed = false;
+        for i in 0..3 {
+            for j in 0..3 {
+                if i == j {
+                    continue;
+                }
+                let vjj = dot(&m[j], &m[j]);
+                if vjj == 0.0 {
+                    continue;
+                }
+                let q = (dot(&m[i], &m[j]) / vjj).round();
+                if q != 0.0 {
+                    for k in 0..3 {
+                        m[i][k] -= q * m[j][k];
+                    }
+                    changed = true;
+                }
+            }
+        }
+        if !changed {
+            break;
+        }
+    }
+    m
+}
+
+/// Precompute the reduced basis and its (general) inverse for a box.
+#[inline]
+pub(crate) fn prep_reduced(b: &Mat3) -> (Mat3, Mat3) {
+    let red = reduce_cell(b);
+    let inv = crate::mathlib::inverse_matrix_3x3_full(&red);
+    (red, inv)
+}
+
+/// Minimum-image displacement **vector** via the reduced cell: fractional coordinates,
+/// then the 8 corners of the containing cell (floor/ceil per axis) — sufficient on a
+/// reduced basis — instead of the exhaustive 27-image search. `red`/`inv` are the reduced
+/// cell and its general inverse from [`prep_reduced`].
+#[inline]
+pub(crate) fn wrap_to_mic_vector_reduced(v: [f64; 3], red: &Mat3, inv: &Mat3) -> [f64; 3] {
+    // fractional coordinates s (v = s . red with rows as lattice vectors => s = inv^T v).
+    let s = [
+        inv[0][0] * v[0] + inv[1][0] * v[1] + inv[2][0] * v[2],
+        inv[0][1] * v[0] + inv[1][1] * v[1] + inv[2][1] * v[2],
+        inv[0][2] * v[0] + inv[1][2] * v[1] + inv[2][2] * v[2],
+    ];
+    let fl = [s[0].floor(), s[1].floor(), s[2].floor()];
+    let mut best = [0.0; 3];
+    let mut dmin = f64::INFINITY;
+    for a in 0..2 {
+        for b2 in 0..2 {
+            for c in 0..2 {
+                let n = [fl[0] + a as f64, fl[1] + b2 as f64, fl[2] + c as f64];
+                // residual r = red^T * (s - n)  (rows of `red` are the lattice vectors)
+                let ds = [s[0] - n[0], s[1] - n[1], s[2] - n[2]];
+                let r = [
+                    red[0][0] * ds[0] + red[1][0] * ds[1] + red[2][0] * ds[2],
+                    red[0][1] * ds[0] + red[1][1] * ds[1] + red[2][1] * ds[2],
+                    red[0][2] * ds[0] + red[1][2] * ds[1] + red[2][2] * ds[2],
+                ];
+                let dd = r[0] * r[0] + r[1] * r[1] + r[2] * r[2];
+                if dd < dmin {
+                    dmin = dd;
+                    best = r;
+                }
+            }
+        }
+    }
+    best
+}
+
+/// The single production minimum-image **vector** mechanism, used by every MIC kernel
+/// (distances, angles, dihedrals, cell list, SASA). Orthogonal boxes use the centred wrap;
+/// triclinic boxes use the reduced cell — correct on skewed boxes, unlike the ±1 search,
+/// whose shell can miss a second-neighbour minimum image (see the module tests). `cell`/`inv`
+/// come from [`prep_dist`]: for orthogonal boxes `cell` is the box and `inv` is unused; for
+/// triclinic they are the reduced cell and its inverse.
+#[inline]
+pub(crate) fn mic_vector(v: [f64; 3], cell: &Mat3, inv: &Mat3, ortho: bool) -> [f64; 3] {
+    if ortho {
+        [
+            v[0] - cell[0][0] * (v[0] / cell[0][0] + 0.5).floor(),
+            v[1] - cell[1][1] * (v[1] / cell[1][1] + 0.5).floor(),
+            v[2] - cell[2][2] * (v[2] / cell[2][2] + 0.5).floor(),
+        ]
+    } else {
+        wrap_to_mic_vector_reduced(v, cell, inv)
+    }
+}
+
+/// Minimum-image distance via the reduced cell (norm of [`wrap_to_mic_vector_reduced`]).
+#[cfg(test)]
+#[inline]
+pub(crate) fn mic_distance_reduced(p1: [f64; 3], p2: [f64; 3], red: &Mat3, inv: &Mat3) -> f64 {
+    let v = [p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]];
+    let w = wrap_to_mic_vector_reduced(v, red, inv);
+    (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt()
+}
+
+/// Per-box precompute: orthogonal flag, the cell to wrap in (the box itself when
+/// orthogonal, its reduced form when triclinic), and the reduced cell's general inverse.
+#[inline]
+pub(crate) fn prep_dist(b: &Mat3) -> (bool, Mat3, Mat3) {
+    if box_is_orthogonal(b) {
+        (true, *b, [[0.0; 3]; 3])
+    } else {
+        let (red, inv) = prep_reduced(b);
+        (false, red, inv)
+    }
+}
+
+/// MIC distance through the unified [`mic_vector`] mechanism.
+#[inline]
+fn mic_distance_auto(p1: [f64; 3], p2: [f64; 3], cell: &Mat3, inv: &Mat3, ortho: bool) -> f64 {
+    let v = [p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]];
+    let w = mic_vector(v, cell, inv, ortho);
     (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt()
 }
 
@@ -84,6 +239,7 @@ pub(crate) fn box_2d(b: &numpy::ndarray::ArrayView2<f64>) -> Mat3 {
 }
 
 #[inline]
+#[cfg(test)]
 pub(crate) fn prep(b: &Mat3) -> (bool, Mat3) {
     let ortho = box_is_orthogonal(b);
     let inv = if ortho { [[0.0; 3]; 3] } else { inverse_matrix_3x3(b) };
@@ -105,12 +261,12 @@ pub fn get_mic_distances_single_system<'py>(
     let mut out = Array3::<f64>::zeros((ns, na, na));
     for s in 0..ns {
         let bs = box_at(&b, s);
-        let (ortho, inv) = prep(&bs);
+        let (ortho, bs_red, inv) = prep_dist(&bs);
         for j in 0..na {
             let p1 = [c[[s, j, 0]], c[[s, j, 1]], c[[s, j, 2]]];
             for k in (j + 1)..na {
                 let p2 = [c[[s, k, 0]], c[[s, k, 1]], c[[s, k, 2]]];
-                let d = mic_distance(p1, p2, &bs, &inv, ortho);
+                let d = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
                 out[[s, j, k]] = d;
                 out[[s, k, j]] = d;
             }
@@ -135,12 +291,12 @@ pub fn get_mic_distances<'py>(
     let mut out = Array3::<f64>::zeros((ns, na1, na2));
     for s in 0..ns {
         let bs = box_at(&b, s);
-        let (ortho, inv) = prep(&bs);
+        let (ortho, bs_red, inv) = prep_dist(&bs);
         for j in 0..na1 {
             let p1 = [c1[[s, j, 0]], c1[[s, j, 1]], c1[[s, j, 2]]];
             for k in 0..na2 {
                 let p2 = [c2[[s, k, 0]], c2[[s, k, 1]], c2[[s, k, 2]]];
-                out[[s, j, k]] = mic_distance(p1, p2, &bs, &inv, ortho);
+                out[[s, j, k]] = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
             }
         }
     }
@@ -162,11 +318,11 @@ pub fn get_mic_distances_pairs<'py>(
     let mut out = Array2::<f64>::zeros((ns, na));
     for s in 0..ns {
         let bs = box_at(&b, s);
-        let (ortho, inv) = prep(&bs);
+        let (ortho, bs_red, inv) = prep_dist(&bs);
         for j in 0..na {
             let p1 = [c1[[s, j, 0]], c1[[s, j, 1]], c1[[s, j, 2]]];
             let p2 = [c2[[s, j, 0]], c2[[s, j, 1]], c2[[s, j, 2]]];
-            out[[s, j]] = mic_distance(p1, p2, &bs, &inv, ortho);
+            out[[s, j]] = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
         }
     }
     out.into_pyarray(py)
@@ -182,14 +338,14 @@ pub fn get_mic_distances_single_system_single_structure<'py>(
 ) -> Bound<'py, PyArray2<f64>> {
     let c = coordinates.as_array();
     let bs = box_2d(&boxes.as_array());
-    let (ortho, inv) = prep(&bs);
+    let (ortho, bs_red, inv) = prep_dist(&bs);
     let na = c.shape()[0];
     let mut out = Array2::<f64>::zeros((na, na));
     for j in 0..na {
         let p1 = [c[[j, 0]], c[[j, 1]], c[[j, 2]]];
         for k in (j + 1)..na {
             let p2 = [c[[k, 0]], c[[k, 1]], c[[k, 2]]];
-            let d = mic_distance(p1, p2, &bs, &inv, ortho);
+            let d = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
             out[[j, k]] = d;
             out[[k, j]] = d;
         }
@@ -207,7 +363,7 @@ pub fn get_mic_distances_single_structure<'py>(
     let c1 = coordinates1.as_array();
     let c2 = coordinates2.as_array();
     let bs = box_2d(&boxes.as_array());
-    let (ortho, inv) = prep(&bs);
+    let (ortho, bs_red, inv) = prep_dist(&bs);
     let na1 = c1.shape()[0];
     let na2 = c2.shape()[0];
     let mut out = Array2::<f64>::zeros((na1, na2));
@@ -215,7 +371,7 @@ pub fn get_mic_distances_single_structure<'py>(
         let p1 = [c1[[j, 0]], c1[[j, 1]], c1[[j, 2]]];
         for k in 0..na2 {
             let p2 = [c2[[k, 0]], c2[[k, 1]], c2[[k, 2]]];
-            out[[j, k]] = mic_distance(p1, p2, &bs, &inv, ortho);
+            out[[j, k]] = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
         }
     }
     out.into_pyarray(py)
@@ -231,13 +387,13 @@ pub fn get_mic_distances_pairs_single_structure<'py>(
     let c1 = coordinates1.as_array();
     let c2 = coordinates2.as_array();
     let bs = box_2d(&boxes.as_array());
-    let (ortho, inv) = prep(&bs);
+    let (ortho, bs_red, inv) = prep_dist(&bs);
     let na = c1.shape()[0];
     let mut out = Array1::<f64>::zeros(na);
     for j in 0..na {
         let p1 = [c1[[j, 0]], c1[[j, 1]], c1[[j, 2]]];
         let p2 = [c2[[j, 0]], c2[[j, 1]], c2[[j, 2]]];
-        out[j] = mic_distance(p1, p2, &bs, &inv, ortho);
+        out[j] = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
     }
     out.into_pyarray(py)
 }
@@ -263,6 +419,122 @@ mod tests {
     fn orthogonality_detection() {
         assert!(box_is_orthogonal(&ORTHO));
         assert!(!box_is_orthogonal(&TRIC));
+    }
+
+    /// Reference minimum image by a wide exhaustive search (±2 shell around the fractional
+    /// wrap), stronger than the production ±1 oracle — a ground truth for the reduced path.
+    fn brute_min_image_distance(v: [f64; 3], b: &Mat3) -> f64 {
+        let inv = crate::mathlib::inverse_matrix_3x3_full(b);
+        let s = [
+            inv[0][0] * v[0] + inv[1][0] * v[1] + inv[2][0] * v[2],
+            inv[0][1] * v[0] + inv[1][1] * v[1] + inv[2][1] * v[2],
+            inv[0][2] * v[0] + inv[1][2] * v[1] + inv[2][2] * v[2],
+        ];
+        let base = [s[0].round(), s[1].round(), s[2].round()];
+        let mut dmin = f64::INFINITY;
+        for i in -2..=2 {
+            for j in -2..=2 {
+                for k in -2..=2 {
+                    let n = [base[0] + i as f64, base[1] + j as f64, base[2] + k as f64];
+                    let ds = [s[0] - n[0], s[1] - n[1], s[2] - n[2]];
+                    let r = [
+                        b[0][0] * ds[0] + b[1][0] * ds[1] + b[2][0] * ds[2],
+                        b[0][1] * ds[0] + b[1][1] * ds[1] + b[2][1] * ds[2],
+                        b[0][2] * ds[0] + b[1][2] * ds[1] + b[2][2] * ds[2],
+                    ];
+                    let dd = r[0] * r[0] + r[1] * r[1] + r[2] * r[2];
+                    if dd < dmin {
+                        dmin = dd;
+                    }
+                }
+            }
+        }
+        dmin.sqrt()
+    }
+
+    #[test]
+    fn reduce_cell_preserves_the_lattice_volume() {
+        let det = |m: &Mat3| {
+            m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1])
+                - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0])
+                + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0])
+        };
+        for b in [TRIC, [[6.0, 0.0, 0.0], [4.0, 6.0, 0.0], [3.5, 3.0, 6.0]]] {
+            let red = reduce_cell(&b);
+            // a lattice-preserving basis change has determinant of the same magnitude
+            assert!((det(&red).abs() - det(&b).abs()).abs() < 1e-9, "volume changed");
+        }
+    }
+
+    /// The reduced-cell 8-corner distance must equal the ground-truth minimum image, over
+    /// random skewed boxes and vectors many box lengths out — the case the unreduced ±1
+    /// search gets wrong.
+    #[test]
+    fn reduced_mic_matches_the_ground_truth_minimum_image() {
+        let mut seed = 88172645463325252u64;
+        let mut rng = || {
+            seed ^= seed << 13;
+            seed ^= seed >> 7;
+            seed ^= seed << 17;
+            (seed >> 11) as f64 / (1u64 << 53) as f64
+        };
+        let mut worst = 0.0f64;
+        for _ in 0..5000 {
+            // random lower-triangular-ish box with strong tilt
+            let b: Mat3 = [
+                [4.0 + 4.0 * rng(), 0.0, 0.0],
+                [8.0 * rng() - 4.0, 4.0 + 4.0 * rng(), 0.0],
+                [8.0 * rng() - 4.0, 8.0 * rng() - 4.0, 4.0 + 4.0 * rng()],
+            ];
+            let (red, inv) = prep_reduced(&b);
+            let v = [40.0 * rng() - 20.0, 40.0 * rng() - 20.0, 40.0 * rng() - 20.0];
+            let got = mic_distance_reduced([0.0, 0.0, 0.0], v, &red, &inv);
+            let truth = brute_min_image_distance(v, &b);
+            worst = worst.max((got - truth).abs());
+        }
+        assert!(worst < 1e-9, "reduced MIC deviates from ground truth by {worst:.2e}");
+    }
+
+    /// Against the production exhaustive oracle, two things must hold: on mildly tilted
+    /// boxes (where the ±1 oracle is itself correct) they agree; and on *any* box the
+    /// reduced path is never longer than the oracle — it can only find an image the ±1
+    /// search missed, never a worse one. The second half is the correctness fix in action.
+    #[test]
+    fn reduced_mic_agrees_on_mild_boxes_and_is_never_worse_on_skewed_ones() {
+        let mut seed = 12345u64;
+        let mut rng = || {
+            seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1);
+            (seed >> 11) as f64 / (1u64 << 53) as f64
+        };
+        let mut fixed_the_oracle = 0;
+        for _ in 0..3000 {
+            let mild = rng() < 0.5;
+            // mild: tilt <= 1.0 (ratio 1/6, ±1 oracle valid); skewed: tilt up to 3.0
+            let tmax = if mild { 1.0 } else { 3.0 };
+            let t = |r: f64| tmax * (2.0 * r - 1.0);
+            let b: Mat3 = [
+                [6.0, 0.0, 0.0],
+                [t(rng()), 6.0, 0.0],
+                [t(rng()), t(rng()), 6.0],
+            ];
+            let (ortho, inv) = prep(&b);
+            let (red, invr) = prep_reduced(&b);
+            let p1 = [6.0 * rng(), 6.0 * rng(), 6.0 * rng()];
+            let p2 = [6.0 * rng(), 6.0 * rng(), 6.0 * rng()];
+            let oracle = mic_distance(p1, p2, &b, &inv, ortho);
+            let fast = mic_distance_reduced(p1, p2, &red, &invr);
+            if mild {
+                assert!((oracle - fast).abs() < 1e-9,
+                        "mild box: oracle {oracle} vs reduced {fast}");
+            } else {
+                assert!(fast <= oracle + 1e-9, "reduced longer than oracle: {fast} > {oracle}");
+                if fast < oracle - 1e-9 {
+                    fixed_the_oracle += 1;
+                }
+            }
+        }
+        assert!(fixed_the_oracle > 0,
+                "expected the reduced path to beat the ±1 oracle on some skewed boxes");
     }
 
     #[test]

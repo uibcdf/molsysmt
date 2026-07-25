@@ -17,9 +17,9 @@ use numpy::{PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3, PyReadwriteArr
             PyReadwriteArray3};
 use pyo3::prelude::*;
 
-use crate::mathlib::{dihedral_angle, inverse_matrix_3x3, normalize_vector,
+use crate::mathlib::{dihedral_angle, normalize_vector,
                      rodrigues_rotation, Mat3, Vec3};
-use crate::mic::{box_2d, box_at, box_is_orthogonal, wrap_to_mic_vector};
+use crate::mic::{box_2d, box_at, mic_vector, prep_dist};
 
 #[inline]
 fn sub(a: Vec3, b: Vec3) -> Vec3 {
@@ -55,7 +55,7 @@ fn apply_2d(
         let c_at1: Vec3 = [coords[[at1, 0]], coords[[at1, 1]], coords[[at1, 2]]];
         let mut vect1 = sub(c_at2, c_at1);
         if let Some((b, inv, ortho)) = mic {
-            vect1 = wrap_to_mic_vector(vect1, b, inv, ortho);
+            vect1 = mic_vector(vect1, b, inv, ortho);
         }
 
         let shift_ang = if set_mode {
@@ -64,8 +64,8 @@ fn apply_2d(
             let mut vect0 = sub(c_at1, c_at0);
             let mut vect2 = sub(c_at3, c_at2);
             if let Some((b, inv, ortho)) = mic {
-                vect0 = wrap_to_mic_vector(vect0, b, inv, ortho);
-                vect2 = wrap_to_mic_vector(vect2, b, inv, ortho);
+                vect0 = mic_vector(vect0, b, inv, ortho);
+                vect2 = mic_vector(vect2, b, inv, ortho);
             }
             angle_at(ii) - dihedral_angle(vect0, vect1, vect2)
         } else {
@@ -81,11 +81,11 @@ fn apply_2d(
             let cj: Vec3 = [coords[[jj, 0]], coords[[jj, 1]], coords[[jj, 2]]];
             let mut vect_aux = sub(cj, c_at2);
             if let Some((b, inv, ortho)) = mic {
-                vect_aux = wrap_to_mic_vector(vect_aux, b, inv, ortho);
+                vect_aux = mic_vector(vect_aux, b, inv, ortho);
             }
             vect_aux = rodrigues_rotation(vect_aux, u_vect, shift_ang);
             if let Some((b, inv, ortho)) = mic {
-                vect_aux = wrap_to_mic_vector(vect_aux, b, inv, ortho);
+                vect_aux = mic_vector(vect_aux, b, inv, ortho);
             }
             let out = add(c_at2, vect_aux);
             coords[[jj, 0]] = out[0];
@@ -171,10 +171,11 @@ pub fn set_dihedral_angles(
 /// The MIC variants wrap `vect1` (and `vect0`/`vect2` in set mode) and then wrap
 /// `vect_aux` before and after each rotation. We compute the inverse unconditionally;
 /// `shift_mic` does the same upstream while `set_mic` computes it only for triclinic
-/// boxes, but `wrap_to_mic_vector` only reads it on the triclinic branch, so results
+/// boxes, but the wrap only reads it on the triclinic branch, so results
 /// are identical either way.
-fn mic_parts(b: &Mat3) -> (Mat3, bool) {
-    (inverse_matrix_3x3(b), box_is_orthogonal(b))
+fn mic_parts(b: &Mat3) -> (Mat3, Mat3, bool) {
+    let (ortho, cell, inv) = prep_dist(b);
+    (cell, inv, ortho)
 }
 
 #[pyfunction]
@@ -186,10 +187,10 @@ pub fn shift_mic_dihedral_angles_single_structure(
     blocks: PyReadonlyArray2<'_, bool>,
 ) {
     let b = box_2d(&boxes.as_array());
-    let (inv, ortho) = mic_parts(&b);
+    let (cell, inv, ortho) = mic_parts(&b);
     let a = angles.as_array();
     apply_2d(&mut coordinates.as_array_mut(), &|i| a[i], &quartets.as_array(),
-             &blocks.as_array(), Some((&b, &inv, ortho)), false);
+             &blocks.as_array(), Some((&cell, &inv, ortho)), false);
 }
 
 #[pyfunction]
@@ -201,10 +202,10 @@ pub fn set_mic_dihedral_angles_single_structure(
     blocks: PyReadonlyArray2<'_, bool>,
 ) {
     let b = box_2d(&boxes.as_array());
-    let (inv, ortho) = mic_parts(&b);
+    let (cell, inv, ortho) = mic_parts(&b);
     let a = angles.as_array();
     apply_2d(&mut coordinates.as_array_mut(), &|i| a[i], &quartets.as_array(),
-             &blocks.as_array(), Some((&b, &inv, ortho)), true);
+             &blocks.as_array(), Some((&cell, &inv, ortho)), true);
 }
 
 #[pyfunction]
@@ -224,9 +225,9 @@ pub fn shift_mic_dihedral_angles(
     for &s in structure_indices.as_array().iter() {
         let s = s as usize;
         let b = box_at(&bx, s);
-        let (inv, ortho) = mic_parts(&b);
+        let (cell, inv, ortho) = mic_parts(&b);
         apply_2d(&mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
-                 &|aa| a[[s, aa]], &q, &bl, Some((&b, &inv, ortho)), false);
+                 &|aa| a[[s, aa]], &q, &bl, Some((&cell, &inv, ortho)), false);
     }
 }
 
@@ -261,11 +262,11 @@ pub fn set_mic_dihedral_angles(
     let inc_angles = a.shape()[1] != 1;
     for s in 0..c.shape()[0] {
         let b = box_at(&bx, s);
-        let (inv, ortho) = mic_parts(&b);
+        let (cell, inv, ortho) = mic_parts(&b);
         let row = if inc_structures { s } else { 0 };
         apply_2d(&mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
                  &|aa| a[[row, if inc_angles { aa } else { 0 }]], &q, &bl,
-                 Some((&b, &inv, ortho)), true);
+                 Some((&cell, &inv, ortho)), true);
     }
 }
 

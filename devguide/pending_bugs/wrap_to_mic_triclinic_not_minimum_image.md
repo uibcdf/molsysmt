@@ -94,3 +94,14 @@ assert numba_ok < len(vectors), (
 ```
 
 Related: `sasa_is_orthogonal_typo.md`, `dihedral_angles_broadcast_mismatch_pbc.md`.
+
+
+## Update (2026-07-25): fixed on the wrap-based Rust paths
+
+The Rust MIC now uses a reduced-cell minimum image (`mic::mic_vector`) on every wrap-based
+kernel — distances, angles, dihedrals, set/shift dihedral ops. On those paths the bug is
+fixed: the reduced cell finds the true minimum image (validated against a ±2 all-pairs
+ground truth), where the ±1 (27-image) search could miss a second-neighbour image. The
+grid-based cell list and cell-list SASA are **not** yet fixed — their triclinic
+incompleteness is in the grid gathering, not only the wrap — and are tracked in
+`pending_proposals/triclinic_cell_list_completeness.md`.
