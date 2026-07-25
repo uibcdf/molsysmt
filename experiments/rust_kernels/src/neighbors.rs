@@ -375,6 +375,150 @@ mod tests {
         assert!(!is_orthogonal(&TRIC));
     }
 
+    // ---- grid primitives -------------------------------------------------------------
+
+    #[test]
+    fn grid_cells_are_at_least_cutoff_thick_perpendicular() {
+        // For every box the cell perpendicular thickness must be >= cutoff, which is what
+        // makes the +-1 stencil complete. Thickness = perp_full / n.
+        let boxes = [
+            ORTHO, TRIC,
+            [[6.0, 0.0, 0.0], [3.0, 6.0, 0.0], [3.0, 3.0, 6.0]],
+            [[8.0, 0.0, 0.0], [-2.5, 7.0, 0.0], [2.0, -3.0, 5.0]],
+        ];
+        let cross = |u: &[f64; 3], v: &[f64; 3]| {
+            [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]
+        };
+        let norm = |v: [f64; 3]| (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).sqrt();
+        for b in boxes {
+            let cutoff = 1.3;
+            let (nx, ny, nz) = grid_dims(&b, cutoff);
+            let vol = (b[0][0] * (b[1][1] * b[2][2] - b[1][2] * b[2][1])
+                - b[0][1] * (b[1][0] * b[2][2] - b[1][2] * b[2][0])
+                + b[0][2] * (b[1][0] * b[2][1] - b[1][1] * b[2][0]))
+                .abs();
+            let perp_a = vol / norm(cross(&b[1], &b[2]));
+            let perp_b = vol / norm(cross(&b[0], &b[2]));
+            let perp_c = vol / norm(cross(&b[0], &b[1]));
+            assert!(perp_a / nx as f64 >= cutoff - 1e-9, "x cell too thin");
+            assert!(perp_b / ny as f64 >= cutoff - 1e-9, "y cell too thin");
+            assert!(perp_c / nz as f64 >= cutoff - 1e-9, "z cell too thin");
+        }
+    }
+
+    #[test]
+    fn axis_cells_are_unique_and_cover_the_neighbourhood() {
+        for n in 1..8 {
+            for c in 0..n {
+                let (cells, k) = axis_cells(c, n);
+                let used = &cells[..k];
+                // no duplicates
+                for i in 0..k {
+                    for j in (i + 1)..k {
+                        assert_ne!(used[i], used[j], "duplicate cell for n={n} c={c}");
+                    }
+                    assert!(used[i] >= 0 && used[i] < n, "cell out of range");
+                }
+                // the true ±1 wrapped neighbours are all present
+                for off in [-1i64, 0, 1] {
+                    let w = (c + off).rem_euclid(n);
+                    assert!(used.contains(&w), "missing neighbour cell for n={n} c={c}");
+                }
+            }
+        }
+    }
+
+    /// Brute-force minimum image over a wide ±3 shell — the ground truth for the grid.
+    fn brute_pairs(coords: &[[f64; 3]], b: &Mat3, cutoff: f64) -> std::collections::BTreeSet<(usize, usize)> {
+        let inv = crate::mathlib::inverse_matrix_3x3_full(b);
+        let mut out = std::collections::BTreeSet::new();
+        let n = coords.len();
+        for i in 0..n {
+            for j in 0..n {
+                if i == j {
+                    continue;
+                }
+                let d = [coords[j][0] - coords[i][0], coords[j][1] - coords[i][1], coords[j][2] - coords[i][2]];
+                let s = [
+                    inv[0][0] * d[0] + inv[1][0] * d[1] + inv[2][0] * d[2],
+                    inv[0][1] * d[0] + inv[1][1] * d[1] + inv[2][1] * d[2],
+                    inv[0][2] * d[0] + inv[1][2] * d[1] + inv[2][2] * d[2],
+                ];
+                let base = [s[0].round(), s[1].round(), s[2].round()];
+                let mut dmin = f64::INFINITY;
+                for a in -3..=3 {
+                    for bb in -3..=3 {
+                        for cc in -3..=3 {
+                            let ds = [s[0] - base[0] - a as f64, s[1] - base[1] - bb as f64, s[2] - base[2] - cc as f64];
+                            let w = [
+                                b[0][0] * ds[0] + b[1][0] * ds[1] + b[2][0] * ds[2],
+                                b[0][1] * ds[0] + b[1][1] * ds[1] + b[2][1] * ds[2],
+                                b[0][2] * ds[0] + b[1][2] * ds[1] + b[2][2] * ds[2],
+                            ];
+                            dmin = dmin.min(w[0] * w[0] + w[1] * w[1] + w[2] * w[2]);
+                        }
+                    }
+                }
+                if dmin.sqrt() <= cutoff {
+                    out.insert((i, j));
+                }
+            }
+        }
+        out
+    }
+
+    /// The full periodic neighbour list (`core_pbc`) must equal the brute-force ground
+    /// truth on orthogonal, skewed and small boxes — the invariant every optimisation of
+    /// the grid/wrap must preserve.
+    #[test]
+    fn neighbour_list_matches_brute_force_on_many_boxes() {
+        use numpy::ndarray::Array3;
+        let mut seed = 0xC0FFEEu64;
+        let mut rng = || {
+            seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            (seed >> 11) as f64 / (1u64 << 53) as f64
+        };
+        let cases: [(Mat3, f64); 4] = [
+            (ORTHO, 1.2),
+            ([[6.0, 0.0, 0.0], [3.0, 6.0, 0.0], [3.0, 3.0, 6.0]], 1.2), // heavily skewed
+            ([[8.0, 0.0, 0.0], [-2.5, 7.0, 0.0], [2.0, -3.0, 5.0]], 1.5),
+            ([[2.4, 0.0, 0.0], [0.6, 2.4, 0.0], [0.3, 0.4, 2.4]], 0.9), // small: n<3 cells
+        ];
+        for (b, cutoff) in cases {
+            let n = 60usize;
+            // atoms spilling past the faces (fractional in [-0.2, 1.2])
+            let mut data = Vec::with_capacity(n * 3);
+            let mut pts = Vec::with_capacity(n);
+            for _ in 0..n {
+                let f = [1.4 * rng() - 0.2, 1.4 * rng() - 0.2, 1.4 * rng() - 0.2];
+                let p = [
+                    f[0] * b[0][0] + f[1] * b[1][0] + f[2] * b[2][0],
+                    f[0] * b[0][1] + f[1] * b[1][1] + f[2] * b[2][1],
+                    f[0] * b[0][2] + f[1] * b[1][2] + f[2] * b[2][2],
+                ];
+                data.extend_from_slice(&p);
+                pts.push(p);
+            }
+            let coords = Array3::from_shape_vec((1, n, 3), data).unwrap();
+            let boxes = Array3::from_shape_vec((1, 3, 3),
+                b.iter().flat_map(|r| r.iter().copied()).collect()).unwrap();
+            let (off, idx, _) = core_pbc(&coords.view(), &coords.view(), &boxes.view(),
+                                         cutoff, true, false);
+            let mut got = std::collections::BTreeSet::new();
+            for i in 0..n {
+                for p in off[i] as usize..off[i + 1] as usize {
+                    got.insert((i, idx[p] as usize));
+                }
+                // no duplicates in the row
+                let row: Vec<i64> = (off[i] as usize..off[i + 1] as usize).map(|p| idx[p]).collect();
+                let uniq: std::collections::BTreeSet<i64> = row.iter().copied().collect();
+                assert_eq!(row.len(), uniq.len(), "duplicate neighbour, box {b:?}");
+            }
+            let truth = brute_pairs(&pts, &b, cutoff);
+            assert_eq!(got, truth, "neighbour list != brute force for box {b:?} cutoff {cutoff}");
+        }
+    }
+
     #[test]
     fn full_inverse_round_trips() {
         let inv = inv3(&TRIC);
