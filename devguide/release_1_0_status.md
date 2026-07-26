@@ -37,10 +37,11 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** B — final Numba oracle
-- **Active stage:** B1 — generated active-Numba inventory
+- **Active stage:** B2 — CPU kernel-to-consumer/evidence manifest
 - **Completed weighted closure:** 25% of the remaining 1.0 execution plan
-- **Development-progress estimate:** Segment A is certified complete; Segment B
-  has started but has not yet earned additional weighted closure
+- **Development-progress estimate:** Segment A is certified complete; Segment
+  B is approximately 18% complete internally after B1, but has not yet earned
+  additional weighted closure
 - **Current repository state:** dirty WIP; not a release artifact
 - **WIP base HEAD when this ledger was created:** `7ab96e791`; this is not a
   verified release-candidate commit
@@ -49,9 +50,10 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** generate the active Numba inventory from the committed
-  runtime, then map every CPU kernel to its Rust replacement, consumers, and
-  scientific evidence before deleting either implementation
+- **Next action:** map every inventoried CPU JIT callable to its Rust
+  replacement, high-level consumers, parity tests, and independent scientific
+  or property evidence; classify helpers that are intentionally absorbed
+  rather than exported one-to-one
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
@@ -67,7 +69,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
-| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | A is closed; generated runtime inventory is now the active stage |
+| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | B1 generated and froze the active surface; B2 kernel/consumer/evidence mapping is active |
 | C — Rust packaging | 20% | `PENDING` | 0% | local abi3 pilot succeeded; production crate layout and multiplatform installed-wheel CI remain open |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 imports, 101 JIT sites, and 11 Numba-CUDA modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
@@ -360,8 +362,8 @@ baseline, not permission to weaken a landed ratchet.
 
 | Stage | Status |
 | --- | --- |
-| B1 — generated active-Numba inventory | `IN PROGRESS` |
-| B2 — CPU kernel-to-consumer/evidence manifest | `PENDING` |
+| B1 — generated active-Numba inventory | `DONE` |
+| B2 — CPU kernel-to-consumer/evidence manifest | `IN PROGRESS` |
 | B3 — deliberate divergence and tolerance record | `PENDING` |
 | B4 — final two-backend parity campaign | `PENDING` |
 | B5 — dated, committed oracle artifact | `PENDING` |
@@ -484,3 +486,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | A5 | `PENDING` → `IN PROGRESS` | Segment A integration gate selected; known external-form attribute-delivery debt remains explicit and PDB adapters themselves pass | dirty WIP after `1f656fe9f` |
 | 2026-07-26 | A5 / Segment A | `IN PROGRESS` → `DONE` | isolated committed-snapshot reconstruction passes 85 tests; form adapters 89/89; exhaustive conversion coverage 22 → 37; accepted debt 470 → 444; zero new debt; Ruff, dependencies, devguide, course, demos, resources, scientific evidence, Rust hot paths, and public smoke pass; the only aggregate-gate red is independent F3 function-tier hygiene | `9660f6e79` |
 | 2026-07-26 | B / B1 | `PENDING` → `IN PROGRESS` | Segment A dependency closed; generated active-Numba runtime inventory selected as the next oracle stage | dirty WIP after `9660f6e79` |
+| 2026-07-26 | B1 | `IN PROGRESS` → `DONE` | AST inventory freezes 48 direct Numba/llvmlite imports, 108 JIT callables, 13 CUDA-coupled modules, and 46 direct consumers; broader runtime, dependency, test, tool, build, experiment, and documentation surfaces are recorded; three ratchet tests, Ruff, YAML parsing, and the live audit pass; smoke CI rejects new guarded coupling | `de2ccf988` |
+| 2026-07-26 | B2 | `PENDING` → `IN PROGRESS` | B1 baseline landed; CPU kernel-to-Rust-consumer-evidence classification selected | dirty WIP after `de2ccf988` |
