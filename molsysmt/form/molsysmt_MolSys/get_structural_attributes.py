@@ -132,6 +132,13 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
+def get_structure_index_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from molsysmt.form.molsysmt_Structures import get_structure_index_from_system as aux_get
+    return aux_get(item.structures, structure_indices=structure_indices, skip_digestion=True)
+
+
+@arg_digest(form=form)
 def get_structure_chemical_state_index_from_system(
     item, structure_indices='all', skip_digestion=False
 ):
