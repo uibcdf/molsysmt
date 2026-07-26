@@ -10,6 +10,7 @@ import pytest
 import numpy as np
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
+from molsysmt.native import Structures
 
 
 @pytest.fixture()
@@ -25,6 +26,17 @@ def structures_dict(source_structures):
 @pytest.fixture()
 def rebuilt_structures(structures_dict):
     return msm.convert(structures_dict, to_form='molsysmt.Structures')
+
+
+@pytest.fixture()
+def thermodynamic_structures():
+    return Structures(
+        coordinates=puw.quantity(np.arange(18).reshape(3, 2, 3), 'nm'),
+        temperature=puw.quantity([290000.0, 300000.0, 310000.0], 'mK'),
+        potential_energy=puw.quantity([-1.0, -2.0, -3.0], 'kcal/mol'),
+        kinetic_energy=puw.quantity([0.1, 0.2, 0.3], 'kcal/mol'),
+        skip_digestion=True,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -79,6 +91,80 @@ def test_structures_dict_optional_atom_fields(structures_dict):
     assert list(alternate_location[0]) == ['1']
 
 
+def test_structures_dict_thermodynamic_series_are_queryable(
+    thermodynamic_structures,
+):
+    structures_dict, report = msm.convert(
+        thermodynamic_structures,
+        to_form='molsysmt.StructuresDict',
+        return_report=True,
+    )
+
+    assert report.outcome == 'equivalent'
+    assert report.audited_scopes == ('all',)
+    assert report.is_exhaustive
+    for attribute in (
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
+        'total_energy',
+    ):
+        assert msm.has_attribute(structures_dict, attribute)
+
+    assert np.allclose(
+        puw.get_value(msm.get(structures_dict, temperature=True), to_unit='K'),
+        [290.0, 300.0, 310.0],
+    )
+    assert np.allclose(
+        puw.get_value(
+            msm.get(structures_dict, total_energy=True),
+            to_unit='kJ/mol',
+        ),
+        [-3.7656, -7.5312, -11.2968],
+    )
+
+
+def test_structures_dict_thermodynamic_selection_preserves_requested_order(
+    thermodynamic_structures,
+):
+    structures_dict = msm.convert(
+        thermodynamic_structures,
+        to_form='molsysmt.StructuresDict',
+        structure_indices=[2, 0, 2],
+    )
+    rebuilt = msm.convert(
+        structures_dict,
+        to_form='molsysmt.Structures',
+        structure_indices=[1, 0, 1],
+    )
+
+    assert np.allclose(
+        puw.get_value(rebuilt.temperature, to_unit='K'),
+        [290.0, 310.0, 290.0],
+    )
+    assert np.allclose(
+        puw.get_value(rebuilt.potential_energy, to_unit='kJ/mol'),
+        [-4.184, -12.552, -4.184],
+    )
+    assert np.allclose(
+        puw.get_value(rebuilt.kinetic_energy, to_unit='kJ/mol'),
+        [0.4184, 1.2552, 0.4184],
+    )
+
+
+def test_structures_dict_does_not_synthesize_absent_thermodynamic_series(
+    structures_dict,
+):
+    for attribute in (
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
+        'total_energy',
+    ):
+        assert attribute not in structures_dict
+        assert not msm.has_attribute(structures_dict, attribute)
+
+
 # ---------------------------------------------------------------------------
 # Parity: Structures → StructuresDict → Structures preserves data
 # ---------------------------------------------------------------------------
@@ -95,6 +181,30 @@ def test_parity_coordinates(rebuilt_structures, source_structures):
     rebuilt_coords = puw.get_value(rebuilt_structures.coordinates, to_unit='nm')
     source_coords = puw.get_value(source_structures.coordinates, to_unit='nm')
     assert np.allclose(rebuilt_coords, source_coords)
+
+
+def test_parity_thermodynamic_series(thermodynamic_structures):
+    structures_dict = msm.convert(
+        thermodynamic_structures,
+        to_form='molsysmt.StructuresDict',
+    )
+    rebuilt = msm.convert(
+        structures_dict,
+        to_form='molsysmt.Structures',
+    )
+
+    assert np.allclose(
+        puw.get_value(rebuilt.temperature, to_unit='K'),
+        [290.0, 300.0, 310.0],
+    )
+    assert np.allclose(
+        puw.get_value(rebuilt.potential_energy, to_unit='kJ/mol'),
+        [-4.184, -8.368, -12.552],
+    )
+    assert np.allclose(
+        puw.get_value(rebuilt.kinetic_energy, to_unit='kJ/mol'),
+        [0.4184, 0.8368, 1.2552],
+    )
 
 
 def test_roundtrip_preserves_builder_truth(builder_structures, tmp_path):

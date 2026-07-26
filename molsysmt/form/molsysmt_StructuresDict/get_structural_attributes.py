@@ -151,10 +151,48 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     if time is None:
         return None
 
-    time = copy(time)
+    return _get_structure_series(time, structure_indices)
+
+
+def _get_structure_series(value, structure_indices):
+    if structure_indices is None or value is None:
+        return None
+    value = copy(value)
     if is_all(structure_indices):
-        return time
-    return time[structure_indices]
+        return value
+    return value[structure_indices]
+
+
+@arg_digest(form=form)
+def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+    return _get_structure_series(item.get('temperature'), structure_indices)
+
+
+@arg_digest(form=form)
+def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    return _get_structure_series(item.get('potential_energy'), structure_indices)
+
+
+@arg_digest(form=form)
+def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    return _get_structure_series(item.get('kinetic_energy'), structure_indices)
+
+
+@arg_digest(form=form)
+def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    potential_energy = get_potential_energy_from_system(
+        item,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    kinetic_energy = get_kinetic_energy_from_system(
+        item,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    if potential_energy is None or kinetic_energy is None:
+        return None
+    return potential_energy + kinetic_energy
 
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]

@@ -42,6 +42,9 @@ _STRUCTURES_TO_STRUCTURES_DICT_PROFILE = {
         'b_factor',
         'alternate_location',
         'occupancy',
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
     }),
     'derived_without_loss': frozenset({
         'atom_index',
@@ -59,9 +62,6 @@ _STRUCTURES_TO_STRUCTURES_DICT_PROFILE = {
     },
     'loss_candidates': (
         'bioassembly',
-        'temperature',
-        'potential_energy',
-        'kinetic_energy',
     ),
 }
 

@@ -84,9 +84,6 @@ def test_current_schema_losses_are_complete_and_scoped():
         for issue in report.issues
     ] == [
         ('bioassembly', 'schema_limitation', 'structures'),
-        ('temperature', 'schema_limitation', 'structures'),
-        ('potential_energy', 'schema_limitation', 'structures'),
-        ('kinetic_energy', 'schema_limitation', 'structures'),
     ]
 
 

@@ -26,6 +26,10 @@ attributes['velocities'] = True
 attributes['occupancy'] = True
 attributes['alternate_location'] = True
 attributes['b_factor'] = True
+attributes['temperature'] = True
+attributes['potential_energy'] = True
+attributes['kinetic_energy'] = True
+attributes['total_energy'] = True
 attributes['n_structures'] = True
 
 del(_all_attributes)

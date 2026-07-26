@@ -49,6 +49,16 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
             if attribute not in molecular_system:
                 output = False
 
+        elif attribute in ['temperature', 'potential_energy', 'kinetic_energy']:
+            if molecular_system.get(attribute) is None:
+                output = False
+
+        elif attribute == 'total_energy':
+            if (
+                molecular_system.get('potential_energy') is None
+                or molecular_system.get('kinetic_energy') is None
+            ):
+                output = False
+
 
     return output
-
