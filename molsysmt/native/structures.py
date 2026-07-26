@@ -528,8 +528,15 @@ class Structures:
         if self.alternate_location is not None:
             if is_all(structure_indices):
                 tmp_item.alternate_location = deepcopy(self.alternate_location)
+            elif isinstance(self.alternate_location, np.ndarray):
+                tmp_item.alternate_location = deepcopy(
+                    self.alternate_location[np.asarray(structure_indices)]
+                )
             else:
-                tmp_item.alternate_location = deepcopy(self.alternate_location[structure_indices])
+                tmp_item.alternate_location = [
+                    deepcopy(self.alternate_location[index])
+                    for index in structure_indices
+                ]
             if not is_all(atom_indices):
                 atom_index_map = {
                     int(old_index): new_index
@@ -537,11 +544,19 @@ class Structures:
                 }
                 remapped = []
                 for structure_alternates in tmp_item.alternate_location:
-                    remapped.append({
-                        atom_index_map[int(old_index)]: value
-                        for old_index, value in structure_alternates.items()
-                        if int(old_index) in atom_index_map
-                    })
+                    if isinstance(structure_alternates, dict):
+                        remapped.append({
+                            atom_index_map[int(old_index)]: value
+                            for old_index, value in structure_alternates.items()
+                            if int(old_index) in atom_index_map
+                        })
+                    else:
+                        remapped.append(deepcopy(structure_alternates))
+                if isinstance(tmp_item.alternate_location, np.ndarray):
+                    remapped = np.asarray(
+                        remapped,
+                        dtype=tmp_item.alternate_location.dtype,
+                    )
                 tmp_item.alternate_location = remapped
 
         if self._occupancy is not None:
