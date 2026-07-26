@@ -152,6 +152,63 @@ _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE = {
     ),
 }
 
+_MOLSYS_TO_MOLSYS_DICT_PROFILE = {
+    'directly_preserved': (
+        _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE['directly_preserved']
+        | frozenset({
+            'structure_id',
+            'time',
+            'box',
+            'coordinates',
+        })
+    ),
+    'derived_without_loss': (
+        _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE['derived_without_loss']
+        | frozenset({
+            'structure_index',
+            'box_shape',
+            'box_angles',
+            'box_lengths',
+            'box_volume',
+            'n_structures',
+        })
+    ),
+    'covered_by_dependencies': {
+        **_TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE['covered_by_dependencies'],
+        'n_bioassemblies': 'bioassembly',
+        'total_energy': ('potential_energy', 'kinetic_energy'),
+    },
+    'loss_candidates': (
+        *_TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE['loss_candidates'],
+        'velocities',
+        'b_factor',
+        'alternate_location',
+        'bioassembly',
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
+        'structure_chemical_state_index',
+        'partial_charge',
+        'atom_ff_type',
+        'forcefield',
+        'non_bonded_method',
+        'cutoff_distance',
+        'switch_distance',
+        'dispersion_correction',
+        'ewald_error_tolerance',
+        'hydrogen_mass',
+        'constraints',
+        'flexible_constraints',
+        'water_model',
+        'rigid_water',
+        'implicit_solvent',
+        'solute_dielectric',
+        'solvent_dielectric',
+        'salt_concentration',
+        'kappa',
+    ),
+}
+
 _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.Structures',
@@ -161,6 +218,10 @@ _CONVERSION_AUDIT_PROFILES = {
         'molsysmt.Topology',
         'molsysmt.TopologyDict',
     ): _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE,
+    (
+        'molsysmt.MolSys',
+        'molsysmt.MolSysDict',
+    ): _MOLSYS_TO_MOLSYS_DICT_PROFILE,
 }
 
 _EXHAUSTIVE_AUDIT_PAIRS = frozenset(_CONVERSION_AUDIT_PROFILES)
@@ -260,11 +321,13 @@ def _aromatic_flag_is_not_preserved(bonds):
     return explicit_false or formal_order_takes_precedence
 
 
-def _audit_native_topology_to_dict(item):
+def _audit_native_topology_to_dict(
+    item,
+    target_form='molsysmt.TopologyDict',
+):
     """Return native topology semantics omitted by TopologyDict 0.1."""
 
     states = item._chemical_states
-    target_form = 'molsysmt.TopologyDict'
     issues = []
 
     if len(states) != 1:
@@ -272,7 +335,7 @@ def _audit_native_topology_to_dict(item):
             ConversionIssue(
                 attribute='chemical_state_index',
                 reason=(
-                    'molsysmt.TopologyDict 0.1 stores one resolved chemical '
+                    f'{target_form} 0.1 stores one resolved chemical '
                     'state and cannot preserve the ordered state inventory.'
                 ),
                 kind='state_collapse',
@@ -367,6 +430,86 @@ def _audit_native_topology_to_dict(item):
     return issues
 
 
+def _audit_native_molsys_to_dict(item):
+    """Return native MolSys semantics omitted by MolSysDict 0.1."""
+
+    target_form = 'molsysmt.MolSysDict'
+    issues = _audit_native_topology_to_dict(
+        item.topology,
+        target_form=target_form,
+    )
+
+    for attribute in (
+        'velocities',
+        'b_factor',
+        'alternate_location',
+        'bioassembly',
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
+    ):
+        if getattr(item.structures, attribute) is not None:
+            issues.append(
+                _schema_limitation(
+                    attribute,
+                    target_form,
+                    scope='structures',
+                )
+            )
+
+    explicit_associations = item._structure_chemical_state_indices
+    if explicit_associations is not None:
+        known = explicit_associations.dropna()
+        association_is_implicit_single_state = (
+            len(item.topology._chemical_states) == 1
+            and len(known) == len(explicit_associations)
+            and (known == 0).all()
+        )
+        if not association_is_implicit_single_state:
+            issues.append(
+                ConversionIssue(
+                    attribute='structure_chemical_state_index',
+                    reason=(
+                        'molsysmt.MolSysDict 0.1 cannot preserve the explicit '
+                        'structure-to-chemical-state association.'
+                    ),
+                    kind='state_association_loss',
+                    scope='chemical_state',
+                )
+            )
+
+    for attribute in (
+        'partial_charge',
+        'atom_ff_type',
+        'forcefield',
+        'non_bonded_method',
+        'cutoff_distance',
+        'switch_distance',
+        'dispersion_correction',
+        'ewald_error_tolerance',
+        'hydrogen_mass',
+        'constraints',
+        'flexible_constraints',
+        'water_model',
+        'rigid_water',
+        'implicit_solvent',
+        'solute_dielectric',
+        'solvent_dielectric',
+        'salt_concentration',
+        'kappa',
+    ):
+        if getattr(item.molecular_mechanics, attribute) is not None:
+            issues.append(
+                _schema_limitation(
+                    attribute,
+                    target_form,
+                    scope='molecular_mechanics',
+                )
+            )
+
+    return issues
+
+
 def _audit_registered_profile(item, source_form, target_form):
     """Return issues from one evidence-backed exhaustive audit profile."""
 
@@ -375,6 +518,8 @@ def _audit_registered_profile(item, source_form, target_form):
         return _audit_native_structures_to_dict(item)
     if pair == ('molsysmt.Topology', 'molsysmt.TopologyDict'):
         return _audit_native_topology_to_dict(item)
+    if pair == ('molsysmt.MolSys', 'molsysmt.MolSysDict'):
+        return _audit_native_molsys_to_dict(item)
     return []
 
 
@@ -447,12 +592,12 @@ def build_conversion_report(molecular_system, from_form, to_form):
     issues = []
 
     if source_item is not None:
+        registered_profile = (
+            source_form,
+            target_form,
+        ) in _CONVERSION_AUDIT_PROFILES
         issues.extend(
-            _audit_registered_profile(
-                source_item,
-                source_form,
-                target_form,
-            )
+            _audit_registered_profile(source_item, source_form, target_form)
         )
         source_module = _dict_modules[source_form]
         inspection_item = source_item
@@ -471,22 +616,23 @@ def build_conversion_report(molecular_system, from_form, to_form):
             inspection_item = to_molsysmt_Topology(source_item, skip_digestion=True)
             inspection_form = 'molsysmt.Topology'
             inspection_module = _dict_modules[inspection_form]
-        target_attributes = _dict_modules[target_form].attributes
-        for attribute in _CHEMICAL_ATTRIBUTES:
-            if _instance_has(
-                inspection_module, inspection_item, attribute, inspection_form
-            ) and not target_attributes.get(
-                attribute, False
-            ):
-                issues.append(
-                    ConversionIssue(
-                        attribute=attribute,
-                        reason=(
-                            f'{target_form} cannot represent the supplied '
-                            f'{attribute} semantics.'
-                        ),
+        if not registered_profile:
+            target_attributes = _dict_modules[target_form].attributes
+            for attribute in _CHEMICAL_ATTRIBUTES:
+                if _instance_has(
+                    inspection_module, inspection_item, attribute, inspection_form
+                ) and not target_attributes.get(
+                    attribute, False
+                ):
+                    issues.append(
+                        ConversionIssue(
+                            attribute=attribute,
+                            reason=(
+                                f'{target_form} cannot represent the supplied '
+                                f'{attribute} semantics.'
+                            ),
+                        )
                     )
-                )
 
         if source_form in {'molsysmt.Topology', 'molsysmt.MolSys'}:
             topology = (
@@ -494,10 +640,14 @@ def build_conversion_report(molecular_system, from_form, to_form):
                 if source_form == 'molsysmt.MolSys'
                 else source_item
             )
-            if len(topology._chemical_states) > 1 and target_form not in {
+            if (
+                not registered_profile
+                and len(topology._chemical_states) > 1
+                and target_form not in {
                 'molsysmt.Topology', 'molsysmt.MolSys', 'file:h5msm',
                 'molsysmt.H5MSMFileHandler',
-            }:
+                }
+            ):
                 issues.append(
                     ConversionIssue(
                         attribute='chemical_state_index',

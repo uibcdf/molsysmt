@@ -37,7 +37,7 @@
     "mmcif.PdbxContainers.DataContainer": "0x1e080000a2500020000",
     "molsysmt.GROFileHandler": "0x10a2800000000",
     "molsysmt.H5MSMFileHandler": "0x10a3000000000",
-    "molsysmt.MolSys": "0x16ed481eae180072010",
+    "molsysmt.MolSys": "0x16ed481ea6180072010",
     "molsysmt.MolSysBuilder": "0xe000000000",
     "molsysmt.MolSysDict": "0xe000010000",
     "molsysmt.PDBFileHandler": "0x10b2000000000",

@@ -63,6 +63,7 @@ def test_evidence_backed_native_declarative_routes_are_exhaustive():
         for edge in _load_audit_module().build_audit()["edges"]
     }
     routes = {
+        ('molsysmt.MolSys', 'molsysmt.MolSysDict'),
         ('molsysmt.Structures', 'molsysmt.StructuresDict'),
         ('molsysmt.Topology', 'molsysmt.TopologyDict'),
     }
