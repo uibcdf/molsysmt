@@ -115,7 +115,7 @@ pub(crate) fn reduce_cell(b: &Mat3) -> Mat3 {
                 if vjj == 0.0 {
                     continue;
                 }
-                let q = (dot(&m[i], &m[j]) / vjj).round();
+                let q = (dot(&m[i], &m[j]) / vjj).round(); // libm-ok: once per box, not per pair
                 if q != 0.0 {
                     for k in 0..3 {
                         m[i][k] -= q * m[j][k];

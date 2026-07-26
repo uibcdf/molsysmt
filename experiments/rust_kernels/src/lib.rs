@@ -152,18 +152,18 @@ fn neighbor_counts<'py>(
     let lx = (xmax - xmin + 1e-5).max(cutoff);
     let ly = (ymax - ymin + 1e-5).max(cutoff);
     let lz = (zmax - zmin + 1e-5).max(cutoff);
-    let nx = ((lx / cutoff).floor() as i64).max(1);
-    let ny = ((ly / cutoff).floor() as i64).max(1);
-    let nz = ((lz / cutoff).floor() as i64).max(1);
+    let nx = ((lx / cutoff).floor() as i64).max(1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+    let ny = ((ly / cutoff).floor() as i64).max(1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+    let nz = ((lz / cutoff).floor() as i64).max(1);  // libm-ok: synthetic bench probe, kept a faithful transcription
     let (dx, dy, dz) = (lx / nx as f64, ly / ny as f64, lz / nz as f64);
 
     let n_cells = (nx * ny * nz) as usize;
     let mut head = vec![-1i64; n_cells];
     let mut next = vec![-1i64; n];
     let cell_of = |p: &[f64; 3]| -> usize {
-        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1);
-        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1);
-        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1);
+        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
         (cx + nx * (cy + ny * cz)) as usize
     };
     for (a, p) in cv.iter().enumerate() {
@@ -175,9 +175,9 @@ fn neighbor_counts<'py>(
     let mut out = Array1::<i64>::zeros(n);
     for i in 0..n {
         let p = &cv[i];
-        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1);
-        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1);
-        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1);
+        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
         let mut cnt = 0i64;
         for ox in (cx - 1).max(0)..(cx + 2).min(nx) {
             for oy in (cy - 1).max(0)..(cy + 2).min(ny) {

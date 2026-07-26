@@ -53,7 +53,8 @@ calls: the whole body stays scalar.
 `mathlib::fast_floor` and `mathlib::fast_round_ties_even` replace them with pure SSE2
 arithmetic (truncate-and-correct; add-magic-number), each **bit-identical** to the intrinsic
 on the domain these kernels use, each verified against the intrinsic over a 600k-value sweep
-plus the awkward fixed cases (`-0.0`, exact halves, `2^51`, `1e300`).
+plus the awkward fixed cases (`-0.0`, exact halves, `2^51`, `1e300`). A lint keeps them
+from coming back — see §7.
 
 Measured effect on `mic_distances` (n = 4000, one structure), orthogonal box:
 **292 ms → 203 ms**, from this change alone.
@@ -174,7 +175,7 @@ The optimisations above are only acceptable because the kernels are covered firs
   When a change cannot be (e.g. an algebraically rearranged reduction), say so in the code
   and validate against the independent oracle rather than against the previous version.
 - Re-run the public-API tests too, not just the kernel tests: `tests/rust tests/pbc
-  tests/physchem tests/structure tests/lib` (601 tests) exercise these kernels through
+  tests/physchem tests/structure tests/lib` (603 tests) exercise these kernels through
   `configure.kernel`.
 
 ## 5. Two benchmarks that lied
@@ -232,7 +233,43 @@ Note the interaction between §1 and multiversioning: inside an SSE4.1-or-better
 arithmetic version is what makes the single portable wheel as fast as a tuned one — which is
 precisely why multiversioning has nothing left to add.
 
-## 7. Checklist for a new or suspect kernel
+## 7. What is automated, and what is not
+
+Be clear about this, because the tests are green either way.
+
+**Automated:**
+
+- **Correctness.** 80 `cargo test` tests + 262 Python tests in `tests/rust/`, with independent
+  oracles. A wrong optimisation fails loudly.
+- **The libm-rounding regression class.**
+  `devtools/scripts/check_rust_hot_paths.py` fails if `.floor()` / `.ceil()` / `.round()` /
+  `.round_ties_even()` / `.trunc()` reaches production kernel code without an explicit
+  `// libm-ok: <reason>` marker. It runs in `devtools/scripts/release_gate.py` and in
+  `tests/rust/test_hot_path_lint.py`. That test file has **two** tests: the lint passes, and
+  the lint *fails* on a tree where the regression has been planted — a guard that cannot fail
+  is worthless, so it is itself guarded. Verified: reintroducing one `.floor()` in the
+  orthogonal wrap is caught.
+
+**Not automated — and these are the ones to be honest about:**
+
+- **Performance itself.** Nothing measures whether a kernel got slower. A change that
+  reintroduces a scattered store (§2.2), a runtime flag in an inner loop (§2.1), an
+  `ArrayView` index in a hot body (§2.4) or a serial reduction (§2.3) will be silently
+  accepted. Those patterns are too context-dependent for a lint: each is *correct* in cold
+  code, and §2.2 measured *worse* on one of the two paths it was applied to.
+- **The benchmark scripts are manual.** `bench_production.py`, `bench_neighbors.py`,
+  `bench_matrix.py` and the ad-hoc scripts used here are run by hand; there is no recorded
+  baseline and no comparison. Building a *credible* automated gate is a separate piece of
+  work, already scoped in
+  `pending_proposals/benchmark_regression_gate_reliability.md` — the hard part is statistical
+  credibility on noisy hardware, not the plumbing.
+- **The disassembly step (§0, §6, checklist item 4) is a human activity.** It is what found
+  the largest win, and there is no substitute for it yet.
+
+So: the method in this document is a *method*, not a mechanism. Until a benchmark gate
+exists, the discipline is procedural — the checklist below, applied deliberately.
+
+## 8. Checklist for a new or suspect kernel
 
 1. Is the algorithm right? (Complexity, and see the redesign proposal.) Stop here if not.
 2. Is it covered by tests with an *independent* oracle? Write them first.

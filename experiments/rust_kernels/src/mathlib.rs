@@ -65,7 +65,7 @@ pub(crate) fn fast_floor(x: f64) -> f64 {
 #[cfg(not(target_arch = "x86_64"))]
 #[inline(always)]
 pub(crate) fn fast_floor(x: f64) -> f64 {
-    x.floor()
+    x.floor() // libm-ok: this arm only exists for targets whose baseline has the instruction
 }
 
 /// `x.round_ties_even()` without the libm call, for the same reason as [`fast_floor`]:
@@ -92,7 +92,7 @@ pub(crate) fn fast_round_ties_even(x: f64) -> f64 {
 #[cfg(not(target_arch = "x86_64"))]
 #[inline(always)]
 pub(crate) fn fast_round_ties_even(x: f64) -> f64 {
-    x.round_ties_even()
+    x.round_ties_even() // libm-ok: ditto — non-x86-64 baselines have the instruction
 }
 
 // --------------------------------------------------------------------------- vectors
