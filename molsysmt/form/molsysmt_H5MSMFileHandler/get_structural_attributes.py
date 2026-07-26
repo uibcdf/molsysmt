@@ -12,6 +12,14 @@ import numpy as np
 form='molsysmt.H5MSMFileHandler'
 
 
+def _read_structure_rows(dataset, structure_indices):
+    """Reading structure rows while preserving order and repeated indices."""
+
+    if is_all(structure_indices):
+        return dataset[:]
+    return np.asarray([dataset[int(index)] for index in structure_indices])
+
+
 def _h5py_atom_indices(indices):
     """Returning sorted unique indices and an inverse map for h5py reads."""
 
@@ -157,12 +165,11 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
             n_structures = item.file['structures'].attrs['n_structures_written']
             output = init_time + time_step*np.arange(n_structures)
         else:
-            output = init_time + time_step*structure_indices
+            output = init_time + time_step*np.asarray(structure_indices)
     else:
-        if is_all(structure_indices):
-            output = item.file['structures']['time'][:]
-        else:
-            output = item.file['structures']['time'][structure_indices]
+        output = _read_structure_rows(
+            item.file['structures']['time'], structure_indices
+        )
 
     output = puw.quantity(output, item.file.attrs['time_unit'], standardized=True)
 
@@ -181,12 +188,11 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
             n_structures = item.file['structures'].attrs['n_structures_written']
             output = init_id + id_step*np.arange(n_structures)
         else:
-            output = init_id + id_step*structure_indices
+            output = init_id + id_step*np.asarray(structure_indices)
     else:
-        if is_all(structure_indices):
-            output = item.file['structures']['id'][:]
-        else:
-            output = item.file['structures']['id'][structure_indices]
+        output = _read_structure_rows(
+            item.file['structures']['id'], structure_indices
+        )
 
     return output
 
@@ -220,10 +226,12 @@ def get_structure_chemical_state_index_from_system(
 @arg_digest(form=form)
 def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
 
-    if is_all(structure_indices):
-        output = item.file['structures']['kinetic_energy'][:]
-    else:
-        output = item.file['structures']['kinetic_energy'][structure_indices]
+    if item.file['structures']['kinetic_energy'].shape[0] == 0:
+        return None
+
+    output = _read_structure_rows(
+        item.file['structures']['kinetic_energy'], structure_indices
+    )
 
     output = puw.quantity(output, item.file.attrs['energy_unit'], standardized=True)
 
@@ -232,10 +240,12 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
 @arg_digest(form=form)
 def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
 
-    if is_all(structure_indices):
-        output = item.file['structures']['potential_energy'][:]
-    else:
-        output = item.file['structures']['potential_energy'][structure_indices]
+    if item.file['structures']['potential_energy'].shape[0] == 0:
+        return None
+
+    output = _read_structure_rows(
+        item.file['structures']['potential_energy'], structure_indices
+    )
 
     output = puw.quantity(output, item.file.attrs['energy_unit'], standardized=True)
 
@@ -243,6 +253,12 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
 
 @arg_digest(form=form)
 def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+
+    if (
+        not item.file['structures'].attrs['temperature_from_kinetic_energy']
+        and item.file['structures']['temperature'].shape[0] == 0
+    ):
+        return None
 
     constant_R = puw.constants.get_constant('R')
 
@@ -255,14 +271,27 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
 
     else:
 
-        if is_all(structure_indices):
-            output = item.file['structures']['temperature'][:]
-        else:
-            output = item.file['structures']['temperature'][structure_indices]
+        output = _read_structure_rows(
+            item.file['structures']['temperature'], structure_indices
+        )
 
         output = puw.quantity(output, item.file.attrs['temperature_unit'], standardized=True)
 
     return output
+
+
+@arg_digest(form=form)
+def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+
+    potential_energy = get_potential_energy_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    kinetic_energy = get_kinetic_energy_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    if potential_energy is None or kinetic_energy is None:
+        return None
+    return potential_energy + kinetic_energy
 
 @arg_digest(form=form)
 def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):

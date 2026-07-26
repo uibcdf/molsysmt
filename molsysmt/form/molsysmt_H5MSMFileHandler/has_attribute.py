@@ -9,7 +9,21 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
     if not include_none:
 
-        if attribute == 'isotope':
+        if attribute in {
+            'velocities',
+            'temperature',
+            'potential_energy',
+            'kinetic_energy',
+        }:
+            dataset = molecular_system.file['structures'].get(attribute)
+            output = dataset is not None and dataset.shape[0] > 0
+        elif attribute == 'total_energy':
+            structures = molecular_system.file['structures']
+            output = all(
+                name in structures and structures[name].shape[0] > 0
+                for name in ('potential_energy', 'kinetic_energy')
+            )
+        elif attribute == 'isotope':
             atoms = molecular_system.file['topology']['atoms']
             output = 'isotope' in atoms and bool((atoms['isotope'][:] != 0).any())
         elif attribute == 'b_factor':

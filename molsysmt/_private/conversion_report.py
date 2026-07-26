@@ -234,6 +234,10 @@ _COORDINATE_TRAJECTORY_PROFILE = {
     'mode': 'coordinate_trajectory',
 }
 
+_H5MSM_TO_STRUCTURES_PROFILE = {
+    'mode': 'h5msm_to_structures',
+}
+
 _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.Structures',
@@ -281,6 +285,11 @@ _CONVERSION_AUDIT_PROFILES = {
     ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
     ('molsysmt.MolSys', 'string:pdb_text'): _PDB_WRITE_PROFILE,
     ('molsysmt.MolSys', 'file:pdb'): _PDB_WRITE_PROFILE,
+    ('file:h5msm', 'molsysmt.Structures'): _H5MSM_TO_STRUCTURES_PROFILE,
+    (
+        'molsysmt.H5MSMFileHandler',
+        'molsysmt.Structures',
+    ): _H5MSM_TO_STRUCTURES_PROFILE,
 }
 
 for _pdb_source_form in (
@@ -1033,6 +1042,49 @@ def _audit_coordinate_trajectory(source_form, target_form):
     return []
 
 
+def _audit_h5msm_to_structures(item, source_form):
+    """Return losses from an H5MSM compound form to native structures."""
+
+    opened_here = False
+    if source_form == 'file:h5msm':
+        from molsysmt.form.file_h5msm.to_molsysmt_H5MSMFileHandler import (
+            to_molsysmt_H5MSMFileHandler,
+        )
+
+        handler = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+        opened_here = True
+    else:
+        handler = item
+
+    try:
+        issues = []
+        topology = handler.file['topology']
+        if int(topology.attrs.get('n_atoms', 0)) > 0:
+            issues.append(ConversionIssue(
+                attribute='atom_id',
+                reason='A structures-only target intentionally omits H5MSM topology.',
+                kind='target_projection',
+                scope='topology',
+            ))
+
+        structures = handler.file['structures']
+        state_indices = structures.get('chemical_state_index')
+        if state_indices is not None and state_indices.shape[0] > 0:
+            issues.append(ConversionIssue(
+                attribute='structure_chemical_state_index',
+                reason=(
+                    'Native Structures does not carry H5MSM '
+                    'structure-to-chemical-state associations.'
+                ),
+                kind='target_projection',
+                scope='chemical_state',
+            ))
+        return issues
+    finally:
+        if opened_here:
+            handler.close()
+
+
 def _audit_registered_profile(
     item,
     source_form,
@@ -1088,6 +1140,8 @@ def _audit_registered_profile(
         and profile.get('mode') == 'coordinate_trajectory'
     ):
         return _audit_coordinate_trajectory(source_form, target_form)
+    if profile is not None and profile.get('mode') == 'h5msm_to_structures':
+        return _audit_h5msm_to_structures(item, source_form)
     return []
 
 
@@ -1185,7 +1239,10 @@ def build_conversion_report(
         inspection_item = source_item
         inspection_form = source_form
         inspection_module = source_module
-        if source_form in {'file:h5msm', 'molsysmt.H5MSMFileHandler'}:
+        if (
+            not registered_profile
+            and source_form in {'file:h5msm', 'molsysmt.H5MSMFileHandler'}
+        ):
             if source_form == 'file:h5msm':
                 from molsysmt.form.file_h5msm.to_molsysmt_Topology import (
                     to_molsysmt_Topology,

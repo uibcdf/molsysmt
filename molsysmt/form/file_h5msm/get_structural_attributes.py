@@ -174,6 +174,55 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     return output
 
+
+@arg_digest(form=form)
+def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+    from molsysmt.form.molsysmt_H5MSMFileHandler import get_temperature_from_system as aux_get
+
+    tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
+    tmp_item.close()
+    return output
+
+
+@arg_digest(form=form)
+def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+    from molsysmt.form.molsysmt_H5MSMFileHandler import get_potential_energy_from_system as aux_get
+
+    tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
+    tmp_item.close()
+    return output
+
+
+@arg_digest(form=form)
+def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+    from molsysmt.form.molsysmt_H5MSMFileHandler import get_kinetic_energy_from_system as aux_get
+
+    tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
+    tmp_item.close()
+    return output
+
+
+@arg_digest(form=form)
+def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+
+    from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
+    from molsysmt.form.molsysmt_H5MSMFileHandler import get_total_energy_from_system as aux_get
+
+    tmp_item = to_molsysmt_H5MSMFileHandler(item, skip_digestion=True)
+    output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
+    tmp_item.close()
+    return output
+
+
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 

@@ -46,7 +46,9 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
         file_is_h5msm = is_file_h5msm_form(file)
 
         if file_is_h5msm:
-            file = h5py.File(file, "w")
+            import h5py
+
+            file = h5py.File(file, "r+")
             needs_to_be_closed = True
 
     if not file_is_h5msm:
@@ -69,15 +71,15 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
     n_atoms = item.n_atoms
     n_structures = item.n_structures
 
-    length_unit = puw.get_standard_units(dimensionality={'[L]':1})
-    time_unit = puw.get_standard_units(dimensionality={'[T]':1})
-    energy_unit = puw.get_standard_units(dimensionality={'[L]':2, '[M]':1, '[T]':-2,
-        '[mol]': -1})
-    temperature_unit = puw.get_standard_units(dimensionality={'[K]':1})
+    length_unit = file.attrs['length_unit']
+    time_unit = file.attrs['time_unit']
+    energy_unit = file.attrs['energy_unit']
+    temperature_unit = file.attrs['temperature_unit']
 
     structures_ds.attrs['length_unit']=str(length_unit)
     structures_ds.attrs['time_unit']=str(time_unit)
     structures_ds.attrs['energy_unit']=str(energy_unit)
+    structures_ds.attrs['temperature_unit']=str(temperature_unit)
 
     if item.structure_id is not None:
         structures_ds['id'].resize((n_structures,))
@@ -85,6 +87,7 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
 
     if item.time is not None:
         structures_ds['time'].resize((n_structures,))
+        structures_ds['time'].attrs['unit'] = str(time_unit)
         if puw.check(item.time, unit=time_unit):
             aux = puw.get_value(item.time).astype(float_precision)
         else:
@@ -93,6 +96,7 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
 
     if item.coordinates is not None:
         structures_ds['coordinates'].resize((n_structures,n_atoms,3))
+        structures_ds['coordinates'].attrs['unit'] = str(length_unit)
         if puw.check(item.coordinates, unit=length_unit):
             aux = puw.get_value(item.coordinates).astype(float_precision)
         else:
@@ -101,10 +105,12 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
 
     if item.velocities is not None:
         structures_ds['velocities'].resize((n_structures,n_atoms,3))
-        if puw.check(item.velocities, unit=length_unit/length_time):
+        velocity_unit = f'{length_unit}/{time_unit}'
+        structures_ds['velocities'].attrs['unit'] = velocity_unit
+        if puw.check(item.velocities, unit=velocity_unit):
             aux = puw.get_value(item.velocities).astype(float_precision)
         else:
-            aux = puw.get_value(item.velocities, to_unit=length_unit/length_time).astype(float_precision)
+            aux = puw.get_value(item.velocities, to_unit=velocity_unit).astype(float_precision)
         structures_ds['velocities'][:,:,:] = aux
 
     b_factor_unit = puw.get_standard_units(dimensionality={'[L]':2})
@@ -127,27 +133,30 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
         structures_ds['box'][:,:,:] = aux
 
     if item.kinetic_energy is not None:
-        structures_ds['kinetic_energy'].resize((n_structures))
+        structures_ds['kinetic_energy'].resize((n_structures,))
+        structures_ds['kinetic_energy'].attrs['unit'] = str(energy_unit)
         if puw.check(item.kinetic_energy, unit=energy_unit):
             aux = puw.get_value(item.kinetic_energy).astype(float_precision)
         else:
-            aux = puw.get_value(item.kinetic_energy, to_unit=length_unit).astype(float_precision)
+            aux = puw.get_value(item.kinetic_energy, to_unit=energy_unit).astype(float_precision)
         structures_ds['kinetic_energy'][:] = aux
 
     if item.potential_energy is not None:
-        structures_ds['potential_energy'].resize((n_structures))
+        structures_ds['potential_energy'].resize((n_structures,))
+        structures_ds['potential_energy'].attrs['unit'] = str(energy_unit)
         if puw.check(item.potential_energy, unit=energy_unit):
             aux = puw.get_value(item.potential_energy).astype(float_precision)
         else:
-            aux = puw.get_value(item.potential_energy, to_unit=length_unit).astype(float_precision)
+            aux = puw.get_value(item.potential_energy, to_unit=energy_unit).astype(float_precision)
         structures_ds['potential_energy'][:] = aux
 
     if item.temperature is not None:
-        structures_ds['temperature'].resize((n_structures))
+        structures_ds['temperature'].resize((n_structures,))
+        structures_ds['temperature'].attrs['unit'] = str(temperature_unit)
         if puw.check(item.temperature, unit=temperature_unit):
             aux = puw.get_value(item.temperature).astype(float_precision)
         else:
-            aux = puw.get_value(item.temperature, to_unit=length_unit).astype(float_precision)
+            aux = puw.get_value(item.temperature, to_unit=temperature_unit).astype(float_precision)
         structures_ds['temperature'][:] = aux
 
     structures_ds.attrs['n_atoms'] = n_atoms

@@ -99,5 +99,9 @@ attributes['coordinates'] = True
 attributes['velocities'] = True
 attributes['b_factor'] = True
 attributes['n_structures'] = True
+attributes['temperature'] = True
+attributes['potential_energy'] = True
+attributes['kinetic_energy'] = True
+attributes['total_energy'] = True
 
 del(_all_attributes)

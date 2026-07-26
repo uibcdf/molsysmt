@@ -9,7 +9,33 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     output = attributes[attribute]
 
     if not include_none:
-        if attribute == 'isotope':
+        if attribute in {
+            'velocities',
+            'temperature',
+            'potential_energy',
+            'kinetic_energy',
+        }:
+            tmp_item = to_molsysmt_H5MSMFileHandler(
+                molecular_system, skip_digestion=True
+            )
+            try:
+                dataset = tmp_item.file['structures'].get(attribute)
+                output = dataset is not None and dataset.shape[0] > 0
+            finally:
+                tmp_item.close()
+        elif attribute == 'total_energy':
+            tmp_item = to_molsysmt_H5MSMFileHandler(
+                molecular_system, skip_digestion=True
+            )
+            try:
+                structures = tmp_item.file['structures']
+                output = all(
+                    name in structures and structures[name].shape[0] > 0
+                    for name in ('potential_energy', 'kinetic_energy')
+                )
+            finally:
+                tmp_item.close()
+        elif attribute == 'isotope':
             tmp_item = to_molsysmt_H5MSMFileHandler(
                 molecular_system, skip_digestion=True
             )

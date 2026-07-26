@@ -101,12 +101,6 @@ def has_attribute(
     if attribute in hierarchy:
         return bool(hierarchy[attribute])
 
-    state = molecular_system._resolve_chemical_state()
-    state._ensure_compatibility(molecular_system.n_atoms)
-    if attribute == 'component_index':
-        return state.component_indices.notna().any()
-    if attribute in {'component_id', 'component_name', 'component_type'}:
-        return state.components.shape[0] > 0
     if attribute == 'chemical_state_index':
         return len(molecular_system._chemical_states) > 0
     if attribute == 'chemical_state_id':
@@ -125,6 +119,13 @@ def has_attribute(
         'component_evidence',
     }:
         return len(molecular_system._chemical_states) > 0
+
+    state = molecular_system._resolve_chemical_state()
+    state._ensure_compatibility(molecular_system.n_atoms)
+    if attribute == 'component_index':
+        return state.component_indices.notna().any()
+    if attribute in {'component_id', 'component_name', 'component_type'}:
+        return state.components.shape[0] > 0
 
     bonds = state.bonds
     if attribute in {
