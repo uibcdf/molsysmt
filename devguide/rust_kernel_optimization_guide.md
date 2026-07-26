@@ -22,6 +22,10 @@ properties of the *lowering*, not of the code.
 Corollary: a benchmark you have not tried to invalidate is not evidence. Two benchmarks
 written during this work were wrong in opposite directions — see §5.
 
+**Before choosing what to optimise, read §10.** It carries the end-to-end profile (which
+operations actually dominate), the two costs that live outside any kernel, and the three
+kernels that are already optimal — inherited measurements that save re-deriving them.
+
 ## 1. Know what the baseline target actually has
 
 The wheel is built for the **x86-64 baseline** (SSE2) so that one portable artifact runs
@@ -312,3 +316,74 @@ Measured: the candidate pass is ~2.5 ms, so the saving is inside the noise of th
 Python. It was the last live item of
 `archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md` (lever C) and it
 is recorded here because the idea is plausible enough to be re-proposed.
+
+## 10. Inherited measurements worth not re-deriving
+
+These come from the (now archived)
+`archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md` and are duplicated
+here deliberately: they are the facts a developer needs in order to *choose* what to optimise,
+and they must not be reachable only from an archived file.
+
+### 10.1 Where the time actually goes
+
+End-to-end profile of real MolSysMT calls — TcTIM, 3983 atoms, 1 structure; pentalanine
+trajectory, 62 atoms, 5000 structures — warm (JIT already compiled), **as measured before
+this round of optimisation**:
+
+| operation | warm wall clock |
+|---|---|
+| `get_contacts` (trajectory, 5000 structures) | 2732 ms |
+| `get_sasa` (protein) | 628 ms |
+| `get_contacts` (protein Cα, threshold) | 493 ms |
+| `get_rmsd` / `get_least_rmsd` / `get_radius_of_gyration` (traj) | ~255 ms each |
+| `get_center` (protein) | 236 ms |
+| `get_neighbors` (protein Cα, threshold) | 18 ms |
+
+The absolute numbers are stale — the dense matrices and the SASA family have since improved
+1.4-1.7x (§1-§2), and `get_contacts` was rerouted through the cell list. **The ranking is the
+durable part**: contact/distance queries over trajectories dominate, SASA is second, and
+everything else is an order of magnitude down. Re-profile before trusting any of it, but start
+from this order.
+
+### 10.2 The two costs that are not in any kernel
+
+1. **`get_contacts` on a trajectory was materialising the full dense N×N distance matrix per
+   structure and then thresholding** — 2.3 s of its 2.9 s — when a contact query only needs
+   the pairs under the threshold. Fixed by routing through the cell-list primitive; the
+   threshold now sits at **> 400 atoms** in `molsysmt/structure/get_contacts.py`, with the
+   crossover measured near 500. If you touch that constant, re-measure the crossover.
+2. **`gc.collect` is a first-class cost.** In the mixed profile it was **1.8 s of 5.0 s**; in
+   `get_contacts` alone, 0.48 s — the Python garbage collector tracing the per-operation
+   temporaries the naturally-written Numba allocates. The Rust ports remove that pressure by
+   doing arithmetic on the stack (verified: 50 `get_rmsd` calls, 47 KB input, 4.2 KB
+   Python-side peak; `PyReadonlyArray` borrows numpy's buffer and `wrap_to_pbc` mutates in
+   place at the same address). Keep it that way: a Rust kernel that allocates per call gives
+   back one of the migration's main wins, and no benchmark of the kernel alone will show it.
+
+### 10.3 Three kernels that are already optimal — do not "discover" them again
+
+Checked, and already present in the *original* Numba (so also in the ports):
+
+- the self-distance matrix already iterates `kk in range(jj+1, n)` and mirrors, so it does
+  N(N-1)/2 work, not N²;
+- the SASA occlusion loop already `break`s as soon as a sphere point is occluded;
+- `get_distances` already exploits symmetry.
+
+Speculation about in-kernel wins had a hit rate of 1 in 3 partly because of these.
+
+### 10.4 PCA: the covariance, not the eigensolver
+
+`principal_component_analysis` spent 76-93% of its time *building* the covariance matrix, not
+diagonalising it, and the build was a mis-transcribed matrix product: `X.T @ X` is **48-132x
+faster** than the triple loop. This is why the crate uses pure Rust (`nalgebra` for 3x3/4x4,
+`faer` for large dense) instead of taking a LAPACK/MKL system dependency — the useful property
+was fast BLAS, not a fast eigensolver. Full argument:
+`pending_proposals/linear_algebra_backend_for_rust_kernels.md`.
+
+### 10.5 The framing
+
+"Can the kernels be more optimal if we escape the transported code?" — yes, but the win is
+almost never in *what arithmetic a kernel does*. It is in choosing a different algorithm at
+the dispatch level, a different API shape, recognising what an operation actually is, or —
+the one this document exists for — in what the compiler emitted for a loop whose algorithm
+was already right.
