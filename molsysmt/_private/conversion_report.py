@@ -28,6 +28,29 @@ _CHEMICAL_ATTRIBUTES = (
     'component_evidence',
 )
 
+# Static route coverage is deliberately conservative. A pair belongs here only
+# after its complete source semantics are traversed by the preflight and covered
+# by executable evidence. Stage A2 activates native declarative pairs as their
+# schema-driven audits land.
+_EXHAUSTIVE_AUDIT_PAIRS = frozenset()
+
+
+def get_conversion_audit_scopes(source_form, target_form):
+    """Returning the statically supported preflight scopes for a form pair."""
+
+    pair = (source_form, target_form)
+    if pair in _EXHAUSTIVE_AUDIT_PAIRS:
+        return ('all',)
+    if source_form == target_form:
+        return ('representation',)
+    return ('chemical_state',)
+
+
+def is_conversion_audit_exhaustive(source_form, target_form):
+    """Returning whether static preflight coverage is exhaustive for a pair."""
+
+    return (source_form, target_form) in _EXHAUSTIVE_AUDIT_PAIRS
+
 
 def _canonical_target_form(to_form):
     from molsysmt.form import _dict_modules
@@ -262,12 +285,23 @@ def build_conversion_report(molecular_system, from_form, to_form):
                     )
                 )
     same_form = source_form == target_form
+    audited_scopes = get_conversion_audit_scopes(source_form, target_form)
+    is_exhaustive = is_conversion_audit_exhaustive(source_form, target_form)
+
+    # Static graph audits cannot assume that every third-party identity
+    # converter preserves its complete representation. At runtime, an actual
+    # single-form identity instance supplies stronger evidence: the conversion
+    # stays within the same representation and can be classified exhaustively.
+    if source_item is not None and same_form:
+        audited_scopes = ('all',)
+        is_exhaustive = True
+
     outcome = 'lossy' if issues else ('exact' if same_form else 'equivalent')
     return ConversionReport(
         from_form=source_form,
         to_form=target_form,
         outcome=outcome,
-        audited_scopes=('all',) if same_form else ('chemical_state',),
-        is_exhaustive=same_form,
+        audited_scopes=audited_scopes,
+        is_exhaustive=is_exhaustive,
         issues=tuple(issues),
     )

@@ -15,6 +15,10 @@ class ConversionIssue:
         Human-readable explanation of the detected limitation.
     kind : str
         Machine-readable issue category. The default is ``'unsupported'``.
+    scope : str
+        Semantic scope affected by the issue. The default is
+        ``'chemical_state'`` for backward compatibility with the first
+        conversion preflight implementation.
 
     .. versionadded:: 1.0.0
     """
@@ -22,6 +26,7 @@ class ConversionIssue:
     attribute: str
     reason: str
     kind: str = 'unsupported'
+    scope: str = 'chemical_state'
 
 
 @dataclass(frozen=True)
