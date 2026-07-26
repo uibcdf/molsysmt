@@ -50,6 +50,24 @@ def test_minimal_topology_reports_equivalent_exhaustive_conversion():
     assert report.issues == ()
 
 
+def test_unlabeled_rich_state_does_not_report_state_id_loss():
+    source = Topology(n_atoms=1, skip_digestion=True)
+    source._set_chemical_state_atom_attribute(
+        'formal_charge',
+        pd.array([1], dtype='Int16'),
+    )
+
+    _, report = msm.convert(
+        source,
+        to_form='molsysmt.TopologyDict',
+        return_report=True,
+    )
+
+    affected = {issue.attribute for issue in report.issues}
+    assert 'formal_charge' in affected
+    assert 'chemical_state_id' not in affected
+
+
 def test_rich_state_losses_are_scoped_and_strictly_rejected(rich_molsys):
     source = rich_molsys.topology.copy()
     state = source._reference_chemical_state
