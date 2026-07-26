@@ -165,6 +165,52 @@ def test_structures_dict_does_not_synthesize_absent_thermodynamic_series(
         assert not msm.has_attribute(structures_dict, attribute)
 
 
+def test_structures_dict_to_molsys_keeps_selected_atom_and_structure_axes(
+    thermodynamic_structures,
+):
+    structures_dict = msm.convert(
+        thermodynamic_structures,
+        to_form='molsysmt.StructuresDict',
+    )
+    molsys = msm.convert(
+        structures_dict,
+        to_form='molsysmt.MolSys',
+        selection=[1, 0],
+        structure_indices=[2, 0, 2],
+    )
+
+    assert molsys.topology.n_atoms == 2
+    assert molsys.structures.n_atoms == 2
+    assert molsys.structures.n_structures == 3
+    assert np.allclose(
+        puw.get_value(molsys.structures.temperature, to_unit='K'),
+        [310.0, 290.0, 310.0],
+    )
+    assert np.allclose(
+        puw.get_value(molsys.structures.coordinates, to_unit='nm'),
+        puw.get_value(
+            thermodynamic_structures.coordinates[[2, 0, 2]][:, [1, 0], :],
+            to_unit='nm',
+        ),
+    )
+
+
+def test_structures_dict_to_topology_uses_selected_atom_count(
+    thermodynamic_structures,
+):
+    structures_dict = msm.convert(
+        thermodynamic_structures,
+        to_form='molsysmt.StructuresDict',
+    )
+    topology = msm.convert(
+        structures_dict,
+        to_form='molsysmt.Topology',
+        selection=[1, 0],
+    )
+
+    assert topology.n_atoms == 2
+
+
 # ---------------------------------------------------------------------------
 # Parity: Structures → StructuresDict → Structures preserves data
 # ---------------------------------------------------------------------------
