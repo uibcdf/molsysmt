@@ -1,6 +1,6 @@
 [build-system]
 # `wheel` is not required here; setuptools will build wheels without adding it.
-requires = ["setuptools>=68.0", "versioningit>=3.0"]
+requires = ["setuptools>=68.0", "versioningit>=3.0", "setuptools-rust>=1.10"]
 build-backend = "setuptools.build_meta"
 
 # Self-descriptive entries which should always be present
@@ -115,6 +115,23 @@ molsysmt = [
     "py.typed"
 ]
 "molsysmt.data" = ["**"]
+
+# --- C1 SPIKE (branch packaging/rust-c1-spike): the plan's preferred design, a single
+# MolSysMT wheel carrying a private `molsysmt._rust` extension, built by the existing
+# setuptools backend via setuptools-rust so that versioningit, entry points, package data
+# and py.typed keep working unchanged. Not for merge; evidence for the C1 design review.
+[[tool.setuptools-rust.ext-modules]]
+target = "molsysmt._rust"
+path = "experiments/rust_kernels/Cargo.toml"
+binding = "PyO3"
+py-limited-api = "cp311"
+features = ["extension-module"]
+
+# The abi3 *wheel tag* is decided by bdist_wheel, not by the extension: setuptools-rust
+# resolves "auto" against `bdist_wheel.py_limited_api`. Without this the wheel builds an
+# abi3 .so but still ships as cp3XX-cp3XX, i.e. one wheel per Python instead of one.
+[tool.distutils.bdist_wheel]
+py-limited-api = "cp311"
 
 [tool.versioningit]
 default-version = "1+unknown"

@@ -205,7 +205,7 @@ fn neighbor_counts<'py>(
 }
 
 #[pymodule]
-fn msm_rust_kernels(m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn _rust(m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Production kernels (opt-in accelerators).
     mathlib::register(m)?;
     mic::register(m)?;
