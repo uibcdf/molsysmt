@@ -18,10 +18,13 @@ def test_inventory_finds_stable_runtime_identities_and_broad_surfaces(tmp_path):
     )
     _write(
         tmp_path / "molsysmt/lib/distance_cuda.py",
-        "from numba import cuda\n"
-        "@cuda.jit\n"
-        "def distance_cuda(values):\n"
-        "    return values\n",
+        "try:\n"
+        "    from numba import cuda\n"
+        "    @cuda.jit\n"
+        "    def distance_cuda(values):\n"
+        "        return values\n"
+        "except ImportError:\n"
+        "    cuda = None\n",
     )
     _write(
         tmp_path / "molsysmt/consumer.py",
@@ -36,9 +39,11 @@ def test_inventory_finds_stable_runtime_identities_and_broad_surfaces(tmp_path):
 
     inventory = audit.collect_inventory(tmp_path)
 
-    assert inventory["guarded"]["jit_sites"] == [
-        "molsysmt/lib/distance_cuda.py::distance_cuda::cuda.jit",
+    assert inventory["guarded"]["cpu_jit_sites"] == [
         "molsysmt/lib/kernel.py::distance::lazy_njit",
+    ]
+    assert inventory["guarded"]["cuda_jit_sites"] == [
+        "molsysmt/lib/distance_cuda.py::distance_cuda::cuda.jit",
     ]
     assert inventory["guarded"]["numba_imports"] == [
         "molsysmt/_private/jit.py::numba",
@@ -71,18 +76,18 @@ def test_guarded_comparison_allows_removal_and_rejects_addition():
             category: [] for category in audit.GUARDED_CATEGORIES
         }
     }
-    baseline["guarded"]["jit_sites"] = ["old.py::old::lazy_njit"]
+    baseline["guarded"]["cpu_jit_sites"] = ["old.py::old::lazy_njit"]
     current = {
         "guarded": {
             category: [] for category in audit.GUARDED_CATEGORIES
         }
     }
-    current["guarded"]["jit_sites"] = ["new.py::new::lazy_njit"]
+    current["guarded"]["cpu_jit_sites"] = ["new.py::new::lazy_njit"]
 
     added, resolved = audit.compare_guarded(current, baseline)
 
-    assert added == {"jit_sites": ["new.py::new::lazy_njit"]}
-    assert resolved == {"jit_sites": ["old.py::old::lazy_njit"]}
+    assert added == {"cpu_jit_sites": ["new.py::new::lazy_njit"]}
+    assert resolved == {"cpu_jit_sites": ["old.py::old::lazy_njit"]}
 
 
 def test_line_movement_does_not_change_a_jit_identity(tmp_path):
@@ -94,8 +99,8 @@ def test_line_movement_does_not_change_a_jit_identity(tmp_path):
         "    return values\n"
     )
     _write(kernel, source)
-    before = audit.collect_inventory(tmp_path)["guarded"]["jit_sites"]
+    before = audit.collect_inventory(tmp_path)["guarded"]["cpu_jit_sites"]
     _write(kernel, "\n\n" + source)
-    after = audit.collect_inventory(tmp_path)["guarded"]["jit_sites"]
+    after = audit.collect_inventory(tmp_path)["guarded"]["cpu_jit_sites"]
 
     assert before == after

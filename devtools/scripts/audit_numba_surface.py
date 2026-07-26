@@ -20,7 +20,8 @@ BASELINE = REPO / "devtools" / "data" / "numba_surface_baseline.json"
 SCHEMA = "molsysmt.numba-surface@1"
 GUARDED_CATEGORIES = (
     "numba_imports",
-    "jit_sites",
+    "cpu_jit_sites",
+    "cuda_jit_sites",
     "cuda_modules",
     "direct_lib_consumers",
 )
@@ -67,6 +68,8 @@ def _qualified_functions(tree: ast.AST):
                 yield from visit(node.body, (*parents, node.name))
             elif isinstance(node, ast.ClassDef):
                 yield from visit(node.body, (*parents, node.name))
+            else:
+                yield from visit(ast.iter_child_nodes(node), parents)
 
     yield from visit(getattr(tree, "body", []))
 
@@ -133,7 +136,8 @@ def collect_inventory(root: Path = REPO) -> dict:
 
     package = root / "molsysmt"
     numba_imports = []
-    jit_sites = []
+    cpu_jit_sites = []
+    cuda_jit_sites = []
     cuda_modules = set()
     direct_lib_consumer_candidates = []
     coupled_lib_modules = set()
@@ -169,9 +173,15 @@ def collect_inventory(root: Path = REPO) -> dict:
                 name = _decorator_name(decorator)
                 if _is_jit_decorator(name):
                     file_has_jit = True
-                    jit_sites.append(f"{relative}::{qualified_name}::{name}")
                     if name.endswith("cuda.jit"):
+                        cuda_jit_sites.append(
+                            f"{relative}::{qualified_name}::{name}"
+                        )
                         cuda_modules.add(relative)
+                    else:
+                        cpu_jit_sites.append(
+                            f"{relative}::{qualified_name}::{name}"
+                        )
 
         if path.stem.endswith("_cuda") or (
             imported_numba and "cuda" in text
@@ -268,7 +278,8 @@ def collect_inventory(root: Path = REPO) -> dict:
 
     guarded = {
         "numba_imports": sorted(set(numba_imports)),
-        "jit_sites": sorted(set(jit_sites)),
+        "cpu_jit_sites": sorted(set(cpu_jit_sites)),
+        "cuda_jit_sites": sorted(set(cuda_jit_sites)),
         "cuda_modules": sorted(cuda_modules),
         "direct_lib_consumers": sorted(direct_lib_consumers),
     }

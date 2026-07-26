@@ -39,7 +39,8 @@ The check runs in the smoke CI workflow. A new guarded identity fails CI.
 The ratchet uses AST-derived identities rather than counts or line numbers:
 
 - direct `numba` and `llvmlite` imports: `path::imported module`;
-- JIT-decorated functions: `path::qualified callable::decorator`;
+- CPU and CUDA JIT-decorated functions, kept as separate categories:
+  `path::qualified callable::decorator`;
 - CUDA-coupled runtime modules: repository-relative path;
 - consumers importing a JIT-coupled `molsysmt.lib` module:
   `path::imported module`.
@@ -74,7 +75,8 @@ The first generated baseline records:
 | Category | Count |
 | --- | ---: |
 | direct Numba/llvmlite imports | 48 |
-| JIT callables | 108 |
+| CPU JIT callables | 108 |
+| CUDA JIT callables | 52 |
 | CUDA-coupled runtime modules | 13 |
 | direct consumers of JIT-coupled `molsysmt.lib` modules | 46 |
 | runtime reference files | 59 |
