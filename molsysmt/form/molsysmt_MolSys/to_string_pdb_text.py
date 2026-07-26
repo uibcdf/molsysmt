@@ -70,9 +70,16 @@ def _bioassembly_lines(item):
             chain_indices[0], (list, tuple, np.ndarray)
         ):
             chain_indices = [chain_indices] * len(assembly["rotations"])
-        translations = puw.get_value(
-            assembly["translations"], to_unit="angstrom"
-        )
+        raw_translations = assembly["translations"]
+        if isinstance(raw_translations, (list, tuple)):
+            translations = [
+                puw.get_value(translation, to_unit="angstrom")
+                for translation in raw_translations
+            ]
+        else:
+            translations = np.atleast_2d(
+                puw.get_value(raw_translations, to_unit="angstrom")
+            )
         for operation_index, (operation_chains, rotation, translation) in enumerate(
             zip(chain_indices, assembly["rotations"], translations), start=1
         ):

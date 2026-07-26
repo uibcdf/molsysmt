@@ -516,6 +516,24 @@ def test_pdb_bioassembly_is_parsed_remapped_and_roundtripped(tmp_path):
     )
 
 
+def test_pdb_writer_accepts_native_list_of_bioassembly_translations(
+    hp35_bcif_gz_file,
+):
+    source = msm.convert(
+        str(hp35_bcif_gz_file),
+        to_form='molsysmt.MolSys',
+    )
+    translations = source.structures.bioassembly['1']['translations']
+
+    assert isinstance(translations, list)
+    assert len(translations) == 1
+
+    pdb_text = msm.convert(source, to_form='string:pdb_text')
+
+    assert 'REMARK 350 BIOMOLECULE: 1' in pdb_text
+    assert 'REMARK 350   BIOMT1   1' in pdb_text
+
+
 def test_all_nine_pdb_read_routes_have_exhaustive_content_aware_reports(tmp_path):
     pdb_text = (
         _pdb_atom_line(1, 'N', 'ALA', 'A', 1, (0.0, 0.0, 0.0), 'N')
