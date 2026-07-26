@@ -37,10 +37,10 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** B — final Numba oracle
-- **Active stage:** B2 — CPU kernel-to-consumer/evidence manifest
+- **Active stage:** B3 — deliberate divergence and tolerance record
 - **Completed weighted closure:** 25% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segment A is certified complete; Segment
-  B is approximately 18% complete internally after B1, but has not yet earned
+  B is approximately 48% complete internally after B2, but has not yet earned
   additional weighted closure
 - **Current repository state:** dirty WIP; not a release artifact
 - **WIP base HEAD when this ledger was created:** `7ab96e791`; this is not a
@@ -50,10 +50,9 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** map every inventoried CPU JIT callable to its Rust
-  replacement, high-level consumers, parity tests, and independent scientific
-  or property evidence; classify helpers that are intentionally absorbed
-  rather than exported one-to-one
+- **Next action:** extract every intentional numerical or behavioral
+  divergence from the complete parity surface, record its tolerance and
+  independent justification, and fail the gate on any unclassified divergence
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
@@ -69,9 +68,9 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
-| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | B1 generated and froze the active surface; B2 kernel/consumer/evidence mapping is active |
+| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | B1 froze the active surface; B2 maps all 108 CPU kernels; B3 divergence classification is active |
 | C — Rust packaging | 20% | `PENDING` | 0% | local abi3 pilot succeeded; production crate layout and multiplatform installed-wheel CI remain open |
-| D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 imports, 101 JIT sites, and 11 Numba-CUDA modules remain at the audit checkpoint |
+| D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
 | **Total** | **100%** | **`IN PROGRESS`** | **25%** | Segment credit is earned only when its complete exit gate passes |
@@ -363,8 +362,8 @@ baseline, not permission to weaken a landed ratchet.
 | Stage | Status |
 | --- | --- |
 | B1 — generated active-Numba inventory | `DONE` |
-| B2 — CPU kernel-to-consumer/evidence manifest | `IN PROGRESS` |
-| B3 — deliberate divergence and tolerance record | `PENDING` |
+| B2 — CPU kernel-to-consumer/evidence manifest | `DONE` |
+| B3 — deliberate divergence and tolerance record | `IN PROGRESS` |
 | B4 — final two-backend parity campaign | `PENDING` |
 | B5 — dated, committed oracle artifact | `PENDING` |
 
@@ -488,3 +487,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | B / B1 | `PENDING` → `IN PROGRESS` | Segment A dependency closed; generated active-Numba runtime inventory selected as the next oracle stage | dirty WIP after `9660f6e79` |
 | 2026-07-26 | B1 | `IN PROGRESS` → `DONE` | AST inventory freezes 48 direct Numba/llvmlite imports, 108 CPU JIT callables, 52 CUDA JIT callables across 13 CUDA-coupled modules, and 46 direct consumers; broader runtime, dependency, test, tool, build, experiment, and documentation surfaces are recorded; three ratchet tests, Ruff, YAML parsing, and the live audit pass; smoke CI rejects new guarded coupling | `de2ccf988` plus the immediate nested-`try` traversal correction |
 | 2026-07-26 | B2 | `PENDING` → `IN PROGRESS` | B1 baseline landed; CPU kernel-to-Rust-consumer-evidence classification selected | dirty WIP after `de2ccf988` |
+| 2026-07-26 | B2 | `IN PROGRESS` → `DONE` | generated manifest maps all 108 CPU JIT callables across 15 families: 87 direct Rust dispatchers, one alias, and 20 explicitly absorbed helpers; every family names consumers, parity tests, and independent scientific or property evidence; 264 Rust tests and 82 selected scientific-truth tests pass; the live and isolated-environment audits, six ratchet tests, Ruff, CI YAML, and devguide validation pass | `863c77fb7` |
+| 2026-07-26 | B3 | `PENDING` → `IN PROGRESS` | complete B2 map landed; deliberate numerical and behavioral divergence extraction selected as the next oracle gate | dirty WIP after `863c77fb7` |
