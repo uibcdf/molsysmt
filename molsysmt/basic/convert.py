@@ -486,11 +486,12 @@ def convert(molecular_system,
     syntax : str, default 'MolSysMT'
         Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
     strict : bool, default=False
-        Whether to reject the conversion before execution when the chemical
+        Whether to reject the conversion before execution when the semantic
         preflight identifies supplied semantics that the target cannot preserve.
     return_report : bool, default=False
         Whether to return an immutable :class:`molsysmt.ConversionReport`
-        together with the converted object.
+        together with the converted object. The conversion preflight runs only
+        when this option or `strict=True` requests it.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
 
@@ -535,6 +536,8 @@ def convert(molecular_system,
     - Missing source information is not a loss. A report issue is created only
       for an attribute available on the source instance or for an audited
       adapter limitation.
+    - Ordinary conversions do not construct a preflight report. This keeps the
+      reporting layer opt-in when neither `strict` nor `return_report` is used.
 
     See Also
     --------
@@ -604,20 +607,22 @@ def convert(molecular_system,
                 output.append(converted)
         return (output, reports) if return_report else output
 
-    from molsysmt._private.conversion_report import build_conversion_report
+    report = None
+    if strict or return_report:
+        from molsysmt._private.conversion_report import build_conversion_report
 
-    report = build_conversion_report(molecular_system, from_form, to_form)
-    if strict and report.is_lossy:
-        raise NotCompatibleConversionError(
-            report.from_form,
-            report.to_form,
-            {issue.attribute for issue in report.issues},
-            caller='molsysmt.convert',
-            message=(
-                'Strict conversion rejected supplied semantics that the target '
-                f'cannot preserve: {[issue.attribute for issue in report.issues]}'
-            ),
-        )
+        report = build_conversion_report(molecular_system, from_form, to_form)
+        if strict and report.is_lossy:
+            raise NotCompatibleConversionError(
+                report.from_form,
+                report.to_form,
+                {issue.attribute for issue in report.issues},
+                caller='molsysmt.convert',
+                message=(
+                    'Strict conversion rejected supplied semantics that the target '
+                    f'cannot preserve: {[issue.attribute for issue in report.issues]}'
+                ),
+            )
 
     # If one to one
     if not isinstance(from_form, (list, tuple)):
