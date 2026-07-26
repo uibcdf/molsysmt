@@ -1,9 +1,9 @@
-"""Parity: Rust neighbor_list_csr_multi vs the Numba oracle (exact).
+"""Parity: Rust neighbor-list membership exactly and distances within a tight envelope.
 
 Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers vacuum
 and periodic (orthogonal + triclinic), self vs disjoint query/ref, and sorted vs
-unsorted, comparing the full flat CSR (offsets, indices, distances) via the opt-in
-seam (backend='rust' vs 'numba').
+unsorted, comparing exact CSR offsets and indices plus bounded floating distances via
+the opt-in seam (backend='rust' vs 'numba').
 """
 
 import numpy as np
@@ -27,22 +27,30 @@ def _assert_same(a, b):
     off_r, idx_r, d_r = b
     assert np.array_equal(off_n, off_r)
     assert np.array_equal(idx_n, idx_r)
-    assert np.allclose(d_n, d_r, atol=1e-9)
+    assert np.allclose(d_n, d_r, rtol=0.0, atol=1e-9)
 
 
 @pytest.mark.parametrize("sort", [True, False], ids=["sorted", "unsorted"])
 def test_vacuum_self(sort):
     q = _coords(3, 120)
-    nb = rb.neighbor_list_csr_multi(q, cutoff=0.7, exclude_self=True, sort_by_distance=sort, backend="numba")
-    rs = rb.neighbor_list_csr_multi(q, cutoff=0.7, exclude_self=True, sort_by_distance=sort, backend="rust")
+    nb = rb.neighbor_list_csr_multi(
+        q, cutoff=0.7, exclude_self=True, sort_by_distance=sort, backend="numba"
+    )
+    rs = rb.neighbor_list_csr_multi(
+        q, cutoff=0.7, exclude_self=True, sort_by_distance=sort, backend="rust"
+    )
     _assert_same(nb, rs)
 
 
 @pytest.mark.parametrize("sort", [True, False], ids=["sorted", "unsorted"])
 def test_vacuum_disjoint(sort):
     q, r = _coords(2, 100), _coords(2, 80)
-    nb = rb.neighbor_list_csr_multi(q, r, cutoff=0.6, exclude_self=False, sort_by_distance=sort, backend="numba")
-    rs = rb.neighbor_list_csr_multi(q, r, cutoff=0.6, exclude_self=False, sort_by_distance=sort, backend="rust")
+    nb = rb.neighbor_list_csr_multi(
+        q, r, cutoff=0.6, exclude_self=False, sort_by_distance=sort, backend="numba"
+    )
+    rs = rb.neighbor_list_csr_multi(
+        q, r, cutoff=0.6, exclude_self=False, sort_by_distance=sort, backend="rust"
+    )
     _assert_same(nb, rs)
 
 
@@ -73,10 +81,19 @@ def _rust_pairs(off, idx, na):
 def test_pbc_self(box, sort):
     q = _coords(3, 120)
     b = np.repeat(box, 3, axis=0)
-    rs = rb.neighbor_list_csr_multi(q, box=b, cutoff=0.6, exclude_self=True, sort_by_distance=sort, backend="rust")
+    rs = rb.neighbor_list_csr_multi(
+        q, box=b, cutoff=0.6, exclude_self=True, sort_by_distance=sort, backend="rust"
+    )
     if box is ORTHO:
         # orthogonal: Rust and Numba are both correct and bit-for-bit
-        nb = rb.neighbor_list_csr_multi(q, box=b, cutoff=0.6, exclude_self=True, sort_by_distance=sort, backend="numba")
+        nb = rb.neighbor_list_csr_multi(
+            q,
+            box=b,
+            cutoff=0.6,
+            exclude_self=True,
+            sort_by_distance=sort,
+            backend="numba",
+        )
         _assert_same(nb, rs)
     else:
         # triclinic: Rust matches the true minimum-image neighbours exactly, and Numba does
@@ -85,7 +102,18 @@ def test_pbc_self(box, sort):
         off, idx, _ = rs
         rs_pairs = _rust_pairs(off, idx, 120)
         truth = _ground_truth_pairs(q[0], box[0], 0.6)
-        assert rs_pairs == truth, f"rust missing {len(truth - rs_pairs)}, extra {len(rs_pairs - truth)}"
-        nb = rb.neighbor_list_csr_multi(q, box=b, cutoff=0.6, exclude_self=True, sort_by_distance=sort, backend="numba")
+        assert rs_pairs == truth, (
+            f"rust missing {len(truth - rs_pairs)}, extra {len(rs_pairs - truth)}"
+        )
+        nb = rb.neighbor_list_csr_multi(
+            q,
+            box=b,
+            cutoff=0.6,
+            exclude_self=True,
+            sort_by_distance=sort,
+            backend="numba",
+        )
         nb_pairs = _rust_pairs(nb[0], nb[1], 120)
-        assert nb_pairs != truth, "Numba now matches the true neighbours -- retire this split"
+        assert nb_pairs != truth, (
+            "Numba now matches the true neighbours -- retire this split"
+        )

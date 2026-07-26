@@ -123,7 +123,8 @@ This artifact closes only the CPU capability-classification stage. It does not
 authorize deleting Numba. The remaining required work is:
 
 1. record every intentional numerical or behavioral divergence and its
-   tolerance;
+   tolerance in the
+   [Rust and Numba Divergence Contract](rust_numba_divergence_contract.md);
 2. run and preserve the final reproducible two-backend campaign;
 3. productize and test the private Rust extension on the supported platforms;
 4. route production consumers directly through Rust;

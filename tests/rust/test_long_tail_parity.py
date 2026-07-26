@@ -38,19 +38,24 @@ def _close(a, b, what=""):
 
 def _system(n_structures, n_atoms, seed=99):
     rng = np.random.default_rng(seed)
-    coordinates = np.ascontiguousarray(rng.uniform(-15.0, 15.0, size=(n_structures, n_atoms, 3)))
+    coordinates = np.ascontiguousarray(
+        rng.uniform(-15.0, 15.0, size=(n_structures, n_atoms, 3))
+    )
     weights = np.ascontiguousarray(rng.uniform(0.5, 16.0, size=n_atoms))
     return coordinates, weights
 
 
 # ------------------------------------------------------------------ weighted geometry
 
+
 @pytest.mark.parametrize("ns", [1, 7], ids=["one-structure", "many-structures"])
 def test_get_center(ns):
     c, w = _system(ns, 400)
     nb = rb.get_center(c, w, backend="numba")
     rs = rb.get_center(c, w, backend="rust")
-    assert rs.shape == (ns, 1, 3), "the singleton axis must survive, it is what broadcasts"
+    assert rs.shape == (ns, 1, 3), (
+        "the singleton axis must survive, it is what broadcasts"
+    )
     _close(nb, rs)
 
 
@@ -72,8 +77,12 @@ def test_get_center_groups_of_atoms(ns):
     assert rs.shape == (ns, len(groups), 3)
     _close(nb, rs)
 
-    one_nb = rb.get_center_groups_of_atoms_single_structure(c[0], groups, w, backend="numba")
-    one_rs = rb.get_center_groups_of_atoms_single_structure(c[0], groups, w, backend="rust")
+    one_nb = rb.get_center_groups_of_atoms_single_structure(
+        c[0], groups, w, backend="numba"
+    )
+    one_rs = rb.get_center_groups_of_atoms_single_structure(
+        c[0], groups, w, backend="rust"
+    )
     _close(one_nb, one_rs)
     assert np.array_equal(one_rs, rs[0]), "same backend, same kernel: must be exact"
 
@@ -108,7 +117,7 @@ def test_flipping_twice_restores_the_coordinates():
     point = np.array([3.0, 0.0, 0.0])
     once = rb.flip(c, vector, point, backend="rust")
     twice = rb.flip(once, vector, point, backend="rust")
-    assert np.allclose(twice, c, atol=1e-12)
+    assert np.allclose(twice, c, rtol=0.0, atol=1e-12)
 
 
 @pytest.mark.parametrize("ns", [1, 6], ids=["one-structure", "many-structures"])
@@ -171,17 +180,23 @@ def test_chunks_round_trip_reproduces_a_consecutive_series():
 @pytest.mark.parametrize("name", list(SERIES))
 def test_occurrence_order(name):
     serie = np.array(SERIES[name], dtype=np.int64)
-    assert np.array_equal(rb.occurrence_order(serie, backend="numba"),
-                          rb.occurrence_order(serie, backend="rust"))
+    assert np.array_equal(
+        rb.occurrence_order(serie, backend="numba"),
+        rb.occurrence_order(serie, backend="rust"),
+    )
     ordered = np.sort(serie)
-    assert np.array_equal(rb.occurrence_order_sorted_serie(ordered, backend="numba"),
-                          rb.occurrence_order_sorted_serie(ordered, backend="rust"))
+    assert np.array_equal(
+        rb.occurrence_order_sorted_serie(ordered, backend="numba"),
+        rb.occurrence_order_sorted_serie(ordered, backend="rust"),
+    )
 
 
 def test_the_two_occurrence_orders_agree_on_sorted_input():
     serie = np.array([2, 2, 5, 5, 5, 9], dtype=np.int64)
-    assert np.array_equal(rb.occurrence_order(serie, backend="rust"),
-                          rb.occurrence_order_sorted_serie(serie, backend="rust"))
+    assert np.array_equal(
+        rb.occurrence_order(serie, backend="rust"),
+        rb.occurrence_order_sorted_serie(serie, backend="rust"),
+    )
 
 
 def test_empty_series_diverge_because_upstream_reads_out_of_bounds():
@@ -198,14 +213,18 @@ def test_empty_series_diverge_because_upstream_reads_out_of_bounds():
     nb_starts, nb_sizes = rb.serie_to_chunks(empty, backend="numba")
     assert nb_starts.size == 1, (
         "upstream no longer produces a phantom chunk for empty input -- drop the special "
-        "case in series.rs and assert plain parity")
+        "case in series.rs and assert plain parity"
+    )
 
 
-@pytest.mark.parametrize("item", [
-    [[3, 4, 5], [1, 10], [3, 4, 6, 7], [8], [2, 9, 1]],
-    [[5, 4, 3]],          # segments are sorted by the kernel
-    [[], [1], []],        # empty segments must not break the offsets
-])
+@pytest.mark.parametrize(
+    "item",
+    [
+        [[3, 4, 5], [1, 10], [3, 4, 6, 7], [8], [2, 9, 1]],
+        [[5, 4, 3]],  # segments are sorted by the kernel
+        [[], [1], []],  # empty segments must not break the offsets
+    ],
+)
 def test_jit_serialize(item):
     st_nb, va_nb = rb.jit_serialize(item, backend="numba")
     st_rs, va_rs = rb.jit_serialize(item, backend="rust")
@@ -214,7 +233,7 @@ def test_jit_serialize(item):
     assert len(st_rs) == len(item) + 1, "starts carries a trailing total"
     assert st_rs[-1] == len(va_rs)
     for k, segment in enumerate(item):
-        assert list(va_rs[st_rs[k]:st_rs[k + 1]]) == sorted(segment)
+        assert list(va_rs[st_rs[k] : st_rs[k + 1]]) == sorted(segment)
 
 
 # ------------------------------------------------------------------------ topology
@@ -249,7 +268,9 @@ def test_component_labels_follow_first_appearance():
 def test_a_large_random_bond_graph_agrees():
     rng = np.random.default_rng(5)
     n_atoms = 2000
-    arr = np.ascontiguousarray(rng.integers(0, n_atoms, size=(4000, 2)).astype(np.int64))
+    arr = np.ascontiguousarray(
+        rng.integers(0, n_atoms, size=(4000, 2)).astype(np.int64)
+    )
     nb = rb.get_component_index_from_bonded_atom_pairs(arr, n_atoms, backend="numba")
     rs = rb.get_component_index_from_bonded_atom_pairs(arr, n_atoms, backend="rust")
     assert np.array_equal(nb, rs)
@@ -269,6 +290,8 @@ def test_union_and_find_root_mutate_identically():
             rb_union(parent, rank, a, b, backend=backend)
         roots = [rb._find_root(parent, i, backend=backend) for i in range(8)]
         arrays[backend] = (parent.copy(), rank.copy(), roots)
-    assert np.array_equal(arrays["numba"][0], arrays["rust"][0]), "parent trees diverged"
+    assert np.array_equal(arrays["numba"][0], arrays["rust"][0]), (
+        "parent trees diverged"
+    )
     assert np.array_equal(arrays["numba"][1], arrays["rust"][1]), "ranks diverged"
     assert arrays["numba"][2] == arrays["rust"][2]

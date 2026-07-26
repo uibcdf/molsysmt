@@ -44,6 +44,7 @@ def _rotate(coords, angle=0.7, shift=(4.0, -3.0, 1.5)):
 
 # ------------------------------------------------------------------------ plain RMSD
 
+
 @pytest.mark.parametrize("ns", [1, 8], ids=["one-structure", "many-structures"])
 def test_get_rmsd(ns):
     c, r = _pair(ns, 400)
@@ -64,17 +65,22 @@ def test_get_rmsd_with_single_reference_structure():
     assert np.allclose(nb, rs, rtol=TOL, atol=TOL)
     # must agree with the per-structure kernel fed the same reference
     broadcast = np.ascontiguousarray(np.repeat(r[:1], 6, axis=0))
-    assert np.allclose(rs, rb.get_rmsd(c, broadcast, backend="rust"), rtol=TOL, atol=TOL)
+    assert np.allclose(
+        rs, rb.get_rmsd(c, broadcast, backend="rust"), rtol=TOL, atol=TOL
+    )
 
 
 def test_plain_rmsd_is_not_blind_to_translation():
     """Guards against accidentally superposing in the kernel that must not."""
     c, _ = _pair(3, 200)
     moved = np.ascontiguousarray(c + np.array([5.0, 0.0, 0.0]))
-    assert np.allclose(rb.get_rmsd(c, moved, backend="rust"), 5.0)
+    assert np.allclose(
+        rb.get_rmsd(c, moved, backend="rust"), 5.0, rtol=0.0, atol=1e-12
+    )
 
 
 # ---------------------------------------------------------------------- least RMSD
+
 
 @pytest.mark.parametrize("ns", [1, 8], ids=["one-structure", "many-structures"])
 def test_get_least_rmsd(ns):
@@ -101,7 +107,9 @@ def test_least_rmsd_removes_rigid_body_motion():
     c, _ = _pair(4, 250)
     moved = np.ascontiguousarray(np.stack([_rotate(s) for s in c]))
     rs = rb.get_least_rmsd(c, moved, backend="rust")
-    assert np.allclose(rs, 0.0, atol=1e-8), f"rigid motion leaked into the RMSD: {rs}"
+    assert np.allclose(rs, 0.0, rtol=0.0, atol=1e-8), (
+        f"rigid motion leaked into the RMSD: {rs}"
+    )
     # and the plain RMSD must be large for the same input, or the test proves nothing
     assert rb.get_rmsd(c, moved, backend="rust").min() > 1.0
 
@@ -114,6 +122,7 @@ def test_least_rmsd_never_exceeds_plain_rmsd():
 
 
 # ------------------------------------------------------------- rotation/translation
+
 
 @pytest.mark.parametrize("ns", [1, 5], ids=["one-structure", "many-structures"])
 def test_get_least_rmsd_rotation_and_translation(ns):
@@ -130,9 +139,11 @@ def test_get_least_rmsd_rotation_and_translation(ns):
 def test_rotation_and_translation_single_structure():
     c, r = _pair(1, 300)
     nb = rb.get_least_rmsd_rotation_and_translation_single_structure(
-        c[0], r[0], backend="numba")
+        c[0], r[0], backend="numba"
+    )
     rs = rb.get_least_rmsd_rotation_and_translation_single_structure(
-        c[0], r[0], backend="rust")
+        c[0], r[0], backend="rust"
+    )
     for a, b in zip(nb, rs):
         assert np.allclose(a, b, rtol=TOL, atol=TOL)
     assert rs[1].shape == (3, 3)
@@ -141,9 +152,11 @@ def test_rotation_and_translation_single_structure():
 def test_rotation_and_translation_with_single_reference_structure():
     c, r = _pair(5, 250)
     nb = rb.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
-        c, r[0], backend="numba")
+        c, r[0], backend="numba"
+    )
     rs = rb.get_least_rmsd_rotation_and_translation_with_single_reference_structure(
-        c, r[0], backend="rust")
+        c, r[0], backend="rust"
+    )
     for a, b in zip(nb, rs):
         assert np.allclose(a, b, rtol=TOL, atol=TOL)
 
@@ -157,11 +170,14 @@ def test_the_returned_transform_actually_superposes():
     reference, _ = _pair(3, 200)
     moved = np.ascontiguousarray(np.stack([_rotate(s) for s in reference]))
     centre, rotation, translation = rb.get_least_rmsd_rotation_and_translation(
-        moved, reference, backend="rust")
+        moved, reference, backend="rust"
+    )
     for s in range(moved.shape[0]):
         centred = moved[s] - centre[s, 0]
         placed = centred @ rotation[s, 0].T + centre[s, 0] + translation[s, 0]
-        assert np.allclose(placed, reference[s], atol=1e-8), f"structure {s} did not land"
+        assert np.allclose(placed, reference[s], rtol=0.0, atol=1e-8), (
+            f"structure {s} did not land"
+        )
 
 
 def test_the_rotation_is_a_proper_rotation():
@@ -170,14 +186,15 @@ def test_the_rotation_is_a_proper_rotation():
     _, rotation, _ = rb.get_least_rmsd_rotation_and_translation(c, r, backend="rust")
     for s in range(c.shape[0]):
         m = rotation[s, 0]
-        assert np.allclose(m @ m.T, np.eye(3), atol=1e-10), "not orthogonal"
+        assert np.allclose(m @ m.T, np.eye(3), rtol=0.0, atol=1e-10), "not orthogonal"
         assert abs(np.linalg.det(m) - 1.0) < 1e-10, "improper rotation (reflection)"
 
 
 def test_identical_structures_give_the_identity_transform():
     c, _ = _pair(2, 150)
     centre, rotation, translation = rb.get_least_rmsd_rotation_and_translation(
-        c, c, backend="rust")
+        c, c, backend="rust"
+    )
     for s in range(c.shape[0]):
-        assert np.allclose(rotation[s, 0], np.eye(3), atol=1e-9)
-        assert np.allclose(translation[s, 0], 0.0, atol=1e-9)
+        assert np.allclose(rotation[s, 0], np.eye(3), rtol=0.0, atol=1e-9)
+        assert np.allclose(translation[s, 0], 0.0, rtol=0.0, atol=1e-9)

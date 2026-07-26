@@ -1,4 +1,4 @@
-"""Parity: Rust dihedral-angle family vs the Numba oracle (bit-for-bit).
+"""Parity: Rust dihedral-angle family vs the Numba oracle within an absolute envelope.
 
 Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers vacuum and
 periodic (orthogonal + triclinic), multi- and single-structure, via the opt-in seam.
@@ -21,7 +21,10 @@ TRIC = np.array([[6.0, 0.0, 0.0], [1.2, 6.0, 0.0], [0.8, 0.6, 6.0]])
 def _setup(ns, na, nq):
     coords = np.ascontiguousarray(RNG.uniform(0.0, 6.0, size=(ns, na, 3)))
     quartets = np.ascontiguousarray(
-        np.stack([RNG.choice(na, size=4, replace=False) for _ in range(nq)]).astype(np.int64))
+        np.stack([RNG.choice(na, size=4, replace=False) for _ in range(nq)]).astype(
+            np.int64
+        )
+    )
     return coords, quartets
 
 
@@ -30,7 +33,7 @@ def test_dihedrals_multi_structure():
     nb = rb.get_dihedral_angles(coords, quartets, backend="numba")
     rs = rb.get_dihedral_angles(coords, quartets, backend="rust")
     assert nb.shape == (4, 150)
-    assert np.allclose(nb, rs, atol=1e-12)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-12)
     # signed contract: both backends must agree on sign, not just magnitude
     assert np.array_equal(np.sign(nb), np.sign(rs))
 
@@ -40,7 +43,7 @@ def test_dihedrals_single_structure():
     nb = rb.get_dihedral_angles_single_structure(coords[0], quartets, backend="numba")
     rs = rb.get_dihedral_angles_single_structure(coords[0], quartets, backend="rust")
     assert nb.shape == (150,)
-    assert np.allclose(nb, rs, atol=1e-12)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-12)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
@@ -50,13 +53,17 @@ def test_mic_dihedrals_multi_structure(box):
     nb = rb.get_mic_dihedral_angles(coords, b, quartets, backend="numba")
     rs = rb.get_mic_dihedral_angles(coords, b, quartets, backend="rust")
     assert nb.shape == (3, 150)
-    assert np.allclose(nb, rs, atol=1e-12)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-12)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
 def test_mic_dihedrals_single_structure(box):
     coords, quartets = _setup(1, 50, 150)
-    nb = rb.get_mic_dihedral_angles_single_structure(coords[0], box, quartets, backend="numba")
-    rs = rb.get_mic_dihedral_angles_single_structure(coords[0], box, quartets, backend="rust")
+    nb = rb.get_mic_dihedral_angles_single_structure(
+        coords[0], box, quartets, backend="numba"
+    )
+    rs = rb.get_mic_dihedral_angles_single_structure(
+        coords[0], box, quartets, backend="rust"
+    )
     assert nb.shape == (150,)
-    assert np.allclose(nb, rs, atol=1e-12)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-12)

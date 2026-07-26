@@ -1,7 +1,7 @@
-"""Parity: Rust MIC-distance family vs the Numba oracle (bit-for-bit).
+"""Parity: Rust MIC-distance family vs the Numba oracle within an absolute envelope.
 
 Skipped unless the optional ``msm_rust_kernels`` wheel is installed, so it is a
-no-op in the normal (Numba-only) CI and an exact-equivalence gate wherever the Rust
+no-op in the normal (Numba-only) CI and a bounded-equivalence gate wherever the Rust
 accelerator is present. Covers every family member, orthogonal + triclinic boxes,
 and multi- vs single-structure shapes, via the opt-in seam (backend='rust' vs 'numba').
 """
@@ -31,7 +31,7 @@ def test_single_system(box):
     c = _coords(3, 40)
     b = np.stack([box] * 3)
     nb, rs = _both(rb.get_mic_distances_single_system, c, b)
-    assert np.allclose(nb, rs, atol=1e-9) and nb.shape == (3, 40, 40)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9) and nb.shape == (3, 40, 40)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
@@ -39,7 +39,7 @@ def test_two_systems(box):
     c1, c2 = _coords(2, 30), _coords(2, 25)
     b = np.stack([box] * 2)
     nb, rs = _both(rb.get_mic_distances, c1, c2, b)
-    assert np.allclose(nb, rs, atol=1e-9) and nb.shape == (2, 30, 25)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9) and nb.shape == (2, 30, 25)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
@@ -47,28 +47,28 @@ def test_pairs(box):
     c1, c2 = _coords(2, 30), _coords(2, 30)
     b = np.stack([box] * 2)
     nb, rs = _both(rb.get_mic_distances_pairs, c1, c2, b)
-    assert np.allclose(nb, rs, atol=1e-9) and nb.shape == (2, 30)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9) and nb.shape == (2, 30)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
 def test_single_system_single_structure(box):
     c = _coords(1, 50)[0]
     nb, rs = _both(rb.get_mic_distances_single_system_single_structure, c, box)
-    assert np.allclose(nb, rs, atol=1e-9) and nb.shape == (50, 50)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9) and nb.shape == (50, 50)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
 def test_single_structure(box):
     c1, c2 = _coords(1, 40)[0], _coords(1, 35)[0]
     nb, rs = _both(rb.get_mic_distances_single_structure, c1, c2, box)
-    assert np.allclose(nb, rs, atol=1e-9) and nb.shape == (40, 35)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9) and nb.shape == (40, 35)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
 def test_pairs_single_structure(box):
     c1, c2 = _coords(1, 40)[0], _coords(1, 40)[0]
     nb, rs = _both(rb.get_mic_distances_pairs_single_structure, c1, c2, box)
-    assert np.allclose(nb, rs, atol=1e-9) and nb.shape == (40,)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9) and nb.shape == (40,)
 
 
 def test_backend_flag_semantics():

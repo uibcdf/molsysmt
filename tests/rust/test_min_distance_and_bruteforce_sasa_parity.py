@@ -21,6 +21,7 @@ from molsysmt.lib.structure.get_sasa_cuda import get_fibonacci_sphere_points  # 
 
 # --------------------------------------------------------------- minimum distance
 
+
 def _bonded_matrix(n, pairs, seed=0):
     b = np.zeros((n, n), dtype=np.uint8)
     for i, j in pairs:
@@ -63,9 +64,11 @@ def test_minimum_distance_between_coordinate_sets():
     bonded[3, start + 4] = 1
     bonded = np.ascontiguousarray(bonded)
     nb = rb.minimum_distance_between_coordinate_sets(
-        existing, emask, candidate, cmask, start, bonded, backend="numba")
+        existing, emask, candidate, cmask, start, bonded, backend="numba"
+    )
     rs = rb.minimum_distance_between_coordinate_sets(
-        existing, emask, candidate, cmask, start, bonded, backend="rust")
+        existing, emask, candidate, cmask, start, bonded, backend="rust"
+    )
     assert nb == rs, f"numba {nb} vs rust {rs}"
 
 
@@ -79,9 +82,11 @@ def test_minimum_distance_between_sets_matches_a_brute_python_check():
     cmask = np.ones(nc, dtype=np.uint8)
     bonded = np.zeros((ne, ne + nc), dtype=np.uint8)
     rs = rb.minimum_distance_between_coordinate_sets(
-        existing, emask, candidate, cmask, ne, bonded, backend="rust")
-    truth = min(np.linalg.norm(existing[i] - candidate[j])
-                for i in range(ne) for j in range(nc))
+        existing, emask, candidate, cmask, ne, bonded, backend="rust"
+    )
+    truth = min(
+        np.linalg.norm(existing[i] - candidate[j]) for i in range(ne) for j in range(nc)
+    )
     assert abs(rs - truth) < 1e-12
 
 
@@ -107,7 +112,9 @@ def test_get_sasa_bruteforce_vacuum(ns):
     assert nb.shape == (ns, 80)
     # tolerance, not equality: fastmath reorders the final 4*pi*r^2*(count/n) product; the
     # occlusion counts match (a flipped count would be a ~1e-3 jump, not ~1e-16).
-    assert np.allclose(nb, rs, atol=1e-9), "vacuum brute-force SASA beyond the fastmath gap"
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9), (
+        "vacuum brute-force SASA beyond the fastmath gap"
+    )
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
@@ -118,7 +125,9 @@ def test_get_mic_sasa_bruteforce(box):
     rs = rb.get_mic_sasa(coords, b, radii, sphere, probe, backend="rust")
     # tolerance, not equality: the corrected _is_orthogonal makes the cubic-box branches
     # agree to ~1e-15 rather than bit-for-bit (documented deliberate correction).
-    assert np.allclose(nb, rs, atol=1e-9), "MIC brute-force SASA beyond the expected gap"
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9), (
+        "MIC brute-force SASA beyond the expected gap"
+    )
 
 
 def test_bruteforce_and_cell_list_sasa_agree():
@@ -127,4 +136,6 @@ def test_bruteforce_and_cell_list_sasa_agree():
     cutoff = 2.0 * float(radii.max()) + 2.0 * probe
     brute = rb.get_sasa(coords, radii, sphere, probe, backend="rust")
     cell = rb.get_sasa_cell_list(coords, radii, sphere, probe, cutoff, backend="rust")
-    assert np.allclose(brute, cell, atol=1e-9), "cell-list and brute-force SASA disagree"
+    assert np.allclose(brute, cell, rtol=0.0, atol=1e-9), (
+        "cell-list and brute-force SASA disagree"
+    )

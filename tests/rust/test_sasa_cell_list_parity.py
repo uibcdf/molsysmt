@@ -1,4 +1,4 @@
-"""Parity: Rust cell-list SASA kernels vs the Numba oracle (bit-for-bit).
+"""Parity: Rust cell-list SASA kernels vs the Numba oracle within an absolute envelope.
 
 Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers the vacuum
 and periodic (orthogonal + triclinic) Shrake-Rupley cell-list kernels, single and
@@ -33,7 +33,7 @@ def test_sasa_cell_list_vacuum(ns):
     nb = rb.get_sasa_cell_list(coords, radii, sphere, PROBE, cutoff, backend="numba")
     rs = rb.get_sasa_cell_list(coords, radii, sphere, PROBE, cutoff, backend="rust")
     assert nb.shape == (ns, 300)
-    assert np.allclose(nb, rs, atol=1e-9)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9)
 
 
 @pytest.mark.parametrize("box", [ORTHO, TRIC], ids=["orthogonal", "triclinic"])
@@ -48,7 +48,9 @@ def test_mic_sasa_cell_list(box, ns):
     """
     coords, radii, sphere, cutoff = _setup(ns, 250)
     b = np.repeat(box, ns, axis=0)
-    rs = rb.get_mic_sasa_cell_list(coords, b, radii, sphere, PROBE, cutoff, backend="rust")
+    rs = rb.get_mic_sasa_cell_list(
+        coords, b, radii, sphere, PROBE, cutoff, backend="rust"
+    )
     assert rs.shape == (ns, 250)
     # The property that matters: the cell-list SASA must equal the brute-force SASA (the
     # O(N^2) reference that checks every atom). This holds exactly on both orthogonal and
@@ -56,7 +58,9 @@ def test_mic_sasa_cell_list(box, ns):
     # perpendicular-thickness grid. Numba is not a valid oracle here on triclinic boxes:
     # its cell list mis-bins the skewed grid (see triclinic_cell_list_completeness.md).
     brute = rb.get_mic_sasa(coords, b, radii, sphere, PROBE, backend="rust")
-    assert np.allclose(rs, brute, atol=1e-9), "cell-list SASA disagrees with brute force"
+    assert np.allclose(rs, brute, rtol=0.0, atol=1e-9), (
+        "cell-list SASA disagrees with brute force"
+    )
 
 
 def test_zero_radius_atoms_are_zero_in_both():
@@ -66,5 +70,5 @@ def test_zero_radius_atoms_are_zero_in_both():
     radii[:10] = 0.0
     nb = rb.get_sasa_cell_list(coords, radii, sphere, PROBE, cutoff, backend="numba")
     rs = rb.get_sasa_cell_list(coords, radii, sphere, PROBE, cutoff, backend="rust")
-    assert np.allclose(nb, rs, atol=1e-9)
+    assert np.allclose(nb, rs, rtol=0.0, atol=1e-9)
     assert np.all(nb[0, :10] == 0.0)

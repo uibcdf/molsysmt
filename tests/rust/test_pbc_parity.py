@@ -36,13 +36,15 @@ def _agree(kind, a, b, what=""):
     if kind == "orthogonal":
         assert np.array_equal(a, b), f"expected bit-for-bit parity {what}"
     else:
-        assert np.allclose(a, b, atol=ATOL, rtol=0.0), f"beyond the fastmath gap {what}"
+        assert np.allclose(a, b, rtol=0.0, atol=ATOL), f"beyond the fastmath gap {what}"
 
 
 def _coords(n_structures, n_atoms, spread=25.0, seed=20260724):
     """Coordinates deliberately spilling several box lengths outside the cell."""
     rng = np.random.default_rng(seed)
-    return np.ascontiguousarray(rng.uniform(-spread, spread, size=(n_structures, n_atoms, 3)))
+    return np.ascontiguousarray(
+        rng.uniform(-spread, spread, size=(n_structures, n_atoms, 3))
+    )
 
 
 def _boxes(kind, n_structures):
@@ -51,6 +53,7 @@ def _boxes(kind, n_structures):
 
 # ------------------------------------------------------------------ box geometry
 
+
 @pytest.mark.parametrize("kind", list(BOXES))
 def test_box_is_orthogonal(kind):
     b = _boxes(kind, 4)
@@ -58,8 +61,9 @@ def test_box_is_orthogonal(kind):
     rs = rb.box_is_orthogonal(b, backend="rust")
     assert np.array_equal(nb, rs)
     assert bool(nb[0]) is (kind == "orthogonal")
-    assert rb.box_is_orthogonal_single_structure(b[0], backend="numba") == \
-           rb.box_is_orthogonal_single_structure(b[0], backend="rust")
+    assert rb.box_is_orthogonal_single_structure(
+        b[0], backend="numba"
+    ) == rb.box_is_orthogonal_single_structure(b[0], backend="rust")
 
 
 @pytest.mark.parametrize("kind", list(BOXES))
@@ -94,15 +98,18 @@ def test_box_from_lengths_and_angles(kind):
     rs = rb.get_box_from_lengths_and_angles(lengths, angles, backend="rust")
     _agree(kind, nb, rs)
     # round trip: reconstructing the box from its own lengths and angles returns it
-    assert np.allclose(rs, b, atol=1e-12)
+    assert np.allclose(rs, b, rtol=0.0, atol=1e-12)
     one_nb = rb.get_box_from_lengths_and_angles_single_structure(
-        lengths[0], angles[0], backend="numba")
+        lengths[0], angles[0], backend="numba"
+    )
     one_rs = rb.get_box_from_lengths_and_angles_single_structure(
-        lengths[0], angles[0], backend="rust")
+        lengths[0], angles[0], backend="rust"
+    )
     _agree(kind, one_nb, one_rs)
 
 
 # ------------------------------------------------------------------ wrapping
+
 
 @pytest.mark.parametrize("kind", list(BOXES))
 @pytest.mark.parametrize("ns", [1, 4], ids=["one-structure", "many-structures"])
@@ -133,8 +140,11 @@ def test_wrap_respects_a_non_zero_origin(kind):
 @pytest.mark.parametrize("kind", list(BOXES))
 @pytest.mark.parametrize(
     "fn",
-    ["wrap_to_pbc_vector_single_structure", "wrap_to_pbc_center_vector_single_structure",
-     "wrap_to_mic_vector_single_structure"],
+    [
+        "wrap_to_pbc_vector_single_structure",
+        "wrap_to_pbc_center_vector_single_structure",
+        "wrap_to_mic_vector_single_structure",
+    ],
 )
 def test_wrap_vector_helpers(kind, fn):
     if fn == "wrap_to_mic_vector_single_structure" and kind == "triclinic":
@@ -152,7 +162,9 @@ def _is_minimum_image(w, b):
     n = np.linalg.norm(w)
     return all(
         np.linalg.norm(w + i * b[0] + j * b[1] + k * b[2]) >= n - 1e-12
-        for i in (-1, 0, 1) for j in (-1, 0, 1) for k in (-1, 0, 1)
+        for i in (-1, 0, 1)
+        for j in (-1, 0, 1)
+        for k in (-1, 0, 1)
     )
 
 
@@ -166,22 +178,29 @@ def test_wrap_to_mic_is_minimum_image_on_a_triclinic_box():
     """
     b = TRIC[0]
     rng = np.random.default_rng(11)
-    vectors = [np.ascontiguousarray(rng.uniform(-20.0, 20.0, size=3)) for _ in range(200)]
+    vectors = [
+        np.ascontiguousarray(rng.uniform(-20.0, 20.0, size=3)) for _ in range(200)
+    ]
 
     rust_ok = sum(
-        _is_minimum_image(rb.wrap_to_mic_vector_single_structure(v.copy(), b, backend="rust"), b)
+        _is_minimum_image(
+            rb.wrap_to_mic_vector_single_structure(v.copy(), b, backend="rust"), b
+        )
         for v in vectors
     )
     assert rust_ok == len(vectors), f"Rust must always be minimum-image, got {rust_ok}"
 
     numba_ok = sum(
-        _is_minimum_image(rb.wrap_to_mic_vector_single_structure(v.copy(), b, backend="numba"), b)
+        _is_minimum_image(
+            rb.wrap_to_mic_vector_single_structure(v.copy(), b, backend="numba"), b
+        )
         for v in vectors
     )
     assert numba_ok < len(vectors), (
         "upstream now returns the minimum image on triclinic boxes -- the bug this "
         "divergence works around has been fixed, so drop the correction in pbc.rs and "
-        "restore plain parity")
+        "restore plain parity"
+    )
 
 
 def test_wrap_to_mic_is_minimum_image_on_an_orthogonal_box_on_both_backends():
@@ -196,6 +215,7 @@ def test_wrap_to_mic_is_minimum_image_on_an_orthogonal_box_on_both_backends():
 
 
 # ------------------------------------------------------------------ unwrap
+
 
 @pytest.mark.parametrize("kind", list(BOXES))
 def test_unwrap_makes_trajectories_continuous_identically(kind):
@@ -217,10 +237,21 @@ def test_unwrap_agrees_on_exact_half_box_jumps():
     base = np.zeros((3, 4, 3))
     for s in range(1, 3):
         # every atom jumps by exactly +/- L/2 between consecutive structures
-        base[s] = base[s - 1] + np.array([[0.5, -0.5, 1.5], [-1.5, 2.5, -2.5],
-                                          [0.5, 0.5, 0.5], [-0.5, -0.5, -0.5]]) * lengths
+        base[s] = (
+            base[s - 1]
+            + np.array(
+                [
+                    [0.5, -0.5, 1.5],
+                    [-1.5, 2.5, -2.5],
+                    [0.5, 0.5, 0.5],
+                    [-0.5, -0.5, -0.5],
+                ]
+            )
+            * lengths
+        )
     c_nb, c_rs = np.ascontiguousarray(base.copy()), np.ascontiguousarray(base.copy())
     rb.unwrap(c_nb, b, backend="numba")
     rb.unwrap(c_rs, b, backend="rust")
     assert np.array_equal(c_nb, c_rs), (
-        f"rounding-mode divergence on exact ties:\n{c_nb}\nvs\n{c_rs}")
+        f"rounding-mode divergence on exact ties:\n{c_nb}\nvs\n{c_rs}"
+    )

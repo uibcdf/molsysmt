@@ -57,7 +57,9 @@ def test_eigenvalues_match_the_oracle():
 
 
 def test_eigenvectors_match_up_to_sign_when_full_rank():
-    c, w = _system(500, 30)  # 90 features, full rank -> generically distinct eigenvalues
+    c, w = _system(
+        500, 30
+    )  # 90 features, full rank -> generically distinct eigenvalues
     nb_val, nb_vec = rb.principal_component_analysis(c, w, backend="numba")
     rs_val, rs_vec = rb.principal_component_analysis(c, w, backend="rust")
     assert np.allclose(nb_val, rs_val, rtol=TOL, atol=TOL)
@@ -70,7 +72,9 @@ def test_eigenvectors_match_up_to_sign_when_full_rank():
         if abs(nb_val[k]) < 1e-6 or min(left, right) < 1e-4:
             continue
         dot = float(np.dot(nb_vec[k], rs_vec[k]))
-        assert abs(abs(dot) - 1.0) < 1e-5, f"component {k} not parallel (|cos|={abs(dot)})"
+        assert abs(abs(dot) - 1.0) < 1e-5, (
+            f"component {k} not parallel (|cos|={abs(dot)})"
+        )
 
 
 def test_the_eigen_equation_holds_for_every_component():
@@ -79,8 +83,9 @@ def test_the_eigen_equation_holds_for_every_component():
     values, vectors = rb.principal_component_analysis(c, w, backend="rust")
     cov = _covariance(c, w)
     for k in range(len(values)):
-        assert np.allclose(cov @ vectors[k], values[k] * vectors[k], atol=1e-7), \
-            f"component {k} violates cov v = lambda v"
+        assert np.allclose(
+            cov @ vectors[k], values[k] * vectors[k], rtol=0.0, atol=1e-7
+        ), f"component {k} violates cov v = lambda v"
 
 
 def test_rank_deficient_case_agrees_on_eigenvalues_only():
@@ -98,8 +103,9 @@ def test_rank_deficient_case_agrees_on_eigenvalues_only():
 
     cov = _covariance(c, w)
     for k in range(len(rs_val)):
-        assert np.allclose(cov @ rs_vec[k], rs_val[k] * rs_vec[k], atol=1e-6), \
-            f"component {k} violates the eigen equation"
+        assert np.allclose(
+            cov @ rs_vec[k], rs_val[k] * rs_vec[k], rtol=0.0, atol=1e-6
+        ), f"component {k} violates the eigen equation"
 
 
 def test_eigenvectors_are_orthonormal_and_sign_stable():
@@ -107,7 +113,9 @@ def test_eigenvectors_are_orthonormal_and_sign_stable():
     _, first = rb.principal_component_analysis(c, w, backend="rust")
     _, second = rb.principal_component_analysis(c, w, backend="rust")
     assert np.array_equal(first, second), "the Rust result must be reproducible"
-    assert np.allclose(first @ first.T, np.eye(first.shape[0]), atol=1e-9), "not orthonormal"
+    assert np.allclose(first @ first.T, np.eye(first.shape[0]), rtol=0.0, atol=1e-9), (
+        "not orthonormal"
+    )
     for i in range(first.shape[0]):
         lead = int(np.argmax(np.abs(first[i])))
         assert first[i, lead] > 0.0, f"component {i} not sign-normalised"

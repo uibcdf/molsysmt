@@ -38,7 +38,8 @@ def _assert_axes_match(nb_axes, rs_axes):
     for i in range(3):
         dot = float(np.dot(nb_axes[i], rs_axes[i]))
         assert abs(abs(dot) - 1.0) < 1e-7, (
-            f"axis {i} is not parallel between backends (|cos| = {abs(dot)})")
+            f"axis {i} is not parallel between backends (|cos| = {abs(dot)})"
+        )
 
 
 @pytest.mark.parametrize("fn", KERNELS)
@@ -69,13 +70,17 @@ def test_eigenvalues_are_ascending_and_axes_orthonormal(fn):
     values, axes = getattr(rb, fn)(c, w, backend="rust")
     for s in range(4):
         assert np.all(np.diff(values[s]) >= -1e-12), f"not ascending: {values[s]}"
-        assert np.allclose(axes[s] @ axes[s].T, np.eye(3), atol=1e-10), "not orthonormal"
+        assert np.allclose(axes[s] @ axes[s].T, np.eye(3), rtol=0.0, atol=1e-10), (
+            "not orthonormal"
+        )
 
 
 def test_axes_satisfy_the_eigenvalue_equation():
     """Rebuilds the inertia tensor independently and checks M v = lambda v."""
     c, w = _system(1, 200)
-    values, axes = rb.get_principal_inertia_axes_single_structure(c[0], w, backend="rust")
+    values, axes = rb.get_principal_inertia_axes_single_structure(
+        c[0], w, backend="rust"
+    )
 
     centre = np.average(c[0], axis=0, weights=w)
     d = c[0] - centre
@@ -88,7 +93,9 @@ def test_axes_satisfy_the_eigenvalue_equation():
     m[1, 2] = m[2, 1] = -np.sum(w * d[:, 1] * d[:, 2])
 
     for i in range(3):
-        assert np.allclose(m @ axes[i], values[i] * axes[i], atol=1e-6), f"axis {i}"
+        assert np.allclose(m @ axes[i], values[i] * axes[i], rtol=0.0, atol=1e-6), (
+            f"axis {i}"
+        )
 
 
 def test_a_rod_puts_its_smallest_inertia_along_itself():
@@ -111,4 +118,6 @@ def test_the_rust_sign_convention_is_stable():
     for s in range(3):
         for i in range(3):
             lead = int(np.argmax(np.abs(first[s, i])))
-            assert first[s, i, lead] > 0.0, f"structure {s} axis {i} not sign-normalised"
+            assert first[s, i, lead] > 0.0, (
+                f"structure {s} axis {i} not sign-normalised"
+            )
