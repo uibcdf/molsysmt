@@ -98,3 +98,7 @@ jobs:
       - name: Validate form contracts
         shell: bash -l {0}
         run: python devtools/scripts/validate_form_adapters.py
+
+      - name: Reject new Numba coupling
+        shell: bash -l {0}
+        run: python devtools/scripts/audit_numba_surface.py
