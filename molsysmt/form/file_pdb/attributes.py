@@ -65,7 +65,7 @@ attributes['n_inner_bonds'] = True
 
 attributes['structure_index'] = True
 attributes['structure_id'] = True
-attributes['time'] = True
+attributes['time'] = False
 attributes['box'] = True
 attributes['box_shape'] = True
 attributes['box_angles'] = True
@@ -74,17 +74,18 @@ attributes['box_volume'] = True
 attributes['coordinates'] = True
 attributes['velocities'] = False
 attributes['n_structures'] = True
+attributes['occupancy'] = True
 attributes['b_factor'] = True
 attributes['alternate_location'] = True
 attributes['bioassembly'] = True
 attributes['n_bioassemblies'] = True
 
 ###
-### MECHANICAL ATTRIBUTES
+### CHEMICAL-STATE ATTRIBUTES
 ###
 
 
-attributes['formal_charge'] = False
+attributes['formal_charge'] = True
 attributes['partial_charge'] = False
 
 del(_all_attributes)

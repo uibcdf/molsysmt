@@ -1,172 +1,287 @@
-from molsysmt._private.arg_digestion import arg_digest
-from molsysmt import pyunitwizard as puw
-from molsysmt._private.variables import is_all
 from datetime import datetime
+
+import numpy as np
 import pandas as pd
 
-@arg_digest(form='molsysmt.MolSys')
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all', pdb_chain_id='chain_name',
-                       skip_digestion=False):
-
-    pdb_chain_id_column = 0
-    if pdb_chain_id=='chain_name':
-        pdb_chain_id_column = 1
-    elif pdb_chain_id=='chain_id':
-        pdb_chain_id_column = 0
-
-    now = datetime.now()
-
-    from molsysmt.pbc import get_lengths_and_angles_from_box
-
-    tmp_item = ""
-
-    description = "MOLECULAR SYSTEM"
-    date = now.strftime('%d-%b-%y').upper()
-    pdb_id = ''
-
-    line = f"HEADER    {description:<40}{date:>9}   {pdb_id:<4}\n"
-    tmp_item += line
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.variables import is_all
 
 
-    line = f"REMARK   1 Created by MolSysMT version 1.0 on {now.strftime('%d-%b-%Y').upper()} at {now.strftime('%H:%M:%S')}\n"
-    tmp_item += line
-    
+def _raise_capacity_error(attribute, reason):
+    from molsysmt._private.smonitor import NotCompatibleConversionError
 
-    with_multiple_models = False
+    raise NotCompatibleConversionError(
+        "molsysmt.MolSys",
+        "string:pdb_text",
+        {attribute},
+        caller="molsysmt.form.molsysmt_MolSys.to_string_pdb_text",
+        message=reason,
+    )
 
-    if is_all(structure_indices):
-        if item.structures.coordinates.shape[0]>1:
-            with_multiple_models = True
-            if item.structures.structure_id is not None:
-                model_index = item.structures.structure_id
-            else:
-                model_index = list(range(item.structures.coordinates.shape[0]))
-    else:
-        if len(structure_indices)>1:
-            with_multiple_models = True
-            if item.structures.structure_id is not None:
-                model_index = item.structures.structure_id[structure_indices]
-            else:
-                model_index = list(range(len(structure_indices)))
 
-    if item.structures.box is not None and item.structures.box.shape[0] > 0:
+def _model_ids(structure_ids, n_structures):
+    if structure_ids is None:
+        return [str(index) for index in range(1, n_structures + 1)]
+    output = [str(value) for value in structure_ids]
+    valid = (
+        len(set(output)) == len(output)
+        and all(value.isdigit() and 1 <= int(value) <= 9999 for value in output)
+    )
+    if not valid:
+        return [str(index) for index in range(1, n_structures + 1)]
+    return output
 
-        if is_all(structure_indices):
-            lengths, angles = get_lengths_and_angles_from_box(item.structures.box[0])
-        else:
-            lengths, angles = get_lengths_and_angles_from_box(item.structures.box[structure_indices[0]])
 
-        a,b,c = puw.get_value(lengths[0], to_unit='angstrom')
-        alpha,beta,gamma = puw.get_value(angles[0], to_unit='degrees')
+def _charge_field(value):
+    if value is None or pd.isna(value) or int(value) == 0:
+        return "  "
+    value = int(value)
+    if abs(value) > 9:
+        _raise_capacity_error(
+            "formal_charge",
+            "PDB formal-charge magnitudes must fit one decimal digit.",
+        )
+    return f"{abs(value)}{'+' if value > 0 else '-'}"
 
-        line = f"CRYST1{a:>9.3f}{b:>9.3f}{c:>9.3f}{alpha:>7.2f}{beta:>7.2f}{gamma:>7.2f}\n"
-        tmp_item += line
+
+def _validate_coordinates(coordinates):
+    if not np.isfinite(coordinates).all():
+        _raise_capacity_error(
+            "coordinates", "PDB coordinates must be finite."
+        )
+    if np.any(coordinates < -999.999) or np.any(coordinates > 9999.999):
+        _raise_capacity_error(
+            "coordinates",
+            "PDB coordinates exceed the fixed-width 8.3 fields.",
+        )
+
+
+def _bioassembly_lines(item):
+    bioassemblies = item.structures.bioassembly
+    if not bioassemblies:
+        return []
+    lines = []
+    chain_ids = item.topology.chains["chain_id"].astype(str).tolist()
+    for assembly_id, assembly in bioassemblies.items():
+        lines.append(f"REMARK 350 BIOMOLECULE: {assembly_id}\n")
+        chain_indices = assembly["chain_indices"]
+        if not chain_indices or not isinstance(
+            chain_indices[0], (list, tuple, np.ndarray)
+        ):
+            chain_indices = [chain_indices] * len(assembly["rotations"])
+        translations = puw.get_value(
+            assembly["translations"], to_unit="angstrom"
+        )
+        for operation_index, (operation_chains, rotation, translation) in enumerate(
+            zip(chain_indices, assembly["rotations"], translations), start=1
+        ):
+            names = ", ".join(chain_ids[int(index)] for index in operation_chains)
+            lines.append(
+                f"REMARK 350 APPLY THE FOLLOWING TO CHAINS: {names}\n"
+            )
+            for row in range(3):
+                values = rotation[row]
+                lines.append(
+                    f"REMARK 350   BIOMT{row + 1} {operation_index:>3}"
+                    f"{values[0]:>10.6f}{values[1]:>10.6f}{values[2]:>10.6f}"
+                    f"{translation[row]:>15.5f}\n"
+                )
+    return lines
+
+
+@arg_digest(form="molsysmt.MolSys")
+def to_string_pdb_text(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    pdb_chain_id="chain_name",
+    skip_digestion=False,
+):
+    """Converting a native molecular system to PDB text."""
+
+    if not (is_all(atom_indices) and is_all(structure_indices)):
+        item = item.extract(
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            copy_if_all=True,
+            skip_digestion=True,
+        )
+        atom_indices = "all"
+        structure_indices = "all"
 
     if is_all(atom_indices):
-        aux_df = item.topology.atoms.copy()
-        source_atom_indices = aux_df.index.to_numpy()
+        source_atom_indices = np.arange(item.topology.n_atoms, dtype=int)
     else:
-        aux_df = item.topology.atoms.iloc[atom_indices].copy()
-        source_atom_indices = aux_df.index.to_numpy()
-        aux_df.reset_index(drop=True, inplace=True)
-
-    pdb_serial_by_source_atom_index = {}
-    for local_atom_index, atom in zip(source_atom_indices, aux_df.itertuples()):
-        try:
-            pdb_serial_by_source_atom_index[int(local_atom_index)] = int(str(atom.atom_id))
-        except (TypeError, ValueError):
-            pdb_serial_by_source_atom_index[int(local_atom_index)] = atom.Index + 1
-
+        source_atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
     if is_all(structure_indices):
-        structure_indices_to_write = list(range(item.structures.coordinates.shape[0]))
+        selected_structures = np.arange(
+            item.structures.n_structures, dtype=int
+        )
     else:
-        structure_indices_to_write = list(structure_indices)
+        selected_structures = np.asarray(structure_indices, dtype=int)
 
-    for local_st_ii, st_ii in enumerate(structure_indices_to_write):
+    atoms = item.topology.atoms.iloc[source_atom_indices]
+    groups = item.topology.groups
+    chains = item.topology.chains
+    chain_column = "chain_name" if pdb_chain_id == "chain_name" else "chain_id"
 
-        if is_all(atom_indices):
-            aux_coors = puw.get_value(item.structures.coordinates[st_ii, :, :], to_unit='angstroms')
-        else:
-            aux_coors = puw.get_value(item.structures.coordinates[st_ii, atom_indices, :], to_unit='angstroms')
+    structure_ids = (
+        None
+        if item.structures.structure_id is None
+        else item.structures.structure_id[selected_structures]
+    )
+    model_ids = _model_ids(structure_ids, len(selected_structures))
+    multiple_models = len(selected_structures) > 1
 
-        if with_multiple_models:
-            line = f"MODEL     {model_index[local_st_ii]:>4}\n"
-            tmp_item += line
+    variants_per_atom = []
+    for source_atom_index in source_atom_indices:
+        counts = []
+        if item.structures.alternate_location is not None:
+            for structure_index in selected_structures:
+                alternates = item.structures.alternate_location[
+                    int(structure_index)
+                ].get(int(source_atom_index))
+                counts.append(
+                    1 if alternates is None else len(alternates["location_id"])
+                )
+        variants_per_atom.append(max(counts, default=1))
+    n_records = sum(variants_per_atom)
+    if n_records > 99999:
+        _raise_capacity_error(
+            "atom_id", "PDB atom serials exceed the five-column capacity."
+        )
+    first_serial = {}
+    next_serial = 1
+    for atom_index, count in zip(source_atom_indices, variants_per_atom):
+        first_serial[int(atom_index)] = next_serial
+        next_serial += count
 
+    formal_charge = item.topology._get_chemical_state_atom_attribute(
+        "formal_charge"
+    )
+    lines = []
+    now = datetime.now()
+    lines.append(
+        f"HEADER    {'MOLECULAR SYSTEM':<40}"
+        f"{now.strftime('%d-%b-%y').upper():>9}   {'':<4}\n"
+    )
+    lines.append(
+        "REMARK   1 Created by MolSysMT version 1.0 on "
+        f"{now.strftime('%d-%b-%Y').upper()} at {now.strftime('%H:%M:%S')}\n"
+    )
+    lines.extend(_bioassembly_lines(item))
+
+    if item.structures.box is not None and len(selected_structures):
+        from molsysmt.pbc import get_lengths_and_angles_from_box
+
+        lengths, angles = get_lengths_and_angles_from_box(
+            item.structures.box[int(selected_structures[0])]
+        )
+        a, b, c = puw.get_value(lengths[0], to_unit="angstrom")
+        alpha, beta, gamma = puw.get_value(angles[0], to_unit="degrees")
+        lines.append(
+            f"CRYST1{a:>9.3f}{b:>9.3f}{c:>9.3f}"
+            f"{alpha:>7.2f}{beta:>7.2f}{gamma:>7.2f}\n"
+        )
+
+    for local_structure_index, structure_index in enumerate(selected_structures):
+        structure_index = int(structure_index)
+        if multiple_models:
+            lines.append(f"MODEL     {model_ids[local_structure_index]:>4}\n")
         previous_chain_index = None
-
-        for atom in aux_df.itertuples():
-
-            if previous_chain_index is not None and atom.chain_index != previous_chain_index:
-                tmp_item += "TER\n"
-
+        serial = 1
+        for source_atom_index, atom in zip(
+            source_atom_indices, atoms.itertuples()
+        ):
+            source_atom_index = int(source_atom_index)
+            if (
+                previous_chain_index is not None
+                and atom.chain_index != previous_chain_index
+            ):
+                lines.append("TER\n")
             previous_chain_index = atom.chain_index
 
-            head = 'ATOM'
+            alternate = None
+            if item.structures.alternate_location is not None:
+                alternate = item.structures.alternate_location[
+                    structure_index
+                ].get(source_atom_index)
+            if alternate is None:
+                coordinates = puw.get_value(
+                    item.structures.coordinates[
+                        structure_index, source_atom_index
+                    ],
+                    to_unit="angstrom",
+                )[np.newaxis, :]
+                location_ids = [""]
+                occupancies = [
+                    0.0
+                    if item.structures.occupancy is None
+                    else item.structures.occupancy[
+                        structure_index, source_atom_index
+                    ]
+                ]
+                b_factors = [
+                    0.0
+                    if item.structures.b_factor is None
+                    else puw.get_value(
+                        item.structures.b_factor[
+                            structure_index, source_atom_index
+                        ],
+                        to_unit="angstrom**2",
+                    )
+                ]
+            else:
+                coordinates = puw.get_value(
+                    alternate["coordinates"], to_unit="angstrom"
+                )
+                location_ids = alternate["location_id"]
+                occupancies = alternate["occupancy"]
+                b_factors = puw.get_value(
+                    alternate["b_factor"], to_unit="angstrom**2"
+                )
+            _validate_coordinates(coordinates)
 
-            atom_id = str(atom.atom_id)
-            atom_name = atom.atom_name
-            group_name = item.topology.groups.iloc[atom.group_index, 1]
-            group_id = str(item.topology.groups.iloc[atom.group_index, 0])
-            _raw_chain_id = item.topology.chains.iloc[atom.chain_index, pdb_chain_id_column]
-            chain_id = str(_raw_chain_id) if not pd.isna(_raw_chain_id) else 'A'
-
-            x,y,z = aux_coors[atom.Index, :]
-
-            occupancy = 0.0
-            temp_factor = 0.0
-
-            element_symbol = atom.atom_type if atom.atom_type is not None else ''
-
-            line = (
-                f"{head[:6].ljust(6)}"
-                f"{atom_id[:5].rjust(5)}"
-                f"{' ':1}"
-                f"{atom_name[:4].ljust(4)}"
-                f"{' ':1}"
-                f"{group_name[:3].rjust(3)}"
-                f"{' ':1}"
-                f"{chain_id[:1].rjust(1)}"
-                f"{group_id[:4].rjust(4)}"
-                f"{' ':1}"
-                f"{' ':3}"
-                f"{x:>8.3f}"
-                f"{y:>8.3f}"
-                f"{z:>8.3f}"
-                f"{occupancy:>6.2f}"
-                f"{temp_factor:>6.2f}"
-                f"{' ':10}"
-                f"{element_symbol[:2].rjust(2)}"
-                f"\n"
+            group = groups.iloc[int(atom.group_index)]
+            raw_chain_id = chains.iloc[int(atom.chain_index)][chain_column]
+            chain_id = "A" if pd.isna(raw_chain_id) else str(raw_chain_id)
+            element_symbol = "" if pd.isna(atom.atom_type) else str(atom.atom_type)
+            charge = (
+                None
+                if formal_charge is None
+                else formal_charge.iloc[source_atom_index]
             )
-            tmp_item += line
-
-        if with_multiple_models:
-            tmp_item += "ENDMDL\n"
+            for variant_index, coordinates_value in enumerate(coordinates):
+                x, y, z = coordinates_value
+                location = str(location_ids[variant_index])[:1]
+                lines.append(
+                    f"{'ATOM':<6}{serial:>5} "
+                    f"{str(atom.atom_name)[:4]:<4}{location:1}"
+                    f"{str(group['group_name'])[:3]:>3} "
+                    f"{chain_id[:1]:1}{str(group['group_id'])[:4]:>4}    "
+                    f"{x:>8.3f}{y:>8.3f}{z:>8.3f}"
+                    f"{float(occupancies[variant_index]):>6.2f}"
+                    f"{float(b_factors[variant_index]):>6.2f}"
+                    f"{'':10}{element_symbol[:2]:>2}"
+                    f"{_charge_field(charge):>2}\n"
+                )
+                serial += 1
+        if multiple_models:
+            lines.append("ENDMDL\n")
 
     bonds = item.topology._get_chemical_state_bonds()
-    if bonds.shape[0] > 0:
-        atom_index_in_output = set(int(ii) for ii in source_atom_indices)
-        bonded_pairs_written = set()
-
-        for bond in bonds.itertuples():
-            atom1_index = int(bond.atom1_index)
-            atom2_index = int(bond.atom2_index)
-
-            if atom1_index not in atom_index_in_output or atom2_index not in atom_index_in_output:
-                continue
-
-            atom1_serial = pdb_serial_by_source_atom_index[atom1_index]
-            atom2_serial = pdb_serial_by_source_atom_index[atom2_index]
-
-            pair = tuple(sorted((atom1_serial, atom2_serial)))
-            if pair in bonded_pairs_written:
-                continue
-
-            bonded_pairs_written.add(pair)
-            tmp_item += f"CONECT{atom1_serial:>5}{atom2_serial:>5}\n"
-
-
-    tmp_item += 'END\n'
-
-    return tmp_item
+    selected_set = set(int(index) for index in source_atom_indices)
+    written = set()
+    for bond in bonds.itertuples():
+        atom1 = int(bond.atom1_index)
+        atom2 = int(bond.atom2_index)
+        if atom1 not in selected_set or atom2 not in selected_set:
+            continue
+        pair = tuple(sorted((first_serial[atom1], first_serial[atom2])))
+        if pair in written:
+            continue
+        written.add(pair)
+        lines.append(f"CONECT{pair[0]:>5}{pair[1]:>5}\n")
+    lines.append("END\n")
+    return "".join(lines)

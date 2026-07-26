@@ -222,6 +222,14 @@ _BUILDER_TO_MOLSYS_DICT_PROFILE = {
     'mode': 'builder_to_molsysdict',
 }
 
+_PDB_WRITE_PROFILE = {
+    'mode': 'pdb_write',
+}
+
+_PDB_READ_PROFILE = {
+    'mode': 'pdb_read',
+}
+
 _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.Structures',
@@ -267,7 +275,25 @@ _CONVERSION_AUDIT_PROFILES = {
         'molsysmt.MolSysDict',
         'molsysmt.MolSysBuilder',
     ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    ('molsysmt.MolSys', 'string:pdb_text'): _PDB_WRITE_PROFILE,
+    ('molsysmt.MolSys', 'file:pdb'): _PDB_WRITE_PROFILE,
 }
+
+for _pdb_source_form in (
+    'file:pdb',
+    'string:pdb_text',
+    'molsysmt.PDBFileHandler',
+):
+    for _pdb_target_form in (
+        'molsysmt.MolSys',
+        'molsysmt.Topology',
+        'molsysmt.Structures',
+    ):
+        _CONVERSION_AUDIT_PROFILES[
+            (_pdb_source_form, _pdb_target_form)
+        ] = _PDB_READ_PROFILE
+
+del _pdb_source_form, _pdb_target_form
 
 _EXHAUSTIVE_AUDIT_PAIRS = frozenset(_CONVERSION_AUDIT_PROFILES)
 
@@ -670,7 +696,299 @@ def _audit_native_molsys_to_builder(item):
     return issues
 
 
-def _audit_registered_profile(item, source_form, target_form):
+def _selected_native_pdb_payload(
+    item,
+    selection='all',
+    structure_indices='all',
+    syntax='MolSysMT',
+):
+    """Return the exact native payload requested for PDB serialization."""
+
+    import numpy as np
+    from molsysmt._private.variables import is_all
+
+    if is_all(selection):
+        atom_indices = 'all'
+    else:
+        from molsysmt.basic import select
+
+        atom_indices = select(
+            item, selection=selection, syntax=syntax, skip_digestion=True
+        )
+    if is_all(structure_indices):
+        selected_structures = 'all'
+    else:
+        selected_structures = np.atleast_1d(structure_indices).astype(int)
+    return item.extract(
+        atom_indices=atom_indices,
+        structure_indices=selected_structures,
+        copy_if_all=True,
+        skip_digestion=True,
+    )
+
+
+def _audit_native_pdb_write(
+    item,
+    target_form,
+    selection='all',
+    structure_indices='all',
+    syntax='MolSysMT',
+):
+    """Return exhaustive, payload-aware limitations of native PDB writing."""
+
+    import numpy as np
+    from molsysmt import pyunitwizard as puw
+
+    payload = _selected_native_pdb_payload(
+        item,
+        selection=selection,
+        structure_indices=structure_indices,
+        syntax=syntax,
+    )
+    issues = _audit_declared_capability_projection(
+        payload, 'molsysmt.MolSys', target_form
+    )
+
+    expected_atom_ids = [
+        str(index) for index in range(1, payload.topology.n_atoms + 1)
+    ]
+    actual_atom_ids = payload.topology.atoms['atom_id'].astype(str).tolist()
+    if actual_atom_ids != expected_atom_ids:
+        issues.append(ConversionIssue(
+            attribute='atom_id',
+            reason=(
+                'PDB writing uses canonical serials because native atom IDs are '
+                'not one unique contiguous decimal sequence.'
+            ),
+            kind='canonicalization',
+            scope='topology',
+        ))
+
+    structure_ids = payload.structures.structure_id
+    if structure_ids is not None and payload.structures.n_structures > 1:
+        values = [str(value) for value in structure_ids]
+        if (
+            len(set(values)) != len(values)
+            or any(
+                not value.isdigit() or not 1 <= int(value) <= 9999
+                for value in values
+            )
+        ):
+            issues.append(ConversionIssue(
+                attribute='structure_id',
+                reason=(
+                    'PDB MODEL identifiers must be unique decimal values between '
+                    '1 and 9999 and will therefore be canonicalized.'
+                ),
+                kind='canonicalization',
+                scope='structures',
+            ))
+
+    if (
+        payload.structures.box is not None
+        and payload.structures.n_structures > 1
+    ):
+        boxes = puw.get_value(payload.structures.box, to_unit='nm')
+        if not np.allclose(boxes, boxes[0], equal_nan=True):
+            issues.append(ConversionIssue(
+                attribute='box',
+                reason=(
+                    'PDB CRYST1 stores one unit cell for the complete model set.'
+                ),
+                kind='schema_limitation',
+                scope='structures',
+            ))
+
+    if payload.structures.coordinates is not None:
+        coordinates = puw.get_value(
+            payload.structures.coordinates, to_unit='angstrom'
+        )
+        if (
+            not np.isfinite(coordinates).all()
+            or np.any(coordinates < -999.999)
+            or np.any(coordinates > 9999.999)
+        ):
+            issues.append(ConversionIssue(
+                attribute='coordinates',
+                reason='PDB coordinates exceed their fixed-width 8.3 fields.',
+                kind='numeric_capacity',
+                scope='structures',
+            ))
+
+    formal_charge = payload.topology._get_chemical_state_atom_attribute(
+        'formal_charge'
+    )
+    if (
+        formal_charge is not None
+        and formal_charge.notna().any()
+        and np.any(np.abs(formal_charge.dropna().to_numpy(dtype=int)) > 9)
+    ):
+        issues.append(ConversionIssue(
+            attribute='formal_charge',
+            reason='PDB formal-charge magnitudes occupy one decimal digit.',
+            kind='numeric_capacity',
+            scope='chemical_state',
+        ))
+
+    bonds = payload.topology._get_chemical_state_bonds()
+    if (
+        'bond_type' in bonds
+        and not bonds['bond_type'].dropna().isin(['covalent']).all()
+    ):
+        issues.append(ConversionIssue(
+            attribute='bond_type',
+            reason='PDB connectivity cannot distinguish non-covalent bond types.',
+            kind='schema_limitation',
+            scope='chemical_state',
+        ))
+
+    deduplicated = {}
+    for issue in issues:
+        deduplicated[(issue.attribute, issue.kind, issue.scope)] = issue
+    return list(deduplicated.values())
+
+
+def _pdb_handler(item, source_form):
+    """Return a PDB handler and whether this audit owns it."""
+
+    if source_form == 'molsysmt.PDBFileHandler':
+        return item, False
+    if source_form == 'file:pdb':
+        from molsysmt.form.file_pdb.to_molsysmt_PDBFileHandler import (
+            to_molsysmt_PDBFileHandler,
+        )
+    else:
+        from molsysmt.form.string_pdb_text.to_molsysmt_PDBFileHandler import (
+            to_molsysmt_PDBFileHandler,
+        )
+    return to_molsysmt_PDBFileHandler(item, skip_digestion=True), True
+
+
+def _selected_pdb_site_indices(handler, selection, syntax):
+    """Return canonical PDB site indices inspected by one conversion."""
+
+    from molsysmt._private.variables import is_all
+    from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_MolSys import (
+        _build_topology_from_content,
+        _canonical_atoms,
+    )
+
+    canonical_atoms, _ = _canonical_atoms(handler.content)
+    if is_all(selection):
+        return list(range(len(canonical_atoms))), canonical_atoms
+    from molsysmt.basic import select
+
+    topology = _build_topology_from_content(
+        handler, get_missing_bonds=False
+    )
+    indices = select(
+        topology, selection=selection, syntax=syntax, skip_digestion=True
+    )
+    return [int(index) for index in indices], canonical_atoms
+
+
+def _audit_pdb_read(
+    item,
+    source_form,
+    target_form,
+    selection='all',
+    syntax='MolSysMT',
+):
+    """Return exhaustive, content-aware limitations of native PDB reading."""
+
+    from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_MolSys import (
+        _canonical_atoms,
+        _get_explicit_bonds,
+    )
+
+    handler, opened_here = _pdb_handler(item, source_form)
+    try:
+        selected_indices, canonical_atoms = _selected_pdb_site_indices(
+            handler, selection, syntax
+        )
+        selected_keys = {
+            canonical_atoms[index].site_key for index in selected_indices
+        }
+        issues = []
+        for content_issue in handler.content.issues:
+            if (
+                content_issue.atom_site_keys
+                and not selected_keys.intersection(content_issue.atom_site_keys)
+            ):
+                continue
+            issues.append(ConversionIssue(
+                attribute=content_issue.attribute,
+                reason=content_issue.reason,
+                kind='adapter_limitation',
+                scope=_attribute_scope(content_issue.attribute),
+            ))
+
+        if any(
+            canonical_atoms[index].insertion_code
+            for index in selected_indices
+        ):
+            issues.append(ConversionIssue(
+                attribute='group_id',
+                reason=(
+                    'Native group IDs do not encode the separate PDB insertion code.'
+                ),
+                kind='adapter_limitation',
+                scope='topology',
+            ))
+
+        _, variants = _canonical_atoms(handler.content)
+        _, unresolved_bonds, repeated_conect = _get_explicit_bonds(
+            handler.content, canonical_atoms, variants
+        )
+        if unresolved_bonds:
+            issues.append(ConversionIssue(
+                attribute='bonded_atoms',
+                reason=(
+                    'At least one explicit PDB connectivity endpoint is missing '
+                    'or ambiguous.'
+                ),
+                kind='adapter_limitation',
+                scope='chemical_state',
+            ))
+        if repeated_conect:
+            issues.append(ConversionIssue(
+                attribute='bond_order',
+                reason=(
+                    'Repeated PDB CONECT endpoints are retained as one bond and '
+                    'are not interpreted silently as a bond order.'
+                ),
+                kind='adapter_limitation',
+                scope='chemical_state',
+            ))
+
+        if target_form == 'molsysmt.Topology':
+            issues.append(ConversionIssue(
+                attribute='coordinates',
+                reason='A topology-only target intentionally omits PDB structures.',
+                kind='target_projection',
+                scope='structures',
+            ))
+        elif target_form == 'molsysmt.Structures':
+            issues.append(ConversionIssue(
+                attribute='atom_name',
+                reason='A structures-only target intentionally omits PDB topology.',
+                kind='target_projection',
+                scope='topology',
+            ))
+        return issues
+    finally:
+        if opened_here:
+            handler.close()
+
+
+def _audit_registered_profile(
+    item,
+    source_form,
+    target_form,
+    selection='all',
+    structure_indices='all',
+    syntax='MolSysMT',
+):
     """Return issues from one evidence-backed exhaustive audit profile."""
 
     pair = (source_form, target_form)
@@ -697,6 +1015,22 @@ def _audit_registered_profile(item, source_form, target_form):
         and profile.get('mode') == 'builder_to_molsysdict'
     ):
         return _audit_native_builder_to_dict(item)
+    if profile is not None and profile.get('mode') == 'pdb_write':
+        return _audit_native_pdb_write(
+            item,
+            target_form,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+        )
+    if profile is not None and profile.get('mode') == 'pdb_read':
+        return _audit_pdb_read(
+            item,
+            source_form,
+            target_form,
+            selection=selection,
+            syntax=syntax,
+        )
     return []
 
 
@@ -759,7 +1093,14 @@ def _instance_has(module, item, attribute, source_form):
     )
 
 
-def build_conversion_report(molecular_system, from_form, to_form):
+def build_conversion_report(
+    molecular_system,
+    from_form,
+    to_form,
+    selection='all',
+    structure_indices='all',
+    syntax='MolSysMT',
+):
     """Build a conservative preflight report without mutating either system."""
 
     from molsysmt.form import _dict_modules
@@ -774,7 +1115,14 @@ def build_conversion_report(molecular_system, from_form, to_form):
             target_form,
         ) in _CONVERSION_AUDIT_PROFILES
         issues.extend(
-            _audit_registered_profile(source_item, source_form, target_form)
+            _audit_registered_profile(
+                source_item,
+                source_form,
+                target_form,
+                selection=selection,
+                structure_indices=structure_indices,
+                syntax=syntax,
+            )
         )
         source_module = _dict_modules[source_form]
         inspection_item = source_item

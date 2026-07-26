@@ -1,235 +1,77 @@
 import os
+
 import numpy as np
+import pandas as pd
+
 from molsysmt._private.arg_digestion import arg_digest
 
 
-def _parse_serial(s):
-    """Parse a PDB serial-number field (5 chars).
-    Handles decimal, uppercase-hex overflow (OpenMM/VMD), and hybrid-36 (Chimera).
-    """
-    s = s.strip()
-    if not s:
-        return 0
-    try:
-        return int(s)
-    except ValueError:
-        pass
-    try:
-        shifted = int(s, 16)
-        return shifted - 10 * (16 ** 4) + 100000
-    except ValueError:
-        pass
-    try:
-        return int(s[0], 36) * 10000 + int(s[1:])
-    except (ValueError, IndexError):
-        pass
-    return 0
+def _site_variants(model):
+    output = {}
+    for atom in model.atoms:
+        output.setdefault(atom.site_key, []).append(atom)
+    return output
 
 
-def _read_pdb_lines(item):
-    if hasattr(item.file, "seek"):
-        item.file.seek(0)
-    lines = item.file.readlines()
-    if hasattr(item.file, "seek"):
-        item.file.seek(0)
-    return lines
+def _canonical_atoms(content):
+    if not content.models:
+        return [], {}
+    variants = _site_variants(content.models[0])
+    return [items[0] for items in variants.values()], variants
 
 
-def _parse_topology_from_lines(lines):
-    atom_rows = []
+def _topology_rows(content):
+    canonical_atoms, variants = _canonical_atoms(content)
     group_rows = []
     chain_rows = []
-    bonded_atom_pairs = []
+    group_indices = {}
+    chain_indices = {}
 
-    serial_to_atom_index = {}
-    group_key_to_index = {}
-    chain_segment_to_index = {}
-    bonded_pairs_seen = set()
-
-    current_chain_segment = -1
-    pending_new_chain = True
-    previous_group_key = None
-
-    inside_model = False
-    first_model_finished = False
-
-    for line in lines:
-        record = line[0:6].strip()
-
-        if record == "MODEL":
-            if inside_model:
-                continue
-            inside_model = True
-            if atom_rows:
-                break
-            continue
-
-        if record == "ENDMDL":
-            if inside_model:
-                first_model_finished = True
-                break
-            continue
-
-        if record == "TER":
-            if atom_rows:
-                pending_new_chain = True
-            continue
-
-        if record in ["ATOM", "HETATM"]:
-            if first_model_finished:
-                break
-
-            if pending_new_chain:
-                current_chain_segment += 1
-                pending_new_chain = False
-
-                chain_id = line[21].strip()
-                if chain_id == "":
-                    chain_id = " "
-                chain_rows.append((chain_id, chain_id))
-                chain_segment_to_index[current_chain_segment] = len(chain_rows) - 1
-
-            atom_serial = str(_parse_serial(line[6:11]))
-            atom_name = line[12:16].strip()
-            group_name = line[17:20].strip()
-            chain_id = line[21].strip()
-            if chain_id == "":
-                chain_id = " "
-            group_id = line[22:26].strip()
-            insertion_code = line[26]
-            element_symbol = line[76:78].strip() or None
-
-            group_key = (current_chain_segment, chain_id, group_id, insertion_code, group_name)
-            if group_key != previous_group_key:
-                group_rows.append((group_id, group_name, chain_segment_to_index[current_chain_segment]))
-                group_key_to_index[group_key] = len(group_rows) - 1
-                previous_group_key = group_key
-
-            atom_index = len(atom_rows)
-            serial_to_atom_index[int(atom_serial)] = atom_index
-            atom_rows.append(
-                (
-                    atom_serial,
-                    atom_name,
-                    element_symbol,
-                    group_key_to_index[group_key],
-                    chain_segment_to_index[current_chain_segment],
-                )
-            )
-            continue
-
-        if record == "CONECT":
-            try:
-                atom_serial = _parse_serial(line[6:11])
-            except Exception:
-                continue
-
-            if atom_serial not in serial_to_atom_index:
-                continue
-
-            for start in [11, 16, 21, 26]:
-                bonded_serial = line[start:start + 5].strip()
-                if bonded_serial == "":
-                    continue
-                try:
-                    bonded_serial = _parse_serial(bonded_serial)
-                except Exception:
-                    continue
-                if bonded_serial not in serial_to_atom_index:
-                    continue
-
-                pair = tuple(sorted((serial_to_atom_index[atom_serial], serial_to_atom_index[bonded_serial])))
-                if pair[0] == pair[1] or pair in bonded_pairs_seen:
-                    continue
-                bonded_pairs_seen.add(pair)
-                bonded_atom_pairs.append(pair)
-
-    return atom_rows, group_rows, chain_rows, bonded_atom_pairs
-
-
-def _build_structures_from_lines(lines, entry):
-    from molsysmt.native import Structures
-    from molsysmt import pyunitwizard as puw
-    from molsysmt._private import rust_backend as _kernels
-
-    models = []
-    current_model = []
-    inside_model = False
-    saw_explicit_model = False
-
-    for line in lines:
-        record = line[0:6].strip()
-        if record == "MODEL":
-            if current_model:
-                models.append(current_model)
-                current_model = []
-            inside_model = True
-            saw_explicit_model = True
-            continue
-        if record == "ENDMDL":
-            models.append(current_model)
-            current_model = []
-            inside_model = False
-            continue
-        if record in ["ATOM", "HETATM"]:
-            try:
-                bfac = float(line[60:66])
-            except (ValueError, IndexError):
-                bfac = 0.0
-            current_model.append(
-                [float(line[30:38]), float(line[38:46]), float(line[46:54]), bfac]
-            )
-
-    if current_model:
-        models.append(current_model)
-
-    if not models:
-        return Structures()
-
-    if not saw_explicit_model:
-        models = [models[0]]
-
-    n_structures = len(models)
-
-    models_array = np.array(models, dtype=float)
-    coordinates = models_array[:, :, :3] * puw.unit("angstroms")
-    coordinates = puw.convert(coordinates, to_unit="nanometers")
-
-    b_factor_raw = models_array[:, :, 3]  # shape (n_structures, n_atoms)
-    if np.any(b_factor_raw != 0.0):
-        b_factor = b_factor_raw * puw.unit("angstroms**2")
-        b_factor = puw.convert(b_factor, to_unit="nanometers**2")
-    else:
-        b_factor = None
-
-    if saw_explicit_model:
-        structure_id = np.arange(1, n_structures + 1, dtype=int).astype(str)
-    else:
-        structure_id = np.array(["1"], dtype=object)
-
-    box = None
-    cryst1 = entry.crystallographic_and_coordinate_transformation.cryst1
-    if cryst1 is not None:
-        lengths = np.array([cryst1.a, cryst1.b, cryst1.c], dtype=float) * puw.unit("angstroms")
-        angles = np.array([cryst1.alpha, cryst1.beta, cryst1.gamma], dtype=float) * puw.unit("degrees")
-        single_box_value = _kernels.get_box_from_lengths_and_angles_single_structure(
-            np.array(puw.get_value(lengths), dtype=np.float64),
-            np.array(puw.get_value(angles, to_unit="radians"), dtype=np.float64),
+    for atom in canonical_atoms:
+        chain_key = (atom.chain_segment, atom.chain_id)
+        if chain_key not in chain_indices:
+            chain_indices[chain_key] = len(chain_rows)
+            chain_rows.append((atom.chain_id, atom.chain_id))
+        group_key = (
+            atom.chain_segment,
+            atom.chain_id,
+            atom.group_id,
+            atom.insertion_code,
+            atom.group_name,
         )
-        box_value = np.repeat(single_box_value[np.newaxis, :, :], n_structures, axis=0)
-        box = box_value * puw.unit("angstroms")
-        box = puw.convert(box, to_unit="nanometers")
+        if group_key not in group_indices:
+            group_indices[group_key] = len(group_rows)
+            group_rows.append((
+                atom.group_id,
+                atom.group_name,
+                chain_indices[chain_key],
+            ))
 
-    structures = Structures()
-    structures.append(coordinates=coordinates, structure_id=structure_id, box=box,
-                      b_factor=b_factor, skip_digestion=True)
-
-    return structures
+    atom_rows = []
+    for atom in canonical_atoms:
+        group_key = (
+            atom.chain_segment,
+            atom.chain_id,
+            atom.group_id,
+            atom.insertion_code,
+            atom.group_name,
+        )
+        chain_key = (atom.chain_segment, atom.chain_id)
+        atom_rows.append((
+            str(atom.serial),
+            atom.atom_name,
+            atom.element_symbol,
+            group_indices[group_key],
+            chain_indices[chain_key],
+        ))
+    return atom_rows, group_rows, chain_rows, canonical_atoms, variants
 
 
 def _get_group_types(group_rows, atom_rows):
     from molsysmt.element.group import get_group_type_from_group_name
-    from molsysmt.element.group.small_molecule.group_names import group_names as reserved_small_molecule_names
+    from molsysmt.element.group.small_molecule.group_names import (
+        group_names as reserved_small_molecule_names,
+    )
 
     atom_names_by_group_index = {}
     for _, atom_name, _, group_index, _ in atom_rows:
@@ -239,133 +81,435 @@ def _get_group_types(group_rows, atom_rows):
     for group_index, (_, group_name, _) in enumerate(group_rows):
         group_type = get_group_type_from_group_name(group_name)
         if (
-            group_type == 'small molecule'
+            group_type == "small molecule"
             and reserved_small_molecule_names is not None
             and group_name in reserved_small_molecule_names
+            and {"N", "CA", "C", "O", "CB"}.issubset(
+                atom_names_by_group_index.get(group_index, set())
+            )
         ):
-            atom_names = atom_names_by_group_index.get(group_index, set())
-            if {'N', 'CA', 'C', 'O', 'CB'}.issubset(atom_names):
-                group_type = 'amino acid'
+            group_type = "amino acid"
         group_types.append(group_type)
-
     return np.array(group_types, dtype=object)
+
+
+def _resolve_link_endpoint(canonical_atoms, endpoint):
+    chain_id, group_id, insertion_code, group_name, atom_name, _ = endpoint
+    return [
+        atom_index
+        for atom_index, atom in enumerate(canonical_atoms)
+        if (
+            atom.chain_id == chain_id
+            and atom.group_id == group_id
+            and atom.insertion_code == insertion_code
+            and atom.group_name == group_name
+            and atom.atom_name == atom_name
+        )
+    ]
+
+
+def _resolve_ssbond_endpoint(canonical_atoms, endpoint):
+    chain_id, group_id, insertion_code = endpoint
+    return [
+        atom_index
+        for atom_index, atom in enumerate(canonical_atoms)
+        if (
+            atom.chain_id == chain_id
+            and atom.group_id == group_id
+            and atom.insertion_code == insertion_code
+            and atom.group_name == "CYS"
+            and atom.atom_name == "SG"
+        )
+    ]
+
+
+def _get_explicit_bonds(content, canonical_atoms, variants):
+    serial_to_indices = {}
+    for atom_index, items in enumerate(variants.values()):
+        for item in items:
+            serial_to_indices.setdefault(item.serial, set()).add(atom_index)
+
+    pairs = set()
+    repeated_pairs = set()
+    unresolved = False
+    for record in content.conect:
+        for target in record.target_serials:
+            sources = serial_to_indices.get(record.source_serial, set())
+            targets = serial_to_indices.get(target, set())
+            if len(sources) != 1 or len(targets) != 1:
+                unresolved = True
+                continue
+            pair = tuple(sorted((next(iter(sources)), next(iter(targets)))))
+            if pair[0] == pair[1]:
+                continue
+            if pair in pairs:
+                repeated_pairs.add(pair)
+            pairs.add(pair)
+
+    for record in content.links:
+        endpoint1 = _resolve_link_endpoint(canonical_atoms, record.endpoint1)
+        endpoint2 = _resolve_link_endpoint(canonical_atoms, record.endpoint2)
+        if len(endpoint1) != 1 or len(endpoint2) != 1:
+            unresolved = True
+            continue
+        pair = tuple(sorted((endpoint1[0], endpoint2[0])))
+        if pair[0] != pair[1]:
+            pairs.add(pair)
+
+    for record in content.ssbonds:
+        endpoint1 = _resolve_ssbond_endpoint(canonical_atoms, record.endpoint1)
+        endpoint2 = _resolve_ssbond_endpoint(canonical_atoms, record.endpoint2)
+        if len(endpoint1) != 1 or len(endpoint2) != 1:
+            unresolved = True
+            continue
+        pair = tuple(sorted((endpoint1[0], endpoint2[0])))
+        if pair[0] != pair[1]:
+            pairs.add(pair)
+
+    return sorted(pairs), unresolved, bool(repeated_pairs)
 
 
 def _get_bonded_atom_pairs_from_openmm_pdb(item):
     from io import StringIO
     from openmm.app import PDBFile
 
-    if hasattr(item.file, "name") and isinstance(item.file.name, str) and os.path.isfile(item.file.name):
-        pdb = PDBFile(item.file.name)
-    else:
-        pdb = PDBFile(StringIO("".join(_read_pdb_lines(item))))
+    item.file.seek(0)
+    text = item.file.read()
+    item.file.seek(0)
+    pdb = PDBFile(StringIO(text))
+    _, variants = _canonical_atoms(item.content)
+    serial_to_site_index = {}
+    for site_index, records in enumerate(variants.values()):
+        for record in records:
+            serial_to_site_index.setdefault(str(record.serial), site_index)
 
-    return [(bond.atom1.index, bond.atom2.index) for bond in pdb.topology.bonds()]
+    openmm_to_site_index = {}
+    openmm_atoms = list(pdb.topology.atoms())
+    for atom in openmm_atoms:
+        atom_id = getattr(atom, "id", None)
+        if atom_id is not None and str(atom_id) in serial_to_site_index:
+            openmm_to_site_index[atom.index] = serial_to_site_index[str(atom_id)]
+        elif len(openmm_atoms) == len(variants):
+            openmm_to_site_index[atom.index] = atom.index
+
+    output = []
+    for bond in pdb.topology.bonds():
+        if (
+            bond.atom1.index in openmm_to_site_index
+            and bond.atom2.index in openmm_to_site_index
+        ):
+            output.append((
+                openmm_to_site_index[bond.atom1.index],
+                openmm_to_site_index[bond.atom2.index],
+            ))
+    return output
+
+
+def _build_topology_from_content(item, get_missing_bonds=True):
+    from molsysmt.native import Topology
+
+    content = item.content
+    (
+        atom_rows,
+        group_rows,
+        chain_rows,
+        canonical_atoms,
+        variants,
+    ) = _topology_rows(content)
+
+    topology = Topology()
+    topology.reset_atoms(n_atoms=len(atom_rows))
+    topology.reset_groups(n_groups=len(group_rows))
+    topology.reset_chains(n_chains=len(chain_rows))
+
+    if atom_rows:
+        topology.atoms["atom_id"] = np.array(
+            [row[0] for row in atom_rows], dtype=object
+        )
+        topology.atoms["atom_name"] = np.array(
+            [row[1] for row in atom_rows], dtype=object
+        )
+        from molsysmt.element.atom import get_atom_type_from_atom_name
+
+        topology.atoms["atom_type"] = np.array([
+            row[2] or get_atom_type_from_atom_name(row[1]) for row in atom_rows
+        ], dtype=object)
+        topology.atoms["group_index"] = np.array(
+            [row[3] for row in atom_rows], dtype=int
+        )
+        topology.atoms["chain_index"] = np.array(
+            [row[4] for row in atom_rows], dtype=int
+        )
+    topology.rebuild_atoms(redefine_ids=False, redefine_types=False)
+
+    if group_rows:
+        topology.groups["group_id"] = np.array(
+            [row[0] for row in group_rows], dtype=object
+        )
+        topology.groups["group_name"] = np.array(
+            [row[1] for row in group_rows], dtype=object
+        )
+        topology.groups["group_type"] = _get_group_types(group_rows, atom_rows)
+    if chain_rows:
+        topology.chains["chain_id"] = np.array(
+            [row[0] for row in chain_rows], dtype=object
+        )
+        topology.chains["chain_name"] = np.array(
+            [row[1] for row in chain_rows], dtype=object
+        )
+
+    formal_charges = [atom.formal_charge for atom in canonical_atoms]
+    if any(value is not None for value in formal_charges):
+        topology._set_chemical_state_atom_attribute(
+            "formal_charge", pd.array(formal_charges, dtype="Int16")
+        )
+
+    explicit_pairs, _, _ = _get_explicit_bonds(
+        content, canonical_atoms, variants
+    )
+    bond_evidence = {pair: "explicit" for pair in explicit_pairs}
+    if get_missing_bonds:
+        try:
+            inferred_pairs = _get_bonded_atom_pairs_from_openmm_pdb(item)
+        except Exception:
+            inferred_pairs = []
+        for pair in inferred_pairs:
+            normalized = tuple(sorted((int(pair[0]), int(pair[1]))))
+            if (
+                normalized[0] != normalized[1]
+                and normalized[1] < len(canonical_atoms)
+            ):
+                bond_evidence.setdefault(normalized, "inferred")
+
+    if bond_evidence:
+        pairs = sorted(bond_evidence)
+        topology._append_chemical_state_bonds(
+            pairs,
+            types=["covalent"] * len(pairs),
+            evidence=[bond_evidence[pair] for pair in pairs],
+        )
+        topology.rebuild_molecules(force=True)
+        topology.rebuild_chains(
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_names=False,
+            redefine_types=True,
+        )
+        topology.rebuild_entities(force=True)
+
+    return topology
+
+
+def _build_bioassemblies(content, chain_rows):
+    from molsysmt import pyunitwizard as puw
+
+    chain_indices_by_id = {}
+    for chain_index, (chain_id, _) in enumerate(chain_rows):
+        chain_indices_by_id.setdefault(chain_id, []).append(chain_index)
+
+    output = {}
+    for assembly_id, operations in content.bioassemblies.items():
+        chain_sets = []
+        rotations = []
+        translations = []
+        for operation in operations:
+            indices = []
+            for chain_id in operation["chain_ids"]:
+                indices.extend(chain_indices_by_id.get(chain_id, []))
+            if not indices:
+                continue
+            chain_sets.append(indices)
+            rotations.append(operation["rotation"])
+            translations.append(operation["translation"])
+        if not rotations:
+            continue
+        chain_indices = (
+            chain_sets[0]
+            if all(indices == chain_sets[0] for indices in chain_sets)
+            else chain_sets
+        )
+        output[assembly_id] = {
+            "chain_indices": chain_indices,
+            "rotations": np.asarray(rotations, dtype=float),
+            "translations": puw.quantity(
+                np.asarray(translations, dtype=float), "angstrom"
+            ),
+        }
+    return output or None
+
+
+def _build_structures_from_content(item):
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.native import Structures
+    from molsysmt._private import rust_backend as _kernels
+
+    content = item.content
+    atom_rows, _, chain_rows, canonical_atoms, _ = _topology_rows(content)
+    if not content.models:
+        return Structures()
+
+    canonical_keys = [atom.site_key for atom in canonical_atoms]
+    coordinates = []
+    occupancies = []
+    b_factors = []
+    alternate_locations = []
+    for model in content.models:
+        variants = _site_variants(model)
+        if set(variants) != set(canonical_keys):
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="PDB models do not share one canonical atom-site axis.",
+                caller="molsysmt.PDBFileHandler",
+            )
+        primary = [variants[key][0] for key in canonical_keys]
+        coordinates.append([atom.coordinates for atom in primary])
+        occupancies.append([
+            np.nan if atom.occupancy is None else atom.occupancy for atom in primary
+        ])
+        b_factors.append([
+            np.nan if atom.b_factor is None else atom.b_factor for atom in primary
+        ])
+        model_alternates = {}
+        for atom_index, key in enumerate(canonical_keys):
+            items = variants[key]
+            if len(items) < 2 and not items[0].alternate_location:
+                continue
+            model_alternates[atom_index] = {
+                "location_id": np.array(
+                    [atom.alternate_location for atom in items], dtype=object
+                ),
+                "atom_id": np.array(
+                    [str(atom.serial) for atom in items], dtype=object
+                ),
+                "occupancy": np.array(
+                    [
+                        np.nan if atom.occupancy is None else atom.occupancy
+                        for atom in items
+                    ],
+                    dtype=float,
+                ),
+                "coordinates": puw.quantity(
+                    np.array([atom.coordinates for atom in items], dtype=float),
+                    "angstrom",
+                ),
+                "b_factor": puw.quantity(
+                    np.array(
+                        [
+                            np.nan if atom.b_factor is None else atom.b_factor
+                            for atom in items
+                        ],
+                        dtype=float,
+                    ),
+                    "angstrom**2",
+                ),
+            }
+            model_alternates[atom_index]["coordinates"] = puw.convert(
+                model_alternates[atom_index]["coordinates"], to_unit="nm"
+            )
+            model_alternates[atom_index]["b_factor"] = puw.convert(
+                model_alternates[atom_index]["b_factor"], to_unit="nm**2"
+            )
+        alternate_locations.append(model_alternates)
+
+    coordinates = puw.quantity(np.asarray(coordinates, dtype=float), "angstrom")
+    occupancy = np.asarray(occupancies, dtype=float)
+    b_factor = puw.quantity(np.asarray(b_factors, dtype=float), "angstrom**2")
+    if np.isnan(occupancy).all():
+        occupancy = None
+    if np.isnan(puw.get_value(b_factor)).all():
+        b_factor = None
+    if not any(alternate_locations):
+        alternate_locations = None
+
+    box = None
+    if content.cryst1 is not None:
+        a, b, c, alpha, beta, gamma = content.cryst1
+        single_box = _kernels.get_box_from_lengths_and_angles_single_structure(
+            np.array([a, b, c], dtype=np.float64),
+            np.array(
+                puw.get_value(
+                    puw.quantity([alpha, beta, gamma], "degrees"),
+                    to_unit="radians",
+                ),
+                dtype=np.float64,
+            ),
+        )
+        box = puw.quantity(
+            np.repeat(single_box[np.newaxis, :, :], len(content.models), axis=0),
+            "angstrom",
+        )
+
+    structures = Structures()
+    structures.append(
+        coordinates=coordinates,
+        structure_id=np.array(
+            [model.structure_id for model in content.models], dtype=object
+        ),
+        box=box,
+        occupancy=occupancy,
+        b_factor=b_factor,
+        alternate_location=alternate_locations,
+        skip_digestion=True,
+    )
+    structures.bioassembly = _build_bioassemblies(content, chain_rows)
+    return structures
+
+
+def _apply_compnd_names(item, molsys):
+    compnd = getattr(getattr(item.entry, "title", None), "compnd", None)
+    if not compnd:
+        return
+    chain_to_name = {}
+    for record in compnd:
+        name = record.molecule.lstrip(": ").strip() if record.molecule else None
+        if name:
+            for chain_id in record.chain:
+                chain_to_name[chain_id] = name
+    if not chain_to_name:
+        return
+
+    atoms = molsys.topology.atoms
+    groups = molsys.topology.groups
+    chain_ids = molsys.topology.chains["chain_id"].to_numpy()
+    molecule_names = molsys.topology.molecules["molecule_name"].to_numpy(dtype=object)
+    molecule_types = molsys.topology.molecules["molecule_type"].to_numpy(dtype=object)
+    for molecule_index in range(len(molecule_names)):
+        if molecule_types[molecule_index] not in {"protein", "peptide"}:
+            continue
+        group_indices = groups.index[
+            groups["molecule_index"] == molecule_index
+        ].to_numpy()
+        atom_indices = atoms.index[atoms["group_index"].isin(group_indices)].to_numpy()
+        if len(atom_indices):
+            chain_id = chain_ids[int(atoms.iloc[atom_indices[0]]["chain_index"])]
+            if chain_id in chain_to_name:
+                molecule_names[molecule_index] = chain_to_name[chain_id]
+    molsys.topology.molecules["molecule_name"] = molecule_names
+    molsys.topology.rebuild_entities(force=True)
 
 
 def _build_molsys_from_pdb_handler(item, get_missing_bonds=True):
     from molsysmt.native import MolSys
 
-    lines = _read_pdb_lines(item)
-    atom_rows, group_rows, chain_rows, bonded_atom_pairs = _parse_topology_from_lines(lines)
-
-    tmp_item = MolSys()
-    tmp_item.topology.reset_atoms(n_atoms=len(atom_rows))
-    tmp_item.topology.reset_groups(n_groups=len(group_rows))
-    tmp_item.topology.reset_chains(n_chains=len(chain_rows))
-
-    if atom_rows:
-        tmp_item.topology.atoms["atom_id"] = np.array([row[0] for row in atom_rows], dtype=object)
-        tmp_item.topology.atoms["atom_name"] = np.array([row[1] for row in atom_rows], dtype=object)
-        from molsysmt.element.atom import get_atom_type_from_atom_name
-        atom_types = []
-        for row in atom_rows:
-            t = row[2]
-            if t is None:
-                t = get_atom_type_from_atom_name(row[1])
-            atom_types.append(t)
-        tmp_item.topology.atoms["atom_type"] = np.array(atom_types, dtype=object)
-        tmp_item.topology.atoms["group_index"] = np.array([row[3] for row in atom_rows], dtype=int)
-        tmp_item.topology.atoms["chain_index"] = np.array([row[4] for row in atom_rows], dtype=int)
-
-    tmp_item.topology.rebuild_atoms(redefine_ids=False, redefine_types=False)
-
-    if group_rows:
-        tmp_item.topology.groups["group_id"] = np.array([row[0] for row in group_rows], dtype=object)
-        tmp_item.topology.groups["group_name"] = np.array([row[1] for row in group_rows], dtype=object)
-        tmp_item.topology.groups["group_type"] = _get_group_types(group_rows, atom_rows)
-
-    if chain_rows:
-        tmp_item.topology.chains["chain_id"] = np.array([row[0] for row in chain_rows], dtype=object)
-        tmp_item.topology.chains["chain_name"] = np.array([row[1] for row in chain_rows], dtype=object)
-
-    tmp_item.structures = _build_structures_from_lines(lines, item.entry)
-
-    if get_missing_bonds:
-        try:
-            inferred_bonded_atom_pairs = _get_bonded_atom_pairs_from_openmm_pdb(item)
-        except Exception:
-            inferred_bonded_atom_pairs = []
-
-        if inferred_bonded_atom_pairs:
-            bonded_atom_pairs = sorted(set(tuple(sorted(pair)) for pair in bonded_atom_pairs).union(
-                tuple(sorted(pair)) for pair in inferred_bonded_atom_pairs
-            ))
-
-    if bonded_atom_pairs:
-        tmp_item.topology.add_bonds(bonded_atom_pairs, skip_digestion=True)
-        tmp_item.topology.rebuild_molecules(force=True)
-        tmp_item.topology.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_names=False, redefine_types=True)
-        tmp_item.topology.rebuild_entities(force=True)
-
-    # ── Apply COMPND molecule names ──────────────────────────────────────────
-    # Build chain_id → molecule_name map from COMPND records.
-    compnd = getattr(getattr(item.entry, 'title', None), 'compnd', None)
-    if compnd:
-        chain_to_name = {}
-        for rec in compnd:
-            name = rec.molecule.lstrip(': ').strip() if rec.molecule else None
-            if name:
-                for ch in rec.chain:
-                    chain_to_name[ch] = name
-
-        if chain_to_name:
-            # Map molecule_index → chain_id via atoms (chain_index is atom-level, not group-level)
-            atom_grp   = tmp_item.topology.atoms['group_index'].to_numpy()
-            atom_chain = tmp_item.topology.atoms['chain_index'].to_numpy()
-            grp_mol    = tmp_item.topology.groups['molecule_index'].to_numpy()
-            chain_ids_arr = tmp_item.topology.chains['chain_id'].to_numpy()
-            mol_names = tmp_item.topology.molecules['molecule_name'].to_numpy(dtype=object)
-            mol_types = tmp_item.topology.molecules['molecule_type'].to_numpy(dtype=object)
-            # Build group → chain_id from atoms (first atom of each group)
-            grp_to_chain_idx = {}
-            for ai in range(len(atom_grp)):
-                gi = atom_grp[ai]
-                if gi not in grp_to_chain_idx:
-                    grp_to_chain_idx[gi] = atom_chain[ai]
-            # Build molecule → first chain_id
-            mol_to_chain_id = {}
-            for grp_idx in range(len(grp_mol)):
-                mol_idx = grp_mol[grp_idx]
-                if mol_idx not in mol_to_chain_id and grp_idx in grp_to_chain_idx:
-                    mol_to_chain_id[mol_idx] = chain_ids_arr[grp_to_chain_idx[grp_idx]]
-            for mol_idx in range(len(mol_names)):
-                if mol_types[mol_idx] not in ('protein', 'peptide'):
-                    continue
-                chain_id = mol_to_chain_id.get(mol_idx)
-                if chain_id in chain_to_name:
-                    mol_names[mol_idx] = chain_to_name[chain_id]
-            tmp_item.topology.molecules['molecule_name'] = mol_names
-            # Re-infer entity names so they reflect the updated molecule names
-            tmp_item.topology.rebuild_entities(force=True)
-
-    return tmp_item
+    output = MolSys()
+    output.topology = _build_topology_from_content(
+        item, get_missing_bonds=get_missing_bonds
+    )
+    output.structures = _build_structures_from_content(item)
+    _apply_compnd_names(item, output)
+    return output
 
 
-@arg_digest(form='molsysmt.PDBFileHandler')
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_missing_bonds=True, skip_digestion=False):
-
-    from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+@arg_digest(form="molsysmt.PDBFileHandler")
+def to_molsysmt_MolSys(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    get_missing_bonds=True,
+    skip_digestion=False,
+):
+    from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
 
     if isinstance(item, (str, os.PathLike)):
         item = to_molsysmt_PDBFileHandler(str(item), skip_digestion=True)
@@ -373,11 +517,15 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     else:
         opened_here = False
 
-    tmp_item = _build_molsys_from_pdb_handler(item, get_missing_bonds=get_missing_bonds)
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
-                                copy_if_all=False, skip_digestion=True)
-
+    output = _build_molsys_from_pdb_handler(
+        item, get_missing_bonds=get_missing_bonds
+    )
+    output = output.extract(
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        copy_if_all=False,
+        skip_digestion=True,
+    )
     if opened_here:
         item.close()
-
-    return tmp_item
+    return output

@@ -12,8 +12,9 @@ attributes['atom_name'] = True
 attributes['atom_type'] = True
 attributes['bond_index'] = True
 attributes['bond_id'] = False
-attributes['bond_type'] = False
+attributes['bond_type'] = True
 attributes['bond_order'] = False
+attributes['bonded_atoms'] = True
 attributes['group_index'] = True
 attributes['group_id'] = True
 attributes['group_name'] = True
@@ -60,8 +61,17 @@ attributes['box_lengths'] = True
 attributes['box_volume'] = True
 attributes['coordinates'] = True
 attributes['n_structures'] = True
+attributes['occupancy'] = True
 attributes['b_factor'] = True
 attributes['alternate_location'] = True
+attributes['bioassembly'] = True
+attributes['n_bioassemblies'] = True
+
+###
+### CHEMICAL-STATE ATTRIBUTES
+###
+
+attributes['formal_charge'] = True
 
 
 del(_all_attributes)

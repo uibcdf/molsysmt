@@ -611,7 +611,14 @@ def convert(molecular_system,
     if strict or return_report:
         from molsysmt._private.conversion_report import build_conversion_report
 
-        report = build_conversion_report(molecular_system, from_form, to_form)
+        report = build_conversion_report(
+            molecular_system,
+            from_form,
+            to_form,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+        )
         if strict and report.is_lossy:
             raise NotCompatibleConversionError(
                 report.from_form,

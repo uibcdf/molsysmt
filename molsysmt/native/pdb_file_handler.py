@@ -1103,7 +1103,11 @@ def parse_format33(file):
             prev_record = lines[counter-1][0:6]
 
             if prev_record == 'MODEL ':
-                model.serial = int(lines[counter-1][10:14])
+                raw_model_serial = lines[counter-1][10:14].strip()
+                try:
+                    model.serial = int(raw_model_serial)
+                except ValueError:
+                    model.serial = raw_model_serial
             else:
                 model.serial = len(pdb.coordinate.model)
 
@@ -1262,6 +1266,7 @@ class PDBFileHandler():
         self.file = None
         self.format_version = None
         self.entry = None
+        self._content = None
 
         if isinstance(file, os.PathLike):
             file = str(file)
@@ -1314,8 +1319,19 @@ class PDBFileHandler():
         """Load and parse the PDB content."""
 
         if self.format_version == '3.3':
+            from ._pdb_file_handler_content import parse_pdb_content
 
+            self.file.seek(0)
+            lines = self.file.readlines()
+            self.file.seek(0)
+            self._content = parse_pdb_content(lines, _parse_serial)
             self.entry = parse_format33(self.file)
+
+    @property
+    def content(self):
+        """Returning the normalized PDB content used by native converters."""
+
+        return self._content
 
     def dump(self):
         """Serialize the current entry back to PDB format."""

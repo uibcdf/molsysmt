@@ -530,6 +530,19 @@ class Structures:
                 tmp_item.alternate_location = deepcopy(self.alternate_location)
             else:
                 tmp_item.alternate_location = deepcopy(self.alternate_location[structure_indices])
+            if not is_all(atom_indices):
+                atom_index_map = {
+                    int(old_index): new_index
+                    for new_index, old_index in enumerate(atom_indices)
+                }
+                remapped = []
+                for structure_alternates in tmp_item.alternate_location:
+                    remapped.append({
+                        atom_index_map[int(old_index)]: value
+                        for old_index, value in structure_alternates.items()
+                        if int(old_index) in atom_index_map
+                    })
+                tmp_item.alternate_location = remapped
 
         if self._occupancy is not None:
             if is_all(structure_indices):

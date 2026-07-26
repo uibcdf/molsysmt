@@ -236,6 +236,61 @@ class MolSys:
             tmp_item.structures = self.structures.extract(atom_indices=atom_indices,
                                                           structure_indices=structure_indices, copy_if_all=True,
                                                           skip_digestion=True)
+            if (
+                not is_all(atom_indices)
+                and tmp_item.structures.bioassembly is not None
+            ):
+                selected_chain_indices = (
+                    self.topology.atoms.iloc[atom_indices]["chain_index"]
+                    .dropna()
+                    .astype(int)
+                    .unique()
+                    .tolist()
+                )
+                chain_index_map = {
+                    old_index: new_index
+                    for new_index, old_index in enumerate(selected_chain_indices)
+                }
+                retained_assemblies = {}
+                for assembly_id, assembly in tmp_item.structures.bioassembly.items():
+                    chain_indices = assembly["chain_indices"]
+                    if chain_indices and isinstance(chain_indices[0], (list, tuple, np.ndarray)):
+                        retained_operations = [
+                            operation_index
+                            for operation_index, operation_chains in enumerate(chain_indices)
+                            if all(
+                                int(chain_index) in chain_index_map
+                                for chain_index in operation_chains
+                            )
+                        ]
+                        if not retained_operations:
+                            continue
+                        retained_assemblies[assembly_id] = {
+                            **assembly,
+                            "chain_indices": [
+                                [
+                                    chain_index_map[int(chain_index)]
+                                    for chain_index in chain_indices[operation_index]
+                                ]
+                                for operation_index in retained_operations
+                            ],
+                            "rotations": assembly["rotations"][retained_operations],
+                            "translations": assembly["translations"][retained_operations],
+                        }
+                    else:
+                        if not all(
+                            int(chain_index) in chain_index_map
+                            for chain_index in chain_indices
+                        ):
+                            continue
+                        retained_assemblies[assembly_id] = {
+                            **assembly,
+                            "chain_indices": [
+                                chain_index_map[int(chain_index)]
+                                for chain_index in chain_indices
+                            ],
+                        }
+                tmp_item.structures.bioassembly = retained_assemblies or None
             tmp_item.molecular_mechanics = self.molecular_mechanics.copy()
             if (
                 not is_all(atom_indices)

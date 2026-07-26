@@ -1,14 +1,14 @@
 def has_atoms_with_alternate_locations(filename):
+    """Returning whether a PDB file contains alternate-location records."""
 
-    atom_index = 0
+    from molsysmt.native import PDBFileHandler
 
-    output = {}
-
-    with open(filename, 'r') as fff:
-        for line in fff.readlines():
-            if line.startswith('ATOM ') or line.startswith('HETATM '):
-                if line[16]!=' ':
-                    print(line)
-                atom_index += 1
-
-    pass
+    handler = PDBFileHandler(filename)
+    try:
+        return any(
+            atom.alternate_location
+            for model in handler.content.models
+            for atom in model.atoms
+        )
+    finally:
+        handler.close()
