@@ -179,11 +179,22 @@ simplification.
 
 **After the cut (post-1.0), not before:**
 
-- **Redesign levers C/D/E** (fused multi-observable passes, columnar/SoA SIMD layout,
-  Niggli-reduced cell for the triclinic MIC). These are Rust-kernel algorithmic redesigns,
-  and while Numba is the oracle every one of them pays the parity tax twice. Once Rust is
-  the implementation, they become ordinary work behind the property tests. See
-  `rust_kernel_redesign_beyond_faithful_ports.md`.
+- **Redesign lever C** (fused multi-observable passes). Measured negligible so far; keep it
+  open but unprioritised. While Numba is the oracle it pays the parity tax twice; once Rust
+  is the implementation it becomes ordinary work behind the property tests.
+- **Redesign lever F** (SIMD multiversioning). Belongs with **step 2 above** rather than
+  here, because it is a change to the build matrix, not to a kernel: compiling selected
+  functions for several feature levels and dispatching at runtime keeps a single portable
+  wheel. Measured worth is small and not uniform in sign — 1.1-1.3x on the cell-list
+  kernels but a 16-25% *regression* on dense `mic_distances` under a blanket AVX2 build —
+  so it must be opted into per kernel, gated by that kernel's own benchmark. Low priority.
+
+  **Resolved and no longer post-cut work:** lever D (columnar/SoA SIMD layout) is closed as
+  a *negative* result — SoA measured 0.94x baseline and 0.69x under AVX2 against the current
+  AoS layout, so the data-model refactor buys nothing here. Lever E (reduced cell for the
+  triclinic MIC) was pulled forward and is done, because it was also a correctness fix.
+
+  All of the above: see `rust_kernel_redesign_beyond_faithful_ports.md`.
 
 ## 6. What this explicitly does not do
 

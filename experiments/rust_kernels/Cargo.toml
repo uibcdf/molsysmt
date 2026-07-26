@@ -26,3 +26,10 @@ extension-module = ["pyo3/extension-module"]
 [profile.release]
 opt-level = 3
 lto = true
+
+# Deliberately no `target-cpu`: the wheel must run on any x86-64 baseline. Raising it to
+# `x86-64-v3` (AVX2) was measured and is NOT a free win — it gives 1.1-1.3x on the cell-list
+# kernels but a 16-25% regression on the dense `mic_distances` path, and it would crash at
+# import on pre-AVX2 CPUs. If wide SIMD is ever wanted, do it with runtime multiversioning
+# per kernel, gated by that kernel's own benchmark. See
+# devguide/pending_proposals/rust_kernel_redesign_beyond_faithful_ports.md section 4.F.

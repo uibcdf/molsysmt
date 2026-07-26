@@ -4,6 +4,15 @@
 **Ecosystem impact:** `molsysmt` core backend (high-performance topology, selections, and connectivity queries), zero-copy interoperability with PyArrow/Pandas.
 **Prerequisites:** Cargo/Rust toolchain, Maturin/PyO3, Apache Arrow Rust bindings (`arrow` crate), ECS implementation (`hecs` or custom SoA), Graph implementation (`petgraph` or custom CSR).
 
+**Measured caveat (2026-07-26).** Do not justify the columnar/SoA layout with an expected
+SIMD win in the geometry kernels. Benchmarked against the current `[n_atoms, 3]` AoS
+coordinates on all-pairs squared distances (n = 4000), SoA came out **0.94x** on the
+baseline build and **0.69x** under AVX2/FMA — slower, and more so once vectorised, because a
+pair kernel then reads three cache-line streams per atom instead of one. The case for this
+proposal must rest on zero-copy Arrow interop, attribute-centric storage and the
+topology/selection layers; the compute kernels are evidence *against* the layout change.
+See `rust_kernel_redesign_beyond_faithful_ports.md` §4.D.
+
 ---
 
 ## 1. Abstract

@@ -81,8 +81,12 @@ scientific-validation requirements.
 - `rust_kernel_redesign_beyond_faithful_ports.md` — where a redesign beats the faithful
   ports. Measured: the obvious in-kernel micro-opts are already in the Numba original, and
   real-workload time is dominated by `get_contacts` going through the dense distance matrix
-  and by GC pressure from per-op temporaries — neither an in-kernel problem. Ranks the real
-  levers (PCA covariance, cell-list routing, fused passes, SoA layout, Niggli cell).
+  and by GC pressure from per-op temporaries — neither an in-kernel problem. Levers A (PCA
+  covariance), B (cell-list routing) and E (reduced cell) are **done**; D (columnar/SoA for
+  SIMD) is **closed as a negative result** (SoA is 0.94x baseline, 0.69x under AVX2 — do not
+  refactor the data model for SIMD); C (fused passes) and F (SIMD multiversioning for a
+  portable wheel — per-kernel and measurement-gated, since a blanket AVX2 build regresses
+  dense distances by 16-25%) remain open and low-priority.
 - `rusterization_heavy_computations.md`
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`
