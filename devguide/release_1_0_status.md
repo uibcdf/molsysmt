@@ -55,6 +55,11 @@ and do not merge it across an unmet integration dependency.
 - **Next action:** land the validated transactional structural-growth
   checkpoint, then continue the remaining NGL adapter causes before rebuilding
   the exact-commit Rust wheel and repeating the forced-Rust release gate
+- **Next packaging stage:** C2 — production crate relocation and the
+  `msm_rust_kernels` → `molsysmt._rust` rename, held until B4 closes its
+  exact-commit run so the campaign's build path stays reproducible. C1 is
+  `DONE`; the accepted design is recorded in
+  [rust_packaging_backend_design.md](pending_proposals/rust_packaging_backend_design.md)
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
@@ -71,7 +76,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
 | B — final Numba oracle | 10% | `BLOCKED` | 0% | the exact-commit Rust campaign proved no backend-specific regression; the dominant 342-error PDB cascade, missing `MolSys.structure_index`, and the H5MSM structural-fidelity/multi-state causes are now landed, leaving six known targeted root causes before a new exact-commit campaign |
-| C — Rust packaging | 20% | `PENDING` | 0% | local abi3 pilot succeeded; production crate layout and multiplatform installed-wheel CI remain open |
+| C — Rust packaging | 20% | `PENDING` | 0% | C1 accepted 2026-07-26: setuptools + setuptools-rust with a single private `molsysmt._rust` abi3 extension, proven by spike `87317ba76` (development evidence, dirty tree); C2 is gated on B4 closing its exact-commit run, and C3-C7 including multiplatform installed-wheel CI remain open, so no weight is earned |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
@@ -412,7 +417,7 @@ completion. No new Numba capability may be added while this segment is pending.
 
 | Stage | Status |
 | --- | --- |
-| C1 — permanent crate/module and build-backend design review | `PENDING` |
+| C1 — permanent crate/module and build-backend design review | `DONE` |
 | C2 — production crate relocation and private extension integration | `PENDING` |
 | C3 — Linux, macOS, and Windows abi3 wheel CI | `PENDING` |
 | C4 — Python 3.11–3.13 and supported NumPy installed-wheel tests | `PENDING` |
@@ -422,6 +427,20 @@ completion. No new Numba capability may be added while this segment is pending.
 
 The local pilot wheel is useful evidence but does not complete any production
 packaging stage.
+
+C1 is closed by [C1 — Permanent crate/module and build-backend design
+review](pending_proposals/rust_packaging_backend_design.md): keep `setuptools`, add
+`setuptools-rust`, ship one private `molsysmt._rust` abi3 extension inside the official
+Conda package, and do not adopt maturin or a separate `msm_rust_kernels` distribution. Two
+findings became binding C3 contracts (clean-build isolation with automated wheel
+inspection, and abi3 proven per target rather than assumed from the tag). The earlier
+report of a PyPI resolution failure as a C4 blocker is **corrected**: the official channel
+is Conda, so C4/C5 require the sibling versions on the Conda channel rather than on PyPI.
+
+**C2 must not start before B4 closes.** Relocating the crate and renaming
+`msm_rust_kernels` to `molsysmt._rust` changes the wheel build path and the hashes recorded
+in the Rust campaign checkpoint, which would invalidate the exact-commit reproducibility
+B4 still needs.
 
 ## Segment D — Rust-Only Cut
 
@@ -532,3 +551,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | B4 strategy refinement | remains `IN PROGRESS` | the release runtime receives the complete forced-Rust suite; Numba is limited to the bounded oracle surface and failed-node attribution because it will not ship in 1.0 | `481271204` |
 | 2026-07-26 | B4 checkpoint | `IN PROGRESS` → `BLOCKED` | exact source and wheel hashes recorded; forced-Rust smoke 15/15, Rust oracle 264 passed with three documented skips, and 82 scientific tests pass; complete forced-Rust suite reaches 9,361 passed but has 36 failed and 342 errors in 11 non-Rust root causes; all 378 unsuccessful node IDs reproduce with forced Numba; B4 requires a new green exact-commit run after the active WIP is landed | `481271204`; see `release_1_0_rust_campaign_checkpoint.md` |
 | 2026-07-26 | B4 blocker reduction | remains `BLOCKED` | native bioassembly translations remove the 342-error PDB cascade; `MolSys` now delivers `structure_index`; H5MSM preserves optional structural and thermodynamic series, repeated structure order, partial-layer semantics, and multi-state inventory queries; the relevant H5MSM/report gate passes 1,074 tests and the known targeted residual is six root causes | `30d12a7c9`, `64ac440de`, `7cf7d7206` |
+| 2026-07-26 | C1 packaging design review | `PENDING` → `DONE` | `python -m pip wheel . --no-deps` on branch `packaging/rust-c1-spike` produced `molsysmt-0.20.0+149.gcb3341fd5.dirty-cp311-abi3-linux_x86_64.whl` carrying `molsysmt/_rust.abi3.so`, `py.typed`, 292 `molsysmt.data` files, the `molsysviewer.addons` entry point and a versioningit Git version; the extension built under CPython 3.13 loaded in a clean 3.12 virtualenv, exposed 97 kernels and returned the correct minimum-image distance; development evidence from a dirty tree, accepted for the design question only; C keeps 0% earned weight | `87317ba76` (branch, not merged) |
