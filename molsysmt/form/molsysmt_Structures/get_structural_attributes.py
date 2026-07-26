@@ -137,6 +137,17 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     else:
         return len(structure_indices)
 
+
+@arg_digest(form=form)
+def get_structure_index_from_system(item, structure_indices='all', skip_digestion=False):
+
+    if structure_indices is None:
+        return None
+    if is_all(structure_indices):
+        return list(range(item.n_structures))
+    return list(structure_indices)
+
+
 @arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
 

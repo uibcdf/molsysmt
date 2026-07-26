@@ -1,6 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
+import importlib
 import numpy as np
 import types
+
+from ._delegated_getter import make_delegated_getter
 
 form = "molsysmt.MolSysBuilder"
 
@@ -58,4 +61,17 @@ def get_coordinates_from_system(item, structure_indices="all", skip_digestion=Fa
     return values[structure_indices]
 
 
+_target_module = importlib.import_module(
+    "molsysmt.form.molsysmt_Structures.get_structural_attributes"
+)
+for _name in _target_module.__all__:
+    if _name not in globals():
+        globals()[_name] = make_delegated_getter(
+            _name,
+            getattr(_target_module, _name),
+            "structures",
+        )
+
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith("get_")]
+
+del _name, _target_module

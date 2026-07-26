@@ -1,6 +1,9 @@
 from molsysmt._private.arg_digestion import arg_digest
 import numpy as np
 import types
+import importlib
+
+from ._delegated_getter import make_delegated_getter
 
 form = "molsysmt.MolSysBuilder"
 
@@ -346,4 +349,17 @@ def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
     return output
 
 
+_target_module = importlib.import_module(
+    "molsysmt.form.molsysmt_Topology.get_topological_attributes"
+)
+for _name in _target_module.__all__:
+    if _name not in globals():
+        globals()[_name] = make_delegated_getter(
+            _name,
+            getattr(_target_module, _name),
+            "topology",
+        )
+
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith("get_")]
+
+del _name, _target_module

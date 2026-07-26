@@ -7,7 +7,16 @@ from smonitor import signal
 from molsysmt._private.arg_digestion import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError, ArgumentChoiceError
 class MolSysBuilder:
-    """Building a native molecular system incrementally from declared elements."""
+    """Building a native molecular system incrementally from declared elements.
+
+    Notes
+    -----
+    A builder stores editable chemical/topological and structural native
+    components. Their complete declared attribute union is available through
+    :func:`molsysmt.get` without first calling :meth:`build`. Molecular
+    mechanics and per-structure chemical-state associations are not stored by
+    this object.
+    """
 
     @signal(tags=["native", "builder"])
     def __init__(self, molecular_system=None, skip_digestion=False):

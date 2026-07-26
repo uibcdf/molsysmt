@@ -12,7 +12,10 @@ Each recipe is designed to be a "Superpower": a self-contained solution to a rea
 *   [**From PDB to Solvated Box**](./05_From_PDB_to_Solvated_Box.ipynb): Automating the geometry and chemistry of your simulation box setup.
 *   **Declared systems from scratch:** use `molsysmt.MolSysBuilder`, declare
     topology before atom-dependent arrays, attach optional bond metadata with
-    `add_bond(..., bond_order=2, bond_type="covalent")`, then call `build()`.
+    `add_bond(..., bond_order=2, bond_type="covalent")`, inspect any stored
+    chemical/topological or structural attribute with `molsysmt.get`, then call
+    `build()`. Molecular-mechanics attributes belong on the materialized
+    `MolSys`, not on the builder.
 
 ### 🧪 Analysis & Discovery
 *   [**Binding Pocket Isolation**](./06_Binding_Pocket_Isolation.ipynb): Extracting active sites using advanced spatial selection strings.

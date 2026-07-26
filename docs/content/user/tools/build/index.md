@@ -4,7 +4,11 @@ For explicit topology construction, use `molsysmt.MolSysBuilder`. Declare atoms
 and groups first, add bonds with optional metadata such as
 `builder.add_bond(atom_0, atom_1, bond_order=2, bond_type="covalent")`, assign
 coordinates with `set_coordinates()`, and call `build()` to materialize a native
-system. The four course paths include complete builder examples.
+system. Before materialization, `molsysmt.get(builder, ...)` reads the complete
+declared attribute union of the builder's chemical/topological and structural
+components. A builder does not store molecular-mechanics attributes or
+per-structure chemical-state associations. The four course paths include
+complete builder examples.
 
 `bond_order` is the formal numeric order; `bond_type` describes the chemical
 relationship and accepts `covalent`, `dative`, or explicitly `unknown`.
