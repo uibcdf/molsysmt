@@ -32,7 +32,47 @@ _CHEMICAL_ATTRIBUTES = (
 # after its complete source semantics are traversed by the preflight and covered
 # by executable evidence. Stage A2 activates native declarative pairs as their
 # schema-driven audits land.
-_EXHAUSTIVE_AUDIT_PAIRS = frozenset()
+_STRUCTURES_TO_STRUCTURES_DICT_PROFILE = {
+    'directly_preserved': frozenset({
+        'structure_id',
+        'time',
+        'box',
+        'coordinates',
+        'velocities',
+        'b_factor',
+        'alternate_location',
+        'occupancy',
+    }),
+    'derived_without_loss': frozenset({
+        'atom_index',
+        'n_atoms',
+        'structure_index',
+        'box_shape',
+        'box_angles',
+        'box_lengths',
+        'box_volume',
+        'n_structures',
+    }),
+    'covered_by_dependencies': {
+        'n_bioassemblies': 'bioassembly',
+        'total_energy': ('potential_energy', 'kinetic_energy'),
+    },
+    'loss_candidates': (
+        'bioassembly',
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
+    ),
+}
+
+_CONVERSION_AUDIT_PROFILES = {
+    (
+        'molsysmt.Structures',
+        'molsysmt.StructuresDict',
+    ): _STRUCTURES_TO_STRUCTURES_DICT_PROFILE,
+}
+
+_EXHAUSTIVE_AUDIT_PAIRS = frozenset(_CONVERSION_AUDIT_PROFILES)
 
 
 def get_conversion_audit_scopes(source_form, target_form):
@@ -66,6 +106,36 @@ def _single_source(molecular_system, from_form):
     if isinstance(from_form, (list, tuple)):
         return None, tuple(from_form)
     return molecular_system, from_form
+
+
+def _audit_native_structures_to_dict(item):
+    """Return current Structures payloads omitted by StructuresDict."""
+
+    profile = _STRUCTURES_TO_STRUCTURES_DICT_PROFILE
+    issues = []
+    for attribute in profile['loss_candidates']:
+        if getattr(item, attribute) is not None:
+            issues.append(
+                ConversionIssue(
+                    attribute=attribute,
+                    reason=(
+                        'molsysmt.StructuresDict cannot represent the supplied '
+                        f'{attribute} semantics.'
+                    ),
+                    kind='schema_limitation',
+                    scope='structures',
+                )
+            )
+    return issues
+
+
+def _audit_registered_profile(item, source_form, target_form):
+    """Return issues from one evidence-backed exhaustive audit profile."""
+
+    pair = (source_form, target_form)
+    if pair == ('molsysmt.Structures', 'molsysmt.StructuresDict'):
+        return _audit_native_structures_to_dict(item)
+    return []
 
 
 def _native_multistate_has(item, source_form, attribute):
@@ -137,6 +207,13 @@ def build_conversion_report(molecular_system, from_form, to_form):
     issues = []
 
     if source_item is not None:
+        issues.extend(
+            _audit_registered_profile(
+                source_item,
+                source_form,
+                target_form,
+            )
+        )
         source_module = _dict_modules[source_form]
         inspection_item = source_item
         inspection_form = source_form
