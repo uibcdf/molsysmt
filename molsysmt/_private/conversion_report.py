@@ -230,6 +230,10 @@ _PDB_READ_PROFILE = {
     'mode': 'pdb_read',
 }
 
+_COORDINATE_TRAJECTORY_PROFILE = {
+    'mode': 'coordinate_trajectory',
+}
+
 _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.Structures',
@@ -294,6 +298,29 @@ for _pdb_source_form in (
         ] = _PDB_READ_PROFILE
 
 del _pdb_source_form, _pdb_target_form
+
+for _coordinate_pair in (
+    ('XYZ', 'molsysmt.Structures'),
+    ('XYZ', 'molsysmt.MolSys'),
+    ('XYZ', 'molsysmt.Topology'),
+    ('XYZ', 'file:xyznpy'),
+    ('file:xyznpy', 'XYZ'),
+    ('file:xyz', 'XYZ'),
+    ('file:dcd', 'molsysmt.Structures'),
+    ('file:dcd', 'molsysmt.MolSys'),
+    ('file:dcd', 'file:h5msm'),
+    ('mdtraj.DCDTrajectoryFile', 'molsysmt.Structures'),
+    ('mdtraj.DCDTrajectoryFile', 'molsysmt.MolSys'),
+    ('file:xtc', 'molsysmt.Structures'),
+    ('file:xtc', 'mdtraj.Trajectory'),
+    ('file:xtc', 'file:h5msm'),
+    ('mdtraj.XTCTrajectoryFile', 'molsysmt.Structures'),
+):
+    _CONVERSION_AUDIT_PROFILES[_coordinate_pair] = (
+        _COORDINATE_TRAJECTORY_PROFILE
+    )
+
+del _coordinate_pair
 
 _EXHAUSTIVE_AUDIT_PAIRS = frozenset(_CONVERSION_AUDIT_PROFILES)
 
@@ -831,13 +858,13 @@ def _audit_native_pdb_write(
         ))
 
     bonds = payload.topology._get_chemical_state_bonds()
-    if (
-        'bond_type' in bonds
-        and not bonds['bond_type'].dropna().isin(['covalent']).all()
-    ):
+    if 'bond_type' in bonds and bonds['bond_type'].notna().any():
         issues.append(ConversionIssue(
             attribute='bond_type',
-            reason='PDB connectivity cannot distinguish non-covalent bond types.',
+            reason=(
+                'PDB connectivity does not encode the source bond-type field; '
+                'a covalent interpretation is reconstructed on reading.'
+            ),
             kind='schema_limitation',
             scope='chemical_state',
         ))
@@ -981,6 +1008,31 @@ def _audit_pdb_read(
             handler.close()
 
 
+def _audit_coordinate_trajectory(source_form, target_form):
+    """Return exhaustive losses for one narrow coordinate-format projection."""
+
+    if target_form == 'molsysmt.Topology':
+        return [ConversionIssue(
+            attribute='coordinates',
+            reason='A topology-only target intentionally omits trajectory coordinates.',
+            kind='target_projection',
+            scope='structures',
+        )]
+    if (
+        source_form in {'file:xtc', 'mdtraj.XTCTrajectoryFile'}
+        and target_form == 'mdtraj.Trajectory'
+    ):
+        return [ConversionIssue(
+            attribute='structure_id',
+            reason=(
+                'MDTraj Trajectory has no independent carrier for XTC step IDs.'
+            ),
+            kind='schema_limitation',
+            scope='structures',
+        )]
+    return []
+
+
 def _audit_registered_profile(
     item,
     source_form,
@@ -1031,6 +1083,11 @@ def _audit_registered_profile(
             selection=selection,
             syntax=syntax,
         )
+    if (
+        profile is not None
+        and profile.get('mode') == 'coordinate_trajectory'
+    ):
+        return _audit_coordinate_trajectory(source_form, target_form)
     return []
 
 

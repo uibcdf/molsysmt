@@ -11,6 +11,7 @@ def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=Fal
     tmp_item = _read_xyz(item)
 
     if not is_all(atom_indices):
+        atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
         tmp_item = tmp_item[:, atom_indices, :]
 
     if not is_all(structure_indices):

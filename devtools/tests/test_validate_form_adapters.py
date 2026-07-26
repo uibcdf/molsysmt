@@ -21,6 +21,12 @@ TOPOLOGICAL_ATTRIBUTE = {
     "structural": False,
 }
 
+DUAL_SCOPE_ATTRIBUTE = {
+    "get_from": ["atom"],
+    "topological": True,
+    "structural": True,
+}
+
 
 def test_attribute_delivery_accepts_a_catalog_compatible_direct_getter():
     modules = {
@@ -49,6 +55,24 @@ def test_attribute_delivery_follows_a_lazy_converter_pipe():
         "atom_name",
         modules,
         {"atom_name": TOPOLOGICAL_ATTRIBUTE},
+    )
+
+
+def test_dual_scope_attribute_uses_the_topological_pipe_like_get():
+    source = _module(
+        topological_pipe="target",
+        converters={"target": "to_target"},
+    )
+    target = _module(getters=("get_atom_index_from_atom",))
+    source.attributes = {"atom_index": True}
+    target.attributes = {"atom_index": True}
+    modules = {"source": source, "target": target}
+
+    assert validator._attribute_is_deliverable(
+        "source",
+        "atom_index",
+        modules,
+        {"atom_index": DUAL_SCOPE_ATTRIBUTE},
     )
 
 

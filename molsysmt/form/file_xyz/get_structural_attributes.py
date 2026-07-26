@@ -50,6 +50,18 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
+def get_structure_index_from_system(
+    item, structure_indices='all', skip_digestion=False
+):
+
+    n_structures, _ = _read_header(item)
+    output = np.arange(n_structures, dtype=int)
+    if not is_all(structure_indices):
+        output = output[structure_indices]
+    return output.tolist()
+
+
+@arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
     _, n_atoms = _read_header(item)

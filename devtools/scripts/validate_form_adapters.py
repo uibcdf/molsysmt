@@ -60,10 +60,10 @@ def _directly_delivers(module, attribute_name, attribute_spec):
 
 def _delivery_pipe(module, attribute_spec):
     """Return the pipe used by a single-attribute get request, if any."""
-    if attribute_spec["structural"]:
-        return module.piped_structural_attribute
     if attribute_spec["topological"] or attribute_spec["chemical_state"]:
         return module.piped_topological_attribute
+    if attribute_spec["structural"]:
+        return module.piped_structural_attribute
     return None
 
 

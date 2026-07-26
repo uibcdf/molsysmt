@@ -7,11 +7,35 @@ import types
 form = 'file:xyznpy'
 
 
+def _read_shape(item):
+    with open(item, 'rb') as file:
+        return tuple(int(value) for value in np.load(file))
+
+
 def _read_coordinates(item):
     with open(item, 'rb') as file:
         np.load(file)
         coordinates = np.load(file)
     return puw.standardize(coordinates * puw.unit('nm'))
+
+
+@arg_digest(form=form)
+def get_n_structures_from_system(
+    item, structure_indices='all', skip_digestion=False
+):
+    if is_all(structure_indices):
+        return _read_shape(item)[0]
+    return len(structure_indices)
+
+
+@arg_digest(form=form)
+def get_structure_index_from_system(
+    item, structure_indices='all', skip_digestion=False
+):
+    output = np.arange(_read_shape(item)[0], dtype=int)
+    if not is_all(structure_indices):
+        output = output[structure_indices]
+    return output.tolist()
 
 
 @arg_digest(form=form)
