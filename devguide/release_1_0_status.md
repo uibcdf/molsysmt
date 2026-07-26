@@ -36,12 +36,11 @@ and do not merge it across an unmet integration dependency.
 
 ## Current Release Snapshot
 
-- **Active segment:** A — conversion-fidelity coherence
-- **Active stage:** A5 — Segment A integration gate
-- **Completed weighted closure:** 0% of the remaining 1.0 execution plan
-- **Development-progress estimate:** approximately 96% of Segment A, or 24
-  percentage points of the weighted remaining plan; this is not certified
-  closure because the Segment A integration gate has not passed
+- **Active segment:** B — final Numba oracle
+- **Active stage:** B1 — generated active-Numba inventory
+- **Completed weighted closure:** 25% of the remaining 1.0 execution plan
+- **Development-progress estimate:** Segment A is certified complete; Segment B
+  has started but has not yet earned additional weighted closure
 - **Current repository state:** dirty WIP; not a release artifact
 - **WIP base HEAD when this ledger was created:** `7ab96e791`; this is not a
   verified release-candidate commit
@@ -50,30 +49,30 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** execute the complete Segment A gate, distinguish remaining
-  systemic or Tier-1 failures from accepted lower-tier debt, and close the
-  known external-form attribute-delivery ratchet without reopening A4
-- **Known independent release-gate debt:** `validate_form_adapters.py` passes
-  `MolSysBuilder` but remains red for pre-existing attribute-delivery debt in
-  external Tier-1 forms: 114 unreachable declarations are accepted in the
-  current baseline and 11 newly exposed `atom_index`/`n_atoms` declarations
-  still require repair or explicit classification before A5
+- **Next action:** generate the active Numba inventory from the committed
+  runtime, then map every CPU kernel to its Rust replacement, consumers, and
+  scientific evidence before deleting either implementation
+- **Known independent release-gate debt:** the fast release gate passes 11/12
+  checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
+  decorators do not correspond to symbols in the tracked public-API registry.
+  Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
+  declarations, 320 resolved baseline declarations, and no Tier-1 debt
 
-The 0% figure applies only to the newly defined remaining-plan exit gates. It
-does not erase the extensive completed MolSysMT development, consolidation, or
-Rust kernel port.
+The 25% figure measures only the newly defined remaining-plan exit gates. It
+does not attempt to restate the much larger body of MolSysMT development,
+consolidation, or Rust kernel work completed before this ledger was created.
 
 ## Segment Ledger
 
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
-| A — conversion-fidelity coherence | 25% | `IN PROGRESS` | 0% | 38 failures across three untracked fidelity modules; systemic/Tier-1 blockers close first, accepted low-priority debt does not monopolize the critical path |
-| B — final Numba oracle | 10% | `PENDING` | 0% | CPU port and earlier parity evidence exist; final inventory/artifact waits for A |
+| A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
+| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | A is closed; generated runtime inventory is now the active stage |
 | C — Rust packaging | 20% | `PENDING` | 0% | local abi3 pilot succeeded; production crate layout and multiplatform installed-wheel CI remain open |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 imports, 101 JIT sites, and 11 Numba-CUDA modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
-| **Total** | **100%** | **`IN PROGRESS`** | **0%** | Segment credit is earned only when its complete exit gate passes |
+| **Total** | **100%** | **`IN PROGRESS`** | **25%** | Segment credit is earned only when its complete exit gate passes |
 
 ## Segment A — Conversion-Fidelity Coherence
 
@@ -86,7 +85,7 @@ Rust kernel port.
 | A2 — exhaustive native-dictionary audit | `DONE` | A1 | three evidence-backed native-to-dictionary profiles landed; 51 focused tests and the Tier-1 ratchet pass |
 | A3 — independent schema/adapter repairs | `DONE` | A1–A2 stable | direct native projections and all four builder routes have evidence-backed exhaustive reports; the broad native-scope module is green |
 | A4 — PDB fidelity | `DONE` | A1–A2 stable | one handler-owned normalized parser feeds file, text, and handler routes; 22 fidelity tests and the historical PDB corpus pass; 11 exhaustive profiles landed as `1f656fe9f` |
-| A5 — segment integration gate | `IN PROGRESS` | A1–A4 | fidelity audit executes; no systemic/Tier-1 red remains; accepted debt is classified; reviewable commits identified |
+| A5 — segment integration gate | `DONE` | A1–A4 | 85 integration tests pass from an isolated `HEAD` plus staged snapshot; 37/481 edges are exhaustive, 444 are accepted debt, zero are new; adapter delivery and lifecycle gates pass |
 
 | A2 cohort | Status | Evidence |
 | --- | --- | --- |
@@ -240,7 +239,7 @@ A3 order:
 | A3.3 — `StructuresDict` thermodynamic series | `DONE` | two-way unit-bearing series, derived total energy, ordered selection, capability queries, report preservation, lifecycle documentation, and 19 focused tests landed as `006d9e4ed` |
 | A3.4 — `StructuresDict -> MolSys` signature | `DONE` | standard signatures, correct local mechanics adapter, matched selected atom axes, lifecycle documentation, and 15 form tests landed as `ab28213c0` |
 | A3.5 — invalid state-ID expectation | `DONE` | WIP expectation corrected without fabricating an ID; explicit tracked regression landed as `0434b9b42` |
-| A3.6 — remaining native/builder profiles | `IN PROGRESS` | five route-promotion failures partitioned into direct projections and a prerequisite builder attribute-contract audit |
+| A3.6 — remaining native/builder profiles | `DONE` | direct projections, complete builder contracts, builder routes, and bounded coordinate-trajectory profiles are integrated |
 
 A3.6 is split so incomplete builder metadata cannot block or weaken direct
 native projection evidence:
@@ -361,7 +360,7 @@ baseline, not permission to weaken a landed ratchet.
 
 | Stage | Status |
 | --- | --- |
-| B1 — generated active-Numba inventory | `PENDING` |
+| B1 — generated active-Numba inventory | `IN PROGRESS` |
 | B2 — CPU kernel-to-consumer/evidence manifest | `PENDING` |
 | B3 — deliberate divergence and tolerance record | `PENDING` |
 | B4 — final two-backend parity campaign | `PENDING` |
@@ -483,3 +482,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | A4 design audit | `PENDING` → `IN PROGRESS` | 21 PDB failures reduced to five shared causes; duplicate parsing between the handler and native adapters identified as the architectural root | dirty WIP after `18136a95d` |
 | 2026-07-26 | A4 | `IN PROGRESS` → `DONE` | handler-owned normalized content now governs file, text, and handler input; canonical alternate sites, explicit chemistry, bioassemblies, canonical writing, payload-aware reports, 22 PDB tests, 139 historical/integration tests, and 60 convert tests pass; exhaustive coverage 11 → 22 with zero new debt | `1f656fe9f` |
 | 2026-07-26 | A5 | `PENDING` → `IN PROGRESS` | Segment A integration gate selected; known external-form attribute-delivery debt remains explicit and PDB adapters themselves pass | dirty WIP after `1f656fe9f` |
+| 2026-07-26 | A5 / Segment A | `IN PROGRESS` → `DONE` | isolated committed-snapshot reconstruction passes 85 tests; form adapters 89/89; exhaustive conversion coverage 22 → 37; accepted debt 470 → 444; zero new debt; Ruff, dependencies, devguide, course, demos, resources, scientific evidence, Rust hot paths, and public smoke pass; the only aggregate-gate red is independent F3 function-tier hygiene | `9660f6e79` |
+| 2026-07-26 | B / B1 | `PENDING` → `IN PROGRESS` | Segment A dependency closed; generated active-Numba runtime inventory selected as the next oracle stage | dirty WIP after `9660f6e79` |
