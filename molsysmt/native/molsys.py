@@ -356,7 +356,14 @@ class MolSys:
                            skip_digestion=True)
 
     @arg_digest(form='molsysmt.MolSys')
-    def append_structures(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    def append_structures(
+        self,
+        item,
+        atom_indices='all',
+        structure_indices='all',
+        attribute_policy='intersection',
+        skip_digestion=False,
+    ):
         """Append structures from another MolSys while aligning atom indices."""
 
         source_topology = item.topology.extract(
@@ -401,8 +408,10 @@ class MolSys:
             kinetic_energy=other.kinetic_energy,
             b_factor=other.b_factor,
             alternate_location=other.alternate_location,
+            occupancy=other.occupancy,
             atom_indices='all',
             structure_indices='all',
+            attribute_policy=attribute_policy,
             skip_digestion=True,
         )
         if (

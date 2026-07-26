@@ -1,6 +1,10 @@
 from molsysmt._private.variables import is_all
 from molsysmt._private.arg_digestion import arg_digest
-from molsysmt._private.smonitor import ArgumentLengthError, NotImplementedMethodError
+from molsysmt._private.smonitor import (
+    ArgumentLengthError,
+    NotImplementedMethodError,
+    StructuralInconsistencyError,
+)
 from molsysmt import pyunitwizard as puw
 from copy import deepcopy
 import numpy as np
@@ -12,6 +16,28 @@ def _raw_value(quantity, canonical_unit):
     if puw.is_quantity(quantity):
         return puw.get_value(quantity, to_unit=canonical_unit)
     return quantity
+
+
+_FRAME_ATTRIBUTES = (
+    'structure_id',
+    'time',
+    'coordinates',
+    'velocities',
+    'box',
+    'b_factor',
+    'alternate_location',
+    'occupancy',
+    'temperature',
+    'potential_energy',
+    'kinetic_energy',
+)
+
+_ATOM_ALIGNED_ATTRIBUTES = (
+    'coordinates',
+    'velocities',
+    'b_factor',
+    'occupancy',
+)
 
 
 class Structures:
@@ -130,23 +156,13 @@ class Structures:
 
     @property
     def n_structures(self):
-        if self._coordinates is not None:
-            return self._coordinates.shape[0]
-        elif self._velocities is not None:
-            return self._velocities.shape[0]
-        elif self._box is not None:
-            return self._box.shape[0]
-        else:
-            return 0
+        n_structures, _ = self._validate_alignment()
+        return n_structures
 
     @property
     def n_atoms(self):
-        if self._coordinates is not None:
-            return self._coordinates.shape[1]
-        elif self._velocities is not None:
-            return self._velocities.shape[1]
-        else:
-            return 0
+        _, n_atoms = self._validate_alignment()
+        return n_atoms
 
     @signal(tags=['native'])
     @arg_digest()
@@ -186,6 +202,100 @@ class Structures:
         self.potential_energy = potential_energy
         self.kinetic_energy = kinetic_energy
         self.occupancy = occupancy
+        self._validate_alignment()
+
+    def _frame_payload(self):
+        """Returning raw frame-aligned storage without unit wrappers."""
+
+        return {
+            'structure_id': self.structure_id,
+            'time': self._time,
+            'coordinates': self._coordinates,
+            'velocities': self._velocities,
+            'box': self._box,
+            'b_factor': self._b_factor,
+            'alternate_location': self.alternate_location,
+            'occupancy': self._occupancy,
+            'temperature': self._temperature,
+            'potential_energy': self._potential_energy,
+            'kinetic_energy': self._kinetic_energy,
+        }
+
+    @staticmethod
+    def _payload_dimensions(payload, caller, payload_error=False):
+        """Validating shared structure and atom axes for one payload."""
+
+        lengths = {
+            name: len(value)
+            for name, value in payload.items()
+            if value is not None
+        }
+        if lengths:
+            expected_name, expected = next(iter(lengths.items()))
+            for name, actual in lengths.items():
+                if actual != expected:
+                    if payload_error:
+                        raise ArgumentLengthError(
+                            argument=name,
+                            expected=expected,
+                            actual=actual,
+                            caller=caller,
+                        )
+                    raise StructuralInconsistencyError(
+                        reason=(
+                            f"Structural series {expected_name!r} has {expected} "
+                            f"entries while {name!r} has {actual}."
+                        ),
+                        caller=caller,
+                    )
+            n_structures = expected
+        else:
+            n_structures = 0
+
+        atom_sizes = {}
+        for name in _ATOM_ALIGNED_ATTRIBUTES:
+            value = payload.get(name)
+            if value is None:
+                continue
+            array = np.asarray(value)
+            if array.ndim < 2:
+                raise StructuralInconsistencyError(
+                    reason=f"Structural attribute {name!r} has no atom axis.",
+                    caller=caller,
+                )
+            atom_sizes[name] = array.shape[1]
+
+        if atom_sizes:
+            expected_name, expected = next(iter(atom_sizes.items()))
+            for name, actual in atom_sizes.items():
+                if actual != expected:
+                    raise StructuralInconsistencyError(
+                        reason=(
+                            f"Atom axis for {expected_name!r} has size {expected} "
+                            f"while {name!r} has size {actual}."
+                        ),
+                        caller=caller,
+                    )
+            n_atoms = expected
+        else:
+            n_atoms = 0
+
+        return n_structures, n_atoms
+
+    def _validate_alignment(self):
+        """Validating and returning the native structure and atom dimensions."""
+
+        return self._payload_dimensions(
+            self._frame_payload(),
+            caller='molsysmt.native.Structures',
+        )
+
+    def _assign_frame_payload(self, payload):
+        """Replacing all frame-aligned data from a validated raw payload."""
+
+        for name in _FRAME_ATTRIBUTES:
+            setattr(self, name, deepcopy(payload.get(name)))
+        self._validate_alignment()
 
     def __setstate__(self, state):
         """Restore current storage or migrate legacy public array fields."""
@@ -212,85 +322,148 @@ class Structures:
     def append(self, structure_id=None, time=None, coordinates=None, velocities=None,
                box=None, temperature=None, potential_energy=None, kinetic_energy=None,
                b_factor=None, alternate_location=None, occupancy=None,
-               atom_indices='all', structure_indices='all', skip_digestion=False):
+               atom_indices='all', structure_indices='all',
+               attribute_policy='intersection', skip_digestion=False):
         """Append one or more structures and associated metadata to this object."""
 
-        # 1. Validation of internal consistency of the incoming data
-        incoming_n_structures = None
-        
-        if structure_id is not None and len(structure_id) > 0:
-            incoming_n_structures = len(structure_id)
-            
-        if time is not None and len(time) > 0:
-            if incoming_n_structures is None:
-                incoming_n_structures = len(time)
-            elif incoming_n_structures != len(time):
-                raise ArgumentLengthError(argument="time", expected=incoming_n_structures, actual=len(time), caller="molsysmt.native.Structures.append")
+        if attribute_policy not in {'intersection', 'strict'}:
+            from molsysmt._private.smonitor import ArgumentError
 
-        if coordinates is not None:
-            if incoming_n_structures is None:
-                incoming_n_structures = coordinates.shape[0]
-            elif incoming_n_structures != coordinates.shape[0]:
-                raise ArgumentLengthError(argument="coordinates (frames)", expected=incoming_n_structures, actual=coordinates.shape[0], caller="molsysmt.native.Structures.append")
-            
-            if self.n_atoms > 0 and self.n_atoms != coordinates.shape[1]:
-                 raise ArgumentLengthError(argument="coordinates (atoms)", expected=self.n_atoms, actual=coordinates.shape[1], caller="molsysmt.native.Structures.append")
+            raise ArgumentError(
+                'attribute_policy',
+                value=attribute_policy,
+                caller='molsysmt.native.Structures.append',
+            )
 
-        if box is not None and len(box) > 0:
-            if incoming_n_structures is None:
-                incoming_n_structures = box.shape[0]
-            elif incoming_n_structures != box.shape[0]:
-                raise ArgumentLengthError(argument="box", expected=incoming_n_structures, actual=box.shape[0], caller="molsysmt.native.Structures.append")
+        incoming = {
+            'structure_id': structure_id,
+            'time': _raw_value(time, 'ps'),
+            'coordinates': _raw_value(coordinates, 'nm'),
+            'velocities': _raw_value(velocities, 'nm/ps'),
+            'box': _raw_value(box, 'nm'),
+            'b_factor': _raw_value(b_factor, 'nm**2'),
+            'alternate_location': alternate_location,
+            'occupancy': occupancy,
+            'temperature': _raw_value(temperature, 'K'),
+            'potential_energy': _raw_value(potential_energy, 'kJ/mol'),
+            'kinetic_energy': _raw_value(kinetic_energy, 'kJ/mol'),
+        }
 
-        if incoming_n_structures is None:
+        if not is_all(structure_indices):
+            for name, value in incoming.items():
+                if value is not None:
+                    incoming[name] = np.asarray(value)[structure_indices]
+        if not is_all(atom_indices):
+            for name in _ATOM_ALIGNED_ATTRIBUTES:
+                value = incoming[name]
+                if value is not None:
+                    incoming[name] = np.asarray(value)[:, atom_indices, ...]
+
+        current = self._frame_payload()
+        current_n_structures, current_n_atoms = self._payload_dimensions(
+            current,
+            caller='molsysmt.native.Structures.append',
+        )
+        incoming_n_structures, incoming_n_atoms = self._payload_dimensions(
+            incoming,
+            caller='molsysmt.native.Structures.append',
+            payload_error=True,
+        )
+
+        if incoming_n_structures == 0:
             return
 
-        # 2. Actual Append
-        if structure_id is not None and len(structure_id) > 0:
-            self._append_structure_id(structure_id, structure_indices=structure_indices, skip_digestion=True)
-        
-        if time is not None and len(time) > 0:
-            self._append_time(_raw_value(time, 'ps'), structure_indices=structure_indices, skip_digestion=True)
+        if (
+            current_n_atoms
+            and incoming_n_atoms
+            and current_n_atoms != incoming_n_atoms
+        ):
+            raise ArgumentLengthError(
+                argument='coordinates (atoms)',
+                expected=current_n_atoms,
+                actual=incoming_n_atoms,
+                caller='molsysmt.native.Structures.append',
+            )
 
-        if coordinates is not None:
-            self._append_coordinates(_raw_value(coordinates, 'nm'), atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
+        current_present = {
+            name for name, value in current.items() if value is not None
+        }
+        incoming_present = {
+            name for name, value in incoming.items() if value is not None
+        }
 
-        if velocities is not None:
-            self._append_velocities(_raw_value(velocities, 'nm/ps'), atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
+        if current_n_structures == 0:
+            candidate = incoming
+            dropped = []
+        else:
+            common = current_present & incoming_present
+            if not common:
+                raise StructuralInconsistencyError(
+                    reason=(
+                        'Non-empty structural blocks share no frame-aligned '
+                        'attribute and cannot be concatenated.'
+                    ),
+                    caller='molsysmt.native.Structures.append',
+                )
+            dropped = [
+                name
+                for name in _FRAME_ATTRIBUTES
+                if name in current_present ^ incoming_present
+            ]
+            if dropped and attribute_policy == 'strict':
+                raise StructuralInconsistencyError(
+                    reason=(
+                        'One-sided structural attributes are not allowed by '
+                        f"strict policy: {', '.join(dropped)}."
+                    ),
+                    caller='molsysmt.native.Structures.append',
+                )
 
-        if box is not None and len(box) > 0:
-            self._append_box(_raw_value(box, 'nm'), structure_indices=structure_indices, skip_digestion=True)
+            candidate = {}
+            for name in _FRAME_ATTRIBUTES:
+                if name not in common:
+                    candidate[name] = None
+                    continue
+                left = current[name]
+                right = incoming[name]
+                if name == 'alternate_location':
+                    candidate[name] = list(left) + list(right)
+                else:
+                    candidate[name] = np.concatenate((left, right), axis=0)
 
-        if temperature is not None:
-            self._append_temperature(_raw_value(temperature, 'K'), structure_indices=structure_indices, skip_digestion=True)
+        self._payload_dimensions(
+            candidate,
+            caller='molsysmt.native.Structures.append',
+        )
+        if dropped:
+            import warnings
+            from molsysmt._private.smonitor import StructuralAttributeDropWarning
 
-        if potential_energy is not None:
-            self._append_potential_energy(_raw_value(potential_energy, 'kJ/mol'), structure_indices=structure_indices, skip_digestion=True)
-
-        if kinetic_energy is not None:
-            self._append_kinetic_energy(_raw_value(kinetic_energy, 'kJ/mol'), structure_indices=structure_indices, skip_digestion=True)
-
-        if b_factor is not None:
-            self._append_b_factor(_raw_value(b_factor, 'nm**2'), structure_indices=structure_indices, skip_digestion=True)
-
-        if alternate_location is not None:
-            self._append_alternate_location(alternate_location, structure_indices=structure_indices, skip_digestion=True)
-
-        if occupancy is not None:
-            self._append_occupancy(occupancy, structure_indices=structure_indices, skip_digestion=True)
+            warnings.warn(
+                StructuralAttributeDropWarning(attributes=dropped),
+                stacklevel=2,
+            )
+        self._assign_frame_payload(candidate)
 
         return
 
     @signal(tags=['native'])
     @arg_digest(form='molsysmt.Structures')
-    def append_structures(self, item, structure_indices='all', skip_digestion=False):
+    def append_structures(
+        self,
+        item,
+        structure_indices='all',
+        attribute_policy='intersection',
+        skip_digestion=False,
+    ):
 
         return self.append(structure_id=item.structure_id, time=item.time, coordinates=item.coordinates,
                            velocities=item.velocities, box=item.box, temperature=item.temperature,
                            potential_energy=item.potential_energy, kinetic_energy=item.kinetic_energy,
                            b_factor=item.b_factor, alternate_location=item.alternate_location,
                            occupancy=item.occupancy,
-                           atom_indices='all', structure_indices=structure_indices, skip_digestion=True)
+                           atom_indices='all', structure_indices=structure_indices,
+                           attribute_policy=attribute_policy, skip_digestion=True)
 
     def _puw_concatenate(self, items, axis=0):
         vals = []

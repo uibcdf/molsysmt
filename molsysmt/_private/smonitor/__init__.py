@@ -25,4 +25,5 @@ __all__ = [
     "UnknownAtomNameWarning",
     "WarmupFailureWarning",
     "GpuNotAvailableWarning",
+    "StructuralAttributeDropWarning",
 ]

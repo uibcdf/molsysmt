@@ -114,6 +114,12 @@ CATALOG = {
             "category": "structure",
             "level": "WARNING",
         },
+        "StructuralAttributeDropWarning": {
+            "code": "MSM-WARN-STRUCT-005",
+            "source": "molsysmt.warning.structure.attribute_drop",
+            "category": "structure",
+            "level": "WARNING",
+        },
         "SlowChunkIOWarning": {
             "code": "MSM-WARN-HVY-001",
             "source": "molsysmt.warning.heavy.slow_io",
@@ -440,6 +446,17 @@ CODES = {
         "qa_hint": "Validate topology identity consistency across all models. Docs: {doc_url}",
         "agent_message": "{count} models have incompatible molecular systems. Returned as separate systems.",
         "agent_hint": "Normalize model topology before merging.",
+    },
+    "MSM-WARN-STRUCT-005": {
+        "title": "One-sided structural attributes discarded",
+        "user_message": "Structural attributes were discarded during concatenation: {attributes}.",
+        "user_hint": "Use attribute_policy='strict' to reject the operation instead. Docs: {doc_url}",
+        "dev_message": "Structural concatenation discarded one-sided attributes: {attributes}.",
+        "dev_hint": "Provide the same structural series in every block or use strict policy.",
+        "qa_message": "Structural concatenation discarded one-sided attributes: {attributes}.",
+        "qa_hint": "Verify that intersection semantics are intended for this test.",
+        "agent_message": "Discarded one-sided structural attributes: {attributes}.",
+        "agent_hint": "Use strict policy when dropping any structural series is unacceptable.",
     },
     "MSM-INFO-EXP-001": {
         "title": "Experimental path",

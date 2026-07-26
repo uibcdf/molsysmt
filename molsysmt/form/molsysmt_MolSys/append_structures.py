@@ -9,13 +9,16 @@ import numpy as np
 def append_structures(to_item, item=None, structure_id=None, time=None, coordinates=None, velocities=None,
                       box=None, temperature=None, potential_energy=None, kinetic_energy=None,
                       structure_chemical_state_index=None,
-                      atom_indices='all', structure_indices='all', skip_digestion=False):
+                      b_factor=None, alternate_location=None, occupancy=None,
+                      atom_indices='all', structure_indices='all',
+                      attribute_policy='intersection', skip_digestion=False):
 
     if item is not None:
         to_item.append_structures(
             item,
             atom_indices=atom_indices,
             structure_indices=structure_indices,
+            attribute_policy=attribute_policy,
             skip_digestion=True,
         )
     else:
@@ -26,7 +29,10 @@ def append_structures(to_item, item=None, structure_id=None, time=None, coordina
         to_item.structures.append(structure_id=structure_id, time=time, coordinates=coordinates,
                                   velocities=velocities, box=box, temperature=temperature,
                                   potential_energy=potential_energy, kinetic_energy=kinetic_energy,
+                                  b_factor=b_factor, alternate_location=alternate_location,
+                                  occupancy=occupancy,
                                   atom_indices=atom_indices, structure_indices=structure_indices,
+                                  attribute_policy=attribute_policy,
                                   skip_digestion=True)
         n_new_structures = to_item.structures.n_structures - old_n_structures
         if n_new_structures and (

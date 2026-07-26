@@ -88,6 +88,21 @@ class MolecularSystemMismatchWarning(UserMolSysMTWarning):
         super().__init__(extra=extra)
 
 
+class StructuralAttributeDropWarning(UserMolSysMTWarning):
+    """Warning about one-sided structural series discarded by intersection."""
+
+    catalog_key = "StructuralAttributeDropWarning"
+
+    def __init__(self, attributes, caller='molsysmt.append_structures'):
+        if isinstance(attributes, str):
+            Warning.__init__(self, attributes)
+            return
+        super().__init__(extra={
+            "attributes": ", ".join(attributes),
+            "caller": caller,
+        })
+
+
 class SlowChunkIOWarning(MolSysMTCatalogWarning):
     catalog_key = "SlowChunkIOWarning"
 
@@ -142,6 +157,7 @@ __all__ = [
     "DownloadWarning",
     "NotDigestedArgumentWarning",
     "MolecularSystemMismatchWarning",
+    "StructuralAttributeDropWarning",
     "SlowChunkIOWarning",
     "MemoryPressureWarning",
     "UnknownAtomNameWarning",

@@ -37,23 +37,24 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** B — final Numba oracle
-- **Active stage:** B4 — forced-Rust release campaign, blocked by unlanded WIP
+- **Active stage:** B4 — forced-Rust blocker reduction and exact-commit campaign
 - **Completed weighted closure:** 25% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segment A is certified complete; Segment
-  B is approximately 90% complete internally after the first B4 campaign and
-  the first blocker-reduction pass, but has not yet earned additional weighted
-  closure
+  B is approximately 93% complete internally after the first B4 campaign,
+  blocker reduction, and the structural-growth stabilization pass, but has not
+  yet earned additional weighted closure
 - **Current repository state:** dirty WIP; not a release artifact
-- **Current landed blocker-reduction HEAD:** `7cf7d7206`; this is not yet a
-  verified release-candidate commit because unrelated WIP remains unlanded
+- **Current landed blocker-reduction HEAD:** the transactional structural-growth
+  checkpoint at the current committed `HEAD`; this is not yet a verified
+  release-candidate commit because unrelated WIP remains unlanded
 - **Release readiness percentage:** intentionally not asserted until Segment A
   and the Rust packaging spike provide executable evidence
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** partition, audit, and land the production/test WIP required
-  by the six known residual root causes; then rebuild the exact-commit Rust
-  wheel and repeat the forced-Rust release gate
+- **Next action:** land the validated transactional structural-growth
+  checkpoint, then continue the remaining NGL adapter causes before rebuilding
+  the exact-commit Rust wheel and repeating the forced-Rust release gate
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
@@ -75,6 +76,42 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
 | **Total** | **100%** | **`IN PROGRESS`** | **25%** | Segment credit is earned only when its complete exit gate passes |
+
+### B4 Pause Checkpoint — Transactional Structural Growth
+
+The active uncommitted vertical defines one structural-axis contract for
+`Structures`, `StructuresDict`, `MolSys`, `append_structures()`, and
+`concatenate_structures()`:
+
+- topology-free structural sources remain valid when atom counts match;
+- every materialized structural series covers the complete structure axis;
+- append validates the source and target before mutation;
+- `attribute_policy='intersection'` retains shared series and reports all
+  discarded one-sided attributes;
+- `attribute_policy='strict'` rejects one-sided attributes without modifying
+  the target;
+- the public API, User Guide, Common Core course, and native contract describe
+  the same behavior.
+
+Evidence before pausing:
+
+- focused native/API gate: 51 passed;
+- expanded native-form/H5MSM gate: 1,254 passed;
+- warning reconstruction and public structural-growth gate: 20 passed;
+- both edited User Guide notebooks parse as valid JSON;
+- pytest-receptor agreed with pytest on every verdict and exit code.
+
+This checkpoint is landed in the current structural-growth commit. Resume with
+the remaining NGL adapter causes, then rebuild the exact-commit Rust wheel and
+repeat the forced-Rust release gate. Do not absorb the independent
+release-plan, conversion, Rust, or archive WIP already present in the working
+tree.
+
+The H5MSM 0.5 independent-layer design discovered during this vertical is
+recorded separately in
+[H5MSM 0.5 Modular Layer Contract](pending_proposals/h5msm_0_5_modular_layers.md).
+It is not part of this implementation checkpoint or the default 1.0 critical
+path.
 
 ## Segment A — Conversion-Fidelity Coherence
 

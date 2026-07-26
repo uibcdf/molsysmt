@@ -67,3 +67,12 @@ def test_selection_warning_instantiable():
     from molsysmt._private.smonitor.warnings import SelectionWarning
     w = SelectionWarning()
     assert isinstance(w, Warning)
+
+
+def test_structural_attribute_drop_warning_preserves_reconstructed_message():
+    from molsysmt._private.smonitor.warnings import StructuralAttributeDropWarning
+
+    warning = StructuralAttributeDropWarning(attributes=["time", "velocities"])
+    reconstructed = StructuralAttributeDropWarning(attributes=str(warning))
+
+    assert str(reconstructed) == str(warning)

@@ -4,7 +4,8 @@ from smonitor import signal
 @signal(tags=['api', 'structure'])
 @arg_digest()
 def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None,
-                           syntax='MolSysMT', skip_digestion=False):
+                           syntax='MolSysMT', attribute_policy='intersection',
+                           skip_digestion=False):
     """
     Concatenate structures from a list of molecular systems into a single molecular system.
 
@@ -33,6 +34,10 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
         first input system.
     syntax : str, default 'MolSysMT'
         Selection syntax used when entries of `selections` are strings. See :ref:`Introduction_Selection`.
+    attribute_policy : {'intersection', 'strict'}, default 'intersection'
+        Policy for structural attributes present in only one input block.
+        ``'intersection'`` discards one-sided series with a warning; ``'strict'``
+        rejects the operation.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.
         MolSysMT includes a built-in digestion system that validates and normalizes
@@ -140,6 +145,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
             structure_indices=aux_structure_indices,
             syntax=syntax,
             in_place=True,
+            attribute_policy=attribute_policy,
             skip_digestion=True,
         )
 
