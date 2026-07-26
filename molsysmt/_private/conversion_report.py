@@ -65,11 +65,102 @@ _STRUCTURES_TO_STRUCTURES_DICT_PROFILE = {
     ),
 }
 
+_TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE = {
+    'directly_preserved': frozenset({
+        'atom_id',
+        'atom_name',
+        'atom_type',
+        'isotope',
+        'group_id',
+        'group_name',
+        'group_type',
+        'chain_id',
+        'chain_name',
+        'chain_type',
+        'molecule_id',
+        'molecule_name',
+        'molecule_type',
+        'entity_id',
+        'entity_name',
+        'entity_type',
+        'bond_type',
+        'bond_order',
+    }),
+    'derived_without_loss': frozenset({
+        'atom_index',
+        'group_index',
+        'chain_index',
+        'molecule_index',
+        'entity_index',
+        'bond_index',
+        'bonded_atoms',
+        'bonded_atom_pairs',
+        'inner_bonded_atoms',
+        'inner_bonded_atom_pairs',
+        'inner_bond_index',
+        'n_atoms',
+        'n_groups',
+        'n_chains',
+        'n_molecules',
+        'n_entities',
+        'n_bonds',
+        'n_inner_bonds',
+        'n_amino_acids',
+        'n_nucleotides',
+        'n_ions',
+        'n_waters',
+        'n_small_molecules',
+        'n_peptides',
+        'n_proteins',
+        'n_dnas',
+        'n_rnas',
+        'n_lipids',
+        'n_polysaccharides',
+        'n_saccharides',
+    }),
+    'covered_by_dependencies': {
+        'chemical_state_index': 'chemical_state_inventory',
+        'n_chemical_states': 'chemical_state_inventory',
+        'reference_chemical_state_index': 'chemical_state_inventory',
+        'n_components': 'component_index',
+    },
+    'loss_candidates': (
+        'chemical_state_id',
+        'connectivity_completeness',
+        'component_completeness',
+        'component_evidence',
+        'component_index',
+        'component_id',
+        'component_name',
+        'component_type',
+        'bond_id',
+        'fractional_bond_order',
+        'bond_is_aromatic',
+        'bond_is_conjugated',
+        'bond_stereochemistry',
+        'bond_stereo_atom_indices',
+        'bond_donor_atom_index',
+        'bond_acceptor_atom_index',
+        'bond_joins_components',
+        'bond_evidence',
+        'formal_charge',
+        'atom_is_aromatic',
+        'n_unpaired_electrons',
+        'n_implicit_hydrogens',
+        'allows_implicit_hydrogens',
+        'atom_stereochemistry',
+    ),
+}
+
 _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.Structures',
         'molsysmt.StructuresDict',
     ): _STRUCTURES_TO_STRUCTURES_DICT_PROFILE,
+    (
+        'molsysmt.Topology',
+        'molsysmt.TopologyDict',
+    ): _TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE,
 }
 
 _EXHAUSTIVE_AUDIT_PAIRS = frozenset(_CONVERSION_AUDIT_PROFILES)
@@ -129,12 +220,161 @@ def _audit_native_structures_to_dict(item):
     return issues
 
 
+def _schema_limitation(attribute, target_form, scope='chemical_state'):
+    return ConversionIssue(
+        attribute=attribute,
+        reason=(
+            f'{target_form} cannot represent the supplied '
+            f'{attribute} semantics.'
+        ),
+        kind='schema_limitation',
+        scope=scope,
+    )
+
+
+def _states_have_atom_column(states, column):
+    return any(
+        column in state.atom_attributes
+        and state.atom_attributes[column].notna().any()
+        for state in states
+    )
+
+
+def _states_have_bond_column(states, column, predicate=None):
+    for state in states:
+        if column not in state.bonds or not state.bonds[column].notna().any():
+            continue
+        if predicate is None or predicate(state.bonds):
+            return True
+    return False
+
+
+def _aromatic_flag_is_not_preserved(bonds):
+    aromatic = bonds['is_aromatic']
+    explicit_false = ((aromatic == False) & aromatic.notna()).any()  # noqa: E712
+    if 'bond_order' not in bonds:
+        return explicit_false
+    formal_order_takes_precedence = (
+        (aromatic == True) & bonds['bond_order'].notna()  # noqa: E712
+    ).any()
+    return explicit_false or formal_order_takes_precedence
+
+
+def _audit_native_topology_to_dict(item):
+    """Return native topology semantics omitted by TopologyDict 0.1."""
+
+    states = item._chemical_states
+    target_form = 'molsysmt.TopologyDict'
+    issues = []
+
+    if len(states) != 1:
+        issues.append(
+            ConversionIssue(
+                attribute='chemical_state_index',
+                reason=(
+                    'molsysmt.TopologyDict 0.1 stores one resolved chemical '
+                    'state and cannot preserve the ordered state inventory.'
+                ),
+                kind='state_collapse',
+                scope='chemical_state',
+            )
+        )
+
+    if any(state.state_id is not None for state in states):
+        issues.append(
+            _schema_limitation('chemical_state_id', target_form)
+        )
+
+    if any(state.connectivity_completeness != 'unavailable' for state in states):
+        issues.append(
+            _schema_limitation(
+                'connectivity_completeness',
+                target_form,
+            )
+        )
+
+    if any(state.component_completeness != 'unavailable' for state in states):
+        issues.append(
+            _schema_limitation('component_completeness', target_form)
+        )
+    if any(state.component_evidence != 'unknown' for state in states):
+        issues.append(
+            _schema_limitation('component_evidence', target_form)
+        )
+    if any(state.component_indices.notna().any() for state in states):
+        issues.append(_schema_limitation('component_index', target_form))
+
+    for attribute, column in (
+        ('component_id', 'component_id'),
+        ('component_name', 'component_name'),
+        ('component_type', 'component_type'),
+    ):
+        if any(
+            column in state.components
+            and state.components[column].notna().any()
+            for state in states
+        ):
+            issues.append(_schema_limitation(attribute, target_form))
+
+    bond_columns = (
+        ('bond_id', 'bond_id'),
+        ('fractional_bond_order', 'fractional_bond_order'),
+        ('bond_is_conjugated', 'is_conjugated'),
+        ('bond_stereochemistry', 'stereochemistry'),
+        ('bond_donor_atom_index', 'donor_atom_index'),
+        ('bond_acceptor_atom_index', 'acceptor_atom_index'),
+        ('bond_evidence', 'evidence'),
+    )
+    for attribute, column in bond_columns:
+        if _states_have_bond_column(states, column):
+            issues.append(_schema_limitation(attribute, target_form))
+
+    if (
+        _states_have_bond_column(states, 'stereo_atom1_index')
+        or _states_have_bond_column(states, 'stereo_atom2_index')
+    ):
+        issues.append(
+            _schema_limitation('bond_stereo_atom_indices', target_form)
+        )
+
+    if _states_have_bond_column(
+        states,
+        'is_aromatic',
+        predicate=_aromatic_flag_is_not_preserved,
+    ):
+        issues.append(_schema_limitation('bond_is_aromatic', target_form))
+
+    if _states_have_bond_column(
+        states,
+        'joins_components',
+    ):
+        issues.append(
+            _schema_limitation('bond_joins_components', target_form)
+        )
+
+    atom_columns = (
+        ('formal_charge', 'formal_charge'),
+        ('atom_is_aromatic', 'is_aromatic'),
+        ('n_unpaired_electrons', 'n_unpaired_electrons'),
+        ('n_implicit_hydrogens', 'n_implicit_hydrogens'),
+        ('allows_implicit_hydrogens', 'allows_implicit_hydrogens'),
+        ('atom_stereochemistry', 'stereochemistry'),
+    )
+    for attribute, column in atom_columns:
+        if _states_have_atom_column(states, column):
+            issues.append(_schema_limitation(attribute, target_form))
+
+    return issues
+
+
 def _audit_registered_profile(item, source_form, target_form):
     """Return issues from one evidence-backed exhaustive audit profile."""
 
     pair = (source_form, target_form)
     if pair == ('molsysmt.Structures', 'molsysmt.StructuresDict'):
         return _audit_native_structures_to_dict(item)
+    if pair == ('molsysmt.Topology', 'molsysmt.TopologyDict'):
+        return _audit_native_topology_to_dict(item)
     return []
 
 

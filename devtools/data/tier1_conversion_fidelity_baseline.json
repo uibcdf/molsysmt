@@ -43,7 +43,7 @@
     "molsysmt.PDBFileHandler": "0x10b2000000000",
     "molsysmt.Structures": "0x220000102010",
     "molsysmt.StructuresDict": "0xe2000100000",
-    "molsysmt.Topology": "0x1628001b80080462000",
+    "molsysmt.Topology": "0x1628001a80080462000",
     "molsysmt.TopologyDict": "0x180000400000",
     "molsysmt.ViewerJSON": "0x202000000000",
     "molsysviewer.MolSysView": "0x402000000000",

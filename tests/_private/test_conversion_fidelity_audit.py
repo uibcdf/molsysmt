@@ -64,6 +64,7 @@ def test_evidence_backed_native_declarative_routes_are_exhaustive():
     }
     routes = {
         ('molsysmt.Structures', 'molsysmt.StructuresDict'),
+        ('molsysmt.Topology', 'molsysmt.TopologyDict'),
     }
 
     for route in routes:
