@@ -37,10 +37,10 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** B — final Numba oracle
-- **Active stage:** B3 — deliberate divergence and tolerance record
+- **Active stage:** B4 — final two-backend parity campaign
 - **Completed weighted closure:** 25% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segment A is certified complete; Segment
-  B is approximately 48% complete internally after B2, but has not yet earned
+  B is approximately 70% complete internally after B3, but has not yet earned
   additional weighted closure
 - **Current repository state:** dirty WIP; not a release artifact
 - **WIP base HEAD when this ledger was created:** `7ab96e791`; this is not a
@@ -50,9 +50,9 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** extract every intentional numerical or behavioral
-  divergence from the complete parity surface, record its tolerance and
-  independent justification, and fail the gate on any unclassified divergence
+- **Next action:** define and run the reproducible final Numba/Rust comparison
+  matrix without allowing either backend, an editable worktree, or an
+  incomplete test session to hide a migration failure
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
@@ -68,7 +68,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
-| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | B1 froze the active surface; B2 maps all 108 CPU kernels; B3 divergence classification is active |
+| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | B1 froze the surface, B2 maps all CPU kernels, B3 closes divergence policy, and B4 final comparison is active |
 | C — Rust packaging | 20% | `PENDING` | 0% | local abi3 pilot succeeded; production crate layout and multiplatform installed-wheel CI remain open |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
@@ -363,8 +363,8 @@ baseline, not permission to weaken a landed ratchet.
 | --- | --- |
 | B1 — generated active-Numba inventory | `DONE` |
 | B2 — CPU kernel-to-consumer/evidence manifest | `DONE` |
-| B3 — deliberate divergence and tolerance record | `IN PROGRESS` |
-| B4 — final two-backend parity campaign | `PENDING` |
+| B3 — deliberate divergence and tolerance record | `DONE` |
+| B4 — final two-backend parity campaign | `IN PROGRESS` |
 | B5 — dated, committed oracle artifact | `PENDING` |
 
 Existing Rust port and dogfooding results are prerequisites, not B-segment
@@ -489,3 +489,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | B2 | `PENDING` → `IN PROGRESS` | B1 baseline landed; CPU kernel-to-Rust-consumer-evidence classification selected | dirty WIP after `de2ccf988` |
 | 2026-07-26 | B2 | `IN PROGRESS` → `DONE` | generated manifest maps all 108 CPU JIT callables across 15 families: 87 direct Rust dispatchers, one alias, and 20 explicitly absorbed helpers; every family names consumers, parity tests, and independent scientific or property evidence; 264 Rust tests and 82 selected scientific-truth tests pass; the live and isolated-environment audits, six ratchet tests, Ruff, CI YAML, and devguide validation pass | `863c77fb7` |
 | 2026-07-26 | B3 | `PENDING` → `IN PROGRESS` | complete B2 map landed; deliberate numerical and behavioral divergence extraction selected as the next oracle gate | dirty WIP after `863c77fb7` |
+| 2026-07-26 | B3 | `IN PROGRESS` → `DONE` | all 14 parity modules have accepted policies; 77 closeness sites declare both tolerances; 63 formerly implicit `rtol=1e-5` comparisons remain green with explicit strict contracts; eight deliberate divergences and four must-match contracts have executable evidence; 274 Rust/validator tests and 82 selected scientific-truth tests pass; zero provisional decisions remain | `b4b6bae25` |
+| 2026-07-26 | B4 | `PENDING` → `IN PROGRESS` | closed B3 contract landed; reproducible final two-backend campaign selected | dirty WIP after `b4b6bae25` |
