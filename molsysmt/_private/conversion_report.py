@@ -209,6 +209,10 @@ _MOLSYS_TO_MOLSYS_DICT_PROFILE = {
     ),
 }
 
+_DECLARED_CAPABILITY_PROJECTION_PROFILE = {
+    'mode': 'declared_capability_projection',
+}
+
 _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.Structures',
@@ -222,6 +226,22 @@ _CONVERSION_AUDIT_PROFILES = {
         'molsysmt.MolSys',
         'molsysmt.MolSysDict',
     ): _MOLSYS_TO_MOLSYS_DICT_PROFILE,
+    (
+        'molsysmt.MolSys',
+        'molsysmt.Topology',
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    (
+        'molsysmt.MolSys',
+        'molsysmt.Structures',
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    (
+        'molsysmt.StructuresDict',
+        'molsysmt.MolSys',
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    (
+        'molsysmt.StructuresDict',
+        'molsysmt.Topology',
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
 }
 
 _EXHAUSTIVE_AUDIT_PAIRS = frozenset(_CONVERSION_AUDIT_PROFILES)
@@ -510,6 +530,51 @@ def _audit_native_molsys_to_dict(item):
     return issues
 
 
+def _attribute_scope(attribute):
+    from molsysmt.attribute import (
+        is_chemical_state_attribute,
+        is_mechanical_attribute,
+        is_structural_attribute,
+    )
+
+    if is_chemical_state_attribute(attribute, skip_digestion=True):
+        return 'chemical_state'
+    if is_mechanical_attribute(attribute, skip_digestion=True):
+        return 'molecular_mechanics'
+    if is_structural_attribute(attribute, skip_digestion=True):
+        return 'structures'
+    return 'topology'
+
+
+def _audit_declared_capability_projection(item, source_form, target_form):
+    """Return present declared source attributes unsupported by the target."""
+
+    from molsysmt.form import _dict_modules
+
+    source_module = _dict_modules[source_form]
+    target_attributes = _dict_modules[target_form].attributes
+    issues = []
+
+    for attribute, declared in source_module.attributes.items():
+        if not declared or target_attributes.get(attribute, False):
+            continue
+        if not _instance_has(source_module, item, attribute, source_form):
+            continue
+        issues.append(
+            ConversionIssue(
+                attribute=attribute,
+                reason=(
+                    f'{target_form} cannot represent the supplied '
+                    f'{attribute} semantics.'
+                ),
+                kind='unsupported',
+                scope=_attribute_scope(attribute),
+            )
+        )
+
+    return issues
+
+
 def _audit_registered_profile(item, source_form, target_form):
     """Return issues from one evidence-backed exhaustive audit profile."""
 
@@ -520,6 +585,16 @@ def _audit_registered_profile(item, source_form, target_form):
         return _audit_native_topology_to_dict(item)
     if pair == ('molsysmt.MolSys', 'molsysmt.MolSysDict'):
         return _audit_native_molsys_to_dict(item)
+    profile = _CONVERSION_AUDIT_PROFILES.get(pair)
+    if (
+        profile is not None
+        and profile.get('mode') == 'declared_capability_projection'
+    ):
+        return _audit_declared_capability_projection(
+            item,
+            source_form,
+            target_form,
+        )
     return []
 
 
