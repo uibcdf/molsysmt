@@ -72,6 +72,9 @@ Read these documents in order when first working on MolSysMT:
   status view backed by the executable Scientific Truth evidence registry.
 - [structure_preparation_pipeline.md](structure_preparation_pipeline.md)
 - [performance_and_jit.md](performance_and_jit.md)
+- [rust_kernel_optimization_guide.md](rust_kernel_optimization_guide.md) — the
+  measured method for optimising the Rust kernels, including what was tried and
+  did not work, and why the wheel stays a portable baseline build.
 - [SCALABILITY.md](SCALABILITY.md)
 - [gpu_acceleration.md](gpu_acceleration.md) — design and capability map; each
   backend claim must still be confirmed by its tests.

@@ -23,6 +23,8 @@ use pyo3::prelude::*;
 
 #[cfg(test)]
 use crate::mathlib::inverse_matrix_3x3;
+use crate::mathlib::fast_floor;
+use crate::symmetric::mirror_upper_to_lower;
 
 pub type Mat3 = [[f64; 3]; 3];
 
@@ -141,7 +143,7 @@ pub(crate) fn prep_reduced(b: &Mat3) -> (Mat3, Mat3) {
 /// then the 8 corners of the containing cell (floor/ceil per axis) — sufficient on a
 /// reduced basis — instead of the exhaustive 27-image search. `red`/`inv` are the reduced
 /// cell and its general inverse from [`prep_reduced`].
-#[inline]
+#[inline(always)]
 pub(crate) fn wrap_to_mic_vector_reduced(v: [f64; 3], red: &Mat3, inv: &Mat3) -> [f64; 3] {
     // fractional coordinates s (v = s . red with rows as lattice vectors => s = inv^T v).
     let s = [
@@ -153,32 +155,61 @@ pub(crate) fn wrap_to_mic_vector_reduced(v: [f64; 3], red: &Mat3, inv: &Mat3) ->
     // r(δ) = red^T·(frac − δ) with frac = s − floor(s). Factor out the shared base
     // `rf = red^T·frac`: each corner is then `rf` minus a subset of the lattice-vector
     // rows, so the eight matrix–vector products collapse to one plus vector subtractions.
-    let frac = [s[0] - s[0].floor(), s[1] - s[1].floor(), s[2] - s[2].floor()];
+    let frac = [s[0] - fast_floor(s[0]), s[1] - fast_floor(s[1]), s[2] - fast_floor(s[2])];
     let rf = [
         red[0][0] * frac[0] + red[1][0] * frac[1] + red[2][0] * frac[2],
         red[0][1] * frac[0] + red[1][1] * frac[1] + red[2][1] * frac[2],
         red[0][2] * frac[0] + red[1][2] * frac[1] + red[2][2] * frac[2],
     ];
-    let mut best = rf;
-    let mut dmin = rf[0] * rf[0] + rf[1] * rf[1] + rf[2] * rf[2];
-    for delta in 1u8..8 {
-        let mut r = rf;
-        if delta & 1 != 0 {
-            r = [r[0] - red[0][0], r[1] - red[0][1], r[2] - red[0][2]];
-        }
-        if delta & 2 != 0 {
-            r = [r[0] - red[1][0], r[1] - red[1][1], r[2] - red[1][2]];
-        }
-        if delta & 4 != 0 {
-            r = [r[0] - red[2][0], r[1] - red[2][1], r[2] - red[2][2]];
-        }
-        let dd = r[0] * r[0] + r[1] * r[1] + r[2] * r[2];
-        if dd < dmin {
-            dmin = dd;
-            best = r;
-        }
-    }
-    best
+    // Build the eight candidates and their squared norms independently, then pick the
+    // winner with a three-level tournament. The sequential `if dd < dmin { dmin = dd; .. }`
+    // scan this replaces is *latency* bound: eight `minsd`-plus-select steps chained
+    // through `dmin`/`best`, which at ~60 ns per pair was the dominant cost of the
+    // triclinic distance kernels. The tree has depth 3 instead of 8 and lets the eight
+    // norms be computed in parallel.
+    //
+    // Bit-for-bit identical to the scan: each `d` is the same expression, and every
+    // comparison keeps the lower δ on a tie exactly as `<` did while scanning upward.
+    let cand = [
+        rf,
+        sub3(rf, red[0]),
+        sub3(rf, red[1]),
+        sub3(sub3(rf, red[0]), red[1]),
+        sub3(rf, red[2]),
+        sub3(sub3(rf, red[0]), red[2]),
+        sub3(sub3(rf, red[1]), red[2]),
+        sub3(sub3(sub3(rf, red[0]), red[1]), red[2]),
+    ];
+    let d = [
+        norm2(cand[0]),
+        norm2(cand[1]),
+        norm2(cand[2]),
+        norm2(cand[3]),
+        norm2(cand[4]),
+        norm2(cand[5]),
+        norm2(cand[6]),
+        norm2(cand[7]),
+    ];
+    // `pick` keeps the *lower* index on a tie, so the whole tree reproduces the scan's
+    // tie-breaking (first minimum wins) as long as each pairing puts the lower index left.
+    let pick = |i: usize, j: usize| if d[j] < d[i] { j } else { i };
+    let a = pick(0, 1);
+    let b = pick(2, 3);
+    let c = pick(4, 5);
+    let e = pick(6, 7);
+    let ab = pick(a, b);
+    let ce = pick(c, e);
+    cand[pick(ab, ce)]
+}
+
+#[inline(always)]
+fn sub3(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
+}
+
+#[inline(always)]
+fn norm2(a: [f64; 3]) -> f64 {
+    a[0] * a[0] + a[1] * a[1] + a[2] * a[2]
 }
 
 /// The single production minimum-image **vector** mechanism, used by every MIC kernel
@@ -187,14 +218,40 @@ pub(crate) fn wrap_to_mic_vector_reduced(v: [f64; 3], red: &Mat3, inv: &Mat3) ->
 /// whose shell can miss a second-neighbour minimum image (see the module tests). `cell`/`inv`
 /// come from [`prep_dist`]: for orthogonal boxes `cell` is the box and `inv` is unused; for
 /// triclinic they are the reduced cell and its inverse.
-#[inline]
+#[inline(always)]
 pub(crate) fn mic_vector(v: [f64; 3], cell: &Mat3, inv: &Mat3, ortho: bool) -> [f64; 3] {
     if ortho {
-        [
-            v[0] - cell[0][0] * (v[0] / cell[0][0] + 0.5).floor(),
-            v[1] - cell[1][1] * (v[1] / cell[1][1] + 0.5).floor(),
-            v[2] - cell[2][2] * (v[2] / cell[2][2] + 0.5).floor(),
-        ]
+        mic_vector_ortho(v, cell)
+    } else {
+        wrap_to_mic_vector_reduced(v, cell, inv)
+    }
+}
+
+/// The orthogonal branch of [`mic_vector`]: one centred floor per axis. Split out so the
+/// hot pair loops can select the branch *outside* the loop (see [`mic_vector_const`]).
+#[inline(always)]
+pub(crate) fn mic_vector_ortho(v: [f64; 3], cell: &Mat3) -> [f64; 3] {
+    [
+        v[0] - cell[0][0] * fast_floor(v[0] / cell[0][0] + 0.5),
+        v[1] - cell[1][1] * fast_floor(v[1] / cell[1][1] + 0.5),
+        v[2] - cell[2][2] * fast_floor(v[2] / cell[2][2] + 0.5),
+    ]
+}
+
+/// [`mic_vector`] with the orthogonal/triclinic choice as a **const** parameter instead of
+/// a runtime flag.
+///
+/// The flag is loop-invariant — it comes from the box — but as a runtime `bool` it keeps a
+/// branch inside the innermost pair loop, and that alone stops auto-vectorisation: the
+/// emitted code for the O(N^2) kernels contained no packed `sqrtpd` at all. Monomorphising
+/// on it hoists the branch out of the loop and lets the body be vectorised. Callers select
+/// once per box with `if ortho { f::<true>(..) } else { f::<false>(..) }`.
+///
+/// Bit-for-bit identical to [`mic_vector`]; only the branch placement changes.
+#[inline(always)]
+pub(crate) fn mic_vector_const<const ORTHO: bool>(v: [f64; 3], cell: &Mat3, inv: &Mat3) -> [f64; 3] {
+    if ORTHO {
+        mic_vector_ortho(v, cell)
     } else {
         wrap_to_mic_vector_reduced(v, cell, inv)
     }
@@ -222,11 +279,72 @@ pub(crate) fn prep_dist(b: &Mat3) -> (bool, Mat3, Mat3) {
 }
 
 /// MIC distance through the unified [`mic_vector`] mechanism.
-#[inline]
+#[inline(always)]
 fn mic_distance_auto(p1: [f64; 3], p2: [f64; 3], cell: &Mat3, inv: &Mat3, ortho: bool) -> f64 {
     let v = [p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]];
     let w = mic_vector(v, cell, inv, ortho);
     (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt()
+}
+
+/// Fill the strict **upper** triangle of the `na x na` row-major `slab` with the
+/// minimum-image distances of the `na` atoms in the flat `cst` (`[x, y, z]` per atom).
+/// The lower triangle is left to [`crate::symmetric::mirror_upper_to_lower`].
+///
+/// `ORTHO` is a const parameter, not a runtime flag: see [`mic_vector_const`].
+#[inline(always)]
+fn fill_mic_upper<const ORTHO: bool>(cst: &[f64], na: usize, slab: &mut [f64], cell: &Mat3, inv: &Mat3) {
+    for j in 0..na {
+        let p1 = [cst[3 * j], cst[3 * j + 1], cst[3 * j + 2]];
+        let row = &mut slab[j * na..(j + 1) * na];
+        for k in (j + 1)..na {
+            let v = [cst[3 * k] - p1[0], cst[3 * k + 1] - p1[1], cst[3 * k + 2] - p1[2]];
+            let w = mic_vector_const::<ORTHO>(v, cell, inv);
+            row[k] = (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt();
+        }
+    }
+}
+
+/// Fill **both** triangles as each pair is computed, storing the mirror element directly.
+/// Same results as [`fill_mic_upper`] plus the mirror pass; only the store pattern differs.
+#[inline(always)]
+fn fill_mic_both<const ORTHO: bool>(cst: &[f64], na: usize, slab: &mut [f64], cell: &Mat3, inv: &Mat3) {
+    for j in 0..na {
+        let p1 = [cst[3 * j], cst[3 * j + 1], cst[3 * j + 2]];
+        for k in (j + 1)..na {
+            let v = [cst[3 * k] - p1[0], cst[3 * k + 1] - p1[1], cst[3 * k + 2] - p1[2]];
+            let w = mic_vector_const::<ORTHO>(v, cell, inv);
+            let d = (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt();
+            slab[j * na + k] = d;
+            slab[k * na + j] = d;
+        }
+    }
+}
+
+/// The whole symmetric MIC distance matrix for one structure.
+///
+/// The two store strategies are kept because **which one wins depends on the box**, and the
+/// two effects have opposite signs (measured, n = 4000, x86-64 baseline):
+///
+/// | | mirror store per pair | upper triangle + mirror pass |
+/// |---|---|---|
+/// | orthogonal | 230 ms | **201 ms** |
+/// | triclinic | **388 ms** | 409 ms |
+///
+/// Deferring the mirror to [`crate::symmetric::mirror_upper_to_lower`] makes the pair loop's
+/// stores unit-stride, which is worth ~15% when the per-pair arithmetic is cheap (the
+/// orthogonal wrap is three centred floors; for the non-periodic matrix in `distances.rs`
+/// it is worth 1.31x). But the mirror pass is a second sweep over the whole `na x na`
+/// matrix, a fixed cost the triclinic path's much heavier 8-corner arithmetic does not
+/// amortise. So: split the stores when the arithmetic is cheap, keep them interleaved when
+/// it is not.
+#[inline]
+fn fill_mic_self(cst: &[f64], na: usize, slab: &mut [f64], cell: &Mat3, inv: &Mat3, ortho: bool) {
+    if ortho {
+        fill_mic_upper::<true>(cst, na, slab, cell, inv);
+        mirror_upper_to_lower(slab, na);
+    } else {
+        fill_mic_both::<false>(cst, na, slab, cell, inv);
+    }
 }
 
 pub(crate) fn box_at(b: &numpy::ndarray::ArrayView3<f64>, s: usize) -> Mat3 {
@@ -265,21 +383,20 @@ pub fn get_mic_distances_single_system<'py>(
     let b = boxes.as_array();
     let ns = c.shape()[0];
     let na = c.shape()[1];
-    let mut out = Array3::<f64>::zeros((ns, na, na));
+    // Read the coordinates through a flat slice: `c[[s, k, 0]]` recomputes strides and
+    // bounds-checks on every access, which by itself stops the pair loop vectorising.
+    // `as_standard_layout` borrows when the input is already C-contiguous (the norm).
+    let cc = c.as_standard_layout();
+    let cs = cc.as_slice().expect("standard layout is contiguous");
+    let mut flat = vec![0.0f64; ns * na * na];
     for s in 0..ns {
         let bs = box_at(&b, s);
         let (ortho, bs_red, inv) = prep_dist(&bs);
-        for j in 0..na {
-            let p1 = [c[[s, j, 0]], c[[s, j, 1]], c[[s, j, 2]]];
-            for k in (j + 1)..na {
-                let p2 = [c[[s, k, 0]], c[[s, k, 1]], c[[s, k, 2]]];
-                let d = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
-                out[[s, j, k]] = d;
-                out[[s, k, j]] = d;
-            }
-        }
+        let cst = &cs[s * na * 3..(s + 1) * na * 3];
+        let slab = &mut flat[s * na * na..(s + 1) * na * na];
+        fill_mic_self(cst, na, slab, &bs_red, &inv, ortho);
     }
-    out.into_pyarray(py)
+    Array3::from_shape_vec((ns, na, na), flat).unwrap().into_pyarray(py)
 }
 
 #[pyfunction]
@@ -347,17 +464,11 @@ pub fn get_mic_distances_single_system_single_structure<'py>(
     let bs = box_2d(&boxes.as_array());
     let (ortho, bs_red, inv) = prep_dist(&bs);
     let na = c.shape()[0];
-    let mut out = Array2::<f64>::zeros((na, na));
-    for j in 0..na {
-        let p1 = [c[[j, 0]], c[[j, 1]], c[[j, 2]]];
-        for k in (j + 1)..na {
-            let p2 = [c[[k, 0]], c[[k, 1]], c[[k, 2]]];
-            let d = mic_distance_auto(p1, p2, &bs_red, &inv, ortho);
-            out[[j, k]] = d;
-            out[[k, j]] = d;
-        }
-    }
-    out.into_pyarray(py)
+    let cc = c.as_standard_layout();
+    let cs = cc.as_slice().expect("standard layout is contiguous");
+    let mut flat = vec![0.0f64; na * na];
+    fill_mic_self(cs, na, &mut flat, &bs_red, &inv, ortho);
+    Array2::from_shape_vec((na, na), flat).unwrap().into_pyarray(py)
 }
 
 #[pyfunction]

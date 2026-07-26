@@ -27,7 +27,16 @@ Three suspected quick wins were checked and were already present in the *origina
 - `get_distances` already exploits symmetry.
 
 Speculating kernel by kernel had a hit rate of 1 in 3 here. **The margin is not inside the
-kernels.** It is one level up, in decisions a faithful translation could not touch.
+kernels**, at the level of *which arithmetic they do*. It is one level up, in decisions a
+faithful translation could not touch.
+
+> **Amended 2026-07-26.** That conclusion holds for the arithmetic, but it was drawn from
+> reading *source*. Reading the emitted *assembly* found a large in-kernel margin that no
+> amount of source-level staring would have shown: three libm calls in the innermost loop
+> of the hottest kernel, and a serial dependency chain in the triclinic wrap. Together they
+> were worth 1.4-1.5x on the dense distance matrices. See §4.G — and take it as a method
+> correction: for a kernel that is already the right algorithm, the next question is not
+> "what else could it compute" but "what did the compiler actually emit".
 
 ## 3. Where the time actually goes (measured, not guessed)
 
@@ -131,60 +140,76 @@ wrap), with the ±1/±2 all-pairs search retained as a test-only oracle. See
 
 ### F. SIMD instruction set: fixed AVX2 baseline vs runtime multiversioning
 
-This is a *packaging* lever, not a kernel one, and it was raised as "a fixed AVX2 baseline
-or runtime multiversioning for a portable wheel — it should help a bit and cannot hurt".
-Measurement says the second half of that is **not true**: it can hurt.
+**Resolved: neither. Keep the portable baseline wheel.**
 
-The crate today builds with `opt-level = 3, lto = true` and **no** `target-cpu`, i.e. the
-x86-64 baseline (SSE2). Rebuilding the same sources with `-C target-cpu=native` on a host
-with `avx avx2 fma`:
+This is a *packaging* lever, not a kernel one, and it was raised as "a fixed AVX2 baseline or
+runtime multiversioning for a portable wheel — it should help a bit and cannot hurt". The
+first measurement seemed to say the second half was false (AVX2 *hurt* dense distances by
+16-25%). The second measurement, after §4.G, says the **first** half is false too: there is
+nothing there to win.
 
-| kernel | orthogonal | triclinic |
-|---|---|---|
-| `neighbor_list` 1 x 4000 | 2.0 → 1.8 ms | 4.4 → 3.7 ms |
-| `neighbor_list` 50 x 3000 | 70.8 → 65.1 ms | 132.6 → 103.5 ms |
-| `sasa_cell_list` | 16.2 → 16.2 ms | 40.8 → 30.7 ms |
-| `mic_distances` (dense) | 554 → **693 ms** | 1125 → **1307 ms** |
+The crate builds with `opt-level = 3, lto = true` and no `target-cpu`, i.e. the x86-64
+baseline (SSE2). Same sources at three microarchitecture levels, after §4.G:
 
-So AVX2 buys 1.1-1.3x on the cell-list kernels, nothing on orthogonal SASA, and **loses
-16-25% on the dense distance kernels** — the single most expensive path in the profile
-(§3). Enabling it globally would be a net regression on the workload that matters most.
-Plausible causes for the regression (unverified): wider vectors reducing the effective
-number of in-flight loads, and AVX/SSE transition or downclocking effects; the point for
-the decision is that the sign is not uniform, so "cannot hurt" is false.
+| kernel (n = 4000) | baseline | `x86-64-v2` | `x86-64-v3` (AVX2+FMA) |
+|---|---|---|---|
+| `mic_distances` orthogonal | 200.9 ms | 199.6 ms | 198.1 ms |
+| `mic_distances` triclinic | 409.3 ms | 437.5 ms | 401.4 ms |
+| `distances` orthogonal | 281.3 ms | 287.2 ms | 288.9 ms |
+| `neighbor_list` 50 x 2000 ortho/tric | 17.9 / 19.1 ms | 16.5 / 17.5 ms | 17.7 / 19.0 ms |
+| `sasa_cell_list` ortho/tric | 21.2 / 35.6 ms | 19.9 / 33.5 ms | 19.7 / 35.3 ms |
 
-The four distribution options:
+All within noise. **The apparent AVX2 effects measured earlier — both the 1.1-1.3x gains and
+the dense-distance regression — were artifacts of how `f64::floor` was being lowered**, not
+of vector width. Once the libm calls are gone (§4.G), these kernels are bound by dependency
+chains and memory traffic, and the instruction set stops mattering.
 
-1. **Baseline (current).** One portable wheel, runs everywhere, leaves some headroom on the
-   table. No user compilation.
-2. **Fixed `x86-64-v3` (AVX2) baseline.** Simple, but bakes in the `mic_distances`
-   regression *and* drops every pre-2013 x86 CPU and non-v3 cloud instances — an
-   `ILLEGAL_INSTRUCTION` crash at import, not a slow path. For a scientific library shipped
-   to unknown hardware this is the worst option.
-3. **Runtime multiversioning.** Compile selected functions once per feature level and
-   dispatch on `is_x86_feature_detected!` (directly with `#[target_feature]`, or via the
-   `multiversion` crate). This is what numpy and the BLAS libraries do. The wheel stays a
-   single portable artifact, users compile nothing, and no CPU is excluded.
-4. **Compile from source** (`pip install --no-binary`, conda-forge with a `target-cpu`
-   flag). Always available as an escape hatch for someone tuning a cluster; never the
-   default path we ask users to take.
+So:
 
-**Recommendation: option 3, but per-kernel and measurement-gated — not globally.** The
-mechanism is right and it is the only option that keeps one portable wheel while adapting
-at runtime. But the measurements above say the *policy* must be "opt a kernel in only when
-its own benchmark shows a win", because a blanket AVX2 build regresses the hottest kernel.
-Concretely, `neighbor_list` and the triclinic `sasa_cell_list` are candidates;
-`mic_distances` is explicitly not.
+- **Baseline (current, keep it).** One portable wheel, runs everywhere, and it is now
+  measured *not* to be leaving performance behind.
+- **Fixed `x86-64-v3`.** Gains nothing here and turns every pre-AVX2 CPU into an
+  `ILLEGAL_INSTRUCTION` crash at import. Never ship this.
+- **Runtime multiversioning** (per-function clones dispatched on `is_x86_feature_detected!`,
+  the numpy/BLAS approach) is the *right mechanism* if a win ever exists — portable wheel, no
+  user compilation, no CPU excluded — but there is currently nothing for it to win. Revisit
+  only when a specific kernel's own benchmark shows a gap, and then multiversion that kernel,
+  not the crate. Note the interaction: inside an SSE4.1+ clone `f64::floor` is one
+  instruction, so `fast_floor` would be redundant there — which is exactly why the portable
+  build is already at parity and multiversioning has nothing to add.
+- **Building from source** with `-C target-cpu=native` stays available to anyone tuning a
+  cluster; it is not a path users should need.
 
-Costs to weigh against a 1.1-1.3x on two kernels: the dispatch attribute must be applied
-and maintained per function; multiversioned functions are compiled N times (build time,
-binary size); and every opted-in kernel needs its numerical output checked on *each*
-feature level, since a different vectorisation can reassociate a reduction and change the
-last bits. Given that Rust's value in this migration was cold start and allocation removal
-rather than arithmetic throughput (see `rusterization_pilot_conclusions_and_adoption.md`),
-this is a **low-priority, post-cut** item. It pairs naturally with stage 3 of
-`rust_numba_coexistence_and_cut_plan.md` (CI multiplatform wheels), where the build matrix
-is being touched anyway — do it there or not at all.
+### G. What the compiler emitted — the one real in-kernel win
+
+This lever was not in the original list because it is invisible in the source. It came from
+disassembling the built `.so`, and it is the largest single-kernel gain of the whole exercise.
+
+**On the x86-64 baseline there is no floor/round instruction** (`roundsd` is SSE4.1), so
+`f64::floor()` lowers to an indirect libm call. The minimum-image wrap does three per
+displacement vector — three calls in the innermost loop of the O(N²) distance kernels — and a
+call in the loop body also makes the loop unvectorisable, so the whole body stayed scalar.
+Note this is a JIT/AOT asymmetry rather than a language one: Numba compiles for the *host*
+CPU via llvmlite, so its `np.floor` was always a single instruction.
+
+Three changes followed, all bit-identical and all validated against the existing 262-test
+MIC/neighbour battery and the ±2 independent oracle:
+
+| change | effect |
+|---|---|
+| `mathlib::fast_floor` / `fast_round_ties_even` (pure SSE2, `cfg`-gated to x86-64) | `mic_distances` ortho 292 → 203 ms |
+| 8-corner search as independent candidates + a 3-level tournament instead of a serial `if d < dmin` chain | `mic_distances` triclinic 571 → 411 ms |
+| const-generic hoisting of loop-invariant flags, flat-slice reads, precomputed extended radii, guard-as-data | `get_mic_sasa` 611 → 359 ms (ortho), 1399 → 822 ms (tric); `get_mic_sasa_cell_list` tric 45.6 → 31.5 ms |
+
+Net on the dense matrices: **1.46x orthogonal, 1.39x triclinic**; on the SASA family up to
+**1.70x**. The durable rules extracted from this are now normative in
+`devguide/rust_kernel_optimization_guide.md`, which also records the two benchmarks that
+lied and the transformations that measured *worse*.
+
+The method correction matters more than the numbers: §2 concluded "the margin is not inside
+the kernels" from reading source. That was right about the arithmetic and wrong about the
+lowering. For a kernel whose algorithm is already settled, the next question is what the
+compiler emitted.
 
 ## 5. How to pursue it — and when
 
@@ -209,12 +234,14 @@ is being touched anyway — do it there or not at all.
 | C. Fused multi-observable passes | open, but measured negligible — the candidate pass is ~2.5 ms |
 | D. SoA layout for SIMD | **closed as a negative result** — SoA is 0.94x / 0.69x vs AoS |
 | E. Reduced cell for the triclinic MIC | done, and it fixed a correctness defect |
-| F. SIMD multiversioning | open, low priority, post-cut; do it with the CI wheel matrix or not at all |
+| F. SIMD instruction set / multiversioning | **closed** — baseline = v2 = v3 within noise once G landed; keep the portable wheel |
+| G. What the compiler emitted (libm floor, serial reductions, loop-invariant branches) | done — 1.4-1.7x on the dense matrices and the SASA family; rules now in `devguide/rust_kernel_optimization_guide.md` |
 
-Once C and F are settled, this proposal has no live items and should be archived: the
-remaining redesign work lives in `rust_numba_coexistence_and_cut_plan.md` (packaging) and
+C is the only live item left. Once it is settled this proposal should be archived: the
+remaining redesign work lives in `rust_numba_coexistence_and_cut_plan.md` (packaging),
 `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md` (data model, now without its
-SIMD justification).
+SIMD justification) and, for ongoing kernel work,
+`devguide/rust_kernel_optimization_guide.md` (normative method).
 
 ## 6. The framing that matters
 

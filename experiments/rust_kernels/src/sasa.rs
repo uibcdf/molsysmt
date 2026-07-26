@@ -24,6 +24,7 @@ use numpy::ndarray::{Array2, ArrayView1, ArrayView2, ArrayView3};
 use numpy::{IntoPyArray, PyArray2, PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3};
 use pyo3::prelude::*;
 
+use crate::mathlib::fast_floor;
 use crate::mathlib::inverse_matrix_3x3_full as inv3;
 use rayon::prelude::*;
 
@@ -43,6 +44,13 @@ fn mic_wrap(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3, ortho: bool) -> 
     (w[0], w[1], w[2])
 }
 
+/// [`mic_wrap`] with the box shape as a const parameter, for the occlusion loops.
+#[inline(always)]
+fn mic_wrap_const<const ORTHO: bool>(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3) -> (f64, f64, f64) {
+    let w = crate::mic::mic_vector_const::<ORTHO>([dx, dy, dz], cell, inv);
+    (w[0], w[1], w[2])
+}
+
 struct Grid {
     nx: i64, ny: i64, nz: i64,
     xmin: f64, ymin: f64, zmin: f64,
@@ -54,9 +62,9 @@ struct Grid {
 impl Grid {
     fn cell(&self, x: f64, y: f64, z: f64) -> (i64, i64, i64) {
         (
-            (((x - self.xmin) / self.cdx).floor() as i64).clamp(0, self.nx - 1),
-            (((y - self.ymin) / self.cdy).floor() as i64).clamp(0, self.ny - 1),
-            (((z - self.zmin) / self.cdz).floor() as i64).clamp(0, self.nz - 1),
+            (((x - self.xmin) / self.cdx) as i64).clamp(0, self.nx - 1),
+            (((y - self.ymin) / self.cdy) as i64).clamp(0, self.ny - 1),
+            (((z - self.zmin) / self.cdz) as i64).clamp(0, self.nz - 1),
         )
     }
 }
@@ -75,9 +83,9 @@ fn build_grid(coords: &ArrayView3<f64>, s: usize, n_atoms: usize, cutoff: f64) -
     let lx = cutoff.max(xmx - xmn + 1e-5);
     let ly = cutoff.max(ymx - ymn + 1e-5);
     let lz = cutoff.max(zmx - zmn + 1e-5);
-    let nx = ((lx / cutoff).floor() as i64).max(1);
-    let ny = ((ly / cutoff).floor() as i64).max(1);
-    let nz = ((lz / cutoff).floor() as i64).max(1);
+    let nx = ((lx / cutoff) as i64).max(1);
+    let ny = ((ly / cutoff) as i64).max(1);
+    let nz = ((lz / cutoff) as i64).max(1);
     let mut g = Grid {
         nx, ny, nz, xmin: xmn, ymin: ymn, zmin: zmn,
         cdx: lx / nx as f64, cdy: ly / ny as f64, cdz: lz / nz as f64,
@@ -101,9 +109,9 @@ fn grid_dims(b: &Mat3, cutoff: f64) -> (i64, i64, i64) {
     let vol = (b[0][0]*(b[1][1]*b[2][2]-b[1][2]*b[2][1]) - b[0][1]*(b[1][0]*b[2][2]-b[1][2]*b[2][0])
         + b[0][2]*(b[1][0]*b[2][1]-b[1][1]*b[2][0])).abs();
     let perp = |bc: [f64;3]| if norm(bc) > 0.0 { vol/norm(bc) } else { cutoff };
-    (((perp(cross(&b[1],&b[2]))/cutoff).floor() as i64).max(1),
-     ((perp(cross(&b[0],&b[2]))/cutoff).floor() as i64).max(1),
-     ((perp(cross(&b[0],&b[1]))/cutoff).floor() as i64).max(1))
+    (((perp(cross(&b[1],&b[2]))/cutoff) as i64).max(1),
+     ((perp(cross(&b[0],&b[2]))/cutoff) as i64).max(1),
+     ((perp(cross(&b[0],&b[1]))/cutoff) as i64).max(1))
 }
 
 /// Periodic (fractional) grid, mirroring get_mic_sasa_cell_list: cells come from the
@@ -121,11 +129,11 @@ impl GridP {
         let mut sx = self.inv[0][0] * x + self.inv[1][0] * y + self.inv[2][0] * z;
         let mut sy = self.inv[0][1] * x + self.inv[1][1] * y + self.inv[2][1] * z;
         let mut sz = self.inv[0][2] * x + self.inv[1][2] * y + self.inv[2][2] * z;
-        sx -= sx.floor(); sy -= sy.floor(); sz -= sz.floor();
+        sx -= fast_floor(sx); sy -= fast_floor(sy); sz -= fast_floor(sz);
         (
-            (sx * self.nx as f64).floor() as i64 % self.nx,
-            (sy * self.ny as f64).floor() as i64 % self.ny,
-            (sz * self.nz as f64).floor() as i64 % self.nz,
+            (sx * self.nx as f64) as i64 % self.nx,
+            (sy * self.ny as f64) as i64 % self.ny,
+            (sz * self.nz as f64) as i64 % self.nz,
         )
     }
 }
@@ -215,32 +223,56 @@ fn gather_p(g: &GridP, coords: &ArrayView3<f64>, s: usize, jj: usize,
     }
 }
 
+/// Squared extended radii, precomputed once per call.
+///
+/// `radii[ll] + probe` and its square were being recomputed inside the innermost
+/// occlusion loop, i.e. `n_atoms * n_sphere_points` times per atom instead of once.
+/// Atoms with a non-positive radius get `0.0`, which the `d2 < rext2[ll]` test rejects for
+/// free (`d2` is a sum of squares) — that is exactly the `if r_l_ext <= probe { continue }`
+/// guard the loop used to carry, now expressed as data instead of as a branch.
+fn extended_radii_sq(radii: &ArrayView1<f64>, probe: f64) -> Vec<f64> {
+    radii
+        .iter()
+        .map(|&r| {
+            let ext = r + probe;
+            if ext <= probe {
+                0.0
+            } else {
+                ext * ext
+            }
+        })
+        .collect()
+}
+
 /// Shrake–Rupley occlusion count for one atom over its candidate neighbours.
+///
+/// `cf` is the structure's coordinates as a flat `[x, y, z]`-per-atom slice and `spf` the
+/// sphere points likewise: `ArrayView` indexing recomputes strides and bounds-checks on
+/// every access, which in a loop this deep is a measurable fraction of the body. `WRAP`
+/// and `ORTHO` are const parameters so neither the periodic-vs-vacuum choice nor the box
+/// shape leaves a branch inside the loop (see `mic::mic_vector_const`).
 #[allow(clippy::too_many_arguments)]
-fn atom_sasa(coords: &ArrayView3<f64>, s: usize, _jj: usize, radii: &ArrayView1<f64>,
-             sphere: &ArrayView2<f64>, probe: f64, r_i_ext: f64,
-             qx: f64, qy: f64, qz: f64, cand: &[i64], boxm: Option<(&Mat3, &Mat3, bool)>) -> f64 {
-    let n_points = sphere.shape()[0];
+fn atom_sasa<const WRAP: bool, const ORTHO: bool>(
+    cf: &[f64], spf: &[f64], n_points: usize, rext2: &[f64], r_i_ext: f64,
+    qx: f64, qy: f64, qz: f64, cand: &[i64], cell: &Mat3, inv: &Mat3,
+) -> f64 {
     let mut accessible = 0usize;
     for kk in 0..n_points {
-        let px = qx + r_i_ext * sphere[[kk, 0]];
-        let py = qy + r_i_ext * sphere[[kk, 1]];
-        let pz = qz + r_i_ext * sphere[[kk, 2]];
+        let px = qx + r_i_ext * spf[3 * kk];
+        let py = qy + r_i_ext * spf[3 * kk + 1];
+        let pz = qz + r_i_ext * spf[3 * kk + 2];
         let mut ok = true;
         for &cc in cand {
             let ll = cc as usize;
-            let r_l_ext = radii[ll] + probe;
-            if r_l_ext <= probe {
-                continue;
-            }
-            let dx = px - coords[[s, ll, 0]];
-            let dy = py - coords[[s, ll, 1]];
-            let dz = pz - coords[[s, ll, 2]];
-            let (dx, dy, dz) = match boxm {
-                None => (dx, dy, dz),
-                Some((cell, inv, ortho)) => mic_wrap(dx, dy, dz, cell, inv, ortho),
+            let dx = px - cf[3 * ll];
+            let dy = py - cf[3 * ll + 1];
+            let dz = pz - cf[3 * ll + 2];
+            let (dx, dy, dz) = if WRAP {
+                mic_wrap_const::<ORTHO>(dx, dy, dz, cell, inv)
+            } else {
+                (dx, dy, dz)
             };
-            if dx * dx + dy * dy + dz * dz < r_l_ext * r_l_ext {
+            if dx * dx + dy * dy + dz * dz < rext2[ll] {
                 ok = false;
                 break;
             }
@@ -252,11 +284,32 @@ fn atom_sasa(coords: &ArrayView3<f64>, s: usize, _jj: usize, radii: &ArrayView1<
     4.0 * std::f64::consts::PI * r_i_ext * r_i_ext * (accessible as f64 / n_points as f64)
 }
 
+/// [`atom_sasa`] with the periodic/orthogonal choice resolved from runtime flags.
+#[allow(clippy::too_many_arguments)]
+#[inline]
+fn atom_sasa_dispatch(
+    cf: &[f64], spf: &[f64], n_points: usize, rext2: &[f64], r_i_ext: f64,
+    qx: f64, qy: f64, qz: f64, cand: &[i64], boxm: Option<(&Mat3, &Mat3, bool)>,
+) -> f64 {
+    const ZERO: Mat3 = [[0.0; 3]; 3];
+    match boxm {
+        None => atom_sasa::<false, false>(cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, &ZERO, &ZERO),
+        Some((cell, inv, true)) => atom_sasa::<true, true>(cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, cell, inv),
+        Some((cell, inv, false)) => atom_sasa::<true, false>(cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, cell, inv),
+    }
+}
+
 fn core_vacuum(coords: &ArrayView3<f64>, radii: &ArrayView1<f64>, sphere: &ArrayView2<f64>,
                probe: f64, cutoff: f64) -> Vec<f64> {
     let ns = coords.shape()[0];
     let na = coords.shape()[1];
     let cutoff_sq = cutoff * cutoff;
+    let rext2 = extended_radii_sq(radii, probe);
+    let cc = coords.as_standard_layout();
+    let cflat = cc.as_slice().expect("standard layout is contiguous");
+    let spc = sphere.as_standard_layout();
+    let spf = spc.as_slice().expect("standard layout is contiguous");
+    let n_points = sphere.shape()[0];
     let grids: Vec<Grid> = (0..ns).into_par_iter().map(|s| build_grid(coords, s, na, cutoff)).collect();
     (0..ns * na)
         .into_par_iter()
@@ -267,9 +320,10 @@ fn core_vacuum(coords: &ArrayView3<f64>, radii: &ArrayView1<f64>, sphere: &Array
             if r_i_ext <= probe {
                 return 0.0;
             }
-            let (qx, qy, qz) = (coords[[s, jj, 0]], coords[[s, jj, 1]], coords[[s, jj, 2]]);
+            let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+            let (qx, qy, qz) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
             gather_v(&grids[s], coords, s, jj, qx, qy, qz, cutoff_sq, cand);
-            atom_sasa(coords, s, jj, radii, sphere, probe, r_i_ext, qx, qy, qz, cand, None)
+            atom_sasa_dispatch(cf, spf, n_points, &rext2, r_i_ext, qx, qy, qz, cand, None)
         })
         .collect()
 }
@@ -279,6 +333,12 @@ fn core_pbc(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, radii: &ArrayView
     let ns = coords.shape()[0];
     let na = coords.shape()[1];
     let cutoff_sq = cutoff * cutoff;
+    let rext2 = extended_radii_sq(radii, probe);
+    let cc = coords.as_standard_layout();
+    let cflat = cc.as_slice().expect("standard layout is contiguous");
+    let spc = sphere.as_standard_layout();
+    let spf = spc.as_slice().expect("standard layout is contiguous");
+    let n_points = sphere.shape()[0];
     let grids: Vec<GridP> = (0..ns).into_par_iter()
         .map(|s| build_grid_p(coords, boxes, s, na, cutoff)).collect();
     (0..ns * na)
@@ -291,9 +351,11 @@ fn core_pbc(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, radii: &ArrayView
                 return 0.0;
             }
             let g = &grids[s];
-            let (qx, qy, qz) = (coords[[s, jj, 0]], coords[[s, jj, 1]], coords[[s, jj, 2]]);
+            let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+            let (qx, qy, qz) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
             gather_p(g, coords, s, jj, qx, qy, qz, cutoff_sq, cand);
-            atom_sasa(coords, s, jj, radii, sphere, probe, r_i_ext, qx, qy, qz, cand, Some((&g.wcell, &g.winv, g.ortho)))
+            atom_sasa_dispatch(cf, spf, n_points, &rext2, r_i_ext, qx, qy, qz, cand,
+                               Some((&g.wcell, &g.winv, g.ortho)))
         })
         .collect()
 }
@@ -347,41 +409,31 @@ pub fn get_mic_sasa_cell_list<'py>(
 // docs and `devguide/pending_bugs/sasa_is_orthogonal_typo.md`).
 
 #[inline]
-fn atom_sasa_bruteforce(
-    coords: &ArrayView3<f64>, s: usize, jj: usize, radii: &ArrayView1<f64>,
-    sphere: &ArrayView2<f64>, probe: f64, na: usize,
-    wrap: Option<(&Mat3, &Mat3, bool)>,
+fn atom_sasa_bruteforce<const WRAP: bool, const ORTHO: bool>(
+    cf: &[f64], spf: &[f64], n_points: usize, jj: usize, rext2: &[f64], r_i_ext: f64,
+    na: usize, cell: &Mat3, inv: &Mat3,
 ) -> f64 {
-    let r_i_ext = radii[jj] + probe;
-    if r_i_ext <= probe {
-        return 0.0;
-    }
-    let n_points = sphere.shape()[0];
-    let (ax, ay, az) = (coords[[s, jj, 0]], coords[[s, jj, 1]], coords[[s, jj, 2]]);
+    let (ax, ay, az) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
     let mut accessible = 0usize;
     for kk in 0..n_points {
-        let px = ax + r_i_ext * sphere[[kk, 0]];
-        let py = ay + r_i_ext * sphere[[kk, 1]];
-        let pz = az + r_i_ext * sphere[[kk, 2]];
+        let px = ax + r_i_ext * spf[3 * kk];
+        let py = ay + r_i_ext * spf[3 * kk + 1];
+        let pz = az + r_i_ext * spf[3 * kk + 2];
         let mut is_accessible = true;
         for ll in 0..na {
             if ll == jj {
                 continue;
             }
-            let r_l_ext = radii[ll] + probe;
-            if r_l_ext <= probe {
-                continue;
-            }
-            let mut dx = px - coords[[s, ll, 0]];
-            let mut dy = py - coords[[s, ll, 1]];
-            let mut dz = pz - coords[[s, ll, 2]];
-            if let Some((b, inv, ortho)) = wrap {
-                let w = mic_wrap_bruteforce(dx, dy, dz, b, inv, ortho);
-                dx = w[0];
-                dy = w[1];
-                dz = w[2];
-            }
-            if dx * dx + dy * dy + dz * dz < r_l_ext * r_l_ext {
+            let dx = px - cf[3 * ll];
+            let dy = py - cf[3 * ll + 1];
+            let dz = pz - cf[3 * ll + 2];
+            let (dx, dy, dz) = if WRAP {
+                let w = mic_wrap_bruteforce_const::<ORTHO>(dx, dy, dz, cell, inv);
+                (w[0], w[1], w[2])
+            } else {
+                (dx, dy, dz)
+            };
+            if dx * dx + dy * dy + dz * dz < rext2[ll] {
                 is_accessible = false;
                 break;
             }
@@ -393,10 +445,26 @@ fn atom_sasa_bruteforce(
     4.0 * std::f64::consts::PI * r_i_ext * r_i_ext * (accessible as f64 / n_points as f64)
 }
 
-/// Centred minimum-image wrap via the full inverse, matching `_mic_wrap_vector`.
+/// [`atom_sasa_bruteforce`] with the periodic/orthogonal choice resolved from runtime flags.
+#[allow(clippy::too_many_arguments)]
 #[inline]
-fn mic_wrap_bruteforce(dx: f64, dy: f64, dz: f64, b: &Mat3, inv: &Mat3, ortho: bool) -> [f64; 3] {
-    crate::mic::mic_vector([dx, dy, dz], b, inv, ortho)
+fn atom_sasa_bruteforce_dispatch(
+    cf: &[f64], spf: &[f64], n_points: usize, jj: usize, rext2: &[f64], r_i_ext: f64,
+    na: usize, wrap: Option<(&Mat3, &Mat3, bool)>,
+) -> f64 {
+    const ZERO: Mat3 = [[0.0; 3]; 3];
+    match wrap {
+        None => atom_sasa_bruteforce::<false, false>(cf, spf, n_points, jj, rext2, r_i_ext, na, &ZERO, &ZERO),
+        Some((cell, inv, true)) => atom_sasa_bruteforce::<true, true>(cf, spf, n_points, jj, rext2, r_i_ext, na, cell, inv),
+        Some((cell, inv, false)) => atom_sasa_bruteforce::<true, false>(cf, spf, n_points, jj, rext2, r_i_ext, na, cell, inv),
+    }
+}
+
+/// Centred minimum-image wrap via the full inverse, matching `_mic_wrap_vector`, with the
+/// box shape as a const parameter so the occlusion loop carries no branch on it.
+#[inline(always)]
+fn mic_wrap_bruteforce_const<const ORTHO: bool>(dx: f64, dy: f64, dz: f64, b: &Mat3, inv: &Mat3) -> [f64; 3] {
+    crate::mic::mic_vector_const::<ORTHO>([dx, dy, dz], b, inv)
 }
 
 #[pyfunction]
@@ -411,10 +479,24 @@ pub fn get_sasa<'py>(
     let r = radii.as_array();
     let sp = sphere_points.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
+    let rext2 = extended_radii_sq(&r, probe_radius);
+    let cc = c.as_standard_layout();
+    let cflat = cc.as_slice().expect("standard layout is contiguous");
+    let spc = sp.as_standard_layout();
+    let spf = spc.as_slice().expect("standard layout is contiguous");
+    let n_points = sp.shape()[0];
     let flat: Vec<f64> = py.allow_threads(|| {
         (0..ns * na)
             .into_par_iter()
-            .map(|idx| atom_sasa_bruteforce(&c, idx / na, idx % na, &r, &sp, probe_radius, na, None))
+            .map(|idx| {
+                let (s, jj) = (idx / na, idx % na);
+                let r_i_ext = r[jj] + probe_radius;
+                if r_i_ext <= probe_radius {
+                    return 0.0;
+                }
+                let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+                atom_sasa_bruteforce_dispatch(cf, spf, n_points, jj, &rext2, r_i_ext, na, None)
+            })
             .collect()
     });
     Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
@@ -446,13 +528,25 @@ pub fn get_mic_sasa<'py>(
             (cell, inv, ortho)
         })
         .collect();
+    let rext2 = extended_radii_sq(&r, probe_radius);
+    let cc = c.as_standard_layout();
+    let cflat = cc.as_slice().expect("standard layout is contiguous");
+    let spc = sp.as_standard_layout();
+    let spf = spc.as_slice().expect("standard layout is contiguous");
+    let n_points = sp.shape()[0];
     let flat: Vec<f64> = py.allow_threads(|| {
         (0..ns * na)
             .into_par_iter()
             .map(|idx| {
                 let (s, jj) = (idx / na, idx % na);
+                let r_i_ext = r[jj] + probe_radius;
+                if r_i_ext <= probe_radius {
+                    return 0.0;
+                }
                 let (b, inv, ortho) = &parts[s];
-                atom_sasa_bruteforce(&c, s, jj, &r, &sp, probe_radius, na, Some((b, inv, *ortho)))
+                let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+                atom_sasa_bruteforce_dispatch(cf, spf, n_points, jj, &rext2, r_i_ext, na,
+                                              Some((b, inv, *ortho)))
             })
             .collect()
     });
@@ -525,9 +619,9 @@ mod branch_divergence {
         for i in 0..n {
             // spread over several box lengths, including near +/- L/2 boundaries
             let dx = -18.0 + 36.0 * (i as f64) / (n as f64);
-            let ortho_branch = dx - b[0][0] * (dx / b[0][0] + 0.5).floor();
+            let ortho_branch = dx - b[0][0] * fast_floor(dx / b[0][0] + 0.5);
             let mut sx = inv[0][0] * dx;
-            sx -= (sx + 0.5).floor();
+            sx -= fast_floor(sx + 0.5);
             let tric_branch = b[0][0] * sx;
             let d = (ortho_branch - tric_branch).abs();
             if d > 0.0 {

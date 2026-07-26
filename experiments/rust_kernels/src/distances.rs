@@ -13,7 +13,9 @@ use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray2, PyReado
 use pyo3::prelude::*;
 use rayon::prelude::*;
 
-#[inline]
+use crate::symmetric::mirror_upper_to_lower;
+
+#[inline(always)]
 fn dist3(ax: f64, ay: f64, az: f64, bx: f64, by: f64, bz: f64) -> f64 {
     let dx = bx - ax;
     let dy = by - ay;
@@ -33,19 +35,27 @@ pub fn get_distances_single_system<'py>(
     let na = c.shape()[1];
     // Parallel over structures, mirroring the Numba kernel's prange; each structure
     // writes a disjoint slab so the result is unchanged.
+    // Flat coordinate reads: `c[[s, k, 0]]` recomputes strides and bounds-checks on every
+    // access, which by itself stops the pair loop vectorising. `as_standard_layout`
+    // borrows when the input is already C-contiguous (the norm).
+    let cc = c.as_standard_layout();
+    let cs = cc.as_slice().expect("standard layout is contiguous");
     let flat: Vec<f64> = py.allow_threads(|| {
         (0..ns)
             .into_par_iter()
             .flat_map_iter(|s| {
+                let cst = &cs[s * na * 3..(s + 1) * na * 3];
                 let mut slab = vec![0.0f64; na * na];
+                // Upper triangle with unit-stride stores, then one blocked mirror pass:
+                // the interleaved `slab[k * na + j] = d` form cannot vectorise.
                 for j in 0..na {
-                    let (ax, ay, az) = (c[[s, j, 0]], c[[s, j, 1]], c[[s, j, 2]]);
+                    let (ax, ay, az) = (cst[3 * j], cst[3 * j + 1], cst[3 * j + 2]);
+                    let row = &mut slab[j * na..(j + 1) * na];
                     for k in (j + 1)..na {
-                        let d = dist3(ax, ay, az, c[[s, k, 0]], c[[s, k, 1]], c[[s, k, 2]]);
-                        slab[j * na + k] = d;
-                        slab[k * na + j] = d;
+                        row[k] = dist3(ax, ay, az, cst[3 * k], cst[3 * k + 1], cst[3 * k + 2]);
                     }
                 }
+                mirror_upper_to_lower(&mut slab, na);
                 slab.into_iter()
             })
             .collect()
@@ -109,16 +119,21 @@ pub fn get_distances_pairs<'py>(
 
 fn pairs_matrix_self(c: &ArrayView2<f64>) -> Array2<f64> {
     let na = c.shape()[0];
-    let mut out = Array2::<f64>::zeros((na, na));
+    let cc = c.as_standard_layout();
+    let cs = cc.as_slice().expect("standard layout is contiguous");
+    let mut flat = vec![0.0f64; na * na];
+    // Flat coordinate reads, upper triangle with unit-stride stores, then one blocked
+    // mirror pass; see `symmetric::mirror_upper_to_lower` for why the interleaved form
+    // is slower and cannot vectorise.
     for j in 0..na {
-        let (ax, ay, az) = (c[[j, 0]], c[[j, 1]], c[[j, 2]]);
+        let (ax, ay, az) = (cs[3 * j], cs[3 * j + 1], cs[3 * j + 2]);
+        let row = &mut flat[j * na..(j + 1) * na];
         for k in (j + 1)..na {
-            let d = dist3(ax, ay, az, c[[k, 0]], c[[k, 1]], c[[k, 2]]);
-            out[[j, k]] = d;
-            out[[k, j]] = d;
+            row[k] = dist3(ax, ay, az, cs[3 * k], cs[3 * k + 1], cs[3 * k + 2]);
         }
     }
-    out
+    mirror_upper_to_lower(&mut flat, na);
+    Array2::from_shape_vec((na, na), flat).unwrap()
 }
 
 #[pyfunction]

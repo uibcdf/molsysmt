@@ -7,6 +7,8 @@
 //! remaining blocks a common base — `rodrigues_rotation` unlocks the set/shift dihedral
 //! kernels and `quaternion_to_rotation_matrix` unlocks the RMSD superposition family.
 //!
+//! [`fast_floor`] is here for a non-obvious reason: see its own documentation.
+//!
 //! Two distinct 3x3 inverses are deliberately kept apart:
 //! - [`inverse_matrix_3x3`] is `math.py`'s, valid for the lower-triangular box
 //!   convention (used by the MIC distance/angle/dihedral kernels);
@@ -20,6 +22,78 @@ use pyo3::prelude::*;
 
 pub type Vec3 = [f64; 3];
 pub type Mat3 = [[f64; 3]; 3];
+
+// --------------------------------------------------------------------------- floor
+
+/// `x.floor()` without the libm call.
+///
+/// On the x86-64 **baseline** there is no floor instruction — `roundsd` is SSE4.1 — so
+/// `f64::floor` lowers to an indirect call into libm. Every minimum-image wrap does three
+/// of them per displacement vector, i.e. three calls in the innermost loop of the O(N^2)
+/// distance kernels. Beyond their own cost, a call in the loop body makes the loop
+/// **unvectorisable**: the shipped `get_mic_distances_single_system` emitted no packed
+/// arithmetic at all, only `sqrtsd` between three `call *%rax`.
+///
+/// Truncate-and-correct is pure SSE2 (`cvttsd2si`/`cvtsi2sd`), inlines to a handful of
+/// instructions, and is **exactly** `floor` on the domain these kernels use: fractional
+/// coordinates and box ratios, i.e. small finite values.
+///
+/// Outside `|x| < 2^63` it is *not* a drop-in replacement (`as i64` saturates, and NaN maps
+/// to 0), which is why it is a named helper with a documented domain rather than a blanket
+/// replacement for `floor`. Never use it on unvalidated user input.
+///
+/// **This is an x86-64 fix, not a universal one.** The gap it closes is specific to the
+/// x86-64 baseline ABI. AArch64's base ISA has `frintm`, so `f64::floor` is already a single
+/// instruction there and the arithmetic version would only add work — hence the `cfg`. Any
+/// future target should be checked the same way (does its baseline have a round-to-floor
+/// instruction?) rather than assumed.
+#[cfg(target_arch = "x86_64")]
+#[inline(always)]
+pub(crate) fn fast_floor(x: f64) -> f64 {
+    let t = x as i64 as f64;
+    // `as i64` truncates toward zero, so it overshoots by one on negative non-integers.
+    // This compiles to a compare and a select, not a branch.
+    let f = if t > x { t - 1.0 } else { t };
+    // Truncation also loses the sign of zero, and `floor(-0.0)` is `-0.0`. Restoring x's
+    // sign is unconditionally safe — `floor(x)` never has a sign opposite to `x` — and it
+    // is two bitwise ops (`andpd`/`orpd`) rather than the third select that a `t == 0.0`
+    // test would add, which measurably cost the vectorisation of the pair loops.
+    f.copysign(x)
+}
+
+/// On targets whose baseline already has a floor instruction, use it.
+#[cfg(not(target_arch = "x86_64"))]
+#[inline(always)]
+pub(crate) fn fast_floor(x: f64) -> f64 {
+    x.floor()
+}
+
+/// `x.round_ties_even()` without the libm call, for the same reason as [`fast_floor`]:
+/// `roundsd` is SSE4.1, so on the x86-64 baseline this is a call, and `unwrap` does three
+/// per atom per structure.
+///
+/// The add-magic-number trick: adding and then subtracting `1.5 * 2^52` forces the mantissa
+/// to drop every fractional bit under the *current* rounding mode, which is round-to-nearest,
+/// ties-to-even — exactly the semantics Python and Numba use, and the reason this module
+/// must not use `f64::round` (which rounds halves away from zero). Exact for
+/// `|x| < 2^51`; the copysign restores the sign of zero as in [`fast_floor`].
+#[cfg(target_arch = "x86_64")]
+#[inline(always)]
+pub(crate) fn fast_round_ties_even(x: f64) -> f64 {
+    const MAGIC: f64 = 6755399441055744.0; // 1.5 * 2^52
+    if x.abs() >= 2251799813685248.0 {
+        // |x| >= 2^51: already integral, and the trick would overflow the mantissa.
+        return x;
+    }
+    ((x + MAGIC) - MAGIC).copysign(x)
+}
+
+/// On targets whose baseline already has a round-to-nearest-even instruction, use it.
+#[cfg(not(target_arch = "x86_64"))]
+#[inline(always)]
+pub(crate) fn fast_round_ties_even(x: f64) -> f64 {
+    x.round_ties_even()
+}
 
 // --------------------------------------------------------------------------- vectors
 
@@ -372,6 +446,72 @@ pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn fast_floor_is_bit_identical_to_floor_on_the_kernel_domain() {
+        // Exact integers, both signs of non-integers, ties, tiny and large magnitudes.
+        let fixed = [
+            0.0, -0.0, 1.0, -1.0, 2.0, -2.0, 0.5, -0.5, 1.5, -1.5, 2.5, -2.5, 0.9999999999,
+            -0.9999999999, 1e-15, -1e-15, 3.7, -3.7, 1234.5678, -1234.5678, 1e6 + 0.5,
+            -(1e6 + 0.5), 4503599627370495.5, -4503599627370495.5,
+        ];
+        for x in fixed {
+            assert_eq!(
+                fast_floor(x).to_bits(),
+                x.floor().to_bits(),
+                "fast_floor({x}) = {} but floor = {}",
+                fast_floor(x),
+                x.floor()
+            );
+        }
+        // A deterministic sweep over the range the MIC wraps actually see: fractional
+        // coordinates and box ratios, a few cells either side of the origin.
+        let mut state = 0x9E3779B97F4A7C15u64;
+        for _ in 0..200_000 {
+            state = state.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            let u = (state >> 11) as f64 / (1u64 << 53) as f64; // [0, 1)
+            for scale in [1.0, 4.0, 100.0] {
+                let x = (u - 0.5) * 2.0 * scale;
+                assert_eq!(
+                    fast_floor(x).to_bits(),
+                    x.floor().to_bits(),
+                    "fast_floor disagrees at x={x}"
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn fast_round_ties_even_is_bit_identical_to_round_ties_even() {
+        let fixed = [
+            0.0, -0.0, 0.5, -0.5, 1.5, -1.5, 2.5, -2.5, 3.5, -3.5, 0.49999999999999994,
+            -0.49999999999999994, 1.0, -1.0, 1e-15, -1e-15, 1234.5, -1234.5, 1234.4999999,
+            2251799813685247.5, -2251799813685247.5, 4503599627370496.0, -4503599627370496.0,
+            1e300, -1e300,
+        ];
+        for x in fixed {
+            assert_eq!(
+                fast_round_ties_even(x).to_bits(),
+                x.round_ties_even().to_bits(),
+                "fast_round_ties_even({x}) = {} but round_ties_even = {}",
+                fast_round_ties_even(x),
+                x.round_ties_even()
+            );
+        }
+        let mut state = 0xD1B54A32D192ED03u64;
+        for _ in 0..200_000 {
+            state = state.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            let u = (state >> 11) as f64 / (1u64 << 53) as f64;
+            for scale in [1.0, 4.0, 100.0, 1e6] {
+                let x = (u - 0.5) * 2.0 * scale;
+                assert_eq!(
+                    fast_round_ties_even(x).to_bits(),
+                    x.round_ties_even().to_bits(),
+                    "fast_round_ties_even disagrees at x={x}"
+                );
+            }
+        }
+    }
 
     #[test]
     fn the_two_inverses_agree_only_on_the_lower_triangular_convention() {

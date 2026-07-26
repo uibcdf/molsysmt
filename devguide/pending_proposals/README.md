@@ -82,11 +82,13 @@ scientific-validation requirements.
   ports. Measured: the obvious in-kernel micro-opts are already in the Numba original, and
   real-workload time is dominated by `get_contacts` going through the dense distance matrix
   and by GC pressure from per-op temporaries — neither an in-kernel problem. Levers A (PCA
-  covariance), B (cell-list routing) and E (reduced cell) are **done**; D (columnar/SoA for
-  SIMD) is **closed as a negative result** (SoA is 0.94x baseline, 0.69x under AVX2 — do not
-  refactor the data model for SIMD); C (fused passes) and F (SIMD multiversioning for a
-  portable wheel — per-kernel and measurement-gated, since a blanket AVX2 build regresses
-  dense distances by 16-25%) remain open and low-priority.
+  covariance), B (cell-list routing), E (reduced cell) and G (what the compiler emitted:
+  libm `floor` in the innermost loops, a serial reduction in the 8-corner wrap,
+  loop-invariant branches — 1.4-1.7x on the dense matrices and SASA) are **done**; D
+  (columnar/SoA for SIMD) and F (AVX2 baseline / multiversioning) are **closed as negative
+  results** — SoA is 0.94x/0.69x vs AoS, and baseline = v2 = v3 within noise once G landed,
+  so the portable wheel stays. Only C (fused passes) remains open. The durable optimisation
+  rules are now normative in `../rust_kernel_optimization_guide.md`.
 - `rusterization_heavy_computations.md`
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`

@@ -15,6 +15,7 @@ use numpy::ndarray::ArrayView3;
 use numpy::{IntoPyArray, PyArray1, PyReadonlyArray3};
 use pyo3::prelude::*;
 
+use crate::mathlib::fast_floor;
 use crate::mathlib::inverse_matrix_3x3_full as inv3;
 use rayon::prelude::*;
 
@@ -52,9 +53,9 @@ fn grid_dims(b: &Mat3, cutoff: f64) -> (i64, i64, i64) {
         .abs();
     let perp = |bc: [f64; 3]| if norm(bc) > 0.0 { vol / norm(bc) } else { cutoff };
     (
-        ((perp(cross(&b[1], &b[2])) / cutoff).floor() as i64).max(1),
-        ((perp(cross(&b[0], &b[2])) / cutoff).floor() as i64).max(1),
-        ((perp(cross(&b[0], &b[1])) / cutoff).floor() as i64).max(1),
+        ((perp(cross(&b[1], &b[2])) / cutoff) as i64).max(1),
+        ((perp(cross(&b[0], &b[2])) / cutoff) as i64).max(1),
+        ((perp(cross(&b[0], &b[1])) / cutoff) as i64).max(1),
     )
 }
 
@@ -130,9 +131,9 @@ struct GridV {
 impl GridV {
     fn cell(&self, x: f64, y: f64, z: f64) -> (i64, i64, i64) {
         (
-            (((x - self.xmin) / self.cdx).floor() as i64).clamp(0, self.nx - 1),
-            (((y - self.ymin) / self.cdy).floor() as i64).clamp(0, self.ny - 1),
-            (((z - self.zmin) / self.cdz).floor() as i64).clamp(0, self.nz - 1),
+            (((x - self.xmin) / self.cdx) as i64).clamp(0, self.nx - 1),
+            (((y - self.ymin) / self.cdy) as i64).clamp(0, self.ny - 1),
+            (((z - self.zmin) / self.cdz) as i64).clamp(0, self.nz - 1),
         )
     }
 }
@@ -157,9 +158,9 @@ fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutof
     let lx = cutoff.max(xmx - xmn + 1e-5);
     let ly = cutoff.max(ymx - ymn + 1e-5);
     let lz = cutoff.max(zmx - zmn + 1e-5);
-    let nx = ((lx / cutoff).floor() as i64).max(1);
-    let ny = ((ly / cutoff).floor() as i64).max(1);
-    let nz = ((lz / cutoff).floor() as i64).max(1);
+    let nx = ((lx / cutoff) as i64).max(1);
+    let ny = ((ly / cutoff) as i64).max(1);
+    let nz = ((lz / cutoff) as i64).max(1);
     let mut g = GridV {
         nx, ny, nz, xmin: xmn, ymin: ymn, zmin: zmn,
         cdx: lx / nx as f64, cdy: ly / ny as f64, cdz: lz / nz as f64,
@@ -223,11 +224,11 @@ impl GridP {
         let mut sx = self.inv[0][0] * x + self.inv[1][0] * y + self.inv[2][0] * z;
         let mut sy = self.inv[0][1] * x + self.inv[1][1] * y + self.inv[2][1] * z;
         let mut sz = self.inv[0][2] * x + self.inv[1][2] * y + self.inv[2][2] * z;
-        sx -= sx.floor(); sy -= sy.floor(); sz -= sz.floor();
+        sx -= fast_floor(sx); sy -= fast_floor(sy); sz -= fast_floor(sz);
         (
-            (sx * self.nx as f64).floor() as i64 % self.nx,
-            (sy * self.ny as f64).floor() as i64 % self.ny,
-            (sz * self.nz as f64).floor() as i64 % self.nz,
+            (sx * self.nx as f64) as i64 % self.nx,
+            (sy * self.ny as f64) as i64 % self.ny,
+            (sz * self.nz as f64) as i64 % self.nz,
         )
     }
 }

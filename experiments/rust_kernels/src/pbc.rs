@@ -39,7 +39,7 @@ use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReado
             PyReadonlyArray3, PyReadwriteArray3};
 use pyo3::prelude::*;
 
-use crate::mathlib::{dot_product, inverse_matrix_3x3, norm_vector, Mat3, Vec3};
+use crate::mathlib::{dot_product, fast_floor, fast_round_ties_even, inverse_matrix_3x3, norm_vector, Mat3, Vec3};
 
 #[inline]
 fn box_at(b: &ArrayView3<f64>, s: usize) -> Mat3 {
@@ -109,9 +109,9 @@ fn box_of(lengths: Vec3, angles: Vec3) -> Mat3 {
 fn wrap_pbc_vec(v: Vec3, b: &Mat3, inv: &Mat3, orthogonal: bool, half: f64) -> Vec3 {
     if orthogonal {
         [
-            v[0] - b[0][0] * (v[0] / b[0][0] + half).floor(),
-            v[1] - b[1][1] * (v[1] / b[1][1] + half).floor(),
-            v[2] - b[2][2] * (v[2] / b[2][2] + half).floor(),
+            v[0] - b[0][0] * fast_floor(v[0] / b[0][0] + half),
+            v[1] - b[1][1] * fast_floor(v[1] / b[1][1] + half),
+            v[2] - b[2][2] * fast_floor(v[2] / b[2][2] + half),
         ]
     } else {
         let mut s = [
@@ -119,9 +119,9 @@ fn wrap_pbc_vec(v: Vec3, b: &Mat3, inv: &Mat3, orthogonal: bool, half: f64) -> V
             inv[1][1] * v[1] + inv[2][1] * v[2],
             inv[2][2] * v[2],
         ];
-        s[0] -= (s[0] + half).floor();
-        s[1] -= (s[1] + half).floor();
-        s[2] -= (s[2] + half).floor();
+        s[0] -= fast_floor(s[0] + half);
+        s[1] -= fast_floor(s[1] + half);
+        s[2] -= fast_floor(s[2] + half);
         [
             b[0][0] * s[0] + b[1][0] * s[1] + b[2][0] * s[2],
             b[1][1] * s[1] + b[2][1] * s[2],
@@ -430,7 +430,7 @@ pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArra
             let shift = if orthogonal {
                 // `round`, not `f64::round`: Python/Numba round half to even.
                 for k in 0..3 {
-                    delta[k] -= bs[k][k] * (delta[k] / bs[k][k]).round_ties_even();
+                    delta[k] -= bs[k][k] * fast_round_ties_even(delta[k] / bs[k][k]);
                 }
                 delta
             } else {
@@ -440,7 +440,7 @@ pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArra
                     inv[2][2] * delta[2],
                 ];
                 for k in 0..3 {
-                    f[k] -= f[k].round_ties_even();
+                    f[k] -= fast_round_ties_even(f[k]);
                 }
                 let wrapped = [
                     bs[0][0] * f[0] + bs[1][0] * f[1] + bs[2][0] * f[2],

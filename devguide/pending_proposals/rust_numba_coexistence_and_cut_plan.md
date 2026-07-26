@@ -182,17 +182,19 @@ simplification.
 - **Redesign lever C** (fused multi-observable passes). Measured negligible so far; keep it
   open but unprioritised. While Numba is the oracle it pays the parity tax twice; once Rust
   is the implementation it becomes ordinary work behind the property tests.
-- **Redesign lever F** (SIMD multiversioning). Belongs with **step 2 above** rather than
-  here, because it is a change to the build matrix, not to a kernel: compiling selected
-  functions for several feature levels and dispatching at runtime keeps a single portable
-  wheel. Measured worth is small and not uniform in sign — 1.1-1.3x on the cell-list
-  kernels but a 16-25% *regression* on dense `mic_distances` under a blanket AVX2 build —
-  so it must be opted into per kernel, gated by that kernel's own benchmark. Low priority.
+- **Redesign lever F** (SIMD instruction set / multiversioning) is **closed, measured, no
+  action**: after the lowering fixes below, the baseline, `x86-64-v2` and `x86-64-v3` builds
+  are equal within noise on every kernel measured. Keep the single portable baseline wheel;
+  the earlier apparent AVX2 gains and the dense-distance regression were both artifacts of
+  how `f64::floor` was lowered, not of vector width.
 
-  **Resolved and no longer post-cut work:** lever D (columnar/SoA SIMD layout) is closed as
-  a *negative* result — SoA measured 0.94x baseline and 0.69x under AVX2 against the current
-  AoS layout, so the data-model refactor buys nothing here. Lever E (reduced cell for the
-  triclinic MIC) was pulled forward and is done, because it was also a correctness fix.
+  **Resolved and no longer post-cut work:** lever D (columnar/SoA SIMD layout) is closed as a
+  *negative* result — SoA measured 0.94x baseline and 0.69x under AVX2 against the current AoS
+  layout. Lever E (reduced cell for the triclinic MIC) was pulled forward and is done, because
+  it was also a correctness fix. Lever G (what the compiler actually emitted: libm `floor`
+  calls in the innermost loops, a serial reduction in the 8-corner wrap, loop-invariant
+  branches) is done and bought 1.4-1.7x on the dense distance matrices and the SASA family;
+  its durable rules are normative in `devguide/rust_kernel_optimization_guide.md`.
 
   All of the above: see `rust_kernel_redesign_beyond_faithful_ports.md`.
 

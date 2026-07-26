@@ -12,6 +12,7 @@ use pyo3::prelude::*;
 use rayon::prelude::*;
 
 mod mathlib;
+mod symmetric;
 mod mic;
 mod neighbors;
 mod sasa;
