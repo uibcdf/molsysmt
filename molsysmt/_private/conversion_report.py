@@ -39,9 +39,9 @@ _STRUCTURES_TO_STRUCTURES_DICT_PROFILE = {
         'box',
         'coordinates',
         'velocities',
+        'occupancy',
         'b_factor',
         'alternate_location',
-        'occupancy',
         'temperature',
         'potential_energy',
         'kinetic_energy',
@@ -181,6 +181,7 @@ _MOLSYS_TO_MOLSYS_DICT_PROFILE = {
     'loss_candidates': (
         *_TOPOLOGY_TO_TOPOLOGY_DICT_PROFILE['loss_candidates'],
         'velocities',
+        'occupancy',
         'b_factor',
         'alternate_location',
         'bioassembly',
@@ -461,6 +462,7 @@ def _audit_native_molsys_to_dict(item):
 
     for attribute in (
         'velocities',
+        'occupancy',
         'b_factor',
         'alternate_location',
         'bioassembly',

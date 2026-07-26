@@ -1,49 +1,53 @@
 from molsysmt._private.arg_digestion import arg_digest
 
+
 @arg_digest(form='molsysmt.Structures')
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+def has_attribute(
+    molecular_system,
+    attribute,
+    include_none=False,
+    skip_digestion=False,
+):
+    """Checking instance-aware attribute availability for native structures."""
 
     from . import attributes
 
-    output = attributes[attribute]
+    if not attributes[attribute]:
+        return False
+    if include_none:
+        return True
 
-    if not include_none:
+    if attribute == 'n_atoms':
+        return molecular_system.n_atoms > 0
+    if attribute == 'n_structures':
+        return True
+    if attribute == 'structure_index':
+        return molecular_system.n_structures > 0
+    if attribute in {'box_shape', 'box_angles', 'box_lengths', 'box_volume'}:
+        return molecular_system.box is not None
+    if attribute == 'n_bioassemblies':
+        return molecular_system.bioassembly is not None
+    if attribute == 'total_energy':
+        return (
+            molecular_system.potential_energy is not None
+            and molecular_system.kinetic_energy is not None
+        )
 
-        ###
-        ### STRUCTURAL ATTRIBUTES
-        ###
+    storage = {
+        'structure_id': 'structure_id',
+        'time': 'time',
+        'box': 'box',
+        'coordinates': 'coordinates',
+        'velocities': 'velocities',
+        'b_factor': 'b_factor',
+        'alternate_location': 'alternate_location',
+        'bioassembly': 'bioassembly',
+        'temperature': 'temperature',
+        'potential_energy': 'potential_energy',
+        'kinetic_energy': 'kinetic_energy',
+        'occupancy': 'occupancy',
+    }
+    if attribute in storage:
+        return getattr(molecular_system, storage[attribute]) is not None
 
-        if attribute=='n_atoms':
-            if molecular_system.coordinates is None and molecular_system.velocities is None:
-                output = False
-
-        elif attribute=='structure_id':
-            if molecular_system.structure_id is None:
-                output = False
-
-        elif attribute=='coordinates':
-            if molecular_system.coordinates is None:
-                output = False
-
-        elif attribute=='velocities':
-            if molecular_system.velocities is None:
-                output = False
-
-        elif attribute=='time':
-            if molecular_system.time is None:
-                output = False
-
-        elif attribute in ['box', 'box_shape', 'box_angles', 'box_lengths', 'box_volume']:
-            if molecular_system.box is None:
-                output = False
-
-        elif attribute=='alternate_location':
-            if molecular_system.alternate_location is None:
-                output = False
-
-        elif attribute=='b_factor':
-            if molecular_system.b_factor is None:
-                output = False
-
-
-    return output
+    return False
