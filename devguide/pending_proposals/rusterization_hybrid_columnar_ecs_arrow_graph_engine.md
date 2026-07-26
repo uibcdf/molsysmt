@@ -11,7 +11,7 @@ baseline build and **0.69x** under AVX2/FMA — slower, and more so once vectori
 pair kernel then reads three cache-line streams per atom instead of one. The case for this
 proposal must rest on zero-copy Arrow interop, attribute-centric storage and the
 topology/selection layers; the compute kernels are evidence *against* the layout change.
-See `rust_kernel_redesign_beyond_faithful_ports.md` §4.D.
+See `../archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md` §4.D.
 
 ---
 

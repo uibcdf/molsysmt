@@ -1,13 +1,39 @@
 # Rust kernels: what a redesign buys beyond the faithful ports
 
-**Status:** evidence-based proposal (2026-07-24), partially resolved 2026-07-26 — A, B and E
-done; D closed as a negative result; C and F open. See the status table in §5.
-**Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
-`linear_algebra_backend_for_rust_kernels.md`,
-`rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`,
-`rust_numba_coexistence_and_cut_plan.md`.
-**Code location:** `experiments/rust_kernels/` on `main` (the pilot branch was merged and
-deleted).
+**Status:** RESOLVED — all seven levers decided; archived 2026-07-26.
+**Relates to:** `pending_proposals/rust_numba_coexistence_and_cut_plan.md`,
+`pending_proposals/linear_algebra_backend_for_rust_kernels.md`,
+`pending_proposals/rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`,
+`rust_kernel_optimization_guide.md`.
+**Code location:** `experiments/rust_kernels/` on `main`.
+
+> **RESOLVED — every lever decided, four implemented and three closed as negative or
+> not-worth-doing.** The proposal below is retained for design provenance and for the
+> measurements behind each decision; it does not define current behaviour, and it is not a
+> work queue. The durable rules were migrated to the normative
+> `devguide/rust_kernel_optimization_guide.md` before archival, as were the remaining
+> per-kernel candidates (its section 9) — nothing live is left only in this file.
+>
+> **Implemented:** A (PCA covariance as a matrix product), B (`get_contacts` routed through
+> the cell list, threshold at 400 atoms), E (reduced-cell minimum image — which also fixed a
+> correctness defect on skewed boxes, see `archive/resolved_bugs/` and
+> `pending_proposals/triclinic_cell_list_completeness.md`), and G (what the compiler emitted:
+> libm `floor` calls in the innermost loops, a latency-bound reduction in the 8-corner wrap,
+> loop-invariant branches, `ArrayView` indexing, recomputed invariants). G landed in commit
+> `4530fac65` and is worth 1.46x/1.39x on the dense distance matrices and up to 1.70x on the
+> SASA family.
+>
+> **Closed without implementing, each on a measurement:** C (fused multi-observable passes —
+> the candidate pass is ~2.5 ms), D (columnar/SoA layout — measured 0.94x baseline and 0.69x
+> under AVX2 against the current AoS, i.e. *slower*), F (fixed AVX2 baseline or runtime
+> multiversioning — baseline, `x86-64-v2` and `x86-64-v3` are equal within noise once G
+> landed, so the single portable wheel stays).
+>
+> **Regression evidence:** 80 `cargo test` unit tests; 264 Python tests in `tests/rust/`
+> (including `test_mic_neighbors_battery.py` against an independent ±2/±3 oracle, and
+> `test_hot_path_lint.py`, which guards the G defect class *and* verifies that its own lint
+> fails on a planted regression); 601 further tests through the public API
+> (`tests/rust tests/pbc tests/physchem tests/structure tests/lib`). Green as of 2026-07-26.
 
 ## 1. The question
 
@@ -231,17 +257,17 @@ compiler emitted.
 |---|---|
 | A. PCA covariance as a matrix product | done (see `linear_algebra_backend_for_rust_kernels.md`) |
 | B. Route contacts through the cell list | done for `get_contacts` (threshold lowered to 400 atoms; crossover measured near 500) |
-| C. Fused multi-observable passes | open, but measured negligible — the candidate pass is ~2.5 ms |
+| C. Fused multi-observable passes | **closed as not worth doing** — the candidate pass measures ~2.5 ms, inside the surrounding Python's noise |
 | D. SoA layout for SIMD | **closed as a negative result** — SoA is 0.94x / 0.69x vs AoS |
 | E. Reduced cell for the triclinic MIC | done, and it fixed a correctness defect |
 | F. SIMD instruction set / multiversioning | **closed** — baseline = v2 = v3 within noise once G landed; keep the portable wheel |
 | G. What the compiler emitted (libm floor, serial reductions, loop-invariant branches) | done — 1.4-1.7x on the dense matrices and the SASA family; rules now in `devguide/rust_kernel_optimization_guide.md` |
 
-C is the only live item left. Once it is settled this proposal should be archived: the
-remaining redesign work lives in `rust_numba_coexistence_and_cut_plan.md` (packaging),
-`rusterization_hybrid_columnar_ecs_arrow_graph_engine.md` (data model, now without its
-SIMD justification) and, for ongoing kernel work,
-`devguide/rust_kernel_optimization_guide.md` (normative method).
+No live items remain, which is why this document is archived. The work that continues lives
+in `pending_proposals/rust_numba_coexistence_and_cut_plan.md` (CI wheels, the crate's
+permanent home, the Numba cut), `pending_proposals/rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
+(data model, now without its SIMD justification) and `rust_kernel_optimization_guide.md`
+(normative method, plus the remaining per-kernel candidates in its section 9).
 
 ## 6. The framing that matters
 

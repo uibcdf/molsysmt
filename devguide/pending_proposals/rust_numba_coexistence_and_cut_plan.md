@@ -5,7 +5,7 @@
 cut are open.
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
 `linear_algebra_backend_for_rust_kernels.md`,
-`rust_kernel_redesign_beyond_faithful_ports.md`, `rust_gpu_backend_options.md`,
+`../archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`, `rust_gpu_backend_options.md`,
 `neighbor_list_consumer_migration.md`.
 **Crate location:** `experiments/rust_kernels/` on `main` (the pilot branch
 `experiment/rust-numba-pilot` is historical/superseded).
@@ -15,7 +15,14 @@ cut are open.
 **Stage 1 — infrastructure — landed on `main`, inert by default:**
 
 - The Rust crate source lives in `experiments/rust_kernels/` (path kept for continuity with
-  the pilot docs; a permanent-home rename is a cosmetic follow-up).
+  the pilot docs). **Open item, and not merely cosmetic: this must move before 1.0.** These
+  are now the default CPU kernels for the whole analysis surface; shipping a release whose
+  production compute lives under a directory called `experiments/` misrepresents its status
+  to anyone reading the tree, and it makes the packaging story harder to explain. The move
+  touches the crate path in `pyproject.toml`/CI, the `maturin develop` instructions in
+  `PACKAGING.md`, the paths in `devtools/scripts/check_rust_hot_paths.py` and
+  `tests/rust/test_hot_path_lint.py`, and the references in this and the other Rust
+  documents. Do it together with stage 3, since both touch the build.
 - The dispatch seam `molsysmt/_private/rust_backend.py` is on `main`, with a guarded import
   so it is a no-op when the wheel is absent.
 - `molsysmt.configure.kernel` (`'numba'|'rust'|'auto'`, default `'numba'`) plus the uniform
@@ -196,7 +203,7 @@ simplification.
   branches) is done and bought 1.4-1.7x on the dense distance matrices and the SASA family;
   its durable rules are normative in `devguide/rust_kernel_optimization_guide.md`.
 
-  All of the above: see `rust_kernel_redesign_beyond_faithful_ports.md`.
+  All of the above: see `../archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`.
 
 ## 6. What this explicitly does not do
 

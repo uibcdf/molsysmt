@@ -6,7 +6,7 @@ the things that turned out not to work — so the same ground is not re-explored
 
 **Scope:** the Rust CPU kernels. It does not cover the Numba kernels (provisional, to be
 removed) or the GPU backends. For where redesign effort should go at the *algorithm* level,
-see `pending_proposals/rust_kernel_redesign_beyond_faithful_ports.md`; this document is
+see `archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`; this document is
 about the layer below that, once the algorithm is settled.
 
 ## 0. The rule that produced everything below
@@ -271,7 +271,7 @@ exists, the discipline is procedural — the checklist below, applied deliberate
 
 ## 8. Checklist for a new or suspect kernel
 
-1. Is the algorithm right? (Complexity, and see the redesign proposal.) Stop here if not.
+1. Is the algorithm right? (Complexity; the levers already decided are in `archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`.) Stop here if not.
 2. Is it covered by tests with an *independent* oracle? Write them first.
 3. Benchmark it. Record the input shape; keep the script.
 4. `objdump -d` the built `.so`, find the function, look at the inner loop for: `call`
@@ -281,3 +281,34 @@ exists, the discipline is procedural — the checklist below, applied deliberate
    `ArrayView` indexing (§2.4), recomputed invariants and guard branches (§2.5).
 6. Change one thing at a time and re-measure. Confirm bit-identity or document its loss.
 7. Re-run both test layers before believing the number.
+
+## 9. Remaining candidates, and why they are not urgent
+
+State as of 2026-07-26, after the O(N²) matrices and the SASA family were done. Recorded
+here rather than in a proposal so it survives that proposal's archival.
+
+**Swept and clean.** Every `.floor()`/`.round()` left in the crate is either a `#[cfg(test)]`
+ground-truth oracle, `reduce_cell` (once per box), or a synthetic bench probe in `lib.rs` —
+all marked `// libm-ok:` and enforced by the lint in §7. There is no remaining instance of
+the §1 defect.
+
+**Not yet examined, ranked by remaining `ArrayView` indexing in loop bodies:** `rmsd.rs`
+(29 sites), `geometry.rs` (26), `dihedral_ops.rs` (17), `axes.rs` (15).
+
+**Why they are low priority, on evidence rather than intuition:** these are O(N) or O(N·S)
+sweeps, not O(N²) kernels. `get_center`, `get_radius_of_gyration` and `get_rmsf` each came
+out a *tie* against Numba in the original block-10 benchmark precisely because they are
+memory-bound — the arithmetic is trivial and the cost is reading the coordinates. The
+corroborating measurement from this round is `neighbor_list`, which moved only 1.08-1.17x
+from the same treatment because its cost is the candidate *gather*, not the arithmetic.
+Expect single-digit percentages here, not the 1.4-1.7x the dense matrices gave.
+
+**So:** do not sweep them mechanically. If one of them shows up in a real profile, apply the
+§8 checklist to that kernel alone and keep the benchmark.
+
+**Closed as not worth doing:** fusing the multi-observable trajectory passes (a "compute
+these observables in one sweep" API, so the trajectory is read once instead of three times).
+Measured: the candidate pass is ~2.5 ms, so the saving is inside the noise of the surrounding
+Python. It was the last live item of
+`archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md` (lever C) and it
+is recorded here because the idea is plausible enough to be re-proposed.

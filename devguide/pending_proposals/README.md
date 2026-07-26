@@ -78,17 +78,6 @@ scientific-validation requirements.
   orthogonal to the CPU numba/rust choice. If ever pursued, `wgpu` is the portable
   (default-wheel-compatible) option and CUDA (`cudarc`) belongs only in an optional wheel
   variant. Separate, optional, post-cut; must not block the CPU cut.
-- `rust_kernel_redesign_beyond_faithful_ports.md` — where a redesign beats the faithful
-  ports. Measured: the obvious in-kernel micro-opts are already in the Numba original, and
-  real-workload time is dominated by `get_contacts` going through the dense distance matrix
-  and by GC pressure from per-op temporaries — neither an in-kernel problem. Levers A (PCA
-  covariance), B (cell-list routing), E (reduced cell) and G (what the compiler emitted:
-  libm `floor` in the innermost loops, a serial reduction in the 8-corner wrap,
-  loop-invariant branches — 1.4-1.7x on the dense matrices and SASA) are **done**; D
-  (columnar/SoA for SIMD) and F (AVX2 baseline / multiversioning) are **closed as negative
-  results** — SoA is 0.94x/0.69x vs AoS, and baseline = v2 = v3 within noise once G landed,
-  so the portable wheel stays. Only C (fused passes) remains open. The durable optimisation
-  rules are now normative in `../rust_kernel_optimization_guide.md`.
 - `rusterization_heavy_computations.md`
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`
