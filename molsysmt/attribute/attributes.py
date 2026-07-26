@@ -66,7 +66,7 @@ def add_attribute(name, synonyms=None, depends_on=None, dependants=None, runs_on
 
 ### atom_index
 add_attribute('atom_index', synonyms=['atom_indices'], dependants=['n_atoms'], runs_on_elements=True, topological=True,
-        get_from=['atom','group','component','molecule','chain','entity'])
+        structural=True, get_from=['atom','group','component','molecule','chain','entity'])
 
 ### atom_name
 add_attribute('atom_name', synonyms=['atom_names'], runs_on_elements=True, topological=True,
@@ -270,7 +270,7 @@ add_attribute('inner_bond_index', synonyms=['inner_bond_indices'], depends_on=['
 
 ## n_atoms
 add_attribute('n_atoms', synonyms=['n_atom'], depends_on=['atom_index'], runs_on_elements=True,
-              topological=True,
+              topological=True, structural=True,
               get_from=['atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'])
 
 ## n_groups
