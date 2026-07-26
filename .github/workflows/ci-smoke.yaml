@@ -102,3 +102,7 @@ jobs:
       - name: Reject new Numba coupling
         shell: bash -l {0}
         run: python devtools/scripts/audit_numba_surface.py
+
+      - name: Validate the CPU Numba-to-Rust oracle map
+        shell: bash -l {0}
+        run: python devtools/scripts/audit_numba_oracle_map.py

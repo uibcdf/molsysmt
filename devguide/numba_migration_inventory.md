@@ -103,7 +103,8 @@ Generated notebook outputs are ignored; only notebook cell sources are
 inspected. Showcase notebooks are excluded because their stored visualization
 payloads are not release instructions.
 
-The inventory does not prove Rust parity or scientific correctness. Segment B2
-adds the kernel-to-Rust-consumer-evidence mapping, and B4/B5 preserve the final
+The inventory does not prove Rust parity or scientific correctness. The
+[CPU Numba-to-Rust Oracle Map](numba_cpu_oracle_map.md) adds the
+kernel-to-Rust-consumer-evidence classification, and B4/B5 preserve the final
 two-backend comparison. Numba deletion remains blocked until production Rust
 packaging passes on the declared platform and Python matrix.
