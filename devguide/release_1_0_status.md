@@ -37,10 +37,11 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** B — final Numba oracle
-- **Active stage:** B4 — final two-backend parity campaign
+- **Active stage:** B4 — forced-Rust release campaign, blocked by unlanded WIP
 - **Completed weighted closure:** 25% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segment A is certified complete; Segment
-  B is approximately 70% complete internally after B3, but has not yet earned
+  B is approximately 85% complete internally after the first B4 campaign, but
+  has not yet earned
   additional weighted closure
 - **Current repository state:** dirty WIP; not a release artifact
 - **WIP base HEAD when this ledger was created:** `7ab96e791`; this is not a
@@ -50,9 +51,9 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** define and run the reproducible final Numba/Rust comparison
-  matrix without allowing either backend, an editable worktree, or an
-  incomplete test session to hide a migration failure
+- **Next action:** partition, audit, and land the production/test WIP required
+  by the current suite; then rebuild the exact-commit Rust wheel and repeat the
+  forced-Rust release gate
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
@@ -68,7 +69,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
-| B — final Numba oracle | 10% | `IN PROGRESS` | 0% | B1 froze the surface, B2 maps all CPU kernels, B3 closes divergence policy, and B4 final comparison is active |
+| B — final Numba oracle | 10% | `BLOCKED` | 0% | the exact-commit Rust campaign proves no backend-specific regression, but the snapshot has 36 failures and 342 setup errors reproduced identically by Numba |
 | C — Rust packaging | 20% | `PENDING` | 0% | local abi3 pilot succeeded; production crate layout and multiplatform installed-wheel CI remain open |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
@@ -364,7 +365,7 @@ baseline, not permission to weaken a landed ratchet.
 | B1 — generated active-Numba inventory | `DONE` |
 | B2 — CPU kernel-to-consumer/evidence manifest | `DONE` |
 | B3 — deliberate divergence and tolerance record | `DONE` |
-| B4 — final two-backend parity campaign | `IN PROGRESS` |
+| B4 — final forced-Rust campaign plus bounded Numba oracle | `BLOCKED` |
 | B5 — dated, committed oracle artifact | `PENDING` |
 
 Existing Rust port and dogfooding results are prerequisites, not B-segment
@@ -491,3 +492,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | B3 | `PENDING` → `IN PROGRESS` | complete B2 map landed; deliberate numerical and behavioral divergence extraction selected as the next oracle gate | dirty WIP after `863c77fb7` |
 | 2026-07-26 | B3 | `IN PROGRESS` → `DONE` | all 14 parity modules have accepted policies; 77 closeness sites declare both tolerances; 63 formerly implicit `rtol=1e-5` comparisons remain green with explicit strict contracts; eight deliberate divergences and four must-match contracts have executable evidence; 274 Rust/validator tests and 82 selected scientific-truth tests pass; zero provisional decisions remain | `b4b6bae25` |
 | 2026-07-26 | B4 | `PENDING` → `IN PROGRESS` | closed B3 contract landed; reproducible final two-backend campaign selected | dirty WIP after `b4b6bae25` |
+| 2026-07-26 | B4 strategy refinement | remains `IN PROGRESS` | the release runtime receives the complete forced-Rust suite; Numba is limited to the bounded oracle surface and failed-node attribution because it will not ship in 1.0 | `481271204` |
+| 2026-07-26 | B4 checkpoint | `IN PROGRESS` → `BLOCKED` | exact source and wheel hashes recorded; forced-Rust smoke 15/15, Rust oracle 264 passed with three documented skips, and 82 scientific tests pass; complete forced-Rust suite reaches 9,361 passed but has 36 failed and 342 errors in 11 non-Rust root causes; all 378 unsuccessful node IDs reproduce with forced Numba; B4 requires a new green exact-commit run after the active WIP is landed | `481271204`; see `release_1_0_rust_campaign_checkpoint.md` |
