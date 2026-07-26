@@ -10,6 +10,11 @@ components. A builder does not store molecular-mechanics attributes or
 per-structure chemical-state associations. The four course paths include
 complete builder examples.
 
+Conversions among `molsysmt.MolSys`, `molsysmt.MolSysBuilder`, and
+`molsysmt.MolSysDict` provide exhaustive fidelity reports. The reduced
+dictionary conversion canonicalizes atom selections, preserves the requested
+`structure_indices` order, and rejects detected loss when `strict=True`.
+
 `bond_order` is the formal numeric order; `bond_type` describes the chemical
 relationship and accepts `covalent`, `dative`, or explicitly `unknown`.
 Aromaticity, fractional order, and force-field parameter classes are distinct

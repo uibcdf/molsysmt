@@ -2,6 +2,28 @@ from molsysmt import pyunitwizard as puw
 from molsysmt.native import MolSysBuilder
 
 
+def _materialize_derived_components(builder):
+    from molsysmt.native._topology_infer import (
+        infer_component_indices_from_topology,
+    )
+
+    topology = builder.topology
+    component_indices = infer_component_indices_from_topology(topology)
+    topology._set_component_indices(component_indices)
+    n_components = (
+        int(max(component_indices)) + 1
+        if len(component_indices) > 0
+        else 0
+    )
+    topology.reset_components(n_components=n_components)
+    topology.rebuild_components(
+        redefine_indices=False,
+        redefine_ids=True,
+        redefine_types=True,
+        redefine_names=True,
+    )
+
+
 def build_molsys_builder_from_molsys_dict(item):
     """Replaying a MolSysDict payload into a declared MolSysBuilder state."""
 
@@ -78,5 +100,7 @@ def build_molsys_builder_from_molsys_dict(item):
         builder.set_time(puw.quantity(structures["time"], "ps"), skip_digestion=True)
     if structures.get("structure_id", None) is not None:
         builder.set_structure_id(structures["structure_id"], skip_digestion=True)
+
+    _materialize_derived_components(builder)
 
     return builder

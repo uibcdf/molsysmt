@@ -23,8 +23,46 @@ def _matches_index(value, index):
 
 
 @arg_digest(form="molsysmt.MolSysBuilder")
-def to_molsysmt_MolSysDict(item, skip_digestion=False):
-    """Converting MolSysBuilder to MolSysDict without crystallizing declared state."""
+def to_molsysmt_MolSysDict(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    skip_digestion=False,
+):
+    """Converting MolSysBuilder to MolSysDict.
+
+    A complete builder is serialized directly without materializing a
+    ``MolSys``. Requested atom or structure subsets are materialized so both
+    axes can be extracted with their documented ordering contracts.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSysBuilder
+        Editable native system to serialize.
+    atom_indices : array-like of int or 'all', default 'all'
+        Canonically ordered atom indices to include.
+    structure_indices : array-like of int or 'all', default 'all'
+        Structure indices to include in the requested order.
+    skip_digestion : bool, default False
+        Whether to skip argument digestion.
+
+    Returns
+    -------
+    molsysmt.MolSysDict
+        Serializable reduced-schema representation.
+    """
+
+    if atom_indices != "all" or structure_indices != "all":
+        from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSysDict import (
+            to_molsysmt_MolSysDict as convert_molsys_to_dict,
+        )
+
+        return convert_molsys_to_dict(
+            item.build(skip_digestion=True),
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
 
     topology = item.topology
     structures = item.structures
@@ -37,6 +75,7 @@ def to_molsysmt_MolSysDict(item, skip_digestion=False):
                 "atom_id": None if _normalize_scalar(row["atom_id"]) is None else str(_normalize_scalar(row["atom_id"])),
                 "atom_name": _normalize_scalar(row["atom_name"]),
                 "atom_type": _normalize_scalar(row["atom_type"]),
+                "isotope": _normalize_scalar(row["isotope"]),
             }
         )
 

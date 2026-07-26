@@ -15,7 +15,9 @@ Each recipe is designed to be a "Superpower": a self-contained solution to a rea
     `add_bond(..., bond_order=2, bond_type="covalent")`, inspect any stored
     chemical/topological or structural attribute with `molsysmt.get`, then call
     `build()`. Molecular-mechanics attributes belong on the materialized
-    `MolSys`, not on the builder.
+    `MolSys`, not on the builder. When exporting a subset to `MolSysDict`, atom
+    selections are canonicalized and `structure_indices` keeps its requested
+    order; use `strict=True` to reject fields omitted by the reduced schema.
 
 ### 🧪 Analysis & Discovery
 *   [**Binding Pocket Isolation**](./06_Binding_Pocket_Isolation.ipynb): Extracting active sites using advanced spatial selection strings.

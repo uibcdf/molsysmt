@@ -214,6 +214,14 @@ _DECLARED_CAPABILITY_PROJECTION_PROFILE = {
     'mode': 'declared_capability_projection',
 }
 
+_MOLSYS_TO_BUILDER_PROFILE = {
+    'mode': 'molsys_to_builder',
+}
+
+_BUILDER_TO_MOLSYS_DICT_PROFILE = {
+    'mode': 'builder_to_molsysdict',
+}
+
 _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.Structures',
@@ -242,6 +250,22 @@ _CONVERSION_AUDIT_PROFILES = {
     (
         'molsysmt.StructuresDict',
         'molsysmt.Topology',
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    (
+        'molsysmt.MolSys',
+        'molsysmt.MolSysBuilder',
+    ): _MOLSYS_TO_BUILDER_PROFILE,
+    (
+        'molsysmt.MolSysBuilder',
+        'molsysmt.MolSys',
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    (
+        'molsysmt.MolSysBuilder',
+        'molsysmt.MolSysDict',
+    ): _BUILDER_TO_MOLSYS_DICT_PROFILE,
+    (
+        'molsysmt.MolSysDict',
+        'molsysmt.MolSysBuilder',
     ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
 }
 
@@ -532,6 +556,37 @@ def _audit_native_molsys_to_dict(item):
     return issues
 
 
+def _audit_native_builder_to_dict(item):
+    """Return builder semantics omitted by MolSysDict 0.1."""
+
+    target_form = 'molsysmt.MolSysDict'
+    issues = _audit_native_topology_to_dict(
+        item.topology,
+        target_form=target_form,
+    )
+
+    for attribute in (
+        'velocities',
+        'occupancy',
+        'b_factor',
+        'alternate_location',
+        'bioassembly',
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
+    ):
+        if getattr(item.structures, attribute) is not None:
+            issues.append(
+                _schema_limitation(
+                    attribute,
+                    target_form,
+                    scope='structures',
+                )
+            )
+
+    return issues
+
+
 def _attribute_scope(attribute):
     from molsysmt.attribute import (
         is_chemical_state_attribute,
@@ -577,6 +632,44 @@ def _audit_declared_capability_projection(item, source_form, target_form):
     return issues
 
 
+def _audit_native_molsys_to_builder(item):
+    """Return MolSys semantics that an editable builder cannot preserve."""
+
+    issues = _audit_declared_capability_projection(
+        item,
+        'molsysmt.MolSys',
+        'molsysmt.MolSysBuilder',
+    )
+    issues = [
+        issue
+        for issue in issues
+        if issue.attribute != 'structure_chemical_state_index'
+    ]
+
+    explicit_associations = item._structure_chemical_state_indices
+    if explicit_associations is not None:
+        known = explicit_associations.dropna()
+        association_is_implicit_single_state = (
+            len(item.topology._chemical_states) == 1
+            and len(known) == len(explicit_associations)
+            and (known == 0).all()
+        )
+        if not association_is_implicit_single_state:
+            issues.append(
+                ConversionIssue(
+                    attribute='structure_chemical_state_index',
+                    reason=(
+                        'molsysmt.MolSysBuilder cannot preserve the explicit '
+                        'structure-to-chemical-state association.'
+                    ),
+                    kind='state_association_loss',
+                    scope='chemical_state',
+                )
+            )
+
+    return issues
+
+
 def _audit_registered_profile(item, source_form, target_form):
     """Return issues from one evidence-backed exhaustive audit profile."""
 
@@ -597,6 +690,13 @@ def _audit_registered_profile(item, source_form, target_form):
             source_form,
             target_form,
         )
+    if profile is not None and profile.get('mode') == 'molsys_to_builder':
+        return _audit_native_molsys_to_builder(item)
+    if (
+        profile is not None
+        and profile.get('mode') == 'builder_to_molsysdict'
+    ):
+        return _audit_native_builder_to_dict(item)
     return []
 
 
