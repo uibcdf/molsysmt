@@ -40,20 +40,20 @@ and do not merge it across an unmet integration dependency.
 - **Active stage:** B4 — forced-Rust release campaign, blocked by unlanded WIP
 - **Completed weighted closure:** 25% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segment A is certified complete; Segment
-  B is approximately 85% complete internally after the first B4 campaign, but
-  has not yet earned
-  additional weighted closure
+  B is approximately 90% complete internally after the first B4 campaign and
+  the first blocker-reduction pass, but has not yet earned additional weighted
+  closure
 - **Current repository state:** dirty WIP; not a release artifact
-- **WIP base HEAD when this ledger was created:** `7ab96e791`; this is not a
-  verified release-candidate commit
+- **Current landed blocker-reduction HEAD:** `7cf7d7206`; this is not yet a
+  verified release-candidate commit because unrelated WIP remains unlanded
 - **Release readiness percentage:** intentionally not asserted until Segment A
   and the Rust packaging spike provide executable evidence
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
 - **Next action:** partition, audit, and land the production/test WIP required
-  by the current suite; then rebuild the exact-commit Rust wheel and repeat the
-  forced-Rust release gate
+  by the six known residual root causes; then rebuild the exact-commit Rust
+  wheel and repeat the forced-Rust release gate
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
@@ -69,7 +69,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
-| B — final Numba oracle | 10% | `BLOCKED` | 0% | the exact-commit Rust campaign proves no backend-specific regression, but the snapshot has 36 failures and 342 setup errors reproduced identically by Numba |
+| B — final Numba oracle | 10% | `BLOCKED` | 0% | the exact-commit Rust campaign proved no backend-specific regression; the dominant 342-error PDB cascade, missing `MolSys.structure_index`, and the H5MSM structural-fidelity/multi-state causes are now landed, leaving six known targeted root causes before a new exact-commit campaign |
 | C — Rust packaging | 20% | `PENDING` | 0% | local abi3 pilot succeeded; production crate layout and multiplatform installed-wheel CI remain open |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
@@ -494,3 +494,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | B4 | `PENDING` → `IN PROGRESS` | closed B3 contract landed; reproducible final two-backend campaign selected | dirty WIP after `b4b6bae25` |
 | 2026-07-26 | B4 strategy refinement | remains `IN PROGRESS` | the release runtime receives the complete forced-Rust suite; Numba is limited to the bounded oracle surface and failed-node attribution because it will not ship in 1.0 | `481271204` |
 | 2026-07-26 | B4 checkpoint | `IN PROGRESS` → `BLOCKED` | exact source and wheel hashes recorded; forced-Rust smoke 15/15, Rust oracle 264 passed with three documented skips, and 82 scientific tests pass; complete forced-Rust suite reaches 9,361 passed but has 36 failed and 342 errors in 11 non-Rust root causes; all 378 unsuccessful node IDs reproduce with forced Numba; B4 requires a new green exact-commit run after the active WIP is landed | `481271204`; see `release_1_0_rust_campaign_checkpoint.md` |
+| 2026-07-26 | B4 blocker reduction | remains `BLOCKED` | native bioassembly translations remove the 342-error PDB cascade; `MolSys` now delivers `structure_index`; H5MSM preserves optional structural and thermodynamic series, repeated structure order, partial-layer semantics, and multi-state inventory queries; the relevant H5MSM/report gate passes 1,074 tests and the known targeted residual is six root causes | `30d12a7c9`, `64ac440de`, `7cf7d7206` |
