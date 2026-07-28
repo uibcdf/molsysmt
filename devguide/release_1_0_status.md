@@ -49,13 +49,16 @@ and do not merge it across an unmet integration dependency.
   the remaining release work are open
 - **Current exact Rust packaging commit:** `17be9ea50`; C2 is verified by a
   clean exact-commit `cp311-abi3` wheel and installed-extension smoke
+- **Current C3 implementation commit:** `30b86cdf2`; the five-target workflow
+  and installed-wheel validator are locally green, while the remote matrix is
+  not yet executed
 - **Release readiness measure:** the formal weighted closure is 35%; no second
   subjective percentage is mixed into this operational ledger
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** implement C3 as clean multiplatform abi3 wheel CI, preserving
-  the exact validator contract proven by C2
+- **Next action:** push `30b86cdf2`, dispatch the full Rust-wheel workflow, and
+  record every artifact and result before closing C3
 - **Next packaging stage:** C3 — prove the integrated `molsysmt._rust`
   extension on the declared Linux, macOS, and Windows architecture matrix
 - **Known independent release-gate debt:** the fast release gate passes 11/12
@@ -74,7 +77,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
 | B — final Numba oracle | 10% | `DONE` | 10% | exact commit `6485a0c08` passes the 264-test bounded two-backend oracle, combined scientific and blocker gates, and the complete forced-Rust suite with 9,769 passed and 5 accepted skips; the dated artifact preserves source and binary hashes |
-| C — Rust packaging | 20% | `IN PROGRESS` | 0% | C1 selected setuptools + setuptools-rust; C2 integrated `rust/` as private `molsysmt._rust` and passed an exact-commit Linux abi3 wheel/install smoke on `17be9ea50`; C3-C7 remain open |
+| C — Rust packaging | 20% | `IN PROGRESS` | 0% | C1 selected setuptools + setuptools-rust; C2 integrated `molsysmt._rust`; C3 implementation `30b86cdf2` defines five native abi3 targets and passes local contract validation, but its remote matrix and C4-C7 remain open |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
@@ -586,3 +589,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | B4 final exact campaign | `BLOCKED` → `DONE` | clean source archive and exact Rust wheel rebuilt from `6485a0c08`; bounded oracle passes 264 tests with 3 documented skips; combined migration/scientific gate passes 501 tests with 3 skips; complete forced-Rust suite passes 9,769 tests with 5 accepted skips and zero unsuccessful outcomes | `6485a0c08`; `release_1_0_final_numba_oracle_artifact.md` |
 | 2026-07-28 | B5 oracle artifact | `PENDING` → `DONE` | dated artifact preserves the exact commit, environment, commands, source archive hash, wheel hash, installed-extension hash, bounded two-backend result, independent evidence, and complete application result | `release_1_0_final_numba_oracle_artifact.md` |
 | 2026-07-28 | C2 production Rust integration | `PENDING` → `DONE` | crate relocated to `rust/`; private `molsysmt._rust` integrated through setuptools-rust; separate-package traps removed; 80 Rust and 270 Python tests pass with 3 documented skips; exact-commit Linux wheel is `cp311-abi3`, passes automated content validation, installs non-editably, exposes 97 entries, and computes the minimum image correctly | `17be9ea50`; `release_1_0_rust_packaging_c2_artifact.md` |
+| 2026-07-28 | C3 multiplatform wheel CI implementation | remains `IN PROGRESS` | five native targets, pinned Rust/cibuildwheel configuration, strict abi3/content inspection, isolated installed-extension smoke, and artifact retention implemented; 12 contract tests, 80 Rust tests, Ruff, dependency validation, and local C2-wheel smoke pass; remote five-target run pending; pre-existing rustfmt debt assigned to C7 | `30b86cdf2`; `release_1_0_rust_packaging_c3_checkpoint.md` |
