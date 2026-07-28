@@ -64,8 +64,8 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** audit existing F2 notebook-execution evidence before running
-  or changing any course content
+- **Next action:** resume F2 by classifying its 12 deterministic notebook
+  failures, then design the network/interactive lane for the 11 deferred cases
 - **Parallel packaging action:** validate local installed wheels independently;
   coordinate sibling and MolSysMT Conda publication during manuscript writing
   or review
@@ -695,3 +695,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | C4–C7 / E4 / Segments C and E | `IN PROGRESS` → `DONE` | exact run passes five native abi3 wheels, 15 platform/Python checks, three NumPy floors, three installed public smokes, sdist round trip, exact 99-export validation, and Rust formatting, Clippy, tests, advisory, dependency, and license gates | `c4d8e9074`; run `30394881487`; `release_1_0_rust_packaging_c4_c7_artifact.md` |
 | 2026-07-28 | F1 status correction | `PENDING` → `DONE` | commit history and the live validator confirm that F1 had already landed: 156 notebooks, core 1–20, four paths 21–54, complete toctrees, unique semantic labels, and a matching manifest; the two remaining editorial references and Sphinx confirmation belong to later lifecycle stages | `f5d96218b`; `python devtools/scripts/validate_course.py` |
 | 2026-07-28 | F / F2 | `PENDING` → `IN PROGRESS` | F1 historical evidence recovered; existing notebook-execution evidence must be audited before scheduling new execution or edits | after `03a170442` |
+| 2026-07-28 | F2 execution audit checkpoint | remains `IN PROGRESS` | required union reconstructed as 37 notebooks; in-memory clean-kernel run passes 14/26 deterministic notebooks, exposes 12 failures requiring ownership classification, and defers 11 network/interactive notebooks; no notebook outputs or content were modified | `release_1_0_f2_notebook_execution_checkpoint.md` |
