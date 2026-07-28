@@ -40,9 +40,9 @@ and do not merge it across an unmet integration dependency.
 - **Active stage:** B4 — forced-Rust blocker reduction and exact-commit campaign
 - **Completed weighted closure:** 25% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segment A is certified complete; Segment
-  B is approximately 93% complete internally after the first B4 campaign,
-  blocker reduction, and the structural-growth stabilization pass, but has not
-  yet earned additional weighted closure
+  B is approximately 98% complete internally after the first B4 campaign,
+  blocker reduction, structural-growth stabilization, and closure of the known
+  NGLView residuals, but has not yet earned additional weighted closure
 - **Current repository state:** dirty WIP; not a release artifact
 - **Current landed blocker-reduction HEAD:** the transactional structural-growth
   checkpoint at the current committed `HEAD`; this is not yet a verified
@@ -52,9 +52,9 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** land the validated transactional structural-growth
-  checkpoint, then continue the remaining NGL adapter causes before rebuilding
-  the exact-commit Rust wheel and repeating the forced-Rust release gate
+- **Next action:** land the validated NGLView fidelity checkpoint, reconstruct
+  a clean exact commit, rebuild its Rust wheel, and repeat the forced-Rust
+  release gate
 - **Next packaging stage:** C2 — production crate relocation and the
   `msm_rust_kernels` → `molsysmt._rust` rename, held until B4 closes its
   exact-commit run so the campaign's build path stays reproducible. C1 is
@@ -117,6 +117,33 @@ recorded separately in
 [H5MSM 0.5 Modular Layer Contract](pending_proposals/h5msm_0_5_modular_layers.md).
 It is not part of this implementation checkpoint or the default 1.0 critical
 path.
+
+### B4 NGLView Fidelity Checkpoint
+
+The three remaining NGLView causes from the first campaign are closed in this
+checkpoint:
+
+- MolSysMT-created single-component widgets retain an isolated private topology
+  snapshot instead of losing identifiers and chemical bond metadata through
+  PDB;
+- external, empty, coordinate-only, and multicomponent widgets do not
+  implicitly acquire that snapshot or claim topology they do not contain;
+- multi-structure trajectories keep their complete coordinate axis without
+  retaining one-structure PDB metadata as a partial series;
+- group-level hydrogen-bond rendering preserves the input pair order instead
+  of relying on the canonical sorted selection result.
+
+Evidence at landing:
+
+- complete NGLView surface: 45 passed under forced Rust;
+- broad conversion/get/compare/view/PDB/Structures surface: 746 passed under
+  forced Rust;
+- Ruff and `git diff --check`: pass.
+
+The instance-level contract is recorded in
+[NGLView Adapter Contract](nglview_adapter_contract.md). With this checkpoint
+landed, B4 has no known targeted application root cause remaining and must move
+directly to the new exact-commit campaign.
 
 ## Segment A — Conversion-Fidelity Coherence
 
@@ -552,3 +579,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | B4 checkpoint | `IN PROGRESS` → `BLOCKED` | exact source and wheel hashes recorded; forced-Rust smoke 15/15, Rust oracle 264 passed with three documented skips, and 82 scientific tests pass; complete forced-Rust suite reaches 9,361 passed but has 36 failed and 342 errors in 11 non-Rust root causes; all 378 unsuccessful node IDs reproduce with forced Numba; B4 requires a new green exact-commit run after the active WIP is landed | `481271204`; see `release_1_0_rust_campaign_checkpoint.md` |
 | 2026-07-26 | B4 blocker reduction | remains `BLOCKED` | native bioassembly translations remove the 342-error PDB cascade; `MolSys` now delivers `structure_index`; H5MSM preserves optional structural and thermodynamic series, repeated structure order, partial-layer semantics, and multi-state inventory queries; the relevant H5MSM/report gate passes 1,074 tests and the known targeted residual is six root causes | `30d12a7c9`, `64ac440de`, `7cf7d7206` |
 | 2026-07-26 | C1 packaging design review | `PENDING` → `DONE` | `python -m pip wheel . --no-deps` on branch `packaging/rust-c1-spike` produced `molsysmt-0.20.0+149.gcb3341fd5.dirty-cp311-abi3-linux_x86_64.whl` carrying `molsysmt/_rust.abi3.so`, `py.typed`, 292 `molsysmt.data` files, the `molsysviewer.addons` entry point and a versioningit Git version; the extension built under CPython 3.13 loaded in a clean 3.12 virtualenv, exposed 97 kernels and returned the correct minimum-image distance; development evidence from a dirty tree, accepted for the design question only; C keeps 0% earned weight | `87317ba76` (branch, not merged) |
+| 2026-07-28 | B4 NGLView blocker reduction | remains `BLOCKED` pending exact campaign | optional topology snapshots preserve MolSysMT-origin IDs and chemical bond metadata without granting fictitious topology to generic widgets; multi-structure conversion drops partial PDB metadata; group-level hydrogen bonds preserve pair order; 45 NGLView and 746 broad consumer tests pass under forced Rust | NGLView fidelity checkpoint following `6f527bb44` |

@@ -8,10 +8,6 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     from molsysmt.native.structures import Structures
     from molsysmt.form.string_pdb_text import to_molsysmt_Structures as string_pdb_text_to_molsysmt_Structures
-    from molsysmt.basic import set
-
-    tmp_item = Structures()
-
     if is_all(structure_indices):
         n_structures = item.max_frame + 1
         structure_indices = np.arange(n_structures)
@@ -36,7 +32,15 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         coordinates = puw.quantity(coordinates, unit='angstroms')
         coordinates = puw.standardize(coordinates)
 
-        set(tmp_item, element='atom', coordinates=coordinates)
+        if tmp_item.n_structures == coordinates.shape[0]:
+            tmp_item.coordinates = coordinates
+        else:
+            # NGL trajectories expose coordinates for every structure but the
+            # structure string describes only the first one. Do not repeat or
+            # partially retain frame-aligned PDB metadata.
+            tmp_item = Structures(
+                coordinates=coordinates,
+                skip_digestion=True,
+            )
 
     return tmp_item
-

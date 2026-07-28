@@ -6,8 +6,6 @@ for ii, jj in _all_attributes.items():
     if jj['topological'] or jj['structural']:
         attributes[ii] = True
 
-attributes['bond_id'] = False
-attributes['isotope'] = False
 attributes['kinetic_energy'] = False
 attributes['occupancy'] = False
 attributes['potential_energy'] = False

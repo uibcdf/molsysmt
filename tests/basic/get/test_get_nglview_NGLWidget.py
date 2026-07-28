@@ -27,7 +27,7 @@ def test_get_nglview_NGLWidget_1():
                         'component_type': True,
                         'chain_index': True,
                         'chain_name': True,
-                        'chain_id': False,
+                        'chain_id': True,
                         'chain_type': True,
                         'molecule_index': True,
                         'molecule_name': True,
@@ -66,7 +66,7 @@ def test_get_nglview_NGLWidget_preserves_chain_and_entity_semantics_for_t4():
     assert msm.get(view, element='entity', entity_type=True) == msm.get(molsys, element='entity', entity_type=True)
 
 
-def test_get_nglview_NGLWidget_rebuilds_entity_ids_after_lossy_pdb_roundtrip():
+def test_get_nglview_NGLWidget_preserves_entity_ids_from_molsysmt_sidecar():
     molsys = msm.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'], to_form='molsysmt.MolSys')
     view = msm.convert(molsys, to_form='nglview.NGLWidget')
 
@@ -74,4 +74,4 @@ def test_get_nglview_NGLWidget_rebuilds_entity_ids_after_lossy_pdb_roundtrip():
     rebuilt_entity_id = msm.get(view, element='entity', entity_id=True)
 
     assert original_entity_id == ['1', '2', '3', '4', '5']
-    assert rebuilt_entity_id == ['0', '1', '2', '3', '4']
+    assert rebuilt_entity_id == original_entity_id

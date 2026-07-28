@@ -3,8 +3,17 @@ from molsysmt._private.arg_digestion import arg_digest
 @arg_digest(form='nglview.NGLWidget')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
 
+    from ._topology_sidecar import get_topology_sidecar
+
+    sidecar = get_topology_sidecar(item)
+    if sidecar is not None:
+        return sidecar.extract(
+            atom_indices=atom_indices,
+            copy_if_all=True,
+            skip_digestion=True,
+        )
+
     from .to_string_pdb_text import to_string_pdb_text
-    from .to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.string_pdb_text.to_molsysmt_Topology import to_molsysmt_Topology as string_pdb_text_to_molsysmt_Topology
 
     tmp_item_pdb = to_string_pdb_text(item, skip_digestion=True)

@@ -31,7 +31,7 @@ def test_view_molsyst_MolSys_with_NGLView_2(alanine_molsys):
                 'component_type': True,
                 'chain_index': True,
                 'chain_name': True,
-                'chain_id': False,
+                'chain_id': True,
                 'chain_type': True,
                 'molecule_index': True,
                 'molecule_type': True,
@@ -66,7 +66,7 @@ def test_view_molsyst_MolSys_with_NGLView_3(alanine_molsys):
                 'component_type': True,
                 'chain_index': True,
                 'chain_name': True,
-                'chain_id': False,
+                'chain_id': True,
                 'chain_type': True,
                 'molecule_index': True,
                 'molecule_name': True,
@@ -120,7 +120,7 @@ def test_view_molsyst_MolSys_with_NGLView_4(alanine_molsys):
                 'component_type': True,
                 'chain_index': True,
                 'chain_name': True,
-                'chain_id': False,
+                'chain_id': True,
                 'chain_type': True,
                 'molecule_index': True,
                 'molecule_name': True,
@@ -131,6 +131,7 @@ def test_view_molsyst_MolSys_with_NGLView_4(alanine_molsys):
                 'entity_id': True,
                 'entity_type': True,
                 'bond_index': True,
+                'bond_id': True,
                 'bond_type': True,
                 'bond_order': True,
                 'bonded_atom_pairs': True,
@@ -171,7 +172,7 @@ def test_view_molsyst_MolSys_with_NGLView_5(alanine_molsys):
                 'component_type': True,
                 'chain_index': True,
                 'chain_name': True,
-                'chain_id': False,
+                'chain_id': True,
                 'chain_type': True,
                 'molecule_index': True,
                 'molecule_name': True,
@@ -206,5 +207,5 @@ def test_view_molsyst_MolSys_with_NGLView_6():
     molsys = msm.systems['chicken villin HP35']['chicken_villin_HP35_solvated.h5msm']
     view = msm.view(molsys, viewer='NGLView')
     comparison = msm.compare(view, molsys, attribute_type='topological', coordinates=True, box=True,
-                             molecule_name=False, atom_type=True)
+                             molecule_name=True, atom_type=True)
     assert comparison

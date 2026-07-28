@@ -20,17 +20,36 @@ def add_hbonds(view, hbonds, selection=None, selection_2=None, hbond_level='atom
 
     elif hbond_level=='group':
 
-        group_indices, CA_indices = get(view, element='atom', selection='atom_name=="CA"', group_index=True,
-                                        atom_index=True)
-        aux_dict = { ii:jj for ii,jj in zip(group_indices, CA_indices) }
-
-        group_indices_start = get(view, element='atom', selection=hbonds[:,1], group_index=True)
-        CAs_start = [aux_dict[ii] for ii in group_indices_start]
-        start = get(view, element='atom', selection=CAs_start, coordinates=True)[0]
-
-        group_indices_end = get(view, element='atom', selection=hbonds[:,2], group_index=True)
-        CAs_end = [aux_dict[ii] for ii in group_indices_end]
-        end = get(view, element='atom', selection=CAs_end, coordinates=True)[0]
+        atom_group_indices = np.asarray(
+            get(view, element='atom', selection='all', group_index=True)
+        )
+        group_indices, CA_indices = get(
+            view,
+            element='atom',
+            selection='atom_name=="CA"',
+            group_index=True,
+            atom_index=True,
+        )
+        ca_by_group = {
+            group_index: atom_index
+            for group_index, atom_index in zip(group_indices, CA_indices)
+        }
+        ca_start = [
+            ca_by_group[group_index]
+            for group_index in atom_group_indices[hbonds[:, 1]]
+        ]
+        ca_end = [
+            ca_by_group[group_index]
+            for group_index in atom_group_indices[hbonds[:, 2]]
+        ]
+        coordinates = get(
+            view,
+            element='atom',
+            selection='all',
+            coordinates=True,
+        )[0]
+        start = coordinates[ca_start]
+        end = coordinates[ca_end]
 
         add_cylinders(view, start, end, color=color, color_2=color, radius=radius)
         pass

@@ -10,18 +10,26 @@ def _build_nglview_adapter():
         def __init__(self, molsys, selection='all', structure_indices='all'):
             import molsysmt as msm
             from molsysmt import pyunitwizard as puw
+            from molsysmt.form.nglview_NGLWidget._topology_sidecar import (
+                SIDECAR_ATTRIBUTE,
+            )
 
-            self.pdb = msm.convert(
+            snapshot = msm.extract(
                 molsys,
-                to_form='string:pdb_text',
                 selection=selection,
+                structure_indices=structure_indices,
+                skip_digestion=True,
+            )
+            setattr(self, SIDECAR_ATTRIBUTE, snapshot.topology.copy())
+            self.pdb = msm.convert(
+                snapshot,
+                to_form='string:pdb_text',
                 structure_indices=[0],
                 skip_digestion=True,
             )
             coordinates = msm.get(
-                molsys,
+                snapshot,
                 element='system',
-                structure_indices=structure_indices,
                 coordinates=True,
                 skip_digestion=True,
             )
