@@ -36,9 +36,9 @@ and do not merge it across an unmet integration dependency.
 
 ## Current Release Snapshot
 
-- **Active segment:** E — Rust-only validation
-- **Active stage:** C4/E4 installed-wheel platform and Python validation
-- **Completed weighted closure:** 55% of the remaining 1.0 execution plan
+- **Active segment:** F — lifecycle and release candidate
+- **Active stage:** F1 Four Paths numbering and structural validation
+- **Completed weighted closure:** 90% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
@@ -53,15 +53,19 @@ and do not merge it across an unmet integration dependency.
 - **Current C3 exact evidence commit:** `f79ccb4f0`; all five native abi3
   wheels build, audit, install, execute the private-extension smoke, and upload
   successfully in GitHub Actions run `30346103646`
+- **Current C4–C7/E4 exact evidence commit:** `c4d8e9074`; five native wheels,
+  15 platform/Python installed checks, three NumPy floors, three public smokes,
+  the sdist round trip, and Rust quality/security gates pass in GitHub Actions
+  run `30394881487`
 - **Current E3 exact evidence commit:** `692479097`; 9,585 tests pass, two are
   accepted skips, and the fast release gate passes 12/12
-- **Release readiness measure:** the formal weighted closure is 55%; no second
+- **Release readiness measure:** the formal weighted closure is 90%; no second
   subjective percentage is mixed into this operational ledger
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** execute the installed-wheel C4/E4 matrix without waiting for
-  Conda publication
+- **Next action:** execute F1 course renumbering and structural validation on
+  the now-clean course tree
 - **Parallel packaging action:** validate local installed wheels independently;
   coordinate sibling and MolSysMT Conda publication during manuscript writing
   or review
@@ -69,7 +73,7 @@ and do not merge it across an unmet integration dependency.
   Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
   declarations, 320 resolved baseline declarations, and no Tier-1 debt
 
-The 55% figure measures only the newly defined remaining-plan exit gates. It
+The 90% figure measures only the newly defined remaining-plan exit gates. It
 does not attempt to restate the much larger body of MolSysMT development,
 consolidation, or Rust kernel work completed before this ledger was created.
 
@@ -79,11 +83,11 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 39 exhaustive Tier-1 edges, 442 accepted non-exhaustive edges, zero new debt, 107 conversion-truth tests, and all conversion/form gates pass |
 | B — final Numba oracle | 10% | `DONE` | 10% | exact commit `6485a0c08` passes the 264-test bounded two-backend oracle, combined scientific and blocker gates, and the complete forced-Rust suite with 9,769 passed and 5 accepted skips; the dated artifact preserves source and binary hashes |
-| C — Rust packaging | 20% | `IN PROGRESS` | 0% | C1 selected setuptools + setuptools-rust; C2 integrated `molsysmt._rust`; C3 passed five native abi3 build/audit/install/smoke jobs on `f79ccb4f0`; C4-C7 remain open |
+| C — Rust packaging | 20% | `DONE` | 20% | C1–C7 pass: permanent backend, private abi3 integration, five native wheels, Python 3.11–3.13, NumPy floors, sdist/package parity, and Rust quality/security gates |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
-| E — scientific and ecosystem validation | 15% | `IN PROGRESS` | 0% | Rust-only runtime landed; existing unit, scientific, full-suite, fast-gate, and benchmark evidence requires stage-by-stage accreditation |
-| F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
-| **Total** | **100%** | **`IN PROGRESS`** | **55%** | Segment credit is earned only when its complete exit gate passes |
+| E — scientific and ecosystem validation | 15% | `DONE` | 15% | E1–E6 pass: Rust/scientific/full-suite gates, installed-wheel matrix, maturity-weighted consumers, and runtime/thread benchmarks |
+| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 0% | F1 course numbering and structural validation selected; documentation, final exact-commit gates, and the release candidate follow |
+| **Total** | **100%** | **`IN PROGRESS`** | **90%** | Segment credit is earned only when its complete exit gate passes |
 
 ### B4 Pause Checkpoint — Transactional Structural Growth
 
@@ -450,10 +454,10 @@ completion. No new Numba capability may be added while this segment is pending.
 | C1 — permanent crate/module and build-backend design review | `DONE` |
 | C2 — production crate relocation and private extension integration | `DONE` |
 | C3 — Linux, macOS, and Windows abi3 wheel CI | `DONE` |
-| C4 — Python 3.11–3.13 and supported NumPy installed-wheel tests | `PENDING` |
-| C5 — sdist contract | `PENDING` |
-| C6 — metadata, resources, entry points, typing, and lazy-discovery parity | `PENDING` |
-| C7 — Rust quality, security, license, and portability gates | `PENDING` |
+| C4 — Python 3.11–3.13 and supported NumPy installed-wheel tests | `DONE` |
+| C5 — sdist contract | `DONE` |
+| C6 — metadata, resources, entry points, typing, and lazy-discovery parity | `DONE` |
+| C7 — Rust quality, security, license, and portability gates | `DONE` |
 
 Conda publication is tracked separately and does not block C4: controlled
 preinstalled sibling dependencies may be used to validate the MolSysMT wheel.
@@ -480,6 +484,13 @@ exact commit produced
 `a7da5d72804e0df12bbeb7b32c52e55cd34633ae9f0bc3ee34bcf15e4a7ecca5`;
 the installed extension exposed all 97 entries and passed a minimum-image smoke.
 
+C4–C7 close on exact commit `c4d8e9074` and GitHub Actions run
+`30394881487`. Five native wheels pass 15 platform/Python checks, three NumPy
+floors, three installed public smokes, the source-distribution round trip, and
+the complete Rust quality/security boundary. The exact artifact names, hashes,
+scope, and non-Conda qualification are recorded in
+[C4–C7 Rust Packaging Artifact](release_1_0_rust_packaging_c4_c7_artifact.md).
+
 ## Segment D — Rust-Only Cut
 
 | Stage | Status |
@@ -498,7 +509,7 @@ the installed extension exposed all 97 entries and passed a minimum-image smoke.
 | E1 — Rust unit, property, error, panic, GIL, and threading tests | `DONE` |
 | E2 — independent scientific-truth matrix | `DONE` |
 | E3 — complete MolSysMT suite and release fast gates | `DONE` |
-| E4 — installed-wheel platform/Python matrix | `PENDING` |
+| E4 — installed-wheel platform/Python matrix | `DONE` |
 | E5 — maturity-weighted direct-consumer smoke | `DONE` |
 | E6 — cold/warm, memory, thread, and oversubscription benchmarks | `DONE` |
 
@@ -562,7 +573,8 @@ reproduction command are in
   xdist-plus-Rayon process surface.
 
 The numbers describe one recorded host and are not cross-platform performance
-guarantees. Installed-wheel identity remains the separate C4/E4 gate.
+guarantees. Installed-wheel identity is separately proven by the closed C4/E4
+matrix.
 
 ## Parallel Conda Delivery Track
 
@@ -679,3 +691,6 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | E3 | `IN PROGRESS` → `DONE` | complete Rust-only suite passes 9,585 tests with two accepted skips under `-n 12`; fast release gate passes 12/12; Ruff passes across package, tests, devtools, and root conftest | `692479097` |
 | 2026-07-28 | E5 | `PENDING` → `DONE` | maturity-weighted consumer audit: MolSysViewer passes 5/5 as the blocking foundational consumer; TopoMT passes 7/7; PharmacophoreMT imports but its ER-alpha workflow exposes a consumer-local obsolete `element=True` call, recorded as non-blocking adaptation debt | status-ledger commit following `9fbb95569` |
 | 2026-07-28 | E6 | `IN PROGRESS` → `DONE` | exact clean-commit Rust-only benchmark records first/repeated calls, memory, raw 1/2/4-thread samples, bounded nested concurrency, native-extension hash, scientific checks, and zero JIT-cache creation | `746e22c5f`; `release_1_0_rust_runtime_benchmark.{md,json}` |
+| 2026-07-28 | Minimal installed-runtime defect | discovered → `DONE` | optional forms remain visible but detectors whose mapped soft dependency is absent no longer execute; the missing OpenMM mapping is restored; 449 basic tests and local non-editable smoke without OpenMM pass | `c4d8e9074`; `archive/resolved_bugs/optional_form_detection_broke_minimal_install.md` |
+| 2026-07-28 | C4–C7 / E4 / Segments C and E | `IN PROGRESS` → `DONE` | exact run passes five native abi3 wheels, 15 platform/Python checks, three NumPy floors, three installed public smokes, sdist round trip, exact 99-export validation, and Rust formatting, Clippy, tests, advisory, dependency, and license gates | `c4d8e9074`; run `30394881487`; `release_1_0_rust_packaging_c4_c7_artifact.md` |
+| 2026-07-28 | F / F1 | `PENDING` → `IN PROGRESS` | C and E dependencies closed at 90% weighted completion; the clean Four Paths tree and accepted renumbering/stable-identity design make course structural migration the next release stage | after `c4d8e9074` |
