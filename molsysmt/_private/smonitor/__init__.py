@@ -23,7 +23,6 @@ __all__ = [
     "SlowChunkIOWarning",
     "MemoryPressureWarning",
     "UnknownAtomNameWarning",
-    "WarmupFailureWarning",
     "GpuNotAvailableWarning",
     "StructuralAttributeDropWarning",
 ]

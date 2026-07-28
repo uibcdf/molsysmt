@@ -1,10 +1,8 @@
-//! Rusterized MolSysMT kernels (opt-in accelerator; molsysmt never imports this).
+//! Native MolSysMT kernels distributed in the private `molsysmt._rust` extension.
 //!
-//! - `mic`: production MIC distance family, faithful ports of
-//!   `molsysmt.lib.structure.get_mic_distances.*` (Numba stays the oracle; parity is
-//!   checked bit-for-bit in the test suite).
-//! - the functions below are synthetic profile probes kept for the Rust-vs-Numba
-//!   benchmark (`bench_matrix.py`).
+//! Production numerical kernels use Rayon where parallel execution is beneficial.
+//! The `threads` module caches pools by size so session defaults and per-call
+//! overrides can coexist without resizing Rayon's global pool.
 
 use numpy::ndarray::{Array1, Array2};
 use numpy::{IntoPyArray, PyArray1, PyArray2, PyReadonlyArray1, PyReadonlyArray2};
@@ -27,6 +25,7 @@ mod topology;
 mod rmsd;
 mod axes;
 mod pca;
+mod threads;
 
 // --------------------------------------------------------------- synthetic bench probes
 
@@ -206,6 +205,7 @@ fn neighbor_counts<'py>(
 
 #[pymodule]
 fn _rust(m: &Bound<'_, PyModule>) -> PyResult<()> {
+    threads::register(m)?;
     // Private production kernels.
     mathlib::register(m)?;
     mic::register(m)?;

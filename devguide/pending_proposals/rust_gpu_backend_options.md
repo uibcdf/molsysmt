@@ -1,8 +1,14 @@
 # GPU from Rust: options and recommendation
 
-**Status:** discussion + recommendation (2026-07-24), no decision needed yet.
+**Status:** original landscape retained; near-term recommendation superseded by
+the Rust-only 1.0 decision of 2026-07-26.
 **Relates to:** `rust_numba_coexistence_and_cut_plan.md`,
 `linear_algebra_backend_for_rust_kernels.md`.
+
+> MolSysMT 1.0 will not retain Numba solely for CUDA. The current Numba-CUDA
+> surface must be removed before 1.0. A generic GPU contract may remain only if
+> a non-Numba backend satisfies its declared scientific and failure contracts.
+> See [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md).
 
 ## The question
 
@@ -53,25 +59,23 @@ exactly the same way:
 
 Neither belongs in the default wheel.
 
-## Recommendation
+## Updated Recommendation
 
-1. **Short/medium term: do not put GPU in the Rust kernels.** Keep GPU on the existing
-   Numba-CUDA/Taichi backends, orthogonal to the CPU `kernel` choice. This keeps the CPU
-   migration self-contained and the wheel portable, and avoids reimplementing a GPU path
-   that already exists.
+1. **Do not add GPU code to the default Rust wheel for the 1.0 cut.** Keep the
+   portable CPU wheel focused and self-contained.
 
-2. **Do not couple the GPU decision to the CPU cut.** The CPU migration (Numba → Rust)
-   should complete and be judged on its own. GPU-from-Rust is a separate, later, *optional*
-   track — starting it must not block retiring the CPU Numba kernels.
+2. **Remove Numba-CUDA before 1.0.** Audit Taichi independently. If it cannot
+   satisfy the declared operation, scientific parity, dependency, and error
+   contracts, narrow or remove the GPU API for 1.0 rather than retaining Numba.
 
-3. **If GPU-from-Rust is ever pursued, `wgpu` is the default-wheel-compatible choice** —
+3. **If GPU-from-Rust is pursued later, `wgpu` is the default-wheel-compatible choice** —
    portable across NVIDIA/AMD/Apple Silicon/Intel, no CUDA lock-in, accepting that it will
    not beat tuned CUDA on NVIDIA. For NVIDIA users who want maximum performance, an
    **optional CUDA-feature wheel variant** (`cudarc`, a separate wheel, not the default)
    is the clean way to offer it without polluting the portable wheel — the same
    "optional accelerated variant" pattern discussed for MKL.
 
-4. **A unified Rust CPU+GPU kernel is a real long-term option but not a near-term goal.**
+4. **A unified Rust CPU+GPU kernel remains a long-term option, not a 1.0 goal.**
    Its appeal is one source of truth for each kernel (CPU and GPU from the same Rust code
    via `wgpu`), retiring both the Numba CPU *and* the Numba-CUDA/Taichi GPU paths. That is
    attractive for maintenance, but it is a large piece of work and should be weighed only
@@ -79,6 +83,7 @@ Neither belongs in the default wheel.
 
 ## Summary
 
-GPU-from-Rust is possible and, with `wgpu`, even portable — but it is a **separate,
-optional, post-cut** decision, and the near-term answer is to leave GPU exactly where it
-is. The CPU migration neither needs nor should wait for it.
+GPU-from-Rust is possible and, with `wgpu`, even portable, but it is a separate
+post-cut decision. The CPU migration does not wait for a replacement GPU
+implementation; the 1.0 cleanup removes Numba-CUDA and retains only independently
+validated non-Numba capability.

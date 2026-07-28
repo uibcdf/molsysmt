@@ -77,12 +77,14 @@ def test_molsysmt_ambiguous_structure_warning_exposes_count_and_caller():
 
     text = message_from_catalog(
         {"code": "MSM-WARN-STRUCT-002"},
-        extra={"caller": "molsysmt.form.openmm_Topology.to_string_pdb_text", "count": 4},
+        extra={
+            "caller": "molsysmt.form.openmm_Topology.to_string_pdb_text",
+            "count": 4,
+        },
     )
 
     assert "4" in text
     assert "to_string_pdb_text" in text
-
 
 
 def test_molsysmt_model_mismatch_warning_exposes_model_count():
@@ -94,12 +96,14 @@ def test_molsysmt_model_mismatch_warning_exposes_model_count():
 
     text = message_from_catalog(
         {"code": "MSM-WARN-STRUCT-004"},
-        extra={"caller": "molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys", "count": 3},
+        extra={
+            "caller": "molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
+            "count": 3,
+        },
     )
 
     assert "3" in text
     assert "to_molsysmt_MolSys" in text
-
 
 
 def test_molsysmt_cross_chain_bond_warning_exposes_pair_count():
@@ -114,7 +118,9 @@ def test_molsysmt_cross_chain_bond_warning_exposes_pair_count():
         extra={
             "caller": "molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
             "count": 2,
-            "pairs": [("CA 1 in ALA1 with atom_index 0", "SG 3 in CYS2 with atom_index 8")],
+            "pairs": [
+                ("CA 1 in ALA1 with atom_index 0", "SG 3 in CYS2 with atom_index 8")
+            ],
         },
     )
 
@@ -140,24 +146,6 @@ def test_not_implemented_method_error_resolves_with_method_context():
     assert "structure_indices='all'" in text
 
 
-
-def test_numba_jit_warning_resolves_with_cache_state():
-    """Numba diagnostics should expose uncached compile context for QA and developers."""
-    import smonitor
-    from molsysmt._private.smonitor import CODES, message_from_catalog
-
-    smonitor.configure(profile="qa", codes=CODES)
-
-    text = message_from_catalog(
-        {"code": "MSM-WARN-NB-001"},
-        extra={"kernel": "project_component_type_from_topology", "module": "molsysmt.native._hierarchy", "cache_state": "cold"},
-    )
-
-    assert "project_component_type_from_topology" in text
-    assert "molsysmt.native._hierarchy" in text
-    assert "cold" in text
-
-
 def test_not_with_this_form_error_resolves_with_form_and_attribute_context():
     """Form mismatch diagnostics should expose the missing attribute and form."""
     from molsysmt._private.smonitor import NotWithThisFormError
@@ -171,7 +159,6 @@ def test_not_with_this_form_error_resolves_with_form_and_attribute_context():
     text = str(exc)
     assert "molsysmt.Topology" in text
     assert "box" in text
-
 
 
 def test_file_content_error_resolves_with_record_context():

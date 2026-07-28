@@ -276,24 +276,11 @@ workstation;
   narrow reproduction, or if coverage instrumentation becomes unstable under
   `xdist`.
 
-During the pre-1.0 Rust migration, the repository-level test harness accepts:
-
-```bash
-python -m pytest --molsysmt-kernel=rust ...
-python -m pytest --molsysmt-kernel=numba ...
-```
-
-The option forces one CPU backend for the entire session, including every
-xdist worker. Requesting Rust fails at configuration time when the extension is
-unavailable. This is migration infrastructure, not a public MolSysMT option,
-and must be removed with the coexistence dispatcher after the final Numba
-oracle artifact is preserved.
-
-The final migration campaign does not require two complete application-suite
-runs. The release runtime receives the complete forced-Rust suite. Numba is
-restricted to the bounded kernel parity surface that establishes the final
-oracle comparison. Scientific-truth tests remain independent of either
-implementation.
+MolSysMT now has one CPU implementation: the bundled Rust extension. The
+temporary `--molsysmt-kernel` migration selector and two-backend parity suite
+were removed after the final oracle artifact was preserved. Scientific-truth
+tests remain independent of implementation and are the maintained correctness
+authority.
 
 Coverage-specific rule:
 - the reliable coverage baseline is the full-package sweep, for example

@@ -99,14 +99,6 @@ jobs:
         shell: bash -l {0}
         run: python devtools/scripts/validate_form_adapters.py
 
-      - name: Reject new Numba coupling
+      - name: Enforce the Rust-only runtime
         shell: bash -l {0}
-        run: python devtools/scripts/audit_numba_surface.py
-
-      - name: Validate the CPU Numba-to-Rust oracle map
-        shell: bash -l {0}
-        run: python devtools/scripts/audit_numba_oracle_map.py
-
-      - name: Validate Rust and Numba divergence contracts
-        shell: bash -l {0}
-        run: python devtools/scripts/audit_rust_numba_divergences.py --require-closed
+        run: python devtools/scripts/audit_numba_surface.py --require-zero

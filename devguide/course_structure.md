@@ -37,11 +37,11 @@ then verify:
 Do not mark a course topic verified because another path has a similarly named
 notebook. Each path can contain different code and scientific assumptions.
 
-## Warmup synchronization
+## Native-performance synchronization
 
-All four path-specific module-45 performance notebooks use
-`molsysmt.warmup()`. They retain the cold-versus-warm teaching distinction while
-avoiding the deprecated `warmup_numba()` alias.
+The path-specific performance modules must teach that native kernels are
+precompiled and separate import, preparation, and execution costs in
+benchmarks. They must not present a JIT warm-up workflow.
 
 ## Pending review material
 

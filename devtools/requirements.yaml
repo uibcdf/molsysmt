@@ -16,7 +16,6 @@ production:
     - *setup_dependencies
     - h5py
     - numpy
-    - numba
     - pyunitwizard
     - pandas
     - jinja2

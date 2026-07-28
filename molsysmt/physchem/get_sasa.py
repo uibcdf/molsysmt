@@ -13,17 +13,30 @@ import numpy as np
 CELL_LIST_MIN_ATOMS = 1000
 
 
-@signal(tags=['api', 'physchem'])
+@signal(tags=["api", "physchem"])
 @arg_digest()
 @with_configure_overrides
-def get_sasa(molecular_system, element='atom', selection='all', structure_indices='all',
-             syntax='MolSysMT', engine='MolSysMT', probe_radius='1.4 angstroms', n_sphere_points=240,
-             use_cell_list='auto', use_gpu=None, gpu_backend=None, skip_digestion=False):
+def get_sasa(
+    molecular_system,
+    element="atom",
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    probe_radius="1.4 angstroms",
+    n_sphere_points=240,
+    use_cell_list="auto",
+    use_gpu=None,
+    gpu_backend=None,
+    parallel=None,
+    num_threads=None,
+    skip_digestion=False,
+):
     """
     Solvent-accessible surface area (SASA) per atom or residue group.
 
     Uses the Shrake–Rupley rolling-sphere algorithm. The default engine
-    computes SASA natively with optional GPU acceleration (Numba CUDA or Taichi).
+    computes SASA with the bundled Rust kernels.
 
     Parameters
     ----------
@@ -65,6 +78,10 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
         Whether to run calculation on GPU.
     gpu_backend : {'cuda', 'taichi'} or None, default None
         The preferred GPU framework to execute calculations on.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
     skip_digestion : bool, default False
         Whether to skip argument digestion.
 
@@ -89,53 +106,73 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
 
     from molsysmt.basic import convert, select, get
 
-    if engine == 'MDTraj':
-
-        tmp_item = convert(molecular_system, to_form='mdtraj.Trajectory',
-                           structure_indices=structure_indices)
+    if engine == "MDTraj":
+        tmp_item = convert(
+            molecular_system,
+            to_form="mdtraj.Trajectory",
+            structure_indices=structure_indices,
+        )
 
         from mdtraj import shrake_rupley
+
         if isinstance(probe_radius, str):
             probe_radius = puw.parse.parse(probe_radius)
-        mdtraj_probe_radius = puw.get_value(probe_radius, to_unit='nm')
-        sasa_array = shrake_rupley(tmp_item, probe_radius=mdtraj_probe_radius,
-                                   n_sphere_points=n_sphere_points, mode='atom')
+        mdtraj_probe_radius = puw.get_value(probe_radius, to_unit="nm")
+        sasa_array = shrake_rupley(
+            tmp_item,
+            probe_radius=mdtraj_probe_radius,
+            n_sphere_points=n_sphere_points,
+            mode="atom",
+        )
 
-        if element == 'atom':
-
+        if element == "atom":
             if not is_all(selection):
-                atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+                atom_indices = select(
+                    molecular_system, selection=selection, syntax=syntax
+                )
                 sasa_array = sasa_array[:, atom_indices]
 
         else:
-
-            sets_atoms = get(molecular_system, element=element, selection=selection,
-                             syntax=syntax, atom_index=True)
+            sets_atoms = get(
+                molecular_system,
+                element=element,
+                selection=selection,
+                syntax=syntax,
+                atom_index=True,
+            )
 
             n_sets = len(sets_atoms)
             n_structures = sasa_array.shape[0]
 
-            new_sasa_array = np.empty([n_structures, n_sets], dtype='float')
+            new_sasa_array = np.empty([n_structures, n_sets], dtype="float")
             for ii in range(n_sets):
                 new_sasa_array[:, ii] = sasa_array[:, sets_atoms[ii]].sum(axis=1)
             sasa_array = new_sasa_array
 
-        sasa_array = puw.quantity(sasa_array, 'nm**2')
+        sasa_array = puw.quantity(sasa_array, "nm**2")
         sasa_array = puw.standardize(sasa_array)
 
-    elif engine == 'MolSysMT':
-
+    elif engine == "MolSysMT":
         from molsysmt.physchem import get_atomic_radius
-        from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
+        from molsysmt.lib.structure._kernel_inputs import (
+            extract_coordinates_value_and_unit,
+        )
         from molsysmt._private.gpu import resolve_use_gpu
         import molsysmt.configure as config
 
         # Shrake-Rupley requires the full system to calculate occlusion correctly
-        coordinates = get(molecular_system, element='atom', selection='all',
-                          structure_indices=structure_indices, coordinates=True)
+        coordinates = get(
+            molecular_system,
+            element="atom",
+            selection="all",
+            structure_indices=structure_indices,
+            coordinates=True,
+        )
         coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
-        radii = get_atomic_radius(molecular_system, element='atom', selection='all', definition='vdw')
+        radii = get_atomic_radius(
+            molecular_system, element="atom", selection="all", definition="vdw"
+        )
         radii_val = puw.get_value(radii, to_unit=length_unit)
 
         # Rolling solvent probe radius (default: 1.4 angstroms, the standard water probe)
@@ -151,63 +188,116 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
         if _use_gpu:
             box = None
             from molsysmt.pbc import has_pbc as _has_pbc
+
             if _has_pbc(molecular_system):
-                box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+                box = get(
+                    molecular_system,
+                    element="system",
+                    structure_indices=structure_indices,
+                    box=True,
+                )
                 if box is not None and box[0] is not None:
-                    box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
+                    box = np.asarray(
+                        puw.get_value(box, to_unit=length_unit), dtype=np.float64
+                    )
                 else:
                     box = None
 
             # Taichi backend
-            if config.gpu_backend == 'taichi':
+            if config.gpu_backend == "taichi":
                 try:
                     import taichi
+
                     taichi_available = True
                 except ImportError:
                     taichi_available = False
                     import warnings
                     from molsysmt._private.smonitor import GpuNotAvailableWarning
-                    warnings.warn(GpuNotAvailableWarning(
-                        reason='the taichi package is not installed'))
+
+                    warnings.warn(
+                        GpuNotAvailableWarning(
+                            reason="the taichi package is not installed"
+                        )
+                    )
 
                 if taichi_available:
                     if box is not None:
-                        from molsysmt.lib.structure.get_sasa_taichi import get_mic_sasa as _kernel
-                        sasa_array = _kernel(coordinates, box, radii_val, probe_radius, n_points=n_sphere_points)
-                    else:
-                        from molsysmt.lib.structure.get_sasa_taichi import get_sasa as _kernel
-                        sasa_array = _kernel(coordinates, radii_val, probe_radius, n_points=n_sphere_points)
+                        from molsysmt.lib.structure.get_sasa_taichi import (
+                            get_mic_sasa as _kernel,
+                        )
 
-            # Numba CUDA backend
+                        sasa_array = _kernel(
+                            coordinates,
+                            box,
+                            radii_val,
+                            probe_radius,
+                            n_points=n_sphere_points,
+                        )
+                    else:
+                        from molsysmt.lib.structure.get_sasa_taichi import (
+                            get_sasa as _kernel,
+                        )
+
+                        sasa_array = _kernel(
+                            coordinates,
+                            radii_val,
+                            probe_radius,
+                            n_points=n_sphere_points,
+                        )
+
+            # Retired experimental CUDA branch.
             if sasa_array is None:
                 if box is not None:
-                    from molsysmt.lib.structure.get_sasa_cuda import get_mic_sasa as _kernel
-                    sasa_array = _kernel(coordinates, box, radii_val, probe_radius, n_points=n_sphere_points)
+                    from molsysmt.lib.structure.get_sasa_cuda import (
+                        get_mic_sasa as _kernel,
+                    )
+
+                    sasa_array = _kernel(
+                        coordinates,
+                        box,
+                        radii_val,
+                        probe_radius,
+                        n_points=n_sphere_points,
+                    )
                 else:
                     from molsysmt.lib.structure.get_sasa_cuda import get_sasa as _kernel
-                    sasa_array = _kernel(coordinates, radii_val, probe_radius, n_points=n_sphere_points)
+
+                    sasa_array = _kernel(
+                        coordinates, radii_val, probe_radius, n_points=n_sphere_points
+                    )
 
         # Fallback to JIT CPU backend
         if sasa_array is None:
             box = None
             from molsysmt.pbc import has_pbc as _has_pbc
+
             if _has_pbc(molecular_system):
-                box = get(molecular_system, element='system', structure_indices=structure_indices, box=True)
+                box = get(
+                    molecular_system,
+                    element="system",
+                    structure_indices=structure_indices,
+                    box=True,
+                )
                 if box is not None and box[0] is not None:
-                    box = np.asarray(puw.get_value(box, to_unit=length_unit), dtype=np.float64)
+                    box = np.asarray(
+                        puw.get_value(box, to_unit=length_unit), dtype=np.float64
+                    )
                 else:
                     box = None
 
             from molsysmt import lib as msmlib
             from molsysmt._private import rust_backend as _kernels
-            from molsysmt.lib.structure.get_sasa_cuda import get_fibonacci_sphere_points
+            from molsysmt.lib.structure.sphere_points import (
+                get_fibonacci_sphere_points,
+            )
+
             sphere_pts = get_fibonacci_sphere_points(n_sphere_points)
 
             radii_val = np.ascontiguousarray(radii_val, dtype=np.float64)
             coordinates = np.ascontiguousarray(coordinates, dtype=np.float64)
 
             n_atoms_total = coordinates.shape[1]
-            if use_cell_list == 'auto':
+            if use_cell_list == "auto":
                 _use_cell_list = n_atoms_total >= CELL_LIST_MIN_ATOMS
             else:
                 _use_cell_list = bool(use_cell_list)
@@ -221,35 +311,47 @@ def get_sasa(molecular_system, element='atom', selection='all', structure_indice
                 cutoff = 2.0 * float(radii_val.max()) + 2.0 * probe_radius
                 if box is not None:
                     sasa_array = _kernels.get_mic_sasa_cell_list(
-                        coordinates, box, radii_val, sphere_pts, probe_radius, cutoff)
+                        coordinates, box, radii_val, sphere_pts, probe_radius, cutoff
+                    )
                 else:
                     sasa_array = _kernels.get_sasa_cell_list(
-                        coordinates, radii_val, sphere_pts, probe_radius, cutoff)
+                        coordinates, radii_val, sphere_pts, probe_radius, cutoff
+                    )
             elif box is not None:
-                sasa_array = _kernels.get_mic_sasa(coordinates, box, radii_val, sphere_pts, probe_radius)
+                sasa_array = _kernels.get_mic_sasa(
+                    coordinates, box, radii_val, sphere_pts, probe_radius
+                )
             else:
-                sasa_array = _kernels.get_sasa(coordinates, radii_val, sphere_pts, probe_radius)
+                sasa_array = _kernels.get_sasa(
+                    coordinates, radii_val, sphere_pts, probe_radius
+                )
 
         # Filter and accumulate results based on selection
-        if element == 'atom':
+        if element == "atom":
             if not is_all(selection):
-                atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+                atom_indices = select(
+                    molecular_system, selection=selection, syntax=syntax
+                )
                 sasa_array = sasa_array[:, atom_indices]
         else:
-            sets_atoms = get(molecular_system, element=element, selection=selection,
-                             syntax=syntax, atom_index=True)
+            sets_atoms = get(
+                molecular_system,
+                element=element,
+                selection=selection,
+                syntax=syntax,
+                atom_index=True,
+            )
             n_sets = len(sets_atoms)
             n_structures = sasa_array.shape[0]
-            new_sasa_array = np.empty([n_structures, n_sets], dtype='float')
+            new_sasa_array = np.empty([n_structures, n_sets], dtype="float")
             for ii in range(n_sets):
                 new_sasa_array[:, ii] = sasa_array[:, sets_atoms[ii]].sum(axis=1)
             sasa_array = new_sasa_array
 
-        sasa_array = puw.quantity(sasa_array, 'nm**2')
+        sasa_array = puw.quantity(sasa_array, "nm**2")
         sasa_array = puw.standardize(sasa_array)
 
     else:
-
         raise NotImplementedMethodError()
 
     return sasa_array

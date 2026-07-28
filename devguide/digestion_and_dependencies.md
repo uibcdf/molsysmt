@@ -105,21 +105,11 @@ startup time across environments:
    `__getattr__` resolve registered code on demand and cache package attributes
    after successful resolution.
 
-### ♨️ Unified Preheating Engine (`molsysmt.warmup()`)
-To support clean performance profiling and JIT compilation, MolSysMT exposes a unified preheating API:
+### Native kernel startup
 
-*   **`molsysmt.warmup(numba=True, modules=True, strict=False, return_report=False)`**:
-    - **`modules=True` (default)**: Attempts to resolve all registered lazy
-      attributes.
-    - **`numba=True` (default)**: Pre-compiles all registered Numba JIT kernels.
-    - **`strict=True`**: Propagates unexpected lazy-import failures for QA.
-    - **`return_report=True`**: Reports compiled kernels, loaded attributes,
-      expected optional-dependency skips, and unexpected failures.
-*   **Deprecation Alias**: The old `warmup_numba()` function is preserved as a deprecated legacy wrapper that issues a warning and delegates to `warmup(numba=True, modules=True)`. Always use `molsysmt.warmup()` in new scripts and benchmarks.
-
-The default return value remains the number of compiled kernels for backward
-compatibility. Missing soft dependencies are recorded as skipped capabilities;
-other failures emit `WarmupFailureWarning` unless strict mode propagates them.
+Native Rust kernels are compiled into the installed extension. MolSysMT has no
+kernel warm-up API; applications may import the public namespaces they need
+when eager module loading is useful.
 
 ## Single Source of Truth
 Dependency status and form mapping live in `molsysmt/_depdigest.py`.

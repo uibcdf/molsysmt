@@ -16,6 +16,8 @@ root `ROADMAP.md`. Concrete unresolved work lives under `pending_bugs/` and
 - make form tiers explicit rather than treating unknown forms as contractual;
 - create a machine-readable public API stability registry;
 - validate public attribute delivery and conversion fidelity;
+- productize the Rust extension and remove the transitional Numba CPU/CUDA
+  implementations before 1.0;
 - keep Python-version metadata and release matrices aligned automatically.
 
 ## Priority 2: reproducibility and lifecycle

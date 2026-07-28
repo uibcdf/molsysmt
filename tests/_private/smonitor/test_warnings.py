@@ -45,18 +45,6 @@ def test_unknown_atom_name_warning():
     assert isinstance(warning, Warning)
 
 
-def test_warmup_failure_warning():
-    from molsysmt._private.smonitor.warnings import WarmupFailureWarning
-
-    warning = WarmupFailureWarning(
-        attribute="broken",
-        error_type="RuntimeError",
-        reason="failure",
-    )
-
-    assert isinstance(warning, Warning)
-
-
 def test_download_warning_instantiable():
     from molsysmt._private.smonitor.warnings import DownloadWarning
     w = DownloadWarning()

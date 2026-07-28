@@ -9,7 +9,6 @@ dependencies:
 - versioningit>=3.0
 - h5py
 - numpy
-- numba
 - argdigest>=0.9.3
 - depdigest>=0.10.0
 - smonitor>=0.11.6

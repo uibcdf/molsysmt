@@ -5,15 +5,23 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
 import gc
 
-@signal(tags=['api', 'structure'])
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def flip(molecular_system, vector=None, point='[0,0,0] nm', selection='all', structure_indices='all',
-        syntax='MolSysMT', in_place=False):
+def flip(
+    molecular_system,
+    vector=None,
+    point="[0,0,0] nm",
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    in_place=False,
+):
     """
     Reflect (flip) atomic coordinates of a selection through a plane defined by a vector and a point.
 
     Each selected atom's position is reflected across the plane that passes through ``point``
-    and is perpendicular to ``vector``.  The Numba JIT kernel
+    and is perpendicular to ``vector``. The native kernel
     The reflection is performed in-place on the coordinate array by the compute kernel.
 
     Parameters
@@ -48,10 +56,16 @@ def flip(molecular_system, vector=None, point='[0,0,0] nm', selection='all', str
     from molsysmt.basic import get, set, select, copy
     from molsysmt.structure import translate
 
-    coordinates = get(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
-                      syntax=syntax, coordinates=True)
+    coordinates = get(
+        molecular_system,
+        element="atom",
+        selection=selection,
+        structure_indices=structure_indices,
+        syntax=syntax,
+        coordinates=True,
+    )
 
-    coordinates, length_unit =  puw.get_value_and_unit(coordinates)
+    coordinates, length_unit = puw.get_value_and_unit(coordinates)
     point = puw.get_value(point, to_unit=length_unit)
 
     coordinates = np.asarray(coordinates, dtype=np.float64)
@@ -66,21 +80,27 @@ def flip(molecular_system, vector=None, point='[0,0,0] nm', selection='all', str
 
     coordinates = puw.quantity(coordinates, unit=length_unit)
 
-
     if in_place:
-
-        set(molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
-        del(coordinates)
+        set(
+            molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+        )
+        del coordinates
         gc.collect()
 
     else:
-
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
-        del(coordinates)
+        set(
+            tmp_molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+        )
+        del coordinates
         gc.collect()
 
         return tmp_molecular_system
-

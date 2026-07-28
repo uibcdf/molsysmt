@@ -8,10 +8,7 @@ conda.
 conda install -c uibcdf molsysmt
 ```
 
-:::{admonition} First-use Numba compilation
-Some MolSysMT kernels are accelerated with Numba. The first call to those
-kernels can take a moment while they compile. To avoid that latency, run
-`molsysmt.warmup()` once after installing. For an auditable environment check,
-use `molsysmt.warmup(strict=True, return_report=True)` and inspect the returned
-report.
+:::{admonition} Precompiled native kernels
+MolSysMT's numerical kernels are compiled into the installed Rust extension, so
+there is no first-use JIT compilation or kernel warm-up step.
 :::

@@ -7,14 +7,33 @@ from molsysmt.configure import with_configure_overrides
 import numpy as np
 import gc
 
-@signal(tags=['api', 'structure'])
+
+@signal(tags=["api", "structure"])
 @arg_digest()
 @with_configure_overrides
-def get_contacts(molecular_system, selection=None, center_of_atoms=False, weights=None, structure_indices="all",
-                 selection_2=None, center_of_atoms_2=False, weights_2=None, structure_indices_2=None,
-                 threshold='12 angstroms', pairs=False, pbc=True, syntax='MolSysMT',
-                 output_type='numpy.ndarray', output_indices=None, use_gpu=None, gpu_backend=None, cell_list=None, skip_digestion=False):
-
+def get_contacts(
+    molecular_system,
+    selection=None,
+    center_of_atoms=False,
+    weights=None,
+    structure_indices="all",
+    selection_2=None,
+    center_of_atoms_2=False,
+    weights_2=None,
+    structure_indices_2=None,
+    threshold="12 angstroms",
+    pairs=False,
+    pbc=True,
+    syntax="MolSysMT",
+    output_type="numpy.ndarray",
+    output_indices=None,
+    use_gpu=None,
+    gpu_backend=None,
+    cell_list=None,
+    parallel=None,
+    num_threads=None,
+    skip_digestion=False,
+):
     """
     Compute a boolean contact map between two sets of atoms (or atom-group centers).
 
@@ -77,6 +96,10 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
         Whether to run calculation on GPU.
     gpu_backend : {'cuda', 'taichi'} or None, default None
         The preferred GPU framework to execute calculations on.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
     skip_digestion : bool, default False
         Whether to skip argument digestion (for internal use on trusted hot paths).
 
@@ -95,17 +118,17 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
     from molsysmt.pbc import has_pbc
 
     if selection is None:
-        selection = 'all'
+        selection = "all"
 
     if pbc:
-        pbc=has_pbc(molecular_system)
+        pbc = has_pbc(molecular_system)
 
     if pairs and (selection_2 is None):
         if is_iterable_of_pairs(selection):
             if not isinstance(selection, np.ndarray):
-                selection=np.array(selection)
-            selection_2 = selection[:,1]
-            selection = selection[:,0]
+                selection = np.array(selection)
+            selection_2 = selection[:, 1]
+            selection = selection[:, 0]
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
@@ -115,6 +138,7 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
         atom_indices_2 = select(molecular_system, selection=selection_2, syntax=syntax)
 
     from molsysmt._private.variables import is_iterable_of_iterables
+
     if is_iterable_of_iterables(atom_indices):
         center_of_atoms = True
     if is_iterable_of_iterables(atom_indices_2):
@@ -131,22 +155,42 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
     # 1. Fetch coordinates
     if center_of_atoms:
         from molsysmt.structure.get_center import get_center
-        coordinates = get_center(molecular_system, selection=atom_indices,
-                structure_indices=structure_indices, weights=weights)
+
+        coordinates = get_center(
+            molecular_system,
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            weights=weights,
+        )
     else:
-        coordinates = get(molecular_system, element='atom', selection=atom_indices,
-                          structure_indices=structure_indices, syntax=syntax,
-                          coordinates=True)
+        coordinates = get(
+            molecular_system,
+            element="atom",
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=True,
+        )
 
     if atom_indices_2 is not None:
         if center_of_atoms_2:
             from molsysmt.structure.get_center import get_center
-            coordinates_2 = get_center(molecular_system, selection=atom_indices_2,
-                    structure_indices=structure_indices_2 or structure_indices, weights=weights_2)
+
+            coordinates_2 = get_center(
+                molecular_system,
+                selection=atom_indices_2,
+                structure_indices=structure_indices_2 or structure_indices,
+                weights=weights_2,
+            )
         else:
-            coordinates_2 = get(molecular_system, element='atom', selection=atom_indices_2,
-                                structure_indices=structure_indices_2 or structure_indices, syntax=syntax,
-                                coordinates=True)
+            coordinates_2 = get(
+                molecular_system,
+                element="atom",
+                selection=atom_indices_2,
+                structure_indices=structure_indices_2 or structure_indices,
+                syntax=syntax,
+                coordinates=True,
+            )
     else:
         coordinates_2 = None
 
@@ -159,7 +203,9 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
         else:
             payload = coords_val.shape[0] * coords_val.shape[1] * coords_val.shape[1]
     else:
-        _, coords_2_val, _ = align_coordinates_values_and_unit(coordinates, coordinates_2)
+        _, coords_2_val, _ = align_coordinates_values_and_unit(
+            coordinates, coordinates_2
+        )
         if pairs:
             payload = coords_val.shape[0] * coords_val.shape[1]
         else:
@@ -177,83 +223,131 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
         # Get box if pbc is requested
         box = None
         if pbc:
-            box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+            box = get(
+                molecular_system,
+                element="system",
+                structure_indices=structure_indices,
+                box=True,
+            )
             if box is not None and box[0] is not None:
                 box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
             else:
                 box = None
 
         # Check if we should use Taichi Lang backend
-        if config.gpu_backend == 'taichi':
+        if config.gpu_backend == "taichi":
             try:
                 import taichi
+
                 taichi_available = True
             except ImportError:
                 taichi_available = False
                 import warnings
                 from molsysmt._private.smonitor import GpuNotAvailableWarning
-                warnings.warn(GpuNotAvailableWarning(
-                    reason='the taichi package is not installed'))
+
+                warnings.warn(
+                    GpuNotAvailableWarning(reason="the taichi package is not installed")
+                )
 
             if taichi_available:
                 if pairs:
                     if coords_2_val is None:
                         coords_2_val = coords_val
                     if box is not None:
-                        from molsysmt.lib.structure.get_contacts_taichi import get_mic_contacts_pairs as _kernel
-                        contact_map = _kernel(coords_val, coords_2_val, box, threshold_val)
+                        from molsysmt.lib.structure.get_contacts_taichi import (
+                            get_mic_contacts_pairs as _kernel,
+                        )
+
+                        contact_map = _kernel(
+                            coords_val, coords_2_val, box, threshold_val
+                        )
                     else:
-                        from molsysmt.lib.structure.get_contacts_taichi import get_contacts_pairs as _kernel
+                        from molsysmt.lib.structure.get_contacts_taichi import (
+                            get_contacts_pairs as _kernel,
+                        )
+
                         contact_map = _kernel(coords_val, coords_2_val, threshold_val)
                 elif coords_2_val is None:
                     if box is not None:
-                        from molsysmt.lib.structure.get_contacts_taichi import get_mic_contacts_single_system as _kernel
+                        from molsysmt.lib.structure.get_contacts_taichi import (
+                            get_mic_contacts_single_system as _kernel,
+                        )
+
                         contact_map = _kernel(coords_val, box, threshold_val)
                     else:
-                        from molsysmt.lib.structure.get_contacts_taichi import get_contacts_single_system as _kernel
+                        from molsysmt.lib.structure.get_contacts_taichi import (
+                            get_contacts_single_system as _kernel,
+                        )
+
                         contact_map = _kernel(coords_val, threshold_val)
                 else:
                     if box is not None:
-                        from molsysmt.lib.structure.get_contacts_taichi import get_mic_contacts as _kernel
-                        contact_map = _kernel(coords_val, coords_2_val, box, threshold_val)
+                        from molsysmt.lib.structure.get_contacts_taichi import (
+                            get_mic_contacts as _kernel,
+                        )
+
+                        contact_map = _kernel(
+                            coords_val, coords_2_val, box, threshold_val
+                        )
                     else:
-                        from molsysmt.lib.structure.get_contacts_taichi import get_contacts as _kernel
+                        from molsysmt.lib.structure.get_contacts_taichi import (
+                            get_contacts as _kernel,
+                        )
+
                         contact_map = _kernel(coords_val, coords_2_val, threshold_val)
 
-        # Fallback/Default Numba CUDA backend
+        # Retired experimental CUDA branch.
         if contact_map is None:
             if pairs:
                 if coords_2_val is None:
                     coords_2_val = coords_val
                 if box is not None:
-                    from molsysmt.lib.structure.get_contacts_cuda import get_mic_contacts_pairs as _kernel
+                    from molsysmt.lib.structure.get_contacts_cuda import (
+                        get_mic_contacts_pairs as _kernel,
+                    )
+
                     contact_map = _kernel(coords_val, coords_2_val, box, threshold_val)
                 else:
-                    from molsysmt.lib.structure.get_contacts_cuda import get_contacts_pairs as _kernel
+                    from molsysmt.lib.structure.get_contacts_cuda import (
+                        get_contacts_pairs as _kernel,
+                    )
+
                     contact_map = _kernel(coords_val, coords_2_val, threshold_val)
             elif coords_2_val is None:
                 if box is not None:
-                    from molsysmt.lib.structure.get_contacts_cuda import get_mic_contacts_single_system as _kernel
+                    from molsysmt.lib.structure.get_contacts_cuda import (
+                        get_mic_contacts_single_system as _kernel,
+                    )
+
                     contact_map = _kernel(coords_val, box, threshold_val)
                 else:
-                    from molsysmt.lib.structure.get_contacts_cuda import get_contacts_single_system as _kernel
+                    from molsysmt.lib.structure.get_contacts_cuda import (
+                        get_contacts_single_system as _kernel,
+                    )
+
                     contact_map = _kernel(coords_val, threshold_val)
             else:
                 if box is not None:
-                    from molsysmt.lib.structure.get_contacts_cuda import get_mic_contacts as _kernel
+                    from molsysmt.lib.structure.get_contacts_cuda import (
+                        get_mic_contacts as _kernel,
+                    )
+
                     contact_map = _kernel(coords_val, coords_2_val, box, threshold_val)
                 else:
-                    from molsysmt.lib.structure.get_contacts_cuda import get_contacts as _kernel
+                    from molsysmt.lib.structure.get_contacts_cuda import (
+                        get_contacts as _kernel,
+                    )
+
                     contact_map = _kernel(coords_val, coords_2_val, threshold_val)
 
     # Fallback to CPU pipeline if GPU was not used
     if contact_map is None:
         _use_cell_list = config.cell_list
-        if _use_cell_list == 'auto':
+        if _use_cell_list == "auto":
             # The cell-list beats the dense O(N^2) matrix from ~500 query atoms (measured
             # 8-180x); below ~300 both paths are sub-ms. The threshold is tuned for the
-            # Rust kernel, which is the target implementation (Numba is being retired).
-            _use_cell_list = (coords_val.shape[1] > 400)
+            # Supported Rust kernel.
+            _use_cell_list = coords_val.shape[1] > 400
 
         if _use_cell_list and not pairs:
             if coords_2_val is None:
@@ -267,7 +361,12 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
 
             box_val = None
             if pbc:
-                box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+                box = get(
+                    molecular_system,
+                    element="system",
+                    structure_indices=structure_indices,
+                    box=True,
+                )
                 if box is not None and box[0] is not None:
                     box_val = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
                 else:
@@ -276,15 +375,23 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
             num_structures = coords_val.shape[0]
             n_elements_1 = coords_val.shape[1]
             n_elements_2 = tmp_coords_2_val.shape[1]
-            contact_map = np.zeros((num_structures, n_elements_1, n_elements_2), dtype=bool)
+            contact_map = np.zeros(
+                (num_structures, n_elements_1, n_elements_2), dtype=bool
+            )
 
             # One parallel multi-structure neighbour search over the flattened
             # (structure, query-atom) space, then a vectorised fill of the map.
             from molsysmt._private.rust_backend import neighbor_list_csr_multi
+
             ref_val = None if is_self else tmp_coords_2_val
             offsets, indices, _ = neighbor_list_csr_multi(
-                coords_val, ref_val, box=box_val, cutoff=threshold_val,
-                exclude_self=is_self, sort_by_distance=False)
+                coords_val,
+                ref_val,
+                box=box_val,
+                cutoff=threshold_val,
+                exclude_self=is_self,
+                sort_by_distance=False,
+            )
             counts = np.diff(offsets)
             w_of_entry = np.repeat(np.arange(num_structures * n_elements_1), counts)
             s_of_entry = w_of_entry // n_elements_1
@@ -294,54 +401,66 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
             if is_self:
                 contact_map[:, np.arange(n_elements_1), np.arange(n_elements_1)] = True
         else:
-            all_dists = get_distances(molecular_system=molecular_system, selection=atom_indices,
-                        center_of_atoms=center_of_atoms, weights=weights, structure_indices=structure_indices,
-                        selection_2=atom_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
-                        structure_indices_2=structure_indices_2, pairs=pairs, pbc=pbc, skip_digestion=True)
+            all_dists = get_distances(
+                molecular_system=molecular_system,
+                selection=atom_indices,
+                center_of_atoms=center_of_atoms,
+                weights=weights,
+                structure_indices=structure_indices,
+                selection_2=atom_indices_2,
+                center_of_atoms_2=center_of_atoms_2,
+                weights_2=weights_2,
+                structure_indices_2=structure_indices_2,
+                pairs=pairs,
+                pbc=pbc,
+                skip_digestion=True,
+            )
 
             length_units = puw.get_unit(all_dists)
             threshold = puw.get_value(threshold, to_unit=length_units)
             all_dists = puw.get_value(all_dists)
 
-            num_structures=all_dists.shape[0]
-            contact_map=np.empty(all_dists.shape, dtype=bool)
+            num_structures = all_dists.shape[0]
+            contact_map = np.empty(all_dists.shape, dtype=bool)
 
             for indice_structure in range(num_structures):
                 if pairs:
-                    contact_map[indice_structure,:]=(all_dists[indice_structure,:]<=threshold)
+                    contact_map[indice_structure, :] = (
+                        all_dists[indice_structure, :] <= threshold
+                    )
                 else:
-                    contact_map[indice_structure,:,:]=(all_dists[indice_structure,:,:]<=threshold)
+                    contact_map[indice_structure, :, :] = (
+                        all_dists[indice_structure, :, :] <= threshold
+                    )
 
-            del(all_dists, num_structures, indice_structure, length_units)
+            del (all_dists, num_structures, indice_structure, length_units)
             gc.collect()
 
     output = None
 
-    if output_type=='numpy.ndarray':
-
+    if output_type == "numpy.ndarray":
         output = contact_map
 
-    elif output_type in ['pairs', 'sorted pairs']:
-
+    elif output_type in ["pairs", "sorted pairs"]:
         output = []
         n_contact_maps = contact_map.shape[0]
 
         if pairs:
-
-            if output_indices=='selection':
+            if output_indices == "selection":
                 for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(contact_map[ii,:]==True)[0]
+                    aux_pairs = np.nonzero(contact_map[ii, :] == True)[0]
                     output.append(aux_pairs.tolist())
-            elif output_indices=='atom':
+            elif output_indices == "atom":
                 for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(contact_map[ii,:]==True)[0]
-                    output.append([[selection[ii],selection_2[ii]] for ii in aux_pairs])
+                    aux_pairs = np.nonzero(contact_map[ii, :] == True)[0]
+                    output.append(
+                        [[selection[ii], selection_2[ii]] for ii in aux_pairs]
+                    )
 
         else:
-
             if selection_2 is None:
                 for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(np.triu(contact_map[ii],k=1)==True)
+                    aux_pairs = np.nonzero(np.triu(contact_map[ii], k=1) == True)
                     aux_pairs = np.column_stack(aux_pairs).tolist()
                     output.append(aux_pairs)
             else:
@@ -350,25 +469,25 @@ def get_contacts(molecular_system, selection=None, center_of_atoms=False, weight
                     aux_pairs = np.column_stack(aux_pairs).tolist()
                     output.append(aux_pairs)
 
-            if output_indices=='atom':
-
+            if output_indices == "atom":
                 atom_indices = np.array(atom_indices)
 
                 if atom_indices_2 is None:
                     for ii in range(n_contact_maps):
-                        output[ii]=atom_indices[output[ii]].tolist()
+                        output[ii] = atom_indices[output[ii]].tolist()
                 else:
                     atom_indices_2 = np.array(atom_indices_2)
                     for ii in range(n_contact_maps):
                         aux_pairs = np.array(output[ii])
-                        output[ii]=np.column_stack([atom_indices[aux_pairs[:,0]],
-                                atom_indices_2[aux_pairs[:,1]]]).tolist()
+                        output[ii] = np.column_stack(
+                            [
+                                atom_indices[aux_pairs[:, 0]],
+                                atom_indices_2[aux_pairs[:, 1]],
+                            ]
+                        ).tolist()
 
-        if output_type=='sorted pairs':
+        if output_type == "sorted pairs":
             for ii in range(n_contact_maps):
                 output[ii] = sorted(output[ii])
 
     return output
-
-
-

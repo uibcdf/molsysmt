@@ -368,12 +368,15 @@ pub fn get_sasa_cell_list<'py>(
     sphere_points: PyReadonlyArray2<'py, f64>,
     probe_radius: f64,
     cutoff: f64,
+    num_threads: usize,
 ) -> Bound<'py, PyArray2<f64>> {
     let c = coordinates.as_array();
     let r = radii.as_array();
     let sp = sphere_points.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
-    let flat = py.allow_threads(|| core_vacuum(&c, &r, &sp, probe_radius, cutoff));
+    let flat = py.allow_threads(|| crate::threads::install(num_threads, || {
+        core_vacuum(&c, &r, &sp, probe_radius, cutoff)
+    }));
     Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
 }
 
@@ -386,13 +389,16 @@ pub fn get_mic_sasa_cell_list<'py>(
     sphere_points: PyReadonlyArray2<'py, f64>,
     probe_radius: f64,
     cutoff: f64,
+    num_threads: usize,
 ) -> Bound<'py, PyArray2<f64>> {
     let c = coordinates.as_array();
     let b = boxes.as_array();
     let r = radii.as_array();
     let sp = sphere_points.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
-    let flat = py.allow_threads(|| core_pbc(&c, &b, &r, &sp, probe_radius, cutoff));
+    let flat = py.allow_threads(|| crate::threads::install(num_threads, || {
+        core_pbc(&c, &b, &r, &sp, probe_radius, cutoff)
+    }));
     Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
 }
 
@@ -474,6 +480,7 @@ pub fn get_sasa<'py>(
     radii: PyReadonlyArray1<'py, f64>,
     sphere_points: PyReadonlyArray2<'py, f64>,
     probe_radius: f64,
+    num_threads: usize,
 ) -> Bound<'py, PyArray2<f64>> {
     let c = coordinates.as_array();
     let r = radii.as_array();
@@ -485,7 +492,7 @@ pub fn get_sasa<'py>(
     let spc = sp.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sp.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns * na)
             .into_par_iter()
             .map(|idx| {
@@ -498,7 +505,7 @@ pub fn get_sasa<'py>(
                 atom_sasa_bruteforce_dispatch(cf, spf, n_points, jj, &rext2, r_i_ext, na, None)
             })
             .collect()
-    });
+    }));
     Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
 }
 
@@ -510,6 +517,7 @@ pub fn get_mic_sasa<'py>(
     radii: PyReadonlyArray1<'py, f64>,
     sphere_points: PyReadonlyArray2<'py, f64>,
     probe_radius: f64,
+    num_threads: usize,
 ) -> Bound<'py, PyArray2<f64>> {
     let c = coordinates.as_array();
     let bx = boxes.as_array();
@@ -534,7 +542,7 @@ pub fn get_mic_sasa<'py>(
     let spc = sp.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sp.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns * na)
             .into_par_iter()
             .map(|idx| {
@@ -549,7 +557,7 @@ pub fn get_mic_sasa<'py>(
                                               Some((b, inv, *ortho)))
             })
             .collect()
-    });
+    }));
     Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
 }
 

@@ -1,4 +1,4 @@
-# Performance and JIT Contract
+# Performance and Native-Kernel Contract
 
 This document records the maintained execution contract. Historical performance
 notes and pre-1.0 claims are archived under `archive/assessments/`; measured
@@ -18,28 +18,18 @@ values already satisfy the callee's contract. `ValidatedPayload` passports and
 `skip_digestion=True` are trusted-path mechanisms, not general performance
 switches. Do not apply either to unvalidated user input.
 
-## Imports and lazy compilation
+## Imports and native compilation
 
 - Soft dependencies must remain lazily imported.
-- Numba kernels should use `molsysmt._private.jit.lazy_njit` rather than eager
-  compilation at import time.
-- Kernel signatures, nested calls, and cache behavior must be covered by tests.
-- First-call compilation latency and steady-state runtime must be measured
-  separately.
+- Numerical kernels are compiled into the private `molsysmt._rust` extension
+  when the distribution is built.
+- Supported installations must contain that extension; there is no Python or
+  JIT fallback.
+- Kernel signatures, error conversion, GIL release, thread behavior, and
+  numerical properties must be covered by tests.
 
-Use the maintained warm-up entry point when precompilation is useful:
-
-```python
-import molsysmt as msm
-
-report = msm.warmup(strict=True, return_report=True)
-```
-
-`msm.warmup_numba()` remains a compatibility alias but is deprecated for new
-code. The default return remains the compiled-kernel count. A structured report
-distinguishes loaded attributes, expected optional-dependency skips, and
-unexpected failures. Use `strict=True` in QA so unexpected lazy-import failures
-propagate immediately.
+There is no kernel warm-up API. Applications that intentionally want eager
+Python imports should import the required public namespaces explicitly.
 
 ## Precision
 
@@ -54,27 +44,50 @@ precision mode it exposes.
 
 ## CPU parallel execution
 
-`lazy_njit` may compile kernels with Numba parallel support and choose the
-active thread count from:
+Selected native kernels use Rayon internally. Parallelization has two
+compatible control levels:
 
-- `parallel_mode` (`"auto"`, `True`, or `False`);
-- `num_threads`;
-- `parallel_threshold`;
-- `min_payload_per_thread`.
+```python
+import molsysmt as msm
 
-Only kernels compiled with `parallel=True` use this runtime branch. The current
-payload heuristic uses the largest NumPy array argument; it is not a general
-cost model and no fixed speedup is guaranteed.
+# Session policy
+msm.configure.set_parallelization(parallel="auto", num_threads=8)
 
-`molsysmt.configure.context()` and `with_configure_overrides` mutate module-level
-configuration. They restore values for ordinary nested, single-threaded use,
-but they are **not thread-safe**. Do not overlap configuration contexts across
-threads until the defect in
+# One-call override
+distances = msm.structure.get_distances(
+    molecular_system,
+    parallel=True,
+    num_threads=2,
+)
+```
+
+`parallel=None` and `num_threads=None` inherit the session policy.
+`parallel=False` selects a one-thread pool for that call. `parallel=True`
+selects the configured or explicitly requested thread count. In `"auto"` mode,
+payloads below `parallel_threshold` use one thread; larger payloads use up to
+one thread per `min_payload_per_thread`, capped by `num_threads`. The value
+`num_threads=-1` means all processors available to the current process.
+
+MolSysMT caches Rayon pools by size. A per-call override therefore neither
+rebuilds a kernel nor resizes an irreversible global pool, and nested public
+calls inherit the outer override. Passing `parallel=False` together with a
+local `num_threads` value other than `1` is an argument conflict.
+
+Parallel kernels distribute independent outer slabs or work blocks. Their
+inner numerical loops remain sequential, contiguous where the data contract
+allows it, and suitable for LLVM auto-vectorization. Parallelism is not a
+replacement for vectorization; both must be measured in release builds.
+
+Per-function thread-policy overrides use a `ContextVar` and do not mutate the
+session. `molsysmt.configure.context()` still mutates module-level session
+configuration. It restores values for ordinary nested, single-threaded use,
+but overlapping session contexts are **not thread-safe**. Do not overlap them
+across threads until the defect in
 `pending_bugs/configure_context_is_not_thread_safe.md` is resolved.
 
-Numba thread-count changes are process-global runtime state. Concurrent callers
-that request different thread policies need dedicated tests before concurrency
-can be advertised as supported.
+When using xdist, multiprocessing, or another threaded host, set a conservative
+session or per-call limit to prevent each process from claiming all available
+processors.
 
 ## Copies, views, and mutability
 
@@ -95,10 +108,10 @@ Neither mechanism weakens public validation or scientific invariants.
 
 ## GPU and out-of-core execution
 
-GPU dispatch is described in `gpu_acceleration.md`. Chunked trajectory
-processing is described in `SCALABILITY.md`. These paths have operation-specific
-eligibility and fallback rules; their existence does not imply that every
-operation, form, precision, or output type is accelerated.
+MolSysMT 1.0 has no supported GPU kernel backend. Compatibility arguments fall
+back to the Rust CPU path; an explicit GPU request emits a warning. Future Rust
+GPU work is tracked separately. Chunked trajectory processing is described in
+`SCALABILITY.md`.
 
 ## Topology selection expansion
 

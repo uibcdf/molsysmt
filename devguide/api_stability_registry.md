@@ -10,10 +10,10 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Classification | Symbols |
 | --- | ---: |
-| stable | 125 |
+| stable | 123 |
 | experimental | 57 |
 | outside-contract | 8 |
-| deprecated lifecycle | 1 |
+| deprecated lifecycle | 0 |
 
 ## Symbols
 
@@ -88,8 +88,6 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.thirds` | outside-contract | active | pre-1.0 |
 | `molsysmt.topology` | stable | active | pre-1.0 |
 | `molsysmt.view` | stable | active | pre-1.0 |
-| `molsysmt.warmup` | stable | active | 1.0.0 |
-| `molsysmt.warmup_numba` | stable | deprecated 1.0.0; use `molsysmt.warmup`; not removed before 1.1.0 | pre-1.0 |
 | `molsysmt.warn` | experimental | active | pre-1.0 |
 | `molsysmt.warn_once` | experimental | active | pre-1.0 |
 | `molsysmt.where_is_attribute` | stable | active | pre-1.0 |

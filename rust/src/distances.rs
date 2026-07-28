@@ -29,6 +29,7 @@ fn dist3(ax: f64, ay: f64, az: f64, bx: f64, by: f64, bz: f64) -> f64 {
 pub fn get_distances_single_system<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray3<f64>> {
     let c = coordinates.as_array();
     let ns = c.shape()[0];
@@ -40,7 +41,7 @@ pub fn get_distances_single_system<'py>(
     // borrows when the input is already C-contiguous (the norm).
     let cc = c.as_standard_layout();
     let cs = cc.as_slice().expect("standard layout is contiguous");
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .flat_map_iter(|s| {
@@ -59,7 +60,7 @@ pub fn get_distances_single_system<'py>(
                 slab.into_iter()
             })
             .collect()
-    });
+    }));
     Array3::from_shape_vec((ns, na, na), flat).unwrap().into_pyarray(py)
 }
 
@@ -68,13 +69,14 @@ pub fn get_distances<'py>(
     py: Python<'py>,
     coordinates1: PyReadonlyArray3<'py, f64>,
     coordinates2: PyReadonlyArray3<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray3<f64>> {
     let c1 = coordinates1.as_array();
     let c2 = coordinates2.as_array();
     let ns = c1.shape()[0];
     let na1 = c1.shape()[1];
     let na2 = c2.shape()[1];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .flat_map_iter(|s| {
@@ -89,7 +91,7 @@ pub fn get_distances<'py>(
                 slab.into_iter()
             })
             .collect()
-    });
+    }));
     Array3::from_shape_vec((ns, na1, na2), flat).unwrap().into_pyarray(py)
 }
 
@@ -98,21 +100,26 @@ pub fn get_distances_pairs<'py>(
     py: Python<'py>,
     coordinates1: PyReadonlyArray3<'py, f64>,
     coordinates2: PyReadonlyArray3<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray2<f64>> {
     let c1 = coordinates1.as_array();
     let c2 = coordinates2.as_array();
     let ns = c1.shape()[0];
     let na = c1.shape()[1];
-    let mut out = Array2::<f64>::zeros((ns, na));
-    for s in 0..ns {
-        for j in 0..na {
-            out[[s, j]] = dist3(
-                c1[[s, j, 0]], c1[[s, j, 1]], c1[[s, j, 2]],
-                c2[[s, j, 0]], c2[[s, j, 1]], c2[[s, j, 2]],
-            );
-        }
-    }
-    out.into_pyarray(py)
+    let mut flat = vec![0.0; ns * na];
+    py.allow_threads(|| crate::threads::install(num_threads, || {
+        flat.par_chunks_mut(na)
+            .enumerate()
+            .for_each(|(s, row)| {
+                for j in 0..na {
+                    row[j] = dist3(
+                        c1[[s, j, 0]], c1[[s, j, 1]], c1[[s, j, 2]],
+                        c2[[s, j, 0]], c2[[s, j, 1]], c2[[s, j, 2]],
+                    );
+                }
+            })
+    }));
+    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
 }
 
 // --------------------------------------------------------------------------- single structure

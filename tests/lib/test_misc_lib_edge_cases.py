@@ -1,7 +1,5 @@
 import numpy as np
-import numba as nb
 
-from molsysmt.lib.make_numba_signature import make_numba_signature
 from molsysmt.lib.pbc.get_box_from_lengths_and_angles import (
     get_box_from_lengths_and_angles_single_structure,
     get_box_from_lengths_and_angles,
@@ -29,19 +27,18 @@ def test_box_roundtrip_and_center_wrapping_edge_cases():
     assert np.allclose(lengths2, batch_lengths)
     assert np.allclose(angles2, batch_angles)
 
-    coords = np.array([
-        [[-0.1, 0.0, 0.0], [2.4, 2.7, 3.2]],
-        [[2.2, -0.3, 0.1], [3.4, 3.5, -0.2]],
-    ], dtype=np.float64)
+    coords = np.array(
+        [
+            [[-0.1, 0.0, 0.0], [2.4, 2.7, 3.2]],
+            [[2.2, -0.3, 0.1], [3.4, 3.5, -0.2]],
+        ],
+        dtype=np.float64,
+    )
     wrap_to_pbc_center(coords, batch_box, np.array([1.0, 1.0, 1.0], dtype=np.float64))
     assert coords.shape == (2, 2, 3)
 
 
-def test_make_numba_signature_with_omitted_defaults_and_serialized_array_input():
-    sig = make_numba_signature(arguments=[[nb.int64, 3], nb.float64[:]], output=nb.int64)
-    assert isinstance(sig, list)
-    assert len(sig) == 2
-
+def test_serialized_array_input():
     arr = np.array([[1, 2], [5, 6, 7], [9]], dtype=object)
     sl = serialized_lists(arr)
     assert sl.n_indices == 3

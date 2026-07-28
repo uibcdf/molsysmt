@@ -1,18 +1,19 @@
 """
 molsysmt.core
-The low-level mathematical engine of MolSysMT.
-Exposes Numba-compiled kernels directly for sister libraries (e.g. TopoMT)
-with zero high-level object or physical unit overhead.
+The low-level native engine of MolSysMT.
+
+Exposes Rust-backed kernels to sister libraries such as TopoMT with no
+high-level molecular-system or physical-unit overhead.
 """
 
 import importlib
 
 _LAZY_ATTRIBUTES = {
-    'math': 'molsysmt.lib.math',
-    'pbc': 'molsysmt.lib.pbc',
-    'structure': 'molsysmt.lib.structure',
-    'topology': 'molsysmt.lib.topology',
-    'series': 'molsysmt.lib.series',
+    "math": "molsysmt.lib.math",
+    "pbc": "molsysmt.lib.pbc",
+    "structure": "molsysmt.lib.structure",
+    "topology": "molsysmt.lib.topology",
+    "series": "molsysmt.lib.series",
 }
 
 

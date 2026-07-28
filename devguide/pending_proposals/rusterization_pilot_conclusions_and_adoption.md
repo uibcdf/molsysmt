@@ -1,10 +1,16 @@
 # Rusterization pilot — conclusions and adoption path
 
-**Status:** evidence-based recommendation (2026-07-24). Consolidates a hands-on pilot.
+**Status:** pilot evidence retained; original adoption boundary superseded by
+the maintainer decision of 2026-07-26.
 **Relates to:** `rusterization_heavy_computations.md`, `rusterization_topology_and_selections.md`,
 `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`, `rusterization_parallel_trajectory_io.md`.
 **Pilot location:** branch `experiment/rust-numba-pilot`, dir `experiments/rust_kernels/`
 (self-contained PyO3 crate; not wired into the molsysmt build; molsysmt never imports it).
+
+> The measurements and technical conclusions remain useful. The recommendation
+> to keep wheel infrastructure post-1.0 and ship Numba as the 1.0 fallback no
+> longer applies. The authoritative sequence is
+> [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md).
 
 ## 1. What was tested
 
@@ -72,46 +78,37 @@ Rust is a credible substantial unlock, but **not as "faster math"** — it is:
 There is no remaining technical blocker. What remains is a **strategic/resourcing decision**:
 take on a second toolchain and multi-OS wheel CI.
 
-## 5. Adoption path — and the 1.0 boundary
+## 5. Updated Adoption Boundary
 
-The migration is **modular**: each kernel moves independently behind the opt-in seam, with the
-Numba kernel kept as oracle and a per-kernel parity test. Every migrated kernel is banked.
+The modular migration described by the original pilot has been completed for
+the recorded CPU surface: all 97 kernels have Rust counterparts and their
+high-level consumers are routed through the transition seam.
 
-**Separate two decisions, and keep them off the 1.0 critical path:**
+The remaining adoption work is now pre-1.0:
 
-1. **Migrate kernels to Rust (the code).** Bankable, low-risk, can start now. Each kernel
-   lives behind `backend='auto'` with **Numba as the default/fallback**, so 1.0 ships exactly
-   as it would without Rust (pure Numba, no new packaging blocker). Pre-1.0 work here is
-   genuinely *trabajo ganado*.
-2. **Ship Rust wheels in the distribution (the infrastructure).** Standing up the multi-OS
-   wheel CI + committing to a second toolchain. This is the bigger commitment and should be a
-   **post-1.0** decision — it must NOT become a 1.0 release blocker.
+1. restore the unrelated conversion-fidelity baseline;
+2. freeze and record Numba as the final temporary oracle;
+3. productize and test multiplatform Rust wheels;
+4. remove CPU Numba, Numba-CUDA, backend selection, warmup, diagnostics, and
+   dependencies;
+5. validate the Rust-only installed product and direct MolSysSuite consumers.
 
-Consequence of the split: pre-1.0 Rust kernels are *banked capability* (they run when the
-wheel is present), but the user-facing benefit (no warmup, dropping the Numba dependency)
-only lands once Rust ships as the default — i.e. after decision 2. That is fine and expected.
+The coexistence cost is accepted only for that bounded migration interval.
+There will be no permanent Numba fallback in MolSysMT 1.0.
 
-**Carrying cost to accept:** during the transition each migrated kernel means two
-implementations (Rust + Numba) kept in lockstep by a parity gate. Numba stays until Rust is
-shipped and trusted.
+## 6. Target Selection Outcome
 
-## 6. Suggested first targets (highest value/effort)
+The pilot's original target-selection guidance has completed its purpose.
+Complex MIC, allocation-heavy geometry, irregular neighbor, SASA, topology,
+series, PCA, and the remaining CPU families have all been ported. New work must
+focus on packaging, independent scientific evidence, removal completeness, and
+installed-product behavior rather than selecting more Numba kernels to port.
 
-Prefer kernels that maximise the cold+warm win and the maintainability payoff:
-- **complex kernels with expensive JIT** (biggest cold cost) — e.g. the MIC distance family
-  (`get_mic_distances*`), already piloted with exact parity;
-- **allocation-heavy / nested-call kernels** written in the natural per-element style (biggest
-  warm win, as shown);
-- **irregular/graph/spatial** kernels (cell lists, covalent-graph traversals, selections) —
-  they gain most and align with the columnar-engine direction.
+## 7. Recommended Immediate Step
 
-Avoid, for now: kernels that are already tight, well-vectorised loops (warm tie — low return),
-and anything touching the CUDA path (out of scope; keep Numba there).
-
-## 7. Recommended immediate step (if adopted)
-
-Turn the pilot crate into a proper, still-optional package skeleton on a feature branch:
-one real kernel migrated behind the seam with a parity test wired into the suite, plus the
-wheel-CI skeleton promoted to a real (manually-triggered) workflow — WITHOUT making 1.0 depend
-on it. That validates the end-to-end developer loop (edit Rust → parity test → optional wheel)
-before scaling to more kernels.
+Follow Segments A–C of
+[`release_1_0_execution_plan.md`](release_1_0_execution_plan.md): first restore
+conversion-fidelity coherence, then capture the final oracle inventory, move the
+crate out of `experiments/`, and turn the wheel skeleton into real
+multiplatform installed-wheel CI. Numba deletion begins only after that
+packaging gate passes.

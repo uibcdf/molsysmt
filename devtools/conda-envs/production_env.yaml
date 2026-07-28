@@ -7,7 +7,6 @@ dependencies:
 - pip
 - h5py
 - numpy
-- numba
 - argdigest
 - depdigest
 - smonitor

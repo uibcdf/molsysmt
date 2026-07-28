@@ -129,17 +129,6 @@ class UnknownAtomNameWarning(MolSysMTCatalogWarning):
         super().__init__(extra={"atom_name": atom_name})
 
 
-class WarmupFailureWarning(MolSysMTCatalogWarning):
-    catalog_key = "WarmupFailureWarning"
-
-    def __init__(self, attribute, error_type, reason):
-        super().__init__(extra={
-            "attribute": attribute,
-            "error_type": error_type,
-            "reason": reason,
-        })
-
-
 class GpuNotAvailableWarning(MolSysMTCatalogWarning):
     """Emitted when the GPU is requested but is not accessible."""
     catalog_key = "GpuNotAvailableWarning"
@@ -161,7 +150,6 @@ __all__ = [
     "SlowChunkIOWarning",
     "MemoryPressureWarning",
     "UnknownAtomNameWarning",
-    "WarmupFailureWarning",
     "GpuNotAvailableWarning",
     "warn",
     "warn_once",

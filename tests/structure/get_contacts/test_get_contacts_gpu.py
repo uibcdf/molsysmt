@@ -1,6 +1,5 @@
 """
-Unit and regression tests for GPU-accelerated contact calculations (Numba CUDA & Taichi Lang).
-Verifies results against the CPU JIT pipeline under vacuum, orthogonal PBC, and triclinic PBC.
+Regression tests for retired GPU arguments falling back to Rust CPU contacts.
 """
 
 import molsysmt as msm
@@ -18,7 +17,7 @@ def test_get_contacts_gpu_vacuum():
     # 1. CPU Reference Run
     contacts_cpu = msm.structure.get_contacts(molsys, selection=CA_atoms, threshold='1.2 nm', use_gpu=False)
 
-    # 2. Numba CUDA Run (Forces GPU, falls back to CPU cleanly if no CUDA GPU is found)
+    # Retired backend names remain accepted and fall back to Rust CPU.
     contacts_gpu_cuda = msm.structure.get_contacts(
         molsys, selection=CA_atoms, threshold='1.2 nm', use_gpu=True, gpu_backend='cuda'
     )
@@ -46,7 +45,7 @@ def test_get_contacts_gpu_cross_system():
         molsys, selection=chain_0, selection_2=chain_1, threshold='1.2 nm', use_gpu=False
     )
 
-    # GPU Numba CUDA
+    # Retired CUDA selector.
     contacts_gpu_cuda = msm.structure.get_contacts(
         molsys, selection=chain_0, selection_2=chain_1, threshold='1.2 nm', use_gpu=True, gpu_backend='cuda'
     )

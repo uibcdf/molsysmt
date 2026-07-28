@@ -1,8 +1,5 @@
-import pytest
 import numpy as np
-import numba as nb
 
-from molsysmt.lib.make_numba_signature import make_numba_signature
 from molsysmt.lib.series import (
     serie_to_chunks,
     chunks_to_serie,
@@ -10,24 +7,6 @@ from molsysmt.lib.series import (
     occurrence_order,
     occurrence_order_sorted_serie,
 )
-
-
-def test_make_numba_signature_handles_optional_and_tuple_output():
-    sig = make_numba_signature(arguments=[nb.float64[:], [nb.int64[:], None]], output=(nb.int64, nb.float64))
-    assert not isinstance(sig, list)
-
-    single = make_numba_signature(arguments=[nb.float64[:]], output=None)
-    assert not isinstance(single, list)
-
-
-def test_make_numba_signature_rejects_invalid_optional_defaults():
-    from molsysmt._private.smonitor import InternalAlgorithmError
-
-    with pytest.raises(InternalAlgorithmError):
-        make_numba_signature(arguments=[[None]], output=None)
-
-    with pytest.raises(InternalAlgorithmError):
-        make_numba_signature(arguments=[[None, 0]], output=None)
 
 
 def test_series_helpers_and_serialized_lists():
@@ -50,5 +29,7 @@ def test_series_helpers_and_serialized_lists():
     occ = occurrence_order(np.array([5, 2, 5, 9, 2], dtype=np.int64))
     assert np.array_equal(occ, np.array([0, 1, 0, 2, 1], dtype=np.int64))
 
-    occ_sorted = occurrence_order_sorted_serie(np.array([1, 1, 2, 2, 2, 4], dtype=np.int64))
+    occ_sorted = occurrence_order_sorted_serie(
+        np.array([1, 1, 2, 2, 2, 4], dtype=np.int64)
+    )
     assert np.array_equal(occ_sorted, np.array([0, 0, 1, 1, 1, 2], dtype=np.int64))

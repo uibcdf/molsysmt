@@ -1,8 +1,17 @@
 # Proposal: Exploring an AOT Rust Backend to Replace Numba Kernels
 
-**Status:** proposed; evidence-based rescope 2026-07-13
+**Status:** early exploration; implementation status and adoption sequence
+superseded by the 2026-07-26 Rust-only 1.0 decision
 **Primary objective:** reduce and eventually eliminate runtime JIT compilation and `molsysmt.warmup()`
 **Non-objective:** rewrite MolSysMT or its public API in Rust
+
+> This document preserves the original decision framework. Its environment
+> inventory, prototype status, progressive fallback, and lifecycle timing are
+> historical. All recorded CPU kernels are now ported. Use
+> [`rust_numba_coexistence_and_cut_plan.md`](rust_numba_coexistence_and_cut_plan.md)
+> for migration evidence and
+> [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md) for current
+> execution order.
 
 ## Decision context
 

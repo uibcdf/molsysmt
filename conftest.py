@@ -3,19 +3,7 @@
 import importlib
 from pathlib import Path
 
-import pytest
-
 _ROOT = Path(__file__).parent
-
-
-def pytest_addoption(parser):
-    """Adding the temporary backend selector used by the Rust migration gate."""
-    parser.addoption(
-        "--molsysmt-kernel",
-        choices=("numba", "rust"),
-        default=None,
-        help="Force one CPU kernel backend for this complete pytest session.",
-    )
 
 
 def pytest_configure(config):
@@ -46,19 +34,6 @@ def pytest_configure(config):
         parts = Path(raw).parts
         if parts[:1] == ("molsysmt",) and (_ROOT / raw).is_dir():
             importlib.import_module(".".join(parts))
-
-    forced_kernel = config.getoption("molsysmt_kernel")
-    if forced_kernel is not None:
-        import molsysmt as msm
-
-        if forced_kernel == "rust":
-            from molsysmt._private import rust_backend
-
-            if not rust_backend.HAVE_RUST:
-                raise pytest.UsageError(
-                    "--molsysmt-kernel=rust requires the Rust extension"
-                )
-        msm.configure.kernel = forced_kernel
 
 
 # These developer command-line utilities are executable scripts rather than

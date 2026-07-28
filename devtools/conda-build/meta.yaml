@@ -15,7 +15,6 @@ requirements:
   - python >=3.11,<3.14
   - h5py
   - numpy
-  - numba
   - argdigest
   - depdigest
   - smonitor

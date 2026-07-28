@@ -90,12 +90,6 @@ CATALOG = {
             "category": "argument",
             "level": "WARNING",
         },
-        "NumbaJitWarning": {
-            "code": "MSM-WARN-NB-001",
-            "source": "molsysmt.warning.numba_jit",
-            "category": "performance",
-            "level": "WARNING",
-        },
         "MultiContainerWarning": {
             "code": "MSM-WARN-IO-002",
             "source": "molsysmt.warning.multi_container",
@@ -136,12 +130,6 @@ CATALOG = {
             "code": "MSM-WARN-ATOM-001",
             "source": "molsysmt.warning.atom.unknown_name",
             "category": "data_quality",
-            "level": "WARNING",
-        },
-        "WarmupFailureWarning": {
-            "code": "MSM-WARN-WARM-001",
-            "source": "molsysmt.warning.warmup.failure",
-            "category": "performance",
             "level": "WARNING",
         },
         "GpuNotAvailableWarning": {
@@ -303,9 +291,9 @@ CODES = {
     "MSM-WARN-TIER-002": {
         "title": "Best-effort supported form or function (Tier 2)",
         "user_message": "'{name}' is a best-effort supported {kind} (Tier 2). "
-                        "Results are supported but not contractually guaranteed for all workflows.",
+        "Results are supported but not contractually guaranteed for all workflows.",
         "user_hint": "For production workflows, prefer Tier 1 forms where possible. "
-                     "See the support-tier documentation at {doc_url}",
+        "See the support-tier documentation at {doc_url}",
         "dev_message": "Tier 2 {kind} used: '{name}'.",
         "dev_hint": "Consider whether the calling workflow requires a Tier 1 alternative.",
         "qa_message": "Tier 2 {kind} used: '{name}'.",
@@ -317,7 +305,7 @@ CODES = {
         "title": "Experimental or niche form/function (Tier 3)",
         "user_message": "'{name}' is an experimental or niche {kind} (Tier 3). Use with caution.",
         "user_hint": "Tier 3 items are outside the contractual 1.x support surface. "
-                     "See {doc_url}",
+        "See {doc_url}",
         "dev_message": "Tier 3 {kind} used: '{name}'.",
         "dev_hint": "This item is outside the contractual support surface.",
         "qa_message": "Tier 3 {kind} used: '{name}'.",
@@ -351,7 +339,7 @@ CODES = {
         "title": "GPU acceleration not available",
         "user_message": "GPU acceleration was requested but is not available: {reason}",
         "user_hint": "The calculation falls back to the CPU kernel and the result is unchanged. "
-                     "Set molsysmt.configure.gpu_mode = False to stop requesting the GPU. Docs: {doc_url}",
+        "Set molsysmt.configure.gpu_mode = False to stop requesting the GPU. Docs: {doc_url}",
         "dev_message": "GPU unavailable in '{caller}': {reason}",
         "dev_hint": "Dispatch fell back to the CPU kernel. Check molsysmt._private.gpu.gpu_available().",
         "qa_message": "GPU unavailable in '{caller}': {reason}",
@@ -402,17 +390,6 @@ CODES = {
         "qa_hint": "Check argdigest rules or mapping for '{argument}'. Docs: {doc_url}",
         "agent_message": "Argument '{argument}' was not digested.",
         "agent_hint": "Check argdigest rules or mapping for '{argument}'. Docs: {doc_url}",
-    },
-    "MSM-WARN-NB-001": {
-        "title": "Numba JIT compilation",
-        "user_message": "An uncached Numba kernel is compiling for '{kernel}'. This may take a moment.",
-        "user_hint": "Call 'molsysmt.warmup_numba()' to precompile common kernels. Docs: {doc_url}",
-        "dev_message": "Uncached Numba JIT compilation triggered in '{module}.{kernel}'.",
-        "dev_hint": "Consider precompiling with molsysmt.warmup_numba(). Cache state: {cache_state}. Docs: {doc_url}",
-        "qa_message": "Uncached Numba JIT compilation triggered in '{module}.{kernel}'.",
-        "qa_hint": "Consider precompiling with molsysmt.warmup_numba(). Cache state: {cache_state}. Docs: {doc_url}",
-        "agent_message": "Uncached Numba JIT compilation triggered in '{module}.{kernel}'.",
-        "agent_hint": "Consider precompiling with molsysmt.warmup_numba(). Docs: {doc_url}",
     },
     "MSM-WARN-IO-002": {
         "title": "Multiple data containers found",
@@ -583,8 +560,8 @@ CODES = {
         "title": "Several molecular systems given where one was expected",
         "user_message": "The input was read as {n_systems} separate molecular systems, not as a single one.",
         "user_hint": "A list is understood as one system split into complementary items, such as a topology "
-                     "and its coordinates. To combine several systems into one, merge them first with "
-                     "molsysmt.merge() and pass the result. Docs: {doc_url}",
+        "and its coordinates. To combine several systems into one, merge them first with "
+        "molsysmt.merge() and pass the result. Docs: {doc_url}",
         "dev_message": "{n_systems} molecular systems given to '{caller}', which expects a single one.",
         "dev_hint": "Forms received: {forms}. Route through molsysmt.merge() before this call. Docs: {doc_url}",
         "qa_message": "{n_systems} molecular systems given to '{caller}', which expects a single one.",
@@ -752,7 +729,7 @@ CODES = {
         "user_hint": "This is a diagnostic trace of form autodetection, not an error by itself.",
         "dev_message": "Detection probe on '{form}' raised {error_type}: {error_message}.",
         "dev_hint": "The probe was swallowed by the caller. Check whether the form adapter is incomplete "
-                    "rather than the input being invalid.",
+        "rather than the input being invalid.",
         "qa_message": "Detection probe on '{form}' raised {error_type}: {error_message}.",
         "qa_hint": "A swallowed probe can hide an incomplete form adapter. Confirm this is the intended path.",
         "agent_message": "Detection probe on '{form}' raised {error_type}: {error_message}.",
@@ -791,17 +768,6 @@ CODES = {
         "agent_message": "Atom name '{atom_name}' mapped to fallback type 'UNK'.",
         "agent_hint": "Check the naming convention or supply an explicit atom type.",
     },
-    "MSM-WARN-WARM-001": {
-        "title": "Warmup attribute failed to load",
-        "user_message": "Warmup could not load '{attribute}' ({error_type}): {reason}.",
-        "user_hint": "Inspect the structured warmup report or rerun with strict=True.",
-        "dev_message": "Lazy attribute '{attribute}' failed during warmup with {error_type}: {reason}.",
-        "dev_hint": "Use strict=True in QA and repair unexpected lazy-import failures.",
-        "qa_message": "Warmup failure for '{attribute}': {error_type}: {reason}.",
-        "qa_hint": "Strict warmup should propagate this failure in validation workflows.",
-        "agent_message": "Warmup failed to load '{attribute}' ({error_type}): {reason}.",
-        "agent_hint": "Inspect the lazy registry and rerun warmup with strict=True.",
-    },
     "MSM-ERR-HVY-001": {
         "title": "Unsupported heavy-mode combination",
         "user_message": "Operation '{operation}' is not supported in heavy mode for form '{form}'. Reason: {reason}.",
@@ -829,27 +795,42 @@ CODES = {
 SIGNALS = {
     "molsysmt.warning.selection": {"extra_required": ["caller"]},
     "molsysmt.warning.deprecation": {"extra_required": ["caller"]},
-    "molsysmt.warning.cross_chain_bonds": {"extra_required": ["caller", "count", "pairs"]},
+    "molsysmt.warning.cross_chain_bonds": {
+        "extra_required": ["caller", "count", "pairs"]
+    },
     "molsysmt.warning.download": {"extra_required": ["caller"]},
     "molsysmt.warning.not_digested": {"extra_required": ["argument"]},
-    "molsysmt.warning.numba_jit": {"extra_required": ["kernel", "module"]},
     "molsysmt.warning.multi_container": {"extra_required": ["caller", "format"]},
     "molsysmt.warning.ambiguous_structure": {"extra_required": ["caller", "count"]},
     "molsysmt.warning.molecular_system_mismatch": {"extra_required": ["caller"]},
-    "molsysmt.info.experimental": {"extra_required": ["module", "function", "custom_message", "caller"]},
+    "molsysmt.info.experimental": {
+        "extra_required": ["module", "function", "custom_message", "caller"]
+    },
     "molsysmt.error.argument": {"extra_required": ["argument", "value", "caller"]},
-    "molsysmt.error.argument.choice": {"extra_required": ["argument", "value", "choices", "caller"]},
-    "molsysmt.error.argument.length": {"extra_required": ["argument", "expected", "actual", "caller"]},
-    "molsysmt.error.argument.conflict": {"extra_required": ["arg1", "arg2", "reason", "caller"]},
+    "molsysmt.error.argument.choice": {
+        "extra_required": ["argument", "value", "choices", "caller"]
+    },
+    "molsysmt.error.argument.length": {
+        "extra_required": ["argument", "expected", "actual", "caller"]
+    },
+    "molsysmt.error.argument.conflict": {
+        "extra_required": ["arg1", "arg2", "reason", "caller"]
+    },
     "molsysmt.error.structure.inconsistency": {"extra_required": ["reason", "caller"]},
     "molsysmt.error.internal.algorithm": {"extra_required": ["reason", "caller"]},
     "molsysmt.error.iterator": {"extra_required": ["caller"]},
     "molsysmt.error.library_not_found": {"extra_required": ["library", "caller"]},
     "molsysmt.error.molecular_system_needed": {"extra_required": ["caller"]},
     "molsysmt.error.molecular_systems_needed": {"extra_required": ["caller"]},
-    "molsysmt.error.molecular_system_verification": {"extra_required": ["forms", "reason", "caller"]},
-    "molsysmt.error.not_compatible_conversion": {"extra_required": ["from_form", "to_form", "missing_arguments"]},
-    "molsysmt.error.not_implemented_conversion": {"extra_required": ["from_form", "to_form", "caller"]},
+    "molsysmt.error.molecular_system_verification": {
+        "extra_required": ["forms", "reason", "caller"]
+    },
+    "molsysmt.error.not_compatible_conversion": {
+        "extra_required": ["from_form", "to_form", "missing_arguments"]
+    },
+    "molsysmt.error.not_implemented_conversion": {
+        "extra_required": ["from_form", "to_form", "caller"]
+    },
     "molsysmt.error.not_implemented_iterator": {"extra_required": ["form", "caller"]},
     "molsysmt.error.not_implemented_method": {"extra_required": ["caller"]},
     "molsysmt.error.not_supported_form": {"extra_required": ["form", "caller"]},
@@ -857,12 +838,24 @@ SIGNALS = {
     "molsysmt.error.not_with_this_form": {"extra_required": ["caller"]},
     "molsysmt.error.file_already_handled": {"extra_required": ["filename"]},
     "molsysmt.error.file_content": {"extra_required": ["reason", "caller"]},
-    "molsysmt.info.heavy.path_selected": {"extra_required": ["operation", "form", "footprint_bytes", "max_ram_usage"]},
-    "molsysmt.info.heavy.eager_accepted": {"extra_required": ["operation", "footprint_bytes"]},
-    "molsysmt.info.heavy.chunk_processed": {"extra_required": ["operation", "chunk_index", "n_chunks", "elapsed_s", "eta_s"]},
+    "molsysmt.info.heavy.path_selected": {
+        "extra_required": ["operation", "form", "footprint_bytes", "max_ram_usage"]
+    },
+    "molsysmt.info.heavy.eager_accepted": {
+        "extra_required": ["operation", "footprint_bytes"]
+    },
+    "molsysmt.info.heavy.chunk_processed": {
+        "extra_required": ["operation", "chunk_index", "n_chunks", "elapsed_s", "eta_s"]
+    },
     "molsysmt.warning.heavy.slow_io": {"extra_required": ["chunk_index", "io_time_s"]},
-    "molsysmt.warning.heavy.corrupt_frame": {"extra_required": ["chunk_index", "frame_index", "reason"]},
-    "molsysmt.warning.heavy.memory_pressure": {"extra_required": ["chunk_index", "rss_bytes", "budget_bytes", "pressure_pct"]},
-    "molsysmt.error.heavy.unsupported_operation": {"extra_required": ["operation", "form", "reason"]},
+    "molsysmt.warning.heavy.corrupt_frame": {
+        "extra_required": ["chunk_index", "frame_index", "reason"]
+    },
+    "molsysmt.warning.heavy.memory_pressure": {
+        "extra_required": ["chunk_index", "rss_bytes", "budget_bytes", "pressure_pct"]
+    },
+    "molsysmt.error.heavy.unsupported_operation": {
+        "extra_required": ["operation", "form", "reason"]
+    },
     "molsysmt.error.heavy.output_failure": {"extra_required": ["reason"]},
 }

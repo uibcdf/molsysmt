@@ -5,11 +5,9 @@
 //! reduction, so summing in a different order changes the last bits. Each loop keeps
 //! upstream's nesting exactly.
 //!
-//! `rayon` is used only in the two `get_center` variants, which are the only kernels in
-//! this group that upstream declares `parallel=True` / `nb.prange`. Structures are
-//! independent there and the per-structure accumulation order is untouched, so the result
-//! is unchanged. `get_rmsf` accumulates across structures into a per-atom mean and is left
-//! serial, matching upstream.
+//! Rayon distributes independent structure slabs. RMSF uses per-worker contiguous
+//! accumulators and merges them after each pass, avoiding strided atom-major scans while
+//! retaining vectorizable inner loops.
 
 use numpy::ndarray::{Array1, Array2, Array3, ArrayView2, ArrayView3};
 use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2,
@@ -88,13 +86,14 @@ pub fn get_center<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     weights: PyReadonlyArray1<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray3<f64>> {
     let c = coordinates.as_array();
     let w = weights.as_array();
     let ns = c.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns).into_par_iter().flat_map(|s| center_at(&c, s, &w)).collect()
-    });
+    }));
     Array3::from_shape_vec((ns, 1, 3), flat).unwrap().into_pyarray(py)
 }
 
@@ -118,12 +117,13 @@ pub fn get_center_groups_of_atoms<'py>(
     coordinates: PyReadonlyArray3<'py, f64>,
     atoms_per_group: PyReadonlyArray1<'py, i64>,
     weights: PyReadonlyArray1<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray3<f64>> {
     let c = coordinates.as_array();
     let g = atoms_per_group.as_array();
     let w = weights.as_array();
     let (ns, n_groups) = (c.shape()[0], g.len());
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .flat_map(|s| {
@@ -132,7 +132,7 @@ pub fn get_center_groups_of_atoms<'py>(
                 out
             })
             .collect()
-    });
+    }));
     Array3::from_shape_vec((ns, n_groups, 3), flat).unwrap().into_pyarray(py)
 }
 
@@ -220,50 +220,87 @@ pub fn get_radius_of_gyration<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     weights: PyReadonlyArray1<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray1<f64>> {
     let c = coordinates.as_array();
     let w = weights.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = (0..ns)
-        .map(|s| radius_of_gyration_of(&c.index_axis(numpy::ndarray::Axis(0), s), &w))
-        .collect();
+    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
+        (0..ns)
+            .into_par_iter()
+            .map(|s| radius_of_gyration_of(&c.index_axis(numpy::ndarray::Axis(0), s), &w))
+            .collect()
+    }));
     Array1::from_vec(out).into_pyarray(py)
 }
 
-/// Root-mean-square fluctuation per atom. Serial and structure-outer, matching upstream:
-/// the per-atom mean accumulates across structures, so the loop nesting fixes the
-/// summation order.
+/// Root-mean-square fluctuation per atom. Parallel folds keep each structure slab
+/// contiguous so the inner coordinate loops remain suitable for auto-vectorization.
 #[pyfunction]
 pub fn get_rmsf<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray1<f64>> {
     let c = coordinates.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
-    let mut mean = vec![0.0f64; na * 3];
-    for s in 0..ns {
-        for a in 0..na {
-            mean[a * 3] += c[[s, a, 0]];
-            mean[a * 3 + 1] += c[[s, a, 1]];
-            mean[a * 3 + 2] += c[[s, a, 2]];
-        }
-    }
+    let frame_size = na * 3;
     let nsf = ns as f64;
-    for m in mean.iter_mut() {
-        *m /= nsf;
-    }
-    let mut rmsf = vec![0.0f64; na];
-    for s in 0..ns {
-        for a in 0..na {
-            let dx = c[[s, a, 0]] - mean[a * 3];
-            let dy = c[[s, a, 1]] - mean[a * 3 + 1];
-            let dz = c[[s, a, 2]] - mean[a * 3 + 2];
-            rmsf[a] += dx * dx + dy * dy + dz * dz;
-        }
-    }
-    for r in rmsf.iter_mut() {
-        *r = (*r / nsf).sqrt();
-    }
+    let cc = c.as_standard_layout();
+    let coordinates_flat = cc.as_slice().expect("standard layout is contiguous");
+    let rmsf = py.allow_threads(|| crate::threads::install(num_threads, || {
+        let sums = (0..ns)
+            .into_par_iter()
+            .fold(
+                || vec![0.0; frame_size],
+                |mut local, s| {
+                    let frame = &coordinates_flat[s * frame_size..(s + 1) * frame_size];
+                    for index in 0..frame_size {
+                        local[index] += frame[index];
+                    }
+                    local
+                },
+            )
+            .reduce(
+                || vec![0.0; frame_size],
+                |mut left, right| {
+                    for index in 0..frame_size {
+                        left[index] += right[index];
+                    }
+                    left
+                },
+            );
+        let mean: Vec<f64> = sums.into_iter().map(|value| value / nsf).collect();
+        let square_displacements = (0..ns)
+            .into_par_iter()
+            .fold(
+                || vec![0.0; na],
+                |mut local, s| {
+                    let frame = &coordinates_flat[s * frame_size..(s + 1) * frame_size];
+                    for atom in 0..na {
+                        let offset = atom * 3;
+                        let dx = frame[offset] - mean[offset];
+                        let dy = frame[offset + 1] - mean[offset + 1];
+                        let dz = frame[offset + 2] - mean[offset + 2];
+                        local[atom] += dx * dx + dy * dy + dz * dz;
+                    }
+                    local
+                },
+            )
+            .reduce(
+                || vec![0.0; na],
+                |mut left, right| {
+                    for atom in 0..na {
+                        left[atom] += right[atom];
+                    }
+                    left
+                },
+            );
+        square_displacements
+            .into_iter()
+            .map(|value| (value / nsf).sqrt())
+            .collect::<Vec<_>>()
+    }));
     Array1::from_vec(rmsf).into_pyarray(py)
 }
 

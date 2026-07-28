@@ -38,6 +38,9 @@ use faer::{Mat, Par, Side};
 use numpy::ndarray::{Array1, Array2};
 use numpy::{IntoPyArray, PyArray1, PyArray2, PyReadonlyArray1, PyReadonlyArray3};
 use pyo3::prelude::*;
+use std::sync::Mutex;
+
+static FAER_PARALLELISM_LOCK: Mutex<()> = Mutex::new(());
 
 /// Makes the largest-magnitude component positive, so an eigenvector is reproducible
 /// across backends and platforms despite the intrinsic sign freedom.
@@ -61,6 +64,7 @@ pub fn principal_component_analysis<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     weights: PyReadonlyArray1<'py, f64>,
+    num_threads: usize,
 ) -> (Bound<'py, PyArray1<f64>>, Bound<'py, PyArray2<f64>>) {
     let c = coordinates.as_array();
     let w = weights.as_array();
@@ -94,12 +98,11 @@ pub fn principal_component_analysis<'py>(
     // high-level `self_adjoint_eigen` reads faer's global parallelism, which defaults to
     // sequential — leaving it unset was a ~3x self-inflicted slowdown on large matrices.
     //
-    // INTEGRATION NOTE: `Par::rayon(0)` means "all cores", hardcoded for the pilot. Real
-    // integration must read `molsysmt.configure` (`parallel_mode`, `num_threads`) and map
-    // it here — the same global mechanism the Numba kernels already honour — instead of
-    // deciding parallelism inside the kernel. It is not a per-function argument.
-    let (values, vectors) = py.allow_threads(|| {
-        faer::set_global_parallelism(Par::rayon(0));
+    let (values, vectors) = py.allow_threads(|| crate::threads::install(num_threads, || {
+        let _parallelism_guard = FAER_PARALLELISM_LOCK
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        faer::set_global_parallelism(Par::rayon(num_threads));
         let gram = xc.transpose() * xc.as_ref();
         let cov = Mat::from_fn(nf, nf, |i, j| gram[(i, j)] * inv_ns);
         let eig = cov
@@ -117,7 +120,7 @@ pub fn principal_component_analysis<'py>(
             vecs[k * nf..(k + 1) * nf].copy_from_slice(&v);
         }
         (vals, vecs)
-    });
+    }));
 
     let eigenvalues = Array1::from_vec(values);
     let eigenvectors = Array2::from_shape_vec((nf, nf), vectors).unwrap();

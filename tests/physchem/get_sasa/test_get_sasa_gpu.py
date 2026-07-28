@@ -1,6 +1,5 @@
 """
-Unit and regression tests for GPU-accelerated and native Shrake-Rupley SASA calculations (Numba CUDA & Taichi Lang).
-Verifies results against CPU references and the legacy MDTraj engine.
+Regression tests for retired GPU arguments falling back to Rust CPU SASA.
 """
 
 import molsysmt as msm
@@ -21,7 +20,7 @@ def test_get_sasa_gpu_vacuum():
     # 2. Native CPU JIT (MolSysMT Engine on CPU)
     sasa_cpu_native = msm.physchem.get_sasa(molsys, element='molecule', engine='MolSysMT', use_gpu=False)
 
-    # 3. Numba CUDA GPU
+    # 3. Retired CUDA selector
     sasa_gpu_cuda = msm.physchem.get_sasa(
         molsys, element='molecule', engine='MolSysMT', use_gpu=True, gpu_backend='cuda'
     )

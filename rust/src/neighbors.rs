@@ -336,7 +336,7 @@ fn core_pbc(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, boxes: &ArrayView3<
 }
 
 #[pyfunction]
-#[pyo3(signature = (query, ref_coords, box_matrices, cutoff, exclude_self, sort_by_distance))]
+#[pyo3(signature = (query, ref_coords, box_matrices, cutoff, exclude_self, sort_by_distance, num_threads))]
 pub fn neighbor_list_csr_multi<'py>(
     py: Python<'py>,
     query: PyReadonlyArray3<'py, f64>,
@@ -345,14 +345,19 @@ pub fn neighbor_list_csr_multi<'py>(
     cutoff: f64,
     exclude_self: bool,
     sort_by_distance: bool,
+    num_threads: usize,
 ) -> (Bound<'py, PyArray1<i64>>, Bound<'py, PyArray1<i64>>, Bound<'py, PyArray1<f64>>) {
     let q = query.as_array();
     let r = ref_coords.as_array();
     let (offsets, indices, distances) = match &box_matrices {
-        None => py.allow_threads(|| core_vacuum(&q, &r, cutoff, exclude_self, sort_by_distance)),
+        None => py.allow_threads(|| crate::threads::install(num_threads, || {
+            core_vacuum(&q, &r, cutoff, exclude_self, sort_by_distance)
+        })),
         Some(b) => {
             let bb = b.as_array();
-            py.allow_threads(|| core_pbc(&q, &r, &bb, cutoff, exclude_self, sort_by_distance))
+            py.allow_threads(|| crate::threads::install(num_threads, || {
+                core_pbc(&q, &r, &bb, cutoff, exclude_self, sort_by_distance)
+            }))
         }
     };
     (offsets.into_pyarray(py), indices.into_pyarray(py), distances.into_pyarray(py))

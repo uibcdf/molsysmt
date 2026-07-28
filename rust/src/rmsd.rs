@@ -63,11 +63,12 @@ pub fn get_rmsd<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     reference_coordinates: PyReadonlyArray3<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray1<f64>> {
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1] as f64);
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .map(|s| {
@@ -76,7 +77,7 @@ pub fn get_rmsd<'py>(
                 (msd_rows(&cs, &rs) / na).sqrt()
             })
             .collect()
-    });
+    }));
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -85,16 +86,17 @@ pub fn get_rmsd_with_single_reference_structure<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     reference_coordinates: PyReadonlyArray2<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray1<f64>> {
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1] as f64);
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .map(|s| (msd_rows(&c.index_axis(numpy::ndarray::Axis(0), s), &r) / na).sqrt())
             .collect()
-    });
+    }));
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -226,11 +228,12 @@ pub fn get_least_rmsd<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     reference_coordinates: PyReadonlyArray3<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray1<f64>> {
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .map(|s| {
@@ -240,7 +243,7 @@ pub fn get_least_rmsd<'py>(
                 )
             })
             .collect()
-    });
+    }));
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -249,16 +252,17 @@ pub fn get_least_rmsd_with_single_reference_structure<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     reference_coordinates: PyReadonlyArray2<'py, f64>,
+    num_threads: usize,
 ) -> Bound<'py, PyArray1<f64>> {
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .map(|s| least_rmsd_of(&r, &c.index_axis(numpy::ndarray::Axis(0), s)))
             .collect()
-    });
+    }));
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -307,11 +311,12 @@ pub fn get_least_rmsd_rotation_and_translation<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     reference_coordinates: PyReadonlyArray3<'py, f64>,
+    num_threads: usize,
 ) -> Superposition<'py> {
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| {
+    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .map(|s| {
@@ -321,7 +326,7 @@ pub fn get_least_rmsd_rotation_and_translation<'py>(
                 )
             })
             .collect()
-    });
+    }));
     pack(ns, parts, py)
 }
 
@@ -330,16 +335,17 @@ pub fn get_least_rmsd_rotation_and_translation_with_single_reference_structure<'
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
     reference_coordinates: PyReadonlyArray2<'py, f64>,
+    num_threads: usize,
 ) -> Superposition<'py> {
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| {
+    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| crate::threads::install(num_threads, || {
         (0..ns)
             .into_par_iter()
             .map(|s| superposition_of(&r, &c.index_axis(numpy::ndarray::Axis(0), s)))
             .collect()
-    });
+    }));
     pack(ns, parts, py)
 }
 

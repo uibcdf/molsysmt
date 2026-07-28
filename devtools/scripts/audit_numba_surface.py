@@ -7,6 +7,7 @@ coupling is allowed, while adding a new import, JIT site, CUDA module, or direct
 configuration, and dependency surfaces are recorded for the eventual zero-Numba
 cut but do not act as line-sensitive ratchets.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -162,8 +163,7 @@ def collect_inventory(root: Path = REPO) -> dict:
                 elif module == "llvmlite" or module.startswith("llvmlite."):
                     numba_imports.append(f"{relative}::{module}")
                 if (
-                    module == "molsysmt.lib"
-                    or module.startswith("molsysmt.lib.")
+                    module == "molsysmt.lib" or module.startswith("molsysmt.lib.")
                 ) and not relative.startswith("molsysmt/lib/"):
                     direct_lib_consumer_candidates.append((relative, module))
 
@@ -174,22 +174,14 @@ def collect_inventory(root: Path = REPO) -> dict:
                 if _is_jit_decorator(name):
                     file_has_jit = True
                     if name.endswith("cuda.jit"):
-                        cuda_jit_sites.append(
-                            f"{relative}::{qualified_name}::{name}"
-                        )
+                        cuda_jit_sites.append(f"{relative}::{qualified_name}::{name}")
                         cuda_modules.add(relative)
                     else:
-                        cpu_jit_sites.append(
-                            f"{relative}::{qualified_name}::{name}"
-                        )
+                        cpu_jit_sites.append(f"{relative}::{qualified_name}::{name}")
 
-        if path.stem.endswith("_cuda") or (
-            imported_numba and "cuda" in text
-        ):
+        if path.stem.endswith("_cuda") or (imported_numba and "cuda" in text):
             cuda_modules.add(relative)
-        if relative.startswith("molsysmt/lib/") and (
-            imported_numba or file_has_jit
-        ):
+        if relative.startswith("molsysmt/lib/") and (imported_numba or file_has_jit):
             module = relative.removesuffix(".py").replace("/", ".")
             coupled_lib_modules.add(module)
         if any(token in text for token in CONTROL_TOKENS):
@@ -199,8 +191,7 @@ def collect_inventory(root: Path = REPO) -> dict:
         f"{relative}::{module}"
         for relative, module in direct_lib_consumer_candidates
         if any(
-            module == coupled
-            or coupled.startswith(f"{module}.")
+            module == coupled or coupled.startswith(f"{module}.")
             for coupled in coupled_lib_modules
         )
     }
@@ -330,6 +321,11 @@ def main() -> int:
         action="store_true",
         help="print the current generated inventory as JSON",
     )
+    parser.add_argument(
+        "--require-zero",
+        action="store_true",
+        help="fail unless runtime, dependency, test, and guarded Numba surfaces are empty",
+    )
     args = parser.parse_args()
 
     current = collect_inventory()
@@ -339,6 +335,27 @@ def main() -> int:
     if args.write_baseline:
         _write_baseline(current, BASELINE)
         print(f"Wrote Numba surface baseline: {BASELINE.relative_to(REPO)}")
+        return 0
+    if args.require_zero:
+        required_zero = {
+            **current["guarded"],
+            "runtime_reference_files": current["surfaces"]["runtime_reference_files"],
+            "runtime_control_files": current["surfaces"]["runtime_control_files"],
+            "dependency_files": current["surfaces"]["dependency_files"],
+            "test_files": current["surfaces"]["test_files"],
+        }
+        nonzero = {name: values for name, values in required_zero.items() if values}
+        if nonzero:
+            print("Zero-Numba gate FAILED:")
+            for category, values in nonzero.items():
+                print(f"  {category}:")
+                for value in values:
+                    print(f"    - {value}")
+            return 1
+        print(
+            "Zero-Numba gate: PASS "
+            "(runtime, controls, dependencies, tests, CPU JIT, and CUDA JIT are empty)"
+        )
         return 0
     if not BASELINE.exists():
         print(

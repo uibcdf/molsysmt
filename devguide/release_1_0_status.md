@@ -52,22 +52,23 @@ and do not merge it across an unmet integration dependency.
 - **Current C3 exact evidence commit:** `f79ccb4f0`; all five native abi3
   wheels build, audit, install, execute the private-extension smoke, and upload
   successfully in GitHub Actions run `30346103646`
-- **Release readiness measure:** the formal weighted closure is 35%; no second
+- **Release readiness measure:** the formal weighted closure is 55%; no second
   subjective percentage is mixed into this operational ledger
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** define and execute the C4 installed-wheel matrix without
-  importing MolSysMT from the source checkout
+- **Next action:** continue Segment E Rust-only scientific, threading, and
+  oversubscription validation while C4 remains blocked by coordinated Conda
+  publication
 - **Next packaging stage:** C4 — prove the supported Python and NumPy matrix
-  against installed wheels
+  against installed wheels once the sibling packages are available
 - **Known independent release-gate debt:** the fast release gate passes 11/12
   checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
   decorators do not correspond to symbols in the tracked public-API registry.
   Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
   declarations, 320 resolved baseline declarations, and no Tier-1 debt
 
-The 35% figure measures only the newly defined remaining-plan exit gates. It
+The 55% figure measures only the newly defined remaining-plan exit gates. It
 does not attempt to restate the much larger body of MolSysMT development,
 consolidation, or Rust kernel work completed before this ledger was created.
 
@@ -78,10 +79,10 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
 | B — final Numba oracle | 10% | `DONE` | 10% | exact commit `6485a0c08` passes the 264-test bounded two-backend oracle, combined scientific and blocker gates, and the complete forced-Rust suite with 9,769 passed and 5 accepted skips; the dated artifact preserves source and binary hashes |
 | C — Rust packaging | 20% | `IN PROGRESS` | 0% | C1 selected setuptools + setuptools-rust; C2 integrated `molsysmt._rust`; C3 passed five native abi3 build/audit/install/smoke jobs on `f79ccb4f0`; C4-C7 remain open |
-| D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
+| D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
-| **Total** | **100%** | **`IN PROGRESS`** | **35%** | Segment credit is earned only when its complete exit gate passes |
+| **Total** | **100%** | **`IN PROGRESS`** | **55%** | Segment credit is earned only when its complete exit gate passes |
 
 ### B4 Pause Checkpoint — Transactional Structural Growth
 
@@ -479,11 +480,12 @@ the installed extension exposed all 97 entries and passed a minimum-image smoke.
 
 | Stage | Status |
 | --- | --- |
-| D1 — direct Rust CPU routing and dispatch removal | `PENDING` |
-| D2 — CPU Numba/JIT implementation deletion | `PENDING` |
-| D3 — GPU capability audit and Numba-CUDA deletion | `PENDING` |
-| D4 — dependencies, warmup, diagnostics, API, docs, and course cleanup | `PENDING` |
-| D5 — executable zero-Numba/Numba-CUDA/llvmlite gate | `PENDING` |
+| D1 — direct Rust CPU routing and dispatch removal | `DONE` |
+| D2 — CPU Numba/JIT implementation deletion | `DONE` |
+| D3 — GPU capability audit and Numba-CUDA deletion | `DONE` |
+| D4 — dependencies, warmup, diagnostics, API, docs, and course cleanup | `DONE` |
+| D5 — executable zero-Numba/Numba-CUDA/llvmlite gate | `DONE` |
+| D6 — session and per-function Rayon resource controls | `DONE` |
 
 ## Segment E — Rust-Only Validation
 
@@ -592,3 +594,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | C3 multiplatform wheel CI implementation | remains `IN PROGRESS` | five native targets, pinned Rust/cibuildwheel configuration, strict abi3/content inspection, isolated installed-extension smoke, and artifact retention implemented; 12 contract tests, 80 Rust tests, Ruff, dependency validation, and local C2-wheel smoke pass; remote five-target run pending; pre-existing rustfmt debt assigned to C7 | `30b86cdf2`; `release_1_0_rust_packaging_c3_checkpoint.md` |
 | 2026-07-28 | C3 exact-commit remote matrix | `IN PROGRESS` → `DONE` | GitHub Actions run `30346103646` passes Linux x86_64/aarch64, macOS x86_64/arm64, and Windows x86_64; every `cp311-abi3` wheel passes build/audit, non-editable installed-extension validation, 97-export and minimum-image smoke, and artifact upload; exact wheel hashes and runner images are preserved | `f79ccb4f0`; `release_1_0_rust_packaging_c3_checkpoint.md` |
 | 2026-07-28 | C4 installed-wheel matrix | `PENDING` → `IN PROGRESS` | C3 portability dependency closed; Python 3.11–3.13 and supported NumPy installed-wheel execution selected as the active packaging gate | after `f79ccb4f0` |
+| 2026-07-28 | D1–D5 / Segment D | `PENDING` → `DONE` | production routing is Rust-only; CPU JIT, CUDA, incomplete Taichi experiments, runtime controls, dependencies, JIT warm-up API, diagnostics, and migration parity tests are removed; low-level compatibility paths remain Rust-backed; the executable zero gate passes; 122 focused and 450 broad affected tests pass, with one separate network-dependent test excluded | dirty implementation; `release_1_0_rust_only_cut_artifact.md` |
+| 2026-07-28 | D6 Rayon controls | `PENDING` → `DONE` | session defaults and function-local overrides resolve to reusable Rayon pools; nested overrides remain local; 1/2/4-thread execution is directly observable; 165 affected tests pass; representative release-build speedups at four threads are 2.99× distances, 3.54× centers, 3.51× radius of gyration, and 2.73× RMSF | dirty implementation; resolved bug record and `performance_and_jit.md` |

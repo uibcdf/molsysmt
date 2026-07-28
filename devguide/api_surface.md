@@ -46,9 +46,10 @@ silently reverted.
 
 ## Root compatibility points
 
-The root registry currently exposes both `molsysmt.warmup()` and the deprecated
-compatibility alias `molsysmt.warmup_numba()`. New documentation and code should
-use `warmup()`.
+Numerical kernels are already compiled in the installed Rust extension. The
+pre-1.0 JIT warm-up helpers were removed with the JIT runtime; ordinary Python
+imports remain the explicit mechanism for applications that want eager module
+loading.
 
 Exceptions re-exported at the root are Stable user-side handling points. Their
 catalog prose may improve, but their import paths and intended exception roles

@@ -65,18 +65,22 @@ individual entries are finalized as the release is cut.
 ### Changed
 - (to be finalized) conversion-fidelity and chemical-state hardening across form
   adapters.
+- Native CPU parallelization now honors both session configuration and
+  per-function `parallel`/`num_threads` overrides through reusable Rayon pools;
+  automatic mode applies the configured workload thresholds without mutating
+  session policy.
 - `physchem.get_sasa` now uses a unified Shrake–Rupley sampling density of 240
   sphere points by default for both engines (previously 100 for the native
   `MolSysMT` engine and 960 for `mdtraj`). Numerical SASA results shift slightly
   accordingly; use `n_sphere_points` to restore the previous densities.
 
-### Deprecated
-- `molsysmt.warmup_numba`: use `molsysmt.warmup`. Not removed before `1.1.0`.
-
 ### Removed
 - The MMTF and MSMPK forms were removed before the 1.0 public contract was established
   (BinaryCIF/mmCIF are the supported structural exchange formats; H5MSM is the native
   persistence format).
+- The pre-1.0 `molsysmt.warmup()` and `molsysmt.warmup_numba()` functions were
+  removed together with the Numba runtime. Rust kernels are compiled when the
+  distribution is built and require no runtime JIT warm-up.
 
 ### Fixed
 - Doctest collection no longer shadows re-exported public symbols under

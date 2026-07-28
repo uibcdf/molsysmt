@@ -1,6 +1,5 @@
 """
-Unit and regression tests for GPU-accelerated 3-body valence angle calculations (Numba CUDA & Taichi Lang).
-Verifies results against the CPU JIT pipeline under vacuum, orthogonal PBC, and triclinic PBC.
+Regression tests for retired GPU arguments falling back to Rust CPU angles.
 """
 
 import molsysmt as msm
@@ -18,7 +17,7 @@ def test_get_angles_gpu_vacuum():
     # 1. CPU Reference Run
     angles_cpu = msm.structure.get_angles(molsys, triplets=triplets, use_gpu=False)
 
-    # 2. Numba CUDA Run (Forces GPU, falls back to CPU cleanly if no CUDA GPU is found)
+    # Retired backend names remain accepted and fall back to Rust CPU.
     angles_gpu_cuda = msm.structure.get_angles(
         molsys, triplets=triplets, use_gpu=True, gpu_backend='cuda'
     )

@@ -45,10 +45,6 @@ _LAZY_ATTRIBUTES = {
     'thirds': '.third_party',
     'systems': ('.systems', 'systems'),
 
-    # warmup functions
-    'warmup': ('.warmup', 'warmup'),
-    'warmup_numba': ('.warmup', 'warmup_numba'),
-
     # pyunitwizard alias
     'pyunitwizard': ('._pyunitwizard', 'puw'),
 

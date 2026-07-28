@@ -11,8 +11,8 @@ import gc
 from molsysmt.configure import with_configure_overrides
 
 @signal(tags=['api', 'structure'])
-@with_configure_overrides
 @arg_digest()
+@with_configure_overrides
 def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
           reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
           syntax='MolSysMT', engine='MolSysMT', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False):
@@ -56,6 +56,10 @@ def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indic
         Selection syntax used for both selections.
     engine : {'MolSysMT'}, default 'MolSysMT'
         Backend used for the Kabsch rotation and RMSD computation.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
 
     Returns
     -------

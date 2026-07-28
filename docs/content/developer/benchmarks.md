@@ -23,7 +23,7 @@ Below is our interactive performance dashboard, compiled dynamically from the la
 
 Our benchmarking harness is designed around three primary tenets:
 1. **Isolated Resource Telemetry**: Benchmarks are executed inside ephemeral, isolated child subprocesses. This ensures that peak memory footprint metrics (Resident Set Size - RSS) start at a clean, consistent baseline (~477 MB) rather than inheriting cumulative high-water mark footprints from previous tasks.
-2. **Safety vs. Speed Diagnostics**: We systematically separate micro-benchmarks (checking `@arg_digest` and `PyUnitWizard` latency in microseconds) from macro-benchmarks (assessing Numba JIT math kernels and out-of-core file loaders).
+2. **Safety vs. Speed Diagnostics**: We systematically separate micro-benchmarks (checking `@arg_digest` and `PyUnitWizard` latency in microseconds) from macro-benchmarks (assessing native Rust kernels and out-of-core file loaders).
 3. **Rigid Regression Gates**: Any code changes committed to the repository must undergo a regression audit. Our CI performance gate ensures that execution times on standard hot-paths do not degrade by more than **15%** against the baseline.
 
 ---

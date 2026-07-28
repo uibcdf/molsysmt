@@ -4,8 +4,8 @@
 fast without making it wrong. It records what was *measured* on this codebase — including
 the things that turned out not to work — so the same ground is not re-explored.
 
-**Scope:** the Rust CPU kernels. It does not cover the Numba kernels (provisional, to be
-removed) or the GPU backends. For where redesign effort should go at the *algorithm* level,
+**Scope:** the Rust CPU kernels. It does not cover the retired pre-1.0 CPU/GPU
+experiments. For where redesign effort should go at the *algorithm* level,
 see `archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`; this document is
 about the layer below that, once the algorithm is settled.
 
@@ -180,7 +180,7 @@ The optimisations above are only acceptable because the kernels are covered firs
   and validate against the independent oracle rather than against the previous version.
 - Re-run the public-API tests too, not just the kernel tests: `tests/rust tests/pbc
   tests/physchem tests/structure tests/lib` (603 tests) exercise these kernels through
-  `configure.kernel`.
+  the production Rust adapter.
 
 ## 5. Two benchmarks that lied
 

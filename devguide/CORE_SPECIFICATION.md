@@ -14,7 +14,7 @@ molsysmt/
   basic/           # Universal Public API (get, set, convert, select, view, info)
   form/            # Adapters for 60+ external forms and files (Lazy Loading)
   native/          # Tier 1 Native Objects (MolSys, Topology, Structures)
-  lib/             # Performance Kernels (Numba JIT, numeric math)
+  lib/             # Compatibility facade for native Rust kernels
   build/           # System Construction, Repair, and Mutagenesis
   structure/       # Geometric and conformational analysis
   topology/        # Connectivity, sequence, and graph analysis

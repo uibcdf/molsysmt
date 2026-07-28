@@ -5,6 +5,7 @@ from molsysmt._private.lists import sorted_list_of_pairs
 from molsysmt._private.smonitor import ArgumentConflictError, InternalAlgorithmError, NotImplementedMethodError
 import numpy as np
 from smonitor import signal
+from molsysmt.configure import with_configure_overrides
 
 
 def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
@@ -69,11 +70,13 @@ def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
+@with_configure_overrides
 def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
                   molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
                   threshold=None, n_neighbors=None, pairs=False, unique_pairs=False, mutual_only=False, pbc=True,
                   output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
-                  sorted=True, engine='MolSysMT', syntax='MolSysMT', skip_digestion=False):
+                  sorted=True, engine='MolSysMT', syntax='MolSysMT', parallel=None,
+                  num_threads=None, skip_digestion=False):
     """
     Find the neighbors of each atom (or group center) within a cutoff or by count.
 
@@ -157,6 +160,10 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
         Backend used for distance computation.
     syntax : str, default 'MolSysMT'
         Selection syntax used when selections are strings.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
     skip_digestion : bool, default False
         Whether to skip argument digestion (for internal use on trusted hot paths).
 

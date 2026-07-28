@@ -1,8 +1,8 @@
 # Rust/Numba coexistence and the cut to Rust
 
-**Status:** stages 1–2 implemented on `main` (2026-07-24); **default kernel is now `'auto'`**
-(Rust where the wheel is importable, else Numba). Stage 3 (CI wheels) and the hard-`'rust'`
-cut are open.
+**Status:** stages 1–2 implemented on `main` (2026-07-24); coexistence is now
+strictly transitional. The maintainer decision of 2026-07-26 makes production
+Rust packaging and complete Numba removal pre-1.0 work.
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
 `linear_algebra_backend_for_rust_kernels.md`,
 `../archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`, `rust_gpu_backend_options.md`,
@@ -10,9 +10,19 @@ cut are open.
 **Crate location:** `experiments/rust_kernels/` on `main` (the pilot branch
 `experiment/rust-numba-pilot` is historical/superseded).
 
+> **Maintainer decision — 2026-07-26**
+>
+> MolSysMT 1.0 will not ship two maintained CPU implementations. The previous
+> proposal to release with `kernel='auto'`, deprecate Numba in 1.0, and remove it
+> later is superseded. Numba remains only as the temporary parity oracle while
+> Rust packaging is proven; it is then removed before the 1.0 release candidate.
+> The authoritative cross-workstream order and acceptance gates are in
+> [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md).
+
 ## Landing status (2026-07-24)
 
-**Stage 1 — infrastructure — landed on `main`, inert by default:**
+**Stage 1 — historical infrastructure checkpoint, superseded by Stage 2 and the
+`'auto'` flip:**
 
 - The Rust crate source lives in `experiments/rust_kernels/` (path kept for continuity with
   the pilot docs). **Open item, and not merely cosmetic: this must move before 1.0.** These
@@ -25,17 +35,19 @@ cut are open.
   documents. Do it together with stage 3, since both touch the build.
 - The dispatch seam `molsysmt/_private/rust_backend.py` is on `main`, with a guarded import
   so it is a no-op when the wheel is absent.
-- `molsysmt.configure.kernel` (`'numba'|'rust'|'auto'`, default `'numba'`) plus the uniform
-  per-call `kernel=` override are wired through `with_configure_overrides`.
+- At this checkpoint, `molsysmt.configure.kernel`
+  (`'numba'|'rust'|'auto'`) still defaulted to `'numba'`; the uniform per-call
+  `kernel=` override was wired through `with_configure_overrides`.
 - The seam reads `configure.kernel` when no explicit `backend=` is passed, and emits a
   single `DeprecationWarning` only on the *default* Numba path while a Rust wheel is
   present (explicit `backend='numba'`, used by tests and internal callers, stays quiet).
 - The 166 Rust parity/property tests live at `tests/rust/` and pass.
 
-Verified: `import molsysmt` is unchanged, a real `get_rmsd` call is byte-identical by
-default, `configure.context(kernel='rust')` flips resolution and restores. **Main behaves
-exactly as before** — nothing routes to Rust unless explicitly selected, and no public
-function is wired to the seam yet.
+Stage-1 verification established that `import molsysmt` was unchanged, a real
+`get_rmsd` call remained byte-identical by default, and
+`configure.context(kernel='rust')` restored correctly. The statements that
+nothing routed to Rust and no public consumer was wired applied only to that
+checkpoint; Stage 2 below superseded them.
 
 **Stage 2 — consumer wiring — COMPLETE.** `configure.kernel='rust'` now takes effect
 across the whole CPU analysis surface. Routing is at the *high-level consumers*, family by
@@ -73,9 +85,9 @@ typo as its cell-list sibling) and their consumers wired. The full Rust suite is
 orthogonal to the CPU numba/rust choice (`use_gpu` selects GPU; `kernel` selects the CPU
 backend). GPU-from-Rust is its own decision — see `rust_gpu_backend_options.md`.
 
-**What is left is no longer porting or wiring — it is the two open decisions:** stage 3 (CI
-wheels) and the cut (when to flip the default and delete Numba). Both are gated on
-dogfooding with `configure.kernel='rust'`, which is now possible across the whole surface.
+**What is left is no longer porting or wiring:** stage 3 (production CI wheels),
+the final parity capture, and the complete Numba cut. These are now accepted
+pre-1.0 gates rather than open strategic decisions.
 
 **Default flipped to `'auto'` (2026-07-24), validated.** The full suite was run forcing
 `configure.kernel='rust'` and compared against Numba: both give **9489 passes and the same
@@ -84,8 +96,9 @@ dogfooding with `configure.kernel='rust'`, which is now possible across the whol
 so `'auto'` is safe. `'auto'` (not hard `'rust'`) keeps the no-hard-dependency property:
 Rust runs where the wheel is present, Numba otherwise.
 
-**Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds are the gate
-for a hard `'rust'` default; until then `'auto'` degrades gracefully where the wheel is absent.
+**Stage 3 — CI wheels — not started.** Multiplatform `cp311-abi3` wheel builds
+and installed-wheel tests are the gate for deleting Numba. The current `'auto'`
+behavior is a development migration state, not the intended 1.0 contract.
 
 ## 0. Where we are
 
@@ -93,10 +106,12 @@ All 97 CPU `njit` kernels in `molsysmt.lib` have a Rust port in `experiments/rus
 on `main` (69 Rust unit tests, 175 Python parity tests, 3 documented skips), reached
 through the dispatch seam `molsysmt/_private/rust_backend.py`. The seam is wired into the
 public analysis surface and reads `configure.kernel`; when the Rust wheel is absent, or
-`configure.kernel='numba'` (the default), it is a no-op and MolSysMT behaves exactly as
-before — the import is guarded, so there is **no hard dependency and no 1.0 debt**. The
-remaining work is not porting or wiring — it is the two decisions below: CI wheels, and the
-cut (flip the default, retire Numba), both gated on dogfooding.
+`configure.kernel='numba'`, it is a no-op and MolSysMT behaves as the former
+Numba runtime. The current default is `'auto'`, so Rust is used when the
+development wheel is importable and Numba otherwise. This fallback is migration
+infrastructure and is now explicit pre-1.0 debt. The
+remaining work is not porting or wiring — it is production packaging, final
+oracle capture, and deletion of Numba, all gated on dogfooding.
 
 ## 1. The mechanism: reuse `configure`, do not add per-function arguments
 
@@ -126,9 +141,9 @@ touches 1.0. Making Rust reachable by default reverses that, and the decision un
 - **Graceful `'auto'`** — Rust when the wheel imports, Numba otherwise. No hard dependency,
   no install-time failure, but "default rust" is then aspirational rather than guaranteed.
 
-Recommendation: **`'auto'` as the shipped default during dogfooding**, flipping to a hard
-`'rust'` default only once wheels are proven on all target platforms. This keeps the
-no-debt property until the infrastructure actually exists to back a hard default.
+Decision: use `'auto'` only during pre-release dogfooding. Once wheels are
+proven on all target platforms, remove the backend switch and make the packaged
+Rust extension unconditional. MolSysMT 1.0 must not silently fall back to Numba.
 
 The single-wheel, no-BLAS-dependency property (see
 `linear_algebra_backend_for_rust_kernels.md`) is what keeps this tractable: one
@@ -149,19 +164,28 @@ Making Rust the default therefore changes MolSysMT's numerical output at that le
   and the principal-axes sign convention. On those, Rust is the *more* correct answer —
   see the `pending_bugs/` reports.
 
-## 4. Deprecation policy
+## 4. Pre-1.0 Removal Policy
 
-- In **1.0**: selecting `kernel='numba'` (or falling back to it) emits a
-  `DeprecationWarning` naming the removal target. Numba stays fully functional.
-- **Post-1.0**, once dogfooding has surfaced no blocker: delete the Numba kernels, drop the
-  `kernel=`/`configure.kernel` switch, and make Rust unconditional. Retire the parity test
-  layer (its job is done) but **keep the property tests** — they outlive the oracle.
+There is no user-facing Numba deprecation window. Before the 1.0 release
+candidate:
 
-Deleting Numba also removes the whole `lazy_njit`/`parallel_mode`/`parallel_threshold`
-machinery and the open `parallel_numba_jit_segfault` bug class. That simplification is a
-large part of the payoff and should not be left half-done: **maintaining both
-implementations forever is the worst outcome** — all of the duplication cost, none of the
-simplification.
+- prove Rust packaging and installed-wheel execution;
+- record the final two-backend parity artifact;
+- delete the Numba CPU and CUDA implementations;
+- drop `kernel=` and `configure.kernel`;
+- remove JIT warmup, cache, diagnostics, dependencies, and current
+  documentation;
+- retire parity tests only after preserving their evidence;
+- keep the independent property and scientific-truth tests.
+
+Deleting Numba removes `lazy_njit`, JIT cache and compilation machinery, and
+the Numba-specific thread-state failure class. `parallel_mode`, `num_threads`,
+and workload thresholds survive only where they have useful
+backend-independent Rust semantics and executable tests. The historical
+parallel JIT segfault investigation remains archived evidence, not an open
+kernel defect. This simplification is a large part of the payoff and should not
+be left half-done: **maintaining both implementations forever is the worst
+outcome** — all of the duplication cost, none of the simplification.
 
 ## 5. Sequencing (this is the answer to "what before, what after")
 
@@ -174,17 +198,23 @@ simplification.
   Do it on its own merits; it is the largest measured win on real workloads
   (`get_contacts` on a trajectory currently builds the dense distance matrix — 2.7 s).
 
-**The plan itself, in order:**
+**The remaining plan, in order:**
 
-1. Land this plan and the packaging decision (§2) toward `main`. Decide hard-dep vs auto.
-2. Wire the crate into the build behind an optional import; stand up CI wheels.
-3. Add `configure.kernel` + the uniform `kernel=` override (§1); wire faer/Numba
-   parallelism to `configure` (§1).
-4. Ship with `kernel='auto'` default; add the `DeprecationWarning` on Numba selection (§4).
-5. Dogfood to 1.0. Watch for numerical drift (§3) and any correctness surprise.
-6. Flip the default to `'rust'` once wheels are proven.
+1. restore the unrelated conversion-fidelity baseline so migration failures are
+   distinguishable;
+2. freeze Numba as an oracle and record a complete kernel/consumer inventory;
+3. move the crate to a production location and stand up installed-wheel CI;
+4. capture final parity and deliberate numerical divergences;
+5. remove CPU dispatch and Numba kernels;
+6. remove Numba-CUDA or any unvalidated GPU surface;
+7. remove dependencies, warmup, diagnostics, API registry entries, and active
+   documentation;
+8. run Rust-only scientific, full-suite, wheel, and MolSysSuite consumer gates.
 
-**After the cut (post-1.0), not before:**
+The detailed commit boundaries and exit criteria are defined in
+[`release_1_0_execution_plan.md`](release_1_0_execution_plan.md).
+
+**After the runtime cut:**
 
 - **Redesign lever C** (fused multi-observable passes). Measured negligible so far; keep it
   open but unprioritised. While Numba is the oracle it pays the parity tax twice; once Rust
@@ -207,8 +237,8 @@ simplification.
 
 ## 6. What this explicitly does not do
 
-- It does not make the cut a 1.0 blocker. If wheels are not ready, ship `'auto'`; the
-  no-debt property holds and the flip waits.
+- It does not delete Numba before Rust packaging is proven.
+- It does not retain Numba solely for the experimental CUDA surface.
 - It does not touch the public numerical contract silently: the tolerance-level change is
   announced and dogfooded, and the three deliberate divergences are documented bugs where
   Rust is the correction.

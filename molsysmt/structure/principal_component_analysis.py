@@ -7,12 +7,14 @@ from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
 import numpy as np
 import gc
+from molsysmt.configure import with_configure_overrides
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
+@with_configure_overrides
 def principal_component_analysis(molecular_system, selection='all', structure_indices='all',
         weights=None, syntax='MolSysMT', engine='MolSysMT', use_gpu=None,
-        skip_digestion=False):
+        parallel=None, num_threads=None, skip_digestion=False):
     """
     Computing covariance eigenvectors and eigenvalues for selected atoms.
 
@@ -37,6 +39,10 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
         Selection syntax when using strings.
     engine : {'MolSysMT'}, default 'MolSysMT'
         Backend.
+    parallel : bool or str, optional
+        Parallel mode override: True | False | 'auto'.
+    num_threads : int, optional
+        Number of threads override.
     skip_digestion : bool, default False
         Whether to skip argument digestion.
 

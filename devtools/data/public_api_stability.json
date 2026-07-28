@@ -1343,24 +1343,6 @@
       "documentation": "devguide/api_surface.md",
       "contract_tests": "tests"
     },
-    "molsysmt.warmup": {
-      "stability": "stable",
-      "introduced": "1.0.0",
-      "owner": "root",
-      "documentation": "devguide/api_surface.md",
-      "contract_tests": "tests"
-    },
-    "molsysmt.warmup_numba": {
-      "stability": "stable",
-      "introduced": "pre-1.0",
-      "owner": "root",
-      "documentation": "devguide/api_surface.md",
-      "contract_tests": "tests",
-      "lifecycle": "deprecated",
-      "deprecated_since": "1.0.0",
-      "replacement": "molsysmt.warmup",
-      "removal_not_before": "1.1.0"
-    },
     "molsysmt.warn": {
       "stability": "experimental",
       "introduced": "pre-1.0",
