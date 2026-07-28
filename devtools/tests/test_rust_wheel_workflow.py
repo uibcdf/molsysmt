@@ -132,6 +132,8 @@ def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
     ):
         assert commit in text
     assert "validate_installed_molsysmt.py" in text
+    assert "python -m pip install --no-deps" in text
+    assert '"anywidget>=0.9.15"' in text
 
 
 def test_cibuildwheel_contract_is_single_cp311_abi3_build():

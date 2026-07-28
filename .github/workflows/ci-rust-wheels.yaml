@@ -311,14 +311,16 @@ jobs:
           path: wheelhouse
 
       - name: Install controlled hard dependencies
-        run: >-
-          python -m pip install
-          controlled-sources/depdigest
-          controlled-sources/smonitor
-          controlled-sources/pyunitwizard
-          controlled-sources/argdigest
-          controlled-sources/molsysviewer
-          h5py pandas networkx tqdm matplotlib
+        run: |
+          python -m pip install \
+            numpy pint "anywidget>=0.9.15" "packaging>=23" "traitlets>=5" \
+            h5py pandas networkx tqdm matplotlib
+          python -m pip install --no-deps \
+            controlled-sources/smonitor \
+            controlled-sources/depdigest \
+            controlled-sources/pyunitwizard \
+            controlled-sources/argdigest \
+            controlled-sources/molsysviewer
 
       - name: Install the MolSysMT wheel without dependency resolution
         run: python -m pip install --no-deps wheelhouse/*.whl
