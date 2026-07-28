@@ -37,7 +37,7 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** E — Rust-only validation
-- **Active stage:** E4 and E6 installed-runtime and performance validation
+- **Active stage:** C4/E4 installed-wheel platform and Python validation
 - **Completed weighted closure:** 55% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
@@ -60,8 +60,8 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** close the reproducible E6 benchmark record and execute the
-  installed-wheel C4/E4 matrix without waiting for Conda publication
+- **Next action:** execute the installed-wheel C4/E4 matrix without waiting for
+  Conda publication
 - **Parallel packaging action:** validate local installed wheels independently;
   coordinate sibling and MolSysMT Conda publication during manuscript writing
   or review
@@ -500,7 +500,7 @@ the installed extension exposed all 97 entries and passed a minimum-image smoke.
 | E3 — complete MolSysMT suite and release fast gates | `DONE` |
 | E4 — installed-wheel platform/Python matrix | `PENDING` |
 | E5 — maturity-weighted direct-consumer smoke | `DONE` |
-| E6 — cold/warm, memory, thread, and oversubscription benchmarks | `IN PROGRESS` |
+| E6 — cold/warm, memory, thread, and oversubscription benchmarks | `DONE` |
 
 ### E1–E2 Closure Evidence — 2026-07-28
 
@@ -544,6 +544,25 @@ No consumer repository was modified during this audit. TopoMT also retains a
 best-effort, exception-swallowed call to the removed `msm.warmup()` in its test
 configuration; that cleanup belongs to TopoMT and does not affect the passing
 runtime smoke.
+
+### E6 Runtime Benchmark Evidence — 2026-07-28
+
+The exact clean commit `746e22c5f` was measured through the isolated,
+correctness-checking Rust-only release benchmark. The machine-readable result
+is `release_1_0_rust_runtime_benchmark.json`; its interpretation and
+reproduction command are in
+[MolSysMT 1.0 Rust Runtime Benchmark](release_1_0_rust_runtime_benchmark.md).
+
+- first native call / best repeated call: 1.60x, with zero Numba cache files;
+- incremental peak over a 27.48 MiB payload: 3.80 MiB;
+- measured two/four-thread speedups: 1.93x and 3.47x;
+- four concurrent calls using two Rayon threads each completed with identical
+  correct results;
+- the complete suite had already passed under `-n 12`, covering the
+  xdist-plus-Rayon process surface.
+
+The numbers describe one recorded host and are not cross-platform performance
+guarantees. Installed-wheel identity remains the separate C4/E4 gate.
 
 ## Parallel Conda Delivery Track
 
@@ -659,3 +678,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | E1–E2 | `PENDING` → `DONE` | 80 Rust unit/property tests, Clippy with warnings denied, 103 Python Rust/control/boundary tests, 98 scientific-truth tests, 43/0/0 evidence registry, and 18-file hot-path lint pass; representative GIL release, concurrent Rayon pools, bounded oversubscription, and panic containment are executable regressions | stage-closing Rust validation commit |
 | 2026-07-28 | E3 | `IN PROGRESS` → `DONE` | complete Rust-only suite passes 9,585 tests with two accepted skips under `-n 12`; fast release gate passes 12/12; Ruff passes across package, tests, devtools, and root conftest | `692479097` |
 | 2026-07-28 | E5 | `PENDING` → `DONE` | maturity-weighted consumer audit: MolSysViewer passes 5/5 as the blocking foundational consumer; TopoMT passes 7/7; PharmacophoreMT imports but its ER-alpha workflow exposes a consumer-local obsolete `element=True` call, recorded as non-blocking adaptation debt | status-ledger commit following `9fbb95569` |
+| 2026-07-28 | E6 | `IN PROGRESS` → `DONE` | exact clean-commit Rust-only benchmark records first/repeated calls, memory, raw 1/2/4-thread samples, bounded nested concurrency, native-extension hash, scientific checks, and zero JIT-cache creation | `746e22c5f`; `release_1_0_rust_runtime_benchmark.{md,json}` |
