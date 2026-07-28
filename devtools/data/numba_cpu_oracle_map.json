@@ -6,7 +6,7 @@
       ],
       "independent_evidence": [
         "tests/scientific_truth/external/mdanalysis/test_geometry.py",
-        "experiments/rust_kernels/src/angles.rs"
+        "rust/src/angles.rs"
       ],
       "kernel_count": 4,
       "parity_tests": [
@@ -43,7 +43,7 @@
       ],
       "independent_evidence": [
         "tests/scientific_truth/external/mdtraj/test_geometry.py",
-        "experiments/rust_kernels/src/dihedrals.rs"
+        "rust/src/dihedrals.rs"
       ],
       "kernel_count": 4,
       "parity_tests": [
@@ -85,7 +85,7 @@
         "molsysmt/build/build_peptide.py"
       ],
       "independent_evidence": [
-        "experiments/rust_kernels/src/mathlib.rs"
+        "rust/src/mathlib.rs"
       ],
       "kernel_count": 13,
       "parity_tests": [
@@ -139,7 +139,7 @@
       ],
       "independent_evidence": [
         "tests/scientific_truth/structure/test_principal_component_analysis.py",
-        "experiments/rust_kernels/src/pca.rs"
+        "rust/src/pca.rs"
       ],
       "kernel_count": 1,
       "parity_tests": [
@@ -167,7 +167,7 @@
         "molsysmt/physchem/get_sasa.py"
       ],
       "independent_evidence": [
-        "experiments/rust_kernels/src/sasa.rs"
+        "rust/src/sasa.rs"
       ],
       "kernel_count": 8,
       "parity_tests": [
@@ -180,7 +180,7 @@
         "molsysmt/native/topology.py"
       ],
       "independent_evidence": [
-        "experiments/rust_kernels/src/series.rs"
+        "rust/src/series.rs"
       ],
       "kernel_count": 5,
       "parity_tests": [
@@ -194,7 +194,7 @@
       ],
       "independent_evidence": [
         "tests/scientific_truth/topology/test_graph_topology.py",
-        "experiments/rust_kernels/src/topology.rs"
+        "rust/src/topology.rs"
       ],
       "kernel_count": 3,
       "parity_tests": [

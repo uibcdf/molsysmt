@@ -218,7 +218,7 @@ DIVERGENCES = [
         "tests": [
             "tests/rust/test_long_tail_parity.py::test_empty_series_diverge_because_upstream_reads_out_of_bounds"
         ],
-        "evidence": ["experiments/rust_kernels/src/series.rs"],
+        "evidence": ["rust/src/series.rs"],
         "status": "accepted",
     },
     {

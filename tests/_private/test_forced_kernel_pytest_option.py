@@ -14,7 +14,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 def test_forced_kernel_option_reaches_xdist_worker(tmp_path, backend):
     """The command-line choice must govern code executed inside a worker."""
     if backend == "rust":
-        pytest.importorskip("msm_rust_kernels")
+        import molsysmt._rust  # noqa: F401
 
     probe = tmp_path / "test_forced_kernel_probe.py"
     probe.write_text(

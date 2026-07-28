@@ -1,6 +1,6 @@
 {
   "counts": {
-    "active_devguide_files": 32,
+    "active_devguide_files": 38,
     "active_documentation_files": 10,
     "build_files": 1,
     "cpu_jit_sites": 108,
@@ -8,12 +8,12 @@
     "cuda_modules": 13,
     "dependency_files": 6,
     "direct_lib_consumers": 46,
-    "experiment_files": 23,
+    "experiment_files": 0,
     "numba_imports": 48,
     "runtime_control_files": 5,
     "runtime_reference_files": 59,
-    "test_files": 22,
-    "tool_files": 11
+    "test_files": 23,
+    "tool_files": 17
   },
   "guarded": {
     "cpu_jit_sites": [
@@ -303,6 +303,7 @@
       "devguide/course_structure.md",
       "devguide/digestion_and_dependencies.md",
       "devguide/gpu_acceleration.md",
+      "devguide/numba_cpu_oracle_map.md",
       "devguide/numba_migration_inventory.md",
       "devguide/pending_bugs/configure_context_is_not_thread_safe.md",
       "devguide/pending_bugs/dihedral_angles_broadcast_mismatch_pbc.md",
@@ -313,6 +314,7 @@
       "devguide/pending_proposals/chemical_graph_and_conversion_execution_checkpoint.md",
       "devguide/pending_proposals/conda_numba_preheating.md",
       "devguide/pending_proposals/linear_algebra_backend_for_rust_kernels.md",
+      "devguide/pending_proposals/molsysmt_1_0_conda_release_coordination.md",
       "devguide/pending_proposals/molsysviewer_molsysmt_nonblocking_heavy_operations.md",
       "devguide/pending_proposals/release_1_0_execution_plan.md",
       "devguide/pending_proposals/release_1_0_independent_gate_audit.md",
@@ -326,9 +328,13 @@
       "devguide/pending_proposals/topology_selection_indexing_and_pyarrow.md",
       "devguide/pending_proposals/triclinic_cell_list_completeness.md",
       "devguide/performance_and_jit.md",
+      "devguide/release_1_0_final_numba_oracle_artifact.md",
+      "devguide/release_1_0_rust_campaign_checkpoint.md",
       "devguide/release_1_0_status.md",
       "devguide/roadmap.md",
-      "devguide/rust_kernel_optimization_guide.md"
+      "devguide/rust_kernel_optimization_guide.md",
+      "devguide/rust_numba_divergence_contract.md",
+      "devguide/testing_strategy.md"
     ],
     "active_documentation_files": [
       "docs/_build/jupyter_execute/content/course/01_Path_Alzheimer/44_Scalability_Heavy_Trajectories.ipynb",
@@ -353,31 +359,7 @@
       "devtools/conda-envs/test_env.yaml",
       "pyproject.toml"
     ],
-    "experiment_files": [
-      "experiments/rust_kernels/Cargo.toml",
-      "experiments/rust_kernels/PACKAGING.md",
-      "experiments/rust_kernels/README.md",
-      "experiments/rust_kernels/bench_matrix.py",
-      "experiments/rust_kernels/bench_neighbors.py",
-      "experiments/rust_kernels/bench_parity.py",
-      "experiments/rust_kernels/bench_production.py",
-      "experiments/rust_kernels/fallback_seam.py",
-      "experiments/rust_kernels/pyproject.toml",
-      "experiments/rust_kernels/src/angles.rs",
-      "experiments/rust_kernels/src/axes.rs",
-      "experiments/rust_kernels/src/dihedral_ops.rs",
-      "experiments/rust_kernels/src/dihedrals.rs",
-      "experiments/rust_kernels/src/distances.rs",
-      "experiments/rust_kernels/src/lib.rs",
-      "experiments/rust_kernels/src/mathlib.rs",
-      "experiments/rust_kernels/src/mic.rs",
-      "experiments/rust_kernels/src/neighbors.rs",
-      "experiments/rust_kernels/src/pbc.rs",
-      "experiments/rust_kernels/src/pca.rs",
-      "experiments/rust_kernels/src/rmsd.rs",
-      "experiments/rust_kernels/src/sasa.rs",
-      "experiments/rust_kernels/src/series.rs"
-    ],
+    "experiment_files": [],
     "runtime_control_files": [
       "molsysmt/__init__.py",
       "molsysmt/_private/jit.py",
@@ -447,6 +429,7 @@
       "molsysmt/warmup.py"
     ],
     "test_files": [
+      "tests/_private/test_forced_kernel_pytest_option.py",
       "tests/cross_repo/test_smonitor_contracts.py",
       "tests/lib/test_misc_lib_edge_cases.py",
       "tests/lib/test_signature_and_series.py",
@@ -476,12 +459,18 @@
       "devtools/conda-envs/docs_env.yaml",
       "devtools/conda-envs/production_env.yaml",
       "devtools/conda-envs/test_env.yaml",
+      "devtools/data/numba_cpu_oracle_map.json",
       "devtools/data/numba_surface_baseline.json",
       "devtools/data/public_api_stability.json",
+      "devtools/data/rust_numba_divergences.json",
       "devtools/requirements.yaml",
+      "devtools/scripts/audit_numba_oracle_map.py",
       "devtools/scripts/audit_numba_surface.py",
+      "devtools/scripts/audit_rust_numba_divergences.py",
       "devtools/tests/coverage.json",
-      "devtools/tests/test_audit_numba_surface.py"
+      "devtools/tests/test_audit_numba_oracle_map.py",
+      "devtools/tests/test_audit_numba_surface.py",
+      "devtools/tests/test_audit_rust_numba_divergences.py"
     ]
   }
 }

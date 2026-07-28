@@ -7,7 +7,7 @@ same input coordinates are edited by each backend and the resulting arrays compa
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 

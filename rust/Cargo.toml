@@ -1,11 +1,11 @@
 [package]
-name = "msm_rust_kernels"
+name = "molsysmt-rust"
 version = "0.1.0"
 edition = "2021"
-description = "Experimental Rust reimplementation of selected MolSysMT numeric kernels (Numba-replacement pilot). Self-contained; not part of the molsysmt build."
+description = "Private native kernels distributed as part of MolSysMT."
 
 [lib]
-name = "msm_rust_kernels"
+name = "_rust"
 # rlib is needed so `cargo test` can build a test harness for the unit tests.
 crate-type = ["cdylib", "rlib"]
 

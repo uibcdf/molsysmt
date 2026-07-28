@@ -31,7 +31,7 @@ import re
 import sys
 from pathlib import Path
 
-SRC = Path(__file__).resolve().parents[2] / "experiments" / "rust_kernels" / "src"
+SRC = Path(__file__).resolve().parents[2] / "rust" / "src"
 
 # Method calls that have no baseline x86-64 instruction behind them.
 BANNED = re.compile(r"\.(floor|ceil|round|round_ties_even|trunc|rint)\s*\(\s*\)")

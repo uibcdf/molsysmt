@@ -20,7 +20,7 @@ Parity here has three regimes, and conflating them would hide real information:
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 

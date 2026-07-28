@@ -557,7 +557,7 @@
       "category": "safety-and-contract-correction",
       "decision": "Keep the defined empty-input result.",
       "evidence": [
-        "experiments/rust_kernels/src/series.rs"
+        "rust/src/series.rs"
       ],
       "families": [
         "series"

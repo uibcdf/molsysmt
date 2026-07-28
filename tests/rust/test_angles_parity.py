@@ -1,6 +1,6 @@
 """Parity: Rust angle family vs the Numba oracle within an absolute envelope.
 
-Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers vacuum and
+Requires the private ``molsysmt._rust`` extension built into MolSysMT. Covers vacuum and
 periodic (orthogonal + triclinic) angles, multi- and single-structure, via the opt-in
 seam. `get_angles` is on the hbonds.get_luzard_chandler_hbonds path.
 """
@@ -8,7 +8,7 @@ seam. `get_angles` is on the hbonds.get_luzard_chandler_hbonds path.
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 

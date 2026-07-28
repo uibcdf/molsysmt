@@ -1,6 +1,6 @@
 """Parity: Rust dihedral-angle family vs the Numba oracle within an absolute envelope.
 
-Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers vacuum and
+Requires the private ``molsysmt._rust`` extension built into MolSysMT. Covers vacuum and
 periodic (orthogonal + triclinic), multi- and single-structure, via the opt-in seam.
 The sign convention (negated when cross(aux0,aux1)·vect1 <= 0) is part of the contract,
 so the comparison is signed, not on magnitudes.
@@ -9,7 +9,7 @@ so the comparison is signed, not on magnitudes.
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 

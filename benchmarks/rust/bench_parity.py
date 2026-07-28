@@ -1,6 +1,6 @@
 """Parity + warm/cold timing: Rust kernels vs their Python/Numba equivalents.
 
-Run inside the worktree after `maturin develop --release`. The headline of the
+Run inside the worktree after building the MolSysMT extension. The headline of the
 Numba-replacement pilot is the COLD column: Numba pays a JIT-compilation cost on
 the first call, Rust (AOT) does not.
 """
@@ -11,7 +11,7 @@ import time
 import numpy as np
 import numba as nb
 
-import msm_rust_kernels as rust
+import molsysmt._rust as rust
 
 
 def _min_time(func, *args, repeats=5):

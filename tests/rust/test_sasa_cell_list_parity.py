@@ -1,6 +1,6 @@
 """Parity: Rust cell-list SASA kernels vs the Numba oracle within an absolute envelope.
 
-Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers the vacuum
+Requires the private ``molsysmt._rust`` extension built into MolSysMT. Covers the vacuum
 and periodic (orthogonal + triclinic) Shrake-Rupley cell-list kernels, single and
 multiple structures, via the opt-in seam (backend='rust' vs 'numba').
 """
@@ -8,7 +8,7 @@ multiple structures, via the opt-in seam (backend='rust' vs 'numba').
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 from molsysmt.lib.structure.get_sasa_cuda import get_fibonacci_sphere_points  # noqa: E402

@@ -17,7 +17,7 @@ import time
 import numpy as np
 import numba as nb
 
-import msm_rust_kernels as rust
+import molsysmt._rust as rust
 
 
 def best(func, *args, repeats=5):

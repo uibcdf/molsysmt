@@ -1,6 +1,6 @@
 [build-system]
 # `wheel` is not required here; setuptools will build wheels without adding it.
-requires = ["setuptools>=68.0", "versioningit>=3.0"]
+requires = ["setuptools>=68.0", "versioningit>=3.0", "setuptools-rust>=1.10"]
 build-backend = "setuptools.build_meta"
 
 # Self-descriptive entries which should always be present
@@ -115,6 +115,16 @@ molsysmt = [
     "py.typed"
 ]
 "molsysmt.data" = ["**"]
+
+[[tool.setuptools-rust.ext-modules]]
+target = "molsysmt._rust"
+path = "rust/Cargo.toml"
+binding = "PyO3"
+py-limited-api = "cp311"
+features = ["extension-module"]
+
+[tool.distutils.bdist_wheel]
+py-limited-api = "cp311"
 
 [tool.versioningit]
 default-version = "1+unknown"

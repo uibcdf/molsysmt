@@ -1,6 +1,6 @@
 # Optimising the Rust kernels
 
-**Role:** operational. This is the working method for making `experiments/rust_kernels/`
+**Role:** operational. This is the working method for making `rust/`
 fast without making it wrong. It records what was *measured* on this codebase — including
 the things that turned out not to work — so the same ground is not re-explored.
 

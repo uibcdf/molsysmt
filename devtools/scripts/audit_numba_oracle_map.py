@@ -28,7 +28,7 @@ FAMILY_CONTRACTS = {
             "molsysmt/build/build_peptide.py",
         ],
         "parity_tests": ["tests/rust/test_math_parity.py"],
-        "independent_evidence": ["experiments/rust_kernels/src/mathlib.rs"],
+        "independent_evidence": ["rust/src/mathlib.rs"],
     },
     "pbc": {
         "source_prefixes": ["molsysmt/lib/pbc/"],
@@ -46,7 +46,7 @@ FAMILY_CONTRACTS = {
         "source_paths": ["molsysmt/lib/series.py"],
         "consumers": ["molsysmt/native/topology.py"],
         "parity_tests": ["tests/rust/test_long_tail_parity.py"],
-        "independent_evidence": ["experiments/rust_kernels/src/series.rs"],
+        "independent_evidence": ["rust/src/series.rs"],
     },
     "topology": {
         "source_prefixes": ["molsysmt/lib/topology/"],
@@ -57,7 +57,7 @@ FAMILY_CONTRACTS = {
         "parity_tests": ["tests/rust/test_long_tail_parity.py"],
         "independent_evidence": [
             "tests/scientific_truth/topology/test_graph_topology.py",
-            "experiments/rust_kernels/src/topology.rs",
+            "rust/src/topology.rs",
         ],
     },
     "geometry": {
@@ -116,7 +116,7 @@ FAMILY_CONTRACTS = {
             "tests/rust/test_sasa_cell_list_parity.py",
             "tests/rust/test_min_distance_and_bruteforce_sasa_parity.py",
         ],
-        "independent_evidence": ["experiments/rust_kernels/src/sasa.rs"],
+        "independent_evidence": ["rust/src/sasa.rs"],
     },
     "angles": {
         "source_paths": [
@@ -127,7 +127,7 @@ FAMILY_CONTRACTS = {
         "parity_tests": ["tests/rust/test_angles_parity.py"],
         "independent_evidence": [
             "tests/scientific_truth/external/mdanalysis/test_geometry.py",
-            "experiments/rust_kernels/src/angles.rs",
+            "rust/src/angles.rs",
         ],
     },
     "dihedrals": {
@@ -139,7 +139,7 @@ FAMILY_CONTRACTS = {
         "parity_tests": ["tests/rust/test_dihedrals_parity.py"],
         "independent_evidence": [
             "tests/scientific_truth/external/mdtraj/test_geometry.py",
-            "experiments/rust_kernels/src/dihedrals.rs",
+            "rust/src/dihedrals.rs",
         ],
     },
     "dihedral_ops": {
@@ -192,7 +192,7 @@ FAMILY_CONTRACTS = {
         "parity_tests": ["tests/rust/test_pca_parity.py"],
         "independent_evidence": [
             "tests/scientific_truth/structure/test_principal_component_analysis.py",
-            "experiments/rust_kernels/src/pca.rs",
+            "rust/src/pca.rs",
         ],
     },
 }

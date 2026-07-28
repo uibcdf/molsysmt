@@ -1,6 +1,6 @@
 """Parity: Rust MIC-distance family vs the Numba oracle within an absolute envelope.
 
-Skipped unless the optional ``msm_rust_kernels`` wheel is installed, so it is a
+Requires the private ``molsysmt._rust`` extension built into MolSysMT, so it is a
 no-op in the normal (Numba-only) CI and a bounded-equivalence gate wherever the Rust
 accelerator is present. Covers every family member, orthogonal + triclinic boxes,
 and multi- vs single-structure shapes, via the opt-in seam (backend='rust' vs 'numba').
@@ -9,7 +9,7 @@ and multi- vs single-structure shapes, via the opt-in seam (backend='rust' vs 'n
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 

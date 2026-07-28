@@ -15,7 +15,7 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[2]
 SCRIPT = REPO / "devtools" / "scripts" / "check_rust_hot_paths.py"
-SRC = REPO / "experiments" / "rust_kernels" / "src"
+SRC = REPO / "rust" / "src"
 
 pytestmark = pytest.mark.skipif(
     not SRC.is_dir(), reason="the Rust kernel sources are not present in this checkout"
@@ -45,13 +45,13 @@ def test_the_lint_detects_a_reintroduced_libm_call(tmp_path):
     import shutil
 
     fake_repo = tmp_path / "repo"
-    (fake_repo / "experiments" / "rust_kernels").mkdir(parents=True)
+    (fake_repo / "rust").mkdir(parents=True)
     (fake_repo / "devtools" / "scripts").mkdir(parents=True)
-    shutil.copytree(SRC, fake_repo / "experiments" / "rust_kernels" / "src")
+    shutil.copytree(SRC, fake_repo / "rust" / "src")
     planted_script = fake_repo / "devtools" / "scripts" / SCRIPT.name
     shutil.copy(SCRIPT, planted_script)
 
-    target = fake_repo / "experiments" / "rust_kernels" / "src" / "mic.rs"
+    target = fake_repo / "rust" / "src" / "mic.rs"
     text = target.read_text()
     needle = "fast_floor(v[0] / cell[0][0] + 0.5)"
     assert needle in text, "the orthogonal wrap no longer looks as expected; update this test"

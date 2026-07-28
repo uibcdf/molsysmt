@@ -17,7 +17,7 @@ import molsysmt as msm
 from molsysmt import lib as msmlib
 from molsysmt import systems
 
-import msm_rust_kernels as rust
+import molsysmt._rust as rust
 
 puw = msm.pyunitwizard
 

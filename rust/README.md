@@ -1,10 +1,11 @@
-# Rust kernels — Numba replacement (all 97 CPU kernels ported)
+# MolSysMT private Rust kernels
 
-**Status:** every CPU `njit` kernel in `molsysmt.lib` has a Rust port behind the opt-in
-seam (97/97). 69 Rust unit tests and 166 Python parity tests pass. `molsysmt` still never
-imports the crate; Numba remains the default. What is left is a decision, not more porting:
-make Rust the default and drop Numba, or stop here (see
-`devguide/pending_proposals/rusterization_pilot_conclusions_and_adoption.md`).
+**Status:** this is the production Rust crate compiled into the private
+`molsysmt._rust` extension. Every inventoried CPU `njit` kernel has a Rust
+migration disposition, the native crate has 80 unit tests, and the bounded
+Python oracle has 264 passing tests plus three documented upstream
+minimum-image skips. Numba remains temporarily available only as the frozen
+migration oracle; the Rust-only cut follows the installed-package gates.
 
 ## Migration policy (agreed)
 
@@ -37,18 +38,19 @@ make Rust the default and drop Numba, or stop here (see
 
 ## Testing: two independent layers
 
-1. **Rust unit tests** (`cargo test --no-default-features`, 69 tests) — exercise the
+1. **Rust unit tests** (`cargo test --manifest-path rust/Cargo.toml
+   --no-default-features`, 80 tests) — exercise the
    pure helpers directly and cover edge cases the parity tests share blind spots on:
    inverse round-trips, minimum-image wrapping picking the short image, `angle`
    clamping so `acos` never NaNs, sorted/unsorted emit order, empty neighbour sets, and
    cumulative CSR offsets, the deliberate corrections above, and the
    round-half-to-even trap in `unwrap`. `extension-module`
    is an optional (default-on) feature precisely so the test binary can link.
-2. **Python parity tests** (`tests/rust/`, 166 tests + 3 documented skips) — bit-for-bit equivalence against
-   the Numba oracle through the opt-in seam — with the documented exceptions above (the
-   SASA MIC path at 1e-9, the `pbc` triclinic wraps at 1e-12, and three skips where
-   upstream is wrong) — skipped entirely when the wheel is absent. Run with `python -m pytest --receptor=llm
-   tests/rust/`.
+2. **Python parity tests** (`tests/rust/`, 264 tests + 3 documented skips) —
+   equivalence against the frozen Numba oracle through the coexistence seam,
+   with the documented exceptions above. The private extension is required;
+   absence is a build or installation defect. Run with
+   `python -m pytest --receptor=llm tests/rust/`.
 
 ## Block 13: PCA (`pca.rs`) — the last CPU kernel, 97/97
 
@@ -368,33 +370,27 @@ not warm throughput on already-tight numeric loops.
 (6 functions: single/two-system, all-pairs/pairs, multi- and single-structure;
 orthogonal + triclinic 27-image MIC) with names matching Numba 1:1. Opt-in seam:
 `molsysmt/_private/rust_backend.py` (`backend='numba'|'rust'|'auto'`, Numba default and
-oracle). Parity test: `tests/rust/test_mic_distances_parity.py` (bit-for-bit, skipped
-unless the wheel is installed). This is the template each subsequent block follows:
+oracle). Parity test: `tests/rust/test_mic_distances_parity.py` (bit-for-bit, with the
+private extension required). This is the template each subsequent block follows:
 *port faithfully → dispatch via the seam → parity test in the suite*, with Numba
-staying the default so 1.0 depends on none of it.
+remaining only until the Rust-only cut.
 
 ---
 
 
-Isolated experiment on the `experiment/rust-numba-pilot` branch. It reimplements a
-couple of MolSysMT numeric kernels in Rust (PyO3 + rust-numpy) to measure numerical
-parity and warm/cold timing against the Python/Numba versions.
-
-**This is self-contained and disposable.**
-- It is NOT referenced by molsysmt's build; molsysmt builds and imports exactly the
-  same with or without this crate.
-- molsysmt never imports `msm_rust_kernels`. Any future use would be opt-in behind a
-  `try: import msm_rust_kernels except ImportError:` fallback to Numba.
-- To drop it: abandon the branch / `git worktree remove`. Nothing else changes.
+The measurements below are retained from the original migration pilot. They
+explain why the production crate was adopted, but the crate is no longer an
+isolated or disposable experiment.
 
 ## Build & run
 
-Toolchain: `rust` + `maturin` (installed via conda-forge into the active env).
+Toolchain: Rust plus `setuptools-rust`. The repository build produces the
+private extension as part of MolSysMT:
 
 ```bash
-cd experiments/rust_kernels
-maturin develop --release      # builds and installs msm_rust_kernels into the env
-python bench_parity.py         # parity + warm/cold timing vs Numba
+cargo test --manifest-path rust/Cargo.toml --no-default-features
+python -m pip install -e . --no-build-isolation --no-deps
+python benchmarks/rust/bench_parity.py
 ```
 
 ## Results — benchmark matrix (one machine, 20 threads)

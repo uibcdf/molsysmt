@@ -6,7 +6,7 @@ an all-pairs ±2 ground truth (neighbour list) and the brute-force SASA (0 diffe
 mild and heavily-skewed boxes. Kept for the record of the diagnosis and fix.
 **Relates to:** `../archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`,
 `wrap_to_mic_triclinic_not_minimum_image.md`.
-**Crate:** `experiments/rust_kernels/src/neighbors.rs`, `src/sasa.rs`.
+**Crate:** `rust/src/neighbors.rs`, `src/sasa.rs`.
 
 ## Context
 

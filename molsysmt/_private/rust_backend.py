@@ -1,30 +1,31 @@
-"""Optional Rust-kernel backend (Rust-migration coexistence layer).
+"""Rust-kernel backend migration coexistence layer.
 
-MolSysMT runs on pure Numba by default. When the optional ``msm_rust_kernels`` wheel is
-installed *and* selected, these dispatchers route kernels to Rust — numerically equal to
-within a documented scientific tolerance (not bit-for-bit; ``fastmath`` and different
-eigensolvers move the last bits), with no JIT compilation and no ``warmup()``.
+The private ``molsysmt._rust`` extension is distributed inside the MolSysMT
+package. When selected, these dispatchers route kernels to Rust — numerically
+equal within a documented scientific tolerance (not bit-for-bit; ``fastmath``
+and different eigensolvers move the last bits), with no JIT compilation and no
+``warmup()``.
 
 Selection is driven by ``molsysmt.configure.kernel`` (global) and the uniform per-call
 ``kernel=`` override, exactly like ``parallel``/``num_threads`` — never a bespoke argument
 per function:
 
 - ``'numba'`` (the default): always Numba.
-- ``'rust'``: Rust; raises if the wheel is not installed.
-- ``'auto'``: Rust if the wheel is importable, else Numba.
+- ``'rust'``: Rust; raises if the private extension is unavailable.
+- ``'auto'``: Rust if the extension is importable, else Numba.
 
 Each dispatcher also accepts an explicit ``backend=`` for tests and internal callers; when
-left ``None`` it reads ``configure.kernel``. This module is a safe no-op when the wheel is
-absent, so it lives in ``main`` without making MolSysMT depend on Rust. See
+left ``None`` it reads ``configure.kernel``. The temporary fallback remains
+only until the Rust-only cut removes Numba. See
 ``devguide/pending_proposals/rust_numba_coexistence_and_cut_plan.md``.
 """
 
 import warnings
 
 try:
-    import msm_rust_kernels as _rust
+    import molsysmt._rust as _rust
     HAVE_RUST = True
-except Exception:  # pragma: no cover - absence is the normal, supported state
+except ImportError:  # pragma: no cover - supported only during the migration
     _rust = None
     HAVE_RUST = False
 
@@ -42,7 +43,7 @@ def _resolve_backend(backend):
 def _warn_numba_deprecation_once():
     """Warn once when the deprecated Numba path is taken explicitly while Rust is available.
 
-    Kept quiet in the default (``kernel='numba'``, no wheel) state so it does not spam
+    Kept quiet in the default (``kernel='numba'``) state so it does not spam
     during normal use; it fires only when a user could have used Rust and did not, which is
     the signal the migration wants to surface. See the coexistence plan for the removal
     target.
@@ -74,8 +75,8 @@ def _use_rust(backend):
     if backend == "rust":
         if not HAVE_RUST:
             raise RuntimeError(
-                "kernel='rust' requested but the optional 'msm_rust_kernels' package "
-                "is not installed."
+                "kernel='rust' requested but the private 'molsysmt._rust' "
+                "extension is unavailable."
             )
         return True
     if backend == "auto":

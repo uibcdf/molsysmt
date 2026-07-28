@@ -1,6 +1,6 @@
 """Parity: Rust distance family vs the Numba oracle within an absolute envelope.
 
-Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers every
+Requires the private ``molsysmt._rust`` extension built into MolSysMT. Covers every
 family member and both shapes (multi- and single-structure), via the opt-in seam.
 This is the vacuum counterpart of test_mic_distances_parity.py.
 """
@@ -8,7 +8,7 @@ This is the vacuum counterpart of test_mic_distances_parity.py.
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 

@@ -1,6 +1,6 @@
 """Parity: Rust neighbor-list membership exactly and distances within a tight envelope.
 
-Skipped unless the optional ``msm_rust_kernels`` wheel is installed. Covers vacuum
+Requires the private ``molsysmt._rust`` extension built into MolSysMT. Covers vacuum
 and periodic (orthogonal + triclinic), self vs disjoint query/ref, and sorted vs
 unsorted, comparing exact CSR offsets and indices plus bounded floating distances via
 the opt-in seam (backend='rust' vs 'numba').
@@ -9,7 +9,7 @@ the opt-in seam (backend='rust' vs 'numba').
 import numpy as np
 import pytest
 
-pytest.importorskip("msm_rust_kernels")
+import molsysmt._rust  # noqa: F401, E402
 
 from molsysmt._private import rust_backend as rb  # noqa: E402
 
