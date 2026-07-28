@@ -51,6 +51,32 @@ def test_workflow_builds_validates_and_uploads_without_publish_credentials():
     assert "anaconda" not in text.lower()
 
 
+def test_workflow_enforces_rust_quality_and_dependency_policy():
+    workflow = _workflow()
+    quality = workflow["jobs"]["rust-quality"]
+    assert quality["runs-on"] == "ubuntu-24.04"
+
+    text = WORKFLOW.read_text(encoding="utf-8")
+    assert "cargo fmt --manifest-path rust/Cargo.toml --check" in text
+    assert "cargo clippy --manifest-path rust/Cargo.toml" in text
+    assert "cargo test --manifest-path rust/Cargo.toml" in text
+    assert "EmbarkStudios/cargo-deny-action@v2" in text
+    assert "manifest-path: rust/Cargo.toml" in text
+
+
+def test_workflow_builds_a_wheel_from_the_validated_sdist():
+    workflow = _workflow()
+    sdist = workflow["jobs"]["source-distribution"]
+    assert sdist["runs-on"] == "ubuntu-24.04"
+
+    text = WORKFLOW.read_text(encoding="utf-8")
+    assert "python -m build --sdist --outdir dist" in text
+    assert "validate_rust_sdist.py dist" in text
+    assert "python -m pip wheel dist/*.tar.gz --no-deps" in text
+    assert "validate_rust_wheel.py sdist-wheelhouse" in text
+    assert "name: molsysmt-source-distribution" in text
+
+
 def test_workflow_validates_every_wheel_on_all_supported_pythons():
     workflow = _workflow()
     installed = workflow["jobs"]["test-full"]
@@ -89,6 +115,24 @@ def test_workflow_validates_the_declared_numpy_floor():
     assert floor["needs"] == "build-full"
 
 
+def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
+    workflow = _workflow()
+    smoke = workflow["jobs"]["test-public-smoke"]
+    assert smoke["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
+    assert smoke["needs"] == "build-full"
+
+    text = WORKFLOW.read_text(encoding="utf-8")
+    for commit in (
+        "4fccafda4aa37b4c152d6b7d887ee665c7adc443",
+        "df86d5d33de23724a819c2cb883198522a0c0c47",
+        "0ff6656abfbd9f1ebc7575bc3f67fb263f52bf4f",
+        "8df5bfee6bbb22bc2cd40aa744f04f1fc1c76ade",
+        "28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4",
+    ):
+        assert commit in text
+    assert "validate_installed_molsysmt.py" in text
+
+
 def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     config = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
     cibw = config["tool"]["cibuildwheel"]
@@ -105,6 +149,10 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
         "cp311"
     )
     assert "numpy>=1.26,<3" in config["project"]["dependencies"]
+    assert config["tool"]["setuptools"]["packages"]["find"]["include"] == [
+        "molsysmt*",
+        "molsysviewer_molsysmt*",
+    ]
 
 
 def test_rust_toolchain_is_pinned():

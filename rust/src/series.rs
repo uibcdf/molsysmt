@@ -26,8 +26,10 @@ pub fn serie_to_chunks<'py>(
     let s = serie.as_array();
     let n = s.len();
     if n == 0 {
-        return (Array1::<i64>::zeros(0).into_pyarray(py),
-                Array1::<i64>::zeros(0).into_pyarray(py));
+        return (
+            Array1::<i64>::zeros(0).into_pyarray(py),
+            Array1::<i64>::zeros(0).into_pyarray(py),
+        );
     }
     let mut starts: Vec<i64> = Vec::new();
     let mut sizes: Vec<i64> = Vec::new();
@@ -41,7 +43,10 @@ pub fn serie_to_chunks<'py>(
     }
     starts.push(s[start_idx]);
     sizes.push((n - start_idx) as i64);
-    (Array1::from_vec(starts).into_pyarray(py), Array1::from_vec(sizes).into_pyarray(py))
+    (
+        Array1::from_vec(starts).into_pyarray(py),
+        Array1::from_vec(sizes).into_pyarray(py),
+    )
 }
 
 /// Inverse of [`serie_to_chunks`].
@@ -79,7 +84,10 @@ pub fn jit_serialize<'py>(
         values.extend_from_slice(&sorted);
     }
     starts.push(values.len() as i64);
-    (Array1::from_vec(starts).into_pyarray(py), Array1::from_vec(values).into_pyarray(py))
+    (
+        Array1::from_vec(starts).into_pyarray(py),
+        Array1::from_vec(values).into_pyarray(py),
+    )
 }
 
 /// Ranks each value by the order in which it first appears.
@@ -171,7 +179,11 @@ mod tests {
         let (starts, sizes) = chunks(&[1, 2, 4, 4, 5, 9]);
         assert_eq!(starts, vec![1, 4, 9]);
         assert_eq!(sizes, vec![2, 3, 1]);
-        assert_eq!(sizes.iter().sum::<i64>(), 6, "every element lands in exactly one chunk");
+        assert_eq!(
+            sizes.iter().sum::<i64>(),
+            6,
+            "every element lands in exactly one chunk"
+        );
     }
 
     #[test]
@@ -190,7 +202,9 @@ mod tests {
     #[test]
     fn empty_input_yields_no_chunks() {
         let (starts, sizes) = chunks(&[]);
-        assert!(starts.is_empty() && sizes.is_empty(),
-                "upstream reads serie[0] out of bounds here; this port returns nothing");
+        assert!(
+            starts.is_empty() && sizes.is_empty(),
+            "upstream reads serie[0] out of bounds here; this port returns nothing"
+        );
     }
 }

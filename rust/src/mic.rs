@@ -21,9 +21,9 @@ use numpy::ndarray::{Array1, Array2, Array3};
 use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray2, PyReadonlyArray3};
 use pyo3::prelude::*;
 
+use crate::mathlib::fast_floor;
 #[cfg(test)]
 use crate::mathlib::inverse_matrix_3x3;
-use crate::mathlib::fast_floor;
 use crate::symmetric::mirror_upper_to_lower;
 
 pub type Mat3 = [[f64; 3]; 3];
@@ -31,7 +31,9 @@ pub type Mat3 = [[f64; 3]; 3];
 /// Mirrors molsysmt.lib.pbc.box_is_orthogonal_single_structure (row dot products).
 pub(crate) fn box_is_orthogonal(b: &Mat3) -> bool {
     let dot = |u: &[f64; 3], v: &[f64; 3]| u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
-    dot(&b[0], &b[1]).abs() <= 1e-4 && dot(&b[0], &b[2]).abs() <= 1e-4 && dot(&b[1], &b[2]).abs() <= 1e-4
+    dot(&b[0], &b[1]).abs() <= 1e-4
+        && dot(&b[0], &b[2]).abs() <= 1e-4
+        && dot(&b[1], &b[2]).abs() <= 1e-4
 }
 
 /// The exhaustive ±1 (27-image) wrap — the mild-box reference kept only for tests
@@ -156,7 +158,11 @@ pub(crate) fn wrap_to_mic_vector_reduced(v: [f64; 3], red: &Mat3, inv: &Mat3) ->
     // r(δ) = red^T·(frac − δ) with frac = s − floor(s). Factor out the shared base
     // `rf = red^T·frac`: each corner is then `rf` minus a subset of the lattice-vector
     // rows, so the eight matrix–vector products collapse to one plus vector subtractions.
-    let frac = [s[0] - fast_floor(s[0]), s[1] - fast_floor(s[1]), s[2] - fast_floor(s[2])];
+    let frac = [
+        s[0] - fast_floor(s[0]),
+        s[1] - fast_floor(s[1]),
+        s[2] - fast_floor(s[2]),
+    ];
     let rf = [
         red[0][0] * frac[0] + red[1][0] * frac[1] + red[2][0] * frac[2],
         red[0][1] * frac[0] + red[1][1] * frac[1] + red[2][1] * frac[2],
@@ -250,7 +256,11 @@ pub(crate) fn mic_vector_ortho(v: [f64; 3], cell: &Mat3) -> [f64; 3] {
 ///
 /// Bit-for-bit identical to [`mic_vector`]; only the branch placement changes.
 #[inline(always)]
-pub(crate) fn mic_vector_const<const ORTHO: bool>(v: [f64; 3], cell: &Mat3, inv: &Mat3) -> [f64; 3] {
+pub(crate) fn mic_vector_const<const ORTHO: bool>(
+    v: [f64; 3],
+    cell: &Mat3,
+    inv: &Mat3,
+) -> [f64; 3] {
     if ORTHO {
         mic_vector_ortho(v, cell)
     } else {
@@ -293,12 +303,22 @@ fn mic_distance_auto(p1: [f64; 3], p2: [f64; 3], cell: &Mat3, inv: &Mat3, ortho:
 ///
 /// `ORTHO` is a const parameter, not a runtime flag: see [`mic_vector_const`].
 #[inline(always)]
-fn fill_mic_upper<const ORTHO: bool>(cst: &[f64], na: usize, slab: &mut [f64], cell: &Mat3, inv: &Mat3) {
+fn fill_mic_upper<const ORTHO: bool>(
+    cst: &[f64],
+    na: usize,
+    slab: &mut [f64],
+    cell: &Mat3,
+    inv: &Mat3,
+) {
     for j in 0..na {
         let p1 = [cst[3 * j], cst[3 * j + 1], cst[3 * j + 2]];
         let row = &mut slab[j * na..(j + 1) * na];
         for k in (j + 1)..na {
-            let v = [cst[3 * k] - p1[0], cst[3 * k + 1] - p1[1], cst[3 * k + 2] - p1[2]];
+            let v = [
+                cst[3 * k] - p1[0],
+                cst[3 * k + 1] - p1[1],
+                cst[3 * k + 2] - p1[2],
+            ];
             let w = mic_vector_const::<ORTHO>(v, cell, inv);
             row[k] = (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt();
         }
@@ -308,11 +328,21 @@ fn fill_mic_upper<const ORTHO: bool>(cst: &[f64], na: usize, slab: &mut [f64], c
 /// Fill **both** triangles as each pair is computed, storing the mirror element directly.
 /// Same results as [`fill_mic_upper`] plus the mirror pass; only the store pattern differs.
 #[inline(always)]
-fn fill_mic_both<const ORTHO: bool>(cst: &[f64], na: usize, slab: &mut [f64], cell: &Mat3, inv: &Mat3) {
+fn fill_mic_both<const ORTHO: bool>(
+    cst: &[f64],
+    na: usize,
+    slab: &mut [f64],
+    cell: &Mat3,
+    inv: &Mat3,
+) {
     for j in 0..na {
         let p1 = [cst[3 * j], cst[3 * j + 1], cst[3 * j + 2]];
         for k in (j + 1)..na {
-            let v = [cst[3 * k] - p1[0], cst[3 * k + 1] - p1[1], cst[3 * k + 2] - p1[2]];
+            let v = [
+                cst[3 * k] - p1[0],
+                cst[3 * k + 1] - p1[1],
+                cst[3 * k + 2] - p1[2],
+            ];
             let w = mic_vector_const::<ORTHO>(v, cell, inv);
             let d = (w[0] * w[0] + w[1] * w[1] + w[2] * w[2]).sqrt();
             slab[j * na + k] = d;
@@ -368,7 +398,11 @@ pub(crate) fn box_2d(b: &numpy::ndarray::ArrayView2<f64>) -> Mat3 {
 #[cfg(test)]
 pub(crate) fn prep(b: &Mat3) -> (bool, Mat3) {
     let ortho = box_is_orthogonal(b);
-    let inv = if ortho { [[0.0; 3]; 3] } else { inverse_matrix_3x3(b) };
+    let inv = if ortho {
+        [[0.0; 3]; 3]
+    } else {
+        inverse_matrix_3x3(b)
+    };
     (ortho, inv)
 }
 
@@ -397,7 +431,9 @@ pub fn get_mic_distances_single_system<'py>(
         let slab = &mut flat[s * na * na..(s + 1) * na * na];
         fill_mic_self(cst, na, slab, &bs_red, &inv, ortho);
     }
-    Array3::from_shape_vec((ns, na, na), flat).unwrap().into_pyarray(py)
+    Array3::from_shape_vec((ns, na, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -469,7 +505,9 @@ pub fn get_mic_distances_single_system_single_structure<'py>(
     let cs = cc.as_slice().expect("standard layout is contiguous");
     let mut flat = vec![0.0f64; na * na];
     fill_mic_self(cs, na, &mut flat, &bs_red, &inv, ortho);
-    Array2::from_shape_vec((na, na), flat).unwrap().into_pyarray(py)
+    Array2::from_shape_vec((na, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -521,9 +559,15 @@ pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_mic_distances_single_system, m)?)?;
     m.add_function(wrap_pyfunction!(get_mic_distances, m)?)?;
     m.add_function(wrap_pyfunction!(get_mic_distances_pairs, m)?)?;
-    m.add_function(wrap_pyfunction!(get_mic_distances_single_system_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_mic_distances_single_system_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_mic_distances_single_structure, m)?)?;
-    m.add_function(wrap_pyfunction!(get_mic_distances_pairs_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_mic_distances_pairs_single_structure,
+        m
+    )?)?;
     Ok(())
 }
 
@@ -581,7 +625,10 @@ mod tests {
         for b in [TRIC, [[6.0, 0.0, 0.0], [4.0, 6.0, 0.0], [3.5, 3.0, 6.0]]] {
             let red = reduce_cell(&b);
             // a lattice-preserving basis change has determinant of the same magnitude
-            assert!((det(&red).abs() - det(&b).abs()).abs() < 1e-9, "volume changed");
+            assert!(
+                (det(&red).abs() - det(&b).abs()).abs() < 1e-9,
+                "volume changed"
+            );
         }
     }
 
@@ -606,12 +653,19 @@ mod tests {
                 [8.0 * rng() - 4.0, 8.0 * rng() - 4.0, 4.0 + 4.0 * rng()],
             ];
             let (red, inv) = prep_reduced(&b);
-            let v = [40.0 * rng() - 20.0, 40.0 * rng() - 20.0, 40.0 * rng() - 20.0];
+            let v = [
+                40.0 * rng() - 20.0,
+                40.0 * rng() - 20.0,
+                40.0 * rng() - 20.0,
+            ];
             let got = mic_distance_reduced([0.0, 0.0, 0.0], v, &red, &inv);
             let truth = brute_min_image_distance(v, &b);
             worst = worst.max((got - truth).abs());
         }
-        assert!(worst < 1e-9, "reduced MIC deviates from ground truth by {worst:.2e}");
+        assert!(
+            worst < 1e-9,
+            "reduced MIC deviates from ground truth by {worst:.2e}"
+        );
     }
 
     /// Against the production exhaustive oracle, two things must hold: on mildly tilted
@@ -643,17 +697,24 @@ mod tests {
             let oracle = mic_distance(p1, p2, &b, &inv, ortho);
             let fast = mic_distance_reduced(p1, p2, &red, &invr);
             if mild {
-                assert!((oracle - fast).abs() < 1e-9,
-                        "mild box: oracle {oracle} vs reduced {fast}");
+                assert!(
+                    (oracle - fast).abs() < 1e-9,
+                    "mild box: oracle {oracle} vs reduced {fast}"
+                );
             } else {
-                assert!(fast <= oracle + 1e-9, "reduced longer than oracle: {fast} > {oracle}");
+                assert!(
+                    fast <= oracle + 1e-9,
+                    "reduced longer than oracle: {fast} > {oracle}"
+                );
                 if fast < oracle - 1e-9 {
                     fixed_the_oracle += 1;
                 }
             }
         }
-        assert!(fixed_the_oracle > 0,
-                "expected the reduced path to beat the ±1 oracle on some skewed boxes");
+        assert!(
+            fixed_the_oracle > 0,
+            "expected the reduced path to beat the ±1 oracle on some skewed boxes"
+        );
     }
 
     #[test]

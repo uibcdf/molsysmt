@@ -17,27 +17,67 @@ use crate::mic::{box_2d, box_at, mic_vector, prep_dist, Mat3};
 
 #[inline]
 fn quartet(q: &ArrayView2<i64>, j: usize) -> (usize, usize, usize, usize) {
-    (q[[j, 0]] as usize, q[[j, 1]] as usize, q[[j, 2]] as usize, q[[j, 3]] as usize)
+    (
+        q[[j, 0]] as usize,
+        q[[j, 1]] as usize,
+        q[[j, 2]] as usize,
+        q[[j, 3]] as usize,
+    )
 }
 
 /// vect0 = c[a1]-c[a0], vect1 = c[a2]-c[a1], vect2 = c[a3]-c[a2]  (Numba convention).
 #[inline]
-fn quartet_vectors_3d(c: &ArrayView3<f64>, s: usize, a0: usize, a1: usize, a2: usize, a3: usize)
-    -> ([f64; 3], [f64; 3], [f64; 3]) {
+fn quartet_vectors_3d(
+    c: &ArrayView3<f64>,
+    s: usize,
+    a0: usize,
+    a1: usize,
+    a2: usize,
+    a3: usize,
+) -> ([f64; 3], [f64; 3], [f64; 3]) {
     (
-        [c[[s, a1, 0]] - c[[s, a0, 0]], c[[s, a1, 1]] - c[[s, a0, 1]], c[[s, a1, 2]] - c[[s, a0, 2]]],
-        [c[[s, a2, 0]] - c[[s, a1, 0]], c[[s, a2, 1]] - c[[s, a1, 1]], c[[s, a2, 2]] - c[[s, a1, 2]]],
-        [c[[s, a3, 0]] - c[[s, a2, 0]], c[[s, a3, 1]] - c[[s, a2, 1]], c[[s, a3, 2]] - c[[s, a2, 2]]],
+        [
+            c[[s, a1, 0]] - c[[s, a0, 0]],
+            c[[s, a1, 1]] - c[[s, a0, 1]],
+            c[[s, a1, 2]] - c[[s, a0, 2]],
+        ],
+        [
+            c[[s, a2, 0]] - c[[s, a1, 0]],
+            c[[s, a2, 1]] - c[[s, a1, 1]],
+            c[[s, a2, 2]] - c[[s, a1, 2]],
+        ],
+        [
+            c[[s, a3, 0]] - c[[s, a2, 0]],
+            c[[s, a3, 1]] - c[[s, a2, 1]],
+            c[[s, a3, 2]] - c[[s, a2, 2]],
+        ],
     )
 }
 
 #[inline]
-fn quartet_vectors_2d(c: &ArrayView2<f64>, a0: usize, a1: usize, a2: usize, a3: usize)
-    -> ([f64; 3], [f64; 3], [f64; 3]) {
+fn quartet_vectors_2d(
+    c: &ArrayView2<f64>,
+    a0: usize,
+    a1: usize,
+    a2: usize,
+    a3: usize,
+) -> ([f64; 3], [f64; 3], [f64; 3]) {
     (
-        [c[[a1, 0]] - c[[a0, 0]], c[[a1, 1]] - c[[a0, 1]], c[[a1, 2]] - c[[a0, 2]]],
-        [c[[a2, 0]] - c[[a1, 0]], c[[a2, 1]] - c[[a1, 1]], c[[a2, 2]] - c[[a1, 2]]],
-        [c[[a3, 0]] - c[[a2, 0]], c[[a3, 1]] - c[[a2, 1]], c[[a3, 2]] - c[[a2, 2]]],
+        [
+            c[[a1, 0]] - c[[a0, 0]],
+            c[[a1, 1]] - c[[a0, 1]],
+            c[[a1, 2]] - c[[a0, 2]],
+        ],
+        [
+            c[[a2, 0]] - c[[a1, 0]],
+            c[[a2, 1]] - c[[a1, 1]],
+            c[[a2, 2]] - c[[a1, 2]],
+        ],
+        [
+            c[[a3, 0]] - c[[a2, 0]],
+            c[[a3, 1]] - c[[a2, 1]],
+            c[[a3, 2]] - c[[a2, 2]],
+        ],
     )
 }
 
@@ -85,7 +125,14 @@ pub fn get_dihedral_angles_single_structure<'py>(
 // --------------------------------------------------------------------------- periodic
 
 #[inline]
-fn mic_dihedral(v0: [f64; 3], v1: [f64; 3], v2: [f64; 3], cell: &Mat3, inv: &Mat3, ortho: bool) -> f64 {
+fn mic_dihedral(
+    v0: [f64; 3],
+    v1: [f64; 3],
+    v2: [f64; 3],
+    cell: &Mat3,
+    inv: &Mat3,
+    ortho: bool,
+) -> f64 {
     dihedral_angle(
         mic_vector(v0, cell, inv, ortho),
         mic_vector(v1, cell, inv, ortho),
@@ -143,7 +190,10 @@ pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_dihedral_angles, m)?)?;
     m.add_function(wrap_pyfunction!(get_dihedral_angles_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(get_mic_dihedral_angles, m)?)?;
-    m.add_function(wrap_pyfunction!(get_mic_dihedral_angles_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_mic_dihedral_angles_single_structure,
+        m
+    )?)?;
     Ok(())
 }
 
@@ -172,7 +222,10 @@ mod tests {
 
         // Trans/anti: opposite sides -> |pi| (the oracle returns -pi here).
         let trans = dihedral_angle(v0, v1, [1.0, 1.0, 0.0]);
-        assert!((trans.abs() - std::f64::consts::PI).abs() < 1e-12, "got {trans}");
+        assert!(
+            (trans.abs() - std::f64::consts::PI).abs() < 1e-12,
+            "got {trans}"
+        );
     }
 
     /// Perpendicular quartets are +/- pi/2, with the sign set by the chirality.
@@ -183,7 +236,10 @@ mod tests {
         let up = dihedral_angle(v0, v1, [1.0, 0.0, 1.0]);
         let down = dihedral_angle(v0, v1, [1.0, 0.0, -1.0]);
         assert!((up + std::f64::consts::FRAC_PI_2).abs() < 1e-12, "got {up}");
-        assert!((down - std::f64::consts::FRAC_PI_2).abs() < 1e-12, "got {down}");
+        assert!(
+            (down - std::f64::consts::FRAC_PI_2).abs() < 1e-12,
+            "got {down}"
+        );
     }
 
     #[test]
@@ -192,7 +248,10 @@ mod tests {
         let v1 = [1.0, 0.0, 0.0];
         let plus = dihedral_angle(v0, v1, [1.0, 0.0, 1.0]);
         let minus = dihedral_angle(v0, v1, [1.0, 0.0, -1.0]);
-        assert!(plus * minus < 0.0, "mirror quartets must have opposite signs");
+        assert!(
+            plus * minus < 0.0,
+            "mirror quartets must have opposite signs"
+        );
         assert!((plus.abs() - minus.abs()).abs() < 1e-12);
     }
 

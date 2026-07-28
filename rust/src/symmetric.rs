@@ -109,7 +109,11 @@ mod tests {
         mirror_upper_to_lower(&mut m, n);
         for j in 0..n {
             for k in (j + 1)..n {
-                assert_eq!(m[j * n + k], original[j * n + k], "upper changed at ({j},{k})");
+                assert_eq!(
+                    m[j * n + k],
+                    original[j * n + k],
+                    "upper changed at ({j},{k})"
+                );
             }
         }
     }

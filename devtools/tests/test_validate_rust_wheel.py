@@ -36,6 +36,7 @@ def _write_wheel(path, *, extra_extensions=0, bytecode=False, legacy=False):
         "molsysmt/_rust.abi3.so": b"extension",
         "molsysmt/py.typed": b"",
         "molsysmt/data/demo_manifest.json": b"{}",
+        "molsysviewer_molsysmt/__init__.py": b"",
         "molsysmt-1.0.0.dist-info/WHEEL": (
             b"Wheel-Version: 1.0\n"
             b"Root-Is-Purelib: false\n"
@@ -64,6 +65,24 @@ def test_valid_wheel_passes(tmp_path):
     assert MODULE.validate_wheel(wheel) == []
 
 
+def test_static_validator_accepts_a_directory_with_one_wheel(tmp_path):
+    wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(wheel)
+    assert MODULE.find_single_wheel(tmp_path) == wheel
+
+
+def test_static_validator_rejects_an_ambiguous_directory(tmp_path):
+    with pytest.raises(RuntimeError, match="exactly one wheel"):
+        MODULE.find_single_wheel(tmp_path)
+
+    first = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    second = tmp_path / "molsysmt-1.0.1-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(first)
+    _write_wheel(second)
+    with pytest.raises(RuntimeError, match="found 2"):
+        MODULE.find_single_wheel(tmp_path)
+
+
 @pytest.mark.parametrize(
     ("kwargs", "expected"),
     [
@@ -81,6 +100,15 @@ def test_invalid_wheel_fails_with_actionable_reason(
     assert any(expected in problem for problem in problems)
 
 
+def test_unexpected_top_level_package_fails(tmp_path):
+    wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(wheel)
+    with ZipFile(wheel, mode="a") as archive:
+        archive.writestr("tests/test_accidental.py", b"")
+    problems = MODULE.validate_wheel(wheel)
+    assert any("unexpected top-level" in problem for problem in problems)
+
+
 def test_installed_validator_requires_exactly_one_wheel(tmp_path):
     with pytest.raises(RuntimeError, match="exactly one wheel"):
         INSTALLED_MODULE.find_single_wheel(tmp_path)
@@ -88,6 +116,12 @@ def test_installed_validator_requires_exactly_one_wheel(tmp_path):
     wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
     _write_wheel(wheel)
     assert INSTALLED_MODULE.find_single_wheel(tmp_path) == wheel
+
+
+def test_rust_export_manifest_is_exact_and_includes_parallel_controls():
+    exports = INSTALLED_MODULE.expected_rust_exports()
+    assert len(exports) == 99
+    assert {"get_available_num_threads", "probe_num_threads"} <= exports
 
 
 @pytest.mark.parametrize(

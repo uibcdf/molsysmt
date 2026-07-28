@@ -13,6 +13,25 @@ from importlib import metadata
 from pathlib import Path
 
 
+EXPORT_MANIFEST = (
+    Path(__file__).resolve().parents[1] / "data" / "rust_exports.json"
+)
+
+
+def expected_rust_exports() -> set[str]:
+    """Returning the reviewed private-extension export contract."""
+
+    payload = json.loads(EXPORT_MANIFEST.read_text(encoding="utf-8"))
+    exports = payload.get("exports")
+    if not isinstance(exports, list) or not all(
+        isinstance(name, str) for name in exports
+    ):
+        raise RuntimeError("invalid Rust export manifest")
+    if len(exports) != len(set(exports)):
+        raise RuntimeError("duplicate names in Rust export manifest")
+    return set(exports)
+
+
 def find_single_wheel(path: Path) -> Path:
     """Returning the single wheel represented by a path."""
 
@@ -94,10 +113,14 @@ def validate_installed_extension() -> dict[str, object]:
         )
 
     rust = _load_private_extension(extension_path)
-    public_exports = [name for name in dir(rust) if not name.startswith("_")]
-    if len(public_exports) != 97:
+    public_exports = {name for name in dir(rust) if not name.startswith("_")}
+    expected_exports = expected_rust_exports()
+    missing = sorted(expected_exports - public_exports)
+    unexpected = sorted(public_exports - expected_exports)
+    if missing or unexpected:
         raise RuntimeError(
-            f"expected 97 Rust exports, found {len(public_exports)}"
+            "installed Rust export contract differs from the reviewed manifest: "
+            f"missing={missing}, unexpected={unexpected}"
         )
 
     box = np.diag([10.0, 10.0, 10.0])

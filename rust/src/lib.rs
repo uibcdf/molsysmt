@@ -9,23 +9,23 @@ use numpy::{IntoPyArray, PyArray1, PyArray2, PyReadonlyArray1, PyReadonlyArray2}
 use pyo3::prelude::*;
 use rayon::prelude::*;
 
+mod angles;
+mod axes;
+mod dihedral_ops;
+mod dihedrals;
+mod distances;
+mod geometry;
 mod mathlib;
-mod symmetric;
 mod mic;
 mod neighbors;
-mod sasa;
-mod angles;
-mod distances;
-mod dihedrals;
-mod dihedral_ops;
 mod pbc;
-mod geometry;
-mod series;
-mod topology;
-mod rmsd;
-mod axes;
 mod pca;
+mod rmsd;
+mod sasa;
+mod series;
+mod symmetric;
 mod threads;
+mod topology;
 
 // --------------------------------------------------------------- synthetic bench probes
 
@@ -43,12 +43,17 @@ fn fibonacci_sphere_points(py: Python<'_>, n_points: usize) -> Bound<'_, PyArray
         data.push(theta.sin() * phi.sin());
         data.push(theta.cos());
     }
-    Array2::from_shape_vec((n_points, 3), data).unwrap().into_pyarray(py)
+    Array2::from_shape_vec((n_points, 3), data)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 /// Regular arithmetic O(N^2): all-pairs squared distances.
 #[pyfunction]
-fn pairwise_sqdistances<'py>(py: Python<'py>, coords: PyReadonlyArray2<'py, f64>) -> Bound<'py, PyArray2<f64>> {
+fn pairwise_sqdistances<'py>(
+    py: Python<'py>,
+    coords: PyReadonlyArray2<'py, f64>,
+) -> Bound<'py, PyArray2<f64>> {
     let c = coords.as_array();
     let n = c.shape()[0];
     let mut out = Array2::<f64>::zeros((n, n));
@@ -144,25 +149,28 @@ fn neighbor_counts<'py>(
     let (mut xmin, mut ymin, mut zmin) = (cv[0][0], cv[0][1], cv[0][2]);
     let (mut xmax, mut ymax, mut zmax) = (cv[0][0], cv[0][1], cv[0][2]);
     for p in &cv {
-        xmin = xmin.min(p[0]); xmax = xmax.max(p[0]);
-        ymin = ymin.min(p[1]); ymax = ymax.max(p[1]);
-        zmin = zmin.min(p[2]); zmax = zmax.max(p[2]);
+        xmin = xmin.min(p[0]);
+        xmax = xmax.max(p[0]);
+        ymin = ymin.min(p[1]);
+        ymax = ymax.max(p[1]);
+        zmin = zmin.min(p[2]);
+        zmax = zmax.max(p[2]);
     }
     let lx = (xmax - xmin + 1e-5).max(cutoff);
     let ly = (ymax - ymin + 1e-5).max(cutoff);
     let lz = (zmax - zmin + 1e-5).max(cutoff);
-    let nx = ((lx / cutoff).floor() as i64).max(1);  // libm-ok: synthetic bench probe, kept a faithful transcription
-    let ny = ((ly / cutoff).floor() as i64).max(1);  // libm-ok: synthetic bench probe, kept a faithful transcription
-    let nz = ((lz / cutoff).floor() as i64).max(1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+    let nx = ((lx / cutoff).floor() as i64).max(1); // libm-ok: synthetic bench probe, kept a faithful transcription
+    let ny = ((ly / cutoff).floor() as i64).max(1); // libm-ok: synthetic bench probe, kept a faithful transcription
+    let nz = ((lz / cutoff).floor() as i64).max(1); // libm-ok: synthetic bench probe, kept a faithful transcription
     let (dx, dy, dz) = (lx / nx as f64, ly / ny as f64, lz / nz as f64);
 
     let n_cells = (nx * ny * nz) as usize;
     let mut head = vec![-1i64; n_cells];
     let mut next = vec![-1i64; n];
     let cell_of = |p: &[f64; 3]| -> usize {
-        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
-        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
-        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1); // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1); // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1); // libm-ok: synthetic bench probe, kept a faithful transcription
         (cx + nx * (cy + ny * cz)) as usize
     };
     for (a, p) in cv.iter().enumerate() {
@@ -174,9 +182,9 @@ fn neighbor_counts<'py>(
     let mut out = Array1::<i64>::zeros(n);
     for i in 0..n {
         let p = &cv[i];
-        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
-        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
-        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1);  // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cx = (((p[0] - xmin) / dx).floor() as i64).clamp(0, nx - 1); // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cy = (((p[1] - ymin) / dy).floor() as i64).clamp(0, ny - 1); // libm-ok: synthetic bench probe, kept a faithful transcription
+        let cz = (((p[2] - zmin) / dz).floor() as i64).clamp(0, nz - 1); // libm-ok: synthetic bench probe, kept a faithful transcription
         let mut cnt = 0i64;
         for ox in (cx - 1).max(0)..(cx + 2).min(nx) {
             for oy in (cy - 1).max(0)..(cy + 2).min(ny) {

@@ -8,6 +8,18 @@ from pathlib import Path, PurePosixPath
 from zipfile import ZipFile
 
 
+def find_single_wheel(path: Path) -> Path:
+    """Returning the single wheel represented by a file or directory."""
+
+    path = path.resolve()
+    wheels = sorted(path.glob("*.whl")) if path.is_dir() else [path]
+    if len(wheels) != 1 or not wheels[0].is_file():
+        raise RuntimeError(
+            f"expected exactly one wheel at {path}, found {len(wheels)}"
+        )
+    return wheels[0]
+
+
 def validate_wheel(wheel_path: Path) -> list[str]:
     """Returning contract violations found inside a MolSysMT wheel."""
 
@@ -45,9 +57,25 @@ def validate_wheel(wheel_path: Path) -> list[str]:
                 f"wheel contains {len(bytecode)} bytecode/cache entries"
             )
 
+        unexpected_roots = sorted(
+            {
+                PurePosixPath(name).parts[0]
+                for name in names
+                if PurePosixPath(name).parts
+                and PurePosixPath(name).parts[0]
+                not in {"molsysmt", "molsysviewer_molsysmt"}
+                and not PurePosixPath(name).parts[0].endswith(".dist-info")
+            }
+        )
+        if unexpected_roots:
+            problems.append(
+                f"wheel contains unexpected top-level entries: {unexpected_roots}"
+            )
+
         for required in (
             "molsysmt/py.typed",
             "molsysmt/data/demo_manifest.json",
+            "molsysviewer_molsysmt/__init__.py",
         ):
             if required not in names:
                 problems.append(f"required wheel entry is missing: {required}")
@@ -95,14 +123,15 @@ def main() -> int:
     parser.add_argument("wheel", type=Path)
     args = parser.parse_args()
 
-    problems = validate_wheel(args.wheel)
+    wheel = find_single_wheel(args.wheel)
+    problems = validate_wheel(wheel)
     if problems:
         print("MolSysMT Rust wheel validation failed:")
         for problem in problems:
             print(f"- {problem}")
         return 1
 
-    print(f"MolSysMT Rust wheel validation passed: {args.wheel}")
+    print(f"MolSysMT Rust wheel validation passed: {wheel}")
     return 0
 
 

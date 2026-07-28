@@ -106,7 +106,10 @@ pub fn get_component_index_from_bonded_atom_pairs<'py>(
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(py_find_root, m)?)?;
     m.add_function(wrap_pyfunction!(py_union, m)?)?;
-    m.add_function(wrap_pyfunction!(get_component_index_from_bonded_atom_pairs, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_component_index_from_bonded_atom_pairs,
+        m
+    )?)?;
     Ok(())
 }
 
@@ -151,12 +154,18 @@ mod tests {
         let a = components(&[(3, 4), (0, 2)], 5);
         assert_eq!(a, vec![0, 1, 0, 2, 2]);
         let b = components(&[(0, 2), (3, 4)], 5);
-        assert_eq!(a, b, "relabelling must not depend on the order of the bonds");
+        assert_eq!(
+            a, b,
+            "relabelling must not depend on the order of the bonds"
+        );
     }
 
     #[test]
     fn redundant_and_self_bonds_are_harmless() {
-        assert_eq!(components(&[(0, 1), (1, 0), (0, 0), (0, 1)], 3), vec![0, 0, 1]);
+        assert_eq!(
+            components(&[(0, 1), (1, 0), (0, 0), (0, 1)], 3),
+            vec![0, 0, 1]
+        );
     }
 
     /// Path halving must leave the forest describing the same partition.

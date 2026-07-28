@@ -41,27 +41,31 @@ pub fn get_distances_single_system<'py>(
     // borrows when the input is already C-contiguous (the norm).
     let cc = c.as_standard_layout();
     let cs = cc.as_slice().expect("standard layout is contiguous");
-    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .flat_map_iter(|s| {
-                let cst = &cs[s * na * 3..(s + 1) * na * 3];
-                let mut slab = vec![0.0f64; na * na];
-                // Upper triangle with unit-stride stores, then one blocked mirror pass:
-                // the interleaved `slab[k * na + j] = d` form cannot vectorise.
-                for j in 0..na {
-                    let (ax, ay, az) = (cst[3 * j], cst[3 * j + 1], cst[3 * j + 2]);
-                    let row = &mut slab[j * na..(j + 1) * na];
-                    for k in (j + 1)..na {
-                        row[k] = dist3(ax, ay, az, cst[3 * k], cst[3 * k + 1], cst[3 * k + 2]);
+    let flat: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .flat_map_iter(|s| {
+                    let cst = &cs[s * na * 3..(s + 1) * na * 3];
+                    let mut slab = vec![0.0f64; na * na];
+                    // Upper triangle with unit-stride stores, then one blocked mirror pass:
+                    // the interleaved `slab[k * na + j] = d` form cannot vectorise.
+                    for j in 0..na {
+                        let (ax, ay, az) = (cst[3 * j], cst[3 * j + 1], cst[3 * j + 2]);
+                        let row = &mut slab[j * na..(j + 1) * na];
+                        for k in (j + 1)..na {
+                            row[k] = dist3(ax, ay, az, cst[3 * k], cst[3 * k + 1], cst[3 * k + 2]);
+                        }
                     }
-                }
-                mirror_upper_to_lower(&mut slab, na);
-                slab.into_iter()
-            })
-            .collect()
-    }));
-    Array3::from_shape_vec((ns, na, na), flat).unwrap().into_pyarray(py)
+                    mirror_upper_to_lower(&mut slab, na);
+                    slab.into_iter()
+                })
+                .collect()
+        })
+    });
+    Array3::from_shape_vec((ns, na, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -76,23 +80,27 @@ pub fn get_distances<'py>(
     let ns = c1.shape()[0];
     let na1 = c1.shape()[1];
     let na2 = c2.shape()[1];
-    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .flat_map_iter(|s| {
-                let mut slab = vec![0.0f64; na1 * na2];
-                for j in 0..na1 {
-                    let (ax, ay, az) = (c1[[s, j, 0]], c1[[s, j, 1]], c1[[s, j, 2]]);
-                    for k in 0..na2 {
-                        slab[j * na2 + k] =
-                            dist3(ax, ay, az, c2[[s, k, 0]], c2[[s, k, 1]], c2[[s, k, 2]]);
+    let flat: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .flat_map_iter(|s| {
+                    let mut slab = vec![0.0f64; na1 * na2];
+                    for j in 0..na1 {
+                        let (ax, ay, az) = (c1[[s, j, 0]], c1[[s, j, 1]], c1[[s, j, 2]]);
+                        for k in 0..na2 {
+                            slab[j * na2 + k] =
+                                dist3(ax, ay, az, c2[[s, k, 0]], c2[[s, k, 1]], c2[[s, k, 2]]);
+                        }
                     }
-                }
-                slab.into_iter()
-            })
-            .collect()
-    }));
-    Array3::from_shape_vec((ns, na1, na2), flat).unwrap().into_pyarray(py)
+                    slab.into_iter()
+                })
+                .collect()
+        })
+    });
+    Array3::from_shape_vec((ns, na1, na2), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -107,19 +115,25 @@ pub fn get_distances_pairs<'py>(
     let ns = c1.shape()[0];
     let na = c1.shape()[1];
     let mut flat = vec![0.0; ns * na];
-    py.allow_threads(|| crate::threads::install(num_threads, || {
-        flat.par_chunks_mut(na)
-            .enumerate()
-            .for_each(|(s, row)| {
+    py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            flat.par_chunks_mut(na).enumerate().for_each(|(s, row)| {
                 for j in 0..na {
                     row[j] = dist3(
-                        c1[[s, j, 0]], c1[[s, j, 1]], c1[[s, j, 2]],
-                        c2[[s, j, 0]], c2[[s, j, 1]], c2[[s, j, 2]],
+                        c1[[s, j, 0]],
+                        c1[[s, j, 1]],
+                        c1[[s, j, 2]],
+                        c2[[s, j, 0]],
+                        c2[[s, j, 1]],
+                        c2[[s, j, 2]],
                     );
                 }
             })
-    }));
-    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
+        })
+    });
+    Array2::from_shape_vec((ns, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 // --------------------------------------------------------------------------- single structure
@@ -183,8 +197,12 @@ pub fn get_distances_pairs_single_structure<'py>(
     let mut out = Array1::<f64>::zeros(na);
     for j in 0..na {
         out[j] = dist3(
-            c1[[j, 0]], c1[[j, 1]], c1[[j, 2]],
-            c2[[j, 0]], c2[[j, 1]], c2[[j, 2]],
+            c1[[j, 0]],
+            c1[[j, 1]],
+            c1[[j, 2]],
+            c2[[j, 0]],
+            c2[[j, 1]],
+            c2[[j, 2]],
         );
     }
     out.into_pyarray(py)
@@ -194,7 +212,10 @@ pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_distances_single_system, m)?)?;
     m.add_function(wrap_pyfunction!(get_distances, m)?)?;
     m.add_function(wrap_pyfunction!(get_distances_pairs, m)?)?;
-    m.add_function(wrap_pyfunction!(get_distances_single_system_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_distances_single_system_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_distances_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(get_distances_pairs_single_structure, m)?)?;
     Ok(())

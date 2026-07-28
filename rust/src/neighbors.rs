@@ -24,8 +24,12 @@ type Mat3 = [[f64; 3]; 3];
 #[cfg(test)]
 fn is_orthogonal(b: &Mat3) -> bool {
     let tol = 1e-10;
-    b[0][1].abs() < tol && b[0][2].abs() < tol && b[1][0].abs() < tol
-        && b[1][2].abs() < tol && b[2][0].abs() < tol && b[2][1].abs() < tol
+    b[0][1].abs() < tol
+        && b[0][2].abs() < tol
+        && b[1][0].abs() < tol
+        && b[1][2].abs() < tol
+        && b[2][0].abs() < tol
+        && b[2][1].abs() < tol
 }
 
 /// Minimum-image displacement via the unified reduced-cell mechanism (`mic::mic_vector`),
@@ -44,14 +48,24 @@ fn mic_wrap(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3, ortho: bool) -> 
 /// skewed box, so the ±1 stencil misses candidates.
 fn grid_dims(b: &Mat3, cutoff: f64) -> (i64, i64, i64) {
     let cross = |u: &[f64; 3], v: &[f64; 3]| {
-        [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]
+        [
+            u[1] * v[2] - u[2] * v[1],
+            u[2] * v[0] - u[0] * v[2],
+            u[0] * v[1] - u[1] * v[0],
+        ]
     };
     let norm = |v: [f64; 3]| (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).sqrt();
     let vol = (b[0][0] * (b[1][1] * b[2][2] - b[1][2] * b[2][1])
         - b[0][1] * (b[1][0] * b[2][2] - b[1][2] * b[2][0])
         + b[0][2] * (b[1][0] * b[2][1] - b[1][1] * b[2][0]))
         .abs();
-    let perp = |bc: [f64; 3]| if norm(bc) > 0.0 { vol / norm(bc) } else { cutoff };
+    let perp = |bc: [f64; 3]| {
+        if norm(bc) > 0.0 {
+            vol / norm(bc)
+        } else {
+            cutoff
+        }
+    };
     (
         ((perp(cross(&b[1], &b[2])) / cutoff) as i64).max(1),
         ((perp(cross(&b[0], &b[2])) / cutoff) as i64).max(1),
@@ -64,7 +78,14 @@ fn grid_dims(b: &Mat3, cutoff: f64) -> (i64, i64, i64) {
 #[inline]
 pub(crate) fn axis_cells(c: i64, n: i64) -> ([i64; 3], usize) {
     if n >= 3 {
-        ([(c - 1).rem_euclid(n), c.rem_euclid(n), (c + 1).rem_euclid(n)], 3)
+        (
+            [
+                (c - 1).rem_euclid(n),
+                c.rem_euclid(n),
+                (c + 1).rem_euclid(n),
+            ],
+            3,
+        )
     } else if n == 2 {
         ([0, 1, 0], 2)
     } else {
@@ -74,7 +95,12 @@ pub(crate) fn axis_cells(c: i64, n: i64) -> ([i64; 3], usize) {
 
 /// Emit the exact-size output for one query atom from reusable scratch buffers.
 /// `order` is scratch too, so the only allocations left are the two output vectors.
-fn emit_from(cand: &[i64], csq: &[f64], sort: bool, order: &mut Vec<usize>) -> (Vec<i64>, Vec<f64>) {
+fn emit_from(
+    cand: &[i64],
+    csq: &[f64],
+    sort: bool,
+    order: &mut Vec<usize>,
+) -> (Vec<i64>, Vec<f64>) {
     let m = cand.len();
     let mut idx = Vec::with_capacity(m);
     let mut dist = Vec::with_capacity(m);
@@ -100,7 +126,11 @@ fn emit_from(cand: &[i64], csq: &[f64], sort: bool, order: &mut Vec<usize>) -> (
 type Scratch = (Vec<i64>, Vec<f64>, Vec<usize>);
 
 fn new_scratch() -> Scratch {
-    (Vec::with_capacity(256), Vec::with_capacity(256), Vec::with_capacity(256))
+    (
+        Vec::with_capacity(256),
+        Vec::with_capacity(256),
+        Vec::with_capacity(256),
+    )
 }
 
 /// Assemble a flat CSR from per-query (indices, distances), preserving work order.
@@ -121,9 +151,15 @@ fn flatten(per_work: Vec<(Vec<i64>, Vec<f64>)>) -> (Vec<i64>, Vec<i64>, Vec<f64>
 }
 
 struct GridV {
-    nx: i64, ny: i64, nz: i64,
-    xmin: f64, ymin: f64, zmin: f64,
-    cdx: f64, cdy: f64, cdz: f64,
+    nx: i64,
+    ny: i64,
+    nz: i64,
+    xmin: f64,
+    ymin: f64,
+    zmin: f64,
+    cdx: f64,
+    cdy: f64,
+    cdz: f64,
     head: Vec<i64>,
     nxt: Vec<i64>,
 }
@@ -145,15 +181,21 @@ fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutof
     let (mut xmx, mut ymx, mut zmx) = (xmn, ymn, zmn);
     for a in 0..nq {
         let (x, y, z) = (query[[s, a, 0]], query[[s, a, 1]], query[[s, a, 2]]);
-        xmn = xmn.min(x); xmx = xmx.max(x);
-        ymn = ymn.min(y); ymx = ymx.max(y);
-        zmn = zmn.min(z); zmx = zmx.max(z);
+        xmn = xmn.min(x);
+        xmx = xmx.max(x);
+        ymn = ymn.min(y);
+        ymx = ymx.max(y);
+        zmn = zmn.min(z);
+        zmx = zmx.max(z);
     }
     for a in 0..nr {
         let (x, y, z) = (refc[[s, a, 0]], refc[[s, a, 1]], refc[[s, a, 2]]);
-        xmn = xmn.min(x); xmx = xmx.max(x);
-        ymn = ymn.min(y); ymx = ymx.max(y);
-        zmn = zmn.min(z); zmx = zmx.max(z);
+        xmn = xmn.min(x);
+        xmx = xmx.max(x);
+        ymn = ymn.min(y);
+        ymx = ymx.max(y);
+        zmn = zmn.min(z);
+        zmx = zmx.max(z);
     }
     let lx = cutoff.max(xmx - xmn + 1e-5);
     let ly = cutoff.max(ymx - ymn + 1e-5);
@@ -162,8 +204,15 @@ fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutof
     let ny = ((ly / cutoff) as i64).max(1);
     let nz = ((lz / cutoff) as i64).max(1);
     let mut g = GridV {
-        nx, ny, nz, xmin: xmn, ymin: ymn, zmin: zmn,
-        cdx: lx / nx as f64, cdy: ly / ny as f64, cdz: lz / nz as f64,
+        nx,
+        ny,
+        nz,
+        xmin: xmn,
+        ymin: ymn,
+        zmin: zmn,
+        cdx: lx / nx as f64,
+        cdy: ly / ny as f64,
+        cdz: lz / nz as f64,
         head: vec![-1i64; (nx * ny * nz) as usize],
         nxt: vec![-1i64; nr],
     };
@@ -177,9 +226,19 @@ fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutof
 }
 
 #[allow(clippy::too_many_arguments)]
-fn gather_v(g: &GridV, refc: &ArrayView3<f64>, s: usize, qx: f64, qy: f64, qz: f64,
-            iq: usize, excl: bool, cutoff_sq: f64,
-            cand: &mut Vec<i64>, csq: &mut Vec<f64>) {
+fn gather_v(
+    g: &GridV,
+    refc: &ArrayView3<f64>,
+    s: usize,
+    qx: f64,
+    qy: f64,
+    qz: f64,
+    iq: usize,
+    excl: bool,
+    cutoff_sq: f64,
+    cand: &mut Vec<i64>,
+    csq: &mut Vec<f64>,
+) {
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
     csq.clear();
@@ -208,9 +267,13 @@ fn gather_v(g: &GridV, refc: &ArrayView3<f64>, s: usize, qx: f64, qy: f64, qz: f
 }
 
 struct GridP {
-    nx: i64, ny: i64, nz: i64,
-    inv: Mat3, ortho: bool,     // inv: original-box inverse, for cell binning only
-    wcell: Mat3, winv: Mat3,    // reduced wrap cell + inverse, for the MIC distance
+    nx: i64,
+    ny: i64,
+    nz: i64,
+    inv: Mat3,
+    ortho: bool, // inv: original-box inverse, for cell binning only
+    wcell: Mat3,
+    winv: Mat3, // reduced wrap cell + inverse, for the MIC distance
     head: Vec<i64>,
     nxt: Vec<i64>,
 }
@@ -224,7 +287,9 @@ impl GridP {
         let mut sx = self.inv[0][0] * x + self.inv[1][0] * y + self.inv[2][0] * z;
         let mut sy = self.inv[0][1] * x + self.inv[1][1] * y + self.inv[2][1] * z;
         let mut sz = self.inv[0][2] * x + self.inv[1][2] * y + self.inv[2][2] * z;
-        sx -= fast_floor(sx); sy -= fast_floor(sy); sz -= fast_floor(sz);
+        sx -= fast_floor(sx);
+        sy -= fast_floor(sy);
+        sz -= fast_floor(sz);
         (
             (sx * self.nx as f64) as i64 % self.nx,
             (sy * self.ny as f64) as i64 % self.ny,
@@ -243,7 +308,13 @@ fn build_grid_p(refc: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize, cutof
     let (nx, ny, nz) = grid_dims(&b, cutoff);
     let (ortho, wcell, winv) = crate::mic::prep_dist(&b);
     let mut g = GridP {
-        nx, ny, nz, inv: inv3(&b), ortho, wcell, winv,
+        nx,
+        ny,
+        nz,
+        inv: inv3(&b),
+        ortho,
+        wcell,
+        winv,
         head: vec![-1i64; (nx * ny * nz) as usize],
         nxt: vec![-1i64; nr],
     };
@@ -257,9 +328,19 @@ fn build_grid_p(refc: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize, cutof
 }
 
 #[allow(clippy::too_many_arguments)]
-fn gather_p(g: &GridP, refc: &ArrayView3<f64>, s: usize, qx: f64, qy: f64, qz: f64,
-            iq: usize, excl: bool, cutoff_sq: f64,
-            cand: &mut Vec<i64>, csq: &mut Vec<f64>) {
+fn gather_p(
+    g: &GridP,
+    refc: &ArrayView3<f64>,
+    s: usize,
+    qx: f64,
+    qy: f64,
+    qz: f64,
+    iq: usize,
+    excl: bool,
+    cutoff_sq: f64,
+    cand: &mut Vec<i64>,
+    csq: &mut Vec<f64>,
+) {
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
     csq.clear();
@@ -295,40 +376,77 @@ fn gather_p(g: &GridP, refc: &ArrayView3<f64>, s: usize, qx: f64, qy: f64, qz: f
     }
 }
 
-fn core_vacuum(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, cutoff: f64, excl: bool, sort: bool)
-    -> (Vec<i64>, Vec<i64>, Vec<f64>) {
+fn core_vacuum(
+    query: &ArrayView3<f64>,
+    refc: &ArrayView3<f64>,
+    cutoff: f64,
+    excl: bool,
+    sort: bool,
+) -> (Vec<i64>, Vec<i64>, Vec<f64>) {
     let ns = query.shape()[0];
     let nq = query.shape()[1];
     let cutoff_sq = cutoff * cutoff;
-    let grids: Vec<GridV> = (0..ns).into_par_iter().map(|s| build_grid_v(query, refc, s, cutoff)).collect();
+    let grids: Vec<GridV> = (0..ns)
+        .into_par_iter()
+        .map(|s| build_grid_v(query, refc, s, cutoff))
+        .collect();
     let per_work: Vec<(Vec<i64>, Vec<f64>)> = (0..ns * nq)
         .into_par_iter()
         .map_init(new_scratch, |(cand, csq, order), w| {
             let s = w / nq;
             let iq = w % nq;
-            gather_v(&grids[s], refc, s,
-                query[[s, iq, 0]], query[[s, iq, 1]], query[[s, iq, 2]], iq, excl, cutoff_sq,
-                cand, csq);
+            gather_v(
+                &grids[s],
+                refc,
+                s,
+                query[[s, iq, 0]],
+                query[[s, iq, 1]],
+                query[[s, iq, 2]],
+                iq,
+                excl,
+                cutoff_sq,
+                cand,
+                csq,
+            );
             emit_from(cand, csq, sort, order)
         })
         .collect();
     flatten(per_work)
 }
 
-fn core_pbc(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, boxes: &ArrayView3<f64>,
-            cutoff: f64, excl: bool, sort: bool) -> (Vec<i64>, Vec<i64>, Vec<f64>) {
+fn core_pbc(
+    query: &ArrayView3<f64>,
+    refc: &ArrayView3<f64>,
+    boxes: &ArrayView3<f64>,
+    cutoff: f64,
+    excl: bool,
+    sort: bool,
+) -> (Vec<i64>, Vec<i64>, Vec<f64>) {
     let ns = query.shape()[0];
     let nq = query.shape()[1];
     let cutoff_sq = cutoff * cutoff;
-    let grids: Vec<GridP> = (0..ns).into_par_iter().map(|s| build_grid_p(refc, boxes, s, cutoff)).collect();
+    let grids: Vec<GridP> = (0..ns)
+        .into_par_iter()
+        .map(|s| build_grid_p(refc, boxes, s, cutoff))
+        .collect();
     let per_work: Vec<(Vec<i64>, Vec<f64>)> = (0..ns * nq)
         .into_par_iter()
         .map_init(new_scratch, |(cand, csq, order), w| {
             let s = w / nq;
             let iq = w % nq;
-            gather_p(&grids[s], refc, s,
-                query[[s, iq, 0]], query[[s, iq, 1]], query[[s, iq, 2]], iq, excl, cutoff_sq,
-                cand, csq);
+            gather_p(
+                &grids[s],
+                refc,
+                s,
+                query[[s, iq, 0]],
+                query[[s, iq, 1]],
+                query[[s, iq, 2]],
+                iq,
+                excl,
+                cutoff_sq,
+                cand,
+                csq,
+            );
             emit_from(cand, csq, sort, order)
         })
         .collect();
@@ -347,21 +465,33 @@ pub fn neighbor_list_csr_multi<'py>(
     exclude_self: bool,
     sort_by_distance: bool,
     num_threads: usize,
-) -> (Bound<'py, PyArray1<i64>>, Bound<'py, PyArray1<i64>>, Bound<'py, PyArray1<f64>>) {
+) -> (
+    Bound<'py, PyArray1<i64>>,
+    Bound<'py, PyArray1<i64>>,
+    Bound<'py, PyArray1<f64>>,
+) {
     let q = query.as_array();
     let r = ref_coords.as_array();
     let (offsets, indices, distances) = match &box_matrices {
-        None => py.allow_threads(|| crate::threads::install(num_threads, || {
-            core_vacuum(&q, &r, cutoff, exclude_self, sort_by_distance)
-        })),
+        None => py.allow_threads(|| {
+            crate::threads::install(num_threads, || {
+                core_vacuum(&q, &r, cutoff, exclude_self, sort_by_distance)
+            })
+        }),
         Some(b) => {
             let bb = b.as_array();
-            py.allow_threads(|| crate::threads::install(num_threads, || {
-                core_pbc(&q, &r, &bb, cutoff, exclude_self, sort_by_distance)
-            }))
+            py.allow_threads(|| {
+                crate::threads::install(num_threads, || {
+                    core_pbc(&q, &r, &bb, cutoff, exclude_self, sort_by_distance)
+                })
+            })
         }
     };
-    (offsets.into_pyarray(py), indices.into_pyarray(py), distances.into_pyarray(py))
+    (
+        offsets.into_pyarray(py),
+        indices.into_pyarray(py),
+        distances.into_pyarray(py),
+    )
 }
 
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -389,12 +519,17 @@ mod tests {
         // For every box the cell perpendicular thickness must be >= cutoff, which is what
         // makes the +-1 stencil complete. Thickness = perp_full / n.
         let boxes = [
-            ORTHO, TRIC,
+            ORTHO,
+            TRIC,
             [[6.0, 0.0, 0.0], [3.0, 6.0, 0.0], [3.0, 3.0, 6.0]],
             [[8.0, 0.0, 0.0], [-2.5, 7.0, 0.0], [2.0, -3.0, 5.0]],
         ];
         let cross = |u: &[f64; 3], v: &[f64; 3]| {
-            [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]
+            [
+                u[1] * v[2] - u[2] * v[1],
+                u[2] * v[0] - u[0] * v[2],
+                u[0] * v[1] - u[1] * v[0],
+            ]
         };
         let norm = |v: [f64; 3]| (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).sqrt();
         for b in boxes {
@@ -436,7 +571,11 @@ mod tests {
     }
 
     /// Brute-force minimum image over a wide ±3 shell — the ground truth for the grid.
-    fn brute_pairs(coords: &[[f64; 3]], b: &Mat3, cutoff: f64) -> std::collections::BTreeSet<(usize, usize)> {
+    fn brute_pairs(
+        coords: &[[f64; 3]],
+        b: &Mat3,
+        cutoff: f64,
+    ) -> std::collections::BTreeSet<(usize, usize)> {
         let inv = crate::mathlib::inverse_matrix_3x3_full(b);
         let mut out = std::collections::BTreeSet::new();
         let n = coords.len();
@@ -445,7 +584,11 @@ mod tests {
                 if i == j {
                     continue;
                 }
-                let d = [coords[j][0] - coords[i][0], coords[j][1] - coords[i][1], coords[j][2] - coords[i][2]];
+                let d = [
+                    coords[j][0] - coords[i][0],
+                    coords[j][1] - coords[i][1],
+                    coords[j][2] - coords[i][2],
+                ];
                 let s = [
                     inv[0][0] * d[0] + inv[1][0] * d[1] + inv[2][0] * d[2],
                     inv[0][1] * d[0] + inv[1][1] * d[1] + inv[2][1] * d[2],
@@ -456,7 +599,11 @@ mod tests {
                 for a in -3..=3 {
                     for bb in -3..=3 {
                         for cc in -3..=3 {
-                            let ds = [s[0] - base[0] - a as f64, s[1] - base[1] - bb as f64, s[2] - base[2] - cc as f64];
+                            let ds = [
+                                s[0] - base[0] - a as f64,
+                                s[1] - base[1] - bb as f64,
+                                s[2] - base[2] - cc as f64,
+                            ];
                             let w = [
                                 b[0][0] * ds[0] + b[1][0] * ds[1] + b[2][0] * ds[2],
                                 b[0][1] * ds[0] + b[1][1] * ds[1] + b[2][1] * ds[2],
@@ -482,7 +629,9 @@ mod tests {
         use numpy::ndarray::Array3;
         let mut seed = 0xC0FFEEu64;
         let mut rng = || {
-            seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            seed = seed
+                .wrapping_mul(6364136223846793005)
+                .wrapping_add(1442695040888963407);
             (seed >> 11) as f64 / (1u64 << 53) as f64
         };
         let cases: [(Mat3, f64); 4] = [
@@ -507,22 +656,36 @@ mod tests {
                 pts.push(p);
             }
             let coords = Array3::from_shape_vec((1, n, 3), data).unwrap();
-            let boxes = Array3::from_shape_vec((1, 3, 3),
-                b.iter().flat_map(|r| r.iter().copied()).collect()).unwrap();
-            let (off, idx, _) = core_pbc(&coords.view(), &coords.view(), &boxes.view(),
-                                         cutoff, true, false);
+            let boxes = Array3::from_shape_vec(
+                (1, 3, 3),
+                b.iter().flat_map(|r| r.iter().copied()).collect(),
+            )
+            .unwrap();
+            let (off, idx, _) = core_pbc(
+                &coords.view(),
+                &coords.view(),
+                &boxes.view(),
+                cutoff,
+                true,
+                false,
+            );
             let mut got = std::collections::BTreeSet::new();
             for i in 0..n {
                 for p in off[i] as usize..off[i + 1] as usize {
                     got.insert((i, idx[p] as usize));
                 }
                 // no duplicates in the row
-                let row: Vec<i64> = (off[i] as usize..off[i + 1] as usize).map(|p| idx[p]).collect();
+                let row: Vec<i64> = (off[i] as usize..off[i + 1] as usize)
+                    .map(|p| idx[p])
+                    .collect();
                 let uniq: std::collections::BTreeSet<i64> = row.iter().copied().collect();
                 assert_eq!(row.len(), uniq.len(), "duplicate neighbour, box {b:?}");
             }
             let truth = brute_pairs(&pts, &b, cutoff);
-            assert_eq!(got, truth, "neighbour list != brute force for box {b:?} cutoff {cutoff}");
+            assert_eq!(
+                got, truth,
+                "neighbour list != brute force for box {b:?} cutoff {cutoff}"
+            );
         }
     }
 
@@ -556,8 +719,12 @@ mod tests {
 
         let (idx, dist) = emit_from(&cand, &csq, true, &mut order);
         assert_eq!(idx, vec![3, 7, 9]);
-        assert!((dist[0] - 1.0).abs() < 1e-15 && (dist[1] - 2.0).abs() < 1e-15
-                && (dist[2] - 3.0).abs() < 1e-15, "distances are sqrt of csq, ascending");
+        assert!(
+            (dist[0] - 1.0).abs() < 1e-15
+                && (dist[1] - 2.0).abs() < 1e-15
+                && (dist[2] - 3.0).abs() < 1e-15,
+            "distances are sqrt of csq, ascending"
+        );
 
         let (idx_u, _) = emit_from(&cand, &csq, false, &mut order);
         assert_eq!(idx_u, cand, "unsorted must keep the gather order");

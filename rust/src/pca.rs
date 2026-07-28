@@ -99,29 +99,31 @@ pub fn principal_component_analysis<'py>(
     // high-level `self_adjoint_eigen` reads faer's global parallelism, which defaults to
     // sequential — leaving it unset was a ~3x self-inflicted slowdown on large matrices.
     //
-    let (values, vectors) = py.allow_threads(|| crate::threads::install(num_threads, || {
-        let _parallelism_guard = FAER_PARALLELISM_LOCK
-            .lock()
-            .unwrap_or_else(|poisoned| poisoned.into_inner());
-        faer::set_global_parallelism(Par::rayon(num_threads));
-        let gram = xc.transpose() * xc.as_ref();
-        let cov = Mat::from_fn(nf, nf, |i, j| gram[(i, j)] * inv_ns);
-        let eig = cov
-            .self_adjoint_eigen(Side::Lower)
-            .expect("covariance eigendecomposition failed");
-        let s = eig.S();
-        let u = eig.U();
-        let mut vals = vec![0.0f64; nf];
-        let mut vecs = vec![0.0f64; nf * nf];
-        for k in 0..nf {
-            vals[k] = *s.column_vector().get(k);
-            let mut v: Vec<f64> = (0..nf).map(|r| *u.get(r, k)).collect();
-            fix_sign(&mut v);
-            // row k is the k-th component (upstream transposes the eigenvector matrix)
-            vecs[k * nf..(k + 1) * nf].copy_from_slice(&v);
-        }
-        (vals, vecs)
-    }));
+    let (values, vectors) = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            let _parallelism_guard = FAER_PARALLELISM_LOCK
+                .lock()
+                .unwrap_or_else(|poisoned| poisoned.into_inner());
+            faer::set_global_parallelism(Par::rayon(num_threads));
+            let gram = xc.transpose() * xc.as_ref();
+            let cov = Mat::from_fn(nf, nf, |i, j| gram[(i, j)] * inv_ns);
+            let eig = cov
+                .self_adjoint_eigen(Side::Lower)
+                .expect("covariance eigendecomposition failed");
+            let s = eig.S();
+            let u = eig.U();
+            let mut vals = vec![0.0f64; nf];
+            let mut vecs = vec![0.0f64; nf * nf];
+            for k in 0..nf {
+                vals[k] = *s.column_vector().get(k);
+                let mut v: Vec<f64> = (0..nf).map(|r| *u.get(r, k)).collect();
+                fix_sign(&mut v);
+                // row k is the k-th component (upstream transposes the eigenvector matrix)
+                vecs[k * nf..(k + 1) * nf].copy_from_slice(&v);
+            }
+            (vals, vecs)
+        })
+    });
 
     let eigenvalues = Array1::from_vec(values);
     let eigenvectors = Array2::from_shape_vec((nf, nf), vectors).unwrap();
@@ -204,7 +206,10 @@ mod tests {
         let top = vecs.last().unwrap();
         let na = 3;
         let x_load: f64 = (0..na).map(|i| top[i] * top[i]).sum();
-        assert!(x_load > 0.99, "dominant PC should be the x spread, got load {x_load}");
+        assert!(
+            x_load > 0.99,
+            "dominant PC should be the x spread, got load {x_load}"
+        );
     }
 
     #[test]
@@ -215,8 +220,11 @@ mod tests {
         for k in 0..nf {
             for r in 0..nf {
                 let cv: f64 = (0..nf).map(|j| cov[(r, j)] * vecs[k][j]).sum();
-                assert!((cv - vals[k] * vecs[k][r]).abs() < 1e-8,
-                        "component {k} row {r}: {cv} vs {}", vals[k] * vecs[k][r]);
+                assert!(
+                    (cv - vals[k] * vecs[k][r]).abs() < 1e-8,
+                    "component {k} row {r}: {cv} vs {}",
+                    vals[k] * vecs[k][r]
+                );
             }
         }
     }
@@ -239,6 +247,9 @@ mod tests {
     fn the_sign_convention_is_deterministic() {
         let mut v = vec![0.2, -0.9, 0.3];
         fix_sign(&mut v);
-        assert!(v[1] > 0.0, "leading-magnitude component must end positive: {v:?}");
+        assert!(
+            v[1] > 0.0,
+            "leading-magnitude component must end positive: {v:?}"
+        );
     }
 }

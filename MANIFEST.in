@@ -1,7 +1,26 @@
 include LICENSE
 include MANIFEST.in
 include CODE_OF_CONDUCT.md
+include rust-toolchain.toml
+include rust/Cargo.toml
+include rust/Cargo.lock
+include rust/README.md
 recursive-include molsysmt/data *
+recursive-include rust/src *.rs
 
 graft molsysmt
-global-exclude *.py[cod] __pycache__ *.so
+prune ai_assistant
+prune benchmarks
+prune coding
+prune devguide
+prune devtools
+prune docs
+prune experiments
+prune logos
+prune memory
+prune paper
+prune resources
+prune sandbox
+prune tests
+prune molsysmt/.pytest_cache
+global-exclude *.py[cod] *.so *.pyd *.dylib *.nbi *.nbc

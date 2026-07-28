@@ -35,8 +35,12 @@ type Mat3 = [[f64; 3]; 3];
 #[cfg(test)]
 fn is_orthogonal(b: &Mat3) -> bool {
     let tol = 1e-10;
-    b[0][1].abs() < tol && b[0][2].abs() < tol && b[1][0].abs() < tol
-        && b[1][2].abs() < tol && b[2][0].abs() < tol && b[2][1].abs() < tol
+    b[0][1].abs() < tol
+        && b[0][2].abs() < tol
+        && b[1][0].abs() < tol
+        && b[1][2].abs() < tol
+        && b[2][0].abs() < tol
+        && b[2][1].abs() < tol
 }
 
 fn mic_wrap(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3, ortho: bool) -> (f64, f64, f64) {
@@ -46,15 +50,27 @@ fn mic_wrap(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3, ortho: bool) -> 
 
 /// [`mic_wrap`] with the box shape as a const parameter, for the occlusion loops.
 #[inline(always)]
-fn mic_wrap_const<const ORTHO: bool>(dx: f64, dy: f64, dz: f64, cell: &Mat3, inv: &Mat3) -> (f64, f64, f64) {
+fn mic_wrap_const<const ORTHO: bool>(
+    dx: f64,
+    dy: f64,
+    dz: f64,
+    cell: &Mat3,
+    inv: &Mat3,
+) -> (f64, f64, f64) {
     let w = crate::mic::mic_vector_const::<ORTHO>([dx, dy, dz], cell, inv);
     (w[0], w[1], w[2])
 }
 
 struct Grid {
-    nx: i64, ny: i64, nz: i64,
-    xmin: f64, ymin: f64, zmin: f64,
-    cdx: f64, cdy: f64, cdz: f64,
+    nx: i64,
+    ny: i64,
+    nz: i64,
+    xmin: f64,
+    ymin: f64,
+    zmin: f64,
+    cdx: f64,
+    cdy: f64,
+    cdz: f64,
     head: Vec<i64>,
     nxt: Vec<i64>,
 }
@@ -76,9 +92,12 @@ fn build_grid(coords: &ArrayView3<f64>, s: usize, n_atoms: usize, cutoff: f64) -
     let (mut xmx, mut ymx, mut zmx) = (xmn, ymn, zmn);
     for a in 1..n_atoms {
         let (x, y, z) = (coords[[s, a, 0]], coords[[s, a, 1]], coords[[s, a, 2]]);
-        xmn = xmn.min(x); xmx = xmx.max(x);
-        ymn = ymn.min(y); ymx = ymx.max(y);
-        zmn = zmn.min(z); zmx = zmx.max(z);
+        xmn = xmn.min(x);
+        xmx = xmx.max(x);
+        ymn = ymn.min(y);
+        ymx = ymx.max(y);
+        zmn = zmn.min(z);
+        zmx = zmx.max(z);
     }
     let lx = cutoff.max(xmx - xmn + 1e-5);
     let ly = cutoff.max(ymx - ymn + 1e-5);
@@ -87,8 +106,15 @@ fn build_grid(coords: &ArrayView3<f64>, s: usize, n_atoms: usize, cutoff: f64) -
     let ny = ((ly / cutoff) as i64).max(1);
     let nz = ((lz / cutoff) as i64).max(1);
     let mut g = Grid {
-        nx, ny, nz, xmin: xmn, ymin: ymn, zmin: zmn,
-        cdx: lx / nx as f64, cdy: ly / ny as f64, cdz: lz / nz as f64,
+        nx,
+        ny,
+        nz,
+        xmin: xmn,
+        ymin: ymn,
+        zmin: zmn,
+        cdx: lx / nx as f64,
+        cdy: ly / ny as f64,
+        cdz: lz / nz as f64,
         head: vec![-1i64; (nx * ny * nz) as usize],
         nxt: vec![-1i64; n_atoms],
     };
@@ -104,22 +130,42 @@ fn build_grid(coords: &ArrayView3<f64>, s: usize, n_atoms: usize, cutoff: f64) -
 /// Grid cell counts sized by the perpendicular distance between opposite cell faces
 /// (`V/|b_j x b_k|`), so a +-1 fractional stencil covers the cutoff on triclinic boxes.
 fn grid_dims(b: &Mat3, cutoff: f64) -> (i64, i64, i64) {
-    let cross = |u: &[f64; 3], v: &[f64; 3]| [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
-    let norm = |v: [f64; 3]| (v[0]*v[0]+v[1]*v[1]+v[2]*v[2]).sqrt();
-    let vol = (b[0][0]*(b[1][1]*b[2][2]-b[1][2]*b[2][1]) - b[0][1]*(b[1][0]*b[2][2]-b[1][2]*b[2][0])
-        + b[0][2]*(b[1][0]*b[2][1]-b[1][1]*b[2][0])).abs();
-    let perp = |bc: [f64;3]| if norm(bc) > 0.0 { vol/norm(bc) } else { cutoff };
-    (((perp(cross(&b[1],&b[2]))/cutoff) as i64).max(1),
-     ((perp(cross(&b[0],&b[2]))/cutoff) as i64).max(1),
-     ((perp(cross(&b[0],&b[1]))/cutoff) as i64).max(1))
+    let cross = |u: &[f64; 3], v: &[f64; 3]| {
+        [
+            u[1] * v[2] - u[2] * v[1],
+            u[2] * v[0] - u[0] * v[2],
+            u[0] * v[1] - u[1] * v[0],
+        ]
+    };
+    let norm = |v: [f64; 3]| (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]).sqrt();
+    let vol = (b[0][0] * (b[1][1] * b[2][2] - b[1][2] * b[2][1])
+        - b[0][1] * (b[1][0] * b[2][2] - b[1][2] * b[2][0])
+        + b[0][2] * (b[1][0] * b[2][1] - b[1][1] * b[2][0]))
+        .abs();
+    let perp = |bc: [f64; 3]| {
+        if norm(bc) > 0.0 {
+            vol / norm(bc)
+        } else {
+            cutoff
+        }
+    };
+    (
+        ((perp(cross(&b[1], &b[2])) / cutoff) as i64).max(1),
+        ((perp(cross(&b[0], &b[2])) / cutoff) as i64).max(1),
+        ((perp(cross(&b[0], &b[1])) / cutoff) as i64).max(1),
+    )
 }
 
 /// Periodic (fractional) grid, mirroring get_mic_sasa_cell_list: cells come from the
 /// box lengths and the 27-cell stencil wraps around.
 struct GridP {
-    nx: i64, ny: i64, nz: i64,
-    inv: Mat3,               // original-box inverse, for cell binning only
-    wcell: Mat3, winv: Mat3, ortho: bool,   // reduced wrap cell, for the MIC distance
+    nx: i64,
+    ny: i64,
+    nz: i64,
+    inv: Mat3, // original-box inverse, for cell binning only
+    wcell: Mat3,
+    winv: Mat3,
+    ortho: bool, // reduced wrap cell, for the MIC distance
     head: Vec<i64>,
     nxt: Vec<i64>,
 }
@@ -129,7 +175,9 @@ impl GridP {
         let mut sx = self.inv[0][0] * x + self.inv[1][0] * y + self.inv[2][0] * z;
         let mut sy = self.inv[0][1] * x + self.inv[1][1] * y + self.inv[2][1] * z;
         let mut sz = self.inv[0][2] * x + self.inv[1][2] * y + self.inv[2][2] * z;
-        sx -= fast_floor(sx); sy -= fast_floor(sy); sz -= fast_floor(sz);
+        sx -= fast_floor(sx);
+        sy -= fast_floor(sy);
+        sz -= fast_floor(sz);
         (
             (sx * self.nx as f64) as i64 % self.nx,
             (sy * self.ny as f64) as i64 % self.ny,
@@ -138,8 +186,13 @@ impl GridP {
     }
 }
 
-fn build_grid_p(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize,
-                n_atoms: usize, cutoff: f64) -> GridP {
+fn build_grid_p(
+    coords: &ArrayView3<f64>,
+    boxes: &ArrayView3<f64>,
+    s: usize,
+    n_atoms: usize,
+    cutoff: f64,
+) -> GridP {
     let b: Mat3 = [
         [boxes[[s, 0, 0]], boxes[[s, 0, 1]], boxes[[s, 0, 2]]],
         [boxes[[s, 1, 0]], boxes[[s, 1, 1]], boxes[[s, 1, 2]]],
@@ -148,7 +201,13 @@ fn build_grid_p(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize,
     let (nx, ny, nz) = grid_dims(&b, cutoff);
     let (ortho, wcell, winv) = crate::mic::prep_dist(&b);
     let mut g = GridP {
-        nx, ny, nz, inv: inv3(&b), wcell, winv, ortho,
+        nx,
+        ny,
+        nz,
+        inv: inv3(&b),
+        wcell,
+        winv,
+        ortho,
         head: vec![-1i64; (nx * ny * nz) as usize],
         nxt: vec![-1i64; n_atoms],
     };
@@ -163,8 +222,17 @@ fn build_grid_p(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize,
 
 /// Vacuum gather (bounding-box grid, clamped stencil).
 #[allow(clippy::too_many_arguments)]
-fn gather_v(g: &Grid, coords: &ArrayView3<f64>, s: usize, jj: usize,
-            qx: f64, qy: f64, qz: f64, cutoff_sq: f64, cand: &mut Vec<i64>) {
+fn gather_v(
+    g: &Grid,
+    coords: &ArrayView3<f64>,
+    s: usize,
+    jj: usize,
+    qx: f64,
+    qy: f64,
+    qz: f64,
+    cutoff_sq: f64,
+    cand: &mut Vec<i64>,
+) {
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
     for ox in (cx - 1).max(0)..(cx + 2).min(g.nx) {
@@ -191,8 +259,17 @@ fn gather_v(g: &Grid, coords: &ArrayView3<f64>, s: usize, jj: usize,
 
 /// Periodic gather (fractional grid, wrapping stencil, MIC distance).
 #[allow(clippy::too_many_arguments)]
-fn gather_p(g: &GridP, coords: &ArrayView3<f64>, s: usize, jj: usize,
-            qx: f64, qy: f64, qz: f64, cutoff_sq: f64, cand: &mut Vec<i64>) {
+fn gather_p(
+    g: &GridP,
+    coords: &ArrayView3<f64>,
+    s: usize,
+    jj: usize,
+    qx: f64,
+    qy: f64,
+    qz: f64,
+    cutoff_sq: f64,
+    cand: &mut Vec<i64>,
+) {
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
     // Unique periodic neighbour cells per axis (see neighbors::axis_cells): ±1 for n>=3,
@@ -253,8 +330,17 @@ fn extended_radii_sq(radii: &ArrayView1<f64>, probe: f64) -> Vec<f64> {
 /// shape leaves a branch inside the loop (see `mic::mic_vector_const`).
 #[allow(clippy::too_many_arguments)]
 fn atom_sasa<const WRAP: bool, const ORTHO: bool>(
-    cf: &[f64], spf: &[f64], n_points: usize, rext2: &[f64], r_i_ext: f64,
-    qx: f64, qy: f64, qz: f64, cand: &[i64], cell: &Mat3, inv: &Mat3,
+    cf: &[f64],
+    spf: &[f64],
+    n_points: usize,
+    rext2: &[f64],
+    r_i_ext: f64,
+    qx: f64,
+    qy: f64,
+    qz: f64,
+    cand: &[i64],
+    cell: &Mat3,
+    inv: &Mat3,
 ) -> f64 {
     let mut accessible = 0usize;
     for kk in 0..n_points {
@@ -288,19 +374,38 @@ fn atom_sasa<const WRAP: bool, const ORTHO: bool>(
 #[allow(clippy::too_many_arguments)]
 #[inline]
 fn atom_sasa_dispatch(
-    cf: &[f64], spf: &[f64], n_points: usize, rext2: &[f64], r_i_ext: f64,
-    qx: f64, qy: f64, qz: f64, cand: &[i64], boxm: Option<(&Mat3, &Mat3, bool)>,
+    cf: &[f64],
+    spf: &[f64],
+    n_points: usize,
+    rext2: &[f64],
+    r_i_ext: f64,
+    qx: f64,
+    qy: f64,
+    qz: f64,
+    cand: &[i64],
+    boxm: Option<(&Mat3, &Mat3, bool)>,
 ) -> f64 {
     const ZERO: Mat3 = [[0.0; 3]; 3];
     match boxm {
-        None => atom_sasa::<false, false>(cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, &ZERO, &ZERO),
-        Some((cell, inv, true)) => atom_sasa::<true, true>(cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, cell, inv),
-        Some((cell, inv, false)) => atom_sasa::<true, false>(cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, cell, inv),
+        None => atom_sasa::<false, false>(
+            cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, &ZERO, &ZERO,
+        ),
+        Some((cell, inv, true)) => atom_sasa::<true, true>(
+            cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, cell, inv,
+        ),
+        Some((cell, inv, false)) => atom_sasa::<true, false>(
+            cf, spf, n_points, rext2, r_i_ext, qx, qy, qz, cand, cell, inv,
+        ),
     }
 }
 
-fn core_vacuum(coords: &ArrayView3<f64>, radii: &ArrayView1<f64>, sphere: &ArrayView2<f64>,
-               probe: f64, cutoff: f64) -> Vec<f64> {
+fn core_vacuum(
+    coords: &ArrayView3<f64>,
+    radii: &ArrayView1<f64>,
+    sphere: &ArrayView2<f64>,
+    probe: f64,
+    cutoff: f64,
+) -> Vec<f64> {
     let ns = coords.shape()[0];
     let na = coords.shape()[1];
     let cutoff_sq = cutoff * cutoff;
@@ -310,26 +415,38 @@ fn core_vacuum(coords: &ArrayView3<f64>, radii: &ArrayView1<f64>, sphere: &Array
     let spc = sphere.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sphere.shape()[0];
-    let grids: Vec<Grid> = (0..ns).into_par_iter().map(|s| build_grid(coords, s, na, cutoff)).collect();
+    let grids: Vec<Grid> = (0..ns)
+        .into_par_iter()
+        .map(|s| build_grid(coords, s, na, cutoff))
+        .collect();
     (0..ns * na)
         .into_par_iter()
-        .map_init(|| Vec::<i64>::with_capacity(256), |cand, w| {
-            let s = w / na;
-            let jj = w % na;
-            let r_i_ext = radii[jj] + probe;
-            if r_i_ext <= probe {
-                return 0.0;
-            }
-            let cf = &cflat[s * na * 3..(s + 1) * na * 3];
-            let (qx, qy, qz) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
-            gather_v(&grids[s], coords, s, jj, qx, qy, qz, cutoff_sq, cand);
-            atom_sasa_dispatch(cf, spf, n_points, &rext2, r_i_ext, qx, qy, qz, cand, None)
-        })
+        .map_init(
+            || Vec::<i64>::with_capacity(256),
+            |cand, w| {
+                let s = w / na;
+                let jj = w % na;
+                let r_i_ext = radii[jj] + probe;
+                if r_i_ext <= probe {
+                    return 0.0;
+                }
+                let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+                let (qx, qy, qz) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
+                gather_v(&grids[s], coords, s, jj, qx, qy, qz, cutoff_sq, cand);
+                atom_sasa_dispatch(cf, spf, n_points, &rext2, r_i_ext, qx, qy, qz, cand, None)
+            },
+        )
         .collect()
 }
 
-fn core_pbc(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, radii: &ArrayView1<f64>,
-            sphere: &ArrayView2<f64>, probe: f64, cutoff: f64) -> Vec<f64> {
+fn core_pbc(
+    coords: &ArrayView3<f64>,
+    boxes: &ArrayView3<f64>,
+    radii: &ArrayView1<f64>,
+    sphere: &ArrayView2<f64>,
+    probe: f64,
+    cutoff: f64,
+) -> Vec<f64> {
     let ns = coords.shape()[0];
     let na = coords.shape()[1];
     let cutoff_sq = cutoff * cutoff;
@@ -339,24 +456,39 @@ fn core_pbc(coords: &ArrayView3<f64>, boxes: &ArrayView3<f64>, radii: &ArrayView
     let spc = sphere.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sphere.shape()[0];
-    let grids: Vec<GridP> = (0..ns).into_par_iter()
-        .map(|s| build_grid_p(coords, boxes, s, na, cutoff)).collect();
+    let grids: Vec<GridP> = (0..ns)
+        .into_par_iter()
+        .map(|s| build_grid_p(coords, boxes, s, na, cutoff))
+        .collect();
     (0..ns * na)
         .into_par_iter()
-        .map_init(|| Vec::<i64>::with_capacity(256), |cand, w| {
-            let s = w / na;
-            let jj = w % na;
-            let r_i_ext = radii[jj] + probe;
-            if r_i_ext <= probe {
-                return 0.0;
-            }
-            let g = &grids[s];
-            let cf = &cflat[s * na * 3..(s + 1) * na * 3];
-            let (qx, qy, qz) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
-            gather_p(g, coords, s, jj, qx, qy, qz, cutoff_sq, cand);
-            atom_sasa_dispatch(cf, spf, n_points, &rext2, r_i_ext, qx, qy, qz, cand,
-                               Some((&g.wcell, &g.winv, g.ortho)))
-        })
+        .map_init(
+            || Vec::<i64>::with_capacity(256),
+            |cand, w| {
+                let s = w / na;
+                let jj = w % na;
+                let r_i_ext = radii[jj] + probe;
+                if r_i_ext <= probe {
+                    return 0.0;
+                }
+                let g = &grids[s];
+                let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+                let (qx, qy, qz) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
+                gather_p(g, coords, s, jj, qx, qy, qz, cutoff_sq, cand);
+                atom_sasa_dispatch(
+                    cf,
+                    spf,
+                    n_points,
+                    &rext2,
+                    r_i_ext,
+                    qx,
+                    qy,
+                    qz,
+                    cand,
+                    Some((&g.wcell, &g.winv, g.ortho)),
+                )
+            },
+        )
         .collect()
 }
 
@@ -374,10 +506,14 @@ pub fn get_sasa_cell_list<'py>(
     let r = radii.as_array();
     let sp = sphere_points.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
-    let flat = py.allow_threads(|| crate::threads::install(num_threads, || {
-        core_vacuum(&c, &r, &sp, probe_radius, cutoff)
-    }));
-    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
+    let flat = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            core_vacuum(&c, &r, &sp, probe_radius, cutoff)
+        })
+    });
+    Array2::from_shape_vec((ns, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -397,10 +533,14 @@ pub fn get_mic_sasa_cell_list<'py>(
     let r = radii.as_array();
     let sp = sphere_points.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
-    let flat = py.allow_threads(|| crate::threads::install(num_threads, || {
-        core_pbc(&c, &b, &r, &sp, probe_radius, cutoff)
-    }));
-    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
+    let flat = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            core_pbc(&c, &b, &r, &sp, probe_radius, cutoff)
+        })
+    });
+    Array2::from_shape_vec((ns, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 // ---------------------------------------------------------- brute-force Shrake–Rupley
@@ -418,8 +558,15 @@ pub fn get_mic_sasa_cell_list<'py>(
 #[inline]
 #[allow(clippy::too_many_arguments)] // Inner-loop state is passed explicitly for inlining.
 fn atom_sasa_bruteforce<const WRAP: bool, const ORTHO: bool>(
-    cf: &[f64], spf: &[f64], n_points: usize, jj: usize, rext2: &[f64], r_i_ext: f64,
-    na: usize, cell: &Mat3, inv: &Mat3,
+    cf: &[f64],
+    spf: &[f64],
+    n_points: usize,
+    jj: usize,
+    rext2: &[f64],
+    r_i_ext: f64,
+    na: usize,
+    cell: &Mat3,
+    inv: &Mat3,
 ) -> f64 {
     let (ax, ay, az) = (cf[3 * jj], cf[3 * jj + 1], cf[3 * jj + 2]);
     let mut accessible = 0usize;
@@ -457,21 +604,39 @@ fn atom_sasa_bruteforce<const WRAP: bool, const ORTHO: bool>(
 #[allow(clippy::too_many_arguments)]
 #[inline]
 fn atom_sasa_bruteforce_dispatch(
-    cf: &[f64], spf: &[f64], n_points: usize, jj: usize, rext2: &[f64], r_i_ext: f64,
-    na: usize, wrap: Option<(&Mat3, &Mat3, bool)>,
+    cf: &[f64],
+    spf: &[f64],
+    n_points: usize,
+    jj: usize,
+    rext2: &[f64],
+    r_i_ext: f64,
+    na: usize,
+    wrap: Option<(&Mat3, &Mat3, bool)>,
 ) -> f64 {
     const ZERO: Mat3 = [[0.0; 3]; 3];
     match wrap {
-        None => atom_sasa_bruteforce::<false, false>(cf, spf, n_points, jj, rext2, r_i_ext, na, &ZERO, &ZERO),
-        Some((cell, inv, true)) => atom_sasa_bruteforce::<true, true>(cf, spf, n_points, jj, rext2, r_i_ext, na, cell, inv),
-        Some((cell, inv, false)) => atom_sasa_bruteforce::<true, false>(cf, spf, n_points, jj, rext2, r_i_ext, na, cell, inv),
+        None => atom_sasa_bruteforce::<false, false>(
+            cf, spf, n_points, jj, rext2, r_i_ext, na, &ZERO, &ZERO,
+        ),
+        Some((cell, inv, true)) => {
+            atom_sasa_bruteforce::<true, true>(cf, spf, n_points, jj, rext2, r_i_ext, na, cell, inv)
+        }
+        Some((cell, inv, false)) => atom_sasa_bruteforce::<true, false>(
+            cf, spf, n_points, jj, rext2, r_i_ext, na, cell, inv,
+        ),
     }
 }
 
 /// Centred minimum-image wrap via the full inverse, matching `_mic_wrap_vector`, with the
 /// box shape as a const parameter so the occlusion loop carries no branch on it.
 #[inline(always)]
-fn mic_wrap_bruteforce_const<const ORTHO: bool>(dx: f64, dy: f64, dz: f64, b: &Mat3, inv: &Mat3) -> [f64; 3] {
+fn mic_wrap_bruteforce_const<const ORTHO: bool>(
+    dx: f64,
+    dy: f64,
+    dz: f64,
+    b: &Mat3,
+    inv: &Mat3,
+) -> [f64; 3] {
     crate::mic::mic_vector_const::<ORTHO>([dx, dy, dz], b, inv)
 }
 
@@ -494,21 +659,25 @@ pub fn get_sasa<'py>(
     let spc = sp.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sp.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns * na)
-            .into_par_iter()
-            .map(|idx| {
-                let (s, jj) = (idx / na, idx % na);
-                let r_i_ext = r[jj] + probe_radius;
-                if r_i_ext <= probe_radius {
-                    return 0.0;
-                }
-                let cf = &cflat[s * na * 3..(s + 1) * na * 3];
-                atom_sasa_bruteforce_dispatch(cf, spf, n_points, jj, &rext2, r_i_ext, na, None)
-            })
-            .collect()
-    }));
-    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
+    let flat: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns * na)
+                .into_par_iter()
+                .map(|idx| {
+                    let (s, jj) = (idx / na, idx % na);
+                    let r_i_ext = r[jj] + probe_radius;
+                    if r_i_ext <= probe_radius {
+                        return 0.0;
+                    }
+                    let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+                    atom_sasa_bruteforce_dispatch(cf, spf, n_points, jj, &rext2, r_i_ext, na, None)
+                })
+                .collect()
+        })
+    });
+    Array2::from_shape_vec((ns, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -544,23 +713,35 @@ pub fn get_mic_sasa<'py>(
     let spc = sp.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sp.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns * na)
-            .into_par_iter()
-            .map(|idx| {
-                let (s, jj) = (idx / na, idx % na);
-                let r_i_ext = r[jj] + probe_radius;
-                if r_i_ext <= probe_radius {
-                    return 0.0;
-                }
-                let (b, inv, ortho) = &parts[s];
-                let cf = &cflat[s * na * 3..(s + 1) * na * 3];
-                atom_sasa_bruteforce_dispatch(cf, spf, n_points, jj, &rext2, r_i_ext, na,
-                                              Some((b, inv, *ortho)))
-            })
-            .collect()
-    }));
-    Array2::from_shape_vec((ns, na), flat).unwrap().into_pyarray(py)
+    let flat: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns * na)
+                .into_par_iter()
+                .map(|idx| {
+                    let (s, jj) = (idx / na, idx % na);
+                    let r_i_ext = r[jj] + probe_radius;
+                    if r_i_ext <= probe_radius {
+                        return 0.0;
+                    }
+                    let (b, inv, ortho) = &parts[s];
+                    let cf = &cflat[s * na * 3..(s + 1) * na * 3];
+                    atom_sasa_bruteforce_dispatch(
+                        cf,
+                        spf,
+                        n_points,
+                        jj,
+                        &rext2,
+                        r_i_ext,
+                        na,
+                        Some((b, inv, *ortho)),
+                    )
+                })
+                .collect()
+        })
+    });
+    Array2::from_shape_vec((ns, na), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -586,12 +767,15 @@ mod tests {
         assert!(!is_orthogonal(&TRIC));
         // What upstream computes, for the record: `b[2][2] < tol` is never true.
         let upstream_would_say = ORTHO[2][2].abs() < 1e-10;
-        assert!(!upstream_would_say, "upstream can never report a real box as orthogonal");
+        assert!(
+            !upstream_would_say,
+            "upstream can never report a real box as orthogonal"
+        );
     }
 
     #[test]
     fn mic_wrap_returns_the_nearest_image() {
-        let (x, _, _) = mic_wrap(5.0, 0.0, 0.0, &ORTHO, &[[0.0;3];3], true);
+        let (x, _, _) = mic_wrap(5.0, 0.0, 0.0, &ORTHO, &[[0.0; 3]; 3], true);
         assert!((x - (-1.0)).abs() < 1e-12, "got {x}");
     }
 
@@ -644,7 +828,9 @@ mod branch_divergence {
         // flipping. The port takes the correct branch and the typo is reported upstream
         // (`devguide/pending_bugs/sasa_is_orthogonal_typo.md`); the price is that parity
         // against Numba is asserted at 1e-9 here rather than bit-for-bit.
-        assert!(differing > 0 && max_diff < 1e-12,
-                "expected tiny-but-nonzero divergence; got {differing}/{n}, max {max_diff:.3e}");
+        assert!(
+            differing > 0 && max_diff < 1e-12,
+            "expected tiny-but-nonzero divergence; got {differing}/{n}, max {max_diff:.3e}"
+        );
     }
 }

@@ -198,9 +198,21 @@ pub(crate) fn inverse_matrix_3x3_full(b: &Mat3) -> Mat3 {
     let det = b00 * (b11 * b22 - b12 * b21) - b01 * (b10 * b22 - b12 * b20)
         + b02 * (b10 * b21 - b11 * b20);
     [
-        [(b11 * b22 - b12 * b21) / det, (b02 * b21 - b01 * b22) / det, (b01 * b12 - b02 * b11) / det],
-        [(b12 * b20 - b10 * b22) / det, (b00 * b22 - b02 * b20) / det, (b02 * b10 - b00 * b12) / det],
-        [(b10 * b21 - b11 * b20) / det, (b01 * b20 - b00 * b21) / det, (b00 * b11 - b01 * b10) / det],
+        [
+            (b11 * b22 - b12 * b21) / det,
+            (b02 * b21 - b01 * b22) / det,
+            (b01 * b12 - b02 * b11) / det,
+        ],
+        [
+            (b12 * b20 - b10 * b22) / det,
+            (b00 * b22 - b02 * b20) / det,
+            (b02 * b10 - b00 * b12) / det,
+        ],
+        [
+            (b10 * b21 - b11 * b20) / det,
+            (b01 * b20 - b00 * b21) / det,
+            (b00 * b11 - b01 * b10) / det,
+        ],
     ]
 }
 
@@ -228,8 +240,11 @@ pub(crate) fn quaternion_to_rotation_matrix(q: [f64; 4]) -> Mat3 {
 // --------------------------------------------------------------------------- python API
 
 #[pyfunction]
-pub fn matmul<'py>(py: Python<'py>, m: PyReadonlyArray2<'py, f64>, v: PyReadonlyArray1<'py, f64>)
-    -> Bound<'py, PyArray1<f64>> {
+pub fn matmul<'py>(
+    py: Python<'py>,
+    m: PyReadonlyArray2<'py, f64>,
+    v: PyReadonlyArray1<'py, f64>,
+) -> Bound<'py, PyArray1<f64>> {
     let m = m.as_array();
     let v = v.as_array();
     let (rows, cols) = (m.shape()[0], m.shape()[1]);
@@ -245,8 +260,11 @@ pub fn matmul<'py>(py: Python<'py>, m: PyReadonlyArray2<'py, f64>, v: PyReadonly
 }
 
 #[pyfunction]
-pub fn transpmatmul<'py>(py: Python<'py>, m: PyReadonlyArray2<'py, f64>, v: PyReadonlyArray1<'py, f64>)
-    -> Bound<'py, PyArray1<f64>> {
+pub fn transpmatmul<'py>(
+    py: Python<'py>,
+    m: PyReadonlyArray2<'py, f64>,
+    v: PyReadonlyArray1<'py, f64>,
+) -> Bound<'py, PyArray1<f64>> {
     let m = m.as_array();
     let v = v.as_array();
     let (rows, cols) = (m.shape()[0], m.shape()[1]);
@@ -271,8 +289,11 @@ pub fn py_dot_product(a: PyReadonlyArray1<'_, f64>, b: PyReadonlyArray1<'_, f64>
 
 #[pyfunction]
 #[pyo3(name = "cross_product")]
-pub fn py_cross_product<'py>(py: Python<'py>, a: PyReadonlyArray1<'py, f64>,
-                             b: PyReadonlyArray1<'py, f64>) -> Bound<'py, PyArray1<f64>> {
+pub fn py_cross_product<'py>(
+    py: Python<'py>,
+    a: PyReadonlyArray1<'py, f64>,
+    b: PyReadonlyArray1<'py, f64>,
+) -> Bound<'py, PyArray1<f64>> {
     Array1::from_vec(cross_product(v3(&a.as_array()), v3(&b.as_array())).to_vec()).into_pyarray(py)
 }
 
@@ -284,8 +305,10 @@ pub fn py_norm_vector(a: PyReadonlyArray1<'_, f64>) -> f64 {
 
 #[pyfunction]
 #[pyo3(name = "normalize_vector")]
-pub fn py_normalize_vector<'py>(py: Python<'py>, a: PyReadonlyArray1<'py, f64>)
-    -> Bound<'py, PyArray1<f64>> {
+pub fn py_normalize_vector<'py>(
+    py: Python<'py>,
+    a: PyReadonlyArray1<'py, f64>,
+) -> Bound<'py, PyArray1<f64>> {
     Array1::from_vec(normalize_vector(v3(&a.as_array())).to_vec()).into_pyarray(py)
 }
 
@@ -297,15 +320,20 @@ pub fn py_angle(a: PyReadonlyArray1<'_, f64>, b: PyReadonlyArray1<'_, f64>) -> f
 
 #[pyfunction]
 #[pyo3(name = "dihedral_angle")]
-pub fn py_dihedral_angle(a: PyReadonlyArray1<'_, f64>, b: PyReadonlyArray1<'_, f64>,
-                         c: PyReadonlyArray1<'_, f64>) -> f64 {
+pub fn py_dihedral_angle(
+    a: PyReadonlyArray1<'_, f64>,
+    b: PyReadonlyArray1<'_, f64>,
+    c: PyReadonlyArray1<'_, f64>,
+) -> f64 {
     dihedral_angle(v3(&a.as_array()), v3(&b.as_array()), v3(&c.as_array()))
 }
 
 #[pyfunction]
 #[pyo3(name = "inverse_matrix_3x3")]
-pub fn py_inverse_matrix_3x3<'py>(py: Python<'py>, m: PyReadonlyArray2<'py, f64>)
-    -> Bound<'py, PyArray2<f64>> {
+pub fn py_inverse_matrix_3x3<'py>(
+    py: Python<'py>,
+    m: PyReadonlyArray2<'py, f64>,
+) -> Bound<'py, PyArray2<f64>> {
     let a = m.as_array();
     let mm: Mat3 = [
         [a[[0, 0]], a[[0, 1]], a[[0, 2]]],
@@ -324,8 +352,10 @@ pub fn py_inverse_matrix_3x3<'py>(py: Python<'py>, m: PyReadonlyArray2<'py, f64>
 
 #[pyfunction]
 #[pyo3(name = "quaternion_to_rotation_matrix")]
-pub fn py_quaternion_to_rotation_matrix<'py>(py: Python<'py>, q: PyReadonlyArray1<'py, f64>)
-    -> Bound<'py, PyArray2<f64>> {
+pub fn py_quaternion_to_rotation_matrix<'py>(
+    py: Python<'py>,
+    q: PyReadonlyArray1<'py, f64>,
+) -> Bound<'py, PyArray2<f64>> {
     let a = q.as_array();
     let u = quaternion_to_rotation_matrix([a[0], a[1], a[2], a[3]]);
     let mut out = Array2::<f64>::zeros((3, 3));
@@ -339,9 +369,12 @@ pub fn py_quaternion_to_rotation_matrix<'py>(py: Python<'py>, q: PyReadonlyArray
 
 #[pyfunction]
 #[pyo3(name = "rodrigues_rotation")]
-pub fn py_rodrigues_rotation<'py>(py: Python<'py>, vector: PyReadonlyArray1<'py, f64>,
-                                  unit_vector: PyReadonlyArray1<'py, f64>, ang: f64)
-    -> Bound<'py, PyArray1<f64>> {
+pub fn py_rodrigues_rotation<'py>(
+    py: Python<'py>,
+    vector: PyReadonlyArray1<'py, f64>,
+    unit_vector: PyReadonlyArray1<'py, f64>,
+    ang: f64,
+) -> Bound<'py, PyArray1<f64>> {
     let r = rodrigues_rotation(v3(&vector.as_array()), v3(&unit_vector.as_array()), ang);
     Array1::from_vec(r.to_vec()).into_pyarray(py)
 }
@@ -381,7 +414,11 @@ pub fn minimum_distance_masked_not_bonded(
             }
         }
     }
-    if min_sq.is_infinite() { f64::INFINITY } else { min_sq.sqrt() }
+    if min_sq.is_infinite() {
+        f64::INFINITY
+    } else {
+        min_sq.sqrt()
+    }
 }
 
 /// Mirrors `math.py::minimum_distance_between_coordinate_sets`: the shortest distance from
@@ -426,13 +463,20 @@ pub fn minimum_distance_between_coordinate_sets(
             }
         }
     }
-    if min_sq.is_infinite() { f64::INFINITY } else { min_sq.sqrt() }
+    if min_sq.is_infinite() {
+        f64::INFINITY
+    } else {
+        min_sq.sqrt()
+    }
 }
 
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(matmul, m)?)?;
     m.add_function(wrap_pyfunction!(minimum_distance_masked_not_bonded, m)?)?;
-    m.add_function(wrap_pyfunction!(minimum_distance_between_coordinate_sets, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        minimum_distance_between_coordinate_sets,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(transpmatmul, m)?)?;
     m.add_function(wrap_pyfunction!(py_dot_product, m)?)?;
     m.add_function(wrap_pyfunction!(py_cross_product, m)?)?;
@@ -454,9 +498,30 @@ mod tests {
     fn fast_floor_is_bit_identical_to_floor_on_the_kernel_domain() {
         // Exact integers, both signs of non-integers, ties, tiny and large magnitudes.
         let fixed = [
-            0.0, -0.0, 1.0, -1.0, 2.0, -2.0, 0.5, -0.5, 1.5, -1.5, 2.5, -2.5, 0.9999999999,
-            -0.9999999999, 1e-15, -1e-15, 3.7, -3.7, 1234.5678, -1234.5678, 1e6 + 0.5,
-            -(1e6 + 0.5), 4503599627370495.5, -4503599627370495.5,
+            0.0,
+            -0.0,
+            1.0,
+            -1.0,
+            2.0,
+            -2.0,
+            0.5,
+            -0.5,
+            1.5,
+            -1.5,
+            2.5,
+            -2.5,
+            0.9999999999,
+            -0.9999999999,
+            1e-15,
+            -1e-15,
+            3.7,
+            -3.7,
+            1234.5678,
+            -1234.5678,
+            1e6 + 0.5,
+            -(1e6 + 0.5),
+            4503599627370495.5,
+            -4503599627370495.5,
         ];
         for x in fixed {
             assert_eq!(
@@ -471,7 +536,9 @@ mod tests {
         // coordinates and box ratios, a few cells either side of the origin.
         let mut state = 0x9E3779B97F4A7C15u64;
         for _ in 0..200_000 {
-            state = state.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            state = state
+                .wrapping_mul(6364136223846793005)
+                .wrapping_add(1442695040888963407);
             let u = (state >> 11) as f64 / (1u64 << 53) as f64; // [0, 1)
             for scale in [1.0, 4.0, 100.0] {
                 let x = (u - 0.5) * 2.0 * scale;
@@ -487,10 +554,31 @@ mod tests {
     #[test]
     fn fast_round_ties_even_is_bit_identical_to_round_ties_even() {
         let fixed = [
-            0.0, -0.0, 0.5, -0.5, 1.5, -1.5, 2.5, -2.5, 3.5, -3.5, 0.49999999999999994,
-            -0.49999999999999994, 1.0, -1.0, 1e-15, -1e-15, 1234.5, -1234.5, 1234.4999999,
-            2251799813685247.5, -2251799813685247.5, 4503599627370496.0, -4503599627370496.0,
-            1e300, -1e300,
+            0.0,
+            -0.0,
+            0.5,
+            -0.5,
+            1.5,
+            -1.5,
+            2.5,
+            -2.5,
+            3.5,
+            -3.5,
+            0.49999999999999994,
+            -0.49999999999999994,
+            1.0,
+            -1.0,
+            1e-15,
+            -1e-15,
+            1234.5,
+            -1234.5,
+            1234.4999999,
+            2251799813685247.5,
+            -2251799813685247.5,
+            4503599627370496.0,
+            -4503599627370496.0,
+            1e300,
+            -1e300,
         ];
         for x in fixed {
             assert_eq!(
@@ -503,7 +591,9 @@ mod tests {
         }
         let mut state = 0xD1B54A32D192ED03u64;
         for _ in 0..200_000 {
-            state = state.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            state = state
+                .wrapping_mul(6364136223846793005)
+                .wrapping_add(1442695040888963407);
             let u = (state >> 11) as f64 / (1u64 << 53) as f64;
             for scale in [1.0, 4.0, 100.0, 1e6] {
                 let x = (u - 0.5) * 2.0 * scale;
@@ -548,7 +638,10 @@ mod tests {
                     acc += gb[i][k] * general[k][j];
                 }
                 let expect = if i == j { 1.0 } else { 0.0 };
-                assert!((acc - expect).abs() < 1e-12, "Cramer must invert any matrix");
+                assert!(
+                    (acc - expect).abs() < 1e-12,
+                    "Cramer must invert any matrix"
+                );
 
                 let mut acc2 = 0.0;
                 for k in 0..3 {
@@ -559,8 +652,10 @@ mod tests {
                 }
             }
         }
-        assert!(!ga_is_inverse,
-                "math.py's inverse must NOT be a general inverse — the two are not interchangeable");
+        assert!(
+            !ga_is_inverse,
+            "math.py's inverse must NOT be a general inverse — the two are not interchangeable"
+        );
     }
 
     #[test]
@@ -585,9 +680,15 @@ mod tests {
 
     #[test]
     fn rodrigues_rotates_x_onto_y_about_z() {
-        let r = rodrigues_rotation([1.0, 0.0, 0.0], [0.0, 0.0, 1.0], std::f64::consts::FRAC_PI_2);
-        assert!(r[0].abs() < 1e-15 && (r[1] - 1.0).abs() < 1e-15 && r[2].abs() < 1e-15,
-                "got {r:?}");
+        let r = rodrigues_rotation(
+            [1.0, 0.0, 0.0],
+            [0.0, 0.0, 1.0],
+            std::f64::consts::FRAC_PI_2,
+        );
+        assert!(
+            r[0].abs() < 1e-15 && (r[1] - 1.0).abs() < 1e-15 && r[2].abs() < 1e-15,
+            "got {r:?}"
+        );
     }
 
     #[test]

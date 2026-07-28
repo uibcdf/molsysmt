@@ -29,8 +29,9 @@
 
 use nalgebra::SMatrix;
 use numpy::ndarray::{Array1, Array2, Array3, ArrayView2};
-use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2,
-            PyReadonlyArray3};
+use numpy::{
+    IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3,
+};
 use pyo3::prelude::*;
 
 use crate::mathlib::{Mat3, Vec3};
@@ -63,7 +64,11 @@ fn inertia_matrix(c: &ArrayView2<f64>, w: &numpy::ndarray::ArrayView1<f64>) -> M
     let centre = weighted_centroid(c, w);
     let mut m = [[0.0f64; 3]; 3];
     for i in 0..c.shape()[0] {
-        let (x, y, z) = (c[[i, 0]] - centre[0], c[[i, 1]] - centre[1], c[[i, 2]] - centre[2]);
+        let (x, y, z) = (
+            c[[i, 0]] - centre[0],
+            c[[i, 1]] - centre[1],
+            c[[i, 2]] - centre[2],
+        );
         m[0][0] += w[i] * (y * y + z * z);
         m[1][1] += w[i] * (x * x + z * z);
         m[2][2] += w[i] * (x * x + y * y);
@@ -83,7 +88,11 @@ fn geometric_matrix(c: &ArrayView2<f64>, w: &numpy::ndarray::ArrayView1<f64>) ->
     let centre = weighted_centroid(c, w);
     let mut m = [[0.0f64; 3]; 3];
     for i in 0..c.shape()[0] {
-        let (x, y, z) = (c[[i, 0]] - centre[0], c[[i, 1]] - centre[1], c[[i, 2]] - centre[2]);
+        let (x, y, z) = (
+            c[[i, 0]] - centre[0],
+            c[[i, 1]] - centre[1],
+            c[[i, 2]] - centre[2],
+        );
         m[0][0] += w[i] * x * x;
         m[1][1] += w[i] * y * y;
         m[2][2] += w[i] * z * z;
@@ -122,9 +131,9 @@ fn fix_sign(v: &mut [f64; 3]) {
 /// Ascending eigenvalues and the matching axes as **rows**, signs fixed.
 #[inline]
 fn principal_axes(m: &Mat3) -> (Vec3, Mat3) {
-    let flat = [m[0][0], m[0][1], m[0][2],
-                m[1][0], m[1][1], m[1][2],
-                m[2][0], m[2][1], m[2][2]];
+    let flat = [
+        m[0][0], m[0][1], m[0][2], m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2],
+    ];
     let e = SMatrix::<f64, 3, 3>::from_row_slice(&flat).symmetric_eigen();
     let mut order = [0usize, 1, 2];
     order.sort_by(|&a, &b| e.eigenvalues[a].partial_cmp(&e.eigenvalues[b]).unwrap());
@@ -132,7 +141,11 @@ fn principal_axes(m: &Mat3) -> (Vec3, Mat3) {
     let mut axes = [[0.0f64; 3]; 3];
     for (i, &src) in order.iter().enumerate() {
         values[i] = e.eigenvalues[src];
-        let mut v = [e.eigenvectors[(0, src)], e.eigenvectors[(1, src)], e.eigenvectors[(2, src)]];
+        let mut v = [
+            e.eigenvectors[(0, src)],
+            e.eigenvectors[(1, src)],
+            e.eigenvectors[(2, src)],
+        ];
         fix_sign(&mut v);
         axes[i] = v; // row i is the i-th axis, matching upstream's transpose
     }
@@ -150,7 +163,10 @@ fn pack_single<'py>(
             m[[i, j]] = axes[i][j];
         }
     }
-    (Array1::from_vec(values.to_vec()).into_pyarray(py), m.into_pyarray(py))
+    (
+        Array1::from_vec(values.to_vec()).into_pyarray(py),
+        m.into_pyarray(py),
+    )
 }
 
 fn pack_many<'py>(
@@ -177,7 +193,10 @@ pub fn get_principal_inertia_axes_single_structure<'py>(
     coordinates: PyReadonlyArray2<'py, f64>,
     weights: PyReadonlyArray1<'py, f64>,
 ) -> (Bound<'py, PyArray1<f64>>, Bound<'py, PyArray2<f64>>) {
-    let (v, a) = principal_axes(&inertia_matrix(&coordinates.as_array(), &weights.as_array()));
+    let (v, a) = principal_axes(&inertia_matrix(
+        &coordinates.as_array(),
+        &weights.as_array(),
+    ));
     pack_single(py, v, a)
 }
 
@@ -190,7 +209,12 @@ pub fn get_principal_inertia_axes<'py>(
     let c = coordinates.as_array();
     let w = weights.as_array();
     let parts: Vec<(Vec3, Mat3)> = (0..c.shape()[0])
-        .map(|s| principal_axes(&inertia_matrix(&c.index_axis(numpy::ndarray::Axis(0), s), &w)))
+        .map(|s| {
+            principal_axes(&inertia_matrix(
+                &c.index_axis(numpy::ndarray::Axis(0), s),
+                &w,
+            ))
+        })
         .collect();
     pack_many(py, parts)
 }
@@ -201,7 +225,10 @@ pub fn get_principal_geometric_axes_single_structure<'py>(
     coordinates: PyReadonlyArray2<'py, f64>,
     weights: PyReadonlyArray1<'py, f64>,
 ) -> (Bound<'py, PyArray1<f64>>, Bound<'py, PyArray2<f64>>) {
-    let (v, a) = principal_axes(&geometric_matrix(&coordinates.as_array(), &weights.as_array()));
+    let (v, a) = principal_axes(&geometric_matrix(
+        &coordinates.as_array(),
+        &weights.as_array(),
+    ));
     pack_single(py, v, a)
 }
 
@@ -214,15 +241,26 @@ pub fn get_principal_geometric_axes<'py>(
     let c = coordinates.as_array();
     let w = weights.as_array();
     let parts: Vec<(Vec3, Mat3)> = (0..c.shape()[0])
-        .map(|s| principal_axes(&geometric_matrix(&c.index_axis(numpy::ndarray::Axis(0), s), &w)))
+        .map(|s| {
+            principal_axes(&geometric_matrix(
+                &c.index_axis(numpy::ndarray::Axis(0), s),
+                &w,
+            ))
+        })
         .collect();
     pack_many(py, parts)
 }
 
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(get_principal_inertia_axes_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_principal_inertia_axes_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_principal_inertia_axes, m)?)?;
-    m.add_function(wrap_pyfunction!(get_principal_geometric_axes_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_principal_geometric_axes_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_principal_geometric_axes, m)?)?;
     Ok(())
 }
@@ -235,35 +273,66 @@ mod tests {
     /// A rod along x: the smallest inertia is about x, and that axis must be x itself.
     #[test]
     fn a_rod_has_its_light_inertia_axis_along_the_rod() {
-        let c = array![[-2.0, 0.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, 0.0],
-                       [1.0, 0.0, 0.0], [2.0, 0.0, 0.0]];
+        let c = array![
+            [-2.0, 0.0, 0.0],
+            [-1.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0],
+            [1.0, 0.0, 0.0],
+            [2.0, 0.0, 0.0]
+        ];
         let w = array![1.0, 1.0, 1.0, 1.0, 1.0];
         let (values, axes) = principal_axes(&inertia_matrix(&c.view(), &w.view()));
-        assert!(values[0].abs() < 1e-12, "inertia about the rod axis must vanish: {values:?}");
-        assert!((axes[0][0].abs() - 1.0).abs() < 1e-12, "expected x, got {:?}", axes[0]);
+        assert!(
+            values[0].abs() < 1e-12,
+            "inertia about the rod axis must vanish: {values:?}"
+        );
+        assert!(
+            (axes[0][0].abs() - 1.0).abs() < 1e-12,
+            "expected x, got {:?}",
+            axes[0]
+        );
     }
 
     /// The geometric axes of the same rod put the *largest* variance along x — the two
     /// kernels order their axes oppositely, which is easy to get wrong.
     #[test]
     fn geometric_axes_order_opposite_to_inertia_axes() {
-        let c = array![[-2.0, 0.0, 0.0], [-1.0, 0.0, 0.0], [0.0, 0.0, 0.0],
-                       [1.0, 0.0, 0.0], [2.0, 0.0, 0.0]];
+        let c = array![
+            [-2.0, 0.0, 0.0],
+            [-1.0, 0.0, 0.0],
+            [0.0, 0.0, 0.0],
+            [1.0, 0.0, 0.0],
+            [2.0, 0.0, 0.0]
+        ];
         let w = array![1.0, 1.0, 1.0, 1.0, 1.0];
         let (values, axes) = principal_axes(&geometric_matrix(&c.view(), &w.view()));
         assert!(values[0].abs() < 1e-12);
-        assert!((axes[2][0].abs() - 1.0).abs() < 1e-12,
-                "largest variance should be along x, got {:?}", axes[2]);
+        assert!(
+            (axes[2][0].abs() - 1.0).abs() < 1e-12,
+            "largest variance should be along x, got {:?}",
+            axes[2]
+        );
     }
 
     #[test]
     fn eigenvalues_are_ascending_and_axes_orthonormal() {
-        let c = array![[1.0, 0.0, 0.5], [0.0, 2.0, -1.0], [-1.5, 0.3, 2.0],
-                       [0.7, -1.1, 0.2], [2.0, 1.0, -0.4]];
+        let c = array![
+            [1.0, 0.0, 0.5],
+            [0.0, 2.0, -1.0],
+            [-1.5, 0.3, 2.0],
+            [0.7, -1.1, 0.2],
+            [2.0, 1.0, -0.4]
+        ];
         let w = array![1.0, 12.0, 14.0, 16.0, 32.0];
-        for m in [inertia_matrix(&c.view(), &w.view()), geometric_matrix(&c.view(), &w.view())] {
+        for m in [
+            inertia_matrix(&c.view(), &w.view()),
+            geometric_matrix(&c.view(), &w.view()),
+        ] {
             let (values, axes) = principal_axes(&m);
-            assert!(values[0] <= values[1] && values[1] <= values[2], "{values:?}");
+            assert!(
+                values[0] <= values[1] && values[1] <= values[2],
+                "{values:?}"
+            );
             for i in 0..3 {
                 let n: f64 = axes[i].iter().map(|x| x * x).sum();
                 assert!((n - 1.0).abs() < 1e-12, "axis {i} not unit: {n}");
@@ -278,15 +347,23 @@ mod tests {
     /// The defining property, which no sign convention can affect.
     #[test]
     fn each_axis_satisfies_the_eigenvalue_equation() {
-        let c = array![[1.0, 0.0, 0.5], [0.0, 2.0, -1.0], [-1.5, 0.3, 2.0], [0.7, -1.1, 0.2]];
+        let c = array![
+            [1.0, 0.0, 0.5],
+            [0.0, 2.0, -1.0],
+            [-1.5, 0.3, 2.0],
+            [0.7, -1.1, 0.2]
+        ];
         let w = array![1.0, 12.0, 14.0, 16.0];
         let m = inertia_matrix(&c.view(), &w.view());
         let (values, axes) = principal_axes(&m);
         for i in 0..3 {
             for k in 0..3 {
                 let mv: f64 = (0..3).map(|j| m[k][j] * axes[i][j]).sum();
-                assert!((mv - values[i] * axes[i][k]).abs() < 1e-9,
-                        "axis {i} component {k}: {mv} vs {}", values[i] * axes[i][k]);
+                assert!(
+                    (mv - values[i] * axes[i][k]).abs() < 1e-9,
+                    "axis {i} component {k}: {mv} vs {}",
+                    values[i] * axes[i][k]
+                );
             }
         }
     }
@@ -298,6 +375,9 @@ mod tests {
         assert!(v[0] > 0.0, "largest component must end positive: {v:?}");
         let mut u = [0.1, -0.95, 0.2];
         fix_sign(&mut u);
-        assert!(u[1] > 0.0 && u[0] < 0.0, "only the leading component sets the sign: {u:?}");
+        assert!(
+            u[1] > 0.0 && u[0] < 0.0,
+            "only the leading component sets the sign: {u:?}"
+        );
     }
 }

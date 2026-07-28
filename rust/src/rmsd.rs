@@ -27,8 +27,9 @@
 
 use nalgebra::SMatrix;
 use numpy::ndarray::{Array1, Array3, Array4, ArrayView2};
-use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyArray4, PyReadonlyArray2,
-            PyReadonlyArray3};
+use numpy::{
+    IntoPyArray, PyArray1, PyArray2, PyArray3, PyArray4, PyReadonlyArray2, PyReadonlyArray3,
+};
 use pyo3::prelude::*;
 use rayon::prelude::*;
 
@@ -68,16 +69,18 @@ pub fn get_rmsd<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1] as f64);
-    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .map(|s| {
-                let cs = c.index_axis(numpy::ndarray::Axis(0), s);
-                let rs = r.index_axis(numpy::ndarray::Axis(0), s);
-                (msd_rows(&cs, &rs) / na).sqrt()
-            })
-            .collect()
-    }));
+    let out: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .map(|s| {
+                    let cs = c.index_axis(numpy::ndarray::Axis(0), s);
+                    let rs = r.index_axis(numpy::ndarray::Axis(0), s);
+                    (msd_rows(&cs, &rs) / na).sqrt()
+                })
+                .collect()
+        })
+    });
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -91,12 +94,14 @@ pub fn get_rmsd_with_single_reference_structure<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1] as f64);
-    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .map(|s| (msd_rows(&c.index_axis(numpy::ndarray::Axis(0), s), &r) / na).sqrt())
-            .collect()
-    }));
+    let out: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .map(|s| (msd_rows(&c.index_axis(numpy::ndarray::Axis(0), s), &r) / na).sqrt())
+                .collect()
+        })
+    });
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -107,8 +112,9 @@ pub fn get_rmsd_with_single_reference_structure<'py>(
 #[inline]
 fn centre(view: &ArrayView2<f64>) -> (Vec<[f64; 3]>, Vec3, f64) {
     let n = view.shape()[0];
-    let mut pts: Vec<[f64; 3]> =
-        (0..n).map(|i| [view[[i, 0]], view[[i, 1]], view[[i, 2]]]).collect();
+    let mut pts: Vec<[f64; 3]> = (0..n)
+        .map(|i| [view[[i, 0]], view[[i, 1]], view[[i, 2]]])
+        .collect();
     let nf = n as f64;
     let mut centroid = [0.0f64; 3];
     let mut norm = 0.0f64;
@@ -158,10 +164,9 @@ fn kearsley(r: &Mat3) -> [f64; 16] {
     let f32 = r[1][2] + r[2][1];
     let f33 = -r[0][0] - r[1][1] + r[2][2];
     // row-major, symmetric
-    [f00, f10, f20, f30,
-     f10, f11, f21, f31,
-     f20, f21, f22, f32,
-     f30, f31, f32, f33]
+    [
+        f00, f10, f20, f30, f10, f11, f21, f31, f20, f21, f22, f32, f30, f31, f32, f33,
+    ]
 }
 
 /// Symmetric 4x4 eigendecomposition, sorted **ascending** to match numpy's convention
@@ -234,17 +239,19 @@ pub fn get_least_rmsd<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .map(|s| {
-                least_rmsd_of(
-                    &r.index_axis(numpy::ndarray::Axis(0), s),
-                    &c.index_axis(numpy::ndarray::Axis(0), s),
-                )
-            })
-            .collect()
-    }));
+    let out: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .map(|s| {
+                    least_rmsd_of(
+                        &r.index_axis(numpy::ndarray::Axis(0), s),
+                        &c.index_axis(numpy::ndarray::Axis(0), s),
+                    )
+                })
+                .collect()
+        })
+    });
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -258,17 +265,22 @@ pub fn get_least_rmsd_with_single_reference_structure<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .map(|s| least_rmsd_of(&r, &c.index_axis(numpy::ndarray::Axis(0), s)))
-            .collect()
-    }));
+    let out: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .map(|s| least_rmsd_of(&r, &c.index_axis(numpy::ndarray::Axis(0), s)))
+                .collect()
+        })
+    });
     Array1::from_vec(out).into_pyarray(py)
 }
 
-type Superposition<'py> = (Bound<'py, PyArray3<f64>>, Bound<'py, PyArray4<f64>>,
-                           Bound<'py, PyArray3<f64>>);
+type Superposition<'py> = (
+    Bound<'py, PyArray3<f64>>,
+    Bound<'py, PyArray4<f64>>,
+    Bound<'py, PyArray3<f64>>,
+);
 
 fn pack(ns: usize, parts: Vec<(Vec3, Mat3, Vec3)>, py: Python<'_>) -> Superposition<'_> {
     let mut centres = Array3::<f64>::zeros((ns, 1, 3));
@@ -283,7 +295,11 @@ fn pack(ns: usize, parts: Vec<(Vec3, Mat3, Vec3)>, py: Python<'_>) -> Superposit
             }
         }
     }
-    (centres.into_pyarray(py), rotations.into_pyarray(py), translations.into_pyarray(py))
+    (
+        centres.into_pyarray(py),
+        rotations.into_pyarray(py),
+        translations.into_pyarray(py),
+    )
 }
 
 #[pyfunction]
@@ -292,9 +308,12 @@ pub fn get_least_rmsd_rotation_and_translation_single_structure<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray2<'py, f64>,
     reference_coordinates: PyReadonlyArray2<'py, f64>,
-) -> (Bound<'py, PyArray1<f64>>, Bound<'py, PyArray2<f64>>, Bound<'py, PyArray1<f64>>) {
-    let (c, rot, t) =
-        superposition_of(&reference_coordinates.as_array(), &coordinates.as_array());
+) -> (
+    Bound<'py, PyArray1<f64>>,
+    Bound<'py, PyArray2<f64>>,
+    Bound<'py, PyArray1<f64>>,
+) {
+    let (c, rot, t) = superposition_of(&reference_coordinates.as_array(), &coordinates.as_array());
     let mut rotation = numpy::ndarray::Array2::<f64>::zeros((3, 3));
     for i in 0..3 {
         for j in 0..3 {
@@ -318,17 +337,19 @@ pub fn get_least_rmsd_rotation_and_translation<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .map(|s| {
-                superposition_of(
-                    &r.index_axis(numpy::ndarray::Axis(0), s),
-                    &c.index_axis(numpy::ndarray::Axis(0), s),
-                )
-            })
-            .collect()
-    }));
+    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .map(|s| {
+                    superposition_of(
+                        &r.index_axis(numpy::ndarray::Axis(0), s),
+                        &c.index_axis(numpy::ndarray::Axis(0), s),
+                    )
+                })
+                .collect()
+        })
+    });
     pack(ns, parts, py)
 }
 
@@ -342,27 +363,42 @@ pub fn get_least_rmsd_rotation_and_translation_with_single_reference_structure<'
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .map(|s| superposition_of(&r, &c.index_axis(numpy::ndarray::Axis(0), s)))
-            .collect()
-    }));
+    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .map(|s| superposition_of(&r, &c.index_axis(numpy::ndarray::Axis(0), s)))
+                .collect()
+        })
+    });
     pack(ns, parts, py)
 }
 
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_rmsd_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(get_rmsd, m)?)?;
-    m.add_function(wrap_pyfunction!(get_rmsd_with_single_reference_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_rmsd_with_single_reference_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_least_rmsd_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(get_least_rmsd, m)?)?;
-    m.add_function(wrap_pyfunction!(get_least_rmsd_with_single_reference_structure, m)?)?;
     m.add_function(wrap_pyfunction!(
-        get_least_rmsd_rotation_and_translation_single_structure, m)?)?;
-    m.add_function(wrap_pyfunction!(get_least_rmsd_rotation_and_translation, m)?)?;
+        get_least_rmsd_with_single_reference_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(
-        get_least_rmsd_rotation_and_translation_with_single_reference_structure, m)?)?;
+        get_least_rmsd_rotation_and_translation_single_structure,
+        m
+    )?)?;
+    m.add_function(wrap_pyfunction!(
+        get_least_rmsd_rotation_and_translation,
+        m
+    )?)?;
+    m.add_function(wrap_pyfunction!(
+        get_least_rmsd_rotation_and_translation_with_single_reference_structure,
+        m
+    )?)?;
     Ok(())
 }
 
@@ -372,8 +408,13 @@ mod tests {
     use numpy::ndarray::array;
 
     fn shape() -> numpy::ndarray::Array2<f64> {
-        array![[1.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 3.0],
-               [1.0, 1.0, 0.0], [-1.0, 0.5, 2.0]]
+        array![
+            [1.0, 0.0, 0.0],
+            [0.0, 2.0, 0.0],
+            [0.0, 0.0, 3.0],
+            [1.0, 1.0, 0.0],
+            [-1.0, 0.5, 2.0]
+        ]
     }
 
     #[test]
@@ -415,8 +456,11 @@ mod tests {
             turned[[i, 0]] = c * x - si * y;
             turned[[i, 1]] = si * x + c * y;
         }
-        assert!(least_rmsd_of(&s.view(), &turned.view()).abs() < 1e-10,
-                "got {}", least_rmsd_of(&s.view(), &turned.view()));
+        assert!(
+            least_rmsd_of(&s.view(), &turned.view()).abs() < 1e-10,
+            "got {}",
+            least_rmsd_of(&s.view(), &turned.view())
+        );
     }
 
     /// The recovered rotation must actually map the centred structure onto the reference.
@@ -431,16 +475,24 @@ mod tests {
             turned[[i, 1]] = si * x + c * y - 2.0;
             turned[[i, 2]] = s[[i, 2]] + 1.0;
         }
-        let (centre_rot, rotation, translation) =
-            superposition_of(&s.view(), &turned.view());
+        let (centre_rot, rotation, translation) = superposition_of(&s.view(), &turned.view());
         for i in 0..s.shape()[0] {
-            let v = [turned[[i, 0]] - centre_rot[0], turned[[i, 1]] - centre_rot[1],
-                     turned[[i, 2]] - centre_rot[2]];
+            let v = [
+                turned[[i, 0]] - centre_rot[0],
+                turned[[i, 1]] - centre_rot[1],
+                turned[[i, 2]] - centre_rot[2],
+            ];
             for k in 0..3 {
-                let got = rotation[k][0] * v[0] + rotation[k][1] * v[1] + rotation[k][2] * v[2]
-                    + centre_rot[k] + translation[k];
-                assert!((got - s[[i, k]]).abs() < 1e-9,
-                        "atom {i} axis {k}: {got} vs {}", s[[i, k]]);
+                let got = rotation[k][0] * v[0]
+                    + rotation[k][1] * v[1]
+                    + rotation[k][2] * v[2]
+                    + centre_rot[k]
+                    + translation[k];
+                assert!(
+                    (got - s[[i, k]]).abs() < 1e-9,
+                    "atom {i} axis {k}: {got} vs {}",
+                    s[[i, k]]
+                );
             }
         }
     }

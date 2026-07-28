@@ -35,11 +35,15 @@
 //! `devguide/pending_bugs/sasa_is_orthogonal_typo.md`.
 
 use numpy::ndarray::{Array1, Array2, Array3, ArrayView3};
-use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2,
-            PyReadonlyArray3, PyReadwriteArray3};
+use numpy::{
+    IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2,
+    PyReadonlyArray3, PyReadwriteArray3,
+};
 use pyo3::prelude::*;
 
-use crate::mathlib::{dot_product, fast_floor, fast_round_ties_even, inverse_matrix_3x3, norm_vector, Mat3, Vec3};
+use crate::mathlib::{
+    dot_product, fast_floor, fast_round_ties_even, inverse_matrix_3x3, norm_vector, Mat3, Vec3,
+};
 
 #[inline]
 fn box_at(b: &ArrayView3<f64>, s: usize) -> Mat3 {
@@ -192,7 +196,11 @@ fn wrap_all(
     for s in 0..n_structures {
         let b = box_at(boxes, s);
         let orthogonal = box_is_orthogonal_one(&b);
-        let inv = if orthogonal { [[0.0; 3]; 3] } else { inverse_matrix_3x3(&b) };
+        let inv = if orthogonal {
+            [[0.0; 3]; 3]
+        } else {
+            inverse_matrix_3x3(&b)
+        };
         for a in 0..n_atoms {
             let v = [
                 coordinates[[s, a, 0]] - origin[0],
@@ -226,47 +234,63 @@ pub fn box_is_orthogonal_single_structure(b: PyReadonlyArray2<'_, f64>) -> bool 
 }
 
 #[pyfunction]
-pub fn box_is_orthogonal<'py>(py: Python<'py>, boxes: PyReadonlyArray3<'py, f64>)
-    -> Bound<'py, numpy::PyArray1<bool>> {
+pub fn box_is_orthogonal<'py>(
+    py: Python<'py>,
+    boxes: PyReadonlyArray3<'py, f64>,
+) -> Bound<'py, numpy::PyArray1<bool>> {
     let b = boxes.as_array();
-    let out: Vec<bool> = (0..b.shape()[0]).map(|s| box_is_orthogonal_one(&box_at(&b, s))).collect();
+    let out: Vec<bool> = (0..b.shape()[0])
+        .map(|s| box_is_orthogonal_one(&box_at(&b, s)))
+        .collect();
     Array1::from_vec(out).into_pyarray(py)
 }
 
 #[pyfunction]
-pub fn get_lengths_from_box_single_structure<'py>(py: Python<'py>, b: PyReadonlyArray2<'py, f64>)
-    -> Bound<'py, PyArray1<f64>> {
+pub fn get_lengths_from_box_single_structure<'py>(
+    py: Python<'py>,
+    b: PyReadonlyArray2<'py, f64>,
+) -> Bound<'py, PyArray1<f64>> {
     Array1::from_vec(lengths_of(&mat_of(&b.as_array())).to_vec()).into_pyarray(py)
 }
 
 #[pyfunction]
-pub fn get_lengths_from_box<'py>(py: Python<'py>, boxes: PyReadonlyArray3<'py, f64>)
-    -> Bound<'py, PyArray2<f64>> {
+pub fn get_lengths_from_box<'py>(
+    py: Python<'py>,
+    boxes: PyReadonlyArray3<'py, f64>,
+) -> Bound<'py, PyArray2<f64>> {
     let b = boxes.as_array();
     let n = b.shape()[0];
     let mut out = Array2::<f64>::zeros((n, 3));
     for s in 0..n {
         let l = lengths_of(&box_at(&b, s));
-        for k in 0..3 { out[[s, k]] = l[k]; }
+        for k in 0..3 {
+            out[[s, k]] = l[k];
+        }
     }
     out.into_pyarray(py)
 }
 
 #[pyfunction]
-pub fn get_angles_from_box_single_structure<'py>(py: Python<'py>, b: PyReadonlyArray2<'py, f64>)
-    -> Bound<'py, PyArray1<f64>> {
+pub fn get_angles_from_box_single_structure<'py>(
+    py: Python<'py>,
+    b: PyReadonlyArray2<'py, f64>,
+) -> Bound<'py, PyArray1<f64>> {
     Array1::from_vec(angles_of(&mat_of(&b.as_array())).to_vec()).into_pyarray(py)
 }
 
 #[pyfunction]
-pub fn get_angles_from_box<'py>(py: Python<'py>, boxes: PyReadonlyArray3<'py, f64>)
-    -> Bound<'py, PyArray2<f64>> {
+pub fn get_angles_from_box<'py>(
+    py: Python<'py>,
+    boxes: PyReadonlyArray3<'py, f64>,
+) -> Bound<'py, PyArray2<f64>> {
     let b = boxes.as_array();
     let n = b.shape()[0];
     let mut out = Array2::<f64>::zeros((n, 3));
     for s in 0..n {
         let a = angles_of(&box_at(&b, s));
-        for k in 0..3 { out[[s, k]] = a[k]; }
+        for k in 0..3 {
+            out[[s, k]] = a[k];
+        }
     }
     out.into_pyarray(py)
 }
@@ -311,7 +335,11 @@ pub fn get_box_from_lengths_and_angles_single_structure<'py>(
     let (l, a) = (lengths.as_array(), angles.as_array());
     let b = box_of([l[0], l[1], l[2]], [a[0], a[1], a[2]]);
     let mut out = Array2::<f64>::zeros((3, 3));
-    for i in 0..3 { for j in 0..3 { out[[i, j]] = b[i][j]; } }
+    for i in 0..3 {
+        for j in 0..3 {
+            out[[i, j]] = b[i][j];
+        }
+    }
     out.into_pyarray(py)
 }
 
@@ -325,8 +353,15 @@ pub fn get_box_from_lengths_and_angles<'py>(
     let n = l.shape()[0];
     let mut out = Array3::<f64>::zeros((n, 3, 3));
     for s in 0..n {
-        let b = box_of([l[[s, 0]], l[[s, 1]], l[[s, 2]]], [a[[s, 0]], a[[s, 1]], a[[s, 2]]]);
-        for i in 0..3 { for j in 0..3 { out[[s, i, j]] = b[i][j]; } }
+        let b = box_of(
+            [l[[s, 0]], l[[s, 1]], l[[s, 2]]],
+            [a[[s, 0]], a[[s, 1]], a[[s, 2]]],
+        );
+        for i in 0..3 {
+            for j in 0..3 {
+                out[[s, i, j]] = b[i][j];
+            }
+        }
     }
     out.into_pyarray(py)
 }
@@ -338,7 +373,12 @@ pub fn wrap_to_pbc(
     box_origin: PyReadonlyArray1<'_, f64>,
 ) {
     let o = box_origin.as_array();
-    wrap_all(&mut coordinates.as_array_mut(), &boxes.as_array(), [o[0], o[1], o[2]], WrapKind::Pbc);
+    wrap_all(
+        &mut coordinates.as_array_mut(),
+        &boxes.as_array(),
+        [o[0], o[1], o[2]],
+        WrapKind::Pbc,
+    );
 }
 
 #[pyfunction]
@@ -348,8 +388,12 @@ pub fn wrap_to_pbc_center(
     box_center: PyReadonlyArray1<'_, f64>,
 ) {
     let o = box_center.as_array();
-    wrap_all(&mut coordinates.as_array_mut(), &boxes.as_array(), [o[0], o[1], o[2]],
-             WrapKind::PbcCenter);
+    wrap_all(
+        &mut coordinates.as_array_mut(),
+        &boxes.as_array(),
+        [o[0], o[1], o[2]],
+        WrapKind::PbcCenter,
+    );
 }
 
 #[pyfunction]
@@ -359,7 +403,12 @@ pub fn wrap_to_mic(
     mic_origin: PyReadonlyArray1<'_, f64>,
 ) {
     let o = mic_origin.as_array();
-    wrap_all(&mut coordinates.as_array_mut(), &boxes.as_array(), [o[0], o[1], o[2]], WrapKind::Mic);
+    wrap_all(
+        &mut coordinates.as_array_mut(),
+        &boxes.as_array(),
+        [o[0], o[1], o[2]],
+        WrapKind::Mic,
+    );
 }
 
 #[pyfunction]
@@ -371,7 +420,11 @@ pub fn wrap_to_pbc_vector_single_structure<'py>(
     let v = vector.as_array();
     let m = mat_of(&b.as_array());
     let ortho = box_is_orthogonal_one(&m);
-    let inv = if ortho { [[0.0; 3]; 3] } else { inverse_matrix_3x3(&m) };
+    let inv = if ortho {
+        [[0.0; 3]; 3]
+    } else {
+        inverse_matrix_3x3(&m)
+    };
     let w = wrap_pbc_vec([v[0], v[1], v[2]], &m, &inv, ortho, 0.0);
     Array1::from_vec(w.to_vec()).into_pyarray(py)
 }
@@ -385,7 +438,11 @@ pub fn wrap_to_pbc_center_vector_single_structure<'py>(
     let v = vector.as_array();
     let m = mat_of(&b.as_array());
     let ortho = box_is_orthogonal_one(&m);
-    let inv = if ortho { [[0.0; 3]; 3] } else { inverse_matrix_3x3(&m) };
+    let inv = if ortho {
+        [[0.0; 3]; 3]
+    } else {
+        inverse_matrix_3x3(&m)
+    };
     let w = wrap_pbc_vec([v[0], v[1], v[2]], &m, &inv, ortho, 0.5);
     Array1::from_vec(w.to_vec()).into_pyarray(py)
 }
@@ -399,7 +456,11 @@ pub fn wrap_to_mic_vector_single_structure<'py>(
     let v = vector.as_array();
     let m = mat_of(&b.as_array());
     let ortho = box_is_orthogonal_one(&m);
-    let inv = if ortho { [[0.0; 3]; 3] } else { inverse_matrix_3x3(&m) };
+    let inv = if ortho {
+        [[0.0; 3]; 3]
+    } else {
+        inverse_matrix_3x3(&m)
+    };
     let w = wrap_mic_vec([v[0], v[1], v[2]], &m, &inv, ortho);
     Array1::from_vec(w.to_vec()).into_pyarray(py)
 }
@@ -420,7 +481,11 @@ pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArra
 
     for s in 0..n_structures.saturating_sub(1) {
         let bs = box_at(&b, s);
-        let inv = if orthogonal { [[0.0; 3]; 3] } else { inverse_matrix_3x3(&bs) };
+        let inv = if orthogonal {
+            [[0.0; 3]; 3]
+        } else {
+            inverse_matrix_3x3(&bs)
+        };
         for a in 0..n_atoms {
             let prev = [c[[s, a, 0]], c[[s, a, 1]], c[[s, a, 2]]];
             let mut delta = [
@@ -464,15 +529,24 @@ pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_lengths_from_box, m)?)?;
     m.add_function(wrap_pyfunction!(get_angles_from_box_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(get_angles_from_box, m)?)?;
-    m.add_function(wrap_pyfunction!(get_lengths_and_angles_from_box_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_lengths_and_angles_from_box_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_lengths_and_angles_from_box, m)?)?;
-    m.add_function(wrap_pyfunction!(get_box_from_lengths_and_angles_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_box_from_lengths_and_angles_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_box_from_lengths_and_angles, m)?)?;
     m.add_function(wrap_pyfunction!(wrap_to_pbc, m)?)?;
     m.add_function(wrap_pyfunction!(wrap_to_pbc_center, m)?)?;
     m.add_function(wrap_pyfunction!(wrap_to_mic, m)?)?;
     m.add_function(wrap_pyfunction!(wrap_to_pbc_vector_single_structure, m)?)?;
-    m.add_function(wrap_pyfunction!(wrap_to_pbc_center_vector_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        wrap_to_pbc_center_vector_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(wrap_to_mic_vector_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(unwrap, m)?)?;
     Ok(())
@@ -493,7 +567,11 @@ mod tests {
         // test used elsewhere in the library would reject.
         let c = std::f64::consts::FRAC_PI_4.cos();
         let s = std::f64::consts::FRAC_PI_4.sin();
-        let rotated: Mat3 = [[6.0 * c, 6.0 * s, 0.0], [-7.0 * s, 7.0 * c, 0.0], [0.0, 0.0, 8.0]];
+        let rotated: Mat3 = [
+            [6.0 * c, 6.0 * s, 0.0],
+            [-7.0 * s, 7.0 * c, 0.0],
+            [0.0, 0.0, 8.0],
+        ];
         assert!(box_is_orthogonal_one(&rotated));
     }
 
@@ -504,8 +582,12 @@ mod tests {
             let back = box_of(l, a);
             for i in 0..3 {
                 for j in 0..3 {
-                    assert!((back[i][j] - b[i][j]).abs() < 1e-12,
-                            "round trip failed at [{i}][{j}]: {} vs {}", back[i][j], b[i][j]);
+                    assert!(
+                        (back[i][j] - b[i][j]).abs() < 1e-12,
+                        "round trip failed at [{i}][{j}]: {} vs {}",
+                        back[i][j],
+                        b[i][j]
+                    );
                 }
             }
         }
@@ -529,7 +611,12 @@ mod tests {
             }
             let m = wrap_mic_vec(v, &ORTHO, &inv, true);
             for k in 0..3 {
-                assert!(m[k].abs() <= ORTHO[k][k] / 2.0 + 1e-12, "{:?} -> {:?}", v, m);
+                assert!(
+                    m[k].abs() <= ORTHO[k][k] / 2.0 + 1e-12,
+                    "{:?} -> {:?}",
+                    v,
+                    m
+                );
             }
         }
     }
@@ -542,7 +629,9 @@ mod tests {
         // deterministic spread, deliberately far outside the cell
         let mut seed = 12345u64;
         let mut next = || {
-            seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            seed = seed
+                .wrapping_mul(6364136223846793005)
+                .wrapping_add(1442695040888963407);
             ((seed >> 11) as f64 / (1u64 << 53) as f64) * 40.0 - 20.0
         };
         for _ in 0..200 {
@@ -557,8 +646,12 @@ mod tests {
                             out[1] + i * TRIC[0][1] + j * TRIC[1][1] + k * TRIC[2][1],
                             out[2] + i * TRIC[0][2] + j * TRIC[1][2] + k * TRIC[2][2],
                         ];
-                        assert!(dot_product(c, c) >= d2 - 1e-12,
-                                "not the minimum image: {:?} -> {:?}", v, out);
+                        assert!(
+                            dot_product(c, c) >= d2 - 1e-12,
+                            "not the minimum image: {:?} -> {:?}",
+                            v,
+                            out
+                        );
                     }
                 }
             }
@@ -570,8 +663,11 @@ mod tests {
                 inv[2][2] * d[2],
             ];
             for k in 0..3 {
-                assert!((f[k] - f[k].round_ties_even()).abs() < 1e-9,
-                        "not an integer image: {:?}", f);
+                assert!(
+                    (f[k] - f[k].round_ties_even()).abs() < 1e-9,
+                    "not an integer image: {:?}",
+                    f
+                );
             }
         }
     }

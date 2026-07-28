@@ -10,8 +10,9 @@
 //! retaining vectorizable inner loops.
 
 use numpy::ndarray::{Array1, Array2, Array3, ArrayView2, ArrayView3};
-use numpy::{IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2,
-            PyReadonlyArray3};
+use numpy::{
+    IntoPyArray, PyArray1, PyArray2, PyArray3, PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3,
+};
 use pyo3::prelude::*;
 use rayon::prelude::*;
 
@@ -91,10 +92,17 @@ pub fn get_center<'py>(
     let c = coordinates.as_array();
     let w = weights.as_array();
     let ns = c.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns).into_par_iter().flat_map(|s| center_at(&c, s, &w)).collect()
-    }));
-    Array3::from_shape_vec((ns, 1, 3), flat).unwrap().into_pyarray(py)
+    let flat: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .flat_map(|s| center_at(&c, s, &w))
+                .collect()
+        })
+    });
+    Array3::from_shape_vec((ns, 1, 3), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -108,7 +116,9 @@ pub fn get_center_groups_of_atoms_single_structure<'py>(
     let n_groups = g.len();
     let mut out = vec![0.0f64; n_groups * 3];
     centers_of_groups(&coordinates.as_array(), &g, &weights.as_array(), &mut out);
-    Array2::from_shape_vec((n_groups, 3), out).unwrap().into_pyarray(py)
+    Array2::from_shape_vec((n_groups, 3), out)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -123,17 +133,21 @@ pub fn get_center_groups_of_atoms<'py>(
     let g = atoms_per_group.as_array();
     let w = weights.as_array();
     let (ns, n_groups) = (c.shape()[0], g.len());
-    let flat: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .flat_map(|s| {
-                let mut out = vec![0.0f64; n_groups * 3];
-                centers_of_groups(&c.index_axis(numpy::ndarray::Axis(0), s), &g, &w, &mut out);
-                out
-            })
-            .collect()
-    }));
-    Array3::from_shape_vec((ns, n_groups, 3), flat).unwrap().into_pyarray(py)
+    let flat: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .flat_map(|s| {
+                    let mut out = vec![0.0f64; n_groups * 3];
+                    centers_of_groups(&c.index_axis(numpy::ndarray::Axis(0), s), &g, &w, &mut out);
+                    out
+                })
+                .collect()
+        })
+    });
+    Array3::from_shape_vec((ns, n_groups, 3), flat)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 /// Reflection through the plane with normal `vector` passing through `point`.
@@ -145,7 +159,11 @@ pub fn get_center_groups_of_atoms<'py>(
 fn flip_point(p: [f64; 3], v: &[f64; 3], point: &[f64; 3]) -> [f64; 3] {
     let dist = (p[0] - point[0]) * v[0] + (p[1] - point[1]) * v[1] + (p[2] - point[2]) * v[2];
     let two_dist = 2.0 * dist;
-    [p[0] - two_dist * v[0], p[1] - two_dist * v[1], p[2] - two_dist * v[2]]
+    [
+        p[0] - two_dist * v[0],
+        p[1] - two_dist * v[1],
+        p[2] - two_dist * v[2],
+    ]
 }
 
 #[pyfunction]
@@ -163,7 +181,9 @@ pub fn flip_single_structure<'py>(
     for i in 0..n {
         out.extend_from_slice(&flip_point([c[[i, 0]], c[[i, 1]], c[[i, 2]]], &vv, &pp));
     }
-    Array2::from_shape_vec((n, 3), out).unwrap().into_pyarray(py)
+    Array2::from_shape_vec((n, 3), out)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[pyfunction]
@@ -180,10 +200,16 @@ pub fn flip<'py>(
     let mut out = Vec::with_capacity(ns * na * 3);
     for s in 0..ns {
         for i in 0..na {
-            out.extend_from_slice(&flip_point([c[[s, i, 0]], c[[s, i, 1]], c[[s, i, 2]]], &vv, &pp));
+            out.extend_from_slice(&flip_point(
+                [c[[s, i, 0]], c[[s, i, 1]], c[[s, i, 2]]],
+                &vv,
+                &pp,
+            ));
         }
     }
-    Array3::from_shape_vec((ns, na, 3), out).unwrap().into_pyarray(py)
+    Array3::from_shape_vec((ns, na, 3), out)
+        .unwrap()
+        .into_pyarray(py)
 }
 
 #[inline]
@@ -225,12 +251,14 @@ pub fn get_radius_of_gyration<'py>(
     let c = coordinates.as_array();
     let w = weights.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| crate::threads::install(num_threads, || {
-        (0..ns)
-            .into_par_iter()
-            .map(|s| radius_of_gyration_of(&c.index_axis(numpy::ndarray::Axis(0), s), &w))
-            .collect()
-    }));
+    let out: Vec<f64> = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            (0..ns)
+                .into_par_iter()
+                .map(|s| radius_of_gyration_of(&c.index_axis(numpy::ndarray::Axis(0), s), &w))
+                .collect()
+        })
+    });
     Array1::from_vec(out).into_pyarray(py)
 }
 
@@ -249,70 +277,78 @@ pub fn get_rmsf<'py>(
     let nsf = ns as f64;
     let cc = c.as_standard_layout();
     let coordinates_flat = cc.as_slice().expect("standard layout is contiguous");
-    let rmsf = py.allow_threads(|| crate::threads::install(num_threads, || {
-        let sums = (0..ns)
-            .into_par_iter()
-            .fold(
-                || vec![0.0; frame_size],
-                |mut local, s| {
-                    let frame = &coordinates_flat[s * frame_size..(s + 1) * frame_size];
-                    for index in 0..frame_size {
-                        local[index] += frame[index];
-                    }
-                    local
-                },
-            )
-            .reduce(
-                || vec![0.0; frame_size],
-                |mut left, right| {
-                    for index in 0..frame_size {
-                        left[index] += right[index];
-                    }
-                    left
-                },
-            );
-        let mean: Vec<f64> = sums.into_iter().map(|value| value / nsf).collect();
-        let square_displacements = (0..ns)
-            .into_par_iter()
-            .fold(
-                || vec![0.0; na],
-                |mut local, s| {
-                    let frame = &coordinates_flat[s * frame_size..(s + 1) * frame_size];
-                    for atom in 0..na {
-                        let offset = atom * 3;
-                        let dx = frame[offset] - mean[offset];
-                        let dy = frame[offset + 1] - mean[offset + 1];
-                        let dz = frame[offset + 2] - mean[offset + 2];
-                        local[atom] += dx * dx + dy * dy + dz * dz;
-                    }
-                    local
-                },
-            )
-            .reduce(
-                || vec![0.0; na],
-                |mut left, right| {
-                    for atom in 0..na {
-                        left[atom] += right[atom];
-                    }
-                    left
-                },
-            );
-        square_displacements
-            .into_iter()
-            .map(|value| (value / nsf).sqrt())
-            .collect::<Vec<_>>()
-    }));
+    let rmsf = py.allow_threads(|| {
+        crate::threads::install(num_threads, || {
+            let sums = (0..ns)
+                .into_par_iter()
+                .fold(
+                    || vec![0.0; frame_size],
+                    |mut local, s| {
+                        let frame = &coordinates_flat[s * frame_size..(s + 1) * frame_size];
+                        for index in 0..frame_size {
+                            local[index] += frame[index];
+                        }
+                        local
+                    },
+                )
+                .reduce(
+                    || vec![0.0; frame_size],
+                    |mut left, right| {
+                        for index in 0..frame_size {
+                            left[index] += right[index];
+                        }
+                        left
+                    },
+                );
+            let mean: Vec<f64> = sums.into_iter().map(|value| value / nsf).collect();
+            let square_displacements = (0..ns)
+                .into_par_iter()
+                .fold(
+                    || vec![0.0; na],
+                    |mut local, s| {
+                        let frame = &coordinates_flat[s * frame_size..(s + 1) * frame_size];
+                        for atom in 0..na {
+                            let offset = atom * 3;
+                            let dx = frame[offset] - mean[offset];
+                            let dy = frame[offset + 1] - mean[offset + 1];
+                            let dz = frame[offset + 2] - mean[offset + 2];
+                            local[atom] += dx * dx + dy * dy + dz * dz;
+                        }
+                        local
+                    },
+                )
+                .reduce(
+                    || vec![0.0; na],
+                    |mut left, right| {
+                        for atom in 0..na {
+                            left[atom] += right[atom];
+                        }
+                        left
+                    },
+                );
+            square_displacements
+                .into_iter()
+                .map(|value| (value / nsf).sqrt())
+                .collect::<Vec<_>>()
+        })
+    });
     Array1::from_vec(rmsf).into_pyarray(py)
 }
 
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(get_center_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(get_center, m)?)?;
-    m.add_function(wrap_pyfunction!(get_center_groups_of_atoms_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_center_groups_of_atoms_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_center_groups_of_atoms, m)?)?;
     m.add_function(wrap_pyfunction!(flip_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(flip, m)?)?;
-    m.add_function(wrap_pyfunction!(get_radius_of_gyration_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        get_radius_of_gyration_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(get_radius_of_gyration, m)?)?;
     m.add_function(wrap_pyfunction!(get_rmsf, m)?)?;
     Ok(())
@@ -353,7 +389,13 @@ mod tests {
             let once = flip_point(p, &v, &point);
             let twice = flip_point(once, &v, &point);
             for k in 0..3 {
-                assert!((twice[k] - p[k]).abs() < 1e-12, "{:?} -> {:?} -> {:?}", p, once, twice);
+                assert!(
+                    (twice[k] - p[k]).abs() < 1e-12,
+                    "{:?} -> {:?} -> {:?}",
+                    p,
+                    once,
+                    twice
+                );
             }
         }
         // a point on the mirror plane is fixed
@@ -371,8 +413,13 @@ mod tests {
     #[test]
     fn group_centres_split_the_atom_run_by_group_size() {
         // two groups: atoms 0-1 and atoms 2-4
-        let c = array![[0.0, 0.0, 0.0], [2.0, 0.0, 0.0],
-                       [0.0, 3.0, 0.0], [0.0, 3.0, 0.0], [0.0, 6.0, 0.0]];
+        let c = array![
+            [0.0, 0.0, 0.0],
+            [2.0, 0.0, 0.0],
+            [0.0, 3.0, 0.0],
+            [0.0, 3.0, 0.0],
+            [0.0, 6.0, 0.0]
+        ];
         let g = array![2i64, 3];
         let w = array![1.0, 1.0, 1.0, 1.0, 1.0];
         let mut out = vec![0.0; 6];

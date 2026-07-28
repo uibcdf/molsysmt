@@ -13,12 +13,12 @@
 //! Rodrigues leaves it at zero and the atom is rewritten to itself. A snapshot is
 //! therefore equivalent, and that is what we take.
 
-use numpy::{PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3, PyReadwriteArray2,
-            PyReadwriteArray3};
+use numpy::{
+    PyReadonlyArray1, PyReadonlyArray2, PyReadonlyArray3, PyReadwriteArray2, PyReadwriteArray3,
+};
 use pyo3::prelude::*;
 
-use crate::mathlib::{dihedral_angle, normalize_vector,
-                     rodrigues_rotation, Mat3, Vec3};
+use crate::mathlib::{dihedral_angle, normalize_vector, rodrigues_rotation, Mat3, Vec3};
 use crate::mic::{box_2d, box_at, mic_vector, prep_dist};
 
 #[inline]
@@ -105,8 +105,14 @@ pub fn shift_dihedral_angles_single_structure(
     blocks: PyReadonlyArray2<'_, bool>,
 ) {
     let a = angles.as_array();
-    apply_2d(&mut coordinates.as_array_mut(), &|i| a[i], &quartets.as_array(),
-             &blocks.as_array(), None, false);
+    apply_2d(
+        &mut coordinates.as_array_mut(),
+        &|i| a[i],
+        &quartets.as_array(),
+        &blocks.as_array(),
+        None,
+        false,
+    );
 }
 
 #[pyfunction]
@@ -117,8 +123,14 @@ pub fn set_dihedral_angles_single_structure(
     blocks: PyReadonlyArray2<'_, bool>,
 ) {
     let a = angles.as_array();
-    apply_2d(&mut coordinates.as_array_mut(), &|i| a[i], &quartets.as_array(),
-             &blocks.as_array(), None, true);
+    apply_2d(
+        &mut coordinates.as_array_mut(),
+        &|i| a[i],
+        &quartets.as_array(),
+        &blocks.as_array(),
+        None,
+        true,
+    );
 }
 
 #[pyfunction]
@@ -135,8 +147,14 @@ pub fn shift_dihedral_angles(
     let bl = blocks.as_array();
     for &s in structure_indices.as_array().iter() {
         let s = s as usize;
-        apply_2d(&mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
-                 &|aa| a[[s, aa]], &q, &bl, None, false);
+        apply_2d(
+            &mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
+            &|aa| a[[s, aa]],
+            &q,
+            &bl,
+            None,
+            false,
+        );
     }
 }
 
@@ -161,8 +179,14 @@ pub fn set_dihedral_angles(
     let inc_angles = a.shape()[1] != 1;
     for s in 0..n_structures {
         let row = if inc_structures { s } else { 0 };
-        apply_2d(&mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
-                 &|aa| a[[row, if inc_angles { aa } else { 0 }]], &q, &bl, None, true);
+        apply_2d(
+            &mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
+            &|aa| a[[row, if inc_angles { aa } else { 0 }]],
+            &q,
+            &bl,
+            None,
+            true,
+        );
     }
 }
 
@@ -189,8 +213,14 @@ pub fn shift_mic_dihedral_angles_single_structure(
     let b = box_2d(&boxes.as_array());
     let (cell, inv, ortho) = mic_parts(&b);
     let a = angles.as_array();
-    apply_2d(&mut coordinates.as_array_mut(), &|i| a[i], &quartets.as_array(),
-             &blocks.as_array(), Some((&cell, &inv, ortho)), false);
+    apply_2d(
+        &mut coordinates.as_array_mut(),
+        &|i| a[i],
+        &quartets.as_array(),
+        &blocks.as_array(),
+        Some((&cell, &inv, ortho)),
+        false,
+    );
 }
 
 #[pyfunction]
@@ -204,8 +234,14 @@ pub fn set_mic_dihedral_angles_single_structure(
     let b = box_2d(&boxes.as_array());
     let (cell, inv, ortho) = mic_parts(&b);
     let a = angles.as_array();
-    apply_2d(&mut coordinates.as_array_mut(), &|i| a[i], &quartets.as_array(),
-             &blocks.as_array(), Some((&cell, &inv, ortho)), true);
+    apply_2d(
+        &mut coordinates.as_array_mut(),
+        &|i| a[i],
+        &quartets.as_array(),
+        &blocks.as_array(),
+        Some((&cell, &inv, ortho)),
+        true,
+    );
 }
 
 #[pyfunction]
@@ -226,8 +262,14 @@ pub fn shift_mic_dihedral_angles(
         let s = s as usize;
         let b = box_at(&bx, s);
         let (cell, inv, ortho) = mic_parts(&b);
-        apply_2d(&mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
-                 &|aa| a[[s, aa]], &q, &bl, Some((&cell, &inv, ortho)), false);
+        apply_2d(
+            &mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
+            &|aa| a[[s, aa]],
+            &q,
+            &bl,
+            Some((&cell, &inv, ortho)),
+            false,
+        );
     }
 }
 
@@ -264,9 +306,14 @@ pub fn set_mic_dihedral_angles(
         let b = box_at(&bx, s);
         let (cell, inv, ortho) = mic_parts(&b);
         let row = if inc_structures { s } else { 0 };
-        apply_2d(&mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
-                 &|aa| a[[row, if inc_angles { aa } else { 0 }]], &q, &bl,
-                 Some((&cell, &inv, ortho)), true);
+        apply_2d(
+            &mut c.index_axis_mut(numpy::ndarray::Axis(0), s),
+            &|aa| a[[row, if inc_angles { aa } else { 0 }]],
+            &q,
+            &bl,
+            Some((&cell, &inv, ortho)),
+            true,
+        );
     }
 }
 
@@ -275,8 +322,14 @@ pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(set_dihedral_angles_single_structure, m)?)?;
     m.add_function(wrap_pyfunction!(shift_dihedral_angles, m)?)?;
     m.add_function(wrap_pyfunction!(set_dihedral_angles, m)?)?;
-    m.add_function(wrap_pyfunction!(shift_mic_dihedral_angles_single_structure, m)?)?;
-    m.add_function(wrap_pyfunction!(set_mic_dihedral_angles_single_structure, m)?)?;
+    m.add_function(wrap_pyfunction!(
+        shift_mic_dihedral_angles_single_structure,
+        m
+    )?)?;
+    m.add_function(wrap_pyfunction!(
+        set_mic_dihedral_angles_single_structure,
+        m
+    )?)?;
     m.add_function(wrap_pyfunction!(shift_mic_dihedral_angles, m)?)?;
     m.add_function(wrap_pyfunction!(set_mic_dihedral_angles, m)?)?;
     Ok(())

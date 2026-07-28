@@ -17,20 +17,45 @@ use crate::mathlib::angle;
 use crate::mic::{box_2d, box_at, mic_vector, prep_dist, Mat3};
 
 #[inline]
-fn triplet_vectors_3d(c: &ArrayView3<f64>, s: usize, a0: usize, a1: usize, a2: usize)
-    -> ([f64; 3], [f64; 3]) {
+fn triplet_vectors_3d(
+    c: &ArrayView3<f64>,
+    s: usize,
+    a0: usize,
+    a1: usize,
+    a2: usize,
+) -> ([f64; 3], [f64; 3]) {
     (
-        [c[[s, a0, 0]] - c[[s, a1, 0]], c[[s, a0, 1]] - c[[s, a1, 1]], c[[s, a0, 2]] - c[[s, a1, 2]]],
-        [c[[s, a2, 0]] - c[[s, a1, 0]], c[[s, a2, 1]] - c[[s, a1, 1]], c[[s, a2, 2]] - c[[s, a1, 2]]],
+        [
+            c[[s, a0, 0]] - c[[s, a1, 0]],
+            c[[s, a0, 1]] - c[[s, a1, 1]],
+            c[[s, a0, 2]] - c[[s, a1, 2]],
+        ],
+        [
+            c[[s, a2, 0]] - c[[s, a1, 0]],
+            c[[s, a2, 1]] - c[[s, a1, 1]],
+            c[[s, a2, 2]] - c[[s, a1, 2]],
+        ],
     )
 }
 
 #[inline]
-fn triplet_vectors_2d(c: &ArrayView2<f64>, a0: usize, a1: usize, a2: usize)
-    -> ([f64; 3], [f64; 3]) {
+fn triplet_vectors_2d(
+    c: &ArrayView2<f64>,
+    a0: usize,
+    a1: usize,
+    a2: usize,
+) -> ([f64; 3], [f64; 3]) {
     (
-        [c[[a0, 0]] - c[[a1, 0]], c[[a0, 1]] - c[[a1, 1]], c[[a0, 2]] - c[[a1, 2]]],
-        [c[[a2, 0]] - c[[a1, 0]], c[[a2, 1]] - c[[a1, 1]], c[[a2, 2]] - c[[a1, 2]]],
+        [
+            c[[a0, 0]] - c[[a1, 0]],
+            c[[a0, 1]] - c[[a1, 1]],
+            c[[a0, 2]] - c[[a1, 2]],
+        ],
+        [
+            c[[a2, 0]] - c[[a1, 0]],
+            c[[a2, 1]] - c[[a1, 1]],
+            c[[a2, 2]] - c[[a1, 2]],
+        ],
     )
 }
 
