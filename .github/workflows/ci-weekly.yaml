@@ -66,18 +66,17 @@ jobs:
         run: |
           python devtools/scripts/validate_scientific_evidence.py
           python -c "import MDAnalysis, mdtraj; print('MDAnalysis:', MDAnalysis.__version__); print('MDTraj:', mdtraj.__version__)"
-          pytest -q tests/scientific_truth --color=yes
+          python -m pytest --receptor=ci tests/scientific_truth
 
       - name: Run full test suite with coverage
         shell: bash -l {0}
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          pytest -q \
+          python -m pytest --receptor=ci \
             --cov-config=.coveragerc \
             --cov=molsysmt \
             --cov-report=xml \
-            --junitxml=junit.xml \
-            --color=yes
+            --junitxml=junit.xml
 
       - name: Upload coverage to Codecov
         if: matrix.cfg.python-version == '3.13'

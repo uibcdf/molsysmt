@@ -67,4 +67,4 @@ jobs:
         shell: bash -l {0}
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          pytest -q --color=yes --junitxml=junit.xml
+          python -m pytest --receptor=ci --junitxml=junit.xml

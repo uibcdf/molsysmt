@@ -33,6 +33,7 @@ dependencies:
 - anywidget
 - nglview
 - pytest
+- pytest-receptor=0.6.0
 - pytest-cov
 - codecov
 - pytest-xdist

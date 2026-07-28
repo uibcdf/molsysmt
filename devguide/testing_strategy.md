@@ -7,6 +7,29 @@ Doctests in source modules are collected by `--doctest-modules` (see `pytest.ini
 `testpaths = tests molsysmt/basic`) and run in the **same process** as the functional
 suite. That combined gate is supported and is the default `pytest` invocation.
 
+### Agent-oriented pytest reporting
+
+MolSysMT uses `pytest-receptor` only as a renderer; pytest's exit code and
+outcome model remain authoritative.
+
+- Local agent-driven work uses `python -m pytest --receptor=llm ...`. This
+  profile may refer to the complete report under `.pytest_cache` when a
+  pathological number of independent root causes makes full expansion
+  inefficient.
+- GitHub Actions uses `python -m pytest --receptor=ci ...`. CI logs must retain
+  every root-cause group because the runner-local report disappears with the
+  job.
+- `pytest-receptor=0.6.0` is pinned in the CI Conda environment. Profile changes
+  must be reviewed and upgraded deliberately rather than following an
+  unversioned plugin checkout.
+- `receptor_rerun_command = python -m pytest` keeps emitted rerun commands
+  consistent with the repository invocation.
+
+Installing the plugin does not authorize a different selection, marker,
+coverage, JUnit, or exit-code policy. Any disagreement with normal pytest, bad
+root-cause grouping, or compact report that is insufficient to act on must be
+reported to the pytest-receptor project.
+
 ### Source-doctest collection order is a hard contract
 
 Public functions in `molsysmt.basic` are re-exported from same-named modules
