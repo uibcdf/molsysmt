@@ -1,7 +1,7 @@
 # C1 — Permanent crate/module and build-backend design review
 
-**Status:** **ACCEPTED** (2026-07-26). Design review complete, backed by an executable
-spike. C1 is closed; C2-C7 remain open.
+**Status:** **ACCEPTED AND INTEGRATED**. C1 closed on 2026-07-26; C2 closed on
+2026-07-28 at `17be9ea50`. C3-C7 remain open.
 
 > **Accepted decision.** MolSysMT keeps `setuptools` as its build backend, adds
 > `setuptools-rust`, and distributes a single private `molsysmt._rust` extension inside the
@@ -26,10 +26,10 @@ The execution plan states a preference and requires it be proven:
 > `molsysmt._rust` […] **This preference must be confirmed by an implementation spike
 > because the repository currently uses setuptools while the pilot crate uses maturin.**
 
-Today those are two separate products: `pip` installs `molsysmt` (setuptools + versioningit),
-`maturin` installs `msm_rust_kernels` as its own distribution, and
-`molsysmt/_private/rust_backend.py` imports the latter by name. That is exactly the version
-skew the plan wants to avoid.
+Before C2 these were two separate products: `pip` installed `molsysmt`
+(Setuptools + versioningit), Maturin installed `msm_rust_kernels`, and the
+coexistence seam imported the latter by name. C2 removed that version-skew
+surface by integrating the private extension.
 
 Five things must survive whatever backend is chosen:
 
@@ -161,18 +161,31 @@ The 3.13 → 3.12 load proves abi3 genuinely works, but the `cp311-abi3` tag exp
 wheels. Release builds must not carry developer-machine-dependent flags such as
 `-C target-cpu=native`. Evidence: `../rust_kernel_optimization_guide.md` section 6.
 
-## What this does not decide, deliberately
+## C2 Delivery Update
 
-- **C2, the crate relocation, is deliberately not done.** Moving the crate out of
-  `experiments/` changes the wheel build path and the hashes recorded in
-  `release_1_0_rust_campaign_checkpoint.md`, and Segment B4 still needs "a new green
-  exact-commit run". Relocating mid-campaign would invalidate the campaign's
-  reproducibility. C2 should land immediately after B4 closes its exact-commit run.
-- **The module rename is part of C2, not C1.** The preferred design requires
+C2 implemented the accepted design after B4 closed:
+
+- the final crate path is `rust/Cargo.toml`;
+- the PyO3 module and library name are `_rust`;
+- `molsysmt/_private/rust_backend.py` imports `molsysmt._rust`;
+- the old separate Maturin package, illustrative fallback, and unwired CI
+  skeleton are removed;
+- a clean exact-commit wheel passed an automated content validator and an
+  installed-extension smoke.
+
+The complete evidence, commands, wheel name, and hashes are in
+[C2 Rust Packaging Artifact](../release_1_0_rust_packaging_c2_artifact.md).
+
+## Historical C1 Deferrals
+
+- **C2, the crate relocation, was deliberately not done during C1.** Moving the
+  crate out of `experiments/` would have changed the hashes recorded while B4
+  still required a green exact-commit run. C2 landed after B4 closed.
+- **The module rename belonged to C2, not C1.** The preferred design required
   `#[pymodule] fn _rust` and `[lib] name = "_rust"`, and `rust_backend.py`,
   `devtools/scripts/check_rust_hot_paths.py`, `tests/rust/test_hot_path_lint.py`,
-  `experiments/rust_kernels/PACKAGING.md` and the `tests/rust/` imports all still say
-  `msm_rust_kernels`. The spike made those edits to prove the design; they belong to C2.
+  and the `tests/rust/` imports all still said `msm_rust_kernels`. C2 applied
+  those changes to production.
 - **CPU instruction baseline (C11) is already settled** with evidence: baseline,
   `x86-64-v2` and `x86-64-v3` are equal within noise on every hot kernel, so release wheels
   stay portable-baseline. See `../rust_kernel_optimization_guide.md` section 6.
@@ -190,7 +203,7 @@ build-backend = "setuptools.build_meta"
 
 [[tool.setuptools-rust.ext-modules]]
 target = "molsysmt._rust"
-path = "<final-crate-path>/Cargo.toml"
+path = "rust/Cargo.toml"
 binding = "PyO3"
 py-limited-api = "cp311"
 features = ["extension-module"]
@@ -201,8 +214,7 @@ features = ["extension-module"]
 py-limited-api = "cp311"
 ```
 
-`<final-crate-path>` is deliberately unresolved: it is decided by C2, which must wait for
-B4 to close its exact-commit run.
+The final crate path was selected and integrated by C2 after B4 closed.
 
 ## Acceptance criteria
 

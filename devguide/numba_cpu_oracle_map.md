@@ -106,11 +106,10 @@ system-level scientific validation.
 
 ## Permanent Rust Architecture
 
-The final Rust source belongs to the MolSysMT repository but should not be
-mixed into the Python module tree. Segment C will move the production crate out
-of `experiments/` into a dedicated Rust workspace. The compiled extension will
-be installed as a private module inside the `molsysmt` package, provisionally
-`molsysmt._rust` or `molsysmt._native`.
+The production Rust source belongs to the MolSysMT repository without being
+mixed into the Python module tree. C2 moved the crate from `experiments/` to
+the dedicated top-level `rust/` workspace. The compiled extension is installed
+as the private `molsysmt._rust` module.
 
 Public scientific calls remain under their existing modules, for example
 `molsysmt.structure.get_distances`. Users must not depend on a parallel public
@@ -122,11 +121,11 @@ Rust routing, packaging, parity, and installed-wheel evidence are complete.
 This artifact closes only the CPU capability-classification stage. It does not
 authorize deleting Numba. The remaining required work is:
 
-1. record every intentional numerical or behavioral divergence and its
-   tolerance in the
-   [Rust and Numba Divergence Contract](rust_numba_divergence_contract.md);
-2. run and preserve the final reproducible two-backend campaign;
-3. productize and test the private Rust extension on the supported platforms;
+1. build and inspect the private Rust extension on every supported platform;
+2. test the installed artifacts across Python 3.11-3.13 and the supported
+   NumPy range;
+3. close the Conda, metadata, resource, quality, license, and portability
+   gates;
 4. route production consumers directly through Rust;
 5. audit the separate Numba-CUDA surface;
 6. remove CPU and CUDA Numba code, dependencies, controls, diagnostics, and

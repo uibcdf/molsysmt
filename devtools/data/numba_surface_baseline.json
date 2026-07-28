@@ -1,6 +1,6 @@
 {
   "counts": {
-    "active_devguide_files": 38,
+    "active_devguide_files": 39,
     "active_documentation_files": 10,
     "build_files": 1,
     "cpu_jit_sites": 108,
@@ -330,6 +330,7 @@
       "devguide/performance_and_jit.md",
       "devguide/release_1_0_final_numba_oracle_artifact.md",
       "devguide/release_1_0_rust_campaign_checkpoint.md",
+      "devguide/release_1_0_rust_packaging_c2_artifact.md",
       "devguide/release_1_0_status.md",
       "devguide/roadmap.md",
       "devguide/rust_kernel_optimization_guide.md",

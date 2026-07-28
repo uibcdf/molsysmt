@@ -19,7 +19,7 @@ The command that must eventually work
 conda create -n molsysmt-release-test -c uibcdf -c conda-forge python=3.13 molsysmt
 ```
 
-**cannot work today, and would still not work after C2 alone.** Four of the five required
+**cannot work today.** C2 is now complete, but four of the five required
 packages are absent from the channel at the required versions, three of the required Git
 tags exist only on local clones, and one dependency has no Python 3.13 build at all. Every
 missing artefact is identified below, per step.
@@ -153,17 +153,18 @@ build-depends on a sibling, so the graph is a DAG and one linear pass suffices.
 | `argdigest` | push tag `0.9.3`, publish GitHub Release | tag exists locally only; 5 commits after it |
 | `depdigest` | none required | 0.10.0 already published; 5 commits after the tag are unreleased |
 | `molsysviewer` | new tag + Release with a py3.13 build | channel is at 0.7.0, local tag is 0.20.0; decide the release version deliberately |
-| `molsysmt` | tag `1.0.0` + Release, last | only after 1–5 and after C2/C3 |
+| `molsysmt` | tag `1.0.0` + Release, last | only after 1–5 and C3-C7 |
 
 Because `version: "{{ environ['GIT_DESCRIBE_TAG'] }}"`, a Release built from a commit that
 is not exactly on a tag produces a version string carrying the distance and hash. **Release
 builds must run from the tagged commit**, and the "+N commits" columns above are a warning
 that HEAD is not currently at the tag in four of the six repositories.
 
-## 6. Can a fully clean environment be created today? (question 5)
+## 6. Pre-C2 development-environment snapshot (question 5)
 
-**No, and the current development environment cannot answer the question**, because every
-sibling is an editable install pointing at a local checkout:
+On 2026-07-27 the development environment could not answer the clean-install
+question because every sibling was an editable install pointing at a local
+checkout:
 
 ```
 molsysmt          0.20.0+149.gcb3341fd5.dirty   regular
@@ -186,8 +187,10 @@ for p in ('molsysmt','pyunitwizard','smonitor','argdigest','depdigest','molsysvi
 "
 ```
 
-Note the last line: **the Rust kernels themselves resolve through a local checkout**, which
-is precisely what C4 must forbid.
+The final line records the old pilot arrangement. C2 removed the separate
+distribution and proved a non-editable local wheel containing
+`molsysmt._rust`; C4/C5 must repeat the clean-install assertion for the
+supported release artifacts.
 
 ## 7. Putting the abi3 wheel inside the Conda recipe (question 9)
 
@@ -245,7 +248,7 @@ for name in ('molsysmt','pyunitwizard','smonitor','argdigest','depdigest','molsy
     assert prefix in loc.parents or loc == prefix, f'{name} resolves outside the env: {loc}'
     assert d.read_text('direct_url.json') is None, f'{name} is a direct/editable install'
     assert '+' not in d.version and 'dirty' not in d.version, f'{name} is not a released version: {d.version}'
-import molsysmt._rust as r          # after C2; today: import msm_rust_kernels
+import molsysmt._rust as r
 assert pathlib.Path(r.__file__).resolve().is_relative_to(prefix)
 print('clean install verified:', molsysmt.__version__)
 EOF
@@ -267,8 +270,9 @@ is recorded.
 | A clean env with the four siblings and *no* MolSysMT | **yes**, once published | §4 order |
 | Adding version bounds to `molsysmt`'s recipe | **yes** | a documentation/recipe change |
 | `conda create ... molsysmt` end to end | no | siblings published **and** a MolSysMT 1.0 release |
-| Conda package carrying `molsysmt._rust` | no | **C2** (crate relocation + module rename) then a recipe update per §7 |
-| "no local checkout" assertions on `molsysmt._rust` | no | **C2**; the `msm_rust_kernels` variant can be exercised earlier |
+| Wheel carrying `molsysmt._rust` | **yes, locally** | C2 exact-commit artifact passes; C3 must reproduce it in CI |
+| Conda package carrying `molsysmt._rust` | no | recipe update per §7 and C5 |
+| "no local checkout" assertions on `molsysmt._rust` | **yes for the C2 local wheel** | C4/C5 must repeat against supported installed artifacts |
 | abi3 wheels across the platform matrix | no | **C3** |
 | Python 3.11/3.12/3.13 × NumPy range installed-wheel matrix | no | **C3/C4** |
 
@@ -289,7 +293,7 @@ conda create -n molsysmt-release-test -c uibcdf -c conda-forge python=3.13 molsy
 | 4 | `pyunitwizard >=0.22.0` | **fails** | `pyunitwizard-0.22.0-py3{11,12,13}_*` — tag unpushed; note 0.21.1 shipped py3.13 only, so the 3.11/3.12 builds must be restored |
 | 5 | `argdigest >=0.9.3` | **fails** | `argdigest-0.9.3-py3{11,12,13}_*` — tag unpushed, no Release |
 | 6 | `molsysviewer` (py3.13) | **fails** | any `molsysviewer` build for py3.13; the channel stops at 0.7.0/py3.12 |
-| 7 | `molsysmt` 1.0 | **fails** | `molsysmt-1.0.0-py3{11,12,13}_*`, which additionally requires C2 (so the package carries `molsysmt._rust`) and a recipe updated per §7 |
+| 7 | `molsysmt` 1.0 | **fails** | `molsysmt-1.0.0-py3{11,12,13}_*`; C2 already integrates `molsysmt._rust`, while the recipe and C3-C7 gates remain |
 | 8 | verify no local checkout | not reachable | the §8 script, run in CI outside any repo directory |
 
 Note that steps 2, 4, 5 and 6 are **not blocked by MolSysMT at all** — they are four
@@ -321,7 +325,8 @@ independent sibling releases.
 **Blockers owned by other segments:**
 
 - B9. `linux-aarch64` is required by C3 and no workflow builds it.
-- B10. The Conda package cannot carry `molsysmt._rust` until **C2**.
+- B10. The Conda recipe has not yet been updated and validated to carry the
+  C2-integrated `molsysmt._rust` extension.
 
 ## 12. Rollback plan for a bad build
 
@@ -359,8 +364,8 @@ label-based and additive:
    every recipe carries a `test:` section that at minimum imports the package.
 4. `conda create -n t -c uibcdf -c conda-forge python=3.13 smonitor depdigest pyunitwizard
    argdigest molsysviewer` solves and imports with **no** MolSysMT present. This is
-   achievable before C2 and is the natural interim gate.
-5. After C2 and a MolSysMT 1.0 release, the closing command solves for python 3.11, 3.12
+   independent of C2 and is the natural interim gate.
+5. After the remaining C3-C7 gates and a MolSysMT 1.0 release, the closing command solves for python 3.11, 3.12
    and 3.13.
 6. The §8 script passes in that environment, run outside any repository directory, and
    `conda list --explicit` is archived with the result.
