@@ -2,7 +2,7 @@
 """Validate public-function support tiers.
 
 Support tier is derived from the API-stability registry, not from a second registry
-(see devguide/pending_proposals/function_support_tier_classification.md):
+(see devguide/archive/resolved_proposals/function_support_tier_classification.md):
 
     stable            -> Tier 1 (contractual)
     experimental      -> Tier 3 (experimental / niche)

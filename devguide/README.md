@@ -105,6 +105,15 @@ Read these documents in order when first working on MolSysMT:
 - [roadmap.md](roadmap.md)
 - [benchmarking/README.md](benchmarking/README.md)
 
+### Release operations
+
+- [release_1_0_status.md](release_1_0_status.md) — live phase/stage status and
+  evidence ledger for the remaining 1.0 work.
+- [release_gate.md](release_gate.md) — exact-commit checklist required before
+  tagging.
+- [release_1_0_execution_plan.md](pending_proposals/release_1_0_execution_plan.md)
+  — accepted ordering, weights, exit gates, and stop conditions.
+
 Strategic documents describe direction. They do not override the API, testing,
 dependency, or scientific contracts above.
 

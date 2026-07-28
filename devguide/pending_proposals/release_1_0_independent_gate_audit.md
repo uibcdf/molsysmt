@@ -117,7 +117,8 @@ category 2–5.
 - **RESOLVED 2026-07-22.** Tier is derived from the stability registry
   (stable⇒Tier 1, experimental⇒Tier 3, outside-contract⇒outside core); enforced by
   `devtools/scripts/validate_function_tiers.py`; documented in
-  `pending_proposals/function_support_tier_classification.md` and `support_tier_protocol.md`.
+  `archive/resolved_proposals/function_support_tier_classification.md` and
+  `support_tier_protocol.md`.
   `molecular_dynamics` decided deferred post-1.0 (stubs, not public) and its phantom
   `@support_tier(3)` decorators removed.
 

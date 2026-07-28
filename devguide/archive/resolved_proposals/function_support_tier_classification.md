@@ -1,6 +1,6 @@
 # Function Support-Tier Classification (derive from stability, do not add a second registry)
 
-**Status:** Proposed (closes audit risk **R1** in
+**Status:** Implemented and validated (closes audit risk **R1** in
 `release_1_0_independent_gate_audit.md`; addresses the "Tier 1 function audit" pending
 question in `support_tier_protocol.md`)
 

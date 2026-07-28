@@ -17,6 +17,9 @@ scientific-validation requirements.
 
 ### Reliability and contract work
 
+- `release_1_0_execution_plan.md` — authoritative ordering guide for restoring
+  conversion fidelity, productizing the Rust extension, removing Numba before
+  1.0, completing documentation lifecycle work, and running the release gates.
 - `technical_and_scientific_quality_improvement_program.md` — umbrella quality
   program; split accepted work into smaller changes.
 - `explicit_form_support_registry.md` — removing implicit Tier 1 classification.
@@ -24,7 +27,9 @@ scientific-validation requirements.
 - `catalog_diagnostics_migration.md` — risk-ranked diagnostics cleanup.
 - `benchmark_regression_gate_reliability.md` — statistically credible gates.
 - `conversion_fidelity_and_molsysdict_v1.md` — executable Tier 1 conversion
-  fidelity and a versioned path beyond the MolSysDict 0.1 boundary.
+  fidelity and a versioned path beyond the MolSysDict 0.1 boundary; the current
+  untracked scope and PDB surface first requires the staged closure in
+  `../pending_bugs/conversion_fidelity_wip_contract_gaps.md`.
 - `chemical_graph_and_conversion_execution_checkpoint.md` — current re-entry
   point: approve and validate the native chemical-graph contract before Rust,
   interactions, reactive states, or broad adapter fan-out.
@@ -56,14 +61,13 @@ scientific-validation requirements.
 - `optional_native_columns_memory_model.md` — post-1.0 evaluation of
   schema-aware optional physical columns so topology memory scales with the
   information an instance actually contains.
-- `rust_numba_coexistence_and_cut_plan.md` — the migration plan now that all 97 CPU kernels
-  are ported: a `configure.kernel` global + uniform `kernel=` override (reusing the existing
-  parallel=/num_threads= pattern, not per-function args), the packaging gate (CI wheels; hard
-  dependency vs graceful `'auto'`), the announced tolerance-level numerical change, the 1.0
-  deprecation of Numba, and where redesign levers A/B (now) and C/D/E (post-cut) fit.
+- `rust_numba_coexistence_and_cut_plan.md` — the transitional seam and evidence
+  now that all 97 CPU kernels are ported; production wheels, final oracle
+  capture, removal of CPU and CUDA Numba, and Rust-only validation are accepted
+  pre-1.0 gates.
 - `rusterization_pilot_conclusions_and_adoption.md` — hands-on pilot results and a
-  recommended incremental adoption path (start migrating kernels behind an opt-in seam
-  now; keep shipping Rust wheels a post-1.0 infrastructure decision).
+  historical adoption path; its measurements remain evidence, while the
+  Rust-only pre-1.0 decision is governed by `release_1_0_execution_plan.md`.
 - `linear_algebra_backend_for_rust_kernels.md` — whether the Rust kernels should link
   LAPACK/MKL. Measured answer: 10 of the 11 blocked kernels only diagonalise 3x3 and 4x4
   matrices, and PCA spends 76-93% of its time building the covariance rather than
@@ -74,10 +78,9 @@ scientific-validation requirements.
   lattice fractional binning (`inv^T·p`), reduced-cell minimum image, and a unique-cell
   stencil for n<3. Validated against an all-pairs ±2 ground truth and the brute-force SASA.
 - `rust_gpu_backend_options.md` — whether the Rust layer should also target the GPU.
-  Recommendation: no, near-term — GPU stays on the existing Numba-CUDA/Taichi backends,
-  orthogonal to the CPU numba/rust choice. If ever pursued, `wgpu` is the portable
-  (default-wheel-compatible) option and CUDA (`cudarc`) belongs only in an optional wheel
-  variant. Separate, optional, post-cut; must not block the CPU cut.
+  The default Rust wheel remains CPU-only; Numba-CUDA is removed before 1.0,
+  and any retained non-Numba GPU surface must pass its own scientific and
+  failure-contract audit. A future Rust GPU track remains post-cut.
 - `rusterization_heavy_computations.md`
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`
