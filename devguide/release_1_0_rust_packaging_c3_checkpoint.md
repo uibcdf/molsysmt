@@ -2,8 +2,8 @@
 
 **Date:** 2026-07-28
 **Stage:** C3 — Linux, macOS, and Windows abi3 wheel CI
-**Status:** `IN PROGRESS`
-**Implementation commit:** `30b86cdf2`
+**Status:** `DONE`
+**Implementation commits:** `30b86cdf2`, `072eb7cdc`, `f79ccb4f0`
 
 ## Delivered CI Contract
 
@@ -71,12 +71,42 @@ The following local checks passed:
 - the reusable installed-wheel validator passes against the exact C2 Linux
   wheel, finding 97 exports and the expected 2.5 minimum image.
 
-## Open Evidence
+## Exact-Commit Remote Evidence
 
-C3 is not complete until the workflow is present on GitHub and the full
-five-target matrix passes on an identified commit. The resulting wheel names,
-hashes, runner images, and run URL must be appended to this checkpoint before
-C3 changes to `DONE`.
+The full matrix passed on exact commit
+`f79ccb4f0bac9ac89eb5b0ffd1ddc20a432c0bda`:
+
+- run: <https://github.com/uibcdf/molsysmt/actions/runs/30346103646>;
+- conclusion: `success`;
+- five of five required native jobs passed;
+- every job completed build/audit, installed-extension validation, and artifact
+  upload.
+
+| Target | Runner image and version | Wheel | Wheel SHA256 |
+| --- | --- | --- | --- |
+| Linux x86_64 | `ubuntu-24.04` `20260720.247.2` | `molsysmt-0.20.0+161.gf79ccb4f0-cp311-abi3-manylinux_2_28_x86_64.whl` | `b18be4d637f286d75adfbe1e6da05be2f4719bd5b7eec8245caf1f468d39ffeb` |
+| Linux aarch64 | `ubuntu-24.04-arm` `20260719.67.1` | `molsysmt-0.20.0+161.gf79ccb4f0-cp311-abi3-manylinux_2_28_aarch64.whl` | `02d2e538b76cbf8b99889674defce1d40e4232b2e33fef928fec5bee6eb44eda` |
+| macOS x86_64 | `macos-15` `20260720.0353.1` | `molsysmt-0.20.0+161.gf79ccb4f0-cp311-abi3-macosx_11_0_x86_64.whl` | `077bdb10d0587f7b4d92d2d29a0e030b6200c176796685bf6613acf2023cc0bb` |
+| macOS arm64 | `macos-15-arm64` `20260715.0234.1` | `molsysmt-0.20.0+161.gf79ccb4f0-cp311-abi3-macosx_11_0_arm64.whl` | `46d687be3eb133645a48e6f5b40fd85249642a6ac4838cd1776db4b47ee5eb48` |
+| Windows x86_64 | `windows-2022` `20260720.249.2` | `molsysmt-0.20.0+161.gf79ccb4f0-cp311-abi3-win_amd64.whl` | `ebce5f4dcaf1e41f50c1eab3b0d5d234ab657caba667b5f169ae92d9f8c27b48` |
+
+The SHA256 values above are for the downloaded wheel files, not for GitHub's
+artifact ZIP wrappers.
+
+## Failed-Run Evidence and Correction
+
+The first accepted workflow run,
+<https://github.com/uibcdf/molsysmt/actions/runs/30345646277>, passed four
+targets and failed Linux aarch64 during `build_rust`. The manylinux container
+had already received the pinned minimal Rust toolchain, but the repository
+toolchain manifest then attempted to add Clippy and collided with an existing
+`bin/cargo-clippy`. Commit `f79ccb4f0` fixes the build boundary by setting
+`RUSTUP_TOOLCHAIN=1.97.1` inside the cibuildwheel Linux environment. The second
+run proves the correction on both Linux architectures.
+
+C3 is complete. C4 must now test installed wheels across Python 3.11–3.13 and
+the supported NumPy range; it must not reuse a source checkout as the imported
+package.
 
 ## Independent C7 Debt Found
 
