@@ -17,6 +17,19 @@ MODULE = module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
+INSTALLED_SCRIPT = (
+    Path(__file__).resolve().parents[1]
+    / "scripts"
+    / "validate_installed_rust_wheel.py"
+)
+INSTALLED_SPEC = spec_from_file_location(
+    "validate_installed_rust_wheel",
+    INSTALLED_SCRIPT,
+)
+INSTALLED_MODULE = module_from_spec(INSTALLED_SPEC)
+assert INSTALLED_SPEC.loader is not None
+INSTALLED_SPEC.loader.exec_module(INSTALLED_MODULE)
+
 
 def _write_wheel(path, *, extra_extensions=0, bytecode=False, legacy=False):
     entries = {
@@ -66,3 +79,31 @@ def test_invalid_wheel_fails_with_actionable_reason(
     _write_wheel(wheel, **kwargs)
     problems = MODULE.validate_wheel(wheel)
     assert any(expected in problem for problem in problems)
+
+
+def test_installed_validator_requires_exactly_one_wheel(tmp_path):
+    with pytest.raises(RuntimeError, match="exactly one wheel"):
+        INSTALLED_MODULE.find_single_wheel(tmp_path)
+
+    wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
+    _write_wheel(wheel)
+    assert INSTALLED_MODULE.find_single_wheel(tmp_path) == wheel
+
+
+@pytest.mark.parametrize(
+    ("content", "expected"),
+    [
+        (None, False),
+        ('{"url": "file:///tmp/wheel.whl"}', False),
+        (
+            '{"url": "file:///tmp/repo", '
+            '"dir_info": {"editable": true}}',
+            True,
+        ),
+    ],
+)
+def test_installed_validator_detects_only_editable_direct_urls(
+    content,
+    expected,
+):
+    assert INSTALLED_MODULE.is_editable_direct_url(content) is expected

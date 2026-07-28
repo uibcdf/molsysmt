@@ -126,6 +126,20 @@ features = ["extension-module"]
 [tool.distutils.bdist_wheel]
 py-limited-api = "cp311"
 
+[tool.cibuildwheel]
+build = "cp311-*"
+skip = "*-musllinux*"
+build-verbosity = 1
+
+[tool.cibuildwheel.linux]
+before-all = "curl -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.97.1"
+environment = { PATH = "$HOME/.cargo/bin:$PATH" }
+manylinux-x86_64-image = "manylinux_2_28"
+manylinux-aarch64-image = "manylinux_2_28"
+
+[tool.cibuildwheel.macos.environment]
+MACOSX_DEPLOYMENT_TARGET = "11.0"
+
 [tool.versioningit]
 default-version = "1+unknown"
 
