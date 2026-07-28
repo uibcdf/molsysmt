@@ -30,7 +30,7 @@ requires-python = ">=3.11.0,<3.14.0"
 # Declare any run-time dependencies that should be installed with the package.
 dependencies = [
     "h5py",
-    "numpy",
+    "numpy>=1.26,<3",
     "pyunitwizard>=0.22.0",
     "pandas",
     "molsysviewer",

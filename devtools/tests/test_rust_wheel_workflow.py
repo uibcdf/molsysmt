@@ -51,6 +51,44 @@ def test_workflow_builds_validates_and_uploads_without_publish_credentials():
     assert "anaconda" not in text.lower()
 
 
+def test_workflow_validates_every_wheel_on_all_supported_pythons():
+    workflow = _workflow()
+    installed = workflow["jobs"]["test-full"]
+    targets = installed["strategy"]["matrix"]["target"]
+    assert {target["name"] for target in targets} == {
+        "linux-x86_64",
+        "linux-aarch64",
+        "macos-x86_64",
+        "macos-arm64",
+        "windows-x86_64",
+    }
+    assert installed["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
+    assert installed["needs"] == "build-full"
+
+    pull_request = workflow["jobs"]["test-pull-request"]
+    assert pull_request["strategy"]["matrix"]["python"] == [
+        "3.11",
+        "3.12",
+        "3.13",
+    ]
+    assert pull_request["needs"] == "build-pull-request"
+
+
+def test_workflow_validates_the_declared_numpy_floor():
+    workflow = _workflow()
+    floor = workflow["jobs"]["test-numpy-floor"]
+    observed = {
+        (entry["python"], entry["numpy"])
+        for entry in floor["strategy"]["matrix"]["include"]
+    }
+    assert observed == {
+        ("3.11", "numpy==1.26.4"),
+        ("3.12", "numpy==1.26.4"),
+        ("3.13", "numpy==2.1.3"),
+    }
+    assert floor["needs"] == "build-full"
+
+
 def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     config = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
     cibw = config["tool"]["cibuildwheel"]
@@ -66,6 +104,7 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert config["tool"]["distutils"]["bdist_wheel"]["py-limited-api"] == (
         "cp311"
     )
+    assert "numpy>=1.26,<3" in config["project"]["dependencies"]
 
 
 def test_rust_toolchain_is_pinned():
