@@ -150,7 +150,7 @@ directly to the new exact-commit campaign.
 ## Segment A — Conversion-Fidelity Coherence
 
 **Canonical bug:**
-[Conversion Fidelity WIP Exposes Multiple Contract Gaps](pending_bugs/conversion_fidelity_wip_contract_gaps.md)
+[Conversion Fidelity WIP Exposes Multiple Contract Gaps](archive/resolved_bugs/conversion_fidelity_wip_contract_gaps.md)
 
 | Stage | Status | Dependency | Closure evidence required |
 | --- | --- | --- | --- |
@@ -158,7 +158,7 @@ directly to the new exact-commit campaign.
 | A2 — exhaustive native-dictionary audit | `DONE` | A1 | three evidence-backed native-to-dictionary profiles landed; 51 focused tests and the Tier-1 ratchet pass |
 | A3 — independent schema/adapter repairs | `DONE` | A1–A2 stable | direct native projections and all four builder routes have evidence-backed exhaustive reports; the broad native-scope module is green |
 | A4 — PDB fidelity | `DONE` | A1–A2 stable | one handler-owned normalized parser feeds file, text, and handler routes; 22 fidelity tests and the historical PDB corpus pass; 11 exhaustive profiles landed as `1f656fe9f` |
-| A5 — segment integration gate | `DONE` | A1–A4 | 85 integration tests pass from an isolated `HEAD` plus staged snapshot; 37/481 edges are exhaustive, 444 are accepted debt, zero are new; adapter delivery and lifecycle gates pass |
+| A5 — segment integration gate | `DONE` | A1–A4 | 107 conversion-truth tests pass; 39/481 edges are exhaustive, 442 are accepted debt, zero are new; adapter delivery and lifecycle gates pass |
 
 | A2 cohort | Status | Evidence |
 | --- | --- | --- |

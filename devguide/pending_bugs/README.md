@@ -19,10 +19,6 @@ that the affected surface is fully verified.
 
 ### Incorrect success or hidden failure
 
-- `conversion_fidelity_wip_contract_gaps.md` — three untracked fidelity modules
-  expose 38 failures across audit scopes, native dictionary exhaustiveness,
-  strict loss detection, schema and adapter gaps, and a separate PDB workstream;
-  the proposed release audit currently fails during import.
 - `smonitor_warn_drops_structured_extra.md`
 - `dihedral_angles_broadcast_mismatch_pbc.md` — a documented broadcast-shaped `angles`
   argument is honoured on the non-periodic path of `set_dihedral_angles` but read out of

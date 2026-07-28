@@ -54,9 +54,10 @@ It aggregates every cheap, deterministic gate into one PASS/FAIL verdict:
 authoritative count belongs to the executable fidelity baseline and its report,
 not to this normative guide.
 
-The current untracked fidelity WIP does not yet satisfy this gate. Its staged
-closure is recorded in
-[`conversion_fidelity_wip_contract_gaps.md`](pending_bugs/conversion_fidelity_wip_contract_gaps.md).
+The former fidelity WIP gap is
+[archived as resolved](archive/resolved_bugs/conversion_fidelity_wip_contract_gaps.md).
+The executable baseline remains authoritative: accepted non-exhaustive routes
+are visible debt, while any new unclassified debt fails this gate.
 
 ## 2. Heavy gate — the full test matrix (`ci-full.yaml`)
 

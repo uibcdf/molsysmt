@@ -27,9 +27,8 @@ scientific-validation requirements.
 - `catalog_diagnostics_migration.md` — risk-ranked diagnostics cleanup.
 - `benchmark_regression_gate_reliability.md` — statistically credible gates.
 - `conversion_fidelity_and_molsysdict_v1.md` — executable Tier 1 conversion
-  fidelity and a versioned path beyond the MolSysDict 0.1 boundary; the current
-  untracked scope and PDB surface first requires the staged closure in
-  `../pending_bugs/conversion_fidelity_wip_contract_gaps.md`.
+  fidelity and a versioned path beyond the MolSysDict 0.1 boundary; the gate is
+  operational and remaining non-exhaustive routes are explicit baseline debt.
 - `chemical_graph_and_conversion_execution_checkpoint.md` — current re-entry
   point: approve and validate the native chemical-graph contract before Rust,
   interactions, reactive states, or broad adapter fan-out.

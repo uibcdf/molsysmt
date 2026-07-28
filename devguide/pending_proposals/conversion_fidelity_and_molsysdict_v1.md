@@ -1,9 +1,8 @@
 # Conversion Fidelity Matrix and MolSysDict Schema Evolution
 
-**Status:** partially implemented; current untracked fidelity WIP has confirmed contract gaps
+**Status:** partially implemented; the executable Tier 1 fidelity gate is operational
 
-**Priority:** P0 to restore an executable fidelity gate and close the staged
-WIP gaps; P1 for the Tier 1 matrix; P2 for the schema migration
+**Priority:** P1 for incremental Tier 1 coverage; P2 for the schema migration
 
 The fidelity classifications for chemical bonds and any future interaction or
 chemical-state payload must follow the semantic boundaries proposed in
@@ -45,78 +44,20 @@ multiple structures, and triclinic boxes. The first slice verifies:
 - preservation of missing H5MSM bond metadata;
 - usable public bond metadata arguments in `MolSysBuilder.add_bond`.
 
-## Current WIP Gap Audit — 2026-07-26
+## Fidelity gate checkpoint — 2026-07-28
 
-The implemented first slice remains valid for the tracked tests, but it is not
-a release claim for the stronger untracked fidelity work now present in the
-working tree.
+The staged WIP gap audit is resolved and archived in
+[`conversion_fidelity_wip_contract_gaps.md`](../archive/resolved_bugs/conversion_fidelity_wip_contract_gaps.md).
+The three formerly failing modules now provide 40 passing tests. Native
+dictionary extraction also has direct public regressions covering canonical
+atom order, requested structure order, hierarchy and bond remapping, and
+coordinate alignment.
 
-Three untracked test modules currently expose 38 failures:
-
-| Test module | Current result |
-| --- | ---: |
-| `test_conversion_report_native_scopes.py` | 13 failed |
-| `test_coordinate_trajectory_fidelity.py` | 4 failed |
-| `test_pdb_fidelity.py` | 21 failed, 1 passed |
-
-The failure set is not one missing function. It contains at least six
-independent gaps:
-
-1. missing audit-scope helper APIs, which prevent the untracked release audit
-   from importing;
-2. no `scope` field on `ConversionIssue`;
-3. no exhaustive schema-driven audit for the native dictionary forms;
-4. strict mode that does not reject losses outside the chemical subset;
-5. independent `evidence`, `temperature`, `skip_digestion`, and PDB parsing
-   defects;
-6. a separate PDB-fidelity workstream with multiple identifier, loss-reporting,
-   and strictness causes.
-
-The canonical evidence, boundaries, acceptance criteria, and ordered resolution
-are recorded in
-[`conversion_fidelity_wip_contract_gaps.md`](../pending_bugs/conversion_fidelity_wip_contract_gaps.md).
-That bug record supersedes any interpretation that the current untracked audit
-surface is already green.
-
-### Required Closure Order
-
-1. Establish the audit-scope contract and a backward-compatible
-   `ConversionIssue.scope`.
-2. Audit native dictionary forms exhaustively against the declared attribute
-   schemas, and apply strictness to every audited scope.
-3. Repair the independent schema and adapter gaps in separate focused changes.
-4. Resolve PDB fidelity after the scope contract is stable.
-
-These stages are intentionally separate. They must not be collapsed into one
-large commit because a passing result would then provide weak evidence about
-which contract was actually repaired.
-
-The second stage is itself incremental. Its first three earned exhaustive
-profiles are:
-
-1. `molsysmt.Structures -> molsysmt.StructuresDict`;
-2. `molsysmt.Topology -> molsysmt.TopologyDict`;
-3. `molsysmt.MolSys -> molsysmt.MolSysDict`, composed from the first two and a
-   separate molecular-mechanics/state-association audit.
-
-An audit profile must classify the complete declared semantic contract of its
-source form. It must not infer serialization fidelity solely from the target
-form's `attributes` mapping: that mapping describes query capability, not
-necessarily what a particular converter writes. Derived attributes count as
-preserved when their source information remains representable.
-
-Schema or adapter expansion remains stage 3. For example, the stage-2
-`StructuresDict` audit must first report an existing temperature or bioassembly
-payload as a loss; adding fields that preserve that payload is a separate,
-focused repair.
-
-Stage 3 does not include every test that requests a new exhaustive route.
-Ordinary-conversion preflight bypass, central atom-inventory classification,
-thermodynamic dictionary fields, and the `skip_digestion` signature are focused
-repairs. Native projection, builder, XYZ, DCD, and XTC exhaustive profiles are
-route-promotion decisions and may be scheduled or explicitly deferred
-independently. PDB `evidence` and header/identifier parsing remain in the
-dedicated PDB stage.
+The executable audit currently reports 75 Tier 1 forms and 481 direct Tier 1
+edges. Thirty-nine routes have exhaustive preflight coverage; 442
+non-exhaustive routes remain explicitly accepted baseline debt, with zero new
+debt and 28 resolved entries. This is an operational, honest gate, not a claim
+that every registered conversion is lossless.
 
 ### Critical-Path Boundary
 
@@ -223,9 +164,7 @@ contracts remain pending.
 
 ### Acceptance criteria
 
-- The staged WIP gaps in
-  [`conversion_fidelity_wip_contract_gaps.md`](../pending_bugs/conversion_fidelity_wip_contract_gaps.md)
-  are resolved, and the conversion audit imports and executes.
+- The conversion audit imports and executes with zero unclassified new debt.
 - Every Tier 1 direct edge has an executable fidelity classification.
 - No Tier 1 test suppresses an unexpected conversion exception.
 - Topology and atom-dependent arrays are always aligned after selection.

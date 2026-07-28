@@ -15,6 +15,7 @@ bonds_can_be_computed = True
 from .is_form import is_form
 from .attributes import attributes
 from .has_attribute import has_attribute
+from .extract import extract
 from .get_topological_attributes import *
 from .get_structural_attributes import *
 

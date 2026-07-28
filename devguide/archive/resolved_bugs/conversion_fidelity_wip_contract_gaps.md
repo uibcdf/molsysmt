@@ -2,13 +2,42 @@
 
 ## Status
 
-- **State:** confirmed in the current untracked fidelity WIP
-- **Severity:** release-blocking for landing that WIP and making the
-  conversion-fidelity release gate operational
+- **State:** resolved
+- **Resolved:** 2026-07-28
+- **Severity:** formerly release-blocking for landing the fidelity WIP and
+  making the conversion-fidelity release gate operational
 - **Scope:** conversion reporting, native dictionary schemas and adapters,
   strict conversion semantics, and PDB fidelity
 - **Design context:**
-  [Conversion Fidelity Matrix and MolSysDict Schema Evolution](../pending_proposals/conversion_fidelity_and_molsysdict_v1.md)
+  [Conversion Fidelity Matrix and MolSysDict Schema Evolution](../../pending_proposals/conversion_fidelity_and_molsysdict_v1.md)
+
+## Resolution
+
+The failure inventory below describes the original investigation state. The
+three test modules are now tracked and pass together:
+
+```text
+40 passed
+```
+
+The executable fidelity audit now imports and runs successfully. Its closure
+snapshot reports 75 Tier 1 forms, 481 direct Tier 1 edges, 39 exhaustive
+preflight routes, 442 explicitly accepted non-exhaustive routes, zero new
+non-exhaustive debt, and 28 resolved debt entries.
+
+Stages 1–4 were implemented in focused commits before this record was archived:
+conversion issues carry scopes, the native dictionary routes have exhaustive
+profiles, strict mode rejects audited non-chemical losses, thermodynamic and
+PDB adapter gaps have regression coverage, and PDB fidelity is green. The final
+working-tree gap was native dictionary extraction: the implementations existed
+without being exported by their form packages. The resolution exports both
+adapters and adds public regressions for canonical atom order, requested
+structure order, coordinate alignment, hierarchy remapping, and bond remapping.
+
+The 442 accepted non-exhaustive routes are not hidden or declared lossless.
+They remain classified release debt governed by the fidelity baseline and the
+Tier 1 promotion policy; they do not keep this historical implementation bug
+open.
 
 ## Summary
 

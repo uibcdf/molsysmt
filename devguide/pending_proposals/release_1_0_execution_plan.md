@@ -152,8 +152,8 @@ than inserting transient status throughout this plan.
 
 ### Segment A — Restore Conversion-Fidelity Coherence
 
-Do not begin a broad kernel deletion in the current conversion-fidelity WIP.
-First restore a test baseline whose failures have interpretable meaning.
+**Status:** completed. The text below preserves the decision boundary and exit
+criteria that governed the work.
 
 Segment A is **not** a requirement to make every registered conversion
 exhaustive before any other 1.0 work can continue. Conversion routes must be
@@ -177,7 +177,7 @@ The gate is therefore **contract coverage plus zero new unclassified debt**, not
 before 1.0 may be narrowed or removed from the advertised Tier 1 surface.
 
 Follow
-[`conversion_fidelity_wip_contract_gaps.md`](../pending_bugs/conversion_fidelity_wip_contract_gaps.md)
+[`conversion_fidelity_wip_contract_gaps.md`](../archive/resolved_bugs/conversion_fidelity_wip_contract_gaps.md)
 in its declared order:
 
 1. establish the audit-scope contract;
@@ -188,8 +188,7 @@ in its declared order:
 **Exit gate:**
 
 - the fidelity audit imports and executes;
-- every one of the 38 reported WIP failures is either closed or assigned to an
-  explicit accepted-debt/deferred contract with executable classification;
+- the formerly failing WIP modules are tracked and green;
 - no systemic or advertised Tier 1 correctness failure remains;
 - tracked conversion contracts remain green;
 - the WIP can be partitioned into reviewable commits;

@@ -298,7 +298,13 @@ confidence in the implementation, not yet in release reproducibility.
 
 ---
 
-## 11. Post-Audit Correction: Conversion-Fidelity WIP — 2026-07-26
+## 11. Historical Correction: Conversion-Fidelity WIP — 2026-07-26
+
+**Resolution update — 2026-07-28:** the correction below records the state that
+triggered Segment A. The three modules are now tracked and pass together
+(40 tests), the audit executes with zero new non-exhaustive debt, and the
+canonical bug is archived as resolved. Remaining non-exhaustive routes stay
+visible as accepted baseline debt.
 
 The conversion-fidelity result in Section 3.2 is valid historical evidence for
 the tracked surface inspected on 2026-07-22. It must not be read as evidence
@@ -322,7 +328,7 @@ schema and adapter defects, and a multi-cause PDB fidelity workstream.
 
 The canonical diagnosis and four-stage closure plan are:
 
-- [`conversion_fidelity_wip_contract_gaps.md`](../pending_bugs/conversion_fidelity_wip_contract_gaps.md)
+- [`conversion_fidelity_wip_contract_gaps.md`](../archive/resolved_bugs/conversion_fidelity_wip_contract_gaps.md)
 - [`conversion_fidelity_and_molsysdict_v1.md`](conversion_fidelity_and_molsysdict_v1.md)
 - [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md)
 
@@ -346,9 +352,9 @@ The revised order is:
 9. continue with the course lifecycle and Tier-1 policy blockers described
    above.
 
-Until those steps are complete, the honest conversion status is: **the tracked
-conversion contracts are green, but the stronger untracked fidelity contracts
-are not implemented, and the proposed release audit cannot currently start.**
+That order has now been completed through the Rust-only cut. The current
+conversion status is maintained by the executable fidelity baseline, not by
+the historical failure counts in this section.
 
 The earlier approximately 85% readiness estimate predates the accepted
 Rust-only 1.0 boundary. Because the CPU port is complete but production wheel CI,
