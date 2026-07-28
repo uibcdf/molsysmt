@@ -37,7 +37,7 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** F — lifecycle and release candidate
-- **Active stage:** F1 Four Paths numbering and structural validation
+- **Active stage:** F2 applicable Common Core and changed-behavior notebook execution
 - **Completed weighted closure:** 90% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
@@ -64,8 +64,8 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** execute F1 course renumbering and structural validation on
-  the now-clean course tree
+- **Next action:** audit existing F2 notebook-execution evidence before running
+  or changing any course content
 - **Parallel packaging action:** validate local installed wheels independently;
   coordinate sibling and MolSysMT Conda publication during manuscript writing
   or review
@@ -86,7 +86,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | C — Rust packaging | 20% | `DONE` | 20% | C1–C7 pass: permanent backend, private abi3 integration, five native wheels, Python 3.11–3.13, NumPy floors, sdist/package parity, and Rust quality/security gates |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
 | E — scientific and ecosystem validation | 15% | `DONE` | 15% | E1–E6 pass: Rust/scientific/full-suite gates, installed-wheel matrix, maturity-weighted consumers, and runtime/thread benchmarks |
-| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 0% | F1 course numbering and structural validation selected; documentation, final exact-commit gates, and the release candidate follow |
+| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 0% | F1 numbering, toctrees, manifest, stable labels, and executable structural validation are done; F2 existing notebook-execution evidence is under audit |
 | **Total** | **100%** | **`IN PROGRESS`** | **90%** | Segment credit is earned only when its complete exit gate passes |
 
 ### B4 Pause Checkpoint — Transactional Structural Growth
@@ -591,8 +591,8 @@ for the 1.0 source/tag, scientific validation, or manuscript:
 
 | Stage | Status |
 | --- | --- |
-| F1 — Four Paths numbering and structural validation | `PENDING` |
-| F2 — applicable Common Core and changed-behavior notebook execution | `PENDING` |
+| F1 — Four Paths numbering and structural validation | `DONE` |
+| F2 — applicable Common Core and changed-behavior notebook execution | `IN PROGRESS` |
 | F3 — function support-tier and pending-guide hygiene | `PENDING` |
 | F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | `PENDING` |
 | F5 — clean exact-commit fast, full, wheel, and documentation gates | `PENDING` |
@@ -693,4 +693,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | E6 | `IN PROGRESS` → `DONE` | exact clean-commit Rust-only benchmark records first/repeated calls, memory, raw 1/2/4-thread samples, bounded nested concurrency, native-extension hash, scientific checks, and zero JIT-cache creation | `746e22c5f`; `release_1_0_rust_runtime_benchmark.{md,json}` |
 | 2026-07-28 | Minimal installed-runtime defect | discovered → `DONE` | optional forms remain visible but detectors whose mapped soft dependency is absent no longer execute; the missing OpenMM mapping is restored; 449 basic tests and local non-editable smoke without OpenMM pass | `c4d8e9074`; `archive/resolved_bugs/optional_form_detection_broke_minimal_install.md` |
 | 2026-07-28 | C4–C7 / E4 / Segments C and E | `IN PROGRESS` → `DONE` | exact run passes five native abi3 wheels, 15 platform/Python checks, three NumPy floors, three installed public smokes, sdist round trip, exact 99-export validation, and Rust formatting, Clippy, tests, advisory, dependency, and license gates | `c4d8e9074`; run `30394881487`; `release_1_0_rust_packaging_c4_c7_artifact.md` |
-| 2026-07-28 | F / F1 | `PENDING` → `IN PROGRESS` | C and E dependencies closed at 90% weighted completion; the clean Four Paths tree and accepted renumbering/stable-identity design make course structural migration the next release stage | after `c4d8e9074` |
+| 2026-07-28 | F1 status correction | `PENDING` → `DONE` | commit history and the live validator confirm that F1 had already landed: 156 notebooks, core 1–20, four paths 21–54, complete toctrees, unique semantic labels, and a matching manifest; the two remaining editorial references and Sphinx confirmation belong to later lifecycle stages | `f5d96218b`; `python devtools/scripts/validate_course.py` |
+| 2026-07-28 | F / F2 | `PENDING` → `IN PROGRESS` | F1 historical evidence recovered; existing notebook-execution evidence must be audited before scheduling new execution or edits | after `03a170442` |
