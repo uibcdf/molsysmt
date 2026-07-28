@@ -473,14 +473,14 @@ pub fn neighbor_list_csr_multi<'py>(
     let q = query.as_array();
     let r = ref_coords.as_array();
     let (offsets, indices, distances) = match &box_matrices {
-        None => py.allow_threads(|| {
+        None => py.detach(|| {
             crate::threads::install(num_threads, || {
                 core_vacuum(&q, &r, cutoff, exclude_self, sort_by_distance)
             })
         }),
         Some(b) => {
             let bb = b.as_array();
-            py.allow_threads(|| {
+            py.detach(|| {
                 crate::threads::install(num_threads, || {
                     core_pbc(&q, &r, &bb, cutoff, exclude_self, sort_by_distance)
                 })

@@ -112,7 +112,7 @@ fn coulomb_potential_parallel<'py>(
     let cv = coords_to_vec(&coords.as_array());
     let qv: Vec<f64> = charges.as_array().to_vec();
     let n = cv.len();
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.detach(|| {
         (0..n)
             .into_par_iter()
             .map(|i| {

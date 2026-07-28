@@ -41,7 +41,7 @@ pub fn get_distances_single_system<'py>(
     // borrows when the input is already C-contiguous (the norm).
     let cc = c.as_standard_layout();
     let cs = cc.as_slice().expect("standard layout is contiguous");
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -80,7 +80,7 @@ pub fn get_distances<'py>(
     let ns = c1.shape()[0];
     let na1 = c1.shape()[1];
     let na2 = c2.shape()[1];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -115,7 +115,7 @@ pub fn get_distances_pairs<'py>(
     let ns = c1.shape()[0];
     let na = c1.shape()[1];
     let mut flat = vec![0.0; ns * na];
-    py.allow_threads(|| {
+    py.detach(|| {
         crate::threads::install(num_threads, || {
             flat.par_chunks_mut(na).enumerate().for_each(|(s, row)| {
                 for j in 0..na {

@@ -69,7 +69,7 @@ pub fn get_rmsd<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1] as f64);
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -94,7 +94,7 @@ pub fn get_rmsd_with_single_reference_structure<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1] as f64);
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -239,7 +239,7 @@ pub fn get_least_rmsd<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -265,7 +265,7 @@ pub fn get_least_rmsd_with_single_reference_structure<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -337,7 +337,7 @@ pub fn get_least_rmsd_rotation_and_translation<'py>(
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| {
+    let parts: Vec<(Vec3, Mat3, Vec3)> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -363,7 +363,7 @@ pub fn get_least_rmsd_rotation_and_translation_with_single_reference_structure<'
     let c = coordinates.as_array();
     let r = reference_coordinates.as_array();
     let ns = c.shape()[0];
-    let parts: Vec<(Vec3, Mat3, Vec3)> = py.allow_threads(|| {
+    let parts: Vec<(Vec3, Mat3, Vec3)> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()

@@ -506,7 +506,7 @@ pub fn get_sasa_cell_list<'py>(
     let r = radii.as_array();
     let sp = sphere_points.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
-    let flat = py.allow_threads(|| {
+    let flat = py.detach(|| {
         crate::threads::install(num_threads, || {
             core_vacuum(&c, &r, &sp, probe_radius, cutoff)
         })
@@ -533,7 +533,7 @@ pub fn get_mic_sasa_cell_list<'py>(
     let r = radii.as_array();
     let sp = sphere_points.as_array();
     let (ns, na) = (c.shape()[0], c.shape()[1]);
-    let flat = py.allow_threads(|| {
+    let flat = py.detach(|| {
         crate::threads::install(num_threads, || {
             core_pbc(&c, &b, &r, &sp, probe_radius, cutoff)
         })
@@ -659,7 +659,7 @@ pub fn get_sasa<'py>(
     let spc = sp.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sp.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns * na)
                 .into_par_iter()
@@ -713,7 +713,7 @@ pub fn get_mic_sasa<'py>(
     let spc = sp.as_standard_layout();
     let spf = spc.as_slice().expect("standard layout is contiguous");
     let n_points = sp.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns * na)
                 .into_par_iter()

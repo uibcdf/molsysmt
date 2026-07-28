@@ -92,7 +92,7 @@ pub fn get_center<'py>(
     let c = coordinates.as_array();
     let w = weights.as_array();
     let ns = c.shape()[0];
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -133,7 +133,7 @@ pub fn get_center_groups_of_atoms<'py>(
     let g = atoms_per_group.as_array();
     let w = weights.as_array();
     let (ns, n_groups) = (c.shape()[0], g.len());
-    let flat: Vec<f64> = py.allow_threads(|| {
+    let flat: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -251,7 +251,7 @@ pub fn get_radius_of_gyration<'py>(
     let c = coordinates.as_array();
     let w = weights.as_array();
     let ns = c.shape()[0];
-    let out: Vec<f64> = py.allow_threads(|| {
+    let out: Vec<f64> = py.detach(|| {
         crate::threads::install(num_threads, || {
             (0..ns)
                 .into_par_iter()
@@ -277,7 +277,7 @@ pub fn get_rmsf<'py>(
     let nsf = ns as f64;
     let cc = c.as_standard_layout();
     let coordinates_flat = cc.as_slice().expect("standard layout is contiguous");
-    let rmsf = py.allow_threads(|| {
+    let rmsf = py.detach(|| {
         crate::threads::install(num_threads, || {
             let sums = (0..ns)
                 .into_par_iter()

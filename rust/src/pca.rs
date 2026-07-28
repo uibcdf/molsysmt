@@ -99,7 +99,7 @@ pub fn principal_component_analysis<'py>(
     // high-level `self_adjoint_eigen` reads faer's global parallelism, which defaults to
     // sequential — leaving it unset was a ~3x self-inflicted slowdown on large matrices.
     //
-    let (values, vectors) = py.allow_threads(|| {
+    let (values, vectors) = py.detach(|| {
         crate::threads::install(num_threads, || {
             let _parallelism_guard = FAER_PARALLELISM_LOCK
                 .lock()
