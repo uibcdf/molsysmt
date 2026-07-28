@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-07-26
+**Last updated:** 2026-07-28
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -36,25 +36,24 @@ and do not merge it across an unmet integration dependency.
 
 ## Current Release Snapshot
 
-- **Active segment:** B — final Numba oracle
-- **Active stage:** B4 — forced-Rust blocker reduction and exact-commit campaign
-- **Completed weighted closure:** 25% of the remaining 1.0 execution plan
-- **Development-progress estimate:** Segment A is certified complete; Segment
-  B is approximately 98% complete internally after the first B4 campaign,
-  blocker reduction, structural-growth stabilization, and closure of the known
-  NGLView residuals, but has not yet earned additional weighted closure
+- **Active segment:** C — Rust packaging
+- **Active stage:** C2 — production crate relocation and private extension integration
+- **Completed weighted closure:** 35% of the remaining 1.0 execution plan
+- **Development-progress estimate:** Segments A and B are certified complete;
+  the final exact-commit campaign passed the bounded two-backend oracle,
+  independent scientific evidence, and all 9,774 effective application tests
+  with Rust forced
 - **Current repository state:** dirty WIP; not a release artifact
-- **Current landed blocker-reduction HEAD:** the transactional structural-growth
-  checkpoint at the current committed `HEAD`; this is not yet a verified
-  release-candidate commit because unrelated WIP remains unlanded
+- **Current exact Rust campaign commit:** `6485a0c08`; this is verified
+  migration evidence but is not yet a release candidate because Segment C and
+  the remaining release work are open
 - **Release readiness percentage:** intentionally not asserted until Segment A
   and the Rust packaging spike provide executable evidence
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** land the validated NGLView fidelity checkpoint, reconstruct
-  a clean exact commit, rebuild its Rust wheel, and repeat the forced-Rust
-  release gate
+- **Next action:** execute C2 by relocating the production crate and replacing
+  `msm_rust_kernels` with the accepted private `molsysmt._rust` extension
 - **Next packaging stage:** C2 — production crate relocation and the
   `msm_rust_kernels` → `molsysmt._rust` rename, held until B4 closes its
   exact-commit run so the campaign's build path stays reproducible. C1 is
@@ -75,8 +74,8 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
-| B — final Numba oracle | 10% | `BLOCKED` | 0% | the exact-commit Rust campaign proved no backend-specific regression; the dominant 342-error PDB cascade, missing `MolSys.structure_index`, and the H5MSM structural-fidelity/multi-state causes are now landed, leaving six known targeted root causes before a new exact-commit campaign |
-| C — Rust packaging | 20% | `PENDING` | 0% | C1 accepted 2026-07-26: setuptools + setuptools-rust with a single private `molsysmt._rust` abi3 extension, proven by spike `87317ba76` (development evidence, dirty tree); C2 is gated on B4 closing its exact-commit run, and C3-C7 including multiplatform installed-wheel CI remain open, so no weight is earned |
+| B — final Numba oracle | 10% | `DONE` | 10% | exact commit `6485a0c08` passes the 264-test bounded two-backend oracle, combined scientific and blocker gates, and the complete forced-Rust suite with 9,769 passed and 5 accepted skips; the dated artifact preserves source and binary hashes |
+| C — Rust packaging | 20% | `IN PROGRESS` | 0% | C1 accepted 2026-07-26: setuptools + setuptools-rust with a single private `molsysmt._rust` abi3 extension, proven by spike `87317ba76`; B is now closed and C2 may integrate that design, while C3-C7 including multiplatform installed-wheel CI remain open |
 | D — Rust-only cut | 20% | `PENDING` | 0% | depends on B and C; 48 direct imports, 108 CPU JIT callables, 52 CUDA JIT callables, and 13 CUDA-coupled modules remain at the audit checkpoint |
 | E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
@@ -434,8 +433,8 @@ baseline, not permission to weaken a landed ratchet.
 | B1 — generated active-Numba inventory | `DONE` |
 | B2 — CPU kernel-to-consumer/evidence manifest | `DONE` |
 | B3 — deliberate divergence and tolerance record | `DONE` |
-| B4 — final forced-Rust campaign plus bounded Numba oracle | `BLOCKED` |
-| B5 — dated, committed oracle artifact | `PENDING` |
+| B4 — final forced-Rust campaign plus bounded Numba oracle | `DONE` |
+| B5 — dated, committed oracle artifact | `DONE` |
 
 Existing Rust port and dogfooding results are prerequisites, not B-segment
 completion. No new Numba capability may be added while this segment is pending.
@@ -580,3 +579,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-26 | B4 blocker reduction | remains `BLOCKED` | native bioassembly translations remove the 342-error PDB cascade; `MolSys` now delivers `structure_index`; H5MSM preserves optional structural and thermodynamic series, repeated structure order, partial-layer semantics, and multi-state inventory queries; the relevant H5MSM/report gate passes 1,074 tests and the known targeted residual is six root causes | `30d12a7c9`, `64ac440de`, `7cf7d7206` |
 | 2026-07-26 | C1 packaging design review | `PENDING` → `DONE` | `python -m pip wheel . --no-deps` on branch `packaging/rust-c1-spike` produced `molsysmt-0.20.0+149.gcb3341fd5.dirty-cp311-abi3-linux_x86_64.whl` carrying `molsysmt/_rust.abi3.so`, `py.typed`, 292 `molsysmt.data` files, the `molsysviewer.addons` entry point and a versioningit Git version; the extension built under CPython 3.13 loaded in a clean 3.12 virtualenv, exposed 97 kernels and returned the correct minimum-image distance; development evidence from a dirty tree, accepted for the design question only; C keeps 0% earned weight | `87317ba76` (branch, not merged) |
 | 2026-07-28 | B4 NGLView blocker reduction | remains `BLOCKED` pending exact campaign | optional topology snapshots preserve MolSysMT-origin IDs and chemical bond metadata without granting fictitious topology to generic widgets; multi-structure conversion drops partial PDB metadata; group-level hydrogen bonds preserve pair order; 45 NGLView and 746 broad consumer tests pass under forced Rust | NGLView fidelity checkpoint following `6f527bb44` |
+| 2026-07-28 | B4 final exact campaign | `BLOCKED` → `DONE` | clean source archive and exact Rust wheel rebuilt from `6485a0c08`; bounded oracle passes 264 tests with 3 documented skips; combined migration/scientific gate passes 501 tests with 3 skips; complete forced-Rust suite passes 9,769 tests with 5 accepted skips and zero unsuccessful outcomes | `6485a0c08`; `release_1_0_final_numba_oracle_artifact.md` |
+| 2026-07-28 | B5 oracle artifact | `PENDING` → `DONE` | dated artifact preserves the exact commit, environment, commands, source archive hash, wheel hash, installed-extension hash, bounded two-backend result, independent evidence, and complete application result | `release_1_0_final_numba_oracle_artifact.md` |
