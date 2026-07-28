@@ -200,6 +200,37 @@ def _atomic_number_to_symbol(atomic_number):
     return mapping.get(atomic_number)
 
 
+def _to_three_letter_peptide_sequence(molecular_system):
+    """Return a peptide sequence without applying generic string-form priority."""
+
+    if type(molecular_system) is str:
+        sequence = molecular_system.removeprefix(
+            "amino_acids_1:"
+        ).removeprefix("amino_acids_3:")
+
+        from molsysmt.form.string_amino_acids_3.is_form import (
+            is_form as is_amino_acids_3,
+        )
+
+        if is_amino_acids_3(sequence):
+            return sequence
+
+        from molsysmt.form.string_amino_acids_1.is_form import (
+            is_form as is_amino_acids_1,
+        )
+
+        if is_amino_acids_1(sequence):
+            from molsysmt.form.string_amino_acids_1.to_string_amino_acids_3 import (
+                to_string_amino_acids_3,
+            )
+
+            return to_string_amino_acids_3(sequence, skip_digestion=True)
+
+    from molsysmt.basic import convert
+
+    return convert(molecular_system, to_form="string:amino_acids_3")
+
+
 @lru_cache(maxsize=1)
 def _get_peptide_builder_templates():
     """Load bundled peptide-builder templates."""
@@ -762,6 +793,8 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
     Notes
     -----
     - The sequence must contain amino acid and/or capping group codes recognized by the selected engine.
+    - String inputs are interpreted as peptide sequences in this context, even
+      when the same characters are also valid SMILES.
     - Terminal caps can be specified explicitly by using residue names such as 'ACE' (N-terminus) and 'NME' (C-terminus).
     - The resulting structure is built in vacuum and can be subsequently solvated using :func:`molsysmt.build.solvate`.
 
@@ -802,7 +835,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
         from molsysmt._private.files_and_directories import temp_directory, temp_filename
         from shutil import rmtree, copyfile
 
-        sequence = convert(molecular_system, to_form='string:amino_acids_3')
+        sequence = _to_three_letter_peptide_sequence(molecular_system)
         sequence = sequence.upper()
         sequence = ' '.join([sequence[ii:ii+3] for ii in range(0, len(sequence), 3)])
 
@@ -858,7 +891,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
                 stacklevel=2,
             )
 
-        sequence = convert(molecular_system, to_form='string:amino_acids_3')
+        sequence = _to_three_letter_peptide_sequence(molecular_system)
         sequence = sequence.upper()
         if sequence == '':
             raise ArgumentError("sequence", value="empty", caller="molsysmt.build.build_peptide")

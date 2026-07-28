@@ -90,6 +90,18 @@ def test_single_residue_sequence_roundtrip():
     assert seq.upper() == 'ALA'
 
 
+@pytest.mark.parametrize('sequence', ['F', 'I', 'CC'])
+def test_sequence_strings_take_priority_over_overlapping_smiles(sequence):
+    """Peptide context resolves strings as sequences before generic SMILES."""
+    molsys = msm.build.build_peptide(
+        sequence,
+        to_form='molsysmt.MolSys',
+        engine='MolSysMT',
+    )
+    recovered = msm.convert(molsys, to_form='string:amino_acids_1')
+    assert recovered.upper() == sequence
+
+
 # ---------------------------------------------------------------------------
 # All 20 standard amino acids in a dipeptide context
 # ---------------------------------------------------------------------------
