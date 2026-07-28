@@ -58,6 +58,7 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert cibw["skip"] == "*-musllinux*"
     assert cibw["linux"]["manylinux-x86_64-image"] == "manylinux_2_28"
     assert cibw["linux"]["manylinux-aarch64-image"] == "manylinux_2_28"
+    assert cibw["linux"]["environment"]["RUSTUP_TOOLCHAIN"] == "1.97.1"
     assert (
         cibw["macos"]["environment"]["MACOSX_DEPLOYMENT_TARGET"]
         == "11.0"
