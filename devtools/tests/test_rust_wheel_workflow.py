@@ -62,6 +62,7 @@ def test_workflow_enforces_rust_quality_and_dependency_policy():
     assert "cargo test --manifest-path rust/Cargo.toml" in text
     assert "EmbarkStudios/cargo-deny-action@v2" in text
     assert "manifest-path: rust/Cargo.toml" in text
+    assert "--component rustfmt --component clippy" in text
 
 
 def test_workflow_builds_a_wheel_from_the_validated_sdist():

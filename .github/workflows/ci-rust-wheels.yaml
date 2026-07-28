@@ -38,7 +38,7 @@ jobs:
 
       - name: Select the pinned Rust toolchain
         run: |
-          rustup toolchain install 1.97.1 --profile minimal --component rustfmt clippy
+          rustup toolchain install 1.97.1 --profile minimal --component rustfmt --component clippy
           rustup default 1.97.1
           rustc --version
 
