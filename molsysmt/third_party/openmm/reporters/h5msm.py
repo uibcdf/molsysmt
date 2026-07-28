@@ -126,11 +126,10 @@ class H5MSMReporter(object):
                 self._temperature=False
 
         if self._box:
+            if self._constant_box:
+                self._structures_sd.attrs['constant_box'] = True
             if system.usesPeriodicBoundaryConditions():
-                if  self._constant_box:
-                    self._constant_box = True # Barostat needs to be checked
-                    self._structures_sd.attrs['constant_box'] = True
-                    self._structures_sd.attrs['pbc'] = 'continuous'
+                self._structures_sd.attrs['pbc'] = 'continuous'
 
         if self._constant_report_interval:
             self._structures_sd.attrs['constant_id_step'] = True
@@ -225,13 +224,13 @@ class H5MSMReporter(object):
             if self._selection_is_all:
                 self._structures_sd['coordinates'][index,:,:] = state.getPositions(asNumpy=True)._value
             else:
-                self._structures_sd['coordinates'][index,:,:] = state.getPositions(asNumpy=True)[selection,:]._value
+                self._structures_sd['coordinates'][index,:,:] = state.getPositions(asNumpy=True)[self._selection,:]._value
 
         if self._velocities:
             if self._selection_is_all:
                 self._structures_sd['velocities'][index,:,:] = state.getVelocities(asNumpy=True)._value
             else:
-                self._structures_sd['velocities'][index,:,:] = state.getVelocities(asNumpy=True)[selection,:]._value
+                self._structures_sd['velocities'][index,:,:] = state.getVelocities(asNumpy=True)[self._selection,:]._value
 
         if self._potential_energy:
             self._structures_sd['potential_energy'][index] = state.getPotentialEnergy()._value

@@ -22,6 +22,18 @@ def _dataset_unit(dataset, file, root_attribute, fallback):
     )
 
 
+def _requested_structure_indices(structures, structure_indices):
+    """Returning logical structure indices for compressed structural series."""
+
+    if is_all(structure_indices):
+        n_structures = int(structures.attrs.get(
+            'n_structures_written',
+            structures['coordinates'].shape[0],
+        ))
+        return np.arange(n_structures, dtype=np.int64)
+    return np.asarray(structure_indices, dtype=np.int64)
+
+
 @arg_digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
@@ -73,7 +85,17 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     if 'box' in structures_ds and structures_ds['box'].shape[0] > 0:
         box_ds = structures_ds['box']
         box_unit = _dataset_unit(box_ds, item.file, 'length_unit', 'nm')
-        box = _read_structure_rows(box_ds, structure_indices)
+        if structures_ds.attrs.get('constant_box', False):
+            requested_indices = _requested_structure_indices(
+                structures_ds, structure_indices
+            )
+            box = np.repeat(
+                box_ds[0][np.newaxis, :, :],
+                len(requested_indices),
+                axis=0,
+            )
+        else:
+            box = _read_structure_rows(box_ds, structure_indices)
         tmp_item.box = puw.quantity(box.astype(np.float64), box_unit)
     else:
         tmp_item.box = None
@@ -96,7 +118,16 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     if 'time' in structures_ds and structures_ds['time'].shape[0] > 0:
         time_ds = structures_ds['time']
         time_unit = _dataset_unit(time_ds, item.file, 'time_unit', 'ps')
-        time = _read_structure_rows(time_ds, structure_indices)
+        if structures_ds.attrs.get('constant_time_step', False):
+            requested_indices = _requested_structure_indices(
+                structures_ds, structure_indices
+            )
+            time = (
+                time_ds[0]
+                + structures_ds.attrs['time_step'] * requested_indices
+            )
+        else:
+            time = _read_structure_rows(time_ds, structure_indices)
         tmp_item.time = puw.quantity(time.astype(np.float64), time_unit)
     else:
         tmp_item.time = None
@@ -111,9 +142,19 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     # Structure ID
     if 'id' in structures_ds and structures_ds['id'].shape[0] > 0:
-        tmp_item.structure_id = _read_structure_rows(
-            structures_ds['id'], structure_indices
-        )
+        id_ds = structures_ds['id']
+        if structures_ds.attrs.get('constant_id_step', False):
+            requested_indices = _requested_structure_indices(
+                structures_ds, structure_indices
+            )
+            tmp_item.structure_id = (
+                id_ds[0]
+                + structures_ds.attrs['id_step'] * requested_indices
+            )
+        else:
+            tmp_item.structure_id = _read_structure_rows(
+                id_ds, structure_indices
+            )
     else:
         tmp_item.structure_id = None
 
