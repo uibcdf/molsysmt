@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -23,6 +24,24 @@ from time import perf_counter
 
 
 REPOSITORY = Path(__file__).resolve().parents[2]
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _cpu_model() -> str:
+    try:
+        for line in Path("/proc/cpuinfo").read_text(encoding="utf-8").splitlines():
+            if line.startswith("model name"):
+                return line.split(":", maxsplit=1)[1].strip()
+    except OSError:
+        pass
+    return platform.processor()
 
 
 def _peak_rss_mb() -> float:
@@ -80,6 +99,8 @@ def _startup_worker() -> dict:
         raise AssertionError(f"JIT cache files were created: {cache_files}")
 
     return {
+        "coordinates_shape": list(coordinates.shape),
+        "dtype": str(coordinates.dtype),
         "import_seconds": import_seconds,
         "first_call_seconds": first_call_seconds,
         "warm_min_seconds": warm_seconds,
@@ -106,6 +127,8 @@ def _memory_worker() -> dict:
     after_call_mb = _peak_rss_mb()
 
     return {
+        "coordinates_shape": list(coordinates.shape),
+        "dtype": str(coordinates.dtype),
         "payload_mb": payload_mb,
         "baseline_rss_mb": baseline_mb,
         "after_payload_rss_mb": after_payload_mb,
@@ -147,6 +170,8 @@ def _thread_worker() -> dict:
 
     serial = timings["1"]["min_seconds"]
     return {
+        "coordinates_shape": list(coordinates.shape),
+        "dtype": str(coordinates.dtype),
         "timings": timings,
         "speedup_vs_one_thread": {
             "2": serial / timings["2"]["min_seconds"],
@@ -178,6 +203,8 @@ def _oversubscription_worker() -> dict:
         np.testing.assert_allclose(output, expected, rtol=1e-13, atol=1e-13)
 
     return {
+        "coordinates_shape": list(coordinates.shape),
+        "dtype": str(coordinates.dtype),
         "concurrent_calls": concurrent_calls,
         "rayon_threads_per_call": pool_threads,
         "maximum_native_threads_requested": concurrent_calls * pool_threads,
@@ -240,15 +267,21 @@ def _git_metadata() -> dict:
 def _environment() -> dict:
     import numpy as np
     import molsysmt as msm
+    import molsysmt._rust as rust
+
+    extension_path = Path(rust.__file__).resolve()
 
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "python": platform.python_version(),
         "numpy": np.__version__,
         "molsysmt": msm.__version__,
+        "molsysmt_import_path": str(Path(msm.__file__).resolve()),
+        "rust_extension_path": str(extension_path),
+        "rust_extension_sha256": _sha256(extension_path),
         "platform": platform.platform(),
         "machine": platform.machine(),
-        "processor": platform.processor(),
+        "processor": _cpu_model(),
         "logical_cpus": os.cpu_count(),
         **_git_metadata(),
     }
