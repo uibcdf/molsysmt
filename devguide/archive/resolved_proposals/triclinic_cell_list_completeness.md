@@ -4,9 +4,10 @@
 The Rust cell list and cell-list SASA are now correct on triclinic boxes, validated against
 an all-pairs ±2 ground truth (neighbour list) and the brute-force SASA (0 difference) on
 mild and heavily-skewed boxes. Kept for the record of the diagnosis and fix.
-**Relates to:** `../archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`,
-`wrap_to_mic_triclinic_not_minimum_image.md`.
-**Crate:** `rust/src/neighbors.rs`, `src/sasa.rs`.
+Archived 2026-07-28.
+**Relates to:** [`rust_kernel_redesign_beyond_faithful_ports.md`](rust_kernel_redesign_beyond_faithful_ports.md),
+[`wrap_to_mic_triclinic_not_minimum_image.md`](../resolved_bugs/wrap_to_mic_triclinic_not_minimum_image.md).
+**Crate:** `rust/src/neighbors.rs`, `rust/src/sasa.rs`.
 
 ## Context
 

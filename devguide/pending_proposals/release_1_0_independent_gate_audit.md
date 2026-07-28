@@ -178,7 +178,7 @@ that a pending proposal is not automatically a blocker holds here):
   `conversion_fidelity_and_molsysdict_v1.md` (the **419** accepted-debt items and the
   MolSysDict schema-v2 migration — accepted debt, P2 remainder);
 - `proposal_protor_atom_typing_and_radii.md`, `topomt_requested_spatial_helpers_and_sasa.md`,
-  `trajectory_projection_onto_principal_components.md`, `conda_numba_preheating.md`
+  `trajectory_projection_onto_principal_components.md`
   (exploratory). `physchem_electronegativity_per_element.md` and
   `physchem_support_dummy_atoms.md` were implemented in commit `90b2a491a`
   (2026-06-15), are covered by tests, and have been archived under

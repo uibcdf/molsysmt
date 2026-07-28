@@ -9,8 +9,11 @@ retained for provenance and design context but do not define current behavior.
   superseded benchmark plans.
 - `resolved_bugs/` contains diagnosed defects retained with their implementation
   and regression-test evidence after resolution.
-- `resolved_proposals/` contains proposals whose implementation has landed and is
-  covered by tests, retained for design provenance with a resolution note.
+- `resolved_proposals/` contains proposals that are closed, retained for design
+  provenance with a resolution note explaining how. A proposal closes either
+  because its implementation landed and is covered by tests, or because it was
+  withdrawn when its premise stopped existing. Proposals are archived, never
+  deleted.
 
 Treat completion labels, test counts, coverage values, capability matrices, and
 benchmark numbers as observations at the time of writing. Use current code,

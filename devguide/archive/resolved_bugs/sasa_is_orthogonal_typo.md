@@ -1,8 +1,28 @@
 # Bug: `get_sasa._is_orthogonal` tests a box length, so the orthogonal fast path is dead
 
-**Status:** open (found 2026-07-24 while porting the SASA cell-list kernels to Rust)
-**Severity:** performance only — results are correct, but the cheap branch is unreachable
-**Scope:** `molsysmt/lib/structure/get_sasa.py`
+**Status:** **RESOLVED by the Rust-only cut (archived 2026-07-28).**
+**Severity when open:** performance only — results were correct, but the cheap branch was unreachable
+**Scope when open:** `molsysmt/lib/structure/get_sasa.py`
+
+> ## Resolution
+>
+> The typo existed only in the Numba implementation, which Segment D removed. The
+> Rust replacement tests the off-diagonal elements, so the orthogonal fast path is
+> reachable: `is_orthogonal` in `rust/src/sasa.rs` (and its twin in
+> `rust/src/neighbors.rs`) checks all six off-diagonals against a `1e-10` tolerance.
+>
+> Guarded by the Rust unit test `orthogonality_check_is_correct_unlike_upstream`,
+> which asserts that a cubic box reports orthogonal and a triclinic one does not.
+>
+> The `1e-9` parity tolerance this report justified was a property of the two-backend
+> comparison and no longer applies: there is one implementation. The measured
+> branch divergence (max `1.78e-15` on wrap probes, `4.4e-16` in SASA values) is
+> still pinned by `orthogonal_vs_triclinic_branch_on_a_cubic_box` in
+> `rust/src/sasa.rs`, which remains meaningful as a bound on the two internal
+> branches.
+>
+> Everything below is the original report, retained for provenance. It describes the
+> deleted Numba implementation and does not describe current behaviour.
 
 ## The defect
 

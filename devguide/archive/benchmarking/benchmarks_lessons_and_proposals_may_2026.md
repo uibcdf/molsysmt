@@ -57,7 +57,7 @@ We propose the following engineering interventions to resolve active hurdles and
 * **Problem:** Internal routines repeatedly check and re-verify units and argument definitions, adding cumulative safety tax.
 * **Solution:** Introduced a "Validation Passport" (`ValidatedPayload`) through `argdigest`. When an object enters the public API, it is validated once and marked with a secure passport token. Trust-internal functions inspect this token and immediately bypass `@arg_digest` checks, reducing internal overhead.
 * **Recorded status:** Implemented in the May 2026 benchmark pass. Revalidate
-  against current code and tests. See [digestion and dependencies](../digestion_and_dependencies.md)
+  against current code and tests. See [digestion and dependencies](../../digestion_and_dependencies.md)
   and the repository [ArgDigest guide](../../ARGDIGEST_GUIDE.md).
 
 ### Proposal 2: Extreme Lazy Loading via PEP 562 — ✅ Done (May 2026)
@@ -65,20 +65,20 @@ We propose the following engineering interventions to resolve active hurdles and
 * **Solution:** Re-engineered `molsysmt/__init__.py` using standard PEP 562 lazy-loading imports (`__getattr__` and `__dir__`). Submodules are only loaded when their attributes are explicitly accessed, dropping package startup time to milliseconds.
 * **Recorded status:** Active in the May 2026 benchmark pass. The **3.34 s to
   approximately 500 ms** measurement is environment-specific; reproduce it
-  before reuse. See [digestion and dependencies](../digestion_and_dependencies.md).
+  before reuse. See [digestion and dependencies](../../digestion_and_dependencies.md).
 
 ### Proposal 3: Global Preheat/Warmup Utility (`msm.warmup()`) — ✅ Done (May 2026)
 * **Problem:** Transient developer systems or performance profiling sessions experience first-use timing distortions due to JIT pre-compilation and lazy loading.
 * **Solution:** Developed the unified `molsysmt.warmup(numba=True, modules=True)` preheating engine (replacing the deprecated `warmup_numba()` alias). It programmatically pre-loads all submodules into memory and precompiles all registered JIT kernels.
 * **Recorded status:** Implemented in the May 2026 benchmark pass. Revalidate
   against [`molsysmt/warmup.py`](../../molsysmt/warmup.py) and
-  [digestion and dependencies](../digestion_and_dependencies.md).
+  [digestion and dependencies](../../digestion_and_dependencies.md).
 
 ### Proposal 4: Footprint-Aware Heuristics in `ChunkedExecutor` — ✅ Done (May 2026)
 * **Problem:** Chunked execution imposes heavy processing overhead on small trajectories where eager loading would be significantly faster.
 * **Solution:** Equipped `ChunkedExecutor` with a memory footprint-aware chunk size estimator. If the selection fits comfortably in RAM, it runs on the eager path. On the heavy path, the executor dynamically scales `chunk_size` up to the safe memory threshold (`chunk_memory_fraction` = 0.10) to minimize I/O passes and Python loop boundaries.
 * **Recorded status:** Active in the May 2026 benchmark pass. Confirm with the
-  current heavy-execution tests and [SCALABILITY.md](../SCALABILITY.md).
+  current heavy-execution tests and [SCALABILITY.md](../../SCALABILITY.md).
 
 ### Proposal 5: Automated Form Adapter Interface Validation — ✅ Done (May 2026)
 * **Problem:** Custom form adapters are prone to silent interface omissions (like missing context managers `__enter__`/`__exit__` or missing `_heavy_support` dictionary keys) until runtime.
@@ -86,7 +86,7 @@ We propose the following engineering interventions to resolve active hurdles and
 * **Recorded status:** The May 2026 pass reported compliance across 91 adapters.
   This count and conclusion are a dated observation, and known delivery gaps are
   tracked under `pending_bugs/`. See
-  [form adapter implementation](../form_adapter_implementation.md).
+  [form adapter implementation](../../form_adapter_implementation.md).
 
 ### Proposal 6: Modular "Core" Mode for Sister Libraries (e.g., TopoMT) — ✅ Done (May 2026)
 * **Problem:** Sister packages that depend on MolSysMT JIT kernels inherit the full ~3.68-second cold import delay.

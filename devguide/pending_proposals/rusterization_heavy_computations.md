@@ -8,7 +8,7 @@ superseded by the 2026-07-26 Rust-only 1.0 decision
 > This document preserves the original decision framework. Its environment
 > inventory, prototype status, progressive fallback, and lifecycle timing are
 > historical. All recorded CPU kernels are now ported. Use
-> [`rust_numba_coexistence_and_cut_plan.md`](rust_numba_coexistence_and_cut_plan.md)
+> [`rust_numba_coexistence_and_cut_plan.md`](../archive/resolved_proposals/rust_numba_coexistence_and_cut_plan.md)
 > for migration evidence and
 > [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md) for current
 > execution order.

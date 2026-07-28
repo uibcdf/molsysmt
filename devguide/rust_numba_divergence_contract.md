@@ -1,11 +1,26 @@
-# Rust and Numba Divergence Contract
+# Rust and Numba Divergence Contract — Historical Migration Evidence
 
-## Purpose
+> **This contract governed a comparison that no longer runs.** It belongs to
+> Segment B of the 1.0 execution plan, which is `DONE`; Numba was removed in
+> Segment D and there is no second backend to diverge from. The document is
+> retained because it is the record of *which* Numba behaviours the Rust port
+> deliberately refused to reproduce, and why — the justification behind several
+> deliberate divergences that are now simply the shipped behaviour.
+>
+> Where a divergence corrected a genuine upstream defect, the corresponding bug
+> report is archived under
+> [`archive/resolved_bugs/`](archive/resolved_bugs/) with a note on where the
+> correct behaviour now lives and which test guards it.
+>
+> The closing two-backend comparison is preserved in
+> [`release_1_0_final_numba_oracle_artifact.md`](release_1_0_final_numba_oracle_artifact.md).
 
-Numba is the temporary migration oracle for the Rust-only MolSysMT runtime.
-Agreement with that oracle is required where the Numba behavior is defined and
-scientifically correct. Blind equivalence is not required where Numba has an
-unsafe edge case, violates the public contract, or produces a scientifically
+## Original purpose
+
+Numba was the temporary migration oracle for the Rust-only MolSysMT runtime.
+Agreement with that oracle was required where the Numba behavior was defined and
+scientifically correct. Blind equivalence was not required where Numba had an
+unsafe edge case, violated the public contract, or produced a scientifically
 incorrect result.
 
 The generated artifact

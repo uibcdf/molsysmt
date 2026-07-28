@@ -1,13 +1,27 @@
 # Proposal: Conda Installation-Time JIT Preheating and Cache Generation
 
-**Status:** exploratory; do not implement without packaging and portability
-validation.
+**Status:** **WITHDRAWN — the premise no longer exists (archived 2026-07-28).**
 
-> This proposal depends on the current `molsysmt.warmup()` contract and Numba
-> cache behavior. Post-link scripts, ignored failures, writable cache locations,
-> CPU portability, and package-manager policy must be validated experimentally.
-> The "recommended" label below reflects the original proposal, not an accepted
-> repository decision.
+> ## Why this is closed without implementation
+>
+> This proposal solved a problem created by just-in-time compilation: the ~4 s lag
+> on the first molecular operation of a session, and the desire to move that cost to
+> installation time. MolSysMT 1.0 has no JIT.
+>
+> Segment D of the 1.0 execution plan removed every Numba CPU and CUDA kernel and
+> deleted the `molsysmt.warmup()` API this proposal was built on. The runtime is a
+> precompiled Rust extension shipped as an abi3 wheel, so kernels are already native
+> when the package is installed — there is nothing to preheat and no JIT cache to
+> generate. The measured evidence is in
+> [`release_1_0_rust_runtime_benchmark.md`](../../release_1_0_rust_runtime_benchmark.md):
+> the first native call is 1.60x the best repeated call, with **zero** JIT cache files
+> created.
+>
+> Nothing here should be revived. If cold-start cost ever becomes a concern again it
+> will have a different cause and deserves a fresh analysis.
+>
+> Everything below is the original proposal, retained for provenance only. The
+> "recommended" label in it never reflected an accepted repository decision.
 
 ## Abstract
 

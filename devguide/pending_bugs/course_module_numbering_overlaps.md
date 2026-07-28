@@ -1,8 +1,18 @@
 # Course Module Numbering Overlaps
 
-**Status:** In resolution — mechanical migration (Task M) done and verified;
-editorial reference pass (Task E) and a course-structure validator remain. See the
-resolution log below. Do not archive until Task E has a tracked closure.
+**Status:** **The numbering defect itself is closed.** The mechanical migration
+(Task M) and the course-structure validator are done, verified, and landed; release
+stage F1 is `DONE` on that basis. `devtools/scripts/validate_course.py` runs in the
+fast release gate and reports 156 notebooks with the contract satisfied, so the
+overlap cannot silently return.
+
+What keeps this file open is **two editorial cross-references** inside Common Core
+notebooks 12 and 17 (Task E, listed under "Remaining before archival"). Both need a
+narrative decision about where the reference should point, not a number change.
+They are lifecycle work and belong to stage F4; see
+[`release_1_0_status.md`](../release_1_0_status.md).
+
+Do not cite this report as evidence that course numbering is unresolved.
 
 ## Problem
 

@@ -1,16 +1,31 @@
 # Rusterization pilot — conclusions and adoption path
 
-**Status:** pilot evidence retained; original adoption boundary superseded by
-the maintainer decision of 2026-07-26.
-**Relates to:** `rusterization_heavy_computations.md`, `rusterization_topology_and_selections.md`,
-`rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`, `rusterization_parallel_trajectory_io.md`.
-**Pilot location:** branch `experiment/rust-numba-pilot`, dir `experiments/rust_kernels/`
-(self-contained PyO3 crate; not wired into the molsysmt build; molsysmt never imports it).
+**Status:** **HISTORICAL PILOT EVIDENCE — the adoption question it asked is settled
+(archived 2026-07-28).**
+**Relates to:** `../../pending_proposals/rusterization_heavy_computations.md`,
+`../../pending_proposals/rusterization_topology_and_selections.md`,
+`../../pending_proposals/rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`,
+`../../pending_proposals/rusterization_parallel_trajectory_io.md`.
+**Pilot location (historical):** branch `experiment/rust-numba-pilot`, dir
+`experiments/rust_kernels/`. Neither exists on `main` any more: the production crate
+lives at `rust/` and ships as the private `molsysmt._rust` extension.
 
-> The measurements and technical conclusions remain useful. The recommendation
-> to keep wheel infrastructure post-1.0 and ship Numba as the 1.0 fallback no
-> longer applies. The authoritative sequence is
-> [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md).
+> ## Why this is archived
+>
+> This document asked whether MolSysMT should adopt Rust, and on what terms. The
+> answer landed in full: all 97 CPU kernels are ported, Numba is removed (Segment D),
+> the crate is packaged as an abi3 wheel across five native targets (Segment C), and
+> the result is validated (Segment E). See
+> [`release_1_0_status.md`](../../release_1_0_status.md).
+>
+> Its **measurements remain useful** as the record of what the pilot found and why
+> the decision went the way it did. Its **recommendations do not apply**: the
+> proposal to keep wheel infrastructure until after 1.0 and ship Numba as the 1.0
+> fallback was superseded by the maintainer decision of 2026-07-26, and both halves
+> of that recommendation are now contradicted by shipped work.
+>
+> For how the ported kernels are made fast, see
+> [`rust_kernel_optimization_guide.md`](../../rust_kernel_optimization_guide.md).
 
 ## 1. What was tested
 
@@ -107,7 +122,7 @@ installed-product behavior rather than selecting more Numba kernels to port.
 ## 7. Recommended Immediate Step
 
 Follow Segments A–C of
-[`release_1_0_execution_plan.md`](release_1_0_execution_plan.md): first restore
+[`release_1_0_execution_plan.md`](../../pending_proposals/release_1_0_execution_plan.md): first restore
 conversion-fidelity coherence, then capture the final oracle inventory, move the
 crate out of `experiments/`, and turn the wheel skeleton into real
 multiplatform installed-wheel CI. Numba deletion begins only after that

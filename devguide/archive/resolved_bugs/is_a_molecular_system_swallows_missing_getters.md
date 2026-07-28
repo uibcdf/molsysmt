@@ -89,7 +89,7 @@ local file headers. It must **fail loudly when it cannot verify** rather than
 - The missing getter that triggered this is fixed; see
   `molsysmt/form/file_inpcrd/get_topological_attributes.py`.
 - Other forms are still in the same state:
-  [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md).
+  [`form_attributes_declared_without_getters.md`](../../pending_bugs/form_attributes_declared_without_getters.md).
 - Because the predicate bypasses pipes, adding a pipe to a form is **not** enough
   to make it usable here. Any form that may appear in a multi-item molecular
   system needs `get_n_atoms_from_system` of its own.

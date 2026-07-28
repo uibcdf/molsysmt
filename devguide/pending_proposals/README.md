@@ -60,33 +60,25 @@ scientific-validation requirements.
 - `optional_native_columns_memory_model.md` — post-1.0 evaluation of
   schema-aware optional physical columns so topology memory scales with the
   information an instance actually contains.
-- `rust_numba_coexistence_and_cut_plan.md` — the transitional seam and evidence
-  now that all 97 CPU kernels are ported; production wheels, final oracle
-  capture, removal of CPU and CUDA Numba, and Rust-only validation are accepted
-  pre-1.0 gates.
-- `rusterization_pilot_conclusions_and_adoption.md` — hands-on pilot results and a
-  historical adoption path; its measurements remain evidence, while the
-  Rust-only pre-1.0 decision is governed by `release_1_0_execution_plan.md`.
 - `linear_algebra_backend_for_rust_kernels.md` — whether the Rust kernels should link
   LAPACK/MKL. Measured answer: 10 of the 11 blocked kernels only diagonalise 3x3 and 4x4
   matrices, and PCA spends 76-93% of its time building the covariance rather than
   diagonalising it, so the useful property is fast BLAS, not a fast eigensolver.
   Recommends pure Rust (`nalgebra`, `faer`) over a BLAS system dependency.
-- `triclinic_cell_list_completeness.md` — **RESOLVED**. The Rust cell list and cell-list
-  SASA are now correct on triclinic (and small) boxes: perpendicular-thickness grid sizing,
-  lattice fractional binning (`inv^T·p`), reduced-cell minimum image, and a unique-cell
-  stencil for n<3. Validated against an all-pairs ±2 ground truth and the brute-force SASA.
 - `rust_gpu_backend_options.md` — whether the Rust layer should also target the GPU.
-  The default Rust wheel remains CPU-only; Numba-CUDA is removed before 1.0,
-  and any retained non-Numba GPU surface must pass its own scientific and
-  failure-contract audit. A future Rust GPU track remains post-cut.
+  The landscape survey is still live post-1.0 work. Its near-term framing is
+  settled: the default Rust wheel is CPU-only and Numba-CUDA has been removed, so
+  any future GPU surface must pass its own scientific and failure-contract audit.
+- `rust_migration_documentation_and_test_residue.md` — bounded repo, code-comment,
+  and test-coverage residue left by the Numba-to-Rust migration, found while
+  bringing the developer guide up to date. Documentation-only work is already
+  done; this is the part that touches code and tests.
 - `rusterization_heavy_computations.md`
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`
 - `rusterization_topology_and_selections.md`
 - `pyunitwizard_global_standards_conflict.md`
 - `smonitor_feedback.md`
-- `conda_numba_preheating.md`
 - `git_history_bloat_cleanup.md`
 
 ### Education
@@ -96,3 +88,22 @@ scientific-validation requirements.
 This index is organizational only. Priority comes from evidence, scientific
 risk, effort, and an explicit maintainer decision. Proposals marked exploratory
 or partially superseded must be re-scoped before implementation.
+
+## Closed and moved out of this directory
+
+Archived on 2026-07-28 under `../archive/resolved_proposals/`, with a resolution
+note on each:
+
+- `rust_numba_coexistence_and_cut_plan.md` — **completed.** The cut is done; there
+  is no coexistence left to manage.
+- `rusterization_pilot_conclusions_and_adoption.md` — **historical pilot evidence.**
+  Its measurements explain the decision; its recommendations are contradicted by
+  shipped work.
+- `conda_numba_preheating.md` — **withdrawn.** It preheated a JIT that no longer
+  exists, through a `warmup()` API that has been removed.
+- `triclinic_cell_list_completeness.md` — **resolved**, implemented and validated in
+  `rust/src/neighbors.rs` and `rust/src/sasa.rs`.
+
+A proposal is archived, never deleted. If one of these questions returns it will
+return with a different premise and deserves a fresh document rather than a
+revived one.

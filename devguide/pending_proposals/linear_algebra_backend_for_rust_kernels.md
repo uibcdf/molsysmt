@@ -8,7 +8,7 @@ rewrite dominates the win, and faer's dense eigensolver is competitive on the re
 ~1.8x behind multi-threaded MKL on a 2400×2400 matrix, closer against OpenBLAS. Note faer's
 high-level eigensolver defaults to sequential and must be told to parallelise, and that
 parallelism must be driven from `molsysmt.configure`, not a per-function argument.
-**Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
+**Relates to:** `../archive/resolved_proposals/rusterization_pilot_conclusions_and_adoption.md`,
 `rusterization_heavy_computations.md`,
 `trajectory_projection_onto_principal_components.md`.
 **Pilot location:** branch `experiment/rust-numba-pilot`, dir `experiments/rust_kernels/`.

@@ -46,8 +46,8 @@ and do not merge it across an unmet integration dependency.
 - **Current repository state:** clean `main`; stage-closing commits are pushed
   after their local gates pass
 - **Current exact Rust campaign commit:** `6485a0c08`; this is verified
-  migration evidence but is not yet a release candidate because Segment C and
-  the remaining release work are open
+  migration evidence but is not itself a release candidate, because Segment F
+  lifecycle work is still open and no candidate has been tagged
 - **Current exact Rust packaging commit:** `17be9ea50`; C2 is verified by a
   clean exact-commit `cp311-abi3` wheel and installed-extension smoke
 - **Current C3 exact evidence commit:** `f79ccb4f0`; all five native abi3
@@ -66,9 +66,10 @@ and do not merge it across an unmet integration dependency.
   reported upstream immediately
 - **Next action:** resume F2 by classifying its 12 deterministic notebook
   failures, then design the network/interactive lane for the 11 deferred cases
-- **Parallel packaging action:** validate local installed wheels independently;
-  coordinate sibling and MolSysMT Conda publication during manuscript writing
-  or review
+- **Parallel packaging action:** Segment C is closed, and installed-wheel
+  validation with it, so the only packaging work left is the Conda delivery
+  track — coordinate sibling and MolSysMT Conda publication during manuscript
+  writing or review
 - **Known independent release-gate debt:** the fast release gate passes 12/12.
   Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
   declarations, 320 resolved baseline declarations, and no Tier-1 debt
@@ -696,3 +697,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | F1 status correction | `PENDING` → `DONE` | commit history and the live validator confirm that F1 had already landed: 156 notebooks, core 1–20, four paths 21–54, complete toctrees, unique semantic labels, and a matching manifest; the two remaining editorial references and Sphinx confirmation belong to later lifecycle stages | `f5d96218b`; `python devtools/scripts/validate_course.py` |
 | 2026-07-28 | F / F2 | `PENDING` → `IN PROGRESS` | F1 historical evidence recovered; existing notebook-execution evidence must be audited before scheduling new execution or edits | after `03a170442` |
 | 2026-07-28 | F2 execution audit checkpoint | remains `IN PROGRESS` | required union reconstructed as 37 notebooks; in-memory clean-kernel run passes 14/26 deterministic notebooks, exposes 12 failures requiring ownership classification, and defers 11 network/interactive notebooks; no notebook outputs or content were modified | `release_1_0_f2_notebook_execution_checkpoint.md` |
+| 2026-07-28 | Developer-guide coherence pass | no stage transition | post-migration documentation debt cleared: four Numba-era bug reports and four Numba-era proposals archived with resolution notes after verifying each against the Rust runtime; one stale duplicate report removed; the three Numba migration documents relabelled as historical evidence; snapshot sentences that still called Segment C open corrected; `pending_bugs` and `pending_proposals` indexes rewritten; 11 broken intra-guide links repaired; devguide validation and the fast gate pass 12/12; code, tests, and notebooks untouched, with the residue recorded in `pending_proposals/rust_migration_documentation_and_test_residue.md` | documentation-only commit |

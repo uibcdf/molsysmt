@@ -15,7 +15,7 @@
 The conformance linter reports **92/92 PASS**, and did so while `file:inpcrd`
 declared 12 attributes and implemented zero getters. It still passes today for
 every form listed in
-[`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md),
+[`form_attributes_declared_without_getters.md`](../../pending_bugs/form_attributes_declared_without_getters.md),
 including `parmed.Structure` (51 attributes declared, 2 getters) and `rdkit.Mol`
 (74 declared, none reachable).
 
@@ -71,6 +71,6 @@ declare its attributes, forget to fill the getters, pass CI.
 
 - [`get_single_attribute_bypasses_piping.md`](get_single_attribute_bypasses_piping.md)
 - [`form_attributes_declared_without_getters.md`](../../pending_bugs/form_attributes_declared_without_getters.md)
-- [`is_a_molecular_system_swallows_missing_getters.md`](../../pending_bugs/is_a_molecular_system_swallows_missing_getters.md)
+- [`is_a_molecular_system_swallows_missing_getters.md`](is_a_molecular_system_swallows_missing_getters.md)
 - `devguide/form_adapter_implementation.md` documents the adapter contract the
   linter is meant to enforce.

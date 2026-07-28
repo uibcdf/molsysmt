@@ -1,9 +1,25 @@
 # Bug: `wrap_to_mic` does not return the minimum image on triclinic boxes
 
-**Status:** open (found 2026-07-24 while porting `molsysmt.lib.pbc` to Rust)
-**Severity:** wrong results — silently returns a non-minimal image, by whole box lengths
-**Scope:** `molsysmt/lib/pbc/wrap_to_mic.py`, both
+**Status:** **RESOLVED by the Rust-only cut (archived 2026-07-28).**
+**Severity when open:** wrong results — silently returned a non-minimal image, by whole box lengths
+**Scope when open:** `molsysmt/lib/pbc/wrap_to_mic.py`, both
 `wrap_to_mic_vector_single_structure` and the whole-system `wrap_to_mic`
+
+> ## Resolution
+>
+> The defective 27-image search existed only in the Numba implementation, which
+> Segment D removed. The Rust replacement in `rust/src/pbc.rs` routes every
+> minimum-image wrap through the shared reduced-cell mechanism (`mic::mic_vector`),
+> which searches around the *wrapped* candidate rather than around the original
+> vector, and is therefore minimal on triclinic boxes as well as orthogonal ones.
+>
+> The related completeness work on the cell list and cell-list SASA is recorded in
+> [`triclinic_cell_list_completeness.md`](../resolved_proposals/triclinic_cell_list_completeness.md),
+> validated against an all-pairs ±2 ground truth and the brute-force SASA on mild and
+> heavily skewed boxes.
+>
+> Everything below is the original report, retained for provenance. It describes the
+> deleted Numba implementation and does not describe current behaviour.
 
 ## Symptom
 
@@ -104,5 +120,5 @@ fixed: the reduced cell finds the true minimum image (validated against a ±2 al
 ground truth), where the ±1 (27-image) search could miss a second-neighbour image. The grid-based cell list and cell-list SASA are **now also fixed** (perpendicular-thickness
 grid sizing + lattice fractional binning + reduced-cell wrap), validated against an all-pairs
 ±2 ground truth and the brute-force SASA; see the resolved
-`pending_proposals/triclinic_cell_list_completeness.md`. The whole Rust MIC surface is now
-correct on triclinic boxes.
+[`triclinic_cell_list_completeness.md`](../resolved_proposals/triclinic_cell_list_completeness.md).
+The whole Rust MIC surface is now correct on triclinic boxes.

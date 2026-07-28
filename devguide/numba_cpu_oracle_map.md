@@ -1,10 +1,20 @@
-# CPU Numba-to-Rust Oracle Map
+# CPU Numba-to-Rust Oracle Map — Historical Migration Evidence
 
-## Purpose
+> **The oracle it maps has been retired.** This document belongs to Segment B of
+> the 1.0 execution plan, which is `DONE`. It records the disposition of all 108
+> CPU JIT callables at the moment the Rust port was proven, and it is retained as
+> provenance for that proof — not as a description of current behaviour. The
+> shipped runtime has one CPU implementation, in Rust.
+>
+> The closing comparison is preserved in
+> [`release_1_0_final_numba_oracle_artifact.md`](release_1_0_final_numba_oracle_artifact.md);
+> the current state is in [`release_1_0_status.md`](release_1_0_status.md).
 
-The CPU oracle map proves that every CPU JIT callable frozen by the active
-Numba inventory has an explicit Rust migration disposition. It prevents a
-Numba-only capability from disappearing unnoticed when the temporary oracle is
+## Original purpose
+
+The CPU oracle map proved that every CPU JIT callable frozen by the Numba
+inventory had an explicit Rust migration disposition. It prevented a
+Numba-only capability from disappearing unnoticed when the temporary oracle was
 retired.
 
 The machine-readable artifact is

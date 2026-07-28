@@ -1,14 +1,38 @@
 # Rust/Numba coexistence and the cut to Rust
 
-**Status:** stages 1–2 implemented on `main` (2026-07-24); coexistence is now
-strictly transitional. The maintainer decision of 2026-07-26 makes production
-Rust packaging and complete Numba removal pre-1.0 work.
+**Status:** **COMPLETED — the cut is done and there is no coexistence left to manage
+(archived 2026-07-28).**
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
-`linear_algebra_backend_for_rust_kernels.md`,
-`../archive/resolved_proposals/rust_kernel_redesign_beyond_faithful_ports.md`, `rust_gpu_backend_options.md`,
-`neighbor_list_consumer_migration.md`.
-**Crate location:** `experiments/rust_kernels/` on `main` (the pilot branch
-`experiment/rust-numba-pilot` is historical/superseded).
+`../../pending_proposals/linear_algebra_backend_for_rust_kernels.md`,
+`rust_kernel_redesign_beyond_faithful_ports.md`,
+`../../pending_proposals/rust_gpu_backend_options.md`,
+`../../pending_proposals/neighbor_list_consumer_migration.md`.
+**Crate location (historical):** this document describes the transitional crate at
+`experiments/rust_kernels/`. The production crate now lives at `rust/` and ships as
+the private `molsysmt._rust` extension.
+
+> ## Why this is archived
+>
+> This plan governed a period in which two CPU implementations coexisted behind a
+> backend selector. That period is over:
+>
+> - Segment B closed the final bounded two-backend oracle on commit `6485a0c08` —
+>   264 oracle tests and the complete suite with Rust forced (9,769 passed);
+> - Segment C productized the extension: five native abi3 wheels, Python 3.11–3.13;
+> - Segment D deleted every CPU JIT and CUDA kernel, the dispatch layer, the
+>   `warmup()` API, and the Numba dependency, and added an executable zero-Numba
+>   gate;
+> - Segment E validated the Rust-only runtime.
+>
+> `devtools/scripts/audit_numba_surface.py` now reports 0 CPU JIT sites, 0 CUDA JIT
+> sites, and 0 direct consumers. The current state is in
+> [`release_1_0_status.md`](../../release_1_0_status.md); the migration evidence is
+> preserved in
+> [`release_1_0_final_numba_oracle_artifact.md`](../../release_1_0_final_numba_oracle_artifact.md).
+>
+> The staging, the fallback policy, and the deprecation windows described below were
+> real decisions at the time and explain how the migration was sequenced. None of
+> them describes current behaviour.
 
 > **Maintainer decision — 2026-07-26**
 >
@@ -17,7 +41,7 @@ Rust packaging and complete Numba removal pre-1.0 work.
 > later is superseded. Numba remains only as the temporary parity oracle while
 > Rust packaging is proven; it is then removed before the 1.0 release candidate.
 > The authoritative cross-workstream order and acceptance gates are in
-> [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md).
+> [`release_1_0_execution_plan.md`](../../pending_proposals/release_1_0_execution_plan.md).
 
 ## Landing status (2026-07-24)
 
@@ -212,7 +236,7 @@ outcome** — all of the duplication cost, none of the simplification.
 8. run Rust-only scientific, full-suite, wheel, and MolSysSuite consumer gates.
 
 The detailed commit boundaries and exit criteria are defined in
-[`release_1_0_execution_plan.md`](release_1_0_execution_plan.md).
+[`release_1_0_execution_plan.md`](../../pending_proposals/release_1_0_execution_plan.md).
 
 **After the runtime cut:**
 

@@ -2,7 +2,7 @@
 
 **Status:** original landscape retained; near-term recommendation superseded by
 the Rust-only 1.0 decision of 2026-07-26.
-**Relates to:** `rust_numba_coexistence_and_cut_plan.md`,
+**Relates to:** `../archive/resolved_proposals/rust_numba_coexistence_and_cut_plan.md`,
 `linear_algebra_backend_for_rust_kernels.md`.
 
 > MolSysMT 1.0 will not retain Numba solely for CUDA. The current Numba-CUDA

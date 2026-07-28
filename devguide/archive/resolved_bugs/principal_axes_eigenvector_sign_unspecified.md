@@ -1,10 +1,29 @@
 # Contract gap: the sign of the principal axes is unspecified
 
-**Status:** open (found 2026-07-24 while porting these kernels to Rust)
-**Severity:** contract — results are mathematically correct, but not reproducible
-**Scope:** `molsysmt/lib/structure/get_principal_inertia_axes.py`,
+**Status:** **RESOLVED by the Rust-only cut (archived 2026-07-28).**
+**Severity when open:** contract — results were mathematically correct, but not reproducible
+**Scope when open:** `molsysmt/lib/structure/get_principal_inertia_axes.py`,
 `molsysmt/lib/structure/get_principal_geometric_axes.py`, and the public functions above
 them
+
+> ## Resolution
+>
+> The Rust port that replaced these kernels in Segment D **specifies the sign**: it
+> makes the component of largest absolute value positive, so a returned axis is a
+> function of the input alone and cannot flip with a LAPACK version, a thread count,
+> or a backend. See `fix_sign` and the module documentation in `rust/src/axes.rs`.
+>
+> Guarded by the Rust unit test `the_sign_convention_is_deterministic`, alongside
+> property tests that assert the defining eigenvalue equation and axis orthogonality
+> independently of any sign convention.
+>
+> The part of this report framed as a *disagreement between the `rust` and `numba`
+> backends* is moot: there is one backend. The durable part — that an eigenvector is
+> defined only up to sign, and that a public contract must therefore pick one — is
+> now satisfied rather than merely reported.
+>
+> Everything below is the original report, retained for provenance. It describes the
+> deleted Numba implementation and does not describe current behaviour.
 
 ## The gap
 

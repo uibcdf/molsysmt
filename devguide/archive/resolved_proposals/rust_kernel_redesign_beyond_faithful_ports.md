@@ -1,7 +1,7 @@
 # Rust kernels: what a redesign buys beyond the faithful ports
 
 **Status:** RESOLVED — all seven levers decided; archived 2026-07-26.
-**Relates to:** `pending_proposals/rust_numba_coexistence_and_cut_plan.md`,
+**Relates to:** `rust_numba_coexistence_and_cut_plan.md`,
 `pending_proposals/linear_algebra_backend_for_rust_kernels.md`,
 `pending_proposals/rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`,
 `rust_kernel_optimization_guide.md`.
@@ -17,7 +17,7 @@
 > **Implemented:** A (PCA covariance as a matrix product), B (`get_contacts` routed through
 > the cell list, threshold at 400 atoms), E (reduced-cell minimum image — which also fixed a
 > correctness defect on skewed boxes, see `archive/resolved_bugs/` and
-> `pending_proposals/triclinic_cell_list_completeness.md`), and G (what the compiler emitted:
+> `triclinic_cell_list_completeness.md`), and G (what the compiler emitted:
 > libm `floor` calls in the innermost loops, a latency-bound reduction in the 8-corner wrap,
 > loop-invariant branches, `ArrayView` indexing, recomputed invariants). G landed in commit
 > `4530fac65` and is worth 1.46x/1.39x on the dense distance matrices and up to 1.70x on the
@@ -157,7 +157,7 @@ is reported here.)
 Instead of searching 27 images per vector, reduce the cell once per structure and the
 direct fractional wrap is already the minimum image. Removes a 27x factor **and** fixes a
 correctness limitation: the ±1 shell is *not* exhaustive for strongly skewed cells (see
-`pending_bugs/wrap_to_mic_triclinic_not_minimum_image.md`). The rare case where the better
+`../resolved_bugs/wrap_to_mic_triclinic_not_minimum_image.md`). The rare case where the better
 algorithm is also the more correct one.
 
 Implemented across the whole Rust MIC surface (greedy lattice reduction + factored 8-corner
@@ -264,7 +264,7 @@ compiler emitted.
 | G. What the compiler emitted (libm floor, serial reductions, loop-invariant branches) | done — 1.4-1.7x on the dense matrices and the SASA family; rules now in `devguide/rust_kernel_optimization_guide.md` |
 
 No live items remain, which is why this document is archived. The work that continues lives
-in `pending_proposals/rust_numba_coexistence_and_cut_plan.md` (CI wheels, the crate's
+in `rust_numba_coexistence_and_cut_plan.md` (CI wheels, the crate's
 permanent home, the Numba cut), `pending_proposals/rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 (data model, now without its SIMD justification) and `rust_kernel_optimization_guide.md`
 (normative method, plus the remaining per-kernel candidates in its section 9).

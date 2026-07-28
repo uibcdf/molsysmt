@@ -80,10 +80,15 @@ replacement for vectorization; both must be measured in release builds.
 
 Per-function thread-policy overrides use a `ContextVar` and do not mutate the
 session. `molsysmt.configure.context()` still mutates module-level session
-configuration. It restores values for ordinary nested, single-threaded use,
-but overlapping session contexts are **not thread-safe**. Do not overlap them
-across threads until the defect in
-`pending_bugs/configure_context_is_not_thread_safe.md` is resolved.
+configuration, and MolSysMT configuration is deliberately **process-global** for
+1.0. Context writers are serialized for their full lifetime with a reentrant
+lock, so overlapping contexts cannot corrupt each other's snapshot or
+restoration, and nested contexts in one thread remain supported. This is
+serialization, not isolation: code running concurrently *outside* a context can
+still observe its temporary values, and direct module assignments do not take
+the lock. The diagnosis and the rejected `contextvars` alternative are recorded
+in
+[`archive/resolved_bugs/configure_context_is_not_thread_safe.md`](archive/resolved_bugs/configure_context_is_not_thread_safe.md).
 
 When using xdist, multiprocessing, or another threaded host, set a conservative
 session or per-call limit to prevent each process from claiming all available

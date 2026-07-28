@@ -1,8 +1,33 @@
 # Bug: broadcast-shaped `angles` reads out of bounds on the periodic path of `set_dihedral_angles`
 
-**Status:** open (found 2026-07-24 while porting these kernels to Rust)
-**Severity:** silent wrong results or crash — Numba `njit` does not bounds-check by default
-**Scope:** `molsysmt.structure.set_dihedral_angles` (public) and the `lib` kernels it dispatches to
+**Status:** **RESOLVED by the Rust-only cut (archived 2026-07-28).**
+**Severity when open:** silent wrong results or crash — Numba `njit` did not bounds-check by default
+**Scope when open:** `molsysmt.structure.set_dihedral_angles` (public) and the `lib` kernels it dispatched to
+
+> ## Resolution
+>
+> This defect existed only in the Numba implementation. Segment D of the 1.0 execution
+> plan removed every CPU JIT kernel, so the reported code path no longer ships. The
+> Rust port that replaced it broadcasts a size-1 `angles` dimension on **both** the
+> vacuum and the periodic path, which is the behaviour the public
+> `set_dihedral_angles` docstring already documented.
+>
+> Verified on 2026-07-28 against the current runtime: with `angles` of shape
+> `(1, n_quartets)` applied to a three-structure system, `set_dihedral_angles` and
+> `set_mic_dihedral_angles` both broadcast and both reach the requested angle to
+> `2.2e-16`. Neither raises, and neither reads out of bounds.
+>
+> The implementing rationale is in the doc comment of `set_mic_dihedral_angles` in
+> `rust/src/dihedral_ops.rs`, which records this as a deliberate divergence from the
+> oracle.
+>
+> **Known residue, not resolved here:** no test in `tests/` asserts the broadcast
+> contract. The divergence was originally pinned by a parity test against Numba, and
+> that oracle no longer exists. Tracked in
+> [`rust_migration_documentation_and_test_residue.md`](../../pending_proposals/rust_migration_documentation_and_test_residue.md).
+>
+> Everything below is the original report, retained for provenance. It describes the
+> deleted Numba implementation and does not describe current behaviour.
 
 ## Symptom
 
