@@ -19,7 +19,9 @@ def _workflow():
 
 
 def test_workflow_builds_every_declared_platform_architecture():
-    targets = _workflow()["jobs"]["build"]["strategy"]["matrix"]["target"]
+    workflow = _workflow()
+    full = workflow["jobs"]["build-full"]
+    targets = full["strategy"]["matrix"]["target"]
     observed = {
         (target["name"], target["runner"], target["arch"])
         for target in targets
@@ -32,6 +34,11 @@ def test_workflow_builds_every_declared_platform_architecture():
         ("windows-x86_64", "windows-2022", "AMD64"),
     }
     assert observed == expected
+    assert full["if"] == "github.event_name == 'workflow_dispatch'"
+
+    pull_request = workflow["jobs"]["build-pull-request"]
+    assert pull_request["if"] == "github.event_name == 'pull_request'"
+    assert pull_request["runs-on"] == "ubuntu-24.04"
 
 
 def test_workflow_builds_validates_and_uploads_without_publish_credentials():
@@ -40,8 +47,6 @@ def test_workflow_builds_validates_and_uploads_without_publish_credentials():
     assert "validate_installed_rust_wheel.py" in text
     assert "actions/upload-artifact@v4" in text
     assert "persist-credentials: false" in text
-    assert "github.event_name == 'workflow_dispatch'" in text
-    assert "matrix.target.name == 'linux-x86_64'" in text
     assert "pypi" not in text.lower()
     assert "anaconda" not in text.lower()
 

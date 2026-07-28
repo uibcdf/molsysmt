@@ -20,11 +20,9 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-full:
     name: ${{ matrix.target.name }}
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      matrix.target.name == 'linux-x86_64'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 120
     strategy:
@@ -81,6 +79,42 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: molsysmt-${{ matrix.target.name }}-abi3
+          path: wheelhouse/*.whl
+          if-no-files-found: error
+          retention-days: 14
+
+  build-pull-request:
+    name: linux-x86_64
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install wheel tooling
+        run: python -m pip install cibuildwheel==3.4.1 numpy
+
+      - name: Build and audit the abi3 wheel
+        env:
+          CIBW_ARCHS: x86_64
+        run: python -m cibuildwheel --output-dir wheelhouse
+
+      - name: Validate the installed private extension
+        run: >-
+          python devtools/scripts/validate_installed_rust_wheel.py
+          wheelhouse
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: molsysmt-linux-x86_64-abi3
           path: wheelhouse/*.whl
           if-no-files-found: error
           retention-days: 14
