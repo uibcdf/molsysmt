@@ -6,6 +6,8 @@ Unit and regression test for the get_form module of the molsysmt package.
 import molsysmt as msm
 from molsysmt import systems
 import numpy as np
+import depdigest
+import pytest
 
 ## Files
 
@@ -104,6 +106,31 @@ def test_molsysmt_MolSys():
     molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
     output = msm.get_form(molsys)
     assert output == 'molsysmt.MolSys'
+
+
+def test_native_molsys_skips_detectors_for_unavailable_soft_dependencies(monkeypatch):
+    from molsysmt.form import _dict_modules
+
+    molsys = systems['chicken villin HP35']['chicken_villin_HP35.h5msm']
+    molsys = msm.convert(molsys, to_form='molsysmt.MolSys')
+    openmm_form = _dict_modules['openmm.GromacsTopFile']
+    original_is_installed = depdigest.is_installed
+
+    monkeypatch.setattr(
+        depdigest,
+        'is_installed',
+        lambda library: False if library == 'openmm' else original_is_installed(library),
+    )
+    monkeypatch.setattr(
+        openmm_form,
+        'is_form',
+        lambda item: pytest.fail('An unavailable soft-dependency detector was executed.'),
+    )
+
+    assert 'openmm.GromacsTopFile' in _dict_modules
+    assert msm.get_form(molsys) == 'molsysmt.MolSys'
+    assert msm.get(molsys, n_atoms=True) > 0
+
 
 def test_nglview_NGLWidget():
     molsys = systems['chicken villin HP35']['chicken_villin_HP35.h5msm']

@@ -2,6 +2,25 @@ from molsysmt._private.smonitor import NotSupportedFormError
 from molsysmt._private.form_tier import check_form_tier
 from pathlib import PosixPath
 
+
+def _is_detector_available(module):
+    """Return whether a form detector can run in the current environment."""
+
+    from depdigest import is_installed
+    from molsysmt._depdigest import LIBRARIES, MAPPING
+
+    plugin_name = module.__name__.rsplit('.', maxsplit=1)[-1]
+    library = MAPPING.get(plugin_name)
+    if library is None:
+        return True
+
+    library_info = LIBRARIES.get(library, {})
+    if library_info.get('type') != 'soft':
+        return True
+
+    return is_installed(library)
+
+
 # This method must not be digested
 def get_form(molecular_system):
     """
@@ -73,6 +92,8 @@ def get_form(molecular_system):
     output = None
 
     for form, module in _dict_modules.items():
+        if not _is_detector_available(module):
+            continue
         if module.is_form(molecular_system):
             output = form
             break

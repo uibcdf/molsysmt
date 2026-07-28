@@ -20,12 +20,14 @@ def _workflow():
 
 def test_workflow_builds_every_declared_platform_architecture():
     workflow = _workflow()
+    linux = workflow["jobs"]["build-linux"]
     full = workflow["jobs"]["build-full"]
     targets = full["strategy"]["matrix"]["target"]
     observed = {
         (target["name"], target["runner"], target["arch"])
         for target in targets
     }
+    observed.add(("linux-x86_64", linux["runs-on"], "x86_64"))
     expected = {
         ("linux-x86_64", "ubuntu-24.04", "x86_64"),
         ("linux-aarch64", "ubuntu-24.04-arm", "aarch64"),
@@ -35,10 +37,7 @@ def test_workflow_builds_every_declared_platform_architecture():
     }
     assert observed == expected
     assert full["if"] == "github.event_name == 'workflow_dispatch'"
-
-    pull_request = workflow["jobs"]["build-pull-request"]
-    assert pull_request["if"] == "github.event_name == 'pull_request'"
-    assert pull_request["runs-on"] == "ubuntu-24.04"
+    assert "if" not in linux
 
 
 def test_workflow_builds_validates_and_uploads_without_publish_credentials():
@@ -80,15 +79,17 @@ def test_workflow_builds_a_wheel_from_the_validated_sdist():
 
 def test_workflow_validates_every_wheel_on_all_supported_pythons():
     workflow = _workflow()
+    linux = workflow["jobs"]["test-linux"]
     installed = workflow["jobs"]["test-full"]
     targets = installed["strategy"]["matrix"]["target"]
     assert {target["name"] for target in targets} == {
-        "linux-x86_64",
         "linux-aarch64",
         "macos-x86_64",
         "macos-arm64",
         "windows-x86_64",
     }
+    assert linux["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
+    assert linux["needs"] == "build-linux"
     assert installed["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
     assert installed["needs"] == "build-full"
 
@@ -98,7 +99,7 @@ def test_workflow_validates_every_wheel_on_all_supported_pythons():
         "3.12",
         "3.13",
     ]
-    assert pull_request["needs"] == "build-pull-request"
+    assert pull_request["needs"] == "build-linux"
 
 
 def test_workflow_validates_the_declared_numpy_floor():
@@ -113,14 +114,14 @@ def test_workflow_validates_the_declared_numpy_floor():
         ("3.12", "numpy==1.26.4"),
         ("3.13", "numpy==2.1.3"),
     }
-    assert floor["needs"] == "build-full"
+    assert floor["needs"] == "build-linux"
 
 
 def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
     workflow = _workflow()
     smoke = workflow["jobs"]["test-public-smoke"]
     assert smoke["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
-    assert smoke["needs"] == "build-full"
+    assert smoke["needs"] == "build-linux"
 
     text = WORKFLOW.read_text(encoding="utf-8")
     for commit in (

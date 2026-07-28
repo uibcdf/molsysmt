@@ -241,6 +241,29 @@ The repository currently contains these testing and validation workflows:
 - Runs: `pytest -q --color=yes --junitxml=junit.xml` (no coverage upload).
 - Purpose: validate all supported platforms before release candidates.
 
+### `ci-rust-wheels.yaml` — native distribution gate
+
+- Trigger: manual dispatch for the complete release matrix; pull requests that
+  affect the native build run the Linux x86_64 boundary.
+- Builds one `cp311-abi3` wheel for Linux x86_64 immediately. Its artifact
+  starts the Python 3.11–3.13 public installed-runtime smokes and NumPy-floor
+  checks without waiting for slower portability runners.
+- Builds Linux aarch64, macOS x86_64/arm64, and Windows x86_64 in parallel.
+  Their installed-extension checks complete the five-platform matrix.
+- Runs Rust formatting, Clippy, unit, security, dependency, and license checks,
+  plus a source-distribution round trip.
+- Keeps normal pytest and the installed public-runtime validator authoritative;
+  Conda publication is a separate delivery track.
+
+Before dispatching the complete matrix, build a clean local wheel and run
+`devtools/scripts/validate_installed_molsysmt.py` from outside the checkout in
+an isolated environment containing the controlled hard sibling sources. The
+environment should deliberately omit optional packages such as OpenMM. This
+preflight exercises form discovery as well as representative conversion,
+selection, geometry, PBC, PCA, SASA, and topology operations. It cannot replace
+the platform matrix, but it detects shared installed-runtime defects before
+the slowest native runner completes.
+
 ### Other validation and delivery workflows
 
 - `ruff.yaml` runs the configured Ruff correctness checks on Python changes.

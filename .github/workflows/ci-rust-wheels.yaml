@@ -101,6 +101,41 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  build-linux:
+    name: linux-x86_64
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install wheel tooling
+        run: python -m pip install cibuildwheel==3.4.1 numpy
+
+      - name: Build and audit the abi3 wheel
+        env:
+          CIBW_ARCHS: x86_64
+        run: python -m cibuildwheel --output-dir wheelhouse
+
+      - name: Validate the installed private extension
+        run: >-
+          python devtools/scripts/validate_installed_rust_wheel.py
+          wheelhouse
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: molsysmt-linux-x86_64-abi3
+          path: wheelhouse/*.whl
+          if-no-files-found: error
+          retention-days: 14
+
   build-full:
     name: ${{ matrix.target.name }}
     if: github.event_name == 'workflow_dispatch'
@@ -110,9 +145,6 @@ jobs:
       fail-fast: false
       matrix:
         target:
-          - name: linux-x86_64
-            runner: ubuntu-24.04
-            arch: x86_64
           - name: linux-aarch64
             runner: ubuntu-24.04-arm
             arch: aarch64
@@ -164,6 +196,40 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  test-linux:
+    name: linux-x86_64 — Python ${{ matrix.python }}
+    if: github.event_name == 'workflow_dispatch'
+    needs: build-linux
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: molsysmt-linux-x86_64-abi3
+          path: wheelhouse
+
+      - name: Install the current supported NumPy release
+        run: python -m pip install "numpy>=1.26,<3"
+
+      - name: Validate the installed abi3 extension
+        run: >-
+          python devtools/scripts/validate_installed_rust_wheel.py
+          wheelhouse
+
   test-full:
     name: ${{ matrix.target.name }} — Python ${{ matrix.python }}
     if: github.event_name == 'workflow_dispatch'
@@ -174,8 +240,6 @@ jobs:
       fail-fast: false
       matrix:
         target:
-          - name: linux-x86_64
-            runner: ubuntu-24.04
           - name: linux-aarch64
             runner: ubuntu-24.04-arm
           - name: macos-x86_64
@@ -212,7 +276,7 @@ jobs:
   test-numpy-floor:
     name: NumPy floor — Python ${{ matrix.python }}
     if: github.event_name == 'workflow_dispatch'
-    needs: build-full
+    needs: build-linux
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
@@ -252,7 +316,7 @@ jobs:
   test-public-smoke:
     name: Installed public smoke — Python ${{ matrix.python }}
     if: github.event_name == 'workflow_dispatch'
-    needs: build-full
+    needs: build-linux
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     strategy:
@@ -331,46 +395,10 @@ jobs:
           cd "${RUNNER_TEMP}" &&
           python "${GITHUB_WORKSPACE}/devtools/scripts/validate_installed_molsysmt.py"
 
-  build-pull-request:
-    name: linux-x86_64
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 120
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-
-      - name: Install wheel tooling
-        run: python -m pip install cibuildwheel==3.4.1 numpy
-
-      - name: Build and audit the abi3 wheel
-        env:
-          CIBW_ARCHS: x86_64
-        run: python -m cibuildwheel --output-dir wheelhouse
-
-      - name: Validate the installed private extension
-        run: >-
-          python devtools/scripts/validate_installed_rust_wheel.py
-          wheelhouse
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: molsysmt-linux-x86_64-abi3
-          path: wheelhouse/*.whl
-          if-no-files-found: error
-          retention-days: 14
-
   test-pull-request:
     name: linux-x86_64 — Python ${{ matrix.python }}
     if: github.event_name == 'pull_request'
-    needs: build-pull-request
+    needs: build-linux
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
