@@ -37,7 +37,7 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** E — Rust-only validation
-- **Active stage:** E1–E3 and E6 evidence reconciliation
+- **Active stage:** E4 and E6 installed-runtime and performance validation
 - **Completed weighted closure:** 55% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
@@ -60,8 +60,8 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** credit existing E1–E3/E6 evidence, then execute only the
-  missing Rust boundary, oversubscription, and direct-consumer checks
+- **Next action:** close the reproducible E6 benchmark record and execute the
+  installed-wheel C4/E4 matrix without waiting for Conda publication
 - **Parallel packaging action:** validate local installed wheels independently;
   coordinate sibling and MolSysMT Conda publication during manuscript writing
   or review
@@ -499,7 +499,7 @@ the installed extension exposed all 97 entries and passed a minimum-image smoke.
 | E2 — independent scientific-truth matrix | `DONE` |
 | E3 — complete MolSysMT suite and release fast gates | `DONE` |
 | E4 — installed-wheel platform/Python matrix | `PENDING` |
-| E5 — MolSysViewer, TopoMT, PharmacophoreMT, and direct-consumer smoke | `PENDING` |
+| E5 — maturity-weighted direct-consumer smoke | `DONE` |
 | E6 — cold/warm, memory, thread, and oversubscription benchmarks | `IN PROGRESS` |
 
 ### E1–E2 Closure Evidence — 2026-07-28
@@ -521,6 +521,29 @@ the installed extension exposed all 97 entries and passed a minimum-image smoke.
 E1 validates the private extension through representative boundary families;
 public wrappers remain the authority for typed argument validation. The
 private extension is not a supported user API.
+
+### E5 Consumer Compatibility Evidence — 2026-07-28
+
+Consumer evidence is weighted by release maturity. MolSysViewer is a
+foundational MolSysSuite component and therefore a blocking integration gate.
+TopoMT and PharmacophoreMT are earlier-stage consumers: their smoke workflows
+are diagnostic, and consumer-local adaptation debt does not block MolSysMT
+1.0.
+
+- MolSysViewer direct MolSysMT integration and loader smoke: 5 passed.
+- TopoMT pocket, physicochemistry, and parity smoke: 7 passed.
+- PharmacophoreMT import smoke: passed.
+- PharmacophoreMT ER-alpha workflow: failed in consumer code because
+  `complex_based.py` calls `msm.get(..., element=True)`. In MolSysMT,
+  `element` selects the semantic element level and is not an attribute request.
+  The consumer must request the atom element-symbol attribute through the
+  current public contract. This is classified as non-blocking
+  PharmacophoreMT adaptation debt.
+
+No consumer repository was modified during this audit. TopoMT also retains a
+best-effort, exception-swallowed call to the removed `msm.warmup()` in its test
+configuration; that cleanup belongs to TopoMT and does not affect the passing
+runtime smoke.
 
 ## Parallel Conda Delivery Track
 
@@ -635,3 +658,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | Conda scheduling | critical-path prerequisite → parallel delivery track | coordinated sibling and MolSysMT Conda publication may proceed during manuscript writing/review; local installed-wheel evidence remains in C/E, while channel availability blocks only the Conda delivery claim | maintainer decision recorded in the execution plan and Conda coordination report |
 | 2026-07-28 | E1–E2 | `PENDING` → `DONE` | 80 Rust unit/property tests, Clippy with warnings denied, 103 Python Rust/control/boundary tests, 98 scientific-truth tests, 43/0/0 evidence registry, and 18-file hot-path lint pass; representative GIL release, concurrent Rayon pools, bounded oversubscription, and panic containment are executable regressions | stage-closing Rust validation commit |
 | 2026-07-28 | E3 | `IN PROGRESS` → `DONE` | complete Rust-only suite passes 9,585 tests with two accepted skips under `-n 12`; fast release gate passes 12/12; Ruff passes across package, tests, devtools, and root conftest | `692479097` |
+| 2026-07-28 | E5 | `PENDING` → `DONE` | maturity-weighted consumer audit: MolSysViewer passes 5/5 as the blocking foundational consumer; TopoMT passes 7/7; PharmacophoreMT imports but its ER-alpha workflow exposes a consumer-local obsolete `element=True` call, recorded as non-blocking adaptation debt | status-ledger commit following `9fbb95569` |

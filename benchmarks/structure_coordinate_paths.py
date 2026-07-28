@@ -2,30 +2,17 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 from datetime import datetime, timezone
 from statistics import median
 from time import perf_counter
 from typing import Callable
 
-os.environ.setdefault("NUMBA_DISABLE_CACHE", "1")
-
 import molsysmt as msm
 from molsysmt import systems
-from molsysmt._private import jit as msm_jit
 from molsysmt.lib.structure._kernel_inputs import (
     align_coordinates_values_and_unit,
     extract_coordinates_value_and_unit,
 )
-
-_ORIGINAL_NJIT = msm_jit.nb.njit
-
-
-def _benchmark_njit(signature=None, cache=True, **kwargs):
-    return _ORIGINAL_NJIT(signature, cache=False, **kwargs)
-
-
-msm_jit.nb.njit = _benchmark_njit
 
 
 def _time_block(func: Callable[[], None], iterations: int) -> float:
@@ -107,12 +94,8 @@ def run_baseline(repeats: int = 5) -> dict[str, object]:
         "results": results,
         "notes": {
             "dataset_primary": "particles 4 XYZ trajectory",
-            "warmup_status": "per-benchmark local warmup only",
-            "cache_policy": "numba disk cache disabled inside benchmark process",
-            "pending_follow_up": (
-                "MolSys/HDF5-heavy paths remain to be measured after the local "
-                "Numba cache locator issue is resolved."
-            ),
+            "preparation": "one untimed call precedes each repeated timing block",
+            "runtime": "Rust-only native kernels; no JIT cache exists",
             "purpose": (
                 "Compare public coordinate-heavy wrappers against the local "
                 "kernel-input preparation layer used by hot structure paths."

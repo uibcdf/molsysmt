@@ -1,7 +1,7 @@
 """MolSysMT Benchmarking Harness.
 
-This module provides the core orchestration engine to execute high-precision performance benchmarks
-with Numba JIT pre-warming, garbage collection isolation, and structured JSON telemetry exports.
+This module provides the core orchestration engine for isolated repeated
+measurements with structured JSON telemetry exports.
 """
 
 from __future__ import annotations
@@ -64,10 +64,10 @@ def _get_peak_rss_mb() -> float:
 def _subprocess_worker(warmup_func, timed_func, iterations, repeats, queue):
     import gc
     from time import perf_counter
-    # 1. Capture base memory before warm-up
+    # 1. Capture base memory before workload preparation.
     base_rss = _get_peak_rss_mb()
 
-    # 2. Warm-up invocation (essential for JIT compilation / lazy cache lookups)
+    # 2. Prepare imports, data, and any lazy runtime state outside timed loops.
     warmup_func()
 
     # 3. Timing loops under GC isolation
@@ -115,7 +115,7 @@ class BenchmarkHarness:
         Parameters
         ----------
         warmup_func : Callable[[], Any]
-            Function executed once to pre-compile JIT kernels or pre-warm caches.
+            Function executed once to prepare imports, data, and lazy runtime state.
         timed_func : Callable[[], Any]
             Function targeted for timing blocks.
 

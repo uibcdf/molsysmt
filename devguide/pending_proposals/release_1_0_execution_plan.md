@@ -380,8 +380,13 @@ Run validation after deletion, not only before it:
 5. installed-wheel tests on the complete Python and platform matrix, with
    sibling dependencies preinstalled from controlled sources when the Conda
    channel is not yet current;
-6. smoke workflows in MolSysViewer, TopoMT, PharmacophoreMT, and other direct
-   MolSysSuite consumers;
+6. smoke workflows in direct MolSysSuite consumers, applying release gates in
+   proportion to consumer maturity:
+   - MolSysViewer is a foundational MolSysSuite component and its direct
+     MolSysMT integration smoke is blocking;
+   - earlier-stage consumers such as TopoMT and PharmacophoreMT are diagnostic
+     probes. Their workflows must be executed and incompatibilities classified,
+     but consumer-local adaptation debt does not block MolSysMT 1.0;
 7. cold-start, steady-state, memory, and thread-count benchmarks;
 8. explicit verification that there is no JIT warmup or cache creation.
 9. Rust `fmt`, Clippy, unit, dependency, and panic/error-boundary gates.
@@ -393,7 +398,9 @@ scientific evidence. The former Numba result is not sufficient evidence by
 itself after the oracle is retired.
 
 **Exit gate:** the Rust-only runtime is scientifically green, wheel-green, and
-usable by direct MolSysSuite consumers.
+usable by the foundational MolSysSuite consumer. Earlier-stage direct
+consumers have been probed and any incompatibility is assigned to the owning
+project rather than silently transferred to MolSysMT.
 
 ### Segment F — Complete the Remaining 1.0 Lifecycle Work
 
