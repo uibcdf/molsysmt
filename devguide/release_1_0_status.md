@@ -43,7 +43,8 @@ and do not merge it across an unmet integration dependency.
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** clean and synchronized at `0a9353ffc`
+- **Current repository state:** clean `main`; stage-closing commits are pushed
+  after their local gates pass
 - **Current exact Rust campaign commit:** `6485a0c08`; this is verified
   migration evidence but is not yet a release candidate because Segment C and
   the remaining release work are open
@@ -52,6 +53,8 @@ and do not merge it across an unmet integration dependency.
 - **Current C3 exact evidence commit:** `f79ccb4f0`; all five native abi3
   wheels build, audit, install, execute the private-extension smoke, and upload
   successfully in GitHub Actions run `30346103646`
+- **Current E3 exact evidence commit:** `692479097`; 9,585 tests pass, two are
+  accepted skips, and the fast release gate passes 12/12
 - **Release readiness measure:** the formal weighted closure is 55%; no second
   subjective percentage is mixed into this operational ledger
 - **Normal pytest:** the authority for test results
@@ -494,7 +497,7 @@ the installed extension exposed all 97 entries and passed a minimum-image smoke.
 | --- | --- |
 | E1 — Rust unit, property, error, panic, GIL, and threading tests | `DONE` |
 | E2 — independent scientific-truth matrix | `DONE` |
-| E3 — complete MolSysMT suite and release fast gates | `IN PROGRESS` |
+| E3 — complete MolSysMT suite and release fast gates | `DONE` |
 | E4 — installed-wheel platform/Python matrix | `PENDING` |
 | E5 — MolSysViewer, TopoMT, PharmacophoreMT, and direct-consumer smoke | `PENDING` |
 | E6 — cold/warm, memory, thread, and oversubscription benchmarks | `IN PROGRESS` |
@@ -631,3 +634,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | WIP integration | dirty tree → clean `main` | release gates, function-tier policy, conversion-fidelity records, and native dictionary extraction landed in three focused commits; fast gate 12/12 and 107 conversion-truth tests pass | `83a573f09`, `8579b8e7a`, `0a9353ffc` |
 | 2026-07-28 | Conda scheduling | critical-path prerequisite → parallel delivery track | coordinated sibling and MolSysMT Conda publication may proceed during manuscript writing/review; local installed-wheel evidence remains in C/E, while channel availability blocks only the Conda delivery claim | maintainer decision recorded in the execution plan and Conda coordination report |
 | 2026-07-28 | E1–E2 | `PENDING` → `DONE` | 80 Rust unit/property tests, Clippy with warnings denied, 103 Python Rust/control/boundary tests, 98 scientific-truth tests, 43/0/0 evidence registry, and 18-file hot-path lint pass; representative GIL release, concurrent Rayon pools, bounded oversubscription, and panic containment are executable regressions | stage-closing Rust validation commit |
+| 2026-07-28 | E3 | `IN PROGRESS` → `DONE` | complete Rust-only suite passes 9,585 tests with two accepted skips under `-n 12`; fast release gate passes 12/12; Ruff passes across package, tests, devtools, and root conftest | `692479097` |
