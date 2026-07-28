@@ -14,6 +14,7 @@
 //!   convention (used by the MIC distance/angle/dihedral kernels);
 //! - [`inverse_matrix_3x3_full`] is the general Cramer inverse that
 //!   `neighbor_list`/`get_sasa` inline inside their own triclinic wrap.
+//!
 //! They are not interchangeable; mixing them would silently change results.
 
 use numpy::ndarray::{Array1, Array2};
@@ -124,6 +125,7 @@ pub(crate) fn normalize_vector(a: Vec3) -> Vec3 {
 
 /// Mirrors math.py::angle — clamped acos of the normalised dot product.
 #[inline]
+#[allow(clippy::manual_clamp)] // Preserve the branch/select form used by the hot scalar kernel.
 pub(crate) fn angle(v0: Vec3, v1: Vec3) -> f64 {
     let mut cosa = dot_product(v0, v1) / (norm_vector(v0) * norm_vector(v1));
     if cosa >= 1.0 {
@@ -137,6 +139,7 @@ pub(crate) fn angle(v0: Vec3, v1: Vec3) -> f64 {
 
 /// Mirrors math.py::dihedral_angle, including the sign convention.
 #[inline]
+#[allow(clippy::manual_clamp)] // Preserve the branch/select form used by the hot scalar kernel.
 pub(crate) fn dihedral_angle(v0: Vec3, v1: Vec3, v2: Vec3) -> f64 {
     let aux0 = cross_product(v0, v1);
     let aux1 = cross_product(v1, v2);

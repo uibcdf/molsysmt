@@ -36,14 +36,14 @@ and do not merge it across an unmet integration dependency.
 
 ## Current Release Snapshot
 
-- **Active segment:** C — Rust packaging
-- **Active stage:** C4 — Python 3.11–3.13 and supported NumPy installed-wheel tests
-- **Completed weighted closure:** 35% of the remaining 1.0 execution plan
+- **Active segment:** E — Rust-only validation
+- **Active stage:** E1–E3 and E6 evidence reconciliation
+- **Completed weighted closure:** 55% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** dirty WIP; not a release artifact
+- **Current repository state:** clean and synchronized at `0a9353ffc`
 - **Current exact Rust campaign commit:** `6485a0c08`; this is verified
   migration evidence but is not yet a release candidate because Segment C and
   the remaining release work are open
@@ -57,14 +57,12 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** continue Segment E Rust-only scientific, threading, and
-  oversubscription validation while C4 remains blocked by coordinated Conda
-  publication
-- **Next packaging stage:** C4 — prove the supported Python and NumPy matrix
-  against installed wheels once the sibling packages are available
-- **Known independent release-gate debt:** the fast release gate passes 11/12
-  checks. Its only red is F3 lifecycle work: the two Tier-3 molecular-dynamics
-  decorators do not correspond to symbols in the tracked public-API registry.
+- **Next action:** credit existing E1–E3/E6 evidence, then execute only the
+  missing Rust boundary, oversubscription, and direct-consumer checks
+- **Parallel packaging action:** validate local installed wheels independently;
+  coordinate sibling and MolSysMT Conda publication during manuscript writing
+  or review
+- **Known independent release-gate debt:** the fast release gate passes 12/12.
   Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
   declarations, 320 resolved baseline declarations, and no Tier-1 debt
 
@@ -76,11 +74,11 @@ consolidation, or Rust kernel work completed before this ledger was created.
 
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
-| A — conversion-fidelity coherence | 25% | `DONE` | 25% | 37 exhaustive Tier-1 edges, 444 accepted non-exhaustive edges, zero new debt, 85 integration tests, and all conversion/form gates pass on `9660f6e79` |
+| A — conversion-fidelity coherence | 25% | `DONE` | 25% | 39 exhaustive Tier-1 edges, 442 accepted non-exhaustive edges, zero new debt, 107 conversion-truth tests, and all conversion/form gates pass |
 | B — final Numba oracle | 10% | `DONE` | 10% | exact commit `6485a0c08` passes the 264-test bounded two-backend oracle, combined scientific and blocker gates, and the complete forced-Rust suite with 9,769 passed and 5 accepted skips; the dated artifact preserves source and binary hashes |
 | C — Rust packaging | 20% | `IN PROGRESS` | 0% | C1 selected setuptools + setuptools-rust; C2 integrated `molsysmt._rust`; C3 passed five native abi3 build/audit/install/smoke jobs on `f79ccb4f0`; C4-C7 remain open |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
-| E — scientific and ecosystem validation | 15% | `PENDING` | 0% | requires the Rust-only installed runtime |
+| E — scientific and ecosystem validation | 15% | `IN PROGRESS` | 0% | Rust-only runtime landed; existing unit, scientific, full-suite, fast-gate, and benchmark evidence requires stage-by-stage accreditation |
 | F — lifecycle and release candidate | 10% | `PENDING` | 0% | course, documentation, exact-commit matrix, and clean release candidate remain open |
 | **Total** | **100%** | **`IN PROGRESS`** | **55%** | Segment credit is earned only when its complete exit gate passes |
 
@@ -449,11 +447,13 @@ completion. No new Numba capability may be added while this segment is pending.
 | C1 — permanent crate/module and build-backend design review | `DONE` |
 | C2 — production crate relocation and private extension integration | `DONE` |
 | C3 — Linux, macOS, and Windows abi3 wheel CI | `DONE` |
-| C4 — Python 3.11–3.13 and supported NumPy installed-wheel tests | `IN PROGRESS` |
-| C5 — conda and sdist contract | `PENDING` |
+| C4 — Python 3.11–3.13 and supported NumPy installed-wheel tests | `PENDING` |
+| C5 — sdist contract | `PENDING` |
 | C6 — metadata, resources, entry points, typing, and lazy-discovery parity | `PENDING` |
 | C7 — Rust quality, security, license, and portability gates | `PENDING` |
 
+Conda publication is tracked separately and does not block C4: controlled
+preinstalled sibling dependencies may be used to validate the MolSysMT wheel.
 The local pilot wheel closed the C1 design question. The clean exact-commit
 wheel recorded in
 [C2 Rust Packaging Artifact](release_1_0_rust_packaging_c2_artifact.md)
@@ -465,8 +465,9 @@ review](pending_proposals/rust_packaging_backend_design.md): keep `setuptools`, 
 Conda package, and do not adopt maturin or a separate `msm_rust_kernels` distribution. Two
 findings became binding C3 contracts (clean-build isolation with automated wheel
 inspection, and abi3 proven per target rather than assumed from the tag). The earlier
-report of a PyPI resolution failure as a C4 blocker is **corrected**: the official channel
-is Conda, so C4/C5 require the sibling versions on the Conda channel rather than on PyPI.
+report of a PyPI resolution failure as a C4 blocker is **corrected**: neither
+PyPI nor the coordinated Conda channel is a prerequisite for validating the
+MolSysMT wheel itself.
 
 C2 started only after B4 closed. Commit `17be9ea50` relocates the crate to
 `rust/`, integrates it as `molsysmt._rust`, removes the obsolete separate-package
@@ -491,12 +492,43 @@ the installed extension exposed all 97 entries and passed a minimum-image smoke.
 
 | Stage | Status |
 | --- | --- |
-| E1 — Rust unit, property, error, panic, GIL, and threading tests | `PENDING` |
-| E2 — independent scientific-truth matrix | `PENDING` |
-| E3 — complete MolSysMT suite and release fast gates | `PENDING` |
+| E1 — Rust unit, property, error, panic, GIL, and threading tests | `DONE` |
+| E2 — independent scientific-truth matrix | `DONE` |
+| E3 — complete MolSysMT suite and release fast gates | `IN PROGRESS` |
 | E4 — installed-wheel platform/Python matrix | `PENDING` |
 | E5 — MolSysViewer, TopoMT, PharmacophoreMT, and direct-consumer smoke | `PENDING` |
-| E6 — cold/warm, memory, thread, and oversubscription benchmarks | `PENDING` |
+| E6 — cold/warm, memory, thread, and oversubscription benchmarks | `IN PROGRESS` |
+
+### E1–E2 Closure Evidence — 2026-07-28
+
+- `cargo test --manifest-path rust/Cargo.toml --no-default-features`: 80 passed.
+- `cargo clippy --manifest-path rust/Cargo.toml --no-default-features -- -D warnings`:
+  pass. Deliberate fixed-size and FFI exceptions are local, documented, and do
+  not rewrite hot loops solely to satisfy style.
+- `python -m pytest --receptor=llm tests/basic/test_parallel_control.py tests/rust -n 4`:
+  100 passed before the three boundary regressions were added.
+- `tests/rust/test_threading_boundaries.py`: 3 passed, proving representative
+  GIL release, simultaneous cached Rayon pools with bounded oversubscription,
+  result stability, and conversion of a native panic into a contained Python
+  process failure.
+- `python -m pytest --receptor=llm tests/scientific_truth -n 12`: 98 passed.
+- `validate_scientific_evidence.py`: 43 validated, 0 partial, 0 gaps.
+- `check_rust_hot_paths.py`: 18 Rust hot-path files clean.
+
+E1 validates the private extension through representative boundary families;
+public wrappers remain the authority for typed argument validation. The
+private extension is not a supported user API.
+
+## Parallel Conda Delivery Track
+
+This track is required before claiming a validated package is available from
+the `uibcdf` Conda channel, but it is not part of the technical critical path
+for the 1.0 source/tag, scientific validation, or manuscript:
+
+1. publish compatible sibling versions for Python 3.11–3.13;
+2. update and test the MolSysMT recipe with the Rust toolchain and runtime pins;
+3. build MolSysMT for the supported Conda platform/Python matrix;
+4. verify a clean channel-only installation with no checkout leakage.
 
 ## Segment F — Lifecycle and Release Candidate
 
@@ -596,3 +628,6 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | C4 installed-wheel matrix | `PENDING` → `IN PROGRESS` | C3 portability dependency closed; Python 3.11–3.13 and supported NumPy installed-wheel execution selected as the active packaging gate | after `f79ccb4f0` |
 | 2026-07-28 | D1–D5 / Segment D | `PENDING` → `DONE` | production routing is Rust-only; CPU JIT, CUDA, incomplete Taichi experiments, runtime controls, dependencies, JIT warm-up API, diagnostics, and migration parity tests are removed; low-level compatibility paths remain Rust-backed; the executable zero gate passes; 122 focused and 450 broad affected tests pass, with one separate network-dependent test excluded | dirty implementation; `release_1_0_rust_only_cut_artifact.md` |
 | 2026-07-28 | D6 Rayon controls | `PENDING` → `DONE` | session defaults and function-local overrides resolve to reusable Rayon pools; nested overrides remain local; 1/2/4-thread execution is directly observable; 165 affected tests pass; representative release-build speedups at four threads are 2.99× distances, 3.54× centers, 3.51× radius of gyration, and 2.73× RMSF | dirty implementation; resolved bug record and `performance_and_jit.md` |
+| 2026-07-28 | WIP integration | dirty tree → clean `main` | release gates, function-tier policy, conversion-fidelity records, and native dictionary extraction landed in three focused commits; fast gate 12/12 and 107 conversion-truth tests pass | `83a573f09`, `8579b8e7a`, `0a9353ffc` |
+| 2026-07-28 | Conda scheduling | critical-path prerequisite → parallel delivery track | coordinated sibling and MolSysMT Conda publication may proceed during manuscript writing/review; local installed-wheel evidence remains in C/E, while channel availability blocks only the Conda delivery claim | maintainer decision recorded in the execution plan and Conda coordination report |
+| 2026-07-28 | E1–E2 | `PENDING` → `DONE` | 80 Rust unit/property tests, Clippy with warnings denied, 103 Python Rust/control/boundary tests, 98 scientific-truth tests, 43/0/0 evidence registry, and 18-file hot-path lint pass; representative GIL release, concurrent Rayon pools, bounded oversubscription, and panic containment are executable regressions | stage-closing Rust validation commit |

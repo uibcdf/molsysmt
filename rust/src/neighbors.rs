@@ -337,6 +337,7 @@ fn core_pbc(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, boxes: &ArrayView3<
 
 #[pyfunction]
 #[pyo3(signature = (query, ref_coords, box_matrices, cutoff, exclude_self, sort_by_distance, num_threads))]
+#[allow(clippy::too_many_arguments, clippy::type_complexity)] // Stable flat Python FFI.
 pub fn neighbor_list_csr_multi<'py>(
     py: Python<'py>,
     query: PyReadonlyArray3<'py, f64>,

@@ -237,6 +237,7 @@ pub fn get_radius_of_gyration<'py>(
 /// Root-mean-square fluctuation per atom. Parallel folds keep each structure slab
 /// contiguous so the inner coordinate loops remain suitable for auto-vectorization.
 #[pyfunction]
+#[allow(clippy::needless_range_loop)] // Direct atom indexing preserves contiguous frame slabs.
 pub fn get_rmsf<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,

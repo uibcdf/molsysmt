@@ -381,6 +381,7 @@ pub fn get_sasa_cell_list<'py>(
 }
 
 #[pyfunction]
+#[allow(clippy::too_many_arguments)] // Stable flat Python FFI.
 pub fn get_mic_sasa_cell_list<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,
@@ -415,6 +416,7 @@ pub fn get_mic_sasa_cell_list<'py>(
 // docs and `devguide/pending_bugs/sasa_is_orthogonal_typo.md`).
 
 #[inline]
+#[allow(clippy::too_many_arguments)] // Inner-loop state is passed explicitly for inlining.
 fn atom_sasa_bruteforce<const WRAP: bool, const ORTHO: bool>(
     cf: &[f64], spf: &[f64], n_points: usize, jj: usize, rext2: &[f64], r_i_ext: f64,
     na: usize, cell: &Mat3, inv: &Mat3,

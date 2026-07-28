@@ -408,6 +408,7 @@ pub fn wrap_to_mic_vector_single_structure<'py>(
 /// updated structure `s`, so the loop carries a dependency and cannot be parallelised.
 /// Orthogonality is decided once from structure 0 and applied to all, as upstream does.
 #[pyfunction]
+#[allow(clippy::needless_range_loop)] // Fixed Cartesian indexing is intentional in this hot loop.
 pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArray3<'_, f64>) {
     let b = boxes.as_array();
     let mut c = coordinates.as_array_mut();

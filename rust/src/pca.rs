@@ -60,6 +60,7 @@ fn fix_sign(v: &mut [f64]) {
 }
 
 #[pyfunction]
+#[allow(clippy::needless_range_loop)] // Explicit feature indexing matches the flattened covariance layout.
 pub fn principal_component_analysis<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray3<'py, f64>,

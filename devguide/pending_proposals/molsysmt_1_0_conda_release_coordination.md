@@ -1,7 +1,8 @@
 # MolSysMT 1.0 — Conda release coordination
 
-**Status:** investigation report. No code changed.
-**Segment:** prerequisite for C4/C5 of the
+**Status:** investigation report; scheduled as a parallel final-delivery track.
+No code changed.
+**Segment:** independent Conda publication coordination for the
 [MolSysMT 1.0 Execution Plan](release_1_0_execution_plan.md); status in
 [release_1_0_status.md](../release_1_0_status.md).
 **Depends on:** the accepted C1 decision in
@@ -10,6 +11,16 @@ with a private `molsysmt._rust` abi3 extension, distributed through the project'
 channel.
 **Investigated:** 2026-07-27, against the live `uibcdf` channel and the local sibling
 checkouts.
+
+> **Maintainer scheduling decision — 2026-07-28**
+>
+> Coordinated Conda publication is not on the critical path for scientific
+> consolidation, Rust-only validation, the 1.0 source/tag decision, or
+> manuscript work. It may proceed during manuscript writing and review.
+> Installed-wheel validation remains required, but it may use controlled
+> preinstalled sibling dependencies instead of waiting for every package to
+> appear on the `uibcdf` channel. This report remains the acceptance plan for
+> the eventual Conda delivery.
 
 ## 0. The one-line answer
 

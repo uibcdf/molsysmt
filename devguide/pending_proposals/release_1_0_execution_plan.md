@@ -119,7 +119,7 @@ documentation, or installed-product evidence is still missing.
 | --- | ---: | --- |
 | A — conversion-fidelity coherence | 25% | all four conversion stages and their audit gate are green |
 | B — final Numba oracle | 10% | inventory, parity artifact, and deliberate divergences are complete |
-| C — Rust packaging | 20% | every declared wheel and conda artifact installs and passes |
+| C — Rust packaging | 20% | every declared wheel and source artifact installs and passes |
 | D — Rust-only cut | 20% | zero-Numba validator and API cleanup are green |
 | E — scientific and ecosystem validation | 15% | full scientific, suite, wheel, and consumer gates are green |
 | F — lifecycle and release candidate | 10% | documentation, course, release matrix, and clean-candidate gates are green |
@@ -246,20 +246,18 @@ This segment must finish before runtime deletion.
 6. Define the source-distribution policy explicitly. An sdist that requires a
    Rust compiler is acceptable only when documented and when supported binary
    wheels cover the release platforms.
-7. Update conda packaging and verify that it installs the same Rust-only
-   runtime.
-8. Add wheel-build and installed-wheel smoke tests to CI.
-9. Preserve all current Python-package behavior during the build-backend
+7. Add wheel-build and installed-wheel smoke tests to CI.
+8. Preserve all current Python-package behavior during the build-backend
    change:
    - versioning derived from Git tags;
    - `molsysviewer.addons` entry points;
    - bundled `molsysmt.data` resources and `py.typed`;
    - lazy public imports and form discovery;
    - hard/soft dependency declarations.
-10. Build with the committed `Cargo.lock` and a pinned Rust toolchain. Run
+9. Build with the committed `Cargo.lock` and a pinned Rust toolchain. Run
     formatting, Clippy, Rust unit tests, and dependency, security, and license
     audits in CI.
-11. Select and test explicit binary compatibility floors, including the Linux
+10. Select and test explicit binary compatibility floors, including the Linux
     manylinux/glibc target, macOS deployment target, Windows runtime, and a
     portable CPU instruction baseline. Do not build developer-machine-specific
     instructions into release wheels.
@@ -304,8 +302,11 @@ not create a second public validation vocabulary.
   a developer Rust installation.
 
 **Exit gate:** every target platform produces and installs a passing artifact.
-Until this gate is green, the Numba implementation remains available only as
-the migration safety net.
+
+Conda publication is a separate delivery lane. It must reproduce the same
+Rust-only runtime before the Conda package is published, but sibling-package
+availability on the `uibcdf` channel does not block scientific consolidation,
+wheel validation, the 1.0 source/tag decision, or manuscript work.
 
 ### Segment D — Perform the Rust-Only Runtime Cut
 
@@ -376,7 +377,9 @@ Run validation after deletion, not only before it:
 3. the complete MolSysMT suite through pytest-receptor, with normal pytest as
    authority;
 4. the release fast gates;
-5. installed-wheel tests on the complete Python and platform matrix;
+5. installed-wheel tests on the complete Python and platform matrix, with
+   sibling dependencies preinstalled from controlled sources when the Conda
+   channel is not yet current;
 6. smoke workflows in MolSysViewer, TopoMT, PharmacophoreMT, and other direct
    MolSysSuite consumers;
 7. cold-start, steady-state, memory, and thread-count benchmarks;
@@ -389,8 +392,8 @@ Numerical expectations must be updated only when supported by independent
 scientific evidence. The former Numba result is not sufficient evidence by
 itself after the oracle is retired.
 
-**Exit gate:** the Rust-only runtime is scientifically green, distribution-green,
-and usable by direct MolSysSuite consumers.
+**Exit gate:** the Rust-only runtime is scientifically green, wheel-green, and
+usable by direct MolSysSuite consumers.
 
 ### Segment F — Complete the Remaining 1.0 Lifecycle Work
 
@@ -419,6 +422,12 @@ defect:
 - broad Tier 2 and Tier 3 adapter expansion;
 - further kernel micro-optimization after release thresholds are met;
 - paper extensions that do not alter the released scientific contract.
+
+The coordinated publication of sibling dependencies and MolSysMT on the
+`uibcdf` Conda channel is an independent delivery track. It may run during
+manuscript writing or review. It blocks only the claim that the Conda package
+is available and validated; it does not block the library, source release,
+scientific validation, or article.
 
 These items may proceed in separate branches or with independent collaborators,
 but they must not be merged into the release candidate without satisfying the

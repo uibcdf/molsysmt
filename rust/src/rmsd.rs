@@ -167,6 +167,7 @@ fn kearsley(r: &Mat3) -> [f64; 16] {
 /// Symmetric 4x4 eigendecomposition, sorted **ascending** to match numpy's convention
 /// (upstream indexes `[3]` for the largest eigenvalue).
 #[inline]
+#[allow(clippy::needless_range_loop)] // Fixed 4x4 copy is clearer and optimizes predictably.
 fn eigen_ascending(f: &[f64; 16]) -> ([f64; 4], [[f64; 4]; 4]) {
     let m = SMatrix::<f64, 4, 4>::from_row_slice(f);
     let e = m.symmetric_eigen();
@@ -286,6 +287,7 @@ fn pack(ns: usize, parts: Vec<(Vec3, Mat3, Vec3)>, py: Python<'_>) -> Superposit
 }
 
 #[pyfunction]
+#[allow(clippy::type_complexity)] // PyO3 exposes the three arrays as a Python tuple.
 pub fn get_least_rmsd_rotation_and_translation_single_structure<'py>(
     py: Python<'py>,
     coordinates: PyReadonlyArray2<'py, f64>,

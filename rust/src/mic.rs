@@ -104,6 +104,7 @@ fn mic_distance(p1: [f64; 3], p2: [f64; 3], b: &Mat3, inv: &Mat3, ortho: bool) -
 pub(crate) fn reduce_cell(b: &Mat3) -> Mat3 {
     let dot = |u: &[f64; 3], v: &[f64; 3]| u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
     let mut m = *b;
+    #[allow(clippy::needless_range_loop)] // Fixed 3x3 indexing keeps the lattice update explicit.
     for _ in 0..100 {
         let mut changed = false;
         for i in 0..3 {
