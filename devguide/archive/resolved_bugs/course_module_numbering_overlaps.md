@@ -1,18 +1,9 @@
 # Course Module Numbering Overlaps
 
-**Status:** **The numbering defect itself is closed.** The mechanical migration
-(Task M) and the course-structure validator are done, verified, and landed; release
-stage F1 is `DONE` on that basis. `devtools/scripts/validate_course.py` runs in the
-fast release gate and reports 156 notebooks with the contract satisfied, so the
-overlap cannot silently return.
-
-What keeps this file open is **two editorial cross-references** inside Common Core
-notebooks 12 and 17 (Task E, listed under "Remaining before archival"). Both need a
-narrative decision about where the reference should point, not a number change.
-They are lifecycle work and belong to stage F4; see
-[`release_1_0_status.md`](../release_1_0_status.md).
-
-Do not cite this report as evidence that course numbering is unresolved.
+**Status:** resolved and archived on 2026-07-29. The mechanical migration
+(Task M), editorial pass (Task E), course-structure validator, and full Sphinx
+confirmation are complete. Release stage F1 closed the structural contract;
+release stage F4 closed the two remaining narrative references.
 
 ## Problem
 
@@ -88,7 +79,7 @@ The numeric contract is **not** "each number is globally unique": display number
 appear once *per Path* by design. The verified contract is: 1–20 once globally; 21–54
 once per Path; every journey contiguous 1..54; no repeats or gaps within a section.
 
-### Task E — editorial reference pass (STARTED; remainder is a tracked editorial task)
+### Task E — editorial reference pass (DONE)
 
 Prose "Module NN" cross-references were audited (86 total; there are no `.ipynb` file
 links). Two kinds:
@@ -113,18 +104,15 @@ links). Two kinds:
   `09` ("Module 10" = Discovery), `13` ("Module 14: System Auditing"), plus the ten
   title-bearing references that were self-consistent.
 
-- **Two items still OPEN — they need a content/narrative decision, not a number swap, so
-  they were deliberately left for editorial review:**
+- **The final two narrative items were resolved in F4:**
   - `00_Common_Core/12_Navigating_Between_Levels`: "In **Module 11**, we will … look at the
     1D world: **Sequences**." There is **no "Sequences" module** among the current 20 core
-    notebooks (the old `11_Sequences_and_Identity` is gone; disk `11` is
-    `Hierarchical_Levels`). The referenced content appears orphaned — decide whether
-    Sequences still exists and where, then point the reference (or remove it).
+    notebooks. The orphaned promise was removed and the closing paragraph now links to
+    `{ref}``course-core-iterating-over-hierarchies``, the actual next module.
   - `00_Common_Core/17_Semantic_Labeling`: "Pick your folder and open **Module 17** to
     continue your quest." A narrative artifact from the old 16-module core (module 17 used
-    to be the Path start). Now the core continues 18→19→20 and a Path starts at **21**, so
-    this is a flow rewrite, not a number swap: decide whether the student should proceed to
-    core Module 18 or is being sent to a Path.
+    to be the Path start). It now directs the student to
+    `{ref}``course-core-merging-and-growing-systems`` before choosing a Path.
 
 **Closure criterion for Task E:** the two open items resolved (ideally rewritten as
 `` {ref}`slug` `` to the intended module); a link check reports zero unresolved course
@@ -132,11 +120,12 @@ references.
 
 ### Sphinx build
 
-The stale-toctree defect (references to nonexistent documents) is resolved: toctree ↔ disk
-agreement is verified statically for all five sections. An actual `sphinx-build` was **not
-run here** (a full docs build is heavy and out of scope for this change); it remains the
-final confirmation and is exercised by the normal docs CI
-(`.github/workflows/sphinx_docs_to_gh_pages.yaml`, `nb_execution_mode = "off"`).
+The stale-toctree defect is resolved: toctree ↔ disk agreement is verified statically
+for all five sections. On 2026-07-29, `make html` under `docs/` completed successfully
+with `nb_execution_mode = "off"` and generated all HTML pages. The build reported 1,146
+warnings from broader historical documentation debt; none invalidated the course
+structure or the two semantic references closed here. That warning baseline is not
+misrepresented as a warning-free documentation gate.
 
 ### Course-structure validator (DONE)
 
@@ -146,17 +135,10 @@ manifest ids matching each notebook's MyST label, and excludes `.ipynb_checkpoin
 imports nothing from MolSysMT and exits non-zero on any violation, so the structure
 cannot silently regress. Current run: *"Course structure valid: 156 notebooks …"*.
 
-### Remaining before archival
+### Closure evidence
 
-1. **Two open Task E items** (above): the orphaned "Sequences" reference in core `12`, and
-   the narrative "open Module 17" flow in core `17`. Both need a content decision, not a
-   number swap. Everything else in Task E is done (69 Path navigation refs shifted +4; 4
-   pre-existing errors corrected; the rest verified correct).
-2. One clean `sphinx-build` of the course tree (final confirmation of the toctree fix;
-   the defect is already resolved statically). Run by the docs CI.
-3. Commit note: the migration currently coexists with unrelated course-notebook WIP in the
-   working tree; whoever commits must select changes so the renumbering is not entangled
-   with unrelated edits (see the proposal's independence section).
-
-When 1–2 are done, move this file to `devguide/archive/resolved_bugs/`. The
-course-structure contract is guarded by `devtools/scripts/validate_course.py`.
+- `python devtools/scripts/validate_course.py` validates all 156 notebooks, their
+  numbering, toctrees, semantic labels, and manifest.
+- Both final narrative links use stable semantic `{ref}` targets.
+- `make html` completes and resolves the course structure into generated HTML.
+- The course-structure contract remains in the fast release gate.

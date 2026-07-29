@@ -87,7 +87,6 @@ Set of function to make the work with third libraries easier.
    physchem/api_physchem
    molecular_mechanics/api_molecular_mechanics
    hbonds/api_hbonds
-   molecular_dynamics/api_molecular_dynamics
    element/api_element
    form/api_form
    third_party/api_thirds

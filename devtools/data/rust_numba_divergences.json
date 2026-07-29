@@ -468,7 +468,7 @@
       "category": "scientific-correction",
       "decision": "Keep the Rust correction; do not preserve the Numba defect.",
       "evidence": [
-        "devguide/pending_bugs/wrap_to_mic_triclinic_not_minimum_image.md",
+        "devguide/archive/resolved_bugs/wrap_to_mic_triclinic_not_minimum_image.md",
         "tests/scientific_truth/pbc/test_minimum_image.py"
       ],
       "families": [
@@ -536,7 +536,7 @@
       "category": "safety-and-contract-correction",
       "decision": "Honor the public broadcast contract.",
       "evidence": [
-        "devguide/pending_bugs/dihedral_angles_broadcast_mismatch_pbc.md"
+        "devguide/archive/resolved_bugs/dihedral_angles_broadcast_mismatch_pbc.md"
       ],
       "families": [
         "dihedral_ops"
@@ -577,7 +577,7 @@
       "category": "mathematical-nonuniqueness",
       "decision": "Canonicalize signs while comparing scientific axes up to sign.",
       "evidence": [
-        "devguide/pending_bugs/principal_axes_eigenvector_sign_unspecified.md"
+        "devguide/archive/resolved_bugs/principal_axes_eigenvector_sign_unspecified.md"
       ],
       "families": [
         "axes"

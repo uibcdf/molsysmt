@@ -3,7 +3,7 @@
 
 Enforces the contract established by the 2026-07-22 renumbering
 (``devguide/pending_proposals/course_module_renumbering_scheme.md`` and
-``devguide/pending_bugs/course_module_numbering_overlaps.md``):
+``devguide/archive/resolved_bugs/course_module_numbering_overlaps.md``):
 
 - the Common Core is exactly modules 1..20 (no gaps, no duplicates);
 - each Path is exactly modules 21..54 (no gaps, no duplicates);

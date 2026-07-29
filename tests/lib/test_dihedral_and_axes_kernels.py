@@ -1,10 +1,15 @@
 import numpy as np
 
-from molsysmt.lib.structure.get_dihedral_angles import get_dihedral_angles_single_structure
+from molsysmt.lib.structure.get_dihedral_angles import (
+    get_dihedral_angles,
+    get_dihedral_angles_single_structure,
+)
+from molsysmt.lib.structure.get_mic_dihedral_angles import get_mic_dihedral_angles
 from molsysmt.lib.structure.set_dihedral_angles import (
     set_dihedral_angles,
     set_dihedral_angles_single_structure,
 )
+from molsysmt.lib.structure.set_mic_dihedral_angles import set_mic_dihedral_angles
 from molsysmt.lib.structure.shift_dihedral_angles import (
     shift_dihedral_angles,
     shift_dihedral_angles_single_structure,
@@ -78,6 +83,31 @@ def test_set_and_shift_dihedral_kernels_match_expected_angles():
     np.testing.assert_allclose(
         get_dihedral_angles_single_structure(shifted_batch[0], quartets),
         np.array([np.pi / 2], dtype=np.float64),
+        atol=1e-12,
+    )
+
+
+def test_set_dihedral_angles_broadcasts_one_target_row_on_both_paths():
+    quartets = np.array([[0, 1, 2, 3]], dtype=np.int64)
+    blocks = np.array([[False, False, False, True]], dtype=np.bool_)
+    coordinates = np.repeat(_reference_coordinates()[np.newaxis, :, :], 3, axis=0)
+    boxes = np.repeat((10.0 * np.eye(3))[np.newaxis, :, :], 3, axis=0)
+    target = np.array([[np.pi / 3]], dtype=np.float64)
+    expected = np.repeat(target, 3, axis=0)
+
+    vacuum_coordinates = coordinates.copy()
+    set_dihedral_angles(vacuum_coordinates, target, quartets, blocks)
+    np.testing.assert_allclose(
+        get_dihedral_angles(vacuum_coordinates, quartets),
+        expected,
+        atol=1e-12,
+    )
+
+    periodic_coordinates = coordinates.copy()
+    set_mic_dihedral_angles(periodic_coordinates, boxes, target, quartets, blocks)
+    np.testing.assert_allclose(
+        get_mic_dihedral_angles(periodic_coordinates, boxes, quartets),
+        expected,
         atol=1e-12,
     )
 

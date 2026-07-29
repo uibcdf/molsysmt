@@ -2,13 +2,13 @@
 //!
 //! Weighted PCA over a trajectory: flatten each structure to a `3·n_atoms` feature
 //! vector, weight-centre it, form the covariance, and diagonalise. Feature `xx` is
-//! `jj*n_atoms + ii` — all x-coordinates, then all y, then all z — matching upstream's
+//! `jj*n_atoms + ii` — all x-coordinates, then all y, then all z — matching the replaced Numba implementation's
 //! `aux_ind`. Eigenvalues come back ascending and the eigenvector matrix is transposed,
 //! so row `i` of the result is the `i`-th principal component.
 //!
 //! # Two deliberate departures from a faithful port
 //!
-//! 1. **The covariance is a matrix product, not the triple loop.** Upstream builds `cov`
+//! 1. **The covariance is a matrix product, not the triple loop.** The replaced Numba implementation built `cov`
 //!    with an `O(n_structures · n_features²)` scalar loop; this is exactly `Xc^T Xc`, a
 //!    BLAS rank-k update. `faer` does it 48-132x faster (measured — see
 //!    `devguide/pending_proposals/linear_algebra_backend_for_rust_kernels.md`). This is
@@ -32,7 +32,7 @@
 //! arbitrary orthonormal basis of that subspace; even up to sign they are not comparable.
 //! The parity tests therefore compare eigenvectors only where the eigenvalue is nonzero
 //! and well separated, and otherwise assert the defining property `cov v = λ v`.
-//! See `devguide/pending_bugs/principal_axes_eigenvector_sign_unspecified.md`.
+//! See `devguide/archive/resolved_bugs/principal_axes_eigenvector_sign_unspecified.md`.
 
 use faer::{Mat, Par, Side};
 use numpy::ndarray::{Array1, Array2};
@@ -118,7 +118,7 @@ pub fn principal_component_analysis<'py>(
                 vals[k] = *s.column_vector().get(k);
                 let mut v: Vec<f64> = (0..nf).map(|r| *u.get(r, k)).collect();
                 fix_sign(&mut v);
-                // row k is the k-th component (upstream transposes the eigenvector matrix)
+                // row k is the k-th component (the replaced Numba implementation transposed the eigenvector matrix)
                 vecs[k * nf..(k + 1) * nf].copy_from_slice(&v);
             }
             (vals, vecs)

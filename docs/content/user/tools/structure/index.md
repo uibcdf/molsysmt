@@ -33,7 +33,7 @@
    :maxdepth: 2
    :hidden:
    
-   align_principal_axis.ipynb
+   align_principal_axes.ipynb
    center.ipynb
    flip.ipynb
    get_angles.ipynb
@@ -41,7 +41,6 @@
    get_contacts.ipynb
    get_dihedral_angles.ipynb
    get_distances.ipynb
-   get_geometric_center.ipynb
    get_least_rmsd.ipynb
    get_maximum_distances.ipynb
    get_minimum_distances.ipynb

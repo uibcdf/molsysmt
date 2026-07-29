@@ -24,7 +24,7 @@
 > **Known residue, not resolved here:** no test in `tests/` asserts the broadcast
 > contract. The divergence was originally pinned by a parity test against Numba, and
 > that oracle no longer exists. Tracked in
-> [`rust_migration_documentation_and_test_residue.md`](../../pending_proposals/rust_migration_documentation_and_test_residue.md).
+> [`rust_migration_documentation_and_test_residue.md`](../resolved_proposals/rust_migration_documentation_and_test_residue.md).
 >
 > Everything below is the original report, retained for provenance. It describes the
 > deleted Numba implementation and does not describe current behaviour.

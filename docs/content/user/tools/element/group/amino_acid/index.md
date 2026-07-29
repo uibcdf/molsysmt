@@ -16,6 +16,6 @@
    get_bonded_atom_pairs.ipynb
    get_group_db.ipynb
    group_names.ipynb
-   is_ion.ipynb
+   is_amino_acid.ipynb
 
 ```

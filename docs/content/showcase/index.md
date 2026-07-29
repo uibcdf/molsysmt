@@ -25,7 +25,6 @@ quickstart
 barnase_barstar
 dialanine_montecarlo
 md_trajectory
-membrane
 openmm
 nglview
 ```

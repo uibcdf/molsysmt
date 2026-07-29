@@ -1,56 +1,47 @@
 # MolSysMT private Rust kernels
 
 **Status:** this is the production Rust crate compiled into the private
-`molsysmt._rust` extension. Every inventoried CPU `njit` kernel has a Rust
-migration disposition, the native crate has 80 unit tests, and the bounded
-Python oracle has 264 passing tests plus three documented upstream
-minimum-image skips. Numba remains temporarily available only as the frozen
-migration oracle; the Rust-only cut follows the installed-package gates.
+`molsysmt._rust` extension. The crate lives permanently in `rust/`, is built
+inside the MolSysMT wheel through `setuptools-rust`, and is the only production
+CPU-kernel implementation. Numba and the temporary coexistence seam have been
+removed.
 
-## Migration policy (agreed)
+## Current maintenance policy
 
-- **Faithful in algorithm + floating-point operations** → keeps the bit-for-bit parity
-  gate against the Numba oracle, which is what makes the migration safe and reviewable.
-- **…but faithful to the oracle, not to its defects.** Bit-parity is the gate *where the
-  oracle is defined*. Where the port uncovers a genuine upstream bug, Rust implements the
-  correct behaviour, a test pins the divergence, and the defect is filed in
-  `devguide/pending_bugs/`. Three cases so far, all reported:
-  `sasa_is_orthogonal_typo.md` (well-defined but wrong branch — parity drops to a 1e-9
-  tolerance, divergence measured at 4.4e-16),
-  `dihedral_angles_broadcast_mismatch_pbc.md` (undefined: an unchecked out-of-bounds read,
-  so there is no value to be faithful to) and
-  `wrap_to_mic_triclinic_not_minimum_image.md` (plainly wrong results — the parity
-  assertion is replaced by a property assertion). Copying a bug forward would fossilise it
-  behind a green test suite. Each such test also fails if upstream is fixed, so a
-  divergence cannot outlive its justification.
-- **Bit-parity has a floor, and it is `fastmath`.** `lazy_njit` compiles with
-  `fastmath=True`, so LLVM may contract or reassociate; Rust does not by default. Where
-  that bites (the `pbc` triclinic wraps) the gate is a 1e-12 tolerance, confirmed by
-  rebuilding the oracle with `fastmath=False` and recovering exact parity.
-- **Free in structure and parallelism** ("level A"): stack arrays instead of per-element
-  `np.empty`, `Vec` instead of pre-sized numpy scratch, and `rayon` where the Numba
-  kernel used `prange`. These do not change results — and they are where the big wins
-  came from (the MIC port's 14–27× warm).
-- **Parity-breaking optimisation is a separate, later phase** ("level B": float
-  reordering/SIMD; "level C": algorithmic or layout redesign, i.e. the columnar-engine
-  work). Those change the gate from bit-parity to scientific tolerance and get their own
-  benchmark. Never mixed with a port.
+- Scientific contracts are guarded by Python integration tests, Rust unit tests,
+  independent properties, and external reference evidence where appropriate.
+- Rayon parallelism follows the session configuration and per-call overrides resolved
+  by MolSysMT; kernels do not invent their own resource policy.
+- Floating-point changes require an explicit tolerance and scientific justification.
+  SIMD/vectorization and algorithmic redesign must be measured separately from
+  correctness-preserving maintenance.
+- Four deliberate corrections made during migration remain documented under
+  `devguide/archive/resolved_bugs/`: SASA orthogonality, dihedral target broadcasting,
+  triclinic minimum-image wrapping, and deterministic principal-axis signs.
+- The historical Numba audit remains a zero-surface ratchet. It is not a second runtime
+  or an oracle that production code can select.
 
 ## Testing: two independent layers
 
 1. **Rust unit tests** (`cargo test --manifest-path rust/Cargo.toml
-   --no-default-features`, 80 tests) — exercise the
-   pure helpers directly and cover edge cases the parity tests share blind spots on:
+   --no-default-features`) — exercise the pure helpers directly and cover edge cases:
    inverse round-trips, minimum-image wrapping picking the short image, `angle`
    clamping so `acos` never NaNs, sorted/unsorted emit order, empty neighbour sets, and
    cumulative CSR offsets, the deliberate corrections above, and the
    round-half-to-even trap in `unwrap`. `extension-module`
    is an optional (default-on) feature precisely so the test binary can link.
-2. **Python parity tests** (`tests/rust/`, 264 tests + 3 documented skips) —
-   equivalence against the frozen Numba oracle through the coexistence seam,
-   with the documented exceptions above. The private extension is required;
-   absence is a build or installation defect. Run with
+2. **Python integration tests** (`tests/lib/`, `tests/rust/`, and the public consumer
+   suites) — verify the extension through MolSysMT's private Python adapters, including
+   thread-policy boundaries and scientific properties. The private extension is
+   required; absence is a build or installation defect. Focused checks include
    `python -m pytest --receptor=llm tests/rust/`.
+
+## Historical migration record
+
+The block notes below preserve measurements and design decisions from the
+Numba-to-Rust migration. References to parity or to the Numba oracle describe how
+the port was validated at that time; they do not describe a runtime that still
+exists.
 
 ## Block 13: PCA (`pca.rs`) — the last CPU kernel, 97/97
 
@@ -102,7 +93,7 @@ a **degeneracy** problem — when `n_structures < n_features` the covariance is 
 deficient and its null space has an arbitrary eigenvector basis. The parity test compares
 eigenvalues within tolerance, eigenvectors up to sign only where the eigenvalue is nonzero
 and well separated, and otherwise asserts `cov v = λ v`. See
-`devguide/pending_bugs/principal_axes_eigenvector_sign_unspecified.md`.
+`devguide/archive/resolved_bugs/principal_axes_eigenvector_sign_unspecified.md`.
 
 ## Blocks 11 and 12: the RMSD family and the principal axes (`rmsd.rs`, `axes.rs`)
 
@@ -130,7 +121,7 @@ which sums pairwise rather than sequentially. All last-bit effects.
   deterministically (largest-magnitude component positive) so switching backend cannot
   flip an axis, and the parity test compares eigenvectors *up to sign*
   (`|v_rust · v_numba| = 1`) while asserting `M v = λ v` independently. Reported as
-  `devguide/pending_bugs/principal_axes_eigenvector_sign_unspecified.md`.
+  `devguide/archive/resolved_bugs/principal_axes_eigenvector_sign_unspecified.md`.
 
 Both blocks lean on property tests rather than parity alone: that the returned transform
 actually superposes the structures, that the rotation is proper (orthogonal, determinant
@@ -222,7 +213,7 @@ earlier blocks suggested: **the warm win tracks allocation volume, not paralleli
   images of the *original* vector rather than the wrapped one — so when the input is
   several box lengths out, the corner-cell wrap wins by default. Searching around the
   wrapped candidate gives 300/300, and it is what `unwrap.py` in the same package already
-  does. Filed as `devguide/pending_bugs/wrap_to_mic_triclinic_not_minimum_image.md`; the
+  does. Filed as `devguide/archive/resolved_bugs/wrap_to_mic_triclinic_not_minimum_image.md`; the
   test asserts the property and **fails loudly if upstream is ever fixed**, so the
   divergence cannot outlive its reason.
 
@@ -312,7 +303,7 @@ Measured consequence: the two branches are mathematically identical but not bit-
 differ at max 1.78e-15, propagating to **max 4.4e-16 in SASA values (relative 4.4e-16)**
 with no occlusion decision flipping. So this kernel's parity test runs at 1e-9 tolerance
 rather than bit-equality on orthogonal boxes. Filed as
-`devguide/pending_bugs/sasa_is_orthogonal_typo.md`.
+`devguide/archive/resolved_bugs/sasa_is_orthogonal_typo.md`.
 
 | case | COLD nb | COLD rs | WARM nb `auto` | WARM nb forced-par | WARM rust |
 |---|---|---|---|---|---|

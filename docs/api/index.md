@@ -65,10 +65,10 @@ API of the set of functions to work with the different elements of a molecular s
 API of the functions to work with each of the supported molecular system's forms by MolSysMT.
 :::
 
-:::{grid-item-card} API Thirds
+:::{grid-item-card} API Third Party
 :columns: 3
-:link: thirds/api_thirds.html
-Set of function to make the work with third libraries easier.
+:link: third_party/api_thirds.html
+Functions that integrate MolSysMT with third-party libraries.
 :::
 
 ::::
@@ -87,10 +87,9 @@ Set of function to make the work with third libraries easier.
    physchem/api_physchem
    molecular_mechanics/api_molecular_mechanics
    hbonds/api_hbonds
-   molecular_dynamics/api_molecular_dynamics
    element/api_element
    form/api_form
-   thirds/api_thirds
+   third_party/api_thirds
 
 .. toctree::
    :caption: Developer
@@ -99,4 +98,3 @@ Set of function to make the work with third libraries easier.
    _private/api__private
 
 ```
-

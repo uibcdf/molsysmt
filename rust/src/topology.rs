@@ -8,7 +8,7 @@
 //! labels.
 //!
 //! `_find_root` and `_union` mutate `parent` (path halving) and `rank` in place, exactly
-//! as upstream does, so they are exposed individually for parity testing.
+//! as the replaced Numba implementation does, so they are exposed individually for parity testing.
 
 use numpy::ndarray::Array1;
 use numpy::{IntoPyArray, PyArray1, PyReadonlyArray2, PyReadwriteArray1};

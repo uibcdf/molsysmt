@@ -4,17 +4,17 @@
 //! get_mic_sasa_cell_list}`: per-structure linked-cell grid, candidate gather within
 //! `cutoff = 2*max_radius + 2*probe`, then the sphere-point occlusion test.
 //!
-//! DELIBERATE CORRECTION of an upstream typo: `get_sasa.py::_is_orthogonal` tests
-//! `box_s[2,2]` where it means `box_s[2,1]`. `box_s[2,2]` is a box length, so the check
-//! can never be true and the MIC path always takes the (more expensive) triclinic
-//! branch, even for cubic boxes. This port uses the intended check.
+//! DELIBERATE CORRECTION of a typo in the replaced Numba implementation:
+//! `get_sasa.py::_is_orthogonal` tested `box_s[2,2]` where it meant `box_s[2,1]`.
+//! `box_s[2,2]` is a box length, so the check could never be true and the MIC path
+//! always took the more expensive triclinic branch, even for cubic boxes.
 //!
 //! Consequence, measured and documented: for an orthogonal box the two branches are
 //! mathematically identical but not bit-identical (the orthogonal one divides, the
 //! triclinic one multiplies by a Cramer reciprocal) — 11094/20000 probe samples differ,
-//! max |diff| ~ 1.78e-15. So on orthogonal boxes this kernel is compared to the Numba
-//! oracle at scientific tolerance rather than bit-for-bit. Reported upstream in
-//! `devguide/pending_bugs/sasa_is_orthogonal_typo.md`.
+//! max |diff| ~ 1.78e-15. The migration therefore used scientific tolerance rather than
+//! bit-for-bit parity. The correction is recorded in
+//! `devguide/archive/resolved_bugs/sasa_is_orthogonal_typo.md`.
 //!
 //! The cell-list SASA is correct on triclinic boxes (it equals the brute-force SASA
 //! exactly): reduced-cell minimum image, perpendicular-thickness grid, and lattice
@@ -30,8 +30,8 @@ use rayon::prelude::*;
 
 type Mat3 = [[f64; 3]; 3];
 
-/// The check `get_sasa.py::_is_orthogonal` *intends* (upstream tests `b[2][2]`, a box
-/// length, which can never be below the tolerance — see the module docs).
+/// The intended orthogonality check. The replaced implementation tested `b[2][2]`,
+/// a box length that cannot be below the tolerance; see the module documentation.
 #[cfg(test)]
 fn is_orthogonal(b: &Mat3) -> bool {
     let tol = 1e-10;
@@ -549,11 +549,11 @@ pub fn get_mic_sasa_cell_list<'py>(
 // `CELL_LIST_MIN_ATOMS`. Numerically the same occlusion test as the cell-list kernels,
 // just without the grid: every sphere point is checked against every other atom.
 //
-// The MIC wrap here matches upstream's `_mic_wrap_vector`: a centred fractional wrap using
+// The MIC wrap here matches the replaced Numba implementation's `_mic_wrap_vector`: a centred fractional wrap using
 // the *full* 3x3 inverse (no 27-image search), and the same corrected orthogonality check
-// as the cell-list path (upstream's `_is_orthogonal` has the `box_s[2,2]` typo, so on a
+// as the cell-list path (the replaced Numba implementation's `_is_orthogonal` has the `box_s[2,2]` typo, so on a
 // cubic box the two branches agree to ~1e-15 rather than bit-for-bit — see the module
-// docs and `devguide/pending_bugs/sasa_is_orthogonal_typo.md`).
+// docs and `devguide/archive/resolved_bugs/sasa_is_orthogonal_typo.md`).
 
 #[inline]
 #[allow(clippy::too_many_arguments)] // Inner-loop state is passed explicitly for inlining.
@@ -760,16 +760,16 @@ mod tests {
     const TRIC: Mat3 = [[6.0, 0.0, 0.0], [1.2, 6.0, 0.0], [0.8, 0.6, 6.0]];
 
     /// The corrected check: a cubic box is orthogonal, a triclinic one is not.
-    /// Upstream returns false for both because it tests `b[2][2]` (a box length).
+    /// The replaced implementation returned false for both because it tested a box length.
     #[test]
-    fn orthogonality_check_is_correct_unlike_upstream() {
+    fn orthogonality_check_uses_off_diagonal_elements() {
         assert!(is_orthogonal(&ORTHO));
         assert!(!is_orthogonal(&TRIC));
-        // What upstream computes, for the record: `b[2][2] < tol` is never true.
-        let upstream_would_say = ORTHO[2][2].abs() < 1e-10;
+        // What the replaced expression computed: `b[2][2] < tol` is never true.
+        let replaced_expression = ORTHO[2][2].abs() < 1e-10;
         assert!(
-            !upstream_would_say,
-            "upstream can never report a real box as orthogonal"
+            !replaced_expression,
+            "a box length cannot identify an orthogonal box"
         );
     }
 
@@ -801,8 +801,7 @@ mod branch_divergence {
     /// For an orthogonal box the two branches are mathematically identical, but the
     /// orthogonal one divides (`dx / L`) while the triclinic one multiplies by a
     /// reciprocal built from Cramer's rule (`dx * inv00`). This pins the size of the
-    /// resulting divergence so that a future change cannot enlarge it unnoticed: the
-    /// parity gate for this kernel is a tolerance, and this test is what justifies it.
+    /// resulting divergence so that a future change cannot enlarge it unnoticed.
     #[test]
     fn orthogonal_vs_triclinic_branch_on_a_cubic_box() {
         let b: Mat3 = [[6.0, 0.0, 0.0], [0.0, 6.0, 0.0], [0.0, 0.0, 6.0]];
@@ -825,9 +824,8 @@ mod branch_divergence {
         }
         // Measured: 11094/20000 samples differ, max |diff| ~ 1.78e-15 — pure floating-
         // point noise, propagating to ~4.4e-16 in SASA values with no occlusion decision
-        // flipping. The port takes the correct branch and the typo is reported upstream
-        // (`devguide/pending_bugs/sasa_is_orthogonal_typo.md`); the price is that parity
-        // against Numba is asserted at 1e-9 here rather than bit-for-bit.
+        // flipping. The implementation takes the correct branch; the migration history
+        // is recorded in `devguide/archive/resolved_bugs/sasa_is_orthogonal_typo.md`.
         assert!(
             differing > 0 && max_diff < 1e-12,
             "expected tiny-but-nonzero divergence; got {differing}/{n}, max {max_diff:.3e}"

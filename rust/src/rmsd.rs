@@ -11,13 +11,13 @@
 //! **Eigensolver**: `nalgebra`'s `symmetric_eigen`, in pure Rust. The matrix is 4x4, so a
 //! LAPACK dependency would buy nothing and would cost the self-contained wheel — see
 //! `devguide/pending_proposals/linear_algebra_backend_for_rust_kernels.md`. numpy returns
-//! eigenvalues in ascending order and upstream indexes `[3]` for the largest, so the
+//! eigenvalues in ascending order and the replaced Numba implementation indexed `[3]` for the largest, so the
 //! decomposition is sorted here to match that convention explicitly rather than relying
 //! on the solver's ordering.
 //!
 //! **Parity is at tolerance, and unavoidably so**, for three independent reasons: Numba's
 //! `fastmath=True` (see block 9), a different eigensolver from LAPACK's `dsyevx`, and
-//! upstream's use of `np.sum` for the centroid, which sums pairwise rather than
+//! the replaced Numba implementation's use of `np.sum` for the centroid, which sums pairwise rather than
 //! sequentially. All three are last-bit effects.
 //!
 //! One thing that is *not* ambiguous: the eigenvector's sign. `q` and `-q` map to the same
@@ -170,7 +170,7 @@ fn kearsley(r: &Mat3) -> [f64; 16] {
 }
 
 /// Symmetric 4x4 eigendecomposition, sorted **ascending** to match numpy's convention
-/// (upstream indexes `[3]` for the largest eigenvalue).
+/// (the replaced Numba implementation indexed `[3]` for the largest eigenvalue).
 #[inline]
 #[allow(clippy::needless_range_loop)] // Fixed 4x4 copy is clearer and optimizes predictably.
 fn eigen_ascending(f: &[f64; 16]) -> ([f64; 4], [[f64; 4]; 4]) {

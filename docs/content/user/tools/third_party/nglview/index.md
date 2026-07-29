@@ -12,5 +12,5 @@
    show_as_balls_and_sticks.ipynb
    show_as_licorice.ipynb
    show_as_surface.ipynb
-   show_as_cartoon.ipynb
+   show_cartoon.ipynb
 ```

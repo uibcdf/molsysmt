@@ -1,15 +1,18 @@
 //! Block 10b — `molsysmt.lib.series`: run-length encoding of integer series and the
 //! serialisation behind `serialized_lists`.
 //!
-//! Two upstream kernels index `serie[0]` before checking the length, so an empty input is
+//! Two kernels in the replaced Numba implementation indexed `serie[0]` before checking
+//! the length, so an empty input was
 //! an unchecked out-of-bounds read under `njit` (`serie_to_chunks` also returns a
 //! one-element result built from whatever that read produced). The oracle is undefined
 //! there, so these ports return empty output instead, and a parity test pins that the
 //! divergence exists only for the empty case.
 //!
-//! `_jit_serialize` takes a Numba typed list of typed lists upstream; the Rust port takes
+//! `_jit_serialize` took a Numba typed list of typed lists in the replaced implementation;
+//! the Rust port takes
 //! an ordinary Python sequence of sequences, which the seam feeds from the same source.
-//! Note that it **sorts each segment** — that is upstream behaviour, not an addition.
+//! Note that it **sorts each segment** — that behavior is inherited from the replaced
+//! Numba implementation, not added here.
 
 use numpy::ndarray::Array1;
 use numpy::{IntoPyArray, PyArray1, PyReadonlyArray1};
@@ -112,7 +115,7 @@ pub fn occurrence_order<'py>(
 }
 
 /// Same ranking, but exploiting a sorted input: a new rank starts at every value change.
-/// Note this does *not* agree with [`occurrence_order`] on unsorted input — upstream
+/// Note this does *not* agree with [`occurrence_order`] on unsorted input — the replaced Numba implementation
 /// offers both and the caller picks; the parity tests cover each on its own terms.
 #[pyfunction]
 pub fn occurrence_order_sorted_serie<'py>(
@@ -204,7 +207,7 @@ mod tests {
         let (starts, sizes) = chunks(&[]);
         assert!(
             starts.is_empty() && sizes.is_empty(),
-            "upstream reads serie[0] out of bounds here; this port returns nothing"
+            "the replaced Numba implementation read serie[0] out of bounds here; this port returns nothing"
         );
     }
 }

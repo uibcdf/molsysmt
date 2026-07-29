@@ -5,7 +5,7 @@
    :maxdepth: 2
 
    TQDMReporter.ipynb
-   TrajectoryDictReporter.ipynb
+   StructuresDictReporter.ipynb
    h5msm.ipynb
    
 ```

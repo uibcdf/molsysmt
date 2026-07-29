@@ -55,10 +55,6 @@ scientific-validation requirements.
   The landscape survey is still live post-1.0 work. Its near-term framing is
   settled: the default Rust wheel is CPU-only and Numba-CUDA has been removed, so
   any future GPU surface must pass its own scientific and failure-contract audit.
-- `rust_migration_documentation_and_test_residue.md` — bounded repo, code-comment,
-  and test-coverage residue left by the Numba-to-Rust migration, found while
-  bringing the developer guide up to date. Documentation-only work is already
-  done; this is the part that touches code and tests.
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`
 - `rusterization_topology_and_selections.md`
@@ -113,6 +109,9 @@ Archived on 2026-07-29 after F2 closure and F3 lifecycle reconciliation:
   matrix path by explicit design.
 - `rusterization_heavy_computations.md` — **completed and superseded.** The
   exploration led to the Rust-only runtime and no longer defines future work.
+- `rust_migration_documentation_and_test_residue.md` — **completed.** The
+  dihedral broadcast contract is tested on both paths, archived records resolve,
+  and Rust source documentation describes the production Rust-only runtime.
 
 A proposal is archived, never deleted. If one of these questions returns it will
 return with a different premise and deserves a fresh document rather than a

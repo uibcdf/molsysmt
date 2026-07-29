@@ -158,11 +158,10 @@ pub fn shift_dihedral_angles(
     }
 }
 
-/// NOTE: upstream `set_dihedral_angles` takes **no** `structure_indices` (it always
-/// walks every structure) and is the only variant implementing broadcasting: a size-1
-/// dimension of `angles` collapses to index 0. Replicated exactly — see
-/// `devguide/pending_bugs/dihedral_angles_broadcast_mismatch_pbc.md`, which reports that
-/// its periodic twin does *not* broadcast.
+/// `set_dihedral_angles` takes no `structure_indices`: it walks every structure and
+/// broadcasts either size-one dimension of `angles`. The Rust implementation made this
+/// contract consistent across the vacuum and periodic variants. See
+/// `devguide/archive/resolved_bugs/dihedral_angles_broadcast_mismatch_pbc.md`.
 #[pyfunction]
 pub fn set_dihedral_angles(
     mut coordinates: PyReadwriteArray3<'_, f64>,
@@ -194,7 +193,8 @@ pub fn set_dihedral_angles(
 
 /// The MIC variants wrap `vect1` (and `vect0`/`vect2` in set mode) and then wrap
 /// `vect_aux` before and after each rotation. We compute the inverse unconditionally;
-/// `shift_mic` does the same upstream while `set_mic` computes it only for triclinic
+/// The replaced Numba `shift_mic` implementation did the same, while `set_mic`
+/// computed it only for triclinic
 /// boxes, but the wrap only reads it on the triclinic branch, so results
 /// are identical either way.
 fn mic_parts(b: &Mat3) -> (Mat3, Mat3, bool) {
@@ -273,20 +273,16 @@ pub fn shift_mic_dihedral_angles(
     }
 }
 
-/// DELIBERATE, TESTED DIVERGENCE from the Numba oracle.
+/// DELIBERATE, TESTED CORRECTION made during the Numba-to-Rust migration.
 ///
-/// Upstream this kernel indexes `angles[ii, aa]` directly while its vacuum twin
-/// broadcasts a size-1 dimension — and the public `set_dihedral_angles` documents
-/// `angles` as "compatible with shape (n_structures, n_quartets)" and feeds the same
-/// array to either kernel depending only on whether a box exists. With a broadcast
-/// shape the periodic path therefore reads out of bounds, and Numba does not
-/// bounds-check: it silently returns garbage (measured: atoms displaced by ~7.8 nm).
+/// The replaced Numba kernel indexed `angles[ii, aa]` directly while its vacuum twin
+/// broadcast a size-one dimension. With a broadcast shape the periodic path therefore
+/// read out of bounds because Numba did not bounds-check; the migration measured atoms
+/// displaced by about 7.8 nm.
 ///
-/// Parity is the migration's gate only where the oracle is *defined*; there is nothing
-/// to be faithful to in undefined behaviour. So this port broadcasts like the vacuum
-/// twin, honouring the documented contract. On every well-defined input the two
-/// backends remain bit-for-bit identical. See
-/// `devguide/pending_bugs/dihedral_angles_broadcast_mismatch_pbc.md`.
+/// This implementation broadcasts like the vacuum path and honours the documented
+/// contract. See the completed migration record:
+/// `devguide/archive/resolved_bugs/dihedral_angles_broadcast_mismatch_pbc.md`.
 #[pyfunction]
 pub fn set_mic_dihedral_angles(
     mut coordinates: PyReadwriteArray3<'_, f64>,

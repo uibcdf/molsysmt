@@ -383,8 +383,9 @@ pub fn py_rodrigues_rotation<'py>(
 
 /// Mirrors `math.py::minimum_distance_masked_not_bonded`: the shortest distance between
 /// any two *included, non-bonded* atoms. Returns `+inf` when no such pair exists, matching
-/// upstream's `np.inf`, so a caller probing for a clash can treat "nothing found" as
-/// "infinitely far". The mask and bonded matrix are `u8` (0/non-zero), as upstream.
+/// the replaced Numba implementation's `np.inf`, so a caller probing for a clash can
+/// treat "nothing found" as "infinitely far". The mask and bonded matrix are `u8`
+/// (0/non-zero), matching the historical contract.
 #[pyfunction]
 pub fn minimum_distance_masked_not_bonded(
     coordinates: PyReadonlyArray2<'_, f64>,

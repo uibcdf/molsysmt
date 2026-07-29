@@ -13,19 +13,16 @@
 //! # The sign convention, and why this port adds one
 //!
 //! An eigenvector is only defined up to sign: `v` and `-v` are equally valid principal
-//! axes. Upstream returns whatever LAPACK happens to produce, which is not specified by
-//! the API, is not guaranteed stable across LAPACK implementations or versions, and would
-//! make `backend='rust'` and `backend='numba'` disagree *visibly* on the same input —
-//! axes flipping when the accelerator is switched on.
+//! axes. The replaced Numba implementation returned whatever LAPACK happened to produce,
+//! which was not specified by the API or stable across LAPACK implementations or versions.
 //!
 //! This port therefore fixes signs deterministically: **the component of largest absolute
 //! value is made positive** (ties broken by lowest index). The axes are mathematically
 //! identical either way; the difference is that this answer is reproducible.
 //!
-//! Consequence for the parity tests: eigenvalues are compared directly, eigenvectors only
-//! up to sign (`|v_rust · v_numba| ≈ 1`), plus the defining property `M v = λ v`. The
-//! underspecified contract is reported in
-//! `devguide/pending_bugs/principal_axes_eigenvector_sign_unspecified.md`.
+//! The migration compared eigenvalues directly and eigenvectors only up to sign, plus the
+//! defining property `M v = λ v`. The deterministic contract is recorded in
+//! `devguide/archive/resolved_bugs/principal_axes_eigenvector_sign_unspecified.md`.
 
 use nalgebra::SMatrix;
 use numpy::ndarray::{Array1, Array2, Array3, ArrayView2};
@@ -147,7 +144,7 @@ fn principal_axes(m: &Mat3) -> (Vec3, Mat3) {
             e.eigenvectors[(2, src)],
         ];
         fix_sign(&mut v);
-        axes[i] = v; // row i is the i-th axis, matching upstream's transpose
+        axes[i] = v; // row i is the i-th axis, matching the replaced Numba implementation's transpose
     }
     (values, axes)
 }

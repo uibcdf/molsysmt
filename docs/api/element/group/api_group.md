@@ -79,12 +79,10 @@ API of the set of functions to examine waters.
    ion/api_ion.rst
    lipid/api_lipid.rst
    nucleotide/api_nucleotide.rst
-   oligosaccharide/api_oligosaccharide.rst
    saccharide/api_saccharide.rst
    small_molecule/api_small_molecule.rst
    terminal_capping/api_terminal_capping.rst
    water/api_water.rst
 ```
-
 
 

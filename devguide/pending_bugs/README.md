@@ -25,23 +25,26 @@ that the affected surface is fully verified.
 
 ### Contract and maintainability
 
+- `sphinx_warning_baseline_and_api_reference_debt.md` — the documentation builds
+  and the course has no nonexistent toctree target, but historical API,
+  navigation, heading, title, and notebook-metadata warning families remain.
+  The baseline is measured and explicitly accepted as non-blocking for the 1.0
+  source release; new warnings must not be hidden or globally suppressed.
 - `iterator_without_explicit_attributes_fails_for_partial_forms.md` — the
   documented molecular-system-yielding mode fails during construction for
   coordinate-only and topology-plus-trajectory inputs; explicit attribute
   iteration remains usable.
-- `course_module_numbering_overlaps.md` — **the structural defect is closed.** The
-  Common Core is 1–20, every Path is 21–54, and the numbering contract is guarded
-  executably by `devtools/scripts/validate_course.py`, which passes as part of the
-  fast release gate. What remains is two editorial cross-references inside Common
-  Core notebooks 12 and 17 that need a content decision rather than a number swap;
-  they belong to lifecycle stage F4. The report is kept open only for those two
-  items — do not read it as an open numbering defect.
 
 Severity within a group still depends on the affected public workflow. Confirmed
 bugs require a regression test; suspected bugs require a minimal reproduction
 before implementation.
 
 ## Recently closed
+
+`course_module_numbering_overlaps.md` was archived on 2026-07-29 after the two
+remaining Common Core narrative references were replaced with stable semantic
+links and a full Sphinx build completed. The 156-notebook structural contract
+remains guarded by `devtools/scripts/validate_course.py`.
 
 Four reports filed on 2026-07-24 during the Rust port described defects in the
 Numba implementation. Segment D removed that implementation, and the Rust kernels
@@ -54,5 +57,5 @@ that replaced it implement the correct behaviour, so the reports were archived o
 A report is not closed merely because the implementation it describes was deleted:
 each archived note records where the correct behaviour now lives and which test
 guards it. Where no test does, that gap is tracked in
-[`rust_migration_documentation_and_test_residue.md`](../pending_proposals/rust_migration_documentation_and_test_residue.md)
+[`rust_migration_documentation_and_test_residue.md`](../archive/resolved_proposals/rust_migration_documentation_and_test_residue.md)
 rather than left implicit.

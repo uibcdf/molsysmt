@@ -8,6 +8,7 @@
 
    .. autosummary::
    
+      get_allows_implicit_hydrogens_from_atom
       get_atom_id_from_atom
       get_atom_id_from_chain
       get_atom_id_from_component
@@ -20,23 +21,34 @@
       get_atom_index_from_entity
       get_atom_index_from_group
       get_atom_index_from_molecule
+      get_atom_is_aromatic_from_atom
       get_atom_name_from_atom
       get_atom_name_from_chain
       get_atom_name_from_component
       get_atom_name_from_entity
       get_atom_name_from_group
       get_atom_name_from_molecule
+      get_atom_stereochemistry_from_atom
       get_atom_type_from_atom
       get_atom_type_from_chain
       get_atom_type_from_component
       get_atom_type_from_entity
       get_atom_type_from_group
       get_atom_type_from_molecule
+      get_bond_acceptor_atom_index_from_bond
+      get_bond_donor_atom_index_from_bond
+      get_bond_evidence_from_bond
+      get_bond_id_from_bond
       get_bond_index_from_atom
       get_bond_index_from_bond
       get_bond_index_from_system
+      get_bond_is_aromatic_from_bond
+      get_bond_is_conjugated_from_bond
+      get_bond_joins_components_from_bond
       get_bond_order_from_atom
       get_bond_order_from_bond
+      get_bond_stereo_atom_indices_from_bond
+      get_bond_stereochemistry_from_bond
       get_bond_type_from_atom
       get_bond_type_from_bond
       get_bonded_atom_pairs_from_atom
@@ -69,6 +81,10 @@
       get_chain_type_from_entity
       get_chain_type_from_group
       get_chain_type_from_molecule
+      get_chemical_state_id_from_system
+      get_chemical_state_index_from_system
+      get_component_completeness_from_system
+      get_component_evidence_from_system
       get_component_id_from_atom
       get_component_id_from_chain
       get_component_id_from_component
@@ -93,6 +109,7 @@
       get_component_type_from_entity
       get_component_type_from_group
       get_component_type_from_molecule
+      get_connectivity_completeness_from_system
       get_entity_id_from_atom
       get_entity_id_from_chain
       get_entity_id_from_component
@@ -117,6 +134,9 @@
       get_entity_type_from_entity
       get_entity_type_from_group
       get_entity_type_from_molecule
+      get_formal_charge_from_atom
+      get_formal_charge_from_system
+      get_fractional_bond_order_from_bond
       get_group_id_from_atom
       get_group_id_from_chain
       get_group_id_from_component
@@ -146,6 +166,7 @@
       get_inner_bonded_atom_pairs_from_system
       get_inner_bonded_atoms_from_atom
       get_inner_bonded_atoms_from_system
+      get_isotope_from_atom
       get_molecule_id_from_atom
       get_molecule_id_from_chain
       get_molecule_id_from_component
@@ -197,6 +218,7 @@
       get_n_chains_from_group
       get_n_chains_from_molecule
       get_n_chains_from_system
+      get_n_chemical_states_from_system
       get_n_components_from_atom
       get_n_components_from_chain
       get_n_components_from_component
@@ -224,6 +246,7 @@
       get_n_groups_from_group
       get_n_groups_from_molecule
       get_n_groups_from_system
+      get_n_implicit_hydrogens_from_atom
       get_n_inner_bonds_from_atom
       get_n_inner_bonds_from_chain
       get_n_inner_bonds_from_component
@@ -290,10 +313,12 @@
       get_n_small_molecules_from_entity
       get_n_small_molecules_from_molecule
       get_n_small_molecules_from_system
+      get_n_unpaired_electrons_from_atom
       get_n_waters_from_atom
       get_n_waters_from_chain
       get_n_waters_from_component
       get_n_waters_from_entity
       get_n_waters_from_molecule
       get_n_waters_from_system
+      get_reference_chemical_state_index_from_system
    

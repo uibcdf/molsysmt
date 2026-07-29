@@ -25,14 +25,14 @@
 //!   property of the oracle, so it cannot be fixed on this side — only matched by
 //!   guessing LLVM's contraction choices, which would be brittle.
 //! - **`wrap_to_mic` on triclinic boxes: deliberately corrected**, see `wrap_mic_vec`.
-//!   Upstream does not return the minimum image there; parity would mean copying that.
+//!   The replaced Numba implementation did not return the minimum image there; parity would mean copying that.
 //!
 //! Note that this package's orthogonality test is a *fourth*, independent implementation
 //! of the predicate discussed in `sasa.rs`: it compares dot products between box vectors
 //! against 1e-4, which is basis-independent, rather than testing off-diagonal elements
 //! against 1e-10. It is the most robust of the four and it is correct, so it is ported
 //! as-is; the divergence between the four is reported in
-//! `devguide/pending_bugs/sasa_is_orthogonal_typo.md`.
+//! `devguide/archive/resolved_bugs/sasa_is_orthogonal_typo.md`.
 
 use numpy::ndarray::{Array1, Array2, Array3, ArrayView3};
 use numpy::{
@@ -80,7 +80,7 @@ fn lengths_of(b: &Mat3) -> Vec3 {
 
 /// Mirrors `get_angles_from_box.py`. No clamping of the `acos` argument — a degenerate
 /// box (parallel vectors) can push the ratio just past 1.0 and yield NaN, exactly as
-/// upstream does.
+/// the replaced Numba implementation did.
 #[inline]
 fn angles_of(b: &Mat3) -> Vec3 {
     let (x, y, z) = (norm_vector(b[0]), norm_vector(b[1]), norm_vector(b[2]));
@@ -108,7 +108,8 @@ fn box_of(lengths: Vec3, angles: Vec3) -> Mat3 {
 // ------------------------------------------------------------------ wrapping
 
 /// Wrap into the primitive cell. `half` is 0.0 for the origin-based variant and 0.5 for
-/// the centre-based one, which is the only difference between the two upstream kernels.
+/// the centre-based one, which was the only difference between the two replaced Numba
+/// kernels.
 #[inline]
 fn wrap_pbc_vec(v: Vec3, b: &Mat3, inv: &Mat3, orthogonal: bool, half: f64) -> Vec3 {
     if orthogonal {
@@ -137,7 +138,7 @@ fn wrap_pbc_vec(v: Vec3, b: &Mat3, inv: &Mat3, orthogonal: bool, half: f64) -> V
 /// Exhaustive search over the 27 neighbouring images, keeping the shortest. Shared by
 /// `wrap_to_mic` and `unwrap`'s triclinic branch. `seed`/`dmin` carry the incumbent so
 /// the caller's fractional wrap stays in the running, and the accumulation order matches
-/// upstream (`((v + i*b0) + j*b1) + k*b2`).
+/// the replaced Numba implementation did (`((v + i*b0) + j*b1) + k*b2`).
 #[inline]
 fn shortest_image(v: Vec3, b: &Mat3, seed: Vec3, dmin_in: f64) -> Vec3 {
     let mut best = seed;
@@ -161,21 +162,21 @@ fn shortest_image(v: Vec3, b: &Mat3, seed: Vec3, dmin_in: f64) -> Vec3 {
 
 /// Mirrors `wrap_to_mic.py`, with one **deliberate correction** on the triclinic branch.
 ///
-/// Upstream wraps to the [0,1) fractional cell and then searches the 27 images *of the
+/// The replaced Numba implementation wrapped to the [0,1) fractional cell and then searches the 27 images *of the
 /// original vector*. When the input lies several box lengths outside the cell, none of
 /// those 27 images is near the origin, so the corner-cell wrap wins by default — and the
 /// primitive cell is not the minimum image. Measured on a triclinic box with inputs up to
-/// 20 units out: upstream returns the minimum image in only 55/300 cases, while its own
+/// 20 units out: the replaced Numba implementation returned the minimum image in only 55/300 cases, while its own
 /// orthogonal branch is always correct.
 ///
 /// Searching around the *wrapped* candidate instead fixes it (300/300), and it is what
 /// `unwrap.py` already does on its triclinic branch — which is what identifies this as a
 /// defect rather than a design choice. Reported in
-/// `devguide/pending_bugs/wrap_to_mic_triclinic_not_minimum_image.md`.
+/// `devguide/archive/resolved_bugs/wrap_to_mic_triclinic_not_minimum_image.md`.
 ///
 /// Note the ±1 shell is only exhaustive for reasonably conditioned cells; a strongly
 /// skewed box needs a reduced (Niggli) cell for a general guarantee. That limitation is
-/// upstream's too and is not addressed here.
+/// inherited from the replaced Numba implementation and is not addressed here.
 #[inline]
 fn wrap_mic_vec(v: Vec3, b: &Mat3, inv: &Mat3, orthogonal: bool) -> Vec3 {
     if orthogonal {
@@ -467,7 +468,7 @@ pub fn wrap_to_mic_vector_single_structure<'py>(
 
 /// Mirrors `unwrap.py`. Deliberately serial: structure `s+1` is written from the already
 /// updated structure `s`, so the loop carries a dependency and cannot be parallelised.
-/// Orthogonality is decided once from structure 0 and applied to all, as upstream does.
+/// Orthogonality is decided once from structure 0 and applied to all, as the replaced Numba implementation did.
 #[pyfunction]
 #[allow(clippy::needless_range_loop)] // Fixed Cartesian indexing is intentional in this hot loop.
 pub fn unwrap(mut coordinates: PyReadwriteArray3<'_, f64>, boxes: PyReadonlyArray3<'_, f64>) {
@@ -622,7 +623,7 @@ mod tests {
     }
 
     /// The corrected triclinic MIC wrap really is the minimum image, even for inputs many
-    /// box lengths outside the cell — the regime where upstream fails (see `wrap_mic_vec`).
+    /// box lengths outside the cell — the regime where the replaced Numba implementation failed (see `wrap_mic_vec`).
     #[test]
     fn triclinic_mic_wrap_returns_the_minimum_image() {
         let inv = inverse_matrix_3x3(&TRIC);

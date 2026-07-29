@@ -258,8 +258,7 @@ def shift_dihedral_angles(
 
 
 def set_dihedral_angles(coordinates, angles, quartets, blocks, backend=None):
-    """Upstream takes no structure_indices (it walks every structure) and is the only
-    variant that broadcasts a size-1 `angles` dimension."""
+    """Apply targets to every structure, broadcasting size-one target dimensions."""
     return _rust.set_dihedral_angles(coordinates, angles, quartets, blocks)
 
 
@@ -279,9 +278,10 @@ def set_mic_dihedral_angles_single_structure(
     )
 
 
-# Multi-structure variants. NOTE the upstream signatures are asymmetric: set_* take no
-# structure_indices, shift_* do. See devguide/pending_bugs/
-# dihedral_angles_broadcast_mismatch_pbc.md
+# Multi-structure variants preserve the established asymmetric signatures: set_* apply
+# to every structure, while shift_* accept structure_indices. Both set paths broadcast
+# size-one target dimensions. See the archived migration record under
+# devguide/archive/resolved_bugs/dihedral_angles_broadcast_mismatch_pbc.md.
 
 
 def set_mic_dihedral_angles(coordinates, box, angles, quartets, blocks, backend=None):
@@ -300,7 +300,8 @@ def shift_mic_dihedral_angles(
 # Block 9: molsysmt.lib.pbc — box geometry plus the wrap/unwrap family.
 #
 # The `*_vector_single_structure` helpers take `inv_box`/`orthogonal` as optional
-# precomputed values upstream; the Rust ports always recompute them from `box` (the same
+# precomputed values in the replaced Numba implementation; the Rust ports always
+# recompute them from `box` (the same
 # way the whole-system kernels do), so the seam simply drops them on the Rust path.
 #
 # `wrap_to_pbc`, `wrap_to_pbc_center`, `wrap_to_mic` and `unwrap` mutate `coordinates`
@@ -485,7 +486,7 @@ def _union(parent, rank, node_1, node_2, backend=None):
 # Block 11. `get_rmsd` is a plain reduction; the `least_rmsd` family superposes first via
 # the quaternion (Horn/Kearsley) method, whose 4x4 eigenproblem Rust solves with
 # `nalgebra` rather than LAPACK. Parity is at tolerance there -- different eigensolver,
-# `fastmath`, and upstream's pairwise `np.sum` for the centroid.
+# `fastmath`, and the replaced Numba implementation's pairwise `np.sum` for the centroid.
 
 
 def get_rmsd_single_structure(coordinates, reference_coordinates, backend=None):
@@ -565,7 +566,7 @@ def get_least_rmsd_rotation_and_translation_with_single_reference_structure(
 # -------------------------------------------------------------------------------- axes
 # Block 12. 3x3 symmetric eigenproblems, solved with `nalgebra`.
 #
-# Eigenvectors are defined only up to sign. Upstream returns whatever LAPACK produces;
+# Eigenvectors are defined only up to sign. The replaced Numba implementation returned whatever LAPACK produces;
 # the Rust port fixes the sign deterministically (largest-magnitude component positive),
 # so switching backend cannot flip an axis. Compare eigenvectors up to sign.
 
@@ -588,7 +589,7 @@ def get_principal_geometric_axes(coordinates, weights, backend=None):
 
 # --------------------------------------------------------------------------------- pca
 # Block 13, the last CPU kernel. The covariance is built as a matrix product (faer
-# rank-k) rather than upstream's triple loop, and diagonalised with faer's dense
+# rank-k) rather than the replaced Numba implementation's triple loop, and diagonalised with faer's dense
 # self-adjoint eigensolver. Eigenvalues are at tolerance; eigenvectors carry a sign
 # ambiguity (fixed deterministically here) and, when n_structures < n_features, a
 # degenerate null space that no element-wise comparison can match.

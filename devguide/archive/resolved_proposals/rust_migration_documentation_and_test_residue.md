@@ -1,6 +1,6 @@
 # Residue left by the Numba-to-Rust migration: code comments, cross-references, and one missing test
 
-**Status:** proposed, not accepted. Bounded cleanup; no design question is open.
+**Status:** completed and archived on 2026-07-29.
 **Found:** 2026-07-28, while bringing the developer guide up to date after Segments
 B–E closed.
 **Scope:** `rust/README.md`, doc comments in `rust/src/`, one comment in
@@ -25,6 +25,20 @@ complete cleanup.
 None of these affects shipped behaviour. Item 1 is a genuine coverage gap; items
 2–4 are accuracy problems in text that a developer will read and believe.
 
+## Resolution
+
+All four items were completed as lifecycle stage F4 work:
+
+1. a Python integration test now asserts size-one target-row broadcasting for
+   both `set_dihedral_angles` and `set_mic_dihedral_angles` over three structures;
+2. live source references point to the archived migration records;
+3. comments describe Numba only as the implementation replaced during migration;
+4. `rust/README.md` describes the production `rust/` crate, private
+   `molsysmt._rust` extension, Rust-only runtime, and current two-layer test model.
+
+Verification passed with seven focused Python tests, all 80 Rust unit tests,
+Ruff, the course validator, and the developer-guide validator.
+
 ## Item 1 — the dihedral broadcast contract has no test
 
 **The gap.** `set_dihedral_angles` documents its `angles` argument as compatible
@@ -45,7 +59,7 @@ implementation, so it does not survive that implementation's deletion.
 `set_dihedral_angles` and `set_mic_dihedral_angles` broadcast, and both reach the
 requested angle to `2.2e-16`. Neither raises.
 
-**Proposed fix.** One test asserting that a size-1 structure axis broadcasts
+**Implemented fix.** One test asserts that a size-1 structure axis broadcasts
 identically on the vacuum and periodic paths. The history is in
 [`archive/resolved_bugs/dihedral_angles_broadcast_mismatch_pbc.md`](../archive/resolved_bugs/dihedral_angles_broadcast_mismatch_pbc.md).
 
@@ -126,5 +140,5 @@ now explicitly marked historical.
   now guards zero and should keep running.
 - The two open editorial items in Common Core notebooks 12 and 17. Those are course
   content, tracked in
-  [`../pending_bugs/course_module_numbering_overlaps.md`](../pending_bugs/course_module_numbering_overlaps.md)
+  [`../resolved_bugs/course_module_numbering_overlaps.md`](../resolved_bugs/course_module_numbering_overlaps.md)
   and owned by lifecycle stage F4.

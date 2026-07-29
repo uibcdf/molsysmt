@@ -17,7 +17,7 @@ Excluding notebook checkpoints, the course currently contains:
 This is 156 notebooks. The landing page currently describes a common core of
 modules 1–16, so modules 17–20 overlap between the common core and every path.
 That mismatch is a confirmed documentation defect; see
-`pending_bugs/course_module_numbering_overlaps.md`.
+`archive/resolved_bugs/course_module_numbering_overlaps.md`.
 
 The earlier six-phase, single 50-module proposal is archived under
 `archive/assessments/` and is not the current course map.

@@ -4,7 +4,8 @@
 | :--- | :--- |
 | [Get acceptor atoms](get_acceptor_atoms.ipynb) | ... |
 | [Get donor atoms](get_donor_atoms.ipynb) | ... |
-| [Get hbonds](get_hbonds.ipynb) | ... |
+| [Get Buch hydrogen bonds](get_buch_hbonds.ipynb) | ... |
+| [Get Luzar-Chandler hydrogen bonds](get_luzard_chandler_hbonds.ipynb) | ... |
 
 
 ```{eval-rst}
@@ -14,5 +15,6 @@
 
    get_acceptor_atoms.ipynb
    get_donor_atoms.ipynb
-   get_hbonds.ipynb
+   get_buch_hbonds.ipynb
+   get_luzard_chandler_hbonds.ipynb
 ```

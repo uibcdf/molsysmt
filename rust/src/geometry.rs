@@ -3,7 +3,7 @@
 //!
 //! Accumulation order is the parity-critical part here: every one of these kernels is a
 //! reduction, so summing in a different order changes the last bits. Each loop keeps
-//! upstream's nesting exactly.
+//! the nesting of the replaced Numba implementation exactly.
 //!
 //! Rayon distributes independent structure slabs. RMSF uses per-worker contiguous
 //! accumulators and merges them after each pass, avoiding strided atom-major scans while
@@ -80,7 +80,8 @@ pub fn get_center_single_structure<'py>(
     Array1::from_vec(c.to_vec()).into_pyarray(py)
 }
 
-/// Shape is `(n_structures, 1, 3)` upstream — the middle axis is a singleton kept so the
+/// Shape is `(n_structures, 1, 3)`, as in the replaced Numba implementation. The
+/// middle axis is a singleton kept so the
 /// result broadcasts against `(n_structures, n_atoms, 3)` coordinates.
 #[pyfunction]
 pub fn get_center<'py>(
@@ -152,7 +153,7 @@ pub fn get_center_groups_of_atoms<'py>(
 
 /// Reflection through the plane with normal `vector` passing through `point`.
 ///
-/// Upstream computes `position - 2*dist*vector`, i.e. numpy scales the vector by the
+/// The replaced Numba implementation computed `position - 2*dist*vector`, i.e. numpy scales the vector by the
 /// scalar `2*dist`; the grouping is preserved here because `(2.0*dist)*v` and
 /// `2.0*(dist*v)` need not agree in the last bit.
 #[inline]

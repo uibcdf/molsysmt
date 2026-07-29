@@ -28,6 +28,7 @@
       get_occupancy_from_system
       get_potential_energy_from_system
       get_structure_id_from_system
+      get_structure_index_from_system
       get_temperature_from_system
       get_time_from_system
       get_total_energy_from_system

@@ -8,10 +8,24 @@
 
    .. autosummary::
    
+      set_allows_implicit_hydrogens_to_atom
       set_atom_id_to_atom
       set_atom_index_to_atom
+      set_atom_is_aromatic_to_atom
       set_atom_name_to_atom
+      set_atom_stereochemistry_to_atom
       set_atom_type_to_atom
+      set_bond_acceptor_atom_index_to_bond
+      set_bond_donor_atom_index_to_bond
+      set_bond_evidence_to_bond
+      set_bond_id_to_bond
+      set_bond_is_aromatic_to_bond
+      set_bond_is_conjugated_to_bond
+      set_bond_joins_components_to_bond
+      set_bond_order_to_bond
+      set_bond_stereo_atom_indices_to_bond
+      set_bond_stereochemistry_to_bond
+      set_bond_type_to_bond
       set_chain_id_to_atom
       set_chain_id_to_chain
       set_chain_id_to_component
@@ -68,6 +82,8 @@
       set_entity_type_to_entity
       set_entity_type_to_group
       set_entity_type_to_molecule
+      set_formal_charge_to_atom
+      set_fractional_bond_order_to_bond
       set_group_id_to_atom
       set_group_id_to_group
       set_group_index_to_atom
@@ -76,6 +92,7 @@
       set_group_name_to_group
       set_group_type_to_atom
       set_group_type_to_group
+      set_isotope_to_atom
       set_molecule_id_to_atom
       set_molecule_id_to_chain
       set_molecule_id_to_component
@@ -96,4 +113,6 @@
       set_molecule_type_to_component
       set_molecule_type_to_group
       set_molecule_type_to_molecule
+      set_n_implicit_hydrogens_to_atom
+      set_n_unpaired_electrons_to_atom
    
