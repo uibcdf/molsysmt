@@ -349,11 +349,24 @@ class MolSys:
     @signal(tags=['native'])
     @arg_digest(form='molsysmt.MolSys')
     def add(self, item, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
-        """Append topology and structures from another MolSys."""
+        """Adding topology and atom-aligned structures from another MolSys."""
 
-        self.topology.add(item.topology, atom_indices=atom_indices, keep_ids=keep_ids, skip_digestion=True)
-        self.structures.add(item.structures, atom_indices=atom_indices, structure_indices=structure_indices,
-                           skip_digestion=True)
+        candidate_topology = self.topology.copy()
+        candidate_structures = self.structures.copy()
+        candidate_topology.add(
+            item.topology,
+            atom_indices=atom_indices,
+            keep_ids=keep_ids,
+            skip_digestion=True,
+        )
+        candidate_structures.add(
+            item.structures,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
+        self.topology = candidate_topology
+        self.structures = candidate_structures
 
     @arg_digest(form='molsysmt.MolSys')
     def append_structures(

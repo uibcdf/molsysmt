@@ -1,18 +1,11 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.arg_digestion import arg_digest
 
 @arg_digest(form='molsysmt.Structures', to_form='molsysmt.Structures')
 def add(to_item, item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    to_item.append(id = item.id,
-                   time = item.time,
-                   coordinates = item.coordinates,
-                   velocities = item.velocities,
-                   box = item.box,
-                   temperature = item.temperature,
-                   potential_energy = item.potential_energy,
-                   kinetic_energy = item.kinetic_energy,
-                   skip_digestion=True)
-
-    pass
-
+    to_item.add(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )

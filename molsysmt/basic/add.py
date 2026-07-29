@@ -54,7 +54,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     -------
     molecular system or None
         If `in_place=True`, returns `None` and modifies `to_molecular_system` directly.
-        If `in_place=False`, returns a new molecular system (same form as the input) with the added structures.
+        If `in_place=False`, returns a new molecular system (same form as the input) with the added elements.
 
     Raises
     ------
@@ -68,6 +68,10 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     - All forms listed in :ref:`Introduction_Forms` are accepted for both source and target systems.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+    - Atom-aligned structural attributes are kept only when they are available
+      in both systems. A one-sided coordinate, velocity, B-factor, or occupancy
+      series is dropped with a ``StructuralAttributeDropWarning`` so no partial
+      atom-axis series is created.
 
     See Also
     --------
@@ -103,6 +107,8 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     from . import get_form, convert, select, copy
     from molsysmt.form import _dict_modules
 
+    target_is_sequence = isinstance(to_molecular_system, (list, tuple))
+
     if not in_place:
         to_molecular_system = copy(to_molecular_system)
 
@@ -134,20 +140,22 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
                 aux_atom_indices = atom_indices
                 aux_structure_indices = structure_indices
 
-        add_arguments = {}
-        add_function = _dict_modules[to_form].add
-        input_arguments = set(inspect.signature(add_function).parameters)
+            add_arguments = {}
+            add_function = _dict_modules[to_form].add
+            input_arguments = set(inspect.signature(add_function).parameters)
 
-        if 'atom_indices' in input_arguments:
-            add_arguments['atom_indices']=aux_atom_indices
+            if 'atom_indices' in input_arguments:
+                add_arguments['atom_indices'] = aux_atom_indices
 
-        if 'structure_indices' in input_arguments:
-            add_arguments['structure_indices']=aux_structure_indices
+            if 'structure_indices' in input_arguments:
+                add_arguments['structure_indices'] = aux_structure_indices
 
-        add_function(to_item, aux_from_item, keep_ids=keep_ids, **add_arguments)
+            if 'keep_ids' in input_arguments:
+                add_arguments['keep_ids'] = keep_ids
+
+            add_function(to_item, aux_from_item, **add_arguments)
 
     if not in_place:
-        return to_molecular_system
-    else:
-        pass
-
+        if target_is_sequence:
+            return to_molecular_system
+        return to_molecular_system[0]

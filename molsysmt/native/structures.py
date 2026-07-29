@@ -769,22 +769,57 @@ class Structures:
 
     @arg_digest()
     def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
-        # Concatenate atoms to the current structures
-        if is_all(structure_indices):
-            if self.n_structures != item.n_structures:
-                 raise ArgumentLengthError(argument="structures", expected=self.n_structures, actual=item.n_structures, caller="molsysmt.native.Structures.add")
-        
-        if item.coordinates is not None:
-            if self.coordinates is None:
-                 # This is tricky, if coordinates are None we shouldn't be adding atoms
-                 from molsysmt._private.smonitor import StructuralInconsistencyError
-                 raise StructuralInconsistencyError("Cannot add atom coordinates to a system without coordinates.")
-            else:
-                 if is_all(structure_indices):
-                     if is_all(atom_indices):
-                         self.coordinates = self._puw_concatenate([self.coordinates, item.coordinates], axis=1)
-                     else:
-                         self.coordinates = self._puw_concatenate([self.coordinates, item.coordinates[:, atom_indices, :]], axis=1)
+        """Concatenating atoms while keeping every atom-aligned series coherent."""
+
+        current = self._frame_payload()
+        current_n_structures, _ = self._payload_dimensions(
+            current,
+            caller='molsysmt.native.Structures.add',
+        )
+        incoming = item.extract(
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            copy_if_all=True,
+            skip_digestion=True,
+        )._frame_payload()
+        incoming_n_structures, _ = self._payload_dimensions(
+            incoming,
+            caller='molsysmt.native.Structures.add',
+            payload_error=True,
+        )
+        if current_n_structures != incoming_n_structures:
+            raise ArgumentLengthError(
+                argument='structures',
+                expected=current_n_structures,
+                actual=incoming_n_structures,
+                caller='molsysmt.native.Structures.add',
+            )
+
+        candidate = dict(current)
+        dropped = []
+        for name in _ATOM_ALIGNED_ATTRIBUTES:
+            left = current.get(name)
+            right = incoming.get(name)
+            if left is None or right is None:
+                candidate[name] = None
+                if (left is None) != (right is None):
+                    dropped.append(name)
+                continue
+            candidate[name] = np.concatenate((left, right), axis=1)
+
+        self._payload_dimensions(
+            candidate,
+            caller='molsysmt.native.Structures.add',
+        )
+        if dropped:
+            import warnings
+            from molsysmt._private.smonitor import StructuralAttributeDropWarning
+
+            warnings.warn(
+                StructuralAttributeDropWarning(attributes=dropped),
+                stacklevel=2,
+            )
+        self._assign_frame_payload(candidate)
         return
 
     @arg_digest()

@@ -54,6 +54,24 @@ caller's responsibility. This rule is independent from chemical-state
 association. A classical system with one chemical state continues to associate
 new structures with that state implicitly.
 
+## Atom-axis addition
+
+`Structures.add()` combines systems along the atom axis while preserving the
+existing structure axis. Coordinates, velocities, B factors, and occupancy are
+handled as one aligned family:
+
+- an attribute available in both inputs is concatenated on axis 1;
+- an attribute available in only one input is dropped with one
+  `StructuralAttributeDropWarning`;
+- structure-aligned metadata such as time, box, and energies remains that of
+  the target because the structure axis itself is not extended;
+- structure-count mismatch is rejected before mutating the target;
+- the complete candidate payload is validated before assignment.
+
+This is the same intersection rule used for structure-axis append. MolSysMT 1.0
+does not represent a B factor, occupancy, velocity, or coordinate array that is
+available for only a prefix or suffix of the combined atom axis.
+
 ## Deferred partial-series model
 
 Version 1.0 does not synthesize per-structure validity masks or sentinel values
