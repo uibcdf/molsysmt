@@ -44,8 +44,8 @@ and do not merge it across an unmet integration dependency.
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
 - **Current repository state:** F1–F4 are closed; the atom-axis `add()`
-  follow-up landed as `2865c3122`, and its documentation checkpoint is the
-  clean base for F5 exact-commit gates
+  implementation landed as `2865c3122`, its lifecycle checkpoint as
+  `dd8d48c67`, and its bounded semantic-audit proposal as `87ccfc289`
 - **Current exact Rust campaign commit:** `6485a0c08`; this is verified
   migration evidence but is not itself a release candidate, because Segment F
   lifecycle work is still open and no candidate has been tagged
@@ -65,7 +65,8 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** execute F5 on the clean checkpoint commit
+- **Next action:** complete Phase 1 of the bounded atom-axis `add()` semantic
+  audit, then execute F5 on the resulting clean exact commit
 - **Parallel packaging action:** Segment C is closed, and installed-wheel
   validation with it, so the only packaging work left is the Conda delivery
   track — coordinate sibling and MolSysMT Conda publication during manuscript
@@ -705,4 +706,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-29 | F4 documentation lifecycle | `IN PROGRESS` → `DONE`; F5 becomes active | final course narrative references use stable semantic targets; the numbering report and Rust migration residue are archived; the missing dihedral broadcast regression passes on vacuum and periodic paths; checked-in autosummary surfaces are refreshed; 11 stale toctree targets are repaired; Sphinx builds successfully and the remaining warning families are measured as accepted documentation debt | `672f8f065`; `release_1_0_f4_documentation_lifecycle_checkpoint.md` |
 | 2026-07-29 | Segment F progress accounting | no stage transition; weighted closure 90% → 96% | the fixed 10% Segment F budget is partitioned across six independently gated stages; completed F1–F4 earn 6%, while F5 and F6 retain the remaining 4%; no technical exit criterion or release requirement changes | maintainer-approved accounting update after `075cb0432` |
 | 2026-07-29 | Atom-axis `add()` WIP integration | dirty pre-F5 worktree → clean candidate base; no stage transition | native and public addition share one atom-axis contract; MolSys mutation is transactional; adapters, multiple-source dispatch, scalar returns, lifecycle documentation, and regressions are synchronized; 30 focused and 554 expanded tests pass, two notebooks execute, Ruff passes, and the fast gate passes 12/12 | `2865c3122`; `release_1_0_atom_axis_add_checkpoint.md` |
+| 2026-07-29 | Atom-axis `add()` semantic follow-up | F5 remains active; bounded audit inserted before its expensive exact-commit matrix | multi-source selection/cardinality, whole-call transaction scope, one-sided atom-aligned data, structure metadata and energy validity, coordinate-free structures, adapter parity, diagnostics, and memory are recorded with phases and acceptance criteria; no behavior or weighted progress changed | `87ccfc289`; `pending_proposals/atom_axis_add_semantic_audit.md` |
 | 2026-07-28 | Developer-guide coherence pass | no stage transition | post-migration documentation debt cleared: four Numba-era bug reports and four Numba-era proposals archived with resolution notes after verifying each against the Rust runtime; one stale duplicate report removed; the three Numba migration documents relabelled as historical evidence; snapshot sentences that still called Segment C open corrected; `pending_bugs` and `pending_proposals` indexes rewritten; 11 broken intra-guide links repaired; devguide validation and the fast gate pass 12/12; code, tests, and notebooks untouched, with the residue recorded in `archive/resolved_proposals/rust_migration_documentation_and_test_residue.md` | documentation-only commit |

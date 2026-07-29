@@ -6,7 +6,7 @@
 
 **Implementation base:** `2865c3122`
 
-**Checkpoint base:** `dd8d48c67`
+**Proposal checkpoint:** `87ccfc289`
 
 **Related contract:** [Native Structures Contract](../native_structures_contract.md)
 
@@ -277,8 +277,8 @@ This proposal may be archived only when:
 ## Pause and Resume Point
 
 At the pause, the implementation and documentation checkpoints are clean and
-published at `dd8d48c67`. Resume with Phase 1 only. Do not begin the expensive
-F5 full matrix until this bounded audit either confirms the current contract or
-lands the minimal required corrections; otherwise the matrix would certify a
-candidate whose `add()` semantics remain undecided.
-
+published, and this proposal is recorded at `87ccfc289`. Resume with Phase 1
+only. Do not begin the expensive F5 full matrix until this bounded audit either
+confirms the current contract or lands the minimal required corrections;
+otherwise the matrix would certify a candidate whose `add()` semantics remain
+undecided.
