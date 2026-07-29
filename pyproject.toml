@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 # https://packaging.python.org/en/latest/specifications/declaring-project-metadata/
 [project]
 name = "molsysmt"
-description = "A molecular systems multi-toolkit for converting, manipulating, and analysing biomolecular models and trajectories."
+description = "Molecular Systems Multi-Toolkit: build, prepare, query, transform, analyse and visualise molecular systems and trajectories through one uniform API."
 dynamic = ["version"]
 readme = "README.md"
 authors = [

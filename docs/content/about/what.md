@@ -1,25 +1,29 @@
 # What is MolSysMT?
 
 MolSysMT -**Mol**ecular **Sys**tems **M**ulti**T**oolkit - is a scientific
-open-source Python library designed to facilitate work with molecular models
-and simulations.
+open-source Python library for working with molecular systems. One uniform API
+lets you build a system, repair and prepare it, ask it questions, modify it,
+analyse its structures and visualise it, without changing library every time the
+task changes.
 
 This library was developed to provide a user-friendly interface for
 computational molecular biology labs, such as the
-[UIBCDF](https://www.uibcdf.org/), to use in their research. With MolSysMT, you
-can streamline the integration of workflows involving molecular models and
-molecular dynamics trajectories.
+[UIBCDF](https://www.uibcdf.org/), to use in their research. It is the core of
+the MolSysSuite ecosystem.
 
-While most of the functions and methods in MolSysMT were purposefully developed
-and in-house programmed, the inclusion of native objects and functions was not its
-primary goal, nor is it the strongest reason to use it. The main strength of
-MolSysMT lies in its flexibility and adaptability, making it a valuable tool
-for supporting workflows with molecular models and simulations. MolSysMT was
-not designed to replicate the capabilities of other tools that may excel in
-specific areas. Instead, it was conceived as an easy-to-use tool for
-coordinating and integrating the use of libraries such as MDAnalysis, MDTraj,
-PDBFixer, OpenMM, ParmED, HTMD, RDKit, or NGLView, among other extremely useful
-libraries. Whenever you use methods or tools from these packages, all credit
+MolSysMT does its own work. It has its own molecular model, its own HDF5-based
+storage format, a structure-preparation pipeline that needs no external engine to
+add missing heavy atoms, terminal cappings or hydrogens and to solvate a system,
+and its own precompiled compute kernels for distances, contacts, neighbour lists,
+RMSD and superposition, principal axes, PCA, SASA, dihedral angles and periodic
+boundary conditions.
+
+It is also deliberately open to the rest of the ecosystem. MolSysMT interoperates
+with 89 forms — files, libraries and in-memory objects — so a system can arrive or
+leave in whatever shape the rest of your workflow needs, and so you can hand work
+over to a specialised tool whenever that is what you want. It was never designed
+to replicate what MDAnalysis, MDTraj, PDBFixer, OpenMM, ParmEd, RDKit or NGLView
+already do well. Whenever you use methods or tools from these packages, all credit
 should be given to their respective authors, developers, maintainers, and
 contributors.
 
