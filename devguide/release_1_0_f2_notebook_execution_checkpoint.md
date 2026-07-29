@@ -1,19 +1,25 @@
 # F2 Notebook-Execution Checkpoint
 
-**Date:** 2026-07-28  
+**Date:** 2026-07-29
 **Stage:** F2 — applicable Common Core and changed-behavior notebook execution  
-**Status:** `READY TO LAND`; exact-commit rerun pending
-**Base commit:** `2340d1eff`
-**Repository mutation during execution:** source, tests, and notebook corrections
-remain uncommitted
+**Status:** `DONE`
+**Exact implementation commit:** `2f6fd59d1`
+**Repository mutation during execution:** none; notebooks executed in memory
 
 ## Scope
 
 F2 covers the complete 20-notebook Common Core plus every Path notebook affected
 by the current API and behaviour changes. Comparing the course at the F1
-migration commit `f5d96218b` with the current tree identifies 20 changed
-notebooks. Their union with the Common Core contains **37 notebooks**: 20 Common
-Core notebooks and 17 additional Path notebooks.
+migration commit `f5d96218b` with exact commit `2f6fd59d1` identifies all five
+affected notebooks in each of the four Paths: MolSysBuilder, PDB Frontier,
+Trajectory Management, Scalability, and Performance Optimization. Their union
+with the Common Core contains **40 notebooks**: 20 Common Core notebooks and 20
+additional Path notebooks.
+
+The scope was initially reconstructed as 37 notebooks. Correcting Scalability
+consistently across all four Paths changed three additional notebooks, so the
+exact-commit gate was deliberately expanded to 40 rather than preserving the
+obsolete count.
 
 Earlier evidence that five lifecycle notebooks executed belongs only to the
 MolSysBuilder vertical and does not prove this union. Stored notebook output is
@@ -30,8 +36,8 @@ The audit loaded notebooks with `nbformat` and executed them in memory through
 - the active MolSysMT Python 3.13 development environment;
 - no persistence of executed cells or outputs back into the repository.
 
-The first lane comprised 26 deterministic notebooks. The second lane comprised
-11 notebooks previously deferred for network access, viewer interaction, or
+The correction campaign comprised 29 deterministic notebooks and 11 notebooks
+that had initially been deferred for network access, viewer interaction, or
 both. Permission was required to start local Jupyter kernels and perform the PDB
 downloads used by the lessons.
 
@@ -42,13 +48,13 @@ human click in the widget.
 
 ## Final Execution Result
 
-- deterministic lane: **26 passed, 0 failed**;
+- deterministic lane: **29 passed, 0 failed**;
 - network/headless lane: **11 passed, 0 failed**;
-- complete F2 union: **37 passed, 0 failed**.
+- complete F2 union on exact commit `2f6fd59d1`: **40 passed, 0 failed**.
 
-This result is evidence for the current uncommitted tree based on
-`2340d1eff`. F2 must not be marked formally `DONE` until these changes are
-landed and the 37-notebook selection is rerun at the resulting exact commit.
+The exact run used one command over the complete Common Core and notebooks
+28, 29, 47, 48, and 49 of every Path. Every notebook started a fresh kernel,
+and no executed output was written to the repository.
 
 ## Corrections Made
 
@@ -112,14 +118,9 @@ with reproductions and acceptance criteria in
 `pending_bugs/iterator_without_explicit_attributes_fails_for_partial_forms.md`.
 It does not invalidate the F2 notebook result and must not be hidden by it.
 
-## Closure Gate
+## Closure
 
-To change F2 from `READY TO LAND` to `DONE`:
-
-1. run focused pytest coverage and repository validators;
-2. inspect the complete diff and land the bounded F2 change;
-3. rerun all 37 notebooks from clean kernels at the exact resulting commit;
-4. record the commit, environment, command/runner, and 37/37 result here;
-5. update `release_1_0_status.md` and advance to F3.
-
-No additional notebook-design work is known to be required for F2.
+F2 is closed because the bounded implementation was landed, all focused and
+fast gates passed, and the expanded 40-notebook union passed from clean kernels
+on the identified implementation commit. No additional notebook-design work is
+known to be required for F2. Subsequent lifecycle work belongs to F3 and F4.
