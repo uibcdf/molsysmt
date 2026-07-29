@@ -1266,10 +1266,10 @@ discovery explicit and measurable.
 
 ## Related work
 
-- [Chemical Graph and Conversion Execution Checkpoint](chemical_graph_and_conversion_execution_checkpoint.md)
+- [Chemical Graph and Conversion Execution Checkpoint](../archive/resolved_proposals/chemical_graph_and_conversion_execution_checkpoint.md)
 - [Conversion Fidelity Matrix and MolSysDict Schema Evolution](conversion_fidelity_and_molsysdict_v1.md)
 - [Post-1.0 SDF/MOL2 chemical metadata expansion](chemical_metadata_preservation_sdf_mol2.md)
-- [Explicit Form Support Registry](explicit_form_support_registry.md)
+- [Explicit Form Support Registry](../archive/resolved_proposals/explicit_form_support_registry.md)
 - [Technical and Scientific Quality Improvement Program](technical_and_scientific_quality_improvement_program.md)
 - [Topology Selection Indexing and PyArrow](topology_selection_indexing_and_pyarrow.md)
 - [Core specification](../CORE_SPECIFICATION.md)

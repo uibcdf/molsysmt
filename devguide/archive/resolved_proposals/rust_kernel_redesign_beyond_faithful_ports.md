@@ -2,7 +2,7 @@
 
 **Status:** RESOLVED — all seven levers decided; archived 2026-07-26.
 **Relates to:** `rust_numba_coexistence_and_cut_plan.md`,
-`pending_proposals/linear_algebra_backend_for_rust_kernels.md`,
+`linear_algebra_backend_for_rust_kernels.md`,
 `pending_proposals/rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`,
 `rust_kernel_optimization_guide.md`.
 **Code location:** `experiments/rust_kernels/` on `main`.

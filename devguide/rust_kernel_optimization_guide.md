@@ -378,7 +378,7 @@ diagonalising it, and the build was a mis-transcribed matrix product: `X.T @ X` 
 faster** than the triple loop. This is why the crate uses pure Rust (`nalgebra` for 3x3/4x4,
 `faer` for large dense) instead of taking a LAPACK/MKL system dependency — the useful property
 was fast BLAS, not a fast eigensolver. Full argument:
-`pending_proposals/linear_algebra_backend_for_rust_kernels.md`.
+`archive/resolved_proposals/linear_algebra_backend_for_rust_kernels.md`.
 
 ### 10.5 The framing
 

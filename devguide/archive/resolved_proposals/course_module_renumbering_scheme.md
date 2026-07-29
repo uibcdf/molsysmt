@@ -1,9 +1,11 @@
 # Course Module Renumbering and Stable-Identifier Scheme
 
-**Status:** Proposed (design only; no notebook or index was renamed by this document)
+**Status:** resolved and archived on 2026-07-29. F1 implemented the recommended
+20-module Common Core and four Paths numbered 21–54, with stable semantic labels,
+a manifest, complete toctrees, and executable structural validation.
 **Relates to:** `devguide/pending_bugs/course_module_numbering_overlaps.md` (Confirmed),
 `devguide/documentation_sync.md` (lifecycle contract), audit finding **B2** in
-`devguide/pending_proposals/release_1_0_independent_gate_audit.md`.
+`devguide/archive/release_1_0/release_1_0_independent_gate_audit.md`.
 
 This is a concrete resolution scheme for the course-numbering defect. It proposes an
 end state and a mechanical migration; it does not modify any file.

@@ -40,13 +40,26 @@ adapter therefore requires an explicit support decision.
 
 ## Function classification
 
-### Tier 3 functions (decorated with `@support_tier(3)`)
+Public-function tiers are derived from the normative API stability registry in
+`devtools/data/public_api_stability.json`; MolSysMT does not maintain a second
+function-tier registry:
 
-- `molsysmt.molecular_dynamics.run_NPT_equilibration`
-- `molsysmt.molecular_dynamics.run_NVT_equilibration`
+| API stability | Function support tier |
+| --- | --- |
+| `stable` | Tier 1 — contractual |
+| `experimental` | Tier 3 — outside the contractual 1.0 core |
+| `outside-contract` | outside the core support-tier contract |
 
-The entire `molecular_dynamics` module is outside the contractual 1.0.0 core.
-Individual functions are decorated rather than the module to keep the signal granular.
+An explicit `@support_tier(N)` decorator may override the derived value only
+when the API stability classification permits that tier. The release validator
+`devtools/scripts/validate_function_tiers.py` fails if a public function is
+unclassified or if a decorator contradicts the stability registry.
+
+At the F3 closure checkpoint, the public surface contains 117 Tier 1 functions,
+56 Tier 3 functions, and seven outside-contract functions. No public function
+uses an explicit decorator. The unfinished `molecular_dynamics` module is not
+exported and therefore has no public support tier; classify its functions if
+and when they enter the public API.
 
 ---
 
@@ -100,15 +113,10 @@ def my_experimental_function(...):
 
 ---
 
-## Pending design questions
+## Possible future extensions
 
 - **Function-level Tier 2**: no MolSysMT functions are currently classified Tier 2, but
   `@support_tier(2)` is available if needed.
-- **`molecular_dynamics` module expansion**: if more functions are added to this module,
-  apply `@support_tier(3)` to each.
-- **Tier 1 function audit**: explicitly classify public API functions. Silence
-  currently does not distinguish an approved Tier 1 function from an
-  unclassified function.
 - **`support_tier` as a module-level decorator**: for marking entire sub-packages (e.g.,
   `molecular_dynamics`) as Tier 3 without decorating every function individually.
 - **CLI / session report**: a `smonitor report` section listing Tier 2/3 items used in

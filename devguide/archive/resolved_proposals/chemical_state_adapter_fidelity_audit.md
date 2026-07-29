@@ -1,6 +1,8 @@
 # Chemical-State Adapter Fidelity Audit
 
-**Status:** fixed pre-1.0 priority adapter scope complete
+**Status:** resolved and archived on 2026-07-29. The fixed pre-1.0 priority
+adapter scope is complete; broader Tier 2/3 and schema expansion remains
+explicitly outside the 1.0 critical path.
 
 **Recorded:** 2026-07-15
 

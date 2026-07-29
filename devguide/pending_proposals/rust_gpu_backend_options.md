@@ -3,7 +3,7 @@
 **Status:** original landscape retained; near-term recommendation superseded by
 the Rust-only 1.0 decision of 2026-07-26.
 **Relates to:** `../archive/resolved_proposals/rust_numba_coexistence_and_cut_plan.md`,
-`linear_algebra_backend_for_rust_kernels.md`.
+`../archive/resolved_proposals/linear_algebra_backend_for_rust_kernels.md`.
 
 > MolSysMT 1.0 will not retain Numba solely for CUDA. The current Numba-CUDA
 > surface must be removed before 1.0. A generic GPU contract may remain only if
@@ -49,7 +49,8 @@ There is a real ecosystem, at three levels:
 ## The deciding constraint is the same one as LAPACK: packaging
 
 The migration's value rests on a single self-contained `cp311-abi3` wheel with no system
-dependency (see `linear_algebra_backend_for_rust_kernels.md`). GPU collides with that in
+dependency (see
+`../archive/resolved_proposals/linear_algebra_backend_for_rust_kernels.md`). GPU collides with that in
 exactly the same way:
 
 - **CUDA (`cudarc`/`cust`)** links the CUDA runtime → breaks the portable wheel, and is

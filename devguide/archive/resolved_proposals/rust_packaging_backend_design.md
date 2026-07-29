@@ -1,7 +1,8 @@
 # C1 — Permanent crate/module and build-backend design review
 
 **Status:** **ACCEPTED AND INTEGRATED**. C1 closed on 2026-07-26; C2 closed on
-2026-07-28 at `17be9ea50`. C3-C7 remain open.
+2026-07-28 at `17be9ea50`; C3-C7 subsequently closed with the native-wheel,
+installed-runtime, sdist, and Rust quality gates. Archived on 2026-07-29.
 
 > **Accepted decision.** MolSysMT keeps `setuptools` as its build backend, adds
 > `setuptools-rust`, and distributes a single private `molsysmt._rust` extension inside the
@@ -10,8 +11,8 @@
 > resources, the entry points, the typing marker, and the rest of the Python packaging.
 > A separate `msm_rust_kernels` distribution is therefore not needed, which removes any
 > possibility of version skew between the Python code and the Rust kernels.
-**Segment:** C1 of [MolSysMT 1.0 Execution Plan](release_1_0_execution_plan.md); status in
-[release_1_0_status.md](../release_1_0_status.md).
+**Segment:** C1 of [MolSysMT 1.0 Execution Plan](../../pending_proposals/release_1_0_execution_plan.md); status in
+[release_1_0_status.md](../../release_1_0_status.md).
 **Spike branch:** `packaging/rust-c1-spike` (not for merge; it is the evidence, not the change).
 **Ran while:** Segment B was `BLOCKED`. C does not depend on B — both are independent
 prerequisites of D — and the status ledger permits parallel packaging work provided the
@@ -174,7 +175,7 @@ C2 implemented the accepted design after B4 closed:
   installed-extension smoke.
 
 The complete evidence, commands, wheel name, and hashes are in
-[C2 Rust Packaging Artifact](../release_1_0_rust_packaging_c2_artifact.md).
+[C2 Rust Packaging Artifact](../../release_1_0_rust_packaging_c2_artifact.md).
 
 ## Historical C1 Deferrals
 

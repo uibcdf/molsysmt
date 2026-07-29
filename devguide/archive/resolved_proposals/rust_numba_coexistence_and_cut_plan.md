@@ -3,10 +3,10 @@
 **Status:** **COMPLETED — the cut is done and there is no coexistence left to manage
 (archived 2026-07-28).**
 **Relates to:** `rusterization_pilot_conclusions_and_adoption.md`,
-`../../pending_proposals/linear_algebra_backend_for_rust_kernels.md`,
+`linear_algebra_backend_for_rust_kernels.md`,
 `rust_kernel_redesign_beyond_faithful_ports.md`,
 `../../pending_proposals/rust_gpu_backend_options.md`,
-`../../pending_proposals/neighbor_list_consumer_migration.md`.
+`neighbor_list_consumer_migration.md`.
 **Crate location (historical):** this document describes the transitional crate at
 `experiments/rust_kernels/`. The production crate now lives at `rust/` and ships as
 the private `molsysmt._rust` extension.

@@ -1,6 +1,8 @@
 # Chemical State v1 Executable Contract
 
-**Status:** accepted and implemented for the fixed pre-1.0 priority scope
+**Status:** resolved and archived on 2026-07-29. The fixed pre-1.0 Chemical
+State v1 contract is accepted, implemented, and guarded by native, adapter,
+conversion-fidelity, H5MSM, and lifecycle evidence.
 
 **Recorded:** 2026-07-15
 

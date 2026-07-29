@@ -40,7 +40,8 @@ if published links already exist.
 
 ## Resolution log — 2026-07-22
 
-Design and scheme: `devguide/pending_proposals/course_module_renumbering_scheme.md`.
+Resolved design and scheme:
+`devguide/archive/resolved_proposals/course_module_renumbering_scheme.md`.
 Approved direction: **Option A** — keep the Common Core at 1–20 and shift every Path
 17–50 → 21–54 (+4). All work below was done in the working tree; **no commit was made**.
 

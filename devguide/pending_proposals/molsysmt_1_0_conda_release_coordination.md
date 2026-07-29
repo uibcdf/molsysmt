@@ -6,7 +6,7 @@ No code changed.
 [MolSysMT 1.0 Execution Plan](release_1_0_execution_plan.md); status in
 [release_1_0_status.md](../release_1_0_status.md).
 **Depends on:** the accepted C1 decision in
-[rust_packaging_backend_design.md](rust_packaging_backend_design.md) — one MolSysMT wheel
+[rust_packaging_backend_design.md](../archive/resolved_proposals/rust_packaging_backend_design.md) — one MolSysMT wheel
 with a private `molsysmt._rust` abi3 extension, distributed through the project's own Conda
 channel.
 **Investigated:** 2026-07-27, against the live `uibcdf` channel and the local sibling

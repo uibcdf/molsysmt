@@ -3,7 +3,7 @@
 The single normative checklist for tagging a MolSysMT release (in particular 1.0.0).
 It consolidates what was previously scattered across workflow comments and the 1.0
 audit. Closes audit risk **R2** in
-`pending_proposals/release_1_0_independent_gate_audit.md` and supports blocker **B1**.
+`archive/release_1_0/release_1_0_independent_gate_audit.md` and supports blocker **B1**.
 The current pre-release work order is maintained in
 [`release_1_0_execution_plan.md`](pending_proposals/release_1_0_execution_plan.md).
 Current completion, active stage, and evidence are recorded in

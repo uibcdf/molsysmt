@@ -22,19 +22,12 @@ scientific-validation requirements.
   1.0, completing documentation lifecycle work, and running the release gates.
 - `technical_and_scientific_quality_improvement_program.md` — umbrella quality
   program; split accepted work into smaller changes.
-- `explicit_form_support_registry.md` — removing implicit Tier 1 classification.
 - `documentation_lifecycle_manifest.md` — API-to-doc/course traceability.
 - `catalog_diagnostics_migration.md` — risk-ranked diagnostics cleanup.
 - `benchmark_regression_gate_reliability.md` — statistically credible gates.
 - `conversion_fidelity_and_molsysdict_v1.md` — executable Tier 1 conversion
   fidelity and a versioned path beyond the MolSysDict 0.1 boundary; the gate is
   operational and remaining non-exhaustive routes are explicit baseline debt.
-- `chemical_graph_and_conversion_execution_checkpoint.md` — current re-entry
-  point: approve and validate the native chemical-graph contract before Rust,
-  interactions, reactive states, or broad adapter fan-out.
-- `chemical_state_adapter_fidelity_audit.md` — source-by-source audit of native
-  bond-storage coupling, chemical metadata preservation, explicit conversion
-  losses, and the ordered adapter migration.
 
 ### Scientific and ecosystem requests
 
@@ -46,8 +39,6 @@ scientific-validation requirements.
   `probe_radius` / `n_sphere_points`) done; Part 2 (grid helpers) pending.
 - `sasa_methodologies_and_acceleration_post_1_0.md` — cell-list acceleration and
   alternative SASA methodologies (LCPO, Lee–Richards).
-- `neighbor_list_consumer_migration.md` — migrate `get_neighbors` (threshold mode)
-  and h-bond candidate generation onto the shared cell-list neighbour-list primitive.
 - `molsysviewer_molsysmt_nonblocking_heavy_operations.md`
 
 ### Exploratory architecture and operations
@@ -60,11 +51,6 @@ scientific-validation requirements.
 - `optional_native_columns_memory_model.md` — post-1.0 evaluation of
   schema-aware optional physical columns so topology memory scales with the
   information an instance actually contains.
-- `linear_algebra_backend_for_rust_kernels.md` — whether the Rust kernels should link
-  LAPACK/MKL. Measured answer: 10 of the 11 blocked kernels only diagonalise 3x3 and 4x4
-  matrices, and PCA spends 76-93% of its time building the covariance rather than
-  diagonalising it, so the useful property is fast BLAS, not a fast eigensolver.
-  Recommends pure Rust (`nalgebra`, `faer`) over a BLAS system dependency.
 - `rust_gpu_backend_options.md` — whether the Rust layer should also target the GPU.
   The landscape survey is still live post-1.0 work. Its near-term framing is
   settled: the default Rust wheel is CPU-only and Numba-CUDA has been removed, so
@@ -73,7 +59,6 @@ scientific-validation requirements.
   and test-coverage residue left by the Numba-to-Rust migration, found while
   bringing the developer guide up to date. Documentation-only work is already
   done; this is the part that touches code and tests.
-- `rusterization_heavy_computations.md`
 - `rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`
 - `rusterization_parallel_trajectory_io.md`
 - `rusterization_topology_and_selections.md`
@@ -103,6 +88,31 @@ note on each:
   exists, through a `warmup()` API that has been removed.
 - `triclinic_cell_list_completeness.md` — **resolved**, implemented and validated in
   `rust/src/neighbors.rs` and `rust/src/sasa.rs`.
+
+Archived on 2026-07-29 after F2 closure and F3 lifecycle reconciliation:
+
+- `explicit_form_support_registry.md` — **completed.** Every discovered form is
+  explicitly classified and the release validator rejects implicit support.
+- `course_module_renumbering_scheme.md` — **completed.** F1 implemented the
+  20-module Core, Paths 21–54, stable labels, manifest, and validator.
+- `rust_packaging_backend_design.md` — **completed.** The accepted
+  setuptools-rust private-extension design passed C1–C7.
+- `linear_algebra_backend_for_rust_kernels.md` — **completed.** The Rust-only
+  runtime uses `nalgebra` and `faer` and passed its scientific and packaging
+  gates.
+- `chemical_graph_and_conversion_execution_checkpoint.md` — **completed.** The
+  fixed pre-1.0 chemical-graph consolidation block is implemented.
+- `chemical_state_v1_executable_contract.md` — **completed.** The accepted
+  reference-state and normalized chemical-state contract is implemented for
+  the 1.0 scope.
+- `chemical_state_adapter_fidelity_audit.md` — **completed.** Priority inbound,
+  outbound, strict-loss, and persistence adapter seams are implemented; broader
+  lower-tier expansion remains deferred.
+- `neighbor_list_consumer_migration.md` — **completed.** Common threshold and
+  h-bond consumer paths use the shared primitive; residual modes remain on the
+  matrix path by explicit design.
+- `rusterization_heavy_computations.md` — **completed and superseded.** The
+  exploration led to the Rust-only runtime and no longer defines future work.
 
 A proposal is archived, never deleted. If one of these questions returns it will
 return with a different premise and deserves a fresh document rather than a

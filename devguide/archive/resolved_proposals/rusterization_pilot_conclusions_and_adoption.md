@@ -2,7 +2,7 @@
 
 **Status:** **HISTORICAL PILOT EVIDENCE — the adoption question it asked is settled
 (archived 2026-07-28).**
-**Relates to:** `../../pending_proposals/rusterization_heavy_computations.md`,
+**Relates to:** `rusterization_heavy_computations.md`,
 `../../pending_proposals/rusterization_topology_and_selections.md`,
 `../../pending_proposals/rusterization_hybrid_columnar_ecs_arrow_graph_engine.md`,
 `../../pending_proposals/rusterization_parallel_trajectory_io.md`.

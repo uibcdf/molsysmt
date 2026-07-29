@@ -1,6 +1,8 @@
 # Release 1.0 — Independent Gate Audit
 
-**Status:** independent audit (read-only), 2026-07-22
+**Status:** historical independent audit (read-only), 2026-07-22; archived on
+2026-07-29 after its WIP, course, function-tier, and proposal-lifecycle findings
+were resolved or routed to explicit later release stages.
 **Method:** documentary claims cross-checked against code, tests, and the repository's
 own validators. pytest is the authority. The full suite was **not** run (per audit
 constraints); the eight in-repo validators, focused Tier-1 selections, and a public-API
@@ -328,9 +330,9 @@ schema and adapter defects, and a multi-cause PDB fidelity workstream.
 
 The canonical diagnosis and four-stage closure plan are:
 
-- [`conversion_fidelity_wip_contract_gaps.md`](../archive/resolved_bugs/conversion_fidelity_wip_contract_gaps.md)
-- [`conversion_fidelity_and_molsysdict_v1.md`](conversion_fidelity_and_molsysdict_v1.md)
-- [`release_1_0_execution_plan.md`](release_1_0_execution_plan.md)
+- [`conversion_fidelity_wip_contract_gaps.md`](../resolved_bugs/conversion_fidelity_wip_contract_gaps.md)
+- [`conversion_fidelity_and_molsysdict_v1.md`](../../pending_proposals/conversion_fidelity_and_molsysdict_v1.md)
+- [`release_1_0_execution_plan.md`](../../pending_proposals/release_1_0_execution_plan.md)
 
 ### Effect on the Release Assessment
 

@@ -1,6 +1,8 @@
 # Chemical Graph and Conversion Execution Checkpoint
 
-**Status:** fixed pre-1.0 chemical-graph consolidation block complete
+**Status:** resolved and archived on 2026-07-29. The fixed pre-1.0
+chemical-graph consolidation block is complete; remaining architectural
+expansion is tracked by dedicated post-1.0 proposals.
 
 **Recorded:** 2026-07-15
 
@@ -15,10 +17,10 @@ second architectural specification.
 
 Detailed semantics and acceptance requirements remain in:
 
-- [Attribute-Centric Molecular-System Architecture](attribute_centric_molecular_system_model.md);
+- [Attribute-Centric Molecular-System Architecture](../../pending_proposals/attribute_centric_molecular_system_model.md);
 - [Chemical State v1 Executable Contract](chemical_state_v1_executable_contract.md);
-- [Conversion Fidelity Matrix and MolSysDict Schema Evolution](conversion_fidelity_and_molsysdict_v1.md);
-- [Native DCD and XTC trajectory I/O](rusterization_parallel_trajectory_io.md);
+- [Conversion Fidelity Matrix and MolSysDict Schema Evolution](../../pending_proposals/conversion_fidelity_and_molsysdict_v1.md);
+- [Native DCD and XTC trajectory I/O](../../pending_proposals/rusterization_parallel_trajectory_io.md);
 - [Exploring an AOT Rust Backend to Replace Numba Kernels](rusterization_heavy_computations.md).
 
 When this checkpoint and a detailed proposal disagree, the detailed proposal,

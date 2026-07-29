@@ -1,6 +1,8 @@
 # Explicit Form Support Registry
 
-**Status:** explicit tier registry and current pre-1.0 evidence cohorts implemented
+**Status:** resolved and archived on 2026-07-29. The explicit registry contains
+every discovered form, and the release validator rejects missing, stale, and
+implicitly Tier 1 entries.
 
 ## Why
 

@@ -1,9 +1,10 @@
 # Proposal: migrate remaining spatial consumers onto the shared neighbour-list primitive
 
-**Status:** DONE for the common paths (see resolution note); residual output-mode
-paths remain on the distance-matrix implementation by design.
+**Status:** resolved and archived on 2026-07-29. The common paths are migrated;
+residual output modes remain on the distance-matrix implementation by explicit
+design rather than as pending work.
 **Owner:** MolSysMT
-**Related:** `sasa_methodologies_and_acceleration_post_1_0.md`
+**Related:** `../../pending_proposals/sasa_methodologies_and_acceleration_post_1_0.md`
 
 > **Resolution.**
 > - **`get_neighbors` threshold mode — migrated.** A cell-list fast path now serves
