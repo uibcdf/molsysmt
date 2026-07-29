@@ -28,6 +28,9 @@ scientific-validation requirements.
 - `conversion_fidelity_and_molsysdict_v1.md` — executable Tier 1 conversion
   fidelity and a versioned path beyond the MolSysDict 0.1 boundary; the gate is
   operational and remaining non-exhaustive routes are explicit baseline debt.
+- `atom_axis_add_semantic_audit.md` — bounded pre-F5 audit of multi-source
+  selections and transaction scope, one-sided atom-aligned attributes, and the
+  scientific validity of structure-aligned metadata after adding atoms.
 
 ### Scientific and ecosystem requests
 
