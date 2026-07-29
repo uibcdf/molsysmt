@@ -122,12 +122,26 @@ documentation, or installed-product evidence is still missing.
 | C — Rust packaging | 20% | every declared wheel and source artifact installs and passes |
 | D — Rust-only cut | 20% | zero-Numba validator and API cleanup are green |
 | E — scientific and ecosystem validation | 15% | full scientific, suite, wheel, and consumer gates are green |
-| F — lifecycle and release candidate | 10% | documentation, course, release matrix, and clean-candidate gates are green |
+| F — lifecycle and release candidate | 10% | sum of the six independently gated F stages below |
 
-The weighted total is the sum of completed exit gates. Work inside an open
-segment must be reported separately as local progress, not converted into
-optimistic global credit. Update this table or a dated checkpoint after every
-segment, including evidence links and the exact commit tested.
+Segments A–E retain binary segment-level credit because their internal stages
+share one final integration gate. Segment F is different: its lifecycle stages
+produce independent, durable release artifacts, so its 10% is partitioned:
+
+| F stage | Weight | Completion rule |
+| --- | ---: | --- |
+| F1 — course structure | 1% | numbering, toctrees, semantic labels, manifest, and validator are green |
+| F2 — notebook execution | 2% | the complete applicable course scope passes from clean kernels |
+| F3 — support tiers and guide lifecycle | 1% | public functions are classified and completed proposals are archived |
+| F4 — documentation lifecycle | 2% | affected documentation, demos, API reference, and course narrative are reconciled |
+| F5 — exact-commit release gates | 3% | fast, full, wheel, and documentation gates pass on the candidate commit |
+| F6 — release candidate and tag | 1% | the verified candidate is approved and tagged |
+
+The weighted total is the sum of completed A–E segment exit gates plus completed
+F stage exit gates. F is worth at most 10% and is never counted again when the
+segment closes. Partial work inside any individual stage earns no credit. Update
+the table or a dated checkpoint after every stage, including evidence links and
+the exact commit tested.
 
 These weights measure closure of the **remaining 1.0 plan**, not total historical
 MolSysMT development. The completed Rust port and earlier consolidation are

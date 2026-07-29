@@ -100,8 +100,9 @@ and the remaining families predate the release work. No warning was suppressed.
 
 ## Closure
 
-F4 is complete. F5 is the next active stage: land a clean exact commit and run
-the fast gate, Ruff, full Python 3.11–3.13 platform matrix, installed-wheel
-checks, and documentation workflow on that candidate. Formal weighted completion
-remains 90% until the complete Segment F exit gate closes; stage completion is
-not converted into partial segment credit.
+F4 is complete. F5 is the next active stage: use the clean checkpoint commit and
+run the fast gate, Ruff, full Python 3.11–3.13 platform matrix, installed-wheel
+checks, and documentation workflow on that candidate. Under the approved
+stage-weighted Segment F accounting, F1–F4 earn 6% of F's fixed 10% budget and
+formal weighted completion is 96%. F5 and F6 retain the final 4%; no partial work
+inside either stage earns credit.

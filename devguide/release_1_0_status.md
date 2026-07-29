@@ -38,7 +38,7 @@ and do not merge it across an unmet integration dependency.
 
 - **Active segment:** F — lifecycle and release candidate
 - **Active stage:** F5 clean exact-commit release gates
-- **Completed weighted closure:** 90% of the remaining 1.0 execution plan
+- **Completed weighted closure:** 96% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
@@ -59,7 +59,7 @@ and do not merge it across an unmet integration dependency.
   run `30394881487`
 - **Current E3 exact evidence commit:** `692479097`; 9,585 tests pass, two are
   accepted skips, and the fast release gate passes 12/12
-- **Release readiness measure:** the formal weighted closure is 90%; no second
+- **Release readiness measure:** the formal weighted closure is 96%; no second
   subjective percentage is mixed into this operational ledger
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
@@ -73,7 +73,7 @@ and do not merge it across an unmet integration dependency.
   Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
   declarations, 320 resolved baseline declarations, and no Tier-1 debt
 
-The 90% figure measures only the newly defined remaining-plan exit gates. It
+The 96% figure measures only the newly defined remaining-plan exit gates. It
 does not attempt to restate the much larger body of MolSysMT development,
 consolidation, or Rust kernel work completed before this ledger was created.
 
@@ -86,8 +86,8 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | C — Rust packaging | 20% | `DONE` | 20% | C1–C7 pass: permanent backend, private abi3 integration, five native wheels, Python 3.11–3.13, NumPy floors, sdist/package parity, and Rust quality/security gates |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
 | E — scientific and ecosystem validation | 15% | `DONE` | 15% | E1–E6 pass: Rust/scientific/full-suite gates, installed-wheel matrix, maturity-weighted consumers, and runtime/thread benchmarks |
-| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 0% | F1–F4 are done; affected notebooks and documentation are synchronized, course structure is clean, historical Sphinx warning debt is measured, and F5 exact-commit gates are active |
-| **Total** | **100%** | **`IN PROGRESS`** | **90%** | Segment credit is earned only when its complete exit gate passes |
+| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 6% | F1–F4 are done; affected notebooks and documentation are synchronized, course structure is clean, historical Sphinx warning debt is measured, and F5 exact-commit gates are active |
+| **Total** | **100%** | **`IN PROGRESS`** | **96%** | A–E use complete segment gates; F uses the explicit stage weights below |
 
 ### B4 Pause Checkpoint — Transactional Structural Growth
 
@@ -589,14 +589,15 @@ for the 1.0 source/tag, scientific validation, or manuscript:
 
 ## Segment F — Lifecycle and Release Candidate
 
-| Stage | Status |
-| --- | --- |
-| F1 — Four Paths numbering and structural validation | `DONE` |
-| F2 — applicable Common Core and changed-behavior notebook execution | `DONE` — 40/40 pass from clean kernels at `2f6fd59d1` |
-| F3 — function support-tier and pending-guide hygiene | `DONE` — 117 Tier 1, 56 Tier 3, seven outside-contract; completed records archived |
-| F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | `DONE` |
-| F5 — clean exact-commit fast, full, wheel, and documentation gates | `IN PROGRESS` |
-| F6 — 1.0 release candidate and tag | `PENDING` |
+| Stage | Weight | Status | Earned |
+| --- | ---: | --- | ---: |
+| F1 — Four Paths numbering and structural validation | 1% | `DONE` | 1% |
+| F2 — applicable Common Core and changed-behavior notebook execution | 2% | `DONE` — 40/40 pass from clean kernels at `2f6fd59d1` | 2% |
+| F3 — function support-tier and pending-guide hygiene | 1% | `DONE` — 117 Tier 1, 56 Tier 3, seven outside-contract; completed records archived | 1% |
+| F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | 2% | `DONE` | 2% |
+| F5 — clean exact-commit fast, full, wheel, and documentation gates | 3% | `IN PROGRESS` | 0% |
+| F6 — 1.0 release candidate and tag | 1% | `PENDING` | 0% |
+| **Segment F total** | **10%** | **`IN PROGRESS`** | **6%** |
 
 ## Deferred Work
 
@@ -616,7 +617,8 @@ Update this ledger whenever a stage changes status:
 
 1. change only the affected stage and segment rows;
 2. record the exact command, result, and commit in the execution log;
-3. add earned weight only when the full segment exit gate passes;
+3. add earned weight only when the applicable segment or explicit F-stage exit
+   gate passes; never count the F total again after summing its stages;
 4. name blockers explicitly; never hide them inside `PENDING`;
 5. preserve accepted omissions and deferred work;
 6. identify the next active stage;
@@ -700,4 +702,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-29 | F2 exact-commit closure | `IN PROGRESS` → `DONE`; F3 becomes active | final scope expands from 37 to 40 because Scalability corrections affect all four Paths; the complete Common Core plus notebooks 28, 29, 47, 48, and 49 of every Path pass from fresh kernels with no persisted outputs | `2f6fd59d1`; `release_1_0_f2_notebook_execution_checkpoint.md` |
 | 2026-07-29 | F3 support-tier and lifecycle reconciliation | `IN PROGRESS` → `DONE`; F4 becomes active | function tiers derive from the exhaustive API stability registry and validate as 117 Tier 1, 56 Tier 3, and seven outside-contract; nine completed/superseded proposals and one historical audit leave the pending queue; normative links and resolution records are updated | `release_1_0_f3_support_and_lifecycle_checkpoint.md`; documentation-only work based on `fd19f9196` |
 | 2026-07-29 | F4 documentation lifecycle | `IN PROGRESS` → `DONE`; F5 becomes active | final course narrative references use stable semantic targets; the numbering report and Rust migration residue are archived; the missing dihedral broadcast regression passes on vacuum and periodic paths; checked-in autosummary surfaces are refreshed; 11 stale toctree targets are repaired; Sphinx builds successfully and the remaining warning families are measured as accepted documentation debt | `672f8f065`; `release_1_0_f4_documentation_lifecycle_checkpoint.md` |
+| 2026-07-29 | Segment F progress accounting | no stage transition; weighted closure 90% → 96% | the fixed 10% Segment F budget is partitioned across six independently gated stages; completed F1–F4 earn 6%, while F5 and F6 retain the remaining 4%; no technical exit criterion or release requirement changes | maintainer-approved accounting update after `075cb0432` |
 | 2026-07-28 | Developer-guide coherence pass | no stage transition | post-migration documentation debt cleared: four Numba-era bug reports and four Numba-era proposals archived with resolution notes after verifying each against the Rust runtime; one stale duplicate report removed; the three Numba migration documents relabelled as historical evidence; snapshot sentences that still called Segment C open corrected; `pending_bugs` and `pending_proposals` indexes rewritten; 11 broken intra-guide links repaired; devguide validation and the fast gate pass 12/12; code, tests, and notebooks untouched, with the residue recorded in `archive/resolved_proposals/rust_migration_documentation_and_test_residue.md` | documentation-only commit |
