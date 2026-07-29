@@ -3,6 +3,7 @@
 **Date:** 2026-07-29
 **Stage:** F4 — User Guide, Cookbook, API, demos, and course lifecycle closure
 **Status:** `DONE`
+**Exact implementation commit:** `672f8f065`
 
 ## Scope and decision
 
