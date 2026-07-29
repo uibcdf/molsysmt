@@ -65,6 +65,17 @@ scientific-validation requirements.
 - `smonitor_feedback.md`
 - `git_history_bloat_cleanup.md`
 
+### Presentation, documentation, and citation
+
+- `readme_positioning_and_1_0_refresh.md` — how MolSysMT presents itself. Accepted
+  and largely applied: the README and documentation landing pages described a
+  converter and a removed Numba/CUDA architecture, understated the supported
+  surface, and carried code examples that did not execute.
+- `presentation_and_citation_surface.md` — the three items that pass could not
+  close: an ORCID misattributed to a real person plus a stale, malformed DOI in
+  `CITATION.cff`; an unreferenced duplicate documentation landing page; and the
+  timing of installation instructions against the Conda delivery track.
+
 ### Education
 
 - `course_review/` — unresolved retrospective course improvements.

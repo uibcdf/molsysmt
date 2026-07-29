@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-07-28
+**Last updated:** 2026-07-29
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -71,6 +71,16 @@ and do not merge it across an unmet integration dependency.
   validation with it, so the only packaging work left is the Conda delivery
   track — coordinate sibling and MolSysMT Conda publication during manuscript
   writing or review
+- **Parallel documentation and paper action:** with A–E and F1–F4 closed, the
+  presentation surface, the documentation and the methods paper are a principal
+  parallel workstream rather than a finishing touch. The framing and factual
+  corrections landed as `d2b805e74`; the three items that require a maintainer
+  decision — the citation record, an unreferenced duplicate landing page, and the
+  timing of the Conda installation instructions — are specified in
+  [Presentation and Citation Surface](pending_proposals/presentation_and_citation_surface.md).
+  Public-facing code examples must be executed against the installed package
+  before they are written: the 2026-07-29 audit found that none of the README's
+  examples ran
 - **Known independent release-gate debt:** the fast release gate passes 12/12.
   Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
   declarations, 320 resolved baseline declarations, and no Tier-1 debt
@@ -707,4 +717,6 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-29 | Segment F progress accounting | no stage transition; weighted closure 90% → 96% | the fixed 10% Segment F budget is partitioned across six independently gated stages; completed F1–F4 earn 6%, while F5 and F6 retain the remaining 4%; no technical exit criterion or release requirement changes | maintainer-approved accounting update after `075cb0432` |
 | 2026-07-29 | Atom-axis `add()` WIP integration | dirty pre-F5 worktree → clean candidate base; no stage transition | native and public addition share one atom-axis contract; MolSys mutation is transactional; adapters, multiple-source dispatch, scalar returns, lifecycle documentation, and regressions are synchronized; 30 focused and 554 expanded tests pass, two notebooks execute, Ruff passes, and the fast gate passes 12/12 | `2865c3122`; `release_1_0_atom_axis_add_checkpoint.md` |
 | 2026-07-29 | Atom-axis `add()` semantic follow-up | F5 remains active; bounded audit inserted before its expensive exact-commit matrix | multi-source selection/cardinality, whole-call transaction scope, one-sided atom-aligned data, structure metadata and energy validity, coordinate-free structures, adapter parity, diagnostics, and memory are recorded with phases and acceptance criteria; no behavior or weighted progress changed | `87ccfc289`; `pending_proposals/atom_axis_add_semantic_audit.md` |
-| 2026-07-28 | Developer-guide coherence pass | no stage transition | post-migration documentation debt cleared: four Numba-era bug reports and four Numba-era proposals archived with resolution notes after verifying each against the Rust runtime; one stale duplicate report removed; the three Numba migration documents relabelled as historical evidence; snapshot sentences that still called Segment C open corrected; `pending_bugs` and `pending_proposals` indexes rewritten; 11 broken intra-guide links repaired; devguide validation and the fast gate pass 12/12; code, tests, and notebooks untouched, with the residue recorded in `archive/resolved_proposals/rust_migration_documentation_and_test_residue.md` | documentation-only commit |
+| 2026-07-28 | Developer-guide coherence pass | no stage transition | post-migration documentation debt cleared: four Numba-era bug reports and four Numba-era proposals archived with resolution notes after verifying each against the Rust runtime; one stale duplicate report removed; the three Numba migration documents relabelled as historical evidence; snapshot sentences that still called Segment C open corrected; `pending_bugs` and `pending_proposals` indexes rewritten; 11 broken intra-guide links repaired; devguide validation and the fast gate pass 12/12; code, tests, and notebooks untouched, with the residue recorded in `archive/resolved_proposals/rust_migration_documentation_and_test_residue.md` | `2340d1eff` |
+| 2026-07-29 | Presentation surface | no stage transition | the README and documentation landing pages described MolSysMT as middleware between other libraries and advertised the removed Numba/CUDA architecture; `docs/content/about/what.md` disowned the library's own native capability. Reframed with the molecular system as subject. Verified against the installed package: seven `to=` calls should be `to_form=`, the sequence and dihedral examples raise, and the cross-library showcase raises `NotImplementedConversionError` because no route to `MDAnalysis.Universe` exists. The tier table showed about eleven Tier 1 forms where the live registry reports 75 of 89, and claimed any Tier 1 pair converts. The Conda recipe had an empty summary. Every example now executes; ruff, devguide, course, and fast gate 12/12 pass | `d2b805e74`; `pending_proposals/readme_positioning_and_1_0_refresh.md` |
+| 2026-07-29 | Documentation and paper track | critical-path work → named parallel track | with A–E and F1–F4 closed, presentation, documentation and the methods paper become a principal parallel workstream; the three items the positioning pass could not close are specified with acceptance criteria | `pending_proposals/presentation_and_citation_surface.md` |
