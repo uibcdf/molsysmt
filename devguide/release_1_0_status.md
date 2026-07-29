@@ -43,8 +43,9 @@ and do not merge it across an unmet integration dependency.
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** clean `main`; stage-closing commits are pushed
-  after their local gates pass
+- **Current repository state:** F2 corrections are present as an uncommitted
+  working tree based on `2340d1eff`; they require validation and landing before
+  exact-commit closure
 - **Current exact Rust campaign commit:** `6485a0c08`; this is verified
   migration evidence but is not itself a release candidate, because Segment F
   lifecycle work is still open and no candidate has been tagged
@@ -64,8 +65,8 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** resume F2 by classifying its 12 deterministic notebook
-  failures, then design the network/interactive lane for the 11 deferred cases
+- **Next action:** validate and land the bounded F2 changes, then rerun its
+  complete 37-notebook selection at the exact resulting commit
 - **Parallel packaging action:** Segment C is closed, and installed-wheel
   validation with it, so the only packaging work left is the Conda delivery
   track — coordinate sibling and MolSysMT Conda publication during manuscript
@@ -87,7 +88,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | C — Rust packaging | 20% | `DONE` | 20% | C1–C7 pass: permanent backend, private abi3 integration, five native wheels, Python 3.11–3.13, NumPy floors, sdist/package parity, and Rust quality/security gates |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
 | E — scientific and ecosystem validation | 15% | `DONE` | 15% | E1–E6 pass: Rust/scientific/full-suite gates, installed-wheel matrix, maturity-weighted consumers, and runtime/thread benchmarks |
-| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 0% | F1 numbering, toctrees, manifest, stable labels, and executable structural validation are done; F2 existing notebook-execution evidence is under audit |
+| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 0% | F1 is done; the corrected F2 worktree passes all 37 required notebooks and awaits validation, landing, and exact-commit rerun |
 | **Total** | **100%** | **`IN PROGRESS`** | **90%** | Segment credit is earned only when its complete exit gate passes |
 
 ### B4 Pause Checkpoint — Transactional Structural Growth
@@ -593,7 +594,7 @@ for the 1.0 source/tag, scientific validation, or manuscript:
 | Stage | Status |
 | --- | --- |
 | F1 — Four Paths numbering and structural validation | `DONE` |
-| F2 — applicable Common Core and changed-behavior notebook execution | `IN PROGRESS` |
+| F2 — applicable Common Core and changed-behavior notebook execution | `IN PROGRESS` — 37/37 pass on the corrected worktree; exact-commit closure pending |
 | F3 — function support-tier and pending-guide hygiene | `PENDING` |
 | F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | `PENDING` |
 | F5 — clean exact-commit fast, full, wheel, and documentation gates | `PENDING` |
@@ -697,4 +698,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-28 | F1 status correction | `PENDING` → `DONE` | commit history and the live validator confirm that F1 had already landed: 156 notebooks, core 1–20, four paths 21–54, complete toctrees, unique semantic labels, and a matching manifest; the two remaining editorial references and Sphinx confirmation belong to later lifecycle stages | `f5d96218b`; `python devtools/scripts/validate_course.py` |
 | 2026-07-28 | F / F2 | `PENDING` → `IN PROGRESS` | F1 historical evidence recovered; existing notebook-execution evidence must be audited before scheduling new execution or edits | after `03a170442` |
 | 2026-07-28 | F2 execution audit checkpoint | remains `IN PROGRESS` | required union reconstructed as 37 notebooks; in-memory clean-kernel run passes 14/26 deterministic notebooks, exposes 12 failures requiring ownership classification, and defers 11 network/interactive notebooks; no notebook outputs or content were modified | `release_1_0_f2_notebook_execution_checkpoint.md` |
+| 2026-07-28 | F2 correction pass | remains `IN PROGRESS`, ready to land | all 26 deterministic and all 11 network/headless notebooks pass from clean kernels; seven bounded library-contract corrections have regression coverage; affected User Guide notebooks execute; formal closure awaits validation, landing, and exact-commit 37/37 rerun | dirty worktree based on `2340d1eff`; `release_1_0_f2_notebook_execution_checkpoint.md` |
 | 2026-07-28 | Developer-guide coherence pass | no stage transition | post-migration documentation debt cleared: four Numba-era bug reports and four Numba-era proposals archived with resolution notes after verifying each against the Rust runtime; one stale duplicate report removed; the three Numba migration documents relabelled as historical evidence; snapshot sentences that still called Segment C open corrected; `pending_bugs` and `pending_proposals` indexes rewritten; 11 broken intra-guide links repaired; devguide validation and the fast gate pass 12/12; code, tests, and notebooks untouched, with the residue recorded in `pending_proposals/rust_migration_documentation_and_test_residue.md` | documentation-only commit |

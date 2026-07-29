@@ -414,6 +414,12 @@ def _convert_multiple_to_one(molecular_system,
                 else:
                     get_arguments['indices'] = 'all'
             value_to_set = get_function(aux_item, **get_arguments)
+            if _set_composed_structure_attribute(
+                output,
+                aux_attribute,
+                value_to_set,
+            ):
+                continue
             set_to = _attributes[aux_attribute]['set_to']
             set_function = getattr(_dict_modules[to_form], f'set_{aux_attribute}_to_{set_to}')
             set_function(output, value=value_to_set)
@@ -447,7 +453,87 @@ def _convert_multiple_to_one(molecular_system,
         if output is not None:
             output = _convert_one_to_one(output, 'molsysmt.MolSys', to_form=to_form)
 
+    if to_form == 'molsysmt.MolSys' and output is not None:
+        _reconcile_composed_structure_state_association(output)
+
     return output
+
+
+def _set_composed_structure_attribute(item, attribute, value):
+    """Replace one complete structure-aligned series during composition."""
+
+    canonical_units = {
+        'time': 'ps',
+        'coordinates': 'nm',
+        'velocities': 'nm/ps',
+        'box': 'nm',
+        'b_factor': 'nm**2',
+        'temperature': 'K',
+        'potential_energy': 'kJ/mol',
+        'kinetic_energy': 'kJ/mol',
+    }
+    structure_attributes = {
+        'structure_id',
+        'time',
+        'coordinates',
+        'velocities',
+        'box',
+        'b_factor',
+        'alternate_location',
+        'occupancy',
+        'temperature',
+        'potential_energy',
+        'kinetic_energy',
+    }
+    if attribute not in structure_attributes:
+        return False
+    if value is None:
+        return False
+
+    from molsysmt.native import Structures
+
+    if isinstance(item, Structures):
+        structures = item
+    elif hasattr(item, 'structures') and isinstance(item.structures, Structures):
+        structures = item.structures
+    else:
+        return False
+
+    if attribute in canonical_units:
+        from molsysmt.native.structures import _raw_value
+
+        value = _raw_value(value, canonical_units[attribute])
+
+    candidate = structures._frame_payload()
+    candidate[attribute] = value
+    n_structures = len(value)
+    for name, current in candidate.items():
+        if current is not None and len(current) != n_structures:
+            candidate[name] = None
+    structures._assign_frame_payload(candidate)
+    return True
+
+
+def _reconcile_composed_structure_state_association(item):
+    """Align explicit chemical-state associations after composite conversion."""
+
+    explicit = item._structure_chemical_state_indices
+    if explicit is None:
+        return
+
+    n_structures = item.structures.n_structures
+    if len(explicit) == n_structures:
+        return
+
+    if len(item.topology._chemical_states) == 1:
+        item._structure_chemical_state_indices = None
+    else:
+        import pandas as pd
+
+        item._structure_chemical_state_indices = pd.array(
+            [pd.NA] * n_structures,
+            dtype='Int64',
+        )
 
 from smonitor import signal
 

@@ -270,6 +270,17 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
             warn(f"Size mismatch for attribute '{attr_name}': {a_arr.shape} vs {b_arr.shape}. Returning False.", 
                  caller='molsysmt.basic.compare.compare')
             return False
+
+        if a_arr.dtype.kind == 'O' or b_arr.dtype.kind == 'O':
+            import pandas as pd
+
+            missing_a = np.asarray(pd.isna(a_arr), dtype=bool)
+            missing_b = np.asarray(pd.isna(b_arr), dtype=bool)
+            if not np.array_equal(missing_a, missing_b):
+                return False
+            if np.all(missing_a):
+                return True
+            return np.array_equal(a_arr[~missing_a], b_arr[~missing_b])
         
         if a_arr.dtype.kind in 'SU' or b_arr.dtype.kind in 'SU':
             return np.array_equal(np.char.lower(a_arr.astype(str)), np.char.lower(b_arr.astype(str)))
@@ -388,8 +399,15 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 atom_pairs_A = dict_A['bonded_atom_pairs']
                 atom_pairs_B = dict_B['bonded_atom_pairs']
 
-            atom_pairs_A = np.asarray(atom_pairs_A)
-            atom_pairs_B = np.asarray(atom_pairs_B)
+            if atom_pairs_A is None:
+                atom_pairs_A = np.empty((0, 2), dtype=np.int64)
+            else:
+                atom_pairs_A = np.asarray(atom_pairs_A)
+
+            if atom_pairs_B is None:
+                atom_pairs_B = np.empty((0, 2), dtype=np.int64)
+            else:
+                atom_pairs_B = np.asarray(atom_pairs_B)
             
             if atom_pairs_A.size > 0:
                 atom_pairs_A = np.sort(atom_pairs_A, axis=1)
@@ -471,8 +489,15 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
                 atom_pairs_A = dict_A['inner_bonded_atom_pairs']
                 atom_pairs_B = dict_B['inner_bonded_atom_pairs']
 
-            atom_pairs_A = np.asarray(atom_pairs_A)
-            atom_pairs_B = np.asarray(atom_pairs_B)
+            if atom_pairs_A is None:
+                atom_pairs_A = np.empty((0, 2), dtype=np.int64)
+            else:
+                atom_pairs_A = np.asarray(atom_pairs_A)
+
+            if atom_pairs_B is None:
+                atom_pairs_B = np.empty((0, 2), dtype=np.int64)
+            else:
+                atom_pairs_B = np.asarray(atom_pairs_B)
             
             if atom_pairs_A.size > 0:
                 try:

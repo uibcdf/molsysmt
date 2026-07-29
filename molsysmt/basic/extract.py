@@ -10,21 +10,25 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     Extracting a subset of atoms and/or structures from a molecular system.
 
     This function creates a new molecular system containing only the elements and structures
-    specified by `selection` and `structure_indices`. Optionally, the result can be returned
-    in another form using `to_form`.
+    specified by `selection` and `structure_indices`. Composite inputs are materialized as a
+    native `molsysmt.MolSys` before extraction so topology and structural data remain aligned.
+    Optionally, the result can be returned in another form using `to_form`.
 
     Parameters
     ----------
     molecular_system : molecular system
         Molecular system to extract from, in any of the :ref:`supported forms <Introduction_Forms>`.
+        A list or tuple can combine complementary forms of the same system, such as one topology
+        file and one coordinate trajectory.
     selection : str, tuple, list or numpy.ndarray, default 'all'
         Subset of atoms to extract. Either a 0-based index collection or a selection string
         parsed according to :ref:`Introduction_Selection`. The default 'all' selects all atoms.
     structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
         0-based indices of the structures to extract. The default 'all' includes all structures.
     to_form : str or None, default None
-        Target form of the output system. If `None`, the output form matches the input system.
-        See :ref:`Supported conversions <Introduction_Supported>`.
+        Target form of the output system. If `None`, the output form matches a singular input;
+        composite inputs return `molsysmt.MolSys`. See
+        :ref:`Supported conversions <Introduction_Supported>`.
     output_filename : str or None, optional
         Optional output target used by certain form handlers. When applicable, the underlying
         conversion/extraction backend may write to this location.
@@ -48,8 +52,9 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     Returns
     -------
     molecular system
-        A new molecular system containing only the selected atoms and structures, in `to_form` if provided, otherwise in
-        the input form.
+        A new molecular system containing only the selected atoms and structures, in `to_form`
+        if provided. Otherwise, the result uses the singular input form or `molsysmt.MolSys`
+        for a composite input.
 
     Raises
     ------
@@ -106,19 +111,35 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         molecular_system, structure_indices, 'molsysmt.extract'
     )
 
+    forms_in = get_form(molecular_system)
+
+    if isinstance(forms_in, (list, tuple)):
+        native_system = convert(
+            molecular_system,
+            to_form='molsysmt.MolSys',
+            skip_digestion=True,
+        )
+        return extract(
+            native_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            to_form=to_form,
+            copy_if_all=copy_if_all,
+            syntax=syntax,
+            skip_digestion=True,
+        )
+
     if to_form is not None:
 
         return convert(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
                        syntax=syntax, skip_digestion=True)
-
-    forms_in = get_form(molecular_system)
 
     if not is_all(selection):
         atom_indices = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
     else:
         atom_indices = 'all'
 
-    if not isinstance(get_form, (list, tuple)):
+    if not isinstance(forms_in, (list, tuple)):
         forms_in = [forms_in]
         molecular_system = [molecular_system]
 

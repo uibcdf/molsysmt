@@ -25,6 +25,10 @@ that the affected surface is fully verified.
 
 ### Contract and maintainability
 
+- `iterator_without_explicit_attributes_fails_for_partial_forms.md` — the
+  documented molecular-system-yielding mode fails during construction for
+  coordinate-only and topology-plus-trajectory inputs; explicit attribute
+  iteration remains usable.
 - `course_module_numbering_overlaps.md` — **the structural defect is closed.** The
   Common Core is 1–20, every Path is 21–54, and the numbering contract is guarded
   executably by `devtools/scripts/validate_course.py`, which passes as part of the

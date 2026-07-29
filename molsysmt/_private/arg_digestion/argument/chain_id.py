@@ -52,6 +52,9 @@ def digest_chain_id(chain_id, caller=None):
     if isinstance(chain_id, (int, np.int64)):
         return [chain_id]
 
+    elif isinstance(chain_id, str):
+        return [chain_id]
+
     elif isinstance(chain_id, list):
         return chain_id
 

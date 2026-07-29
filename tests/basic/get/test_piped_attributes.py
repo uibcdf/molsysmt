@@ -1,4 +1,5 @@
 import molsysmt as msm
+import numpy as np
 import pytest
 
 from molsysmt.basic.get import _piped_molecular_system
@@ -42,6 +43,25 @@ def test_piped_molecular_system_for_nglview_mixed_attributes():
     assert piped_attributes == [['atom_index', 'coordinates']]
 
 
+def test_get_mixed_attributes_from_topology_and_trajectory_composite():
+    topology = msm.systems['chicken villin HP35'][
+        'traj_chicken_villin_HP35_solvated.h5msm'
+    ]
+    trajectory = msm.systems['chicken villin HP35'][
+        'traj_chicken_villin_HP35_solvated.dcd'
+    ]
+
+    names, coordinates = msm.get(
+        [topology, trajectory],
+        selection=[0, 1, 2, 3, 4],
+        atom_name=True,
+        coordinates=True,
+    )
+
+    assert len(names) == 5
+    assert np.shape(coordinates) == (20, 5, 3)
+
+
 def test_single_attribute_uses_direct_getter_when_available(t4_pdb_file):
     piped_systems, piped_attributes = _piped_molecular_system(
         t4_pdb_file,
@@ -51,6 +71,15 @@ def test_single_attribute_uses_direct_getter_when_available(t4_pdb_file):
 
     assert piped_systems is None
     assert piped_attributes is None
+
+
+@pytest.mark.parametrize('fixture_name', ['hp35_bcif_file', 'hp35_bcif_gz_file'])
+def test_get_bonded_atom_pairs_from_bcif_public_api(fixture_name, request):
+    molecular_system = request.getfixturevalue(fixture_name)
+
+    bonded_atom_pairs = msm.get(str(molecular_system), bonded_atom_pairs=True)
+
+    assert np.shape(bonded_atom_pairs) == (602, 2)
 
 
 def test_single_attribute_uses_pipe_when_direct_getter_is_missing(t4_pdb_file):

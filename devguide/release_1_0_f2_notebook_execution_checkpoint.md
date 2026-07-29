@@ -1,116 +1,125 @@
-# F2 Notebook-Execution Audit Checkpoint
+# F2 Notebook-Execution Checkpoint
 
 **Date:** 2026-07-28  
 **Stage:** F2 — applicable Common Core and changed-behavior notebook execution  
-**Status:** `IN PROGRESS`  
-**Repository mutation during execution:** none
+**Status:** `READY TO LAND`; exact-commit rerun pending
+**Base commit:** `2340d1eff`
+**Repository mutation during execution:** source, tests, and notebook corrections
+remain uncommitted
 
-## Scope Reconstruction
+## Scope
 
-F2 requires the complete 20-notebook Common Core plus every course notebook
-affected by current API or behavior changes. Comparing the course at the F1
+F2 covers the complete 20-notebook Common Core plus every Path notebook affected
+by the current API and behaviour changes. Comparing the course at the F1
 migration commit `f5d96218b` with the current tree identifies 20 changed
-notebooks:
+notebooks. Their union with the Common Core contains **37 notebooks**: 20 Common
+Core notebooks and 17 additional Path notebooks.
 
-- three Common Core notebooks;
-- four MolSysBuilder path notebooks;
-- four PDB Frontier path notebooks;
-- four Trajectory Management path notebooks;
-- four Performance Optimization path notebooks;
-- one Scalability path notebook.
+Earlier evidence that five lifecycle notebooks executed belongs only to the
+MolSysBuilder vertical and does not prove this union. Stored notebook output is
+not accepted as execution evidence.
 
-The union of the complete Common Core and those changed notebooks is therefore
-**37 notebooks**: 20 Common Core plus 17 additional Path notebooks.
-
-The two earlier ledger entries saying that five lifecycle notebooks executed
-belong to the MolSysBuilder vertical. They do not prove this F2 union. Embedded
-execution counts are also not accepted as exact-current-commit evidence:
-outputs are cleared from most course notebooks and no durable execution
-artifact records the complete F2 selection.
-
-## Audit Method
+## Method
 
 The audit loaded notebooks with `nbformat` and executed them in memory through
-`nbclient.NotebookClient`, using a fresh Python kernel per notebook, a 90-second
-cell timeout, and the notebook's own directory as its working directory.
-Executed notebook outputs were not written back to the repository.
+`nbclient.NotebookClient`, using:
 
-The first pass selected 26 deterministic, noninteractive notebooks. Eleven
-were deliberately deferred because their code requires a PDB download, a live
-viewer interaction, or both. A sandbox-only kernel socket denial occurred on
-the first attempt; it was an infrastructure refusal before any cell executed
-and is not counted as a notebook result. The run was repeated with permission
-to start local Jupyter kernels.
+- a fresh Python kernel for every notebook;
+- each notebook's directory as its working directory;
+- a 90-second cell timeout;
+- the active MolSysMT Python 3.13 development environment;
+- no persistence of executed cells or outputs back into the repository.
 
-## Results
+The first lane comprised 26 deterministic notebooks. The second lane comprised
+11 notebooks previously deferred for network access, viewer interaction, or
+both. Permission was required to start local Jupyter kernels and perform the PDB
+downloads used by the lessons.
 
-### Deterministic execution
+Interactive lessons were executed through their explicit headless path. In
+particular, Common Core 06 verifies viewer construction and the absence/presence
+contract for the last selection event, but this run does not claim to simulate a
+human click in the widget.
 
-- **14 passed**
-- **12 failed**
-- **0 repository files changed**
+## Final Execution Result
 
-Passing notebooks:
+- deterministic lane: **26 passed, 0 failed**;
+- network/headless lane: **11 passed, 0 failed**;
+- complete F2 union: **37 passed, 0 failed**.
 
-- Common Core: 03, 07, 08, 10, 12, 17, and 20;
-- Alzheimer Path: 28;
-- Enzyme Path: 28 and 49;
-- Antiviral Path: 28 and 49;
-- Biophysics Path: 28 and 49.
+This result is evidence for the current uncommitted tree based on
+`2340d1eff`. F2 must not be marked formally `DONE` until these changes are
+landed and the 37-notebook selection is rerun at the resulting exact commit.
 
-The four currently affected MolSysBuilder path notebooks all pass, confirming
-the useful part of the earlier five-notebook lifecycle evidence.
+## Corrections Made
 
-### Deterministic failures
+### Library defects
 
-| Notebook | Observed failure | Initial ownership classification |
-| --- | --- | --- |
-| Core 02 — Native Forms | `MolSys -> TopologyDict` conversion is not implemented | notebook expectation or conversion-delivery decision |
-| Core 09 — System Modification | scalar `chain_id='PROTEIN'` rejected by digestion | API/digestion contract requires investigation |
-| Core 13 — Iterating | `element='structure'` rejected | notebook uses a noncanonical element term |
-| Core 16 — Comparing | `AxisError` inside comparison | probable library defect |
-| Core 18 — Merging | internal `merge(..., keep_ids=...)` keyword mismatch | probable library/decorator contract defect |
-| Core 19 — Extraction and Removal | `NotImplementedMethodError` during the demonstrated workflow | form/method delivery gap requires attribution |
-| Alzheimer 47 — Trajectory Management | `TypeError: unhashable type: 'list'` | composite-system trajectory path requires investigation |
-| Alzheimer 48 — Scalability | `chunk_size` rejected as an attribute | notebook uses an obsolete iterator contract |
-| Alzheimer 49 — Performance | root `molsysmt.get_distances` no longer exists | notebook uses an obsolete API location |
-| Enzyme 47 — Trajectory Management | requests the last 50 structures from a 20-structure fixture | notebook data assumption is invalid |
-| Antiviral 47 — Trajectory Management | `TypeError: unhashable type: 'list'` | composite-system extraction requires investigation |
-| Biophysics 47 — Trajectory Management | missing `popc_membrane.h5msm` demo-manifest key | notebook/demo-asset mismatch |
+- scalar `chain_id` values now broadcast through the public `set()` contract;
+- `compare()` handles absent bonded-pair arrays as empty connectivity instead of
+  raising an axis error;
+- `merge()` only forwards `keep_ids` to adapters that accept it;
+- extraction from composite topology/trajectory inputs materializes a native
+  `MolSys` before native extraction;
+- composite conversion reconciles structure-to-chemical-state association and
+  replaces structure-aligned series atomically;
+- mixed topological and structural `get()` requests work when the selected pipe
+  produces a native `Structures` object;
+- BCIF and compressed BCIF now declare the already implemented
+  `bonded_atom_pairs` and `inner_bonded_atom_pairs` capabilities, so the public
+  `get()` API calls their tested getters.
 
-These classifications are triage, not fix decisions. Each probable library
-failure must be reproduced through the public API before changing either code
-or documentation.
+Every corrected public behaviour has focused regression coverage.
 
-### Deferred execution
+The current worktree validation records:
 
-Eleven notebooks remain unevaluated in this pass:
+- 142 focused regressions passing under `pytest-receptor` with `-n 12`;
+- the four composite-conversion regressions passing again after the final
+  defensive adjustment;
+- Ruff passing for `molsysmt` and `tests`;
+- valid JSON for every changed notebook;
+- developer-guide and Four Paths validators passing;
+- the fast release gate passing 12/12;
+- `git diff --check` passing.
 
-- network only: Core 01, Core 14, Core 15, and the four Path 29 PDB Frontier
-  notebooks;
-- interactive only: Core 05, Core 06, and Core 11;
-- network plus interactive: Core 04.
+### Course contract corrections
 
-F2 must not report these as passing based on static inspection or stored
-outputs. Network examples should preferentially use bundled systems when the
-lesson does not specifically teach remote acquisition. Interactive notebooks
-need an explicit headless/noninteractive validation contract rather than a
-fake click selection.
+- native-form examples use supported conversion targets and access patterns;
+- iterator examples use `structure` terminology and the current `chunk`
+  contract;
+- trajectory lessons use existing manifest keys, valid structure ranges, and
+  the public `concatenate_structures()` location;
+- partial topology/trajectory lessons request coordinates explicitly;
+- covalent-connectivity examples materialize native topology where appropriate
+  and use the binary selection expression
+  `all bonded to atom_index==10`;
+- PDB Frontier uses a structure with confirmed alternate locations and passes
+  PDB text through the PDB handler;
+- interactive selection has an explicit, informative headless branch rather
+  than assuming a click occurred.
 
-## Resume Point
+### User Guide synchronization
 
-Resume F2 in this order:
+The `extract`, `merge`, and `set` User Guide notebooks were updated and each
+executed successfully in a clean kernel. They describe composite extraction,
+structure terminology, and scalar-label broadcasting respectively.
 
-1. reproduce and classify the 12 deterministic failures individually;
-2. fix library defects where the documented behavior is valid;
-3. update obsolete notebook calls or invalid fixture assumptions where the
-   library contract is already correct;
-4. rerun the 26 deterministic notebooks from clean kernels;
-5. design and execute the network and interactive validation lane for the
-   remaining 11;
-6. record exact commit, environment, selection, and results in a durable F2
-   closure artifact before marking the stage `DONE`.
+## Separately Recorded Debt
 
-F2 is not blocked: it is a bounded active stage with explicit remaining work.
-The formal release-plan completion remains 90% because Segment F earns weight
-only when its complete exit gate passes.
+The course uses explicit attributes for trajectory iteration. A separate public
+contract remains defective: constructing `Iterator` without explicit attributes
+can fail for coordinate-only and topology-plus-trajectory inputs. It is recorded
+with reproductions and acceptance criteria in
+`pending_bugs/iterator_without_explicit_attributes_fails_for_partial_forms.md`.
+It does not invalidate the F2 notebook result and must not be hidden by it.
+
+## Closure Gate
+
+To change F2 from `READY TO LAND` to `DONE`:
+
+1. run focused pytest coverage and repository validators;
+2. inspect the complete diff and land the bounded F2 change;
+3. rerun all 37 notebooks from clean kernels at the exact resulting commit;
+4. record the commit, environment, command/runner, and 37/37 result here;
+5. update `release_1_0_status.md` and advance to F3.
+
+No additional notebook-design work is known to be required for F2.

@@ -39,3 +39,16 @@ def test_convert_file_gro_and_file_xtc_to_molsysmt_MolSys():
     form = msm.get_form(molsys)
     assert 'molsysmt.MolSys'==form
 
+
+def test_convert_single_state_topology_and_trajectory_reconciles_structure_association():
+    topology = systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5msm']
+    trajectory = systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd']
+
+    molsys = msm.convert([topology, trajectory], to_form='molsysmt.MolSys')
+
+    assert molsys.structures.n_structures == 20
+    assert molsys._structure_chemical_state_indices is None
+    np.testing.assert_array_equal(
+        molsys._get_structure_chemical_state_indices(),
+        np.zeros(20, dtype=np.int64),
+    )

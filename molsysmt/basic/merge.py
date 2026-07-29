@@ -18,7 +18,7 @@ def merge(molecular_systems,
 
     This function builds a new molecular system by merging selected elements from several
     input systems. All inputs must be compatible in their number of structures; otherwise,
-    `structure_indices` must be provided to align the frames that will be merged. You can also
+    `structure_indices` must be provided to align the structures that will be merged. You can also
     provide per-system atom selections via `selections`. The output form can be set with
     `to_form` (defaults to the first system’s form).
 
@@ -168,7 +168,8 @@ def merge(molecular_systems,
         merge_arguments['structure_indices']=aux_structure_indices
 
     merge_arguments['skip_digestion']=True
-    merge_arguments['keep_ids']=keep_ids
+    if 'keep_ids' in input_arguments:
+        merge_arguments['keep_ids']=keep_ids
 
     output = merge_function(aux_molecular_systems, **merge_arguments)
 

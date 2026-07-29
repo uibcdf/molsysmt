@@ -11,6 +11,7 @@ from molsysmt import systems
 import numpy as np
 import pandas as pd
 import pytest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 
 @pytest.fixture()
@@ -103,6 +104,14 @@ def test_merge_to_form_topology(pro_molsys, val_molsys):
     n_atoms_val = msm.get(val_molsys, element='system', n_atoms=True)
     n_atoms = msm.get(merged, element='system', n_atoms=True)
     assert n_atoms == n_atoms_pro + n_atoms_val
+
+
+def test_merge_file_pdb_reports_unsupported_direct_merge_without_leaking_keep_ids():
+    protein = systems['T4 lysozyme L99A']['181l.pdb']
+    ligand = systems['T4 lysozyme L99A']['181l.pdb']
+
+    with pytest.raises(NotImplementedMethodError):
+        msm.merge([protein, ligand])
 
 
 def test_merge_uses_named_current_schema_and_preserves_state_membership(ala_molsys):

@@ -95,6 +95,24 @@ def test_compare_bonded_atom_pairs_different(t4_molsys, hp35_molsys):
     assert result is False
 
 
+def test_compare_missing_bond_pairs_with_enriched_native_conversion():
+    bcif = systems['T4 lysozyme L99A']['181l.bcif.gz']
+    native = msm.convert(bcif, to_form='molsysmt.MolSys')
+
+    result = msm.compare(bcif, native)
+
+    assert result is True
+
+
+def test_compare_topological_scope_handles_missing_inner_bond_pairs():
+    bcif = systems['T4 lysozyme L99A']['181l.bcif.gz']
+    native = msm.convert(bcif, to_form='molsysmt.MolSys')
+
+    result = msm.compare(bcif, native, attribute_type='topological')
+
+    assert result is False
+
+
 def test_compare_n_bonds_different(t4_molsys, hp35_molsys):
     """n_bonds=True on different systems returns False."""
     result = msm.compare(t4_molsys, hp35_molsys, n_bonds=True)

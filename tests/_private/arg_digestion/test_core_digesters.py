@@ -150,6 +150,10 @@ def test_add_chain_digesters_accept_native_builder_values():
     assert digest_chain_name(None, caller=CHAIN_BUILDER_CALLER) is None
 
 
+def test_chain_id_normalizes_scalar_string_for_public_set():
+    assert digest_chain_id("PROTEIN", caller="molsysmt.basic.set.set") == ["PROTEIN"]
+
+
 def test_atom_indices_handles_all_scalar_arrays_and_nested_values():
     assert digest_atom_indices(None) is None
     assert digest_atom_indices("all") == "all"
