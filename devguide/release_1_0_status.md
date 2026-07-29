@@ -43,8 +43,9 @@ and do not merge it across an unmet integration dependency.
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** F1–F4 are closed; F4 landed as `672f8f065`,
-  and the next clean commit is the checkpoint base for F5 exact-commit gates
+- **Current repository state:** F1–F4 are closed; the atom-axis `add()`
+  follow-up landed as `2865c3122`, and its documentation checkpoint is the
+  clean base for F5 exact-commit gates
 - **Current exact Rust campaign commit:** `6485a0c08`; this is verified
   migration evidence but is not itself a release candidate, because Segment F
   lifecycle work is still open and no candidate has been tagged
@@ -703,4 +704,5 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-07-29 | F3 support-tier and lifecycle reconciliation | `IN PROGRESS` → `DONE`; F4 becomes active | function tiers derive from the exhaustive API stability registry and validate as 117 Tier 1, 56 Tier 3, and seven outside-contract; nine completed/superseded proposals and one historical audit leave the pending queue; normative links and resolution records are updated | `release_1_0_f3_support_and_lifecycle_checkpoint.md`; documentation-only work based on `fd19f9196` |
 | 2026-07-29 | F4 documentation lifecycle | `IN PROGRESS` → `DONE`; F5 becomes active | final course narrative references use stable semantic targets; the numbering report and Rust migration residue are archived; the missing dihedral broadcast regression passes on vacuum and periodic paths; checked-in autosummary surfaces are refreshed; 11 stale toctree targets are repaired; Sphinx builds successfully and the remaining warning families are measured as accepted documentation debt | `672f8f065`; `release_1_0_f4_documentation_lifecycle_checkpoint.md` |
 | 2026-07-29 | Segment F progress accounting | no stage transition; weighted closure 90% → 96% | the fixed 10% Segment F budget is partitioned across six independently gated stages; completed F1–F4 earn 6%, while F5 and F6 retain the remaining 4%; no technical exit criterion or release requirement changes | maintainer-approved accounting update after `075cb0432` |
+| 2026-07-29 | Atom-axis `add()` WIP integration | dirty pre-F5 worktree → clean candidate base; no stage transition | native and public addition share one atom-axis contract; MolSys mutation is transactional; adapters, multiple-source dispatch, scalar returns, lifecycle documentation, and regressions are synchronized; 30 focused and 554 expanded tests pass, two notebooks execute, Ruff passes, and the fast gate passes 12/12 | `2865c3122`; `release_1_0_atom_axis_add_checkpoint.md` |
 | 2026-07-28 | Developer-guide coherence pass | no stage transition | post-migration documentation debt cleared: four Numba-era bug reports and four Numba-era proposals archived with resolution notes after verifying each against the Rust runtime; one stale duplicate report removed; the three Numba migration documents relabelled as historical evidence; snapshot sentences that still called Segment C open corrected; `pending_bugs` and `pending_proposals` indexes rewritten; 11 broken intra-guide links repaired; devguide validation and the fast gate pass 12/12; code, tests, and notebooks untouched, with the residue recorded in `archive/resolved_proposals/rust_migration_documentation_and_test_residue.md` | documentation-only commit |
