@@ -1,0 +1,58 @@
+# Central Function Inventory for MolSysMT Master Course
+# Maps every public MolSysMT function to its first introduction module, canonical summary, and Sphinx API reference.
+
+molsysmt.basic.convert:
+  name: "msm.convert"
+  first_introduced_in: "00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb"
+  summary: "Converts a molecular system between any of the 89 supported forms in memory or on disk."
+  doc_ref: "{func}`molsysmt.basic.convert`"
+  admonition_hint: ":::{hint}\n**msm.convert()**: Converts a molecular system between any supported forms (files, MDTraj, OpenMM, RDKit, native objects). See API doc: {func}`molsysmt.basic.convert`.\n:::"
+
+molsysmt.basic.get_form:
+  name: "msm.get_form"
+  first_introduced_in: "00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb"
+  summary: "Identifies and returns the structural or data form of a given molecular system item."
+  doc_ref: "{func}`molsysmt.basic.get_form`"
+  admonition_hint: ":::{hint}\n**msm.get_form()**: Identifies the form (e.g. 'file:pdb', 'mdtraj.Trajectory', 'molsysmt.MolSys') of any molecular item. See API doc: {func}`molsysmt.basic.get_form`.\n:::"
+
+molsysmt.basic.info:
+  name: "msm.info"
+  first_introduced_in: "00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb"
+  summary: "Displays a human-readable summary of a molecular system's topology, structures, and attributes."
+  doc_ref: "{func}`molsysmt.basic.info`"
+  admonition_hint: ":::{hint}\n**msm.info()**: Prints or returns a comprehensive summary of a molecular system's contents. See API doc: {func}`molsysmt.basic.info`.\n:::"
+
+molsysmt.basic.get:
+  name: "msm.get"
+  first_introduced_in: "00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb"
+  summary: "Queries topological attributes, structural coordinates, box vectors, or chemical metadata from a molecular system."
+  doc_ref: "{func}`molsysmt.basic.get`"
+  admonition_hint: ":::{hint}\n**msm.get()**: Queries topological, structural, or physical attributes from a molecular system using selection queries. See API doc: {func}`molsysmt.basic.get`.\n:::"
+
+molsysmt.basic.set:
+  name: "msm.set"
+  first_introduced_in: "00_Common_Core/09_System_Modification.ipynb"
+  summary: "Modifies or updates attributes, coordinates, or box vectors of a molecular system."
+  doc_ref: "{func}`molsysmt.basic.set`"
+  admonition_hint: ":::{hint}\n**msm.set()**: Modifies or updates specific attributes or coordinates in a molecular system. See API doc: {func}`molsysmt.basic.set`.\n:::"
+
+molsysmt.basic.select:
+  name: "msm.select"
+  first_introduced_in: "00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb"
+  summary: "Returns atom or element indices matching a form-agnostic selection expression."
+  doc_ref: "{func}`molsysmt.basic.select`"
+  admonition_hint: ":::{hint}\n**msm.select()**: Evaluates selection expressions to return matching element indices (atoms, groups, chains). See API doc: {func}`molsysmt.basic.select`.\n:::"
+
+molsysmt.basic.view:
+  name: "msm.view"
+  first_introduced_in: "00_Common_Core/04_Visualizing_Anything.ipynb"
+  summary: "Renders interactive 3D visualizations of molecular systems inside Jupyter notebooks."
+  doc_ref: "{func}`molsysmt.basic.view`"
+  admonition_hint: ":::{hint}\n**msm.view()**: Renders an interactive 3D view of the molecular system using MolSysViewer or NGLView. See API doc: {func}`molsysmt.basic.view`.\n:::"
+
+molsysmt.basic.compare:
+  name: "msm.compare"
+  first_introduced_in: "00_Common_Core/16_Comparing_Systems.ipynb"
+  summary: "Compares structural or topological attributes across two molecular systems to verify equivalence."
+  doc_ref: "{func}`molsysmt.basic.compare`"
+  admonition_hint: ":::{hint}\n**msm.compare()**: Compares attributes across two systems to verify topology or coordinate match. See API doc: {func}`molsysmt.basic.compare`.\n:::"
