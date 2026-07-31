@@ -41,6 +41,14 @@ before implementation.
 
 ## Recently closed
 
+`viewer_json_conversion_deep_copies_twice.md` was reported and archived on
+2026-07-31. `MolSys → ViewerJSON` read two fresh, local, discarded intermediates
+through the default deep-copying `to_dict()`; reading them with `copy=False`
+takes the reported 5,000-structure case from 1.67 s to 0.32 s. The isolation the
+copy appeared to provide is guarded by an explicit non-aliasing test, which stays
+green with the copy restored — that is what shows it was redundant rather than
+load-bearing.
+
 `course_module_numbering_overlaps.md` was archived on 2026-07-29 after the two
 remaining Common Core narrative references were replaced with stable semantic
 links and a full Sphinx build completed. The 156-notebook structural contract

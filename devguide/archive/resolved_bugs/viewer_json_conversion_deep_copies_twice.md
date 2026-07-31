@@ -1,9 +1,47 @@
 # `MolSys → ViewerJSON` spends ~93% of its time deep-copying
 
+**Status:** **RESOLVED (archived 2026-07-31).**
+
 **Reported:** 2026-07-31, from MolSysViewer, while measuring standalone startup.
 
 **Severity:** performance only. No incorrect result, no hidden failure. It
 dominates every viewer load of a trajectory.
+
+> ## Resolution
+>
+> The proposed fix was applied verbatim in
+> `molsysmt/form/molsysmt_MolSys/to_molsysmt_ViewerJSON.py`: both intermediates
+> are now read with `to_dict(copy=False)`, with a comment stating why ownership
+> transfer makes the copy redundant.
+>
+> **Measured on the reported case** (62 atoms × 5,000 structures, wall clock, no
+> profiler): **1.67 s → 0.32 s**. Under cProfile the 1,350,867 `deepcopy` calls
+> and the 4.7 s they cost are gone entirely; the remaining time is the real work
+> in `molsysmt_Structures/to_molsysmt_ViewerJSON.py`, which materializes ~930,000
+> floats into Python lists.
+>
+> **Correctness.** `copy=False` is safe because neither intermediate aliases the
+> source: `Topology → ViewerJSON` builds every column through `_series_to_list`
+> and list comprehensions, and `Structures → ViewerJSON` builds every structure
+> through `np.asarray(...).tolist()`. The payload therefore owns fresh Python
+> containers regardless of the copy flag.
+>
+> Guarded by `test_molsys_to_ViewerJSON_does_not_alias_the_source` in
+> `tests/form/molsysmt_MolSys/test_to_molsysmt_ViewerJSON.py`, which mutates the
+> returned atom names, coordinates and bond pairs and asserts the source `MolSys`
+> is untouched, then asserts a second conversion is unaffected and shares no
+> container with the first.
+>
+> **Mutation check performed as specified.** Restoring `copy=True` keeps the new
+> test green and regresses the timing to 1.58 s — which is what proves the copy
+> was redundant rather than load-bearing.
+>
+> **On the identity conversion.** `form/molsysmt_ViewerJSON/to_molsysmt_ViewerJSON.py`
+> was checked and left unchanged: it is reachable only through an explicit
+> `ViewerJSON → ViewerJSON` request, not from any chain starting at `MolSys`. A
+> profile of both `MolSys.to_form('molsysmt.ViewerJSON')` and
+> `msm.convert(molsys, to_form='molsysmt.ViewerJSON')` after the fix shows no
+> `deepcopy` at all. Its deep copy stands as a deliberate contract on a cold path.
 
 ## Evidence
 
