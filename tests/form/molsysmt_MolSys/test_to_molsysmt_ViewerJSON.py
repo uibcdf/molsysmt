@@ -71,3 +71,34 @@ def test_molsys_to_ViewerJSON():
     assert data["structures"][0]["box"]["v0"] == [1.0, 0.0, 0.0]
     assert data["structures"][0]["box"]["v1"] == [0.0, 1.0, 0.0]
     assert data["structures"][0]["box"]["v2"] == [0.0, 0.0, 1.0]
+
+
+def test_molsys_to_ViewerJSON_does_not_alias_the_source():
+    """The payload owns its containers, so the intermediates need no deep copy.
+
+    The conversion builds a `Topology → ViewerJSON` and a `Structures → ViewerJSON`
+    intermediate and hands their containers to the returned object. Those
+    intermediates are local and unreachable afterwards, so the only isolation an
+    observer can check is against the source `MolSys` and against a second
+    conversion of it.
+    """
+
+    molsys = _build_minimal_molsys()
+    viewer = to_molsysmt_ViewerJSON(molsys)
+    data = viewer.data
+
+    # Mutating the payload must not reach back into the source.
+    data["atoms"]["atom_name"][0] = "MUTATED"
+    data["structures"][0]["coordinates"][0][0] = 99.0
+    data["bonds"]["atom_pairs"][0][0] = 99
+    assert molsys.topology.atoms.loc[0, "atom_name"] == "A"
+    assert np.allclose(puw.get_value(molsys.structures.coordinates[0, 0]), [0.0, 0.0, 0.0])
+    assert molsys.topology.bonds.loc[0, "atom1_index"] == 0
+
+    # And a second conversion must be unaffected by the first one's mutations.
+    other = to_molsysmt_ViewerJSON(molsys)
+    assert other.data["atoms"]["atom_name"] == ["A", "B"]
+    assert other.data["structures"][0]["coordinates"][0] == [0.0, 0.0, 0.0]
+    assert other.data["bonds"]["atom_pairs"] == [[0, 1]]
+    assert other.data["atoms"] is not data["atoms"]
+    assert other.data["structures"] is not data["structures"]

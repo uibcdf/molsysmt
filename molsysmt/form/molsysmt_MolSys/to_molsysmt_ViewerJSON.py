@@ -29,8 +29,11 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     struct_vjson = structures_to_viewer(item.structures, skip_digestion=True)
 
     viewer = ViewerJSON()
-    topo_data = topo_vjson.to_dict()
-    struct_data = struct_vjson.to_dict()
+    # Both intermediates were built two lines above, are local, and are discarded
+    # on return: their containers are handed to `viewer`, so ownership transfers
+    # and the default deep copy of `to_dict()` would protect nothing.
+    topo_data = topo_vjson.to_dict(copy=False)
+    struct_data = struct_vjson.to_dict(copy=False)
 
     viewer.data["atoms"] = topo_data.get("atoms", {})
     viewer.data["bonds"] = topo_data.get("bonds", {})
