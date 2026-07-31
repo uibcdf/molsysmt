@@ -21,8 +21,8 @@ All human contributors and AI agents working on course content must strictly adh
 1. **Discourse-Thread Admonition Placement (End-of-Thread Rule):**  
    Admonition boxes (`:::{tip}`, `:::{note}`, `:::{hint}`) **must never be placed mid-sentence or mid-paragraph** interrupting the narrative flow. They must always be positioned at the **end of their respective code cell or narrative thread**, acting as a natural concluding note.
 
-2. **Synthetic Learning Outcomes Subsection:**  
-   The `### 🎯 Learning Outcomes` subsection must not be an isolated, heavy wall of text. It must be rendered as a **compact, schematic list of 3-4 short bullet points** positioned at the end of the introductory narrative block, immediately preceding Section 1.
+2. **Indented Learning Outcomes Blockquote:**  
+   The Learning Outcomes section must be formatted as an **indented blockquote (`>`) with a vertical gray accent line** positioned at the end of the introductory block (immediately preceding Section 1). It must contain 3-4 short, schematic bullet points.
 
 3. **Function Mention Formatting vs. MyST Roles:**  
    - In standard narrative text, mention functions using clean code formatting (e.g., `msm.get_form()`, `msm.convert()`).
@@ -96,8 +96,8 @@ To ensure stable cross-referencing and seamless compilation:
 Every course notebook (`*.ipynb`) **must** follow this layout unless an explicit exception is declared in its corresponding micro `XX_Name.AGENTS.md`:
 
 1. **Top Anchor & Title:** `(course-[path]-[module_number])=` and `# Module X: Title`
-2. **Introductory Narrative & Glossary / Portals**
-3. **`### 🎯 Learning Outcomes` Subsection** (3-4 schematic bullets)
+2. **Introductory Narrative & Glossaries / Portals**
+3. **`> **🎯 Learning Outcomes**` Blockquote** (3-4 schematic bullets with vertical gray line)
 4. **Numbered Sections (`### 1. ...`, `### 2. ...`)** interleaved with code cells and concluding admonitions at thread endings
 5. **`### 🏆 Challenge X: Title` & ````{key-takeaway}`**
 6. **`:::{seealso}` Admonition** (with `(course-[path]-[module_number]-see-also)=` anchor)
