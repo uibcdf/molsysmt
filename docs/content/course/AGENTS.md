@@ -4,6 +4,8 @@ This guide governs the development, editorial style, and structural standards fo
 
 All human contributors and AI agents working on course content must strictly adhere to these guidelines.
 
+> **Golden Reference Model:** Module 01 ([`00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) is the canonical reference model for all 54 modules in the course. Every new or updated unit must mirror its exact visual, structural, and editorial pattern.
+
 ---
 
 ## 🧭 Course Philosophy & Pedagogical Style

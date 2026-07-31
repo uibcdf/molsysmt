@@ -17,6 +17,23 @@ The curriculum is organized into 6 operational phases following a **spiral learn
 
 ---
 
+## 📐 Golden Standard & Unit Architecture (For Contributors)
+
+All course modules follow a strict, canonical 5-block architecture. **Module 01 (`00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`) is the Golden Reference Model** for all 54 units:
+
+```text
+[Bloque I: Entrada Narrativa] ➔ [Bloque II: Objectives Blockquote] ➔ [Bloque III: Hilos Discursivos] ➔ [Bloque IV: Reto & Takeaway] ➔ [Bloque V: See Also]
+```
+
+### Key Editorial Rules for New Units:
+1. **Golden Model Reference:** Consult `00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb` for exact visual styling.
+2. **Starter Template:** Use `_template.ipynb` when creating new notebook files.
+3. **Governance & Guidelines:** Read [`AGENTS.md`](AGENTS.md) for full rules on admonition placement (end-of-thread rule), MyST roles (`{func}`), anchor naming (`(course-[path]-[module])=`), and physical unit invariants.
+4. **Learning Outcomes:** Must be formatted as an indented blockquote (`> **🎯 Learning Outcomes**`) with a vertical gray line at the end of the intro block.
+5. **Admonitions (`tip`, `note`, `hint`):** Must be placed at the end of their respective code cell / narrative thread, never mid-paragraph.
+
+---
+
 ## 🏗️ The Common Core (Modules 1-20)
 
 Every Master begins their journey in the **Common Core**. Here, you will use the **T4 Lysozyme (PDB 181L)** as your primary training system. 
