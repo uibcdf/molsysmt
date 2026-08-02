@@ -10,11 +10,13 @@ All human contributors and AI agents working on course content must strictly adh
 
 ## 🧭 Course Philosophy & Pedagogical Style
 
-1. **Spiral Learning:** Each phase builds progressively on previous concepts, introducing higher levels of abstraction and complexity.
-2. **Narrative & Problem-First:** Every module must contextualize *why* a function or concept is used in computational structural biology before demonstrating code.
-3. **Second-Person Tone:** Direct, clear, and encouraging ("you", "your").
-4. **Form-Agnostic Paradigm:** Showcase MolSysMT's ability to seamlessly handle multiple forms (files, MDTraj, OpenMM, RDKit, native objects) without forcing manual conversions.
-5. **First-Occurrence Annotations:** The first time a package convention (e.g., `import molsysmt as msm`) or a core submodule (e.g., `molsysmt.systems`) is introduced in the course, the module **must** include an explicit introductory note and link to its documentation.
+1. **Spiral Learning Across Units:** The curriculum is organized into 6 thematic **Units** (Unit 1: First Contact, Unit 2: Molecular Anatomy, Unit 3: The Virtual Lab, Unit 4: Data Analyst, Unit 5: The Physics Lab, Unit 6: Pipeline Developer).
+2. **Terminology Standard ("Unit" over "Phase"):** Always refer to curriculum sections as **Units** (e.g., `Unit 2: Molecular Anatomy`), never as "Phases".
+3. **Mandatory Hyperlink Cross-References:** Any reference in narrative text, admonitions, or seealso blocks to another Unit, Module, or User Guide page **MUST be formatted as an active, clickable hyperlink** (e.g., `[Unit 2: Molecular Anatomy](../00_Common_Core/index.md)` or `{ref}`/`{doc}` roles).
+4. **Narrative & Problem-First:** Every module must contextualize *why* a function or concept is used in computational structural biology before demonstrating code.
+5. **Second-Person Tone:** Direct, clear, and encouraging ("you", "your").
+6. **Form-Agnostic Paradigm:** Showcase MolSysMT's ability to seamlessly handle multiple forms (files, MDTraj, OpenMM, RDKit, native objects) without forcing manual conversions.
+7. **First-Occurrence Annotations:** The first time a package convention (e.g., `import molsysmt as msm`) or a core submodule (e.g., `molsysmt.systems`) is introduced in the course, the module **must** include an explicit introductory note and link to its documentation.
 
 ---
 
@@ -94,7 +96,7 @@ To ensure stable cross-referencing and seamless compilation:
    - Section anchor: `(course-core-01-learning-outcomes)=`
    - Section anchor: `(course-core-01-see-also)=`
 2. **Cross-Referencing:**  
-   Use `{ref}` roles for internal linking to ensure Sphinx/MyST validates target existence during build (e.g., `{ref}`(course-core-01-learning-outcomes)``).
+   Use `{ref}` or Markdown links for internal linking to ensure readers can click directly to target units or documentation pages.
 
 ---
 
