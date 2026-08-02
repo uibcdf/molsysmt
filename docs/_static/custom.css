@@ -114,7 +114,7 @@ html[data-theme="light"] {
 
 /*********************************************
 * Custom Admonition: Learning Outcomes
-* Pale red box with inline target icon (🎯)
+* Pale red box style without icon
 *********************************************/
 
 div.admonition.admonition-learning-outcomes,
@@ -142,13 +142,7 @@ html[data-theme="dark"] div.admonition.learning-outcomes > .admonition-title {
 }
 
 div.admonition.admonition-learning-outcomes > .admonition-title::before,
-div.admonition.learning-outcomes > .admonition-title::before {
-  content: "🎯\00a0\00a0";
-  display: inline;
-  font-size: 1em;
-  vertical-align: baseline;
-}
-
+div.admonition.learning-outcomes > .admonition-title::before,
 div.admonition.admonition-learning-outcomes > .admonition-title::after,
 div.admonition.learning-outcomes > .admonition-title::after {
   content: none !important;
