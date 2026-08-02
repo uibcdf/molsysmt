@@ -28,17 +28,26 @@ All human contributors and AI agents working on course content must strictly adh
    - Subsections: `#### Subsection Title` (H4).
    - **Do NOT use `##` (H2)** for section headers in notebooks, as Sphinx Book Theme renders H2 headings with oversized typography.
 
-2. **Indented Learning Outcomes Blockquote:**  
-   The Learning Outcomes section must be formatted as an **indented blockquote (`>`) with a vertical gray accent line** positioned at the end of the introductory block (immediately preceding Section 1):
+2. **Collapsible Learning Outcomes Admonition (`:class: dropdown`):**  
+   The Learning Outcomes section must be formatted as a collapsible dropdown admonition positioned at the end of the introductory block:
    ```markdown
-   > **🎯 Learning Outcomes**
-   >
-   > By the end of this module, you will be able to:
-   > - Outcome 1...
+   ```{admonition} 🎯 Learning Outcomes
+   :class: dropdown
+
+   By the end of this module, you will be able to:
+   - Outcome 1...
    ```
 
-3. **Mandatory Collapsible Admonitions (`:class: dropdown`):**  
-   **ALL** admonition boxes across the course (`:::{hint}`, `:::{tip}`, `:::{note}`, `:::{info}`, `:::{seealso}`, and ````{admonition}`) **MUST incorporate `:class: dropdown`** (or `:class: dropdown info` / `:class: dropdown tip`, etc.) so that they render as collapsible toggle blocks via `sphinx-togglebutton`.
+3. **Mandatory Collapsible Admonitions (`:class: dropdown`) & Custom Titles:**  
+   - **ALL** admonition boxes across the course (`:::{hint}`, `:::{tip}`, `:::{note}`, `:::{info}`, `:::{seealso}`, and ````{admonition}`) **MUST incorporate `:class: dropdown`** so that they render as collapsible toggle blocks via `sphinx-togglebutton`.
+   - To specify a **custom title** for a collapsible note or admonition (e.g. `Terminology Note: "Group" vs. "Residue"`), use the generic MyST syntax:
+     ```markdown
+     ```{admonition} Terminology Note: "Group" vs. "Residue"
+     :class: dropdown note
+
+     Content goes here...
+     ```
+     ```
 
 4. **Discourse-Thread Admonition Placement (End-of-Thread Rule):**  
    Admonition boxes (`:::{tip}`, `:::{note}`, `:::{hint}`) **must never be placed mid-sentence or mid-paragraph** interrupting the narrative flow. They must always be positioned at the **end of their respective code cell or narrative thread**, acting as a natural concluding note.
