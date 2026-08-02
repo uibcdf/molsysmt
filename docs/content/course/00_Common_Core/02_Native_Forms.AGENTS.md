@@ -1,44 +1,32 @@
-# Module 02 Directives (`02_Native_Forms_and_The_Trinity.AGENTS.md`)
+# Module 02 Content Governance (`02_Native_Forms.AGENTS.md`)
 
-This file contains the micro-governance rules and content constraints for **Module 02: Native Forms**.
+This document defines the **non-negotiable content contract** for `02_Native_Forms.ipynb`. 
+Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
 
----
-
-## 🏷️ Section Anchors
-- **Primary Top-Level Anchor:** `(course-core-02)=`
-- **Learning Outcomes Anchor:** `(course-core-02-learning-outcomes)=`
-- **See Also Anchor:** `(course-core-02-see-also)=`
+Contributors modifying this notebook must strictly preserve all sections and core topics detailed below.
 
 ---
 
-## 🧠 Core Pedagogical Objectives & Content Constraints
+## 🎯 Module Core Domain & Inviolable Content Rules
 
-1. **Native Forms Concept (Glossary Box):**
-   - Must contain the explicit `Glossary: Native Form` info admonition defining native forms as data structures built directly within MolSysMT (`molsysmt.MolSys`, `molsysmt.Topology`, `molsysmt.Structures`, `molsysmt.TopologyDict`, `file:h5msm`).
-   - **No "Trinity" references:** `molsysmt.MolSys` is an orchestrator of modular domain component objects (`topology`, `structures`, `molecular_mechanics`, and expanding). Metadata consists of system attributes, not a separate component object.
-2. **Native Orchestrator (`molsysmt.MolSys`):**
-   - Demonstrates converting `systems['T4 lysozyme L99A']['181l.bcif.gz']` to `'molsysmt.MolSys'`.
-3. **Modular Domain Component Objects:**
-   - Demonstrates accessing `molsys.topology` (`molsysmt.Topology`), `molsys.structures` (`molsysmt.Structures`), and `molsys.molecular_mechanics` (`molsysmt.MolecularMechanics`).
-4. **High-Performance Persistence (`H5MSM`):**
-   - Demonstrates inspecting `systems['T4 lysozyme L99A']['181l.h5msm']`.
-5. **Specialty Native Forms (`TopologyDict`, `StructuresDict`, `MolSysDict`):**
-   - Demonstrates lightweight dictionary forms.
-6. **Challenge 2 System Requirement (SARS-CoV-2 Protease):**
-   - The challenge suggests loading the SARS-CoV-2 Protease from its PDB ID (`'pdb_id:6LU7'`), converting it to `'molsysmt.MolSys'`, inspecting its components, and converting to `'molsysmt.TopologyDict'`.
+This module presents MolSysMT's native objects and the core philosophy surrounding the native orchestrator object **`molsysmt.MolSys`**.
 
----
+Any future revision or enhancement of this notebook **MUST preserve** the following 4 sections and essential explanations:
 
-## 🎨 Admonition Placement Rules
-- `:::{hint}` for native objects / conversion functions **must be placed immediately below their respective code cells**.
-- `:::{seealso}` **must be placed at the end of the module** without a redundant `## See Also` heading.
+### 1. Section 1: Presentation of `molsysmt.MolSys`
+* Must introduce **`molsysmt.MolSys`** as the primary in-memory native orchestrator container of MolSysMT.
+* Must naturally integrate the observation contrasting Python's internal `type(molsys)` with MolSysMT's canonical `msm.get_form(molsys)`.
 
----
+### 2. Section 2: Domain Component Objects (`Topology`, `Structures`, `MolecularMechanics`)
+* Must present component objects: `molsysmt.Topology`, `molsysmt.Structures`, and `molsysmt.MolecularMechanics`.
+* Must explain the internal responsibilities of each component (e.g. `topology` for covalent graphs and biological hierarchies, `structures` for coordinate arrays `(n_structures, n_atoms, 3)` and periodic boxes, `molecular_mechanics` for forcefield parameters and energies).
+* Must include explicit hyperlinked cross-references pointing to where deeper analysis of each domain can be found in future modules (`[Module 05: Molecular Anatomy](../00_Common_Core/index.md)`, `[Module 21: Data Analyst](../00_Common_Core/index.md)`, etc.).
 
-## 🔒 Native Forms Introduced
-- `molsysmt.MolSys` — Native in-memory orchestrator object.
-- `molsysmt.Topology` — Native topology hierarchy object.
-- `molsysmt.Structures` — Native structural array object.
-- `molsysmt.MolecularMechanics` — Native molecular mechanics object.
-- `molsysmt.TopologyDict`, `molsysmt.StructuresDict`, `molsysmt.MolSysDict` — Lightweight native dictionary forms.
-- `file:h5msm` — Native disk HDF5 container.
+### 3. Section 3: Native Disk Storage (`file:h5msm`)
+* Must present the **H5MSM** binary format (`file:h5msm`) as the HDF5-based disk counterpart of `molsysmt.MolSys`.
+* Must explain its I/O performance advantages (chunked execution and trajectory streaming without full RAM loading).
+* Must include explicit hyperlinked cross-references pointing to where trajectory I/O is explored in depth (`[Module 14: The Virtual Lab](../00_Common_Core/index.md)` & `[Module 47: Pipeline Developer](../00_Common_Core/index.md)`).
+
+### 4. Section 4: Native Dictionary Forms (`TopologyDict`, `StructuresDict`, `MolSysDict`)
+* Must present lightweight native dictionary forms (`TopologyDict`, `StructuresDict`, `MolSysDict`).
+* Must demonstrate transparent dictionary key lookup (e.g. `topo_dict.data['atoms']`) to showcase zero-overhead Python data access.
