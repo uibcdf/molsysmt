@@ -40,7 +40,7 @@
   path: 00_Common_Core/08_Programmatic_Extraction.ipynb
   section: core
   display_number: 8
-  title: "Programmatic Extraction"
+  title: "Extracting Molecular Attributes"
 - id: course-core-unit-safety
   path: 00_Common_Core/09_Unit_Safety.ipynb
   section: core

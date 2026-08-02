@@ -9,13 +9,13 @@ Contributors modifying this notebook must strictly preserve all sections and cor
 
 ## 🎯 Module Core Domain & Inviolable Content Rules
 
-This module presents **Programmatic Data Extraction** using MolSysMT's form-agnostic retrieval engine **`msm.get()`**.
+This module presents **Extracting Molecular Attributes** using MolSysMT's form-agnostic retrieval engine **`msm.get()`**.
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
-### 1. Introductory Block & Glossary
-* Must feature the **Glossary: Programmatic Extraction** admonition (````{admonition} Glossary: Programmatic Extraction\n:class: dropdown info`) with an active cross-reference link to `{ref}`user-foundations``.
+### 1. Introductory Block
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
+* **Note:** This module intentionally does **not** include a Glossary box.
 
 ### 2. Section 1: Extracting Single Attributes
 * Must demonstrate extracting single attributes (e.g. `atom_name`, `n_atoms`) into direct Python primitives or NumPy arrays.
