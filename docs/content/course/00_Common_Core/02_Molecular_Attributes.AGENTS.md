@@ -15,11 +15,13 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 1. Section 1: What is a Molecular Attribute?
 * Must define an **Attribute** as any data property describing a molecular system's identity, topology, spatial structure, chemical state, or physical mechanics.
+* Must include a hyperlink to the User Guide Foundations documentation on attributes in the introductory Glossary box (`{ref}`user-foundations``).
 * Must explain the semantic classification of attributes (Topological, Structural, Chemical, Mechanical).
+* Must include a Terminology Note (`:::{note}`) explaining why MolSysMT uses the universal term **`group`** instead of "residue" (which is chemically inaccurate for waters, ions, lipids, or small ligands).
 * Must demonstrate checking attribute availability with `msm.has_attribute()` and listing available attributes with `msm.get_attributes()`.
 
 ### 2. Section 2: Extracting Attributes (`msm.get()`)
-* Must introduce **`msm.get()`** as the form-agnostic extraction engine for querying attributes.
+* Must introduce **`msm.get()`** with a smooth narrative transition introducing an example query for `atom_name`, `group_name`, and `coordinates`.
 * Must explain and demonstrate the invariant 3D coordinate array shape `(n_structures, n_atoms, 3)`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.get``.
 
