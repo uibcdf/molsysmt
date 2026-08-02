@@ -6,51 +6,51 @@
   section: core
   display_number: 1
   title: "The Form-Agnostic Philosophy"
-- id: course-core-native-forms
-  path: 00_Common_Core/02_Native_Forms.ipynb
+- id: course-core-molecular-attributes
+  path: 00_Common_Core/02_Molecular_Attributes.ipynb
   section: core
   display_number: 2
-  title: "Native Forms"
-- id: course-core-combined-sources
-  path: 00_Common_Core/03_Combined_Sources.ipynb
+  title: "Molecular Attributes"
+- id: course-core-native-forms
+  path: 00_Common_Core/03_Native_Forms.ipynb
   section: core
   display_number: 3
-  title: "Combined Sources (Trajectories)"
-- id: course-core-visualizing-anything
-  path: 00_Common_Core/04_Visualizing_Anything.ipynb
+  title: "Native Forms"
+- id: course-core-combined-forms
+  path: 00_Common_Core/04_Combined_Forms.ipynb
   section: core
   display_number: 4
-  title: "Visualizing Anything"
-- id: course-core-selection-basics
-  path: 00_Common_Core/05_Selection_Basics.ipynb
+  title: "Combined Forms"
+- id: course-core-visualizing-anything
+  path: 00_Common_Core/05_Visualizing_Anything.ipynb
   section: core
   display_number: 5
-  title: "Selection Language Basics"
-- id: course-core-interactive-selection
-  path: 00_Common_Core/06_Interactive_Selection.ipynb
+  title: "Visualizing Anything"
+- id: course-core-selection-basics
+  path: 00_Common_Core/06_Selection_Basics.ipynb
   section: core
   display_number: 6
-  title: "Interactive Selection"
-- id: course-core-programmatic-extraction
-  path: 00_Common_Core/07_Programmatic_Extraction.ipynb
+  title: "Selection Language Basics"
+- id: course-core-interactive-selection
+  path: 00_Common_Core/07_Interactive_Selection.ipynb
   section: core
   display_number: 7
-  title: "Programmatic Extraction"
-- id: course-core-unit-safety
-  path: 00_Common_Core/08_Unit_Safety.ipynb
+  title: "Interactive Selection"
+- id: course-core-programmatic-extraction
+  path: 00_Common_Core/08_Programmatic_Extraction.ipynb
   section: core
   display_number: 8
-  title: "Unit Safety with PyUnitWizard"
-- id: course-core-system-modification
-  path: 00_Common_Core/09_System_Modification.ipynb
+  title: "Programmatic Extraction"
+- id: course-core-unit-safety
+  path: 00_Common_Core/09_Unit_Safety.ipynb
   section: core
   display_number: 9
-  title: "System Modification"
-- id: course-core-discovery-and-attributes
-  path: 00_Common_Core/10_Discovery_and_Attributes.ipynb
+  title: "Unit Safety with PyUnitWizard"
+- id: course-core-system-modification
+  path: 00_Common_Core/10_System_Modification.ipynb
   section: core
   display_number: 10
-  title: "Discovery & Attributes"
+  title: "System Modification"
 - id: course-core-hierarchical-levels
   path: 00_Common_Core/11_Hierarchical_Levels.ipynb
   section: core
