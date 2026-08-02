@@ -11,7 +11,7 @@ All human contributors and AI agents working on course content must strictly adh
 ## 🧭 Course Philosophy & Pedagogical Style
 
 1. **Spiral Learning Across Modules:** The curriculum is organized into 54 thematic **Modules**.
-2. **Terminology Standard ("Module"):** Always refer to course units and lessons as **Modules** (e.g., `Module 01: The Form-Agnostic Philosophy`, `Module 05: Molecular Anatomy`), maintaining a consistent naming convention across the entire codebase.
+2. **Terminology Standard ("Module"):** Always refer to course units and lessons as **Modules** (e.g., `Module 01: The Form-Agnostic Philosophy`, `Module 05: Molecular Anatomy`), maintaining a consistent naming convention across the entire codebase. Quedan prohibidos los términos "Phase" o "Unit".
 3. **Mandatory Hyperlink Cross-References:** Any reference in narrative text, admonitions, or seealso blocks to another Module or User Guide page **MUST be formatted as an active, clickable hyperlink** (e.g., `[Module 05: Molecular Anatomy](../00_Common_Core/index.md)` or `{ref}`/`{doc}` roles).
 4. **Narrative & Problem-First:** Every module must contextualize *why* a function or concept is used in computational structural biology before demonstrating code.
 5. **Second-Person Tone:** Direct, clear, and encouraging ("you", "your").
@@ -20,25 +20,37 @@ All human contributors and AI agents working on course content must strictly adh
 
 ---
 
-## 🎨 Editorial Design & Admonition Placement Rules
+## 🎨 Editorial Design & Heading Hierarchy Rules
 
-1. **Mandatory Collapsible Admonitions (`:class: dropdown`):**  
+1. **Heading Hierarchy & Visual Balance:**
+   - Notebook Main Title: `# Module X: Title` (H1).
+   - Main Sections: `### 1. Section Title` (H3).
+   - Subsections: `#### Subsection Title` (H4).
+   - **Do NOT use `##` (H2)** for section headers in notebooks, as Sphinx Book Theme renders H2 headings with oversized typography.
+
+2. **Indented Learning Outcomes Blockquote:**  
+   The Learning Outcomes section must be formatted as an **indented blockquote (`>`) with a vertical gray accent line** positioned at the end of the introductory block (immediately preceding Section 1):
+   ```markdown
+   > **🎯 Learning Outcomes**
+   >
+   > By the end of this module, you will be able to:
+   > - Outcome 1...
+   ```
+
+3. **Mandatory Collapsible Admonitions (`:class: dropdown`):**  
    **ALL** admonition boxes across the course (`:::{hint}`, `:::{tip}`, `:::{note}`, `:::{info}`, `:::{seealso}`, and ````{admonition}`) **MUST incorporate `:class: dropdown`** (or `:class: dropdown info` / `:class: dropdown tip`, etc.) so that they render as collapsible toggle blocks via `sphinx-togglebutton`.
 
-2. **Discourse-Thread Admonition Placement (End-of-Thread Rule):**  
+4. **Discourse-Thread Admonition Placement (End-of-Thread Rule):**  
    Admonition boxes (`:::{tip}`, `:::{note}`, `:::{hint}`) **must never be placed mid-sentence or mid-paragraph** interrupting the narrative flow. They must always be positioned at the **end of their respective code cell or narrative thread**, acting as a natural concluding note.
 
-3. **Indented Learning Outcomes Blockquote:**  
-   The Learning Outcomes section must be formatted as an **indented blockquote (`>`) with a vertical gray accent line** positioned at the end of the introductory block (immediately preceding Section 1). It must contain 3-4 short, schematic bullet points.
-
-4. **Function Mention Formatting vs. MyST Roles:**  
+5. **Function Mention Formatting vs. MyST Roles:**  
    - In standard narrative text, mention functions using clean code formatting (e.g., `msm.get_form()`, `msm.convert()`).
    - In `:::{hint}` and `:::{seealso}` boxes, use proper MyST role syntax with backticks (`{func}`molsysmt.basic.get_form``) so Sphinx compiles direct hyperlinks to the API documentation.
 
-5. **No Redundant Headers Before Admonitions:**  
+6. **No Redundant Headers Before Admonitions:**  
    Do not place a Markdown heading (e.g., `## See Also`) directly above an admonition block of the same type (`:::{seealso}`). Sphinx/MyST automatically renders the admonition header.
 
-6. **Executed Output Preservation Policy:**  
+7. **Executed Output Preservation Policy:**  
    All course notebooks committed to the repository must have their cell outputs pre-executed and saved (`jupyter nbconvert --execute --inplace`) so Sphinx builds render rich printed outputs and HTML tables (e.g., `msm.info()` report tables).
 
 ---
@@ -121,10 +133,10 @@ Every course notebook (`*.ipynb`) **must** follow this layout unless an explicit
 
 ---
 
-## 🧬 Micro-`AGENTS.md` Inheritance Model
+## 🧬 Micro-`AGENTS.md` Scope & Inheritance Model
 
-Each notebook file (e.g., `01_The_Form_Agnostic_Philosophy.ipynb`) **must** have a paired micro-governance file alongside it with the exact name:
-`[Notebook_Name].AGENTS.md` (e.g., `01_The_Form_Agnostic_Philosophy.AGENTS.md`).
+1. **Role of Micro-`AGENTS.md`:** Each notebook file (e.g., `02_Native_Forms.ipynb`) **must** have a paired micro-governance file alongside it (`02_Native_Forms.AGENTS.md`).
+2. **Content Protection Contract:** The micro `[Notebook_Name].AGENTS.md` file does **NOT** repeat global editorial or structural rules. Its sole purpose is to serve as a **domain content-protection contract**, listing the mandatory sections, essential explanations, and specific concepts that must be preserved when any contributor refines or updates the notebook.
 
 Rule resolution hierarchy:
 `Root AGENTS.md` ➔ `docs/AGENTS.md` ➔ `docs/content/course/AGENTS.md` ➔ `[Notebook_Name].AGENTS.md` (Most specific wins).
