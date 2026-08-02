@@ -21,8 +21,8 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate extracting single attributes (e.g. `atom_name`, `n_atoms`) into direct Python primitives or NumPy arrays.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.get``.
 
-### 3. Section 2: Extracting Multiple Attributes & Tuple Unpacking
-* Must demonstrate extracting multiple attributes simultaneously (e.g. `atom_id`, `atom_name`, `atom_type`) using structured tuple unpacking.
+### 3. Section 2: Extracting Multiple Attributes
+* Must demonstrate extracting multiple attributes simultaneously (e.g. `atom_id`, `atom_name`, `atom_type`) using tuple unpacking.
 
 ### 4. Section 3: Extracting Coordinate Tensors & Spatial Geometry
 * Must demonstrate retrieving 3D coordinate arrays and explain the invariant array shape `(n_structures, n_atoms, 3)`.
