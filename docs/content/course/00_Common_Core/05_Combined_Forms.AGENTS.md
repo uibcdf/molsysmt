@@ -1,6 +1,6 @@
-# Module 04 Content Governance (`04_Combined_Forms.AGENTS.md`)
+# Module 05 Content Governance (`05_Combined_Forms.AGENTS.md`)
 
-This document defines the **non-negotiable content contract** for `04_Combined_Forms.ipynb`. 
+This document defines the **non-negotiable content contract** for `05_Combined_Forms.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
 
 Contributors modifying this notebook must strictly preserve all sections and core topics detailed below.
