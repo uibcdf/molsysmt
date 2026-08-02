@@ -114,8 +114,7 @@ html[data-theme="light"] {
 
 /*********************************************
 * Custom Admonition: Learning Outcomes
-* Pale red box with target icon (fa-bullseye \f140)
-* https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/extending.html
+* Pale red box with direct target icon (🎯)
 *********************************************/
 
 div.admonition.admonition-learning-outcomes,
@@ -142,10 +141,14 @@ html[data-theme="dark"] div.admonition.learning-outcomes > .admonition-title {
   color: hsl(355deg 75% 90%);
 }
 
+div.admonition.admonition-learning-outcomes > .admonition-title::before,
+div.admonition.learning-outcomes > .admonition-title::before {
+  content: "🎯 ";
+  margin-right: 0.3rem;
+  font-size: 1.1em;
+}
+
 div.admonition.admonition-learning-outcomes > .admonition-title::after,
 div.admonition.learning-outcomes > .admonition-title::after {
-  color: hsl(355deg 75% 45%);
-  content: "\f140"; /* FontAwesome fa-bullseye (target) */
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
+  content: none !important;
 }
