@@ -35,67 +35,67 @@
   path: 00_Common_Core/07_Selection_Basics.ipynb
   section: core
   display_number: 7
-  title: "Selection Language Basics"
-- id: course-core-interactive-selection
-  path: 00_Common_Core/08_Interactive_Selection.ipynb
+  title: "Selection Mechanism"
+- id: course-core-programmatic-extraction
+  path: 00_Common_Core/08_Programmatic_Extraction.ipynb
   section: core
   display_number: 8
-  title: "Interactive Selection"
-- id: course-core-programmatic-extraction
-  path: 00_Common_Core/09_Programmatic_Extraction.ipynb
-  section: core
-  display_number: 9
   title: "Programmatic Extraction"
 - id: course-core-unit-safety
-  path: 00_Common_Core/10_Unit_Safety.ipynb
+  path: 00_Common_Core/09_Unit_Safety.ipynb
   section: core
-  display_number: 10
+  display_number: 9
   title: "Unit Safety with PyUnitWizard"
 - id: course-core-system-modification
-  path: 00_Common_Core/11_System_Modification.ipynb
+  path: 00_Common_Core/10_System_Modification.ipynb
   section: core
-  display_number: 11
+  display_number: 10
   title: "System Modification"
 - id: course-core-navigating-between-levels
-  path: 00_Common_Core/12_Navigating_Between_Levels.ipynb
+  path: 00_Common_Core/11_Navigating_Between_Levels.ipynb
   section: core
-  display_number: 12
+  display_number: 11
   title: "Navigating Between Levels"
 - id: course-core-iterating-over-hierarchies
-  path: 00_Common_Core/13_Iterating_over_Hierarchies.ipynb
+  path: 00_Common_Core/12_Iterating_over_Hierarchies.ipynb
   section: core
-  display_number: 13
+  display_number: 12
   title: "Iterating over Hierarchies"
 - id: course-core-system-auditing-and-curing
-  path: 00_Common_Core/14_System_Auditing_and_Curing.ipynb
+  path: 00_Common_Core/13_System_Auditing_and_Curing.ipynb
   section: core
-  display_number: 14
+  display_number: 13
   title: "System Auditing and Curing"
 - id: course-core-covalent-connectivity
-  path: 00_Common_Core/15_Covalent_Connectivity.ipynb
+  path: 00_Common_Core/14_Covalent_Connectivity.ipynb
   section: core
-  display_number: 15
+  display_number: 14
   title: "Covalent Connectivity"
 - id: course-core-comparing-systems
-  path: 00_Common_Core/16_Comparing_Systems.ipynb
+  path: 00_Common_Core/15_Comparing_Systems.ipynb
   section: core
-  display_number: 16
+  display_number: 15
   title: "Comparing Systems"
 - id: course-core-semantic-labeling
-  path: 00_Common_Core/17_Semantic_Labeling.ipynb
+  path: 00_Common_Core/16_Semantic_Labeling.ipynb
   section: core
-  display_number: 17
+  display_number: 16
   title: "Semantic Labeling"
 - id: course-core-merging-and-growing-systems
-  path: 00_Common_Core/18_Merging_and_Growing_Systems.ipynb
+  path: 00_Common_Core/17_Merging_and_Growing_Systems.ipynb
   section: core
-  display_number: 18
+  display_number: 17
   title: "Merging and Growing Systems"
 - id: course-core-surgical-extraction-and-removal
-  path: 00_Common_Core/19_Surgical_Extraction_and_Removal.ipynb
+  path: 00_Common_Core/18_Surgical_Extraction_and_Removal.ipynb
+  section: core
+  display_number: 18
+  title: "Surgical Extraction and Removal"
+- id: course-core-structures-and-trajectories
+  path: 00_Common_Core/19_Structures_and_Trajectories.ipynb
   section: core
   display_number: 19
-  title: "Surgical Extraction and Removal"
+  title: "Structures and Trajectories"
 - id: course-core-the-specialized-domains
   path: 00_Common_Core/20_The_Specialized_Domains.ipynb
   section: core
