@@ -1,6 +1,6 @@
-# Module 08 Content Governance (`08_Programmatic_Extraction.AGENTS.md`)
+# Module 08 Content Governance (`08_Extracting_Molecular_Attributes.AGENTS.md`)
 
-This document defines the **non-negotiable content contract** for `08_Programmatic_Extraction.ipynb`. 
+This document defines the **non-negotiable content contract** for `08_Extracting_Molecular_Attributes.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
 
 Contributors modifying this notebook must strictly preserve all sections and core topics detailed below.

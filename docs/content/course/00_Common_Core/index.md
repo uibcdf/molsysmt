@@ -13,7 +13,7 @@ All paths share this common training ground using the **T4 Lysozyme (PDB 181L)**
 05_Combined_Forms.ipynb
 06_Visualizing_Anything.ipynb
 07_Selection_Basics.ipynb
-08_Programmatic_Extraction.ipynb
+08_Extracting_Molecular_Attributes.ipynb
 09_Unit_Safety.ipynb
 10_System_Modification.ipynb
 11_Navigating_Between_Levels.ipynb

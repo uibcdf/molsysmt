@@ -37,7 +37,7 @@
   display_number: 7
   title: "Selection Mechanism"
 - id: course-core-programmatic-extraction
-  path: 00_Common_Core/08_Programmatic_Extraction.ipynb
+  path: 00_Common_Core/08_Extracting_Molecular_Attributes.ipynb
   section: core
   display_number: 8
   title: "Extracting Molecular Attributes"
