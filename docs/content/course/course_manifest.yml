@@ -6,11 +6,11 @@
   section: core
   display_number: 1
   title: "The Form-Agnostic Philosophy"
-- id: course-core-native-forms-and-the-trinity
-  path: 00_Common_Core/02_Native_Forms_and_The_Trinity.ipynb
+- id: course-core-native-forms
+  path: 00_Common_Core/02_Native_Forms.ipynb
   section: core
   display_number: 2
-  title: "Native Forms and The Trinity"
+  title: "Native Forms"
 - id: course-core-combined-sources
   path: 00_Common_Core/03_Combined_Sources.ipynb
   section: core

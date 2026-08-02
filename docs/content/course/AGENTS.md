@@ -4,7 +4,7 @@ This guide governs the development, editorial style, and structural standards fo
 
 All human contributors and AI agents working on course content must strictly adhere to these guidelines.
 
-> **Golden Reference Model:** Module 01 ([`00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) is the canonical reference model for all 54 modules in the course. Every new or updated unit must mirror its exact visual, structural, and editorial pattern.
+> **Golden Reference Model:** Module 01 ([`00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 02 ([`00_Common_Core/02_Native_Forms.ipynb`](00_Common_Core/02_Native_Forms.ipynb)) are the canonical reference models for all 54 modules in the course. Every new or updated unit must mirror their exact visual, structural, and editorial pattern.
 
 ---
 
@@ -20,20 +20,23 @@ All human contributors and AI agents working on course content must strictly adh
 
 ## 🎨 Editorial Design & Admonition Placement Rules
 
-1. **Discourse-Thread Admonition Placement (End-of-Thread Rule):**  
+1. **Mandatory Collapsible Admonitions (`:class: dropdown`):**  
+   **ALL** admonition boxes across the course (`:::{hint}`, `:::{tip}`, `:::{note}`, `:::{info}`, `:::{seealso}`, and ````{admonition}`) **MUST incorporate `:class: dropdown`** (or `:class: dropdown info` / `:class: dropdown tip`, etc.) so that they render as collapsible toggle blocks via `sphinx-togglebutton`.
+
+2. **Discourse-Thread Admonition Placement (End-of-Thread Rule):**  
    Admonition boxes (`:::{tip}`, `:::{note}`, `:::{hint}`) **must never be placed mid-sentence or mid-paragraph** interrupting the narrative flow. They must always be positioned at the **end of their respective code cell or narrative thread**, acting as a natural concluding note.
 
-2. **Indented Learning Outcomes Blockquote:**  
+3. **Indented Learning Outcomes Blockquote:**  
    The Learning Outcomes section must be formatted as an **indented blockquote (`>`) with a vertical gray accent line** positioned at the end of the introductory block (immediately preceding Section 1). It must contain 3-4 short, schematic bullet points.
 
-3. **Function Mention Formatting vs. MyST Roles:**  
+4. **Function Mention Formatting vs. MyST Roles:**  
    - In standard narrative text, mention functions using clean code formatting (e.g., `msm.get_form()`, `msm.convert()`).
    - In `:::{hint}` and `:::{seealso}` boxes, use proper MyST role syntax with backticks (`{func}`molsysmt.basic.get_form``) so Sphinx compiles direct hyperlinks to the API documentation.
 
-4. **No Redundant Headers Before Admonitions:**  
+5. **No Redundant Headers Before Admonitions:**  
    Do not place a Markdown heading (e.g., `## See Also`) directly above an admonition block of the same type (`:::{seealso}`). Sphinx/MyST automatically renders the admonition header.
 
-5. **Executed Output Preservation Policy:**  
+6. **Executed Output Preservation Policy:**  
    All course notebooks committed to the repository must have their cell outputs pre-executed and saved (`jupyter nbconvert --execute --inplace`) so Sphinx builds render rich printed outputs and HTML tables (e.g., `msm.info()` report tables).
 
 ---
@@ -45,9 +48,10 @@ All MolSysMT functions used in the course are inventoried in [`docs/content/cour
 1. **First-Time Hint Admonitions (`:::{hint}`):**  
    A `:::{hint}` admonition box explaining a function's purpose **must appear ONLY in the module where the function is introduced for the VERY FIRST TIME in the entire course**. Subsequent modules using the same function do not repeat the hint box.
    
-   *Example MyST Syntax (positioned BELOW code cell):*
+   *Example MyST Syntax (positioned BELOW code cell with dropdown class):*
    ```markdown
    :::{hint}
+   :class: dropdown
    **msm.convert()**: Converts a molecular system between any of the 89 supported forms in memory or on disk. See API doc: {func}`molsysmt.basic.convert`.
    :::
    ```
@@ -59,18 +63,19 @@ All MolSysMT functions used in the course are inventoried in [`docs/content/cour
 
 ## 🔗 End-of-Unit "See Also" Admonition
 
-Every module **must** end with a `:::{seealso}` admonition box (preceded by its anchor `(course-[path]-[module_number]-see-also)=`). Do not add a redundant `## See Also` heading above it.
+Every module **must** end with a collapsible `:::{seealso}` admonition box (preceded by its anchor `(course-[path]-[module_number]-see-also)=`). Do not add a redundant `## See Also` heading above it.
 
 *Example MyST Syntax:*
 ```markdown
 (course-core-01-see-also)=
 :::{seealso}
+:class: dropdown
 **API Documentation for Functions in this Unit:**
 - {func}`molsysmt.basic.convert` — Form conversion engine.
 - {func}`molsysmt.basic.get` — Topology and coordinate query engine.
 
 **Related Course Modules & Guides:**
-- Next Module: [Module 2: Native Forms and The Trinity](../00_Common_Core/02_Native_Forms_and_The_Trinity.ipynb)
+- Next Module: [Module 2: Native Forms](../00_Common_Core/02_Native_Forms.ipynb)
 - User Guide: {ref}`user-foundations`
 :::
 ```
@@ -98,11 +103,11 @@ To ensure stable cross-referencing and seamless compilation:
 Every course notebook (`*.ipynb`) **must** follow this layout unless an explicit exception is declared in its corresponding micro `XX_Name.AGENTS.md`:
 
 1. **Top Anchor & Title:** `(course-[path]-[module_number])=` and `# Module X: Title`
-2. **Introductory Narrative & Glossaries / Portals**
+2. **Introductory Narrative & Glossaries / Portals** (with `:class: dropdown`)
 3. **`> **🎯 Learning Outcomes**` Blockquote** (3-4 schematic bullets with vertical gray line)
-4. **Numbered Sections (`### 1. ...`, `### 2. ...`)** interleaved with code cells and concluding admonitions at thread endings
+4. **Numbered Sections (`### 1. ...`, `### 2. ...`)** interleaved with code cells and concluding admonitions (with `:class: dropdown`) at thread endings
 5. **`### 🏆 Challenge X: Title` & ````{key-takeaway}`**
-6. **`:::{seealso}` Admonition** (with `(course-[path]-[module_number]-see-also)=` anchor)
+6. **`:::{seealso}` Admonition** (with `:class: dropdown` and `(course-[path]-[module_number]-see-also)=` anchor)
 
 ---
 

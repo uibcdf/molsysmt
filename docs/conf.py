@@ -61,6 +61,7 @@ extensions = [
     'sphinx_remove_toctrees',
     'sphinx_design',
     'sphinx_favicon',
+    'sphinx_togglebutton',    
     'myst_nb',
     'sphinx_tabs.tabs', # Do not move from the last position
 ]

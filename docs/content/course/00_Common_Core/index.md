@@ -6,7 +6,7 @@ Modules 1 to 20.
    :maxdepth: 1
 
    01_The_Form_Agnostic_Philosophy.ipynb
-   02_Native_Forms_and_The_Trinity.ipynb
+   02_Native_Forms.ipynb
    03_Combined_Sources.ipynb
    04_Visualizing_Anything.ipynb
    05_Selection_Basics.ipynb

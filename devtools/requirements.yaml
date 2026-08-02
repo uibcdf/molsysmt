@@ -61,6 +61,7 @@ docs:
     - sphinx-design
     - sphinx-favicon
     - sphinx-tabs
+    - sphinx-togglebutton
     - myst-nb
     - seaborn
     - nglview
