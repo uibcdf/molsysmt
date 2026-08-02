@@ -114,7 +114,7 @@ html[data-theme="light"] {
 
 /*********************************************
 * Custom Admonition: Learning Outcomes
-* Pale red box with centered target icon (🎯)
+* Pale red box with target icon (🎯) next to title
 *********************************************/
 
 div.admonition.admonition-learning-outcomes,
@@ -131,9 +131,7 @@ html[data-theme="dark"] div.admonition.learning-outcomes {
 
 div.admonition.admonition-learning-outcomes > .admonition-title,
 div.admonition.learning-outcomes > .admonition-title {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  display: block;
   background-color: hsl(355deg 70% 92%);
   color: hsl(355deg 60% 25%);
   padding: 0.5rem 0.8rem;
@@ -148,12 +146,11 @@ html[data-theme="dark"] div.admonition.learning-outcomes > .admonition-title {
 div.admonition.admonition-learning-outcomes > .admonition-title::before,
 div.admonition.learning-outcomes > .admonition-title::before {
   content: "🎯";
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.4rem;
   font-size: 1.15em;
   line-height: 1;
-  transform: translateY(1px);
 }
 
 div.admonition.admonition-learning-outcomes > .admonition-title::after,
