@@ -26,10 +26,8 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 4. Section 3: Extracting Element Counts & Attributes (`msm.get(element=...)`)
 * Must demonstrate querying element counts (`n_groups`, `n_molecules`, `n_chains`) and element-specific attributes using `msm.get(system, element=...)`.
+* **Pedagogical Boundary:** `msm.select()` is intentionally **omitted** from this module as selection syntax is introduced later in the course (Modules 07 & 08). Do not introduce `msm.select()` here.
 
-### 5. Section 4: Selecting at Specific Element Levels (`msm.select(element=...)`)
-* Must demonstrate returning selection indices at specific element levels using `msm.select(system, element=...)`.
-
-### 6. Challenge & See Also
-* Must include **Challenge 3: The Hierarchy Architect** and the Key Takeaway box (````{key-takeaway}`).
+### 5. Challenge & See Also
+* Must include **Challenge 3: The Hierarchy Architect** using SARS-CoV-2 Protease (`pdb_id:6LU7`) evaluated with `msm.info()` and `msm.get()`, and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-03-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 2 and Module 4.
