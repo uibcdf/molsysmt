@@ -112,3 +112,40 @@ html[data-theme="light"] {
   --sd-color-tabs-underline-active: hsla(210, 34%, 60%, 1);
  }
 
+/*********************************************
+* Custom Admonition: Learning Outcomes
+* Pale red box with target icon (fa-bullseye \f140)
+* https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/extending.html
+*********************************************/
+
+div.admonition.admonition-learning-outcomes,
+div.admonition.learning-outcomes {
+  border-color: hsl(355deg 65% 75%);
+  background-color: hsl(355deg 100% 98%);
+}
+
+html[data-theme="dark"] div.admonition.admonition-learning-outcomes,
+html[data-theme="dark"] div.admonition.learning-outcomes {
+  border-color: hsl(355deg 50% 45%);
+  background-color: hsl(355deg 30% 15%);
+}
+
+div.admonition.admonition-learning-outcomes > .admonition-title,
+div.admonition.learning-outcomes > .admonition-title {
+  background-color: hsl(355deg 70% 92%);
+  color: hsl(355deg 60% 25%);
+}
+
+html[data-theme="dark"] div.admonition.admonition-learning-outcomes > .admonition-title,
+html[data-theme="dark"] div.admonition.learning-outcomes > .admonition-title {
+  background-color: hsl(355deg 40% 25%);
+  color: hsl(355deg 75% 90%);
+}
+
+div.admonition.admonition-learning-outcomes > .admonition-title::after,
+div.admonition.learning-outcomes > .admonition-title::after {
+  color: hsl(355deg 75% 45%);
+  content: "\f140"; /* FontAwesome fa-bullseye (target) */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
