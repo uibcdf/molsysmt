@@ -1,6 +1,6 @@
-# Module 12 Content Governance (`13_System_Auditing_and_Curing.AGENTS.md`)
+# Module 12 Content Governance (`12_System_Auditing_and_Curing.AGENTS.md`)
 
-This document defines the **non-negotiable content contract** for `13_System_Auditing_and_Curing.ipynb`. 
+This document defines the **non-negotiable content contract** for `12_System_Auditing_and_Curing.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
 
 Contributors modifying this notebook must strictly preserve all sections and core topics detailed below.
@@ -28,4 +28,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Challenge & See Also
 * Must include **Challenge 12: The Quality Auditor** using SARS-CoV-2 Protease (`pdb_id:6LU7`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-12-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 12 and Module 14.
+* Must include the **See Also** block (`(course-core-12-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 11 and Module 13.
