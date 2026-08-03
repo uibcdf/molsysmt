@@ -13,15 +13,18 @@ This module presents **Physical Unit Safety** using MolSysMT's integrated unit e
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
-### 1. Introductory Block & Glossary
-* Must feature the **Glossary: Physical Unit Safety** admonition (````{admonition} Glossary: Physical Unit Safety\n:class: dropdown info`) with an active cross-reference link to `{ref}`user-foundations``.
+### 1. Introductory Block
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
+* **Note:** This module intentionally does **not** include a Glossary box.
 
 ### 2. Section 1: Quantity Agnosticism
 * Must demonstrate passing physical quantities as strings (e.g. `'[1.0, 4.0, -2.0] angstroms'`) or formal quantity objects into MolSysMT functions like `msm.set()`.
+* Must include a hyperlinked reference to the [PyUnitWizard documentation](https://www.uibcdf.org/pyunitwizard) for supported quantity types (Pint, OpenMM, Astropy, etc.).
 
 ### 3. Section 2: Inspecting and Converting
 * Must demonstrate inspecting quantities using `puw.is_quantity()`, `puw.get_value()`, `puw.get_unit()`, and converting between units using `puw.convert()`.
+* Must feature a `:::{note}` admonition inviting users to explore the [PyUnitWizard documentation](https://www.uibcdf.org/pyunitwizard) for advanced unit functions.
+* **Note:** This module intentionally omits function `Hint` boxes for PyUnitWizard native functions.
 
 ### 4. Section 3: Standard Units
 * Must demonstrate configuring global standard units via `puw.configure.set_standard_units()`.
