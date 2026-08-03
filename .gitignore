@@ -126,7 +126,8 @@ devtools/playground/*
 !molsysmt/docs/contents/build/*
 !molsysmt/lib
 molsysmt/_version.py
-!*.nbconvert.log
+*.nbconvert.log
+notebook_errors.log
 .numba_cache/
 *.xtc_offsets.npz
 

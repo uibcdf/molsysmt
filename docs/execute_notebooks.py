@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 import os
+import json
 import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 import argparse
-import glob
 from concurrent.futures import ThreadPoolExecutor
 
 GREEN = "\033[32m"
@@ -28,6 +28,52 @@ def read_timestamp_from_log(log_path: Path) -> float:
     except Exception:
         return 0.0
 
+def get_git_status_uncommitted(notebook_path: Path) -> bool:
+    """Check if notebook has uncommitted local changes (modified, untracked, or staged) in Git."""
+    try:
+        res = subprocess.run(
+            ["git", "status", "--porcelain", str(notebook_path)],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        return bool(res.stdout.strip())
+    except Exception:
+        return True
+
+def get_git_last_commit_time(notebook_path: Path) -> float:
+    """Get UTC timestamp of last Git commit for notebook_path."""
+    try:
+        res = subprocess.run(
+            ["git", "log", "-1", "--format=%ct", str(notebook_path)],
+            capture_output=True,
+            text=True,
+            check=False
+        )
+        val = res.stdout.strip()
+        return float(val) if val else 0.0
+    except Exception:
+        return 0.0
+
+def sanitize_notebook_outputs(notebook_path: Path) -> bool:
+    """Ensure every code cell in notebook JSON schema has an 'outputs' list to prevent myst_nb crashes."""
+    try:
+        content = notebook_path.read_text(encoding="utf-8")
+        data = json.loads(content)
+        modified = False
+        if "cells" in data and isinstance(data["cells"], list):
+            for cell in data["cells"]:
+                if cell.get("cell_type") == "code":
+                    if "outputs" not in cell or not isinstance(cell["outputs"], list):
+                        cell["outputs"] = []
+                        modified = True
+        if modified:
+            notebook_path.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        return True
+    except Exception as e:
+        print(f"Warning: could not sanitize notebook schema for {notebook_path}: {e}")
+        return False
+
 def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
 
     last_run_file = notebook_path.with_suffix('.nbconvert.last_run')
@@ -37,9 +83,18 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
 
     if last_run_file.exists():
         last_run_time = read_timestamp_from_log(last_run_file)
-        notebook_time = notebook_path.stat().st_mtime
-        if notebook_time > last_run_time:
-            needs_execution = True
+        is_uncommitted = get_git_status_uncommitted(notebook_path)
+
+        if is_uncommitted:
+            # Active local session modification (tracked modified or untracked)
+            notebook_time = notebook_path.stat().st_mtime
+            if notebook_time > last_run_time:
+                needs_execution = True
+        else:
+            # Clean in Git status (e.g. fresh clone / branch checkout)
+            commit_time = get_git_last_commit_time(notebook_path)
+            if commit_time > last_run_time:
+                needs_execution = True
     else:
         needs_execution = True
 
@@ -71,10 +126,13 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
             return False
         else:
             print(f"{GREEN}✔{RESET} Notebook {notebook_path} executed successfully.")
+            sanitize_notebook_outputs(notebook_path)
             write_timestamp_to_log(last_run_file)
             return True
 
     else:
+        # Ensure outputs key is present even if notebook execution is skipped
+        sanitize_notebook_outputs(notebook_path)
         print(f"{BLUE}●{RESET} Notebook {notebook_path} is up to date. No execution needed.")
         return True
 
@@ -110,7 +168,6 @@ def main(force=False, notebook: Path = None, recursive: bool = False, n_workers:
                 ok = execute_notebook(nb_path, force)
             except Exception:
                 ok = False
-                # Log unexpected failures (outside execute_notebook) immediately.
                 try:
                     with ERROR_LOG_PATH.open("a", encoding="utf-8") as f:
                         f.write(f"{nb_path}\n")
@@ -130,7 +187,6 @@ def main(force=False, notebook: Path = None, recursive: bool = False, n_workers:
                     ok = future.result()
                 except Exception:
                     ok = False
-                    # Log unexpected failures (outside execute_notebook) immediately.
                     try:
                         with ERROR_LOG_PATH.open("a", encoding="utf-8") as f:
                             f.write(f"{nb_path}\n")
@@ -163,7 +219,7 @@ if __name__ == "__main__":
         python execute_notebooks.py -f                    # Force re-execution of all
         python execute_notebooks.py -fr docs/user_guide   # Combine flags: force + recursive
     
-    Each successful run updates a corresponding .nbconvert.log file with a timestamp.
+    Each successful run updates a corresponding .nbconvert.last_run file with a timestamp.
     Notebooks are skipped if unchanged.
     """,
         formatter_class=argparse.RawDescriptionHelpFormatter
@@ -187,7 +243,6 @@ if __name__ == "__main__":
     try:
         ERROR_LOG_PATH.write_text("", encoding="utf-8")
     except Exception:
-        # If we cannot reset the log, continue execution; failures will still be reported on stdout.
         pass
 
     if args.notebook:
