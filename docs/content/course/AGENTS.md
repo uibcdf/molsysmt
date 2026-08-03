@@ -62,6 +62,9 @@ All human contributors and AI agents working on course content must strictly adh
 7. **Executed Output Preservation Policy:**  
    All course notebooks committed to the repository must have their cell outputs pre-executed and saved (`jupyter nbconvert --execute --inplace`) so Sphinx builds render rich printed outputs and HTML tables (e.g., `msm.info()` report tables).
 
+8. **Concise, Clear, and Direct Headings:**  
+   Module titles and section headings **must be as short, clear, and direct as possible**. Avoid overly long or convoluted titles, and avoid unnecessary conjunctions or symbols (such as overusing ampersands `&` when simple phrasing works better). Headings should be immediate and clean to read at a glance in the navigation TOC.
+
 ---
 
 ## 📚 Central Function Inventory & Function Mentions Policy
