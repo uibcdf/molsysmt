@@ -17,14 +17,14 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 * Must explain the concept of **Form Mutability**: on-disk files are immutable; in-memory native objects like `molsysmt.MolSys` are mutable.
 
-### 2. Section 1: Form Mutability & `msm.set()`
+### 2. Section 1: Form Mutability
 * Must demonstrate converting an immutable form to `molsysmt.MolSys` prior to mutation.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.set``.
 
-### 3. Section 2: Modifying Coordinates & Spatial Data
+### 3. Section 2: Modifying Coordinates
 * Must demonstrate updating atomic coordinates using `msm.set(molsys, element='atom', selection=..., coordinates=...)` using physical quantities or strings.
 
-### 4. Section 3: Modifying Group, Chain, & Entity Attributes
+### 4. Section 3: Modifying Attributes
 * Must demonstrate updating group names, chain IDs, or entity identifiers, and verifying changes using `msm.info()` or `msm.get()`.
 
 ### 5. Challenge & See Also
