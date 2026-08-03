@@ -1,4 +1,4 @@
-# Module 20 Content Governance (`20_The_Specialized_Domains.AGENTS.md`)
+# Module 19 Content Governance (`20_The_Specialized_Domains.AGENTS.md`)
 
 This document defines the **non-negotiable content contract** for `20_The_Specialized_Domains.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
@@ -21,4 +21,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 3. Capstone Transition & See Also
 * Must include the **Choose Your Path** transition block guiding students to Modules 21+, and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-20-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 19 and the User Guide (`{ref}`user-foundations`).
+* Must include the **See Also** block (`(course-core-19-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 19 and the User Guide (`{ref}`user-foundations`).

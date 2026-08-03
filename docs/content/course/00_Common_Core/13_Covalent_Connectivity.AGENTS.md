@@ -1,4 +1,4 @@
-# Module 14 Content Governance (`14_Covalent_Connectivity.AGENTS.md`)
+# Module 13 Content Governance (`14_Covalent_Connectivity.AGENTS.md`)
 
 This document defines the **non-negotiable content contract** for `14_Covalent_Connectivity.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
@@ -33,5 +33,5 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate converting a molecular topology to a `networkx.Graph` object (`msm.convert(sys, to_form='networkx.Graph')`).
 
 ### 7. Challenge & See Also
-* Must include **Challenge 14: The Bond Detective** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-14-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 13 and Module 15.
+* Must include **Challenge 13: The Bond Detective** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
+* Must include the **See Also** block (`(course-core-13-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 13 and Module 15.

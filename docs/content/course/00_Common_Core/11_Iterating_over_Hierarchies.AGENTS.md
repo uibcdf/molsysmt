@@ -1,4 +1,4 @@
-# Module 12 Content Governance (`12_Iterating_over_Hierarchies.AGENTS.md`)
+# Module 11 Content Governance (`12_Iterating_over_Hierarchies.AGENTS.md`)
 
 This document defines the **non-negotiable content contract** for `12_Iterating_over_Hierarchies.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
@@ -27,5 +27,5 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate iterating over trajectory structures step by step using `msm.Iterator(villin_traj, coordinates=True)` without loading full trajectories into RAM.
 
 ### 5. Challenge & See Also
-* Must include **Challenge 12: The Efficient Coder** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-12-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 11 and Module 13.
+* Must include **Challenge 11: The Efficient Coder** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
+* Must include the **See Also** block (`(course-core-11-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 11 and Module 13.

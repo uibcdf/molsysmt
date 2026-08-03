@@ -1,4 +1,4 @@
-# Module 18 Content Governance (`18_Surgical_Extraction_and_Removal.AGENTS.md`)
+# Module 17 Content Governance (`18_Surgical_Extraction_and_Removal.AGENTS.md`)
 
 This document defines the **non-negotiable content contract** for `18_Surgical_Extraction_and_Removal.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
@@ -27,5 +27,5 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate creating true independent deep copies using `msm.copy()`.
 
 ### 5. Challenge & See Also
-* Must include **Challenge 18: The Molecular Surgeon** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-18-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 17 and Module 19.
+* Must include **Challenge 17: The Molecular Surgeon** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
+* Must include the **See Also** block (`(course-core-17-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 17 and Module 19.

@@ -1,4 +1,4 @@
-# Module 15 Content Governance (`15_Comparing_Systems.AGENTS.md`)
+# Module 14 Content Governance (`15_Comparing_Systems.AGENTS.md`)
 
 This document defines the **non-negotiable content contract** for `15_Comparing_Systems.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
@@ -27,5 +27,5 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate extracting dictionary reports using `output_type='dictionary'` to diagnose attribute mismatches.
 
 ### 5. Challenge & See Also
-* Must include **Challenge 15: The System Comparator** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-15-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 14 and Module 16.
+* Must include **Challenge 14: The System Comparator** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
+* Must include the **See Also** block (`(course-core-14-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 14 and Module 16.

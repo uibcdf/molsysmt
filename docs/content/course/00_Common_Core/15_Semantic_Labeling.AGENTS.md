@@ -1,4 +1,4 @@
-# Module 16 Content Governance (`16_Semantic_Labeling.AGENTS.md`)
+# Module 15 Content Governance (`16_Semantic_Labeling.AGENTS.md`)
 
 This document defines the **non-negotiable content contract** for `16_Semantic_Labeling.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
@@ -27,5 +27,5 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate batch labeling for selections of atoms or groups to build clean labels for reports or legends.
 
 ### 5. Challenge & See Also
-* Must include **Challenge 16: The Semantic Labeler** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-16-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 15 and Module 17.
+* Must include **Challenge 15: The Semantic Labeler** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
+* Must include the **See Also** block (`(course-core-15-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 15 and Module 17.

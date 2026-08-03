@@ -1,4 +1,4 @@
-# Module 17 Content Governance (`17_Merging_and_Growing_Systems.AGENTS.md`)
+# Module 16 Content Governance (`17_Merging_and_Growing_Systems.AGENTS.md`)
 
 This document defines the **non-negotiable content contract** for `17_Merging_and_Growing_Systems.ipynb`. 
 Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
@@ -27,5 +27,5 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate joining trajectory structures along the time/structure axis using `msm.append_structures()`.
 
 ### 5. Challenge & See Also
-* Must include **Challenge 17: The Systems Builder** using Villin Headpiece (`1vii.pdb`) and Benzamidine (`benzamidine.pdb`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-17-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 16 and Module 18.
+* Must include **Challenge 16: The Systems Builder** using Villin Headpiece (`1vii.pdb`) and Benzamidine (`benzamidine.pdb`), and the Key Takeaway box (````{key-takeaway}`).
+* Must include the **See Also** block (`(course-core-16-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 16 and Module 18.
