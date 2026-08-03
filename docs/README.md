@@ -19,6 +19,18 @@ explains the layout of the repository, and notes the conventions that give the s
 MolSysMT ships a [Read the Docs configuration](../.readthedocs.yaml) so the online build matches local output. If you add
 optional dependencies that are needed for `autodoc`, list them in `docs/requirements.yaml`.
 
+## Notebook Pre-Execution and 3D Visualization
+
+Before pushing documentation updates, execute modified Jupyter notebooks using the local pre-execution script:
+
+```bash
+python docs/execute_notebooks.py -n 12 -r docs/content/user
+```
+
+- **Incremental Execution & Timestamps**: `execute_notebooks.py` tracks changes using a hybrid `git status` / commit timestamp approach. Unchanged notebooks are skipped instantly.
+- **3D Molecular Viewer**: **MolSysViewer** (`mode="lite"`) is the native 3D visualization engine for MolSysMT documentation. Pre-rendered views live in `docs/_static/views/`.
+- **Complete Architecture Specification**: See [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for full technical details.
+
 ## Directory overview
 
 - `content/`: Source pages for user guides, tutorials, and conceptual explanations.

@@ -62,6 +62,9 @@ the repository root `AGENTS.md`.
 
 - **Build Execution & Parallel Cores:**  
   By default, `docs/Makefile` sets `SPHINXOPTS ?= -j 1` to prevent oversubscribing CPU cores or causing unexpected resource load on multi-user systems. High-performance multi-core builds should explicitly pass `SPHINXOPTS="-j N"` (e.g. `make html SPHINXOPTS="-j 12"`).
+
+- **Notebook Compilation & MolSysViewer Architecture:**  
+  Follow the normative technical specification in [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for notebook pre-execution, timestamp tracking (`execute_notebooks.py`), and MolSysViewer (`mode="lite"`) static view generation.
 - When creating or substantially revising a section in the User Guide, Showcase, or Developer Hub, update its entry in `docs/docs_manifest.yml`.
 
 ## Safety and maintenance

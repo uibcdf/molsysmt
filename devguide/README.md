@@ -95,6 +95,7 @@ Read these documents in order when first working on MolSysMT:
 ### Documentation, education, and visualization
 
 - [documentation_sync.md](documentation_sync.md)
+- [notebook_compilation_and_visualization.md](notebook_compilation_and_visualization.md) — normative specification for notebook pre-execution, timestamp tracking, and MolSysViewer integration.
 - [course_structure.md](course_structure.md)
 - [viewers_and_visualization.md](viewers_and_visualization.md)
 - [molsysviewer_addon.md](molsysviewer_addon.md)
