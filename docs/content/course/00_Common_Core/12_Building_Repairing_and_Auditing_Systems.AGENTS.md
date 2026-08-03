@@ -9,23 +9,24 @@ Contributors modifying this notebook must strictly preserve all sections and cor
 
 ## 🎯 Module Core Domain & Inviolable Content Rules
 
-This module presents **Building, Repairing and Auditing Systems** using MolSysMT's `msm.build` submodule.
+This module presents **Building, Repairing and Auditing Systems** using MolSysMT's `msm.build` module.
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block
-* Must feature the **Glossary Box** (`Glossary: MolSysMT Submodules & msm.build`) explaining `msm.basic` vs `msm.build` and categorized build capabilities (`Audit & Inspection`, `Repair & Completion`, `Synthesis & Solvation`).
+* Must include the **`msm.build` Function Overview** text before the glossary box, detailing the three functional pillars (`Audit & Inspection`, `Repair & Completion`, `Synthesis & Solvation`).
+* Must feature the **Glossary Box** titled `Glossary: MolSysMT modules` explaining `msm.basic` vs `msm.build` (clarifying they are function modules, not submodules).
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
-### 2. Section 1: Identifying Non-Standard Groups
-* Must demonstrate detecting non-standard groups or co-crystallized ligands using `msm.build.get_non_standard_residues()` on T4 Lysozyme (`lysozyme`).
+### 2. Section 1: Auditing & Identifying Anomalies
+* Must demonstrate detecting non-standard groups and sequence gaps using `msm.build.get_non_standard_residues()`, `msm.build.get_missing_residues()`, and `msm.build.has_hydrogens()` on T4 Lysozyme (`lysozyme`).
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.build.get_non_standard_residues`.
 
-### 3. Section 2: Detecting Missing Gaps & Atoms
-* Must demonstrate detecting sequence gaps and missing heavy atoms using `msm.build.get_missing_residues()` and `msm.build.get_missing_heavy_atoms()`.
+### 3. Section 2: Repairing Missing Hydrogens & Heavy Atoms
+* Must demonstrate system repair by adding missing hydrogens using `msm.build.add_missing_hydrogens()`.
 
-### 4. Section 3: Auditing Covalent Bonds
-* Must demonstrate auditing missing covalent connectivity and disulfide bridges using `msm.build.get_missing_bonds()` and `msm.build.get_disulfide_bonds()`.
+### 4. Section 3: Auditing & Reconstructing Covalent Connectivity
+* Must demonstrate auditing missing covalent bonds using `msm.build.get_missing_bonds()` and reconstructing bonds using `msm.build.add_missing_bonds()`.
 
 ### 5. Challenge & See Also
 * Must include **Challenge 12: The Quality Auditor** using T4 Lysozyme (`pdb_id:181L`), and the Key Takeaway box (````{key-takeaway}`).
