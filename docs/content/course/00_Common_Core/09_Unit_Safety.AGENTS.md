@@ -17,16 +17,16 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must feature the **Glossary: Physical Unit Safety** admonition (````{admonition} Glossary: Physical Unit Safety\n:class: dropdown info`) with an active cross-reference link to `{ref}`user-foundations``.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
-### 2. Section 1: Quantity Agnosticism: Inputs & String Representations
+### 2. Section 1: Quantity Agnosticism
 * Must demonstrate passing physical quantities as strings (e.g. `'[1.0, 4.0, -2.0] angstroms'`) or formal quantity objects into MolSysMT functions like `msm.set()`.
 
-### 3. Section 2: Inspecting & Converting Physical Quantities
+### 3. Section 2: Inspecting and Converting
 * Must demonstrate inspecting quantities using `puw.is_quantity()`, `puw.get_value()`, `puw.get_unit()`, and converting between units using `puw.convert()`.
 
-### 4. Section 3: Configuring Standard Unit Defaults
+### 4. Section 3: Standard Units
 * Must demonstrate configuring global standard units via `puw.configure.set_standard_units()`.
 
-### 5. Section 4: Dimensional Safety & Physical Arithmetic
+### 5. Section 4: Dimensional Arithmetic
 * Must demonstrate dimensional safety in physical arithmetic (e.g. adding distance quantities with compatible dimensions, or trying illegal physical operations).
 
 ### 6. Challenge & See Also
