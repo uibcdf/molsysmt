@@ -16,7 +16,7 @@ All paths share this common training ground using the **T4 Lysozyme (PDB 181L)**
 08_Extracting_Molecular_Attributes.ipynb
 09_Unit_Safety.ipynb
 10_Modifying_Molecular_Attributes.ipynb
-11_Iterating_over_Hierarchies.ipynb
+11_Iterating_Systems.ipynb
 12_System_Auditing_and_Curing.ipynb
 13_Covalent_Connectivity.ipynb
 14_Comparing_Systems.ipynb

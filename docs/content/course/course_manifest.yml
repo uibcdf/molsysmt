@@ -49,10 +49,10 @@
   display_number: 10
   title: Modifying Molecular Attributes
 - id: course-core-iterating-over-hierarchies
-  path: 00_Common_Core/11_Iterating_over_Hierarchies.ipynb
+  path: 00_Common_Core/11_Iterating_Systems.ipynb
   section: core
   display_number: 11
-  title: Iterating over Hierarchies
+  title: Iterating Systems
 - id: course-core-system-auditing-and-curing
   path: 00_Common_Core/12_System_Auditing_and_Curing.ipynb
   section: core
