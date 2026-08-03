@@ -135,7 +135,11 @@ gettext_compact = False
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path .
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints', 'old_api', 'freezer']
+exclude_patterns = [
+    '_build', 'Thumbs.db', '.DS_Store', '**.ipynb_checkpoints',
+    'old_api', 'freezer', 'temp',
+    '**/AGENTS.md', '**/*.AGENTS.md'
+]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'default'
@@ -159,6 +163,10 @@ html_theme = "pydata_sphinx_theme"
 # documentation.
 
 html_theme_options = {
+    "logo": {
+        "image_light": "_static/logo.svg",
+        "image_dark": "_static/logo_dark.svg",
+    },
     "icon_links": [
         {
             "name": "GitHub",

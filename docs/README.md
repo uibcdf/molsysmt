@@ -25,6 +25,8 @@ optional dependencies that are needed for `autodoc`, list them in `docs/requirem
 - `api/` and `old_api/`: Auto-generated API references; the `clean_api.py` script keeps entries tidy.
 - `_templates/` and `_static/`: Custom theme assets and layout overrides that create the MolSysMT visual style.
 - `_bibtex/` and `bibliography.bib`: Citation management for scientific references.
+- `docs_manifest.yml`: Inventory tracking file for sections, pages, and metadata outside the course.
+- `AGENTS.md` & `*.AGENTS.md`: Governance and micro-governance directives defining frozen content and editorial contracts per page.
 - `dev/` and `sandbox/` notebooks: Experimental material used to prototype sections before promotion to `content/`.
 
 ## Writing style and tone

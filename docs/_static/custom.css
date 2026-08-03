@@ -112,6 +112,16 @@ html[data-theme="light"] {
   --sd-color-tabs-underline-active: hsla(210, 34%, 60%, 1);
  }
 
+html[data-theme="dark"] {
+  --pst-color-navbar-bg: var(--pst-color-background);
+  --pst-color-header-bg: var(--pst-color-background);
+}
+
+html[data-theme="dark"] .bd-header {
+  background-color: var(--pst-color-background) !important;
+  border-bottom: 1px solid var(--pst-color-border) !important;
+}
+
 /*********************************************
 * Custom Admonition: Learning Outcomes
 * Pale red box style without icon
@@ -147,3 +157,18 @@ div.admonition.admonition-learning-outcomes > .admonition-title::after,
 div.admonition.learning-outcomes > .admonition-title::after {
   content: none !important;
 }
+
+/*********************************************
+* Dark / Light Mode Responsive Logo Classes
+*********************************************/
+html[data-theme="light"] .only-dark,
+html[data-theme="light"] .logo-dark {
+  display: none !important;
+}
+
+html[data-theme="dark"] .only-light,
+html[data-theme="dark"] .logo-light {
+  display: none !important;
+}
+
+

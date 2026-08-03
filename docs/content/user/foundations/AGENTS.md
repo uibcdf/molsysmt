@@ -1,34 +1,47 @@
-# User Guide Introduction Agents Guide
+# User Guide Foundations Agents Guide
 
-This guide is for agents editing the **Introduction** section of the User Guide
-under `docs/content/user/intro`.
+This guide governs the development, editorial style, and structural standards for the **Foundations** section of the User Guide located under `docs/content/user/foundations`.
 
-## Purpose and audience
+All human contributors and AI agents working on Foundations content must strictly adhere to these guidelines.
 
-- Explain core concepts of MolSysMT to new users: what MolSysMT is, how to install it, what a molecular system is, and how forms, elements, attributes, and selections work.
-- Avoid deep implementation or development details; those belong in `devguide/` and `docs/content/developer`.
+---
 
-## Structure and topics
+## 🧭 Purpose & Audience
 
-- Keep `intro/index.md` as the conceptual entry point for new users.
-- Maintain and extend the existing subtopics via their toctrees:
-  - `molsysmt.ipynb` / `installation.md`: overview and installation instructions.
-  - `molecular_systems/index.md`: description, items, forms, elements, attributes.
-  - `demo_systems.ipynb`: how to use bundled demo systems.
-  - `native_forms/index.md`: native MolSysMT forms (for example, `molsysmt.MolSys`, `molsysmt.Topology`, `file:h5msm`).
-  - `selection_syntaxes.ipynb`: selection expressions and examples.
-  - `tools.ipynb`: high-level overview of tools.
-  - `viewers.ipynb`: visualization backends (for example, nglview).
-  - `supported.ipynb`: supported forms and external libraries.
-  - `memory_management.ipynb`, `quantities_and_units.ipynb`, `configuration_options.ipynb`, `molsysmt_logging_user_guide.md`: advanced user topics.
-- When adding new pages, ensure they fit one of these themes or clearly extend them, and integrate them into the toctree.
+- **Target Audience:** MolSysMT users (scientists, computational biologists, developers) seeking to master the constitutional principles and architecture of the toolkit.
+- **Tone & Style:** English only, short direct sentences in second person ("you"), scientific rigor, and explicit physical units (nm, ps, radians, elementary charge).
+- **Scope Boundary:** Focus on core concepts, data models, selections, units, and performance. Implementation details of internal functions belong under `docs/content/developer`.
 
-## Style and content guidelines
+---
 
-- Use concise explanations, focusing on:
-  - What the concept is.
-  - Why it matters for using MolSysMT.
-  - Where to go next (links to Tools or Cookbook tutorials).
-- Mention units and shapes where relevant (for example, how coordinates and box are represented).
-- Use MyST admonitions for “API documentation” links, notes, and see-also sections when connecting to other parts of the documentation.
-- For links to other documentation pages, prefer labeled sections and `{ref}` roles over file paths; follow `docs/content/developer/documentation/web/references.md`.
+## 🏛️ Section Structure & Thematic Subdirectories
+
+Foundations is organized into **8 thematic subdirectories**, each with its own `index.md` creating a 2-level navigation hierarchy:
+
+1. `01_entrance/`: Mission, installation, first steps, toolbox overview, and demo systems.
+2. `02_molecular_system/`: Definition, description/normalization, items, forms, elements, and attributes.
+3. `03_native_world/`: Native representations (`molsysmt.MolSys`, `molsysmt.Topology`), H5MSM file format, and ViewerJSON.
+4. `04_language/`: Selection Language grammar and syntactic rules.
+5. `05_performance/`: Memory management, big data scaling, lazy loading, and parallelization.
+6. `06_governance/`: Physical quantities, units, precision policies, configuration options, and SMonitor.
+7. `07_support/`: Agnostic compatibility matrix across forms, files, force fields, and external libraries.
+8. `08_ecosystem/`: 3D Viewers, MolSysViewer, and third-party package bridges.
+
+---
+
+## 🧬 Governance & Micro-`AGENTS.md` Policy
+
+1. **Subdirectory Governance (`[Subdirectory]/AGENTS.md`):**  
+   Every subdirectory (e.g. `01_entrance/`, `02_molecular_system/`) MUST contain an `AGENTS.md` file specifying its local domain context, purpose, and page list.
+
+2. **File Micro-Governance (`[filename].AGENTS.md`):**  
+   Every published notebook or markdown file (e.g., `index.ipynb`, `definition.ipynb`) MUST be paired with a micro-governance file `[filename].AGENTS.md`.
+
+3. **Content Protection Contract:**  
+   The micro `[filename].AGENTS.md` file serves as a contract defining:
+   - Frozen, inviolable content (essential concepts, code examples, PDB IDs, admonitions).
+   - MyST section anchors (e.g. `(user-foundations-01-entrance)=`).
+   - Required function links (`{func}`) and tutorial admonitions (`:::{seealso}`).
+
+Rule resolution hierarchy:
+`Root AGENTS.md` ➔ `docs/AGENTS.md` ➔ `docs/content/user/AGENTS.md` ➔ `foundations/AGENTS.md` ➔ `[Subdirectory]/AGENTS.md` ➔ `[filename].AGENTS.md` (Most specific wins).

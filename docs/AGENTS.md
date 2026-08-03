@@ -48,8 +48,25 @@ the repository root `AGENTS.md`.
 - Keep notebooks executable and lightweight; avoid heavy computations, long trajectories, or network access.
 - When updating notebooks, ensure they still run cleanly under the CI notebook execution scripts (for example, `execute_notebooks.py`).
 
+## Governance and Micro-`AGENTS.md` Model
+
+- **Rule Resolution Hierarchy:**  
+  `Root AGENTS.md` ➔ `docs/AGENTS.md` ➔ `[Subdirectory]/AGENTS.md` ➔ `[Page_Name].AGENTS.md` (Most specific wins).
+- **Micro-Governance Files (`[Page_Name].AGENTS.md`):**  
+  Major documentation pages or notebooks (e.g. `docs/index.ipynb`) are paired with a micro-governance file (e.g. `docs/index.AGENTS.md`).
+- **Content Protection Contract:**  
+  Micro-governance files serve as a contract that defines frozen, inviolable content (essential concepts, code examples, PDB IDs, admonitions, and MyST section anchors) that must be preserved when refining or updating that page.
+
+- **Documentation Manifest (`docs_manifest.yml`):**  
+  All non-course documentation sections and paired governance files must be tracked in [`docs/docs_manifest.yml`](docs_manifest.yml).
+
+- **Build Execution & Parallel Cores:**  
+  By default, `docs/Makefile` sets `SPHINXOPTS ?= -j 1` to prevent oversubscribing CPU cores or causing unexpected resource load on multi-user systems. High-performance multi-core builds should explicitly pass `SPHINXOPTS="-j N"` (e.g. `make html SPHINXOPTS="-j 12"`).
+- When creating or substantially revising a section in the User Guide, Showcase, or Developer Hub, update its entry in `docs/docs_manifest.yml`.
+
 ## Safety and maintenance
 
 - Do not introduce documentation that contradicts `dev_guide.md` or `coding/coding_guide.md`; if behavior changes, update those guides as well.
 - Keep examples minimal but complete enough to be copied and run by users.
 - When reorganizing sections or navigation (for example, `index.ipynb` or `content/*/index.md`), update toctrees and verify that Sphinx builds successfully with `make html` from the `docs/` directory.
+

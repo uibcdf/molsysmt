@@ -1,0 +1,80 @@
+# MolSysMT Documentation Manifest
+# Tracks coverage, status, and metadata for non-course documentation pages.
+
+version: "1.0.0"
+
+homepage:
+  path: "docs/index.ipynb"
+  agents_file: "docs/index.AGENTS.md"
+  status: "stable"
+  description: "Restored minimal, linear homepage with logo, install snippet, interactive code example, and citation tabs."
+
+sections:
+  user_guide:
+    foundations:
+      path: "docs/content/user/foundations"
+      agents_file: "docs/content/user/foundations/AGENTS.md"
+      status: "in_progress"
+      groups:
+        - name: "01_entrance"
+          agents_file: "docs/content/user/foundations/01_entrance/AGENTS.md"
+          index_file: "docs/content/user/foundations/01_entrance/index.md"
+          index_agents_file: "docs/content/user/foundations/01_entrance/index.AGENTS.md"
+        - name: "02_molecular_system"
+          agents_file: "docs/content/user/foundations/02_molecular_system/AGENTS.md"
+          index_file: "docs/content/user/foundations/02_molecular_system/index.md"
+          index_agents_file: "docs/content/user/foundations/02_molecular_system/index.AGENTS.md"
+        - name: "03_native_world"
+          agents_file: "docs/content/user/foundations/03_native_world/AGENTS.md"
+          index_file: "docs/content/user/foundations/03_native_world/index.md"
+          index_agents_file: "docs/content/user/foundations/03_native_world/index.AGENTS.md"
+        - name: "04_language"
+          agents_file: "docs/content/user/foundations/04_language/AGENTS.md"
+          index_file: "docs/content/user/foundations/04_language/index.md"
+          index_agents_file: "docs/content/user/foundations/04_language/index.AGENTS.md"
+        - name: "05_performance"
+          agents_file: "docs/content/user/foundations/05_performance/AGENTS.md"
+          index_file: "docs/content/user/foundations/05_performance/index.md"
+          index_agents_file: "docs/content/user/foundations/05_performance/index.AGENTS.md"
+        - name: "06_governance"
+          agents_file: "docs/content/user/foundations/06_governance/AGENTS.md"
+          index_file: "docs/content/user/foundations/06_governance/index.md"
+          index_agents_file: "docs/content/user/foundations/06_governance/index.AGENTS.md"
+        - name: "07_support"
+          agents_file: "docs/content/user/foundations/07_support/AGENTS.md"
+          index_file: "docs/content/user/foundations/07_support/index.md"
+          index_agents_file: "docs/content/user/foundations/07_support/index.AGENTS.md"
+        - name: "08_ecosystem"
+          agents_file: "docs/content/user/foundations/08_ecosystem/AGENTS.md"
+          index_file: "docs/content/user/foundations/08_ecosystem/index.md"
+          index_agents_file: "docs/content/user/foundations/08_ecosystem/index.AGENTS.md"
+    tools:
+      path: "docs/content/user/tools"
+      agents_file: "docs/content/user/tools/AGENTS.md"
+      status: "in_progress"
+      pages: []
+    course:
+      path: "docs/content/course"
+      agents_file: "docs/content/course/AGENTS.md"
+      status: "stable"
+      description: "The Four Paths of the MolSysMT's Master course, modularly hosted inside User Guide."
+      pages: []
+    cookbook:
+      path: "docs/content/user/cookbook"
+      agents_file: "docs/content/user/cookbook/AGENTS.md"
+      status: "in_progress"
+      pages: []
+
+  showcase:
+    path: "docs/content/showcase"
+    status: "in_progress"
+    pages: []
+
+  developer_hub:
+    path: "docs/content/developer"
+    status: "in_progress"
+    pages: []
+
+  api_reference:
+    path: "docs/api"
+    status: "stable"

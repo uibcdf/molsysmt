@@ -1,4 +1,4 @@
-# Cookbook: The Gallery of Power
+# Cookbook
 
 Welcome to the **MolSysMT Cookbook**. Here, you won't find dry API descriptions; instead, you will find ready-to-use recipes to solve complex structural biology tasks with elegance and speed.
 
@@ -10,14 +10,6 @@ Each recipe is designed to be a "Superpower": a self-contained solution to a rea
 *   [**Building Complex Dimers**](./01_Building_Complex_Dimers.ipynb): Harvesting, aligning, and merging monomers from disparate PDB sources.
 *   [**Structural Surgery (Mutagenesis)**](./08_Structural_Surgery_Mutagenesis.ipynb): Performing in-memory mutations and automatic side-chain repair.
 *   [**From PDB to Solvated Box**](./05_From_PDB_to_Solvated_Box.ipynb): Automating the geometry and chemistry of your simulation box setup.
-*   **Declared systems from scratch:** use `molsysmt.MolSysBuilder`, declare
-    topology before atom-dependent arrays, attach optional bond metadata with
-    `add_bond(..., bond_order=2, bond_type="covalent")`, inspect any stored
-    chemical/topological or structural attribute with `molsysmt.get`, then call
-    `build()`. Molecular-mechanics attributes belong on the materialized
-    `MolSys`, not on the builder. When exporting a subset to `MolSysDict`, atom
-    selections are canonicalized and `structure_indices` keeps its requested
-    order; use `strict=True` to reject fields omitted by the reduced schema.
 
 ### 🧪 Analysis & Discovery
 *   [**Binding Pocket Isolation**](./06_Binding_Pocket_Isolation.ipynb): Extracting active sites using advanced spatial selection strings.
@@ -30,6 +22,22 @@ Each recipe is designed to be a "Superpower": a self-contained solution to a rea
 *   [**Ready for Simulation (OpenMM)**](./03_Simulation_Workflow.ipynb): The complete pipeline from experimental structure to GPU-ready simulation.
 
 ---
+
+```{eval-rst}
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   01_Building_Complex_Dimers.ipynb
+   02_Spectacular_Visualizations.ipynb
+   03_Simulation_Workflow.ipynb
+   04_Big_Data_Trajectories.ipynb
+   05_From_PDB_to_Solvated_Box.ipynb
+   06_Binding_Pocket_Isolation.ipynb
+   07_Trajectory_Performance_Analysis.ipynb
+   08_Structural_Surgery_Mutagenesis.ipynb
+   09_Form_Teleportation.ipynb
+```
 
 ```{key-takeaway}
 Don't write scripts. Write science. Use these recipes as templates for your own high-impact research.
