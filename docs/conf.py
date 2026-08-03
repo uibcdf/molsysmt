@@ -61,9 +61,8 @@ extensions = [
     'sphinx_remove_toctrees',
     'sphinx_design',
     'sphinx_favicon',
-    'sphinx_togglebutton',    
+    'sphinx_togglebutton',
     'myst_nb',
-    'sphinx_tabs.tabs', # Do not move from the last position
 ]
 
 
@@ -211,7 +210,6 @@ html_css_files = [
 
 # Custom css for tabs
 def setup(app):
-    app.add_css_file('sphinx_tabs.css')
     app.add_css_file('custom.css')
     app.add_js_file('https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js')
     app.add_js_file('https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js')
