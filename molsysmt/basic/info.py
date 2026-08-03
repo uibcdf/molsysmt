@@ -64,7 +64,8 @@ def info(molecular_system,
     -------
     pandas.io.formats.style.Styler
         A Pandas *Styler* wrapping a DataFrame with the summary. The exact columns depend on
-        `element` and on the attributes exposed by the input form(s).
+        `element` and on the attributes exposed by the input form(s). Its HTML table carries
+        the `dataframe` class, the same one `DataFrame.to_html()` emits.
 
     Raises
     ------
@@ -82,6 +83,9 @@ def info(molecular_system,
     - The function hides the row index for readability using Pandas’ Styler API; you can access
       the underlying DataFrame via the `.data` attribute (depending on your Pandas version) or
       by rebuilding it from the original values if needed.
+    - The rendered table is tagged with the `dataframe` class so that notebook viewers and
+      documentation themes style it as they style any other Pandas table. Without it the table
+      matches no theme rule and renders unstyled once compiled to HTML.
 
     See Also
     --------
@@ -420,7 +424,11 @@ def info(molecular_system,
         )
 
     if output_type == 'styler':
-        return tmp_df.style.hide(axis='index')
+        # `DataFrame.to_html()` emits `class="dataframe"`, but a Styler emits no class at
+        # all. That class is the hook documentation themes use to style pandas tables
+        # (zebra striping, dark mode), so it has to be set explicitly here for a rendered
+        # summary to look like any other pandas table instead of falling through unstyled.
+        return tmp_df.style.hide(axis='index').set_table_attributes('class="dataframe"')
     elif output_type == 'dataframe':
         return tmp_df
     elif output_type == 'dictionary':

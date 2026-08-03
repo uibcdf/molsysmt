@@ -240,6 +240,24 @@ def test_info_output_types_are_native_python(tctim_h5msm_molsys):
                 )
 
 
+def test_info_styler_table_carries_the_dataframe_class(tctim_h5msm_molsys):
+    # A Styler emits `<table id="T_...">` with no class, while `DataFrame.to_html()` emits
+    # `class="dataframe"`. Documentation themes and notebook viewers style pandas tables
+    # through that class, so losing it renders every compiled `info()` table unstyled.
+    # This guards the markup contract, not the appearance.
+    molsys = tctim_h5msm_molsys
+    stylers = {'system': msm.info(molsys),
+               'atom': msm.info(molsys, element='atom', selection=[0, 1]),
+               'group': msm.info(molsys, element='group', selection=[0, 1])}
+    for element, styler in stylers.items():
+        html = styler.to_html()
+        assert 'class="dataframe"' in html, f"info(element={element!r}) lost the dataframe class"
+        # The notebook representation is a separate code path in pandas.
+        assert 'class="dataframe"' in styler._repr_html_()
+        # Tagging the table must not undo the hidden row index.
+        assert 'row_heading' not in html
+
+
 def test_info_13(t4_h5msm_molsys):
     df = msm.info(t4_h5msm_molsys)
     true_dict = {'form': {0: 'molsysmt.MolSys'},
