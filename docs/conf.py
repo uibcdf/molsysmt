@@ -208,8 +208,16 @@ html_css_files = [
     'custom.css',
 ]
 
-# Custom css for tabs
+def _place_runtime(app):
+    try:
+        from pathlib import Path
+        from molsysviewer.tools import export_runtime_asset
+        export_runtime_asset(str(Path(__file__).parent / "_static"))
+    except Exception as e:
+        print(f"Warning: Could not export MolSysViewer runtime asset: {e}")
+
 def setup(app):
+    app.connect('builder-inited', _place_runtime)
     app.add_css_file('custom.css')
     app.add_js_file('https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js')
     app.add_js_file('https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js')

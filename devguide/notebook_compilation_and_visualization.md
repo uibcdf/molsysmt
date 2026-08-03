@@ -10,21 +10,22 @@ The documentation pipeline resolves three core engineering requirements:
 
 1. **Deterministic Remote CI/CD**: Remote GitHub Actions builds must remain fast, lightweight, and crash-free. Web compilation (`make html`) does not execute Python code or heavy simulations in the cloud.
 2. **Incremental Local Pre-Execution**: Developers executing notebooks locally only re-run notebooks that have actually been modified in their working session, preserving compute resources and time.
-3. **Clutter-Free 3D Visualization**: Tutorial pages present clean, interactive 3D molecular views powered by **MolSysViewer** without full GUI editing toolbars interfering with the narrative.
+3. **Reproducible 3D HTML Visualization**: Tutorial pages present clean, interactive 3D molecular views powered by **MolSysViewer** using local, version-locked runtime assets without depending on active Python kernels or external CDNs.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 1. LOCAL WORKSTATION                                                   │
-│    Developer writes/edits .ipynb tutorials using `msm.view()`.         │
+│    Developer composes scene and exports HTML via:                      │
+│    `view.export.html("docs/_static/views/1brs.html",                   │
+│                     shared_runtime="docs/_static")`                    │
+│    Embeds in notebook using `msv.tools.embed_iframe(...)`.             │
 └──────────────────────────────────┬─────────────────────────────────────┘
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
-│ 2. INCREMENTAL PRE-EXECUTION                                           │
-│    `python docs/execute_notebooks.py -n 12 -r docs/`                   │
-│    - Hybrid Git status / commit timestamp modification detection.      │
-│    - Embeds anywidget WebGL state into notebook JSON metadata.          │
-│    - Automatically sanitizes JSON schema (guarantees outputs: []).     │
+│ 2. SPHINX BUILD ASSET HOOK (`docs/conf.py`)                            │
+│    `builder-inited` hook calls `export_runtime_asset("docs/_static")`.  │
+│    Places version-exact `viewer.js` runtime into `_static` (gitignored).│
 └──────────────────────────────────┬─────────────────────────────────────┘
                                    │
                                    ▼
@@ -32,14 +33,14 @@ The documentation pipeline resolves three core engineering requirements:
 │ 3. SPHINX WEB COMPILATION (LOCAL & CI/CD)                              │
 │    `make html SPHINXOPTS="-j 12"`                                      │
 │    - `nb_execution_mode = "off"` in `docs/conf.py`.                    │
-│    - `myst_nb` + `anywidget` render static HTML5 WebGL containers.      │
+│    - Renders static HTML5 iframe containers referencing `_static`.    │
 └──────────────────────────────────┬─────────────────────────────────────┘
                                    │
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 4. GITHUB PAGES PUBLICATION                                            │
 │    - Instant gh-pages deployment without active Python kernel requirement.│
-│    - Full client-side interactive WebGL rendering via Mol* in browser. │
+│    - Shared runtime cached across all documentation pages.             │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -53,6 +54,14 @@ In [`docs/conf.py`](../docs/conf.py), `MyST-NB` is configured with:
 nb_execution_mode = "off"
 ```
 During Sphinx HTML compilation (`make html`), Sphinx **does not execute any Python cells**. It reads the pre-rendered cell outputs (plots, HTML widgets, tables) directly embedded in the `.ipynb` JSON file.
+
+> [!WARNING]
+> **CRITICAL WARNING REGARDING MASS RE-EXECUTION**:
+> `msm.basic.view(...)` defaults to `viewer='MolSysViewer'`. Existing notebooks in `docs/content/` contain `msm.view(...)` calls without an explicit `viewer` argument. Re-executing these notebooks prematurely will switch their outputs to live `MolSysViewer` widgets, which **will fail to render on a static site without a running Python kernel**.
+> 
+> Before running bulk execution on existing notebooks:
+> - Explicitly set `viewer='NGLView'` on notebooks intended to remain on NGLView.
+> - Or export static HTML scenes via `view.export.html(..., shared_runtime="docs/_static")` for notebooks migrating to MolSysViewer.
 
 ### **B. Pre-Execution Script: `docs/execute_notebooks.py`**
 Developers run [`docs/execute_notebooks.py`](../docs/execute_notebooks.py) to pre-execute modified notebooks before committing:
@@ -79,31 +88,50 @@ For any notebook `example.ipynb`:
 
 ---
 
-## 3. MolSysViewer Integration & Static View Generation
+## 3. MolSysViewer Integration & Static HTML Export Protocol
 
-### **A. Architecture & `anywidget` Protocol**
-- **Default Viewer**: `msm.view(molecular_system)` invokes `molsysviewer.new_view(...)` by default.
-- **Widget Representation**: `molsysviewer.MolSysView` wraps `molsysviewer.widget.MolSysViewerWidget`, inheriting from `anywidget.Widget`.
-- **State Serialization**: `anywidget` serializes the Mol* (Molstar) 3D scene, atomic coordinates, representations, and camera state into the notebook's cell output (`application/vnd.jupyter.widget-view+json`) and notebook metadata (`metadata.widgets`).
+### **A. Live Widgets vs. Static HTML Export**
+- **Live Widgets (`MolSysViewerWidget` / `anywidget`)**: Require an active Python kernel WebSocket connection to request their JavaScript runtime. Live widgets do NOT rehydrate on static web pages without a Python kernel.
+- **Static HTML Export (`view.export.html`)**: Generates version-locked, static HTML views that run entirely client-side via Mol* (Molstar) in the browser without network calls or active kernels.
 
-### **B. `mode="lite"` Static HTML Export (`write_html`)**
-While interactive Jupyter sessions load the full MolSysViewer GUI (with editing toolbars and selection trees), documentation tutorial pages require clean, uncluttered figures.
+### **B. Shared Runtime Asset Protocol (`shared_runtime`)**
 
-1. **Static View Generator (`docs/generate_static_views/`)**:
-   Standalone scripts pre-render clean views into [`docs/_static/views/`](../docs/_static/views/) using:
+To avoid bundling multi-megabyte JS runtimes into every single exported HTML file:
+
+1. **Exporting HTML Views with Shared Runtime**:
    ```python
-   view = msm.view(molecular_system, selection='molecule_index==0')
-   view.write_html("../_static/views/1BRS_molecule_index_zero.html", title="1BRS Molecule Index 0", mode="lite")
+   view.export.html("docs/_static/views/1brs.html", shared_runtime="docs/_static")
    ```
-2. **`mode="lite"` Characteristics**:
-   - Removes floating GUI toolbars and editing panels.
-   - Retains canvas controls (Reset, Fullscreen, Spin, Swing).
-   - Bundles a lightweight, self-contained Mol* WebGL viewer.
-3. **User-Facing Tutorial Cell**:
-   Notebooks display clean, idiomatic user code:
+   This generates a lightweight HTML scene file that references the shared runtime JS asset in `docs/_static/`. Browsers download the runtime once and cache it across all documentation pages.
+
+2. **Placing the Shared Runtime in Sphinx Build (`docs/conf.py`)**:
+   In `docs/conf.py`, the `builder-inited` event automatically extracts the exact runtime asset from the installed `molsysviewer` package into `docs/_static/`:
    ```python
-   msm.view(molecular_system, selection='molecule_index==0')
+   def _place_runtime(app):
+       from pathlib import Path
+       from molsysviewer.tools import export_runtime_asset
+       export_runtime_asset(str(Path(__file__).parent / "_static"))
+
+   def setup(app):
+       app.connect('builder-inited', _place_runtime)
    ```
+   > **Note**: `docs/_static/viewer.js` and `docs/_static/molsysviewer*` are listed in `.gitignore` to prevent committing 6MB binaries into Git history.
+
+3. **Embedding in Notebooks (`msv.tools.embed_iframe`)**:
+   To prevent relative path calculation errors (`../..`) across deeply nested notebook subdirectories:
+   ```python
+   import molsysviewer as msv
+
+   # Generates the exact relative iframe HTML snippet for the notebook
+   msv.tools.embed_iframe(
+       "docs/_static/views/1brs.html",
+       path="docs/content/user/my_page.ipynb",
+   )
+   ```
+
+### **C. Capabilities and Boundaries of Exported Scenes**
+- **Fully Supported Client-Side**: Loaded structures, selections, color maps, representations, overlays, annotations, measurements, camera controls, trajectory playback, and pop-out window.
+- **Requires Python Kernel (Not Available in Exported Views)**: Selection callbacks back to Python, `on_click`/`on_hover` Python hooks, and loading new datasets on the fly. Compose the full scene in Python before exporting.
 
 ---
 
@@ -112,7 +140,11 @@ While interactive Jupyter sessions load the full MolSysViewer GUI (with editing 
 When adding or modifying notebooks:
 
 1. Edit the notebook (`.ipynb`) in your local Jupyter environment.
-2. Run `python docs/execute_notebooks.py -r docs/` to pre-execute modified notebooks.
-3. Verify local HTML compilation with `make -C docs html SPHINXOPTS="-j 12"`.
-4. Check that `git status` includes `.ipynb` and `.nbconvert.last_run` files while ignoring `.nbconvert.log`.
-5. Commit and push: GitHub Actions will publish the static site to `gh-pages` within seconds.
+2. If using MolSysViewer for documentation:
+   - Compose the scene in Python.
+   - Export via `view.export.html("docs/_static/views/<name>.html", shared_runtime="docs/_static")`.
+   - Embed using `msv.tools.embed_iframe(...)`.
+3. If using NGLView, ensure `viewer='NGLView'` is explicitly passed to `msm.view(..., viewer='NGLView')`.
+4. Run `python docs/execute_notebooks.py -r docs/` to pre-execute modified notebooks.
+5. Verify local HTML compilation with `make -C docs html SPHINXOPTS="-j 12"`.
+6. Commit and push: GitHub Actions will publish the static site to `gh-pages` within seconds.
