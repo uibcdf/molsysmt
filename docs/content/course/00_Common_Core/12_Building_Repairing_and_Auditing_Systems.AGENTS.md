@@ -14,18 +14,18 @@ This module presents **Building, Repairing and Auditing Systems** using MolSysMT
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block
-* Must include the **`msm.build` Function Overview** text before the glossary box, detailing the three functional pillars (`Audit & Inspection`, `Repair & Completion`, `Synthesis & Solvation`).
+* Must include the **`msm.build` Function Overview** text before the glossary box, detailing the three functional pillars (`Audit and Inspection`, `Repair and Completion`, `Synthesis and Solvation`).
 * Must feature the **Glossary Box** titled `Glossary: MolSysMT modules` explaining `msm.basic` vs `msm.build` (clarifying they are function modules, not submodules).
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
-### 2. Section 1: Auditing & Identifying Anomalies
+### 2. Section 1: Auditing Anomalies
 * Must demonstrate detecting non-standard groups and sequence gaps using `msm.build.get_non_standard_residues()`, `msm.build.get_missing_residues()`, and `msm.build.has_hydrogens()` on T4 Lysozyme (`lysozyme`).
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.build.get_non_standard_residues`.
 
-### 3. Section 2: Repairing Missing Hydrogens & Heavy Atoms
+### 3. Section 2: Repairing Missing Atoms
 * Must demonstrate system repair by adding missing hydrogens using `msm.build.add_missing_hydrogens()`.
 
-### 4. Section 3: Auditing & Reconstructing Covalent Connectivity
+### 4. Section 3: Reconstructing Covalent Bonds
 * Must demonstrate auditing missing covalent bonds using `msm.build.get_missing_bonds()` and reconstructing bonds using `msm.build.add_missing_bonds()`.
 
 ### 5. Challenge & See Also
