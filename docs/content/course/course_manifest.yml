@@ -47,10 +47,10 @@
   display_number: 9
   title: "Physical Unit Safety"
 - id: course-core-system-modification
-  path: 00_Common_Core/10_System_Modification.ipynb
+  path: 00_Common_Core/10_Modifying_Molecular_Attributes.ipynb
   section: core
   display_number: 10
-  title: "System Modification"
+  title: "Modifying Molecular Attributes"
 - id: course-core-navigating-between-levels
   path: 00_Common_Core/11_Navigating_Between_Levels.ipynb
   section: core
