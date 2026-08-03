@@ -1,0 +1,24 @@
+# Module 20 Content Governance (`20_The_Specialized_Domains.AGENTS.md`)
+
+This document defines the **non-negotiable content contract** for `20_The_Specialized_Domains.ipynb`. 
+Global course layout and editorial style rules are inherited from [`docs/content/course/AGENTS.md`](../AGENTS.md). 
+
+Contributors modifying this notebook must strictly preserve all sections and core topics detailed below.
+
+---
+
+## 🎯 Module Core Domain & Inviolable Content Rules
+
+This module presents **The Specialized Domains** (overview of submodules `msm.build`, `msm.structure`, `msm.topology`, `msm.physchem`, `msm.hbonds`, `msm.pbc`, `msm.molecular_mechanics`, `msm.third_party`, `msm.configure`) and serves as the capstone transition from the Common Core to the 4 Specialized Master Paths.
+
+Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
+
+### 1. Introductory Block
+* Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
+
+### 2. Section Submodule Overviews
+* Must overview the primary specialized submodules with concrete Python code examples.
+
+### 3. Capstone Transition & See Also
+* Must include the **Choose Your Path** transition block guiding students to Modules 21+, and the Key Takeaway box (````{key-takeaway}`).
+* Must include the **See Also** block (`(course-core-20-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 19 and the User Guide (`{ref}`user-foundations`).
