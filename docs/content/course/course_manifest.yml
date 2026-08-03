@@ -54,10 +54,10 @@
   display_number: 11
   title: Iterating Systems
 - id: course-core-system-auditing-and-curing
-  path: 00_Common_Core/12_System_Auditing_and_Curing.ipynb
+  path: 00_Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb
   section: core
   display_number: 12
-  title: System Auditing and Curing
+  title: Building, Repairing and Auditing Systems
 - id: course-core-covalent-connectivity
   path: 00_Common_Core/13_Covalent_Connectivity.ipynb
   section: core
