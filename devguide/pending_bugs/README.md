@@ -41,6 +41,19 @@ before implementation.
 
 ## Recently closed
 
+`docs_styler_zebra_striping_lost_with_myst_nb_1_4.md` was reported and archived on
+2026-08-03. `msm.info()` returned a `Styler`, and a `Styler` emits no HTML class,
+so once MyST-NB 1.4 dropped its class-agnostic pandas rule no theme rule could
+reach the table. `info()` now tags it `dataframe` — the class pandas itself emits
+from `DataFrame.to_html()` — which restores the striping, repairs a dark-mode
+fallback that was painting the output as an inverted light box, and does so for
+the whole suite from one line. Verified on a rebuilt page, not predicted.
+
+Because `docs/conf.py:79` sets `nb_execution_mode = "off"`, 61 of the 62 notebooks
+holding `msm.info()` output still store pre-fix HTML; re-executing them is
+documentation work, and the archived report records the exact command and why the
+staleness check in `docs/execute_notebooks.py` will not flag them.
+
 `viewer_json_conversion_deep_copies_twice.md` was reported and archived on
 2026-07-31. `MolSys → ViewerJSON` read two fresh, local, discarded intermediates
 through the default deep-copying `to_dict()`; reading them with `copy=False`
