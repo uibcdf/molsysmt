@@ -117,17 +117,18 @@ To avoid bundling multi-megabyte JS runtimes into every single exported HTML fil
    ```
    > **Note**: `docs/_static/viewer.js` and `docs/_static/molsysviewer*` are listed in `.gitignore` to prevent committing 6MB binaries into Git history.
 
-3. **Embedding in Notebooks (`msv.tools.embed_iframe`)**:
-   To prevent relative path calculation errors (`../..`) across deeply nested notebook subdirectories:
+3. **Embedding in Notebooks and Markdown (`msv.tools.embed_iframe`)**:
+   To prevent relative path calculation errors (`../..`) across deeply nested subdirectories:
    ```python
    import molsysviewer as msv
 
-   # Generates the exact relative iframe HTML snippet for the notebook
    msv.tools.embed_iframe(
        "docs/_static/views/1brs.html",
        path="docs/content/user/my_page.ipynb",
    )
    ```
+   - **In Jupyter Notebooks (`.ipynb`)**: Executing this in a cell renders the interactive 3D view directly.
+   - **In Markdown Pages (`.md`)**: The same function returns the `<iframe>` HTML string with the relative `src` path pre-calculated for copy-pasting. Avoiding manual `../` calculations prevents silent embedding failures where the export and build succeed but readers see an empty frame.
 
 ### **C. Capabilities and Boundaries of Exported Scenes**
 - **Fully Supported Client-Side**: Loaded structures, selections, color maps, representations, overlays, annotations, measurements, camera controls, trajectory playback, and pop-out window.

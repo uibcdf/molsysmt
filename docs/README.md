@@ -28,7 +28,7 @@ python docs/execute_notebooks.py -n 12 -r docs/content/user
 ```
 
 - **Incremental Execution & Timestamps**: `execute_notebooks.py` tracks changes using a hybrid `git status` / commit timestamp approach. Unchanged notebooks are skipped instantly.
-- **3D Molecular Viewer Export**: Static HTML scenes are exported via `view.export.html("docs/_static/views/name.html", shared_runtime="docs/_static")` and embedded in notebooks using `msv.tools.embed_iframe("docs/_static/views/name.html", path=notebook_path)`.
+- **3D Molecular Viewer Export**: Static HTML scenes are exported via `view.export.html("docs/_static/views/name.html", shared_runtime="docs/_static")` and embedded using `msv.tools.embed_iframe("docs/_static/views/name.html", path=target_path)` (renders directly in `.ipynb` cells or returns pre-calculated relative `<iframe>` HTML for `.md` pages).
 - **Shared Runtime Hook**: `docs/conf.py` automatically extracts the runtime JS asset into `docs/_static` during Sphinx build (gitignored).
 - **Complete Architecture Specification**: See [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for full technical details.
 
