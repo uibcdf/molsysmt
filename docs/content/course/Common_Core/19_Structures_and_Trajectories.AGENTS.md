@@ -9,7 +9,7 @@ Contributors modifying this notebook must strictly preserve all sections and cor
 
 ## 🎯 Module Core Domain & Inviolable Content Rules
 
-This module presents **Structures and Trajectories**, detailing the universal technical term **`structure`** (coordinate array tensor shape `(n_structures, n_atoms, 3)`), inspecting structural attributes (`n_structures`, `structure_id`, `box`, `time`), and slicing conformational series using `structure_indices`.
+This module presents **Structures and Trajectories**, detailing the universal technical term **`structure`** (coordinate tensor shape `(n_structures, n_atoms, 3)`), inspecting structural attributes (`n_structures`, `time`, `box`), targeted index slicing on disk files, and memory-efficient trajectory streaming with `msm.Iterator()`.
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
@@ -21,9 +21,12 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must demonstrate querying `n_structures` using `msm.get(..., element='system', n_structures=True)`.
 * Must feature the **Terminology Note: "Structure" vs. "Frame"** custom admonition box (````{admonition} Terminology Note: "Structure" vs. "Frame"\n:class: dropdown info`).
 
-### 3. Section 2: Slicing Trajectories
-* Must demonstrate extracting coordinates or box vectors for specific structures using `structure_indices` in `msm.get()`.
+### 3. Section 2: Targeted Slicing
+* Must demonstrate extracting coordinates or box vectors for specific structures using `structure_indices` in `msm.get()` directly on disk files without loading full trajectories into memory.
 
-### 4. Challenge & See Also
-* Must include **Challenge 19: The Trajectory Master** using T4 Lysozyme trajectory or demonstration system, and the Key Takeaway box (````{key-takeaway}`).
+### 4. Section 3: Streaming Trajectories
+* Must demonstrate streaming atom selection batches using `msm.Iterator()` with `chunk` for memory-efficient trajectory processing.
+
+### 5. Challenge & See Also
+* Must include **Challenge 19: The Trajectory Master** using Villin Headpiece trajectory system, and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-19-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 18 and Module 20.
