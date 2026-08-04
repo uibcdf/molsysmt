@@ -55,13 +55,17 @@ nb_execution_mode = "off"
 ```
 During Sphinx HTML compilation (`make html`), Sphinx **does not execute any Python cells**. It reads the pre-rendered cell outputs (plots, HTML widgets, tables) directly embedded in the `.ipynb` JSON file.
 
-> [!WARNING]
-> **CRITICAL WARNING REGARDING MASS RE-EXECUTION**:
-> `msm.basic.view(...)` defaults to `viewer='MolSysViewer'`. Existing notebooks in `docs/content/` contain `msm.view(...)` calls without an explicit `viewer` argument. Re-executing these notebooks prematurely will switch their outputs to live `MolSysViewer` widgets, which **will fail to render on a static site without a running Python kernel**.
+> [!IMPORTANT]
+> **VISUALIZATION BACKEND POLICY**:
+> **MolSysViewer** is the mandatory default 3D viewer across all MolSysMT documentation notebooks and tutorials. **NGLView** is used ONLY in pages specifically dedicated to explaining or demonstrating NGLView integration, its usage, or its features.
 > 
-> Before running bulk execution on existing notebooks:
-> - Explicitly set `viewer='NGLView'` on notebooks intended to remain on NGLView.
-> - Or export static HTML scenes via `view.export.html(..., shared_runtime="docs/_static")` for notebooks migrating to MolSysViewer.
+> > [!WARNING]
+> > **CRITICAL WARNING REGARDING MASS RE-EXECUTION**:
+> > `msm.basic.view(...)` defaults to `viewer='MolSysViewer'`. Existing notebooks in `docs/content/` contain `msm.view(...)` calls without an explicit `viewer` argument. Re-executing these notebooks prematurely without export will switch their outputs to live `MolSysViewer` widgets, which **will fail to render on a static site without a running Python kernel**.
+> > 
+> > Migration strategy for general notebooks:
+> > - Export static HTML scenes via `view.export.html(..., shared_runtime="docs/_static")` and embed via `msv.tools.embed_iframe(...)`.
+> > - Explicitly set `viewer='NGLView'` ONLY on notebooks specifically dedicated to teaching NGLView.
 
 ### **B. Pre-Execution Script: `docs/execute_notebooks.py`**
 Developers run [`docs/execute_notebooks.py`](../docs/execute_notebooks.py) to pre-execute modified notebooks before committing:
