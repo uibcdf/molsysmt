@@ -83,5 +83,5 @@ itself mean that the function is untested or scientifically incorrect.
 | --- | --- | --- | --- |
 | `molsysmt.topology.get_bondgraph` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges` (exact) | — |
 | `molsysmt.topology.get_covalent_blocks` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components` (exact) | — |
-| `molsysmt.topology.get_covalent_chains` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_chains_match_explicit_named_paths` (exact) | — |
+| `molsysmt.topology.get_covalent_paths` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths` (exact) | — |
 | `molsysmt.topology.get_dihedral_quartets` | validated | analytic: `tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths` (exact) | — |

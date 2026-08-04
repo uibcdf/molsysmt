@@ -16,6 +16,22 @@ and provides a broad compatibility baseline. It also has costs:
 - startup or JIT costs outside MolSysMT's control;
 - limited control over streaming, diagnostics, and malformed-input policy.
 
+A measured instance of that last cost, recorded on 2026-08-03: MDTraj's DCD reader
+announces the detected format with `printf`, on every open **and** on every read,
+with no verbosity switch. Reading one DCD attribute produced four lines; a short
+loop produced twenty-six. Because the writer is C, the output cannot be captured
+with `contextlib.redirect_stdout`; MolSysMT now redirects the file descriptor
+around those calls (`_private/backend_output.py`, switchable through
+`configure.silence_backend_stdout`). biotraj, a fork of the same plugin, ships
+those lines commented out.
+
+This is evidence about diagnostics ownership, **not** a reason to write a parser.
+Silencing four lines does not justify owning specification drift, a variant corpus,
+fuzzing, and a platform wheel matrix. It does establish one requirement for
+whenever a native reader is written: **diagnostics are the caller's to control**.
+A native backend must route every message through the MolSysMT catalog with an
+explicit verbosity argument, and must never write to standard output on its own.
+
 Native parsers could remove those costs, but owning a parser also means owning
 specification drift, edge cases, security review, performance maintenance, and
 a permanent compatibility corpus. Native implementation is therefore not an

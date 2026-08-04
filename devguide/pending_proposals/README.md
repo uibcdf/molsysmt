@@ -9,6 +9,23 @@ versions: proposals are intentionally allowed to age. Record a decision, define
 acceptance criteria, and migrate durable rules into normative documents when the
 work is completed.
 
+`native_dcd_reader_rust_study_and_plan.md` is the concrete engineering study for a
+MolSysMT-owned DCD reader and writer, written on 2026-08-03 at the maintainer's
+request. It carries no approval to start: the go/no-go criteria remain those of
+`rusterization_parallel_trajectory_io.md` and `native_format_parsers_post_1_0.md`.
+
+Reading MDAnalysis's independent implementation alongside the VMD-derived one used by
+MDTraj and Biotite turned up two disagreements that affect MolSysMT **today**: only
+MDAnalysis interprets the newer CHARMM box-matrix unit cell, and the two libraries
+produce time axes differing by the AKMA-to-picosecond factor from the same file.
+
+The governing idea is section 7.0: the goal is not another DCD parser but a backend
+shaped like the `file:dcd` adapter's own surface. Every getter of that form currently
+decodes the whole trajectory, so counting frames costs as much as reading them and
+asking for one structure costs twice as much as asking for all of them. Phase 0 should
+therefore be run on its own merit — it separates adapter cost from parser cost and may
+find a defect in the current adapter, whether or not any Rust is ever written.
+
 Large architectural proposals should begin with a small evidence-gathering phase
 and must not weaken dependency policy, lifecycle integrity, diagnostics, or the
 scientific-validation requirements.

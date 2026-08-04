@@ -25,21 +25,39 @@ that the affected surface is fully verified.
 
 ### Contract and maintainability
 
+- `course_gate_red_after_common_core_renumbering.md` — the gate is green again, with
+  the Common Core module count and label scheme deferred rather than asserted while
+  the section is unconsolidated. Both must be re-enabled once it settles.
 - `sphinx_warning_baseline_and_api_reference_debt.md` — the documentation builds
   and the course has no nonexistent toctree target, but historical API,
   navigation, heading, title, and notebook-metadata warning families remain.
   The baseline is measured and explicitly accepted as non-blocking for the 1.0
   source release; new warnings must not be hidden or globally suppressed.
-- `iterator_without_explicit_attributes_fails_for_partial_forms.md` — the
-  documented molecular-system-yielding mode fails during construction for
-  coordinate-only and topology-plus-trajectory inputs; explicit attribute
-  iteration remains usable.
 
 Severity within a group still depends on the affected public workflow. Confirmed
 bugs require a regression test; suspected bugs require a minimal reproduction
 before implementation.
 
 ## Recently closed
+
+`dihedral_quartets_with_blocks_raises_on_ragged_blocks.md` was reported and archived
+on 2026-08-03. `get_dihedral_quartets(with_blocks=True)` pushed a ragged collection of
+atom-index sets through `np.array` and raised on every real system. The blocks are now
+returned as the list they always were. Three of T4 lysozyme's 161 phi quartets yield a
+single block instead of two, and they are the prolines: the ring survives the cut.
+
+`structural_attribute_resolution_ignores_the_structure_axis.md` was reported and
+archived on 2026-08-03, together with
+`iterator_without_explicit_attributes_fails_for_partial_forms.md`, which turned out
+to be one of its symptoms. A composite molecular system had no structure axis of its
+own: the same two files listed the other way round converted to one structure
+instead of twenty, silently, and `get` returned structural series of contradictory
+lengths for one system. The axis is now the largest structure count among the items
+carrying structural data, only items spanning it may deliver a structural attribute,
+and the existing last-matching-item tie-break applies among those. This completes on
+the structure axis the consistency contract the library already enforced on the atom
+axis. The precedence policy for *topological* attributes remains open, recorded
+against decision 1 of `pending_proposals/attribute_centric_molecular_system_model.md`.
 
 `docs_styler_zebra_striping_lost_with_myst_nb_1_4.md` was reported and archived on
 2026-08-03. `msm.info()` returned a `Styler`, and a `Styler` emits no HTML class,

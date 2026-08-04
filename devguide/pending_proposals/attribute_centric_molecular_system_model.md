@@ -1207,6 +1207,35 @@ discovery explicit and measurable.
 
 ## Open decisions requiring evidence
 
+> **Decisions 1 and 2 have their evidence, and the structural half is decided.**
+> See [`archive/resolved_bugs/structural_attribute_resolution_ignores_the_structure_axis.md`](../archive/resolved_bugs/structural_attribute_resolution_ignores_the_structure_axis.md).
+> Measured on 2026-08-03: a composite molecular system has no structure axis of
+> its own, so `msm.get([h5msm, dcd], n_structures=True)` returns 20 while
+> `msm.get([dcd, h5msm], n_structures=True)` returns 1, and
+> `msm.convert([dcd, h5msm], ...)` discards nineteen structures with no
+> diagnostic. `msm.get` also returns `time` of length 1 beside `coordinates` of
+> length 20 for the same system.
+>
+> The precedence policy adopted and implemented for structural attributes is: the system's
+> structure axis is the largest `n_structures` among items carrying structural
+> data, order-independent; only items spanning it may deliver a structural
+> attribute; the existing last-matching-item tie-break applies unchanged among
+> those; an item holding zero or one structure below the axis is a reference
+> conformation whose series are dropped with `StructuralAttributeDropWarning`;
+> and two items each holding more than one structure, of different lengths, raise
+> `StructuralInconsistencyError`.
+>
+> This completes a contract the library already enforces on the atom axis —
+> `_private/molecular_system_validation.py:144-151` rejects complementary items
+> with different atom counts — and which the structure axis alone lacked. The
+> asymmetry between raising on atoms and warning on structures is deliberate:
+> different atom counts mean different molecules, while a one-structure reference
+> beside a trajectory is the ordinary `[pdb, xtc]` composition.
+>
+> Decision 1 remains open for **topological** attributes, where the tie-break is
+> still positional and undecided: `[pdb, psf]` and `[psf, pdb]` need not agree on
+> which item supplies atom names. Decision 2 remains open in full.
+
 1. What compatibility and precedence policy governs complementary forms that
    deliver the same attribute?
 2. How should MolSysMT represent explicit atom and frame mappings between forms

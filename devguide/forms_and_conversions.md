@@ -84,6 +84,55 @@ and the default system request.
 Known delivery gaps are tracked under `pending_bugs/` and take precedence over
 historical claims of complete adapter verification.
 
+## Composite molecular systems and the structure axis
+
+A molecular system may be given as several complementary items. Two consistency
+contracts govern which item may deliver what, and neither depends on the order the
+caller listed them in.
+
+**Atom axis.** Complementary items must agree on `n_atoms`. They otherwise describe
+different molecules, and `assess_molecular_system` raises
+`StructuralInconsistencyError`. At most one item may provide a primary topology.
+
+**Structure axis.** Items need *not* agree on `n_structures`: a topology file
+holding a single reference conformation beside a trajectory file is an ordinary
+composition, and `[pdb, xtc]` is the most common one in molecular dynamics. The
+axis of the system is therefore defined, not required:
+
+1. The **structure axis** is the largest structure count among the items carrying
+   structural data. A form supplying no structures, such as PSF, neither defines
+   nor constrains it.
+2. A **structural** attribute may only be delivered by an item spanning that axis.
+   Among the items that do span it, the ordinary tie-break applies: the last
+   matching item wins.
+3. An item below the axis holding zero or one structure is a **reference
+   conformation**. Its structural series are not delivered, and the omission is
+   reported with `StructuralAttributeOffAxisWarning`. Absence with a diagnostic is
+   correct here; a series shorter than the system's own structure axis is not.
+4. Two items each holding **more than one** structure, of different lengths, give
+   no basis for choosing. That raises `StructuralInconsistencyError` naming
+   `concatenate_structures`, which is the operation that does join structures on
+   purpose.
+
+The asymmetry between raising on the atom axis and reporting on the structure axis
+is deliberate, not an exception: different atom counts mean different molecules,
+while a reference conformation beside a trajectory is legitimate.
+
+Implementations must not re-derive this rule locally. `_private/structure_axis.py`
+owns it; `where_is_attribute` applies it to attribute resolution and `convert`
+applies it to its own per-item attribute sets, which it resolves independently.
+Operations built on those two, `Iterator` among them, inherit it and must not add a
+second policy. The structure count of a single item must be read through
+`item_n_structures`, never through the public `get`, which would re-enter attribute
+resolution.
+
+The precedence policy for **topological** attributes delivered by more than one
+item is still positional and remains open: see open decision 1 of
+`pending_proposals/attribute_centric_molecular_system_model.md`.
+
+None of this is explained in the user-facing documentation yet; the plan to do so is
+[`docs/pending_proposals/convert_tutorial_multi_form_structure_axis.md`](docs/pending_proposals/convert_tutorial_multi_form_structure_axis.md).
+
 ## Forms with partial source information
 
 A source containing coordinates but no topology must not invent semantic

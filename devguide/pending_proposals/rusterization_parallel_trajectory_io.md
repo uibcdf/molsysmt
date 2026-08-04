@@ -18,6 +18,15 @@ remain independent readers and compatibility oracles until the native backend
 passes all acceptance gates. Existing adapters remain available as fallbacks
 during migration.
 
+**Reconsidered and declined again on 2026-08-03.** MDTraj's DCD reader prints the
+detected format to the C standard output on every open and every read, which floods
+any loop over trajectories. That is a real cost of not owning the parser, but it is
+not one of the go/no-go criteria in section 7, and it must not become a back door
+into this work: the noise was removed in `_private/backend_output.py` for the price
+of one context manager. The evidence and the requirement it implies for a future
+native reader — diagnostics controlled by the caller, never written to standard
+output — are recorded in `native_format_parsers_post_1_0.md`.
+
 ## 2. Why this is worth evaluating
 
 The current `file:dcd` and `file:xtc` paths delegate parsing and iteration to
