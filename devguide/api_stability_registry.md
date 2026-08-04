@@ -222,7 +222,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | --- | --- | --- | --- |
 | `molsysmt.topology.get_bondgraph` | stable | active | pre-1.0 |
 | `molsysmt.topology.get_covalent_blocks` | stable | active | pre-1.0 |
-| `molsysmt.topology.get_covalent_chains` | stable | active | pre-1.0 |
+| `molsysmt.topology.get_covalent_paths` | stable | active | pre-1.0 |
 | `molsysmt.topology.get_dihedral_quartets` | stable | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_alignment` | experimental | active | pre-1.0 |
 | `molsysmt.topology.get_sequence_identity` | experimental | active | pre-1.0 |
