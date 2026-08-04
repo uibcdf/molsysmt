@@ -34,7 +34,7 @@ end-user documentation.
 
 - When referencing functions or classes, link to the API using `{func}` whenever possible.
 - For links between User Guide pages, prefer labeled sections and `{ref}` roles over direct file paths; follow the conventions described in `docs/content/developer/documentation/web/references.md`.
-- Keep navigation consistent with `docs/index.ipynb` and `docs/content/user/index.ipynb`; do not remove or repurpose the main grids and toctrees without updating all affected pages.
+- Keep navigation consistent with `docs/index.ipynb` and `docs/content/user/index.md`; do not remove or repurpose the main grids and toctrees without updating all affected pages.
 
 ## Content boundaries
 

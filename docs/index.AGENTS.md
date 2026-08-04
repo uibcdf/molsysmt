@@ -56,7 +56,7 @@ No contributor or AI agent may alter or remove the following core elements:
    - Must maintain hidden toctrees referencing top-level sections:
      - `content/about/index.md`
      - `content/showcase/index.md`
-     - `content/user/index.ipynb`
+     - `content/user/index.md`
      - `content/developer/index.md`
      - `api/index.md`
      - `content/ai_assistant.md`
