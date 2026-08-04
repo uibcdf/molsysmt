@@ -9,24 +9,28 @@ Contributors modifying this notebook must strictly preserve all sections and cor
 
 ## 🎯 Module Core Domain & Inviolable Content Rules
 
-This module presents **Modifying Molecular Attributes** using MolSysMT's primary setter function **`msm.set()`**, serving as the direct counterpart to `msm.get()` (Module 08).
+This module presents attribute modification using `msm.set()` and deep system copying using `msm.copy()`.
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block
+* Must introduce form modifiability and `msm.set()`.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
-* Must explain the concept of **Modifiable Forms**: on-disk static files are non-modifiable; in-memory native objects like `molsysmt.MolSys` are modifiable.
 
 ### 2. Section 1: Modifiable Forms
-* Must demonstrate converting a non-modifiable form to `molsysmt.MolSys` prior to modification.
-* Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.set``.
+* Must explain why static files require conversion to modifiable forms (`molsysmt.MolSys`).
+* Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.set`.
 
 ### 3. Section 2: Modifying Coordinates
-* Must demonstrate updating atomic coordinates using `msm.set(molsys, element='atom', selection=..., coordinates=...)` using physical quantities or strings.
+* Must demonstrate updating 3D atomic coordinates using `msm.set(..., coordinates=...)`.
 
 ### 4. Section 3: Modifying Attributes
-* Must demonstrate updating group names, chain IDs (e.g. changing chain 'A' to 'X'), or entity identifiers, and verifying changes using `msm.info()` or `msm.get()`.
+* Must demonstrate updating topology identifiers (such as `chain_id`).
 
-### 5. Challenge & See Also
-* Must include **Challenge 10: The Molecular Editor** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
+### 5. Section 4: Duplicating Systems Before Modification
+* Must demonstrate deep copying objects with `msm.copy()` before applying in-place modifications.
+* Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.copy`.
+
+### 6. Challenge & See Also
+* Must include **Challenge 10: The Molecular Editor** using T4 Lysozyme (`181L`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-10-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 9 and Module 11.

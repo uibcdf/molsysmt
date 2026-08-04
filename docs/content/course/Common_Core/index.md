@@ -23,7 +23,7 @@ All paths share this common training ground using the **T4 Lysozyme (PDB 181L)**
 15_Semantic_Labeling.ipynb
 16_Structural_Operations.ipynb
 17_Merging_and_Growing_Systems.ipynb
-18_Surgical_Extraction_and_Removal.ipynb
+18_Extracting_and_Removing_Elements.ipynb
 19_Structures_and_Trajectories.ipynb
 20_The_Specialized_Domains.ipynb
 ```

@@ -83,11 +83,11 @@
   section: core
   display_number: 17
   title: Merging and Growing Systems
-- id: course-core-surgical-extraction-and-removal
-  path: Common_Core/18_Surgical_Extraction_and_Removal.ipynb
+- id: course-core-extracting-and-removing-elements
+  path: Common_Core/18_Extracting_and_Removing_Elements.ipynb
   section: core
   display_number: 18
-  title: Surgical Extraction and Removal
+  title: Extracting and Removing Elements
 - id: course-core-structures-and-trajectories
   path: Common_Core/19_Structures_and_Trajectories.ipynb
   section: core
