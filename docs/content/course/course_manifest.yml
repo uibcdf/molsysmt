@@ -88,10 +88,15 @@
   section: core
   display_number: 18
   title: Surgical Extraction and Removal
-- id: course-core-the-specialized-domains
-  path: Common_Core/19_The_Specialized_Domains.ipynb
+- id: course-core-structures-and-trajectories
+  path: Common_Core/19_Structures_and_Trajectories.ipynb
   section: core
   display_number: 19
+  title: Structures and Trajectories
+- id: course-core-the-specialized-domains
+  path: Common_Core/20_The_Specialized_Domains.ipynb
+  section: core
+  display_number: 20
   title: The Specialized Domains
 - id: course-alzheimer-surgical-extraction
   path: Path_Alzheimer/21_Surgical_Extraction.ipynb

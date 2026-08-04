@@ -1,6 +1,6 @@
 # Common Core
 
-The **Common Core** (Modules 01-19) equips every Master with the foundational language and tools of MolSysMT. 
+The **Common Core** (Modules 01-20) equips every Master with the foundational language and tools of MolSysMT. 
 All paths share this common training ground using the **T4 Lysozyme (PDB 181L)** and related demonstration systems.
 
 ```{toctree}
@@ -24,5 +24,6 @@ All paths share this common training ground using the **T4 Lysozyme (PDB 181L)**
 16_Structural_Operations.ipynb
 17_Merging_and_Growing_Systems.ipynb
 18_Surgical_Extraction_and_Removal.ipynb
-19_The_Specialized_Domains.ipynb
+19_Structures_and_Trajectories.ipynb
+20_The_Specialized_Domains.ipynb
 ```
