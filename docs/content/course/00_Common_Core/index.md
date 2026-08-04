@@ -19,7 +19,7 @@ All paths share this common training ground using the **T4 Lysozyme (PDB 181L)**
 11_Iterating_Systems.ipynb
 12_Building_Repairing_and_Auditing_Systems.ipynb
 13_Topological_Analysis.ipynb
-14_Comparing_Systems.ipynb
+14_System_Comparison_and_Validation.ipynb
 15_Semantic_Labeling.ipynb
 16_Merging_and_Growing_Systems.ipynb
 17_Surgical_Extraction_and_Removal.ipynb

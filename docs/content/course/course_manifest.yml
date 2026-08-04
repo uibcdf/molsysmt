@@ -64,10 +64,10 @@
   display_number: 13
   title: Topological Analysis
 - id: course-core-comparing-systems
-  path: 00_Common_Core/14_Comparing_Systems.ipynb
+  path: 00_Common_Core/14_System_Comparison_and_Validation.ipynb
   section: core
   display_number: 14
-  title: Comparing Systems
+  title: System Comparison and Validation
 - id: course-core-semantic-labeling
   path: 00_Common_Core/15_Semantic_Labeling.ipynb
   section: core
