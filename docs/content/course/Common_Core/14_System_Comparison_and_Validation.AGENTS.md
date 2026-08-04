@@ -17,7 +17,7 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must introduce system validation and comparison across data forms.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
-### 2. Section 1: Checking Attribute Presence
+### 2. Section 1: Checking What a System Contains
 * Must demonstrate testing attribute or element presence using `msm.contains()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.contains`.
 
