@@ -6,6 +6,7 @@ Executes course notebooks to ensure all code cells run cleanly without errors.
 
 import sys
 import subprocess
+import argparse
 from pathlib import Path
 
 COURSE_DIR = Path(__file__).resolve().parent.parent
@@ -27,8 +28,9 @@ def run_notebook(nb_path: Path):
     return res.returncode == 0, res.stderr
 
 
-def main():
-    print("🚀 Executing MolSysMT Master Course Notebooks...\n")
+def main(quiet: bool = False):
+    if not quiet:
+        print("🚀 Executing MolSysMT Master Course Notebooks...\n")
     total = 0
     passed = 0
     failed = 0
@@ -38,20 +40,32 @@ def main():
             continue
         total += 1
         rel_path = nb_path.relative_to(COURSE_DIR)
-        print(f"Executing {rel_path}...", end=" ", flush=True)
+        if not quiet:
+            print(f"Executing {rel_path}...", end=" ", flush=True)
         success, err = run_notebook(nb_path)
         if success:
-            print("OK")
+            if not quiet:
+                print("OK")
             passed += 1
         else:
-            print("FAILED")
+            if quiet:
+                print(f"❌ FAILED: {rel_path}")
+            else:
+                print("FAILED")
             print(f"Error details:\n{err}\n")
             failed += 1
 
-    print(f"\n📊 Summary: {passed}/{total} executed successfully.")
+    if not quiet or failed > 0:
+        print(f"\n📊 Summary: {passed}/{total} executed successfully.")
+    else:
+        print(f"✔ All {total} Master Course notebooks executed successfully.")
+
     if failed > 0:
         sys.exit(1)
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Execute Master Course Notebooks")
+    parser.add_argument("-q", "--quiet", action="store_true", help="Quiet mode: suppress successful execution logs, show errors and summary only.")
+    args = parser.parse_args()
+    main(quiet=args.quiet)

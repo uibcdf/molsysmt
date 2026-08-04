@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import json
+import time
 import subprocess
+import threading
 from pathlib import Path
 from datetime import datetime, timezone
 import argparse
@@ -16,10 +19,11 @@ RESET = "\033[0m"
 # Log file in the same directory as this script, listing notebooks that failed.
 ERROR_LOG_PATH = Path(__file__).resolve().with_name("notebook_errors.log")
 
-def write_timestamp_to_log(log_path: Path):
+def write_timestamp_to_log(log_path: Path, quiet: bool = False):
     timestamp = datetime.now(timezone.utc).timestamp()
     log_path.write_text(f"{timestamp:.6f}")
-    print(f"Timestamp written to {log_path}: {timestamp:.6f}")
+    if not quiet:
+        print(f"Timestamp written to {log_path}: {timestamp:.6f}")
     return timestamp
 
 def read_timestamp_from_log(log_path: Path) -> float:
@@ -74,7 +78,7 @@ def sanitize_notebook_outputs(notebook_path: Path) -> bool:
         print(f"Warning: could not sanitize notebook schema for {notebook_path}: {e}")
         return False
 
-def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
+def execute_notebook(notebook_path: Path, force: bool = False, quiet: bool = False, progress_tracker = None) -> bool:
 
     last_run_file = notebook_path.with_suffix('.nbconvert.last_run')
     log_file = notebook_path.with_suffix('.nbconvert.log')
@@ -100,7 +104,8 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
 
     if needs_execution or force:
 
-        print(f"Executing notebook: {notebook_path}")
+        if not quiet:
+            print(f"Executing notebook: {notebook_path}")
         env = os.environ.copy()
         env["MSM_VIEWS_FROM_HTML_FILES"] = "True"
 
@@ -117,27 +122,66 @@ def execute_notebook(notebook_path: Path, force: bool = False) -> bool:
             print(f"{RED}✘{RESET} Error executing {notebook_path}: check {log_file}")
             if last_run_file.exists():
                 last_run_file.unlink()
-            # Log failing notebook immediately to the shared error log.
             try:
                 with ERROR_LOG_PATH.open("a", encoding="utf-8") as f:
                     f.write(f"{notebook_path}\n")
             except Exception:
                 pass
+            if progress_tracker:
+                progress_tracker.update(executed=True, failed=True, notebook_path=notebook_path)
             return False
         else:
-            print(f"{GREEN}✔{RESET} Notebook {notebook_path} executed successfully.")
             sanitize_notebook_outputs(notebook_path)
-            write_timestamp_to_log(last_run_file)
+            write_timestamp_to_log(last_run_file, quiet=True)
+            if progress_tracker:
+                progress_tracker.update(executed=True, notebook_path=notebook_path)
+            elif not quiet:
+                print(f"{GREEN}✔{RESET} Notebook {notebook_path} executed successfully.")
             return True
 
     else:
-        # Ensure outputs key is present even if notebook execution is skipped
         sanitize_notebook_outputs(notebook_path)
-        print(f"{BLUE}●{RESET} Notebook {notebook_path} is up to date. No execution needed.")
+        if progress_tracker:
+            progress_tracker.update(executed=False)
+        elif not quiet:
+            print(f"{BLUE}●{RESET} Notebook {notebook_path} is up to date. No execution needed.")
         return True
 
 
-def main(force=False, notebook: Path = None, recursive: bool = False, n_workers: int = 1):
+class ProgressTracker:
+    """Milestone and time-based progress emitter inspired by pytest-receptor."""
+
+    def __init__(self, total: int, quiet: bool, step_percent: int = 20):
+        self.total = total
+        self.quiet = quiet
+        self.step_percent = step_percent
+        self.completed = 0
+        self.executed = 0
+        self.failed = 0
+        self.start_time = time.monotonic()
+        self.next_threshold = step_percent
+        self.lock = threading.Lock()
+
+    def update(self, executed: bool, failed: bool = False, notebook_path: Path = None):
+        with self.lock:
+            self.completed += 1
+            if executed:
+                self.executed += 1
+            if failed:
+                self.failed += 1
+
+            if self.quiet and self.total > 0:
+                elapsed = time.monotonic() - self.start_time
+                percent = (self.completed * 100) // self.total
+
+                # Emit milestone line at percentage threshold boundaries (e.g. 20%, 40%, 60%, 80%)
+                if percent >= self.next_threshold and self.completed < self.total:
+                    sys.stderr.write(f"execute_notebooks: {percent}% {self.completed}/{self.total} ({elapsed:.0f}s)\n")
+                    sys.stderr.flush()
+                    self.next_threshold = (percent // self.step_percent + 1) * self.step_percent
+
+
+def main(force=False, notebook: Path = None, recursive: bool = False, n_workers: int = 1, quiet: bool = False):
 
     if notebook is not None:
         if not notebook.exists():
@@ -147,25 +191,32 @@ def main(force=False, notebook: Path = None, recursive: bool = False, n_workers:
             nb_list = [notebook]
         elif notebook.is_dir():
             if recursive:
-                nb_list = notebook.rglob("*.ipynb")
+                nb_list = list(notebook.rglob("*.ipynb"))
             else:
-                nb_list = notebook.glob("*.ipynb")
+                nb_list = list(notebook.glob("*.ipynb"))
     else:
         if recursive:
-            nb_list = Path(".").rglob("*.ipynb")
+            nb_list = list(Path(".").rglob("*.ipynb"))
         else:
-            nb_list = Path(".").glob("*.ipynb")
+            nb_list = list(Path(".").glob("*.ipynb"))
 
     nb_list = [nb for nb in nb_list if ".ipynb_checkpoints" not in nb.parts]
+    total_nbs = len(nb_list)
 
     n_workers = max(1, int(n_workers) if n_workers is not None else 1)
 
+    start_time = time.monotonic()
+    if quiet:
+        sys.stderr.write(f"execute_notebooks: starting {total_nbs} notebooks using {n_workers} workers...\n")
+        sys.stderr.flush()
+
+    progress_tracker = ProgressTracker(total_nbs, quiet)
     failed_notebooks = []
 
     if n_workers == 1:
         for nb_path in nb_list:
             try:
-                ok = execute_notebook(nb_path, force)
+                ok = execute_notebook(nb_path, force, quiet=quiet, progress_tracker=progress_tracker)
             except Exception:
                 ok = False
                 try:
@@ -176,10 +227,9 @@ def main(force=False, notebook: Path = None, recursive: bool = False, n_workers:
             if not ok:
                 failed_notebooks.append(nb_path)
     else:
-        print(f"Executing {len(nb_list)} notebooks using {n_workers} workers.")
         with ThreadPoolExecutor(max_workers=n_workers) as executor:
             future_to_nb = {
-                executor.submit(execute_notebook, nb_path, force): nb_path
+                executor.submit(execute_notebook, nb_path, force, quiet, progress_tracker): nb_path
                 for nb_path in nb_list
             }
             for future, nb_path in future_to_nb.items():
@@ -195,11 +245,18 @@ def main(force=False, notebook: Path = None, recursive: bool = False, n_workers:
                 if not ok:
                     failed_notebooks.append(nb_path)
 
+    elapsed = time.monotonic() - start_time
+    executed = progress_tracker.executed
+    skipped = total_nbs - executed
+
     if failed_notebooks:
-        print(f"{RED}✘{RESET} {len(failed_notebooks)} notebook(s) failed. "
+        print(f"{RED}✘{RESET} {len(failed_notebooks)} notebook(s) failed in {elapsed:.1f}s. "
               f"See {ERROR_LOG_PATH}")
     else:
-        print(f"{GREEN}✔{RESET} All notebooks executed successfully.")
+        if quiet:
+            sys.stderr.write(f"execute_notebooks: 100% {total_nbs}/{total_nbs} ({elapsed:.1f}s)\n")
+            sys.stderr.flush()
+        print(f"{GREEN}✔{RESET} All {total_nbs} notebook(s) processed cleanly in {elapsed:.1f}s ({executed} executed, {skipped} up to date).")
 
 
 if __name__ == "__main__":
@@ -211,11 +268,10 @@ if __name__ == "__main__":
     
     Examples:
         python execute_notebooks.py                       # All notebooks in current directory
-        python execute_notebooks.py -r                    # All notebooks recursively from current directory
+        python execute_notebooks.py -q -r                 # Quiet milestone progress mode (inspired by pytest-receptor)
         python execute_notebooks.py -n 4 -r               # Recursively using 4 workers in parallel
         python execute_notebooks.py -r docs/user_guide    # All notebooks in docs/user_guide recursively
         python execute_notebooks.py analysis.ipynb        # Only that notebook
-        python execute_notebooks.py '/home/user/*.ipynb'  # Wildcard pattern (quoted)
         python execute_notebooks.py -f                    # Force re-execution of all
         python execute_notebooks.py -fr docs/user_guide   # Combine flags: force + recursive
     
@@ -231,6 +287,8 @@ if __name__ == "__main__":
                         help="Force execution of notebooks regardless of timestamps.")
     parser.add_argument("-r", "--recursive", action="store_true",
                         help="Search for notebooks recursively in directories.")
+    parser.add_argument("-q", "--quiet", action="store_true",
+                        help="Quiet mode: emit milestone percentage/time lines (pytest-receptor style); print errors and summary only.")
     parser.add_argument(
         "-n", "--n-workers", type=int, default=1,
         help="Number of worker threads to use for notebook execution. "
@@ -248,10 +306,10 @@ if __name__ == "__main__":
     if args.notebook:
         for nb in map(Path, args.notebook):
             if nb.is_file():
-                main(force=args.force, notebook=nb, recursive=args.recursive, n_workers=args.n_workers)
+                main(force=args.force, notebook=nb, recursive=args.recursive, n_workers=args.n_workers, quiet=args.quiet)
             elif nb.is_dir():
-                main(force=args.force, notebook=nb, recursive=args.recursive, n_workers=args.n_workers)
+                main(force=args.force, notebook=nb, recursive=args.recursive, n_workers=args.n_workers, quiet=args.quiet)
             else:
                 print(f"{RED}✘{RESET} File not found or not a notebook: {nb}")
     else:
-        main(force=args.force, recursive=args.recursive, n_workers=args.n_workers)
+        main(force=args.force, recursive=args.recursive, n_workers=args.n_workers, quiet=args.quiet)
