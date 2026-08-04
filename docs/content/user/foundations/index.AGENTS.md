@@ -1,6 +1,6 @@
 # Foundations Index Micro-Governance (`index.AGENTS.md`)
 
-This file defines the micro-governance rules, design constraints, and content protection contract for the main Foundations index ([`docs/content/user/foundations/index.ipynb`](index.ipynb)).
+This file defines the micro-governance rules, design constraints, and content protection contract for the main Foundations index ([`docs/content/user/foundations/index.md`](index.md)).
 
 ---
 

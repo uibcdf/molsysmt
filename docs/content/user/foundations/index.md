@@ -1,0 +1,90 @@
+(user-foundations-index)=
+# Foundations
+
+Welcome to the **Foundations** of MolSysMT. This section defines the constitutional principles, the physical rules, and the high-performance engineering that power our framework.
+
+---
+
+## **Sections**
+
+::::{grid} 1 2 2 4
+:gutter: 3
+
+:::{grid-item-card} **The Entrance**
+:link: 01_entrance/index
+:link-type: doc
+
+Mission, installation, first steps, toolbox overview, and demo systems.
+:::
+
+:::{grid-item-card} **The Molecular System**
+:link: 02_molecular_system/index
+:link-type: doc
+
+Definition, normalization, items and forms, forms, elements, and attributes.
+:::
+
+:::{grid-item-card} **The Native World**
+:link: 03_native_world/index
+:link-type: doc
+
+Native representations, topologies, H5MSM storage, and ViewerJSON.
+:::
+
+:::{grid-item-card} **The Language**
+:link: 04_language/index
+:link-type: doc
+
+Selection language, atom queries, and syntactic rules.
+:::
+
+:::{grid-item-card} **Performance**
+:link: 05_performance/index
+:link-type: doc
+
+Memory management, big data trajectories, and parallelization.
+:::
+
+:::{grid-item-card} **Governance**
+:link: 06_governance/index
+:link-type: doc
+
+Quantities, physical units, precision policies, and SMonitor.
+:::
+
+:::{grid-item-card} **Support & Coverage**
+:link: 07_support/index
+:link-type: doc
+
+Compatibility matrix across forms, libraries, and engines.
+:::
+
+:::{grid-item-card} **The Ecosystem**
+:link: 08_ecosystem/index
+:link-type: doc
+
+3D Viewers, MolSysViewer, and third-party integrations.
+:::
+
+::::
+
+```{eval-rst}
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+
+   01_entrance/index.md
+   02_molecular_system/index.md
+   03_native_world/index.md
+   04_language/index.md
+   05_performance/index.md
+   06_governance/index.md
+   07_support/index.md
+   08_ecosystem/index.md
+```
+
+--- 
+
+```{key-takeaway}
+Foundations are the difference between using a tool and mastering an ecosystem. Every API choice follows these 8 pillars.
+```
