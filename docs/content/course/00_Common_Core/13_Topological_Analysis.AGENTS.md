@@ -14,20 +14,18 @@ This module presents **Topological Analysis** using MolSysMT's `msm.topology` mo
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
 ### 1. Introductory Block
-* Must include text introducing the **`msm.topology`** function module for non-spatial topological properties.
-* Must feature the **Glossary Box** titled `Glossary: msm.topology module` explaining `msm.topology` vs 3D spatial properties (`msm.structure`).
+* Must introduce the **`msm.topology`** function module for non-spatial topological properties, explicitly defining its utility and listing key functions (`get_covalent_blocks()`, `get_covalent_paths()`, `get_sequence_alignment()`, `get_sequence_identity()`).
+* Must NOT include a glossary box.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
-### 2. Section 1: Covalent Blocks
+### 2. Section 1: Covalent Blocks and Paths
 * Must demonstrate partitioning connected covalent components using `msm.topology.get_covalent_blocks()` and cutting bonds with `remove_bonds`.
+* Must demonstrate measuring topological covalent paths using `msm.topology.get_covalent_paths()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.topology.get_covalent_blocks`.
 
-### 3. Section 2: Topological Bond Graphs
-* Must demonstrate extracting the topological bond graph as a `networkx.Graph` using `msm.topology.get_bondgraph()`.
+### 3. Section 2: Sequence Alignment and Identity
+* Must demonstrate sequence alignment and sequence identity calculations using `msm.topology.get_sequence_alignment()` and `msm.topology.get_sequence_identity()` comparing T4 Lysozyme (`181L`) with Hen Egg White Lysozyme (`1HEL`).
 
-### 4. Section 3: Covalent Paths
-* Must demonstrate calculating shortest topological paths between atom pairs using `msm.topology.get_covalent_paths()`.
-
-### 5. Challenge & See Also
-* Must include **Challenge 13: The Topology Master** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
+### 4. Challenge & See Also
+* Must include **Challenge 13: The Sequence & Topology Master** using T4 Lysozyme (`181L`) and Hen Egg White Lysozyme (`1HEL`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-13-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 12 and Module 14.
