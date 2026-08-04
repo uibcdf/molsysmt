@@ -61,8 +61,8 @@ the repository root `AGENTS.md`.
 - **Documentation Manifest (`docs_manifest.yml`):**  
   All non-course documentation sections and paired governance files must be tracked in [`docs/docs_manifest.yml`](docs_manifest.yml).
 
-- **Build Execution & Parallel Cores:**  
-  By default, `docs/Makefile` sets `SPHINXOPTS ?= -j 1` to prevent oversubscribing CPU cores or causing unexpected resource load on multi-user systems. High-performance multi-core builds should explicitly pass `SPHINXOPTS="-j N"` (e.g. `make html SPHINXOPTS="-j 12"`).
+- **Build Execution & Token Efficiency:**  
+  By default, `docs/Makefile` sets `SPHINXOPTS ?= -q -j 1` to suppress cosmetic progress bars while preserving 100% of diagnostic warnings and errors. High-performance multi-core builds SHOULD explicitly pass `SPHINXOPTS="-q -j 12"` (e.g. `make -C docs html SPHINXOPTS="-q -j 12"`) to minimize token consumption.
 
 - **Notebook Compilation & MolSysViewer Architecture:**  
   Follow the normative technical specification in [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for notebook pre-execution, timestamp tracking (`execute_notebooks.py`), and MolSysViewer static view generation.
