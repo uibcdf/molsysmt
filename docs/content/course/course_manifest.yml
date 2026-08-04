@@ -73,21 +73,21 @@
   section: core
   display_number: 15
   title: Semantic Labeling
-- id: course-core-merging-and-growing-systems
-  path: Common_Core/16_Merging_and_Growing_Systems.ipynb
+- id: course-core-structural-operations
+  path: Common_Core/16_Structural_Operations.ipynb
   section: core
   display_number: 16
-  title: Merging and Growing Systems
-- id: course-core-surgical-extraction-and-removal
-  path: Common_Core/17_Surgical_Extraction_and_Removal.ipynb
+  title: Structural Operations
+- id: course-core-merging-and-growing-systems
+  path: Common_Core/17_Merging_and_Growing_Systems.ipynb
   section: core
   display_number: 17
-  title: Surgical Extraction and Removal
-- id: course-core-structures-and-trajectories
-  path: Common_Core/18_Structures_and_Trajectories.ipynb
+  title: Merging and Growing Systems
+- id: course-core-surgical-extraction-and-removal
+  path: Common_Core/18_Surgical_Extraction_and_Removal.ipynb
   section: core
   display_number: 18
-  title: Structures and Trajectories
+  title: Surgical Extraction and Removal
 - id: course-core-the-specialized-domains
   path: Common_Core/19_The_Specialized_Domains.ipynb
   section: core
