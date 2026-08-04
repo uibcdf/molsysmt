@@ -17,20 +17,20 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must introduce the 2x2 matrix of system composition with row headers **`Topology`** and **`Structures`**.
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
-### 2. Section 1: Merging Systems (`msm.merge`)
-* Must demonstrate out-of-place fusion of T4 Lysozyme protein and BENZENE ligand into a new complex using `msm.merge()`.
+### 2. Section 1: Merging Independent Systems (`msm.merge`)
+* Must demonstrate out-of-place fusion of T4 Lysozyme protein (`molecule_type == "protein"`) and small molecule ligand (`molecule_type == "small molecule"`) into a new complex using `msm.merge()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.merge`.
 
 ### 3. Section 2: Adding Elements In-Place (`msm.add`)
 * Must demonstrate in-place element/molecule addition to an existing system using `msm.add()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.add`.
 
-### 4. Section 3: Concatenating Coordinate Structures (`msm.concatenate_structures`)
+### 4. Section 3: Concatenating Structures (`msm.concatenate_structures`)
 * Must demonstrate out-of-place structure concatenation across multiple matching systems using `msm.concatenate_structures()`.
 * Must avoid "frames" or "trajectories" terminology in favor of "structures".
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.concatenate_structures`.
 
-### 5. Section 4: Appending Coordinate Structures In-Place (`msm.append_structures`)
+### 5. Section 4: Appending Structures In-Place (`msm.append_structures`)
 * Must demonstrate in-place structure appending onto an existing system using `msm.append_structures()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.append_structures`.
 
