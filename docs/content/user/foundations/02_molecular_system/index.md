@@ -1,12 +1,36 @@
+(user-foundations-02-molecular-system)=
 # The Molecular System
 
-This section defines the core architecture of molecular models in MolSysMT: definition, description/normalization, items and forms, forms, elements, and attributes.
+Welcome to **The Molecular System**, the conceptual heart of MolSysMT. This section defines the constitutional architecture of molecular models: how systems are defined, how description strings and data normalization operate, how physical items differ from representation forms, and how orthogonal elements and attributes are structured.
+
+Understanding these foundational concepts ensures seamless interoperability when handling structures across different file formats, computational engines, and external libraries.
 
 ---
+
+## **Units**
+
+- **{doc}`definition`** {bdg-secondary}`Notebook`  
+  Core definition of a molecular system and the form-agnostic architecture of MolSysMT.
+
+- **{doc}`normalization`** {bdg-secondary}`Notebook`  
+  How input specifications, shapes, and physical units are automatically validated and normalized.
+
+- **{doc}`items`** {bdg-secondary}`Notebook`  
+  Understanding the distinction between physical molecular items and data representation forms.
+
+- **{doc}`forms`** {bdg-secondary}`Notebook`  
+  Catalog of supported native, file-based, and third-party library representations.
+
+- **{doc}`elements`** {bdg-secondary}`Notebook`  
+  The orthogonal structural hierarchy: atoms, groups, components, chains, molecules, entities, and systems.
+
+- **{doc}`attributes`** {bdg-secondary}`Notebook`  
+  Detailed guide to structural, topological, mechanical, and physicochemical molecular attributes.
 
 ```{eval-rst}
 .. toctree::
    :maxdepth: 1
+   :hidden:
 
    Molecular Systems <definition.ipynb>
    Description & Normalization <normalization.ipynb>
