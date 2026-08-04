@@ -1,7 +1,7 @@
 (user-index)=
 # **User Guide**
 
-Welcome to the MolSysMT User Guide. This portal is designed to guide you from core concepts to structural modeling mastery. Explore our architectural foundations, browse the API toolbox, follow the master course, or use practical recipes.
+Welcome to the MolSysMT User Guide. This portal is designed to guide you from core concepts to mastering working with molecular systems. Explore our architectural foundations, browse the API toolbox, follow the master course, or use practical recipes.
 
 ---
 
