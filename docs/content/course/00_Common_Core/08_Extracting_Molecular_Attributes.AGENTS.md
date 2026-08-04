@@ -29,15 +29,18 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 5. Section 4: Extracting Periodic Box Properties
 * Must demonstrate extracting box lengths, angles, and volumes.
 
-### 6. Section 5: Upward Hierarchical Mapping
+### 6. Section 5: Extracting Covalent Bonds
+* Must demonstrate extracting the covalent bond matrix using `bonded_atom_pairs=True`.
+
+### 7. Section 6: Upward Hierarchical Mapping
 * Must demonstrate querying parent properties (e.g. `group_name`, `group_index`, `chain_id`) from child selections (e.g. atom indices).
 
-### 7. Section 6: Downward Hierarchical Mapping
+### 8. Section 7: Downward Hierarchical Mapping
 * Must demonstrate querying constituent child elements (e.g. `atom_index`) from parent selections (e.g. `entity_name == "BENZENE"`).
 
-### 8. Section 7: Cross-Level Summaries
+### 9. Section 8: Cross-Level Summaries
 * Must demonstrate extracting cross-level element counts (e.g. `n_groups` per chain).
 
-### 9. Challenge & See Also
+### 10. Challenge & See Also
 * Must include **Challenge 8: The Data Scientist** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-08-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 7 and Module 9.

@@ -9,26 +9,29 @@ Contributors modifying this notebook must strictly preserve all sections and cor
 
 ## 🎯 Module Core Domain & Inviolable Content Rules
 
-This module presents **MolSysMT's Selection Mechanism** as the primary unified querying engine (`msm.select()`).
+This module presents **Selection Mechanism** using MolSysMT's universal selection engine **`msm.select()`**.
 
 Any future revision or enhancement of this notebook **MUST preserve** the following sections and essential explanations:
 
-### 1. Introductory Block & Glossary
-* Must feature the **Glossary: Selection Mechanism** admonition (````{admonition} Glossary: Selection Mechanism\n:class: dropdown info`) with an active cross-reference link to `{ref}`user-foundations``.
+### 1. Introductory Block
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
 ### 2. Section 1: Index & List-Based Selections
-* Must demonstrate direct integer and list selections (`selection=[0, 1, 2]`, `selection='all'`).
+* Must demonstrate selecting all items (`'all'`) or explicit index lists using `msm.select()`.
 
 ### 3. Section 2: Boolean Attribute Expressions & Logical Operators
-* Must demonstrate attribute selection expressions (`atom_name`, `group_name`, `molecule_type`) combined with logical operators (`and`, `or`, `not`).
+* Must demonstrate boolean expressions (`atom_name`, `group_name`, `molecule_type`) combined with logical operators (`and`, `or`, `not`).
+* Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.select`.
 
-### 4. Section 3: Element-Scoped Selections (`element=...`)
-* Must demonstrate scoping selection outputs to specific hierarchical elements using `msm.select(system, element='group', ...)`, `element='molecule'`, and `element='chain'`.
+### 4. Section 3: Element-Scoped Selections
+* Must demonstrate scoping query outputs to specific structural elements using `element=...` (`group`, `molecule`, `chain`).
 
 ### 5. Section 4: Spatial & Proximity Selections
-* Must demonstrate spatial distance selections (`within X nanometers of ...`).
+* Must demonstrate distance-based proximity queries using the `within` operator.
 
-### 6. Challenge & See Also
+### 6. Section 5: Connectivity Selections
+* Must demonstrate topological connectivity queries using the `all bonded to ...` operator.
+
+### 7. Challenge & See Also
 * Must include **Challenge 7: The Selection Master** using SARS-CoV-2 Protease (`pdb_id:6LU7`), and the Key Takeaway box (````{key-takeaway}`).
 * Must include the **See Also** block (`(course-core-07-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 6 and Module 8.

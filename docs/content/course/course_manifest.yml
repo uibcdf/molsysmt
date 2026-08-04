@@ -59,10 +59,10 @@
   display_number: 12
   title: Building, Repairing and Auditing Systems
 - id: course-core-covalent-connectivity
-  path: 00_Common_Core/13_Covalent_Connectivity.ipynb
+  path: 00_Common_Core/13_Topological_Analysis.ipynb
   section: core
   display_number: 13
-  title: Covalent Connectivity
+  title: Topological Analysis
 - id: course-core-comparing-systems
   path: 00_Common_Core/14_Comparing_Systems.ipynb
   section: core
