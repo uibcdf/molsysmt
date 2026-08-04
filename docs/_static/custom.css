@@ -171,4 +171,23 @@ html[data-theme="dark"] .logo-light {
   display: none !important;
 }
 
+/*********************************************
+* Centered DataFrames & Clean Table Layout
+*********************************************/
+table.dataframe {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border-collapse: collapse !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+table.dataframe th,
+table.dataframe td {
+  border-left: none !important;
+  border-right: none !important;
+  padding: 8px 16px !important;
+}
+
+
 
