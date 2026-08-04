@@ -11,6 +11,7 @@ All human contributors and AI agents working on Foundations content must strictl
 - **Target Audience:** MolSysMT users (scientists, computational biologists, developers) seeking to master the constitutional principles and architecture of the toolkit.
 - **Tone & Style:** English only, short direct sentences in second person ("you"), scientific rigor, and explicit physical units (nm, ps, radians, elementary charge).
 - **Scope Boundary:** Focus on core concepts, data models, selections, units, and performance. Implementation details of internal functions belong under `docs/content/developer`.
+- **Index Page Introductory Style:** The main Foundations portal (`docs/content/user/foundations/index.md`) MUST begin with a 2-paragraph conceptual overview explaining the framework's form-agnostic philosophy and architectural pillars before presenting the navigation cards.
 
 ---
 

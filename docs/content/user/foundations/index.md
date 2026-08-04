@@ -1,7 +1,9 @@
 (user-foundations-index)=
 # Foundations
 
-Welcome to the **Foundations** of MolSysMT. This section defines the constitutional principles, the physical rules, and the high-performance engineering that power our framework.
+Welcome to the **Foundations** of MolSysMT. This section introduces the core principles, architectural invariants, and high-performance design that enable MolSysMT to operate seamlessly across different molecular structures, file formats, and computational tools.
+
+Rather than treating molecular systems as rigid data structures bound to a specific software package, MolSysMT builds a form-agnostic bridge. Here you will learn how systems are defined, how physical units and quantities are safely enforced, how selection syntaxes are interpreted, and how native representations ensure speed and interoperability across the structural biology ecosystem. Explore the 8 pillars below to master the underlying framework.
 
 ---
 

@@ -9,7 +9,10 @@ This file defines the micro-governance rules, design constraints, and content pr
 1. **Title & Heading:**  
    Header H1 MUST be `# Foundations` (do NOT use `# User Guide Foundations` to maintain clean sidebar navigation).
 
-2. **The 8 Foundational Subdirectory Entries:**  
+2. **Introductory Overview:**  
+   The page MUST feature a 2-paragraph conceptual overview introducing the form-agnostic philosophy and framework principles before the section grid.
+
+3. **The 8 Foundational Subdirectory Entries:**  
    The page MUST link to all 8 thematic subdirectory index files:
    - `01_entrance/index.md` (1. The Entrance)
    - `02_molecular_system/index.md` (2. The Molecular System)
