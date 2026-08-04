@@ -114,6 +114,12 @@ CATALOG = {
             "category": "structure",
             "level": "WARNING",
         },
+        "StructuralAttributeOffAxisWarning": {
+            "code": "MSM-WARN-STRUCT-006",
+            "source": "molsysmt.warning.structure.attribute_off_axis",
+            "category": "structure",
+            "level": "WARNING",
+        },
         "SlowChunkIOWarning": {
             "code": "MSM-WARN-HVY-001",
             "source": "molsysmt.warning.heavy.slow_io",
@@ -434,6 +440,24 @@ CODES = {
         "qa_hint": "Verify that intersection semantics are intended for this test.",
         "agent_message": "Discarded one-sided structural attributes: {attributes}.",
         "agent_hint": "Use strict policy when dropping any structural series is unacceptable.",
+    },
+    "MSM-WARN-STRUCT-006": {
+        "title": "Structural attributes off the structure axis",
+        "user_message": (
+            "Structural attributes were dropped because only an item outside the structure "
+            "axis of the molecular system provides them: {attributes}."
+        ),
+        "user_hint": (
+            "A file holding a single reference conformation cannot supply a series for a "
+            "whole trajectory. Take the attribute from the trajectory item, or convert "
+            "first. Docs: {doc_url}"
+        ),
+        "dev_message": "Attributes {attributes} resolved only to items off the structure axis.",
+        "dev_hint": "Only items whose structure count equals the system axis may deliver them.",
+        "qa_message": "Attributes {attributes} resolved only to items off the structure axis.",
+        "qa_hint": "Check the structure count of every item of the composite system.",
+        "agent_message": "Dropped off-axis structural attributes: {attributes}.",
+        "agent_hint": "Compare n_structures of each item before requesting the attribute.",
     },
     "MSM-INFO-EXP-001": {
         "title": "Experimental path",

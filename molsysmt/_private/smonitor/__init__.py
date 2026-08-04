@@ -25,4 +25,5 @@ __all__ = [
     "UnknownAtomNameWarning",
     "GpuNotAvailableWarning",
     "StructuralAttributeDropWarning",
+    "StructuralAttributeOffAxisWarning",
 ]
