@@ -9,78 +9,78 @@ Welcome to the MolSysMT **Toolbox**. These functional modules provide targeted, 
 :gutter: 3
 
 :::{grid-item-card} **Basic**
-:link: basic/index.md
-:link-type: rel
+:link: basic/index
+:link-type: doc
 
 Verbs to load, inspect, convert, copy, select, compare, and display molecular systems in a form-agnostic manner.
 :::
 
 :::{grid-item-card} **Build**
-:link: build/index.md
-:link-type: rel
+:link: build/index
+:link-type: doc
 
 Methods to complete, modify, mutate, edit, solvate, and reconstruct topological or structural features.
 :::
 
 :::{grid-item-card} **Topology**
-:link: topology/index.md
-:link-type: rel
+:link: topology/index
+:link-type: doc
 
 Functions to explore and retrieve structural connectivity, element definitions, and chemical metadata.
 :::
 
 :::{grid-item-card} **Structure**
-:link: structure/index.md
-:link-type: rel
+:link: structure/index
+:link-type: doc
 
 Getters and tools to extract coordinates, compute distances, map shapes, and compute structural descriptors.
 :::
 
 :::{grid-item-card} **Periodic Boundary Conditions**
-:link: pbc/index.md
-:link-type: rel
+:link: pbc/index
+:link-type: doc
 
 Functions to handle and normalize box vectors, center systems, and calculate minimum image convention coordinates.
 :::
 
 :::{grid-item-card} **Physicochemical Properties**
-:link: physchem/index.md
-:link-type: rel
+:link: physchem/index
+:link-type: doc
 
 Methods to calculate physical, chemical, and thermodynamic properties (e.g. molecular weight, SASA).
 :::
 
 :::{grid-item-card} **Hydrogen Bonds**
-:link: hbonds/index.md
-:link-type: rel
+:link: hbonds/index
+:link-type: doc
 
 Analyzers to identify, evaluate, and monitor polar interactions and hydrogen bonds across structures.
 :::
 
 :::{grid-item-card} **Molecular Mechanics**
-:link: molecular_mechanics/index.md
-:link-type: rel
+:link: molecular_mechanics/index
+:link-type: doc
 
 Integrations to compute forces, potential energies, and set up force-field evaluations.
 :::
 
 :::{grid-item-card} **Element**
-:link: element/index.md
-:link-type: rel
+:link: element/index
+:link-type: doc
 
 APIs to query and manipulate specific entities within the orthogonal hierarchy (atoms, groups, chains, molecules).
 :::
 
 :::{grid-item-card} **Form**
-:link: form/index.md
-:link-type: rel
+:link: form/index
+:link-type: doc
 
 Specialized functions to query and inspect characteristics of specific coordinate or topology file formats.
 :::
 
 :::{grid-item-card} **Third Party**
-:link: third_party/index.md
-:link-type: rel
+:link: third_party/index
+:link-type: doc
 
 Helper modules and bridges that facilitate interoperability with external packages (e.g. NGLView, OpenMM).
 :::
