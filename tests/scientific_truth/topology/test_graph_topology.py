@@ -47,12 +47,12 @@ def test_covalent_blocks_match_closed_form_connected_components(branched_truth_s
     }
 
 
-def test_covalent_chains_match_explicit_named_paths(branched_truth_system):
+def test_covalent_paths_match_explicit_named_paths(branched_truth_system):
     """Find the two C-N-CA-C paths encoded in the synthetic graph."""
 
-    chains = msm.topology.get_covalent_chains(
+    chains = msm.topology.get_covalent_paths(
         branched_truth_system,
-        chain=[
+        path=[
             'atom_name=="C"',
             'atom_name=="N"',
             'atom_name=="CA"',

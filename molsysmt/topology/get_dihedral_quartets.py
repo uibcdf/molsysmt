@@ -27,11 +27,14 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
     list
         Quartets of atom indices for the requested dihedrals (list of lists).
     list, optional
-        If `with_blocks=True`, covalent blocks per quartet after removing the central bond.
+        If `with_blocks=True`, the covalent blocks obtained after removing the central bond
+        of each quartet: one entry per quartet, each a list of sets of atom indices. The
+        two sets of a quartet are the groups of atoms that move apart when that dihedral
+        angle is rotated. This is ragged on purpose and is not a NumPy array.
 
     Notes
     -----
-    - Uses `get_covalent_chains` to assemble quartets for each requested dihedral type.
+    - Uses `get_covalent_paths` to assemble quartets for each requested dihedral type.
 
     .. versionadded:: 1.0.0
     """
@@ -39,7 +42,7 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
     # phi, psi, omega, chi1, chi2, chi3, chi4, chi5
 
     from molsysmt.basic import get
-    from . import get_covalent_blocks, get_covalent_chains
+    from . import get_covalent_blocks, get_covalent_paths
 
     dihedral_angles = []
     for key in kwargs.keys():
@@ -52,23 +55,23 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
     for dihedral_angle in dihedral_angles:
 
         if dihedral_angle=='phi':
-            chain=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"']
+            path=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"']
         elif dihedral_angle=='psi':
-            chain=['atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"', 'atom_name=="N"']
+            path=['atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"', 'atom_name=="N"']
         elif dihedral_angle=='omega':
-            chain=['atom_name==["CA","CH3"]', 'atom_name=="C"', 'atom_name=="N"', 'atom_name==["CA","CH3"]']
+            path=['atom_name==["CA","CH3"]', 'atom_name=="C"', 'atom_name=="N"', 'atom_name==["CA","CH3"]']
         elif dihedral_angle=='chi1':
-            chain=['atom_name=="N"','atom_name=="CA"','atom_name=="CB"', 'atom_name==["CG","CG1","OG","OG1","SG"]'] # flexible but PRO
+            path=['atom_name=="N"','atom_name=="CA"','atom_name=="CB"', 'atom_name==["CG","CG1","OG","OG1","SG"]'] # flexible but PRO
         elif dihedral_angle=='chi2':
-            chain=['atom_name=="CA"','atom_name=="CB"', 'atom_name==["CG","CG1"]', 'atom_name==["CD","CD1","SD","OD1","ND1"]'] # flexible but PRO
+            path=['atom_name=="CA"','atom_name=="CB"', 'atom_name==["CG","CG1"]', 'atom_name==["CD","CD1","SD","OD1","ND1"]'] # flexible but PRO
         elif dihedral_angle=='chi3':
-            chain=['atom_name=="CB"', 'atom_name=="CG"', 'atom_name==["CD","SD"]','atom_name==["NE","OE1","CE"]']
+            path=['atom_name=="CB"', 'atom_name=="CG"', 'atom_name==["CD","SD"]','atom_name==["NE","OE1","CE"]']
         elif dihedral_angle=='chi4':
-            chain=['atom_name=="CG"', 'atom_name=="CD"', 'atom_name==["NE","CE"]', 'atom_name==["CZ","NZ"]']
+            path=['atom_name=="CG"', 'atom_name=="CD"', 'atom_name==["NE","CE"]', 'atom_name==["CZ","NZ"]']
         elif dihedral_angle=='chi5':
-            chain=['atom_name=="CD"', 'atom_name=="NE"', 'atom_name=="CZ"', 'atom_name=="NH1"']
+            path=['atom_name=="CD"', 'atom_name=="NE"', 'atom_name=="CZ"', 'atom_name=="NH1"']
 
-        quartets = get_covalent_chains(molecular_system, chain=chain, selection=selection, syntax=syntax)
+        quartets = get_covalent_paths(molecular_system, path=path, selection=selection, syntax=syntax)
 
         all_quartets.append(quartets)
 
@@ -92,7 +95,10 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
                         blocks_in_component.append(block)
                 blocks.append(blocks_in_component)
             
-            all_blocks.append(np.array(blocks))
+            # Each quartet yields blocks of different sizes, so this is a ragged
+            # structure by nature. NumPy refuses to build an array from it, and the
+            # consumers index it by quartet and by block, which a list already does.
+            all_blocks.append(blocks)
 
     
     if len(dihedral_angles)==1:

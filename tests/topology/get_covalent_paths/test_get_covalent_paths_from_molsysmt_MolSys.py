@@ -1,5 +1,5 @@
 """
-Unit and regression test for the get_covalent_chains module of the molsysmt package on molsysmt MolSys molecular
+Unit and regression test for the get_covalent_paths module of the molsysmt package on molsysmt MolSys molecular
 systems.
 """
 
@@ -10,9 +10,9 @@ import numpy as np
 
 # Distance between atoms in space and time
 
-def test_get_covalent_chains_molsysmt_MolSys_1():
+def test_get_covalent_paths_molsysmt_MolSys_1():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    covalent_chains =msm.topology.get_covalent_chains(molsys, chain=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"'],
+    covalent_paths =msm.topology.get_covalent_paths(molsys, path=['atom_name=="C"', 'atom_name=="N"', 'atom_name=="CA"', 'atom_name=="C"'],
                                                       selection="component_index==0")
     true_value_1 = np.array([[ 2,  9, 10, 11],
        [11, 16, 17, 18],
@@ -29,15 +29,15 @@ def test_get_covalent_chains_molsysmt_MolSys_1():
        [1551, 1558, 1559, 1560],
        [1560, 1566, 1567, 1568],
        [1568, 1577, 1578, 1579]])
-    check_shape_1 = np.all((247, 4)==covalent_chains.shape)
-    check_value_1 = np.all(true_value_1==covalent_chains[:5,:])
-    check_value_2 = np.all(true_value_2==covalent_chains[100:105,:])
-    check_value_3 = np.all(true_value_3==covalent_chains[200:205,:])
+    check_shape_1 = np.all((247, 4)==covalent_paths.shape)
+    check_value_1 = np.all(true_value_1==covalent_paths[:5,:])
+    check_value_2 = np.all(true_value_2==covalent_paths[100:105,:])
+    check_value_3 = np.all(true_value_3==covalent_paths[200:205,:])
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 
-def test_get_covalent_chains_molsysmt_MolSys_2():
+def test_get_covalent_paths_molsysmt_MolSys_2():
     molsys = msm.convert(systems['TcTIM']['1tcd.h5msm'], to_form='molsysmt.MolSys')
-    covalent_chains =msm.topology.get_covalent_chains(molsys, chain=['atom_name=="C"', 'atom_name=="N"',
+    covalent_paths =msm.topology.get_covalent_paths(molsys, path=['atom_name=="C"', 'atom_name=="N"',
                                                               'atom_name=="CA"', 'atom_name==["C", "CB"]'],
                                                               selection="component_index==0")
     true_value_1 = np.array([[ 2,  9, 10, 11],
@@ -55,9 +55,9 @@ def test_get_covalent_chains_molsysmt_MolSys_2():
        [809, 816, 817, 818],
        [809, 816, 817, 820],
        [818, 824, 825, 826]])
-    check_shape_1 = np.all((477, 4)==covalent_chains.shape)
-    check_value_1 = np.all(true_value_1==covalent_chains[:5,:])
-    check_value_2 = np.all(true_value_2==covalent_chains[100:105,:])
-    check_value_3 = np.all(true_value_3==covalent_chains[200:205,:])
+    check_shape_1 = np.all((477, 4)==covalent_paths.shape)
+    check_value_1 = np.all(true_value_1==covalent_paths[:5,:])
+    check_value_2 = np.all(true_value_2==covalent_paths[100:105,:])
+    check_value_3 = np.all(true_value_3==covalent_paths[200:205,:])
     assert check_shape_1 and check_value_1 and check_value_2 and check_value_3
 

@@ -9,25 +9,38 @@ from smonitor import signal
 def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_type='sets',
         syntax='MolSysMT'):
     """
-    Identifying covalent blocks (connected components) in a molecular system.
+    Identifying the sets of atoms that remain covalently connected when bonds are removed.
+
+    The purpose of this function is `remove_bonds`: it answers which atoms would still
+    hold together if the given bonds were cut. That is how the groups of atoms rotating
+    around a dihedral angle are obtained, for example.
+
+    Called without `remove_bonds` it returns the **components** of the system, since a
+    component is by definition a set of atoms mutually connected through covalent bonds.
+    In that case it adds nothing to `get(molecular_system, element='component')`, which
+    is the ordinary way of asking for them.
 
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
+        Input system in any of the :ref:`supported forms <Introduction_Forms>`.
     selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atom selection used to build the bond graph.
+        Atom selection used to build the bond graph. Atoms outside it are absent from
+        every block, so a selection can split a block just as removing a bond does.
     remove_bonds : array-like, optional
-        Bonds to remove before computing components (pairs of atom indices).
+        Pairs of atom indices to remove from the bond graph before the blocks are
+        computed. The molecular system itself is not modified: the removal is
+        hypothetical and affects only this result.
     output_type : {'sets', 'numpy.ndarray'}, default 'sets'
-        Output format: a list of sets of atom indices, or an array labeling each atom with a component id.
+        Output format: a list of sets of atom indices, or an array labeling each atom
+        with the index of the block it belongs to.
     syntax : str, default 'MolSysMT'
         Selection syntax for string-based selections.
 
     Returns
     -------
     numpy.ndarray or list
-        Covalent blocks as sets or an array of component labels (one per atom).
+        Covalent blocks as sets of atom indices, or a 0-based block label per atom.
 
     Raises
     ------
@@ -36,7 +49,18 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
 
     Notes
     -----
-    - Builds a bond graph via `get_bondgraph` and returns its connected components.
+    - Builds a bond graph with `get_bondgraph` and returns its connected components
+      after removing the requested bonds.
+    - The blocks are not the `component` attribute of the system unless `remove_bonds`
+      is `None` and `selection` is `'all'`. With either of them the result describes a
+      hypothetical connectivity, not the system's own components.
+
+    See Also
+    --------
+    :func:`molsysmt.basic.get`
+        Retrieving `component_index` and the rest of the system's own attributes.
+    :func:`molsysmt.topology.get_covalent_paths`
+        Finding paths of covalently bonded atoms matching an ordered pattern.
 
     .. versionadded:: 1.0.0
     """

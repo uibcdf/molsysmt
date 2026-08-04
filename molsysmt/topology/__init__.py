@@ -1,4 +1,4 @@
-from .get_covalent_chains import get_covalent_chains
+from .get_covalent_paths import get_covalent_paths
 from .get_covalent_blocks import get_covalent_blocks
 from .get_dihedral_quartets import get_dihedral_quartets
 from .get_bondgraph import get_bondgraph

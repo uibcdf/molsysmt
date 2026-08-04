@@ -39,7 +39,7 @@
     ],
     "gap": null
   },
-  "molsysmt.topology.get_covalent_chains": {
+  "molsysmt.topology.get_covalent_paths": {
     "domain": "topology",
     "status": "validated",
     "claim": "Identifying ordered covalent paths under the documented chain convention.",
@@ -51,7 +51,7 @@
     "scientific_evidence": [
       {
         "class": "analytic",
-        "test": "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_chains_match_explicit_named_paths",
+        "test": "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
         "oracle": "Two explicit C-N-CA-C paths in a named synthetic bond graph.",
         "comparison": "exact",
         "tolerance": null

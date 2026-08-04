@@ -39,7 +39,7 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=None, ex
     """
 
     from molsysmt import select
-    from molsysmt.topology import get_covalent_chains
+    from molsysmt.topology import get_covalent_paths
 
     output = set()
 
@@ -59,7 +59,7 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=None, ex
         tmp_not_donors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
         output.difference_update(tmp_not_donors)
 
-    output = get_covalent_chains(molecular_system, [list(output), 'atom_type=="H"'])
+    output = get_covalent_paths(molecular_system, [list(output), 'atom_type=="H"'])
     output = np.sort(output, axis=0)
 
     return output

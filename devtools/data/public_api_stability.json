@@ -1308,7 +1308,7 @@
       "documentation": "docs/content/user/tools/topology",
       "contract_tests": "tests/topology"
     },
-    "molsysmt.topology.get_covalent_chains": {
+    "molsysmt.topology.get_covalent_paths": {
       "stability": "stable",
       "introduced": "pre-1.0",
       "owner": "topology",
