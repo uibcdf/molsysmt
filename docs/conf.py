@@ -209,12 +209,9 @@ html_css_files = [
 ]
 
 def _place_runtime(app):
-    try:
-        from pathlib import Path
-        from molsysviewer.tools import export_runtime_asset
-        export_runtime_asset(str(Path(__file__).parent / "_static"))
-    except Exception as e:
-        print(f"Warning: Could not export MolSysViewer runtime asset: {e}")
+    from pathlib import Path
+    from molsysviewer.tools import export_runtime_asset
+    export_runtime_asset(str(Path(__file__).parent / "_static"))
 
 def setup(app):
     app.connect('builder-inited', _place_runtime)
