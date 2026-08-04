@@ -17,9 +17,15 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must congratulate students on completing the Common Core (Modules 01 through 20).
 * Must feature the **Learning Outcomes** collapsible custom admonition (````{admonition} Learning Outcomes\n:class: dropdown learning-outcomes`).
 
-### 2. Section 1 to 7: Specialized Domain Previews
-* Must demonstrate sample operations from `msm.build`, `msm.structure`, `msm.topology`, `msm.physchem`, `msm.hbonds`, `msm.pbc`, and `msm.third_party`.
+### 2. Previously Introduced Submodules
+* Section 1 (`msm.build`) must explicitly cross-reference [Module 12](../Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb).
+* Section 2 (`msm.structure`) must explicitly cross-reference [Module 16](../Common_Core/16_Structural_Operations.ipynb).
+* Section 3 (`msm.topology`) must explicitly cross-reference [Module 13](../Common_Core/13_Topological_Analysis.ipynb).
 
-### 3. Choose Your Scientific Path & See Also
+### 3. Specialized Domain Previews
+* Must demonstrate sample operations from `msm.physchem`, `msm.hbonds`, `msm.pbc`, `msm.molecular_mechanics`, and `msm.third_party`.
+* Must explicitly note that functions from these remaining submodules will be formally introduced and applied throughout the 4 Master Paths (Modules 21+).
+
+### 4. Choose Your Scientific Path & See Also
 * Must include the **Choose Your Scientific Path** block detailing Paths A through D.
 * Must include the **See Also** block (`(course-core-20-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 19.
