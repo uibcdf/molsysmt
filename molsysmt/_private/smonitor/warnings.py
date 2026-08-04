@@ -88,6 +88,21 @@ class MolecularSystemMismatchWarning(UserMolSysMTWarning):
         super().__init__(extra=extra)
 
 
+class StructuralAttributeOffAxisWarning(UserMolSysMTWarning):
+    """Warning about structural series held only by an item outside the structure axis."""
+
+    catalog_key = "StructuralAttributeOffAxisWarning"
+
+    def __init__(self, attributes, caller=None):
+        if isinstance(attributes, str):
+            Warning.__init__(self, attributes)
+            return
+        super().__init__(extra={
+            "attributes": ", ".join(attributes),
+            "caller": caller,
+        })
+
+
 class StructuralAttributeDropWarning(UserMolSysMTWarning):
     """Warning about one-sided structural series discarded by intersection."""
 
@@ -147,6 +162,7 @@ __all__ = [
     "NotDigestedArgumentWarning",
     "MolecularSystemMismatchWarning",
     "StructuralAttributeDropWarning",
+    "StructuralAttributeOffAxisWarning",
     "SlowChunkIOWarning",
     "MemoryPressureWarning",
     "UnknownAtomNameWarning",

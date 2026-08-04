@@ -200,6 +200,49 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
 
     return output
 
+def _prune_structural_attributes_off_the_axis(molecular_system, from_forms, from_attributes):
+    """Removing structural attributes from items that do not span the structure axis.
+
+    An item holding a single reference conformation beside a trajectory contributes
+    identity and topology, not structures. Leaving its structural series in place would
+    let item order decide how many structures the converted system has.
+    """
+
+    import warnings
+
+    from molsysmt.attribute import is_structural_attribute
+    from molsysmt._private.smonitor import StructuralAttributeOffAxisWarning
+    from molsysmt._private.structure_axis import structure_axis
+
+    axis, counts = structure_axis(molecular_system, from_forms, caller='molsysmt.convert')
+    if axis is None:
+        return
+
+    dropped = set()
+    for index, count in enumerate(counts):
+        if count is None or count == axis:
+            continue
+        off_axis = {attribute for attribute in from_attributes[index]
+                    if is_structural_attribute(attribute) and not attribute.startswith('n_')}
+        from_attributes[index] -= off_axis
+        dropped |= off_axis
+
+    # Only report what no item on the axis can supply: otherwise the attribute is
+    # delivered, just by the trajectory instead of by the reference conformation.
+    on_axis = set()
+    for index, count in enumerate(counts):
+        if count == axis:
+            on_axis |= from_attributes[index]
+    dropped -= on_axis
+
+    if dropped:
+        warnings.warn(
+            StructuralAttributeOffAxisWarning(attributes=sorted(dropped),
+                                              caller='molsysmt.convert'),
+            stacklevel=2,
+        )
+
+
 def _convert_multiple_to_one(molecular_system,
                              from_forms,
                              to_form='molsysmt.MolSys',
@@ -244,6 +287,12 @@ def _convert_multiple_to_one(molecular_system,
                 if _dict_modules[from_form].has_attribute(from_item, ii):
                     aux_set.add(ii)
         from_attributes.append(aux_set)
+
+    # Only items spanning the structure axis of the system may contribute structural
+    # attributes. Pruning them here, once, keeps the three provider searches below --
+    # which all walk the items from last to first -- from choosing a reference
+    # conformation over the trajectory just because it was listed later.
+    _prune_structural_attributes_off_the_axis(molecular_system, from_forms, from_attributes)
 
     attributes_to_be_discarded = []
     for attribute in to_attributes:

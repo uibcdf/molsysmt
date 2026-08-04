@@ -91,7 +91,11 @@ class StructuresIterator():
                                 self._time_unit, standardized=True)
 
                 elif argument == 'structure_id':
-                    if f.attrs['constant_id_step']:
+                    if f['id'].shape[0] == 0:
+                        # The dataset exists but stores nothing, as with 'time' above:
+                        # reading it would index an empty dimension.
+                        self._output_dictionary['structure_id'] = None
+                    elif f.attrs['constant_id_step']:
                         init_id = f['id'][0]
                         id_step = f.attrs['id_step']
                         self._output_dictionary['structure_id'] = (
