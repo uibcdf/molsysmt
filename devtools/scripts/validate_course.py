@@ -26,11 +26,11 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 COURSE = REPO / "docs" / "content" / "course"
 SECTIONS = {
-    "00_Common_Core": ("core", None),
-    "01_Path_Alzheimer": ("alzheimer", range(21, 55)),
-    "02_Path_Enzyme": ("enzyme", range(21, 55)),
-    "03_Path_Antiviral": ("antiviral", range(21, 55)),
-    "04_Path_Biophysics": ("biophysics", range(21, 55)),
+    "Common_Core": ("core", None),
+    "Path_Alzheimer": ("alzheimer", range(21, 55)),
+    "Path_Enzyme": ("enzyme", range(21, 55)),
+    "Path_Antiviral": ("antiviral", range(21, 55)),
+    "Path_Biophysics": ("biophysics", range(21, 55)),
 }
 
 # Sections whose module count is not settled yet. `None` above means the numbering is
@@ -42,7 +42,7 @@ SECTIONS = {
 # Common Core has not, and doing so means moving 82 anchors. Until then its labels are
 # only checked for existence and uniqueness, not for matching the manifest.
 # Tracked in devguide/pending_bugs/course_gate_red_after_common_core_renumbering.md
-UNCONSOLIDATED_LABELS = {"00_Common_Core"}
+UNCONSOLIDATED_LABELS = {"Common_Core"}
 
 
 def notebooks(d: Path):
@@ -146,7 +146,7 @@ def main() -> int:
         for e in errors:
             print(f"  - {e}")
         return 1
-    core = len(notebooks(COURSE / "00_Common_Core"))
+    core = len(notebooks(COURSE / "Common_Core"))
     print(f"Course structure valid: {total} notebooks "
           f"({core} core + 4x34 paths), toctrees, manifest, and labels consistent.")
     return 0

@@ -52,9 +52,9 @@ Upon mastering the foundations, you must select one of the **Four Specialized Pa
    :maxdepth: 1
    :hidden:
 
-   Common_Core <00_Common_Core/index>
-   Path_Alzheimer <01_Path_Alzheimer/index>
-   Path_Enzyme <02_Path_Enzyme/index>
-   Path_Antiviral <03_Path_Antiviral/index>
-   Path_Biophysics <04_Path_Biophysics/index>
+   Common_Core <Common_Core/index>
+   Path_Alzheimer <Path_Alzheimer/index>
+   Path_Enzyme <Path_Enzyme/index>
+   Path_Antiviral <Path_Antiviral/index>
+   Path_Biophysics <Path_Biophysics/index>
 ```

@@ -4,7 +4,7 @@ This guide governs the development, editorial style, and structural standards fo
 
 All human contributors and AI agents working on course content must strictly adhere to these guidelines.
 
-> **Golden Reference Model:** Module 01 ([`00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 02 ([`00_Common_Core/02_Native_Forms.ipynb`](00_Common_Core/02_Native_Forms.ipynb)) are the canonical reference models for all 54 modules in the course. Every new or updated module must mirror their exact visual, structural, and editorial pattern.
+> **Golden Reference Model:** Module 01 ([`Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 02 ([`Common_Core/02_Native_Forms.ipynb`](Common_Core/02_Native_Forms.ipynb)) are the canonical reference models for all 54 modules in the course. Every new or updated module must mirror their exact visual, structural, and editorial pattern.
 
 ---
 
@@ -12,7 +12,7 @@ All human contributors and AI agents working on course content must strictly adh
 
 1. **Spiral Learning Across Modules:** The curriculum is organized into 54 thematic **Modules**.
 2. **Terminology Standard ("Module"):** Always refer to course units and lessons as **Modules** (e.g., `Module 01: The Form-Agnostic Philosophy`, `Module 05: Molecular Anatomy`), maintaining a consistent naming convention across the entire codebase. Quedan prohibidos los términos "Phase" o "Unit".
-3. **Mandatory Hyperlink Cross-References:** Any reference in narrative text, admonitions, or seealso blocks to another Module or User Guide page **MUST be formatted as an active, clickable hyperlink** (e.g., `[Module 05: Molecular Anatomy](../00_Common_Core/index.md)` or `{ref}`/`{doc}` roles).
+3. **Mandatory Hyperlink Cross-References:** Any reference in narrative text, admonitions, or seealso blocks to another Module or User Guide page **MUST be formatted as an active, clickable hyperlink** (e.g., `[Module 05: Molecular Anatomy](../Common_Core/index.md)` or `{ref}`/`{doc}` roles).
 4. **Narrative & Problem-First:** Every module must contextualize *why* a function or concept is used in computational structural biology before demonstrating code.
 5. **Second-Person Tone:** Direct, clear, and encouraging ("you", "your").
 6. **Form-Agnostic Paradigm:** Showcase MolSysMT's ability to seamlessly handle multiple forms (files, MDTraj, OpenMM, RDKit, native objects) without forcing manual conversions.
@@ -101,7 +101,7 @@ Every module **must** end with a collapsible `:::{seealso}` admonition box (prec
 - {func}`molsysmt.basic.get` — Topology and coordinate query engine.
 
 **Related Course Modules & Guides:**
-- Next Module: [Module 2: Native Forms](../00_Common_Core/02_Native_Forms.ipynb)
+- Next Module: [Module 2: Native Forms](../Common_Core/02_Native_Forms.ipynb)
 - User Guide: {ref}`user-foundations`
 :::
 ```

@@ -19,14 +19,14 @@ The curriculum is organized into 6 operational thematic units following a **spir
 
 ## 📐 Golden Standard & Module Architecture (For Contributors)
 
-All course modules follow a strict, canonical 5-block architecture. **Module 01 ([`00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 02 ([`00_Common_Core/02_Native_Forms.ipynb`](00_Common_Core/02_Native_Forms.ipynb)) are the Golden Reference Models** for all 54 modules:
+All course modules follow a strict, canonical 5-block architecture. **Module 01 ([`Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 02 ([`Common_Core/02_Native_Forms.ipynb`](Common_Core/02_Native_Forms.ipynb)) are the Golden Reference Models** for all 54 modules:
 
 ```text
 [Bloque I: Entrada Narrativa] ➔ [Bloque II: Objectives Blockquote] ➔ [Bloque III: Hilos Discursivos] ➔ [Bloque IV: Reto & Takeaway] ➔ [Bloque V: See Also]
 ```
 
 ### Key Editorial Rules for New Modules:
-1. **Golden Model Reference:** Consult `00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb` and `00_Common_Core/02_Native_Forms.ipynb` for exact visual styling.
+1. **Golden Model Reference:** Consult `Common_Core/01_The_Form_Agnostic_Philosophy.ipynb` and `Common_Core/02_Native_Forms.ipynb` for exact visual styling.
 2. **Terminology ("Module"):** Refer to course units and lessons as **Modules** (Module 01 to Module 54).
 3. **Mandatory Hyperlinks:** All mentions of other Modules in narrative text, admonitions, or seealso blocks **must be clickable hyperlinks**.
 4. **Starter Template:** Use `_template.ipynb` when creating new notebook files.
@@ -68,7 +68,7 @@ Upon mastering the foundations, you must select one of the **Four Specialized Pa
 
 ## 🚀 Getting Started
 
-1.  Navigate to `00_Common_Core/` and open the first notebook.
+1.  Navigate to `Common_Core/` and open the first notebook.
 2.  Follow the instructions to load the 4 path systems and see MolSysMT in action.
 3.  Choose your path when prompted at the end of Module 16.
 

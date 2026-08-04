@@ -1,6 +1,6 @@
 # Pending Fix: Update Supported Forms URL in Module 01
 
-- **Module:** `00_Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`
+- **Module:** `Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`
 - **Component:** Hyperlink to "Supported Forms" section.
 - **Status:** Pending decision on final course hosting site / URL structure.
 
