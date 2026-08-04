@@ -132,6 +132,7 @@ docs/_static/viewer.js
 docs/_static/molsysviewer*
 .numba_cache/
 *.xtc_offsets.npz
+*.xtc_offsets.lock
 
 # devtools/tests generated artifacts
 devtools/tests/coverage.json

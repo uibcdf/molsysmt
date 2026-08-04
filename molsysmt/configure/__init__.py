@@ -67,6 +67,12 @@ large_list_length = 10000
 # Visibility
 show_all_capabilities = True
 
+# Some third-party parsers write progress or format notes straight to the C stdout,
+# with no verbosity switch of their own. MDTraj's DCD reader prints two lines per
+# open, which floods any loop over trajectories. Set this to False to let that
+# output through, for instance while diagnosing a malformed file.
+silence_backend_stdout = True
+
 # Heavy trajectory processing
 import os as _os
 

@@ -55,6 +55,8 @@ class StructuresIterator():
 
     def __next__(self):
 
+        from molsysmt._private.backend_output import silence_backend_stdout
+
         indices = self._indices_iterator.__next__()
 
         if indices is not None:
@@ -67,7 +69,8 @@ class StructuresIterator():
 
                 for ii in indices:
                     self.molecular_system.seek(int(ii))
-                    coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
+                    with silence_backend_stdout():
+                        coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
                     coordinates.append(np.float64(coordinates_aux[0]))
                     if box_lengths_aux is None or box_angles_aux is None:
                         box_is_available = False
@@ -77,7 +80,8 @@ class StructuresIterator():
                     del(coordinates_aux, box_lengths_aux, box_angles_aux)
             else:
                 self.molecular_system.seek(int(indices))
-                coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
+                with silence_backend_stdout():
+                    coordinates_aux, box_lengths_aux, box_angles_aux = self.molecular_system.read(1, 0, self._mdtraj_atom_indices)
                 coordinates=np.float64(coordinates_aux)
                 if box_lengths_aux is None or box_angles_aux is None:
                     box_is_available = False
