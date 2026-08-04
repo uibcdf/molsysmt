@@ -62,10 +62,10 @@ the repository root `AGENTS.md`.
   All non-course documentation sections and paired governance files must be tracked in [`docs/docs_manifest.yml`](docs_manifest.yml).
 
 - **Build Execution & Token Efficiency:**  
-  By default, `docs/Makefile` sets `SPHINXOPTS ?= -q -j 1` to suppress cosmetic progress bars while preserving 100% of diagnostic warnings and errors. High-performance multi-core builds SHOULD explicitly pass `SPHINXOPTS="-q -j 12"` (e.g. `make -C docs html SPHINXOPTS="-q -j 12"`) to minimize token consumption.
+  By default, `docs/Makefile` sets `SPHINXOPTS ?= -q -j 1` to suppress cosmetic progress bars while preserving 100% of diagnostic warnings and errors. High-performance multi-core builds MUST pass `SPHINXOPTS="-q -j 12"` (e.g. `make -C docs html SPHINXOPTS="-q -j 12"`) to minimize token consumption.
 
 - **Notebook Compilation & MolSysViewer Architecture:**  
-  Follow the normative technical specification in [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for notebook pre-execution, timestamp tracking (`execute_notebooks.py`), and MolSysViewer static view generation.
+  Follow the normative technical specification in [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for notebook pre-execution, timestamp tracking, and MolSysViewer static view generation. Pre-execution MUST be run in quiet mode (e.g. `python docs/execute_notebooks.py -q -n 12 -r docs/content/user`) to emit pytest-receptor style milestone progress without token-heavy log noise.
 
 - **Visualization Backend Policy:**  
   **MolSysViewer** is the mandatory default 3D viewer across all documentation pages and tutorials. **NGLView** is reserved exclusively for pages/notebooks specifically dedicated to demonstrating, explaining, or comparing NGLView integration.

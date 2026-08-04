@@ -70,7 +70,7 @@ During Sphinx HTML compilation (`make html`), Sphinx **does not execute any Pyth
 ### **B. Pre-Execution Script: `docs/execute_notebooks.py`**
 Developers run [`docs/execute_notebooks.py`](../docs/execute_notebooks.py) to pre-execute modified notebooks before committing:
 ```bash
-python docs/execute_notebooks.py -n 12 -r docs/content/user
+python docs/execute_notebooks.py -q -n 12 -r docs/content/user
 ```
 
 ### **C. Hybrid Modification Tracking Logic**

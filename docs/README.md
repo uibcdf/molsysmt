@@ -24,7 +24,7 @@ optional dependencies that are needed for `autodoc`, list them in `docs/requirem
 Before pushing documentation updates, execute modified Jupyter notebooks using the local pre-execution script:
 
 ```bash
-python docs/execute_notebooks.py -n 12 -r docs/content/user
+python docs/execute_notebooks.py -q -n 12 -r docs/content/user
 ```
 
 - **Incremental Execution & Timestamps**: `execute_notebooks.py` tracks changes using a hybrid `git status` / commit timestamp approach. Unchanged notebooks are skipped instantly.
