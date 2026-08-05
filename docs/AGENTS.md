@@ -12,6 +12,12 @@ the repository root `AGENTS.md`.
 - Summaries and headings for functions or tutorials should use gerund phrasing when matching docstrings (for example, “Getting box lengths and angles.”).
 - For scientific quantities, always mention units explicitly (nm, ps, radians, elementary charge).
 
+## Variable Naming Policy for Molecular Systems
+
+- In all user guide tutorials, code examples, docstrings, and documentation notebooks, the canonical variable name representing a single molecular system MUST be `molsys` (NOT `mol`).
+- When multiple molecular systems are manipulated without specific descriptive names, use `molsys_A`, `molsys_B`, `molsys_C`, etc.
+
+
 ## Markup and MyST/Sphinx usage
 
 - Pages under `docs/content` use Markdown/MyST with Sphinx directives.
