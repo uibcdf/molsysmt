@@ -9,7 +9,7 @@ currently says, state what is actually true, and say how the discrepancy was
 established — running the example beats reading the source.
 
 Documentation that is merely *missing* is a proposal, not a bug: see
-[../pending_proposals/README.md](../pending_proposals/README.md).
+[../../pending_proposals/docs/README.md](../../pending_proposals/docs/README.md).
 
 ## Current triage
 

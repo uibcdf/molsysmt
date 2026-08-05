@@ -34,6 +34,10 @@ that the affected surface is fully verified.
   The baseline is measured and explicitly accepted as non-blocking for the 1.0
   source release; new warnings must not be hidden or globally suppressed.
 
+### Documentation bugs
+
+- [`docs/README.md`](docs/README.md) — index and triage of pending documentation bugs.
+
 Severity within a group still depends on the affected public workflow. Confirmed
 bugs require a regression test; suspected bugs require a minimal reproduction
 before implementation.

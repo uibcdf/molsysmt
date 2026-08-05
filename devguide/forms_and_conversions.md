@@ -131,7 +131,7 @@ item is still positional and remains open: see open decision 1 of
 `pending_proposals/attribute_centric_molecular_system_model.md`.
 
 None of this is explained in the user-facing documentation yet; the plan to do so is
-[`docs/pending_proposals/convert_tutorial_multi_form_structure_axis.md`](docs/pending_proposals/convert_tutorial_multi_form_structure_axis.md).
+[`pending_proposals/docs/convert_tutorial_multi_form_structure_axis.md`](pending_proposals/docs/convert_tutorial_multi_form_structure_axis.md).
 
 ## Forms with partial source information
 

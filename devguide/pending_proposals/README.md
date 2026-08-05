@@ -38,7 +38,8 @@ scientific-validation requirements.
   conversion fidelity, productizing the Rust extension, removing Numba before
   1.0, completing documentation lifecycle work, and running the release gates.
 - `technical_and_scientific_quality_improvement_program.md` — umbrella quality
-  program; split accepted work into smaller changes.
+  plan for the codebase, dependencies, documentation, and scientific validation.
+- `docs/README.md` — index and triage of pending documentation proposals.
 - `documentation_lifecycle_manifest.md` — API-to-doc/course traceability.
 - `catalog_diagnostics_migration.md` — risk-ranked diagnostics cleanup.
 - `benchmark_regression_gate_reliability.md` — statistically credible gates.
