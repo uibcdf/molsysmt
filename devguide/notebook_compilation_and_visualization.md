@@ -147,6 +147,34 @@ To avoid bundling multi-megabyte JS runtimes into every single exported HTML fil
 
 ---
 
+### **D. The `msm.view()` Notebook Illusion Pattern (`MSM_VIEWS_FROM_HTML_FILES`)**
+
+To maintain clean, elegant documentation, tutorial notebooks display standard `msm.view(...)` calls to readers without exposing embedding helper code.
+
+1. **Pre-generation Script**:
+   Static HTML views are pre-generated via dedicated scripts under `docs/generate_static_views/` using `view.export.html(..., background="transparent", shared_runtime="docs/_static")`.
+
+2. **Hidden Target Assignment Cell (`remove-input` tag)**:
+   Immediately before an `msm.view(...)` cell, a hidden code cell tagged with `remove-input` defines the target view file:
+   ```python
+   molsysviewer_htmlfile = '_static/views/<target_file>.html'
+   ```
+   Sphinx strips input for this cell from compiled HTML due to the `remove-input` tag.
+
+3. **Pre-Execution Interception (`docs/execute_notebooks.py`)**:
+   During notebook pre-execution, `docs/execute_notebooks.py` exports two environment variables:
+   - `MSM_VIEWS_FROM_HTML_FILES=True`
+   - `MSM_DOCS_NOTEBOOK=<path_to_notebook>`
+
+4. **Frame Stack Interception in `molsysmt.view()`**:
+   When `msm.view(...)` executes:
+   - It inspects the caller frame stack for `molsysviewer_htmlfile`.
+   - It pops `molsysviewer_htmlfile` from local scope to prevent namespace pollution.
+   - It invokes `molsysviewer.tools.embed_iframe(htmlfile, path=MSM_DOCS_NOTEBOOK)` to generate the relative `<iframe>` output.
+   - If `MSM_VIEWS_FROM_HTML_FILES=True` is enabled but no target file is in scope, `msm.view()` raises a `RuntimeError` to prevent silent fallback to live widgets.
+
+---
+
 ## 4. Maintenance Checklist for Developers
 
 When adding or modifying notebooks:
