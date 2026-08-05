@@ -6,7 +6,7 @@ def path(package, file):
 
 
 class SystemsDict(dict):
-    """Subclass of dict holding pre-packaged demo systems and category metadata."""
+    """Custom dictionary for molsysmt.systems holding pre-packaged demo systems and metadata."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -135,7 +135,7 @@ systems['POPC membrane']['popc_membrane.dcd'] = path('molsysmt.data.dcd', 'popc_
 
 
 # -----------------------------------------------------------------------------
-# Toy Models & Test Systems
+# Toy & Synthetic Models
 # -----------------------------------------------------------------------------
 
 systems['two LJ particles'] = {}
@@ -154,105 +154,247 @@ systems['nglview']['md_1u19.xtc'] = path('molsysmt.data.xtc', 'md_1u19.xtc')
 
 
 # -----------------------------------------------------------------------------
-# System Metadata & Categories Dictionary
+# Rich Metadata Catalog & File Descriptions
 # -----------------------------------------------------------------------------
 
 systems.info = {
+    # Dipeptides & Small Peptides
     'alanine dipeptide': {
+        'title': 'Alanine Dipeptide',
         'category': 'Dipeptides & Small Peptides',
-        'description': 'Alanine dipeptide (ACE-ALA-NME) benchmark system in H5MSM format.'
+        'summary': 'Ace-Ala-NME capped dipeptide benchmark system containing 12 heavy/hydrogen atoms.',
+        'files': {
+            'alanine_dipeptide.h5msm': 'Native MolSysMT HDF5 file containing full topology, 12 atoms, and coordinates.'
+        }
     },
     'proline dipeptide': {
+        'title': 'Proline Dipeptide',
         'category': 'Dipeptides & Small Peptides',
-        'description': 'Proline dipeptide in H5MSM format.'
+        'summary': 'Ace-Pro-NME capped dipeptide featuring a cyclic pyrrolidine sidechain.',
+        'files': {
+            'proline_dipeptide.h5msm': 'Native MolSysMT HDF5 file with complete topology, coordinates, and physical units.'
+        }
     },
     'valine dipeptide': {
+        'title': 'Valine Dipeptide',
         'category': 'Dipeptides & Small Peptides',
-        'description': 'Valine dipeptide in H5MSM format.'
+        'summary': 'Ace-Val-NME capped dipeptide featuring a branched aliphatic sidechain.',
+        'files': {
+            'valine_dipeptide.h5msm': 'Native MolSysMT HDF5 file with complete topology, coordinates, and physical units.'
+        }
     },
     'lysine dipeptide': {
+        'title': 'Lysine Dipeptide',
         'category': 'Dipeptides & Small Peptides',
-        'description': 'Lysine dipeptide in H5MSM format.'
+        'summary': 'Ace-Lys-NME capped dipeptide with a positively charged sidechain.',
+        'files': {
+            'lysine_dipeptide.h5msm': 'Native MolSysMT HDF5 file with complete topology, coordinates, and physical units.'
+        }
     },
     'pentalanine': {
+        'title': 'Pentalanine Peptide',
         'category': 'Dipeptides & Small Peptides',
-        'description': 'Pentalanine peptide in Amber prmtop/inpcrd and trajectory formats.'
+        'summary': 'Uncapped Ala5 peptide benchmark dataset with Amber topology and trajectory files.',
+        'files': {
+            'pentalanine.inpcrd': 'Amber initial coordinate file (INPCRD format).',
+            'pentalanine.prmtop': 'Amber molecular topology and forcefield parameter file (PRMTOP format).',
+            'traj_pentalanine.h5': 'HDF5 trajectory file containing coordinate frames.',
+            'traj_pentalanine.h5msm': 'Native MolSysMT HDF5 trajectory file containing complete dynamics and topology.'
+        }
     },
     'Met-enkephalin': {
+        'title': 'Met-Enkephalin Pentapeptide',
         'category': 'Dipeptides & Small Peptides',
-        'description': 'Pentapeptide neurotransmitter Met-enkephalin (PDB and H5MSM).'
+        'summary': 'Endogenous opioid pentapeptide (sequence Tyr-Gly-Gly-Phe-Met).',
+        'files': {
+            'met_enkephalin.pdb': 'Protein Data Bank structure file (PDB format).',
+            'met_enkephalin.h5msm': 'Native MolSysMT HDF5 file with topology and 3D coordinates.'
+        }
     },
+
+    # Small & Globular Proteins
     'Trp-Cage': {
+        'title': 'Trp-Cage TC5b Mini-Protein',
         'category': 'Small & Globular Proteins',
-        'description': '20-residue synthetic mini-protein Trp-Cage TC5b (PDB 1L2Y).'
+        'summary': '20-residue synthetic mini-protein TC5b (PDB 1L2Y) folding into a compact hydrophobic cage.',
+        'files': {
+            '1l2y.pdb': 'PDB file containing the 20-model NMR structure ensemble.',
+            '1l2y.bcif.gz': 'Compressed Binary CIF file containing full atomic coordinates and experimental metadata.',
+            '1l2y.h5msm': 'Native MolSysMT HDF5 file containing normalized topology, coordinates, and physical units for all 20 frames.'
+        }
     },
     'chicken villin HP35': {
+        'title': 'Chicken Villin Headpiece HP35',
         'category': 'Small & Globular Proteins',
-        'description': 'Villin headpiece subdomain HP35 (PDB 1VII), solvated structure and DCD trajectory.'
+        'summary': '35-residue fast-folding subdomain (PDB 1VII), including solvated structure and DCD trajectory.',
+        'files': {
+            '1vii.pdb': 'Original PDB structure file (PDB format).',
+            '1vii.bcif': 'Binary CIF structure file (BCIF format).',
+            '1vii.bcif.gz': 'Gzip-compressed Binary CIF structure file (BCIF.GZ format).',
+            'chicken_villin_HP35.h5msm': 'Native MolSysMT HDF5 file for the vacuum protein structure.',
+            'chicken_villin_HP35_solvated.h5msm': 'Native MolSysMT HDF5 file for the protein solvated in a water box.',
+            'traj_chicken_villin_HP35_solvated.dcd': 'CHARMM/NAMD DCD binary trajectory file of solvated dynamics.',
+            'traj_chicken_villin_HP35_solvated.h5': 'HDF5 trajectory file containing coordinate frames.',
+            'traj_chicken_villin_HP35_solvated.h5msm': 'Native MolSysMT HDF5 trajectory file with solvated protein dynamics.'
+        }
     },
     'T4 lysozyme L99A': {
+        'title': 'T4 Lysozyme L99A Cavity Mutant',
         'category': 'Small & Globular Proteins',
-        'description': 'T4 Lysozyme L99A mutant cavity system (PDB 181L, 1L17).'
+        'summary': 'Engineered T4 lysozyme mutant with an internal hydrophobic cavity for ligand binding studies.',
+        'files': {
+            '181l.pdb': 'PDB file of the benzene-bound L99A cavity mutant (PDB 181L).',
+            '181l.bcif.gz': 'Compressed Binary CIF file for structure 181L.',
+            '181l.h5msm': 'Native MolSysMT HDF5 file for structure 181L.',
+            '1l17.pdb': 'PDB file of the Apo L99A cavity mutant (PDB 1L17).',
+            '1l17.h5msm': 'Native MolSysMT HDF5 file for structure 1L17.',
+            't4_lysozyme_L99A.h5msm': 'Consolidated native MolSysMT HDF5 file for T4 lysozyme L99A.'
+        }
     },
     'TcTIM': {
+        'title': 'Trypanosoma cruzi Triosephosphate Isomerase',
         'category': 'Small & Globular Proteins',
-        'description': 'Trypanosoma cruzi Triosephosphate Isomerase (PDB 1TCD).'
+        'summary': 'Homodimeric glycolytic enzyme Triosephosphate Isomerase from Trypanosoma cruzi (PDB 1TCD).',
+        'files': {
+            '1tcd.pdb': 'PDB crystal structure file (PDB format).',
+            '1tcd.bcif.gz': 'Compressed Binary CIF file (BCIF.GZ format).',
+            '1tcd.h5msm': 'Native MolSysMT HDF5 file containing homodimer topology and 3D coordinates.'
+        }
     },
     'Hexokinase 2': {
+        'title': 'Human Hexokinase 2',
         'category': 'Small & Globular Proteins',
-        'description': 'Human Hexokinase 2 enzyme (PDB 2NZT).'
+        'summary': 'Key glycolytic enzyme Human Hexokinase 2 bound to glucose and inhibitor (PDB 2NZT).',
+        'files': {
+            '2nzt.bcif.gz': 'Compressed Binary CIF file (BCIF.GZ format).',
+            '2nzt.h5msm': 'Native MolSysMT HDF5 file containing full enzyme topology and coordinates.'
+        }
     },
+
+    # Complexes & Large Assemblies
     'Barnase-Barstar': {
+        'title': 'Barnase-Barstar Protein-Protein Complex',
         'category': 'Complexes & Assemblies',
-        'description': 'Ribonuclease Barnase bound to inhibitor Barstar (PDB 1BRS).'
+        'summary': 'Ultra-high affinity complex between bacterial ribonuclease Barnase and inhibitor Barstar (PDB 1BRS).',
+        'files': {
+            '1brs.bcif': 'Binary CIF structure file for the 1BRS complex.',
+            '1brs.bcif.gz': 'Compressed Binary CIF structure file.',
+            '1brs.h5msm': 'Native MolSysMT HDF5 file for 1BRS crystal structure.',
+            'barnase_barstar.h5msm': 'Consolidated native MolSysMT HDF5 file for the Barnase-Barstar complex.'
+        }
     },
     '1YCR': {
+        'title': 'MDM2 - p53 Peptide Complex',
         'category': 'Complexes & Assemblies',
-        'description': 'MDM2 bound to p53 transactivation domain peptide (PDB 1YCR).'
+        'summary': 'Human MDM2 oncogene bound to the p53 transactivation domain peptide (PDB 1YCR).',
+        'files': {
+            '1ycr.pdb': 'PDB structure file featuring SOURCE records without trailing semicolons.',
+            '1ycr.bcif.gz': 'Compressed Binary CIF file for 1YCR complex.'
+        }
     },
     '1ATP': {
+        'title': 'PKA Kinase Complex',
         'category': 'Complexes & Assemblies',
-        'description': 'cAMP-dependent protein kinase catalytic subunit complex (PDB 1ATP).'
+        'summary': 'cAMP-dependent protein kinase catalytic subunit complexed with Mn2+ ATP and inhibitor (PDB 1ATP).',
+        'files': {
+            '1atp.pdb': 'PDB structure file with HETSYN hetero-group records.',
+            '1atp.bcif.gz': 'Compressed Binary CIF file for 1ATP complex.'
+        }
     },
     '1CEN': {
+        'title': 'CENP-B DNA-Binding Domain',
         'category': 'Complexes & Assemblies',
-        'description': 'Centromere protein B DNA-binding domain (PDB 1CEN).'
+        'summary': 'Centromere protein B DNA-binding domain crystal structure (PDB 1CEN).',
+        'files': {
+            '1cen.pdb': 'PDB structure file with HETSYN hetero-group records.',
+            '1cen.bcif.gz': 'Compressed Binary CIF file for 1CEN structure.'
+        }
     },
     '2HGR': {
+        'title': 'Ribosome Structural Benchmark',
         'category': 'Complexes & Assemblies',
-        'description': 'Ribosome structural benchmark dataset (PDB 2HGR).'
+        'summary': 'Split/obsolete ribosome structural benchmark dataset (PDB 2HGR).',
+        'files': {
+            '2hgr.pdb': 'Original PDB structure file with OBSLTE and SPLIT records.'
+        }
     },
     '4V4Z': {
+        'title': 'Thermus thermophilus 70S Ribosome',
         'category': 'Complexes & Assemblies',
-        'description': 'Thermus thermophilus 70S ribosome assembly (PDB 4V4Z, 149,640 atoms).'
+        'summary': 'Macromolecular 70S ribosome assembly (PDB 4V4Z) containing 149,640 atoms.',
+        'files': {
+            '4v4z.bcif.gz': 'Compressed Binary CIF file supporting atom counts exceeding standard PDB limits.',
+            '4v4z_openmm.pdb': 'OpenMM PDB file with uppercase hex serial overflow formatting.'
+        }
     },
+
+    # Small Molecules & Ligands
     'benzamidine': {
+        'title': 'Benzamidine Ligand',
         'category': 'Small Molecules & Ligands',
-        'description': 'Benzamidine aromatic ligand (PDB format).'
+        'summary': 'Benzamidine synthetic aromatic inhibitor ligand.',
+        'files': {
+            'benzamidine.pdb': 'PDB format structure file for benzamidine.'
+        }
     },
     'caffeine': {
+        'title': 'Caffeine Small Molecule',
         'category': 'Small Molecules & Ligands',
-        'description': 'Caffeine small molecule (MOL2 format).'
+        'summary': 'Caffeine xanthine alkaloid small molecule.',
+        'files': {
+            'caffeine.mol2': 'Tripos MOL2 format file containing bond types, atom types, and partial charges.'
+        }
     },
+
+    # Lipids & Membranes
     'POPC': {
+        'title': 'POPC Lipid Molecule',
         'category': 'Lipids & Membranes',
-        'description': 'Single POPC lipid molecule (CHARMM PSF/CRD).'
+        'summary': 'Single POPC (1-palmitoyl-2-oleoyl-sn-glycero-3-phosphocholine) zwitterionic lipid molecule.',
+        'files': {
+            'popc.crd': 'CHARMM CRD coordinate file.',
+            'popc.psf': 'CHARMM PSF protein/lipid structure file.'
+        }
     },
     'POPC membrane': {
+        'title': 'POPC Lipid Bilayer Membrane',
         'category': 'Lipids & Membranes',
-        'description': 'Hydrated POPC lipid bilayer membrane simulation trajectory (CHARMM PSF and DCD).'
+        'summary': 'Hydrated POPC lipid bilayer membrane simulation system and trajectory.',
+        'files': {
+            'popc_membrane.psf': 'CHARMM PSF topology file for the lipid bilayer system.',
+            'popc_membrane.dcd': 'CHARMM/NAMD DCD binary trajectory file of membrane dynamics.'
+        }
     },
+
+    # Toy & Synthetic Models
     'two LJ particles': {
+        'title': 'Two Lennard-Jones Particles',
         'category': 'Toy & Synthetic Models',
-        'description': 'Two Lennard-Jones particles toy trajectory.'
+        'summary': 'Minimalist 2-particle Lennard-Jones toy system trajectory.',
+        'files': {
+            'traj_two_lj_particles.trjpk': 'Pickled trajectory file for algorithmic unit testing.'
+        }
     },
     'particles 4': {
+        'title': 'Particles 4 Trajectory',
         'category': 'Toy & Synthetic Models',
-        'description': '4-particle spatial trajectory in XYZ NumPy format.'
+        'summary': '4-particle spatial coordinate trajectory.',
+        'files': {
+            'traj_particles_4.xyznpy': 'NumPy NPY binary array file containing (n_frames, 4, 3) coordinates.'
+        }
     },
     'nglview': {
+        'title': 'NGLView Bridge Test Suite',
         'category': 'Toy & Synthetic Models',
-        'description': 'Test files for NGLView and MDTraj integration (ala3, md_1u19 GRO/XTC/TRR).'
+        'summary': 'Specialized test files for NGLView, MDTraj, and GROMACS interoperability bridges.',
+        'files': {
+            'ala3.pdb': 'Tri-alanine peptide PDB structure file.',
+            'md_1u19.gro': 'GROMACS GRO structure file for PDB 1U19.',
+            'md_1u19.pdb': 'PDB structure file for PDB 1U19.',
+            'md_1u19.traj': 'MDTraj trajectory file.',
+            'md_1u19.trr': 'GROMACS TRR full-precision binary trajectory file.',
+            'md_1u19.xtc': 'GROMACS XTC compressed binary trajectory file.'
+        }
     }
 }
 
