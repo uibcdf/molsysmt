@@ -29,7 +29,7 @@ Whether you are configuring your environment for the first time or exploring bun
    :maxdepth: 1
    :hidden:
 
-   What is MolSysMT? <what_is_molsysmt.ipynb>
+   What is MolSysMT? <what_is_molsysmt.md>
    Installation <installation.md>
    First Steps <first_steps.md>
    Overview of Tools <toolbox_overview.ipynb>

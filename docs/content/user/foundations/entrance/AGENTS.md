@@ -7,7 +7,7 @@ Cover the first contact topics: mission statement, installation instructions, fi
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
 - `index.md` ➔ `index.AGENTS.md`: Group landing page with `toctree`.
-- `what_is_molsysmt.ipynb` ➔ `what_is_molsysmt.ipynb.AGENTS.md`: What is MolSysMT, form-agnostic philosophy.
+- `what_is_molsysmt.md` ➔ `what_is_molsysmt.md.AGENTS.md`: What is MolSysMT, form-agnostic philosophy.
 - `installation.md` ➔ `installation.AGENTS.md`: Installation via Conda and PyPI.
 - `first_steps.md` ➔ `first_steps.AGENTS.md`: Initial quickstart walk-through.
 - `toolbox_overview.ipynb` ➔ `toolbox_overview.AGENTS.md`: Overview of the API functional modules.
