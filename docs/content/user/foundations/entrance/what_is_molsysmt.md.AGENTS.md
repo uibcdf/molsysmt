@@ -17,7 +17,7 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
    - **Form-Agnostic Paradigm**: Explicit definition of form agnosticism across 89 supported forms (75 Tier-1 stable).
    - **Native Preparation Pipeline**: Native capability to diagnose and repair heavy atoms, cappings, protonation at pH, solvation, and ions without requiring external tools like PDBFixer.
    - **Native Rust Compute**: Precompiled Rust kernels for distances, SASA, RMSD, gyration radius, and dihedrals with 0ms JIT warmup.
-   - **Physical Safety & Purpose-Built Infrastructure**: Explicit inclusion of UIB-CDF infrastructure libraries powering MolSysSuite: `pyunitwizard` (units), `argdigest` (validation passports), `depdigest` (lazy dependencies), and `smonitor` (structured diagnostics).
+   - **Physical Safety & Purpose-Built Infrastructure**: Explicit inclusion of UIBCDF infrastructure libraries powering MolSysSuite: `pyunitwizard` (units), `argdigest` (validation passports), `depdigest` (lazy dependencies), and `smonitor` (structured diagnostics).
    - **MolSysSuite Foundation**: Positioning MolSysMT as the core "Operating System" for molecular data powering TopoMT, ElastNetMT, and MolSysViewer.
 
 4. **Frozen Admonitions**:

@@ -32,7 +32,7 @@ Analytical operations (including pairwise distances, neighbor lists, RMSD, struc
 All physical quantities in MolSysMT carry explicit physical units powered by `pyunitwizard` (nanometers, picoseconds, radians, elementary charges, Kelvin). Unit conversions, array dimensions, and coordinate invariants are validated automatically to safeguard scientific integrity.
 
 ### 5. Purpose-Built Infrastructure Libraries
-Behind MolSysMT lies a specialized suite of core infrastructure libraries designed at UIB-CDF for the **MolSysSuite** ecosystem to guarantee scientific precision, high performance, and software reliability:
+Behind MolSysMT lies a specialized suite of core infrastructure libraries designed at UIBCDF for the **MolSysSuite** ecosystem to guarantee scientific precision, high performance, and software reliability:
 - **`pyunitwizard`**: Universal management, validation, and conversion of physical quantities and units.
 - **`argdigest`**: Strict argument validation and high-frequency normalization passports (`ValidatedPayload`) for zero-overhead internal execution.
 - **`depdigest`**: Dynamic lazy dependency management and feature discovery with instant library startup.
@@ -42,7 +42,7 @@ Behind MolSysMT lies a specialized suite of core infrastructure libraries design
 
 ## The Engine of MolSysSuite
 
-MolSysMT serves as the foundational "Operating System" for molecular data within the [**MolSysSuite**](https://www.uibcdf.org/) ecosystem developed at the UIB-CDF. Higher-level specialized libraries — such as **TopoMT** for topological analysis, **ElastNetMT** for elastic network models, and **MolSysViewer** for 3D web visualization — rely on MolSysMT as their underlying data engine.
+MolSysMT serves as the foundational "Operating System" for molecular data within the [**MolSysSuite**](https://www.uibcdf.org/) ecosystem developed at UIBCDF. Higher-level specialized libraries — such as **TopoMT** for topological analysis, **ElastNetMT** for elastic network models, and **MolSysViewer** for 3D web visualization — rely on MolSysMT as their underlying data engine.
 
 ---
 
