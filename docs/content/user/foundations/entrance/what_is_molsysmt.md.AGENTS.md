@@ -18,7 +18,7 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
    - **Native Preparation Pipeline**: Native capability to diagnose and repair heavy atoms, cappings, protonation at pH, solvation, and ions without requiring external tools like PDBFixer.
    - **Native Rust Compute**: Precompiled Rust kernels for distances, SASA, RMSD, gyration radius, and dihedrals with 0ms JIT warmup.
    - **Physical Safety (`pyunitwizard`)**: Strict unit management across physical quantities.
-   - **MolSysSuite Foundation**: Positioning MolSysMT as the core "Operating System" for molecular data powering TopoMet, ElastNetMT, and MolSysViewer.
+   - **MolSysSuite Foundation**: Positioning MolSysMT as the core "Operating System" for molecular data powering TopoMT, ElastNetMT, and MolSysViewer.
 
 4. **Frozen Admonitions**:
    - The `Explore at Your Own Pace` admonition inviting the reader to test capabilities throughout the User Guide.

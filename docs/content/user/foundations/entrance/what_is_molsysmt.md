@@ -35,7 +35,7 @@ All physical quantities in MolSysMT carry explicit physical units powered by `py
 
 ## The Engine of MolSysSuite
 
-MolSysMT serves as the foundational "Operating System" for molecular data within the [**MolSysSuite**](https://www.uibcdf.org/) ecosystem developed at the UIB-CDF. Higher-level specialized libraries — such as **TopoMet** for topological analysis, **ElastNetMT** for elastic network models, and **MolSysViewer** for 3D web visualization — rely on MolSysMT as their underlying data engine.
+MolSysMT serves as the foundational "Operating System" for molecular data within the [**MolSysSuite**](https://www.uibcdf.org/) ecosystem developed at the UIB-CDF. Higher-level specialized libraries — such as **TopoMT** for topological analysis, **ElastNetMT** for elastic network models, and **MolSysViewer** for 3D web visualization — rely on MolSysMT as their underlying data engine.
 
 ---
 
