@@ -32,6 +32,6 @@ Whether you are configuring your environment for the first time or exploring bun
    What is MolSysMT? <what_is_molsysmt.md>
    Installation <installation.md>
    Navigating the Documentation <navigating_documentation.md>
-   Overview of Tools <toolbox_overview.ipynb>
+   Overview of Tools <toolbox_overview.md>
    Demo Systems <demo_systems.ipynb>
 ```
