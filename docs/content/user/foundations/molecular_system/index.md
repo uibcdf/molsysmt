@@ -7,7 +7,7 @@ Understanding these foundational concepts ensures seamless interoperability when
 
 ---
 
-## **Units**
+## **Contents**
 
 - **{doc}`definition`**  
   Core definition of a molecular system and the form-agnostic architecture of MolSysMT.

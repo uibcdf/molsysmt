@@ -7,7 +7,7 @@ Whether you are configuring your environment for the first time or exploring bun
 
 ---
 
-## **Units**
+## **Contents**
 
 - **{doc}`molsysmt_mission`**  
   Learn about the form-agnostic philosophy, mission, and key architectural goals of MolSysMT.

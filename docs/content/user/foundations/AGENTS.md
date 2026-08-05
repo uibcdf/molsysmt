@@ -13,9 +13,9 @@ All human contributors and AI agents working on Foundations content must strictl
 - **Scope Boundary:** Focus on core concepts, data models, selections, units, and performance. Implementation details of internal functions belong under `docs/content/developer`.
 - **Index Page Introductory Style:** The main Foundations portal (`docs/content/user/foundations/index.md`) MUST begin with a 2-paragraph conceptual overview explaining the framework's form-agnostic philosophy and architectural pillars before presenting the navigation cards.
 - **Subdirectory Naming Policy:** Subdirectories under `docs/content/user/foundations` MUST NOT use leading number prefixes (e.g. use `entrance/`, NOT `01_entrance/`). Non-numbered paths ensure modularity and prevent cascade refactoring when reordering or inserting chapters.
-- **Chapter Navigation Layout Policy:** Sub-portal index pages listing individual tutorial pages MUST NOT use hardcoded numbers in unit titles. Two candidate layout styles are currently in production for UX evaluation:
-  - **Style C (Horizontal Cards + Badges):** Active in `entrance/index.md`.
-  - **Style D (Badges List):** Active in `molecular_system/index.md`.
+- **Chapter Navigation Layout Policy:** Sub-portal index pages listing individual tutorial pages (`[Subdirectory]/index.md`) MUST use a clean bulleted list format.
+  - **Section Header**: MUST use `## **Contents**` (plural).
+  - **No Badges or Cards**: Cards, grids (`::::{grid}`), and badges (`{bdg-*}`) MUST NOT be used in unit lists to maintain a clean, uncluttered visual aesthetic.
 
 ---
 
