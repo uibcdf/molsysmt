@@ -31,6 +31,13 @@ Analytical operations (including pairwise distances, neighbor lists, RMSD, struc
 ### 4. Physical Safety & Unit Consistency
 All physical quantities in MolSysMT carry explicit physical units powered by `pyunitwizard` (nanometers, picoseconds, radians, elementary charges, Kelvin). Unit conversions, array dimensions, and coordinate invariants are validated automatically to safeguard scientific integrity.
 
+### 5. Purpose-Built Infrastructure Libraries
+Behind MolSysMT lies a specialized suite of core infrastructure libraries designed at UIB-CDF for the **MolSysSuite** ecosystem to guarantee scientific precision, high performance, and software reliability:
+- **`pyunitwizard`**: Universal management, validation, and conversion of physical quantities and units.
+- **`argdigest`**: Strict argument validation and high-frequency normalization passports (`ValidatedPayload`) for zero-overhead internal execution.
+- **`depdigest`**: Dynamic lazy dependency management and feature discovery with instant library startup.
+- **`smonitor`**: Structured diagnostic logging, telemetry, and transparent signal instrumentation across computational workflows.
+
 ---
 
 ## The Engine of MolSysSuite
