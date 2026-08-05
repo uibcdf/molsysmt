@@ -10,4 +10,4 @@ molsys = msm.convert(msm.systems['Barnase-Barstar']['1brs.bcif.gz'],
                      selection='molecule_type=="protein"',
                      to_form='molsysmt.MolSys')
 view = msm.view(molsys, selection='molecule_index==0')
-view.export.html(str(views_dir / "1BRS_molecule_index_zero.html"), shared_runtime=str(static_dir))
+view.export.html(str(views_dir / "1BRS_molecule_index_zero.html"), shared_runtime=str(static_dir), background="transparent")
