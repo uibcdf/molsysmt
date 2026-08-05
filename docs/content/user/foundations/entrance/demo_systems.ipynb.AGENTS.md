@@ -6,8 +6,9 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
 
 ## 🔒 Frozen & Inviolable Content
 
-1. **Format Policy**:
-   - MUST remain a Jupyter Notebook (`.ipynb`) containing Python code cells that dynamically query `molsysmt.systems.categories` and `molsysmt.systems.info` to render category subsections, 2-line system headers, and file-level explanation tables.
+1. **Format Policy & Automated Catalog Synchronization**:
+   - MUST remain a Jupyter Notebook (`.ipynb`) containing an executable Python code cell (tagged `remove-input`) that dynamically queries `molsysmt.systems.categories` and `molsysmt.systems.info` upon pre-execution (`docs/execute_notebooks.py`).
+   - The notebook automatically compiles and refreshes all category subsections, 2-line system headers, and file-level explanation tables directly from the Python backend definition in [`molsysmt/systems.py`](../../../../../molsysmt/systems.py).
 
 2. **Mandatory MyST Section Anchor**:
    - `(user-foundations-entrance-demo-systems)=`

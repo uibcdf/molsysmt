@@ -54,6 +54,8 @@ the repository root `AGENTS.md`.
   title, italic gerund summary, introduction, `API documentation` admonition, `versionadded` block, narrated examples, and `seealso` section.
 - Keep notebooks executable and lightweight; avoid heavy computations, long trajectories, or network access.
 - When updating notebooks, ensure they still run cleanly under the CI notebook execution scripts (for example, `execute_notebooks.py`).
+- **Automated Catalog Synchronization**: `demo_systems.ipynb` contains an executable code cell (tagged `remove-input`) that dynamically queries `molsysmt.systems.categories` and `molsysmt.systems.info` upon pre-execution (`docs/execute_notebooks.py`) to auto-generate the complete, categorized catalog of demo systems. Any change to `molsysmt/systems.py` MUST be verified by re-executing `demo_systems.ipynb`.
+
 
 ## Governance and Micro-`AGENTS.md` Model
 

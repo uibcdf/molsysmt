@@ -14,6 +14,18 @@ class SystemsDict(dict):
         self.info = {}
 
 
+# =============================================================================
+# IMPORTANT DEVELOPER NOTICE FOR CONTRIBUTORS:
+# The `SystemsDict` class, `systems.info` dictionary, and `systems.categories`
+# mapping are specifically architected for automated documentation generation
+# in `docs/content/user/foundations/entrance/demo_systems.ipynb`.
+#
+# If you add, modify, or rename systems or metadata attributes in this file:
+#   1. Ensure every system includes full `title`, `category`, `summary`, and
+#      per-file `files` explanations.
+#   2. Verify and re-execute the documentation unit `demo_systems.ipynb`.
+# =============================================================================
+
 systems = SystemsDict()
 
 # -----------------------------------------------------------------------------

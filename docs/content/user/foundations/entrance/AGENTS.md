@@ -11,4 +11,5 @@ Cover the first contact topics: mission statement, installation instructions, do
 - `installation.md` ➔ `installation.AGENTS.md`: Installation via Conda and PyPI.
 - `navigating_documentation.md` ➔ `navigating_documentation.md.AGENTS.md`: Guide to navigating the documentation and learning paths.
 - `toolbox_overview.md` ➔ `toolbox_overview.md.AGENTS.md`: Overview of the API functional modules.
-- `demo_systems.ipynb` ➔ `demo_systems.ipynb.AGENTS.md`: `molsysmt.systems` dynamic catalog and usage.
+- `demo_systems.ipynb` ➔ `demo_systems.ipynb.AGENTS.md`: `molsysmt.systems` dynamic catalog auto-compiled from `molsysmt/systems.py`.
+
