@@ -65,7 +65,12 @@ the repository root `AGENTS.md`.
   By default, `docs/Makefile` sets `SPHINXOPTS ?= -q -j 1` to suppress cosmetic progress bars while preserving 100% of diagnostic warnings and errors. High-performance multi-core builds MUST pass `SPHINXOPTS="-q -j 12"` (e.g. `make -C docs html SPHINXOPTS="-q -j 12"`) to minimize token consumption.
 
 - **Notebook Compilation & MolSysViewer Architecture:**  
-  Follow the normative technical specification in [`devguide/notebook_compilation_and_visualization.md`](../devguide/notebook_compilation_and_visualization.md) for notebook pre-execution, timestamp tracking, and MolSysViewer static view generation. Pre-execution MUST be run in quiet mode (e.g. `python docs/execute_notebooks.py -q -n 12 -r docs/content/user`) to emit pytest-receptor style milestone progress without token-heavy log noise.
+  Follow the normative technical specification in `devguide/notebook_compilation_and_visualization.md` for notebook pre-execution, timestamp tracking, and MolSysViewer static view generation. Pre-execution MUST be run in quiet mode (e.g. `python docs/execute_notebooks.py -q -n 12 -r docs/content/user`) to emit pytest-receptor style milestone progress without token-heavy log noise.
+  - **`MSM_DOCS_NOTEBOOK` Protocol**: `docs/execute_notebooks.py` exports `env["MSM_DOCS_NOTEBOOK"] = str(notebook_path)` during pre-execution so the `molsysmt` adapter resolves exact relative iframe paths across nested subdirectories.
+  - **Transparent Background Policy**: All static 3D views exported via `view.export.html(..., background="transparent")` MUST specify `background="transparent"` for instant 0ms dark/light theme transitions without visual lag or blink.
+  - **Pre-Generation Script Rule**: Static HTML views MUST be pre-generated via scripts under `docs/generate_static_views/` and committed to `docs/_static/views/`. Views MUST NOT be generated on-the-fly during notebook execution, preventing Git repository bloat from multi-megabyte trajectory files.
+  - **Transitory CDNs Policy**: The `require.js` and `nglview` CDN script declarations in `docs/conf.py` are preserved *transitorily* only while migrating legacy NGLView notebooks, and MUST be removed once all 3D views adopt MolSysViewer.
+  - **Local Development Environment**: Because the Conda `uibcdf` channel package for `molsysviewer` is legacy (v0.7.0), developers and CI MUST build documentation using a local development checkout (`pip install -e .` from the `molsysviewer` repository).
 
 - **Visualization Backend Policy:**  
   **MolSysViewer** is the mandatory default 3D viewer across all documentation pages and tutorials. **NGLView** is reserved exclusively for pages/notebooks specifically dedicated to demonstrating, explaining, or comparing NGLView integration.

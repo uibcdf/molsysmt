@@ -102,13 +102,17 @@ For any notebook `example.ipynb`:
 
 To avoid bundling multi-megabyte JS runtimes into every single exported HTML file:
 
-1. **Exporting HTML Views with Shared Runtime**:
+1. **Exporting HTML Views with Shared Runtime and Transparent Background**:
    ```python
-   view.export.html("docs/_static/views/1brs.html", shared_runtime="docs/_static")
+   view.export.html(
+       "docs/_static/views/1brs.html",
+       shared_runtime="docs/_static",
+       background="transparent",
+   )
    ```
-   This generates a lightweight HTML scene file that references the shared runtime JS asset in `docs/_static/`. Browsers download the runtime once and cache it across all documentation pages.
+   - **`background="transparent"`**: Mandatory default for all documentation views. Ensures instant 0ms dark/light theme transitions without visual lag or blink, and allows seamless integration across light/dark modes, cards, and admonition containers.
 
-2. **Placing the Shared Runtime in Sphinx Build (`docs/conf.py`)**:
+2. **Placing the Shared Runtime and Error Handling (`docs/conf.py`)**:
    In `docs/conf.py`, the `builder-inited` event automatically extracts the exact runtime asset from the installed `molsysviewer` package into `docs/_static/`:
    ```python
    def _place_runtime(app):
@@ -119,20 +123,23 @@ To avoid bundling multi-megabyte JS runtimes into every single exported HTML fil
    def setup(app):
        app.connect('builder-inited', _place_runtime)
    ```
-   > **Note**: `docs/_static/viewer.js` and `docs/_static/molsysviewer*` are listed in `.gitignore` to prevent committing 6MB binaries into Git history.
+   > **Note**: `_place_runtime` intentionally raises on failure so missing runtime assets stop the build immediately rather than producing a site with blank frames. `docs/_static/viewer.js` is listed in `.gitignore` to prevent committing 6MB binaries into Git history.
 
-3. **Embedding in Notebooks and Markdown (`msv.tools.embed_iframe`)**:
+3. **Embedding in Notebooks and Markdown (`msv.tools.embed_iframe` & `MSM_DOCS_NOTEBOOK`)**:
    To prevent relative path calculation errors (`../..`) across deeply nested subdirectories:
-   ```python
-   import molsysviewer as msv
+   - `docs/execute_notebooks.py` exports `env["MSM_DOCS_NOTEBOOK"] = str(notebook_path)` during pre-execution.
+   - `molsysmt.basic.viewer.molsysviewer` consumes `MSM_DOCS_NOTEBOOK` and calls:
+     ```python
+     import molsysviewer as msv
 
-   msv.tools.embed_iframe(
-       "docs/_static/views/1brs.html",
-       path="docs/content/user/my_page.ipynb",
-   )
-   ```
+     msv.tools.embed_iframe(
+         "docs/_static/views/1brs.html",
+         path=os.environ.get("MSM_DOCS_NOTEBOOK"),
+     )
+     ```
    - **In Jupyter Notebooks (`.ipynb`)**: Executing this in a cell renders the interactive 3D view directly.
-   - **In Markdown Pages (`.md`)**: The same function returns the `<iframe>` HTML string with the relative `src` path pre-calculated for copy-pasting. Avoiding manual `../` calculations prevents silent embedding failures where the export and build succeed but readers see an empty frame.
+   - **In Markdown Pages (`.md`)**: The same function returns the `<iframe>` HTML string with the relative `src` path pre-calculated for copy-pasting.
+   - **CSS Container Styling (`docs/_static/custom.css`)**: In dark mode, `html[data-theme="dark"] .bd-content div.cell_output .text_html:has(iframe)` sets `background-color: transparent !important` and `padding: 0 !important`, integrating iframe view containers flush with the page background.
 
 ### **C. Capabilities and Boundaries of Exported Scenes**
 - **Fully Supported Client-Side**: Loaded structures, selections, color maps, representations, overlays, annotations, measurements, camera controls, trajectory playback, and pop-out window.
