@@ -20,5 +20,5 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
 
 5. **Inviolable Technical Directives**:
    - **Invocation Syntax Explanation**: Must explicitly demonstrate how to inspect system names (`list(msm.systems.keys())`), retrieve file paths (`msm.systems['Trp-Cage']['1l2y.h5msm']`), and pass them into tools (`msm.convert()`).
-   - **Categorized Catalog Tables**: Must render separate HTML tables by category (Dipeptides, Small Proteins, Complexes, Lipids/Membranes, Small Molecules, Toy Models).
+   - **Categorized Catalog Tables**: Must render separate HTML tables by category (Dipeptides, Small Proteins, Complexes, Lipids/Membranes, Small Molecules, Toy & Synthetic Models).
    - **Offline Accessibility Note**: Must include the `{admonition}` note box highlighting offline dataset availability.

@@ -243,15 +243,15 @@ systems.info = {
         'description': 'Hydrated POPC lipid bilayer membrane simulation trajectory (CHARMM PSF and DCD).'
     },
     'two LJ particles': {
-        'category': 'Toy Models & Test Systems',
+        'category': 'Toy & Synthetic Models',
         'description': 'Two Lennard-Jones particles toy trajectory.'
     },
     'particles 4': {
-        'category': 'Toy Models & Test Systems',
+        'category': 'Toy & Synthetic Models',
         'description': '4-particle spatial trajectory in XYZ NumPy format.'
     },
     'nglview': {
-        'category': 'Toy Models & Test Systems',
+        'category': 'Toy & Synthetic Models',
         'description': 'Test files for NGLView and MDTraj integration (ala3, md_1u19 GRO/XTC/TRR).'
     }
 }
