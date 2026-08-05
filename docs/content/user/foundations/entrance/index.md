@@ -9,7 +9,7 @@ Whether you are configuring your environment for the first time or exploring bun
 
 ## **Contents**
 
-- **{doc}`molsysmt_mission`**  
+- **{doc}`what_is_molsysmt`**  
   Learn about the form-agnostic philosophy, mission, and key architectural goals of MolSysMT.
 
 - **{doc}`installation`**  
@@ -29,7 +29,7 @@ Whether you are configuring your environment for the first time or exploring bun
    :maxdepth: 1
    :hidden:
 
-   What is MolSysMT? <molsysmt_mission.ipynb>
+   What is MolSysMT? <what_is_molsysmt.ipynb>
    Installation <installation.md>
    First Steps <first_steps.md>
    Overview of Tools <toolbox_overview.ipynb>
