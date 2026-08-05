@@ -44,7 +44,7 @@ If you want to see how multiple tools combine to solve complete scientific tasks
 
 ---
 
-## The Four Paths Course
+## Master Course
 If you want a systematic, step-by-step training curriculum from beginner to advanced mastery, follow **The Four Paths of the MolSysMT Master**:
 - A 156-notebook comprehensive course covering foundational theory, hands-on tutorials, applied case studies, and advanced engineering paths.
 

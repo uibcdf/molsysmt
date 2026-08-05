@@ -17,7 +17,7 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
    - **`## Foundations`**: Overview of the 8 Foundations sections.
    - **`## Tools API Reference`**: Overview of API functional modules (Basic, Build, Structure, Topology, Elements, Third Party).
    - **`## Cookbook`**: Links to `../../cookbook/index`.
-   - **`## The Four Paths Course`**: Reference to the 156-notebook training course.
+   - **`## Master Course`**: Reference to the 156-notebook training course ("The Four Paths of the MolSysMT Master").
    - **`## Showcase`**: Reference to third-party integrations and visualization notebooks.
 
 4. **Documentation Formats Section**:
