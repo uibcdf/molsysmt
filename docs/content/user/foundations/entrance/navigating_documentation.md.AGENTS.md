@@ -22,5 +22,5 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
    - **`## Showcase`**: Must link to `../../../showcase/index` in fluid prose.
    - **`## API Documentation`**: Must link to `../../../../api/index` for technical low-level API reference outside the User Guide.
 
-4. **Documentation Formats Section**:
-   - Explanation distinguishing conceptual Markdown (`.md`) guides from executable Jupyter Notebooks (`.ipynb`).
+4. **Documentation Formats Admonition**:
+   - Must present the distinction between conceptual Markdown (`.md`) guides and executable Jupyter Notebooks (`.ipynb`) inside a `{admonition}` note box at the end of the page.

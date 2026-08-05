@@ -56,9 +56,9 @@ When you need exact low-level technical specifications, docstring signatures, mo
 
 ---
 
-## Documentation Formats
-
-Throughout the documentation, you will encounter two types of pages:
-
-1. **Conceptual Guides (`.md`)**: Written in MyST Markdown, these narrative pages explain architectural principles, design choices, and conceptual frameworks without requiring code execution.
-2. **Interactive Notebooks (`.ipynb`)**: Executable Jupyter Notebooks with live Python code cells, structured outputs, and 3D visual representations. You can download and run them locally or execute them directly in your Python environment.
+:::{admonition} Documentation Formats & Interactivity
+:class: note
+Throughout the documentation, you will encounter two complementary page formats:
+- **Conceptual Guides (`.md`)**: Narrative MyST Markdown pages explaining architectural principles, design choices, and conceptual frameworks without requiring code execution.
+- **Interactive Notebooks (`.ipynb`)**: Executable Jupyter Notebooks with live Python code cells, structured outputs, and 3D web visualizations that you can download and execute in your local Python environment.
+:::
