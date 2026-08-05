@@ -13,8 +13,9 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
    - `(user-foundations-entrance-installation)=`
 
 3. **Inviolable Technical Directives**:
-   - **Official Distribution**: Channel MUST be specified as `-c uibcdf -c conda-forge`.
+   - **Header H2**: MUST be `## Official Installation`.
+   - **Official Distribution Link**: MUST link to `https://anaconda.org/channels/uibcdf` with `-c uibcdf -c conda-forge`.
    - **Supported Python Versions**: Python 3.13 (recommended), 3.12, 3.11.
    - **Development Environment Path**: MUST specify `devtools/conda-envs/development_env.yaml`.
    - **Editable Installation Command**: MUST specify `pip install --no-deps --editable .`.
-   - **Precompiled Kernels Admonition**: Note explaining precompiled Rust extension with 0ms JIT warmup.
+   - **Precompiled Kernels Admonition**: Note explaining precompiled Rust extension module (no legacy JIT references).

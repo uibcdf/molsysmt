@@ -1,13 +1,13 @@
 (user-foundations-entrance-installation)=
 # Installation
 
-MolSysMT supports Python **3.13** (recommended), **3.12**, and **3.11**. Numerical compute kernels ship precompiled within the package, so no Rust compiler or JIT warmup is required for standard installation.
+MolSysMT supports Python **3.13** (recommended), **3.12**, and **3.11**. High-performance compute kernels ship precompiled natively within the package.
 
 ---
 
-## Official Installation (Conda / Mamba)
+## Official Installation
 
-The official distribution channel for MolSysMT is maintained under the **`uibcdf`** Conda channel. We strongly recommend installing MolSysMT within a dedicated Conda/Mamba environment:
+The official distribution channel for MolSysMT is maintained under the [**`uibcdf`** Conda channel](https://anaconda.org/channels/uibcdf). We strongly recommend installing MolSysMT within a dedicated Conda/Mamba environment:
 
 ```bash
 conda install -c uibcdf -c conda-forge molsysmt
@@ -50,5 +50,5 @@ pip install --no-deps --editable .
 
 :::{admonition} Precompiled Native Kernels
 :class: note
-MolSysMT's high-performance analytical kernels (distances, RMSD, SASA, gyration radius, dihedrals) are precompiled in Rust and integrated directly into the extension module. There is zero JIT compilation latency or warmup delay on first execution.
+MolSysMT's high-performance analytical kernels (distances, RMSD, SASA, gyration radius, dihedrals) are precompiled in Rust and integrated directly into the binary extension module.
 :::
