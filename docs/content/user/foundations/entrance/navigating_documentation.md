@@ -37,22 +37,22 @@ When you need to look up function signatures, tutorials, or usage examples for s
 ---
 
 ## Cookbook
-If you want to see how multiple tools combine to solve complete scientific tasks, consult the **{doc}`Cookbook <../../cookbook/index>`**:
-- Multi-step system preparation and solvation pipelines.
-- Trajectory alignment and structural fluctuation analysis.
-- Converting complex multi-file trajectories into clean native H5MSM files.
+If you want to see how multiple tools combine to solve complete scientific tasks, consult the **{doc}`Cookbook <../../cookbook/index>`**. Here you will find practical recipes for multi-step system preparation, solvation pipelines, trajectory alignment, structural fluctuation analysis, and converting complex multi-file trajectories into clean native H5MSM files.
 
 ---
 
 ## Master Course
-If you want a systematic, step-by-step training curriculum from beginner to advanced mastery, follow **{doc}`The Four Paths of the MolSysMT Master <../../../course/index>`**:
-- A 156-notebook comprehensive course covering foundational theory, hands-on tutorials, applied case studies, and advanced engineering paths.
+If you want a systematic, step-by-step training curriculum from beginner to advanced mastery, explore **{doc}`The Four Paths of the MolSysMT Master <../../../course/index>`**. This comprehensive 156-notebook course covers foundational theory, hands-on tutorials, applied case studies in biophysics and drug design, and advanced software engineering paths.
 
 ---
 
 ## Showcase
-If you are interested in exploring complex integrations and visualization workflows, browse the **{doc}`Showcase <../../../showcase/index>`**:
-- End-to-end notebooks demonstrating seamless interoperation with OpenMM simulations, MDAnalysis trajectory processing, and interactive MolSysViewer / NGLView visualizations.
+If you are interested in exploring complex integrations and interactive visualization workflows, browse the **{doc}`Showcase <../../../showcase/index>`**. It features end-to-end demonstration notebooks showing seamless interoperation with OpenMM simulations, MDAnalysis trajectory processing, RDKit chemoinformatics, and 3D web rendering via MolSysViewer and NGLView.
+
+---
+
+## API Documentation
+When you need exact low-level technical specifications, docstring signatures, module internal structures, or developer API details for any function or form adapter, consult the technical **{doc}`API Documentation <../../../../api/index>`**.
 
 ---
 
