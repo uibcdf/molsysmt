@@ -10,5 +10,5 @@ Cover the first contact topics: mission statement, installation instructions, do
 - `what_is_molsysmt.md` ➔ `what_is_molsysmt.md.AGENTS.md`: What is MolSysMT, form-agnostic philosophy.
 - `installation.md` ➔ `installation.AGENTS.md`: Installation via Conda and PyPI.
 - `navigating_documentation.md` ➔ `navigating_documentation.md.AGENTS.md`: Guide to navigating the documentation and learning paths.
-- `toolbox_overview.md` ➔ `toolbox_overview.md.AGENTS.md`: Overview of the API functional modules and boxes.
-- `demo_systems.ipynb` ➔ `demo_systems.AGENTS.md`: `molsysmt.systems` catalog usage.
+- `toolbox_overview.md` ➔ `toolbox_overview.md.AGENTS.md`: Overview of the API functional modules.
+- `demo_systems.ipynb` ➔ `demo_systems.ipynb.AGENTS.md`: `molsysmt.systems` dynamic catalog and usage.
