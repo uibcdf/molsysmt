@@ -21,6 +21,6 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
 5. **Inviolable Catalog Architecture**:
    - **Section Heading**: Must be titled `## Complete Catalog of Bundled Systems`.
    - **Category Subsections (H3)**: Grouped by category (Dipeptides, Small Proteins, Complexes, Lipids/Membranes, Small Molecules, Toy & Synthetic Models).
-   - **2-Line System Header**: Line 1: `**Title** : msm.systems['keyword']`, Line 2: `*Summary...*`.
+   - **2-Line System Header**: Line 1: `**Title** | msm.systems['keyword']`, Line 2: `*Summary...*`.
    - **File Explanation Tables**: 2-column native HTML tables (`File String`, `Contents & Usage Explanation`) detailing exact contents and purpose for every file.
    - **Offline Accessibility Note**: Must include the `{admonition}` note box highlighting offline dataset availability.
