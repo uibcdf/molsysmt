@@ -6,33 +6,33 @@ The MolSysMT documentation is organized into complementary sections designed to 
 ---
 
 ## Quickstart Guide
-If you want an immediate hands-on feeling for MolSysMT, skip directly to the interactive Quickstart tutorial in the Showcase section:
-- **{doc}`../../../showcase/quickstart`**  
+If you want an immediate hands-on feeling for MolSysMT, skip directly to the interactive Quickstart tutorial in the **{doc}`Showcase <../../../showcase/index>`** section:
+- **{doc}`Quickstart Guide <../../../showcase/quickstart>`**  
 Load a system, inspect basic topological attributes, perform simple selections, and run basic transformations in minutes.
 
 ---
 
 ## Foundations
-If you are starting a new research project or want to understand the architectural philosophy and data models behind MolSysMT, explore the 8 sections of **Foundations** step by step:
-1. **Entrance**: Mission statement, installation, and roadmap.
-2. **Molecular System**: The internal representation model, structural axes, and attributes.
-3. **Native World**: Working natively with `molsysmt.MolSys`, `molsysmt.Topology`, and `molsysmt.Structures`.
-4. **Language**: Mastering the selection syntax, query semantics, and form conversions.
-5. **Performance**: Parallel execution, Rust kernels, and memory efficiency for large trajectories.
-6. **Governance**: Standards, data invariants, and error-handling principles.
-7. **Support**: Supported forms, tier stability guarantees, and diagnostic logging.
-8. **Ecosystem**: Integration with the broader **MolSysSuite** stack and third-party ecosystems.
+If you are starting a new research project or want to understand the architectural philosophy and data models behind MolSysMT, explore the 8 sections of **{doc}`Foundations <../index>`** step by step:
+1. **{doc}`Entrance <index>`**: Mission statement, installation, and documentation roadmap.
+2. **{doc}`Molecular System <../molecular_system/index>`**: The internal representation model, structural axes, and attributes.
+3. **{doc}`Native World <../native_world/index>`**: Working natively with `molsysmt.MolSys`, `molsysmt.Topology`, and `molsysmt.Structures`.
+4. **{doc}`Language <../language/index>`**: Mastering the selection syntax, query semantics, and form conversions.
+5. **{doc}`Performance <../performance/index>`**: Parallel execution, Rust kernels, and memory efficiency for large trajectories.
+6. **{doc}`Governance <../governance/index>`**: Standards, data invariants, and error-handling principles.
+7. **{doc}`Support <../support/index>`**: Supported forms, tier stability guarantees, and diagnostic logging.
+8. **{doc}`Ecosystem <../ecosystem/index>`**: Integration with the broader **MolSysSuite** stack and third-party ecosystems.
 
 ---
 
-## Tools API Reference
-When you need to look up function signatures, arguments, or usage examples for a specific task, consult the **Tools API** reference:
-- **Basic**: Core operations (`get`, `set`, `select`, `convert`, `build`, `view`, `compare`).
-- **Build**: Structure preparation, missing heavy atoms, cappings, protonation at pH, and solvation.
-- **Structure**: RMSD, distances, SASA, radius of gyration, superposition, and dihedrals.
-- **Topology**: Bond matrices, covalent paths, sequence extractions, and secondary structure.
-- **Elements**: Selection and manipulation by atom, group, component, molecule, or chain.
-- **Third Party**: Specialized bridges to OpenMM, MDAnalysis, MDTraj, ParmEd, RDKit, and NGLView.
+## Tools
+When you need to look up function signatures, tutorials, or usage examples for specific tools, consult the **{doc}`Tools <../../tools/index>`** section:
+- **{doc}`Basic <../../tools/basic/index>`**: Core operations (`get`, `set`, `select`, `convert`, `build`, `view`, `compare`).
+- **{doc}`Build <../../tools/build/index>`**: Structure preparation, missing heavy atoms, cappings, protonation at pH, and solvation.
+- **{doc}`Structure <../../tools/structure/index>`**: RMSD, distances, SASA, radius of gyration, superposition, and dihedrals.
+- **{doc}`Topology <../../tools/topology/index>`**: Bond matrices, covalent paths, sequence extractions, and secondary structure.
+- **{doc}`Elements <../../tools/element/index>`**: Selection and manipulation by atom, group, component, molecule, or chain.
+- **{doc}`Third Party <../../tools/third_party/index>`**: Specialized bridges to OpenMM, MDAnalysis, MDTraj, ParmEd, RDKit, and NGLView.
 
 ---
 
@@ -45,13 +45,13 @@ If you want to see how multiple tools combine to solve complete scientific tasks
 ---
 
 ## Master Course
-If you want a systematic, step-by-step training curriculum from beginner to advanced mastery, follow **The Four Paths of the MolSysMT Master**:
+If you want a systematic, step-by-step training curriculum from beginner to advanced mastery, follow **{doc}`The Four Paths of the MolSysMT Master <../../../course/index>`**:
 - A 156-notebook comprehensive course covering foundational theory, hands-on tutorials, applied case studies, and advanced engineering paths.
 
 ---
 
 ## Showcase
-If you are interested in exploring complex integrations and visualization workflows, browse the **Showcase**:
+If you are interested in exploring complex integrations and visualization workflows, browse the **{doc}`Showcase <../../../showcase/index>`**:
 - End-to-end notebooks demonstrating seamless interoperation with OpenMM simulations, MDAnalysis trajectory processing, and interactive MolSysViewer / NGLView visualizations.
 
 ---
