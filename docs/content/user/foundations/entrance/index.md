@@ -9,45 +9,20 @@ Whether you are configuring your environment for the first time or exploring bun
 
 ## **Units**
 
-::::{grid} 1
-:gutter: 2
+- **{doc}`molsysmt_mission`**  
+  Learn about the form-agnostic philosophy, mission, and key architectural goals of MolSysMT.
 
-:::{grid-item-card} **What is MolSysMT?** {bdg-secondary}`Notebook`
-:link: molsysmt_mission
-:link-type: doc
+- **{doc}`installation`**  
+  Step-by-step guide to installing MolSysMT via Conda, Pip, or source with optional dependencies.
 
-Learn about the form-agnostic philosophy, mission, and key architectural goals of MolSysMT.
-:::
+- **{doc}`first_steps`**  
+  A gentle hands-on tutorial loading your first molecular system and running basic operations.
 
-:::{grid-item-card} **Installation** {bdg-info}`Guide`
-:link: installation
-:link-type: doc
+- **{doc}`toolbox_overview`**  
+  An organized map of the functional API toolbox (Basic, Build, Topology, Structure, PBC, etc.).
 
-Step-by-step guide to installing MolSysMT via Conda, Pip, or source with optional dependencies.
-:::
-
-:::{grid-item-card} **First Steps** {bdg-info}`Guide`
-:link: first_steps
-:link-type: doc
-
-A gentle hands-on tutorial loading your first molecular system and running basic operations.
-:::
-
-:::{grid-item-card} **Overview of Tools** {bdg-secondary}`Notebook`
-:link: toolbox_overview
-:link-type: doc
-
-An organized map of the functional API toolbox (Basic, Build, Topology, Structure, PBC, etc.).
-:::
-
-:::{grid-item-card} **Demo Systems** {bdg-secondary}`Notebook`
-:link: demo_systems
-:link-type: doc
-
-Explore the built-in PDB structures and trajectories bundled with MolSysMT for offline testing.
-:::
-
-::::
+- **{doc}`demo_systems`**  
+  Explore the built-in PDB structures and trajectories bundled with MolSysMT for offline testing.
 
 ```{eval-rst}
 .. toctree::

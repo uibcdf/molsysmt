@@ -9,22 +9,22 @@ Understanding these foundational concepts ensures seamless interoperability when
 
 ## **Units**
 
-- **{doc}`definition`** {bdg-secondary}`Notebook`  
+- **{doc}`definition`**  
   Core definition of a molecular system and the form-agnostic architecture of MolSysMT.
 
-- **{doc}`normalization`** {bdg-secondary}`Notebook`  
+- **{doc}`normalization`**  
   How input specifications, shapes, and physical units are automatically validated and normalized.
 
-- **{doc}`items`** {bdg-secondary}`Notebook`  
+- **{doc}`items`**  
   Understanding the distinction between physical molecular items and data representation forms.
 
-- **{doc}`forms`** {bdg-secondary}`Notebook`  
+- **{doc}`forms`**  
   Catalog of supported native, file-based, and third-party library representations.
 
-- **{doc}`elements`** {bdg-secondary}`Notebook`  
+- **{doc}`elements`**  
   The orthogonal structural hierarchy: atoms, groups, components, chains, molecules, entities, and systems.
 
-- **{doc}`attributes`** {bdg-secondary}`Notebook`  
+- **{doc}`attributes`**  
   Detailed guide to structural, topological, mechanical, and physicochemical molecular attributes.
 
 ```{eval-rst}
