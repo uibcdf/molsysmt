@@ -104,8 +104,7 @@ def execute_notebook(notebook_path: Path, force: bool = False, quiet: bool = Fal
 
     if needs_execution or force:
 
-        if not quiet:
-            print(f"Executing notebook: {notebook_path}")
+        env = os.environ.copy()
         env["MSM_VIEWS_FROM_HTML_FILES"] = "True"
         env["MSM_DOCS_NOTEBOOK"] = str(notebook_path)
 
