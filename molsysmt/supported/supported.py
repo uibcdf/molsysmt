@@ -101,13 +101,7 @@ def forms(form_type=None):
             return val[0]
         return str(val)
     
-    return df.style.hide(axis="index").format({'Info':make_clickable})\
-            .set_table_attributes('class="table dataframe"')\
-            .set_properties(**{'text-align':'left'})\
-            .set_table_styles([
-                {'selector': 'th', 'props': [('text-align', 'left !important')]},
-                {'selector': 'td', 'props': [('text-align', 'left !important')]}
-            ])
+    return df.style.hide(axis="index").format({'Info':make_clickable}).set_table_attributes('class="dataframe"')
 
 
 def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=None,
