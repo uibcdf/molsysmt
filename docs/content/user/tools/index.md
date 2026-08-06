@@ -1,88 +1,93 @@
 (User_Tools)=
-# **Tools**
+(user-tools-index)=
+# Tools
 
-Welcome to the MolSysMT **Toolbox**. These functional modules provide targeted, high-performance methods to operate, modify, inspect, and analyze molecular systems. Browse by category to explore dedicated tutorials for each API function.
+Welcome to the MolSysMT **Toolbox**. These functional modules provide targeted, high-performance tools to build, inspect, manipulate, analyze, and convert molecular systems.
+
+Each module groups specialized operations by domain — working uniformly across all 89 supported forms. Browse the 11 categories below to explore dedicated tutorials for each tool function.
 
 ---
 
-::::{grid} 1 2 3
+## **Sections**
+
+::::{grid} 1 2 2 4
 :gutter: 3
 
 :::{grid-item-card} **Basic**
 :link: basic/index
 :link-type: doc
 
-Verbs to load, inspect, convert, copy, select, compare, and display molecular systems in a form-agnostic manner.
+Form-agnostic core operations to load, inspect, convert, copy, select, compare, add, and display molecular systems.
 :::
 
 :::{grid-item-card} **Build**
 :link: build/index
 :link-type: doc
 
-Methods to complete, modify, mutate, edit, solvate, and reconstruct topological or structural features.
+Native system preparation, missing heavy atom recovery, terminal capping, protonation, solvation, and mutation tools.
 :::
 
 :::{grid-item-card} **Topology**
 :link: topology/index
 :link-type: doc
 
-Functions to explore and retrieve structural connectivity, element definitions, and chemical metadata.
+Covalent bond graphs, connectivity matrices, element inventory, sequence extraction, and secondary structure assignment.
 :::
 
 :::{grid-item-card} **Structure**
 :link: structure/index
 :link-type: doc
 
-Getters and tools to extract coordinates, compute distances, map shapes, and compute structural descriptors.
+Coordinate geometry, spatial measurements, SASA, RMSD, fitting, alignment, radius of gyration, and dihedral angle calculations.
 :::
 
-:::{grid-item-card} **Periodic Boundary Conditions**
+:::{grid-item-card} **PBC**
 :link: pbc/index
 :link-type: doc
 
-Functions to handle and normalize box vectors, center systems, and calculate minimum image convention coordinates.
+Periodic boundary conditions, unit cell box vectors, minimum image conventions, and boundary unwrapping.
 :::
 
-:::{grid-item-card} **Physicochemical Properties**
+:::{grid-item-card} **Physchem**
 :link: physchem/index
 :link-type: doc
 
-Methods to calculate physical, chemical, and thermodynamic properties (e.g. molecular weight, SASA).
+Physical-chemical descriptors, charge distribution, molecular weights, and thermodynamic degrees of freedom.
 :::
 
-:::{grid-item-card} **Hydrogen Bonds**
+:::{grid-item-card} **Hbonds**
 :link: hbonds/index
 :link-type: doc
 
-Analyzers to identify, evaluate, and monitor polar interactions and hydrogen bonds across structures.
+Hydrogen-bonding network detection, donor-acceptor identification, and polar interaction monitoring across structures.
 :::
 
 :::{grid-item-card} **Molecular Mechanics**
 :link: molecular_mechanics/index
 :link-type: doc
 
-Integrations to compute forces, potential energies, and set up force-field evaluations.
+Forcefield engine assignments, atom typing, partial charges, and mechanics evaluation parameter sets.
 :::
 
 :::{grid-item-card} **Element**
 :link: element/index
 :link-type: doc
 
-APIs to query and manipulate specific entities within the orthogonal hierarchy (atoms, groups, chains, molecules).
+Hierarchical sub-entity operations across biological structural tiers (atoms, groups, components, molecules, entities, chains).
 :::
 
 :::{grid-item-card} **Form**
 :link: form/index
 :link-type: doc
 
-Specialized functions to query and inspect characteristics of specific coordinate or topology file formats.
+Form discovery, capability inspection, attribute availability reporting, and format-specific conversions.
 :::
 
 :::{grid-item-card} **Third Party**
 :link: third_party/index
 :link-type: doc
 
-Helper modules and bridges that facilitate interoperability with external packages (e.g. NGLView, OpenMM).
+Zero-friction bridges and handshakes for interoperability with external packages (OpenMM, MDAnalysis, MDTraj, PyTraj, etc.).
 :::
 
 ::::
@@ -103,4 +108,10 @@ Helper modules and bridges that facilitate interoperability with external packag
    element/index.md
    form/index.md
    third_party/index.md
+```
+
+---
+
+```{key-takeaway}
+The MolSysMT toolbox is form-agnostic. Every function operates uniformly across all 89 supported data structures and file formats.
 ```
