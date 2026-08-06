@@ -66,6 +66,7 @@ The 15 native forms in MolSysMT are organized below into three primary categorie
 .. toctree::
    :maxdepth: 1
    :hidden:
+   :caption: Classes
 
    molsysmt.MolSys <molsysmt_MolSys.ipynb>
    molsysmt.MolSysBuilder <molsysmt_MolSysBuilder.ipynb>
@@ -77,7 +78,19 @@ The 15 native forms in MolSysMT are organized below into three primary categorie
    molsysmt.MolecularMechanics <molsysmt_MolecularMechanics.ipynb>
    molsysmt.MolecularMechanicsDict <molsysmt_MolecularMechanicsDict.ipynb>
    molsysmt.ViewerJSON <molsysmt_ViewerJSON.ipynb>
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Files
+
    file:h5msm <file_h5msm.ipynb>
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: File Handlers
+
    molsysmt.H5MSMFileHandler <molsysmt_H5MSMFileHandler.ipynb>
    molsysmt.PDBFileHandler <molsysmt_PDBFileHandler.ipynb>
    molsysmt.CIFFileHandler <molsysmt_CIFFileHandler.ipynb>
