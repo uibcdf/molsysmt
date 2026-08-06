@@ -19,12 +19,23 @@ All human contributors and AI agents working on Foundations content must strictl
 
 ---
 
+## 📊 Published Table Formatting Standard
+
+All published tables across the **Foundations** section (both static Markdown tables and dynamically generated notebook tables) MUST adhere to the following visual standards:
+
+1. **Full Line Width (`class="table"`)**: Tables MUST expand to fill 100% of the available content width (`width: 100%`) using the standard `class="table"` HTML attribute.
+2. **Left-Aligned Alignment**: All table headers (`<th>`) and cell text (`<td>`) MUST be strictly left-aligned (`text-align: left`).
+3. **Zebra Striping**: Tables MUST feature alternating row shading (zebra coloring) that adapts cleanly to both light and dark documentation themes.
+4. **Notebook Table Rendering**: In Jupyter notebooks, dynamic catalog or summary tables MUST be rendered via explicit HTML `<table class="table">` output (with code cells tagged with `"tags": ["remove-input"]` when showcasing clean references, such as in `demo_systems.ipynb` and `forms.ipynb`), avoiding pandas `.dataframe` inline compression and right-alignment.
+
+---
+
 ## 🏛️ Section Structure & Thematic Subdirectories
 
 Foundations is organized into **8 thematic subdirectories**, each with its own `index.md` creating a 2-level navigation hierarchy:
 
 1. `entrance/`: Mission, installation, first steps, toolbox overview, and demo systems.
-2. `molecular_system/`: Definition, description/normalization, items, forms, elements, and attributes.
+2. `molecular_system/`: Definition, items & forms, elements, and attributes.
 3. `native_world/`: Native representations (`molsysmt.MolSys`, `molsysmt.Topology`), H5MSM file format, and ViewerJSON.
 4. `language/`: Selection Language grammar and syntactic rules.
 5. `performance/`: Memory management, big data scaling, lazy loading, and parallelization.
