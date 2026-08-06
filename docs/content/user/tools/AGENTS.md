@@ -10,6 +10,11 @@ This guide is for agents editing the **Tools** section of the User Guide under
   groups tutorials for related functions.
 - The main index `tools/index.md` presents these groups as a grid of cards and a hidden toctree; maintain this structure when adding new groups.
 
+## 📄 Pages List & Paired Micro-`AGENTS.md` Files
+
+- `index.md` ➔ `index.AGENTS.md`: Tools section landing page featuring 4-column card grid and hidden `toctree`.
+
+
 ## Per-group indexes
 
 - Files like `basic/index.md`, `structure/index.md`, `topology/index.md`, etc., should:
