@@ -1,93 +1,85 @@
 (User_Tools)=
 (user-tools-index)=
-# Tools
+# **Tools**
 
-Welcome to the MolSysMT **Toolbox**. These functional modules provide targeted, high-performance tools to build, inspect, manipulate, analyze, and convert molecular systems.
-
-Each module groups specialized operations by domain — working uniformly across all 89 supported forms. Browse the 11 categories below to explore dedicated tutorials for each tool function.
-
----
-
-## **Sections**
-
-::::{grid} 1 2 2 4
+::::{grid} 1 2 3
 :gutter: 3
 
 :::{grid-item-card} **Basic**
 :link: basic/index
 :link-type: doc
 
-Form-agnostic core operations to load, inspect, convert, copy, select, compare, add, and display molecular systems.
+Set of functions to manipulate and examine molecular systems.
 :::
 
 :::{grid-item-card} **Build**
 :link: build/index
 :link-type: doc
 
-Native system preparation, missing heavy atom recovery, terminal capping, protonation, solvation, and mutation tools.
+Set of functions to build and complete molecular systems.
 :::
 
 :::{grid-item-card} **Topology**
 :link: topology/index
 :link-type: doc
 
-Covalent bond graphs, connectivity matrices, element inventory, sequence extraction, and secondary structure assignment.
+Set of functions to explore the topology of molecular systems.
 :::
 
 :::{grid-item-card} **Structure**
 :link: structure/index
 :link-type: doc
 
-Coordinate geometry, spatial measurements, SASA, RMSD, fitting, alignment, radius of gyration, and dihedral angle calculations.
+Set of functions to explore and manipulate the structures of molecular systems.
 :::
 
-:::{grid-item-card} **PBC**
+:::{grid-item-card} **Periodic Boundary Conditions**
 :link: pbc/index
 :link-type: doc
 
-Periodic boundary conditions, unit cell box vectors, minimum image conventions, and boundary unwrapping.
+Set of functions to work with the periodic boundary conditions of molecular systems.
 :::
 
-:::{grid-item-card} **Physchem**
+:::{grid-item-card} **Physicochemical Properties**
 :link: physchem/index
 :link-type: doc
 
-Physical-chemical descriptors, charge distribution, molecular weights, and thermodynamic degrees of freedom.
+Set of functions to calculate physicochemical properties of molecular systems.
 :::
 
-:::{grid-item-card} **Hbonds**
+:::{grid-item-card} **Hydrogen Bonds**
 :link: hbonds/index
 :link-type: doc
 
-Hydrogen-bonding network detection, donor-acceptor identification, and polar interaction monitoring across structures.
+Set of functions to identify and analyze hydrogen bonds in molecular systems.
 :::
 
 :::{grid-item-card} **Molecular Mechanics**
 :link: molecular_mechanics/index
 :link-type: doc
 
-Forcefield engine assignments, atom typing, partial charges, and mechanics evaluation parameter sets.
+Set of functions to work with the molecular mechanics of molecular systems.
 :::
 
 :::{grid-item-card} **Element**
 :link: element/index
 :link-type: doc
 
-Hierarchical sub-entity operations across biological structural tiers (atoms, groups, components, molecules, entities, chains).
+Set of functions to work with the different elements of molecular systems.
 :::
 
 :::{grid-item-card} **Form**
 :link: form/index
 :link-type: doc
 
-Form discovery, capability inspection, attribute availability reporting, and format-specific conversions.
+Set of functions to work with the form of molecular systems, and to handle specific forms of molecular systems.
 :::
 
 :::{grid-item-card} **Third Party**
 :link: third_party/index
 :link-type: doc
 
-Zero-friction bridges and handshakes for interoperability with external packages (OpenMM, MDAnalysis, MDTraj, PyTraj, etc.).
+Set of functions to facilitate the use of third-party libraries.
 :::
 
 ::::
@@ -108,10 +100,4 @@ Zero-friction bridges and handshakes for interoperability with external packages
    element/index.md
    form/index.md
    third_party/index.md
-```
-
----
-
-```{key-takeaway}
-The MolSysMT toolbox is form-agnostic. Every function operates uniformly across all 89 supported data structures and file formats.
 ```
