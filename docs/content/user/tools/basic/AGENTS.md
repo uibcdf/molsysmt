@@ -52,3 +52,29 @@ All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectorie
 
 ### 5. Related Tools & References (Markdown)
 - Concludes with a `{seealso}` admonition pointing to related tools or Cookbook recipes.
+
+---
+
+## ✍️ Editorial & Narrative Style Guide (Modeled after `add.ipynb`)
+
+To maintain complete narrative consistency across all tool tutorials, contributors MUST follow this 5-point editorial flow:
+
+1. **Context & Pre-conditions Setup**:
+   - Introduce toy systems cleanly (using `msm.build.build_peptide` or `msm.systems`).
+   - Explain *why* pre-processing operations are performed (e.g., translating systems via `msm.structure.translate` before adding them to prevent spatial overlap).
+
+2. **The "Before & After" Verification Pattern**:
+   - Inspect the state of the target system **before** mutation using `msm.info()`.
+   - Run the target tool function.
+   - Re-inspect state **after** execution with `msm.info(..., element='system')` to explicitly highlight modified atom/group/component counts.
+
+3. **Visual Confirmation via Interactive 3D View**:
+   - Complement tabular inspection with an interactive 3D view (`msm.view()`). Encourage the user to interact with the 3D canvas (e.g. "Try rotating and zooming to observe...").
+
+4. **In-Place vs. Out-of-Place (`in_place`) Behavior**:
+   - Explicitly contrast default mutation (`in_place=True`) against new object creation (`in_place=False` yielding `molsys_D`).
+   - Verify immutability of source systems using `msm.get(..., attribute=True)`.
+
+5. **Strategic Admonition Boxes**:
+   - **`{tip}`**: Use for top-level alias reminders (e.g., `msm.add` vs `msm.basic.add`).
+   - **`{warning}`**: Use for structural constraints, structure matching rules (`structure_indices`), or attribute drops (`StructuralAttributeDropWarning`).
