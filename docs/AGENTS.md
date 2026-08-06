@@ -75,6 +75,7 @@ the repository root `AGENTS.md`.
 - **Notebook Compilation & MolSysViewer Architecture:**  
   Follow the normative technical specification in `devguide/notebook_compilation_and_visualization.md` for notebook pre-execution, timestamp tracking, and MolSysViewer static view generation. Pre-execution MUST be run in quiet mode (e.g. `python docs/execute_notebooks.py -q -n 12 -r docs/content/user`) to emit pytest-receptor style milestone progress without token-heavy log noise.
   - **`MSM_DOCS_NOTEBOOK` Protocol**: `docs/execute_notebooks.py` exports `env["MSM_DOCS_NOTEBOOK"] = str(notebook_path)` during pre-execution so the `molsysmt` adapter resolves exact relative iframe paths across nested subdirectories.
+  - **SHA256 Code Cell Fingerprinting (`code_sha256`)**: `docs/execute_notebooks.py` tracks execution marks via SHA256 hashes of code cells (`code_sha256`). Edits to Markdown prose do not trigger re-execution. In CI environments, always run with `--force` (`-f`) to catch API drift regardless of code fingerprints.
   - **Transparent Background Policy**: All static 3D views exported via `view.export.html(..., background="transparent")` MUST specify `background="transparent"` for instant 0ms dark/light theme transitions without visual lag or blink.
   - **Pre-Generation Script Rule**: Static HTML views MUST be pre-generated via scripts under `docs/generate_static_views/` and committed to `docs/_static/views/`. Views MUST NOT be generated on-the-fly during notebook execution, preventing Git repository bloat from multi-megabyte trajectory files.
   - **Transitory CDNs Policy**: The `require.js` and `nglview` CDN script declarations in `docs/conf.py` are preserved *transitorily* only while migrating legacy NGLView notebooks, and MUST be removed once all 3D views adopt MolSysViewer.
@@ -89,4 +90,3 @@ the repository root `AGENTS.md`.
 - Do not introduce documentation that contradicts `dev_guide.md` or `coding/coding_guide.md`; if behavior changes, update those guides as well.
 - Keep examples minimal but complete enough to be copied and run by users.
 - When reorganizing sections or navigation (for example, `index.ipynb` or `content/*/index.md`), update toctrees and verify that Sphinx builds successfully with `make html` from the `docs/` directory.
-
