@@ -8,7 +8,7 @@ Cover native MolSysMT Python classes and declarative dictionaries: `molsysmt.Mol
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
 - `index.md` ➔ `index.AGENTS.md`: Group landing page with `toctree`.
 - `molsysmt_MolSys.md` ➔ `molsysmt_MolSys.md.AGENTS.md`: Native unified container class.
-- `molsysmt_MolSysBuilder.ipynb` ➔ `molsysmt_MolSysBuilder.ipynb.AGENTS.md`
+- `molsysmt_MolSysBuilder.md` ➔ `molsysmt_MolSysBuilder.md.AGENTS.md`: Editable native builder class.
 - `molsysmt_MolSysDict.ipynb` ➔ `molsysmt_MolSysDict.ipynb.AGENTS.md`
 - `molsysmt_Topology.ipynb` ➔ `molsysmt_Topology.ipynb.AGENTS.md`
 - `molsysmt_TopologyDict.ipynb` ➔ `molsysmt_TopologyDict.ipynb.AGENTS.md`

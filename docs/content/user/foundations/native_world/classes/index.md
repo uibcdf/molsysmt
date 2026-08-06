@@ -43,7 +43,7 @@ Native Python classes and declarative dictionaries representing molecular system
    :hidden:
 
    molsysmt.MolSys <molsysmt_MolSys.md>
-   molsysmt.MolSysBuilder <molsysmt_MolSysBuilder.ipynb>
+   molsysmt.MolSysBuilder <molsysmt_MolSysBuilder.md>
    molsysmt.MolSysDict <molsysmt_MolSysDict.ipynb>
    molsysmt.Topology <molsysmt_Topology.ipynb>
    molsysmt.TopologyDict <molsysmt_TopologyDict.ipynb>
