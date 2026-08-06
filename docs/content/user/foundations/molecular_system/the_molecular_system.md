@@ -22,16 +22,16 @@ Traditional molecular modeling workflows often tie analysis scripts to specific 
 A complete molecular system in MolSysMT is composed of four non-exclusive, complementary architectural layers:
 
 ### 1. Topology Layer
-Defines the physical inventory of elements (`atoms`, `groups`, `components`, `molecules`, `chains`, `entities`, `bioassemblies`) and their chemical connectivity (covalent bonds, formal bond orders, aromaticity, and chemical state descriptors, among others).
+Defines the physical inventory of elements (`atoms`, `groups`, `components`, `molecules`, `chains`, `entities`, `bioassemblies`) and their chemical connectivity, such as covalent bonds, formal bond orders, aromaticity, and chemical state descriptors.
 
 ### 2. Structure Layer
-Defines spatial geometry, temporal evolution, and structural properties. Key examples of structural attributes include 3D atom coordinates with shape `(n_structures, n_atoms, 3)`, periodic box vectors with shape `(n_structures, 3, 3)`, simulation time points, and structure indices or IDs, among others.
+Defines spatial geometry, temporal evolution, and structural properties—including 3D atom coordinates with shape `(n_structures, n_atoms, 3)`, periodic box vectors with shape `(n_structures, 3, 3)`, simulation time points, and structure indices or IDs.
 
 ### 3. Molecular Mechanics Layer
-Defines force field parameters and mechanical attributes required for energy evaluation and molecular dynamics simulations, such as atomic partial charges, formal masses, force field atom types, non-bonded parameters, and harmonic term constants, among others.
+Defines force field parameters and mechanical attributes required for energy evaluation and simulations (e.g., atomic partial charges, formal masses, force field atom types, non-bonded parameters, and harmonic term constants).
 
 ### 4. Chemical State Layer
-Defines state-dependent chemical variations, such as explicit protonation states, tautomeric forms, stereochemical configurations (`R`/`S`, `E`/`Z`), and chemical-state associations across structures, among others.
+Defines state-dependent chemical variations, encompassing explicit protonation states, tautomeric forms, stereochemical configurations (`R`/`S`, `E`/`Z`), and chemical-state associations across structures.
 
 ---
 
