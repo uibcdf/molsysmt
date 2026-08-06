@@ -57,7 +57,7 @@ All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectorie
 
 ## ✍️ Editorial & Narrative Style Guide (Modeled after `add.ipynb` & `append_structures.ipynb`)
 
-To maintain complete narrative consistency across all tool tutorials, contributors MUST follow this 6-point editorial flow:
+To maintain complete narrative consistency across all tool tutorials, contributors MUST follow this 7-point editorial flow:
 
 1. **Context & Pre-conditions Setup**:
    - Introduce toy systems cleanly (using `msm.build.build_peptide` or `msm.systems`).
@@ -82,3 +82,7 @@ To maintain complete narrative consistency across all tool tutorials, contributo
 6. **Axis Differentiation & MyST Syntax Precision**:
    - Ensure explanatory text and subsequent `msm.get()` calls explicitly match the target axis being mutated (e.g. querying `n_structures=True` for structure-axis tools like `append_structures`, vs `n_peptides=True` for topology-axis tools like `add`).
    - Always format MyST function references with backticks: ``{func}`molsysmt.basic.[function]` `` (never un-backticked `{func}molsysmt.basic.[function]`).
+
+7. **Clean Import Patterns & Cross-Sectional Link Rules**:
+   - Access catalog systems directly via `msm.systems[...]` after `import molsysmt as msm`. Do not add separate imports like `from molsysmt import systems`.
+   - Cross-sectional links in `{seealso}` pointing to demo systems MUST use `../../foundations/entrance/demo_systems.ipynb` (reflecting the sub-portal layout under `foundations/entrance/`).
