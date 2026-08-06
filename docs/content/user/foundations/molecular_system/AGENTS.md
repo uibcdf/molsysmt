@@ -12,8 +12,9 @@ Define the core data model of MolSysMT across 4 foundational units: formal defin
 - `elements.ipynb` ➔ `elements.AGENTS.md`: Orthogonal element hierarchy.
 - `attributes.ipynb` ➔ `attributes.AGENTS.md`: Attribute getters, query mechanisms, and property types.
 
-## 📐 Editorial & Style Standards
-- **Concise & General Section Titles**: Headings (`H2`, `H3`) in notebooks and markdown documents must be brief, crisp, and direct (typically 2 to 4 words).
+## 📐 Foundations Editorial & Style Standards
+- **Conceptual Scope**: Pages in `foundations/` explain conceptual architecture, concepts, and data models for readers. They do NOT document specific function API signatures, nor do they include `tools/` artifacts such as `:::{versionadded}`, top italic gerund summaries (`*Doing...*`), or API function `{seealso}` boxes.
+- **Concise Section Titles**: Headings (`H2`, `H3`) must be brief, crisp, and direct (typically 2 to 4 words).
 - **MyST Anchors & References**: Use MyST anchors for targets (e.g. `(user-foundations-molecular-system-definition)=`, `(Introduction_Forms)=`, `(Introduction_Attributes)=`) and `{ref}` for cross-links.
 - **Offline Dataset Rule**: Access datasets locally via `msm.systems` (e.g. `msm.systems['T4 lysozyme L99A']['181l.bcif.gz']`).
 - **Pre-execution Policy**: Pre-execute updated notebooks via `python docs/execute_notebooks.py -f [notebook_path]` before committing.
