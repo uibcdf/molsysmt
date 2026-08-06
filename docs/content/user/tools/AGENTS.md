@@ -31,7 +31,9 @@ This guide is for agents editing the **Tools** section of the User Guide under
   4. **Cells 4+ (Code/Markdown)**: Executable examples using bundled datasets (`msm.systems`).
   5. **Final Cell (Markdown)**: `{seealso}` admonition pointing to related tools or Cookbook recipes.
 - **Canonical Variable Naming Policy**: Single molecular systems MUST be named `molsys` (never `mol`); multiple systems MUST be named `molsys_A`, `molsys_B`, `molsys_C`, etc.
+- **3D Visualizations**: Embedded 3D views MUST use **MolSysViewer** with static generator scripts in `docs/generate_static_views/[name].py` exporting to `docs/_static/views/[name].html`. Preceding setup cells declare `molsysviewer_htmlfile = '_static/views/[name].html'` without hardcoding `../../../../` relative jumps.
 - Avoid duplicating large docstring examples; tutorials should complement them with more narrative and context.
+
 
 
 ## Boundaries and scope

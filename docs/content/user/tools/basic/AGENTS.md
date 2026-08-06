@@ -44,6 +44,11 @@ All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectorie
 - **Canonical Variable Naming Policy**:
   - A single molecular system MUST be named **`molsys`** (never `mol`).
   - Multiple systems MUST be named **`molsys_A`**, **`molsys_B`**, **`molsys_C`**, etc.
+- **3D Visualization & MolSysViewer Integration**:
+  - 3D interactive views MUST use **MolSysViewer** (never legacy NGLView HTML exports).
+  - Every embedded view requires a static generator script in `docs/generate_static_views/[name].py` exporting to `docs/_static/views/[name].html`.
+  - In the notebook setup cell preceding `msm.view(...)` (tagged `"remove-input"`), declare:
+    `molsysviewer_htmlfile = '_static/views/[name].html'` (do NOT hardcode `../../../../` relative jumps; `molsysviewer.py` automatically resolves the path relative to `MSM_DOCS_NOTEBOOK`).
 
 ### 5. Related Tools & References (Markdown)
 - Concludes with a `{seealso}` admonition pointing to related tools or Cookbook recipes.
