@@ -31,8 +31,10 @@ This guide is for agents editing the **Tools** section of the User Guide under
   4. **Cells 4+ (Code/Markdown)**: Executable examples using bundled datasets (`msm.systems`).
   5. **Final Cell (Markdown)**: `{seealso}` admonition pointing to related tools using MyST `{ref}` anchors (e.g. `{ref}`Tutorial_Build_peptide`) rather than relative `.ipynb` file paths.
 - **Canonical Variable Naming Policy**: Single molecular systems MUST be named `molsys` (never `mol`); multiple systems MUST be named `molsys_A`, `molsys_B`, `molsys_C`, etc.
+- **Offline Dataset Rule**: Access datasets locally via `msm.systems` (e.g. `msm.systems['T4 lysozyme L99A']['181l.bcif.gz']`) instead of calling network-fetching PDB identifiers (e.g. `pdb_id:181L`), guaranteeing offline execution stability.
 - **3D Visualizations**: Embedded 3D views MUST use **MolSysViewer** with static generator scripts in `docs/generate_static_views/[name].py` exporting to `docs/_static/views/[name].html`. Preceding setup cells declare `molsysviewer_htmlfile = '_static/views/[name].html'` without hardcoding `../../../../` relative jumps.
 - **Editorial & Narrative Flow (Modeled after add.ipynb)**: Always include context/pre-condition setup, "Before & After" state inspection with `msm.info()`, 3D visual confirmation with `msm.view()`, `in_place` vs out-of-place comparison, and strategic `{tip}` / `{warning}` admonitions.
+- **Pre-execution & HTML Output Policy**: Notebooks (`*.ipynb`) MUST be pre-executed via `python docs/execute_notebooks.py -f [notebook_path]` before committing. Never manually inject truncated static HTML strings for `msm.info()` outputs, as this strips essential Pandas Styler CSS rules (such as zebra-striped table formatting).
 - **Manifest Tracking**: When auditing and updating a tool tutorial notebook, record its status under `reviewed_units` within `docs/docs_manifest.yml`.
 - Avoid duplicating large docstring examples; tutorials should complement them with more narrative and context.
 
