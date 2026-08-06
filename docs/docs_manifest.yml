@@ -68,6 +68,9 @@ sections:
             - name: "are_multiple_molecular_systems"
               path: "docs/content/user/tools/basic/are_multiple_molecular_systems.ipynb"
               status: "reviewed"
+            - name: "compare"
+              path: "docs/content/user/tools/basic/compare.ipynb"
+              status: "reviewed"
     course:
       path: "docs/content/course"
       agents_file: "docs/content/course/AGENTS.md"
