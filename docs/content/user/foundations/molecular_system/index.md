@@ -9,7 +9,7 @@ Understanding these foundational concepts ensures seamless interoperability when
 
 ## **Contents**
 
-- **{doc}`definition`**  
+- **{doc}`the_molecular_system`**  
   Core definition of a molecular system and the form-agnostic architecture of MolSysMT.
 
 - **{doc}`forms`**  
@@ -26,7 +26,7 @@ Understanding these foundational concepts ensures seamless interoperability when
    :maxdepth: 1
    :hidden:
 
-   Definition <definition.ipynb>
+   The Molecular System <the_molecular_system.md>
    Items and Forms <forms.ipynb>
    Elements <elements.ipynb>
    Attributes <attributes.ipynb>
