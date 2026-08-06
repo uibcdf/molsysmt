@@ -24,13 +24,15 @@ This guide is for agents editing the **Tools** section of the User Guide under
 
 ## Tool notebooks
 
-- Each tool notebook (`*.ipynb`) should:
-  - Introduce the function(s) it covers, with a short gerund-style summary consistent with the function docstring.
-  - Show minimal, focused examples using small systems (for example, those from `molsysmt.systems`).
-  - Clearly state expected inputs, outputs, units, and typical usage patterns.
-  - Include an `API documentation` admonition with a `{func}` link to the corresponding API page.
-  - Optionally, end with a `seealso` admonition pointing to related tools or Cookbook recipes, using labeled sections and `{ref}` roles where possible instead of direct file paths.
+- Each tool notebook (`*.ipynb`) represents a 1:1 tutorial unit for a public surface function and MUST follow the **Standard Architectural Pattern**:
+  1. **Cell 1 (Code, `"remove-input"`)**: Warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
+  2. **Cell 2 (Markdown)**: Anchor `(Tutorial_[FunctionName])=`, Title `# [FunctionName]`, italic gerund summary `*[Action summary...]*`, narrative intro, optional Foundations `{hint}`, and `:::{versionadded} 1.0.0`.
+  3. **Cell 3 (Markdown)**: Section `## How this function works` with `{admonition} API documentation` containing `{func}` link to the API doc.
+  4. **Cells 4+ (Code/Markdown)**: Executable examples using bundled datasets (`msm.systems`).
+  5. **Final Cell (Markdown)**: `{seealso}` admonition pointing to related tools or Cookbook recipes.
+- **Canonical Variable Naming Policy**: Single molecular systems MUST be named `molsys` (never `mol`); multiple systems MUST be named `molsys_A`, `molsys_B`, `molsys_C`, etc.
 - Avoid duplicating large docstring examples; tutorials should complement them with more narrative and context.
+
 
 ## Boundaries and scope
 
