@@ -3,11 +3,11 @@
 
 Welcome to **The Native World**, the architectural home of MolSysMT's native object representations, containers, data dictionaries, file handlers, and storage formats. While MolSysMT seamlessly interoperates with dozens of third-party libraries and external file formats, its core engine relies on native data structures designed for high flexibility, fast querying, and lossy-free serialization.
 
-This module provides comprehensive reference guides for all 15 native forms implemented in MolSysMT.
+The 15 native forms in MolSysMT are organized below into three primary categories: **Classes**, **Files**, and **File Handlers**.
 
 ---
 
-## **Contents**
+## Classes
 
 - **{doc}`molsysmt_MolSys`**  
   The native unified molecular system class composing topology, structures, and molecular mechanics contracts.
@@ -36,8 +36,19 @@ This module provides comprehensive reference guides for all 15 native forms impl
 - **{doc}`molsysmt_MolecularMechanicsDict`**  
   The declarative, serializable dictionary representation of molecular mechanics parameters.
 
+- **{doc}`molsysmt_ViewerJSON`**  
+  The lightweight, JSON-serializable graphics representation for 3D visualization and web renderers.
+
+---
+
+## Files
+
 - **{doc}`file_h5msm`**  
   The native HDF5-based binary file format designed for rapid I/O, trajectory chunking, and full metadata persistence.
+
+---
+
+## File Handlers
 
 - **{doc}`molsysmt_H5MSMFileHandler`**  
   The low-level native streaming handler for reading and writing H5MSM files.
@@ -50,9 +61,6 @@ This module provides comprehensive reference guides for all 15 native forms impl
 
 - **{doc}`molsysmt_GROFileHandler`**  
   The native file handler for reading and writing GROMACS GRO structure files.
-
-- **{doc}`molsysmt_ViewerJSON`**  
-  The lightweight, JSON-serializable graphics representation for 3D visualization and web renderers.
 
 ```{eval-rst}
 .. toctree::
@@ -68,10 +76,10 @@ This module provides comprehensive reference guides for all 15 native forms impl
    molsysmt.StructuresDict <molsysmt_StructuresDict.ipynb>
    molsysmt.MolecularMechanics <molsysmt_MolecularMechanics.ipynb>
    molsysmt.MolecularMechanicsDict <molsysmt_MolecularMechanicsDict.ipynb>
+   molsysmt.ViewerJSON <molsysmt_ViewerJSON.ipynb>
    file:h5msm <file_h5msm.ipynb>
    molsysmt.H5MSMFileHandler <molsysmt_H5MSMFileHandler.ipynb>
    molsysmt.PDBFileHandler <molsysmt_PDBFileHandler.ipynb>
    molsysmt.CIFFileHandler <molsysmt_CIFFileHandler.ipynb>
    molsysmt.GROFileHandler <molsysmt_GROFileHandler.ipynb>
-   molsysmt.ViewerJSON <molsysmt_ViewerJSON.ipynb>
 ```
