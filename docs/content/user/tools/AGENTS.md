@@ -29,13 +29,12 @@ This guide is for agents editing the **Tools** section of the User Guide under
   2. **Cell 2 (Markdown)**: Anchor `(Tutorial_[FunctionName])=`, Title `# [FunctionName]`, italic gerund summary `*[Action summary...]*`, narrative intro, optional Foundations `{hint}`, and `:::{versionadded} 1.0.0`.
   3. **Cell 3 (Markdown)**: Section `## How this function works` with `{admonition} API documentation` containing `{func}` link to the API doc.
   4. **Cells 4+ (Code/Markdown)**: Executable examples using bundled datasets (`msm.systems`).
-  5. **Final Cell (Markdown)**: `{seealso}` admonition pointing to related tools or Cookbook recipes.
+  5. **Final Cell (Markdown)**: `{seealso}` admonition pointing to related tools using MyST `{ref}` anchors (e.g. `{ref}`Tutorial_Build_peptide`) rather than relative `.ipynb` file paths.
 - **Canonical Variable Naming Policy**: Single molecular systems MUST be named `molsys` (never `mol`); multiple systems MUST be named `molsys_A`, `molsys_B`, `molsys_C`, etc.
 - **3D Visualizations**: Embedded 3D views MUST use **MolSysViewer** with static generator scripts in `docs/generate_static_views/[name].py` exporting to `docs/_static/views/[name].html`. Preceding setup cells declare `molsysviewer_htmlfile = '_static/views/[name].html'` without hardcoding `../../../../` relative jumps.
 - **Editorial & Narrative Flow (Modeled after add.ipynb)**: Always include context/pre-condition setup, "Before & After" state inspection with `msm.info()`, 3D visual confirmation with `msm.view()`, `in_place` vs out-of-place comparison, and strategic `{tip}` / `{warning}` admonitions.
+- **Manifest Tracking**: When auditing and updating a tool tutorial notebook, record its status under `reviewed_units` within `docs/docs_manifest.yml`.
 - Avoid duplicating large docstring examples; tutorials should complement them with more narrative and context.
-
-
 
 
 ## Boundaries and scope

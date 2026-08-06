@@ -51,7 +51,7 @@ All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectorie
     `molsysviewer_htmlfile = '_static/views/[name].html'` (do NOT hardcode `../../../../` relative jumps; `molsysviewer.py` automatically resolves the path relative to `MSM_DOCS_NOTEBOOK`).
 
 ### 5. Related Tools & References (Markdown)
-- Concludes with a `{seealso}` admonition pointing to related tools or Cookbook recipes.
+- Concludes with a `{seealso}` admonition pointing to related tools using MyST `{ref}` anchors (e.g. `{ref}`Tutorial_Build_peptide`) rather than relative `.ipynb` file paths.
 
 ---
 
@@ -83,6 +83,6 @@ To maintain complete narrative consistency across all tool tutorials, contributo
    - Ensure explanatory text and subsequent `msm.get()` calls explicitly match the target axis being mutated (e.g. querying `n_structures=True` for structure-axis tools like `append_structures`, vs `n_peptides=True` for topology-axis tools like `add`).
    - Always format MyST function references with backticks: ``{func}`molsysmt.basic.[function]` `` (never un-backticked `{func}molsysmt.basic.[function]`).
 
-7. **Clean Import Patterns & Cross-Sectional Link Rules**:
+7. **Clean Import Patterns & Cross-Sectional MyST `{ref}` Links**:
    - Access catalog systems directly via `msm.systems[...]` after `import molsysmt as msm`. Do not add separate imports like `from molsysmt import systems`.
-   - Cross-sectional links in `{seealso}` pointing to demo systems MUST use `../../foundations/entrance/demo_systems.ipynb` (reflecting the sub-portal layout under `foundations/entrance/`).
+   - Cross-sectional and inter-tool links in `{seealso}` MUST use MyST `{ref}` target anchors (e.g. `{ref}`Tutorial_Build_peptide, `{ref}`user-foundations-entrance-demo-systems) rather than relative `.ipynb` file paths.
