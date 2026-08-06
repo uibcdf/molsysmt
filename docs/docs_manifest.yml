@@ -74,6 +74,9 @@ sections:
             - name: "concatenate_structures"
               path: "docs/content/user/tools/basic/concatenate_structures.ipynb"
               status: "reviewed"
+            - name: "contains"
+              path: "docs/content/user/tools/basic/contains.ipynb"
+              status: "reviewed"
     course:
       path: "docs/content/course"
       agents_file: "docs/content/course/AGENTS.md"
