@@ -2,11 +2,10 @@
 
 |      |      |
 | :--- | :--- |
-| [Get acceptor atoms](get_acceptor_atoms.ipynb) | ... |
-| [Get donor atoms](get_donor_atoms.ipynb) | ... |
-| [Get Buch hydrogen bonds](get_buch_hbonds.ipynb) | ... |
-| [Get Luzar-Chandler hydrogen bonds](get_luzard_chandler_hbonds.ipynb) | ... |
-
+| [Get acceptor atoms](get_acceptor_atoms.ipynb) | Getting hydrogen bond acceptor atoms in a molecular system |
+| [Get donor atoms](get_donor_atoms.ipynb) | Getting hydrogen bond donor atoms in a molecular system |
+| [Get Buch hydrogen bonds](get_buch_hbonds.ipynb) | Identifying hydrogen bonds using the Buch geometric criterion |
+| [Get Luzar-Chandler hydrogen bonds](get_luzard_chandler_hbonds.ipynb) | Identifying hydrogen bonds using the Luzar-Chandler geometric criterion |
 
 ```{eval-rst}
 .. toctree::

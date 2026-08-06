@@ -1,0 +1,16 @@
+# Micro-Governance: `tools/build/index.md` (`index.AGENTS.md`)
+
+This micro-governance contract governs [`docs/content/user/tools/build/index.md`](index.md).
+
+---
+
+## 🔒 Frozen & Inviolable Content
+
+1. **Format Policy**:
+   - MUST remain a pure MyST Markdown (`.md`) page.
+   - Header H1 MUST be `# Build`.
+   - Table format MUST be a 2-column Markdown table mapping function tutorial links to short descriptions (`| [Title](file.ipynb) | Description |`).
+   - MUST include hidden `toctree` containing all tutorial `.ipynb` files in `docs/content/user/tools/build/`.
+
+2. **Function Catalog Invariant**:
+   - The table and `toctree` MUST remain in sync with all user-facing tutorial notebooks in `docs/content/user/tools/build/`.

@@ -25,7 +25,7 @@
 | [Select](select.ipynb) | Selecting elements of a molecular system |
 | [Set](set.ipynb) | Setting attribute values to a molecular system |
 | [View](view.ipynb) | Showing a molecular system |
-| [Where is attribute](view.ipynb) | Getting the item where a specific attribute is found |
+| [Where is attribute](where_is_attribute.ipynb) | Getting the item where a specific attribute is found |
 
 
 
