@@ -1,7 +1,22 @@
-# Group 03 Native World Index Directives (`index.AGENTS.md`)
+# Micro-Governance: `index.md` (`index.AGENTS.md`)
 
-Micro-governance contract for [`docs/content/user/foundations/native_world/index.md`](index.md).
+This micro-governance contract governs [`docs/content/user/foundations/native_world/index.md`](index.md).
 
-## 🔒 Frozen Content
-- Header H1 MUST be `# 3. The Native World`.
-- Must maintain `toctree` with 4 topics: `molsysmt_MolSys.ipynb`, `molsysmt_Topology.ipynb`, `file_h5msm.ipynb`, `molsysmt_ViewerJSON.ipynb`.
+---
+
+## 🔒 Directives
+
+1. **Title & MyST Anchor**:
+   - Title MUST be `# The Native World`.
+   - MUST preserve top anchor `(user-foundations-03-native-world)=` for cross-link stability.
+
+2. **Chapter Navigation Layout**:
+   - MUST use a clean bulleted list under `## **Contents**`.
+   - MUST NOT use cards (`::::{grid}`) or badges (`{bdg-*}`).
+
+3. **Toctree**:
+   - MUST maintain hidden `toctree` with `maxdepth: 1` listing the 4 units:
+     - `molsysmt.MolSys <molsysmt_MolSys.ipynb>`
+     - `molsysmt.Topology <molsysmt_Topology.ipynb>`
+     - `file:h5msm <file_h5msm.ipynb>`
+     - `molsysmt.ViewerJSON <molsysmt_ViewerJSON.ipynb>`
