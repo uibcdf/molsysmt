@@ -15,10 +15,28 @@ def view(molecular_system=None, selection='all', structure_indices='all', syntax
                 htmlfile = f_locals.pop('molsysviewer_htmlfile', None) or f_locals.pop('nglview_htmlfile', None)
                 break
 
-        if htmlfile is not None and Path(htmlfile).is_file():
+        resolved_path = None
+        if htmlfile is not None:
+            if Path(htmlfile).is_file():
+                resolved_path = Path(htmlfile)
+            else:
+                nb_env = os.environ.get("MSM_DOCS_NOTEBOOK")
+                if nb_env:
+                    nb_p = Path(nb_env).resolve()
+                    for p in [nb_p] + list(nb_p.parents):
+                        candidate = p / htmlfile
+                        if candidate.is_file():
+                            resolved_path = candidate
+                            break
+                        candidate2 = p / "docs" / htmlfile
+                        if candidate2.is_file():
+                            resolved_path = candidate2
+                            break
+
+        if resolved_path is not None:
             import molsysviewer as msv
             nb_path = os.environ.get("MSM_DOCS_NOTEBOOK") or f_locals.get('__file__', 'index.ipynb')
-            return msv.tools.embed_iframe(htmlfile, path=str(nb_path))
+            return msv.tools.embed_iframe(str(resolved_path), path=str(nb_path))
         else:
             raise RuntimeError(
                 f"msm.view() was called with MSM_VIEWS_FROM_HTML_FILES=True, but no valid "
