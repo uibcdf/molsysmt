@@ -52,7 +52,22 @@ sections:
       path: "docs/content/user/tools"
       agents_file: "docs/content/user/tools/AGENTS.md"
       status: "in_progress"
-      pages: []
+      groups:
+        - name: "basic"
+          path: "docs/content/user/tools/basic"
+          agents_file: "docs/content/user/tools/basic/AGENTS.md"
+          index_file: "docs/content/user/tools/basic/index.md"
+          index_agents_file: "docs/content/user/tools/basic/index.AGENTS.md"
+          reviewed_units:
+            - name: "add"
+              path: "docs/content/user/tools/basic/add.ipynb"
+              status: "reviewed"
+            - name: "append_structures"
+              path: "docs/content/user/tools/basic/append_structures.ipynb"
+              status: "reviewed"
+            - name: "are_multiple_molecular_systems"
+              path: "docs/content/user/tools/basic/are_multiple_molecular_systems.ipynb"
+              status: "reviewed"
     course:
       path: "docs/content/course"
       agents_file: "docs/content/course/AGENTS.md"

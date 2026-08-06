@@ -46,7 +46,7 @@ systems are represented in MolSysMT.
 ```
 
 This is preferred over hard-coding filenames such as
-`[Molecular systems](../../intro/molecular_systems/index.md)` because:
+`[Molecular systems](../../foundations/molecular_systems/index.md)` because:
 
 - It continues to work if files are moved or reorganized.
 - It keeps link targets consistent between `.md` and `.ipynb` sources.
@@ -164,7 +164,7 @@ Use `{ref}` consistently for these cross-links; avoid direct references to
 Existing documentation still contains many links of the form:
 
 - `../showcase/quickstart.ipynb`
-- `../../intro/molecular_systems/attributes.ipynb`
+- `../../foundations/molecular_systems/attributes.ipynb`
 - `index.md`
 
 These links work but are fragile if files move. When updating a page:
