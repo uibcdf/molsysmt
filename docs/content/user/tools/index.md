@@ -2,8 +2,8 @@
 (user-tools-index)=
 # **Tools**
 
-::::{grid} 1 2 3
-:gutter: 3
+::::{grid} 1 2 2 4
+:gutter: 2
 
 :::{grid-item-card} **Basic**
 :link: basic/index
