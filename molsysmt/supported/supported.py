@@ -95,7 +95,11 @@ def forms(form_type=None):
     df = df.sort_values(by=['Type', 'Form'], ascending=[True, True], key=lambda col: col.str.casefold() if col.name != 'Installed' else col)
 
     def make_clickable(val):
-        return '<a target="_blank" href="{}">{}</a>'.format(val[1], val[0])
+        if isinstance(val, (list, tuple)) and len(val) >= 2 and val[1]:
+            return '<a target="_blank" href="{}">{}</a>'.format(val[1], val[0])
+        elif isinstance(val, (list, tuple)) and len(val) > 0:
+            return val[0]
+        return str(val)
     
     return df.style.hide(axis="index").format({'Info':make_clickable}).set_properties(**{'text-align':'left','colheader_justify':'left'}).\
             set_table_styles([ dict(selector='th', props=[('text-align', 'left')] ) ])
