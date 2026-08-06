@@ -7,11 +7,10 @@ This micro-governance contract governs [`docs/content/user/foundations/native_wo
 ## 🔒 Directives
 
 1. **Title & MyST Anchor**:
-   - Title MUST be `# molsysmt.MolSys`.
+   - Title MUST be `# molsysmt.MolSys` (plain text without backticks).
    - MUST preserve top anchor `(user-foundations-native-world-molsys)=`.
 
-2. **Conceptual Focus**:
-   - Dedicated EXCLUSIVELY to `molsysmt.MolSys` as the native unified in-memory container.
-   - Explains its composition of three sub-objects: `topology`, `structures`, and `molecular_mechanics`.
-   - Demonstrates converting external forms into `molsysmt.MolSys` and accessing its composite components.
-   - Do NOT focus on `MolSysBuilder` (which has its own dedicated page).
+2. **Form-Centric Pedagogical Scope**:
+   - Dedicated EXCLUSIVELY to explaining the `molsysmt.MolSys` form *per se*.
+   - Explains its internal composite architecture (`topology`, `structures`, `molecular_mechanics`), design invariants, and internal data encapsulation.
+   - Does NOT include tutorials on general tools like `msm.get()`, `msm.select()`, or external form conversions.
