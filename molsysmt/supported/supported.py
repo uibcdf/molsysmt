@@ -89,10 +89,10 @@ def forms(form_type=None):
         if dep != 'Native':
             installed = is_installed(dep)
             
-        rows.append([form, mod.form_type, dep, installed, mod.form_info])
+        rows.append([form, mod.form_type, dep, mod.form_info])
 
-    df = DataFrame(rows, columns=['Form', 'Type', 'Dependency', 'Installed', 'Info'])
-    df = df.sort_values(by=['Type', 'Form'], ascending=[True, True], key=lambda col: col.str.casefold() if col.name != 'Installed' else col)
+    df = DataFrame(rows, columns=['Form', 'Type', 'Dependency', 'Info'])
+    df = df.sort_values(by=['Type', 'Form'], ascending=[True, True], key=lambda col: col.str.casefold())
 
     def make_clickable(val):
         if isinstance(val, (list, tuple)) and len(val) >= 2 and val[1]:
@@ -101,7 +101,7 @@ def forms(form_type=None):
             return val[0]
         return str(val)
     
-    return df.style.hide(axis="index").format({'Info':make_clickable}).set_table_attributes('class="dataframe"')
+    return df.style.hide(axis="index").format({'Info':make_clickable}).set_table_attributes('class="dataframe"').set_properties(**{'text-align':'left'})
 
 
 def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=None,
