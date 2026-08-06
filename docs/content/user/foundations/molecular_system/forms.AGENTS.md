@@ -16,3 +16,5 @@ This micro-governance contract governs [`docs/content/user/foundations/molecular
 
 3. **Dynamic Table Rendering**:
    - Supported forms MUST be rendered programmatically via `{func}`molsysmt.supported.forms`` filtered by `form_type` (`'file'`, `'class'`, `'string'`).
+   - Catalog tables render 2 columns: `['Form', 'Info']` (omitting `Type` and `Dependency`).
+   - Section titles for catalog categories are `### Files`, `### Classes`, and `### Strings`.
