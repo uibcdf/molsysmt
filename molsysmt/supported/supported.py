@@ -102,7 +102,7 @@ def forms(form_type=None):
         return str(val)
     
     return df.style.hide(axis="index").format({'Info':make_clickable})\
-            .set_table_attributes('class="dataframe"')\
+            .set_table_attributes('class="table dataframe"')\
             .set_properties(**{'text-align':'left'})\
             .set_table_styles([
                 {'selector': 'th', 'props': [('text-align', 'left !important')]},
