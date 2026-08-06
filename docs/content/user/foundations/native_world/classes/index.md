@@ -42,14 +42,14 @@ Native Python classes and declarative dictionaries representing molecular system
    :maxdepth: 1
    :hidden:
 
-   molsysmt_MolSys.ipynb
-   molsysmt_MolSysBuilder.ipynb
-   molsysmt_MolSysDict.ipynb
-   molsysmt_Topology.ipynb
-   molsysmt_TopologyDict.ipynb
-   molsysmt_Structures.ipynb
-   molsysmt_StructuresDict.ipynb
-   molsysmt_MolecularMechanics.ipynb
-   molsysmt_MolecularMechanicsDict.ipynb
-   molsysmt_ViewerJSON.ipynb
+   molsysmt.MolSys <molsysmt_MolSys.md>
+   molsysmt.MolSysBuilder <molsysmt_MolSysBuilder.ipynb>
+   molsysmt.MolSysDict <molsysmt_MolSysDict.ipynb>
+   molsysmt.Topology <molsysmt_Topology.ipynb>
+   molsysmt.TopologyDict <molsysmt_TopologyDict.ipynb>
+   molsysmt.Structures <molsysmt_Structures.ipynb>
+   molsysmt.StructuresDict <molsysmt_StructuresDict.ipynb>
+   molsysmt.MolecularMechanics <molsysmt_MolecularMechanics.ipynb>
+   molsysmt.MolecularMechanicsDict <molsysmt_MolecularMechanicsDict.ipynb>
+   molsysmt.ViewerJSON <molsysmt_ViewerJSON.ipynb>
 ```
