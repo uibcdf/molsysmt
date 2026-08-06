@@ -55,9 +55,9 @@ All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectorie
 
 ---
 
-## ✍️ Editorial & Narrative Style Guide (Modeled after `add.ipynb`)
+## ✍️ Editorial & Narrative Style Guide (Modeled after `add.ipynb` & `append_structures.ipynb`)
 
-To maintain complete narrative consistency across all tool tutorials, contributors MUST follow this 5-point editorial flow:
+To maintain complete narrative consistency across all tool tutorials, contributors MUST follow this 6-point editorial flow:
 
 1. **Context & Pre-conditions Setup**:
    - Introduce toy systems cleanly (using `msm.build.build_peptide` or `msm.systems`).
@@ -66,7 +66,7 @@ To maintain complete narrative consistency across all tool tutorials, contributo
 2. **The "Before & After" Verification Pattern**:
    - Inspect the state of the target system **before** mutation using `msm.info()`.
    - Run the target tool function.
-   - Re-inspect state **after** execution with `msm.info(..., element='system')` to explicitly highlight modified atom/group/component counts.
+   - Re-inspect state **after** execution with `msm.info(..., element='system')` to explicitly highlight modified atom/group/component counts or structure counts.
 
 3. **Visual Confirmation via Interactive 3D View**:
    - Complement tabular inspection with an interactive 3D view (`msm.view()`). Encourage the user to interact with the 3D canvas (e.g. "Try rotating and zooming to observe...").
@@ -78,3 +78,7 @@ To maintain complete narrative consistency across all tool tutorials, contributo
 5. **Strategic Admonition Boxes**:
    - **`{tip}`**: Use for top-level alias reminders (e.g., `msm.add` vs `msm.basic.add`).
    - **`{warning}`**: Use for structural constraints, structure matching rules (`structure_indices`), or attribute drops (`StructuralAttributeDropWarning`).
+
+6. **Axis Differentiation & MyST Syntax Precision**:
+   - Ensure explanatory text and subsequent `msm.get()` calls explicitly match the target axis being mutated (e.g. querying `n_structures=True` for structure-axis tools like `append_structures`, vs `n_peptides=True` for topology-axis tools like `add`).
+   - Always format MyST function references with backticks: ``{func}`molsysmt.basic.[function]` `` (never un-backticked `{func}molsysmt.basic.[function]`).
