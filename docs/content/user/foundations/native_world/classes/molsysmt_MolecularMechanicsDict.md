@@ -1,27 +1,27 @@
 (user-foundations-native-world-classes-molsysmt-molecularmechanicsdict)=
-# molsysmt.MolecularMechanicsDict
+# MolecularMechanicsDict
 
 `molsysmt.MolecularMechanicsDict` is the native declarative dictionary representation of molecular mechanics parameters in MolSysMT.
 
 ---
 
-## Conceptual Overview & User Role
+## Overview
 
 `molsysmt.MolecularMechanicsDict` provides a JSON-compatible dictionary schema representing forcefield names, atomic partial charges, and atomic masses.
 
 ---
 
-## Internal Dictionary Schema (What's Inside)
+## Schema
 
-| Top-Level Key | Value Type | Physical Units | Description |
-| :--- | :--- | :--- | :--- |
-| **`"forcefield"`** | String | N/A | Forcefield identifier string. |
-| **`"charge"`** | Nested List | `e` | Partial charges list. |
-| **`"mass"`** | Nested List | `Da` | Atomic masses list. |
+| Top-Level Key | Value Type | Description |
+| :--- | :--- | :--- |
+| **`"forcefield"`** | String | Forcefield identifier string. |
+| **`"charge"`** | Nested List | Partial charges list in `e`. |
+| **`"mass"`** | Nested List | Atomic masses list in `Da`. |
 
 ---
 
-## Usage Example
+## Usage
 
 ```python
 import molsysmt as msm
@@ -32,7 +32,12 @@ mm_dict = msm.convert(mm, to_form='molsysmt.MolecularMechanicsDict')
 
 ---
 
-## Invariants, Performance & API Reference
+## Invariants
 
 - **JSON Compatibility**: Pure Python primitives for JSON transport.
-- **API Reference**: Detailed methods for `molsysmt.MolecularMechanicsDict` are documented in the [{doc}`molsysmt.MolecularMechanics API Reference </api/form/molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics>`].
+
+---
+
+## API Reference
+
+Detailed methods for `molsysmt.MolecularMechanicsDict` are documented in the [{doc}`molsysmt.MolecularMechanics API Reference </api/form/molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics>`].

@@ -1,17 +1,17 @@
 (user-foundations-native-world-classes-molsysmt-viewerjson)=
-# molsysmt.ViewerJSON
+# ViewerJSON
 
 `molsysmt.ViewerJSON` is the native lightweight 3D graphics representation in MolSysMT used for WebGL rendering and interactive visualization engines.
 
 ---
 
-## Conceptual Overview & User Role
+## Overview
 
-As a user, `molsysmt.ViewerJSON` is the intermediate dictionary schema generated when calling `msm.view(system)`. It encapsulates atomic coordinates, color palettes, molecular representations (ball-and-stick, cartoon, surface), and camera angles into a pure JSON schema recognized by WebGL renderers.
+As a user, `molsysmt.ViewerJSON` is the intermediate dictionary schema generated when calling `msm.view(system)`. It encapsulates atomic coordinates, color palettes, molecular representations, and camera angles into a pure JSON schema recognized by WebGL renderers.
 
 ---
 
-## Internal Architecture & Schema (What's Inside)
+## Schema
 
 Inside `molsysmt.ViewerJSON`, graphics data is organized as a structured JSON dictionary:
 
@@ -23,7 +23,7 @@ Inside `molsysmt.ViewerJSON`, graphics data is organized as a structured JSON di
 
 ---
 
-## Usage Workflow
+## Usage
 
 ```python
 import molsysmt as msm
@@ -37,7 +37,12 @@ view = msm.view(viewer_json)
 
 ---
 
-## Invariants, Performance & API Reference
+## Invariants
 
 - **Lightweight Web Standard**: Optimized for minimal JSON payload transport over web sockets and Jupyter notebook widgets.
-- **API Reference**: Viewer form converters are documented under native visualization forms.
+
+---
+
+## API Reference
+
+Viewer form converters are documented under native visualization forms.

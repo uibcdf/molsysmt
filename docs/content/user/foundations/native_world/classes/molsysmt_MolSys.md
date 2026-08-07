@@ -5,7 +5,7 @@
 
 ---
 
-## Conceptual Overview & User Role
+## Overview
 
 As a user, `molsysmt.MolSys` is the central object returned when loading, converting, or processing molecular systems. By composing dedicated sub-containers, `MolSys` ensures strict separation of concerns while providing a unified gateway for selections, spatial queries, and form transformations.
 
@@ -13,7 +13,7 @@ As a user, `molsysmt.MolSys` is the central object returned when loading, conver
 
 ---
 
-## Internal Architecture & Attributes
+## Architecture
 
 Inside a `molsysmt.MolSys` instance, three primary core component objects are composed:
 
@@ -25,8 +25,13 @@ Inside a `molsysmt.MolSys` instance, three primary core component objects are co
 
 ---
 
-## Invariants, Performance & API Reference
+## Invariants
 
 - **String Identifier Invariant**: All element IDs (`atom_id`, `group_id`, `chain_id`) inside `topology` are normalized to string representations.
 - **Fast Digestion Bypass**: Compatible with `skip_digestion=True` for high-frequency internal algorithm passes.
-- **API Reference**: Detailed methods, converters, and getters for the `molsysmt.MolSys` form are documented in the [{doc}`molsysmt.MolSys API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].
+
+---
+
+## API Reference
+
+Detailed methods, converters, and getters for `molsysmt.MolSys` are documented in the [{doc}`molsysmt.MolSys API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].
