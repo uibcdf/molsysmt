@@ -123,8 +123,10 @@ dependency, or scientific contracts above.
 - [Pending bugs](pending_bugs/README.md) contain reproduced or suspected defects.
 - [Pending proposals](pending_proposals/README.md) contain ideas awaiting a
   decision or implementation.
-- [Documentation work queues](docs/README.md) contain the same two kinds of entry
-  for work whose deliverable is user-facing documentation rather than code.
+- [Documentation bugs](pending_bugs/docs/README.md) and
+  [documentation proposals](pending_proposals/docs/README.md) contain the same two
+  kinds of entry for work whose deliverable is user-facing documentation rather
+  than code.
 - [Archived material](archive/README.md) contains dated audits, assessments, and
   release checkpoints.
 

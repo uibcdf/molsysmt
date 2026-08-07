@@ -10,8 +10,12 @@ developer guide. These entries plan how to *explain* a rule; they never define o
 
 ## Current triage
 
-- [`convert_tutorial_multi_form_structure_axis.md`](convert_tutorial_multi_form_structure_axis.md)
-  — the convert tutorial shows how to combine several forms into one molecular
-  system but says nothing about which item then owns the structure axis, so a reader
-  cannot tell what happens when a topology holding one reference conformation meets
-  a trajectory.
+Empty.
+
+## Recently closed
+
+`convert_tutorial_multi_form_structure_axis.md` was archived on 2026-08-06 under
+[`../../archive/resolved_proposals/docs/`](../../archive/resolved_proposals/docs/convert_tutorial_multi_form_structure_axis.md).
+The *Multiple items into one* section of `docs/content/user/tools/basic/convert.ipynb`
+now composes a PSF topology with a DCD trajectory and states that the multi-structure
+item dictates the resulting structure axis, which is what the entry asked for.

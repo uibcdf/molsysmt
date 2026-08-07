@@ -130,8 +130,11 @@ The precedence policy for **topological** attributes delivered by more than one
 item is still positional and remains open: see open decision 1 of
 `pending_proposals/attribute_centric_molecular_system_model.md`.
 
-None of this is explained in the user-facing documentation yet; the plan to do so is
-[`pending_proposals/docs/convert_tutorial_multi_form_structure_axis.md`](pending_proposals/docs/convert_tutorial_multi_form_structure_axis.md).
+The user-facing explanation lives in the *Multiple items into one* section of
+`docs/content/user/tools/basic/convert.ipynb`, which composes a PSF topology with a
+DCD trajectory and states that the multi-structure item dictates the resulting
+structure axis. The plan that produced it is
+[`archive/resolved_proposals/docs/convert_tutorial_multi_form_structure_axis.md`](archive/resolved_proposals/docs/convert_tutorial_multi_form_structure_axis.md).
 
 ## Forms with partial source information
 
