@@ -11,4 +11,4 @@ This micro-governance contract governs [`docs/content/user/foundations/governanc
    - MUST preserve top anchor `(user-foundations-governance-smonitor-and-telemetry)=`.
 
 2. **Conceptual Scope**:
-   - Explains SMonitor integration, memory pressure warnings, execution telemetry, and external docs (https://www.uibcdf.org/smonitor).
+   - Explains SMonitor integration, memory pressure warnings, execution telemetry, signal interpretation (https://www.uibcdf.org/smonitor), and code examples for warning customization.

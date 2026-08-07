@@ -11,4 +11,4 @@ This micro-governance contract governs [`docs/content/user/foundations/governanc
    - MUST preserve top anchor `(user-foundations-governance-dependency-management)=`.
 
 2. **Conceptual Scope**:
-   - Explains Hard vs Soft dependencies, molsysmt._depdigest mapping, lazy imports, and @dep_digest capability enforcement.
+   - Explains Hard vs Soft dependencies, molsysmt._depdigest mapping (https://www.uibcdf.org/depdigest), lazy imports, and @dep_digest capability enforcement.

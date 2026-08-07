@@ -11,4 +11,4 @@ This micro-governance contract governs [`docs/content/user/foundations/governanc
    - MUST preserve top anchor `(user-foundations-governance-argument-digestion)=`.
 
 2. **Conceptual Scope**:
-   - Explains @digest decorator mechanism, skip_digestion=True bypass, and ValidatedPayload passport protocol.
+   - Explains @digest decorator mechanism (https://www.uibcdf.org/argdigest), input normalization, selection interpretation, skip_digestion=True gain/loss breakdown with code example, and ValidatedPayload passport protocol.
