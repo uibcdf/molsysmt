@@ -7,7 +7,7 @@ MolSysMT seamlessly interoperates with dozens of third-party libraries across th
 
 ## Hard vs. Soft Dependencies
 
-Dependency status is managed centrally through **`molsysmt._depdigest`**:
+Dependency status is managed centrally through **DepDigest** ([https://www.uibcdf.org/depdigest](https://www.uibcdf.org/depdigest)) via `molsysmt._depdigest`:
 
 - **Hard Dependencies**: Core essential libraries required for basic operation (e.g. NumPy, SciPy, PyUnitWizard, ArgDigest, SMonitor).
 - **Soft Dependencies**: Optional feature-enabling packages (e.g. MDTraj, OpenMM, MDAnalysis, ParmEd, PyTraj, NGLView, PDBFixer, BioPython, Plotly).
@@ -18,4 +18,4 @@ Dependency status is managed centrally through **`molsysmt._depdigest`**:
 
 - **Lazy Import Policy**: Soft dependencies are never imported at top-level module evaluation. They are imported inside functions or methods on demand.
 - **The `@dep_digest` Decorator**: Functions requiring optional libraries use `@dep_digest(library)` to verify availability before execution, offering clear installation instructions if missing.
-- **Capability Filtering**: Users can query installed ecosystem capabilities dynamically via `molsysmt.configure.show_all_capabilities`.
+- **Capability Inspection**: Users can inspect installed ecosystem capabilities dynamically via `molsysmt.configure.show_all_capabilities`.
