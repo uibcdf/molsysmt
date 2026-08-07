@@ -41,13 +41,13 @@ This module introduces MolSysMT's performance architecture: deferred evaluation 
    :maxdepth: 1
    :hidden:
 
-   Lazy Loading <lazy_loading>
-   Chunked Execution <chunked_execution>
-   The Rust Core <rust_core>
-   Parallel Execution <parallelization>
-   Fast-Track & Passports <internal_optimizations>
-   Diagnostics & Profiling <diagnostics_and_profiling>
-   Caching & Memoization <caching_and_memoization>
-   Benchmarks <benchmarks>
-   GPU Acceleration <gpu_roadmap>
+   Lazy Loading <lazy_loading.md>
+   Chunked Execution <chunked_execution.md>
+   The Rust Core <rust_core.md>
+   Parallel Execution <parallelization.md>
+   Fast-Track & Passports <internal_optimizations.md>
+   Diagnostics & Profiling <diagnostics_and_profiling.md>
+   Caching & Memoization <caching_and_memoization.md>
+   Benchmarks <benchmarks.ipynb>
+   GPU Acceleration <gpu_roadmap.md>
 ```

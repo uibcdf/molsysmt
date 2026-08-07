@@ -1,3 +1,4 @@
 
-[NbConvertApp] Converting notebook contents/user/tools/basic/append_structures.ipynb to notebook
-[NbConvertApp] Writing 19900 bytes to contents/user/tools/basic/append_structures.ipynb
+[NbConvertApp] Converting notebook docs/content/user/tools/basic/append_structures.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 20609 bytes to docs/content/user/tools/basic/append_structures.ipynb

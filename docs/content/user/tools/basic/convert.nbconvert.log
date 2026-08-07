@@ -1,3 +1,4 @@
 
 [NbConvertApp] Converting notebook docs/content/user/tools/basic/convert.ipynb to notebook
-[NbConvertApp] Writing 215939 bytes to docs/content/user/tools/basic/convert.ipynb
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 45164 bytes to docs/content/user/tools/basic/convert.ipynb
