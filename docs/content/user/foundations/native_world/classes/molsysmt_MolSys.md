@@ -1,7 +1,7 @@
 (user-foundations-native-world-classes-molsysmt-molsys)=
-# molsysmt.MolSys
+# MolSys
 
-`molsysmt.MolSys` is the primary native unified molecular system container in MolSysMT. It composes the topological graph, 3D structural trajectory, and molecular mechanics parameter contracts into a single immutable state object.
+`molsysmt.MolSys` is the primary native unified molecular system container in MolSysMT. It composes the topological graph, 3D structures sequence or ensemble, and molecular mechanics parameter contracts into a single immutable state object.
 
 ---
 
@@ -13,31 +13,15 @@ As a user, `molsysmt.MolSys` is the central object returned when loading, conver
 
 ---
 
-## Internal Architecture & Attributes (What's Inside)
+## Internal Architecture & Attributes
 
 Inside a `molsysmt.MolSys` instance, three primary core component objects are composed:
 
-| Attribute | Internal Object Class | Physical Units | Description |
-| :--- | :--- | :--- | :--- |
-| **`topology`** | `molsysmt.Topology` | N/A | Topological graph containing atom, residue, group, component, molecule, and chain inventories. |
-| **`structures`** | `molsysmt.Structures` | Length in `nm`, Time in `ps` | Structural trajectory container holding 3D coordinates `(n_structures, n_atoms, 3)`, periodic box matrices `(n_structures, 3, 3)`, and frame timestamps. |
-| **`molecular_mechanics`** | `molsysmt.MolecularMechanics` | Charge in `e`, Mass in `Da` | Forcefield parameters, partial charges, atom masses, and non-bonded interaction rules. |
-
----
-
-## Declarative Dictionary Serialization (`MolSysDict`)
-
-`molsysmt.MolSys` can be losslessly serialized into a declarative Python dictionary (`molsysmt.MolSysDict`) or instantiated directly from a declarative system dictionary:
-
-```python
-import molsysmt as msm
-
-# 1. Converting a MolSys instance to a serializable MolSysDict
-molsys_dict = system.to_dict()
-
-# 2. Instantiating a new MolSys from a MolSysDict
-system = msm.convert(molsys_dict, to_form='molsysmt.MolSys')
-```
+| Attribute | Internal Object Class | Description |
+| :--- | :--- | :--- |
+| **`topology`** | `molsysmt.Topology` | Topological graph containing atom, residue, group, component, molecule, and chain inventories. |
+| **`structures`** | `molsysmt.Structures` | Structural container holding 3D coordinates `(n_structures, n_atoms, 3)`, periodic box matrices `(n_structures, 3, 3)`, and frame timestamps. |
+| **`molecular_mechanics`** | `molsysmt.MolecularMechanics` | Forcefield parameters, partial charges, atom masses, and non-bonded interaction rules. |
 
 ---
 
