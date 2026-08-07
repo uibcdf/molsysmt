@@ -61,6 +61,10 @@ scientific-validation requirements.
 - `sasa_methodologies_and_acceleration_post_1_0.md` — cell-list acceleration and
   alternative SASA methodologies (LCPO, Lee–Richards).
 - `molsysviewer_molsysmt_nonblocking_heavy_operations.md`
+- `declared_selection_syntaxes_without_implementation.md` — seven syntaxes are
+  declared and four of fourteen `(syntax, direction)` cells work; `MDAnalysis`
+  is documented as available but reachable only from PDB files and MDAnalysis
+  objects. Raised from MolSysViewer, which re-promises the same list.
 
 ### Exploratory architecture and operations
 
@@ -89,10 +93,11 @@ scientific-validation requirements.
   and largely applied: the README and documentation landing pages described a
   converter and a removed Numba/CUDA architecture, understated the supported
   surface, and carried code examples that did not execute.
-- `presentation_and_citation_surface.md` — the three items that pass could not
-  close: an ORCID misattributed to a real person plus a stale, malformed DOI in
-  `CITATION.cff`; an unreferenced duplicate documentation landing page; and the
-  timing of installation instructions against the Conda delivery track.
+- `presentation_and_citation_surface.md` — partially resolved on 2026-08-07. The
+  authorship question is decided and the misattributed ORCID is gone with it, and
+  the duplicate landing page is deleted. Two items remain: the stale, malformed DOI
+  and version in `CITATION.cff`, and the timing of the installation instructions
+  against the Conda delivery track.
 
 ### Education
 

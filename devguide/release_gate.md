@@ -86,6 +86,11 @@ runs only `pytest`).
 - [ ] `ci-full.yaml` (or candidate-pinned `ci-weekly.yaml`) → green on all 6 combos.
 - [ ] Docs build → green, course toctree warning-clean.
 - [ ] No open **blocker** in `pending_bugs/`; open items are accepted debt or post-1.0.
+- [ ] **Citation record updated for the tag.** `CITATION.cff` is a placeholder
+      between releases: its `title`, `version`, `doi` and `date-released` are
+      brought to the tagged release, and the Zenodo record is created so the DOI
+      resolves. This is deliberately a release-time step — the fields drifted for
+      two years when nothing owned them.
 
 Only then tag the release.
 

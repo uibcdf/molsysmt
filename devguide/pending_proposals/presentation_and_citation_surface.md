@@ -1,7 +1,11 @@
 # Presentation and citation surface: the remaining public-facing work
 
-**Status:** proposed. Three bounded items, each needing a maintainer decision
-before it can be executed.
+**Status:** partially resolved on 2026-08-07. The authorship question and the
+duplicate landing page are decided and applied. Item 1c is decided but deliberately
+not yet executed: `CITATION.cff` is a placeholder until 1.0, and the Zenodo record
+and DOI are updated when the release closes — it is now a line in the
+[release gate](../release_gate.md) sign-off so it cannot drift again. Item 3, the
+installation-instruction sequencing, is still open.
 **Raised:** 2026-07-29, during the positioning audit recorded in
 [`readme_positioning_and_1_0_refresh.md`](readme_positioning_and_1_0_refresh.md).
 **Scope:** `CITATION.cff`, `.zenodo.json`, `docs/index_v2.ipynb`, and the Conda
@@ -21,7 +25,13 @@ installation instructions before anything else.
 
 ## Item 1 — the citation record is stale, inconsistent, and misattributes an ORCID
 
-Three separate problems, in decreasing order of seriousness.
+Three separate problems, in decreasing order of seriousness. **1a and 1b were
+resolved on 2026-08-07**: the maintainer's decision is that Daniel Ibarrola-Sánchez
+is not an author, so he was removed from `CITATION.cff`. That settles the
+misattributed ORCID by removing the entry that carried it, and it makes the three
+records agree — `CITATION.cff` and `.zenodo.json` now list the same two authors with
+the same ORCIDs, and the README acknowledges his contributions to MolSysMT's early
+development. **1c remains open.**
 
 **1a. A real person is listed with someone else's ORCID.** `CITATION.cff`
 records:
@@ -73,10 +83,28 @@ because nothing updates them. If the canonical choice is a version DOI, this
 should be part of the release procedure in `release_gate.md` rather than a manual
 step that will drift again.
 
-## Item 2 — an unreferenced duplicate landing page
+**Decided 2026-08-07.** `CITATION.cff` is treated as a placeholder until 1.0. The
+new Zenodo record, its DOI, and the version, title and date fields are all updated
+as part of closing the release rather than now, so the file is expected to read
+`0.8.1` until then. To keep it from drifting a second time, the release gate's
+sign-off checklist now carries the step explicitly.
 
-`docs/index_v2.ipynb` was last modified on 2026-05-26 (`00e13b27b`). Nothing links
-to it: it appears in no `toctree`, in `docs/conf.py`, or in any other document.
+## Item 2 — an unreferenced duplicate landing page — **resolved 2026-08-07**
+
+The maintainer's decision is to delete it, and
+`docs/content/user/index_v2.ipynb` was removed with its two `nbconvert` artifacts.
+
+Three orphans of the same abandoned `_v2` experiment are still tracked and still
+have no inbound reference from any page: `docs/api/index_v2.md`,
+`docs/content/user/tools/index_v2.md`, and `docs/temp/index_v2.ipynb`. They carry
+the same risk described below and feed the `toc.not_included` warning family
+measured in `pending_bugs/sphinx_warning_baseline_and_api_reference_debt.md`.
+Removing them is the same decision, not a new one, and is left pending only because
+it was not part of the instruction.
+
+The original finding, for the record: `docs/index_v2.ipynb` was last modified on
+2026-05-26 (`00e13b27b`) and nothing linked to it — it appeared in no `toctree`, in
+`docs/conf.py`, or in any other document.
 
 It carries the superseded content the positioning pass has just corrected in
 `docs/index.ipynb` — the "One API. 60+ molecular formats and libraries" tagline,
