@@ -62,15 +62,59 @@ handled as one aligned family:
 
 - an attribute available in both inputs is concatenated on axis 1;
 - an attribute available in only one input is dropped with one
-  `StructuralAttributeDropWarning`;
-- structure-aligned metadata such as time, box, and energies remains that of
-  the target because the structure axis itself is not extended;
+  `StructuralAttributeDropWarning` under the default `attribute_policy='intersection'`,
+  or rejects the operation under `'strict'`;
 - structure-count mismatch is rejected before mutating the target;
+- a source carrying no structural series at all is a topology-only addition. It has no
+  structure axis to disagree about, so the count comparison does not apply and the
+  target's atom-aligned series are dropped by the ordinary one-sided rule;
 - the complete candidate payload is validated before assignment.
 
 This is the same intersection rule used for structure-axis append. MolSysMT 1.0
 does not represent a B factor, occupancy, velocity, or coordinate array that is
 available for only a prefix or suffix of the combined atom axis.
+
+Structure-aligned data is not one family, because adding atoms does not affect all of
+it the same way. The rules follow from what each value describes:
+
+- **The structure axis keeps its identity.** `structure_id`, `time` and `time_step`
+  remain the target's: `add()` extends the atom axis and leaves the structure axis
+  untouched.
+- **The periodic box remains the target's**, because `add()` never reinterprets the
+  unit cell. When the two inputs disagree, or when only one of them is periodic, an
+  `IncompatibleBoxWarning` (`MSM-WARN-STRUCT-007`) reports it. Coordinates expressed
+  under a different cell are not comparable, and combining them silently would hide
+  that.
+- **`temperature`, `potential_energy` and `kinetic_energy` are dropped** whenever atoms
+  are actually added, and reported in the same `StructuralAttributeDropWarning`. They
+  describe the system as a whole, the system changed, and neither target precedence nor
+  any additive rule would make the old value describe the new system. They survive only
+  when nothing was added — an empty selection leaves the system unchanged.
+- **`alternate_location` is atom-aligned in meaning** although it is stored per
+  structure: its content is a mapping keyed by atom index. The source's entries are
+  merged with their keys shifted by the size of the target's atom axis.
+
+`MolSys.add()` extends this to the state the structures payload does not reach:
+
+- **Bioassemblies from both systems are combined**, with the incoming `chain_indices`
+  shifted by the target's chain count — assemblies are keyed by chain, not by atom. An
+  incoming identifier that already exists is renamed and reported with a
+  `BioassemblyIdentifierCollisionWarning` (`MSM-WARN-STRUCT-008`); identifiers are source
+  data and are not required to be unique across systems.
+- **`atoms_ff` is atom-aligned** and therefore governed by `attribute_policy`. When both
+  systems carry force-field parameters the tables are concatenated; when only one does,
+  the combined table would parameterize part of the atom axis, so the whole molecular
+  mechanics block is cleared under `intersection` and the operation is rejected under
+  `strict`. A partially parameterized system is not parameterized.
+
+`add()` takes one target and one source. A list is one molecular system split into
+complementary items, exactly as `convert` reads it, and is assembled before the
+addition. A composite target cannot be grown in place, because the assembled result is
+a new object.
+
+These rules were decided by the [atom-axis `add()` semantic
+audit](pending_proposals/atom_axis_add_semantic_audit.md) as D1-D7 and are guarded by
+`tests/basic/add/test_add_audit_decisions.py`.
 
 ## Deferred partial-series model
 

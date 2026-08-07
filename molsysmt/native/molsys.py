@@ -4,6 +4,91 @@ import numpy as np
 import pandas as pd
 from smonitor import signal
 
+
+def _merged_bioassembly(target, source, chain_offset):
+    """Merging two bioassembly catalogues, whose entries are keyed by chain index.
+
+    Identifiers are source data and need not be unique across systems, so an incoming
+    identifier that already exists is renamed rather than overwriting the target's.
+    """
+
+    if source is None:
+        return target if target is None else dict(target)
+
+    merged = {} if target is None else dict(target)
+    renamed = []
+    for assembly_id, assembly in source.items():
+        chain_indices = assembly['chain_indices']
+        if chain_indices and isinstance(chain_indices[0], (list, tuple, np.ndarray)):
+            shifted = [[int(index) + chain_offset for index in operation]
+                       for operation in chain_indices]
+        else:
+            shifted = [int(index) + chain_offset for index in chain_indices]
+
+        new_id = assembly_id
+        suffix = 1
+        while new_id in merged:
+            new_id = f'{assembly_id}_{suffix}'
+            suffix += 1
+        if new_id != assembly_id:
+            renamed.append((assembly_id, new_id))
+        merged[new_id] = {**assembly, 'chain_indices': shifted}
+
+    if renamed:
+        import warnings
+
+        from molsysmt._private.smonitor import BioassemblyIdentifierCollisionWarning
+
+        warnings.warn(
+            BioassemblyIdentifierCollisionWarning(renamed=renamed, caller='molsysmt.add'),
+            stacklevel=2,
+        )
+    return merged or None
+
+
+def _merged_molecular_mechanics(target, source, attribute_policy):
+    """Merging two molecular-mechanics blocks along the atom axis.
+
+    `atoms_ff` is atom-aligned, so a one-sided table would parameterize only part of the
+    resulting system. A partially parameterized system is not parameterized: under the
+    default policy the whole block is cleared.
+    """
+
+    from molsysmt._private.smonitor import (
+        StructuralAttributeDropWarning,
+        StructuralInconsistencyError,
+    )
+    from .molecular_mechanics import MolecularMechanics
+
+    target_ff = None if target is None else target.atoms_ff
+    source_ff = None if source is None else source.atoms_ff
+
+    if target_ff is None and source_ff is None:
+        return target.copy() if target is not None else MolecularMechanics()
+
+    if (target_ff is None) != (source_ff is None):
+        if attribute_policy == 'strict':
+            raise StructuralInconsistencyError(
+                reason=(
+                    'Only one of the two systems carries force-field parameters, so the '
+                    'result would parameterize part of the atom axis. Use '
+                    "attribute_policy='intersection' to clear them instead."
+                ),
+                caller='molsysmt.native.MolSys.add',
+            )
+        import warnings
+
+        warnings.warn(
+            StructuralAttributeDropWarning(attributes=['atoms_ff'], caller='molsysmt.add'),
+            stacklevel=2,
+        )
+        return MolecularMechanics()
+
+    merged = target.copy()
+    merged.atoms_ff = pd.concat([target_ff, source_ff], ignore_index=True)
+    return merged
+
+
 class MolSys:
     """Container holding native topology, structures, and molecular mechanics data."""
 
@@ -348,8 +433,12 @@ class MolSys:
 
     @signal(tags=['native'])
     @arg_digest(form='molsysmt.MolSys')
-    def add(self, item, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
+    def add(self, item, atom_indices='all', structure_indices='all', keep_ids=True,
+            attribute_policy='intersection', skip_digestion=False):
         """Adding topology and atom-aligned structures from another MolSys."""
+
+        n_atoms_before = self.topology.n_atoms
+        n_chains_before = self.topology.n_chains
 
         candidate_topology = self.topology.copy()
         candidate_structures = self.structures.copy()
@@ -359,14 +448,29 @@ class MolSys:
             keep_ids=keep_ids,
             skip_digestion=True,
         )
+        n_atoms_added = candidate_topology.n_atoms - n_atoms_before
         candidate_structures.add(
             item.structures,
             atom_indices=atom_indices,
             structure_indices=structure_indices,
+            attribute_policy=attribute_policy,
+            n_atoms_added=n_atoms_added,
             skip_digestion=True,
         )
+        candidate_structures.bioassembly = _merged_bioassembly(
+            self.structures.bioassembly,
+            item.structures.bioassembly,
+            chain_offset=n_chains_before,
+        )
+        candidate_mechanics = _merged_molecular_mechanics(
+            self.molecular_mechanics,
+            item.molecular_mechanics,
+            attribute_policy=attribute_policy,
+        )
+
         self.topology = candidate_topology
         self.structures = candidate_structures
+        self.molecular_mechanics = candidate_mechanics
 
     @arg_digest(form='molsysmt.MolSys')
     def append_structures(

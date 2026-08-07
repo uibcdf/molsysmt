@@ -39,6 +39,71 @@ _ATOM_ALIGNED_ATTRIBUTES = (
     'occupancy',
 )
 
+# These describe the system as a whole rather than one atom or one structure. Adding
+# atoms changes the system they describe, so they cannot survive the operation.
+_SYSTEM_LEVEL_OBSERVABLES = (
+    'temperature',
+    'potential_energy',
+    'kinetic_energy',
+)
+
+_BOX_TOLERANCE_NM = 1e-6
+
+
+def _box_mismatch_reason(target_box, source_box):
+    """Returning why two periodic boxes disagree, or None when they are compatible."""
+
+    if target_box is None and source_box is None:
+        return None
+    if target_box is None:
+        return 'the target system has no periodic box while the added atoms do'
+    if source_box is None:
+        return 'the added atoms have no periodic box while the target system does'
+
+    target = np.asarray(target_box, dtype=float)
+    source = np.asarray(source_box, dtype=float)
+    if target.shape != source.shape:
+        return f'box shapes differ, {target.shape} against {source.shape}'
+    if np.allclose(target, source, atol=_BOX_TOLERANCE_NM, rtol=0.0):
+        return None
+    structure = int(np.argmax(np.abs(target - source).reshape(target.shape[0], -1).max(axis=1)))
+    return (f'the boxes differ, first at structure {structure}: '
+            f'{np.diag(target[structure])} against {np.diag(source[structure])} nm')
+
+
+def _merge_alternate_locations(target_value, source_value, atom_offset, n_structures):
+    """Merging two alternate-location series, whose keys are atom indices.
+
+    The series is stored per structure but its content is keyed by atom index, so the
+    incoming keys have to move by the size of the target's atom axis.
+    """
+
+    if source_value is None:
+        return target_value
+
+    def _entries(value):
+        if value is None:
+            return [{} for _ in range(n_structures)]
+        return list(value)
+
+    target_entries = _entries(target_value)
+    source_entries = list(source_value)
+    if len(target_entries) != len(source_entries):
+        return target_value
+
+    merged = []
+    for target_entry, source_entry in zip(target_entries, source_entries):
+        if not isinstance(target_entry, dict) or not isinstance(source_entry, dict):
+            # Only the documented dict shape can be remapped; anything else keeps the
+            # target's entry rather than being silently reinterpreted.
+            merged.append(target_entry)
+            continue
+        combined = dict(target_entry)
+        combined.update({int(index) + atom_offset: value
+                         for index, value in source_entry.items()})
+        merged.append(combined)
+    return merged
+
 
 class Structures:
     """Storing per-structure data (coordinates, box, time, energies) for a molecular system."""
@@ -768,55 +833,105 @@ class Structures:
         return tmp_item
 
     @arg_digest()
-    def add(self, item, atom_indices='all', structure_indices='all', skip_digestion=False):
-        """Concatenating atoms while keeping every atom-aligned series coherent."""
+    def add(self, item, atom_indices='all', structure_indices='all',
+            attribute_policy='intersection', n_atoms_added=None, skip_digestion=False):
+        """Concatenating atoms while keeping every atom-aligned series coherent.
+
+        `n_atoms_added` lets a caller that also owns the topology — `MolSys.add` — say
+        how many atoms the operation really adds. A topology-only source contributes no
+        structural array, so the payload alone cannot tell that the system grew.
+        """
+
+        import warnings
+
+        from molsysmt._private.smonitor import (
+            IncompatibleBoxWarning,
+            StructuralAttributeDropWarning,
+            StructuralInconsistencyError,
+        )
+
+        caller = 'molsysmt.native.Structures.add'
 
         current = self._frame_payload()
-        current_n_structures, _ = self._payload_dimensions(
-            current,
-            caller='molsysmt.native.Structures.add',
-        )
+        current_n_structures, current_n_atoms = self._payload_dimensions(
+            current, caller=caller)
         incoming = item.extract(
             atom_indices=atom_indices,
             structure_indices=structure_indices,
             copy_if_all=True,
             skip_digestion=True,
         )._frame_payload()
-        incoming_n_structures, _ = self._payload_dimensions(
-            incoming,
-            caller='molsysmt.native.Structures.add',
-            payload_error=True,
-        )
-        if current_n_structures != incoming_n_structures:
+        incoming_n_structures, incoming_n_atoms = self._payload_dimensions(
+            incoming, caller=caller, payload_error=True)
+
+        # A source carrying no structural series at all is a topology-only addition. It
+        # has no structure axis to disagree about, so comparing counts would report a
+        # length mismatch for a series the caller never supplied.
+        source_is_structureless = all(value is None for value in incoming.values())
+        if not source_is_structureless and current_n_structures != incoming_n_structures:
             raise ArgumentLengthError(
                 argument='structures',
                 expected=current_n_structures,
                 actual=incoming_n_structures,
-                caller='molsysmt.native.Structures.add',
+                caller=caller,
             )
+
+        if n_atoms_added is None:
+            n_atoms_added = incoming_n_atoms
 
         candidate = dict(current)
         dropped = []
+        one_sided = []
         for name in _ATOM_ALIGNED_ATTRIBUTES:
             left = current.get(name)
             right = incoming.get(name)
             if left is None or right is None:
                 candidate[name] = None
                 if (left is None) != (right is None):
-                    dropped.append(name)
+                    one_sided.append(name)
                 continue
             candidate[name] = np.concatenate((left, right), axis=1)
 
-        self._payload_dimensions(
-            candidate,
-            caller='molsysmt.native.Structures.add',
-        )
-        if dropped:
-            import warnings
-            from molsysmt._private.smonitor import StructuralAttributeDropWarning
+        if one_sided and attribute_policy == 'strict':
+            raise StructuralInconsistencyError(
+                reason=(
+                    'These atom-aligned attributes are present on only one side, so the '
+                    f'result would cover part of the atom axis: {", ".join(one_sided)}. '
+                    "Use attribute_policy='intersection' to discard them instead."
+                ),
+                caller=caller,
+            )
+        dropped.extend(one_sided)
 
+        box_reason = _box_mismatch_reason(current.get('box'), incoming.get('box'))
+
+        # add() grows the atom axis; it never reinterprets the unit cell, so the target's
+        # box stands and the disagreement is reported rather than resolved.
+        if n_atoms_added and box_reason is not None:
             warnings.warn(
-                StructuralAttributeDropWarning(attributes=dropped),
+                IncompatibleBoxWarning(reason=box_reason, caller='molsysmt.add'),
+                stacklevel=2,
+            )
+
+        # temperature and the energies describe the system, and the system just changed.
+        # time and structure_id describe the structure axis, which add() does not touch.
+        if n_atoms_added:
+            for name in _SYSTEM_LEVEL_OBSERVABLES:
+                if candidate.get(name) is not None:
+                    candidate[name] = None
+                    dropped.append(name)
+
+        candidate['alternate_location'] = _merge_alternate_locations(
+            current.get('alternate_location'),
+            incoming.get('alternate_location'),
+            atom_offset=current_n_atoms,
+            n_structures=current_n_structures,
+        )
+
+        self._payload_dimensions(candidate, caller=caller)
+        if dropped:
+            warnings.warn(
+                StructuralAttributeDropWarning(attributes=dropped, caller='molsysmt.add'),
                 stacklevel=2,
             )
         self._assign_frame_payload(candidate)

@@ -1,16 +1,17 @@
 """
 The semantics decided by the atom-axis `add()` audit, and the defects it found.
 
-Every test here fails today on purpose. They are marked `xfail(strict=True)`, so when
-Phase 3 implements a decision the corresponding test starts passing and pytest reports
-the stale marker — the marker cannot be forgotten.
+These were written in Phase 2 as `xfail(strict=True)` against an implementation that did
+not have them yet, and Phase 3 made them pass. The strict marker is what forced each one
+to be examined as it flipped instead of being assumed correct.
 
 Audit: `devguide/pending_proposals/atom_axis_add_semantic_audit.md`, sections
 "Accepted Decisions" (D1-D7) and `atom_axis_add_phase1_findings.md`, section 5.
 
-Nothing here encodes current behaviour. Where current behaviour and a decision
-disagree, the decision is what is written.
+Each test states the decision it guards, not the behaviour that preceded it.
 """
+
+import warnings
 
 import numpy as np
 import pytest
@@ -19,13 +20,11 @@ import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt import systems
 from molsysmt._private.smonitor import (
+    BioassemblyIdentifierCollisionWarning,
+    IncompatibleBoxWarning,
     NotImplementedMethodError,
     StructuralAttributeDropWarning,
-    UserMolSysMTWarning,
 )
-
-pending = pytest.mark.xfail(strict=True, reason='decided by the audit, not yet implemented')
-
 
 def _cubic_box(edge_nm, n_structures=1):
     return puw.quantity(
@@ -38,7 +37,6 @@ def _cubic_box(edge_nm, n_structures=1):
 # Defects found by Phase 1, independent of any policy choice
 # =====================================================================================
 
-@pending
 def test_a_composite_source_list_is_assembled_before_being_added(proline_molsys):
     # `convert` reads [prmtop, inpcrd] as one 5207-atom system with one structure.
     # `add` must read the same list the same way, instead of iterating the two
@@ -54,7 +52,6 @@ def test_a_composite_source_list_is_assembled_before_being_added(proline_molsys)
     assert msm.get(proline_molsys, n_structures=True) == 1
 
 
-@pending
 def test_a_composite_target_list_is_assembled_before_receiving(valine_molsys):
     # As a target the same list currently tries to convert the source back into
     # file:prmtop. Findings, defect 5.
@@ -67,7 +64,6 @@ def test_a_composite_target_list_is_assembled_before_receiving(valine_molsys):
     assert msm.get(result, n_atoms=True) == 5207 + msm.get(valine_molsys, n_atoms=True)
 
 
-@pending
 def test_adding_a_topology_to_a_system_with_coordinates_reports_the_real_cause(
         proline_molsys, valine_molsys):
     # Today this raises ArgumentLengthError naming `structures`, an argument the caller
@@ -80,7 +76,6 @@ def test_adding_a_topology_to_a_system_with_coordinates_reports_the_real_cause(
         msm.add(proline_molsys, source)
 
 
-@pending
 def test_the_topology_adapter_raises_the_catalogued_error(proline_molsys):
     # molsysmt.Topology's add raises a bare NotImplementedError, escaping the error
     # policy every other stub follows. Findings, defect 7.
@@ -94,30 +89,28 @@ def test_the_topology_adapter_raises_the_catalogued_error(proline_molsys):
 # D1 - the target's periodic box prevails, and a mismatch is reported
 # =====================================================================================
 
-@pending
 def test_incompatible_boxes_keep_the_targets_and_warn(proline_molsys, valine_molsys):
     proline_molsys.structures.box = _cubic_box(2.0)
     valine_molsys.structures.box = _cubic_box(9.0)
 
-    with pytest.warns(UserMolSysMTWarning):
+    with pytest.warns(IncompatibleBoxWarning):
         msm.add(proline_molsys, valine_molsys)
 
     box = puw.get_value(proline_molsys.structures.box, to_unit='nm')
     np.testing.assert_allclose(np.diag(box[0]), [2.0, 2.0, 2.0])
 
 
-@pending
 def test_compatible_boxes_do_not_warn(proline_molsys, valine_molsys):
     proline_molsys.structures.box = _cubic_box(3.0)
     valine_molsys.structures.box = _cubic_box(3.0)
 
-    with pytest.warns(None) as caught:
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter('always')
         msm.add(proline_molsys, valine_molsys)
 
-    assert not [w for w in caught if issubclass(w.category, UserMolSysMTWarning)]
+    assert not [w for w in caught if issubclass(w.category, IncompatibleBoxWarning)]
 
 
-@pending
 @pytest.mark.parametrize('side', ['target', 'source'])
 def test_a_one_sided_box_warns(proline_molsys, valine_molsys, side):
     # Mixing a periodic fragment with a non-periodic one is the same class of event as
@@ -127,7 +120,7 @@ def test_a_one_sided_box_warns(proline_molsys, valine_molsys, side):
     holder.structures.box = _cubic_box(3.0)
     other.structures.box = None
 
-    with pytest.warns(UserMolSysMTWarning):
+    with pytest.warns(IncompatibleBoxWarning):
         msm.add(proline_molsys, valine_molsys)
 
 
@@ -135,7 +128,6 @@ def test_a_one_sided_box_warns(proline_molsys, valine_molsys, side):
 # D2 - system-level observables are dropped; the structure axis identity is kept
 # =====================================================================================
 
-@pending
 @pytest.mark.parametrize('attribute,unit', [
     ('temperature', 'K'),
     ('potential_energy', 'kJ/mol'),
@@ -183,7 +175,6 @@ def test_an_empty_selection_keeps_the_observables(proline_molsys, valine_molsys)
 # D3 and D7 - attribute_policy
 # =====================================================================================
 
-@pending
 def test_attribute_policy_is_a_real_parameter_of_add():
     # `add()` currently has no such parameter, and passing one is silently ignored
     # rather than rejected, so asserting on behaviour alone would pass for the wrong
@@ -195,7 +186,6 @@ def test_attribute_policy_is_a_real_parameter_of_add():
     assert parameters['attribute_policy'].default == 'intersection'
 
 
-@pending
 def test_strict_refuses_instead_of_discarding_the_targets_data(proline_molsys, valine_molsys):
     from molsysmt._private.smonitor import StructuralInconsistencyError
 
@@ -224,7 +214,6 @@ def test_the_targets_time_step_survives(proline_molsys, valine_molsys):
     assert puw.get_value(proline_molsys.structures.time_step, to_unit='ps') == 2.0
 
 
-@pending
 def test_bioassemblies_are_merged_with_chain_indices_remapped(proline_molsys, valine_molsys):
     n_target_chains = msm.get(proline_molsys, n_chains=True)
     proline_molsys.structures.bioassembly = {
@@ -243,7 +232,6 @@ def test_bioassemblies_are_merged_with_chain_indices_remapped(proline_molsys, va
     assert assemblies['B']['chain_indices'] == [n_target_chains]
 
 
-@pending
 def test_a_colliding_bioassembly_identifier_is_renamed_with_a_warning(
         proline_molsys, valine_molsys):
     for molsys in (proline_molsys, valine_molsys):
@@ -251,7 +239,7 @@ def test_a_colliding_bioassembly_identifier_is_renamed_with_a_warning(
             '1': {'chain_indices': [0], 'rotations': np.eye(3)[None, ...],
                   'translations': np.zeros((1, 3))}}
 
-    with pytest.warns(UserMolSysMTWarning):
+    with pytest.warns(BioassemblyIdentifierCollisionWarning):
         msm.add(proline_molsys, valine_molsys)
 
     assemblies = proline_molsys.structures.bioassembly
@@ -259,7 +247,6 @@ def test_a_colliding_bioassembly_identifier_is_renamed_with_a_warning(
     assert '1' in assemblies
 
 
-@pending
 def test_a_one_sided_force_field_clears_the_molecular_mechanics(proline_molsys, valine_molsys):
     # A merged atoms_ff would cover only the target's atoms, which the fixed invariants
     # forbid. Under the default policy it goes, with a warning.
@@ -289,7 +276,6 @@ def test_a_list_of_independent_systems_is_still_refused(proline_molsys, valine_m
         msm.add(proline_molsys, [valine_molsys, valine_molsys.copy()])
 
 
-@pending
 def test_the_dispatcher_has_no_target_by_source_loop():
     # D5 deletes the Cartesian loop. Its absence is the observable contract: the
     # dispatcher must not iterate a target sequence against a source sequence.
@@ -305,7 +291,6 @@ def test_the_dispatcher_has_no_target_by_source_loop():
 # D6 - alternate_location is atom-aligned in meaning
 # =====================================================================================
 
-@pending
 def test_alternate_locations_are_merged_with_atom_indices_remapped(
         proline_molsys, valine_molsys):
     n_target = msm.get(proline_molsys, n_atoms=True)

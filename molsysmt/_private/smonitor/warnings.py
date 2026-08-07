@@ -118,6 +118,36 @@ class StructuralAttributeDropWarning(UserMolSysMTWarning):
         })
 
 
+class IncompatibleBoxWarning(UserMolSysMTWarning):
+    """Warning about fragments combined under disagreeing periodic boxes."""
+
+    catalog_key = "IncompatibleBoxWarning"
+
+    def __init__(self, reason, caller=None):
+        if not isinstance(reason, str):
+            Warning.__init__(self, reason)
+            return
+        super().__init__(extra={
+            "reason": reason,
+            "caller": caller,
+        })
+
+
+class BioassemblyIdentifierCollisionWarning(UserMolSysMTWarning):
+    """Warning about incoming bioassembly identifiers renamed to avoid a collision."""
+
+    catalog_key = "BioassemblyIdentifierCollisionWarning"
+
+    def __init__(self, renamed, caller=None):
+        if isinstance(renamed, str):
+            Warning.__init__(self, renamed)
+            return
+        super().__init__(extra={
+            "renamed": ", ".join(f'{old} -> {new}' for old, new in renamed),
+            "caller": caller,
+        })
+
+
 class SlowChunkIOWarning(MolSysMTCatalogWarning):
     catalog_key = "SlowChunkIOWarning"
 
@@ -163,6 +193,8 @@ __all__ = [
     "MolecularSystemMismatchWarning",
     "StructuralAttributeDropWarning",
     "StructuralAttributeOffAxisWarning",
+    "IncompatibleBoxWarning",
+    "BioassemblyIdentifierCollisionWarning",
     "SlowChunkIOWarning",
     "MemoryPressureWarning",
     "UnknownAtomNameWarning",

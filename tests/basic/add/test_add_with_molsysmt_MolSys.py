@@ -54,19 +54,23 @@ def test_public_add_on_structures_uses_the_atom_axis_and_returns_a_scalar():
     assert result.velocities.shape == (1, 3, 3)
 
 
-def test_public_add_processes_every_source_item():
+def test_public_add_assembles_a_composite_source_before_adding_it():
+    # These two one-atom items describe *one* molecular system given in complementary
+    # parts, which is what a list means everywhere else in MolSysMT. `add` assembles
+    # them and adds the one atom they describe, rather than visiting them as two
+    # independent sources and adding two. Decision D5 of the atom-axis add() audit.
     target = Structures(coordinates=puw.quantity(np.zeros((1, 1, 3)), 'nm'))
-    sources = [
+    source = [
         Structures(coordinates=puw.quantity(np.ones((1, 1, 3)), 'nm')),
         Structures(coordinates=puw.quantity(np.full((1, 1, 3), 2.0), 'nm')),
     ]
 
-    msm.add(target, sources)
+    msm.add(target, source)
 
-    assert target.coordinates.shape == (1, 3, 3)
+    assert target.coordinates.shape == (1, 2, 3)
     np.testing.assert_allclose(
         puw.get_value(target.coordinates, to_unit='nm')[0, :, 0],
-        [0.0, 1.0, 2.0],
+        [0.0, 2.0],
     )
 
 

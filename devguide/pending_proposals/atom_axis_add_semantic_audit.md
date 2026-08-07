@@ -392,6 +392,46 @@ Two results came out of writing it:
   [`pending_bugs/public_functions_silently_ignore_unknown_keywords.md`](../pending_bugs/public_functions_silently_ignore_unknown_keywords.md).
   It is independent of this audit in both directions.
 
+## Phase 3 — implemented 2026-08-07
+
+D1-D7 and the four Phase 1 defects are implemented. Every `xfail(strict=True)` of the
+Phase 2 matrix flipped and its marker was removed; the whole `tests/basic/add/` suite
+passes with no pending markers left.
+
+What changed:
+
+- `molsysmt/native/structures.py` — `Structures.add` gains `attribute_policy` and
+  `n_atoms_added`, drops the system-level observables, reports box disagreements, merges
+  `alternate_location` with remapped atom indices, and treats a structureless source as
+  a topology-only addition instead of a structure-count mismatch.
+- `molsysmt/native/molsys.py` — `MolSys.add` computes how many atoms are really added
+  from the topology side, merges bioassemblies on the chain axis with collision
+  renaming, and merges or clears the molecular mechanics. Everything is still assembled
+  on candidates and assigned at the end, so atomicity is preserved.
+- `molsysmt/basic/add.py` — the target × source loop is gone. A composite list is
+  assembled through `convert`, and a composite target with `in_place=True` is refused
+  with an actionable message rather than silently doing something else.
+- `molsysmt/form/molsysmt_Topology/add.py` now raises the catalogued
+  `NotImplementedMethodError`.
+- Two new catalogued warnings: `IncompatibleBoxWarning` (`MSM-WARN-STRUCT-007`) and
+  `BioassemblyIdentifierCollisionWarning` (`MSM-WARN-STRUCT-008`).
+
+The contract moved into [`native_structures_contract.md`](../native_structures_contract.md),
+section *Atom-axis addition*, which previously stated that "structure-aligned metadata
+such as time, box, and energies remains that of the target" — true for time and box,
+and now deliberately false for the energies.
+
+`test_public_add_processes_every_source_item` was rewritten rather than deleted: it
+asserted that a composite list produces three atoms from one plus one plus one, and
+under D5 it produces two.
+
+### Remaining: Phase 4
+
+Docstrings are updated. Still open before this proposal can be archived: the User Guide
+page `docs/content/user/tools/basic/add.ipynb` and Common Core modules 17 and 18 have
+not been checked against the new behaviour, the affected notebooks have not been
+re-executed, and the acceptance criteria have not been walked one by one.
+
 ### Known obstacle
 
 **No public route reaches a populated `MolecularMechanics`.**

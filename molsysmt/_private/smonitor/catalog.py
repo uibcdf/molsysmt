@@ -120,6 +120,18 @@ CATALOG = {
             "category": "structure",
             "level": "WARNING",
         },
+        "IncompatibleBoxWarning": {
+            "code": "MSM-WARN-STRUCT-007",
+            "source": "molsysmt.warning.structure.incompatible_box",
+            "category": "structure",
+            "level": "WARNING",
+        },
+        "BioassemblyIdentifierCollisionWarning": {
+            "code": "MSM-WARN-STRUCT-008",
+            "source": "molsysmt.warning.structure.bioassembly_collision",
+            "category": "structure",
+            "level": "WARNING",
+        },
         "SlowChunkIOWarning": {
             "code": "MSM-WARN-HVY-001",
             "source": "molsysmt.warning.heavy.slow_io",
@@ -458,6 +470,42 @@ CODES = {
         "qa_hint": "Check the structure count of every item of the composite system.",
         "agent_message": "Dropped off-axis structural attributes: {attributes}.",
         "agent_hint": "Compare n_structures of each item before requesting the attribute.",
+    },
+    "MSM-WARN-STRUCT-007": {
+        "title": "Fragments combined under disagreeing periodic boxes",
+        "user_message": (
+            "Atoms were added under a periodic box that does not match the one of the "
+            "target system: {reason}. The target's box was kept."
+        ),
+        "user_hint": (
+            "Coordinates expressed under a different unit cell are not directly "
+            "comparable. Wrap or re-image the incoming coordinates into the target's box "
+            "before adding them. Docs: {doc_url}"
+        ),
+        "dev_message": "Incompatible boxes combined in '{caller}': {reason}.",
+        "dev_hint": "add() grows the atom axis and never reinterprets the unit cell.",
+        "qa_message": "Incompatible boxes combined in '{caller}': {reason}.",
+        "qa_hint": "Verify that the periodic mismatch is intended for this test.",
+        "agent_message": "Combined fragments under disagreeing boxes: {reason}.",
+        "agent_hint": "Re-image the source coordinates into the target's box first.",
+    },
+    "MSM-WARN-STRUCT-008": {
+        "title": "Bioassembly identifiers renamed",
+        "user_message": (
+            "Incoming bioassembly identifiers already existed in the target system and "
+            "were renamed: {renamed}."
+        ),
+        "user_hint": (
+            "Bioassembly identifiers are source data and need not be unique across "
+            "systems. Rename them before adding if the original labels matter. "
+            "Docs: {doc_url}"
+        ),
+        "dev_message": "Bioassembly identifiers renamed in '{caller}': {renamed}.",
+        "dev_hint": "Target identifiers win; incoming ones are suffixed until unique.",
+        "qa_message": "Bioassembly identifiers renamed in '{caller}': {renamed}.",
+        "qa_hint": "Check that the renamed assemblies are the expected ones.",
+        "agent_message": "Renamed colliding bioassembly identifiers: {renamed}.",
+        "agent_hint": "Identifiers are not unique across molecular systems.",
     },
     "MSM-INFO-EXP-001": {
         "title": "Experimental path",

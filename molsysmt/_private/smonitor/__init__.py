@@ -26,4 +26,6 @@ __all__ = [
     "GpuNotAvailableWarning",
     "StructuralAttributeDropWarning",
     "StructuralAttributeOffAxisWarning",
+    "IncompatibleBoxWarning",
+    "BioassemblyIdentifierCollisionWarning",
 ]
