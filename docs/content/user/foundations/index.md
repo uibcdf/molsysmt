@@ -75,14 +75,14 @@ Compatibility matrix across forms, libraries, and engines.
    :maxdepth: 2
    :hidden:
 
-   entrance/index.md
-   molecular_system/index.md
-   native_world/index.md
-   language/index.md
-   performance/index.md
-   governance/index.md
-   support/index.md
-   ecosystem/index.md
+   entrance/index
+   molecular_system/index
+   native_world/index
+   language/index
+   performance/index
+   governance/index
+   support/index
+   ecosystem/index
 ```
 
 --- 
