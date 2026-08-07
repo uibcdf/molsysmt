@@ -46,9 +46,6 @@ scientific-validation requirements.
 - `conversion_fidelity_and_molsysdict_v1.md` — executable Tier 1 conversion
   fidelity and a versioned path beyond the MolSysDict 0.1 boundary; the gate is
   operational and remaining non-exhaustive routes are explicit baseline debt.
-- `atom_axis_add_semantic_audit.md` — bounded pre-F5 audit of multi-source
-  selections and transaction scope, one-sided atom-aligned attributes, and the
-  scientific validity of structure-aligned metadata after adding atoms.
 
 ### Scientific and ecosystem requests
 
@@ -108,6 +105,17 @@ risk, effort, and an explicit maintainer decision. Proposals marked exploratory
 or partially superseded must be re-scoped before implementation.
 
 ## Closed and moved out of this directory
+
+Archived on 2026-08-07 under `../archive/resolved_proposals/`:
+
+- `atom_axis_add_semantic_audit.md` and its evidence
+  `atom_axis_add_phase1_findings.md` — **completed** through all four phases. The
+  audit found the scope narrower than assumed, two of its own premises wrong, and a
+  defect it had not anticipated; its seven decisions are implemented and its contract
+  now lives in [`native_structures_contract.md`](../native_structures_contract.md).
+  All ten acceptance criteria are walked in the archived document. One finding left
+  the audit and stayed open on its own:
+  [`pending_bugs/public_functions_silently_ignore_unknown_keywords.md`](../pending_bugs/public_functions_silently_ignore_unknown_keywords.md).
 
 Archived on 2026-07-28 under `../archive/resolved_proposals/`, with a resolution
 note on each:

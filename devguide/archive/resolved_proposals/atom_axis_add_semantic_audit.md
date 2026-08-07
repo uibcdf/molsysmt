@@ -425,12 +425,54 @@ and now deliberately false for the energies.
 asserted that a composite list produces three atoms from one plus one plus one, and
 under D5 it produces two.
 
-### Remaining: Phase 4
+## Phase 4 — lifecycle closed 2026-08-07
 
-Docstrings are updated. Still open before this proposal can be archived: the User Guide
-page `docs/content/user/tools/basic/add.ipynb` and Common Core modules 17 and 18 have
-not been checked against the new behaviour, the affected notebooks have not been
-re-executed, and the acceptance criteria have not been walked one by one.
+- **Docstrings.** `molsysmt.basic.add` documents `attribute_policy` and the four Notes
+  that changed. The native `MolSys.add` and `Structures.add` docstrings state the new
+  parameters, including why `n_atoms_added` exists.
+- **User Guide.** `docs/content/user/tools/basic/add.ipynb` gains *What is kept and what
+  is dropped*, *Refusing instead of dropping*, and a warning admonition for the
+  one-source rule. The example is real rather than illustrative: T4 lysozyme from a PDB
+  file carries B factors and a unit cell, a built peptide carries neither, so adding one
+  to the other exercises the drop and both new diagnostics at once. The notebook was
+  re-executed, so its printed outputs are measured.
+- **Course.** Common Core modules 17 and 18 were checked and need no correction: they
+  use `msm.add(protein, ligand)`, one target and one source, which is exactly D5.
+- **A diagnostic defect found by writing the documentation.** The `strict` rejection
+  message rendered with a doubled period, because the reason string ended in one and the
+  catalogue template appends its own. Fixed in both call sites.
+
+### Acceptance criteria
+
+1. **Cardinality explicit and tested** — D5. `test_the_dispatcher_has_no_target_by_source_loop`,
+   `test_a_list_of_independent_systems_is_still_refused`, both composite tests, and the
+   rewritten `test_public_add_assembles_a_composite_source_before_adding_it`.
+2. **Nontrivial selections over multiple sources** — answered by removal: there are no
+   multiple sources. A selection is evaluated against the system a list assembles to,
+   pinned by `test_a_string_selection_applies_to_the_assembled_composite_source`.
+3. **Transaction boundary documented and tested** — one call is one addition and is
+   atomic; the two atomicity tests cover exception and warning-as-error.
+4. **Every atom-aligned presence combination has an accepted outcome** — the one-sided
+   parametrisation covers `b_factor`, `occupancy` and `velocities` in both directions;
+   both-present and both-absent have their own tests; one-sided `coordinates` is the
+   topology-only case.
+5. **Structure identity, box, time, temperature, energy, alternate-location, time-step
+   and bioassembly classified** — D1, D2, D4, D6, each with a test and a paragraph in
+   the contract.
+6. **Topology-only and coordinate-free cases explicit** — a structureless source is a
+   topology-only addition, with its own rule and test.
+7. **Tier 1 adapters conform or declare bounded limitations** — only `molsysmt.MolSys`
+   and `molsysmt.Structures` implement `add()`; every other adapter declares the
+   limitation through the catalogued `NotImplementedMethodError`, and
+   `test_only_two_forms_implement_add` prevents the set from growing by accident.
+8. **Diagnostics and warning-as-error preserve atomicity** — tested; two new catalogued
+   warnings and one repaired message.
+9. **Documentation lifecycle complete** — docstrings, contract, User Guide, course
+   check, notebook re-execution.
+10. **Clean exact commit passes the applicable gates** — Ruff, dependencies, devguide,
+    course and the fast release gate at 12/12, on the commit that closes this proposal.
+
+All ten hold, so this proposal is archived with its Phase 1 findings.
 
 ### Known obstacle
 

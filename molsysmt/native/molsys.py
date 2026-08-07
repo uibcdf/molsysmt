@@ -71,8 +71,8 @@ def _merged_molecular_mechanics(target, source, attribute_policy):
             raise StructuralInconsistencyError(
                 reason=(
                     'Only one of the two systems carries force-field parameters, so the '
-                    'result would parameterize part of the atom axis. Use '
-                    "attribute_policy='intersection' to clear them instead."
+                    'result would parameterize part of the atom axis; use '
+                    "attribute_policy='intersection' to clear them instead"
                 ),
                 caller='molsysmt.native.MolSys.add',
             )

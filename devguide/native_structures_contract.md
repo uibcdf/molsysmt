@@ -112,8 +112,15 @@ complementary items, exactly as `convert` reads it, and is assembled before the
 addition. A composite target cannot be grown in place, because the assembled result is
 a new object.
 
+**Only `molsysmt.MolSys` and `molsysmt.Structures` accept an addition.** The dispatcher
+selects the implementation by the *target* form, and every other adapter declares the
+bounded limitation by raising the catalogued `NotImplementedMethodError`. A source may
+be given in any form: it is converted to the target's form first. Adding a third target
+form is a contract change and needs its own delivery tests;
+`test_only_two_forms_implement_add` pins the current set so it cannot grow by accident.
+
 These rules were decided by the [atom-axis `add()` semantic
-audit](pending_proposals/atom_axis_add_semantic_audit.md) as D1-D7 and are guarded by
+audit](archive/resolved_proposals/atom_axis_add_semantic_audit.md) as D1-D7 and are guarded by
 `tests/basic/add/test_add_audit_decisions.py`.
 
 ## Deferred partial-series model

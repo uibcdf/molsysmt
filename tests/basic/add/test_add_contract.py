@@ -25,14 +25,18 @@ def _atom_aligned(molsys, name):
 
 # --- 1. one-sided atom-aligned attributes are dropped, in both directions -------------
 
-@pytest.mark.parametrize('attribute', ['b_factor', 'occupancy'])
+@pytest.mark.parametrize('attribute', ['b_factor', 'occupancy', 'velocities'])
 @pytest.mark.parametrize('donor', ['target', 'source'])
 def test_a_one_sided_atom_aligned_attribute_is_dropped_with_a_warning(
         proline_molsys, valine_molsys, attribute, donor):
     target, source = proline_molsys, valine_molsys
     giver, other = (target, source) if donor == 'target' else (source, target)
     n_atoms = giver.structures.coordinates.shape[1]
-    setattr(giver.structures, attribute, np.ones((1, n_atoms), dtype=float))
+    shape = (1, n_atoms, 3) if attribute == 'velocities' else (1, n_atoms)
+    value = np.ones(shape, dtype=float)
+    if attribute == 'velocities':
+        value = puw.quantity(value, 'nm/ps')
+    setattr(giver.structures, attribute, value)
     setattr(other.structures, attribute, None)
     expected_atoms = (target.structures.coordinates.shape[1]
                       + source.structures.coordinates.shape[1])
@@ -134,6 +138,24 @@ def test_the_source_selection_is_applied_before_concatenating(proline_molsys, va
     msm.add(proline_molsys, valine_molsys, selection=[0, 1, 2])
 
     assert msm.get(proline_molsys, n_atoms=True) == n_target + 3
+
+
+def test_a_string_selection_applies_to_the_assembled_composite_source(proline_molsys):
+    # There is no longer such a thing as a selection "over multiple sources": a list is
+    # one system, so the selection is evaluated against the system it assembles to.
+    from molsysmt import systems
+
+    prmtop = systems['pentalanine']['pentalanine.prmtop']
+    inpcrd = systems['pentalanine']['pentalanine.inpcrd']
+    composite = msm.convert([prmtop, inpcrd], to_form='molsysmt.MolSys')
+    selected = len(msm.select(composite, selection='atom_type=="C"'))
+    n_target = msm.get(proline_molsys, n_atoms=True)
+
+    result = msm.add(proline_molsys, [prmtop, inpcrd], selection='atom_type=="C"',
+                     in_place=False)
+
+    assert selected > 0
+    assert msm.get(result, n_atoms=True) == n_target + selected
 
 
 def test_structure_indices_select_structures_of_the_source(proline_molsys, valine_molsys):

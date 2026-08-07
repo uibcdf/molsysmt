@@ -1,7 +1,7 @@
 # Public functions silently ignore unknown keyword arguments
 
 **Reported:** 2026-08-07, found while writing the Phase 2 regression matrix of the
-[atom-axis `add()` audit](../pending_proposals/atom_axis_add_semantic_audit.md). A test
+[atom-axis `add()` audit](../archive/resolved_proposals/atom_axis_add_semantic_audit.md). A test
 asserting that `add()` honours `attribute_policy` passed — against a function that has
 no such parameter.
 

@@ -896,8 +896,8 @@ class Structures:
             raise StructuralInconsistencyError(
                 reason=(
                     'These atom-aligned attributes are present on only one side, so the '
-                    f'result would cover part of the atom axis: {", ".join(one_sided)}. '
-                    "Use attribute_policy='intersection' to discard them instead."
+                    f'result would cover part of the atom axis: {", ".join(one_sided)}; use '
+                    "attribute_policy='intersection' to discard them instead"
                 ),
                 caller=caller,
             )
