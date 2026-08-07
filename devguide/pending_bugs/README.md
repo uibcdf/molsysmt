@@ -18,6 +18,14 @@ that the affected surface is fully verified.
 - `form_attributes_declared_without_getters.md` — Tier 1 is resolved; Tier 2 and
   Tier 3 remediation is pending.
 
+### Broken public paths
+
+- `form_conversions_importing_nonexistent_modules.md` — three conversions the
+  catalogue advertises raise `ModuleNotFoundError`. `file:prmtop → molsysmt.MolSys`
+  was a dead import and is fixed; the static sweep that found all three now guards
+  the form tree with the remaining two as a baseline that cannot grow. Those two
+  each need a semantic decision before they can be written.
+
 ### Incorrect success or hidden failure
 
 - `smonitor_warn_drops_structured_extra.md` — reported upstream and pending there;
