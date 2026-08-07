@@ -368,6 +368,30 @@ every one-sided atom-aligned attribute rejects the operation before mutation, in
 `molecular_mechanics`. The `intersection` outcomes stated in D3 and D4 — drop the
 column, clear the molecular mechanics — are the default-policy outcomes only.
 
+## Phase 2 — regression matrix landed 2026-08-07
+
+`tests/basic/add/test_add_contract.py` pins the four confirmed behaviours, and
+`tests/basic/add/test_add_audit_decisions.py` encodes the four defects and D1-D7 as
+`xfail(strict=True)`. The strict marker is the mechanism: when Phase 3 implements a
+decision its test starts passing and pytest reports the stale marker, so no decision
+can be quietly skipped and no marker can rot. 22 tests pass and 18 are pending
+implementation.
+
+Two results came out of writing it:
+
+- **An existing test encodes one of the defects as intended behaviour.**
+  `test_public_add_processes_every_source_item` in
+  `test_add_with_molsysmt_MolSys.py` passes a list of two `Structures` that assess as
+  *one* composite system and asserts that `add` iterates them as independent sources,
+  producing three atoms from one plus one plus one. D5 makes that two atoms. Phase 3
+  must rewrite that test, not delete it.
+- **A cross-cutting defect, filed separately.** Public functions accept keyword
+  arguments that are not in their signature and ignore them; a Phase 2 test asserting
+  that `add()` honours `attribute_policy` passed against a function that has no such
+  parameter. See
+  [`pending_bugs/public_functions_silently_ignore_unknown_keywords.md`](../pending_bugs/public_functions_silently_ignore_unknown_keywords.md).
+  It is independent of this audit in both directions.
+
 ### Known obstacle
 
 **No public route reaches a populated `MolecularMechanics`.**

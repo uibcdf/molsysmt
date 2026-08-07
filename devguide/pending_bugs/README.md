@@ -28,6 +28,11 @@ that the affected surface is fully verified.
 
 ### Incorrect success or hidden failure
 
+- `public_functions_silently_ignore_unknown_keywords.md` — eight of eleven sampled
+  public functions accept a keyword that is not in their signature and ignore it, so a
+  one-letter typo in `structure_indices` returns all 5,000 structures of a trajectory
+  instead of the three requested, with no diagnostic. The three functions that do fail
+  raise a raw `KeyError` or a `TypeError` naming a private converter.
 - `smonitor_warn_drops_structured_extra.md` — reported upstream and pending there;
   worked around inside MolSysMT.
 
