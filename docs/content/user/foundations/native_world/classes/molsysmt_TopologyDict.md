@@ -5,13 +5,13 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 `molsysmt.TopologyDict` provides a lightweight, JSON-serializable dictionary schema representing atoms, residues, molecules, chains, and bonds.
 
 ---
 
-## Schema
+## Declarative Schema
 
 | Top-Level Key | Value Type | Description |
 | :--- | :--- | :--- |
@@ -22,7 +22,7 @@
 
 ---
 
-## Usage
+## Usage and Workflow
 
 ```python
 import molsysmt as msm
@@ -33,12 +33,12 @@ top_dict = msm.convert(topology, to_form='molsysmt.TopologyDict')
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **JSON Compatibility**: Pure Python primitives suitable for direct JSON serialization.
 
 ---
 
-## API Reference
+## API Documentation
 
 Detailed methods for `molsysmt.TopologyDict` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].

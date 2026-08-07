@@ -5,13 +5,13 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 `molsysmt.StructuresDict` provides a JSON-compatible dictionary schema representing 3D atomic coordinates, periodic box matrices, and frame timestamps.
 
 ---
 
-## Schema
+## Declarative Schema
 
 | Top-Level Key | Value Type | Description |
 | :--- | :--- | :--- |
@@ -21,7 +21,7 @@
 
 ---
 
-## Usage
+## Usage and Workflow
 
 ```python
 import molsysmt as msm
@@ -32,12 +32,12 @@ struct_dict = msm.convert(structures, to_form='molsysmt.StructuresDict')
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **JSON Compatibility**: Convertible to pure JSON data strings.
 
 ---
 
-## API Reference
+## API Documentation
 
 Methods for `molsysmt.StructuresDict` are documented in the [{doc}`molsysmt.Structures API Reference </api/form/molsysmt_Structures/api_molsysmt_Structures>`].

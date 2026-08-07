@@ -5,13 +5,13 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 As a user, `molsysmt.MolecularMechanics` is the object holding physical mechanics parameters required for energy evaluations, molecular dynamics simulations, or electrostatics calculations.
 
 ---
 
-## Attributes
+## Internal Attributes
 
 Inside `molsysmt.MolecularMechanics`, parameters are stored as attribute arrays:
 
@@ -24,12 +24,12 @@ Inside `molsysmt.MolecularMechanics`, parameters are stored as attribute arrays:
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **Float64 Precision**: Charges and masses use double-precision `float64` for numerical accuracy during energy evaluation.
 
 ---
 
-## API Reference
+## API Documentation
 
 Detailed methods and converters for `molsysmt.MolecularMechanics` are documented in the [{doc}`molsysmt.MolecularMechanics API Reference </api/form/molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics>`].

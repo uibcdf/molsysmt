@@ -5,13 +5,13 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 `molsysmt.MolSysDict` provides a pure Python dictionary schema capable of representing an entire molecular system without instantiating complex class structures. It is ideal for JSON serialization, network transport, configuration files, and inter-process message passing.
 
 ---
 
-## Schema
+## Declarative Schema
 
 A `molsysmt.MolSysDict` object is structured around three main dictionary keys corresponding to the core aspect containers:
 
@@ -23,7 +23,7 @@ A `molsysmt.MolSysDict` object is structured around three main dictionary keys c
 
 ---
 
-## Usage
+## Usage and Workflow
 
 ```python
 import molsysmt as msm
@@ -41,12 +41,12 @@ reconstructed_system = msm.convert(sys_dict, to_form='molsysmt.MolSys')
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **Pure JSON Compatibility**: Arrays are stored as nested list structures or base64 binary strings when serialized.
 
 ---
 
-## API Reference
+## API Documentation
 
 Methods and form conversions for `molsysmt.MolSysDict` are documented in the [{doc}`molsysmt.MolSysDict API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].

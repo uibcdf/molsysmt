@@ -5,13 +5,13 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 `molsysmt.MolecularMechanicsDict` provides a JSON-compatible dictionary schema representing forcefield names, atomic partial charges, and atomic masses.
 
 ---
 
-## Schema
+## Declarative Schema
 
 | Top-Level Key | Value Type | Description |
 | :--- | :--- | :--- |
@@ -21,7 +21,7 @@
 
 ---
 
-## Usage
+## Usage and Workflow
 
 ```python
 import molsysmt as msm
@@ -32,12 +32,12 @@ mm_dict = msm.convert(mm, to_form='molsysmt.MolecularMechanicsDict')
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **JSON Compatibility**: Pure Python primitives for JSON transport.
 
 ---
 
-## API Reference
+## API Documentation
 
 Detailed methods for `molsysmt.MolecularMechanicsDict` are documented in the [{doc}`molsysmt.MolecularMechanics API Reference </api/form/molsysmt_MolecularMechanics/api_molsysmt_MolecularMechanics>`].

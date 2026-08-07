@@ -5,13 +5,13 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 As a user, `molsysmt.Topology` is the object holding all structural identity and chemical metadata for a system. It provides fast selection queries, atom index resolution, and structural hierarchy traversals without needing 3D spatial coordinates.
 
 ---
 
-## Attributes
+## Internal Attributes
 
 Inside `molsysmt.Topology`, data is maintained across optimized tabular attributes:
 
@@ -26,13 +26,13 @@ Inside `molsysmt.Topology`, data is maintained across optimized tabular attribut
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **String Identifier Invariant**: Atom IDs, group IDs, and chain IDs are strictly normalized to string representations.
 - **Fast Selections**: Optimized for zero-overhead Boolean evaluation by MolSysMT's internal selection parser.
 
 ---
 
-## API Reference
+## API Documentation
 
 All methods, getters, and converters for `molsysmt.Topology` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].

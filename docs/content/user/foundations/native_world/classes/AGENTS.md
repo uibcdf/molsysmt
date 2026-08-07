@@ -19,7 +19,7 @@ Cover the 10 native Python classes and declarative dictionaries representing mol
 - `molsysmt_ViewerJSON.md` ➔ `molsysmt_ViewerJSON.md.AGENTS.md`: 3D graphics JSON schema.
 
 ## 📐 Foundations Editorial & Style Standards
-- **Concise Direct Headings**: Headings must be brief and direct (`## Overview`, `## Architecture`, `## Schema`, `## Attributes`, `## Usage`, `## Invariants`, `## API Reference`). Avoid long headings and avoid using `&` in H2 titles.
+- **Balanced Section Headings**: Section titles MUST be clear, informative, 2-to-3 word headings without `&` (`## Overview and Role`, `## Internal Attributes`, `## Declarative Schema`, `## Internal Staging Tables`, `## Staging Operations`, `## Usage and Workflow`, `## Invariants and Performance`, `## API Documentation`).
 - **Title Names**: Page titles MUST use class short names without `molsysmt.` prefix (e.g. `# MolSys`, `# Topology`).
 - **Published Table Formatting Standard**: All tables MUST expand to full line width (`class="table"`, `width: 100%`), feature zebra striping, and have all headers and cells left-aligned (`text-align: left`).
 - **Nested Toctree Chaining**: References in `index.md` MUST omit `.md` extensions for proper Sphinx hierarchy cascading.

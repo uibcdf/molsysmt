@@ -5,7 +5,7 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 While `molsysmt.MolSys` is an immutable state container, `molsysmt.MolSysBuilder` provides a mutable staging area where users can incrementally add, remove, reorder, or mutate atoms, residues, molecules, coordinates, and forcefield terms.
 
@@ -13,7 +13,7 @@ Once staging modifications are complete, the builder validates topological integ
 
 ---
 
-## Staging Tables
+## Internal Staging Tables
 
 Inside `molsysmt.MolSysBuilder`, molecular components are stored as dynamic tabular data frames:
 
@@ -49,13 +49,13 @@ system = builder.build()
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **Validation Checkpoint**: `builder.build()` automatically validates topological invariants (unique atom indices, non-empty groups, valid coordinate dimensions) before compiling.
 - **String Identifier Invariant**: Incoming numeric IDs are automatically converted and normalized to string representations.
 
 ---
 
-## API Reference
+## API Documentation
 
 Detailed methods for `molsysmt.MolSysBuilder` are documented in the [{doc}`molsysmt.MolSysBuilder API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].

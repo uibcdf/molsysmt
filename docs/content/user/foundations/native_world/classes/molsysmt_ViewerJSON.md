@@ -5,13 +5,13 @@
 
 ---
 
-## Overview
+## Overview and Role
 
 As a user, `molsysmt.ViewerJSON` is the intermediate dictionary schema generated when calling `msm.view(system)`. It encapsulates atomic coordinates, color palettes, molecular representations, and camera angles into a pure JSON schema recognized by WebGL renderers.
 
 ---
 
-## Schema
+## Declarative Schema
 
 Inside `molsysmt.ViewerJSON`, graphics data is organized as a structured JSON dictionary:
 
@@ -23,7 +23,7 @@ Inside `molsysmt.ViewerJSON`, graphics data is organized as a structured JSON di
 
 ---
 
-## Usage
+## Usage and Workflow
 
 ```python
 import molsysmt as msm
@@ -37,12 +37,12 @@ view = msm.view(viewer_json)
 
 ---
 
-## Invariants
+## Invariants and Performance
 
 - **Lightweight Web Standard**: Optimized for minimal JSON payload transport over web sockets and Jupyter notebook widgets.
 
 ---
 
-## API Reference
+## API Documentation
 
 Viewer form converters are documented under native visualization forms.
