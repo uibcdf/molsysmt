@@ -11,4 +11,4 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
    - MUST preserve top anchor `(user-foundations-performance-parallelization)=`.
 
 2. **Conceptual Scope**:
-   - Explains Rayon multi-core thread distribution, threadpool controls, and SIMD hardware vectorization.
+   - Explains Rayon multi-core thread distribution, SIMD hardware vectorization, and includes non-executable code blocks for global vs per-function configuration.

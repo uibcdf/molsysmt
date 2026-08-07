@@ -10,5 +10,6 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
    - Title MUST be `# Benchmarks`.
    - MUST preserve top anchor `(user-foundations-performance-benchmarks)=`.
 
-2. **Table Formatting**:
-   - HTML output table MUST follow the Published Table Formatting Standard (`class="table"`, `width: 100%`, `text-align: left`).
+2. **Table Formatting & Status**:
+   - Displays comparative timing matrix against MDTraj, MDAnalysis, and SciPy.
+   - Temporarily frozen; pending expansion documented in `devguide/pending_proposals/benchmarks_future_expansion.md`.

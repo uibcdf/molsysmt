@@ -11,5 +11,4 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
    - MUST preserve top anchor `(user-foundations-performance-chunked-execution)=`.
 
 2. **Conceptual Scope**:
-   - Explains memory wall problem, Eager vs Heavy paths, `heavy_mode` controls, and `SMonitor` memory pressure monitoring.
-   - Does NOT include code execution cells or function API tutorials.
+   - Explains memory wall problem, Eager vs Heavy paths, `heavy_mode` controls, custom user iterator scripts (`molsysmt.Iterator`), and `SMonitor` memory pressure monitoring.

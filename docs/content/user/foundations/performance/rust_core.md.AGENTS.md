@@ -11,4 +11,5 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
    - MUST preserve top anchor `(user-foundations-performance-rust-core)=`.
 
 2. **Conceptual Scope**:
-   - Explains compiled Rust/C native kernels, memory safety, C-API bindings, and zero-overhead array passing.
+   - Explains compiled Rust native kernels, PyO3/C-ABI bindings, memory safety, and zero-overhead array passing.
+   - Refers to "molecular structures sequence analytics" (avoiding "trajectory analytics").

@@ -12,4 +12,4 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
 
 2. **Conceptual Scope**:
    - Explains deferred evaluation, metadata-first initialization, and streaming I/O.
-   - Does NOT include code execution cells or function API tutorials.
+   - Clarifies that native lazy loading applies to `file:h5msm` and streaming iterators.

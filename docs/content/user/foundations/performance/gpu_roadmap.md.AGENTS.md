@@ -11,4 +11,5 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
    - MUST preserve top anchor `(user-foundations-performance-gpu-roadmap)=`.
 
 2. **Conceptual Scope**:
-   - Explains current CPU focus vs Post-1.0 WGPU/CUDA compute pipelines, contact map acceleration, and VRAM streaming roadmap.
+   - Explains current CPU focus vs Post-1.0 WGPU/CUDA compute pipelines and VRAM structure sequence streaming.
+   - Avoids "trajectory analytics"; uses "molecular structure sequence processing".

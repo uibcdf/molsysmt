@@ -11,4 +11,4 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
    - MUST preserve top anchor `(user-foundations-performance-diagnostics-and-profiling)=`.
 
 2. **Conceptual Scope**:
-   - Explains SMonitor telemetry, execution profiling, memory pressure warnings, and telemetry configuration.
+   - Explains SMonitor execution profiling, external docs (https://www.uibcdf.org/smonitor), Governance cross-links, and telemetry configuration blocks.
