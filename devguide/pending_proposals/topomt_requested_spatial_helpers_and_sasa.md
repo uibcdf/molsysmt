@@ -12,7 +12,7 @@
 > sampling density was unified to a default of 240 sphere points across both
 > engines (previously native 100 / mdtraj 960), a balance between speed and
 > angular quantization error. Digesters were added under
-> `_private/arg_digestion/argument/{probe_radius,n_sphere_points}.py`. Regression
+> `_private/argdigest/argument/{probe_radius,n_sphere_points}.py`. Regression
 > tests: `tests/physchem/get_sasa/test_get_sasa_probe_radius.py` and
 > `test_get_sasa_n_sphere_points.py`. Both current engines support the arguments,
 > so no capability-error path was needed; the `else` branch still raises

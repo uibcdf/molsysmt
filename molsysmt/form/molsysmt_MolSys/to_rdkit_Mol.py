@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from depdigest import dep_digest
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 
 def _element_symbol(atom_type, atom_name, periodic_table):

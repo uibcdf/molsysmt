@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(to_form='molsysmt.MolSys', from_form='molsysmt.MolSys')
 def add(to_item, from_item, atom_indices='all', structure_indices='all', keep_ids=True,

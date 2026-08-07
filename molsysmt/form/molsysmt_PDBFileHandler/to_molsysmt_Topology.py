@@ -1,5 +1,5 @@
 import os
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.PDBFileHandler')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):

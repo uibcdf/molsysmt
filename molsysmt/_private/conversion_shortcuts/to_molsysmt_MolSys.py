@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 def file_prmtop_and_file_inpcrd_to_molsysmt_MolSys(molecular_system, atom_indices='all', structure_indices='all',
                                                   skip_digestion=False):

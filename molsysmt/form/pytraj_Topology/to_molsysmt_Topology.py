@@ -1,6 +1,6 @@
 from depdigest import dep_digest
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt.element.group import get_group_type_from_group_name
 

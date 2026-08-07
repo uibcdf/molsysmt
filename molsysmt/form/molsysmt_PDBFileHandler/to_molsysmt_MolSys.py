@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 
 def _site_variants(model):

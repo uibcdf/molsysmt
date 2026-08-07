@@ -4,7 +4,7 @@
 **Originally diagnosed:** 2026-07-12
 **Severity:** medium — the documented calling convention raises a raw third-party error
 **Location:** `molsysmt/basic/merge.py:114-132`, together with
-`molsysmt/_private/arg_digestion/argument/structure_indices.py:35`
+`molsysmt/_private/argdigest/argument/structure_indices.py:35`
 
 ## Symptom
 

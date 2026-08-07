@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt._private.execution import Reducer

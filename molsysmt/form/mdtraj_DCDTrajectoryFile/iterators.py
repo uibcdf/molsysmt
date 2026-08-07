@@ -3,7 +3,7 @@ from molsysmt._private.variables import is_all
 from molsysmt.pbc import get_box_from_lengths_and_angles
 from copy import copy
 import numpy as np
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.indices import indices_iterator
 
 class StructuresIterator():

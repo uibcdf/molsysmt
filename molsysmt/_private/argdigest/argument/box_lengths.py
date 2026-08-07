@@ -1,7 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion._scientific_arrays import normalize_lengths_to_nm_array
+from molsysmt._private.argdigest._scientific_arrays import normalize_lengths_to_nm_array
 
 _RAW_NM_ARRAY_CALLERS = {
     'molsysmt.pbc.get_box_from_lengths_and_angles.get_box_from_lengths_and_angles',

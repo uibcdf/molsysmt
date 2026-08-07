@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.Topology')
 def to_string_amino_acids_3(item, group_indices='all', skip_digestion=False):

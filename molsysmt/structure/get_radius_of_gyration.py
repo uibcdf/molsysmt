@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 from molsysmt._private.execution import Reducer

@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest()
 def get_chain_index(molecular_system, element='atom', selection='all',

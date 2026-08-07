@@ -1,6 +1,6 @@
 """Defining native-backed iterators for MDAnalysis Topology objects."""
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.form.molsysmt_Topology.iterators import (
     TopologyIterator as NativeTopologyIterator,
 )

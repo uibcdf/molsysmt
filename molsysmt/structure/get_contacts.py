@@ -1,6 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from smonitor import signal
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt import pyunitwizard as puw
 from molsysmt.configure import with_configure_overrides

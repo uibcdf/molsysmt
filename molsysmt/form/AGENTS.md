@@ -47,7 +47,7 @@ It refines the global rules in the repository root `AGENTS.md` for this subtree.
 
 ## Converters and validation
 
-- Public conversion, get, extract, set and iterator functions should use the `@arg_digest` decorator from `molsysmt._private.arg_digestion` for argument validation.
+- Public conversion, get, extract, set and iterator functions should use the `@arg_digest` decorator from `molsysmt._private.argdigest` for argument validation.
 - Private helpers (including functions in modules named `_private` or clearly internal utilities) must **not** be decorated with `@arg_digest`.
 - Prefer composing converters instead of duplicating logic:
   - For example, conversions from `molsysmt.MolSys` to JSON forms should be built by combining the topology and structures converters rather than re-implementing them.

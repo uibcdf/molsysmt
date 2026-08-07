@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError, FormatError
 from molsysmt._private.smonitor import ArgumentError, InternalAlgorithmError, ArgumentChoiceError
 import numpy as np

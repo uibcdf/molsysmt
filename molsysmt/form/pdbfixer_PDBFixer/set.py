@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='pdbfixer.PDBFixer')
 def set_group_name_to_group(item, indices='all', value=None, skip_digestion=False):

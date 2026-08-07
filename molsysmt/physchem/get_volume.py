@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.physchem.groups._lookup import group_table_value
 from molsysmt._private.smonitor import NotImplementedMethodError
 import numpy as np

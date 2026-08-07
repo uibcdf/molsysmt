@@ -1,2 +1,2 @@
-from . import arg_digestion
+from . import argdigest
 from . import variables

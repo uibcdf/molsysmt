@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from smonitor import signal
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError, ArgumentChoiceError
 class MolSysBuilder:
     """Building a native molecular system incrementally from declared elements.

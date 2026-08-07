@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.structure_indices import complementary_structure_indices
 from molsysmt._private.atom_indices import complementary_atom_indices
 from molsysmt._private.variables import is_all

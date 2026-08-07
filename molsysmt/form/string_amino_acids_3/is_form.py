@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import *
-from molsysmt._private.arg_digestion import *
+from molsysmt._private.argdigest import *
 
 def is_form(item):
 

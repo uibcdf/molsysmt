@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt._private.backend_output import silence_backend_stdout
 from depdigest import dep_digest

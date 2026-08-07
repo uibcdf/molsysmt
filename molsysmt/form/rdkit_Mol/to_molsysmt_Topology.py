@@ -1,6 +1,6 @@
 """Converting an RDKit molecule into normalized native chemical-state storage."""
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 import pandas as pd
 
 

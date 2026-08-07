@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='MDAnalysis.Universe')
 def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):

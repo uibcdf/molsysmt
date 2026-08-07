@@ -4,7 +4,7 @@
 
 from molsysmt._private.execfile import execfile
 from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt import pyunitwizard as puw
 
 form='molsysmt.CIFFileHandler'

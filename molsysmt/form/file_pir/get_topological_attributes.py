@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import NotWithThisFormError
 from depdigest import dep_digest
 import types

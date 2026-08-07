@@ -1,6 +1,6 @@
 """Converting an OpenFF molecule into normalized native chemical-state storage."""
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 from depdigest import dep_digest
 

@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.native import ViewerJSON
 from molsysmt.form.molsysmt_Topology.to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON as topology_to_viewer
 from molsysmt.form.molsysmt_Structures.to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON as structures_to_viewer

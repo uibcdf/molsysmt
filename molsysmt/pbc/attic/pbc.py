@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import *
-from molsysmt._private.arg_digestion import *
+from molsysmt._private.argdigest import *
 from molsysmt.lib import box as libbox
 import numpy as np
 from molsysmt import pyunitwizard as puw

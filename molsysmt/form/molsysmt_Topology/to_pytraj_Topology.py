@@ -2,7 +2,7 @@ import numpy as np
 
 from depdigest import dep_digest
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 
 def _pytraj_residue_number(group_id, group_index):

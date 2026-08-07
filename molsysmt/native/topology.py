@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from molsysmt._private.variables import is_all
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt._private.rust_backend import occurrence_order
 import string

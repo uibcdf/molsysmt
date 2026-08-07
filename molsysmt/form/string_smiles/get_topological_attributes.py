@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt.attribute import bonds_are_required_to_get_attribute
 import types

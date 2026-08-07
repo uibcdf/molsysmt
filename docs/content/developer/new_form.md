@@ -72,7 +72,7 @@ The `attributes` dictionary in `attributes.py` maps supported attributes to `Tru
 In `has_attribute.py`, define the check decorated with the argument digest validation:
 
 ```python
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='rdkit.Mol')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):

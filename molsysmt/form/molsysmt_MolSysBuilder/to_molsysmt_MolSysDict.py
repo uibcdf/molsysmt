@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.native import MolSysDict
 
 

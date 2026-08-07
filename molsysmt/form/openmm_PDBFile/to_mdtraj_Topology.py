@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.PDBFile')
 def to_mdtraj_Topology(item, atom_indices='all', syntax='MolSysMT', skip_digestion=False):

@@ -1,7 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from smonitor import signal
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private import rust_backend as _kernels
 from molsysmt.configure import with_configure_overrides
 import gc

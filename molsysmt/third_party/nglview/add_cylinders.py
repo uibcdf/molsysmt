@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all, is_iterable
 from molsysmt._private.colors import color_to_list_of_colors, get_list_of_colors_from_values
 from molsysmt import pyunitwizard as puw

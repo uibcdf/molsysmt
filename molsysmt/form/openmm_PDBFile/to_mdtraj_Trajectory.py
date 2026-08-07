@@ -2,7 +2,7 @@ from .get_structural_attributes import *
 from .get_topological_attributes import *
 
 from depdigest import dep_digest
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.PDBFile')
 @dep_digest('mdtraj')

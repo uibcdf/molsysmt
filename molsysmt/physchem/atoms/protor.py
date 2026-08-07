@@ -1,5 +1,5 @@
 import numpy as np
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt import pyunitwizard as puw
 
 # Fallback radii in Angstroms

@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedIteratorError
 from ..mdtraj_XTCTrajectoryFile.iterators import StructuresIterator as StructuresIterator_XTCTrajectoryFile
 from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 
 class StructuresIterator(StructuresIterator_XTCTrajectoryFile):

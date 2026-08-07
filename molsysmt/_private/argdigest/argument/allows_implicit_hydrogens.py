@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion.argument.atom_is_aromatic import (
+from molsysmt._private.argdigest.argument.atom_is_aromatic import (
     digest_atom_is_aromatic,
 )
 

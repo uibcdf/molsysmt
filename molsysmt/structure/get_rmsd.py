@@ -1,6 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
 from smonitor import signal
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 from molsysmt._private.execution import Reducer
 from molsysmt import lib as msmlib

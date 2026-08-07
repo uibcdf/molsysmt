@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError, NotSupportedSyntaxError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 import numpy as np
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt.element import _singular_element_to_plural

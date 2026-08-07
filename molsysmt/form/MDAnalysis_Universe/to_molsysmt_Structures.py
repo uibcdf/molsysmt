@@ -1,7 +1,7 @@
 from .get_structural_attributes import *
 from .get_topological_attributes import *
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='MDAnalysis.Universe')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):

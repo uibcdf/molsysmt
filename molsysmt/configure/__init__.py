@@ -1,7 +1,7 @@
 # Configuration file for MolSysMT
 
 from .logging_setup import setup_logging
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 # Set this variable true while testing
 _testing = False

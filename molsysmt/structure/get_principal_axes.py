@@ -1,6 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from smonitor import signal
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private import rust_backend as _kernels
 from molsysmt._private.weighted_geometry import prepare_weights
 from molsysmt import pyunitwizard as puw

@@ -58,7 +58,7 @@ holding one reference structure and an item holding a twenty-structure trajector
 are not two ways of supplying the same series.
 
 There is no reordering that could rescue it. `digest_molecular_system`
-(`_private/arg_digestion/argument/molecular_system.py:44-61`) normalizes paths and
+(`_private/argdigest/argument/molecular_system.py:44-61`) normalizes paths and
 validates; `assess_molecular_system` returns the list untouched. Item order is
 whatever the caller typed.
 

@@ -1,6 +1,6 @@
 from copy import copy
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 from depdigest import dep_digest
 

@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from smonitor import signal
 from molsysmt.basic import convert
 import numpy as np

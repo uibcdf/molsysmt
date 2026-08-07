@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from io import StringIO
 
 @arg_digest(form='string:pdb_text')

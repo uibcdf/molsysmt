@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:amino_acids_3')
 def to_biopython_Seq(item, group_indices='all', structure_indices='all', skip_digestion=False):

@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.arg_digestion import *
+from molsysmt._private.argdigest import *
 
 
 def _get_reference_sequence(molecular_system):

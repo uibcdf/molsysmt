@@ -440,7 +440,7 @@ def digest_value(value, caller=None):
                 from importlib import import_module
 
                 module = import_module(
-                    f'molsysmt._private.arg_digestion.argument.{attribute}'
+                    f'molsysmt._private.argdigest.argument.{attribute}'
                 )
                 digest = getattr(module, f'digest_{attribute}')
                 return digest(value, caller='molsysmt.basic.set.set')

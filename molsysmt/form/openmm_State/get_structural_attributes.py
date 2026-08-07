@@ -3,7 +3,7 @@ import types
 import numpy as np
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
 form = 'openmm.State'

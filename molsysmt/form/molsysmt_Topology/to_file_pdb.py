@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.Topology')
 def to_file_pdb(item, coordinates, box, atom_indices='all', output_filename=None, skip_digestion=False):

@@ -1,6 +1,6 @@
 """Delivering CHARMM PSF per-atom force-field attributes."""
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 
 def _get_native(item):

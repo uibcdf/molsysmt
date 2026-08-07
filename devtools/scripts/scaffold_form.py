@@ -136,7 +136,7 @@ del(_all_attributes)
 '''
 
     # has_attribute.py template
-    has_attribute_content = f'''from molsysmt._private.arg_digestion import arg_digest
+    has_attribute_content = f'''from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='{form_name}')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
@@ -176,7 +176,7 @@ class TopologyIterator(BaseTopologyIterator):
 '''
 
     # get_topological_attributes.py template
-    get_topological_content = f'''from molsysmt._private.arg_digestion import arg_digest
+    get_topological_content = f'''from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 import types
 
@@ -192,7 +192,7 @@ __all__ = [name for name, obj in globals().items() if isinstance(obj, types.Func
 '''
 
     # get_structural_attributes.py template
-    get_structural_content = f'''from molsysmt._private.arg_digestion import arg_digest
+    get_structural_content = f'''from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 import types
 

@@ -1,5 +1,5 @@
 from molsysmt._private.variables import is_all
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 import numpy as np
 import pandas as pd
 from smonitor import signal

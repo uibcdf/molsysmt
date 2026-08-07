@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 from molsysmt import pyunitwizard as puw
 from molsysmt.element.atom import get_atom_type_from_atom_name

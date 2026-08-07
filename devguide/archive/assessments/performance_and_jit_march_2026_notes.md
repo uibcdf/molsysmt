@@ -97,7 +97,7 @@ The key idea is simple:
   correctness, the inner loop must not pay that cost again.
 
 ### Coordinates digestion and the passport model
-`molsysmt._private.arg_digestion.argument.coordinates.digest_coordinates(...)`
+`molsysmt._private.argdigest.argument.coordinates.digest_coordinates(...)`
 now recognizes trusted internal callers and can issue a `ValidatedPayload`
 passport for structural kernel paths.
 

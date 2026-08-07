@@ -7,7 +7,7 @@ returned a plausible wrong answer. These are the acceptance tests named in
 
 The contract of a closed signature is the signature itself, and needs no declaration.
 The functions that take attribute names through `**kwargs` declare the `attribute`
-domain in `molsysmt/_private/arg_digestion/function/`.
+domain in `molsysmt/_private/argdigest/function/`.
 """
 
 import inspect
@@ -87,7 +87,7 @@ def test_no_public_function_raises_an_uncatalogued_error_for_a_typo(alanine_mols
 
 
 def test_every_open_signature_declares_its_domain():
-    from molsysmt._private.arg_digestion.function import basic_attribute_functions, get_label
+    from molsysmt._private.argdigest.function import basic_attribute_functions, get_label
 
     declared = {contract.caller for contract in basic_attribute_functions.CONTRACTS}
     declared.add(get_label.contract.caller)
@@ -102,12 +102,12 @@ def test_every_open_signature_declares_its_domain():
 
     assert undeclared == OPEN_WITHOUT_A_DECLARED_DOMAIN, (
         'a function with **kwargs and no declared domain admits anything; declare it in '
-        'molsysmt/_private/arg_digestion/function/ or add it to the recorded gap')
+        'molsysmt/_private/argdigest/function/ or add it to the recorded gap')
 
 
 def test_the_attribute_domain_points_at_the_catalogue():
     from molsysmt.attribute import attributes
-    from molsysmt._private.arg_digestion.domain.attribute import domain
+    from molsysmt._private.argdigest.domain.attribute import domain
 
     # Pointing at the catalogue rather than copying names is what keeps the domain from
     # drifting away from it.

@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:h5msm')
 def to_molsysmt_H5MSMFileHandler(item, skip_digestion=False):

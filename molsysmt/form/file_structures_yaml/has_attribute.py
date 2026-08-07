@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
 
 

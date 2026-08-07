@@ -3,11 +3,11 @@
 import pytest
 
 import molsysmt as msm
-from molsysmt._private.arg_digestion.argument.molecular_system import digest_molecular_system
-from molsysmt._private.arg_digestion.argument.from_molecular_system import (
+from molsysmt._private.argdigest.argument.molecular_system import digest_molecular_system
+from molsysmt._private.argdigest.argument.from_molecular_system import (
     digest_from_molecular_system,
 )
-from molsysmt._private.arg_digestion.argument.to_molecular_system import (
+from molsysmt._private.argdigest.argument.to_molecular_system import (
     digest_to_molecular_system,
 )
 from molsysmt._private.molecular_system_validation import (

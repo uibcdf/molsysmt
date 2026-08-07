@@ -11,7 +11,7 @@ From energy minimization to potential energy contribution of specific set of ato
 """
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_iterable_of_iterables, is_iterable_of_iterables
 import numpy as np
 

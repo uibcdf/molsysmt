@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest()
 def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digestion=False):

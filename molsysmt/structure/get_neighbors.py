@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.lists import sorted_list_of_pairs

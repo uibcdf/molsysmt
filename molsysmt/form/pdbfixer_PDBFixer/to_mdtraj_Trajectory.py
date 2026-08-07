@@ -1,5 +1,5 @@
 from depdigest import dep_digest
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='pdbfixer.PDBFixer')
 @dep_digest('mdtraj')

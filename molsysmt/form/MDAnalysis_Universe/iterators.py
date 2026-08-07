@@ -1,6 +1,6 @@
 """Defining native-backed iterators for MDAnalysis Universe objects."""
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.form.molsysmt_Structures.iterators import (
     StructuresIterator as NativeStructuresIterator,
 )

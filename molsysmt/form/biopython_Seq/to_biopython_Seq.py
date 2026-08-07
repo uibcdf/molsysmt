@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='biopython.Seq')
 def to_biopython_Seq(item, group_indices='all', copy_if_all=True, skip_digestion=False):

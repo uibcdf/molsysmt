@@ -3,7 +3,7 @@ from ..molsysmt_Topology.iterators import TopologyIterator as TopologyIterator_m
 from ..molsysmt_Structures.iterators import StructuresIterator as StructuresIterator_molsysmt_Structures
 from .to_molsysmt_Topology import to_molsysmt_Topology
 from .to_molsysmt_Structures import to_molsysmt_Structures
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 class StructuresIterator(StructuresIterator_molsysmt_Structures):
 

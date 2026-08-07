@@ -1,6 +1,6 @@
 import inspect
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 
 def make_delegated_getter(name, target, component):

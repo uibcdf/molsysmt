@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentChoiceError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.physchem.groups._lookup import group_table_value
 import numpy as np
 from molsysmt import pyunitwizard as puw

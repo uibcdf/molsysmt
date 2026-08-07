@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.Modeller')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):

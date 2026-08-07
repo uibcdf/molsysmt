@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest()
 def get_missing_terminal_cappings(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT'):

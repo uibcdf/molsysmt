@@ -1,5 +1,5 @@
 import os
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_H5MSMFileHandler(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):

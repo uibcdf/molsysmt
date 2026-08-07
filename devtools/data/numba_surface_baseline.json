@@ -370,7 +370,7 @@
     ],
     "runtime_reference_files": [
       "molsysmt/__init__.py",
-      "molsysmt/_private/arg_digestion/argument/numba.py",
+      "molsysmt/_private/argdigest/argument/numba.py",
       "molsysmt/_private/gpu.py",
       "molsysmt/_private/jit.py",
       "molsysmt/_private/rust_backend.py",

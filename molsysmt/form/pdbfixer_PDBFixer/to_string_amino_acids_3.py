@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='pdbfixer.PDBFixer')
 def to_string_amino_acids_3(item, atom_indices='all', skip_digestion=False):

@@ -3,7 +3,7 @@
 # =======================
 
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 import numpy as np
 from molsysmt import pyunitwizard as puw

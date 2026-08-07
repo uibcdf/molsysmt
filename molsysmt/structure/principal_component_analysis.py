@@ -1,6 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from smonitor import signal
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private import rust_backend as _kernels
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 from molsysmt._private.variables import is_all, is_iterable_of_iterables

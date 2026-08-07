@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.native import MolSysDict
 from molsysmt import pyunitwizard as puw
 import pandas as pd

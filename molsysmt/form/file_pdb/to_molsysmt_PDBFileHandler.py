@@ -1,4 +1,4 @@
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:pdb')
 def to_molsysmt_PDBFileHandler(item, skip_digestion=False):

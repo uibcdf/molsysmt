@@ -1,6 +1,6 @@
 import pandas as pd
 
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form='molsysmt.TopologyDict')

@@ -2,16 +2,16 @@
 ArgDigest configuration for MolSysMT.
 """
 
-DIGESTION_SOURCE = "molsysmt._private.arg_digestion.argument"
+DIGESTION_SOURCE = "molsysmt._private.argdigest.argument"
 DIGESTION_STYLE = "package"
-STANDARDIZER = "molsysmt._private.arg_digestion.argument_names_standardization:argument_names_standardization"
+STANDARDIZER = "molsysmt._private.argdigest.argument_names_standardization:argument_names_standardization"
 STRICTNESS = "warn"
 SKIP_PARAM = "skip_digestion"
 
 # Axis 1: the function argument contract. A closed signature is held to its own
 # parameters; a function with **kwargs declares its domain in FUNCTION_SOURCE.
-FUNCTION_SOURCE = "molsysmt._private.arg_digestion.function"
-DOMAIN_SOURCE = "molsysmt._private.arg_digestion.domain"
+FUNCTION_SOURCE = "molsysmt._private.argdigest.function"
+DOMAIN_SOURCE = "molsysmt._private.argdigest.domain"
 UNKNOWN_ARGUMENT = "error"
 
 # Standard Scientific Pipelines for MolSysMT

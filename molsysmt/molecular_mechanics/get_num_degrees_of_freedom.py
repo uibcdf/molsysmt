@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest()
 def get_degrees_of_freedom(item, forcefield=None, water_model=None, implicit_solvent=None, skip_digestion=False):

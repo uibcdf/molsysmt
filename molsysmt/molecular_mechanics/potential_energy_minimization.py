@@ -1,5 +1,5 @@
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion import arg_digest
+from molsysmt._private.argdigest import arg_digest
 
 @arg_digest()
 def potential_energy_minimization(molecular_system, method='L-BFGS',
