@@ -23,7 +23,7 @@ The 15 native forms in MolSysMT are organized below into three primary categorie
    :maxdepth: 2
    :hidden:
 
-   classes/index.md
-   files/index.md
-   file_handlers/index.md
+   classes/index
+   files/index
+   file_handlers/index
 ```

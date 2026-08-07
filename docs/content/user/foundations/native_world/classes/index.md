@@ -1,7 +1,7 @@
 (user-foundations-native-world-classes)=
 # Classes
 
-Native Python classes and declarative dictionaries representing molecular systems, topology, structures, molecular mechanics, and visualization schemas in MolSysMT.
+Welcome to **Classes**, the native object module detailing MolSysMT's core Python data containers and declarative dictionary schemas.
 
 ---
 
@@ -42,14 +42,14 @@ Native Python classes and declarative dictionaries representing molecular system
    :maxdepth: 1
    :hidden:
 
-   molsysmt.MolSys <molsysmt_MolSys.md>
-   molsysmt.MolSysBuilder <molsysmt_MolSysBuilder.md>
-   molsysmt.MolSysDict <molsysmt_MolSysDict.ipynb>
-   molsysmt.Topology <molsysmt_Topology.ipynb>
-   molsysmt.TopologyDict <molsysmt_TopologyDict.ipynb>
-   molsysmt.Structures <molsysmt_Structures.ipynb>
-   molsysmt.StructuresDict <molsysmt_StructuresDict.ipynb>
-   molsysmt.MolecularMechanics <molsysmt_MolecularMechanics.ipynb>
-   molsysmt.MolecularMechanicsDict <molsysmt_MolecularMechanicsDict.ipynb>
-   molsysmt.ViewerJSON <molsysmt_ViewerJSON.ipynb>
+   molsysmt.MolSys <molsysmt_MolSys>
+   molsysmt.MolSysBuilder <molsysmt_MolSysBuilder>
+   molsysmt.MolSysDict <molsysmt_MolSysDict>
+   molsysmt.Topology <molsysmt_Topology>
+   molsysmt.TopologyDict <molsysmt_TopologyDict>
+   molsysmt.Structures <molsysmt_Structures>
+   molsysmt.StructuresDict <molsysmt_StructuresDict>
+   molsysmt.MolecularMechanics <molsysmt_MolecularMechanics>
+   molsysmt.MolecularMechanicsDict <molsysmt_MolecularMechanicsDict>
+   molsysmt.ViewerJSON <molsysmt_ViewerJSON>
 ```

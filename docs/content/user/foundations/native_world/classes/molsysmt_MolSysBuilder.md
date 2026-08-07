@@ -1,30 +1,56 @@
-(user-foundations-native-world-molsysbuilder)=
+(user-foundations-native-world-classes-molsysmt-molsysbuilder)=
 # molsysmt.MolSysBuilder
 
-`molsysmt.MolSysBuilder` is an editable native class designed for step-by-step assembly, incremental construction, and modification of molecular systems in MolSysMT.
+`molsysmt.MolSysBuilder` is the native editable staging container in MolSysMT designed for incremental system assembly, structural editing, and model modifications.
 
 ---
 
-## Role and Purpose
+## Conceptual Overview & User Role
 
-Unlike `molsysmt.MolSys`—which represents a materialized, immutable molecular system—`molsysmt.MolSysBuilder` acts as a dynamic staging container. It enables users and internal constructors to build molecular topologies from scratch by declaring atoms, groups, chains, molecules, entities, and bonds incrementally, as well as assigning structural coordinates before final system materialization.
+While `molsysmt.MolSys` is an immutable state container, `molsysmt.MolSysBuilder` provides a mutable staging area where users can incrementally add, remove, reorder, or mutate atoms, residues, molecules, coordinates, and forcefield terms.
 
----
-
-## Internal Architecture
-
-The `molsysmt.MolSysBuilder` class manages staging components for system assembly:
-
-- **Topological Assembly**: Provides methods to declare individual atoms (`add_atom`), residue groups (`add_group`), components (`add_component`), chains (`add_chain`), molecules (`add_molecule`), entities (`add_entity`), and covalent bonds (`add_bond`).
-- **Structural Assignment**: Accepts coordinate arrays (`set_coordinates`) and periodic boundary box vectors.
-- **System Materialization**: The `.build()` method validates accumulated topological and structural contracts and materializes a unified, canonical `molsysmt.MolSys` instance.
+Once staging modifications are complete, the builder validates topological integrity and compiles the staged tables into a production-ready `molsysmt.MolSys` object.
 
 ---
 
-## Design Invariants
+## Internal Architecture & Staging Tables (What's Inside)
 
-The `molsysmt.MolSysBuilder` class enforces specific operational principles:
+Inside `molsysmt.MolSysBuilder`, molecular components are stored as dynamic tabular data frames:
 
-- **Canonical Index Alignment**: Atom additions and group associations are tracked in increasing source-index order to guarantee that topology and coordinate arrays remain strictly synchronized.
-- **Pre-materialization Introspection**: Declared chemical and topological attributes can be inspected before final materialization.
-- **Scope Boundaries**: Focuses on topological graph assembly and structural coordinate staging; force-field mechanics and explicit per-structure chemical state associations are handled after materialization.
+| Staging Component | Internal Representation | Description |
+| :--- | :--- | :--- |
+| **`atoms_table`** | Dynamic Pandas/Arrow DataFrame | Mutable atom inventory containing names, types, element symbols, and string IDs. |
+| **`groups_table`** | Dynamic Pandas/Arrow DataFrame | Group and residue definitions, sequence numbers, and group types (amino acid, water, ion). |
+| **`components_table`** | Dynamic Data Table | Connected molecular graph components. |
+| **`molecules_table`** | Dynamic Data Table | Higher-level biological molecule entities (proteins, nucleic acids, solvents). |
+| **`chains_table`** | Dynamic Data Table | Chain identifiers and structural segment groupings. |
+| **`bonds_table`** | Dynamic Bond List | Covalent bond inventory with order and aromaticity flags. |
+| **`coordinates_buffer`** | Dynamic NumPy array list | Mutable 3D spatial coordinates in nanometers. |
+
+---
+
+## Staging Operations & Compilation Workflow
+
+`molsysmt.MolSysBuilder` provides specialized methods for incremental model construction:
+
+```python
+import molsysmt as msm
+
+# 1. Initialize an empty builder
+builder = msm.MolSysBuilder()
+
+# 2. Incrementally append atoms, residues, or external system fragments
+builder.add_group(name='ALA', group_type='amino_acid')
+builder.add_atom(name='CA', atom_type='C', element='C')
+
+# 3. Build and validate final immutable MolSys instance
+system = builder.build()
+```
+
+---
+
+## Invariants, Performance & API Reference
+
+- **Validation Checkpoint**: `builder.build()` automatically validates topological invariants (unique atom indices, non-empty groups, valid coordinate dimensions) before compiling.
+- **String Identifier Invariant**: Incoming numeric IDs are automatically converted and normalized to string representations.
+- **API Reference**: Detailed methods for `molsysmt.MolSysBuilder` are documented in the [{doc}`molsysmt.MolSysBuilder API Reference </api/form/molsysmt_MolSys/api_molsysmt_MolSys>`].
