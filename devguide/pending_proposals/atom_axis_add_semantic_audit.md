@@ -282,3 +282,95 @@ only. Do not begin the expensive F5 full matrix until this bounded audit either
 confirms the current contract or lands the minimal required corrections;
 otherwise the matrix would certify a candidate whose `add()` semantics remain
 undecided.
+
+## Phase 1 — completed 2026-08-07
+
+The read-only contract audit is done and its evidence is
+[`atom_axis_add_phase1_findings.md`](atom_axis_add_phase1_findings.md), measured at
+`3cdd30380`. Three of its results change the shape of the remaining work:
+
+- **Scope.** Only `molsysmt.MolSys` and `molsysmt.Structures` implement `add()`; the
+  other seventy-six adapters are stubs, and the dispatcher selects on the target
+  form. Audit question 1's cardinality matrix is therefore mostly unreachable —
+  digestion rejects a list of independent systems before the nested loop runs.
+- **A defect the audit did not anticipate.** The one list that survives digestion is
+  a *composite* system, and `add` iterates its complementary items as if they were
+  independent sources, contradicting the composite-system contract.
+- **A premise of question 2 is wrong.** Adding a topology-only source to a
+  coordinate-bearing target does not "drop all coordinates"; it fails first with an
+  `ArgumentLengthError` naming an argument the caller never passed.
+
+Four behaviours are confirmed as contract, four are defects independent of any
+policy choice, and five remain undecided policy. Phase 2 should not start until the
+five are answered, because the tests it writes encode those answers.
+
+## Accepted Decisions — 2026-08-07
+
+Taken by the maintainer against the Phase 1 findings. These are the semantics Phase 2
+tests and Phase 3 implements; they are not yet implemented.
+
+**D1 — Periodic box: the target's prevails, and a mismatch is reported.** `add()`
+grows the atom axis and does not reinterpret the unit cell, so the result keeps the
+target's box. Compatibility is checked per structure across the whole axis, after
+normalizing units through PyUnitWizard, with the tolerance already used by the box
+geometry contract. A warning is emitted when both sides carry a box and they differ,
+and also when only one side carries one — mixing periodic and non-periodic fragments
+is the same class of event. Nothing is dropped here, so this needs a **new warning
+class with its own catalog code**, in the manner of `StructuralAttributeOffAxisWarning`.
+
+**D2 — System-level observables are dropped, with a warning.** `temperature`,
+`potential_energy` and `kinetic_energy` describe the system, and adding atoms changes
+the system, so they are removed from the result. They are removed whenever the result
+grows, including the common case where only the target carries them. `time` and
+`structure_id` are **retained**: they describe the structure axis, which `add()` does
+not touch. When the source selection is empty and no atom is actually added, the
+system has not changed and the observables are kept. One
+`StructuralAttributeDropWarning` lists everything dropped, with
+`caller='molsysmt.add'`.
+
+**D3 — `add()` gains `attribute_policy`.** Same knob and same two values as
+`append_structures`: `intersection` (the default, preserving current behaviour) drops
+a one-sided atom-aligned attribute rather than materializing a partial column;
+`strict` refuses the operation instead of discarding the target's data. **One uniform
+policy** — coordinates are not special-cased. The default must stay `intersection`
+because `strict` would break the legitimate case of adding a topology to a system
+that has coordinates.
+
+**D4 — Ownership of the state `add()` does not currently traverse.**
+
+- `time_step`: the target's value survives. This is current behaviour; it only needs
+  documenting.
+- `bioassembly`: the source's assemblies are **merged into the result** with their
+  **chain** indices remapped onto the combined chain axis (assemblies are keyed by
+  chain, not by atom). When an assembly identifier exists on both sides, the incoming
+  one is renamed and a warning is emitted.
+- `molecular_mechanics`: `atoms_ff` is atom-aligned and therefore governed by D3. Its
+  rows are merged with atom indices remapped when both sides carry them. When only
+  one side does, the combined table would cover a prefix of the atom axis, which the
+  fixed invariants forbid: under the default `intersection` the molecular mechanics is
+  **cleared** and a warning emitted.
+
+**D5 — `add()` is one-to-one; the nested loop is deleted.** The Cartesian loop over
+targets × sources advertises a capability that digestion already forbids. `add()`
+takes one target and one source. A list given as a composite molecular system must be
+assembled into one system before the addition, the way `convert` reads it — which is
+also the fix for the mis-iteration defect. Adding several sources is done by calling
+`add()` several times.
+
+**D6 — `alternate_location` is atom-aligned in meaning and merged as such.** It is
+stored per structure but keyed by atom index, so the source's entries are merged into
+the result with their atom indices remapped onto the combined atom axis, mirroring
+what `extract` already does when it selects atoms. Classifying it as structure-aligned
+was an omission, not a decision.
+
+**D7 — `strict` refuses; it never silently repairs.** Under `attribute_policy='strict'`
+every one-sided atom-aligned attribute rejects the operation before mutation, including
+`molecular_mechanics`. The `intersection` outcomes stated in D3 and D4 — drop the
+column, clear the molecular mechanics — are the default-policy outcomes only.
+
+### Known obstacle
+
+**No public route reaches a populated `MolecularMechanics`.**
+`file:prmtop → molsysmt.MolecularMechanics` returns an empty object, so D4's
+molecular-mechanics clause cannot be exercised until that is resolved. Phase 2 must
+determine whether this is a separate defect and report it if so.
