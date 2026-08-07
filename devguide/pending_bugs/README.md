@@ -33,6 +33,11 @@ that the affected surface is fully verified.
 
 ### Contract and maintainability
 
+- `cross_repo_test_reads_a_removed_molsysviewer_attribute.md` — two cross-repo tests
+  read `MolSysView._message_history`, a private attribute the viewer replaced with a
+  narrower `_shape_history` and a `scene_history` model. Test-only breakage, but it
+  keeps the suite red.
+
 - `course_gate_red_after_common_core_renumbering.md` — the gate is green again, with
   the Common Core module count and label scheme deferred rather than asserted while
   the section is unconsolidated. Both must be re-enabled once it settles.

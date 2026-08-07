@@ -2,17 +2,17 @@ import numpy as np
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError, ArgumentLengthError
-from molsysmt._private.arg_digestion.argument.selection import digest_selection
-from molsysmt._private.arg_digestion.argument.selection_2 import digest_selection_2
-from molsysmt._private.arg_digestion.argument.mask import digest_mask
-from molsysmt._private.arg_digestion.argument.atom_indices import digest_atom_indices
-from molsysmt._private.arg_digestion.argument.group_indices import digest_group_indices
-from molsysmt._private.arg_digestion.argument.chain_indices import digest_chain_indices
-from molsysmt._private.arg_digestion.argument.molecule_indices import digest_molecule_indices
-from molsysmt._private.arg_digestion.argument.entity_indices import digest_entity_indices
-from molsysmt._private.arg_digestion.argument.component_indices import digest_component_indices
-from molsysmt._private.arg_digestion.argument.structure_indices import digest_structure_indices
-from molsysmt._private.arg_digestion.argument.selections import digest_selections
+from molsysmt._private.argdigest.argument.selection import digest_selection
+from molsysmt._private.argdigest.argument.selection_2 import digest_selection_2
+from molsysmt._private.argdigest.argument.mask import digest_mask
+from molsysmt._private.argdigest.argument.atom_indices import digest_atom_indices
+from molsysmt._private.argdigest.argument.group_indices import digest_group_indices
+from molsysmt._private.argdigest.argument.chain_indices import digest_chain_indices
+from molsysmt._private.argdigest.argument.molecule_indices import digest_molecule_indices
+from molsysmt._private.argdigest.argument.entity_indices import digest_entity_indices
+from molsysmt._private.argdigest.argument.component_indices import digest_component_indices
+from molsysmt._private.argdigest.argument.structure_indices import digest_structure_indices
+from molsysmt._private.argdigest.argument.selections import digest_selections
 
 
 def test_selection_digesters_support_molsysmt_and_alternative_syntaxes():

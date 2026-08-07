@@ -2,13 +2,13 @@ import numpy as np
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.alternate_location import digest_alternate_location
-from molsysmt._private.arg_digestion.argument.attribute import digest_attribute
-from molsysmt._private.arg_digestion.argument.bioassembly import digest_bioassembly
-from molsysmt._private.arg_digestion.argument.center import digest_center
-from molsysmt._private.arg_digestion.argument.comparison import digest_comparison
-from molsysmt._private.arg_digestion.argument.compression import digest_compression
-from molsysmt._private.arg_digestion.argument.compression_opts import digest_compression_opts
+from molsysmt._private.argdigest.argument.alternate_location import digest_alternate_location
+from molsysmt._private.argdigest.argument.attribute import digest_attribute
+from molsysmt._private.argdigest.argument.bioassembly import digest_bioassembly
+from molsysmt._private.argdigest.argument.center import digest_center
+from molsysmt._private.argdigest.argument.comparison import digest_comparison
+from molsysmt._private.argdigest.argument.compression import digest_compression
+from molsysmt._private.argdigest.argument.compression_opts import digest_compression_opts
 from molsysmt import pyunitwizard as puw
 
 

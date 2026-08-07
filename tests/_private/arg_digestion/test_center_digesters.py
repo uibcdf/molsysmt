@@ -3,12 +3,12 @@ import pytest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.center import digest_center
-from molsysmt._private.arg_digestion.argument.center_at_origin import digest_center_at_origin
-from molsysmt._private.arg_digestion.argument.center_coordinates import digest_center_coordinates
-from molsysmt._private.arg_digestion.argument.center_of_atoms import digest_center_of_atoms
-from molsysmt._private.arg_digestion.argument.center_of_atoms_2 import digest_center_of_atoms_2
-from molsysmt._private.arg_digestion.argument.center_of_selection import digest_center_of_selection
+from molsysmt._private.argdigest.argument.center import digest_center
+from molsysmt._private.argdigest.argument.center_at_origin import digest_center_at_origin
+from molsysmt._private.argdigest.argument.center_coordinates import digest_center_coordinates
+from molsysmt._private.argdigest.argument.center_of_atoms import digest_center_of_atoms
+from molsysmt._private.argdigest.argument.center_of_atoms_2 import digest_center_of_atoms_2
+from molsysmt._private.argdigest.argument.center_of_selection import digest_center_of_selection
 
 
 def test_center_accepts_convert_semantics_and_alignment_bool():

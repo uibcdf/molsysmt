@@ -2,11 +2,11 @@ import pytest
 
 from molsysmt import MolSysBuilder
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.attribute import digest_attribute
-from molsysmt._private.arg_digestion.argument.attribute_type import digest_attribute_type
-from molsysmt._private.arg_digestion.argument.keys import digest_keys
-from molsysmt._private.arg_digestion.argument.items import digest_items
-from molsysmt._private.arg_digestion.argument.value import digest_value
+from molsysmt._private.argdigest.argument.attribute import digest_attribute
+from molsysmt._private.argdigest.argument.attribute_type import digest_attribute_type
+from molsysmt._private.argdigest.argument.keys import digest_keys
+from molsysmt._private.argdigest.argument.items import digest_items
+from molsysmt._private.argdigest.argument.value import digest_value
 
 
 def test_attribute_and_attribute_type_digesters_accept_supported_values():

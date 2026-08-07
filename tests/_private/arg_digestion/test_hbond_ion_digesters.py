@@ -1,14 +1,14 @@
 import numpy as np
 import pytest
 
-from molsysmt._private.arg_digestion.argument.acceptors import digest_acceptors
-from molsysmt._private.arg_digestion.argument.acceptors_2 import digest_acceptors_2
-from molsysmt._private.arg_digestion.argument.donors import digest_donors
-from molsysmt._private.arg_digestion.argument.anion import digest_anion
-from molsysmt._private.arg_digestion.argument.cation import digest_cation
-from molsysmt._private.arg_digestion.argument.hydrogens import digest_hydrogens
-from molsysmt._private.arg_digestion.argument.disulfide_bonds import digest_disulfide_bonds
-from molsysmt._private.arg_digestion.argument.disulfide_group_names import digest_disulfide_group_names
+from molsysmt._private.argdigest.argument.acceptors import digest_acceptors
+from molsysmt._private.argdigest.argument.acceptors_2 import digest_acceptors_2
+from molsysmt._private.argdigest.argument.donors import digest_donors
+from molsysmt._private.argdigest.argument.anion import digest_anion
+from molsysmt._private.argdigest.argument.cation import digest_cation
+from molsysmt._private.argdigest.argument.hydrogens import digest_hydrogens
+from molsysmt._private.argdigest.argument.disulfide_bonds import digest_disulfide_bonds
+from molsysmt._private.argdigest.argument.disulfide_group_names import digest_disulfide_group_names
 from molsysmt._private.smonitor import ArgumentError
 
 

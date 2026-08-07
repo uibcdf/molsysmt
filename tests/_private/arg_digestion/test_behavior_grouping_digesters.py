@@ -2,17 +2,17 @@ import numpy as np
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.group_behavior import digest_group_behavior
-from molsysmt._private.arg_digestion.argument.group_behavior_2 import digest_group_behavior_2
-from molsysmt._private.arg_digestion.argument.groups_of_atoms import digest_groups_of_atoms
-from molsysmt._private.arg_digestion.argument.groups_of_atoms_2 import digest_groups_of_atoms_2
-from molsysmt._private.arg_digestion.argument.hydrogens import digest_hydrogens
-from molsysmt._private.arg_digestion.argument.elements import digest_elements
-from molsysmt._private.arg_digestion.argument.flexible_constraints import digest_flexible_constraints
-from molsysmt._private.arg_digestion.argument.float_precision import digest_float_precision
-from molsysmt._private.arg_digestion.argument.exclusion_rules import digest_exclusion_rules
-from molsysmt._private.arg_digestion.argument.decomposition import digest_decomposition
-from molsysmt._private.arg_digestion.argument.fit import digest_fit
+from molsysmt._private.argdigest.argument.group_behavior import digest_group_behavior
+from molsysmt._private.argdigest.argument.group_behavior_2 import digest_group_behavior_2
+from molsysmt._private.argdigest.argument.groups_of_atoms import digest_groups_of_atoms
+from molsysmt._private.argdigest.argument.groups_of_atoms_2 import digest_groups_of_atoms_2
+from molsysmt._private.argdigest.argument.hydrogens import digest_hydrogens
+from molsysmt._private.argdigest.argument.elements import digest_elements
+from molsysmt._private.argdigest.argument.flexible_constraints import digest_flexible_constraints
+from molsysmt._private.argdigest.argument.float_precision import digest_float_precision
+from molsysmt._private.argdigest.argument.exclusion_rules import digest_exclusion_rules
+from molsysmt._private.argdigest.argument.decomposition import digest_decomposition
+from molsysmt._private.argdigest.argument.fit import digest_fit
 
 
 def test_group_behavior_digesters_accept_supported_values():

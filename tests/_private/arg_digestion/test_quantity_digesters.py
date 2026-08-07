@@ -3,17 +3,17 @@ import pytest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.formal_charge import digest_formal_charge
-from molsysmt._private.arg_digestion.argument.kinetic_energy import digest_kinetic_energy
-from molsysmt._private.arg_digestion.argument.n_structures import digest_n_structures
-from molsysmt._private.arg_digestion.argument.occupancy import digest_occupancy
-from molsysmt._private.arg_digestion.argument.partial_charge import digest_partial_charge
-from molsysmt._private.arg_digestion.argument.potential_energy import digest_potential_energy
-from molsysmt._private.arg_digestion.argument.structure_index import digest_structure_index
-from molsysmt._private.arg_digestion.argument.temperature import digest_temperature
-from molsysmt._private.arg_digestion.argument.time import digest_time
-from molsysmt._private.arg_digestion.argument.total_energy import digest_total_energy
-from molsysmt._private.arg_digestion.argument.velocities import digest_velocities
+from molsysmt._private.argdigest.argument.formal_charge import digest_formal_charge
+from molsysmt._private.argdigest.argument.kinetic_energy import digest_kinetic_energy
+from molsysmt._private.argdigest.argument.n_structures import digest_n_structures
+from molsysmt._private.argdigest.argument.occupancy import digest_occupancy
+from molsysmt._private.argdigest.argument.partial_charge import digest_partial_charge
+from molsysmt._private.argdigest.argument.potential_energy import digest_potential_energy
+from molsysmt._private.argdigest.argument.structure_index import digest_structure_index
+from molsysmt._private.argdigest.argument.temperature import digest_temperature
+from molsysmt._private.argdigest.argument.time import digest_time
+from molsysmt._private.argdigest.argument.total_energy import digest_total_energy
+from molsysmt._private.argdigest.argument.velocities import digest_velocities
 
 
 BOOL_CALLER = "molsysmt.basic.get.get"

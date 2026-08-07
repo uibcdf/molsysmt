@@ -1,13 +1,13 @@
 import pytest
 
-from molsysmt._private.arg_digestion.argument.chunk import digest_chunk
-from molsysmt._private.arg_digestion.argument.start import digest_start
-from molsysmt._private.arg_digestion.argument.stop import digest_stop
-from molsysmt._private.arg_digestion.argument.step import digest_step
-from molsysmt._private.arg_digestion.argument.progress_bar import digest_progress_bar
-from molsysmt._private.arg_digestion.argument.prettyprint import digest_prettyprint
-from molsysmt._private.arg_digestion.argument.report import digest_report
-from molsysmt._private.arg_digestion.argument.verbose import digest_verbose
+from molsysmt._private.argdigest.argument.chunk import digest_chunk
+from molsysmt._private.argdigest.argument.start import digest_start
+from molsysmt._private.argdigest.argument.stop import digest_stop
+from molsysmt._private.argdigest.argument.step import digest_step
+from molsysmt._private.argdigest.argument.progress_bar import digest_progress_bar
+from molsysmt._private.argdigest.argument.prettyprint import digest_prettyprint
+from molsysmt._private.argdigest.argument.report import digest_report
+from molsysmt._private.argdigest.argument.verbose import digest_verbose
 from molsysmt._private.smonitor import ArgumentError
 
 

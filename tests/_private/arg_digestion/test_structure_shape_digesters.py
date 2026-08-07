@@ -3,17 +3,17 @@ import pytest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.coordinates import digest_coordinates
-from molsysmt._private.arg_digestion.argument.center_coordinates import digest_center_coordinates
-from molsysmt._private.arg_digestion.argument.coordinates_minimum import digest_coordinates_minimum
-from molsysmt._private.arg_digestion.argument.time import digest_time
-from molsysmt._private.arg_digestion.argument.structure_id import digest_structure_id
-from molsysmt._private.arg_digestion.argument.box_volume import digest_box_volume
-from molsysmt._private.arg_digestion.argument.box_shape import digest_box_shape
-from molsysmt._private.arg_digestion.argument.b_factor import digest_b_factor
-from molsysmt._private.arg_digestion.argument.occupancy import digest_occupancy
-from molsysmt._private.arg_digestion.argument.velocities import digest_velocities
-from molsysmt._private.arg_digestion.argument.n_structures import digest_n_structures
+from molsysmt._private.argdigest.argument.coordinates import digest_coordinates
+from molsysmt._private.argdigest.argument.center_coordinates import digest_center_coordinates
+from molsysmt._private.argdigest.argument.coordinates_minimum import digest_coordinates_minimum
+from molsysmt._private.argdigest.argument.time import digest_time
+from molsysmt._private.argdigest.argument.structure_id import digest_structure_id
+from molsysmt._private.argdigest.argument.box_volume import digest_box_volume
+from molsysmt._private.argdigest.argument.box_shape import digest_box_shape
+from molsysmt._private.argdigest.argument.b_factor import digest_b_factor
+from molsysmt._private.argdigest.argument.occupancy import digest_occupancy
+from molsysmt._private.argdigest.argument.velocities import digest_velocities
+from molsysmt._private.argdigest.argument.n_structures import digest_n_structures
 
 
 def test_coordinate_family_digesters_accept_valid_shapes():

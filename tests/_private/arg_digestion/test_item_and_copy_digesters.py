@@ -1,7 +1,7 @@
 import pytest
 
-from molsysmt._private.arg_digestion.argument.item import digest_item
-from molsysmt._private.arg_digestion.argument.items import digest_items
+from molsysmt._private.argdigest.argument.item import digest_item
+from molsysmt._private.argdigest.argument.items import digest_items
 from molsysmt._private.smonitor import ArgumentError
 
 

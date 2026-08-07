@@ -2,11 +2,11 @@ import matplotlib as mpl
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.representation import digest_representation
-from molsysmt._private.arg_digestion.argument.cmap import digest_cmap
-from molsysmt._private.arg_digestion.argument.color_2 import digest_color_2
-from molsysmt._private.arg_digestion.argument.color_values_scale import digest_color_values_scale
-from molsysmt._private.arg_digestion.argument.color_values_scale_2 import digest_color_values_scale_2
+from molsysmt._private.argdigest.argument.representation import digest_representation
+from molsysmt._private.argdigest.argument.cmap import digest_cmap
+from molsysmt._private.argdigest.argument.color_2 import digest_color_2
+from molsysmt._private.argdigest.argument.color_values_scale import digest_color_values_scale
+from molsysmt._private.argdigest.argument.color_values_scale_2 import digest_color_values_scale_2
 
 
 def test_representation_is_caller_sensitive():

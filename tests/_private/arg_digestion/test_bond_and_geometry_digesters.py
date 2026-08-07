@@ -3,19 +3,19 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.angles import digest_angles
-from molsysmt._private.arg_digestion.argument.atom_pair import digest_atom_pair
-from molsysmt._private.arg_digestion.argument.atom_pairs import digest_atom_pairs
-from molsysmt._private.arg_digestion.argument.bond_id import digest_bond_id
-from molsysmt._private.arg_digestion.argument.bond_index import digest_bond_index
-from molsysmt._private.arg_digestion.argument.bond_indices import digest_bond_indices
-from molsysmt._private.arg_digestion.argument.bond_length import digest_bond_length
-from molsysmt._private.arg_digestion.argument.bond_order import digest_bond_order
-from molsysmt._private.arg_digestion.argument.bond_type import digest_bond_type
-from molsysmt._private.arg_digestion.argument.bonded_atom_pairs import digest_bonded_atom_pairs
-from molsysmt._private.arg_digestion.argument.bonded_atoms import digest_bonded_atoms
-from molsysmt._private.arg_digestion.argument.dihedral_angle import digest_dihedral_angle
-from molsysmt._private.arg_digestion.argument.distance import digest_distance
+from molsysmt._private.argdigest.argument.angles import digest_angles
+from molsysmt._private.argdigest.argument.atom_pair import digest_atom_pair
+from molsysmt._private.argdigest.argument.atom_pairs import digest_atom_pairs
+from molsysmt._private.argdigest.argument.bond_id import digest_bond_id
+from molsysmt._private.argdigest.argument.bond_index import digest_bond_index
+from molsysmt._private.argdigest.argument.bond_indices import digest_bond_indices
+from molsysmt._private.argdigest.argument.bond_length import digest_bond_length
+from molsysmt._private.argdigest.argument.bond_order import digest_bond_order
+from molsysmt._private.argdigest.argument.bond_type import digest_bond_type
+from molsysmt._private.argdigest.argument.bonded_atom_pairs import digest_bonded_atom_pairs
+from molsysmt._private.argdigest.argument.bonded_atoms import digest_bonded_atoms
+from molsysmt._private.argdigest.argument.dihedral_angle import digest_dihedral_angle
+from molsysmt._private.argdigest.argument.distance import digest_distance
 
 GET_CALLER = "molsysmt.basic.get.get"
 COMPARE_CALLER = "molsysmt.basic.compare.compare"

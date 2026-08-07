@@ -1,14 +1,14 @@
 import pytest
 
 import molsysmt as msm
-from molsysmt._private.arg_digestion.argument.as_entity import digest_as_entity
-from molsysmt._private.arg_digestion.argument.as_entity_2 import digest_as_entity_2
-from molsysmt._private.arg_digestion.argument.filename import digest_filename
-from molsysmt._private.arg_digestion.argument.keys import digest_keys
-from molsysmt._private.arg_digestion.argument.pairs import digest_pairs
-from molsysmt._private.arg_digestion.argument.representation import digest_representation
-from molsysmt._private.arg_digestion.argument.view import digest_view
-from molsysmt._private.arg_digestion.argument.viewer import digest_viewer
+from molsysmt._private.argdigest.argument.as_entity import digest_as_entity
+from molsysmt._private.argdigest.argument.as_entity_2 import digest_as_entity_2
+from molsysmt._private.argdigest.argument.filename import digest_filename
+from molsysmt._private.argdigest.argument.keys import digest_keys
+from molsysmt._private.argdigest.argument.pairs import digest_pairs
+from molsysmt._private.argdigest.argument.representation import digest_representation
+from molsysmt._private.argdigest.argument.view import digest_view
+from molsysmt._private.argdigest.argument.viewer import digest_viewer
 from molsysmt._private.smonitor import ArgumentError
 
 

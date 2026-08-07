@@ -2,13 +2,13 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.angle_threshold import digest_angle_threshold
-from molsysmt._private.arg_digestion.argument.cutoff_distance import digest_cutoff_distance
-from molsysmt._private.arg_digestion.argument.distance_threshold import digest_distance_threshold
-from molsysmt._private.arg_digestion.argument.force import digest_force
-from molsysmt._private.arg_digestion.argument.force_constant import digest_force_constant
-from molsysmt._private.arg_digestion.argument.radius import digest_radius
-from molsysmt._private.arg_digestion.argument.threshold import digest_threshold
+from molsysmt._private.argdigest.argument.angle_threshold import digest_angle_threshold
+from molsysmt._private.argdigest.argument.cutoff_distance import digest_cutoff_distance
+from molsysmt._private.argdigest.argument.distance_threshold import digest_distance_threshold
+from molsysmt._private.argdigest.argument.force import digest_force
+from molsysmt._private.argdigest.argument.force_constant import digest_force_constant
+from molsysmt._private.argdigest.argument.radius import digest_radius
+from molsysmt._private.argdigest.argument.threshold import digest_threshold
 
 ANGLE_CALLER = "molsysmt.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds"
 DISTANCE_CALLER = "molsysmt.hbonds.get_buch_hbonds.get_buch_hbonds"

@@ -1,4 +1,4 @@
-"""Tests for molsysmt._private.arg_digestion.argument.value.digest_value.
+"""Tests for molsysmt._private.argdigest.argument.value.digest_value.
 
 The dispatcher routes `msm.set()` calls to the appropriate sub-digester based
 on the `caller` string that ends with `set_<attribute>_to_<element>`.
@@ -19,7 +19,7 @@ import pytest
 
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion.argument.value import digest_value
+from molsysmt._private.argdigest.argument.value import digest_value
 
 
 # Prefix used for realistic caller strings (matches the branch condition logic

@@ -3,11 +3,11 @@ import pytest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.box import digest_box
-from molsysmt._private.arg_digestion.argument.box_angles import digest_box_angles
-from molsysmt._private.arg_digestion.argument.box_lengths import digest_box_lengths
-from molsysmt._private.arg_digestion.argument.box_center import digest_box_center
-from molsysmt._private.arg_digestion.argument.box_origin import digest_box_origin
+from molsysmt._private.argdigest.argument.box import digest_box
+from molsysmt._private.argdigest.argument.box_angles import digest_box_angles
+from molsysmt._private.argdigest.argument.box_lengths import digest_box_lengths
+from molsysmt._private.argdigest.argument.box_center import digest_box_center
+from molsysmt._private.argdigest.argument.box_origin import digest_box_origin
 
 
 def test_digest_box_accepts_boolean_for_get():

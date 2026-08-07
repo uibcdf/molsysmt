@@ -3,17 +3,17 @@ import pytest
 from scipy.spatial.transform import Rotation
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion.argument.center import digest_center
-from molsysmt._private.arg_digestion.argument.fit import digest_fit
-from molsysmt._private.arg_digestion.argument.groups_of_atoms import digest_groups_of_atoms
-from molsysmt._private.arg_digestion.argument.origin import digest_origin
-from molsysmt._private.arg_digestion.argument.point import digest_point
-from molsysmt._private.arg_digestion.argument.vector import digest_vector
-from molsysmt._private.arg_digestion.argument.vectors import digest_vectors
-from molsysmt._private.arg_digestion.argument.rotation import digest_rotation
-from molsysmt._private.arg_digestion.argument.rotations import digest_rotations
-from molsysmt._private.arg_digestion.argument.translation import digest_translation
-from molsysmt._private.arg_digestion.argument.translations import digest_translations
+from molsysmt._private.argdigest.argument.center import digest_center
+from molsysmt._private.argdigest.argument.fit import digest_fit
+from molsysmt._private.argdigest.argument.groups_of_atoms import digest_groups_of_atoms
+from molsysmt._private.argdigest.argument.origin import digest_origin
+from molsysmt._private.argdigest.argument.point import digest_point
+from molsysmt._private.argdigest.argument.vector import digest_vector
+from molsysmt._private.argdigest.argument.vectors import digest_vectors
+from molsysmt._private.argdigest.argument.rotation import digest_rotation
+from molsysmt._private.argdigest.argument.rotations import digest_rotations
+from molsysmt._private.argdigest.argument.translation import digest_translation
+from molsysmt._private.argdigest.argument.translations import digest_translations
 from molsysmt._private.smonitor import ArgumentError
 
 

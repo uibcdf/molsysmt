@@ -3,15 +3,15 @@ import pytest
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.b_factor import digest_b_factor
-from molsysmt._private.arg_digestion.argument.box import digest_box
-from molsysmt._private.arg_digestion.argument.box_lengths import digest_box_lengths
-from molsysmt._private.arg_digestion.argument.box_angles import digest_box_angles
-from molsysmt._private.arg_digestion.argument.box_center import digest_box_center
-from molsysmt._private.arg_digestion.argument.box_origin import digest_box_origin
-from molsysmt._private.arg_digestion.argument.coordinates import digest_coordinates
-from molsysmt._private.arg_digestion.argument.time import digest_time
-from molsysmt._private.arg_digestion.argument.structure_id import digest_structure_id
+from molsysmt._private.argdigest.argument.b_factor import digest_b_factor
+from molsysmt._private.argdigest.argument.box import digest_box
+from molsysmt._private.argdigest.argument.box_lengths import digest_box_lengths
+from molsysmt._private.argdigest.argument.box_angles import digest_box_angles
+from molsysmt._private.argdigest.argument.box_center import digest_box_center
+from molsysmt._private.argdigest.argument.box_origin import digest_box_origin
+from molsysmt._private.argdigest.argument.coordinates import digest_coordinates
+from molsysmt._private.argdigest.argument.time import digest_time
+from molsysmt._private.argdigest.argument.structure_id import digest_structure_id
 
 
 GET_CALLER = "molsysmt.basic.get.get"

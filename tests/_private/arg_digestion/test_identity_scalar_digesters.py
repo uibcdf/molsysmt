@@ -3,13 +3,13 @@ import pytest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.id import digest_id
-from molsysmt._private.arg_digestion.argument.id_step import digest_id_step
-from molsysmt._private.arg_digestion.argument.filename import digest_filename
-from molsysmt._private.arg_digestion.argument.finesse import digest_finesse
-from molsysmt._private.arg_digestion.argument.hydrogen_mass import digest_hydrogen_mass
-from molsysmt._private.arg_digestion.argument.ewald_error_tolerance import digest_ewald_error_tolerance
-from molsysmt._private.arg_digestion.argument.friction import digest_friction
+from molsysmt._private.argdigest.argument.id import digest_id
+from molsysmt._private.argdigest.argument.id_step import digest_id_step
+from molsysmt._private.argdigest.argument.filename import digest_filename
+from molsysmt._private.argdigest.argument.finesse import digest_finesse
+from molsysmt._private.argdigest.argument.hydrogen_mass import digest_hydrogen_mass
+from molsysmt._private.argdigest.argument.ewald_error_tolerance import digest_ewald_error_tolerance
+from molsysmt._private.argdigest.argument.friction import digest_friction
 
 
 def test_identity_and_scalar_digesters_accept_valid_inputs():

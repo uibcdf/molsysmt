@@ -1,10 +1,10 @@
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.definition import digest_definition
-from molsysmt._private.arg_digestion.argument.output_type import digest_output_type
-from molsysmt._private.arg_digestion.argument.items import digest_items
-from molsysmt._private.arg_digestion.argument.implicit_solvent import digest_implicit_solvent
+from molsysmt._private.argdigest.argument.definition import digest_definition
+from molsysmt._private.argdigest.argument.output_type import digest_output_type
+from molsysmt._private.argdigest.argument.items import digest_items
+from molsysmt._private.argdigest.argument.implicit_solvent import digest_implicit_solvent
 from molsysmt.native.topology import Topology
 from molsysmt.native.molsys import MolSys
 
@@ -41,7 +41,11 @@ def test_digest_output_type_accepts_caller_specific_choices():
 
 def test_digest_items_accepts_matching_form_sequences():
     topology = Topology(n_atoms=1, n_groups=1, n_chains=1, n_molecules=1, n_entities=1)
-    molsys = MolSys(topology=topology)
+    # `MolSys.__init__` builds an empty container from element counts; a topology is
+    # assigned afterwards. Passing `topology=` used to be accepted and discarded, so this
+    # read as if it carried the topology when it never did.
+    molsys = MolSys()
+    molsys.topology = topology
 
     assert digest_items(molsys, caller='test') == [molsys]
     assert digest_items([topology, topology], forms='molsysmt.Topology', caller='test') == [topology, topology]

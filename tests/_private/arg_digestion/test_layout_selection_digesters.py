@@ -3,15 +3,15 @@ import pytest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.acceptors import digest_acceptors
-from molsysmt._private.arg_digestion.argument.donors import digest_donors
-from molsysmt._private.arg_digestion.argument.attribute import digest_attribute
-from molsysmt._private.arg_digestion.argument.blocks import digest_blocks
-from molsysmt._private.arg_digestion.argument.chunk import digest_chunk
-from molsysmt._private.arg_digestion.argument.start import digest_start
-from molsysmt._private.arg_digestion.argument.stop import digest_stop
-from molsysmt._private.arg_digestion.argument.top import digest_top
-from molsysmt._private.arg_digestion.argument.bottom import digest_bottom
+from molsysmt._private.argdigest.argument.acceptors import digest_acceptors
+from molsysmt._private.argdigest.argument.donors import digest_donors
+from molsysmt._private.argdigest.argument.attribute import digest_attribute
+from molsysmt._private.argdigest.argument.blocks import digest_blocks
+from molsysmt._private.argdigest.argument.chunk import digest_chunk
+from molsysmt._private.argdigest.argument.start import digest_start
+from molsysmt._private.argdigest.argument.stop import digest_stop
+from molsysmt._private.argdigest.argument.top import digest_top
+from molsysmt._private.argdigest.argument.bottom import digest_bottom
 
 
 def test_acceptors_and_donors_accept_selection_like_inputs():

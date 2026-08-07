@@ -1,14 +1,14 @@
 import pytest
 
 import molsysmt as msm
-from molsysmt._private.arg_digestion.argument.from_item import digest_from_item
-from molsysmt._private.arg_digestion.argument.to_item import digest_to_item
-from molsysmt._private.arg_digestion.argument.from_element import digest_from_element
-from molsysmt._private.arg_digestion.argument.to_group_names import digest_to_group_names
-from molsysmt._private.arg_digestion.argument.output_filename import digest_output_filename
-from molsysmt._private.arg_digestion.argument.output_form import digest_output_form
-from molsysmt._private.arg_digestion.argument.output_indices import digest_output_indices
-from molsysmt._private.arg_digestion.argument.output_structure_indices import digest_output_structure_indices
+from molsysmt._private.argdigest.argument.from_item import digest_from_item
+from molsysmt._private.argdigest.argument.to_item import digest_to_item
+from molsysmt._private.argdigest.argument.from_element import digest_from_element
+from molsysmt._private.argdigest.argument.to_group_names import digest_to_group_names
+from molsysmt._private.argdigest.argument.output_filename import digest_output_filename
+from molsysmt._private.argdigest.argument.output_form import digest_output_form
+from molsysmt._private.argdigest.argument.output_indices import digest_output_indices
+from molsysmt._private.argdigest.argument.output_structure_indices import digest_output_structure_indices
 from molsysmt._private.smonitor import ArgumentError
 
 

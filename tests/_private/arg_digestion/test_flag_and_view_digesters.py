@@ -3,16 +3,16 @@ import pytest
 
 from molsysmt import MolSysBuilder
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.progress_bar import digest_progress_bar
-from molsysmt._private.arg_digestion.argument.verbose import digest_verbose
-from molsysmt._private.arg_digestion.argument.to_html import digest_to_html
-from molsysmt._private.arg_digestion.argument.constant_box import digest_constant_box
-from molsysmt._private.arg_digestion.argument.constant_id_step import digest_constant_id_step
-from molsysmt._private.arg_digestion.argument.constant_time_step import digest_constant_time_step
-from molsysmt._private.arg_digestion.argument.allow_reassign import digest_allow_reassign
-from molsysmt._private.arg_digestion.argument.keep import digest_keep
-from molsysmt._private.arg_digestion.argument.wrap import digest_wrap
-from molsysmt._private.arg_digestion.argument.view import digest_view
+from molsysmt._private.argdigest.argument.progress_bar import digest_progress_bar
+from molsysmt._private.argdigest.argument.verbose import digest_verbose
+from molsysmt._private.argdigest.argument.to_html import digest_to_html
+from molsysmt._private.argdigest.argument.constant_box import digest_constant_box
+from molsysmt._private.argdigest.argument.constant_id_step import digest_constant_id_step
+from molsysmt._private.argdigest.argument.constant_time_step import digest_constant_time_step
+from molsysmt._private.argdigest.argument.allow_reassign import digest_allow_reassign
+from molsysmt._private.argdigest.argument.keep import digest_keep
+from molsysmt._private.argdigest.argument.wrap import digest_wrap
+from molsysmt._private.argdigest.argument.view import digest_view
 
 
 def test_boolean_flag_digesters_accept_only_bool():

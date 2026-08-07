@@ -1,15 +1,15 @@
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.n_atoms import digest_n_atoms
-from molsysmt._private.arg_digestion.argument.n_groups import digest_n_groups
-from molsysmt._private.arg_digestion.argument.n_chains import digest_n_chains
-from molsysmt._private.arg_digestion.argument.n_components import digest_n_components
-from molsysmt._private.arg_digestion.argument.n_molecules import digest_n_molecules
-from molsysmt._private.arg_digestion.argument.n_entities import digest_n_entities
-from molsysmt._private.arg_digestion.argument.element import digest_element
-from molsysmt._private.arg_digestion.argument.from_element import digest_from_element
-from molsysmt._private.arg_digestion.argument.water_model import digest_water_model
+from molsysmt._private.argdigest.argument.n_atoms import digest_n_atoms
+from molsysmt._private.argdigest.argument.n_groups import digest_n_groups
+from molsysmt._private.argdigest.argument.n_chains import digest_n_chains
+from molsysmt._private.argdigest.argument.n_components import digest_n_components
+from molsysmt._private.argdigest.argument.n_molecules import digest_n_molecules
+from molsysmt._private.argdigest.argument.n_entities import digest_n_entities
+from molsysmt._private.argdigest.argument.element import digest_element
+from molsysmt._private.argdigest.argument.from_element import digest_from_element
+from molsysmt._private.argdigest.argument.water_model import digest_water_model
 
 
 def test_count_digesters_accept_boolean_int_and_native_counts():

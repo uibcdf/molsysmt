@@ -2,17 +2,17 @@ import numpy as np
 import pytest
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion.argument.reference_coordinates import digest_reference_coordinates
-from molsysmt._private.arg_digestion.argument.reference_molecular_system import digest_reference_molecular_system
-from molsysmt._private.arg_digestion.argument.reference_selection import digest_reference_selection
-from molsysmt._private.arg_digestion.argument.reference_selection_fit import digest_reference_selection_fit
-from molsysmt._private.arg_digestion.argument.reference_structure_index import digest_reference_structure_index
-from molsysmt._private.arg_digestion.argument.reference_structure_indices import digest_reference_structure_indices
-from molsysmt._private.arg_digestion.argument.reference_weights import digest_reference_weights
-from molsysmt._private.arg_digestion.argument.selection_A import digest_selection_A
-from molsysmt._private.arg_digestion.argument.selection_B import digest_selection_B
-from molsysmt._private.arg_digestion.argument.structure_indices_A import digest_structure_indices_A
-from molsysmt._private.arg_digestion.argument.structure_indices_B import digest_structure_indices_B
+from molsysmt._private.argdigest.argument.reference_coordinates import digest_reference_coordinates
+from molsysmt._private.argdigest.argument.reference_molecular_system import digest_reference_molecular_system
+from molsysmt._private.argdigest.argument.reference_selection import digest_reference_selection
+from molsysmt._private.argdigest.argument.reference_selection_fit import digest_reference_selection_fit
+from molsysmt._private.argdigest.argument.reference_structure_index import digest_reference_structure_index
+from molsysmt._private.argdigest.argument.reference_structure_indices import digest_reference_structure_indices
+from molsysmt._private.argdigest.argument.reference_weights import digest_reference_weights
+from molsysmt._private.argdigest.argument.selection_A import digest_selection_A
+from molsysmt._private.argdigest.argument.selection_B import digest_selection_B
+from molsysmt._private.argdigest.argument.structure_indices_A import digest_structure_indices_A
+from molsysmt._private.argdigest.argument.structure_indices_B import digest_structure_indices_B
 from molsysmt._private.smonitor import ArgumentError
 
 

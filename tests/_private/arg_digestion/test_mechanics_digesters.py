@@ -1,13 +1,13 @@
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.engine import digest_engine
-from molsysmt._private.arg_digestion.argument.forcefield import digest_forcefield
-from molsysmt._private.arg_digestion.argument.non_bonded_method import digest_non_bonded_method
-from molsysmt._private.arg_digestion.argument.constraints import digest_constraints
-from molsysmt._private.arg_digestion.argument.water_model import digest_water_model
-from molsysmt._private.arg_digestion.argument.rigid_water import digest_rigid_water
-from molsysmt._private.arg_digestion.argument.dispersion_correction import digest_dispersion_correction
+from molsysmt._private.argdigest.argument.engine import digest_engine
+from molsysmt._private.argdigest.argument.forcefield import digest_forcefield
+from molsysmt._private.argdigest.argument.non_bonded_method import digest_non_bonded_method
+from molsysmt._private.argdigest.argument.constraints import digest_constraints
+from molsysmt._private.argdigest.argument.water_model import digest_water_model
+from molsysmt._private.argdigest.argument.rigid_water import digest_rigid_water
+from molsysmt._private.argdigest.argument.dispersion_correction import digest_dispersion_correction
 
 
 def test_digest_engine_accepts_supported_engine_names():

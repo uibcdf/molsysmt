@@ -2,15 +2,15 @@ import numpy as np
 import pytest
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.arg_digestion.argument.C_terminal import digest_C_terminal
-from molsysmt._private.arg_digestion.argument.N_terminal import digest_N_terminal
-from molsysmt._private.arg_digestion.argument.alignment_index import digest_alignment_index
-from molsysmt._private.arg_digestion.argument.angles import digest_angles
-from molsysmt._private.arg_digestion.argument.copy_if_None import digest_copy_if_None
-from molsysmt._private.arg_digestion.argument.copy_if_all import digest_copy_if_all
-from molsysmt._private.arg_digestion.argument.occupancy import digest_occupancy
-from molsysmt._private.arg_digestion.argument.weights import digest_weights
-from molsysmt._private.arg_digestion.argument.weights_2 import digest_weights_2
+from molsysmt._private.argdigest.argument.C_terminal import digest_C_terminal
+from molsysmt._private.argdigest.argument.N_terminal import digest_N_terminal
+from molsysmt._private.argdigest.argument.alignment_index import digest_alignment_index
+from molsysmt._private.argdigest.argument.angles import digest_angles
+from molsysmt._private.argdigest.argument.copy_if_None import digest_copy_if_None
+from molsysmt._private.argdigest.argument.copy_if_all import digest_copy_if_all
+from molsysmt._private.argdigest.argument.occupancy import digest_occupancy
+from molsysmt._private.argdigest.argument.weights import digest_weights
+from molsysmt._private.argdigest.argument.weights_2 import digest_weights_2
 from molsysmt._private.smonitor import ArgumentError
 
 

@@ -2,18 +2,18 @@ import numpy as np
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.atom_pair import digest_atom_pair
-from molsysmt._private.arg_digestion.argument.atom_pairs import digest_atom_pairs
-from molsysmt._private.arg_digestion.argument.bond_length import digest_bond_length
-from molsysmt._private.arg_digestion.argument.chain_indices import digest_chain_indices
-from molsysmt._private.arg_digestion.argument.dihedral_quartets import digest_dihedral_quartets
-from molsysmt._private.arg_digestion.argument.direction import digest_direction
-from molsysmt._private.arg_digestion.argument.force_constant import digest_force_constant
-from molsysmt._private.arg_digestion.argument.location_id import digest_location_id
-from molsysmt._private.arg_digestion.argument.output_indices import digest_output_indices
-from molsysmt._private.arg_digestion.argument.output_structure_indices import digest_output_structure_indices
-from molsysmt._private.arg_digestion.argument.output_type import digest_output_type
-from molsysmt._private.arg_digestion.argument.shape import digest_shape
+from molsysmt._private.argdigest.argument.atom_pair import digest_atom_pair
+from molsysmt._private.argdigest.argument.atom_pairs import digest_atom_pairs
+from molsysmt._private.argdigest.argument.bond_length import digest_bond_length
+from molsysmt._private.argdigest.argument.chain_indices import digest_chain_indices
+from molsysmt._private.argdigest.argument.dihedral_quartets import digest_dihedral_quartets
+from molsysmt._private.argdigest.argument.direction import digest_direction
+from molsysmt._private.argdigest.argument.force_constant import digest_force_constant
+from molsysmt._private.argdigest.argument.location_id import digest_location_id
+from molsysmt._private.argdigest.argument.output_indices import digest_output_indices
+from molsysmt._private.argdigest.argument.output_structure_indices import digest_output_structure_indices
+from molsysmt._private.argdigest.argument.output_type import digest_output_type
+from molsysmt._private.argdigest.argument.shape import digest_shape
 from molsysmt import pyunitwizard as puw
 
 

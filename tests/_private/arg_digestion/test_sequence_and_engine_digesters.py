@@ -1,16 +1,16 @@
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.chi1 import digest_chi1
-from molsysmt._private.arg_digestion.argument.chi2 import digest_chi2
-from molsysmt._private.arg_digestion.argument.chi3 import digest_chi3
-from molsysmt._private.arg_digestion.argument.chi4 import digest_chi4
-from molsysmt._private.arg_digestion.argument.chi5 import digest_chi5
-from molsysmt._private.arg_digestion.argument.engine_least_rmsd_fit import digest_engine_least_rmsd_fit
-from molsysmt._private.arg_digestion.argument.engine_sequence_alignment import digest_engine_sequence_alignment
-from molsysmt._private.arg_digestion.argument.sequence import digest_sequence
-from molsysmt._private.arg_digestion.argument.target_sequence import digest_target_sequence
-from molsysmt._private.arg_digestion.argument.mutations import digest_mutations
+from molsysmt._private.argdigest.argument.chi1 import digest_chi1
+from molsysmt._private.argdigest.argument.chi2 import digest_chi2
+from molsysmt._private.argdigest.argument.chi3 import digest_chi3
+from molsysmt._private.argdigest.argument.chi4 import digest_chi4
+from molsysmt._private.argdigest.argument.chi5 import digest_chi5
+from molsysmt._private.argdigest.argument.engine_least_rmsd_fit import digest_engine_least_rmsd_fit
+from molsysmt._private.argdigest.argument.engine_sequence_alignment import digest_engine_sequence_alignment
+from molsysmt._private.argdigest.argument.sequence import digest_sequence
+from molsysmt._private.argdigest.argument.target_sequence import digest_target_sequence
+from molsysmt._private.argdigest.argument.mutations import digest_mutations
 
 
 def test_chi_digesters_accept_bool_for_supported_callers():

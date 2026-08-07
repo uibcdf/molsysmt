@@ -2,10 +2,10 @@ import numpy as np
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.atom_names import digest_atom_names
-from molsysmt._private.arg_digestion.argument.group_names import digest_group_names
-from molsysmt._private.arg_digestion.argument.disulfide_group_names import digest_disulfide_group_names
-from molsysmt._private.arg_digestion.argument.to_group_names import digest_to_group_names
+from molsysmt._private.argdigest.argument.atom_names import digest_atom_names
+from molsysmt._private.argdigest.argument.group_names import digest_group_names
+from molsysmt._private.argdigest.argument.disulfide_group_names import digest_disulfide_group_names
+from molsysmt._private.argdigest.argument.to_group_names import digest_to_group_names
 
 CALLER = "molsysmt.build.mutate.mutate"
 

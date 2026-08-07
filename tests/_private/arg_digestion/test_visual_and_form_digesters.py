@@ -4,13 +4,13 @@ from matplotlib.colors import Colormap
 
 import molsysmt as msm
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.color import digest_color
-from molsysmt._private.arg_digestion.argument.color_values import digest_color_values
-from molsysmt._private.arg_digestion.argument.colormap import digest_colormap
-from molsysmt._private.arg_digestion.argument.file import digest_file
-from molsysmt._private.arg_digestion.argument.form import digest_form
-from molsysmt._private.arg_digestion.argument.show import digest_show
-from molsysmt._private.arg_digestion.argument.style import digest_style
+from molsysmt._private.argdigest.argument.color import digest_color
+from molsysmt._private.argdigest.argument.color_values import digest_color_values
+from molsysmt._private.argdigest.argument.colormap import digest_colormap
+from molsysmt._private.argdigest.argument.file import digest_file
+from molsysmt._private.argdigest.argument.form import digest_form
+from molsysmt._private.argdigest.argument.show import digest_show
+from molsysmt._private.argdigest.argument.style import digest_style
 from molsysmt import pyunitwizard as puw
 
 WRITE_H5_CALLER = 'molsysmt.form.molsysmt_Topology.write_topology_in_h5msm'
@@ -66,7 +66,7 @@ def test_digest_form_accepts_bool_for_compare_and_resolves_names():
 
 
 def test_digest_to_form_singular_aliases():
-    from molsysmt._private.arg_digestion.argument.to_form import digest_to_form
+    from molsysmt._private.argdigest.argument.to_form import digest_to_form
     # Tolerance aliases: singular/variant spellings resolve to canonical form names
     assert digest_to_form('molsysmt.Structure') == 'molsysmt.Structures'
     assert digest_to_form('molsysmt.structure') == 'molsysmt.Structures'

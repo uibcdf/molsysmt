@@ -1,11 +1,11 @@
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.attribute_type import digest_attribute_type
-from molsysmt._private.arg_digestion.argument.indices import digest_indices
-from molsysmt._private.arg_digestion.argument.item import digest_item
-from molsysmt._private.arg_digestion.argument.items import digest_items
-from molsysmt._private.arg_digestion.argument.keys import digest_keys
+from molsysmt._private.argdigest.argument.attribute_type import digest_attribute_type
+from molsysmt._private.argdigest.argument.indices import digest_indices
+from molsysmt._private.argdigest.argument.item import digest_item
+from molsysmt._private.argdigest.argument.items import digest_items
+from molsysmt._private.argdigest.argument.keys import digest_keys
 from molsysmt.native.topology import Topology
 from molsysmt.native.molsys import MolSys
 
@@ -33,7 +33,11 @@ def test_digest_indices_accepts_common_iterables():
 
 def test_digest_item_accepts_items_and_form_checks():
     topology = Topology(n_atoms=1, n_groups=1, n_chains=1, n_molecules=1, n_entities=1)
-    molsys = MolSys(topology=topology)
+    # `MolSys.__init__` builds an empty container from element counts; a topology is
+    # assigned afterwards. Passing `topology=` used to be accepted and discarded, so this
+    # read as if it carried the topology when it never did.
+    molsys = MolSys()
+    molsys.topology = topology
 
     assert digest_item(topology, form='molsysmt.Topology', caller='test') is topology
     assert digest_item(molsys, form='molsysmt.MolSys', caller='test') is molsys
@@ -46,7 +50,11 @@ def test_digest_item_accepts_items_and_form_checks():
 
 def test_digest_items_accepts_matching_form_sequences():
     topology = Topology(n_atoms=1, n_groups=1, n_chains=1, n_molecules=1, n_entities=1)
-    molsys = MolSys(topology=topology)
+    # `MolSys.__init__` builds an empty container from element counts; a topology is
+    # assigned afterwards. Passing `topology=` used to be accepted and discarded, so this
+    # read as if it carried the topology when it never did.
+    molsys = MolSys()
+    molsys.topology = topology
 
     assert digest_items(molsys, caller='test') == [molsys]
     assert digest_items([topology, topology], forms='molsysmt.Topology', caller='test') == [topology, topology]

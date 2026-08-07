@@ -1,8 +1,8 @@
 import pytest
 
-from molsysmt._private.arg_digestion.argument.n_atoms import digest_n_atoms
-from molsysmt._private.arg_digestion.argument.n_groups import digest_n_groups
-from molsysmt._private.arg_digestion.argument.n_neighbors import digest_n_neighbors
+from molsysmt._private.argdigest.argument.n_atoms import digest_n_atoms
+from molsysmt._private.argdigest.argument.n_groups import digest_n_groups
+from molsysmt._private.argdigest.argument.n_neighbors import digest_n_neighbors
 from molsysmt._private.smonitor import ArgumentError
 
 

@@ -1,24 +1,24 @@
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.atom_id import digest_atom_id
-from molsysmt._private.arg_digestion.argument.group_id import digest_group_id
-from molsysmt._private.arg_digestion.argument.chain_id import digest_chain_id
-from molsysmt._private.arg_digestion.argument.molecule_id import digest_molecule_id
-from molsysmt._private.arg_digestion.argument.entity_id import digest_entity_id
-from molsysmt._private.arg_digestion.argument.component_id import digest_component_id
-from molsysmt._private.arg_digestion.argument.atom_index import digest_atom_index
-from molsysmt._private.arg_digestion.argument.group_index import digest_group_index
-from molsysmt._private.arg_digestion.argument.chain_index import digest_chain_index
-from molsysmt._private.arg_digestion.argument.molecule_index import digest_molecule_index
-from molsysmt._private.arg_digestion.argument.entity_index import digest_entity_index
-from molsysmt._private.arg_digestion.argument.component_index import digest_component_index
-from molsysmt._private.arg_digestion.argument.n_atoms import digest_n_atoms
-from molsysmt._private.arg_digestion.argument.n_groups import digest_n_groups
-from molsysmt._private.arg_digestion.argument.n_chains import digest_n_chains
-from molsysmt._private.arg_digestion.argument.n_components import digest_n_components
-from molsysmt._private.arg_digestion.argument.n_molecules import digest_n_molecules
-from molsysmt._private.arg_digestion.argument.n_entities import digest_n_entities
+from molsysmt._private.argdigest.argument.atom_id import digest_atom_id
+from molsysmt._private.argdigest.argument.group_id import digest_group_id
+from molsysmt._private.argdigest.argument.chain_id import digest_chain_id
+from molsysmt._private.argdigest.argument.molecule_id import digest_molecule_id
+from molsysmt._private.argdigest.argument.entity_id import digest_entity_id
+from molsysmt._private.argdigest.argument.component_id import digest_component_id
+from molsysmt._private.argdigest.argument.atom_index import digest_atom_index
+from molsysmt._private.argdigest.argument.group_index import digest_group_index
+from molsysmt._private.argdigest.argument.chain_index import digest_chain_index
+from molsysmt._private.argdigest.argument.molecule_index import digest_molecule_index
+from molsysmt._private.argdigest.argument.entity_index import digest_entity_index
+from molsysmt._private.argdigest.argument.component_index import digest_component_index
+from molsysmt._private.argdigest.argument.n_atoms import digest_n_atoms
+from molsysmt._private.argdigest.argument.n_groups import digest_n_groups
+from molsysmt._private.argdigest.argument.n_chains import digest_n_chains
+from molsysmt._private.argdigest.argument.n_components import digest_n_components
+from molsysmt._private.argdigest.argument.n_molecules import digest_n_molecules
+from molsysmt._private.argdigest.argument.n_entities import digest_n_entities
 
 GET_CALLER = "molsysmt.basic.get.get"
 COMPARE_CALLER = "molsysmt.basic.compare.compare"

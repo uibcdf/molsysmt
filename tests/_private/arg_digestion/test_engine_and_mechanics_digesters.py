@@ -1,18 +1,18 @@
 import pytest
 
-from molsysmt._private.arg_digestion.argument.engine import digest_engine
-from molsysmt._private.arg_digestion.argument.forcefield import digest_forcefield
-from molsysmt._private.arg_digestion.argument.integrator import digest_integrator
-from molsysmt._private.arg_digestion.argument.platform import digest_platform
-from molsysmt._private.arg_digestion.argument.non_bonded_method import digest_non_bonded_method
-from molsysmt._private.arg_digestion.argument.water_model import digest_water_model
-from molsysmt._private.arg_digestion.argument.constraints import digest_constraints
-from molsysmt._private.arg_digestion.argument.rigid_water import digest_rigid_water
-from molsysmt._private.arg_digestion.argument.dispersion_correction import digest_dispersion_correction
-from molsysmt._private.arg_digestion.argument.default_exclusion_rules import digest_default_exclusion_rules
-from molsysmt._private.arg_digestion.argument.default_inclusion_rules import digest_default_inclusion_rules
-from molsysmt._private.arg_digestion.argument.ewald_error_tolerance import digest_ewald_error_tolerance
-from molsysmt._private.arg_digestion.argument.use_gpu import digest_use_gpu
+from molsysmt._private.argdigest.argument.engine import digest_engine
+from molsysmt._private.argdigest.argument.forcefield import digest_forcefield
+from molsysmt._private.argdigest.argument.integrator import digest_integrator
+from molsysmt._private.argdigest.argument.platform import digest_platform
+from molsysmt._private.argdigest.argument.non_bonded_method import digest_non_bonded_method
+from molsysmt._private.argdigest.argument.water_model import digest_water_model
+from molsysmt._private.argdigest.argument.constraints import digest_constraints
+from molsysmt._private.argdigest.argument.rigid_water import digest_rigid_water
+from molsysmt._private.argdigest.argument.dispersion_correction import digest_dispersion_correction
+from molsysmt._private.argdigest.argument.default_exclusion_rules import digest_default_exclusion_rules
+from molsysmt._private.argdigest.argument.default_inclusion_rules import digest_default_inclusion_rules
+from molsysmt._private.argdigest.argument.ewald_error_tolerance import digest_ewald_error_tolerance
+from molsysmt._private.argdigest.argument.use_gpu import digest_use_gpu
 from molsysmt._private.smonitor import ArgumentError
 
 

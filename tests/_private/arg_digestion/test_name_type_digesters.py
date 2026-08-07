@@ -2,19 +2,19 @@ import numpy as np
 import pytest
 
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.arg_digestion.argument.atom_name import digest_atom_name
-from molsysmt._private.arg_digestion.argument.atom_ff_type import digest_atom_ff_type
-from molsysmt._private.arg_digestion.argument.atom_type import digest_atom_type
-from molsysmt._private.arg_digestion.argument.group_name import digest_group_name
-from molsysmt._private.arg_digestion.argument.group_type import digest_group_type
-from molsysmt._private.arg_digestion.argument.component_name import digest_component_name
-from molsysmt._private.arg_digestion.argument.component_type import digest_component_type
-from molsysmt._private.arg_digestion.argument.chain_name import digest_chain_name
-from molsysmt._private.arg_digestion.argument.chain_type import digest_chain_type
-from molsysmt._private.arg_digestion.argument.molecule_name import digest_molecule_name
-from molsysmt._private.arg_digestion.argument.molecule_type import digest_molecule_type
-from molsysmt._private.arg_digestion.argument.entity_name import digest_entity_name
-from molsysmt._private.arg_digestion.argument.entity_type import digest_entity_type
+from molsysmt._private.argdigest.argument.atom_name import digest_atom_name
+from molsysmt._private.argdigest.argument.atom_ff_type import digest_atom_ff_type
+from molsysmt._private.argdigest.argument.atom_type import digest_atom_type
+from molsysmt._private.argdigest.argument.group_name import digest_group_name
+from molsysmt._private.argdigest.argument.group_type import digest_group_type
+from molsysmt._private.argdigest.argument.component_name import digest_component_name
+from molsysmt._private.argdigest.argument.component_type import digest_component_type
+from molsysmt._private.argdigest.argument.chain_name import digest_chain_name
+from molsysmt._private.argdigest.argument.chain_type import digest_chain_type
+from molsysmt._private.argdigest.argument.molecule_name import digest_molecule_name
+from molsysmt._private.argdigest.argument.molecule_type import digest_molecule_type
+from molsysmt._private.argdigest.argument.entity_name import digest_entity_name
+from molsysmt._private.argdigest.argument.entity_type import digest_entity_type
 
 
 GET_CALLER = "molsysmt.basic.get.get"
