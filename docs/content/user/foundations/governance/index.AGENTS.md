@@ -1,7 +1,18 @@
-# Group 06 Governance Index Directives (`index.AGENTS.md`)
+# Micro-Governance: `index.md` (`index.AGENTS.md`)
 
-Micro-governance contract for [`docs/content/user/foundations/governance/index.md`](index.md).
+This micro-governance contract governs [`docs/content/user/foundations/governance/index.md`](index.md).
 
-## 🔒 Frozen Content
-- Header H1 MUST be `# 6. Governance`.
-- Must maintain `toctree` with `quantities_and_units.ipynb`, `precision_policy.ipynb`, `configuration_options.ipynb`, `reliability_and_smonitor.md`.
+---
+
+## 🔒 Directives
+
+1. **Title & MyST Anchor**:
+   - Title MUST be `# Governance`.
+   - MUST preserve top anchor `(user-foundations-06-governance)=` for cross-link stability.
+
+2. **Chapter Navigation Layout**:
+   - MUST use a clean bulleted list under `## **Contents**`.
+   - MUST NOT use cards (`::::{grid}`) or badges (`{bdg-*}`).
+
+3. **Toctree**:
+   - MUST maintain hidden `toctree` with `maxdepth: 1` listing all 7 governance units.
