@@ -8,6 +8,12 @@ STANDARDIZER = "molsysmt._private.arg_digestion.argument_names_standardization:a
 STRICTNESS = "warn"
 SKIP_PARAM = "skip_digestion"
 
+# Axis 1: the function argument contract. A closed signature is held to its own
+# parameters; a function with **kwargs declares its domain in FUNCTION_SOURCE.
+FUNCTION_SOURCE = "molsysmt._private.arg_digestion.function"
+DOMAIN_SOURCE = "molsysmt._private.arg_digestion.domain"
+UNKNOWN_ARGUMENT = "error"
+
 # Standard Scientific Pipelines for MolSysMT
 # These use the 'sci' kind registered in the argdigest core
 

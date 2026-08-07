@@ -115,7 +115,7 @@ Archived on 2026-08-07 under `../archive/resolved_proposals/`:
   now lives in [`native_structures_contract.md`](../native_structures_contract.md).
   All ten acceptance criteria are walked in the archived document. One finding left
   the audit and stayed open on its own:
-  [`pending_bugs/public_functions_silently_ignore_unknown_keywords.md`](../pending_bugs/public_functions_silently_ignore_unknown_keywords.md).
+  [`archive/resolved_bugs/public_functions_silently_ignore_unknown_keywords.md`](../archive/resolved_bugs/public_functions_silently_ignore_unknown_keywords.md).
 
 Archived on 2026-07-28 under `../archive/resolved_proposals/`, with a resolution
 note on each:

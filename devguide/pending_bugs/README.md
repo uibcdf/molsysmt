@@ -28,11 +28,6 @@ that the affected surface is fully verified.
 
 ### Incorrect success or hidden failure
 
-- `public_functions_silently_ignore_unknown_keywords.md` — eight of eleven sampled
-  public functions accept a keyword that is not in their signature and ignore it, so a
-  one-letter typo in `structure_indices` returns all 5,000 structures of a trajectory
-  instead of the three requested, with no diagnostic. The three functions that do fail
-  raise a raw `KeyError` or a `TypeError` naming a private converter.
 - `smonitor_warn_drops_structured_extra.md` — reported upstream and pending there;
   worked around inside MolSysMT.
 
@@ -56,6 +51,19 @@ bugs require a regression test; suspected bugs require a minimal reproduction
 before implementation.
 
 ## Recently closed
+
+`public_functions_silently_ignore_unknown_keywords.md` was reported and archived on
+2026-08-07. A typo in a keyword argument was silent in 22 of the 26 public callables and
+uncatalogued in the other four: a one-letter slip in `structure_indices` returned all
+5,000 structures of a trajectory instead of the three requested. The cause was a binding
+step making a policy decision — ArgDigest discarded any keyword outside the signature
+before the layer designed to judge it could see it — which also made ArgDigest more
+permissive than Python itself. Fixed upstream in ArgDigest 0.10.0 by adding the axis the
+defect was a symptom of, the function argument contract, and declared here by pointing
+at MolSysMT's own attribute catalogue. Two claims in the original triage were wrong and
+are corrected in the archived report: `contains` and `is_composed_of` implement
+deliberate no-criterion branches. One further defect was found while reading them —
+`get_label` declares `**kwargs` and never uses it.
 
 `dihedral_quartets_with_blocks_raises_on_ragged_blocks.md` was reported and archived
 on 2026-08-03. `get_dihedral_quartets(with_blocks=True)` pushed a ragged collection of
