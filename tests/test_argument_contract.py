@@ -114,3 +114,26 @@ def test_the_attribute_domain_points_at_the_catalogue():
     assert set(domain.known_members()) == set(attributes)
     assert 'n_atoms' in domain
     assert 'not_an_attribute' not in domain
+
+
+# --- inter-argument rules -------------------------------------------------------------
+
+def test_get_neighbors_refuses_both_search_criteria(alanine_molsys):
+    from argdigest import ArgumentConsistencyError
+
+    # `threshold` and `n_neighbors` are alternatives: search within a distance, or search
+    # for a count. The rule lived inside the function body and now fails before any work.
+    with pytest.raises(ArgumentConsistencyError, match='threshold'):
+        msm.structure.get_neighbors(alanine_molsys, threshold='0.5 nm', n_neighbors=3)
+
+
+def test_get_neighbors_refuses_neither_search_criterion(alanine_molsys):
+    from argdigest import MissingArgumentError
+
+    with pytest.raises(MissingArgumentError):
+        msm.structure.get_neighbors(alanine_molsys)
+
+
+@pytest.mark.parametrize('criterion', [{'threshold': '0.5 nm'}, {'n_neighbors': 3}])
+def test_get_neighbors_accepts_exactly_one_criterion(alanine_molsys, criterion):
+    assert msm.structure.get_neighbors(alanine_molsys, **criterion) is not None
