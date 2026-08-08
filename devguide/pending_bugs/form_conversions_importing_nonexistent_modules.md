@@ -176,3 +176,34 @@ the suite red with 69 failures and no way to tell the real ones from the deliber
 The end state is a fourth entry in `tests/test_form_plugin_conventions.py`, with whatever
 survives triage carried as an explicit baseline -- the same shape as
 `test_converter_imports_resolve.py` already uses here.
+
+### A static triage was tried and does not work
+
+The obvious way to turn the 69 candidates into verdicts is to compare the callee's
+`@arg_digest(form=...)` against the calling plugin's form: if the callee declares it takes
+an `openmm.Topology` and the caller's `item` is a `molsysmt.MolSys`, that is a defect
+without needing to run anything.
+
+It was implemented and it fails. The check calls **all 69** inconsistent -- including
+conversions that demonstrably work:
+
+```
+string:pdb_text -> molsysmt.MolSys     works, and is flagged
+string:pdb_text -> openmm.Topology     works, and is flagged
+string:pdb_text -> molsysmt.Topology   works, and is flagged
+```
+
+Zero consistent out of 69, against code that passes its tests, means the premise is wrong:
+`form=` in the decorator does not declare the form of the converter's `item`. It appears to
+name the plugin's own form, for resolving digesters. Whatever it means, it cannot
+discriminate here.
+
+**So there is no static verdict available with what the code currently declares.** The one
+real defect of this family found so far -- `MolSys -> openmm.System` -- was found by
+*running* a conversion, not by reading imports. That is the honest lesson: the audit script
+generates leads, and the way to confirm a lead is to attempt the conversion.
+
+Which points at the cheaper path: the 29 forms still in `UNREACHED` in
+`tests/basic/test_get_form_battery.py` are exactly the conversions nobody exercises.
+Closing those is likely to surface the remaining defects of this family the same way the
+first one surfaced, with a real diagnosis instead of a suspicion.
