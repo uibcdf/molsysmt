@@ -1,6 +1,11 @@
-from __future__ import annotations
+try:
+    from smonitor.integrations import DiagnosticBundle, emit_from_catalog, _catalog_entry, merge_extra
+except ImportError:
+    from smonitor.integrations import DiagnosticBundle, emit_from_catalog, merge_extra
+    def _catalog_entry(catalog, level, key):
+        section = catalog.get(level, {})
+        return section.get(key)
 
-from smonitor.integrations import DiagnosticBundle, emit_from_catalog, _catalog_entry, merge_extra
 from . import CATALOG, META, PACKAGE_ROOT
 
 bundle = DiagnosticBundle(CATALOG, META, PACKAGE_ROOT)
