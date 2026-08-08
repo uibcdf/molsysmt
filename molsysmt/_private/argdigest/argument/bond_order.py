@@ -1,9 +1,13 @@
 from molsysmt._private.smonitor import ArgumentError
 from argdigest.core.caller import caller_matches
 import numpy as np
-import pandas as pd
 
 def digest_bond_order(bond_order, caller=None):
+
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
 
     if caller_matches(caller, 'add_bond'):
         if bond_order is None:

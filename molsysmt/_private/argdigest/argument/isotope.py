@@ -1,12 +1,16 @@
 """Validating nullable atomic mass numbers."""
 
 import numpy as np
-import pandas as pd
 
 from molsysmt._private.smonitor import ArgumentError
 
 
 def digest_isotope(isotope, caller=None):
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
+
     if caller in {'molsysmt.basic.get.get', 'molsysmt.basic.compare.compare'}:
         if isinstance(isotope, (bool, np.bool_)):
             return bool(isotope)

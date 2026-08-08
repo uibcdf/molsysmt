@@ -1,7 +1,7 @@
 import molsysmt as msm
 
 from molsysmt.native import ViewerJSON
-from molsysmt.form.molsysmt_ViewerJSON import to_molsysmt_MolSys
+from molsysmt.form.molsysmt_ViewerJSON.to_molsysmt_MolSys import to_molsysmt_MolSys
 
 
 def test_viewerjson_to_molsys_preserves_bond_type_and_charges():

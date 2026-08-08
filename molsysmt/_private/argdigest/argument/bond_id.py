@@ -1,9 +1,13 @@
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 import numpy as np
-import pandas as pd
 
 def digest_bond_id(bond_id, caller=None):
+
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
 
     if caller=='molsysmt.basic.get.get':
         if isinstance(bond_id, bool):

@@ -25,7 +25,9 @@ def test_converters_are_imported_from_their_own_submodule():
     """
 
     offenders = {}
-    for path in (REPO_ROOT / 'molsysmt').rglob('*.py'):
+    searched = [p for root in ('molsysmt', 'tests')
+                for p in (REPO_ROOT / root).rglob('*.py')]
+    for path in searched:
         found = _PACKAGE_ATTRIBUTE_IMPORT.findall(path.read_text())
         if found:
             offenders[str(path.relative_to(REPO_ROOT))] = found

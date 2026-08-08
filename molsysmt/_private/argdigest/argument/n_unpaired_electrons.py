@@ -1,10 +1,14 @@
 import numpy as np
-import pandas as pd
 
 from molsysmt._private.smonitor import ArgumentError
 
 
 def digest_n_unpaired_electrons(n_unpaired_electrons, caller=None):
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
+
     if isinstance(n_unpaired_electrons, bool):
         return n_unpaired_electrons
     if isinstance(n_unpaired_electrons, (int, np.integer)) and n_unpaired_electrons >= 0:

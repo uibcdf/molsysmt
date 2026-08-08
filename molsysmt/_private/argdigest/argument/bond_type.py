@@ -2,9 +2,13 @@ from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 import numpy as np
 from argdigest.core.caller import caller_matches
-import pandas as pd
 
 def digest_bond_type(bond_type, caller=None):
+
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
 
     if caller_matches(caller, 'add_bond'):
         if bond_type is None:

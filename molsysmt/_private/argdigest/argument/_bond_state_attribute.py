@@ -1,12 +1,16 @@
 """Shared validation for public nullable chemical-state bond attributes."""
 
 import numpy as np
-import pandas as pd
 
 from molsysmt._private.smonitor import ArgumentError
 
 
 def _values(value):
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
+
     if value is None or value is pd.NA or np.isscalar(value):
         return [value], True
     array = np.asarray(value, dtype=object)
@@ -17,6 +21,11 @@ def _values(value):
 
 def digest_bond_state_attribute(name, value, caller, kind, choices=None):
     """Validate a get flag or a scalar/vector assignment by semantic kind."""
+
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
 
     if caller in {'molsysmt.basic.get.get', 'molsysmt.basic.compare.compare'}:
         if isinstance(value, (bool, np.bool_)):
@@ -55,6 +64,11 @@ def digest_bond_state_attribute(name, value, caller, kind, choices=None):
 
 def digest_stereo_atom_indices(name, value, caller):
     """Validate the nullable two-column stereo-reference public shape."""
+
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
 
     if caller in {'molsysmt.basic.get.get', 'molsysmt.basic.compare.compare'}:
         if isinstance(value, (bool, np.bool_)):

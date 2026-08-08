@@ -1,4 +1,3 @@
-import pandas as pd
 
 from molsysmt._private.smonitor import ArgumentError
 
@@ -6,6 +5,11 @@ _VALUES = {'R', 'S', 'r', 's', 'unspecified', 'unknown'}
 
 
 def digest_atom_stereochemistry(atom_stereochemistry, caller=None):
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
+
     if isinstance(atom_stereochemistry, bool):
         return atom_stereochemistry
     if isinstance(atom_stereochemistry, str) and atom_stereochemistry in _VALUES:

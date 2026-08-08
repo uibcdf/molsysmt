@@ -1,7 +1,7 @@
 import numpy as np
 
 from molsysmt.native import MolSys, ViewerJSON
-from molsysmt.form.molsysmt_Topology import to_molsysmt_ViewerJSON
+from molsysmt.form.molsysmt_Topology.to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
 
 
 def _minimal_topology():

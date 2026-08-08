@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt import pyunitwizard as puw
 
@@ -11,6 +10,11 @@ functions_where_boolean = (
     )
 
 def digest_formal_charge(formal_charge, caller=None):
+
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
 
     if caller is not None:
 

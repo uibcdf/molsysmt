@@ -1,7 +1,7 @@
 import numpy as np
 
 from molsysmt.native import ViewerJSON, MolSys
-from molsysmt.form.molsysmt_ViewerJSON import to_molsysmt_MolSys
+from molsysmt.form.molsysmt_ViewerJSON.to_molsysmt_MolSys import to_molsysmt_MolSys
 
 
 def _viewer_json():

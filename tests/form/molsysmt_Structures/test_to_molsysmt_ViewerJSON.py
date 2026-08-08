@@ -2,7 +2,7 @@ import numpy as np
 
 from molsysmt.native import MolSys, ViewerJSON
 from molsysmt import pyunitwizard as puw
-from molsysmt.form.molsysmt_Structures import to_molsysmt_ViewerJSON
+from molsysmt.form.molsysmt_Structures.to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
 
 
 def _minimal_structures():

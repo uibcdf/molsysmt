@@ -3,7 +3,7 @@ import pytest
 
 from molsysmt.native import MolSys, ViewerJSON
 from molsysmt import pyunitwizard as puw
-from molsysmt.form.molsysmt_MolSys import to_molsysmt_ViewerJSON
+from molsysmt.form.molsysmt_MolSys.to_molsysmt_ViewerJSON import to_molsysmt_ViewerJSON
 
 
 def _build_minimal_molsys():

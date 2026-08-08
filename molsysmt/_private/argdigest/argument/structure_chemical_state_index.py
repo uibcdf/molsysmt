@@ -1,7 +1,6 @@
 """Validating structure-aligned chemical-state association arguments."""
 
 import numpy as np
-import pandas as pd
 
 from molsysmt._private.smonitor import ArgumentError
 
@@ -10,6 +9,11 @@ def digest_structure_chemical_state_index(
     structure_chemical_state_index, caller=None
 ):
     """Return a query flag or nullable non-negative integer association values."""
+
+    # Imported here, not at module level: ArgDigest loads every digester in this
+    # package when it initializes, so a top-level import made any digested call pay
+    # for a heavy library that most calls never need.
+    import pandas as pd
 
     if caller in {'molsysmt.basic.get.get', 'molsysmt.basic.compare.compare'}:
         if isinstance(structure_chemical_state_index, bool):
