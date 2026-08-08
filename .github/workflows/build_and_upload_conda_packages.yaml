@@ -22,7 +22,7 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -32,12 +32,12 @@ jobs:
           uname -a
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Setup conda env
-        uses: mamba-org/setup-micromamba@v2
+        uses: mamba-org/setup-micromamba@v3
         with:
           environment-file: devtools/conda-envs/build_env.yaml
           environment-name: build
@@ -57,7 +57,7 @@ jobs:
           micromamba list
 
       - name: Build and upload the conda packages
-        uses: uibcdf/action-build-and-upload-conda-packages@main
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.0
         with:
           meta_yaml_dir: devtools/conda-build
           mambabuild: false
