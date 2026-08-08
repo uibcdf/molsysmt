@@ -1,13 +1,27 @@
 from molsysmt._private.smonitor import NotSupportedFormError
 from molsysmt._private.form_tier import check_form_tier
+import depdigest
 from pathlib import PosixPath
+
+
+#: Resolved once. `get_form` asks `_is_detector_available` for every form module on every
+#: call, so the `import` statements that used to sit inside it ran ~73 times per call.
+_dependency_tables = None
 
 
 def _is_detector_available(module):
     """Return whether a form detector can run in the current environment."""
 
-    from depdigest import is_installed
-    from molsysmt._depdigest import LIBRARIES, MAPPING
+    global _dependency_tables
+
+    if _dependency_tables is None:
+        from molsysmt._depdigest import LIBRARIES, MAPPING
+        _dependency_tables = (LIBRARIES, MAPPING)
+    LIBRARIES, MAPPING = _dependency_tables
+
+    # Reached through the module rather than bound at import time, so that a test which
+    # simulates an absent soft dependency by patching `depdigest.is_installed` is obeyed.
+    is_installed = depdigest.is_installed
 
     plugin_name = module.__name__.rsplit('.', maxsplit=1)[-1]
     library = MAPPING.get(plugin_name)
@@ -19,6 +33,66 @@ def _is_detector_available(module):
         return True
 
     return is_installed(library)
+
+
+
+def _asks(form, molecular_system):
+    """Put the question to the one form that claims this shape, if it can answer."""
+
+    from molsysmt.form import catalogue
+
+    module = catalogue.module_of(form)
+    if module is None or not _is_detector_available(module):
+        return False
+    return bool(module.is_form(molecular_system))
+
+
+def _sweep(molecular_system, *form_types):
+    """Ask the detectors of the given categories, in catalogue order."""
+
+    from molsysmt.form import catalogue
+
+    for form in catalogue.forms_of_type(*form_types):
+        if _asks(form, molecular_system):
+            return form
+    return None
+
+
+def _detect(molecular_system):
+    """The form of an item, or None.
+
+    The catalogue knows which class each form holds and which extension each file form
+    uses, and it knows it *without importing anything* -- the comparison is between the
+    strings a class carries and the strings a form declared. So the common cases are a
+    dictionary lookup followed by importing the single plugin that will answer, instead of
+    importing all 89 to ask each in turn.
+
+    A candidate is still confirmed by the form's own `is_form`. The index says which
+    detector is worth asking; the detector decides.
+    """
+
+    candidate = catalogue_form_of_class(molecular_system)
+    if candidate is not None and _asks(candidate, molecular_system):
+        return candidate
+
+    if isinstance(molecular_system, str):
+        from molsysmt.form import catalogue
+
+        candidate = catalogue.form_of_extension(molecular_system)
+        if candidate is not None and _asks(candidate, molecular_system):
+            return candidate
+        # A string is a file path or content. It is never an instance of a class form.
+        return _sweep(molecular_system, 'string', 'file')
+
+    # Anything else can only be an instance: a file form is named by a path and a string
+    # form carries its content in a string, and both were handled above.
+    return _sweep(molecular_system, 'class')
+
+
+def catalogue_form_of_class(molecular_system):
+    from molsysmt.form import catalogue
+
+    return catalogue.form_of_class(molecular_system)
 
 
 # This method must not be digested
@@ -80,8 +154,6 @@ def get_form(molecular_system):
     # This method can check if molecular system is indeed a molecular system
     # This method is used to check that a molecular system is a molecular system
 
-    from molsysmt.form import _dict_modules
-
     if isinstance(molecular_system, (list, tuple)):
         output = [get_form(ii) for ii in molecular_system]
         return output
@@ -89,14 +161,7 @@ def get_form(molecular_system):
     if isinstance(molecular_system, PosixPath):
         molecular_system = molecular_system.absolute().__str__()
 
-    output = None
-
-    for form, module in _dict_modules.items():
-        if not _is_detector_available(module):
-            continue
-        if module.is_form(molecular_system):
-            output = form
-            break
+    output = _detect(molecular_system)
 
     if output is None:
         raise NotSupportedFormError(

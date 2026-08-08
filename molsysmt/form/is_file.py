@@ -1,35 +1,46 @@
 # This method must not be digested
 def is_file(item_or_form):
+    """Whether a molecular system, or a form name, is one of the file forms.
 
-    from molsysmt.form import _dict_modules, _dict_forms_lowercase
-    from molsysmt.basic import get_form
-    from pathlib import PosixPath
+    Parameters
+    ----------
+    item_or_form : object or str or pathlib.Path
+        A molecular system, the path of a file, or the name of a form in any
+        capitalization.
 
-    output = False
+    Returns
+    -------
+    bool
+        True when the input is, or names, a form whose items are files.
 
-    if isinstance(item_or_form, PosixPath):
+    Notes
+    -----
+    A path is recognised by its extension, read from the catalogue rather than by asking
+    every form detector in turn. That keeps the question about a *name* from importing the
+    libraries needed to work with the data behind it.
+    """
+
+    from pathlib import PurePath
+
+    from molsysmt.form import catalogue
+
+    if isinstance(item_or_form, PurePath):
         item_or_form = str(item_or_form)
 
     if isinstance(item_or_form, str):
+        form = catalogue.forms_lowercase().get(item_or_form.lower())
+        if form is not None:
+            return catalogue.form_type(form) == 'file'
 
-        if item_or_form.lower() in _dict_forms_lowercase:
+        if item_or_form.startswith('file:'):
+            return True
 
-            form = _dict_forms_lowercase[item_or_form.lower()]
-            output = (_dict_modules[form].form_type == 'file')
+        if catalogue.form_of_extension(item_or_form) is not None:
+            return True
 
-        elif item_or_form.startswith('file:'):
-            output = True
+    try:
+        from molsysmt.basic import get_form
 
-        else:
-            # It might be a file path or a form name with a dot (like openmm.Topology)
-            # If it's a file path, get_form will return a form starting with 'file:'
-            try:
-                form = get_form(item_or_form)
-                if form in _dict_modules:
-                    output = (_dict_modules[form].form_type == 'file')
-            except Exception:
-                pass
-
-    return output
-
-
+        return catalogue.form_type(get_form(item_or_form)) == 'file'
+    except Exception:
+        return False
