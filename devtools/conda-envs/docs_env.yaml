@@ -16,6 +16,12 @@ dependencies:
   - h5py
   - networkx
   - tqdm
+  # `pip install . --no-deps` installs none of MolSysMT's own dependencies, and autodoc
+  # imports the package, so every hard dependency must be here. matplotlib is imported at
+  # module scope by molsysmt/_private/colors.py, which third_party.nglview reaches.
+  # molsysviewer, the one remaining hard dependency, has no py313 build on the uibcdf
+  # channel and is not on PyPI; see molsysmt_1_0_conda_release_coordination.md.
+  - matplotlib
   - argdigest >=0.11.0
   - depdigest >=0.10.0
   - smonitor >=0.12.0
