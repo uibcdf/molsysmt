@@ -67,7 +67,6 @@ MolSysMT seamlessly digests and converts object instances from major ecosystem p
 | **`networkx.Graph`** | NetworkX | Covalent graph network topology representation. |
 | **`rdkit.Chem.Mol`** | RDKit | Small molecule topology and 3D conformers representation. |
 | **`cupy.ndarray`** | CuPy | GPU-accelerated array coordinates. |
-| **`molsysmt.XYZ`** | MolSysMT | Raw 3D coordinate array container. |
 | **`mmcif.PdbxContainers.DataContainer`** | mmCIF | Raw mmCIF DataContainer representation. |
 | **`molsysviewer.MolSysView`** | MolSysViewer | Native 3D WebGL viewer widget object. |
 | **`nglview.NGLWidget`** | NGLView | NGLView 3D widget object. |
