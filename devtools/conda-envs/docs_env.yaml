@@ -21,5 +21,6 @@ dependencies:
   - sphinx-design
   - sphinx-copybutton
   - sphinx-favicon
+  - sphinx-togglebutton
   - sphinxcontrib-bibtex
   - sphinx-remove-toctrees

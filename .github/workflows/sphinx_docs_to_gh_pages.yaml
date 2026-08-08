@@ -13,9 +13,11 @@ jobs:
   sphinx_docs_to_gh-pages:
     runs-on: ubuntu-latest
     name: Sphinx docs to gh-pages
+    permissions:
+      contents: write    # the action pushes the compiled html to the gh-pages branch
     steps:
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -25,12 +27,12 @@ jobs:
           uname -a
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: 3.12
 
       - name: Setup conda env
-        uses: mamba-org/setup-micromamba@v2
+        uses: mamba-org/setup-micromamba@v3
         with:
           environment-file: devtools/conda-envs/docs_env.yaml
           environment-name: docs
@@ -66,6 +68,8 @@ jobs:
           echo "::endgroup::"
 
       - name: Running the Sphinx to gh-pages Action
-        uses: uibcdf/action-sphinx-docs-to-gh-pages@v2.1.0
+        uses: uibcdf/action-sphinx-docs-to-gh-pages@v3.0.0
         with:
+          branch: ''            # publish the reference this workflow checked out, not the tip of main
+          sphinx-apidoc: false  # MolSysMT writes its own API reference under docs/api
           sphinx-opts: '-j auto'
