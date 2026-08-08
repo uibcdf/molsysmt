@@ -19,10 +19,10 @@ import molsysmt as msm
 from molsysmt import systems
 
 
-# `convert` accepts extra keywords whose validity depends on the converter resolved from
-# `to_form`, a domain that cannot be decided from the keyword alone. It keeps the
-# permissive default, and that gap is recorded in the ArgDigest release notes.
-OPEN_WITHOUT_A_DECLARED_DOMAIN = {'convert'}
+# Every function with **kwargs now declares its domain, `convert` included: its keywords
+# are resolved from `to_form` through a delegating domain. Anything appearing here admits
+# whatever it is given, which is what the contract exists to prevent.
+OPEN_WITHOUT_A_DECLARED_DOMAIN = set()
 
 
 def _public_callables():
@@ -87,10 +87,12 @@ def test_no_public_function_raises_an_uncatalogued_error_for_a_typo(alanine_mols
 
 
 def test_every_open_signature_declares_its_domain():
-    from molsysmt._private.argdigest.function import basic_attribute_functions, get_label
+    from molsysmt._private.argdigest.function import (
+        basic_attribute_functions, basic_convert, get_label)
 
     declared = {contract.caller for contract in basic_attribute_functions.CONTRACTS}
     declared.add(get_label.contract.caller)
+    declared.add(basic_convert.contract.caller)
 
     undeclared = set()
     for name, target, parameters in _public_callables():
@@ -137,3 +139,76 @@ def test_get_neighbors_refuses_neither_search_criterion(alanine_molsys):
 @pytest.mark.parametrize('criterion', [{'threshold': '0.5 nm'}, {'n_neighbors': 3}])
 def test_get_neighbors_accepts_exactly_one_criterion(alanine_molsys, criterion):
     assert msm.structure.get_neighbors(alanine_molsys, **criterion) is not None
+
+
+# --- the delegating domain of convert --------------------------------------------------
+
+def test_convert_admits_what_the_target_converter_accepts(alanine_molsys, tmp_path):
+    from argdigest import UnknownArgumentError
+
+    # `output_filename` is a parameter of the converter into file:pdb...
+    written = msm.convert(alanine_molsys, to_form='file:pdb',
+                          output_filename=str(tmp_path / 'x.pdb'))
+    assert written
+
+    # ...and of no converter into molsysmt.Topology.
+    with pytest.raises(UnknownArgumentError, match='output_filename'):
+        msm.convert(alanine_molsys, to_form='molsysmt.Topology', output_filename='x.pdb')
+
+
+def test_convert_refuses_a_mistyped_converter_keyword(alanine_molsys):
+    from argdigest import UnknownArgumentError
+
+    with pytest.raises(UnknownArgumentError, match='output_filenam'):
+        msm.convert(alanine_molsys, to_form='file:pdb', output_filenam='x.pdb')
+
+
+def test_an_unknown_target_form_is_reported_as_such(alanine_molsys):
+    from molsysmt._private.smonitor import ArgumentError
+
+    # The domain cannot resolve, so it steps aside and `to_form`'s own digester speaks.
+    # Complaining about an unknown argument here would name the wrong problem.
+    with pytest.raises(ArgumentError, match='to_form'):
+        msm.convert(alanine_molsys, to_form='no.such.form')
+
+
+def test_the_converter_table_is_plain_data():
+    from molsysmt._private.argdigest.domain.converter_arguments import (
+        CONVERTER_ARGUMENTS, domain)
+
+    # Written, committed and reviewable in a diff -- not computed while the library runs.
+    assert domain.by_value is CONVERTER_ARGUMENTS
+    assert len(CONVERTER_ARGUMENTS) > 50
+    assert 'output_filename' in CONVERTER_ARGUMENTS['file:pdb']
+    assert 'output_filename' not in CONVERTER_ARGUMENTS['molsysmt.Topology']
+
+
+def test_the_converter_table_still_matches_the_converters():
+    """The written table is the contract; this is what stops it drifting from the code.
+
+    Add a keyword to a converter and the table goes stale in a way nothing else notices:
+    `convert` keeps refusing a keyword that is now valid, and blames the caller. Change a
+    signature so it cannot be read and the names it declared leave the table entirely.
+    Either way the fix is mechanical -- regenerate and review the diff -- so the failure
+    says exactly that.
+    """
+
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        'generate_converter_arguments',
+        'devtools/scripts/generate_converter_arguments.py')
+    generator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(generator)
+
+    derived, unreadable = generator.derive()
+
+    assert not unreadable, 'conversion edges with an unreadable signature:\n' + '\n'.join(
+        f'{from_form} -> {to_form}: {kind}: {message}'
+        for from_form, to_form, kind, message in unreadable)
+
+    from molsysmt._private.argdigest.domain.converter_arguments import CONVERTER_ARGUMENTS
+
+    assert CONVERTER_ARGUMENTS == derived, (
+        'the committed table no longer matches the converters. Run:\n'
+        '    python devtools/scripts/generate_converter_arguments.py --write')

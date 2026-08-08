@@ -246,6 +246,37 @@ domain = Domain(name='attribute', contains=is_attribute,
 `contains` decides membership; `members` enumerates it when possible, which is what
 enables near-miss suggestions and introspection. Either is enough.
 
+### A domain that depends on another argument
+
+Sometimes which keywords are admissible depends on a value in the same call: an engine, an
+output type, a mode. Declare the table and the argument it keys on:
+
+```python
+Domain(
+    name='engine_options',
+    depends_on='engine',
+    by_value={
+        'MolSysMT': ('threshold', 'parallel'),
+        'OpenMM':   ('threshold', 'platform'),
+    },
+)
+```
+
+`depends_on` may name several arguments, in which case the table is keyed by a tuple.
+
+It is still data: `describe_contract` renders the whole table, so the options each value
+accepts can be documented rather than discovered by reading code.
+
+**A value with no entry does not refuse anything.** It means the domain cannot decide for
+this call — usually because that value is itself wrong — and the argument carrying it is
+about to be rejected by its own digester, which explains the real problem far better than
+a complaint about an unknown argument would.
+
+**Key on an argument, not on a derivation.** The table is consulted per call, so the value
+must be cheap to read. If deciding the domain requires computing something expensive from
+another argument, the mechanism costs more than it saves and the function is better left
+permissive with the reason recorded.
+
 ### Declaring a contract
 
 ```python
