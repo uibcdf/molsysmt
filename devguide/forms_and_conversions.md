@@ -25,6 +25,43 @@ Adapters are discovered lazily. Optional dependency ownership is defined by
 dependency registry. Soft dependencies are imported inside guarded functions,
 never unconditionally at module import time.
 
+### How a form is known without importing its adapter
+
+Laziness here is a property that has to be built, not assumed. A form's name used to live
+inside its module as `form_name`, so learning it meant importing the adapter -- and the
+registry needs every name before it can answer anything. Any question about forms therefore
+imported all 89 adapters and the third-party libraries behind them: measured at 3.9 s and
+1123 modules for a single `get_form` call on a string.
+
+Each `molsysmt/form/<adapter>/` now carries a **`form.json`** declaring its identity: the
+form name, the category (`file`, `string` or `class`), the file extension, and -- for forms
+holding an instance of a class -- the `(top-level module, class name)` an item of that form
+has. `molsysmt/form/catalogue.py` reads all of them with one `os.scandir`: **2.35 ms, once
+per process, importing nothing**.
+
+Three consequences worth knowing before changing anything here:
+
+- **The class key is compared as strings.** Recognising an `openmm.Topology` never imports
+  OpenMM; only acting on it does. This is what lets `get_form`, `is_item`, `is_file` and
+  `is_string` answer in single-digit microseconds.
+- **A form's category is readable in its name**, and `form_type` matches that prefix for all
+  89 forms. The indexes rely on it, and
+  `tests/basic/test_get_form_battery.py::test_form_type_matches_the_name_prefix` enforces it.
+- **`form.json` is generated**, by `devtools/scripts/generate_form_declarations.py --write`,
+  which imports the adapters once, offline. Nothing at runtime does, and a declaration that
+  stops matching its module fails the suite.
+
+`molsysmt/basic/get_form.py` resolves from those indexes and imports **one** adapter to
+confirm: the index says which detector is worth asking, the detector still decides. Only
+when no index can decide does it sweep, and then only the category that could apply -- an
+object that is not a string can never be a file or a string form.
+
+`tests/basic/test_get_form_battery.py` is the safety net: it builds a real item of every
+form it can reach, asserts each is detected as exactly itself, and its census fails when a
+form declared in `molsysmt/form/` is neither exercised nor recorded as unreachable with a
+reason. A new adapter cannot enter the catalogue without someone deciding how it is
+detected.
+
 ## Conversion resolution
 
 The current one-to-one resolver in `molsysmt/basic/convert.py` supports:
@@ -47,9 +84,48 @@ Register a converter only when it is callable for the documented source and
 target contract. A placeholder that raises `NotImplementedMethodError` must not
 be present in `_convert_to`, because registration advertises an executable edge.
 
-Converter values may be callables or strings naming the converter module and
-function. String entries preserve lazy imports; `_convert_one_to_one` imports the
-module only when that edge is traversed.
+Converter values **are** strings naming the converter module and function, not callables.
+`molsysmt.form.load_converter` resolves them when an edge is actually traversed, and it is
+the single place that does so. Writing the callable instead reintroduces the eager import
+the string exists to avoid, and `tests/test_form_plugin_conventions.py` fails on it.
+
+That laziness is only real if the adapter's `__init__` does not import the converter
+anyway. It used to: 456 eager imports across 83 adapters, 44 of them already dead -- the
+`_convert_to` value had been a lazy string for some time while the import line above it
+still loaded the module. The laziness was written down but never happened.
+
+### Two rules that are easy to get wrong
+
+**Import a converter from its own submodule, never as an adapter attribute.**
+
+```python
+from molsysmt.form.file_pdb.to_molsysmt_MolSys import to_molsysmt_MolSys   # the function
+from molsysmt.form.file_pdb import to_molsysmt_MolSys                      # ambiguous
+```
+
+Importing `<adapter>.to_x` binds the *submodule* as an attribute of the adapter package,
+shadowing the function of the same name. The second form therefore yields the function or
+the module depending on whether some earlier conversion happened to load it -- a bug that
+appears far from its cause. Enforced by
+`test_converters_are_imported_from_their_own_submodule`.
+
+**Call the sibling in your own directory, not the identically named converter elsewhere.**
+
+A converter in `<adapter>/to_<target>.py` receives an `item` of **its own** form. When it
+needs an intermediate form it must call the sibling that converts *from this form*, not the
+matching name in the target's adapter, which converts *from that form*:
+
+```python
+# in molsysmt_MolSys/to_openmm_System.py
+from .to_openmm_Topology import to_openmm_Topology                          # correct
+from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology  # wrong here
+```
+
+The names are identical, so the mistake reads as correct. One instance made
+`molsysmt.MolSys -> openmm.System` and `-> openmm.Simulation` unreachable for a long time,
+failing with a bare `TypeError` from inside a form module.
+`devtools/scripts/audit_converter_routing.py` searches for it statically; a hit is a
+candidate, not a verdict, since compatible forms may share a converter deliberately.
 
 Converters must:
 
