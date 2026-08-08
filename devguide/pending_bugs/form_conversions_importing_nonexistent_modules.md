@@ -139,3 +139,40 @@ Amber users; it does not depend on the other two. Cases 2 and 3 are separable
 and may deserve their own decisions — in particular, case 3 may be better solved
 by routing `molsysmt.Topology → nglview.NGLWidget` through an existing path than
 by adding a new `to_molsysmt_MolSys` to that package.
+
+## A wider pattern behind these, found 2026-08-08
+
+Fixing `molsysmt.MolSys -> openmm.System` (see
+`convert_molsys_to_openmm_system_passes_the_wrong_topology.md`) exposed a defect of the
+same family but a different mechanism, and looking for more of it found these cases again
+from another angle.
+
+A converter in `molsysmt/form/<plugin>/to_<target>.py` receives an `item` of **its own**
+form. When it needs an intermediate it must call the sibling in its own directory -- the
+converter that goes *from this form*. Reaching instead for the identically named converter
+in the target's plugin passes the item to a function written for a different form. The
+names match, so the mistake reads as correct.
+
+`devtools/scripts/audit_converter_routing.py` searches for it statically: it resolves where
+each imported name came from and reports a call whose first argument is literally `item`
+when the callee came from another plugin. A converted `tmp_item` handed to another plugin
+is normal and is not reported.
+
+It currently reports **69 candidates**, of which **4 import from a plugin directory that
+does not exist** -- the cases this report is about, plus one more:
+
+```
+file_psf/to_molsysmt_MolSysOld.py:14        to_molsysmt_TopologyOld   <- molsysmt_TopologyOld
+openmm_PDBFile/to_molsysmt_MolSys.py:11     to_molsysmt_Topology      <- molsysmt_TopologyOld
+openmm_PDBFile/to_molsysmt_MolSys.py:12     to_molsysmt_Structures    <- molsysmt_StructuresOld
+pdbfixer_PDBFixer/to_biopython_Seq.py:9     to_string_aminoacids1     <- string_aminoacids1
+```
+
+**A candidate is not a verdict.** Two forms can be compatible enough that reusing a
+converter is deliberate, so the remaining 65 need reading before anything is changed. That
+is why this is a devtools script and not a test yet: turning it into one now would leave
+the suite red with 69 failures and no way to tell the real ones from the deliberate ones.
+
+The end state is a fourth entry in `tests/test_form_plugin_conventions.py`, with whatever
+survives triage carried as an explicit baseline -- the same shape as
+`test_converter_imports_resolve.py` already uses here.
