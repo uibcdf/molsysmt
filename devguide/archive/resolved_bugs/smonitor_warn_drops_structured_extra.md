@@ -1,6 +1,8 @@
 # Upstream limitation: `warn(Instance(...))` drops the warning's structured `extra`
 
-**Status:** reported upstream, pending there. Worked around in MolSysMT.
+**Status:** **resolved upstream and verified on 2026-08-08.** SMonitor 0.12.0 carries
+`fix(integrations): retain structured extra on catalog signals`, and is published on the
+`uibcdf` conda channel.
 **Upstream:** `smonitor/devguide/pending_proposals/catalog_signals_lose_structured_extra.md`
 **Severity:** low here (a working pattern exists), medium upstream (it makes a rule
 of the SMonitor guide unimplementable)
@@ -66,3 +68,30 @@ Switch these call sites back to `warn(Instance(...))` and the telemetry returns 
 change to the templates. The affected sites are `_private/gpu.py` and the taichi fallbacks
 in `structure/get_angles.py`, `structure/least_rmsd_fit.py`, `structure/get_contacts.py`
 and `physchem/get_sasa.py`.
+
+
+## Verification, 2026-08-08
+
+Against SMonitor 0.12.0, the exact case in this report now interpolates:
+
+```python
+warn(GpuNotAvailableWarning(reason='the taichi package is not installed'))
+```
+
+```
+WARNING: GPU acceleration was requested but is not available: the taichi package is not
+installed (Hint: The calculation falls back to the CPU kernel ...)
+```
+
+`{reason}` renders. The rule this collided with -- pass raw data in `extra` and let
+SMonitor interpolate -- is implementable again for warnings routed through `warn()`.
+
+**On the workaround this report mentions:** MolSysMT never applied it. The call sites --
+`structure/get_angles.py`, `get_contacts.py`, `least_rmsd_fit.py` -- always passed
+`GpuNotAvailableWarning(reason=...)` as structured data, and the catalog entry declares only
+code, source, category and level. What the report described was the constraint the upstream
+defect imposed, not a hack taken here; checked on 2026-08-08, there was nothing to undo.
+
+**What did need changing:** the pin. MolSysMT's warnings rely on `{reason}` interpolating,
+which only happens from SMonitor 0.12.0, so `smonitor>=0.11.6` allowed an installation that
+would show users a literal `{reason}`. Raised to `>=0.12.0`.
