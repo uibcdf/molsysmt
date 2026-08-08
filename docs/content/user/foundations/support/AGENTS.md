@@ -1,4 +1,4 @@
-# Section: Support & Coverage Directives (`AGENTS.md`)
+# Section: Supported Directives (`AGENTS.md`)
 
 This guide governs all content under `docs/content/user/foundations/support/`.
 

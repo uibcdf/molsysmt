@@ -20,7 +20,7 @@ This file defines the micro-governance rules, design constraints, and content pr
    - `language/index.md` (The Language)
    - `performance/index.md` (Performance)
    - `governance/index.md` (Governance)
-   - `support/index.md` (Support & Coverage)
+   - `support/index.md` (Supported)
    - `ecosystem/index.md` (The Ecosystem)
 
 4. **Toctree Structure:**  

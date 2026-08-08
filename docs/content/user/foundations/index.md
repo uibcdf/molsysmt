@@ -54,7 +54,7 @@ Memory management, big data trajectories, and parallelization.
 Quantities, physical units, precision policies, and SMonitor.
 :::
 
-:::{grid-item-card} **Support & Coverage**
+:::{grid-item-card} **Supported**
 :link: support/index
 :link-type: doc
 

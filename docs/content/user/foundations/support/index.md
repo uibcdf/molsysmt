@@ -1,7 +1,7 @@
 (user-foundations-07-support)=
-# Support & Coverage
+# Supported
 
-Welcome to **Support & Coverage**, the foundational module detailing MolSysMT's interoperability matrix across data forms, physical-chemical data, molecular mechanics, selection syntaxes, and 3D visualization engines.
+Welcome to **Supported**, the foundational module detailing MolSysMT's interoperability matrix across data forms, physical-chemical data, molecular mechanics, selection syntaxes, and 3D visualization engines.
 
 ---
 
