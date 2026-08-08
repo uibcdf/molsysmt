@@ -6,15 +6,20 @@ dependencies:
   - pip
   - setuptools >=68.0
   - versioningit >=3.0
-  - numpy
+  # Bounds identical to the `dependencies` list in pyproject.toml. Without them the
+  # solver silently satisfies conda while violating the package: with python 3.12 it
+  # resolved pyunitwizard 0.17.0 against a requirement of >=0.22.0, because the uibcdf
+  # channel only builds py313 from 0.18.1 onwards, and `pip install . --no-deps` does
+  # not check. An unsolvable environment is the correct failure here.
+  - numpy >=1.26,<3
   - pandas
   - h5py
   - networkx
   - tqdm
-  - argdigest
-  - depdigest
-  - smonitor
-  - pyunitwizard
+  - argdigest >=0.11.0
+  - depdigest >=0.10.0
+  - smonitor >=0.12.0
+  - pyunitwizard >=0.22.0
   - sphinx
   - pydata-sphinx-theme
   - myst-nb
