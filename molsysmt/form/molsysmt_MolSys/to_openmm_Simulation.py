@@ -3,7 +3,11 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='molsysmt.MolSys')
 def to_openmm_Simulation(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
-    from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
+    # The sibling converter, which turns *this* form into an openmm.Topology. Reaching
+    # for openmm_Topology's own to_openmm_Topology handed a molsysmt.MolSys to a
+    # function that subsets an openmm.Topology, and it failed on the first attribute
+    # that did not match.
+    from .to_openmm_Topology import to_openmm_Topology
     from molsysmt.form.openmm_Topology.to_openmm_Simulation import to_openmm_Simulation as openmm_Topology_to_openmm_Simulation
 
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)

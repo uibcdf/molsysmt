@@ -3,7 +3,8 @@
 **Reported:** 2026-08-08, found while mapping how an item of every declared form can be
 obtained, for a `get_form` test battery.
 
-**Status:** open. Reproducible.
+**Status:** `openmm.System` fixed on 2026-08-08. `openmm.Simulation` still open -- the
+same route uncovered a second, independent defect described below.
 
 **Severity:** medium. Two declared conversion targets, `openmm.System` and
 `openmm.Simulation`, are unreachable from `molsysmt.MolSys`, and the failure surfaces as a
@@ -51,3 +52,38 @@ straight through.
 3. Consider whether `extract` should assert the type it was given. A form module receiving
    an item of another form should say so, rather than failing on the first attribute that
    does not match.
+
+
+## Resolution for `openmm.System`, and what it uncovered
+
+`molsysmt_MolSys/to_openmm_System.py` reached for
+`molsysmt.form.openmm_Topology.to_openmm_Topology` -- the converter that *subsets an
+openmm.Topology* -- and handed it a `molsysmt.MolSys`. The sibling of the same name in its
+own plugin is the one that converts this form, and `to_openmm_Context` and
+`to_openmm_Modeller` already used it. Both `to_openmm_System` and `to_openmm_Simulation`
+now do.
+
+`MolSys -> openmm.System` works after that. `MolSys -> openmm.Simulation` gets further and
+fails on something else:
+
+```
+TypeError: to_openmm_System() got an unexpected keyword argument 'coordinates'
+```
+
+`openmm_Topology/to_openmm_Simulation.py:6` has the same shape of mistake -- it imports
+`to_openmm_System` from the **openmm_System** plugin, which converts an openmm.System, not
+a Topology. But correcting the import is not enough: the sibling
+`openmm_Topology/to_openmm_System` does not take `coordinates` either, and neither should
+it. A `System` describes forces and constraints; positions belong to the `Context` the
+`Simulation` builds.
+
+So the fix is behavioural, not an import swap: build the System from the Topology, then set
+the positions on the Simulation's context. That needs someone to decide what
+`coordinates=None` should mean there -- leave the context unpositioned, or refuse -- which
+is why it was not guessed at.
+
+**The shape of both defects is worth noting**, because a third instance is likely: a
+converter reaching into *another plugin* for a converter whose name matches the target
+form, instead of the sibling in its own plugin that converts *from* this form. The names
+are identical, so the mistake reads as correct. A check that every `to_x` called on `item`
+comes from the plugin whose form `item` has would find them all.
