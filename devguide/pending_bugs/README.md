@@ -33,11 +33,6 @@ that the affected surface is fully verified.
 
 ### Contract and maintainability
 
-- `cross_repo_test_reads_a_removed_molsysviewer_attribute.md` — two cross-repo tests
-  read `MolSysView._message_history`, a private attribute the viewer replaced with a
-  narrower `_shape_history` and a `scene_history` model. Test-only breakage, but it
-  keeps the suite red.
-
 - `course_gate_red_after_common_core_renumbering.md` — the gate is green again, with
   the Common Core module count and label scheme deferred rather than asserted while
   the section is unconsolidated. Both must be re-enabled once it settles.
@@ -56,6 +51,15 @@ bugs require a regression test; suspected bugs require a minimal reproduction
 before implementation.
 
 ## Recently closed
+
+`cross_repo_test_reads_a_removed_molsysviewer_attribute.md` was reported and archived on
+2026-08-07. Two cross-repo tests read `MolSysView._message_history`, which MolSysViewer
+replaced with a narrower `_shape_history` and a `scene_history` model. They already
+recorded the edited molecular system handed to `apply_system_edit` and then ignored it,
+so the fix was to assert on that instead: it is the contract this side of the boundary
+owns. Renaming the attribute was deliberately not done — `_shape_history` is not the same
+thing, so the tests would have passed asserting something else.
+
 
 `public_functions_silently_ignore_unknown_keywords.md` was reported and archived on
 2026-08-07. A typo in a keyword argument was silent in 22 of the 26 public callables and

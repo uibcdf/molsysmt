@@ -124,6 +124,7 @@ def test_basic_facade_remove_uses_apply_system_edit_on_real_view():
 
 def test_basic_facade_set_uses_apply_system_edit_on_real_view():
     pytest.importorskip("molsysmt")
+    import molsysmt as msm
 
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
@@ -141,8 +142,14 @@ def test_basic_facade_set_uses_apply_system_edit_on_real_view():
 
     assert len(calls) == 1
     assert calls[0][1]["visible_atom_indices"] == list(range(22))
-    payload_msg = next(msg for msg in view._message_history if msg.get("op") == "load_molsys_payload")
-    assert payload_msg["payload"]["atoms"]["residue_name"][:5] == ["ACE2"] * 5
+
+    # What the facade owes the viewer is an edited molecular system handed to
+    # apply_system_edit. Asserting on the system it was called with tests that contract;
+    # how the viewer then serializes it into a front-end message is the viewer's own
+    # business, and reaching into a private attribute of it to check made this test
+    # break when the viewer reorganised its message bookkeeping.
+    edited_molsys = calls[0][0]
+    assert msm.get(edited_molsys, element="atom", group_name=True)[:5] == ["ACE2"] * 5
     assert view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_set"
 
     molsysviewer.addons.clear()
@@ -150,6 +157,7 @@ def test_basic_facade_set_uses_apply_system_edit_on_real_view():
 
 def test_basic_facade_append_structures_uses_apply_system_edit_on_real_view():
     pytest.importorskip("molsysmt")
+    import molsysmt as msm
 
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
@@ -167,9 +175,11 @@ def test_basic_facade_append_structures_uses_apply_system_edit_on_real_view():
 
     assert len(calls) == 1
     assert calls[0][1]["visible_atom_indices"] == list(range(22))
-    payload_msg = next(msg for msg in view._message_history if msg.get("op") == "load_molsys_payload")
-    assert payload_msg["multiple_structures"] is True
-    assert len(payload_msg["payload"]["structures"]) == 2
+
+    # Same reasoning as above: the observable contract is the system passed to
+    # apply_system_edit, which after appending must carry the two structures.
+    edited_molsys = calls[0][0]
+    assert msm.get(edited_molsys, n_structures=True) == 2
     assert view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_append_structures"
 
     molsysviewer.addons.clear()
