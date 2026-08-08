@@ -1,13 +1,13 @@
-(user-foundations-support-supported-physchem)=
-# Supported Physical-Chemical Metadata
+(user-foundations-support-molecular-mechanics)=
+# Molecular Mechanics Data
 
-MolSysMT standardizes chemical metadata, molecular mechanics parameters, and forcefield definitions across diverse computational chemistry backends.
+MolSysMT provides a unified representation of force fields, water models, non-bonded interaction parameters, and simulation engine metadata.
 
 ---
 
-## Supported Force Fields & Water Models
+## Supported Mechanics Parameters & Models
 
-| Category | Supported Models & Definitions | Ecosystem Bridge |
+| Category | Supported Models & Parameters | Ecosystem Bridge |
 | :--- | :--- | :--- |
 | **Force Fields** | AMBER14, CHARMM36, GROMOS, OPLS-AA, OpenFF | OpenMM, ParmEd, GROMACS |
 | **Water Models** | TIP3P, TIP4P, TIP4P-Ew, TIP5P, SPC, SPC/E | OpenMM, AMBER, GROMACS |

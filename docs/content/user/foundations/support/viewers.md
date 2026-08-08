@@ -1,5 +1,5 @@
-(user-foundations-support-supported-viewers)=
-# Supported Visualization Engines
+(user-foundations-support-viewers)=
+# Viewers
 
 MolSysMT provides unified 3D visualization capabilities through `msm.view()`, supporting multiple rendering backends across interactive notebooks and web environments.
 

@@ -1,7 +1,7 @@
-(user-foundations-support-supported-forms)=
-# Supported Forms
+(user-foundations-support-forms-classes)=
+# Classes
 
-MolSysMT provides a form-agnostic architecture capable of ingesting, querying, and converting data across a broad matrix of in-memory object representations from native data structures to major third-party libraries in the Python structural biology ecosystem.
+MolSysMT provides a form-agnostic architecture capable of digesting, querying, and converting data across a broad matrix of in-memory object classes from native data structures to major third-party libraries in the Python structural biology ecosystem.
 
 ---
 
@@ -10,7 +10,7 @@ MolSysMT provides a form-agnostic architecture capable of ingesting, querying, a
 Native MolSysMT objects are engineered for high-performance indexing, zero-loss serialization, and fast spatial queries:
 
 - **`molsysmt.MolSys`**: Primary unified molecular system container.
-- **`molsysmt.MolSysBuilder`**: Staging container for incremental system assembly.
+- **`molsysmt.MolSysBuilder`**: Editable staging container for incremental system assembly.
 - **`molsysmt.MolSysDict`**: Declarative serializable system dictionary.
 - **`molsysmt.Topology`**: Native topological graph and hierarchy representation.
 - **`molsysmt.TopologyDict`**: Declarative serializable topology dictionary.

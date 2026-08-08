@@ -1,33 +1,34 @@
 (user-foundations-07-support)=
 # Support & Coverage
 
-Welcome to **Support & Coverage**, the foundational module detailing MolSysMT's interoperability matrix across in-memory data structures, disk file formats, physical-chemical metadata, and 3D visualization engines.
-
-As a form-agnostic framework, MolSysMT bridges native representations with external computational chemistry tools, ensuring seamless data flow across packages without manual format re-encoding.
+Welcome to **Support & Coverage**, the foundational module detailing MolSysMT's interoperability matrix across data forms, physical-chemical data, molecular mechanics, selection syntaxes, and 3D visualization engines.
 
 ---
 
-## **Contents**
+## Contents
 
-- **{doc}`supported_forms`**  
-  Matrix of supported native classes (`molsysmt.*`) and third-party in-memory objects (MDTraj, OpenMM, MDAnalysis, ParmEd, PyTraj, BioPython, NetworkX, RDKit).
+- **{doc}`forms/index`**  
+  Matrix of supported data representations spanning object classes, disk files, and string inputs.
 
-- **{doc}`supported_files`**  
-  Supported disk file formats (`.h5msm`, `.pdb`, `.cif`, `.gro`, `.dcd`, `.xtc`, `.mol2`, `.prmtop`, `.inpcrd`, `.psf`, `.sdf`) and streaming I/O capabilities.
+- **{doc}`physchem`**  
+  Supported physical-chemical properties, atomic attributes, element classifications, and physical units.
 
-- **{doc}`supported_physchem`**  
-  Supported physical-chemical metadata, forcefields (AMBER, CHARMM, GROMOS, OPLS), water models (TIP3P, TIP4P, SPC/E), and implicit solvent models.
+- **{doc}`molecular_mechanics`**  
+  Supported force fields, water models, implicit solvents, integrators, and non-bonded parameter engines.
 
-- **{doc}`supported_viewers`**  
+- **{doc}`selection_syntaxes`**  
+  Supported atom and residue selection syntaxes (MolSysMT, AMBER, MDAnalysis, PyTraj) and configured shortcuts.
+
+- **{doc}`viewers`**  
   Supported 3D rendering backends (MolSysViewer, NGLView, Py3Dmol) and environment compatibility.
 
-```{eval-rst}
-.. toctree::
-   :maxdepth: 1
-   :hidden:
+```{toctree}
+:maxdepth: 2
+:hidden:
 
-   Supported Forms <supported_forms.md>
-   Supported Files <supported_files.md>
-   Supported Physical-Chemical Metadata <supported_physchem.md>
-   Supported Visualization Engines <supported_viewers.md>
+forms/index
+physchem
+molecular_mechanics
+selection_syntaxes
+viewers
 ```
