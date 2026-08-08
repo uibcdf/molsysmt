@@ -27,6 +27,10 @@ dependencies:
   - anywidget >=0.9.15
   - traitlets >=5
   - packaging >=23
+  # scipy is nobody's declared dependency and everybody's import: configuring
+  # PyUnitWizard's pint form imports pint, and pint imports scipy. Both MolSysMT and
+  # MolSysViewer do that configuration at import time.
+  - scipy
   - matplotlib
   - argdigest >=0.11.0
   - depdigest >=0.10.0
