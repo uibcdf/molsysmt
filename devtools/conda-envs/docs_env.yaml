@@ -1,42 +1,25 @@
 channels:
-- uibcdf
-- conda-forge
-- ambermd
+  - uibcdf
+  - conda-forge
 dependencies:
-- python
-- pip
-- setuptools >=68.0
-- versioningit>=3.0
-- h5py
-- numpy
-- argdigest
-- depdigest
-- smonitor
-- pyunitwizard
-- pandas
-- molsysviewer
-- networkx
-- tqdm
-- matplotlib
-- openmm
-- pdbfixer
-- ambertools
-- mdtraj
-- mdanalysis
-- biopython
-- ipywidgets
-- py-mmcif
-- plotly
-- anywidget
-- nglview
-- jupyterlab
-- sphinx
-- pydata-sphinx-theme
-- sphinxcontrib-bibtex
-- sphinx-remove-toctrees
-- sphinx-copybutton
-- sphinx-design
-- sphinx-favicon
-- myst-nb
-- seaborn
-- nglview
+  - python
+  - pip
+  - setuptools >=68.0
+  - versioningit >=3.0
+  - numpy
+  - pandas
+  - h5py
+  - networkx
+  - tqdm
+  - argdigest
+  - depdigest
+  - smonitor
+  - pyunitwizard
+  - sphinx
+  - pydata-sphinx-theme
+  - myst-nb
+  - sphinx-design
+  - sphinx-copybutton
+  - sphinx-favicon
+  - sphinxcontrib-bibtex
+  - sphinx-remove-toctrees
