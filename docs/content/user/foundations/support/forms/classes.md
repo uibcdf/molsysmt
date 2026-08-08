@@ -33,22 +33,41 @@ MolSysMT seamlessly digests and converts object instances from major ecosystem p
 | **`mdtraj.Trajectory`** | MDTraj | Full 3D coordinate and box trajectory ensemble. |
 | **`mdtraj.Topology`** | MDTraj | Topological atom and residue hierarchy. |
 | **`mdtraj.DCDTrajectoryFile`** | MDTraj | DCD file object handle. |
-| **`mdtraj.HDF5TrajectoryFile`** | MDTraj | HDF5 file object handle. |
-| **`mdtraj.XTCTrajectoryFile`** | MDTraj | XTC compressed file object handle. |
+| **`mdtraj.HDF5TrajectoryFile`** | MDTraj | HDF5 trajectory file handle. |
+| **`mdtraj.XTCTrajectoryFile`** | MDTraj | XTC compressed trajectory file handle. |
+| **`mdtraj.PDBTrajectoryFile`** | MDTraj | PDB trajectory file handle. |
+| **`mdtraj.GroTrajectoryFile`** | MDTraj | GRO trajectory file handle. |
+| **`mdtraj.AmberRestartFile`** | MDTraj | AMBER restart file handle. |
 | **`openmm.Topology`** | OpenMM | Molecular topology object representation. |
 | **`openmm.System`** | OpenMM | Physical forcefield system and force terms object. |
 | **`openmm.State`** | OpenMM | Thermodynamic state holding coordinates, velocities, and energies. |
 | **`openmm.Modeller`** | OpenMM | Structural editing, residue addition, and solvation object. |
+| **`openmm.Simulation`** | OpenMM | OpenMM simulation context and integrator workspace. |
+| **`openmm.Context`** | OpenMM | Low-level OpenMM execution context handle. |
 | **`openmm.app.PDBFile`** | OpenMM | OpenMM PDB file object representation. |
+| **`openmm.app.AmberPrmtopFile`** | OpenMM | OpenMM AMBER topology file object. |
+| **`openmm.app.AmberInpcrdFile`** | OpenMM | OpenMM AMBER coordinate file object. |
+| **`openmm.app.CharmmCrdFile`** | OpenMM | OpenMM CHARMM coordinate file object. |
+| **`openmm.app.CharmmPsfFile`** | OpenMM | OpenMM CHARMM topology file object. |
+| **`openmm.app.GromacsGroFile`** | OpenMM | OpenMM GROMACS coordinate file object. |
+| **`openmm.app.GromacsTopFile`** | OpenMM | OpenMM GROMACS topology file object. |
 | **`MDAnalysis.Universe`** | MDAnalysis | Core trajectory and topology container object. |
 | **`MDAnalysis.AtomGroup`** | MDAnalysis | Atom selection subset group. |
+| **`MDAnalysis.Topology`** | MDAnalysis | MDAnalysis topology object. |
 | **`parmed.Structure`** | ParmEd | Unified molecular topology, coordinate, and forcefield structure. |
 | **`parmed.gromacs.GromacsTopologyFile`** | ParmEd | GROMACS topology file object representation. |
-| **`parmed.amber.AmberParm`** | ParmEd | AMBER prmtop parameter structure. |
 | **`pytraj.Trajectory`** | PyTraj | Trajectory container object representation. |
 | **`pytraj.Topology`** | PyTraj | Topology container object representation. |
+| **`openff.toolkit.topology.Molecule`** | OpenFF | Small molecule graph with stereochemistry and charges. |
+| **`openff.toolkit.topology.Topology`** | OpenFF | OpenFF molecular system topology. |
+| **`pdbfixer.PDBFixer`** | PDBFixer | Protein structure fixing and atom rebuilding tool. |
 | **`Bio.PDB.Structure.Structure`** | BioPython | Structural PDB hierarchy object. |
 | **`Bio.Seq.Seq`** | BioPython | Biological sequence object. |
 | **`Bio.SeqRecord.SeqRecord`** | BioPython | Sequence record with metadata annotations. |
 | **`networkx.Graph`** | NetworkX | Covalent graph network topology representation. |
 | **`rdkit.Chem.Mol`** | RDKit | Small molecule topology and 3D conformers representation. |
+| **`cupy.ndarray`** | CuPy | GPU-accelerated array coordinates. |
+| **`molsysmt.XYZ`** | MolSysMT | Raw 3D coordinate array container. |
+| **`mmcif.PdbxContainers.DataContainer`** | mmCIF | Raw mmCIF DataContainer representation. |
+| **`molsysviewer.MolSysView`** | MolSysViewer | Native 3D WebGL viewer widget object. |
+| **`nglview.NGLWidget`** | NGLView | NGLView 3D widget object. |
