@@ -69,4 +69,5 @@ MolSysMT seamlessly digests and converts object instances from major ecosystem p
 | **`cupy.ndarray`** | CuPy | GPU-accelerated array coordinates. |
 | **`mmcif.PdbxContainers.DataContainer`** | mmCIF | Raw mmCIF DataContainer representation. |
 | **`molsysviewer.MolSysView`** | MolSysViewer | Native 3D WebGL viewer widget object. |
+| **`XYZ`** | PyUnitWizard / NumPy | Raw 3D coordinate Quantity array (`puw.Quantity`) with length units (`nm`). |
 | **`nglview.NGLWidget`** | NGLView | NGLView 3D widget object. |
