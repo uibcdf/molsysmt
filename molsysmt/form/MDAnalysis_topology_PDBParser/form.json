@@ -1,0 +1,8 @@
+{
+    "form_name": "MDAnalysis.topology.PDBParser",
+    "form_type": "class",
+    "item_class_key": [
+        "MDAnalysis",
+        "PDBParser"
+    ]
+}

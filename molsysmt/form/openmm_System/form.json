@@ -1,0 +1,8 @@
+{
+    "form_name": "openmm.System",
+    "form_type": "class",
+    "item_class_key": [
+        "openmm",
+        "System"
+    ]
+}

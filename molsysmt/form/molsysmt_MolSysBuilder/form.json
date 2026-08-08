@@ -1,0 +1,8 @@
+{
+    "form_name": "molsysmt.MolSysBuilder",
+    "form_type": "class",
+    "item_class_key": [
+        "molsysmt",
+        "MolSysBuilder"
+    ]
+}

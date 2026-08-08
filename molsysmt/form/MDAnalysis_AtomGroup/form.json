@@ -1,0 +1,8 @@
+{
+    "form_name": "MDAnalysis.AtomGroup",
+    "form_type": "class",
+    "item_class_key": [
+        "MDAnalysis",
+        "AtomGroup"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "form_name": "openff.Topology",
+    "form_type": "class",
+    "item_class_key": [
+        "openff",
+        "Topology"
+    ]
+}

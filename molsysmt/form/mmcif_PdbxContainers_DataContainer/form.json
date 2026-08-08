@@ -1,0 +1,8 @@
+{
+    "form_name": "mmcif.PdbxContainers.DataContainer",
+    "form_type": "class",
+    "item_class_key": [
+        "mmcif",
+        "DataContainer"
+    ]
+}

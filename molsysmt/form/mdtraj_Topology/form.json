@@ -1,0 +1,8 @@
+{
+    "form_name": "mdtraj.Topology",
+    "form_type": "class",
+    "item_class_key": [
+        "mdtraj",
+        "Topology"
+    ]
+}

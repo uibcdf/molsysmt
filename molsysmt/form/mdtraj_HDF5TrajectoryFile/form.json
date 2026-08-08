@@ -1,0 +1,8 @@
+{
+    "form_name": "mdtraj.HDF5TrajectoryFile",
+    "form_type": "class",
+    "item_class_key": [
+        "mdtraj",
+        "HDF5TrajectoryFile"
+    ]
+}

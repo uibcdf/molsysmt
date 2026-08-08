@@ -1,0 +1,8 @@
+{
+    "form_name": "pdbfixer.PDBFixer",
+    "form_type": "class",
+    "item_class_key": [
+        "pdbfixer",
+        "PDBFixer"
+    ]
+}
