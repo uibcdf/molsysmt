@@ -56,6 +56,31 @@ The Sphinx build regenerated ten checked-in autosummary pages for native and H5M
 forms. Those changes expose current chemical-state, bond-metadata, and
 thermodynamic getters/setters instead of preserving the stale generated lists.
 
+## The published build was worse than this baseline, until 2026-08-08
+
+Everything above measures the build produced by the command in **Evidence**, run by
+hand. Until 2026-08-08 that was not the build being published.
+
+`uibcdf/action-sphinx-docs-to-gh-pages` ran `sphinx-apidoc -o . ../` by default, and
+the documentation workflow never disabled it. Reproduced against a scratch output
+directory, that step generates **153 `.rst` files** — `modules.rst`, `conftest.rst`,
+and one per subpackage — into `docs/`. None of them is in any toctree, so each was an
+orphan page, built, published and counted as a warning the local baseline never saw;
+autodoc also imported every module in the tree to render them. The published site
+carried the result: `modules.html` and `molsysmt.basic.html` were reachable on
+`www.uibcdf.org/molsysmt/`, a second API reference beside the curated one under
+`docs/api/`, which nobody maintained.
+
+The workflow now passes `sphinx-apidoc: false`, and version 3.0.0 of the action also
+makes it the default. `modules.html` returns 404 on the published site as of
+2026-08-08.
+
+**Consequence for this report:** the local command and the CI build now measure the
+same thing, so the inventory above is finally the inventory of what readers get. Any
+ratchet built per the remediation plan should be measured once more before being
+frozen — the `toc.not_included` and `autodoc.import_object` families are the two this
+change touches, and neither has been re-counted since.
+
 ## Why this does not block 1.0
 
 The release contract requires the course structure to be free of references to
