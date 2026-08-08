@@ -1,6 +1,3 @@
-from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
-from .to_openmm_Topology import to_openmm_Topology
-from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'openmm.CharmmPsfFile'
 form_type = 'class'
 form_info = ["", ""]
@@ -26,9 +23,9 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'openmm.CharmmPsfFile': to_openmm_CharmmPsfFile,
-        'openmm.Topology': to_openmm_Topology,
-        'molsysmt.Topology': to_molsysmt_Topology,
+        'openmm.CharmmPsfFile': 'to_openmm_CharmmPsfFile',
+        'openmm.Topology': 'to_openmm_Topology',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
         }
 
 

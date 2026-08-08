@@ -1,7 +1,3 @@
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_TopologyDict import to_molsysmt_TopologyDict
-from .to_file_topology_yaml import to_file_topology_yaml
-
 form_name = 'molsysmt.TopologyDict'
 form_type = 'class'
 form_info = ['Declared, serializable topology representation.', '']
@@ -20,7 +16,7 @@ from .get_topological_attributes import *
 from .get_structural_attributes import *
 
 _convert_to = {
-    'molsysmt.TopologyDict': to_molsysmt_TopologyDict,
-    'molsysmt.Topology': to_molsysmt_Topology,
-    'file:topology_yaml': to_file_topology_yaml,
+    'molsysmt.TopologyDict': 'to_molsysmt_TopologyDict',
+    'molsysmt.Topology': 'to_molsysmt_Topology',
+    'file:topology_yaml': 'to_file_topology_yaml',
 }

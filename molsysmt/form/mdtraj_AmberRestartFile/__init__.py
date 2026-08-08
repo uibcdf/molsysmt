@@ -1,6 +1,3 @@
-from .to_mdtraj_AmberRestartFile import to_mdtraj_AmberRestartFile
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Structures import to_molsysmt_Structures
 form_name = 'mdtraj.AmberRestartFile'
 form_type = 'class'
 form_info = ["", ""]
@@ -26,9 +23,9 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'mdtraj.AmberRestartFile': to_mdtraj_AmberRestartFile,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'mdtraj.AmberRestartFile': 'to_mdtraj_AmberRestartFile',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
         }
 
 

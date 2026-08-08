@@ -16,7 +16,7 @@ def _convert_one_to_one(molecular_system,
     """Internal helper: convert a single input from one form to another (one-to-one path)."""
 
     from . import select, get_form
-    from molsysmt.form import is_item, is_file, _dict_modules
+    from molsysmt.form import is_item, is_file, load_converter, _dict_modules
     from molsysmt.element import _element_indices, _element_index
     from molsysmt.basic import has_attribute
     from molsysmt.attribute import attributes as _attributes
@@ -43,13 +43,7 @@ def _convert_one_to_one(molecular_system,
 
         function = _dict_modules[from_form]._convert_to[to_form]
 
-        if isinstance(function, str):
-            from importlib import import_module
-            # Load the submodule explicitly. e.g., molsysmt.form.file_pdb.to_molsysmt_Topology
-            module_name = f"{_dict_modules[from_form].__name__}.{function}"
-            module = import_module(module_name)
-            # Get the function from the module (it has the same name as the module file)
-            function = getattr(module, function)
+        function = load_converter(_dict_modules[from_form], function)
 
         input_arguments = set(inspect.signature(function).parameters)
 
@@ -104,11 +98,8 @@ def _convert_one_to_one(molecular_system,
     elif ('molsysmt.MolSys' in _dict_modules[from_form]._convert_to) and (to_form in _dict_modules['molsysmt.MolSys']._convert_to):
 
         intermediate_function = _dict_modules[from_form]._convert_to['molsysmt.MolSys']
-        if isinstance(intermediate_function, str):
-            from importlib import import_module
-            module_name = f"{_dict_modules[from_form].__name__}.{intermediate_function}"
-            module = import_module(module_name)
-            intermediate_function = getattr(module, intermediate_function)
+        intermediate_function = load_converter(
+            _dict_modules[from_form], intermediate_function)
 
         intermediate_signature = inspect.signature(intermediate_function)
         accepts_arbitrary_kwargs = any(
@@ -141,7 +132,7 @@ def _convert_multiple_to_one_with_shortcuts(molecular_system,
     """Internal helper: convert a list/tuple of inputs to one output using conversion shortcuts."""
 
     from . import select, get_form
-    from molsysmt.form import is_item, is_file, _dict_modules
+    from molsysmt.form import is_item, is_file, load_converter, _dict_modules
     from molsysmt.element import _element_indices, _element_index
     from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
     from molsysmt.basic import has_attribute
@@ -253,7 +244,7 @@ def _convert_multiple_to_one(molecular_system,
     """Internal helper: convert a list/tuple of inputs to one output via plain graph resolution."""
 
     from . import select, get_form
-    from molsysmt.form import is_item, is_file, _dict_modules
+    from molsysmt.form import is_item, is_file, load_converter, _dict_modules
     from molsysmt.element import _element_indices, _element_index
     from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
     from molsysmt.basic import has_attribute
@@ -326,11 +317,7 @@ def _convert_multiple_to_one(molecular_system,
 
                 function = _dict_modules[from_form]._convert_to[to_form]
 
-                if isinstance(function, str):
-                    from importlib import import_module
-                    module_name = f"{_dict_modules[from_form].__name__}.{function}"
-                    module = import_module(module_name)
-                    function = getattr(module, function)
+                function = load_converter(_dict_modules[from_form], function)
 
                 input_arguments = set(inspect.signature(function).parameters)
                 for ii in ['atom_indices', 'group_indices', 'component_indices', 'chain_indices',
@@ -428,11 +415,8 @@ def _convert_multiple_to_one(molecular_system,
             conversion_arguments[aux_attribute] = get_function(aux_item, **get_arguments)
         conversion_function = _dict_modules[aux_dict['form']]._convert_to[to_form]
 
-        if isinstance(conversion_function, str):
-            from importlib import import_module
-            module_name = f"{_dict_modules[aux_dict['form']].__name__}.{conversion_function}"
-            module = import_module(module_name)
-            conversion_function = getattr(module, conversion_function)
+        conversion_function = load_converter(
+            _dict_modules[aux_dict['form']], conversion_function)
 
         input_arguments = set(inspect.signature(conversion_function).parameters)
         if 'structure_indices' in input_arguments:

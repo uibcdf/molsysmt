@@ -1,8 +1,3 @@
-from .to_file_smi import to_file_smi
-from .to_string_smiles import to_string_smiles
-from .to_rdkit_Mol import to_rdkit_Mol
-from .to_molsysmt_Topology import to_molsysmt_Topology
-
 form_name = 'file:smi'
 form_type = 'file'
 form_info = ["SMILES file format (.smi)",
@@ -30,8 +25,8 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to = {
-    'file:smi': to_file_smi,
-    'string:smiles': to_string_smiles,
-    'rdkit.Mol': to_rdkit_Mol,
-    'molsysmt.Topology': to_molsysmt_Topology,
+    'file:smi': 'to_file_smi',
+    'string:smiles': 'to_string_smiles',
+    'rdkit.Mol': 'to_rdkit_Mol',
+    'molsysmt.Topology': 'to_molsysmt_Topology',
 }

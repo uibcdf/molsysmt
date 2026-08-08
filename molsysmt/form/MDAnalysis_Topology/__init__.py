@@ -1,5 +1,3 @@
-from .to_MDAnalysis_Topology import to_MDAnalysis_Topology
-from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'MDAnalysis.Topology'
 form_type = 'class'
 form_info = ["", ""]
@@ -25,8 +23,8 @@ from .iterators import TopologyIterator
 
 
 _convert_to={
-        'MDAnalysis.Topology': to_MDAnalysis_Topology,
-        'molsysmt.Topology': to_molsysmt_Topology,
+        'MDAnalysis.Topology': 'to_MDAnalysis_Topology',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
         }
 
 

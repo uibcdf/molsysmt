@@ -1,9 +1,3 @@
-from .to_file_pir import to_file_pir
-from .to_biopython_SeqRecord import to_biopython_SeqRecord
-from .to_biopython_Seq import to_biopython_Seq
-from .to_string_amino_acids_1 import to_string_amino_acids_1
-from .to_file_fasta import to_file_fasta
-
 form_name = 'file:pir'
 form_type = 'file'
 form_info = ["PIR/NBRF sequence file format", "https://en.wikipedia.org/wiki/NBRF-PIR"]
@@ -30,9 +24,9 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to = {
-    'file:pir': to_file_pir,
-    'biopython.SeqRecord': to_biopython_SeqRecord,
-    'biopython.Seq': to_biopython_Seq,
-    'string:amino_acids_1': to_string_amino_acids_1,
-    'file:fasta': to_file_fasta,
+    'file:pir': 'to_file_pir',
+    'biopython.SeqRecord': 'to_biopython_SeqRecord',
+    'biopython.Seq': 'to_biopython_Seq',
+    'string:amino_acids_1': 'to_string_amino_acids_1',
+    'file:fasta': 'to_file_fasta',
 }

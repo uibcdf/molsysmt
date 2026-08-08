@@ -605,15 +605,10 @@ class MolSys:
     def to_form(self, to_form, skip_digestion=False, **kwargs):
         """Convert the MolSys to a target form."""
 
-        from molsysmt.form.molsysmt_MolSys import _convert_to
+        from molsysmt.form import load_converter
+        from molsysmt.form import molsysmt_MolSys
 
-        function = _convert_to[to_form]
-
-        if isinstance(function, str):
-            from importlib import import_module
-            module_name = f"molsysmt.form.molsysmt_MolSys.{function}"
-            module = import_module(module_name)
-            function = getattr(module, function)
+        function = load_converter(molsysmt_MolSys, molsysmt_MolSys._convert_to[to_form])
 
         return function(self, skip_digestion=True, **kwargs)
 

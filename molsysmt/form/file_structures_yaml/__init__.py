@@ -1,9 +1,5 @@
 from depdigest import is_installed
 
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
-from .to_file_structures_yaml import to_file_structures_yaml
-
 form_name = 'file:structures_yaml'
 form_type = 'file'
 form_info = ['Human-authored declarative YAML structures file.', '']
@@ -23,7 +19,7 @@ from .get_structural_attributes import *
 _convert_to = {}
 if is_installed('yaml'):
     _convert_to = {
-        'file:structures_yaml': to_file_structures_yaml,
-        'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'file:structures_yaml': 'to_file_structures_yaml',
+        'molsysmt.StructuresDict': 'to_molsysmt_StructuresDict',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
     }

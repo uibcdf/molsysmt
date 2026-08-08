@@ -4,7 +4,7 @@ from molsysmt._private.argdigest import arg_digest
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
-    from molsysmt.form.molsysmt_MolSys import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
+    from molsysmt.form.molsysmt_MolSys.to_molsysmt_Structures import to_molsysmt_Structures as molsysmt_MolSys_to_molsysmt_Structures
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     tmp_item = molsysmt_MolSys_to_molsysmt_Structures(tmp_item, atom_indices=atom_indices,

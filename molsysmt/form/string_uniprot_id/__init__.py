@@ -1,6 +1,3 @@
-from .to_string_uniprot_id import to_string_uniprot_id
-from .to_file_fasta import to_file_fasta
-from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'string:uniprot_id'
 form_type = 'string'
 form_info = ["UniProt accession number string",
@@ -29,7 +26,7 @@ from .iterators import TopologyIterator
 
 
 _convert_to={
-        'string:uniprot_id': to_string_uniprot_id,
-        'file:fasta': to_file_fasta,
-        'molsysmt.Topology': to_molsysmt_Topology,
+        'string:uniprot_id': 'to_string_uniprot_id',
+        'file:fasta': 'to_file_fasta',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
         }

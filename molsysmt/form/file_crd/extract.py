@@ -22,7 +22,7 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
             tmp_item = item
     else:
 
-        #from molsysmt.form.mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
+        #from molsysmt.form.mdtraj_HDF5TrajectoryFile.to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
         #from ..mdtraj_HDF5TrajectoryFile.extract import extract as extract_mdtraj_HDF5TrajectoryFile
 
         #tmp_item = to_mdtraj_HDF5TrajectoryFile(item)

@@ -20,6 +20,7 @@ from .get_attributes import get_attributes
 from .has_attribute import has_attribute
 from .is_item import is_item
 from .is_file import is_file
+from .load_converter import load_converter
 from .is_string import is_string
 
 RESOURCE_FORMS = {

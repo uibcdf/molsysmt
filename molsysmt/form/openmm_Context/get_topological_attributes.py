@@ -16,7 +16,7 @@ form='openmm.Context'
 @arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
-    from molsysmt.form.openmm_System import to_openmm_System
+    from molsysmt.form.openmm_System.to_openmm_System import to_openmm_System
     from molsysmt.form.openmm_System import get_atom_index_from_atom as aux_get
 
     tmp_item = to_openmm_System(item, skip_digestion=True)

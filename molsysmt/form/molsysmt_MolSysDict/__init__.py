@@ -1,8 +1,3 @@
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_MolSysBuilder import to_molsysmt_MolSysBuilder
-from .to_molsysmt_MolSysDict import to_molsysmt_MolSysDict
-from .to_file_molsys_yaml import to_file_molsys_yaml
-
 form_name = 'molsysmt.MolSysDict'
 form_type = 'class'
 form_info = ['Declarative serializable molecular system dictionary.', '']
@@ -21,8 +16,8 @@ from .get_topological_attributes import *
 from .get_structural_attributes import *
 
 _convert_to = {
-    'molsysmt.MolSysDict': to_molsysmt_MolSysDict,
-    'molsysmt.MolSysBuilder': to_molsysmt_MolSysBuilder,
-    'molsysmt.MolSys': to_molsysmt_MolSys,
-    'file:molsys_yaml': to_file_molsys_yaml,
+    'molsysmt.MolSysDict': 'to_molsysmt_MolSysDict',
+    'molsysmt.MolSysBuilder': 'to_molsysmt_MolSysBuilder',
+    'molsysmt.MolSys': 'to_molsysmt_MolSys',
+    'file:molsys_yaml': 'to_file_molsys_yaml',
 }

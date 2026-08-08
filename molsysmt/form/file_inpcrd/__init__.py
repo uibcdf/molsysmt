@@ -1,6 +1,3 @@
-from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
-from .to_file_inpcrd import to_file_inpcrd
-from .to_molsysmt_Structures import to_molsysmt_Structures
 form_name = 'file:inpcrd'
 form_type = 'file'
 form_info = ["AMBER ASCII restart/inpcrd file format",
@@ -29,8 +26,7 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'file:inpcrd': to_file_inpcrd,
-        'openmm.AmberInpcrdFile': to_openmm_AmberInpcrdFile,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'file:inpcrd': 'to_file_inpcrd',
+        'openmm.AmberInpcrdFile': 'to_openmm_AmberInpcrdFile',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
         }
-

@@ -1,5 +1,3 @@
-from .to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
 form_name = 'openmm.AmberInpcrdFile'
 form_type = 'class'
 form_info = ["", ""]
@@ -25,8 +23,8 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'openmm.AmberInpcrdFile': to_openmm_AmberInpcrdFile,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'openmm.AmberInpcrdFile': 'to_openmm_AmberInpcrdFile',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
         }
 
 

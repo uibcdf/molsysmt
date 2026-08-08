@@ -1,4 +1,3 @@
-from .to_file_mdcrd import to_file_mdcrd
 form_name = 'file:mdcrd'
 form_type = 'file'
 form_info = ["AMBER MDCRD coordinate/trajectory file format",
@@ -27,5 +26,5 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'file:mdcrd': to_file_mdcrd,
+        'file:mdcrd': 'to_file_mdcrd',
         }

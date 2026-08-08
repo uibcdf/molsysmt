@@ -8,22 +8,16 @@ piped_any_attribute = 'molsysmt.MolSys'
 bonds_are_explicit = True
 bonds_can_be_computed = True
 
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_openff_Topology import to_openff_Topology
-from .to_rdkit_Mol import to_rdkit_Mol
-from .to_string_smiles import to_string_smiles
 from .extract import extract
 
 _convert_to = {
     'openff.Molecule': extract,
-    'molsysmt.Topology': to_molsysmt_Topology,
-    'molsysmt.Structures': to_molsysmt_Structures,
-    'molsysmt.MolSys': to_molsysmt_MolSys,
-    'openff.Topology': to_openff_Topology,
-    'rdkit.Mol': to_rdkit_Mol,
-    'string:smiles': to_string_smiles,
+    'molsysmt.Topology': 'to_molsysmt_Topology',
+    'molsysmt.Structures': 'to_molsysmt_Structures',
+    'molsysmt.MolSys': 'to_molsysmt_MolSys',
+    'openff.Topology': 'to_openff_Topology',
+    'rdkit.Mol': 'to_rdkit_Mol',
+    'string:smiles': 'to_string_smiles',
 }
 
 from .is_form import is_form

@@ -1,9 +1,3 @@
-from .to_openmm_Modeller import to_openmm_Modeller
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_openmm_GromacsGroFile import to_openmm_GromacsGroFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_openmm_Topology import to_openmm_Topology
-from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'openmm.GromacsGroFile'
 form_type = 'class'
 form_info = ["", ""]
@@ -29,10 +23,10 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'openmm.GromacsGroFile': to_openmm_GromacsGroFile,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'openmm.GromacsGroFile': 'to_openmm_GromacsGroFile',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
         }
 
 

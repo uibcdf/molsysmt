@@ -1,6 +1,3 @@
-from .to_openmm_Simulation import to_openmm_Simulation
-from .to_openmm_Context import to_openmm_Context
-from .to_openmm_System import to_openmm_System
 form_name = 'openmm.System'
 form_type = 'class'
 form_info = ["", ""]
@@ -28,7 +25,7 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to = {
-        'openmm.System': to_openmm_System,
-        'openmm.Context': to_openmm_Context,
-        'openmm.Simulation': to_openmm_Simulation,
+        'openmm.System': 'to_openmm_System',
+        'openmm.Context': 'to_openmm_Context',
+        'openmm.Simulation': 'to_openmm_Simulation',
         }

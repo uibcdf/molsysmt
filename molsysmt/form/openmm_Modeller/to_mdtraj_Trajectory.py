@@ -9,7 +9,7 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip
     except Exception:
         raise LibraryNotFoundError('MDTraj')
 
-    from molsysmt.form.mdtraj_Topology import to_mdtraj_Topology
+    from molsysmt.form.mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
     from ..mdtraj_Trajectory.extract import extract as extract_mdtraj_Trajectory
     from molsysmt import pyunitwizard as puw
 

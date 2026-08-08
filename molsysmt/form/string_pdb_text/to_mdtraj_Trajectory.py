@@ -4,7 +4,7 @@ from molsysmt._private.argdigest import arg_digest
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_file_pdb import to_file_pdb    
-    from ..file_pdb import to_mdtraj_Trajectory as file_pdb_to_mdtraj_Trajectory  
+    from ..file_pdb.to_mdtraj_Trajectory import to_mdtraj_Trajectory as file_pdb_to_mdtraj_Trajectory  
 
     tmp_item = to_file_pdb(item, skip_digestion=True)
     tmp_item = file_pdb_to_mdtraj_Trajectory(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,

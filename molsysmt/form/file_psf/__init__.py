@@ -1,8 +1,3 @@
-from .to_file_psf import to_file_psf
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_openmm_CharmmPsfFile import to_openmm_CharmmPsfFile
-from .to_openmm_Topology import to_openmm_Topology
-from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name='file:psf'
 form_type = 'file'
 form_info = ["CHARMM Protein Structure File (PSF).","https://www.ks.uiuc.edu/Training/Tutorials/namd/namd-tutorial-unix-html/node23.html"]
@@ -32,9 +27,9 @@ from .iterators import TopologyIterator
 
 
 _convert_to={
-        'file:psf': to_file_psf,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'openmm.CharmmPsfFile': to_openmm_CharmmPsfFile,
-        'openmm.Topology': to_openmm_Topology,
+        'file:psf': 'to_file_psf',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'openmm.CharmmPsfFile': 'to_openmm_CharmmPsfFile',
+        'openmm.Topology': 'to_openmm_Topology',
         }

@@ -1,9 +1,3 @@
-from .to_file_fasta import to_file_fasta
-from .to_biopython_SeqRecord import to_biopython_SeqRecord
-from .to_biopython_Seq import to_biopython_Seq
-from .to_string_amino_acids_1 import to_string_amino_acids_1
-from .to_molsysmt_Topology import to_molsysmt_Topology
-
 form_name = 'file:fasta'
 form_type = 'file'
 form_info = ["FASTA sequence file format", "https://en.wikipedia.org/wiki/FASTA_format"]
@@ -30,9 +24,9 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to = {
-    'file:fasta': to_file_fasta,
-    'biopython.SeqRecord': to_biopython_SeqRecord,
-    'biopython.Seq': to_biopython_Seq,
-    'string:amino_acids_1': to_string_amino_acids_1,
-    'molsysmt.Topology': to_molsysmt_Topology,
+    'file:fasta': 'to_file_fasta',
+    'biopython.SeqRecord': 'to_biopython_SeqRecord',
+    'biopython.Seq': 'to_biopython_Seq',
+    'string:amino_acids_1': 'to_string_amino_acids_1',
+    'molsysmt.Topology': 'to_molsysmt_Topology',
 }

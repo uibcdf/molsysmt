@@ -1,5 +1,3 @@
-from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
-from .to_file_trjpk import to_file_trjpk
 form_name='file:trjpk'
 form_type='file'
 form_info = ["",""]
@@ -25,8 +23,8 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'file:trjpk': to_file_trjpk,
-        'molsysmt.StructuresDict': to_molsysmt_StructuresDict,
+        'file:trjpk': 'to_file_trjpk',
+        'molsysmt.StructuresDict': 'to_molsysmt_StructuresDict',
         }
 
 

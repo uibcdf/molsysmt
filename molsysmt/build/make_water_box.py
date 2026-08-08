@@ -39,7 +39,7 @@ def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
 
     from molsysmt.native import MolSys
     from molsysmt.basic import convert
-    from molsysmt.form.file_gro import to_molsysmt_Structures
+    from molsysmt.form.file_gro.to_molsysmt_Structures import to_molsysmt_Structures
 
     box_matrix = puw.get_value(box[0], to_unit='nm')
     inv_box = np.linalg.inv(box_matrix)

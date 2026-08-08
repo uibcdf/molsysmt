@@ -1,6 +1,3 @@
-from .to_XYZ import to_XYZ
-from .to_molsysmt_Structures import to_molsysmt_Structures
-
 form_name = 'cupy_ndarray'
 form_type = 'class'
 form_info = ["", ""]
@@ -25,6 +22,6 @@ from .set import *
 from .iterators import *
 
 _convert_to = {
-    'XYZ': to_XYZ,
-    'molsysmt.Structures': to_molsysmt_Structures,
+    'XYZ': 'to_XYZ',
+    'molsysmt.Structures': 'to_molsysmt_Structures',
 }

@@ -1,5 +1,3 @@
-from .to_file_xyz import to_file_xyz
-from .to_XYZ import to_XYZ
 form_name = 'file:xyz'
 form_type = 'file'
 form_info = ["MolSysMT ASCII XYZ coordinate file format", ""]
@@ -27,6 +25,6 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'file:xyz': to_file_xyz,
-        'XYZ': to_XYZ,
+        'file:xyz': 'to_file_xyz',
+        'XYZ': 'to_XYZ',
         }

@@ -1,9 +1,3 @@
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_file_bcif import to_file_bcif
-from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
-from .to_file_h5msm import to_file_h5msm
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_molsysmt_Topology import to_molsysmt_Topology
 from .download import download
 
 form_name = 'file:bcif'
@@ -35,11 +29,10 @@ from .download import download
 
 
 _convert_to={
-    'file:bcif': to_file_bcif,
-    'mmcif.PdbxContainers.DataContainer': to_mmcif_PdbxContainers_DataContainer,
-    'molsysmt.MolSys': to_molsysmt_MolSys,
-    'molsysmt.Topology': to_molsysmt_Topology,
-    'molsysmt.Structures': to_molsysmt_Structures,
-    'file:h5msm': to_file_h5msm,
+    'file:bcif': 'to_file_bcif',
+    'mmcif.PdbxContainers.DataContainer': 'to_mmcif_PdbxContainers_DataContainer',
+    'molsysmt.MolSys': 'to_molsysmt_MolSys',
+    'molsysmt.Topology': 'to_molsysmt_Topology',
+    'molsysmt.Structures': 'to_molsysmt_Structures',
+    'file:h5msm': 'to_file_h5msm',
     }
-

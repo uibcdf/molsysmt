@@ -18,12 +18,6 @@ _convert_to = {
     'nglview.NGLWidget': 'to_nglview_NGLWidget',
 }
 
-from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_nglview_NGLWidget import to_nglview_NGLWidget
-
 from .is_form import is_form
 from .has_attribute import has_attribute
 from . import iterators

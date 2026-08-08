@@ -8,7 +8,7 @@ from molsysmt._private.argdigest import arg_digest
 @dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 
-    from molsysmt.form.mdtraj_Topology import to_mdtraj_Topology
+    from molsysmt.form.mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 

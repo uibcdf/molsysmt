@@ -3,8 +3,8 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='mdtraj.Topology')
 def to_parmed_Structure(item, atom_indices='all', skip_digestion=False):
 
-    from molsysmt.form.openmm_Topology import to_openmm_Topology
-    from molsysmt.form.openmm_Topology import to_parmed_Structure as openmm_Topology_to_parmed_Structure
+    from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
+    from molsysmt.form.openmm_Topology.to_parmed_Structure import to_parmed_Structure as openmm_Topology_to_parmed_Structure
 
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, skip_digestion=True)
     tmp_item = openmm_Topology_to_parmed_Structure(tmp_item, skip_digestion=True)

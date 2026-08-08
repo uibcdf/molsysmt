@@ -1,4 +1,3 @@
-from .to_networkx_Graph import to_networkx_Graph
 form_name = 'networkx.Graph'
 form_type = 'class'
 form_info = ["", ""]
@@ -24,7 +23,7 @@ from .iterators import TopologyIterator
 
 
 _convert_to={
-        'networkx.Graph': to_networkx_Graph,
+        'networkx.Graph': 'to_networkx_Graph',
         }
 
 

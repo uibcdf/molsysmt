@@ -1,7 +1,3 @@
-from .to_mdtraj_PDBTrajectoryFile import to_mdtraj_PDBTrajectoryFile
-from .to_mdtraj_Topology import to_mdtraj_Topology
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_Structures import to_molsysmt_Structures
 form_name = 'mdtraj.PDBTrajectoryFile'
 form_type = 'class'
 form_info = ["", ""]
@@ -27,10 +23,10 @@ from .iterators import StructuresIterator
 
 
 _convert_to={
-        'mdtraj.PDBTrajectoryFile': to_mdtraj_PDBTrajectoryFile,
-        'mdtraj.Topology': to_mdtraj_Topology,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Structures': to_molsysmt_Structures,
+        'mdtraj.PDBTrajectoryFile': 'to_mdtraj_PDBTrajectoryFile',
+        'mdtraj.Topology': 'to_mdtraj_Topology',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
         }
 
 

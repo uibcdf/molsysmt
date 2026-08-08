@@ -1,7 +1,3 @@
-from .to_file_top import to_file_top
-from .to_parmed_GromacsTopologyFile import to_parmed_GromacsTopologyFile
-from .to_molsysmt_Topology import to_molsysmt_Topology
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
 form_name = 'file:top'
 form_type = 'file'
 form_info = ["GROMACS topology file format",
@@ -30,8 +26,8 @@ from .iterators import TopologyIterator
 
 
 _convert_to={
-        'file:top': to_file_top,
-        'parmed.GromacsTopologyFile': to_parmed_GromacsTopologyFile,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'file:top': 'to_file_top',
+        'parmed.GromacsTopologyFile': 'to_parmed_GromacsTopologyFile',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
         }

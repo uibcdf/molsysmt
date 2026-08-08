@@ -31,7 +31,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
     if is_all(structure_indices):
 
-        from molsysmt.form.molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+        from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
         from molsysmt.form.molsysmt_PDBFileHandler.get_structural_attributes import get_n_structures_from_system as aux_get
 
         tmp_item = to_molsysmt_PDBFileHandler(item, skip_digestion=True)

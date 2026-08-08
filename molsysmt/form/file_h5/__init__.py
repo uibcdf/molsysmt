@@ -1,14 +1,3 @@
-from .to_file_h5msm import to_file_h5msm
-from .to_nglview_NGLWidget import to_nglview_NGLWidget
-from .to_file_pdb import to_file_pdb
-from .to_mdtraj_Trajectory import to_mdtraj_Trajectory
-from .to_file_h5 import to_file_h5
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_mdtraj_Topology import to_mdtraj_Topology
-from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
-from .to_molsysmt_Structures import to_molsysmt_Structures
-from .to_openmm_Topology import to_openmm_Topology
-from .to_molsysmt_Topology import to_molsysmt_Topology
 form_name = 'file:h5'
 form_type = 'file'
 form_info = ["", ""]
@@ -36,15 +25,15 @@ from .iterators import StructuresIterator, TopologyIterator
 
 
 _convert_to={
-        'file:h5': to_file_h5,
-        'mdtraj.HDF5TrajectoryFile': to_mdtraj_HDF5TrajectoryFile,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
-        'molsysmt.Topology': to_molsysmt_Topology,
-        'molsysmt.Structures': to_molsysmt_Structures,
-        'nglview.NGLWidget': to_nglview_NGLWidget,
-        'openmm.Topology': to_openmm_Topology,
-        'mdtraj.Topology': to_mdtraj_Topology,
-        'mdtraj.Trajectory': to_mdtraj_Trajectory,
-        'file:pdb': to_file_pdb,
-        'file:h5msm': to_file_h5msm,
+        'file:h5': 'to_file_h5',
+        'mdtraj.HDF5TrajectoryFile': 'to_mdtraj_HDF5TrajectoryFile',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
+        'molsysmt.Topology': 'to_molsysmt_Topology',
+        'molsysmt.Structures': 'to_molsysmt_Structures',
+        'nglview.NGLWidget': 'to_nglview_NGLWidget',
+        'openmm.Topology': 'to_openmm_Topology',
+        'mdtraj.Topology': 'to_mdtraj_Topology',
+        'mdtraj.Trajectory': 'to_mdtraj_Trajectory',
+        'file:pdb': 'to_file_pdb',
+        'file:h5msm': 'to_file_h5msm',
         }

@@ -3,7 +3,7 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='openmm.Topology')
 def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None, skip_digestion=False):
 
-    from molsysmt.form.string_pdb_text import to_string_pdb_text
+    from molsysmt.form.string_pdb_text.to_string_pdb_text import to_string_pdb_text
 
     string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates, skip_digestion=True)
 

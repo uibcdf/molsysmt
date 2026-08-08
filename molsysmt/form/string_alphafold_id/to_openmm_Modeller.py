@@ -4,7 +4,7 @@ from molsysmt._private.argdigest import arg_digest
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
-    from molsysmt.form.molsysmt_MolSys import to_openmm_Modeller as molsysmt_MolSys_to_openmm_Modeller
+    from molsysmt.form.molsysmt_MolSys.to_openmm_Modeller import to_openmm_Modeller as molsysmt_MolSys_to_openmm_Modeller
 
     tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
                                   skip_digestion=True)

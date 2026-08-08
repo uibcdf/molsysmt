@@ -1,9 +1,5 @@
 from depdigest import is_installed
 
-from .to_molsysmt_MolSys import to_molsysmt_MolSys
-from .to_molsysmt_MolSysDict import to_molsysmt_MolSysDict
-from .to_file_molsys_yaml import to_file_molsys_yaml
-
 form_name = 'file:molsys_yaml'
 form_type = 'file'
 form_info = ['Human-authored declarative YAML molecular system file.', '']
@@ -23,7 +19,7 @@ from .get_structural_attributes import *
 _convert_to = {}
 if is_installed('yaml'):
     _convert_to = {
-        'file:molsys_yaml': to_file_molsys_yaml,
-        'molsysmt.MolSysDict': to_molsysmt_MolSysDict,
-        'molsysmt.MolSys': to_molsysmt_MolSys,
+        'file:molsys_yaml': 'to_file_molsys_yaml',
+        'molsysmt.MolSysDict': 'to_molsysmt_MolSysDict',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
     }
