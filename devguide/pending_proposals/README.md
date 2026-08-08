@@ -90,6 +90,11 @@ scientific-validation requirements.
   and largely applied: the README and documentation landing pages described a
   converter and a removed Numba/CUDA architecture, understated the supported
   surface, and carried code examples that did not execute.
+- `private_api_in_the_published_reference.md` — whether the published API
+  reference should carry its hidden `Developer` branch into `molsysmt._private`.
+  Undecided rather than broken; today the branch is four files documenting one
+  exception, and the only page a reader can reach describes a module that was
+  removed seven months ago.
 - `presentation_and_citation_surface.md` — partially resolved on 2026-08-07. The
   authorship question is decided and the misattributed ORCID is gone with it, and
   the duplicate landing page is deleted. Two items remain: the stale, malformed DOI
