@@ -53,6 +53,18 @@ jobs:
           micromamba info
           micromamba list
 
+      # MolSysViewer and MolSysMT declare each other as run dependencies, so installing
+      # either from the uibcdf channel drags the other in — and neither has a py313 build
+      # there yet. Installing both with --no-deps dissolves the cycle: every shared
+      # dependency is already declared in docs_env.yaml. The viewer's built assets
+      # (runtime_actions.json, viewer.js) are committed, so this needs no npm.
+      # Remove this step once molsysviewer is published for py313; see
+      # devguide/pending_proposals/molsysmt_1_0_conda_release_coordination.md.
+      - name: Install molsysviewer
+        shell: bash -l {0}
+        run: |
+          python -m pip install --no-deps git+https://github.com/uibcdf/molsysviewer@0.20.0
+
       - name: Install package
         shell: bash -l {0}
         run: |
