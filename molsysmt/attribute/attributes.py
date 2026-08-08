@@ -546,7 +546,7 @@ add_attribute('hydrogen_mass', synonyms=['hydrogen mass'], mechanical=True,
         get_from=['system'], set_to='system')
 
 ## constraints
-add_attribute('constraints', synonyms=['constraints'], mechanical=True,
+add_attribute('constraints', mechanical=True,
         get_from=['system'], set_to='system', values=['hbonds'])
 
 ## flexible_constraints

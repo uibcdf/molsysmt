@@ -47,6 +47,9 @@ STRICTNESS = "warn"            # missing digester for a declared parameter
 FUNCTION_SOURCE = "MyLibrary._private.argdigest.function"
 DOMAIN_SOURCE = "MyLibrary._private.argdigest.domain"
 UNKNOWN_ARGUMENT = "error"     # keyword outside the function's contract
+
+# Declared aliases, applied before both axes.
+NORMALIZATION_SOURCE = "MyLibrary._private.argdigest.normalization"
 ```
 
 `STRICTNESS` and `UNKNOWN_ARGUMENT` answer different questions and address different
@@ -134,7 +137,47 @@ def heavy_func(data):
 print(heavy_func.audit_log)
 ```
 
-## 4.3 Caller-aware optional semantics
+## 4.3 Declared normalization (argument-name aliases)
+
+A library should accept the names its users type. Declare them as data, one module per
+family of rules in `NORMALIZATION_SOURCE`:
+
+```python
+from argdigest import AliasTable
+
+# everywhere
+table = AliasTable(aliases={'residue_index': 'group_index'})
+
+# only in one function, or a family
+AliasTable(applies_to='mylib.basic.compare.compare',
+           aliases={'attributes_type': 'attribute_type'})
+AliasTable(applies_to='mylib.form.*', aliases={'idx': 'index'})
+
+# guarded on another argument of the same call
+AliasTable(applies_to='mylib.basic.get.get', when={'element': 'atom'},
+           aliases={'name': 'atom_name', 'index': 'atom_index'})
+```
+
+Tables compose most-specific-first, renaming is a single pass, and argument order is
+preserved.
+
+**Scope the table to the callers where the alias means what it says.** A name that is an
+attribute in one function is often an ordinary parameter in another; declaring an
+attribute synonym globally in MolSysMT rewrote a real adapter parameter and broke 76
+tests.
+
+**Write the tables out; do not generate them.** A `{element}_{name}` template is shorter
+and admits names that do not exist -- it produced six attributes nothing defines, so a
+wrong name failed far from where it was written.
+
+Normalization runs **before** the function contract, so declaring a contract never breaks
+a library's aliases, while a genuine typo survives unchanged and is refused.
+
+The `standardizer` hook still runs, after the declared tables, and remains the escape
+hatch for a rename that cannot be stated as a table. Its contract is
+`(caller, kwargs) -> mapping`, checked at both decoration and call time.
+
+## 4.4 Caller-aware optional semantics
 
 ArgDigest must support public APIs whose valid input contract depends on the
 callable that is being digested. This is not an escape hatch; it is a normal
@@ -161,9 +204,9 @@ should express it.
 
 Caller-keyed digesters remain the right tool for **value** semantics that depend on the
 callable. What does *not* belong there is which arguments a function accepts at all: that
-is axis 1, and it has its own place since `0.10.0`. See section 4.4.
+is axis 1, and it has its own place since `0.10.0`. See section 4.5.
 
-## 4.4 The function argument contract (axis 1)
+## 4.5 The function argument contract (axis 1)
 
 ### Why the default is strict
 
