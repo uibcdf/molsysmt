@@ -108,6 +108,40 @@ The publishing workflow enables exactly `platform_linux-64`, `platform_osx-64`,
 built by any current workflow.** Adding it also means cross-building or an ARM runner for
 the Rust extension, which is a C3 decision, not a coordination one.
 
+#### How those three non-host platforms are produced — found 2026-08-08
+
+The table above was probed with `argdigest`, and `argdigest` is pure Python. That is what
+makes it misleading as evidence for MolSysMT: the workflow does not *build* on osx-64,
+osx-arm64 and win-64. It builds once on the `ubuntu-latest` runner and asks the action to
+run `conda convert` for the other three.
+
+`conda convert` relabels a package for another platform. It does not cross-compile. For a
+package whose content is platform independent this is exactly right, and it is why the
+sibling packages are on the channel for four platforms. **MolSysMT is no longer such a
+package**: `pyproject.toml:119-124` declares a mandatory `setuptools-rust` extension,
+`molsysmt._rust`, built as abi3 for cp311. A single host build cannot yield valid osx or
+win packages of it — the conversion either refuses or relabels a Linux `.so`.
+
+This has never shown up because **the conda workflow has not run since 2025-12-07**, for
+version 0.12.0, months before the Rust migration. The three converted platforms are
+therefore untested against the current package, and the table above must not be read as
+evidence that they work.
+
+The fix is not in the action — `uibcdf/action-build-and-upload-conda-packages` v2.0.0
+documents the limitation, and no amount of work inside it can cross-compile. It is a
+workflow decision, and the options are the usual three:
+
+1. **A build matrix over real runners** (`ubuntu-latest`, `macos-13`, `macos-14`,
+   `windows-latest`), each building and uploading its own platform, with the `platform_*`
+   conversion inputs switched off. Closest to the current setup; also the natural place to
+   add `linux-aarch64`, which §2 already requires.
+2. **`rattler-build`**, which replaces `conda-build` and handles compiled recipes natively.
+3. **A conda-forge feedstock**, which provides the whole matrix and its maintenance, at the
+   cost of moving publication out of the `uibcdf` channel.
+
+Option 1 is the smallest step from where the repository is. Option 3 is the one that
+usually pays off for a library at 1.0. The choice is unmade.
+
 ## 3. Are the recipes correct? (questions 3 and 4)
 
 Recipes live at `devtools/conda-build/meta.yaml` in each repository, with a two-line
@@ -373,6 +407,9 @@ label-based and additive:
 2. A `molsysviewer` release covering py3.13 is published.
 3. `molsysmt`'s recipe declares sibling version bounds identical to `pyproject.toml`, and
    every recipe carries a `test:` section that at minimum imports the package.
+3b. The way the non-host platforms are produced is decided and implemented per §2, and the
+   `test:` section of criterion 3 imports `molsysmt._rust` — which is what turns a relabelled
+   Linux binary into a failed build instead of a published package.
 4. `conda create -n t -c uibcdf -c conda-forge python=3.13 smonitor depdigest pyunitwizard
    argdigest molsysviewer` solves and imports with **no** MolSysMT present. This is
    independent of C2 and is the natural interim gate.
