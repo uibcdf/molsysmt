@@ -1,31 +1,27 @@
 (user-foundations-native-world-file-handlers)=
 # File Handlers
 
-Low-level native streaming handlers for reading and writing molecular file formats.
+Native I/O handler classes engineered for streaming, record-level parsing, and binary dataset management.
 
 ---
 
-## **Contents**
-
-- **{doc}`molsysmt_H5MSMFileHandler`**  
-  The low-level native streaming handler for reading and writing H5MSM files.
+## Contents
 
 - **{doc}`molsysmt_PDBFileHandler`**  
-  The native file handler for reading and writing Protein Data Bank (PDB) formatted files.
-
-- **{doc}`molsysmt_CIFFileHandler`**  
-  The native file handler for reading and writing Macromolecular Crystallographic Information Files (mmCIF).
-
+  Low-level parser and stream handler for Protein Data Bank (`.pdb`) files.
+- **{doc}`molsysmt_H5MSMFileHandler`**  
+  Binary HDF5 handle manager for `.h5msm` native files and trajectory chunking.
 - **{doc}`molsysmt_GROFileHandler`**  
-  The native file handler for reading and writing GROMACS GRO structure files.
+  Fixed-column text stream parser for Gromacs GRO (`.gro`) files.
+- **{doc}`molsysmt_CIFFileHandler`**  
+  Category loop block parser for mmCIF (`.cif`) macromolecular structures.
 
-```{eval-rst}
-.. toctree::
-   :maxdepth: 1
-   :hidden:
+```{toctree}
+:maxdepth: 1
+:hidden:
 
-   molsysmt_H5MSMFileHandler.ipynb
-   molsysmt_PDBFileHandler.ipynb
-   molsysmt_CIFFileHandler.ipynb
-   molsysmt_GROFileHandler.ipynb
+molsysmt_PDBFileHandler
+molsysmt_H5MSMFileHandler
+molsysmt_GROFileHandler
+molsysmt_CIFFileHandler
 ```
