@@ -129,18 +129,15 @@ evidence that they work.
 
 The fix is not in the action — `uibcdf/action-build-and-upload-conda-packages` v2.0.0
 documents the limitation, and no amount of work inside it can cross-compile. It is a
-workflow decision, and the options are the usual three:
+workflow decision, and conda's own documentation states the constraint plainly: *"it is not
+possible to convert packages containing C extensions to other platforms"*, with `noarch` as
+the alternative it recommends and which is not available to us.
 
-1. **A build matrix over real runners** (`ubuntu-latest`, `macos-13`, `macos-14`,
-   `windows-latest`), each building and uploading its own platform, with the `platform_*`
-   conversion inputs switched off. Closest to the current setup; also the natural place to
-   add `linux-aarch64`, which §2 already requires.
-2. **`rattler-build`**, which replaces `conda-build` and handles compiled recipes natively.
-3. **A conda-forge feedstock**, which provides the whole matrix and its maintenance, at the
-   cost of moving publication out of the `uibcdf` channel.
-
-Option 1 is the smallest step from where the repository is. Option 3 is the one that
-usually pays off for a library at 1.0. The choice is unmade.
+The three routes out — a matrix of real runners, `rattler-build`, or a conda-forge
+feedstock — are compared, costed and given a recommendation in
+[`migration_off_the_in_house_publication_actions.md`](migration_off_the_in_house_publication_actions.md)
+§2, together with the equivalent question for the documentation pipeline. **The choice is
+unmade**, and it is a prerequisite for criterion 3b below rather than a detail of it.
 
 ## 3. Are the recipes correct? (questions 3 and 4)
 

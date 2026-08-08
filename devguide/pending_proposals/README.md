@@ -90,6 +90,11 @@ scientific-validation requirements.
   and largely applied: the README and documentation landing pages described a
   converter and a removed Numba/CUDA architecture, understated the supported
   surface, and carried code examples that did not execute.
+- `migration_off_the_in_house_publication_actions.md` — two independent decisions:
+  publishing the documentation through GitHub's native Pages deployment instead of a
+  `gh-pages` branch of 1907 site snapshots, and building the conda packages on a runner
+  per platform instead of relabelling one Linux build. The second is blocking for 1.0;
+  the first is not, and removes `contents: write` from a workflow.
 - `private_api_in_the_published_reference.md` — whether the published API
   reference should carry its hidden `Developer` branch into `molsysmt._private`.
   Undecided rather than broken; today the branch is four files documenting one
