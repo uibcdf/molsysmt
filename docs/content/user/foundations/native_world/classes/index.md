@@ -42,14 +42,14 @@ Welcome to **Classes**, the native object module detailing MolSysMT's core Pytho
    :maxdepth: 1
    :hidden:
 
-   molsysmt.MolSys <molsysmt_MolSys>
-   molsysmt.MolSysBuilder <molsysmt_MolSysBuilder>
-   molsysmt.MolSysDict <molsysmt_MolSysDict>
-   molsysmt.Topology <molsysmt_Topology>
-   molsysmt.TopologyDict <molsysmt_TopologyDict>
-   molsysmt.Structures <molsysmt_Structures>
-   molsysmt.StructuresDict <molsysmt_StructuresDict>
-   molsysmt.MolecularMechanics <molsysmt_MolecularMechanics>
-   molsysmt.MolecularMechanicsDict <molsysmt_MolecularMechanicsDict>
-   molsysmt.ViewerJSON <molsysmt_ViewerJSON>
+   molsysmt_MolSys
+   molsysmt_MolSysBuilder
+   molsysmt_MolSysDict
+   molsysmt_Topology
+   molsysmt_TopologyDict
+   molsysmt_Structures
+   molsysmt_StructuresDict
+   molsysmt_MolecularMechanics
+   molsysmt_MolecularMechanicsDict
+   molsysmt_ViewerJSON
 ```
