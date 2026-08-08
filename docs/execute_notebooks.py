@@ -146,7 +146,12 @@ def execute_notebook(notebook_path: Path, force: bool = False, quiet: bool = Fal
 
         env = os.environ.copy()
         env["MSM_VIEWS_FROM_HTML_FILES"] = "True"
-        env["MSM_DOCS_NOTEBOOK"] = str(notebook_path)
+        # Absolute on purpose. `jupyter nbconvert --execute` runs the kernel with the
+        # notebook's own directory as the working directory, so a relative path handed
+        # over here is later resolved against a different place than the one it was
+        # written from, and the prefix is counted twice. That is invisible locally and
+        # produces an <iframe src> with too many "../" segments in the published site.
+        env["MSM_DOCS_NOTEBOOK"] = str(notebook_path.resolve())
 
         result = subprocess.run(
             ["jupyter", "nbconvert", "--execute", "--inplace", str(notebook_path)],
