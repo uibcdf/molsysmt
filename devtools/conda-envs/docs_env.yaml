@@ -22,7 +22,11 @@ dependencies:
   # molsysviewer, the one remaining hard dependency, is deliberately absent here: it has
   # no py313 build on the channel, and its recipe requires molsysmt at run time, so conda
   # cannot install it without pulling a MolSysMT that this job then overwrites. The
-  # workflow installs it with `pip --no-deps` instead.
+  # workflow installs it with `pip --no-deps` instead, which means its own dependencies
+  # must be listed here too. It shares all of them with MolSysMT except these three.
+  - anywidget >=0.9.15
+  - traitlets >=5
+  - packaging >=23
   - matplotlib
   - argdigest >=0.11.0
   - depdigest >=0.10.0
