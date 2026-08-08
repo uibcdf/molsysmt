@@ -5,7 +5,7 @@ String forms in MolSysMT allow users to pass textual representations—ranging f
 
 ---
 
-## Supported String Forms
+## Supported Strings
 
 | String Form | Example Format / Content | Target Interpretation |
 | :--- | :--- | :--- |
@@ -16,4 +16,3 @@ String forms in MolSysMT allow users to pass textual representations—ranging f
 | **`string:smiles`** | `"CC(=O)OC1=CC=CC=C1C(=O)O"` | Parsed into small molecule topology and conformers via RDKit/OpenFF. |
 | **`string:amino_acids_1`** | `"ACDEFGHIKLMNPQRSTVWY"` | 1-letter amino acid sequence parsed into peptide topology. |
 | **`string:amino_acids_3`** | `"ALA-CYS-ASP-GLU-PHE"` | 3-letter amino acid sequence parsed into peptide topology. |
-| **`string:selection`** | `"atom_name == 'CA' and group_name == 'ALA'"` | Selection expression string parsed by MolSysMT's selection engine. |

@@ -5,11 +5,22 @@ MolSysMT supports a comprehensive set of disk file forms spanning native binary 
 
 ---
 
-## File Forms Matrix
+## Native File Formats
+
+Native file formats are specifically engineered for high-performance storage, trajectory streaming, and lossy-free persistence. For complete format specifications and dataset layouts, see the [{doc}`Native World Files Section </content/user/foundations/native_world/files/index>`].
 
 | Form Name | Extension | Description | Native Handler / Parser | Streaming Support |
 | :--- | :--- | :--- | :--- | :--- |
 | **`file:h5msm`** | `.h5msm` | Native HDF5 binary container | `H5MSMFileHandler` | Full Chunked & Iterative Streaming |
+
+---
+
+## External File Formats
+
+MolSysMT seamlessly reads, parses, and writes major third-party disk file formats across computational chemistry tools:
+
+| Form Name | Extension | Description | Native Handler / Parser | Streaming Support |
+| :--- | :--- | :--- | :--- | :--- |
 | **`file:pdb`** | `.pdb` | Protein Data Bank file | `PDBFileHandler` | Iterative Streaming (`TopologyIterator`, `StructuresIterator`) |
 | **`file:cif`** | `.cif` / `.mmcif` | Macromolecular Crystallographic Info | `CIFFileHandler` | Iterative Streaming |
 | **`file:bcif`** | `.bcif` | Binary mmCIF file | Internal BCIF Parser | In-Memory Parsing |
