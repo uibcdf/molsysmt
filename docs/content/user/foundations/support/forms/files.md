@@ -5,7 +5,7 @@ MolSysMT supports a comprehensive set of disk file forms spanning native binary 
 
 ---
 
-## Native File Formats
+## Native
 
 Native file formats are specifically engineered for high-performance storage, trajectory streaming, and lossy-free persistence. For complete format specifications and dataset layouts, see the [{doc}`Native World Files Section </content/user/foundations/native_world/files/index>`].
 
@@ -15,7 +15,7 @@ Native file formats are specifically engineered for high-performance storage, tr
 
 ---
 
-## External File Formats
+## External
 
 MolSysMT seamlessly reads, parses, and writes major third-party disk file formats across computational chemistry tools:
 

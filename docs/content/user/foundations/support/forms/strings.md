@@ -5,8 +5,6 @@ String forms in MolSysMT allow users to pass textual representations—ranging f
 
 ---
 
-## Supported Strings
-
 | String Form | Example Format / Content | Target Interpretation |
 | :--- | :--- | :--- |
 | **`string:pdb_text`** | Multi-line PDB formatted string | Parsed directly as a complete PDB structure in memory. |

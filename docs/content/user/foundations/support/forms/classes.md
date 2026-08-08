@@ -24,7 +24,7 @@ Native MolSysMT objects are engineered for high-performance indexing, zero-loss 
 
 ---
 
-## Supported Third-Party Classes
+## External
 
 MolSysMT seamlessly digests and converts object instances from major ecosystem packages:
 
