@@ -273,7 +273,6 @@ the slowest native runner completes.
 - `test_import.yaml` provides a manually dispatched import check.
 - `sphinx_docs_to_gh_pages.yaml` builds and publishes documentation.
 - `build_and_upload_conda_packages.yaml` builds Conda packages when dispatched.
-- `pr_agent.yaml` is repository automation, not a software validation gate.
 
 ### Python version policy
 
