@@ -10,6 +10,7 @@ internal rules and conventions is `devguide/`. If there is any conflict,
 
    intro/Introduction.md
    intro/fork.md
+   reporting.md
    start_dev_env_usage.md
    devcontainer.md
    dependencies.md

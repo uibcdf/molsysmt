@@ -47,6 +47,27 @@ the repository root `AGENTS.md`.
   - Examples that involve units should use the same units and shapes as enforced in tests (for example, coordinates in nm, box as `(n_structures, 3, 3)`).
 - Avoid duplicating long examples already present in docstrings; instead, link to API docs and focus on narrative usage and context.
 
+## Reporting a documentation defect or gap
+
+Documentation has its own two queues, and they are governed by the same protocol as the
+rest: `devguide/reporting_protocol.md`. Read it before filing or closing anything, and
+see `devguide/AGENTS.md` for the working rules.
+
+- `devguide/pending_bugs/docs/` — a page that is **wrong**: a signature that changed, an
+  example that no longer runs, a claim the code does not support.
+- `devguide/pending_proposals/docs/` — an explanation that **should exist and does not**,
+  or a reorganization. Documentation that is merely missing is a proposal, not a bug.
+
+Every entry carries front matter and a GitHub issue, and the queue indexes are generated
+from that front matter — edit the entries, never the list:
+
+```bash
+python devtools/scripts/devguide_issue.py open --kind documentation --title "..." --area docs
+python devtools/scripts/devguide_index.py
+```
+
+The reader-facing version of this process is `docs/content/developer/reporting.md`.
+
 ## Notebooks and tutorials
 
 - For tutorial notebooks (`*.ipynb`), follow the structure and conventions described in

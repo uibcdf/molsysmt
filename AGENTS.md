@@ -68,6 +68,29 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Keep tests deterministic and reasonably fast; rely on bundled systems in `molsysmt.systems` and small fixtures when possible.
 - When changing behavior, update or add tests to capture the intended semantics instead of weakening existing expectations.
 
+## Reporting a defect or a proposal
+
+**Read [`devguide/reporting_protocol.md`](devguide/reporting_protocol.md) before filing
+or closing anything.** It is normative and enforced by `validate_devguide.py` in the
+release gate. The short version:
+
+- If it deserves a document in `devguide/`, it deserves a GitHub issue. One theme, one
+  issue, one or more documents. We do not file documents for typos, so the document is
+  already the significance filter.
+- Open the issue first to get its number, then write the document from
+  [`devguide/templates/report.md`](devguide/templates/report.md) with `issue:` filled
+  in. `python devtools/scripts/devguide_issue.py open` does both.
+- The document holds the analysis and changes continuously. The issue holds state and
+  the settled facts an outside reader needs, and is written at two moments only — at
+  open and at close. Never put analysis in an issue.
+- Closing requires naming either the test that fails if the defect returns (`guard`) or
+  the normative document that absorbed the durable rules (`normative`). The validator
+  checks that the file exists.
+- Cross-repository references use `uibcdf/<repo>#<number>`, never a path into another
+  repository's `devguide/`. A path breaks silently; an issue closes.
+- Queue indexes are generated: `python devtools/scripts/devguide_index.py`. Edit the
+  entries, never the list.
+
 ## Git commits
 
 - Never add a `Co-Authored-By` trailer to commit messages. Commit messages must contain only the subject line and, when necessary, a body — no attribution footers of any kind.
@@ -82,7 +105,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - In native MolSysMT objects (for example, `molsysmt.Topology` and `molsysmt.MolSys`), element IDs (`*_id` fields) are stored as strings; normalize incoming numeric IDs to strings and keep this invariant in converters, rebuilders, and tests.
 - Always verify style and syntax safety using Ruff before committing or pushing. You must run the check command locally (e.g., `ruff check molsysmt`) or execute it via standard development environment scripts as needed.
 
-For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `docs/`, `coding/`, `molsysmt/form/`, and `tests/`.
+For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `devguide/`, `docs/`, `coding/`, `molsysmt/form/`, and `tests/`.
 
 ## External Tooling Guides (Required for Development)
 
