@@ -1,3 +1,18 @@
+---
+summary: Conversions advertised by the catalogue raise ModuleNotFoundError when called.
+issue: uibcdf/molsysmt#140
+status: partial
+opened: 2026-08-06
+closed:
+severity: medium
+verification: reproduced
+area: [form, convert]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Advertised conversions that raise `ModuleNotFoundError`
 
 **Reported:** 2026-08-06, from MolSysViewer, while verifying which input objects

@@ -275,6 +275,29 @@ def test_a_blocked_entry_shows_what_blocks_it():
     assert "Blocked by uibcdf/smonitor#4." in body
 
 
+def test_entries_are_ordered_worst_first_not_alphabetically():
+    body = devguide_index.render(
+        [
+            _report(name="low.md", severity="low"),
+            _report(name="critical.md", severity="critical"),
+            _report(name="medium.md", severity="medium"),
+        ],
+        archived=False,
+    )
+    assert body.index("critical.md") < body.index("medium.md") < body.index("low.md")
+
+
+def test_an_entry_without_a_severity_sorts_after_the_graded_ones():
+    body = devguide_index.render(
+        [
+            _report(name="proposal.md", queue="pending_proposals", severity=None),
+            _report(name="bug.md", severity="low"),
+        ],
+        archived=False,
+    )
+    assert body.index("bug.md") < body.index("proposal.md")
+
+
 def test_an_empty_queue_says_so():
     assert devguide_index.render([], archived=False) == "*No entries.*"
 
@@ -322,3 +345,61 @@ def test_a_readme_without_markers_is_reported(tmp_path, monkeypatch):
     _queue(tmp_path, monkeypatch, "pending_bugs", {"README.md": "# Pending Bugs\n"})
     _, errors = devguide_index.process(check=True)
     assert any("add the generated block markers" in error for error in errors)
+# --- the migration baseline ---------------------------------------------------------
+
+
+def test_an_entry_awaiting_migration_is_exempt_from_the_header(tmp_path, monkeypatch):
+    _queue(tmp_path, monkeypatch, "pending_proposals", {"old.md": "# Filed earlier\n"})
+    monkeypatch.setattr(
+        devguide_reports, "awaiting_migration", lambda: {str(tmp_path / "pending_proposals" / "old.md")}
+    )
+    _, errors = devguide_reports.load_queue("pending_proposals")
+    assert errors == []
+
+
+def test_a_new_entry_is_not_exempt(tmp_path, monkeypatch):
+    _queue(tmp_path, monkeypatch, "pending_proposals", {"new.md": "# Filed today\n"})
+    monkeypatch.setattr(devguide_reports, "awaiting_migration", lambda: set())
+    _, errors = devguide_reports.load_queue("pending_proposals")
+    assert any("no front matter" in error for error in errors)
+
+
+def test_the_baseline_lists_only_entries_that_exist_and_lack_a_header():
+    awaiting = devguide_reports.awaiting_migration()
+    for entry in sorted(awaiting):
+        path = devguide_reports.REPOSITORY_ROOT / entry
+        assert path.exists(), f"{entry} is listed as awaiting migration but is gone"
+        assert not path.read_text(encoding="utf-8").startswith("---\n"), (
+            f"{entry} has front matter; remove it from the migration baseline"
+        )
+
+
+# --- the corpus itself ------------------------------------------------------------
+
+
+def test_the_repository_satisfies_the_protocol():
+    assert devguide_reports.validate_all() == []
+
+
+def test_every_pending_entry_carries_an_issue():
+    reports, errors = devguide_reports.load_all(include_archives=False)
+    assert errors == []
+    missing = [str(report.relative) for report in reports if report.issue_number is None]
+    assert missing == [], "the asymmetry runs this way only: a document always has an issue"
+
+
+def test_the_template_is_a_valid_starting_point():
+    template = devguide_reports.DEVGUIDE_ROOT / "templates" / "report.md"
+    block, body = devguide_reports.split_front_matter(
+        template.read_text(encoding="utf-8")
+    )
+    assert block is not None, "the template must show the header it asks for"
+    parsed = devguide_reports.parse_front_matter(block)
+    assert set(parsed) <= set(devguide_reports.KNOWN_FIELDS)
+    assert set(devguide_reports.REQUIRED_FIELDS) <= set(parsed)
+    for heading in ("## What", "## How", "## Why", "## Acceptance criteria"):
+        assert heading in body, f"the template lost {heading}"
+
+
+def test_the_protocol_document_is_where_the_tooling_says_it_is():
+    assert (Path(devguide_reports.DEVGUIDE_ROOT) / "reporting_protocol.md").exists()

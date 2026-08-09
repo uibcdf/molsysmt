@@ -30,7 +30,26 @@ Large architectural proposals should begin with a small evidence-gathering phase
 and must not weaken dependency policy, lifecycle integrity, diagnostics, or the
 scientific-validation requirements.
 
+## Generated index
+
+Entries carrying front matter under
+[reporting_protocol.md](../reporting_protocol.md) are listed here automatically.
+
+<!-- generated: devguide_index -->
+
+*No entries.*
+
+<!-- /generated -->
+
 ## Triage map
+
+**Hand-written, and temporary.** These entries predate the reporting protocol and are
+recorded in `devtools/data/devguide_migration_baseline.json` as awaiting front matter
+and an issue. As each is migrated it moves into the generated index above and its line
+here is removed. Until that is finished this map is the only complete list, which is
+exactly the duplication the protocol removes -- it is tolerated only while the
+migration is in flight.
+
 
 ### Reliability and contract work
 
@@ -58,6 +77,9 @@ scientific-validation requirements.
 - `sasa_methodologies_and_acceleration_post_1_0.md` — cell-list acceleration and
   alternative SASA methodologies (LCPO, Lee–Richards).
 - `molsysviewer_molsysmt_nonblocking_heavy_operations.md`
+- `known_source_form_and_large_string_detection.md` — avoid treating large
+  in-memory molecular text as a filename and expose a deterministic public
+  source-form hint for integrations that know their representation.
 - `declared_selection_syntaxes_without_implementation.md` — seven syntaxes are
   declared and four of fourteen `(syntax, direction)` cells work; `MDAnalysis`
   is documented as available but reachable only from PDB files and MDAnalysis

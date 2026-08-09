@@ -27,6 +27,7 @@ try:  # imported as devtools.scripts.devguide_index by the tests
         CLOSED_STATUSES,
         DEVGUIDE_ROOT,
         OPEN_STATUSES,
+        SEVERITIES,
         Report,
         load_queue,
         queue_directories,
@@ -36,6 +37,7 @@ except ImportError:  # run as a script, with devtools/scripts on the path
         CLOSED_STATUSES,
         DEVGUIDE_ROOT,
         OPEN_STATUSES,
+        SEVERITIES,
         Report,
         load_queue,
         queue_directories,
@@ -78,6 +80,14 @@ def _qualifiers(report: Report) -> str:
     return f" *({', '.join(parts)})*" if parts else ""
 
 
+def _by_severity(report: Report) -> tuple[int, str]:
+    """Worst first. Entries without a severity -- proposals -- sort after the graded ones."""
+
+    severity = report.get("severity")
+    rank = SEVERITIES.index(severity) if severity in SEVERITIES else len(SEVERITIES)
+    return rank, report.path.name
+
+
 def _entry(report: Report) -> str:
     name = report.path.name
     summary = report.summary or "*no summary*"
@@ -102,9 +112,12 @@ def render(reports: list[Report], archived: bool) -> str:
         if not group:
             continue
         if archived:
-            group.sort(key=lambda report: (str(report.get("closed", "")), report.path.name), reverse=True)
+            group.sort(
+                key=lambda report: (str(report.get("closed", "")), report.path.name),
+                reverse=True,
+            )
         else:
-            group.sort(key=lambda report: (str(report.get("severity", "zzz")), report.path.name))
+            group.sort(key=_by_severity)
         lines.append(f"### {HEADINGS[status]} ({len(group)})")
         lines.append("")
         lines.extend(_entry(report) for report in group)

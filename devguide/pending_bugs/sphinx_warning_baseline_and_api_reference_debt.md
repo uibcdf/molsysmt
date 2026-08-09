@@ -1,3 +1,18 @@
+---
+summary: The documentation build carries a large accepted warning population that hides new warnings.
+issue: uibcdf/molsysmt#144
+status: partial
+opened: 2026-07-29
+closed:
+severity: low
+verification: measured
+area: [docs]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Sphinx Warning Baseline and API Reference Debt
 
 **Status:** confirmed documentation debt; accepted as non-blocking for the 1.0

@@ -8,6 +8,12 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote
 
+try:  # imported as devtools.scripts.validate_devguide by the tests
+    from devtools.scripts import devguide_index, devguide_reports
+except ImportError:  # run as a script, with devtools/scripts on the path
+    import devguide_index
+    import devguide_reports
+
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 DEVGUIDE_ROOT = REPOSITORY_ROOT / "devguide"
@@ -74,7 +80,21 @@ def validate() -> list[str]:
             if not resolved.exists():
                 errors.append(f"{relative}: broken local link: {target}")
 
+    errors.extend(devguide_reports.validate_all())
+    errors.extend(_stale_indexes())
+
     return errors
+
+
+def _stale_indexes() -> list[str]:
+    """The generated queue indexes must agree with the front matter they render."""
+
+    stale, errors = devguide_index.process(check=True)
+    return errors + [
+        f"{path}: generated index is stale; run "
+        f"python devtools/scripts/devguide_index.py"
+        for path in stale
+    ]
 
 
 def main() -> int:

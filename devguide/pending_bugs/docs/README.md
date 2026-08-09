@@ -11,6 +11,12 @@ established — running the example beats reading the source.
 Documentation that is merely *missing* is a proposal, not a bug: see
 [../../pending_proposals/docs/README.md](../../pending_proposals/docs/README.md).
 
+Entries are filed and closed under [reporting_protocol.md](../../reporting_protocol.md); the triage below is generated from their front matter.
+
 ## Current triage
 
-Empty.
+<!-- generated: devguide_index -->
+
+*No entries.*
+
+<!-- /generated -->

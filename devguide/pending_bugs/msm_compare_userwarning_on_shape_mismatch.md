@@ -1,3 +1,18 @@
+---
+summary: msm.compare() emits a UserWarning when array shapes differ, which is a normal outcome.
+issue: uibcdf/molsysmt#141
+status: open
+opened: 2026-08-04
+closed:
+severity: low
+verification: reproduced
+area: [basic]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Bug Report: `msm.compare()` emits `UserWarning` on array shape mismatches
 
 **Status:** Pending fix in `molsysmt/basic/compare.py`.

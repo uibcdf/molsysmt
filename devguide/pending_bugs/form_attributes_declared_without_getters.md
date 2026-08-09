@@ -1,3 +1,18 @@
+---
+summary: Forms declare attributes for which no getter or pipe can deliver a value.
+issue: uibcdf/molsysmt#139
+status: partial
+opened: 2026-07-13
+closed:
+severity: medium
+verification: measured
+area: [form, attribute]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Bug: forms declare attributes they cannot deliver
 
 **Status:** Tier 1 resolved; Tier 2 and Tier 3 remediation pending

@@ -1,3 +1,18 @@
+---
+summary: Converting into pytraj.Trajectory kills the process with SIGABRT, uncatchable from Python.
+issue: uibcdf/molsysmt#138
+status: open
+opened: 2026-08-08
+closed:
+severity: high
+verification: reproduced
+area: [form, convert]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Converting into `pytraj.Trajectory` aborts the interpreter
 
 **Reported:** 2026-08-08, found while mapping how an item of every declared form can be

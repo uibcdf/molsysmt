@@ -1,3 +1,18 @@
+---
+summary: The course validation gate disagrees with the manifest after the Common Core renumbering.
+issue: uibcdf/molsysmt#142
+status: partial
+opened: 2026-08-03
+closed:
+severity: medium
+verification: reproduced
+area: [docs, ci]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # The course validation gate is red after the Common Core renumbering
 
 **Reported:** 2026-08-03, noticed while editing Module 13. Pre-existing: no course

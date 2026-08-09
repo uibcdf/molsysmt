@@ -1,3 +1,18 @@
+---
+summary: molsysmt.MolSys converts to openmm.System through a converter that receives a native topology.
+issue: uibcdf/molsysmt#137
+status: partial
+opened: 2026-08-08
+closed:
+severity: medium
+verification: reproduced
+area: [form, convert]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # `molsysmt.MolSys` -> `openmm.System` passes a native topology to OpenMM's extractor
 
 **Reported:** 2026-08-08, found while mapping how an item of every declared form can be

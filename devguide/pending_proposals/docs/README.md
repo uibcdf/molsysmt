@@ -8,9 +8,15 @@ An entry should name the page or notebook where the explanation belongs, say wha
 reader can currently conclude without it, and link to the normative statement in the
 developer guide. These entries plan how to *explain* a rule; they never define one.
 
+Entries are filed and closed under [reporting_protocol.md](../../reporting_protocol.md); the triage below is generated from their front matter.
+
 ## Current triage
 
-Empty.
+<!-- generated: devguide_index -->
+
+*No entries.*
+
+<!-- /generated -->
 
 ## Recently closed
 

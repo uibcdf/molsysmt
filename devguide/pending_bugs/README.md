@@ -11,44 +11,36 @@ archive the report in the same change.
 The presence of a report takes precedence over an unqualified historical claim
 that the affected surface is fully verified.
 
+A report is filed and closed under [reporting_protocol.md](../reporting_protocol.md):
+every entry carries front matter, is tracked by an issue, and closes only when it
+names the test that fails if the defect returns. The triage below is generated from
+that front matter -- edit the entries, not this list.
+
 ## Current triage
 
-### Scientific-integrity risk
+<!-- generated: devguide_index -->
 
-- `form_attributes_declared_without_getters.md` — Tier 1 is resolved; Tier 2 and
-  Tier 3 remediation is pending.
+### Open (3)
 
-### Broken public paths
+- [`convert_to_pytraj_trajectory_aborts_the_interpreter.md`](convert_to_pytraj_trajectory_aborts_the_interpreter.md) — [#138](https://github.com/uibcdf/molsysmt/issues/138) — Converting into pytraj.Trajectory kills the process with SIGABRT, uncatchable from Python. *(high, reproduced)*
+- [`msm_compare_userwarning_on_shape_mismatch.md`](msm_compare_userwarning_on_shape_mismatch.md) — [#141](https://github.com/uibcdf/molsysmt/issues/141) — msm.compare() emits a UserWarning when array shapes differ, which is a normal outcome. *(low, reproduced)*
+- [`openff_tests_uncollectable_from_ambertools_version_parsing.md`](openff_tests_uncollectable_from_ambertools_version_parsing.md) — [#143](https://github.com/uibcdf/molsysmt/issues/143) — Five OpenFF test modules fail at collection because the toolkit misparses the AmberTools version. *(low, upstream)*
 
-- `form_conversions_importing_nonexistent_modules.md` — three conversions the
-  catalogue advertises raise `ModuleNotFoundError`. `file:prmtop → molsysmt.MolSys`
-  was a dead import and is fixed; the static sweep that found all three now guards
-  the form tree with the remaining two as a baseline that cannot grow. Those two
-  each need a semantic decision before they can be written.
+### Partially resolved (5)
 
-### Incorrect success or hidden failure
+- [`convert_molsys_to_openmm_system_passes_the_wrong_topology.md`](convert_molsys_to_openmm_system_passes_the_wrong_topology.md) — [#137](https://github.com/uibcdf/molsysmt/issues/137) — molsysmt.MolSys converts to openmm.System through a converter that receives a native topology. *(medium, reproduced)*
+- [`course_gate_red_after_common_core_renumbering.md`](course_gate_red_after_common_core_renumbering.md) — [#142](https://github.com/uibcdf/molsysmt/issues/142) — The course validation gate disagrees with the manifest after the Common Core renumbering. *(medium, reproduced)*
+- [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
+- [`form_conversions_importing_nonexistent_modules.md`](form_conversions_importing_nonexistent_modules.md) — [#140](https://github.com/uibcdf/molsysmt/issues/140) — Conversions advertised by the catalogue raise ModuleNotFoundError when called. *(medium, reproduced)*
+- [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 
-- `smonitor_warn_drops_structured_extra.md` — reported upstream and pending there;
-  worked around inside MolSysMT.
-
-### Contract and maintainability
-
-- `course_gate_red_after_common_core_renumbering.md` — the gate is green again, with
-  the Common Core module count and label scheme deferred rather than asserted while
-  the section is unconsolidated. Both must be re-enabled once it settles.
-- `sphinx_warning_baseline_and_api_reference_debt.md` — the documentation builds
-  and the course has no nonexistent toctree target, but historical API,
-  navigation, heading, title, and notebook-metadata warning families remain.
-  The baseline is measured and explicitly accepted as non-blocking for the 1.0
-  source release; new warnings must not be hidden or globally suppressed.
-
-### Documentation bugs
-
-- [`docs/README.md`](docs/README.md) — index and triage of pending documentation bugs.
+<!-- /generated -->
 
 Severity within a group still depends on the affected public workflow. Confirmed
 bugs require a regression test; suspected bugs require a minimal reproduction
 before implementation.
+
+Documentation bugs have their own queue in [`docs/`](docs/README.md).
 
 ## Recently closed
 

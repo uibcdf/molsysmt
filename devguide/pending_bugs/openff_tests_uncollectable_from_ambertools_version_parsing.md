@@ -1,3 +1,18 @@
+---
+summary: Five OpenFF test modules fail at collection because the toolkit misparses the AmberTools version.
+issue: uibcdf/molsysmt#143
+status: open
+opened: 2026-08-08
+closed:
+severity: low
+verification: upstream
+area: [tests, deps]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # The OpenFF test modules cannot be collected in this environment
 
 **Reported:** 2026-08-08, seen in a full-suite run (9878 passed, 2 skipped) as the only

@@ -13,6 +13,7 @@ construction.
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -20,6 +21,7 @@ from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 DEVGUIDE_ROOT = REPOSITORY_ROOT / "devguide"
+MIGRATION_BASELINE = REPOSITORY_ROOT / "devtools/data/devguide_migration_baseline.json"
 
 BUG_QUEUES = ("pending_bugs", "pending_bugs/docs")
 PROPOSAL_QUEUES = ("pending_proposals", "pending_proposals/docs")
@@ -179,11 +181,25 @@ def queue_directories(include_archives: bool = False) -> tuple[str, ...]:
     return queues
 
 
+def awaiting_migration() -> set[str]:
+    """Entries filed before this protocol and not yet given a header.
+
+    The list may only shrink. A queue entry created from now on fails validation
+    without front matter whatever this file says.
+    """
+
+    if not MIGRATION_BASELINE.exists():
+        return set()
+    payload = json.loads(MIGRATION_BASELINE.read_text(encoding="utf-8"))
+    return set(payload.get("awaiting_front_matter", ()))
+
+
 def load_queue(queue: str) -> tuple[list[Report], list[str]]:
     """Load one queue. Returns its reports and the errors found while reading them."""
 
     reports: list[Report] = []
     errors: list[str] = []
+    awaiting = awaiting_migration()
     directory = DEVGUIDE_ROOT / queue
 
     if not directory.is_dir():
@@ -201,8 +217,9 @@ def load_queue(queue: str) -> tuple[list[Report], list[str]]:
         if block is None:
             # Documents archived before this protocol was adopted carry no front
             # matter, and DOCUMENT_POLICY.md makes archived material immutable, so
-            # they are not retrofitted. In a pending queue the header is required.
-            if not queue.startswith("archive/"):
+            # they are not retrofitted. In a pending queue the header is required
+            # unless the entry is recorded as awaiting migration.
+            if not queue.startswith("archive/") and str(relative) not in awaiting:
                 errors.append(
                     f"{relative}: no front matter; every queue entry needs one "
                     f"(see devguide/reporting_protocol.md)"
@@ -347,6 +364,21 @@ def validate_all(include_archives: bool = True) -> list[str]:
 
     for report in reports:
         errors.extend(validate(report))
+
+    # The migration baseline records debt, so it must not outlive it.
+    awaiting = awaiting_migration()
+    for report in reports:
+        if str(report.relative) in awaiting:
+            errors.append(
+                f"{report.relative}: has front matter but is still listed in "
+                f"{MIGRATION_BASELINE.relative_to(REPOSITORY_ROOT)}; remove it there"
+            )
+    for entry in sorted(awaiting):
+        if not (REPOSITORY_ROOT / entry).exists():
+            errors.append(
+                f"{entry}: listed as awaiting migration but no longer exists; "
+                f"remove it from {MIGRATION_BASELINE.relative_to(REPOSITORY_ROOT)}"
+            )
 
     seen: dict[str, Path] = {}
     for report in reports:
