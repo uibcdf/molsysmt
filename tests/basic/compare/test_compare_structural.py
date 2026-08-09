@@ -3,10 +3,15 @@ Tests for the structural attributes section of molsysmt.compare (lines 529-607)
 and the redefine_indices branch.
 """
 
-import molsysmt as msm
-from molsysmt import systems
+import warnings
+
 import numpy as np
 import pytest
+
+import molsysmt as msm
+from molsysmt import pyunitwizard as puw
+from molsysmt import systems
+from molsysmt.native import Structures
 
 
 # ---------------------------------------------------------------------------
@@ -116,9 +121,49 @@ def test_compare_box_identical(t4_h5msm_molsys):
 
 
 def test_compare_coordinates_different_systems(t4_h5msm_molsys, hp35_molsys):
-    """Comparing coordinates of systems with different atom counts returns False."""
-    result = msm.compare(t4_h5msm_molsys, hp35_molsys, coordinates=True)
+    """Comparing coordinate arrays with different shapes returns False without warning."""
+    with warnings.catch_warnings():
+        warnings.simplefilter('error')
+        result = msm.compare(t4_h5msm_molsys, hp35_molsys, coordinates=True)
     assert result is False
+
+
+def test_compare_topological_shape_mismatch_is_a_quiet_false(t4_h5msm_molsys, hp35_molsys):
+    """Returning False for an ordinary topological shape mismatch emits no warning."""
+    with warnings.catch_warnings():
+        warnings.simplefilter('error')
+        result = msm.compare(t4_h5msm_molsys, hp35_molsys, atom_name=True)
+
+    assert result is False
+
+
+@pytest.mark.parametrize(
+    ('attribute', 'first', 'second'),
+    [
+        (
+            'velocities',
+            Structures(velocities=puw.quantity(np.zeros((1, 2, 3)), 'nm/ps')),
+            Structures(velocities=puw.quantity(np.zeros((1, 3, 3)), 'nm/ps')),
+        ),
+        (
+            'box',
+            Structures(box=puw.quantity(np.eye(3)[None, :, :], 'nm')),
+            Structures(box=puw.quantity(np.repeat(np.eye(3)[None, :, :], 2, axis=0), 'nm')),
+        ),
+    ],
+)
+def test_compare_structural_shape_mismatch_is_a_quiet_false(attribute, first, second):
+    """Returning False for an ordinary structural shape mismatch emits no warning."""
+    with warnings.catch_warnings():
+        warnings.simplefilter('error')
+        result = msm.compare(
+            first,
+            second,
+            output_type='dictionary',
+            **{attribute: True},
+        )
+
+    assert result == {attribute: False}
 
 
 # ---------------------------------------------------------------------------

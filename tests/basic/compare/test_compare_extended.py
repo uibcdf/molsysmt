@@ -87,10 +87,11 @@ def test_compare_bonded_atom_pairs_identical(t4_molsys):
 
 
 def test_compare_bonded_atom_pairs_different(t4_molsys, hp35_molsys):
-    """bonded_atom_pairs=True on different systems returns False (exercises size-mismatch warn)."""
+    """bonded_atom_pairs=True on different systems returns False without warning."""
     import warnings
-    with warnings.catch_warnings(record=True):
-        warnings.simplefilter("always")
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
         result = msm.compare(t4_molsys, hp35_molsys, bonded_atom_pairs=True)
     assert result is False
 
