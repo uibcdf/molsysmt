@@ -7,15 +7,14 @@ openff-toolkit adds explicit hydrogens by default:
   n_bonds = 25  (15 heavy-atom bonds + 10 C-H/N-H bonds)
 """
 
+from importlib.util import find_spec
+
 import pytest
 
-try:
-    from openff.toolkit.topology import Molecule
-    HAS_OPENFF = True
-except ImportError:
-    HAS_OPENFF = False
+if find_spec('openff.toolkit') is None:
+    pytest.skip('openff-toolkit is not installed', allow_module_level=True)
 
-needs_openff = pytest.mark.skipif(not HAS_OPENFF, reason="openff-toolkit not installed")
+from openff.toolkit.topology import Molecule
 
 CAFFEINE_SMILES = 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C'
 
@@ -29,7 +28,6 @@ def caffeine_mol():
 # Form recognition
 # ---------------------------------------------------------------------------
 
-@needs_openff
 def test_get_form(caffeine_mol):
     import molsysmt as msm
     assert msm.get_form(caffeine_mol) == 'openff.Molecule'
@@ -39,21 +37,18 @@ def test_get_form(caffeine_mol):
 # System-level topological attributes
 # ---------------------------------------------------------------------------
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_atoms(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_atoms=True) == 24
 
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_bonds(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_bonds=True) == 25
 
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_groups(caffeine_mol):
     # No residue/group hierarchy in a bare SMILES-derived molecule
@@ -61,21 +56,18 @@ def test_n_groups(caffeine_mol):
     assert msm.get(caffeine_mol, element='system', n_groups=True) == 0
 
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_components(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_components=True) == 1
 
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_molecules(caffeine_mol):
     import molsysmt as msm
     assert msm.get(caffeine_mol, element='system', n_molecules=True) == 0
 
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_entities(caffeine_mol):
     import molsysmt as msm
@@ -86,7 +78,6 @@ def test_n_entities(caffeine_mol):
 # Conversions
 # ---------------------------------------------------------------------------
 
-@needs_openff
 def test_to_openff_Topology(caffeine_mol):
     import molsysmt as msm
     result = msm.convert(caffeine_mol, to_form='openff.Topology')
@@ -94,21 +85,18 @@ def test_to_openff_Topology(caffeine_mol):
     assert result.n_atoms == 24
 
 
-@needs_openff
 def test_to_molsysmt_Topology(caffeine_mol):
     import molsysmt as msm
     result = msm.convert(caffeine_mol, to_form='molsysmt.Topology')
     assert msm.get(result, element='system', n_atoms=True) == 24
 
 
-@needs_openff
 def test_to_rdkit_Mol(caffeine_mol):
     import molsysmt as msm
     result = msm.convert(caffeine_mol, to_form='rdkit.Mol')
     assert msm.get_form(result) == 'rdkit.Mol'
 
 
-@needs_openff
 def test_to_string_smiles(caffeine_mol):
     import molsysmt as msm
     result = msm.convert(caffeine_mol, to_form='string:smiles')

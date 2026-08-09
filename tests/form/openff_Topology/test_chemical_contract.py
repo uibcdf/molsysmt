@@ -1,10 +1,15 @@
 """Testing multi-molecule OpenFF topology chemistry boundaries."""
 
+from importlib.util import find_spec
+
 import numpy as np
 import pytest
 
-openff_topology = pytest.importorskip('openff.toolkit.topology')
-unit = pytest.importorskip('openff.units').unit
+if find_spec('openff.toolkit') is None:
+    pytest.skip('openff-toolkit is not installed', allow_module_level=True)
+
+import openff.toolkit.topology as openff_topology
+from openff.units import unit
 
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw

@@ -20,10 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
 - [`convert_to_pytraj_trajectory_aborts_the_interpreter.md`](convert_to_pytraj_trajectory_aborts_the_interpreter.md) — [#138](https://github.com/uibcdf/molsysmt/issues/138) — Converting into pytraj.Trajectory kills the process with SIGABRT, uncatchable from Python. *(high, reproduced)*
-- [`openff_tests_uncollectable_from_ambertools_version_parsing.md`](openff_tests_uncollectable_from_ambertools_version_parsing.md) — [#143](https://github.com/uibcdf/molsysmt/issues/143) — Five OpenFF test modules fail at collection because the toolkit misparses the AmberTools version. *(low, upstream)*
 
 ### Partially resolved (5)
 

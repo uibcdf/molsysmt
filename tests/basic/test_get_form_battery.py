@@ -82,6 +82,8 @@ ROUTES = {
     'openmm.Modeller': ('convert', 'molsys'),
     'openmm.PDBFile': ('convert', 'pdb_file'),
     'openmm.Topology': ('convert', 'molsys'),
+    'openff.Molecule': ('openff', 'molecule'),
+    'openff.Topology': ('openff', 'topology'),
     'parmed.Structure': ('convert', 'molsys'),
     'pdbfixer.PDBFixer': ('convert', 'molsys'),
     'pytraj.Topology': ('convert', 'molsys'),
@@ -117,7 +119,7 @@ for _form in (
     'file:smi', 'file:structures_yaml', 'file:top', 'file:topology_yaml', 'file:xyz',
     'mdtraj.AmberRestartFile', 'mdtraj.HDF5TrajectoryFile',
     'mmcif.PdbxContainers.DataContainer', 'molsysmt.CIFFileHandler',
-    'molsysmt.MolecularMechanicsDict', 'openff.Molecule', 'openff.Topology',
+    'molsysmt.MolecularMechanicsDict',
     'openmm.Context', 'openmm.GromacsTopFile', 'openmm.State',
     'parmed.GromacsTopologyFile',
 ):
@@ -148,6 +150,13 @@ def _build(form, origins):
         return route[1]
     if route[0] == 'convert_file':
         return msm.convert(systems[route[1]][route[2]], to_form=form)
+    if route[0] == 'openff':
+        from openff.toolkit.topology import Molecule
+
+        molecule = Molecule.from_smiles('CCO')
+        if route[1] == 'topology':
+            return molecule.to_topology()
+        return molecule
     return msm.convert(origins[route[1]], to_form=form)
 
 

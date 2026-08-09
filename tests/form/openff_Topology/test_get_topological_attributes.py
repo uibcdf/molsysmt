@@ -8,15 +8,14 @@ Multi-molecule topology: caffeine + ethanol (CCO, 9 atoms with H).
   combined: 33 atoms, 33 bonds
 """
 
+from importlib.util import find_spec
+
 import pytest
 
-try:
-    from openff.toolkit.topology import Molecule, Topology
-    HAS_OPENFF = True
-except ImportError:
-    HAS_OPENFF = False
+if find_spec('openff.toolkit') is None:
+    pytest.skip('openff-toolkit is not installed', allow_module_level=True)
 
-needs_openff = pytest.mark.skipif(not HAS_OPENFF, reason="openff-toolkit not installed")
+from openff.toolkit.topology import Molecule, Topology
 
 CAFFEINE_SMILES = 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C'
 ETHANOL_SMILES = 'CCO'
@@ -41,7 +40,6 @@ def two_mol_top():
 # Form recognition
 # ---------------------------------------------------------------------------
 
-@needs_openff
 def test_get_form(caffeine_top):
     import molsysmt as msm
     assert msm.get_form(caffeine_top) == 'openff.Topology'
@@ -51,21 +49,18 @@ def test_get_form(caffeine_top):
 # Single-molecule topology
 # ---------------------------------------------------------------------------
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_atoms_single(caffeine_top):
     import molsysmt as msm
     assert msm.get(caffeine_top, element='system', n_atoms=True) == 24
 
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_bonds_single(caffeine_top):
     import molsysmt as msm
     assert msm.get(caffeine_top, element='system', n_bonds=True) == 25
 
 
-@needs_openff
 def test_n_components_single(caffeine_top):
     import molsysmt as msm
     assert msm.get(caffeine_top, element='system', n_components=True) == 1
@@ -75,7 +70,6 @@ def test_n_components_single(caffeine_top):
 # Multi-molecule topology
 # ---------------------------------------------------------------------------
 
-@needs_openff
 @pytest.mark.redundant
 def test_n_atoms_two_mols(two_mol_top):
     import molsysmt as msm
@@ -83,7 +77,6 @@ def test_n_atoms_two_mols(two_mol_top):
     assert msm.get(two_mol_top, element='system', n_atoms=True) == 33
 
 
-@needs_openff
 def test_n_components_two_mols(two_mol_top):
     # caffeine + ethanol → 2 disconnected components
     import molsysmt as msm
@@ -94,21 +87,18 @@ def test_n_components_two_mols(two_mol_top):
 # Conversions
 # ---------------------------------------------------------------------------
 
-@needs_openff
 def test_to_molsysmt_Topology(caffeine_top):
     import molsysmt as msm
     result = msm.convert(caffeine_top, to_form='molsysmt.Topology')
     assert msm.get(result, element='system', n_atoms=True) == 24
 
 
-@needs_openff
 def test_to_openmm_Topology(caffeine_top):
     import molsysmt as msm
     result = msm.convert(caffeine_top, to_form='openmm.Topology')
     assert msm.get_form(result) == 'openmm.Topology'
 
 
-@needs_openff
 def test_to_openff_Molecule_single(caffeine_top):
     import molsysmt as msm
     result = msm.convert(caffeine_top, to_form='openff.Molecule')
@@ -116,7 +106,6 @@ def test_to_openff_Molecule_single(caffeine_top):
     assert result.n_atoms == 24
 
 
-@needs_openff
 def test_roundtrip_molecule_topology(caffeine_top):
     import molsysmt as msm
     mol = msm.convert(caffeine_top, to_form='openff.Molecule')

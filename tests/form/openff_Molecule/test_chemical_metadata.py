@@ -1,9 +1,14 @@
 """Testing canonical chemical-state conversion from OpenFF Molecule."""
 
+from importlib.util import find_spec
+
 import pytest
 import pandas as pd
 
-Molecule = pytest.importorskip('openff.toolkit.topology').Molecule
+if find_spec('openff.toolkit') is None:
+    pytest.skip('openff-toolkit is not installed', allow_module_level=True)
+
+from openff.toolkit.topology import Molecule
 
 import molsysmt as msm
 

@@ -21,6 +21,8 @@ dependencies:
 - openmm
 - pdbfixer
 - ambertools
+- openff-toolkit-base >=0.17.1
+- openff-units >=0.3.0
 - mdtraj
 - mdanalysis
 - rdkit

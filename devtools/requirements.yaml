@@ -23,6 +23,8 @@ production:
     - pdbfixer
     - molsysviewer
     - ambertools
+    - openff-toolkit-base >=0.17.1
+    - openff-units >=0.3.0
     - networkx
     - mdtraj
     - mdanalysis

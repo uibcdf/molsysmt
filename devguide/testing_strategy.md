@@ -255,6 +255,19 @@ The 1.0.0 transition (specifically Lazy Loading 2.0) has rendered many old tests
 ## Optional Dependencies
 Tests that require soft dependencies must guard availability and skip cleanly.
 
+Availability and import health are different conditions. A module may be skipped only
+when the dependency's import root is absent. Tests must not catch an `ImportError` raised
+while importing an installed dependency, because that turns broken or incompatible
+installations into a green suite with missing coverage. Check presence first (for example,
+with `importlib.util.find_spec`) and then import normally so an installed-but-broken
+dependency fails collection.
+
+The OpenFF adapters exercise this distinction explicitly. The CI and development
+environments require `openff-toolkit-base >=0.17.1` (the first release line declaring
+support for Python 3.11–3.13 after the safe AmberTools version check) together with
+`openff-units >=0.3.0` (compatible with modern Pint). RDKit and AmberTools remain separate
+soft dependencies; MolSysMT does not require the heavier `openff-toolkit` metapackage.
+
 ## Determinism
 Tests must be deterministic and reasonably fast. Use bundled systems in
 `molsysmt.systems` when possible.
