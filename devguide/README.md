@@ -120,6 +120,10 @@ dependency, or scientific contracts above.
 
 ## Work queues
 
+[reporting_protocol.md](reporting_protocol.md) governs how an entry enters these
+queues, how it is tracked on the issue board, and how it closes. Every entry carries
+front matter that the validator checks and the queue indexes are generated from.
+
 - [Pending bugs](pending_bugs/README.md) contain reproduced or suspected defects.
 - [Pending proposals](pending_proposals/README.md) contain ideas awaiting a
   decision or implementation.

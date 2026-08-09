@@ -21,7 +21,12 @@ root unless the document states otherwise.
 
 ### Pending
 
-Pending bug reports and proposals describe unresolved work. They must state:
+Pending bug reports and proposals describe unresolved work. Their lifecycle — front
+matter, issue tracking, and closing conditions — is defined by
+[reporting_protocol.md](reporting_protocol.md), and
+[templates/report.md](templates/report.md) is the starting point for a new one.
+
+They must state:
 
 - the problem or opportunity;
 - the evidence currently available;
