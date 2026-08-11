@@ -56,3 +56,7 @@ _convert_to={
         'pytraj.Topology': 'to_pytraj_Topology',
         'pytraj.Trajectory': 'to_pytraj_Trajectory',
         }
+
+_conversion_opt_kwargs={
+        'pytraj.Topology': ['max_bond_length'],
+        }

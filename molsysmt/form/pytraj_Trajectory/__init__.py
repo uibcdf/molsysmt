@@ -2,9 +2,11 @@ form_name = 'pytraj.Trajectory'
 form_type = 'class'
 form_info = ["", ""]
 
-piped_topological_attribute = None
+piped_topological_attribute = 'molsysmt.Topology'
 piped_structural_attribute = None
-piped_any_attribute = None
+piped_any_attribute = 'molsysmt.MolSys'
+bonds_are_explicit = True
+bonds_can_be_computed = False
 
 from .is_form import is_form
 
@@ -30,10 +32,3 @@ _convert_to={
         'pytraj.Topology': 'to_pytraj_Topology',
         'nglview.NGLWidget': 'to_nglview_NGLWidget',
         }
-
-
-piped_topological_attribute = None
-piped_structural_attribute = None
-piped_any_attribute = None
-bonds_are_explicit = False
-bonds_can_be_computed = False

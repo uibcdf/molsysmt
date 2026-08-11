@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`convert_to_pytraj_trajectory_aborts_the_interpreter.md`](convert_to_pytraj_trajectory_aborts_the_interpreter.md) — [#138](https://github.com/uibcdf/molsysmt/issues/138) — Converting into pytraj.Trajectory kills the process with SIGABRT, uncatchable from Python. *(high, reproduced)*
-
 ### Partially resolved (5)
 
 - [`convert_molsys_to_openmm_system_passes_the_wrong_topology.md`](convert_molsys_to_openmm_system_passes_the_wrong_topology.md) — [#137](https://github.com/uibcdf/molsysmt/issues/137) — molsysmt.MolSys converts to openmm.System through a converter that receives a native topology. *(medium, reproduced)*

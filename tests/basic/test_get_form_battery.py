@@ -87,6 +87,7 @@ ROUTES = {
     'parmed.Structure': ('convert', 'molsys'),
     'pdbfixer.PDBFixer': ('convert', 'molsys'),
     'pytraj.Topology': ('convert', 'molsys'),
+    'pytraj.Trajectory': ('convert', 'molsys'),
     'rdkit.Mol': ('convert', 'molsys'),
     'string:alphafold_id': ('literal', 'AF-P00720-F1'),
     'string:amino_acids_1': ('convert', 'molsys'),
@@ -100,9 +101,6 @@ ROUTES = {
 #: Declared forms this battery cannot build an item of yet, and why. Entries here are work
 #: to do, not forms excused from being correct.
 UNREACHED = {
-    'pytraj.Trajectory':
-        'converting into it aborts the interpreter -- see '
-        'devguide/pending_bugs/convert_to_pytraj_trajectory_aborts_the_interpreter.md',
     'openmm.System':
         'unreachable from molsysmt.MolSys -- see devguide/pending_bugs/'
         'convert_molsys_to_openmm_system_passes_the_wrong_topology.md',
@@ -144,6 +142,15 @@ def origins():
 
 def _build(form, origins):
     route = ROUTES[form]
+    if form == 'pytraj.Trajectory':
+        try:
+            from molsysmt.form.pytraj_Trajectory._runtime import (
+                has_unsafe_frame_finalizer,
+            )
+            if has_unsafe_frame_finalizer():
+                pytest.skip('the installed PyTraj extension has the obsolete finalizer')
+        except ImportError:
+            pytest.skip('PyTraj is not installed')
     if route[0] == 'system':
         return systems[route[1]][route[2]]
     if route[0] == 'literal':
