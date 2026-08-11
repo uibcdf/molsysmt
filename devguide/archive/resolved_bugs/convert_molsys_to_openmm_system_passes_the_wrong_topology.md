@@ -1,13 +1,13 @@
 ---
-summary: molsysmt.MolSys converts to openmm.System through a converter that receives a native topology.
+summary: MolSys-to-OpenMM construction crossed adapter boundaries and could not build usable simulations.
 issue: uibcdf/molsysmt#137
-status: partial
+status: resolved
 opened: 2026-08-08
-closed:
+closed: 2026-08-11
 severity: medium
 verification: reproduced
 area: [form, convert]
-guard:
+guard: tests/form/openmm_Simulation/test_conversion_contract.py::test_molsys_builds_a_cpu_simulation_by_default
 normative:
 blocked_by: []
 supersedes: []
@@ -18,8 +18,9 @@ supersedes: []
 **Reported:** 2026-08-08, found while mapping how an item of every declared form can be
 obtained, for a `get_form` test battery.
 
-**Status:** `openmm.System` fixed on 2026-08-08. `openmm.Simulation` still open -- the
-same route uncovered a second, independent defect described below.
+**Status:** resolved on 2026-08-11. The `openmm.System` route was repaired first; the
+follow-up established and implemented the complete `openmm.Simulation` construction
+contract.
 
 **Severity:** medium. Two declared conversion targets, `openmm.System` and
 `openmm.Simulation`, are unreachable from `molsysmt.MolSys`, and the failure surfaces as a
@@ -102,3 +103,52 @@ converter reaching into *another plugin* for a converter whose name matches the 
 form, instead of the sibling in its own plugin that converts *from* this form. The names
 are identical, so the mistake reads as correct. A check that every `to_x` called on `item`
 comes from the plugin whose form `item` has would find them all.
+
+## Resolution
+
+The final contract follows OpenMM's own object model instead of treating identically named
+adapter functions as interchangeable:
+
+1. A source adapter first obtains an `openmm.Topology` through its own sibling converter.
+2. The topology adapter builds the `openmm.System` from the requested force-field policy.
+3. A private builder creates the Langevin integrator and `openmm.app.Simulation`, then sets
+   the initial positions on the new context.
+
+The builder refuses to invent coordinates. `molsysmt.MolSys`, `openmm.Modeller`, and PDB
+sources can construct a simulation because they can supply topology and positions. A bare
+`openmm.Topology` can do so only when `coordinates=` is explicit. The declared
+`openmm.System -> openmm.Simulation` edge was removed: a System contains neither topology
+nor positions and therefore cannot satisfy the constructor contract by itself.
+
+For an ordered `structure_indices` request, the first requested structure initializes the
+context. This is tested with `[19, 0]`, so an implementation that sorts or silently chooses
+structure zero fails. With `structure_indices='all'`, all coordinates remain available to
+the source-side selection contract while only the first structure's periodic box is used
+to construct the single OpenMM topology. The portable default platform is now CPU; CUDA
+remains available as an explicit request on installations that provide a usable CUDA
+platform. This prevents a machine with the OpenMM CUDA plugin but no CUDA device from
+failing during an otherwise ordinary conversion.
+
+The canonical conversion keywords now include `water_model`, `implicit_solvent`,
+`dispersion_correction`, and `ewald_error_tolerance`. User documentation and the four
+course OpenMM modules state the coordinate, initial-structure, platform, and canonical
+force-field-name contracts.
+
+### Evidence
+
+- **Contract-tested:**
+  `tests/form/openmm_Simulation/test_conversion_contract.py` covers MolSys construction,
+  CPU default, requested-structure order, multi-structure ensembles with a single initial
+  periodic box, missing coordinates, explicit coordinates for a topology source, PDB and
+  Modeller construction, and the absence of the invalid System edge.
+- **Parity-tested:** the affected OpenMM and PDB form surfaces completed with 1,852 passed
+  and 2 known PyTraj skips under 12 pytest workers.
+- **Structurally validated:** the generated converter-argument domain, form-adapter
+  validator, dependency validator, and converter-routing audit were rerun. The routing
+  audit remains an advisory inventory with pre-existing candidates; this resolution adds
+  no direct cross-plugin call on a source `item`.
+
+This change is not a claim that arbitrary chemistry can be parameterized by AMBER14. A
+source still needs a topology compatible with the selected force field. The resolved bug
+was that valid, parameterizable inputs could not reach a usable Simulation through the
+declared MolSysMT conversion.

@@ -28,7 +28,7 @@ All global options are attributes of `molsysmt.configure`:
 - **`show_all_capabilities`**: Boolean flag (`True`/`False`). When `True`, MolSysMT exposes all supported forms; when `False`, it filters available forms based on installed soft dependencies.
 
 ### 5. Molecular Mechanics & Viewer Defaults
-- **`default_attribute`**: Dictionary specifying default parameters for forcefields (`'AMBER14'`), water models (`'TIP3P'`), integrators (`'Langevin'`), and compute platforms (`'CUDA'`).
+- **`default_attribute`**: Dictionary specifying default parameters for forcefields (`'AMBER14'`), water models (`'TIP3P'`), integrators (`'Langevin'`), and compute platforms (`'CPU'`). GPU platforms must be requested explicitly.
 - **`default_viewer`**: Default 3D visualization backend (default: `'MolSysViewer'`).
 
 ### 6. Backend Control & Telemetry

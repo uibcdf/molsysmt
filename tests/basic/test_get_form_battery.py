@@ -81,6 +81,8 @@ ROUTES = {
     'openmm.GromacsGroFile': ('convert_file', 'nglview', 'md_1u19.gro'),
     'openmm.Modeller': ('convert', 'molsys'),
     'openmm.PDBFile': ('convert', 'pdb_file'),
+    'openmm.Simulation': ('convert', 'molsys'),
+    'openmm.System': ('convert', 'molsys'),
     'openmm.Topology': ('convert', 'molsys'),
     'openff.Molecule': ('openff', 'molecule'),
     'openff.Topology': ('openff', 'topology'),
@@ -100,13 +102,7 @@ ROUTES = {
 
 #: Declared forms this battery cannot build an item of yet, and why. Entries here are work
 #: to do, not forms excused from being correct.
-UNREACHED = {
-    'openmm.System':
-        'unreachable from molsysmt.MolSys -- see devguide/pending_bugs/'
-        'convert_molsys_to_openmm_system_passes_the_wrong_topology.md',
-    'openmm.Simulation':
-        'unreachable from molsysmt.MolSys -- same bug as openmm.System',
-}
+UNREACHED = {}
 
 _NO_ROUTE = 'no conversion route from the origins this battery builds; needs an item ' \
             'constructed directly with the third-party library'

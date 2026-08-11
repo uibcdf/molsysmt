@@ -48,3 +48,7 @@ _convert_to={
         'string:amino_acids_1': 'to_string_amino_acids_1',
         'string:amino_acids_3': 'to_string_amino_acids_3',
         }
+
+_conversion_opt_kwargs={
+        'openmm.Simulation': ['collisions_rate', 'integration_timestep'],
+        }

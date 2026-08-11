@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Partially resolved (5)
+### Partially resolved (4)
 
-- [`convert_molsys_to_openmm_system_passes_the_wrong_topology.md`](convert_molsys_to_openmm_system_passes_the_wrong_topology.md) — [#137](https://github.com/uibcdf/molsysmt/issues/137) — molsysmt.MolSys converts to openmm.System through a converter that receives a native topology. *(medium, reproduced)*
 - [`course_gate_red_after_common_core_renumbering.md`](course_gate_red_after_common_core_renumbering.md) — [#142](https://github.com/uibcdf/molsysmt/issues/142) — The course validation gate disagrees with the manifest after the Common Core renumbering. *(medium, reproduced)*
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
 - [`form_conversions_importing_nonexistent_modules.md`](form_conversions_importing_nonexistent_modules.md) — [#140](https://github.com/uibcdf/molsysmt/issues/140) — Conversions advertised by the catalogue raise ModuleNotFoundError when called. *(medium, reproduced)*

@@ -27,5 +27,4 @@ from .iterators import StructuresIterator, TopologyIterator
 _convert_to = {
         'openmm.System': 'to_openmm_System',
         'openmm.Context': 'to_openmm_Context',
-        'openmm.Simulation': 'to_openmm_Simulation',
         }

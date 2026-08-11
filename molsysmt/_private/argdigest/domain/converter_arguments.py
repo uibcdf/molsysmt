@@ -353,11 +353,11 @@ CONVERTER_ARGUMENTS = {
     ),
     'openmm.Simulation': (
         'atom_indices', 'collisions_rate', 'compression', 'compression_opts', 'constraints',
-        'coordinates', 'copy_if_all', 'flexible_constraints', 'float_precision',
-        'forcefield', 'get_missing_bonds', 'hydrogen_mass', 'int_precision',
-        'integration_timestep', 'integrator', 'non_bonded_cutoff', 'non_bonded_method',
-        'platform', 'remove_cm_motion', 'rigid_water', 'skip_digestion',
-        'structure_indices', 'switch_distance', 'temperature'
+        'coordinates', 'copy_if_all', 'dispersion_correction', 'ewald_error_tolerance',
+        'float_precision', 'forcefield', 'get_missing_bonds', 'implicit_solvent',
+        'int_precision', 'integration_timestep', 'integrator', 'non_bonded_method',
+        'platform', 'skip_digestion', 'structure_indices', 'switch_distance', 'temperature',
+        'water_model'
     ),
     'openmm.State': (
         'atom_indices', 'compression', 'compression_opts', 'copy_if_all', 'float_precision',

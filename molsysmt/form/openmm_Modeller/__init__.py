@@ -38,3 +38,7 @@ _convert_to={
         'pdbfixer.PDBFixer': 'to_pdbfixer_PDBFixer',
         'nglview.NGLWidget': 'to_nglview_NGLWidget',
         }
+
+_conversion_opt_kwargs={
+        'openmm.Simulation': ['collisions_rate', 'integration_timestep'],
+        }

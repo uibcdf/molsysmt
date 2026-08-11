@@ -28,7 +28,7 @@ default_attribute = {
     "integrator": "Langevin",
     "temperature": "0.0 kelvin",
     "friction": "1.0/picoseconds",
-    "platform": "CUDA",
+    "platform": "CPU",
     "time_step": "1.0 femtoseconds",
 }
 

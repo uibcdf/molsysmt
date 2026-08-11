@@ -69,5 +69,6 @@ _convert_to={
 
 _conversion_opt_kwargs={
     'string:pdb_text': ['pdb_chain_id'],
-    'pdbfixer.PDBFixer': ['pdb_chain_id']
+    'pdbfixer.PDBFixer': ['pdb_chain_id'],
+    'openmm.Simulation': ['collisions_rate', 'integration_timestep'],
 }
