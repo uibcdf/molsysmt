@@ -78,6 +78,17 @@ residual causes rather than another packaging failure:
   checks now use the builder's `0.12 nm` rejection boundary rather than a stricter
   platform-sensitive threshold.
 
+The exact-candidate run `31586055120` subsequently passed five of the six supported
+Linux/macOS cells and exposed one remaining assertion only on Ubuntu with Python 3.13.
+Four deterministic peptide samples satisfied atom count, bond count, maximum bond
+length parity with LEaP, and MolSysMT's absolute `0.12 nm` non-bonded heavy-atom safety
+boundary, but failed a second assertion that compared their minimum non-bonded distance
+with LEaP's within `0.025 nm`. That comparison is not a fidelity invariant: the two
+builders can choose different valid initial conformations, so their closest non-bonded
+contacts need not match. The relative-contact assertion was removed from both parity
+levels while the composition, connectivity, bonded-geometry, absolute clash, and
+determinism contracts remain executable.
+
 The first documentation run after the platform-scope clarification failed before
 Sphinx, while building MolSysMT on a runner with a partially provisioned Rust 1.97.1
 toolchain. Processing `rust-toolchain.toml` requested the development-only Clippy and
@@ -127,6 +138,9 @@ non-editable wheel smokes or the eventual Conda publication process.
   PyTraj part of wheel construction or the hard runtime dependency set.
 - Cross-repository diagnostics tests restore every process-global SMonitor setting they
   replace, so later tests retain sibling catalogues and actionable hints.
+- Peptide parity compares composition, connectivity, bonded geometry, and an absolute
+  non-bonded clash boundary, without treating LEaP's distinct initial conformation as a
+  coordinate-level oracle.
 - Documentation builds select the pinned minimal Rust toolchain without attempting to
   repair or add development-only components on the runner.
 - CI smoke and the six-cell full matrix pass from clean runners.
