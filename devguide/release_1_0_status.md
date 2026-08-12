@@ -474,7 +474,7 @@ completion. No new Numba capability may be added while this segment is pending.
 | --- | --- |
 | C1 — permanent crate/module and build-backend design review | `DONE` |
 | C2 — production crate relocation and private extension integration | `DONE` |
-| C3 — Linux, macOS, and Windows abi3 wheel CI | `DONE` |
+| C3 — supported Linux/macOS and experimental Windows abi3 wheel CI | `DONE` |
 | C4 — Python 3.11–3.13 and supported NumPy installed-wheel tests | `DONE` |
 | C5 — sdist contract | `DONE` |
 | C6 — metadata, resources, entry points, typing, and lazy-discovery parity | `DONE` |

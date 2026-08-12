@@ -37,6 +37,13 @@ def test_workflow_builds_every_declared_platform_architecture():
     }
     assert observed == expected
     assert full["if"] == "github.event_name == 'workflow_dispatch'"
+    assert full["continue-on-error"] == "${{ matrix.target.experimental }}"
+    assert {target["name"]: target["experimental"] for target in targets} == {
+        "linux-aarch64": False,
+        "macos-x86_64": False,
+        "macos-arm64": False,
+        "windows-x86_64": True,
+    }
     assert "if" not in linux
 
 
@@ -77,7 +84,7 @@ def test_workflow_builds_a_wheel_from_the_validated_sdist():
     assert "name: molsysmt-source-distribution" in text
 
 
-def test_workflow_validates_every_wheel_on_all_supported_pythons():
+def test_workflow_distinguishes_release_and_experimental_platforms():
     workflow = _workflow()
     linux = workflow["jobs"]["test-linux"]
     installed = workflow["jobs"]["test-full"]
@@ -92,6 +99,13 @@ def test_workflow_validates_every_wheel_on_all_supported_pythons():
     assert linux["needs"] == "build-linux"
     assert installed["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
     assert installed["needs"] == "build-full"
+    assert installed["continue-on-error"] == "${{ matrix.target.experimental }}"
+    assert {target["name"]: target["experimental"] for target in targets} == {
+        "linux-aarch64": False,
+        "macos-x86_64": False,
+        "macos-arm64": False,
+        "windows-x86_64": True,
+    }
 
     pull_request = workflow["jobs"]["test-pull-request"]
     assert pull_request["strategy"]["matrix"]["python"] == [

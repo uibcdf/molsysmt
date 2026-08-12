@@ -140,6 +140,7 @@ jobs:
     name: ${{ matrix.target.name }}
     if: github.event_name == 'workflow_dispatch'
     runs-on: ${{ matrix.target.runner }}
+    continue-on-error: ${{ matrix.target.experimental }}
     timeout-minutes: 120
     strategy:
       fail-fast: false
@@ -148,15 +149,19 @@ jobs:
           - name: linux-aarch64
             runner: ubuntu-24.04-arm
             arch: aarch64
+            experimental: false
           - name: macos-x86_64
             runner: macos-15-intel
             arch: x86_64
+            experimental: false
           - name: macos-arm64
             runner: macos-15
             arch: arm64
+            experimental: false
           - name: windows-x86_64
             runner: windows-2022
             arch: AMD64
+            experimental: true
 
     steps:
       - uses: actions/checkout@v7
@@ -235,6 +240,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch'
     needs: build-full
     runs-on: ${{ matrix.target.runner }}
+    continue-on-error: ${{ matrix.target.experimental }}
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -242,12 +248,16 @@ jobs:
         target:
           - name: linux-aarch64
             runner: ubuntu-24.04-arm
+            experimental: false
           - name: macos-x86_64
             runner: macos-15-intel
+            experimental: false
           - name: macos-arm64
             runner: macos-15
+            experimental: false
           - name: windows-x86_64
             runner: windows-2022
+            experimental: true
         python: ["3.11", "3.12", "3.13"]
 
     steps:

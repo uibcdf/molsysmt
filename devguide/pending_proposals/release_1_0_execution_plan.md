@@ -259,7 +259,10 @@ This segment must finish before runtime deletion.
 3. Build `cp311-abi3` wheels for:
    - Linux x86_64 and aarch64;
    - macOS x86_64 and arm64;
-   - Windows x86_64.
+   - Windows x86_64 as an experimental, non-blocking artifact.
+   Linux and macOS are the supported 1.0 release platforms. A Windows wheel is
+   useful portability evidence, but it does not become a supported platform
+   until a functional matrix comparable to Linux and macOS exists.
 4. Test each artifact in a clean environment rather than the development
    worktree.
 5. Exercise Python 3.11, 3.12, and 3.13 and the supported NumPy range.
@@ -278,9 +281,9 @@ This segment must finish before runtime deletion.
     formatting, Clippy, Rust unit tests, and dependency, security, and license
     audits in CI.
 10. Select and test explicit binary compatibility floors, including the Linux
-    manylinux/glibc target, macOS deployment target, Windows runtime, and a
-    portable CPU instruction baseline. Do not build developer-machine-specific
-    instructions into release wheels.
+    manylinux/glibc target, macOS deployment target, the experimental Windows
+    runtime, and a portable CPU instruction baseline. Do not build
+    developer-machine-specific instructions into release wheels.
 
 ### Rust–Python Boundary Contract
 

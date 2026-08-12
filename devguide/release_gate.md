@@ -72,18 +72,31 @@ be green on the exact committed candidate**:
 
 Do not substitute a partial or single-platform run.
 
-## 3. Documentation build
+## 3. Native wheel artifacts
+
+- `ci-rust-wheels.yaml` must pass for the supported Linux x86_64/aarch64 and
+  macOS x86_64/arm64 targets, including Python 3.11--3.13, the declared NumPy
+  floor/current checks, and installed public-runtime smoke.
+- Windows x86_64 remains an experimental portability target. Its wheel build,
+  audit, and installed-extension checks are retained, but are non-blocking for
+  1.0 until Windows has a functional matrix comparable to Linux and macOS.
+- A green Windows artifact is evidence of buildability, not a declaration of
+  supported-platform status.
+
+## 4. Documentation build
 
 - `sphinx_docs_to_gh_pages.yaml` builds the docs (`nb_execution_mode = "off"`). The build
   must be warning-clean for the course tree (no "toctree contains reference to nonexistent
   document"); `validate_course.py` guards the structure statically, the build confirms it.
 
-## 4. Sign-off checklist (all must hold on the tag commit)
+## 5. Sign-off checklist (all must hold on the tag commit)
 
 - [ ] Working tree clean; tag commit does **not** carry `[skip ci]`.
 - [ ] `python devtools/scripts/release_gate.py` → all fast gates PASS.
 - [ ] `ruff check molsysmt` → clean.
 - [ ] `ci-full.yaml` (or candidate-pinned `ci-weekly.yaml`) → green on all 6 combos.
+- [ ] `ci-rust-wheels.yaml` → supported Linux/macOS jobs green; Windows result recorded
+      as experimental evidence and not treated as a release blocker.
 - [ ] Docs build → green, course toctree warning-clean.
 - [ ] No open **blocker** in `pending_bugs/`; open items are accepted debt or post-1.0.
 - [ ] **Citation record updated for the tag.** `CITATION.cff` is a placeholder

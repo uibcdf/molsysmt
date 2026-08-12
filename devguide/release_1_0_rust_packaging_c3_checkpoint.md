@@ -108,6 +108,19 @@ C3 is complete. C4 must now test installed wheels across Python 3.11–3.13 and
 the supported NumPy range; it must not reuse a source checkout as the imported
 package.
 
+## Scope clarification — 2026-08-12
+
+The five-target campaign above proved that all five native artifacts could be
+built and loaded; it did not establish equivalent product support on all five
+targets. MolSysMT 1.0 supports Linux and macOS, where the complete functional
+suite runs on Python 3.11--3.13. Windows remains an experimental wheel target:
+its build, audit, private-extension smoke, and Python/NumPy checks continue to
+run as portability evidence, but they are non-blocking until Windows has a
+functional matrix comparable to the supported platforms. The workflow encodes
+this distinction through the per-target `experimental` flag and
+`continue-on-error`; historical run `30346103646` remains valid evidence that
+the experimental artifact passed at the time.
+
 ## Independent C7 Debt Found
 
 `cargo fmt --check` currently reports formatting differences throughout the
