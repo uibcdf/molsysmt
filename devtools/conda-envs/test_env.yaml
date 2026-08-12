@@ -40,5 +40,6 @@ dependencies:
 - pytest-cov
 - codecov
 - pytest-xdist
+- ruff
 - pip:
   - pytraj

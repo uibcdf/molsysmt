@@ -300,7 +300,7 @@ def shift_mic_dihedral_angles(
 # Block 9: molsysmt.lib.pbc — box geometry plus the wrap/unwrap family.
 #
 # The `*_vector_single_structure` helpers take `inv_box`/`orthogonal` as optional
-# precomputed values in the replaced Numba implementation; the Rust ports always
+# precomputed values in the former Python kernel contract; the Rust kernels always
 # recompute them from `box` (the same
 # way the whole-system kernels do), so the seam simply drops them on the Rust path.
 #
@@ -486,7 +486,7 @@ def _union(parent, rank, node_1, node_2, backend=None):
 # Block 11. `get_rmsd` is a plain reduction; the `least_rmsd` family superposes first via
 # the quaternion (Horn/Kearsley) method, whose 4x4 eigenproblem Rust solves with
 # `nalgebra` rather than LAPACK. Parity is at tolerance there -- different eigensolver,
-# `fastmath`, and the replaced Numba implementation's pairwise `np.sum` for the centroid.
+# floating-point contraction, and the former pairwise `np.sum` for the centroid.
 
 
 def get_rmsd_single_structure(coordinates, reference_coordinates, backend=None):
@@ -566,9 +566,9 @@ def get_least_rmsd_rotation_and_translation_with_single_reference_structure(
 # -------------------------------------------------------------------------------- axes
 # Block 12. 3x3 symmetric eigenproblems, solved with `nalgebra`.
 #
-# Eigenvectors are defined only up to sign. The replaced Numba implementation returned whatever LAPACK produces;
-# the Rust port fixes the sign deterministically (largest-magnitude component positive),
-# so switching backend cannot flip an axis. Compare eigenvectors up to sign.
+# Eigenvectors are defined only up to sign. The former implementation exposed the
+# eigensolver's arbitrary sign; Rust fixes it deterministically (largest-magnitude
+# component positive). Compare external eigenvectors up to sign.
 
 
 def get_principal_inertia_axes_single_structure(coordinates, weights, backend=None):
@@ -589,7 +589,7 @@ def get_principal_geometric_axes(coordinates, weights, backend=None):
 
 # --------------------------------------------------------------------------------- pca
 # Block 13, the last CPU kernel. The covariance is built as a matrix product (faer
-# rank-k) rather than the replaced Numba implementation's triple loop, and diagonalised with faer's dense
+# rank-k) rather than the former triple loop, and diagonalised with faer's dense
 # self-adjoint eigensolver. Eigenvalues are at tolerance; eigenvectors carry a sign
 # ambiguity (fixed deterministically here) and, when n_structures < n_features, a
 # degenerate null space that no element-wise comparison can match.
