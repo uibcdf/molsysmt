@@ -52,7 +52,9 @@ MolSysMT's tests already imported `UnknownArgumentError`. All six full-matrix ce
 therefore stopped during collection with the same `ImportError`. The controlled pin now
 targets ArgDigest 0.11.0, the revision against which this MolSysMT surface was developed,
 and every source-test workflow checks the required `Domain` and
-`UnknownArgumentError` exports before starting its gates.
+`UnknownArgumentError` exports before starting its gates. The installed-wheel public
+smoke uses the same ArgDigest revision and checks the same exports, so source CI and
+release artefacts are no longer validated against different dependency contracts.
 
 ## Why
 

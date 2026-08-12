@@ -354,7 +354,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           repository: uibcdf/argdigest
-          ref: 8df5bfee6bbb22bc2cd40aa744f04f1fc1c76ade
+          ref: dfd8750642c0e2cb4b6690b527a4142d4122ef45
           path: controlled-sources/argdigest
           persist-credentials: false
 
@@ -385,6 +385,7 @@ jobs:
             controlled-sources/pyunitwizard \
             controlled-sources/argdigest \
             controlled-sources/molsysviewer
+          python -c "from argdigest import Domain, UnknownArgumentError"
 
       - name: Install the MolSysMT wheel without dependency resolution
         run: python -m pip install --no-deps wheelhouse/*.whl

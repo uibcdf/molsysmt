@@ -128,11 +128,12 @@ def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
         "4fccafda4aa37b4c152d6b7d887ee665c7adc443",
         "df86d5d33de23724a819c2cb883198522a0c0c47",
         "0ff6656abfbd9f1ebc7575bc3f67fb263f52bf4f",
-        "8df5bfee6bbb22bc2cd40aa744f04f1fc1c76ade",
+        "dfd8750642c0e2cb4b6690b527a4142d4122ef45",
         "28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4",
     ):
         assert commit in text
     assert "validate_installed_molsysmt.py" in text
+    assert "from argdigest import Domain, UnknownArgumentError" in text
     assert "python -m pip install --no-deps" in text
     assert '"anywidget>=0.9.15"' in text
 
