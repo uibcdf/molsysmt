@@ -46,6 +46,14 @@ cannot check it out on the case-insensitive macOS runners. CI full therefore bui
 `py3-none-any` MolSysViewer wheel on Linux and supplies that exact artefact to all six
 cells. This preserves the hard dependency and avoids weakening the macOS matrix.
 
+The next exact-commit campaign exposed a second clean-runner-only mismatch. The
+controlled ArgDigest revision predated its public function-contract API, while
+MolSysMT's tests already imported `UnknownArgumentError`. All six full-matrix cells
+therefore stopped during collection with the same `ImportError`. The controlled pin now
+targets ArgDigest 0.11.0, the revision against which this MolSysMT surface was developed,
+and every source-test workflow checks the required `Domain` and
+`UnknownArgumentError` exports before starting its gates.
+
 ## Why
 
 This blocks smoke, weekly and full CI on every clean runner after the Rust-only
@@ -81,6 +89,8 @@ non-editable wheel smokes or the eventual Conda publication process.
 - The full matrix installs an exact, platform-independent MolSysViewer wheel rather
   than omitting the hard dependency on macOS.
 - A static workflow regression guards that contract.
+- The controlled ArgDigest revision exports the function-contract API required by
+  MolSysMT, and each source workflow checks it before running tests.
 - CI smoke and the six-cell full matrix pass from clean runners.
 
 ## Dependencies and risks
@@ -90,4 +100,5 @@ separate installed-wheel tests, whose purpose is to reject checkout leakage.
 
 ## Provenance
 
-GitHub Actions, Ubuntu latest, CPython 3.13, run `31574803154`, 2026-08-12.
+GitHub Actions runs `31574803154` and `31576019522`, Ubuntu/macOS latest,
+CPython 3.11--3.13, 2026-08-12.

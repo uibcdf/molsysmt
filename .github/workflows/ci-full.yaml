@@ -104,6 +104,7 @@ jobs:
         shell: bash -l {0}
         run: |
           cd
+          python -c "from argdigest import Domain, UnknownArgumentError"
           python -c "import molsysmt; print('Version:', molsysmt.__version__)"
 
       - name: Run fast release gates

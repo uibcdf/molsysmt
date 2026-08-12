@@ -51,6 +51,7 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
         text = workflow.read_text(encoding="utf-8")
         assert "-r devtools/requirements/controlled_hard_dependencies.txt" in text
         assert "python -m pip install --editable . --no-deps" in text
+        assert "from argdigest import Domain, UnknownArgumentError" in text
         assert "PYTHONPATH" not in text
         assert "28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4" in text
 
