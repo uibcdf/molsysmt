@@ -9,12 +9,7 @@ dependencies:
 - versioningit>=3.0
 - h5py
 - numpy
-- argdigest>=0.9.3
-- depdigest>=0.10.0
-- smonitor>=0.11.6
-- pyunitwizard>=0.22.0
 - pandas
-- molsysviewer
 - networkx
 - tqdm
 - matplotlib
@@ -32,6 +27,13 @@ dependencies:
 - py-mmcif
 - plotly
 - anywidget
+- beartype
+- packaging >=23
+- pint
+- pydantic
+- pyyaml
+- scipy
+- traitlets >=5
 - nglview
 - pytest
 - pytest-receptor=0.6.0

@@ -114,7 +114,8 @@ where = ["."]
 # Ref https://setuptools.pypa.io/en/latest/userguide/datafiles.html#package-data
 [tool.setuptools.package-data]
 molsysmt = [
-    "py.typed"
+    "py.typed",
+    "form/*/form.json",
 ]
 "molsysmt.data" = ["**"]
 

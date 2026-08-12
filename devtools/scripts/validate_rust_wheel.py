@@ -8,6 +8,19 @@ from pathlib import Path, PurePosixPath
 from zipfile import ZipFile
 
 
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+
+
+def expected_form_declarations() -> tuple[str, ...]:
+    """Returning every generated form declaration required by the runtime catalogue."""
+
+    form_root = REPOSITORY_ROOT / "molsysmt" / "form"
+    return tuple(
+        declaration.relative_to(REPOSITORY_ROOT).as_posix()
+        for declaration in sorted(form_root.glob("*/form.json"))
+    )
+
+
 def find_single_wheel(path: Path) -> Path:
     """Returning the single wheel represented by a file or directory."""
 
@@ -79,6 +92,13 @@ def validate_wheel(wheel_path: Path) -> list[str]:
         ):
             if required not in names:
                 problems.append(f"required wheel entry is missing: {required}")
+
+        missing_declarations = sorted(set(expected_form_declarations()) - set(names))
+        if missing_declarations:
+            problems.append(
+                "wheel is missing dynamic form declarations: "
+                f"{missing_declarations}"
+            )
 
         wheel_metadata = [
             name for name in names if name.endswith(".dist-info/WHEEL")

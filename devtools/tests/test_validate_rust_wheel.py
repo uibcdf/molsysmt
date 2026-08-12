@@ -31,7 +31,14 @@ assert INSTALLED_SPEC.loader is not None
 INSTALLED_SPEC.loader.exec_module(INSTALLED_MODULE)
 
 
-def _write_wheel(path, *, extra_extensions=0, bytecode=False, legacy=False):
+def _write_wheel(
+    path,
+    *,
+    extra_extensions=0,
+    bytecode=False,
+    legacy=False,
+    missing_form_declaration=False,
+):
     entries = {
         "molsysmt/_rust.abi3.so": b"extension",
         "molsysmt/py.typed": b"",
@@ -47,6 +54,10 @@ def _write_wheel(path, *, extra_extensions=0, bytecode=False, legacy=False):
             b"molsysmt = molsysviewer_molsysmt\n"
         ),
     }
+    for declaration in MODULE.expected_form_declarations():
+        entries[declaration] = b"{}"
+    if missing_form_declaration:
+        entries.pop(MODULE.expected_form_declarations()[0])
     for index in range(extra_extensions):
         entries[f"molsysmt/_rust.extra{index}.so"] = b"stale"
     if bytecode:
@@ -89,6 +100,7 @@ def test_static_validator_rejects_an_ambiguous_directory(tmp_path):
         ({"extra_extensions": 1}, "exactly one private"),
         ({"bytecode": True}, "bytecode/cache"),
         ({"legacy": True}, "legacy msm_rust_kernels"),
+        ({"missing_form_declaration": True}, "dynamic form declarations"),
     ],
 )
 def test_invalid_wheel_fails_with_actionable_reason(

@@ -44,7 +44,7 @@ def test_workflow_builds_validates_and_uploads_without_publish_credentials():
     text = WORKFLOW.read_text(encoding="utf-8")
     assert "cibuildwheel==3.4.1" in text
     assert "validate_installed_rust_wheel.py" in text
-    assert "actions/upload-artifact@v4" in text
+    assert "actions/upload-artifact@v7" in text
     assert "persist-credentials: false" in text
     assert "pypi" not in text.lower()
     assert "anaconda" not in text.lower()
