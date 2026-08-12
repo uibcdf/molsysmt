@@ -12,8 +12,9 @@ def _restore_smonitor_profile():
 
     manager = smonitor.get_manager()
     original_profile = manager.config.profile
+    original_codes = manager.get_codes()
     yield
-    manager.configure(profile=original_profile)
+    manager.configure(profile=original_profile, codes=original_codes)
 
 
 def test_pyunitwizard_parser_error_has_message():

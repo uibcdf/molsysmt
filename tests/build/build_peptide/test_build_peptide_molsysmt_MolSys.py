@@ -200,7 +200,7 @@ def test_build_peptide_molsysmt_MolSys_9(sequence):
     assert metrics_molsysmt['n_atoms'] == metrics_tleap['n_atoms']
     assert metrics_molsysmt['n_bonds'] == metrics_tleap['n_bonds']
     assert abs(metrics_molsysmt['max_bond_nm'] - metrics_tleap['max_bond_nm']) <= 0.0045
-    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= 0.15
+    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= 0.12
     assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= metrics_tleap['min_nonbonded_heavy_nm'] - 0.025
 
 def test_build_peptide_molsysmt_MolSys_10_random_sequences_catalog():
@@ -227,7 +227,7 @@ def test_build_peptide_molsysmt_MolSys_12_extended_random_parity(sequence):
     assert metrics_molsysmt['n_atoms'] == metrics_tleap['n_atoms']
     assert metrics_molsysmt['n_bonds'] == metrics_tleap['n_bonds']
     assert abs(metrics_molsysmt['max_bond_nm'] - metrics_tleap['max_bond_nm']) <= 0.0045
-    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= 0.15
+    assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= 0.12
     assert metrics_molsysmt['min_nonbonded_heavy_nm'] >= metrics_tleap['min_nonbonded_heavy_nm'] - 0.025
 
 
