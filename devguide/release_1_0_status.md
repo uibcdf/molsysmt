@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-08-07
+**Last updated:** 2026-08-12
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -43,9 +43,11 @@ and do not merge it across an unmet integration dependency.
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** F1–F4 are closed; the atom-axis `add()`
-  implementation landed as `2865c3122`, its lifecycle checkpoint as
-  `dd8d48c67`, and its bounded semantic-audit proposal as `87ccfc289`
+- **Current repository state:** F1–F4 are closed. The remaining Common Core
+  exception was removed in `c87a14036`: all 20 modules now use their permanent
+  semantic manifest identities and the validator pins the 1–20 contract. The
+  PyTraj, OpenFF, OpenMM construction, and missing-converter work that followed
+  the 2026-08-07 snapshot is landed through `929d4363e`
 - **Current exact Rust campaign commit:** `6485a0c08`; this is verified
   migration evidence but is not itself a release candidate, because Segment F
   lifecycle work is still open and no candidate has been tagged
@@ -65,8 +67,8 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** complete Phase 1 of the bounded atom-axis `add()` semantic
-  audit, then execute F5 on the resulting clean exact commit
+- **Next action:** land this status reconciliation, select the resulting clean
+  commit as the release-candidate base, and execute F5 on that exact commit
 - **Parallel packaging action:** Segment C is closed, and installed-wheel
   validation with it, so the only packaging work left is the Conda delivery
   track — coordinate sibling and MolSysMT Conda publication during manuscript
@@ -85,9 +87,12 @@ and do not merge it across an unmet integration dependency.
   Public-facing code examples must be executed against the installed package
   before they are written: the 2026-07-29 audit found that none of the README's
   examples ran
-- **Known independent release-gate debt:** the fast release gate passes 12/12.
-  Form-adapter delivery is green with 89/89 forms, 101 accepted lower-tier
-  declarations, 320 resolved baseline declarations, and no Tier-1 debt
+- **Known independent release-gate debt:** the fast release gate passes 12/12
+  on 2026-08-12. Form-adapter delivery is green with 89/89 forms, 78 accepted
+  lower-tier declarations across nine forms, 343 resolved baseline
+  declarations, and no Tier-1 debt. Conversion fidelity reports 40 exhaustive
+  Tier-1 edges, 441 accepted non-exhaustive edges, 29 resolved baseline edges,
+  and zero new debt
 
 The 96% figure measures only the newly defined remaining-plan exit gates. It
 does not attempt to restate the much larger body of MolSysMT development,
@@ -97,7 +102,7 @@ consolidation, or Rust kernel work completed before this ledger was created.
 
 | Segment | Weight | Status | Earned | Current evidence or reason |
 | --- | ---: | --- | ---: | --- |
-| A — conversion-fidelity coherence | 25% | `DONE` | 25% | 39 exhaustive Tier-1 edges, 442 accepted non-exhaustive edges, zero new debt, 107 conversion-truth tests, and all conversion/form gates pass |
+| A — conversion-fidelity coherence | 25% | `DONE` | 25% | 40 exhaustive Tier-1 edges, 441 accepted non-exhaustive edges, 29 resolved baseline edges, zero new debt, and all conversion/form gates pass |
 | B — final Numba oracle | 10% | `DONE` | 10% | exact commit `6485a0c08` passes the 264-test bounded two-backend oracle, combined scientific and blocker gates, and the complete forced-Rust suite with 9,769 passed and 5 accepted skips; the dated artifact preserves source and binary hashes |
 | C — Rust packaging | 20% | `DONE` | 20% | C1–C7 pass: permanent backend, private abi3 integration, five native wheels, Python 3.11–3.13, NumPy floors, sdist/package parity, and Rust quality/security gates |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
@@ -179,7 +184,7 @@ directly to the new exact-commit campaign.
 | A2 — exhaustive native-dictionary audit | `DONE` | A1 | three evidence-backed native-to-dictionary profiles landed; 51 focused tests and the Tier-1 ratchet pass |
 | A3 — independent schema/adapter repairs | `DONE` | A1–A2 stable | direct native projections and all four builder routes have evidence-backed exhaustive reports; the broad native-scope module is green |
 | A4 — PDB fidelity | `DONE` | A1–A2 stable | one handler-owned normalized parser feeds file, text, and handler routes; 22 fidelity tests and the historical PDB corpus pass; 11 exhaustive profiles landed as `1f656fe9f` |
-| A5 — segment integration gate | `DONE` | A1–A4 | 107 conversion-truth tests pass; 39/481 edges are exhaustive, 442 are accepted debt, zero are new; adapter delivery and lifecycle gates pass |
+| A5 — segment integration gate | `DONE` | A1–A4 | 40/481 edges are exhaustive, 441 are accepted debt, 29 baseline edges are resolved, zero are new; adapter delivery and lifecycle gates pass |
 
 | A2 cohort | Status | Evidence |
 | --- | --- | --- |
@@ -607,7 +612,7 @@ for the 1.0 source/tag, scientific validation, or manuscript:
 
 | Stage | Weight | Status | Earned |
 | --- | ---: | --- | ---: |
-| F1 — Four Paths numbering and structural validation | 1% | `DONE` | 1% |
+| F1 — Four Paths numbering and structural validation | 1% | `DONE` — 20 + 4x34 notebooks, semantic manifest identities and no validator exception at `c87a14036` | 1% |
 | F2 — applicable Common Core and changed-behavior notebook execution | 2% | `DONE` — 40/40 pass from clean kernels at `2f6fd59d1` | 2% |
 | F3 — function support-tier and pending-guide hygiene | 1% | `DONE` — 117 Tier 1, 56 Tier 3, seven outside-contract; completed records archived | 1% |
 | F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | 2% | `DONE` | 2% |
@@ -735,3 +740,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-08-07 | Atom-axis `add()` semantic audit | Phase 4 `PENDING` → `DONE`; proposal archived; no stage transition | the lifecycle closed and all ten acceptance criteria hold, so the proposal and its Phase 1 findings moved to `archive/resolved_proposals/`. `molsysmt.basic.add` documents `attribute_policy` and the four Notes that changed; the User Guide page gained two sections and a warning admonition, written against a real case rather than an illustrative one — T4 lysozyme from a PDB carries B factors and a unit cell, a built peptide carries neither, so one addition exercises the drop and both new diagnostics — and the notebook was re-executed so its printed outputs are measured. Common Core modules 17 and 18 needed no correction: they already use one target and one source. Writing the documentation surfaced a diagnostic defect of its own, a doubled period in the `strict` rejection message, fixed at both call sites. Two coverage gaps found while walking the criteria were closed rather than waived: `velocities` joined the one-sided parametrisation, and a string selection over an assembled composite source is now pinned. 43 add tests pass; Ruff, dependencies, devguide and course gates green; fast release gate 12/12 | see the commit closing this row |
 | 2026-08-07 | Public argument contract | reported → `DONE`; no stage transition | a typo in a keyword argument was silent in 22 of the 26 public callables and uncatalogued in the other four: `structure_indeces` for `structure_indices` returned all 5,000 structures of a trajectory instead of the three requested, with a well-formed result and no diagnostic. The cause was a binding step making a policy decision — ArgDigest discarded any keyword outside the signature before the layer designed to judge it could see it — which left it more permissive than Python itself, and left MolSysMT's own `STRICTNESS='warn'` policy unreachable for those 22. Fixed upstream in ArgDigest 0.10.0 by adding the missing axis, the function argument contract, and declared here with three configuration lines, one domain pointing at the attribute catalogue, and two contract modules; the 19 closed signatures are protected with no declaration at all. Two claims in the original triage were wrong and are corrected in the archived report: `contains` and `is_composed_of` implement deliberate no-criterion branches, so no `requires_any_of` rule was declared. Reading those bodies found a real defect instead — `get_label` declares `**kwargs` and never reads it. `molsysmt.basic.convert` keeps the permissive default because its domain resolves from `to_form` at call time; the gap is recorded and pinned by a test. ~8300 tests pass with the policy at `error`, plus 1296 MolSysViewer tests with nothing declared on its side; Ruff clean; fast release gate 12/12 | see the commit closing this row; `archive/resolved_bugs/public_functions_silently_ignore_unknown_keywords.md` |
 | 2026-08-07 | Cross-repo test drift | reported → `DONE`; no stage transition | two tests in `tests/molsysviewer_molsysmt/` read `MolSysView._message_history`, a private attribute MolSysViewer replaced with a narrower `_shape_history` and a `scene_history` model, so the suite carried two known failures — and a suite with known failures stops detecting new ones, which blocks the F5 exact-commit gate. Both tests already intercepted `apply_system_edit` and recorded the edited molecular system, then ignored it to inspect the message the viewer built from it. That was the defect the refactor exposed: what the facade owes the viewer is an edited system handed to `apply_system_edit`, and how the viewer serializes it afterwards is not this side's business. They now assert on the recorded system. Renaming the attribute to `_shape_history` was deliberately not done: it is not the same thing, so the tests would have passed asserting something else. 115 cross-repo tests pass and the MolSysMT suite is clean | see the commit closing this row; `archive/resolved_bugs/cross_repo_test_reads_a_removed_molsysviewer_attribute.md` |
+| 2026-08-12 | Pre-F5 adapter and course consolidation | no stage transition; candidate base ready | comparison now treats incompatible shapes as unequal; OpenFF unit adapters coexist safely; PyTraj trajectory conversion preserves its supported contract; OpenMM simulations are built only from complete inputs and initialize from the selected structure; every registered converter module resolves; conversion fidelity advances to 40 exhaustive / 441 accepted / 29 resolved with zero new debt; the Common Core is fixed at 20 modules and all labels match permanent manifest identities with no validator exception. The fast gate passes 12/12, Ruff is clean, form adapters pass 89/89 with 78 accepted lower-tier declarations, and the course contract passes 156/156 notebooks | `3fb639010` through `c87a14036` |

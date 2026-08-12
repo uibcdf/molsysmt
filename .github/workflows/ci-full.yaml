@@ -63,6 +63,14 @@ jobs:
           cd
           python -c "import molsysmt; print('Version:', molsysmt.__version__)"
 
+      - name: Run fast release gates
+        shell: bash -l {0}
+        run: python devtools/scripts/release_gate.py
+
+      - name: Run Ruff
+        shell: bash -l {0}
+        run: ruff check molsysmt
+
       - name: Run full test suite
         shell: bash -l {0}
         run: |

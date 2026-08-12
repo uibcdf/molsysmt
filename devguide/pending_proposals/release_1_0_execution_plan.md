@@ -3,7 +3,7 @@
 **Role:** pending operational plan
 **Decision date:** 2026-07-26
 **Target:** a clean, Rust-only MolSysMT 1.0 release on Python 3.11–3.13
-**Status:** accepted direction; implementation and release gates remain open
+**Status:** implementation complete through F4; F5 and F6 remain open
 
 ## Purpose
 
@@ -79,7 +79,13 @@ supported implementation. Before the cut:
 
 Numba must not survive merely to preserve an experimental GPU claim.
 
-## Current Evidence and Scope
+## Starting Evidence and Scope
+
+This section preserves the 2026-07-26 baseline that justified the execution
+plan. It is historical input, not current repository state. Segments A–E and
+F1–F4 are now complete; the live status, current counts, and exact-commit
+evidence are maintained only in
+[`release_1_0_status.md`](../release_1_0_status.md).
 
 The expensive mathematical port is already substantially complete:
 

@@ -65,12 +65,12 @@ The fast gates do not run the test suite. Before tagging, the **full pytest matr
 be green on the exact committed candidate**:
 
 - `ci-full.yaml` (manual `workflow_dispatch`): ubuntu-latest + macos-latest ×
-  {3.11, 3.12, 3.13} = 6 combinations, `pytest -q` (doctests included via `pytest.ini`).
+  {3.11, 3.12, 3.13} = 6 combinations. Each job runs the fast release gate,
+  Ruff, and the full pytest suite through pytest-receptor's CI mode (doctests
+  included via `pytest.ini`); pytest remains the result authority.
 - Equivalently, a green `ci-weekly.yaml` run pinned to the candidate commit.
 
-Do not substitute a partial or single-platform run. `ci-full.yaml` should be extended to
-run `release_gate.py` as an early step so the fast gates are enforced in CI too (today it
-runs only `pytest`).
+Do not substitute a partial or single-platform run.
 
 ## 3. Documentation build
 
