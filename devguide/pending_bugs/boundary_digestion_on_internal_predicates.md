@@ -1,6 +1,6 @@
 ---
 summary: Internal predicates carry boundary-grade argument digestion, costing ~29 ms per user-facing viewer action.
-issue:
+issue: uibcdf/molsysmt#147
 status: open
 opened: 2026-08-12
 closed:
