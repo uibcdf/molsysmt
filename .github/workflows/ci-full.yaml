@@ -10,10 +10,43 @@ on:
   workflow_dispatch:
 
 jobs:
+  controlled-molsysviewer:
+    name: Build controlled MolSysViewer wheel
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Build the exact portable MolSysViewer dependency
+        run: >-
+          python -m pip wheel --no-deps
+          git+https://github.com/uibcdf/molsysviewer@28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4
+          --wheel-dir controlled-wheelhouse
+
+      - name: Require one platform-independent wheel
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          wheels = list(Path("controlled-wheelhouse").glob("*.whl"))
+          if len(wheels) != 1 or not wheels[0].name.endswith("-py3-none-any.whl"):
+              raise SystemExit(f"expected one py3-none-any MolSysViewer wheel, found {wheels}")
+          PY
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: controlled-molsysviewer-wheel
+          path: controlled-wheelhouse/*.whl
+          if-no-files-found: error
+          retention-days: 14
+
   full-matrix:
     name: Full matrix — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
     runs-on: ${{ matrix.cfg.os }}
     timeout-minutes: 180
+    needs: controlled-molsysviewer
     strategy:
       fail-fast: false
       matrix:
@@ -53,12 +86,19 @@ jobs:
           create-args: >-
             python=${{ matrix.cfg.python-version }}
 
+      - uses: actions/download-artifact@v8
+        with:
+          name: controlled-molsysviewer-wheel
+          path: controlled-wheelhouse
+
       - name: Install package
         shell: bash -l {0}
         run: |
+          set -euo pipefail
           python -m pip install --no-deps \
-            -r devtools/requirements/controlled_hard_dependencies.txt
-          python -m pip install . --no-deps
+            -r devtools/requirements/controlled_hard_dependencies.txt \
+            controlled-wheelhouse/*.whl
+          python -m pip install --editable . --no-deps
 
       - name: Test import
         shell: bash -l {0}
@@ -76,6 +116,4 @@ jobs:
 
       - name: Run full test suite
         shell: bash -l {0}
-        run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
-          python -m pytest --receptor=ci --junitxml=junit.xml
+        run: python -m pytest --receptor=ci --junitxml=junit.xml

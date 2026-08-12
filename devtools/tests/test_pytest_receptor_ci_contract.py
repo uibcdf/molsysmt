@@ -30,7 +30,6 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
         "depdigest",
         "pyunitwizard",
         "argdigest",
-        "molsysviewer",
     ):
         lines = [
             line
@@ -50,6 +49,13 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
     for workflow in WORKFLOWS:
         text = workflow.read_text(encoding="utf-8")
         assert "-r devtools/requirements/controlled_hard_dependencies.txt" in text
+        assert "python -m pip install --editable . --no-deps" in text
+        assert "PYTHONPATH" not in text
+        assert "28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4" in text
+
+    full_text = WORKFLOWS[0].read_text(encoding="utf-8")
+    assert "controlled-molsysviewer-wheel" in full_text
+    assert "-py3-none-any.whl" in full_text
 
 
 def test_ci_pytest_commands_use_the_ci_receptor():

@@ -82,9 +82,11 @@ jobs:
       - name: Install package
         shell: bash -l {0}
         run: |
+          set -euo pipefail
           python -m pip install --no-deps \
-            -r devtools/requirements/controlled_hard_dependencies.txt
-          python -m pip install . --no-deps
+            -r devtools/requirements/controlled_hard_dependencies.txt \
+            git+https://github.com/uibcdf/molsysviewer@28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4
+          python -m pip install --editable . --no-deps
 
       - name: Test import
         shell: bash -l {0}
@@ -94,9 +96,7 @@ jobs:
 
       - name: Run smoke tests
         shell: bash -l {0}
-        run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)
-          devtools/tests/run_tiers.sh smoke
+        run: devtools/tests/run_tiers.sh smoke
 
       - name: Validate form contracts
         shell: bash -l {0}
