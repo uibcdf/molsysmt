@@ -31,4 +31,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Challenge & See Also
 * Must include **Challenge 16: The Structural Master** using T4 Lysozyme (`181L`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-16-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 15 and Module 17.
+* Must include the **See Also** block (`(course-core-structural-operations-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 15 and Module 17.

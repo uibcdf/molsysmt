@@ -30,4 +30,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Challenge & See Also
 * Must include **Challenge 3: The Hierarchy Architect** using SARS-CoV-2 Protease (`pdb_id:6LU7`) evaluated with `msm.info()` and `msm.get()`, and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-03-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 2 and Module 4.
+* Must include the **See Also** block (`(course-core-molecular-elements-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 2 and Module 4.

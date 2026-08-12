@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Partially resolved (3)
+### Partially resolved (2)
 
-- [`course_gate_red_after_common_core_renumbering.md`](course_gate_red_after_common_core_renumbering.md) — [#142](https://github.com/uibcdf/molsysmt/issues/142) — The course validation gate disagrees with the manifest after the Common Core renumbering. *(medium, reproduced)*
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 

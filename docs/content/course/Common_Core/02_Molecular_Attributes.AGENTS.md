@@ -34,4 +34,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Challenge & See Also
 * Must include **Challenge 2: The Attribute Master** using SARS-CoV-2 Protease (`pdb_id:6LU7`) and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-02-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 1 and Module 3.
+* Must include the **See Also** block (`(course-core-molecular-attributes-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 1 and Module 3.

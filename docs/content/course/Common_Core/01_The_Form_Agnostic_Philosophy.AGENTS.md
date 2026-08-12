@@ -5,9 +5,9 @@ This file contains the micro-governance rules and content constraints for **Modu
 ---
 
 ## 🏷️ Section Anchors
-- **Primary Top-Level Anchor:** `(course-core-01)=`
-- **Learning Outcomes Anchor:** `(course-core-01-learning-outcomes)=`
-- **See Also Anchor:** `(course-core-01-see-also)=`
+- **Primary Top-Level Anchor:** `(course-core-the-form-agnostic-philosophy)=`
+- **Learning Outcomes Anchor:** `(course-core-the-form-agnostic-philosophy-learning-outcomes)=`
+- **See Also Anchor:** `(course-core-the-form-agnostic-philosophy-see-also)=`
 
 ---
 

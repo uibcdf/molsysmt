@@ -28,4 +28,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Challenge & See Also
 * Must include **Challenge 11: The Efficient Coder** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-11-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 10 and Module 12.
+* Must include the **See Also** block (`(course-core-iterating-over-hierarchies-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 10 and Module 12.

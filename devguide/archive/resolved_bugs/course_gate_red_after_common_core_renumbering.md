@@ -1,14 +1,14 @@
 ---
 summary: The course validation gate disagrees with the manifest after the Common Core renumbering.
 issue: uibcdf/molsysmt#142
-status: partial
+status: resolved
 opened: 2026-08-03
-closed:
+closed: 2026-08-12
 severity: medium
 verification: reproduced
 area: [docs, ci]
-guard:
-normative:
+guard: devtools/tests/test_validate_course.py::test_common_core_identity_and_numbering_are_fully_consolidated
+normative: course_structure.md
 blocked_by: []
 supersedes: []
 ---
@@ -18,9 +18,9 @@ supersedes: []
 **Reported:** 2026-08-03, noticed while editing Module 13. Pre-existing: no course
 notebook was modified when the failure was first observed.
 
-**Status:** the gate is green again as of 2026-08-03. Both checks that depended on
-decisions the course has not taken yet are deferred rather than deleted; what has to
-be re-enabled is in *Remaining*.
+**Status:** resolved on 2026-08-12. The Common Core is fixed at 20 modules, every
+notebook uses its semantic manifest identifier as its MyST identity, and the gate
+contains no exception for unconsolidated labels.
 
 **Severity:** a release gate reports failure, so it can no longer detect a real
 regression. The course content itself looks consistent; the checker and the
@@ -83,13 +83,19 @@ for labels at all.
 paths. The Paths, the toctrees, the manifest coverage and the id uniqueness are
 checked exactly as before, so the gate can again detect a regression there.
 
-## Remaining
+## Resolution
 
-- Decide the Common Core module count, then pin the range again.
-- Migrate the Common Core to semantic MyST labels and remove it from
-  `UNCONSOLIDATED_LABELS`. The four Paths already did this: each carries one semantic
-  label such as `(course-alzheimer-surgical-extraction)=`. The Common Core still uses
-  `(course-core-13)=` plus per-section anchors like `course-core-13-learning-outcomes`,
-  **82 anchors in total**. One of them is already stale: notebook 19 declares
-  `(course-core-20-learning-outcomes)=`, left over from the renumbering.
-- Record the chosen scheme in `course_structure.md`.
+The later course expansion restored the Common Core to 20 notebooks. The
+resolution therefore pins `range(1, 21)` rather than preserving the temporary
+variable-length rule.
+
+All Common Core module, learning-outcome, and see-also labels now derive from the
+semantic `id` already stored in `course_manifest.yml`. For example, Module 13 uses
+`course-core-covalent-connectivity` rather than `course-core-13`. The matching
+micro-governance files use the same permanent labels.
+
+`UNCONSOLIDATED_LABELS` has been removed. The validator now requires exact label
+agreement for every course section, in addition to the existing numbering,
+toctree, manifest-coverage, and uniqueness checks. The durable identity and
+numbering rules live in `course_structure.md`, and the regression test executes
+the complete 156-notebook contract.

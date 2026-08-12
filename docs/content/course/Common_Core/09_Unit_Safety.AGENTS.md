@@ -34,4 +34,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 6. Challenge & See Also
 * Must include **Challenge 9: The Unit Master**, and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-09-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 8 and Module 10.
+* Must include the **See Also** block (`(course-core-unit-safety-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 8 and Module 10.

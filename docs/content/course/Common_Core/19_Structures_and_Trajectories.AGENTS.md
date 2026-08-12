@@ -29,4 +29,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Challenge & See Also
 * Must include **Challenge 19: The Trajectory Master** using Villin Headpiece trajectory system, and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-19-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 18 and Module 20.
+* Must include the **See Also** block (`(course-core-structures-and-trajectories-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 18 and Module 20.

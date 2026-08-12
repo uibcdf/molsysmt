@@ -93,7 +93,7 @@ Every module **must** end with a collapsible `:::{seealso}` admonition box (prec
 
 *Example MyST Syntax:*
 ```markdown
-(course-core-01-see-also)=
+(course-core-the-form-agnostic-philosophy-see-also)=
 :::{seealso}
 :class: dropdown
 **API Documentation for Functions in this Unit:**
@@ -112,13 +112,13 @@ Every module **must** end with a collapsible `:::{seealso}` admonition box (prec
 
 To ensure stable cross-referencing and seamless compilation:
 
-1. **Explicit Section Anchors:**  
-   Every module and every major section within a module **must** define an explicit MyST anchor label immediately preceding its heading.  
-   Format convention: `(course-[path]-[module_number]-[section_slug])=`  
+1. **Explicit Section Anchors:**
+   Every module and every major section within a module **must** define an explicit MyST anchor label immediately preceding its heading. Module identity is semantic and permanent; display numbers are not part of an anchor.
+   Format convention: `(course-[path]-[semantic_module_slug]-[section_slug])=`
    Examples:
-   - Module top anchor: `(course-core-01)=`
-   - Section anchor: `(course-core-01-learning-outcomes)=`
-   - Section anchor: `(course-core-01-see-also)=`
+   - Module top anchor: `(course-core-the-form-agnostic-philosophy)=`
+   - Section anchor: `(course-core-the-form-agnostic-philosophy-learning-outcomes)=`
+   - Section anchor: `(course-core-the-form-agnostic-philosophy-see-also)=`
 2. **Cross-Referencing:**  
    Use `{ref}` or Markdown links for internal linking to ensure readers can click directly to target modules or documentation pages.
 
@@ -128,12 +128,12 @@ To ensure stable cross-referencing and seamless compilation:
 
 Every course notebook (`*.ipynb`) **must** follow this layout unless an explicit exception is declared in its corresponding micro `XX_Name.AGENTS.md`:
 
-1. **Top Anchor & Title:** `(course-[path]-[module_number])=` and `# Module X: Title`
+1. **Top Anchor & Title:** `(course-[path]-[semantic_module_slug])=` and `# Module X: Title`
 2. **Introductory Narrative & Glossaries / Portals** (with `:class: dropdown`)
 3. **`> **🎯 Learning Outcomes**` Blockquote** (3-4 schematic bullets with vertical gray line)
 4. **Numbered Sections (`### 1. ...`, `### 2. ...`)** interleaved with code cells and concluding admonitions (with `:class: dropdown`) at thread endings
 5. **`### 🏆 Challenge X: Title` & ````{key-takeaway}`**
-6. **`:::{seealso}` Admonition** (with `:class: dropdown` and `(course-[path]-[module_number]-see-also)=` anchor)
+6. **`:::{seealso}` Admonition** (with `:class: dropdown` and `(course-[path]-[semantic_module_slug]-see-also)=` anchor)
 
 ---
 

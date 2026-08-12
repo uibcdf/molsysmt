@@ -28,4 +28,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 4. Choose Your Scientific Path & See Also
 * Must include the **Choose Your Scientific Path** block detailing Paths A through D.
-* Must include the **See Also** block (`(course-core-20-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 19.
+* Must include the **See Also** block (`(course-core-the-specialized-domains-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 19.

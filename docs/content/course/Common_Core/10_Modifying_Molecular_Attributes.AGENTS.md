@@ -33,4 +33,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 6. Challenge & See Also
 * Must include **Challenge 10: The Molecular Editor** using T4 Lysozyme (`181L`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-10-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 9 and Module 11.
+* Must include the **See Also** block (`(course-core-system-modification-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 9 and Module 11.

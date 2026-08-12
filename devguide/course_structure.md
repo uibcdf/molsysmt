@@ -8,16 +8,24 @@ rules for keeping it synchronized with the library.
 
 Excluding notebook checkpoints, the course currently contains:
 
-- `00_Common_Core`: 20 notebooks numbered 01–20;
-- `01_Path_Alzheimer`: 34 notebooks numbered 17–50;
-- `02_Path_Enzyme`: 34 notebooks numbered 17–50;
-- `03_Path_Antiviral`: 34 notebooks numbered 17–50;
-- `04_Path_Biophysics`: 34 notebooks numbered 17–50.
+- `Common_Core`: 20 notebooks numbered 01–20;
+- `Path_Alzheimer`: 34 notebooks numbered 21–54;
+- `Path_Enzyme`: 34 notebooks numbered 21–54;
+- `Path_Antiviral`: 34 notebooks numbered 21–54;
+- `Path_Biophysics`: 34 notebooks numbered 21–54.
 
-This is 156 notebooks. The landing page currently describes a common core of
-modules 1–16, so modules 17–20 overlap between the common core and every path.
-That mismatch is a confirmed documentation defect; see
-`archive/resolved_bugs/course_module_numbering_overlaps.md`.
+This is 156 notebooks. Every complete route through the course contains the
+20-module Common Core followed by one 34-module Path, for 54 modules with no
+gap or duplicate display number.
+
+`docs/content/course/course_manifest.yml` is the identity authority. Each
+notebook carries its manifest `id` as its top-level MyST label. These semantic
+labels remain stable if display numbers or filenames change; internal links use
+the labels rather than reconstructing identity from a module number.
+
+`devtools/scripts/validate_course.py` enforces the 20 + 4x34 inventory,
+numbering, toctrees, manifest coverage, unique semantic identifiers, and exact
+manifest-to-notebook label agreement.
 
 The earlier six-phase, single 50-module proposal is archived under
 `archive/assessments/` and is not the current course map.

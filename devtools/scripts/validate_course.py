@@ -6,8 +6,7 @@ Enforces the contract established by the 2026-07-22 renumbering
 ``devguide/archive/resolved_bugs/course_module_numbering_overlaps.md``):
 
 - each Path is exactly modules 21..54 (no gaps, no duplicates);
-- the Common Core is contiguous from 1, but its total is not fixed while the
-  section is still being consolidated (see UNCONSOLIDATED below);
+- the Common Core is exactly modules 1..20 (no gaps, no duplicates);
 - every ``index.md`` toctree entry resolves to an existing notebook, and no on-disk
   notebook is missing from its section toctree;
 - ``course_manifest.yml`` lists every notebook with a unique semantic id, and each
@@ -26,24 +25,12 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 COURSE = REPO / "docs" / "content" / "course"
 SECTIONS = {
-    "Common_Core": ("core", None),
+    "Common_Core": ("core", range(1, 21)),
     "Path_Alzheimer": ("alzheimer", range(21, 55)),
     "Path_Enzyme": ("enzyme", range(21, 55)),
     "Path_Antiviral": ("antiviral", range(21, 55)),
     "Path_Biophysics": ("biophysics", range(21, 55)),
 }
-
-# Sections whose module count is not settled yet. `None` above means the numbering is
-# still required to run 1, 2, 3, ... with no gap and no duplicate, but the total is
-# whatever is on disk. Pin a range here once the section is consolidated.
-#
-# These sections also still carry numeric MyST labels, `(course-core-13)=`, while the
-# manifest lists semantic ids. The four Paths already migrated to semantic labels; the
-# Common Core has not, and doing so means moving 82 anchors. Until then its labels are
-# only checked for existence and uniqueness, not for matching the manifest.
-# Tracked in devguide/pending_bugs/course_gate_red_after_common_core_renumbering.md
-UNCONSOLIDATED_LABELS = {"Common_Core"}
-
 
 def notebooks(d: Path):
     return [p for p in d.glob("*.ipynb") if ".ipynb_checkpoints" not in p.parts]
@@ -101,8 +88,6 @@ def main() -> int:
         nums = sorted(num_of(p) for p in nbs)
 
         # 1. numeric contract (no gaps, no duplicates)
-        if expected is None:
-            expected = range(1, len(nbs) + 1)
         if nums != list(expected):
             errors.append(
                 f"{d}: numbering {nums[:3]}..{nums[-3:]} != expected "
@@ -133,7 +118,7 @@ def main() -> int:
             lab = label_of(p)
             if lab is None:
                 errors.append(f"{rel}: no MyST label declared")
-            elif lab != mid and d not in UNCONSOLIDATED_LABELS:
+            elif lab != mid:
                 errors.append(f"{rel}: label ({lab}) != manifest id ({mid})")
             elif lab in seen_labels:
                 errors.append(f"duplicate label {lab}: {seen_labels[lab]} and {rel}")

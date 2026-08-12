@@ -26,4 +26,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 4. Challenge & See Also
 * Must include **Challenge 18: The Subsystem Specialist** using T4 Lysozyme (`181L`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-18-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 17 and Module 19.
+* Must include the **See Also** block (`(course-core-extracting-and-removing-elements-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 17 and Module 19.

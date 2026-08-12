@@ -43,4 +43,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 10. Challenge & See Also
 * Must include **Challenge 8: The Data Scientist** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-08-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 7 and Module 9.
+* Must include the **See Also** block (`(course-core-programmatic-extraction-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 7 and Module 9.

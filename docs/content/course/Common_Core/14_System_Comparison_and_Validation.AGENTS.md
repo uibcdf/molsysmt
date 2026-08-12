@@ -32,4 +32,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 5. Challenge & See Also
 * Must include **Challenge 14: The System Validator** using T4 Lysozyme (`lysozyme`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-14-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 13 and Module 15.
+* Must include the **See Also** block (`(course-core-comparing-systems-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 13 and Module 15.

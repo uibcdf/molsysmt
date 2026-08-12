@@ -33,4 +33,4 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 6. Challenge & See Also
 * Must include **Challenge 6: The Scene Director** using Barnase-Barstar (`systems['Barnase-Barstar']['barnase_barstar.h5msm']`), and the Key Takeaway box (````{key-takeaway}`).
-* Must include the **See Also** block (`(course-core-06-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 5 and Module 7.
+* Must include the **See Also** block (`(course-core-visualizing-anything-see-also)=` / `:::{seealso}\n:class: dropdown`) with hyperlinked cross-references to Module 5 and Module 7.
