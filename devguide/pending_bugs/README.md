@@ -20,11 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### In progress (2)
-
-- [`built_wheels_omit_the_dynamic_form_catalogue.md`](built_wheels_omit_the_dynamic_form_catalogue.md) — [#145](https://github.com/uibcdf/molsysmt/issues/145) — Built wheels omit the dynamic form catalogue *(high, reproduced)*
-- [`ci_shadows_the_installed_rust_extension_with_the_source_checkout.md`](ci_shadows_the_installed_rust_extension_with_the_source_checkout.md) — [#146](https://github.com/uibcdf/molsysmt/issues/146) — CI shadows the installed Rust extension with the source checkout *(high, reproduced)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

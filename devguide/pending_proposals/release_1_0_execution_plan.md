@@ -3,7 +3,7 @@
 **Role:** pending operational plan
 **Decision date:** 2026-07-26
 **Target:** a clean, Rust-only MolSysMT 1.0 release on Python 3.11–3.13
-**Status:** implementation complete through F4; F5 and F6 remain open
+**Status:** implementation complete through F5; F6 release sign-off and tag remain open
 
 ## Purpose
 

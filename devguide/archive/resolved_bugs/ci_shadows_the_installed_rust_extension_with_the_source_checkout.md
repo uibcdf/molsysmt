@@ -1,13 +1,13 @@
 ---
 summary: CI shadows the installed Rust extension with the source checkout
 issue: uibcdf/molsysmt#146
-status: active
+status: resolved
 opened: 2026-08-12
-closed:
+closed: 2026-08-12
 severity: high
 verification: reproduced
 area: [ci, build]
-guard:
+guard: devtools/tests/test_pytest_receptor_ci_contract.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,7 +17,8 @@ supersedes: []
 
 **Reported:** 2026-08-12, by CI smoke run `31574803154` on candidate
 `3eda3fa219ae2663760de764d11ed69b7e17f3ec`.
-**Status:** Active; the contradictory installation/import contract is being corrected.
+**Status:** Resolved on 2026-08-12; source workflows now test one editable package
+identity and the exact clean-runner matrix passes.
 
 ## What
 
@@ -154,3 +155,19 @@ separate installed-wheel tests, whose purpose is to reject checkout leakage.
 
 GitHub Actions runs `31574803154`, `31576019522`, and `31577245777`, Ubuntu/macOS latest,
 CPython 3.11--3.13, 2026-08-12.
+
+## Resolution
+
+The source-test workflows install MolSysMT editably without injecting `PYTHONPATH`, use
+controlled hard-dependency revisions, and share one platform-independent MolSysViewer
+wheel across the Linux/macOS matrix. The PyTraj chain identifier adapter supports both
+observed 2.0.6 ABIs, cross-repository SMonitor tests restore the global catalogue they
+replace, peptide parity asserts physical and topological invariants rather than an
+unjustified LEaP conformational match, and documentation selects the pinned minimal Rust
+toolchain.
+
+On exact commit `8faf62785`, smoke run `31589594438`, documentation run `31589594273`,
+wheel run `31589594286`, and full-matrix run `31589594289` all passed. The full matrix
+covered Ubuntu and macOS on Python 3.11, 3.12, and 3.13. The principal workflow guard is
+`devtools/tests/test_pytest_receptor_ci_contract.py`; focused adapter, diagnostics,
+peptide, documentation-workflow, and wheel-workflow tests protect the subsidiary fixes.

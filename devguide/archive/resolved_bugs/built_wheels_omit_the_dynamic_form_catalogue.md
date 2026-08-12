@@ -1,13 +1,13 @@
 ---
 summary: Built wheels omit the dynamic form catalogue
 issue: uibcdf/molsysmt#145
-status: active
+status: resolved
 opened: 2026-08-12
-closed:
+closed: 2026-08-12
 severity: high
 verification: reproduced
 area: [build, form]
-guard:
+guard: devtools/tests/test_validate_rust_wheel.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-08-12, by the installed public-runtime jobs in the first exact-commit
 1.0 candidate wheel campaign, GitHub Actions run `31572599515`.
-**Status:** Active; the cause is reproduced from the generated Linux wheel and the
-packaging contract is being repaired.
+**Status:** Resolved on 2026-08-12; built wheels carry the complete generated form
+catalogue and the validator rejects any missing declaration.
 
 ## What
 
@@ -100,3 +100,16 @@ GitHub Actions run `31572599515`, candidate
 `7cedab74a172f7391468ba239b1f87937898cc83`, Linux x86_64 wheel
 `molsysmt-0.21.0+325.g7cedab74a-cp311-abi3-manylinux_2_28_x86_64.whl`, inspected on
 2026-08-12. The failing installed smoke covered CPython 3.11, 3.12 and 3.13.
+
+## Resolution
+
+`pyproject.toml` now includes only the generated `form/*/form.json` declarations as
+form package data. `validate_rust_wheel.py` derives the complete expected declaration
+set from the source tree and rejects a wheel missing any member. The installed public
+runtime smoke recognizes and converts the bundled H5MSM system from outside the
+checkout on Python 3.11--3.13.
+
+The final F5 wheel campaign passed on exact commit `8faf62785` in GitHub Actions run
+`31589594286`: supported Linux x86_64/aarch64 and macOS x86_64/arm64 artifacts built,
+audited, installed, and executed successfully. The experimental Windows artifact also
+passed. The regression guard is `devtools/tests/test_validate_rust_wheel.py`.
