@@ -78,6 +78,14 @@ residual causes rather than another packaging failure:
   checks now use the builder's `0.12 nm` rejection boundary rather than a stricter
   platform-sensitive threshold.
 
+The first documentation run after the platform-scope clarification failed before
+Sphinx, while building MolSysMT on a runner with a partially provisioned Rust 1.97.1
+toolchain. Processing `rust-toolchain.toml` requested the development-only Clippy and
+rustfmt components and collided with an existing `bin/cargo-clippy`. Documentation now
+installs the pinned minimal toolchain explicitly and builds with
+`RUSTUP_TOOLCHAIN=1.97.1`; documentation needs rustc and cargo, not the Rust quality
+components exercised independently by the wheel campaign.
+
 ## Why
 
 This blocks smoke, weekly and full CI on every clean runner after the Rust-only
@@ -119,6 +127,8 @@ non-editable wheel smokes or the eventual Conda publication process.
   PyTraj part of wheel construction or the hard runtime dependency set.
 - Cross-repository diagnostics tests restore every process-global SMonitor setting they
   replace, so later tests retain sibling catalogues and actionable hints.
+- Documentation builds select the pinned minimal Rust toolchain without attempting to
+  repair or add development-only components on the runner.
 - CI smoke and the six-cell full matrix pass from clean runners.
 
 ## Dependencies and risks

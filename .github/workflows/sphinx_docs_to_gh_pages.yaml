@@ -65,8 +65,19 @@ jobs:
         run: |
           python -m pip install --no-deps git+https://github.com/uibcdf/molsysviewer@0.20.1
 
+      # Building the private extension needs only rustc/cargo. Pinning the minimal
+      # toolchain here prevents rustup from processing the development-only Clippy and
+      # rustfmt components in rust-toolchain.toml on partially provisioned runners.
+      - name: Select the pinned minimal Rust toolchain
+        shell: bash -l {0}
+        run: |
+          rustup toolchain install 1.97.1 --profile minimal
+          rustc +1.97.1 --version
+
       - name: Install package
         shell: bash -l {0}
+        env:
+          RUSTUP_TOOLCHAIN: 1.97.1
         run: |
           python -m pip install . --no-deps
 
