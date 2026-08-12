@@ -35,6 +35,22 @@ Inside `molsysmt.Topology`, data is maintained across seven canonical tabular Da
 
 ---
 
+## Container Conversion
+
+A topology can be wrapped in a `molsysmt.MolSys` without inventing structural data:
+
+```python
+topology_only = msm.convert(topology, to_form="molsysmt.MolSys")
+```
+
+The resulting container preserves the complete topology and has zero structures. This is
+useful when a workflow needs the central native container before coordinates are available.
+A three-dimensional viewer has a stricter contract: converting a topology to
+`nglview.NGLWidget` requires explicit `coordinates=` because MolSysMT does not fabricate a
+geometry for a topology-only system.
+
+---
+
 ## API Documentation
 
 All methods, getters, and converters for `molsysmt.Topology` are documented in the [{doc}`molsysmt.Topology API Reference </api/form/molsysmt_Topology/api_molsysmt_Topology>`].

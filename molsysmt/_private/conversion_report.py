@@ -260,6 +260,10 @@ _CONVERSION_AUDIT_PROFILES = {
         'molsysmt.Structures',
     ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
     (
+        'molsysmt.Topology',
+        'molsysmt.MolSys',
+    ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,
+    (
         'molsysmt.StructuresDict',
         'molsysmt.MolSys',
     ): _DECLARED_CAPABILITY_PROJECTION_PROFILE,

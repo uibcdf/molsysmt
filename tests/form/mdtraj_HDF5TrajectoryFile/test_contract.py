@@ -56,3 +56,26 @@ def test_hdf5_reader_native_conversion_preserves_available_fields_and_cursor():
     assert output.structures.kinetic_energy.shape == (2,)
     assert output.structures.potential_energy.shape == (2,)
     assert output.structures.velocities is None
+
+
+def test_hdf5_reader_extract_returns_an_ordered_in_memory_trajectory():
+    path = msm.systems["pentalanine"]["traj_pentalanine.h5"]
+    with mdtraj.open(str(path)) as reader:
+        reader.seek(11)
+        output = msm.extract(
+            reader,
+            selection=[8, 1, 4],
+            structure_indices=[7, 2],
+        )
+        assert reader.tell() == 11
+
+    assert msm.get_form(output) == "mdtraj.Trajectory"
+    assert output.n_atoms == 3
+    assert output.n_frames == 2
+
+    reference = mdtraj.load_hdf5(
+        str(path),
+        atom_indices=[1, 4, 8],
+    ).slice([7, 2])
+    np.testing.assert_allclose(output.xyz, reference.xyz)
+    np.testing.assert_allclose(output.time, reference.time)

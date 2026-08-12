@@ -32,6 +32,7 @@ from .remove_bonds import remove_bonds
 
 _convert_to={
         'molsysmt.Topology': 'to_molsysmt_Topology',
+        'molsysmt.MolSys': 'to_molsysmt_MolSys',
         'molsysmt.TopologyDict': 'to_molsysmt_TopologyDict',
         'file:topology_yaml': 'to_file_topology_yaml',
         'mdtraj.Topology': 'to_mdtraj_Topology',

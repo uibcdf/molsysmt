@@ -151,8 +151,8 @@ deleting it from `syntaxes` is cheaper than any of the above.
 
 ## Appendix — unrelated defect found while measuring
 
-Not part of this proposal; found on the way. **Now filed on its own as
-[`pending_bugs/form_conversions_importing_nonexistent_modules.md`](../pending_bugs/form_conversions_importing_nonexistent_modules.md)**,
+Not part of this proposal; found on the way. **Resolved and archived as
+[`form_conversions_importing_nonexistent_modules.md`](../archive/resolved_bugs/form_conversions_importing_nonexistent_modules.md)**,
 where it turned out to be three cases rather than one. Kept here in summary only.
 
 `molsysmt/form/file_prmtop/to_molsysmt_MolSys.py` imports a module that has

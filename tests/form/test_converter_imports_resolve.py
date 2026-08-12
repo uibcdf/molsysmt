@@ -21,14 +21,10 @@ FORM_ROOT = pathlib.Path(msm.__file__).parent / 'form'
 
 RELATIVE_IMPORT = re.compile(r'^\s*from\s+\.(\w+)\s+import', re.MULTILINE)
 
-# Conversions that are still broken, each one an advertised edge that raises
-# ModuleNotFoundError when called. They are listed so that a new occurrence fails this
-# test while the known ones stay visible; both need a converter written or the route
-# changed, which are separate decisions recorded in the report named above.
-KNOWN_BROKEN = {
-    ('mdtraj_HDF5TrajectoryFile/extract.py', 'to_mdtraj_Trajectory'),
-    ('molsysmt_Topology/to_nglview_NGLWidget.py', 'to_molsysmt_MolSys'),
-}
+# Advertised operations known to import a missing sibling module. The empty baseline is
+# intentional: any new occurrence fails immediately, and a future temporary exception
+# must stay visible here until its own contract is resolved.
+KNOWN_BROKEN = set()
 
 
 def _unresolved_relative_imports():

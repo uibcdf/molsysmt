@@ -1,13 +1,13 @@
 ---
-summary: Conversions advertised by the catalogue raise ModuleNotFoundError when called.
+summary: Advertised form operations imported sibling converter modules that did not exist.
 issue: uibcdf/molsysmt#140
-status: partial
+status: resolved
 opened: 2026-08-06
-closed:
+closed: 2026-08-12
 severity: medium
 verification: reproduced
 area: [form, convert]
-guard:
+guard: tests/form/test_converter_imports_resolve.py::test_no_new_relative_import_names_a_missing_module
 normative:
 blocked_by: []
 supersedes: []
@@ -18,11 +18,9 @@ supersedes: []
 **Reported:** 2026-08-06, from MolSysViewer, while verifying which input objects
 a viewer can accept.
 
-**Status:** case 1 fixed on 2026-08-07; cases 2 and 3 remain open. The static sweep
-proposed below landed with the fix as
-`tests/form/test_converter_imports_resolve.py`, carrying the two remaining cases as
-an explicit baseline: a new occurrence fails the suite, and repairing one of the two
-requires removing its baseline entry.
+**Status:** resolved on 2026-08-12. Case 1 was fixed on 2026-08-07; cases 2 and 3
+now have explicit contracts and executable regressions. The static sweep in
+`tests/form/test_converter_imports_resolve.py` has an empty known-broken baseline.
 
 ## Summary
 
@@ -35,13 +33,11 @@ deleting the line was the whole fix. `file:prmtop → molsysmt.MolSys` now retur
 MolSys with 5207 atoms and zero structures, guarded by
 `tests/form/file_prmtop/test_to_molsysmt_MolSys.py`.
 
-The other two genuinely call the missing module, so they need the converter written
-or the route changed, and each turns on a semantic decision this report does not
-make. `molsysmt.Topology → nglview.NGLWidget` receives `coordinates` and `box` as
-arguments and has to decide what showing a topology without coordinates means;
-`extract` on an `mdtraj.HDF5TrajectoryFile` without an output filename has to decide
-whether returning an in-memory `mdtraj.Trajectory` from a file-handle form is the
-intended contract.
+The other two genuinely called missing modules and required semantic decisions.
+Those decisions are now settled: filtered extraction from an
+`mdtraj.HDF5TrajectoryFile` without an output filename returns an in-memory
+`mdtraj.Trajectory`; visualization of a topology requires explicit coordinates and
+never fabricates geometry.
 
 ## Reproduction
 
@@ -158,7 +154,7 @@ by adding a new `to_molsysmt_MolSys` to that package.
 ## A wider pattern behind these, found 2026-08-08
 
 Fixing `molsysmt.MolSys -> openmm.System` (see
-`convert_molsys_to_openmm_system_passes_the_wrong_topology.md`) exposed a defect of the
+[`convert_molsys_to_openmm_system_passes_the_wrong_topology.md`](../archive/resolved_bugs/convert_molsys_to_openmm_system_passes_the_wrong_topology.md)) exposed a defect of the
 same family but a different mechanism, and looking for more of it found these cases again
 from another angle.
 
@@ -188,7 +184,7 @@ converter is deliberate, so the remaining 65 need reading before anything is cha
 is why this is a devtools script and not a test yet: turning it into one now would leave
 the suite red with 69 failures and no way to tell the real ones from the deliberate ones.
 
-The end state is a fourth entry in `tests/test_form_plugin_conventions.py`, with whatever
+The possible end state is a fourth entry in `tests/test_form_plugin_conventions.py`, with whatever
 survives triage carried as an explicit baseline -- the same shape as
 `test_converter_imports_resolve.py` already uses here.
 
@@ -222,3 +218,49 @@ Which points at the cheaper path: the 29 forms still in `UNREACHED` in
 `tests/basic/test_get_form_battery.py` are exactly the conversions nobody exercises.
 Closing those is likely to surface the remaining defects of this family the same way the
 first one surfaced, with a real diagnosis instead of a suspicion.
+
+## Resolution
+
+The two remaining operations were repaired without weakening the distinction between
+topology and geometry.
+
+### HDF5 extraction
+
+The missing `to_mdtraj_Trajectory` implementation now reads an in-memory trajectory from
+the beginning of an `mdtraj.HDF5TrajectoryFile`, restores the caller's file cursor, applies
+the canonical sorted atom selection, and preserves the requested structure order. It is an
+internal implementation detail of `extract`, not a new public conversion edge: an
+`mdtraj.Trajectory` cannot represent every optional thermodynamic field stored in the HDF5
+reader, so advertising the edge as generally exhaustive would create new conversion debt.
+
+### Topology conversion and visualization
+
+`molsysmt.Topology -> molsysmt.MolSys` is now a registered, exhaustively audited native
+projection. Without explicitly supplied structures it produces a valid topology-only
+MolSys with zero structures and preserves the complete topology.
+
+`molsysmt.Topology -> nglview.NGLWidget` routes through that converter when coordinates are
+provided. Without coordinates it raises a catalogued `NotCompatibleConversionError`
+naming the missing attribute. Returning a blank widget or inventing zero coordinates was
+rejected because either result would misrepresent a three-dimensional molecular system.
+
+### Evidence
+
+- `tests/form/mdtraj_HDF5TrajectoryFile/test_contract.py::test_hdf5_reader_extract_returns_an_ordered_in_memory_trajectory`
+  fixes the cursor, atom-selection, structure-order, and return-form contract.
+- `tests/form/molsysmt_Topology/test_conversion_contract.py` fixes topology-only MolSys
+  construction, exhaustive conversion reporting, the missing-coordinate diagnostic, and
+  explicit-coordinate NGLView construction.
+- `tests/form/test_converter_imports_resolve.py` now carries an empty baseline: every
+  relative import below `molsysmt/form` resolves.
+- The Tier 1 conversion-fidelity audit remains monotonic: 481 direct edges, 40 exhaustively
+  audited, 0 new non-exhaustive debt, and 29 previously accepted debts resolved.
+- The affected topology, HDF5, NGLView, extraction, and conversion-report surfaces complete
+  with 1,146 passing tests under 12 pytest workers; the repository's 12 fast release gates
+  also pass.
+- The Native Forms course module and the Topology and supported-classes User Guide pages
+  document the topology-only and file-reader contracts.
+
+The broader converter-routing audit remains advisory work outside this defect. Its
+cross-plugin candidates do not imply missing relative modules, and each still requires an
+executed conversion before it can be classified as defective.

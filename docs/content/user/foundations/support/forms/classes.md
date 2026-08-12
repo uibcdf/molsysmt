@@ -33,7 +33,7 @@ MolSysMT seamlessly digests and converts object instances from major ecosystem p
 | **`mdtraj.Trajectory`** | MDTraj | Full 3D coordinate and box trajectory ensemble. |
 | **`mdtraj.Topology`** | MDTraj | Topological atom and residue hierarchy. |
 | **`mdtraj.DCDTrajectoryFile`** | MDTraj | DCD file object handle. |
-| **`mdtraj.HDF5TrajectoryFile`** | MDTraj | HDF5 trajectory file handle. |
+| **`mdtraj.HDF5TrajectoryFile`** | MDTraj | HDF5 trajectory file handle. A filtered `msm.extract()` call without an output filename returns an in-memory `mdtraj.Trajectory` and preserves the reader cursor. |
 | **`mdtraj.XTCTrajectoryFile`** | MDTraj | XTC compressed trajectory file handle. |
 | **`mdtraj.PDBTrajectoryFile`** | MDTraj | PDB trajectory file handle. |
 | **`mdtraj.GroTrajectoryFile`** | MDTraj | GRO trajectory file handle. |
