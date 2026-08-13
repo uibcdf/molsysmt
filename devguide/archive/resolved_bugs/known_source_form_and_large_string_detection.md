@@ -15,7 +15,8 @@ supersedes: []
 
 # Known source forms and bounded detection of large molecular strings
 
-**Status:** proposed from a MolSysViewer integration benchmark  
+**Status:** resolved at the automatic-detection boundary; the separate expert hint is
+deferred beyond 1.0 as uibcdf/molsysmt#151.
 **Owner:** MolSysMT (`get_form()` and `convert()`)
 
 ## What was observed

@@ -15,8 +15,7 @@ supersedes: []
 
 # The published API reference carries a `_private` branch
 
-**Status:** open. The decision is the maintainer's: it turns on who the published
-API reference is for.
+**Status:** resolved by excluding private modules from the published API reference.
 **Raised:** 2026-08-08, while auditing the two UIBCDF GitHub Actions MolSysMT
 invokes. The audit asked whether the Sphinx action should keep running
 `sphinx-apidoc`; reading `docs/api/` to answer that turned up this separate
