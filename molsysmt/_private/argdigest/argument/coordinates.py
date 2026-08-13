@@ -26,14 +26,18 @@ def digest_coordinates(coordinates, caller=None):
         if isinstance(coordinates, str):
             coordinates = puw.parse.parse(coordinates)
 
+        already_in_nanometers = puw.has_unit(coordinates, "nm") is True
         value = to_float64_array(coordinates)
-        unit = puw.get_unit(coordinates)
-        
-        # Validation of dimensionality
-        if not puw.check(unit, dimensionality={"[L]": 1}):
-            from molsysmt._private.smonitor import StructuralInconsistencyError
+        unit = None
 
-            raise StructuralInconsistencyError("Incompatible units for coordinates")
+        if not already_in_nanometers:
+            unit = puw.get_unit(coordinates)
+
+            # Validation of dimensionality
+            if not puw.check(unit, dimensionality={"[L]": 1}):
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError("Incompatible units for coordinates")
 
         shape = value.shape
         if len(shape) == 1:
@@ -53,7 +57,9 @@ def digest_coordinates(coordinates, caller=None):
             raise StructuralInconsistencyError("Wrong dimensions for coordinates", caller=caller)
 
         # Convert to nanometers if it has units
-        if unit is not None:
+        if already_in_nanometers:
+            value_nm = value
+        elif unit is not None:
             value_nm = puw.get_value(coordinates, to_unit="nm")
             value_nm = np.asarray(value_nm, dtype=np.float64)
             value_nm = value_nm.reshape(value.shape)
@@ -63,6 +69,9 @@ def digest_coordinates(coordinates, caller=None):
         # --- Native Structures Internal Path ---
         if caller is not None and caller.startswith("molsysmt.native.structures"):
             return value_nm
+
+        if already_in_nanometers:
+            return puw.change_value(coordinates, value)
 
         # Performance: return as quantity in ORIGINAL unit.
         # Avoid forced standardize() unless specifically needed downstream.

@@ -8,9 +8,11 @@ def normalize_lengths_to_nm_array(value, argname, caller=None):
     if isinstance(value, np.ndarray):
         array = np.asarray(value, dtype=np.float64)
     else:
-        if not puw.check(value, dimensionality={"[L]": 1}):
-            raise ArgumentError(argname, value=value, caller=caller, message=None)
-        array = np.asarray(puw.get_value(puw.fast_track.to_nanometers(value)), dtype=np.float64)
+        if puw.has_unit(value, "nm") is not True:
+            if not puw.check(value, dimensionality={"[L]": 1}):
+                raise ArgumentError(argname, value=value, caller=caller, message=None)
+            value = puw.fast_track.to_nanometers(value)
+        array = np.asarray(puw.get_value(value), dtype=np.float64)
 
     if array.ndim == 1:
         if array.shape[0] != 3:
@@ -30,9 +32,11 @@ def normalize_box_to_nm_array(value, argname, caller=None):
     if isinstance(value, np.ndarray):
         array = np.asarray(value, dtype=np.float64)
     else:
-        if not puw.check(value, dimensionality={"[L]": 1}):
-            raise ArgumentError(argname, value=value, caller=caller, message=None)
-        array = np.asarray(puw.get_value(puw.fast_track.to_nanometers(value)), dtype=np.float64)
+        if puw.has_unit(value, "nm") is not True:
+            if not puw.check(value, dimensionality={"[L]": 1}):
+                raise ArgumentError(argname, value=value, caller=caller, message=None)
+            value = puw.fast_track.to_nanometers(value)
+        array = np.asarray(puw.get_value(value), dtype=np.float64)
 
     if array.ndim == 2:
         if array.shape != (3, 3):
