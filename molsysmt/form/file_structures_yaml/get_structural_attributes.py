@@ -24,7 +24,9 @@ def _make_wrapper(name, target):
             call_arguments.append(f"{parameter.name}={parameter.name}")
     call_arguments = ', '.join(call_arguments)
 
-    namespace = {'arg_digest': arg_digest, 'target': target, 'form': form}
+    namespace = {
+        '__name__': __name__, 'arg_digest': arg_digest, 'target': target, 'form': form
+    }
     from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
     namespace.update(locals())
     source = f"@arg_digest(form=form)\ndef {name}({parameter_list}):\n    tmp_item = to_molsysmt_StructuresDict(item, skip_digestion=True)\n    return target({call_arguments})\n"

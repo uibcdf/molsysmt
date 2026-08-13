@@ -20,9 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
 - [`boundary_digestion_on_internal_predicates.md`](boundary_digestion_on_internal_predicates.md) — [#147](https://github.com/uibcdf/molsysmt/issues/147) — Internal predicates carry boundary-grade argument digestion, costing ~29 ms per user-facing viewer action. *(high, measured)*
+- [`dead_validated_payload_blocks_argdigest.md`](dead_validated_payload_blocks_argdigest.md) — [#153](https://github.com/uibcdf/molsysmt/issues/153) — The ValidatedPayload branch in the coordinates digester is unreachable, and its import blocks ArgDigest from removing the passport. *(medium, measured)*
 
 ### Partially resolved (2)
 
