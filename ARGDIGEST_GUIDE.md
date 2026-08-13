@@ -5,8 +5,13 @@ Source of truth for integrating and using **ArgDigest** in this library.
 Metadata
 - Source repository: `argdigest`
 - Source document: `standards/ARGDIGEST_GUIDE.md`
-- Source version: `argdigest@0.10.0`
-- Last synced: 2026-08-07
+- Source version: `argdigest@0.11.0` plus unreleased `main`
+- Last synced: 2026-08-13
+
+Since `0.11.0` this guide changed in two ways that affect an integration: `*args` and
+positional-only parameters are supported and documented (§5), and the `ValidatedPayload`
+passport was **removed** rather than replaced, leaving `skip_digestion` as the single
+mechanism (§6).
 
 ## What is ArgDigest
 
@@ -334,10 +339,20 @@ default.
 3.  **Support skip_digestion**: All decorated functions should allow bypassing digestion via a `skip_digestion` parameter for internal performance-critical calls.
 4.  **Argument Dependencies**: Digesters can request other (already digested) arguments by simply adding them to their signature. ArgDigest handles the topological sort and cycle detection.
 5.  **Caller-aware Optionality**: Downstream libraries may accept `None` or otherwise relaxed values for specific public callables. These semantics belong in digesters, not in bypasses around `@arg_digest`.
-6.  **Keep trusted delegation explicit**: MolSysMT does not use value passports. A
-    controlled internal call may pass `skip_digestion=True` only after its caller has
-    established the complete argument contract; never pass unvalidated user input.
+6.  **Do not re-digest what you already digested**: pass `skip_digestion=True` on internal calls carrying values your library just built. It is the only mechanism for this, and it never belongs on a public API boundary. See §6.
 7.  **Declare both axes**: a function taking `**kwargs` must declare the domain those keywords come from. Leaving it undeclared means the function accepts anything, which is the defect axis 1 exists to prevent. If a domain genuinely cannot be expressed, record why.
+
+### Functions taking `*args` or positional-only parameters
+
+Both are supported and keep their call shape: `*args` is unpacked back into operands,
+and a positional-only parameter is passed positionally.
+
+One consequence is worth knowing before you write the digester: **`*args` is bound as a
+single tuple and digested once**, under the parameter's own name. A digester named
+`digest_items` for `def combine(*items)` receives `('a', 'b')`, not `'a'` and then `'b'`.
+That is deliberate — it is what lets the digester assert something about the group, such
+as requiring at least one operand — but it means the digester must be written against a
+collection.
 
 ## SMonitor Integration
 
@@ -355,16 +370,49 @@ includes execution context and the original exception text.
 ---
 *Document created on February 6, 2026, as the authority for ArgDigest integration.*
 
-## 6. Performance: Explicit Trusted Delegation
+## 6. Not re-digesting what you already digested
 
-ArgDigest validates and normalizes values at decorated boundaries. MolSysMT deliberately
-does not layer a value-certification or passport protocol on top of that model: the
-previous `ValidatedPayload` experiment had no live consumer and increased the concepts
-every digester author had to maintain.
+There is **one** mechanism, and it is the one you already know:
 
-When a decorated MolSysMT function delegates internally and has already established
-every input invariant, it may call the target with `skip_digestion=True`. This is a
-whole-call bypass, so the caller owns type, shape, unit, selection, and cross-argument
-consistency. If even one argument remains user-controlled or unresolved, use ordinary
-digestion instead. Performance-sensitive canonicity checks belong in PyUnitWizard or in
-kernel-input preparation helpers, not in an identity-based wrapper protocol.
+```python
+result = internal_helper(coordinates, skip_digestion=True)
+```
+
+`skip_digestion=True` turns digestion off for that call. Measured, it costs 1.8 µs
+against 21.6 µs for the decorator's ordinary path, and on a real digester —
+`molsysmt_MolSys.has_attribute` — 7.5 µs against 65.6 µs.
+
+**Use it for internal calls, with values your library just built. Never on a public API
+boundary**, where the value comes from a user and there is no trust to claim.
+
+### If digestion dominates an operation, find out why first
+
+A bypass is not the answer to a slow path, and reaching for one hides the reason. The
+one measured case in this ecosystem was a predicate whose body is 7.5 µs wearing a
+boundary-grade digester nine times its weight, called 434 times for a single user
+action. No bypass fixes that; correct placement does.
+
+Digestion belongs at API boundaries. A digester on an internal predicate is a placement
+problem.
+
+### On the passport that used to be here
+
+Earlier versions offered a `ValidatedPayload` — a container carrying a value plus its
+verified metadata, which the decorator unwrapped and let past its digester. It was
+removed, and the reasoning is worth keeping because it applies to anything proposed in
+its place.
+
+The container changed the value's **type**, so it had to be unwrapped before the
+function body ran, so it stopped travelling at the first body it met — a value passing
+through five nested calls was re-digested four times anyway. And the claim it carried
+described the *value* rather than the *verification*, so a payload issued by one
+library's digester silenced another library's digester for the same argument name.
+
+A design that fixed both — certifying the value by identity, with the claim bound to the
+digester that issued it — was built and measured. It worked, and it was still declined:
+it asked every digester author to learn three new concepts to solve a problem no
+consumer had actually hit. Measured across MolSysMT, MolSysViewer and PyUnitWizard, the
+passport had zero users.
+
+If you find yourself needing it, that is a measurement worth reporting, not a mechanism
+worth reinventing locally.
