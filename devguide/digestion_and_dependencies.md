@@ -62,6 +62,13 @@ performance problems such as an expensive canonical-unit predicate belong in
 the responsible unit library or a kernel-input preparation helper, not in a
 generic identity-based certification container.
 
+For quantity boundaries, follow the decision table and regression checklist in
+the root `PYUNITWIZARD_GUIDE.md`. In particular, use `ensure_quantity()` for a
+complete public magnitude contract and reserve an explicit `has_unit()` branch
+for a measured path that also owns local shape or dtype normalization. Exact-unit
+mismatch does not establish dimensional compatibility: both `False` and `None`
+from `has_unit()` require general validation at an untrusted boundary.
+
 ## Dependency Policy
 MolSysMT distinguishes **hard** vs **soft** dependencies:
 - Hard: required for core functionality.
@@ -126,3 +133,7 @@ The current ecosystem split after the March 2026 audit is:
 This is why MolSysMT now depends on PyUnitWizard's expanded extraction API
 (`value_type`, `dtype`) while still keeping its own shape and pairing helpers
 for structure kernels.
+
+The adoption inventory and measured migration of remaining legacy quantity
+boundaries is tracked in
+[`pending_proposals/adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](pending_proposals/adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md).
