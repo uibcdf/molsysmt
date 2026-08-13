@@ -13,10 +13,11 @@ MolSysMT separates three responsibilities:
 2. preparation helpers extract and align numerical arrays;
 3. kernels under `molsysmt/lib` operate on prepared, unit-free values.
 
-Validation may be bypassed internally only when the caller can prove that the
-values already satisfy the callee's contract. `ValidatedPayload` passports and
-`skip_digestion=True` are trusted-path mechanisms, not general performance
-switches. Do not apply either to unvalidated user input.
+Validation may be bypassed internally only when the caller can prove that every
+value already satisfies the callee's contract. `skip_digestion=True` is an
+explicit whole-call trusted path, not a general performance switch. MolSysMT
+has no value-passport protocol. Never apply the bypass to unvalidated user
+input.
 
 ## Imports and native compilation
 

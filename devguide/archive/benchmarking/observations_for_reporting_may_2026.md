@@ -91,3 +91,10 @@ graph TD
 
 ## 📝 Key Scientific Takeaway for the Abstract / Conclusion
 > "By demonstrating that MolSysMT's JIT kernels achieve sub-millisecond execution times matching native C++ libraries, we prove that modern Python JIT compilation is fully competitive. Consequently, the next design frontier in molecular modeling software is not mathematical optimization, but the construction of **zero-overhead validation and physical unit wrapper layers** to deliver both maximum developer expressiveness and bare-metal computational throughput."
+
+## Correction — 2026-08-13
+
+The diagram preserves a May 2026 proposal, not a feature that MolSysMT adopted. The
+`ValidatedPayload` passport had no live consumer and its unreachable code was removed
+without replacement under uibcdf/molsysmt#153. Present architecture relies on ordinary
+boundary digestion and explicitly controlled `skip_digestion=True` delegation.

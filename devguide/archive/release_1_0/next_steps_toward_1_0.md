@@ -385,3 +385,11 @@ The checklist above covers every major topic described in this document:
 - `MolSysBuilder` and declarative forms as deterministic test truth map to step 10;
 - `devguide`, `docs/content/developer`, and user-facing documentation alignment map to step 11;
 - beta-testing, dogfooding, paper writing, and release stabilization map to step 12.
+
+## Correction — 2026-08-13
+
+References above to a validation passport record a design explored before the release
+contract settled. The only MolSysMT `ValidatedPayload` issuance path was unreachable;
+the mechanism had no live consumer and was removed without replacement under
+uibcdf/molsysmt#153. The current rule is ordinary boundary digestion or explicit
+`skip_digestion=True` delegation after the caller establishes the complete contract.

@@ -1,12 +1,14 @@
 ---
 summary: The ValidatedPayload branch in the coordinates digester is unreachable, and its import blocks ArgDigest from removing the passport.
 issue: uibcdf/molsysmt#153
-status: open
+status: resolved
 opened: 2026-08-13
-closed:
+closed: 2026-08-13
 severity: medium
 verification: measured
 area: [digestion, dependencies]
+guard: tests/_private/argdigest/test_no_validated_payload.py
+normative: ARGDIGEST_GUIDE.md
 blocked_by: []
 supersedes: []
 ---
@@ -15,8 +17,7 @@ supersedes: []
 
 **Severity:** medium — the code does nothing, but its import is what stops ArgDigest
 from deleting a mechanism it has decided to remove.
-**Locations:** `molsysmt/_private/argdigest/argument/coordinates.py`,
-`molsysmt/_private/argdigest/argument/molecular_system.py`
+**Location:** `molsysmt/_private/argdigest/argument/coordinates.py`
 
 ## The branch
 
@@ -30,7 +31,10 @@ if caller is not None and caller.startswith("molsysmt.lib.structure"):
                              dtype=str(value.dtype), ndim=value.ndim)
 ```
 
-`molecular_system.py:25` carries the same guard without the payload.
+The same file carried an earlier trusted-array guard for the identical caller
+prefix. An earlier version of this report incorrectly attributed that guard to
+`molecular_system.py`; inspection of the current tree confirms that both guards
+were in `coordinates.py`.
 
 ## It cannot fire
 
@@ -82,7 +86,8 @@ ArgDigest removes the passport.**
 
 ## Recommended correction
 
-Delete the import and the two guards. Nothing replaces them: internal callers that want
+Delete the import and the two guards. Retire active documentation and development rules
+that present the passport as implemented. Nothing replaces it: internal callers that want
 to skip digestion already have `skip_digestion=True`, which measures 7.5 µs against
 65.6 µs on a real digester — cheaper than the passport ever was.
 
@@ -90,9 +95,32 @@ If the intent was that `molsysmt/lib/structure` functions *should* be decorated 
 never were, that is a separate decision and belongs with #147, which already covers
 where digestion should sit.
 
+## Resolution
+
+The import and both unreachable caller guards were deleted without replacement. The
+tracked passport sandbox was removed, active development rules and user documentation
+now describe only ordinary digestion and explicit caller-owned
+`skip_digestion=True`, and historical documents that could otherwise be read as current
+implementation claims carry dated corrections.
+
+`tests/_private/argdigest/test_no_validated_payload.py` scans the runtime package and
+fails if either `ValidatedPayload` or `argdigest.core.contract` returns. The complete
+private-digester test surface passes against both dependency generations:
+
+```text
+ArgDigest main before removal:                         372 passed
+ArgDigest refactor/remove-the-passport (15aed7c):      372 passed
+```
+
+The second run imports MolSysMT with no
+`argdigest.core.contract` module present. This proves the required landing order is now
+safe: MolSysMT can land first, after which ArgDigest may merge its removal branch. The
+repository's fast release gate also passes 12/12 after the removal.
+
 ## Acceptance
 
-The existing suite passing after the deletion is most of it. A guard is only worth
-adding if the `molsysmt.lib` trusted path is deliberately kept for later, in which case
-it should be a test asserting that at least one decorated callable lives there — the
-absence of which is exactly what made this dead.
+- No runtime MolSysMT source imports or names the removed protocol.
+- MolSysMT imports and the focused scientific-array digesters pass with both the old
+  and passport-free ArgDigest trees.
+- Active rules and user documentation do not present a value passport as available.
+- The absence of the runtime dependency has an executable regression guard.

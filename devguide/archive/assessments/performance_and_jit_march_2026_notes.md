@@ -407,3 +407,12 @@ What remains open after `1.0.0`:
 - the `ChunkedExecutor` performance model (chunk I/O cost, reducer overhead,
   ETA accuracy) should be profiled and documented once representative large
   trajectories are available for benchmarking.
+
+## Correction — 2026-08-13
+
+This historical assessment described `ValidatedPayload` as an adopted optimization.
+It never became a live MolSysMT protocol: the only issuance path was unreachable, with
+zero decorated callers under `molsysmt.lib.*` and zero hits in the instrumented suite.
+The dependency and its dead trust branch were removed under uibcdf/molsysmt#153.
+Current code uses ordinary digestion or an explicit, caller-owned
+`skip_digestion=True` delegation after the complete callee contract is established.

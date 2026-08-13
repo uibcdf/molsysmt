@@ -1,29 +1,20 @@
-from argdigest.core.contract import ValidatedPayload
-from molsysmt._private.smonitor import InternalAlgorithmError, FormatError
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError, FormatError, InternalAlgorithmError
 
 functions_where_boolean = (
-    'molsysmt.basic.get.get',
-    'molsysmt.basic.compare.compare',
-    'molsysmt.basic.iterator.__init__',
-    '.iterators.__init__'
-    )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    ".iterators.__init__",
+)
 
 
 def digest_coordinates(coordinates, caller=None):
-
     if caller is not None:
         if caller.endswith(functions_where_boolean):
             if isinstance(coordinates, bool):
-                return coordinates
-        
-        # --- Trusted Path for internal kernel helpers ---
-        # If the caller is from molsysmt.lib.structure and already passed an ndarray
-        # we trust the prep has been done.
-        if caller.startswith("molsysmt.lib.structure"):
-            if isinstance(coordinates, np.ndarray) and coordinates.dtype == np.float64:
                 return coordinates
 
     if coordinates is None:
@@ -39,8 +30,9 @@ def digest_coordinates(coordinates, caller=None):
         unit = puw.get_unit(coordinates)
         
         # Validation of dimensionality
-        if not puw.check(unit, dimensionality={"[L]":1}):
+        if not puw.check(unit, dimensionality={"[L]": 1}):
             from molsysmt._private.smonitor import StructuralInconsistencyError
+
             raise StructuralInconsistencyError("Incompatible units for coordinates")
 
         shape = value.shape
@@ -62,37 +54,21 @@ def digest_coordinates(coordinates, caller=None):
 
         # Convert to nanometers if it has units
         if unit is not None:
-            value_nm = puw.get_value(coordinates, to_unit='nm')
+            value_nm = puw.get_value(coordinates, to_unit="nm")
             value_nm = np.asarray(value_nm, dtype=np.float64)
             value_nm = value_nm.reshape(value.shape)
         else:
             value_nm = value
 
-
         # --- Native Structures Internal Path ---
         if caller is not None and caller.startswith("molsysmt.native.structures"):
             return value_nm
 
-        # Performance: return as quantity in ORIGINAL unit. 
+        # Performance: return as quantity in ORIGINAL unit.
         # Avoid forced standardize() unless specifically needed downstream.
         q = puw.quantity(value, unit)
 
-        # --- Passport Issuance (Conservative) ---
-        # We only issue a passport if the caller is a structural kernel helper
-        # or a very specific high-frequency internal function.
-        if caller is not None and caller.startswith("molsysmt.lib.structure"):
-             return ValidatedPayload(
-                 value=q,
-                 unit=str(unit),
-                 dtype=str(value.dtype),
-                 ndim=value.ndim
-             )
-
         return q
 
-
-
     except Exception as e:
-        from molsysmt._private.smonitor import ArgumentError
         raise ArgumentError("coordinates", value=coordinates, caller=caller) from e
-

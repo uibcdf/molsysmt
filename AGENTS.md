@@ -57,7 +57,9 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 
 ## Performance Architecture
 
-- **Normalization Passports**: Use `ValidatedPayload` from `argdigest` for internal high-frequency calls to bypass redundant unit and shape validation.
+- **Validated Boundaries**: Normalize user input once at a clear public boundary. A
+  controlled internal delegation may use `skip_digestion=True` only when every argument
+  already satisfies the callee's contract; MolSysMT has no value-passport protocol.
 - **Fast-Track Units**: Register canonical units (nm, ps, Da, K) in `puw.fast_track` within `molsysmt/_pyunitwizard.py` to enable instant unit bypass.
 - **Chunked Execution**: Large trajectories must be processed via the `ChunkedExecutor` (see `devguide/SCALABILITY.md`).
 
@@ -112,6 +114,6 @@ For more specialized guidance, consult the AGENTS files in `ai_assistant/`, `dev
 These guides are required reading for anyone developing this library. They describe how external tools must be used here.
 
 - `SMONITOR_GUIDE.md` — Required guide for SMonitor integration and diagnostics.
-- `ARGDIGEST_GUIDE.md` — Required guide for argument validation and the ValidatedPayload (Passport) protocol.
+- `ARGDIGEST_GUIDE.md` — Required guide for argument validation and explicit trusted delegation.
 - `PYUNITWIZARD_GUIDE.md` — Required guide for unit management and Fast-Track conversion registration.
 - `DEPDIGEST_GUIDE.md` — Required guide for dependency management and lazy loading.

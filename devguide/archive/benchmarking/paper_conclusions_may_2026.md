@@ -86,3 +86,10 @@ graph TD
 
 ### Scientific Conclusion for the Paper
 "By demonstrating that MolSysMT JIT kernels achieve sub-millisecond execution matching native C++ libraries, we prove that Python JIT engines are highly optimized. The next frontier in molecular modeling architecture is not math kernel optimization, but rather the construction of **zero-overhead wrapper layers**—minimizing type-safety digestion tax to deliver both maximum developer expressiveness and bare-metal performance."
+
+## Correction — 2026-08-13
+
+The passport shown in the historical diagram was a candidate design, not a shipped
+MolSysMT mechanism. It had no live consumer and was removed without replacement under
+uibcdf/molsysmt#153. This document must therefore not be cited as evidence that
+`ValidatedPayload` was implemented or benchmarked in production workflows.

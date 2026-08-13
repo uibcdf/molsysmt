@@ -1,18 +1,19 @@
 (user-foundations-performance-internal-optimizations)=
-# Fast-Track & Passports
+# Internal Optimizations
 
 To achieve maximum throughput in high-frequency internal loops, MolSysMT implements low-overhead optimization protocols that bypass redundant argument validation and unit conversions.
 
 ---
 
-## Validation Passports (`ValidatedPayload`)
+## Validated boundaries
 
 The public MolSysMT API validates input types, selections, and shapes using the `@digest` decorator from `argdigest`. While essential for user safety, evaluating these rules inside loops executed millions of times introduces overhead.
 
-MolSysMT solves this with the **Passport Protocol**:
-
-- **Normalizing Passports**: When a system is validated once, `argdigest` issues a `ValidatedPayload` passport.
-- **Bypassing Validation**: Internal functions recognize `ValidatedPayload` passports and bypass redundant type and shape checks, accelerating nested workflows.
+MolSysMT pays that cost at clear public boundaries. Preparation helpers next to the
+native kernels extract canonical, unit-free arrays without turning the low-level kernel
+layer into another user-facing validation surface. A controlled internal delegation may
+use `skip_digestion=True` only after the caller has established the complete callee
+contract. MolSysMT has no value-passport protocol.
 
 ---
 
@@ -24,5 +25,5 @@ Physical unit enforcement via `pyunitwizard` ensures dimensional safety across M
 
 ## Digestion Bypass and Zero-Copy Array Views
 
-- **Digestion Bypass (`skip_digestion=True`)**: Internal high-frequency functions accept `skip_digestion=True` to skip public wrapper overhead completely.
+- **Digestion Bypass (`skip_digestion=True`)**: Controlled internal calls may skip the public wrapper only when all input invariants are already established.
 - **Zero-Copy Views**: Form adapters share NumPy array memory pointers and strided views directly without duplicating heavy coordinate data in memory.

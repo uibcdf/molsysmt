@@ -82,12 +82,13 @@ not settle, but even at the undigested 7.5 µs they are ~3.3 ms.
 
 ## Two smaller defects found in the same layer
 
-**A dead passport branch.** `molsysmt/_private/argdigest/argument/molecular_system.py`
-and `.../coordinates.py` both branch on `caller.startswith("molsysmt.lib.structure")`,
-and `coordinates.py` issues an ArgDigest `ValidatedPayload` there. **No function under
-`molsysmt/lib/` is decorated** — 0 of 1360 decorated files in the repository. The branch
-cannot fire. Either the decoration was intended and never applied, or the branch should
-go.
+**A dead passport branch.** `molsysmt/_private/argdigest/argument/coordinates.py`
+contained two branches on `caller.startswith("molsysmt.lib.structure")`, one of
+which issued an ArgDigest `ValidatedPayload`. The earlier reference here to
+`molecular_system.py` was incorrect. No decorated callable lives under
+`molsysmt.lib.*`, so both branches were unreachable. This independent defect is
+resolved by uibcdf/molsysmt#153; the placement and repeated-cost problem tracked
+here remains open.
 
 **Canonicalization declared twice.** `molsysmt/_private/argdigest/_scientific_arrays.py`
 calls `puw.fast_track.to_nanometers` and `np.asarray(..., float64)` by hand, duplicating
@@ -102,7 +103,7 @@ follow-up.
    `molsysmt.basic.*`. Either drop the decoration, or have internal callers pass
    `skip_digestion=True` — measured 8.7x cheaper per call.
 2. Memoise the `(form, attribute)` answers for the duration of one operation.
-3. Remove or activate the dead `molsysmt.lib.structure` branch.
+3. Keep the resolved dead-branch removal from uibcdf/molsysmt#153 guarded.
 4. Adopt ArgDigest's canonicalization pipelines once reworked; delete `_scientific_arrays.py`.
 
 ## Acceptance

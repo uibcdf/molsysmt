@@ -3,7 +3,7 @@
 
 Welcome to **Performance**, the foundational module detailing how MolSysMT handles Big Data trajectories, high-throughput numerical calculations, and hardware scaling. Structural biology simulations often involve millions of atoms and thousands of trajectory frames, expanding file sizes into tens or hundreds of gigabytes. MolSysMT is built from the ground up to process these massive datasets efficiently without overwhelming workstation memory or sacrificing execution speed.
 
-This module introduces MolSysMT's performance architecture: deferred evaluation via lazy loading, bounded memory streaming with the chunked execution engine, compiled Rust C-API acceleration, CPU multi-threading, internal validation passports, SMonitor diagnostics, caching layers, empirical benchmark metrics, and the GPU acceleration roadmap.
+This module introduces MolSysMT's performance architecture: deferred evaluation via lazy loading, bounded memory streaming with the chunked execution engine, compiled Rust C-API acceleration, CPU multi-threading, validated execution boundaries, SMonitor diagnostics, caching layers, empirical benchmark metrics, and the GPU acceleration roadmap.
 
 ---
 
@@ -22,7 +22,7 @@ This module introduces MolSysMT's performance architecture: deferred evaluation 
   Multi-core CPU parallelization with Rayon, threadpool concurrency, and SIMD compiler vectorization.
 
 - **{doc}`internal_optimizations`**  
-  Low-overhead internal optimizations: `ValidatedPayload` passports, `puw.fast_track` unit bypass, digestion bypass, and zero-copy array views.
+  Low-overhead internal optimizations: `puw.fast_track` unit bypass, controlled digestion bypass, kernel-input preparation, and zero-copy array views.
 
 - **{doc}`diagnostics_and_profiling`**  
   Execution timeline profiling, RAM memory pressure warnings (`MemoryPressureWarning`), and telemetry events managed through SMonitor.
@@ -45,7 +45,7 @@ This module introduces MolSysMT's performance architecture: deferred evaluation 
    Chunked Execution <chunked_execution.md>
    The Rust Core <rust_core.md>
    Parallel Execution <parallelization.md>
-   Fast-Track & Passports <internal_optimizations.md>
+   Internal Optimizations <internal_optimizations.md>
    Diagnostics & Profiling <diagnostics_and_profiling.md>
    Caching & Memoization <caching_and_memoization.md>
    Benchmarks <benchmarks.ipynb>

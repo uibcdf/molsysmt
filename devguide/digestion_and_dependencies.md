@@ -32,51 +32,35 @@ example was structural coordinates:
 Public functions and adapter entry points use `@arg_digest` when they accept
 user-facing values requiring normalization. Small private helpers must remain
 focused and should not be decorated merely to satisfy a blanket rule. Trusted
-internal calls may use passports or `skip_digestion=True` only after their
-inputs have been normalized at a clear boundary.
+internal calls may use `skip_digestion=True` only after every input has been
+normalized at a clear boundary.
 
-### 🎫 The Passport Protocol (`ValidatedPayload` Bypass)
+### Explicit trusted delegation
 
-To avoid crippling overhead when a decorated public function internally calls another decorated function, MolSysMT implements the **Passport Protocol** utilizing `argdigest`'s `ValidatedPayload`.
+MolSysMT has no value-passport protocol. The pre-1.0 `ValidatedPayload`
+experiment was removed because it had no live consumer and required an extra
+certification model for every participating digester. No replacement wrapper
+or token was introduced.
 
-#### 1. What is the Passport Protocol?
-When an object is validated once at the entry boundary of the public API, it can
-be wrapped in a `ValidatedPayload` (a passport). A compatible digester can then
-bypass the applicable repeated normalization. This reduces work but is not a
-literal zero-latency guarantee.
-
-#### 2. How to Use It
-If you have already validated or normalized an object (e.g., coordinates, box, or selection thresholds) and need to pass it to an internal delegate or another public API:
+`skip_digestion=True` bypasses digestion for the complete call. It is appropriate
+only for controlled internal delegation where the caller has already proved all
+type, shape, unit, selection, and cross-argument invariants. It still incurs
+ordinary Python call overhead and must not be described as zero cost.
 
 ```python
-from argdigest.core.contract import ValidatedPayload
+# The public boundary validates every argument.
+normalized = public_operation(user_input)
 
-# Wrap your validated object in a passport
-coordinates_passport = ValidatedPayload(
-    value=coordinates_qty, 
-    unit="nm", 
-    dtype="float64", 
-    ndim=3
-)
-
-# Pass the passport to the subsequent decorated function
-result = another_decorated_function(molecular_system, coordinates=coordinates_passport)
+# A private implementation may delegate without repeating digestion only when
+# it owns `normalized` and has established the complete target contract.
+result = decorated_delegate(normalized, skip_digestion=True)
 ```
 
-#### 3. Performance evidence
-
-A May 2026 benchmark pass measured a 1.51x improvement for one threshold case.
-That result is environment- and workload-specific. Use `ValidatedPayload` only
-where profiling identifies repeated normalization and tests prove that the
-payload metadata is correct.
-
-#### 4. Passports (`ValidatedPayload`) vs. `skip_digestion=True`
-
-- **`skip_digestion=True`** is a coarse-grained override. It bypasses digestion for *all* arguments of a function call. It is useful in very low-level internal kernels, but it is fragile because it disables all type safety and requires manual propagation down the call stack. 
-  The decorator provides a direct fast path for `skip_digestion=True`; it still
-  incurs ordinary Python call overhead and must not be described as zero cost.
-- **`ValidatedPayload` (Passports)** is a fine-grained, value-level bypass. It only bypasses validation for the specific arguments that have already been validated, leaving other arguments (such as new selections or flags) subject to normal validation. It reduces repeated work but still has Python dispatch and contract-check overhead.
-- **Audit Rule**: Avoid passing `skip_digestion=True` in internal calls if the only reason was to avoid double-digesting a specific heavy argument (like coordinates). Instead, wrap that argument in a `ValidatedPayload` and let normal validation run for other parameters. Use `skip_digestion=True` only when *none* of the arguments in the call need any validation or normalization whatsoever.
+If one argument is still user-controlled, partially normalized, or interpreted
+by the target's digester, use the ordinary decorated call. Fine-grained
+performance problems such as an expensive canonical-unit predicate belong in
+the responsible unit library or a kernel-input preparation helper, not in a
+generic identity-based certification container.
 
 ## Dependency Policy
 MolSysMT distinguishes **hard** vs **soft** dependencies:

@@ -7,8 +7,8 @@ This micro-governance contract governs [`docs/content/user/foundations/governanc
 ## 🔒 Directives
 
 1. **Title & MyST Anchor**:
-   - Title MUST be `# Argument Digestion & Passports`.
+   - Title MUST be `# Argument Digestion`.
    - MUST preserve top anchor `(user-foundations-governance-argument-digestion)=`.
 
 2. **Conceptual Scope**:
-   - Explains @digest decorator mechanism (https://www.uibcdf.org/argdigest), input normalization, selection interpretation, skip_digestion=True gain/loss breakdown with code example, and ValidatedPayload passport protocol.
+   - Explains the `@digest` decorator mechanism (https://www.uibcdf.org/argdigest), input normalization, selection interpretation, and the safety boundary of `skip_digestion=True` with a code example.

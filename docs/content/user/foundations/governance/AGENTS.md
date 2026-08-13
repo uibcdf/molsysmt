@@ -3,12 +3,12 @@
 This guide governs all content under `docs/content/user/foundations/governance/`.
 
 ## 🧭 Subdirectory Purpose & Scope
-Cover constitutional rules, physical units (PyUnitWizard & fast-track conversion), argument digestion (@digest & ValidatedPayload passports), public API lifecycle standards, dependency management (molsysmt._depdigest & soft dependencies), global package configuration (molsysmt.configure), numeric precision/data standards, and reliability diagnostics with SMonitor.
+Cover constitutional rules, physical units (PyUnitWizard & fast-track conversion), argument digestion (`@digest` and explicit trusted delegation), public API lifecycle standards, dependency management (molsysmt._depdigest & soft dependencies), global package configuration (molsysmt.configure), numeric precision/data standards, and reliability diagnostics with SMonitor.
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
 - `index.md` ➔ `index.AGENTS.md`: Group landing page with `toctree`.
 - `quantities_and_units.md` ➔ `quantities_and_units.md.AGENTS.md`: Physical units and PyUnitWizard fast-track rules.
-- `argument_digestion.md` ➔ `argument_digestion.md.AGENTS.md`: Argument digestion, @digest decorator, and ValidatedPayload passports.
+- `argument_digestion.md` ➔ `argument_digestion.md.AGENTS.md`: Argument digestion, the `@digest` decorator, and explicit `skip_digestion=True` boundaries.
 - `public_api_and_lifecycle.md` ➔ `public_api_and_lifecycle.md.AGENTS.md`: Public vs _private boundaries, lifecycle integrity, and deprecation policy.
 - `dependency_management.md` ➔ `dependency_management.md.AGENTS.md`: Hard vs Soft dependencies, molsysmt._depdigest, and lazy imports.
 - `configuration_options.md` ➔ `configuration_options.md.AGENTS.md`: Global package configuration options (molsysmt.configure).

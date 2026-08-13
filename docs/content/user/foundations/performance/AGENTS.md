@@ -11,7 +11,7 @@ Cover high-performance execution, Big Data structure sequence scaling, Rust nati
 - `chunked_execution.md` ➔ `chunked_execution.md.AGENTS.md`: Memory wall management, ChunkedExecutor, and user Iterator scripts.
 - `rust_core.md` ➔ `rust_core.md.AGENTS.md`: Compiled Rust native kernels and PyO3/C-ABI bindings.
 - `parallelization.md` ➔ `parallelization.md.AGENTS.md`: Multi-threading and SIMD vectorization.
-- `internal_optimizations.md` ➔ `internal_optimizations.md.AGENTS.md`: Validation passports, fast-track units, digestion bypass, and zero-copy views.
+- `internal_optimizations.md` ➔ `internal_optimizations.md.AGENTS.md`: Fast-track units, explicit digestion bypass, kernel-input preparation, and zero-copy views.
 - `diagnostics_and_profiling.md` ➔ `diagnostics_and_profiling.md.AGENTS.md`: Execution profiling, memory pressure warnings, SMonitor docs link, and telemetry.
 - `caching_and_memoization.md` ➔ `caching_and_memoization.md.AGENTS.md`: Selection AST caching and form registry memoization.
 - `benchmarks.ipynb` ➔ `benchmarks.ipynb.AGENTS.md`: Empirical performance throughput and comparative metrics.

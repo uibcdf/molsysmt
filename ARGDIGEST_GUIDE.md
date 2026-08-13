@@ -334,7 +334,9 @@ default.
 3.  **Support skip_digestion**: All decorated functions should allow bypassing digestion via a `skip_digestion` parameter for internal performance-critical calls.
 4.  **Argument Dependencies**: Digesters can request other (already digested) arguments by simply adding them to their signature. ArgDigest handles the topological sort and cycle detection.
 5.  **Caller-aware Optionality**: Downstream libraries may accept `None` or otherwise relaxed values for specific public callables. These semantics belong in digesters, not in bypasses around `@arg_digest`.
-6.  **Use Normalization Passports (`ValidatedPayload`)**: For internal high-frequency calls where inputs are already validated, pass them wrapped in a `ValidatedPayload` (the passport protocol) to bypass redundant digestion and unit-safety check blocks with zero latency.
+6.  **Keep trusted delegation explicit**: MolSysMT does not use value passports. A
+    controlled internal call may pass `skip_digestion=True` only after its caller has
+    established the complete argument contract; never pass unvalidated user input.
 7.  **Declare both axes**: a function taking `**kwargs` must declare the domain those keywords come from. Leaving it undeclared means the function accepts anything, which is the defect axis 1 exists to prevent. If a domain genuinely cannot be expressed, record why.
 
 ## SMonitor Integration
@@ -353,22 +355,16 @@ includes execution context and the original exception text.
 ---
 *Document created on February 6, 2026, as the authority for ArgDigest integration.*
 
-## 6. Performance: The Normalization Passport (`ValidatedPayload`)
+## 6. Performance: Explicit Trusted Delegation
 
-To avoid redundant unit conversions and introspection in recursive function calls, `argdigest` supports a "Passport" protocol.
+ArgDigest validates and normalizes values at decorated boundaries. MolSysMT deliberately
+does not layer a value-certification or passport protocol on top of that model: the
+previous `ValidatedPayload` experiment had no live consumer and increased the concepts
+every digester author had to maintain.
 
-### 6.1 What is a `ValidatedPayload`?
-It is a lightweight container that carries a value along with its verified metadata (unit, dtype, etc.). When the `@arg_digest` decorator receives a `ValidatedPayload`, it bypasses standard digestion if the contract matches.
-
-### 6.2 Emitting Payloads
-Scientific pipelines (e.g., `sci:nm_float64_payload`) should return a `ValidatedPayload` instead of a raw array when internal trust is desired.
-
-```python
-from argdigest.core.contract import ValidatedPayload
-# Inside a pipeline or custom digester
-return ValidatedPayload(value=array, unit="nm", dtype="float64")
-```
-
-### 6.3 Benefits
-- **Zero Latency**: Internal calls skip PyUnitWizard entirely.
-- **Contract Safety**: Guarantees JIT-ready data (e.g., float64) across function boundaries.
+When a decorated MolSysMT function delegates internally and has already established
+every input invariant, it may call the target with `skip_digestion=True`. This is a
+whole-call bypass, so the caller owns type, shape, unit, selection, and cross-argument
+consistency. If even one argument remains user-controlled or unresolved, use ordinary
+digestion instead. Performance-sensitive canonicity checks belong in PyUnitWizard or in
+kernel-input preparation helpers, not in an identity-based wrapper protocol.

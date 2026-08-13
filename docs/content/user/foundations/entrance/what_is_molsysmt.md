@@ -34,7 +34,7 @@ All physical quantities in MolSysMT carry explicit physical units powered by `py
 ### 5. Purpose-Built Infrastructure Libraries
 Behind MolSysMT lies a specialized suite of core infrastructure libraries designed at UIBCDF for the **MolSysSuite** ecosystem to guarantee scientific precision, high performance, and software reliability:
 - **`pyunitwizard`**: Universal management, validation, and conversion of physical quantities and units.
-- **`argdigest`**: Strict argument validation and high-frequency normalization passports (`ValidatedPayload`) for zero-overhead internal execution.
+- **`argdigest`**: Strict argument validation, normalization, and declarative function contracts at public boundaries.
 - **`depdigest`**: Dynamic lazy dependency management and feature discovery with instant library startup.
 - **`smonitor`**: Structured diagnostic logging, telemetry, and transparent signal instrumentation across computational workflows.
 

@@ -107,3 +107,11 @@ We propose the following engineering interventions to resolve active hurdles and
 * **Problem:** Process-wide RSS metrics act as a cumulative high-water mark, causing later lightweight benchmark runs to inherit the peak memory of earlier heavy operations.
 * **Solution:** Re-engineered `BenchmarkHarness.run` to spawn a dedicated worker in a short-lived child process utilizing the fast, memory-copying `fork` start context. Base and peak memory metrics are computed inside the isolated child process and sent back to the parent via a Queue, preventing process-wide memory contamination.
 * **Status:** Fully active. Benchmarking session baselines successfully reflect isolated memory metrics starting at a clean baseline of ~477 MB.
+
+## Correction — 2026-08-13
+
+The passport proposal in this historical benchmark analysis was never a live MolSysMT
+optimization. Its sole issuance path was unreachable and recorded zero hits in the
+instrumented suite. MolSysMT removed the `ValidatedPayload` dependency without a
+replacement under uibcdf/molsysmt#153; explicit `skip_digestion=True` remains the only
+controlled whole-call bypass.

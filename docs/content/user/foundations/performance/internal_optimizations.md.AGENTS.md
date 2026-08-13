@@ -7,8 +7,8 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
 ## 🔒 Directives
 
 1. **Title & MyST Anchor**:
-   - Title MUST be `# Fast-Track & Passports`.
+   - Title MUST be `# Internal Optimizations`.
    - MUST preserve top anchor `(user-foundations-performance-internal-optimizations)=`.
 
 2. **Conceptual Scope**:
-   - Explains ValidatedPayload passports, puw.fast_track unit bypass, skip_digestion=True, and zero-copy array views.
+   - Explains `puw.fast_track` unit bypass, controlled `skip_digestion=True`, kernel-input preparation, and zero-copy array views. It must state that MolSysMT has no value-passport protocol.

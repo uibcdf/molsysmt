@@ -13,7 +13,7 @@ Governance establishes the framework's reliability contract: ensuring unit safet
   Unit-safety guarantees, canonical internal base units (`nm`, `ps`, `K`, `e`), `pyunitwizard` integration, and fast-track unit bypass.
 
 - **{doc}`argument_digestion`**  
-  Centralized argument digestion with `@digest`, input selection interpretation, digestion bypass (`skip_digestion=True`), and `ValidatedPayload` passports.
+  Centralized argument digestion with `@digest`, input selection interpretation, and the explicit trusted boundary of `skip_digestion=True`.
 
 - **{doc}`public_api_and_lifecycle`**  
   Public versus `_private` module boundaries, `@digest` scope rules, API lifecycle integrity standards, and deprecation policies.

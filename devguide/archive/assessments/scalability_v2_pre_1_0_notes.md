@@ -578,3 +578,11 @@ The correct goal is to deliver a disciplined Tier 1 heavy-processing slice that:
 That is achievable, testable, and worthy of `1.0.0`.
 
 Everything more ambitious should remain clearly marked as post-`1.0.0`.
+
+## Correction — 2026-08-13
+
+Any passport requirement described above was a proposal, not an implemented runtime
+contract. The evaluated `ValidatedPayload` mechanism had no live consumer and was
+withdrawn rather than replaced under uibcdf/molsysmt#153. Current performance work may
+use explicit `skip_digestion=True` delegation only after the complete callee contract
+has already been established.
