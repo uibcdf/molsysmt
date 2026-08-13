@@ -1,9 +1,9 @@
 ---
-summary: Internal predicates carry boundary-grade argument digestion, costing ~29 ms per user-facing viewer action.
+summary: The reported boundary-digestion cost is absent from the measured viewer workflow.
 issue: uibcdf/molsysmt#147
-status: open
+status: withdrawn
 opened: 2026-08-12
-closed:
+closed: 2026-08-13
 severity: high
 verification: measured
 area: [digestion, form, performance]
@@ -13,7 +13,53 @@ blocked_by: []
 supersedes: []
 ---
 
-# Bug: internal predicates carry boundary-grade digestion
+# Withdrawn diagnosis: internal predicates carry boundary-grade digestion
+
+**Withdrawal decision — 2026-08-13:** a new instrumented run distinguished ordinary
+digestion from ArgDigest's `skip_digestion=True` fast path. All 510 form-level
+`has_attribute` calls in the reported MolSysViewer workflow already use the fast path;
+none performs molecular-system assessment. Forcing the same bypass produces no timing
+improvement. The original causal diagnosis and its estimated 29 ms cost are therefore
+refuted, not fixed.
+
+The two real findings have independent owners and records:
+
+- uibcdf/molsysviewer#32 proposes reusing one attribute inventory within a scene-summary
+  synchronization; a controlled operation-local cache reduced the measured median from
+  46.71 ms to 26.62 ms;
+- uibcdf/molsysmt#154 proposes simplifying the smaller public-boundary path, where one
+  direct `msm.has_attribute()` call currently performs four assessments.
+
+The original report is retained below as historical evidence of the hypothesis that was
+tested. It must not be cited as an active defect or as evidence that the viewer performs
+boundary-grade digestion in its attribute loop.
+
+## Withdrawal audit
+
+The instrumentation wrapped every decorated callable before importing MolSysViewer and
+classified calls by the actual `skip_digestion` keyword. On
+`demo['dialanine'].regions.add(selection='atom_index < 3')`:
+
+| observation | measured current value |
+| --- | ---: |
+| decorated calls | 589 |
+| ordinary digestion | 21 |
+| fast-path calls | 568 |
+| form-level `has_attribute` calls | 510 |
+| form-level `has_attribute` calls with ordinary digestion | **0** |
+| molecular-system assessments in the workflow | **0** |
+| distinct `(form, attribute)` pairs | 229 |
+
+The 510 calls are 256 `molsysmt_MolSys`, 178 `molsysmt_Topology`, 40
+`molsysmt_Structures`, and 36 `molsysmt_MolecularMechanics` calls. The original total of
+434 omitted the last family.
+
+An alternating 50-operation timing probe measured medians of 46.71 ms for the unchanged
+workflow and 26.62 ms with operation-local attribute-query reuse. In contrast, forcing
+`skip_digestion=True` at every form-level predicate measured 46.62 ms versus 46.82 ms
+for the unchanged workflow, which is no improvement within the observed dispersion.
+
+## Original report — 2026-08-12
 
 **Severity:** high — it is the dominant cost of at least one common user-facing
 operation, and it is paid on every call.

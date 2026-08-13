@@ -9,6 +9,9 @@ retained for provenance and design context but do not define current behavior.
   superseded benchmark plans.
 - `resolved_bugs/` contains diagnosed defects retained with their implementation
   and regression-test evidence after resolution.
+- `withdrawn_bugs/` contains reports whose causal diagnosis was disproved by a later
+  audit. They are retained so the rejected hypothesis and replacement findings remain
+  traceable without appearing in the active defect queue.
 - `resolved_proposals/` contains proposals that are closed, retained for design
   provenance with a resolution note explaining how. A proposal closes either
   because its implementation landed and is covered by tests, or because it was
