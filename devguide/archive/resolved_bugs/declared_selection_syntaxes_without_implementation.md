@@ -1,8 +1,24 @@
+---
+summary: Declared selection syntaxes are not implemented consistently.
+issue: uibcdf/molsysmt#148
+status: resolved
+opened: 2026-08-13
+closed: 2026-08-13
+severity: medium
+verification: reproduced
+area: [selection, api, docs]
+guard: tests/basic/select/test_syntax_capabilities.py
+normative: devguide/api_surface.md
+blocked_by: []
+supersedes: []
+---
+
 # Declared selection syntaxes that are not implemented
 
-**Role:** pending proposal. **Written:** 2026-08-06, by the MolSysViewer side,
-after a downstream README claim could not be verified. Nothing here is
-implemented; no decision is recorded yet.
+**Role:** resolved defect. **Written:** 2026-08-06, by the MolSysViewer side,
+after a downstream README claim could not be verified. **Resolved:** 2026-08-13
+with an executable, directional registry shared by validation, dispatch tests,
+public introspection, and documentation.
 
 ## The problem
 
@@ -146,6 +162,23 @@ deleting it from `syntaxes` is cheaper than any of the above.
   API-visible change and belongs in `api_stability_registry.md`.
 - Option B depends on MDAnalysis being installed; the conversion must stay
   optional and must not become an import-time dependency.
+
+## Resolution — 2026-08-13
+
+MolSysMT now distinguishes selection input from selection-translation output.
+The accepted input syntaxes are MolSysMT, MDTraj, and MDAnalysis; the accepted
+outputs are MDTraj and NGLView. The registry records the conditional conversion
+scope of each direction, and the digesters reject every unavailable direction
+before dispatch.
+
+`msm.supported.syntaxes()` exposes that matrix. The historical
+`molsysmt.supported.syntaxes` data-module import remains compatible for
+MolSysSuite consumers, including MolSysViewer, and remains callable if Python
+binds the submodule onto the parent package. The User Guide, public docstring,
+support table, and Common Core module 07 now state the same contract.
+
+Implementing a broad `molsysmt.MolSys -> MDAnalysis.Universe` conversion remains
+conversion-fidelity work; this fix does not falsely generalize its scope.
 
 ---
 

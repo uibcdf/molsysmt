@@ -37,7 +37,9 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-*No entries.*
+### Open (1)
+
+- [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 
 <!-- /generated -->
 

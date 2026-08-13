@@ -16,9 +16,12 @@ exported from their package `__init__.py` files. A symbol need not be copied int
 the root registry to be public as `molsysmt.structure.<name>` or another public
 namespace.
 
-Modules under `molsysmt/_private` are internal. `molsysmt.third_party` is a
-bridge implementation namespace and is not a stable user contract unless an
-individual symbol is documented otherwise.
+Modules under `molsysmt/_private` are internal and are excluded from the
+published API reference. Implementation guidance for contributors belongs in
+`devguide/` and `docs/content/developer/`, without turning internal import paths
+into a user contract. `molsysmt.third_party` is a bridge implementation
+namespace and is not a stable user contract unless an individual symbol is
+documented otherwise.
 
 ## Normative stability contract
 

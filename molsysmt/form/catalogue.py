@@ -61,6 +61,7 @@ def _load():
         'forms_lowercase': forms_lowercase,
         'class_index': class_index,
         'extension_index': extension_index,
+        'extension_suffixes': tuple(sorted(extension_index, key=len, reverse=True)),
     }
     return _catalogue
 
@@ -112,14 +113,22 @@ def form_of_extension(name):
     """The file form a path names, or None.
 
     Longest extension first, so `1l2y.bcif.gz` is a `file:bcif.gz` and not a `file:gz`.
+    Molecular text is rejected before suffix inspection, and only extension-sized slices
+    are copied. Consequently, auxiliary memory does not grow with an in-memory molecular
+    payload or a long path.
     """
 
     index = _load()['extension_index']
-    parts = name.lower().split('.')
-    for start in range(1, len(parts)):
-        form = index.get('.'.join(parts[start:]))
-        if form is not None:
-            return form
+    if '\n' in name or '\r' in name:
+        return None
+
+    for extension in _load()['extension_suffixes']:
+        suffix_length = len(extension) + 1
+        if len(name) < suffix_length:
+            continue
+        suffix = name[-suffix_length:]
+        if suffix[0] == '.' and suffix[1:].lower() == extension:
+            return index[extension]
     return None
 
 

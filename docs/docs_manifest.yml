@@ -80,6 +80,9 @@ sections:
             - name: "convert"
               path: "docs/content/user/tools/basic/convert.ipynb"
               status: "reviewed"
+            - name: "select"
+              path: "docs/content/user/tools/basic/select.ipynb"
+              status: "reviewed"
     course:
       path: "docs/content/course"
       agents_file: "docs/content/course/AGENTS.md"

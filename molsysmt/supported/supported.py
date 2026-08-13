@@ -175,6 +175,32 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
     return tmp_output.style.map(color).set_properties(**{'text-align': 'center'})
 
 def syntaxes():
-    """Placeholder for supported syntaxes listing."""
+    """Returning the directional selection-syntax capability matrix.
 
-    pass
+    Returns
+    -------
+    pandas.io.formats.style.Styler
+        Table reporting whether each syntax can parse selection strings and
+        whether MolSysMT can translate selected indices into that syntax.
+
+    Notes
+    -----
+    A syntax may be supported in only one direction. The scope column records
+    form or element restrictions that apply to an implemented direction.
+
+    .. versionadded:: 1.0.0
+    """
+
+    from ._syntaxes import syntax_capabilities
+
+    rows = [
+        {
+            'Syntax': name,
+            'Selection input': capabilities['select'],
+            'Translation output': capabilities['to_syntax'],
+            'Scope': capabilities['scope'],
+        }
+        for name, capabilities in syntax_capabilities.items()
+    ]
+    table = DataFrame(rows)
+    return table.style.hide(axis='index').set_table_attributes('class="dataframe"')

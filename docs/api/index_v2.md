@@ -91,9 +91,4 @@ Set of function to make the work with third libraries easier.
    form/api_form
    third_party/api_thirds
 
-.. toctree::
-   :caption: Developer
-   :hidden:
-
-   _private/api__private
 ```

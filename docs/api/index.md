@@ -91,10 +91,4 @@ Functions that integrate MolSysMT with third-party libraries.
    form/api_form
    third_party/api_thirds
 
-.. toctree::
-   :caption: Developer
-   :hidden:
-
-   _private/api__private
-
 ```

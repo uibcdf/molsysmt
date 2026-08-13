@@ -17,11 +17,10 @@ def digest_syntax(syntax, caller=None):
 
     """
 
-    from molsysmt.supported.syntaxes import lowercase_syntaxes
+    from molsysmt.supported._syntaxes import lowercase_selection_syntaxes
 
     if isinstance(syntax, str):
-        if syntax.lower() in lowercase_syntaxes:
-            return lowercase_syntaxes[syntax.lower()]
+        if syntax.lower() in lowercase_selection_syntaxes:
+            return lowercase_selection_syntaxes[syntax.lower()]
 
     raise ArgumentError('syntax', value=syntax, caller=caller, message=None)
-

@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`boundary_digestion_on_internal_predicates.md`](boundary_digestion_on_internal_predicates.md) — [#147](https://github.com/uibcdf/molsysmt/issues/147) — Internal predicates carry boundary-grade argument digestion, costing ~29 ms per user-facing viewer action. *(high, measured)*
+
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

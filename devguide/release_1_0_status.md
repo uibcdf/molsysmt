@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-08-12
+**Last updated:** 2026-08-13
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -37,13 +37,16 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** F — lifecycle and release candidate
-- **Active stage:** F6 release sign-off and tag
-- **Completed weighted closure:** 99% of the remaining 1.0 execution plan
+- **Active stage:** F5 exact-commit recertification after bounded pre-1.0 fixes
+- **Completed weighted closure:** 96% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** F1–F5 are closed. The remaining Common Core
+- **Current repository state:** F1–F4 are closed. F5 passed previously on
+  `8faf62785`, but subsequent pre-1.0 corrections to the selection-syntax
+  contract, large-string form detection, and published API reference require a
+  new exact-commit campaign. The remaining Common Core
   exception was removed in `c87a14036`: all 20 modules now use their permanent
   semantic manifest identities and the validator pins the 1–20 contract. The
   PyTraj, OpenFF, OpenMM construction, and missing-converter work that followed
@@ -62,17 +65,19 @@ and do not merge it across an unmet integration dependency.
   run `30394881487`
 - **Current E3 exact evidence commit:** `692479097`; 9,585 tests pass, two are
   accepted skips, and the fast release gate passes 12/12
-- **F5 exact candidate:** `8faf62785`; fast gates passed 12/12 locally, full matrix
+- **Previous F5 exact candidate:** `8faf62785`; fast gates passed 12/12 locally, full matrix
   run `31589594289` passed on Ubuntu and macOS with Python 3.11--3.13, wheel run
   `31589594286` passed the supported Linux/macOS build and installed-runtime matrix
   (with Windows also green as experimental evidence), documentation run `31589594273`
   passed, and smoke run `31589594438` passed
-- **Release readiness measure:** the formal weighted closure is 99%; no second
+- **Release readiness measure:** the formal weighted closure is 96%; no second
   subjective percentage is mixed into this operational ledger
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** complete F6 in one release sign-off commit: update `CITATION.cff`
+- **Next action:** land the three bounded pre-1.0 corrections, run the complete F5
+  exact-commit campaign again, and only then complete F6 in one release sign-off
+  commit: update `CITATION.cff`
   with the 1.0.0 title, version, release date, and selected Zenodo DOI; obtain
   maintainer approval; run every release gate on that exact commit; and tag only that
   verified commit. The current status-only checkpoint is not itself the tag candidate
@@ -115,8 +120,8 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | C — Rust packaging | 20% | `DONE` | 20% | C1–C7 pass: permanent backend, private abi3 integration, five native wheels, Python 3.11–3.13, NumPy floors, sdist/package parity, and Rust quality/security gates |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
 | E — scientific and ecosystem validation | 15% | `DONE` | 15% | E1–E6 pass: Rust/scientific/full-suite gates, installed-wheel matrix, maturity-weighted consumers, and runtime/thread benchmarks |
-| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 9% | F1–F5 are done; exact commit `8faf62785` passed fast, full Linux/macOS, native-wheel, documentation, and smoke gates; F6 sign-off and tag remain |
-| **Total** | **100%** | **`IN PROGRESS`** | **99%** | A–E use complete segment gates; F uses the explicit stage weights below |
+| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 6% | F1–F4 are done; F5 must be recertified after three bounded pre-1.0 corrections, then F6 sign-off and tag remain |
+| **Total** | **100%** | **`IN PROGRESS`** | **96%** | A–E use complete segment gates; F uses the explicit stage weights below |
 
 ### B4 Pause Checkpoint — Transactional Structural Growth
 
@@ -624,9 +629,9 @@ for the 1.0 source/tag, scientific validation, or manuscript:
 | F2 — applicable Common Core and changed-behavior notebook execution | 2% | `DONE` — 40/40 pass from clean kernels at `2f6fd59d1` | 2% |
 | F3 — function support-tier and pending-guide hygiene | 1% | `DONE` — 117 Tier 1, 56 Tier 3, seven outside-contract; completed records archived | 1% |
 | F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | 2% | `DONE` | 2% |
-| F5 — clean exact-commit fast, full, wheel, and documentation gates | 3% | `DONE` — exact commit `8faf62785`; full `31589594289`, wheels `31589594286`, docs `31589594273`, smoke `31589594438` | 3% |
-| F6 — 1.0 release candidate and tag | 1% | `IN PROGRESS` — citation metadata, maintainer approval, final exact-commit gates, and tag remain | 0% |
-| **Segment F total** | **10%** | **`IN PROGRESS`** | **9%** |
+| F5 — clean exact-commit fast, full, wheel, and documentation gates | 3% | `IN PROGRESS` — the previous exact campaign remains valid historical evidence, but the new candidate must pass again | 0% |
+| F6 — 1.0 release candidate and tag | 1% | `PENDING` — waits for the recertified F5 commit | 0% |
+| **Segment F total** | **10%** | **`IN PROGRESS`** | **6%** |
 
 ## Deferred Work
 
@@ -750,3 +755,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-08-07 | Cross-repo test drift | reported → `DONE`; no stage transition | two tests in `tests/molsysviewer_molsysmt/` read `MolSysView._message_history`, a private attribute MolSysViewer replaced with a narrower `_shape_history` and a `scene_history` model, so the suite carried two known failures — and a suite with known failures stops detecting new ones, which blocks the F5 exact-commit gate. Both tests already intercepted `apply_system_edit` and recorded the edited molecular system, then ignored it to inspect the message the viewer built from it. That was the defect the refactor exposed: what the facade owes the viewer is an edited system handed to `apply_system_edit`, and how the viewer serializes it afterwards is not this side's business. They now assert on the recorded system. Renaming the attribute to `_shape_history` was deliberately not done: it is not the same thing, so the tests would have passed asserting something else. 115 cross-repo tests pass and the MolSysMT suite is clean | see the commit closing this row; `archive/resolved_bugs/cross_repo_test_reads_a_removed_molsysviewer_attribute.md` |
 | 2026-08-12 | Pre-F5 adapter and course consolidation | no stage transition; candidate base ready | comparison now treats incompatible shapes as unequal; OpenFF unit adapters coexist safely; PyTraj trajectory conversion preserves its supported contract; OpenMM simulations are built only from complete inputs and initialize from the selected structure; every registered converter module resolves; conversion fidelity advances to 40 exhaustive / 441 accepted / 29 resolved with zero new debt; the Common Core is fixed at 20 modules and all labels match permanent manifest identities with no validator exception. The fast gate passes 12/12, Ruff is clean, form adapters pass 89/89 with 78 accepted lower-tier declarations, and the course contract passes 156/156 notebooks | `3fb639010` through `c87a14036` |
 | 2026-08-12 | F5 exact-commit release gates | `IN PROGRESS` → `DONE`; weighted closure 96% → 99%; F6 becomes active | exact commit `8faf62785` passes the fast gate 12/12; full matrix run `31589594289` passes Ubuntu and macOS on Python 3.11--3.13; wheel run `31589594286` passes supported Linux/macOS builds, abi3 Python/NumPy compatibility, installed public smoke, sdist, Rust quality and security, with Windows green as experimental evidence; documentation run `31589594273` and smoke run `31589594438` pass. Packaging defect #145 and clean-source CI defect #146 satisfy their acceptance criteria and are archived | `8faf62785`; `archive/resolved_bugs/built_wheels_omit_the_dynamic_form_catalogue.md`; `archive/resolved_bugs/ci_shadows_the_installed_rust_extension_with_the_source_checkout.md` |
+| 2026-08-13 | Bounded pre-1.0 corrections | F5 `DONE` → `IN PROGRESS`; weighted closure 99% → 96% | the declared selection syntaxes become an executable directional contract, large molecular strings no longer enter unbounded filename tokenization, and the stale `_private` API branch is removed from the published reference. Focused and expanded guards pass; a new exact-commit release campaign is required before F5 can close again | uibcdf/molsysmt#148, #149, #150; implementation worktree before landing |

@@ -17,7 +17,7 @@ def digest_to_syntax(to_syntax, caller=None):
 
     """
 
-    from molsysmt.supported.syntaxes import lowercase_syntaxes
+    from molsysmt.supported._syntaxes import lowercase_translation_syntaxes
 
     if caller=='molsysmt.basic.select.select':
 
@@ -25,15 +25,13 @@ def digest_to_syntax(to_syntax, caller=None):
             return to_syntax
         elif isinstance(to_syntax, str):
             try:
-                return lowercase_syntaxes[to_syntax.lower()]
+                return lowercase_translation_syntaxes[to_syntax.lower()]
             except Exception:
                 raise ArgumentError('to_syntax', value=to_syntax, caller=caller, message=None)
 
     else:
 
         try:
-            return lowercase_syntaxes[to_syntax.lower()]
+            return lowercase_translation_syntaxes[to_syntax.lower()]
         except Exception:
             raise ArgumentError('to_syntax', value=to_syntax, caller=caller, message=None)
-
-

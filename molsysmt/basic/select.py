@@ -44,9 +44,13 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         selection string, a collection of 0-based indices, or a Boolean array
         with one entry per element. It is applied as an intersection filter.
     syntax : str, default='MolSysMT'
-        Syntax used to interpret the `selection` string. See :ref:`Introduction_Selection` for available syntaxes.
+        Syntax used to interpret the `selection` string. MolSysMT and MDTraj
+        are available from any convertible molecular-system form. MDAnalysis
+        is available when the input can be converted to an
+        ``MDAnalysis.Universe``.
     to_syntax : str, optional
-        If provided, returns the translated selection query string in the target syntax instead of indices.
+        If provided, returns the translated selection query string instead of
+        indices. MDTraj and NGLView output syntaxes are supported.
     chemical_state : {'reference', 'structure'} or int, default 'reference'
         Chemical state used by state-dependent predicates and hierarchy
         resolution. Integer values are 0-based state indices. ``'structure'``
@@ -80,6 +84,8 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
+    - Syntax support is directional. :func:`molsysmt.supported.syntaxes`
+      reports the accepted input and output directions and their scope.
     - The selection is always returned as indices corresponding to the specified element level,
       unless a translation to another syntax is explicitly requested via `to_syntax`.
     - Explicit element and structure indices are non-negative and range checked.

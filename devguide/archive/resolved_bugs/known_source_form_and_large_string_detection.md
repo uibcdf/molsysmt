@@ -1,3 +1,18 @@
+---
+summary: Large molecular strings enter unbounded filename extension detection.
+issue: uibcdf/molsysmt#149
+status: resolved
+opened: 2026-08-13
+closed: 2026-08-13
+severity: high
+verification: measured
+area: [form, convert, performance]
+guard: tests/form/test_catalogue_extension_detection.py
+normative:
+blocked_by: []
+supersedes: []
+---
+
 # Known source forms and bounded detection of large molecular strings
 
 **Status:** proposed from a MolSysViewer integration benchmark  
@@ -106,3 +121,20 @@ guarantees the representation; arbitrary user inputs remain on autodetection.
 This proposal does not introduce ViewerJSON or change the scientific object
 held by MolSysViewer. It only improves how an existing MolSysMT conversion
 identifies its input representation.
+
+## Resolution — 2026-08-13
+
+The pre-1.0 defect is resolved at the default boundary. Multiline molecular
+content is rejected before extension matching, and path matching now copies
+only slices bounded by the longest registered extension. The form adapter still
+confirms any extension-index candidate through `is_form()`.
+
+The guard uses an approximately one-megabyte, decimal-rich candidate and
+observes every slice: no slice can exceed the longest extension plus its dot.
+It also proves that multiline content is neither lowercased nor sliced, and
+protects compact IDs, ordinary paths, and compressed compound extensions.
+
+The explicit `from_form=` expert path was deliberately separated rather than
+silently expanding this bug fix. It remains open as uibcdf/molsysmt#151 in
+`devguide/pending_proposals/add_an_explicit_source_form_hint_to_convert.md` and
+does not block 1.0.

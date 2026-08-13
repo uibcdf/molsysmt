@@ -1,3 +1,18 @@
+---
+summary: The published API reference documents a removed private module.
+issue: uibcdf/molsysmt#150
+status: resolved
+opened: 2026-08-13
+closed: 2026-08-13
+severity: medium
+verification: inspected
+area: [docs, api]
+guard: devtools/tests/test_public_api_docs.py
+normative: devguide/api_surface.md
+blocked_by: []
+supersedes: []
+---
+
 # The published API reference carries a `_private` branch
 
 **Status:** open. The decision is the maintainer's: it turns on who the published
@@ -119,3 +134,16 @@ Independent of the option chosen:
   — the warning inventory this branch contributes to.
 - [`presentation_and_citation_surface.md`](presentation_and_citation_surface.md)
   — the other open questions about what MolSysMT publishes about itself.
+
+## Resolution — 2026-08-13
+
+Option 1 was selected. The four `_private` API source pages and both hidden
+toctree entries were removed. `api_surface.md` now states the durable rule:
+private modules are excluded from the published API reference, while internal
+implementation guidance belongs in `devguide/` and
+`docs/content/developer/`.
+
+`devtools/tests/test_public_api_docs.py` prevents either an API source file
+under `docs/api/_private/` or an API reference to `molsysmt._private` from
+returning. The broader historical Sphinx warning population remains tracked by
+uibcdf/molsysmt#144 and is not reclassified as part of this bounded fix.
