@@ -35,6 +35,26 @@ focused and should not be decorated merely to satisfy a blanket rule. Trusted
 internal calls may use `skip_digestion=True` only after every input has been
 normalized at a clear boundary.
 
+### Cross-package normalization data
+
+Argument aliases are part of a callable's input contract, but MolSysMT's current
+alias registries are implementation data. In particular,
+`molsysmt.attribute._attribute_synonyms` and modules below
+`molsysmt._private.argdigest.normalization` are not stable consumer APIs. A sibling
+package that temporarily needs the same rules because it validates a public call and
+then delegates with `skip_digestion=True` must:
+
+1. scope the copied tables to its own real caller names;
+2. declare a MolSysMT version floor containing the exact upstream alias contract it
+   consumes, in every distribution manifest;
+3. test both the minimum dependency metadata and the resulting public calls; and
+4. carry a cross-repository issue until it can migrate to a supported public provider.
+
+MolSysViewer is the first concrete consumer and is tracked by
+`uibcdf/molsysmt#157` and `uibcdf/molsysviewer#62`. The intended durable replacement is
+a public, read-only, introspectable provider; it must not expose ArgDigest's internal
+registry objects or make a private module path part of the MolSysMT API.
+
 ### Explicit trusted delegation
 
 MolSysMT has no value-passport protocol. The pre-1.0 `ValidatedPayload`
