@@ -37,12 +37,11 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (4)
+### Open (3)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
-- [`public_alias_contract_for_molsyssuite_consumers.md`](public_alias_contract_for_molsyssuite_consumers.md) — [#157](https://github.com/uibcdf/molsysmt/issues/157) — MolSysSuite consumers need a stable public provider for MolSysMT argument aliases. *(reproduced)*
 
 <!-- /generated -->
 

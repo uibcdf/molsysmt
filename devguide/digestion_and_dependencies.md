@@ -37,23 +37,18 @@ normalized at a clear boundary.
 
 ### Cross-package normalization data
 
-Argument aliases are part of a callable's input contract, but MolSysMT's current
-alias registries are implementation data. In particular,
-`molsysmt.attribute._attribute_synonyms` and modules below
-`molsysmt._private.argdigest.normalization` are not stable consumer APIs. A sibling
-package that temporarily needs the same rules because it validates a public call and
-then delegates with `skip_digestion=True` must:
+Argument aliases are part of a callable's input contract. Their semantic source of
+truth is the versioned plain-data contract returned by
+`molsysmt.attribute.get_argument_aliases()`. The provider exposes global attribute
+synonyms and explicitly enumerated, element-dependent short names. Every call returns
+an independent copy and no ArgDigest registry object crosses the public boundary.
 
-1. scope the copied tables to its own real caller names;
-2. declare a MolSysMT version floor containing the exact upstream alias contract it
-   consumes, in every distribution manifest;
-3. test both the minimum dependency metadata and the resulting public calls; and
-4. carry a cross-repository issue until it can migrate to a supported public provider.
-
-MolSysViewer is the first concrete consumer and is tracked by
-`uibcdf/molsysmt#157` and `uibcdf/molsysviewer#62`. The intended durable replacement is
-a public, read-only, introspectable provider; it must not expose ArgDigest's internal
-registry objects or make a private module path part of the MolSysMT API.
+MolSysMT and sibling consumers must build caller-scoped `AliasTable` declarations from
+that provider. They must not import `molsysmt.attribute._attribute_synonyms` or modules
+below `molsysmt._private.argdigest.normalization`. A consumer also owns an honest
+MolSysMT dependency floor for the schema it understands and tests both that metadata
+and its public calls. Canonical and alias keywords remain alternatives; simultaneous
+use is an ArgDigest contract violation, not a precedence rule for consumers to invent.
 
 ### Explicit trusted delegation
 

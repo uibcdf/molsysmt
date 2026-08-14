@@ -5,6 +5,7 @@ from .attributes import mechanical_attributes as _mechanical_attributes
 from .attributes import chemical_state_attributes as _chemical_state_attributes
 from .attributes import attribute_synonyms as _attribute_synonyms
 from .attributes import independent_attributes as _independent_attributes
+from .get_argument_aliases import get_argument_aliases
 
 from .is_attribute import is_attribute
 from .is_structural_attribute import is_structural_attribute

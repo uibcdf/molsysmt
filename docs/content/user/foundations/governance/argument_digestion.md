@@ -13,6 +13,18 @@ Public API functions in MolSysMT are wrapped with the `@digest` decorator from A
 - **Form Normalization**: Resolves input representations and validates structure indices.
 - **Unit & Shape Checking**: Ensures coordinate arrays, box vectors, and physical quantities satisfy required dimensions.
 
+## Argument aliases
+
+Some public functions accept convenient aliases for canonical argument names. For
+example, `atom_names=True` is normalized to `atom_name=True`, while `name=True` with
+`element='group'` is normalized to `group_name=True`. An alias and its canonical name
+are alternatives: do not pass both in the same call.
+
+Integrations can inspect the versioned, plain-data contract with
+`molsysmt.attribute.get_argument_aliases()`. The returned data is an independent copy;
+changing it does not reconfigure MolSysMT. Consumer libraries remain responsible for
+scoping those semantic aliases to their own public callables.
+
 ---
 
 ## What is `skip_digestion`?

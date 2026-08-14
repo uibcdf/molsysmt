@@ -1,13 +1,13 @@
 ---
 summary: MolSysSuite consumers need a stable public provider for MolSysMT argument aliases.
 issue: uibcdf/molsysmt#157
-status: open
+status: resolved
 opened: 2026-08-14
-closed:
+closed: 2026-08-14
 verification: reproduced
 area: [argdigest, api, dependencies]
-guard:
-normative:
+guard: tests/attribute/test_argument_aliases.py
+normative: devguide/digestion_and_dependencies.md
 blocked_by: []
 supersedes: []
 ---
@@ -106,5 +106,15 @@ and would let the viewer silently age whenever MolSysMT adds an attribute alias.
 
 ## Resolution
 
-Pending design and implementation of the public provider. The temporary consumer-side
-version boundary is resolved separately by `uibcdf/molsysviewer#62`.
+MolSysMT 0.22.0 exposes `molsysmt.attribute.get_argument_aliases()`. It returns a
+defensive-copy dictionary with schema version 1, the complete attribute-synonym mapping
+and explicitly enumerated element-dependent short names. MolSysMT's own caller-scoped
+ArgDigest tables are derived from this provider, and parity, canonical-target,
+single-pass and copy-isolation properties are executable guards.
+
+MolSysViewer now builds its own caller-scoped tables from this public provider. Both
+private imports that motivated the proposal were removed, its normalization suite still
+covers `viewer`, `Region` and `Whole`, and a static guard rejects their reintroduction.
+The consumer retains `molsysmt>=0.22.0` as the honest schema boundary. Handling a call
+that supplies both an alias and its canonical keyword remains an ArgDigest concern and
+is tracked independently in that repository.
