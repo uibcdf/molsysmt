@@ -7,12 +7,12 @@ build:
   number: 1
 requirements:
   build:
-  - python >=3.11,<3.14
+  - python
   - pip
   - setuptools >=68.0
   - versioningit>=3.0
   run:
-  - python >=3.11,<3.14
+  - python
   - h5py
   - numpy
   - argdigest
