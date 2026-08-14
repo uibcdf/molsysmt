@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>molsysmt.basic.get – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/basic/get_v2';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.basic.get</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="molsysmt-basic-get">
+<span id="tutorial-get-v2"></span><h1>molsysmt.basic.get<a class="headerlink" href="#molsysmt-basic-get" title="Link to this heading">#</a></h1>
+<p><em>Retrieving attribute values from a molecular system.</em></p>
+<div class="admonition-api-documentation admonition">
+<p class="admonition-title">API documentation</p>
+<p>Follow this link for a detailed description of the input arguments, raised errors, and returned objects of this function: <a class="reference internal" href="../../../../api/basic/autosummary/molsysmt.basic.get.html#molsysmt.basic.get" title="molsysmt.basic.get"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.get()</span></code></a>.</p>
+</div>
+<section id="the-essentials">
+<h2>The Essentials<a class="headerlink" href="#the-essentials" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">get()</span></code> function is designed to turn molecular systems into raw data for your Python scripts. You request available attributes by setting their names to <code class="docutils literal notranslate"><span class="pre">True</span></code> in the arguments. The same call works across supported forms: when a form does not expose a cheap direct getter, MolSysMT follows that form’s declared conversion route transparently.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">systems</span>
+
+<span class="n">lysozyme</span> <span class="o">=</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;T4 lysozyme L99A&#39;</span><span class="p">][</span><span class="s1">&#39;181l.bcif.gz&#39;</span><span class="p">]</span>
+
+<span class="c1"># Get the name of the first 5 groups (residues)</span>
+<span class="n">group_names</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lysozyme</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">group_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Group names: </span><span class="si">{</span><span class="n">group_names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Group names: [&#39;MET&#39;, &#39;ASN&#39;, &#39;ILE&#39;, &#39;PHE&#39;, &#39;GLU&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-integrity-units">
+<h2>Data Integrity &amp; Units<a class="headerlink" href="#data-integrity-units" title="Link to this heading">#</a></h2>
+<p>When you retrieve physical properties (like coordinates, times, or masses), MolSysMT returns <strong>quantities with units</strong> to ensure physical consistency.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>MolSysMT uses the <strong>PyUnitWizard</strong> suite to handle units. To learn how to extract numeric values or convert units, see the <a class="reference internal" href="#../../foundations/06_governance/quantities_and_units.ipynb"><span class="xref myst"><strong>Governance: Unit Safety</strong></span></a> section.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the coordinates of the first atom</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lysozyme</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Coordinates: </span><span class="si">{</span><span class="n">coords</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Coordinates: [[[4.398199999999999 -0.3258 0.9163]]] nanometer
+Data type: &lt;class &#39;pint.Quantity&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-chemical-state-attributes">
+<h2>Reading chemical-state attributes<a class="headerlink" href="#reading-chemical-state-attributes" title="Link to this heading">#</a></h2>
+<p>Native topology objects store isotope as stable atom metadata. Formal charge, atom aromaticity, radical state, implicit-hydrogen semantics, stereochemistry, components, and rich bond fields belong to chemical states. Rich bond fields keep integral order, fractional order, relationship type, aromaticity, conjugation, stereochemistry and its reference atoms, direction, component participation, and evidence independent. Use <code class="docutils literal notranslate"><span class="pre">chemical_state='reference'</span></code> (the default), <code class="docutils literal notranslate"><span class="pre">chemical_state='structure'</span></code>, or a 0-based integer index to resolve state information. The <code class="docutils literal notranslate"><span class="pre">'structure'</span></code> mode uses <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code> and requires their nullable <code class="docutils literal notranslate"><span class="pre">structure_chemical_state_index</span></code> values to identify one state. State IDs are not selectors because they need not be unique. Missing nullable values are returned as <code class="docutils literal notranslate"><span class="pre">pandas.NA</span></code>. Formal charge is an integer count in elementary-charge units.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">Topology</span>
+<span class="n">topology</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(</span><span class="n">n_atoms</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">chemical_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">formal_charge</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">charges</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">chemical_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">formal_charge</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">charged_atoms</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">topology</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;formal_charge != 0&#39;</span><span class="p">,</span> <span class="n">chemical_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">charges</span><span class="p">,</span> <span class="n">charged_atoms</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, -1, 1] [1, 2]
+</pre></div>
+</div>
+</div>
+</div>
+<p>State metadata is requested from <code class="docutils literal notranslate"><span class="pre">element='system'</span></code>. These inventory attributes describe every available state and are not filtered when <code class="docutils literal notranslate"><span class="pre">chemical_state</span></code> selects one state for another attribute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="n">topology</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dictionary&#39;</span><span class="p">,</span>
+    <span class="n">chemical_state_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chemical_state_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">n_chemical_states</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reference_chemical_state_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">connectivity_completeness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">component_completeness</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">component_evidence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;chemical_state_index&#39;: [0],
+ &#39;chemical_state_id&#39;: [&#39;None&#39;],
+ &#39;n_chemical_states&#39;: 1,
+ &#39;reference_chemical_state_index&#39;: 0,
+ &#39;connectivity_completeness&#39;: [&#39;unavailable&#39;],
+ &#39;component_completeness&#39;: [&#39;unavailable&#39;],
+ &#39;component_evidence&#39;: [&#39;unknown&#39;]}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="derived-attributes">
+<h2>Derived Attributes<a class="headerlink" href="#derived-attributes" title="Link to this heading">#</a></h2>
+<p>Some attributes are calculated from data already present in the molecular form. For example, MolSysMT derives box lengths, angles, shape, and volume from the box matrix without requiring every form adapter to implement those calculations separately. Missing box data produces <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">box_lengths</span><span class="p">,</span> <span class="n">box_angles</span><span class="p">,</span> <span class="n">box_volume</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="n">lysozyme</span><span class="p">,</span>
+    <span class="n">element</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span>
+    <span class="n">box_lengths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">box_angles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">box_volume</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">box_lengths</span><span class="p">,</span> <span class="n">box_angles</span><span class="p">,</span> <span class="n">box_volume</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[6.09 6.09 9.7]] nanometer [[1.570796 1.570796 2.094395]] radian [311.55659621309997] nanometer ** 3
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-attributes">
+<h2>Multiple Attributes<a class="headerlink" href="#multiple-attributes" title="Link to this heading">#</a></h2>
+<p>If you request more than one attribute, <code class="docutils literal notranslate"><span class="pre">get()</span></code> returns a list of values in the same order as requested.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_atoms</span><span class="p">,</span> <span class="n">n_groups</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">lysozyme</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total atoms: </span><span class="si">{</span><span class="n">n_atoms</span><span class="si">}</span><span class="s2"> | Total groups: </span><span class="si">{</span><span class="n">n_groups</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total atoms: 1441 | Total groups: 302
+</pre></div>
+</div>
+</div>
+</div>
+<section id="combining-atom-and-system-attributes">
+<h3>Combining atom and system attributes<a class="headerlink" href="#combining-atom-and-system-attributes" title="Link to this heading">#</a></h3>
+<p>A single call can combine attributes from different element levels when the catalog identifies one unambiguous level for an otherwise incompatible attribute. For example, with <code class="docutils literal notranslate"><span class="pre">element='atom'</span></code>, an atom selection applies to <code class="docutils literal notranslate"><span class="pre">coordinates</span></code>, while <code class="docutils literal notranslate"><span class="pre">structure_id</span></code> is evaluated for the system and is unaffected by that selection. Values and dictionary entries retain the order in which the attributes were requested.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">coordinates</span><span class="p">,</span> <span class="n">structure_id</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="n">lysozyme</span><span class="p">,</span>
+    <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span>
+    <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">structure_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="thermodynamic-structure-series">
+<h3>Thermodynamic structure series<a class="headerlink" href="#thermodynamic-structure-series" title="Link to this heading">#</a></h3>
+<p>Native <code class="docutils literal notranslate"><span class="pre">Structures</span></code> objects, the <code class="docutils literal notranslate"><span class="pre">molsysmt.StructuresDict</span></code> form, and the public <code class="docutils literal notranslate"><span class="pre">molsysmt.MolSys</span></code> container can retain <code class="docutils literal notranslate"><span class="pre">temperature</span></code>, <code class="docutils literal notranslate"><span class="pre">potential_energy</span></code>, and <code class="docutils literal notranslate"><span class="pre">kinetic_energy</span></code> for each structure. Requesting <code class="docutils literal notranslate"><span class="pre">total_energy=True</span></code> returns their sum when both energy components are available. <code class="docutils literal notranslate"><span class="pre">StructuresDict</span></code> keeps these optional series through conversion and respects repeated or non-monotonic <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code>. When atom selection is applied while converting it to <code class="docutils literal notranslate"><span class="pre">MolSys</span></code>, the generated native topology and structural arrays share the same selected atom axis. Conversion reports for direct native projections inspect every attribute declared by the source form, so <code class="docutils literal notranslate"><span class="pre">strict=True</span></code> can prevent topology-only or structures-only extraction from silently dropping a present domain. A <code class="docutils literal notranslate"><span class="pre">molsysviewer.MolSysView</span></code> preserves the values through its attached molecular system, whereas <code class="docutils literal notranslate"><span class="pre">nglview.NGLWidget</span></code> does not claim them because its public representation does not retain them.</p>
+<hr class="docutils" />
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="select_v2.html#tutorial-select-v2"><span class="std std-ref">molsysmt.basic.select</span></a>: How to filter the elements used in <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-essentials">The Essentials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-integrity-units">Data Integrity &amp; Units</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-chemical-state-attributes">Reading chemical-state attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derived-attributes">Derived Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-attributes">Multiple Attributes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-atom-and-system-attributes">Combining atom and system attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thermodynamic-structure-series">Thermodynamic structure series</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

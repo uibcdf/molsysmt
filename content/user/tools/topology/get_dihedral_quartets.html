@@ -1,0 +1,1106 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Get dihedral quartets – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/topology/get_dihedral_quartets';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Get sequence alignment" href="get_sequence_alignment.html" />
+    <link rel="prev" title="Get covalent paths" href="get_covalent_paths.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="get_bondgraph.html">Get bondgraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_covalent_blocks.html">Get covalent blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_covalent_paths.html">Get covalent paths</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Get dihedral quartets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_sequence_alignment.html">Get sequence alignment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_sequence_identity.html">Get sequence identity</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link"><strong>Tools</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Topology</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Get dihedral quartets</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="get-dihedral-quartets">
+<h1>Get dihedral quartets<a class="headerlink" href="#get-dihedral-quartets" title="Link to this heading">#</a></h1>
+<p>MolSysMT includes a method to obtain the sets of atoms quartets defining all dihedral angles present in the system given their names. There is no need then to remember the atom names defining the angle <span class="math notranslate nohighlight">\(\phi\)</span>, <span class="math notranslate nohighlight">\(\psi\)</span>, <span class="math notranslate nohighlight">\(\omega\)</span>, or any of the <span class="math notranslate nohighlight">\(\chi\)</span> angles. Lets see how this method works over one of the demo molecular systems:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;TcTIM&#39;</span><span class="p">][</span><span class="s1">&#39;1tcd.h5msm&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The quartets defining the angles <span class="math notranslate nohighlight">\(\phi\)</span>, <span class="math notranslate nohighlight">\(\psi\)</span> or <span class="math notranslate nohighlight">\(\omega\)</span> over the whole system can be obtained as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">get_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_chains</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The search of these quartets can be limited to a specific selection. Lets see how to get the quartes of the <span class="math notranslate nohighlight">\(\psi\)</span> angles in residues 10 to 15:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psi_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">get_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;10&lt;=group_index&lt;=15&#39;</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psi_chains</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Atoms chains defining <span class="math notranslate nohighlight">\(\chi\)</span> angles can be also extracted. Lets get, for instance, all <span class="math notranslate nohighlight">\(\chi_{5}\)</span> in the system:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chi5_chains</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">get_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">chi5</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There’s a high number of ARG residues in our system. ARG is the only amino-acide with a <span class="math notranslate nohighlight">\(\chi_{5}\)</span> dihedral angle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">chi5_chains</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_args</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_name==&quot;ARG&quot;&#39;</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_args</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span><span class="p">,</span> <span class="n">psi</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">get_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">psi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">phi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the following tables a summary of the dihedral angle definitions are included in this document for future reference. The corresponding string taken by the input argument <code class="docutils literal notranslate"><span class="pre">dihedral_angle</span></code> is written down between parentesis next to each greek letter naming the angle:</p>
+<section id="phi-phi">
+<h2><span class="math notranslate nohighlight">\(\phi\)</span> (<code class="docutils literal notranslate"><span class="pre">phi</span></code>)<a class="headerlink" href="#phi-phi" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>all but PRO</p></td>
+<td class="text-center"><p>C-N-CA-C</p></td>
+<td class="text-center"><p>C cis to C</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>PRO</p></td>
+<td class="text-center"><p>C-N-CA-C</p></td>
+<td class="text-center"><p>C cis to C</p></td>
+<td class="text-center"><p>~-90</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="psi-psi">
+<h2><span class="math notranslate nohighlight">\(\psi\)</span> (<code class="docutils literal notranslate"><span class="pre">psi</span></code>)<a class="headerlink" href="#psi-psi" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>all</p></td>
+<td class="text-center"><p>N-CA-C-N</p></td>
+<td class="text-center"><p>N cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="omega-omega">
+<h2><span class="math notranslate nohighlight">\(\omega\)</span> (<code class="docutils literal notranslate"><span class="pre">omega</span></code>)<a class="headerlink" href="#omega-omega" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>all</p></td>
+<td class="text-center"><p>CA-C-N-CA</p></td>
+<td class="text-center"><p>CA cis to CA</p></td>
+<td class="text-center"><p>~180</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>all</p></td>
+<td class="text-center"><p>CH3-C-N-CA</p></td>
+<td class="text-center"><p>CA cis to CA</p></td>
+<td class="text-center"><p>~180</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>all</p></td>
+<td class="text-center"><p>CA-C-N-CH3</p></td>
+<td class="text-center"><p>CA cis to CA</p></td>
+<td class="text-center"><p>~180</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="chi-1-chi1">
+<h2><span class="math notranslate nohighlight">\(\chi_{1}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi1</span></code>)<a class="headerlink" href="#chi-1-chi1" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>ARG</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>ASN</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>ASP</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>CYS</p></td>
+<td class="text-center"><p>N-CA-CB-SG</p></td>
+<td class="text-center"><p>SG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>GLN</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>GLU</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>HIS</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>ILE</p></td>
+<td class="text-center"><p>N-CA-CB-CG1</p></td>
+<td class="text-center"><p>CG1 cis to N</p></td>
+<td class="text-center"><p>[-180°, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>LEU</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>LYS</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>MET</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>PHE</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>PRO</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>CA-CB is part of ring</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>SER</p></td>
+<td class="text-center"><p>N-CA-CB-OG</p></td>
+<td class="text-center"><p>OG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>THR</p></td>
+<td class="text-center"><p>N-CA-CB-OG1</p></td>
+<td class="text-center"><p>OG1 cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>TRP</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>TYR</p></td>
+<td class="text-center"><p>N-CA-CB-CG</p></td>
+<td class="text-center"><p>CG cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>VAL</p></td>
+<td class="text-center"><p>N-CA-CB-CG1</p></td>
+<td class="text-center"><p>CG1 cis to N</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="chi-2-chi2">
+<h2><span class="math notranslate nohighlight">\(\chi_{2}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi2</span></code>)<a class="headerlink" href="#chi-2-chi2" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>ARG</p></td>
+<td class="text-center"><p>CA-CB-CG-CD</p></td>
+<td class="text-center"><p>CD cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>ASN</p></td>
+<td class="text-center"><p>CA-CB-CG-OD1</p></td>
+<td class="text-center"><p>OD1 cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>ASP</p></td>
+<td class="text-center"><p>CA-CB-CG-OD</p></td>
+<td class="text-center"><p>OD1 cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>GLN</p></td>
+<td class="text-center"><p>CA-CB-CG-CD</p></td>
+<td class="text-center"><p>CD cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>GLU</p></td>
+<td class="text-center"><p>CA-CB-CG-CD</p></td>
+<td class="text-center"><p>CD cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>HIS</p></td>
+<td class="text-center"><p>CA-CB-CG-ND1</p></td>
+<td class="text-center"><p>ND1 cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>ILE</p></td>
+<td class="text-center"><p>CA-CB-CG1-CD</p></td>
+<td class="text-center"><p>CD cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>LEU</p></td>
+<td class="text-center"><p>CA-CB-CG-CD1</p></td>
+<td class="text-center"><p>CD1 cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>LYS</p></td>
+<td class="text-center"><p>CA-CB-CG-CD</p></td>
+<td class="text-center"><p>CD cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>MET</p></td>
+<td class="text-center"><p>CA-CB-CG-SD</p></td>
+<td class="text-center"><p>SD cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>PHE</p></td>
+<td class="text-center"><p>CA-CB-CG-CD</p></td>
+<td class="text-center"><p>CD1 cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>PRO</p></td>
+<td class="text-center"><p>CA-CB-CG-CD</p></td>
+<td class="text-center"><p>CD cis to CA</p></td>
+<td class="text-center"><p>CB-CG is part of ring</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>TRP</p></td>
+<td class="text-center"><p>CA-CB-CG-CD1</p></td>
+<td class="text-center"><p>CD1 cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>TYR</p></td>
+<td class="text-center"><p>CA-CB-CG-CD1</p></td>
+<td class="text-center"><p>CD1 cis to CA</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="chi-3-chi3">
+<h3><span class="math notranslate nohighlight">\(\chi_{3}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi3</span></code>)<a class="headerlink" href="#chi-3-chi3" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>ARG</p></td>
+<td class="text-center"><p>CB-CG-CD-NE</p></td>
+<td class="text-center"><p>NE cis to CB</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>GLN</p></td>
+<td class="text-center"><p>CB-CG-CD-OE1</p></td>
+<td class="text-center"><p>OE1 cis to CB</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>GLU</p></td>
+<td class="text-center"><p>CB-CG-CD-OE1</p></td>
+<td class="text-center"><p>OE1 cis to CB</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>LYS</p></td>
+<td class="text-center"><p>CB-CG-CD-CE</p></td>
+<td class="text-center"><p>CE cis to CB</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>MET</p></td>
+<td class="text-center"><p>CB-CG-SD-CE</p></td>
+<td class="text-center"><p>CE cis to CB</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="chi-4-chi4">
+<h3><span class="math notranslate nohighlight">\(\chi_{4}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi4</span></code>)<a class="headerlink" href="#chi-4-chi4" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>ARG</p></td>
+<td class="text-center"><p>CG-CD-NE-CZ</p></td>
+<td class="text-center"><p>CZ cis to CG</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>LYS</p></td>
+<td class="text-center"><p>CG-CD-CE-NZ</p></td>
+<td class="text-center"><p>NZ cis to CG</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="chi-5-chi5">
+<h3><span class="math notranslate nohighlight">\(\chi_{5}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi5</span></code>)<a class="headerlink" href="#chi-5-chi5" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Residue</p></th>
+<th class="head text-center"><p>Atoms</p></th>
+<th class="head text-center"><p>Zero value</p></th>
+<th class="head text-center"><p>Range (degrees)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>ARG</p></td>
+<td class="text-center"><p>CD-NE-CZ-NH1</p></td>
+<td class="text-center"><p>NH1 cis to CD</p></td>
+<td class="text-center"><p>[-180, 180)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Every dihedral angle is defined in a peptide by three vectors delimited by four consecutive covalently bonded atoms. The vector in the middle defines the orthogonal plane where rotations are defined by the projection of vectors first and third, this way two blocks of atoms change its relative positions: all atoms covalently bonded before and after the second vector in the polymer. Or explained in other words, removing the second vector two sets of covalently bonded atoms are defined. Each of these two atoms sets move in unison when the dihedral angle changes. MolSysMT includes the input argument <code class="docutils literal notranslate"><span class="pre">with_blocks</span></code> for the method <code class="docutils literal notranslate"><span class="pre">molsysmt.topology.get_dihedral_quartets</span></code> to return these atoms sets together with the quartets. Lets see how it works with an example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;Met-enkephalin&#39;</span><span class="p">][</span><span class="s1">&#39;met_enkephalin.h5msm&#39;</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_chains</span><span class="p">,</span> <span class="n">phi_blocks</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">get_dihedral_quartets</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">with_blocks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets for instance have a look to the quartet defining the 3-th <span class="math notranslate nohighlight">\(\phi\)</span> angle:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">selection_quartet</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">to_syntax</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_licorice</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_ball_and_stick</span><span class="p">(</span><span class="n">selection_quartet</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">view</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi_blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets show in blue and red the two blocks of atoms defined by this 4-th <span class="math notranslate nohighlight">\(\phi\)</span> dihedral angle.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">selection_quartet</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">phi_chains</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">to_syntax</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">selection_block_0</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">phi_blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span> <span class="n">to_syntax</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">selection_block_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">phi_blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span> <span class="n">to_syntax</span><span class="o">=</span><span class="s1">&#39;NGLView&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_licorice</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_ball_and_stick</span><span class="p">(</span><span class="n">selection_quartet</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_ball_and_stick</span><span class="p">(</span><span class="n">selection_block_0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">view</span><span class="o">.</span><span class="n">add_ball_and_stick</span><span class="p">(</span><span class="n">selection_block_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">view</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="get_covalent_paths.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Get covalent paths</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="get_sequence_alignment.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Get sequence alignment</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phi-phi"><span class="math notranslate nohighlight">\(\phi\)</span> (<code class="docutils literal notranslate"><span class="pre">phi</span></code>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#psi-psi"><span class="math notranslate nohighlight">\(\psi\)</span> (<code class="docutils literal notranslate"><span class="pre">psi</span></code>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omega-omega"><span class="math notranslate nohighlight">\(\omega\)</span> (<code class="docutils literal notranslate"><span class="pre">omega</span></code>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-1-chi1"><span class="math notranslate nohighlight">\(\chi_{1}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi1</span></code>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-2-chi2"><span class="math notranslate nohighlight">\(\chi_{2}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi2</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-3-chi3"><span class="math notranslate nohighlight">\(\chi_{3}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi3</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-4-chi4"><span class="math notranslate nohighlight">\(\chi_{4}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi4</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-5-chi5"><span class="math notranslate nohighlight">\(\chi_{5}\)</span> (<code class="docutils literal notranslate"><span class="pre">chi5</span></code>)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

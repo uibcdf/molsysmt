@@ -1,0 +1,1116 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Heavy trajectory infrastructure – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/developer/heavy_trajectories';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Performance &amp; Benchmarking" href="benchmarks.html" />
+    <link rel="prev" title="Adding a new form" href="new_form.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro/Introduction.html">Introduction</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="intro/fork.html">Fork MolSysMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reporting.html">Reporting bugs and proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start_dev_env_usage.html">Development Environment Setup Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devcontainer.html">Contributing: Development Environment with Devcontainers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency Management Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="element_and_native_rebuild.html">Element Queries and Native Rebuild</a></li>
+<li class="toctree-l1"><a class="reference internal" href="molsys_builder.html">MolSysBuilder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="declarative_serialization_forms.html">Declarative Serialization Forms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">New form</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="new_form.html">Adding a new form</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Heavy trajectories</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Heavy trajectory infrastructure</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Performance &amp; Benchmarking</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Performance &amp; Benchmarking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Warnings</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="warnings.html">MolSysMT Warning Catalog (via smonitor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">MolSysMT Diagnostics and Logging (via smonitor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smonitor.html">SMonitor integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tests</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="testing/index.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing/unit_tests.html">Unit Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/code_coverage.html">Code Coverage</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="documentation/api/index.html">API documentation guidelines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation/api/docstrings.html">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation/api/doctests.html">Doctests</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="documentation/web/index.html">Documentation for the web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation/web/myst.html">MyST in MolSysMT documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation/web/references.html">References and Cross-links in Documentation</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Developer guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Heavy trajectory infrastructure</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="heavy-trajectory-infrastructure">
+<h1>Heavy trajectory infrastructure<a class="headerlink" href="#heavy-trajectory-infrastructure" title="Link to this heading">#</a></h1>
+<p>This page describes the internal architecture for out-of-core (chunked) trajectory processing.
+Read it if you want to:</p>
+<ul class="simple">
+<li><p>add heavy-mode support to a new form,</p></li>
+<li><p>implement a new analysis function that supports the heavy path,</p></li>
+<li><p>write a custom <code class="docutils literal notranslate"><span class="pre">Reducer</span></code>, or</p></li>
+<li><p>understand the execution flow for debugging.</p></li>
+</ul>
+<p>The canonical design document is <code class="docutils literal notranslate"><span class="pre">devguide/SCALABILITY.md</span></code>.</p>
+<hr class="docutils" />
+<section id="architecture-overview">
+<h2>Architecture overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">#</a></h2>
+<p>The heavy path is built around three components:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ChunkedExecutor
+  │
+  ├── form.StructuresIterator  ← reads the trajectory in chunks
+  │
+  └── Reducer(s)               ← accumulate partial results per chunk
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ChunkedExecutor</span></code> owns the orchestration loop. It does not contain any scientific logic. It:</p>
+<ol class="arabic simple">
+<li><p>estimates the memory footprint and decides eager vs. heavy;</p></li>
+<li><p>validates that the form supports the requested attributes in heavy mode;</p></li>
+<li><p>initialises each reducer (possibly creating a <code class="docutils literal notranslate"><span class="pre">PersistentResultHandle</span></code> for large outputs);</p></li>
+<li><p>iterates chunks from the form’s <code class="docutils literal notranslate"><span class="pre">StructuresIterator</span></code>;</p></li>
+<li><p>feeds each chunk to all reducers;</p></li>
+<li><p>saves checkpoints at configurable intervals;</p></li>
+<li><p>emits SMonitor telemetry at each step.</p></li>
+</ol>
+<p>Chunk processing is fail-fast. Exceptions from the iterator, chunk
+normalization, or a reducer propagate to the caller, and the executor does not
+finalize or return partial results. There is no implicit corrupt-frame skipping
+policy.</p>
+</section>
+<hr class="docutils" />
+<section id="the-reducer-abc">
+<h2>The <code class="docutils literal notranslate"><span class="pre">Reducer</span></code> ABC<a class="headerlink" href="#the-reducer-abc" title="Link to this heading">#</a></h2>
+<p>Every heavy-mode analysis function defines a private <code class="docutils literal notranslate"><span class="pre">Reducer</span></code> subclass.
+The base class is <code class="docutils literal notranslate"><span class="pre">molsysmt._private.execution.Reducer</span></code>.</p>
+<section id="mandatory-interface">
+<h3>Mandatory interface<a class="headerlink" href="#mandatory-interface" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.execution</span><span class="w"> </span><span class="kn">import</span> <span class="n">Reducer</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyReducer</span><span class="p">(</span><span class="n">Reducer</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called once before the chunk loop. Reset all accumulation state here.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">consume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called once per chunk. chunk is read-only. Copy before mutating.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Called once after all chunks. Return the final result.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="metadata-keys-passed-to-initialize">
+<h3><code class="docutils literal notranslate"><span class="pre">metadata</span></code> keys (passed to <code class="docutils literal notranslate"><span class="pre">initialize</span></code>)<a class="headerlink" href="#metadata-keys-passed-to-initialize" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">n_atoms</span></code></p></td>
+<td><p>int</p></td>
+<td><p>atoms selected (after atom_indices filtering)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">n_structures</span></code></p></td>
+<td><p>int</p></td>
+<td><p>frames to be processed by this executor</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">n_structures_total</span></code></p></td>
+<td><p>int</p></td>
+<td><p>total frames in the source system</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">n_chunks</span></code></p></td>
+<td><p>int</p></td>
+<td><p>number of chunks that will be delivered</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">operation</span></code></p></td>
+<td><p>str</p></td>
+<td><p>name of the calling operation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">form</span></code></p></td>
+<td><p>str</p></td>
+<td><p>form name string</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">atom_indices</span></code></p></td>
+<td><p>array or ‘all’</p></td>
+<td><p>atom selection</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">structure_indices</span></code></p></td>
+<td><p>array or None</p></td>
+<td><p>frame selection</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">output_handle</span></code></p></td>
+<td><p>PersistentResultHandle or absent</p></td>
+<td><p>present only when <code class="docutils literal notranslate"><span class="pre">estimate_output_shape</span></code> returned a shape</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="chunk-keys-passed-to-consume">
+<h3><code class="docutils literal notranslate"><span class="pre">chunk</span></code> keys (passed to <code class="docutils literal notranslate"><span class="pre">consume</span></code>)<a class="headerlink" href="#chunk-keys-passed-to-consume" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">coordinates</span></code></p></td>
+<td><p>np.ndarray float64, nm</p></td>
+<td><p>shape <code class="docutils literal notranslate"><span class="pre">(n_chunk,</span> <span class="pre">n_atoms,</span> <span class="pre">3)</span></code>, <strong>read-only</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">box</span></code></p></td>
+<td><p>np.ndarray float64, nm or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>shape <code class="docutils literal notranslate"><span class="pre">(n_chunk,</span> <span class="pre">3,</span> <span class="pre">3)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time</span></code></p></td>
+<td><p>np.ndarray float64, ps or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>shape <code class="docutils literal notranslate"><span class="pre">(n_chunk,)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">structure_indices</span></code></p></td>
+<td><p>np.ndarray int or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>global frame indices</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="optional-extensions">
+<h3>Optional extensions<a class="headerlink" href="#optional-extensions" title="Link to this heading">#</a></h3>
+<p>Override these to enable additional features:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">estimate_output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the shape (tuple) of the final output array.</span>
+<span class="sd">    ChunkedExecutor will call check_disk_budget(), create a PersistentResultHandle,</span>
+<span class="sd">    and pass it as metadata[&#39;output_handle&#39;] to initialize().</span>
+<span class="sd">    Return None (default) to always accumulate in RAM.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a serializable state dict (will be pickled by ChunkedExecutor).</span>
+<span class="sd">    Return None (default) if checkpointing is not supported.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">restore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Restore accumulated state from a checkpoint dict.</span>
+<span class="sd">    Called before the chunk loop when restore_from is set.</span>
+<span class="sd">    initialize() is NOT called when restoring — state comes from here.</span>
+<span class="sd">    Raises NotImplementedError by default.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Reducer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge another reducer&#39;s partial state into self (earlier frames first).</span>
+<span class="sd">    Used for parallel reduction: run N executors on N trajectory segments,</span>
+<span class="sd">    then merge in temporal order.</span>
+<span class="sd">    Raises NotImplementedError by default.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="minimal-example">
+<h3>Minimal example<a class="headerlink" href="#minimal-example" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.execution</span><span class="w"> </span><span class="kn">import</span> <span class="n">Reducer</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MeanCoordinatesReducer</span><span class="p">(</span><span class="n">Reducer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the per-atom mean position over all frames.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;n_atoms&#39;</span><span class="p">],</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">consume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">):</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  <span class="c1"># writable copy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sum</span> <span class="o">+=</span> <span class="n">coords</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">finalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;sum&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="p">}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">restore</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sum</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_sum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_count</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="chunkedexecutor-usage">
+<h2><code class="docutils literal notranslate"><span class="pre">ChunkedExecutor</span></code> usage<a class="headerlink" href="#chunkedexecutor-usage" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.execution</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChunkedExecutor</span>
+
+<span class="n">executor</span> <span class="o">=</span> <span class="n">ChunkedExecutor</span><span class="p">(</span>
+    <span class="n">molecular_system</span><span class="o">=</span><span class="n">molsys</span><span class="p">,</span>
+    <span class="n">form</span><span class="o">=</span><span class="s1">&#39;molsysmt.H5MSMFileHandler&#39;</span><span class="p">,</span>
+    <span class="n">operation</span><span class="o">=</span><span class="s1">&#39;my_operation&#39;</span><span class="p">,</span>
+    <span class="n">reducer</span><span class="o">=</span><span class="n">my_reducer</span><span class="p">,</span>            <span class="c1"># single reducer → execute() returns one result</span>
+    <span class="c1"># reducers=[r1, r2],           # multiple reducers → execute() returns list</span>
+    <span class="n">atom_indices</span><span class="o">=</span><span class="n">atom_indices</span><span class="p">,</span>
+    <span class="n">structure_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>        <span class="c1"># None means &#39;all&#39;</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">heavy_mode</span><span class="o">=</span><span class="s1">&#39;force&#39;</span><span class="p">,</span>            <span class="c1"># &#39;auto&#39; | &#39;force&#39; | &#39;off&#39;</span>
+    <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">],</span>    <span class="c1"># attributes to request per chunk (see below)</span>
+    <span class="c1"># -- checkpoint / resume --</span>
+    <span class="n">checkpoint_interval</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>        <span class="c1"># save checkpoint every 10 chunks (0 = disabled)</span>
+    <span class="n">checkpoint_path</span><span class="o">=</span><span class="s1">&#39;/tmp/ckpts/&#39;</span><span class="p">,</span> <span class="c1"># directory or file path</span>
+    <span class="n">restore_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>             <span class="c1"># path to a .pkl checkpoint to resume from</span>
+    <span class="c1"># -- user-controlled output path --</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>              <span class="c1"># if set, PersistentResultHandle writes here (not deleted on cleanup)</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="the-attributes-parameter">
+<h3>The <code class="docutils literal notranslate"><span class="pre">attributes</span></code> parameter<a class="headerlink" href="#the-attributes-parameter" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> controls which data fields are requested from the <code class="docutils literal notranslate"><span class="pre">StructuresIterator</span></code> per chunk.
+The default is <code class="docutils literal notranslate"><span class="pre">['coordinates']</span></code>. Add <code class="docutils literal notranslate"><span class="pre">'box'</span></code> when the operation needs periodic boundary
+conditions (PBC), and <code class="docutils literal notranslate"><span class="pre">'time'</span></code> when the reducer needs timestamps:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distances with PBC: need box vectors per chunk</span>
+<span class="n">executor</span> <span class="o">=</span> <span class="n">ChunkedExecutor</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">,</span> <span class="s1">&#39;box&#39;</span><span class="p">])</span>
+
+<span class="c1"># Custom reducer that also needs frame timestamps</span>
+<span class="n">executor</span> <span class="o">=</span> <span class="n">ChunkedExecutor</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">execute()</span></code> validates that every requested attribute appears as <code class="docutils literal notranslate"><span class="pre">True</span></code> in the form’s
+<code class="docutils literal notranslate"><span class="pre">_heavy_support</span></code> dict before starting. If any attribute is unsupported,
+<code class="docutils literal notranslate"><span class="pre">UnsupportedHeavyOperationError</span></code> is raised immediately.</p>
+</section>
+<section id="multi-reducer-read-once-analyze-many">
+<h3>Multi-reducer (read-once, analyze-many)<a class="headerlink" href="#multi-reducer-read-once-analyze-many" title="Link to this heading">#</a></h3>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">reducers=[r1,</span> <span class="pre">r2,</span> <span class="pre">...]</span></code> to run multiple analyses in a single trajectory pass.
+<code class="docutils literal notranslate"><span class="pre">execute()</span></code> returns a list of results in the same order:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">executor</span> <span class="o">=</span> <span class="n">ChunkedExecutor</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">reducers</span><span class="o">=</span><span class="p">[</span><span class="n">center_reducer</span><span class="p">,</span> <span class="n">rmsd_reducer</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">center_result</span><span class="p">,</span> <span class="n">rmsd_result</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="checkpoint-resume">
+<h3>Checkpoint / resume<a class="headerlink" href="#checkpoint-resume" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># First run — save a checkpoint every 20 chunks</span>
+<span class="n">executor</span> <span class="o">=</span> <span class="n">ChunkedExecutor</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">checkpoint_interval</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">checkpoint_path</span><span class="o">=</span><span class="s1">&#39;/tmp/run1/&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># If interrupted, resume from the last checkpoint</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">glob</span>
+<span class="n">last_ckpt</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;/tmp/run1/*.pkl&#39;</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">executor2</span> <span class="o">=</span> <span class="n">ChunkedExecutor</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">restore_from</span><span class="o">=</span><span class="n">last_ckpt</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">executor2</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The reducer’s <code class="docutils literal notranslate"><span class="pre">restore()</span></code> is called before the chunk loop. <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> is skipped.
+The executor automatically computes which frames were already processed and skips them.</p>
+</section>
+<section id="user-controlled-output-path">
+<h3>User-controlled output path<a class="headerlink" href="#user-controlled-output-path" title="Link to this heading">#</a></h3>
+<p>When <code class="docutils literal notranslate"><span class="pre">output_path</span></code> is set, the <code class="docutils literal notranslate"><span class="pre">PersistentResultHandle</span></code> created for a large-output reducer writes
+to that path instead of a system temporary file. The file is <strong>not</strong> deleted by <code class="docutils literal notranslate"><span class="pre">cleanup()</span></code>,
+giving the caller full lifecycle control:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">executor</span> <span class="o">=</span> <span class="n">ChunkedExecutor</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s1">&#39;/scratch/distances.dat&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="c1"># result is a PersistentResultHandle backed by /scratch/distances.dat</span>
+<span class="c1"># The file persists after result.cleanup() or when the handle goes out of scope.</span>
+</pre></div>
+</div>
+<p>This is forwarded directly to <code class="docutils literal notranslate"><span class="pre">PersistentResultHandle(shape,</span> <span class="pre">path=output_path)</span></code>.</p>
+</section>
+<section id="parallel-reduction-via-merge">
+<h3>Parallel reduction via <code class="docutils literal notranslate"><span class="pre">merge()</span></code><a class="headerlink" href="#parallel-reduction-via-merge" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Process two halves independently</span>
+<span class="n">r1</span> <span class="o">=</span> <span class="n">MyReducer</span><span class="p">()</span>
+<span class="n">ChunkedExecutor</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">reducer</span><span class="o">=</span><span class="n">r1</span><span class="p">,</span> <span class="n">structure_indices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2500</span><span class="p">)))</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="n">r2</span> <span class="o">=</span> <span class="n">MyReducer</span><span class="p">()</span>
+<span class="n">ChunkedExecutor</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">reducer</span><span class="o">=</span><span class="n">r2</span><span class="p">,</span> <span class="n">structure_indices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)))</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># Merge in temporal order (earlier frames first)</span>
+<span class="n">r1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="adding-heavy-support-to-a-form">
+<h2>Adding heavy support to a form<a class="headerlink" href="#adding-heavy-support-to-a-form" title="Link to this heading">#</a></h2>
+<p>Two things are required:</p>
+<section id="declare-heavy-support">
+<h3>1. Declare <code class="docutils literal notranslate"><span class="pre">_heavy_support</span></code><a class="headerlink" href="#declare-heavy-support" title="Link to this heading">#</a></h3>
+<p>In the form’s <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>, add a module-level dict listing every attribute the form’s
+<code class="docutils literal notranslate"><span class="pre">StructuresIterator</span></code> can deliver in a chunk:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_heavy_support</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;box&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>     <span class="c1"># set True only if the iterator can yield box vectors per chunk</span>
+    <span class="c1"># &#39;time&#39;: True,  # add if time is available</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ChunkedExecutor.execute()</span></code> reads this dict before starting. If a requested attribute is not
+listed as <code class="docutils literal notranslate"><span class="pre">True</span></code>, it raises <code class="docutils literal notranslate"><span class="pre">UnsupportedHeavyOperationError</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">box</span></code> support matters for PBC-aware operations (e.g. <code class="docutils literal notranslate"><span class="pre">get_distances(pbc=True)</span></code>). All current
+heavy-mode forms (<code class="docutils literal notranslate"><span class="pre">file:h5msm</span></code>, <code class="docutils literal notranslate"><span class="pre">molsysmt.H5MSMFileHandler</span></code>, <code class="docutils literal notranslate"><span class="pre">file:xtc</span></code>) declare both
+<code class="docutils literal notranslate"><span class="pre">'coordinates'</span></code> and <code class="docutils literal notranslate"><span class="pre">'box'</span></code> as <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</section>
+<section id="implement-structuresiterator">
+<h3>2. Implement <code class="docutils literal notranslate"><span class="pre">StructuresIterator</span></code><a class="headerlink" href="#implement-structuresiterator" title="Link to this heading">#</a></h3>
+<p>The form module must export a <code class="docutils literal notranslate"><span class="pre">StructuresIterator</span></code> class that is a context manager and a
+Python iterator. Minimum signature:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">StructuresIterator</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecular_system</span><span class="p">,</span> <span class="n">atom_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+                 <span class="n">structure_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">chunk</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dictionary&#39;</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return one chunk as a dict with keys:</span>
+<span class="sd">          &#39;coordinates&#39;, &#39;box&#39;, &#39;time&#39;, &#39;structure_id&#39;</span>
+<span class="sd">        where &#39;coordinates&#39; is a puw quantity (nm) and &#39;box&#39; is nm.</span>
+<span class="sd">        Raise StopIteration when exhausted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="c1"># Close resources owned by this iterator.</span>
+        <span class="c1"># Do NOT close a molecular system passed in from outside.</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ChunkedExecutor</span></code> calls <code class="docutils literal notranslate"><span class="pre">_build_chunk()</span></code> on the raw dict returned by <code class="docutils literal notranslate"><span class="pre">__next__()</span></code> to
+strip units and produce a canonical float64 chunk.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="smonitor-event-codes">
+<h2>SMonitor event codes<a class="headerlink" href="#smonitor-event-codes" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Trigger</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MSM-INFO-HVY-001</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HeavyPathSelected</span></code></p></td>
+<td><p>heavy mode activated</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MSM-INFO-HVY-002</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">EagerPathAccepted</span></code></p></td>
+<td><p>footprint within budget</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MSM-INFO-HVY-003</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ChunkProcessed</span></code></p></td>
+<td><p>after each successful chunk</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MSM-WARN-HVY-001</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SlowChunkIOWarning</span></code></p></td>
+<td><p>chunk I/O &gt; 5 s</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MSM-WARN-HVY-003</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MemoryPressureWarning</span></code></p></td>
+<td><p>RSS &gt; <code class="docutils literal notranslate"><span class="pre">memory_pressure_threshold</span> <span class="pre">×</span> <span class="pre">max_ram_usage</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MSM-ERROR-HVY-001</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">UnsupportedHeavyOperationError</span></code></p></td>
+<td><p>form/attribute not supported</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">MSM-ERROR-HVY-002</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">HeavyOutputFailureError</span></code></p></td>
+<td><p>disk budget exceeded</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All codes are registered in <code class="docutils literal notranslate"><span class="pre">molsysmt/_private/smonitor/catalog.py</span></code>.</p>
+<p><strong>ETA computation.</strong> The <code class="docutils literal notranslate"><span class="pre">eta_s</span></code> field in <code class="docutils literal notranslate"><span class="pre">ChunkProcessed</span></code> is computed via an exponential moving
+average (EMA, α = 0.3) of per-chunk elapsed times, so it adapts continuously as I/O speed changes
+over the run rather than relying only on the first-chunk measurement.</p>
+<p><strong>Memory pressure.</strong> <code class="docutils literal notranslate"><span class="pre">MemoryPressureWarning</span></code> is emitted after each chunk when
+<code class="docutils literal notranslate"><span class="pre">psutil.Process().memory_info().rss</span> <span class="pre">&gt;</span> <span class="pre">molsysmt.configure.memory_pressure_threshold</span> <span class="pre">×</span> <span class="pre">max_ram_usage</span></code>.
+The check is silently skipped if <code class="docutils literal notranslate"><span class="pre">psutil</span></code> is not installed. Threshold is configurable:
+<code class="docutils literal notranslate"><span class="pre">molsysmt.configure.memory_pressure_threshold</span></code> (default <code class="docutils literal notranslate"><span class="pre">0.80</span></code>).</p>
+</section>
+<hr class="docutils" />
+<section id="relevant-source-files">
+<h2>Relevant source files<a class="headerlink" href="#relevant-source-files" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/_private/execution/chunked_executor.py</span></code></p></td>
+<td><p>Orchestration loop</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/_private/execution/reducer.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Reducer</span></code> ABC</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/_private/execution/memory_policy.py</span></code></p></td>
+<td><p>Footprint estimate, decide_mode, check_disk_budget</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/_private/execution/persistent_result.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PersistentResultHandle</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/structure/get_center.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_CenterReducer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/structure/get_rmsd.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_RMSDReducer</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/structure/get_distances.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_DistancesReducer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/form/molsysmt_H5MSMFileHandler/iterators.py</span></code></p></td>
+<td><p>Reference <code class="docutils literal notranslate"><span class="pre">StructuresIterator</span></code> (H5MSM handler)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/form/file_h5msm/iterators.py</span></code></p></td>
+<td><p>File-path iterator (delegates to handler, owns lifecycle)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">molsysmt/form/file_xtc/iterators.py</span></code></p></td>
+<td><p>XTC iterator (delegates to <code class="docutils literal notranslate"><span class="pre">mdtraj.XTCTrajectoryFile</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tests/heavy/</span></code></p></td>
+<td><p>All heavy-mode tests</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="new_form.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Adding a new form</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="benchmarks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Performance &amp; Benchmarking</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-overview">Architecture overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reducer-abc">The <code class="docutils literal notranslate"><span class="pre">Reducer</span></code> ABC</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mandatory-interface">Mandatory interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata-keys-passed-to-initialize"><code class="docutils literal notranslate"><span class="pre">metadata</span></code> keys (passed to <code class="docutils literal notranslate"><span class="pre">initialize</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chunk-keys-passed-to-consume"><code class="docutils literal notranslate"><span class="pre">chunk</span></code> keys (passed to <code class="docutils literal notranslate"><span class="pre">consume</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-extensions">Optional extensions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal-example">Minimal example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunkedexecutor-usage"><code class="docutils literal notranslate"><span class="pre">ChunkedExecutor</span></code> usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-attributes-parameter">The <code class="docutils literal notranslate"><span class="pre">attributes</span></code> parameter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-reducer-read-once-analyze-many">Multi-reducer (read-once, analyze-many)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkpoint-resume">Checkpoint / resume</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-controlled-output-path">User-controlled output path</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-reduction-via-merge">Parallel reduction via <code class="docutils literal notranslate"><span class="pre">merge()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-heavy-support-to-a-form">Adding heavy support to a form</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#declare-heavy-support">1. Declare <code class="docutils literal notranslate"><span class="pre">_heavy_support</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-structuresiterator">2. Implement <code class="docutils literal notranslate"><span class="pre">StructuresIterator</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smonitor-event-codes">SMonitor event codes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relevant-source-files">Relevant source files</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

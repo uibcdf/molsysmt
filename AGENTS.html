@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Documentation Agents Guide – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AGENTS';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Documentation Agents Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="documentation-agents-guide">
+<h1>Documentation Agents Guide<a class="headerlink" href="#documentation-agents-guide" title="Link to this heading">#</a></h1>
+<p>This guide is for agents and contributors editing documentation under <code class="docutils literal notranslate"><span class="pre">docs/</span></code>
+and other markdown-based guides in this tree. It refines the global rules in
+the repository root <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code>.</p>
+<section id="language-style-and-tone">
+<h2>Language, style, and tone<a class="headerlink" href="#language-style-and-tone" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>All documentation must be written in English.</p></li>
+<li><p>Follow the writing style described in <code class="docutils literal notranslate"><span class="pre">docs/README.md</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/content/developer/documentation/api/docstrings.md</span></code>:
+short, direct sentences, user-focused (“you”), and consistent terminology with the API.</p></li>
+<li><p>Summaries and headings for functions or tutorials should use gerund phrasing when matching docstrings (for example, “Getting box lengths and angles.”).</p></li>
+<li><p>For scientific quantities, always mention units explicitly (nm, ps, radians, elementary charge).</p></li>
+</ul>
+</section>
+<section id="variable-naming-policy-for-molecular-systems">
+<h2>Variable Naming Policy for Molecular Systems<a class="headerlink" href="#variable-naming-policy-for-molecular-systems" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In all user guide tutorials, code examples, docstrings, and documentation notebooks, the canonical variable name representing a single molecular system MUST be <code class="docutils literal notranslate"><span class="pre">molsys</span></code> (NOT <code class="docutils literal notranslate"><span class="pre">mol</span></code>).</p></li>
+<li><p>When multiple molecular systems are manipulated without specific descriptive names, use <code class="docutils literal notranslate"><span class="pre">molsys_A</span></code>, <code class="docutils literal notranslate"><span class="pre">molsys_B</span></code>, <code class="docutils literal notranslate"><span class="pre">molsys_C</span></code>, etc.</p></li>
+</ul>
+</section>
+<section id="markup-and-myst-sphinx-usage">
+<h2>Markup and MyST/Sphinx usage<a class="headerlink" href="#markup-and-myst-sphinx-usage" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Pages under <code class="docutils literal notranslate"><span class="pre">docs/content</span></code> use Markdown/MyST with Sphinx directives.</p></li>
+<li><p>Use MyST admonition syntax for blocks such as:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">:::{admonition}</span> <span class="pre">API</span> <span class="pre">documentation</span> <span class="pre">...</span> <span class="pre">:::</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:::{seealso}</span> <span class="pre">...</span> <span class="pre">:::</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">:::{versionadded}</span> <span class="pre">1.0.0</span> <span class="pre">:::</span></code></p></li>
+</ul>
+</li>
+<li><p>Do not introduce reST-only admonition syntax inside notebooks; follow the patterns in
+<code class="docutils literal notranslate"><span class="pre">docs/content/developer/documentation/api/docstrings.md</span></code> and <code class="docutils literal notranslate"><span class="pre">devguide/documentation_sync.md</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">{func}</span></code> and related roles for cross-references to API objects, and keep anchors stable.</p></li>
+<li><p>Prefer labeled sections plus <code class="docutils literal notranslate"><span class="pre">{ref}</span></code> for internal links between documentation pages instead of hard-coding file paths; see <code class="docutils literal notranslate"><span class="pre">docs/content/developer/documentation/web/references.md</span></code> for detailed patterns.</p></li>
+</ul>
+</section>
+<section id="structure-and-file-layout">
+<h2>Structure and file layout<a class="headerlink" href="#structure-and-file-layout" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Respect the existing structure under:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/content/</span></code> for user guides, showcases, and conceptual docs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/content/developer/</span></code> for developer documentation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/api/</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/old_api/</span></code> for autogenerated API references.</p></li>
+</ul>
+</li>
+<li><p>Do not modify or overwrite autogenerated outputs in <code class="docutils literal notranslate"><span class="pre">_build/</span></code>, <code class="docutils literal notranslate"><span class="pre">_gettext/</span></code>, <code class="docutils literal notranslate"><span class="pre">_locale/</span></code>, or other generated directories.</p></li>
+<li><p>Template and theme assets in <code class="docutils literal notranslate"><span class="pre">_templates/</span></code> and <code class="docutils literal notranslate"><span class="pre">_static/</span></code> should only be changed when adjusting global look-and-feel, and changes should be minimal and coordinated with <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>.</p></li>
+<li><p><strong>File Format Policy (<code class="docutils literal notranslate"><span class="pre">.md</span></code> vs <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</strong>: Documentation pages that contain only narrative text, layout grids, conceptual overviews, or static cross-references (such as index pages and section portals) MUST be created as MyST Markdown (<code class="docutils literal notranslate"><span class="pre">.md</span></code>) files. Jupyter Notebooks (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>) MUST only be used when there is a clear technical justification, such as executable Python code cells, dynamic outputs, or interactive visualizations.</p></li>
+</ul>
+</section>
+<section id="consistency-with-code-and-tests">
+<h2>Consistency with code and tests<a class="headerlink" href="#consistency-with-code-and-tests" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Keep documentation examples in sync with actual APIs and tested behavior:</p>
+<ul>
+<li><p>Function and class names must match the code exactly, including capitalization and module paths.</p></li>
+<li><p>Examples that involve units should use the same units and shapes as enforced in tests (for example, coordinates in nm, box as <code class="docutils literal notranslate"><span class="pre">(n_structures,</span> <span class="pre">3,</span> <span class="pre">3)</span></code>).</p></li>
+</ul>
+</li>
+<li><p>Avoid duplicating long examples already present in docstrings; instead, link to API docs and focus on narrative usage and context.</p></li>
+</ul>
+</section>
+<section id="reporting-a-documentation-defect-or-gap">
+<h2>Reporting a documentation defect or gap<a class="headerlink" href="#reporting-a-documentation-defect-or-gap" title="Link to this heading">#</a></h2>
+<p>Documentation has its own two queues, and they are governed by the same protocol as the
+rest: <code class="docutils literal notranslate"><span class="pre">devguide/reporting_protocol.md</span></code>. Read it before filing or closing anything, and
+see <code class="docutils literal notranslate"><span class="pre">devguide/AGENTS.md</span></code> for the working rules.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">devguide/pending_bugs/docs/</span></code> — a page that is <strong>wrong</strong>: a signature that changed, an
+example that no longer runs, a claim the code does not support.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">devguide/pending_proposals/docs/</span></code> — an explanation that <strong>should exist and does not</strong>,
+or a reorganization. Documentation that is merely missing is a proposal, not a bug.</p></li>
+</ul>
+<p>Every entry carries front matter and a GitHub issue, and the queue indexes are generated
+from that front matter — edit the entries, never the list:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>devtools/scripts/devguide_issue.py<span class="w"> </span>open<span class="w"> </span>--kind<span class="w"> </span>documentation<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span>--area<span class="w"> </span>docs
+python<span class="w"> </span>devtools/scripts/devguide_index.py
+</pre></div>
+</div>
+<p>The reader-facing version of this process is <code class="docutils literal notranslate"><span class="pre">docs/content/developer/reporting.md</span></code>.</p>
+</section>
+<section id="notebooks-and-tutorials">
+<h2>Notebooks and tutorials<a class="headerlink" href="#notebooks-and-tutorials" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>For tutorial notebooks (<code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code>), follow the structure and conventions described in
+<code class="docutils literal notranslate"><span class="pre">docs/content/developer/documentation/api/docstrings.md</span></code> and <code class="docutils literal notranslate"><span class="pre">devguide/documentation_sync.md</span></code>:
+title, italic gerund summary, introduction, <code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">documentation</span></code> admonition, <code class="docutils literal notranslate"><span class="pre">versionadded</span></code> block, narrated examples, and <code class="docutils literal notranslate"><span class="pre">seealso</span></code> section.</p></li>
+<li><p>Keep notebooks executable and lightweight; avoid heavy computations, long trajectories, or network access.</p></li>
+<li><p>When updating notebooks, ensure they still run cleanly under the CI notebook execution scripts (for example, <code class="docutils literal notranslate"><span class="pre">execute_notebooks.py</span></code>).</p></li>
+<li><p><strong>Automated Catalog Synchronization</strong>: <code class="docutils literal notranslate"><span class="pre">demo_systems.ipynb</span></code> contains an executable code cell (tagged <code class="docutils literal notranslate"><span class="pre">remove-input</span></code>) that dynamically queries <code class="docutils literal notranslate"><span class="pre">molsysmt.systems.categories</span></code> and <code class="docutils literal notranslate"><span class="pre">molsysmt.systems.info</span></code> upon pre-execution (<code class="docutils literal notranslate"><span class="pre">docs/execute_notebooks.py</span></code>) to auto-generate the complete, categorized catalog of demo systems. Any change to <code class="docutils literal notranslate"><span class="pre">molsysmt/systems.py</span></code> MUST be verified by re-executing <code class="docutils literal notranslate"><span class="pre">demo_systems.ipynb</span></code>.</p></li>
+</ul>
+</section>
+<section id="governance-and-micro-agents-md-model">
+<h2>Governance and Micro-<code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> Model<a class="headerlink" href="#governance-and-micro-agents-md-model" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Rule Resolution Hierarchy:</strong><br />
+<code class="docutils literal notranslate"><span class="pre">Root</span> <span class="pre">AGENTS.md</span></code> ➔ <code class="docutils literal notranslate"><span class="pre">docs/AGENTS.md</span></code> ➔ <code class="docutils literal notranslate"><span class="pre">[Subdirectory]/AGENTS.md</span></code> ➔ <code class="docutils literal notranslate"><span class="pre">[Page_Name].AGENTS.md</span></code> (Most specific wins).</p></li>
+<li><p><strong>Micro-Governance Files (<code class="docutils literal notranslate"><span class="pre">[Page_Name].AGENTS.md</span></code>):</strong><br />
+Major documentation pages or notebooks (e.g. <code class="docutils literal notranslate"><span class="pre">docs/index.ipynb</span></code>) are paired with a micro-governance file (e.g. <code class="docutils literal notranslate"><span class="pre">docs/index.AGENTS.md</span></code>).</p></li>
+<li><p><strong>Content Protection Contract:</strong><br />
+Micro-governance files serve as a contract that defines frozen, inviolable content (essential concepts, code examples, PDB IDs, admonitions, and MyST section anchors) that must be preserved when refining or updating that page.</p></li>
+<li><p><strong>Documentation Manifest (<code class="docutils literal notranslate"><span class="pre">docs_manifest.yml</span></code>):</strong><br />
+All non-course documentation sections and paired governance files must be tracked in <a class="reference download internal" download="" href="_downloads/eebe496eae50ce420b21f51af53b7d54/docs_manifest.yml"><span class="xref download myst"><code class="docutils literal notranslate"><span class="pre">docs/docs_manifest.yml</span></code></span></a>.</p></li>
+<li><p><strong>Build Execution &amp; Token Efficiency:</strong><br />
+By default, <code class="docutils literal notranslate"><span class="pre">docs/Makefile</span></code> sets <code class="docutils literal notranslate"><span class="pre">SPHINXOPTS</span> <span class="pre">?=</span> <span class="pre">-q</span> <span class="pre">-j</span> <span class="pre">1</span></code> to suppress cosmetic progress bars while preserving 100% of diagnostic warnings and errors. High-performance multi-core builds MUST pass <code class="docutils literal notranslate"><span class="pre">SPHINXOPTS=&quot;-q</span> <span class="pre">-j</span> <span class="pre">12&quot;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">-C</span> <span class="pre">docs</span> <span class="pre">html</span> <span class="pre">SPHINXOPTS=&quot;-q</span> <span class="pre">-j</span> <span class="pre">12&quot;</span></code>) to minimize token consumption.</p></li>
+<li><p><strong>Notebook Compilation &amp; MolSysViewer Architecture:</strong><br />
+Follow the normative technical specification in <code class="docutils literal notranslate"><span class="pre">devguide/notebook_compilation_and_visualization.md</span></code> for notebook pre-execution, timestamp tracking, and MolSysViewer static view generation. Pre-execution MUST be run in quiet mode (e.g. <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">docs/execute_notebooks.py</span> <span class="pre">-q</span> <span class="pre">-n</span> <span class="pre">12</span> <span class="pre">-r</span> <span class="pre">docs/content/user</span></code>) to emit pytest-receptor style milestone progress without token-heavy log noise.</p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">MSM_DOCS_NOTEBOOK</span></code> Protocol</strong>: <code class="docutils literal notranslate"><span class="pre">docs/execute_notebooks.py</span></code> exports <code class="docutils literal notranslate"><span class="pre">env[&quot;MSM_DOCS_NOTEBOOK&quot;]</span> <span class="pre">=</span> <span class="pre">str(notebook_path)</span></code> during pre-execution so the <code class="docutils literal notranslate"><span class="pre">molsysmt</span></code> adapter resolves exact relative iframe paths across nested subdirectories.</p></li>
+<li><p><strong>SHA256 Code Cell Fingerprinting (<code class="docutils literal notranslate"><span class="pre">code_sha256</span></code>)</strong>: <code class="docutils literal notranslate"><span class="pre">docs/execute_notebooks.py</span></code> tracks execution marks via SHA256 hashes of code cells (<code class="docutils literal notranslate"><span class="pre">code_sha256</span></code>). Edits to Markdown prose do not trigger re-execution. In CI environments, always run with <code class="docutils literal notranslate"><span class="pre">--force</span></code> (<code class="docutils literal notranslate"><span class="pre">-f</span></code>) to catch API drift regardless of code fingerprints.</p></li>
+<li><p><strong>Transparent Background Policy</strong>: All static 3D views exported via <code class="docutils literal notranslate"><span class="pre">view.export.html(...,</span> <span class="pre">background=&quot;transparent&quot;)</span></code> MUST specify <code class="docutils literal notranslate"><span class="pre">background=&quot;transparent&quot;</span></code> for instant 0ms dark/light theme transitions without visual lag or blink.</p></li>
+<li><p><strong>Pre-Generation Script Rule</strong>: Static HTML views MUST be pre-generated via scripts under <code class="docutils literal notranslate"><span class="pre">docs/generate_static_views/</span></code> and committed to <code class="docutils literal notranslate"><span class="pre">docs/_static/views/</span></code>. Views MUST NOT be generated on-the-fly during notebook execution, preventing Git repository bloat from multi-megabyte trajectory files.</p></li>
+<li><p><strong>Transitory CDNs Policy</strong>: The <code class="docutils literal notranslate"><span class="pre">require.js</span></code> and <code class="docutils literal notranslate"><span class="pre">nglview</span></code> CDN script declarations in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> are preserved <em>transitorily</em> only while migrating legacy NGLView notebooks, and MUST be removed once all 3D views adopt MolSysViewer.</p></li>
+<li><p><strong>Local Development Environment</strong>: Because the Conda <code class="docutils literal notranslate"><span class="pre">uibcdf</span></code> channel package for <code class="docutils literal notranslate"><span class="pre">molsysviewer</span></code> is legacy (v0.7.0), developers and CI MUST build documentation using a local development checkout (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> from the <code class="docutils literal notranslate"><span class="pre">molsysviewer</span></code> repository).</p></li>
+</ul>
+</li>
+<li><p><strong>Visualization Backend Policy:</strong><br />
+<strong>MolSysViewer</strong> is the mandatory default 3D viewer across all documentation pages and tutorials. <strong>NGLView</strong> is reserved exclusively for pages/notebooks specifically dedicated to demonstrating, explaining, or comparing NGLView integration.</p></li>
+<li><p>When creating or substantially revising a section in the User Guide, Showcase, or Developer Hub, update its entry in <code class="docutils literal notranslate"><span class="pre">docs/docs_manifest.yml</span></code>.</p></li>
+</ul>
+</section>
+<section id="safety-and-maintenance">
+<h2>Safety and maintenance<a class="headerlink" href="#safety-and-maintenance" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Do not introduce documentation that contradicts <code class="docutils literal notranslate"><span class="pre">dev_guide.md</span></code> or <code class="docutils literal notranslate"><span class="pre">coding/coding_guide.md</span></code>; if behavior changes, update those guides as well.</p></li>
+<li><p>Keep examples minimal but complete enough to be copied and run by users.</p></li>
+<li><p>When reorganizing sections or navigation (for example, <code class="docutils literal notranslate"><span class="pre">index.ipynb</span></code> or <code class="docutils literal notranslate"><span class="pre">content/*/index.md</span></code>), update toctrees and verify that Sphinx builds successfully with <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> from the <code class="docutils literal notranslate"><span class="pre">docs/</span></code> directory.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#language-style-and-tone">Language, style, and tone</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-naming-policy-for-molecular-systems">Variable Naming Policy for Molecular Systems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markup-and-myst-sphinx-usage">Markup and MyST/Sphinx usage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-and-file-layout">Structure and file layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-with-code-and-tests">Consistency with code and tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-a-documentation-defect-or-gap">Reporting a documentation defect or gap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notebooks-and-tutorials">Notebooks and tutorials</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#governance-and-micro-agents-md-model">Governance and Micro-<code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#safety-and-maintenance">Safety and maintenance</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

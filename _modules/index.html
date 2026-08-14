@@ -1,0 +1,1131 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>Overview: module code – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/index';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Overview: module code</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>All modules for which code is available</h1>
+<ul><li><a href="copy.html">copy</a></li>
+<li><a href="molsysmt/basic/add.html">molsysmt.basic.add</a></li>
+<li><a href="molsysmt/basic/append_structures.html">molsysmt.basic.append_structures</a></li>
+<li><a href="molsysmt/basic/are_multiple_molecular_systems.html">molsysmt.basic.are_multiple_molecular_systems</a></li>
+<li><a href="molsysmt/basic/compare.html">molsysmt.basic.compare</a></li>
+<li><a href="molsysmt/basic/concatenate_structures.html">molsysmt.basic.concatenate_structures</a></li>
+<li><a href="molsysmt/basic/contains.html">molsysmt.basic.contains</a></li>
+<li><a href="molsysmt/basic/convert.html">molsysmt.basic.convert</a></li>
+<li><a href="molsysmt/basic/copy.html">molsysmt.basic.copy</a></li>
+<li><a href="molsysmt/basic/extract.html">molsysmt.basic.extract</a></li>
+<li><a href="molsysmt/basic/get.html">molsysmt.basic.get</a></li>
+<li><a href="molsysmt/basic/get_attributes.html">molsysmt.basic.get_attributes</a></li>
+<li><a href="molsysmt/basic/get_form.html">molsysmt.basic.get_form</a></li>
+<li><a href="molsysmt/basic/get_label.html">molsysmt.basic.get_label</a></li>
+<li><a href="molsysmt/basic/has_attribute.html">molsysmt.basic.has_attribute</a></li>
+<li><a href="molsysmt/basic/info.html">molsysmt.basic.info</a></li>
+<li><a href="molsysmt/basic/is_a_molecular_system.html">molsysmt.basic.is_a_molecular_system</a></li>
+<li><a href="molsysmt/basic/is_composed_of.html">molsysmt.basic.is_composed_of</a></li>
+<li><a href="molsysmt/basic/merge.html">molsysmt.basic.merge</a></li>
+<li><a href="molsysmt/basic/remove.html">molsysmt.basic.remove</a></li>
+<li><a href="molsysmt/basic/select.html">molsysmt.basic.select</a></li>
+<li><a href="molsysmt/basic/set.html">molsysmt.basic.set</a></li>
+<li><a href="molsysmt/basic/view.html">molsysmt.basic.view</a></li>
+<li><a href="molsysmt/basic/where_is_attribute.html">molsysmt.basic.where_is_attribute</a></li>
+<li><a href="molsysmt/build/add_missing_bonds.html">molsysmt.build.add_missing_bonds</a></li>
+<li><a href="molsysmt/build/add_missing_heavy_atoms.html">molsysmt.build.add_missing_heavy_atoms</a></li>
+<li><a href="molsysmt/build/add_missing_hydrogens.html">molsysmt.build.add_missing_hydrogens</a></li>
+<li><a href="molsysmt/build/add_missing_terminal_cappings.html">molsysmt.build.add_missing_terminal_cappings</a></li>
+<li><a href="molsysmt/build/build_peptide.html">molsysmt.build.build_peptide</a></li>
+<li><a href="molsysmt/build/get_disulfide_bonds.html">molsysmt.build.get_disulfide_bonds</a></li>
+<li><a href="molsysmt/build/get_missing_bonds.html">molsysmt.build.get_missing_bonds</a></li>
+<li><a href="molsysmt/build/get_missing_heavy_atoms.html">molsysmt.build.get_missing_heavy_atoms</a></li>
+<li><a href="molsysmt/build/get_missing_residues.html">molsysmt.build.get_missing_residues</a></li>
+<li><a href="molsysmt/build/get_missing_terminal_cappings.html">molsysmt.build.get_missing_terminal_cappings</a></li>
+<li><a href="molsysmt/build/get_non_standard_residues.html">molsysmt.build.get_non_standard_residues</a></li>
+<li><a href="molsysmt/build/has_hydrogens.html">molsysmt.build.has_hydrogens</a></li>
+<li><a href="molsysmt/build/is_solvated.html">molsysmt.build.is_solvated</a></li>
+<li><a href="molsysmt/build/make_bioassembly.html">molsysmt.build.make_bioassembly</a></li>
+<li><a href="molsysmt/build/make_water_box.html">molsysmt.build.make_water_box</a></li>
+<li><a href="molsysmt/build/mutate.html">molsysmt.build.mutate</a></li>
+<li><a href="molsysmt/build/remove_overlapping_molecules.html">molsysmt.build.remove_overlapping_molecules</a></li>
+<li><a href="molsysmt/build/solvate.html">molsysmt.build.solvate</a></li>
+<li><a href="molsysmt/build/solve_atoms_with_alternate_location.html">molsysmt.build.solve_atoms_with_alternate_location</a></li>
+<li><a href="molsysmt/element/atom/get_atom_type_from_atom_name.html">molsysmt.element.atom.get_atom_type_from_atom_name</a></li>
+<li><a href="molsysmt/element/group/amino_acid/get_1_letter_code_from_name.html">molsysmt.element.group.amino_acid.get_1_letter_code_from_name</a></li>
+<li><a href="molsysmt/element/group/amino_acid/is_amino_acid.html">molsysmt.element.group.amino_acid.is_amino_acid</a></li>
+<li><a href="molsysmt/element/group/get_group_type.html">molsysmt.element.group.get_group_type</a></li>
+<li><a href="molsysmt/element/group/ion/is_ion.html">molsysmt.element.group.ion.is_ion</a></li>
+<li><a href="molsysmt/element/group/lipid/is_lipid.html">molsysmt.element.group.lipid.is_lipid</a></li>
+<li><a href="molsysmt/element/group/nucleotide/is_nucleotide.html">molsysmt.element.group.nucleotide.is_nucleotide</a></li>
+<li><a href="molsysmt/element/group/saccharide/is_saccharide.html">molsysmt.element.group.saccharide.is_saccharide</a></li>
+<li><a href="molsysmt/element/group/small_molecule/is_small_molecule.html">molsysmt.element.group.small_molecule.is_small_molecule</a></li>
+<li><a href="molsysmt/element/group/terminal_capping/is_terminal_capping.html">molsysmt.element.group.terminal_capping.is_terminal_capping</a></li>
+<li><a href="molsysmt/element/group/water/is_water.html">molsysmt.element.group.water.is_water</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/add.html">molsysmt.form.MDAnalysis_Topology.add</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/append_structures.html">molsysmt.form.MDAnalysis_Topology.append_structures</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/copy.html">molsysmt.form.MDAnalysis_Topology.copy</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/extract.html">molsysmt.form.MDAnalysis_Topology.extract</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/has_attribute.html">molsysmt.form.MDAnalysis_Topology.has_attribute</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/is_form.html">molsysmt.form.MDAnalysis_Topology.is_form</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/iterators.html">molsysmt.form.MDAnalysis_Topology.iterators</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Topology/merge.html">molsysmt.form.MDAnalysis_Topology.merge</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/add.html">molsysmt.form.MDAnalysis_Universe.add</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/append_structures.html">molsysmt.form.MDAnalysis_Universe.append_structures</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/copy.html">molsysmt.form.MDAnalysis_Universe.copy</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/extract.html">molsysmt.form.MDAnalysis_Universe.extract</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/has_attribute.html">molsysmt.form.MDAnalysis_Universe.has_attribute</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/is_form.html">molsysmt.form.MDAnalysis_Universe.is_form</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/iterators.html">molsysmt.form.MDAnalysis_Universe.iterators</a></li>
+<li><a href="molsysmt/form/MDAnalysis_Universe/merge.html">molsysmt.form.MDAnalysis_Universe.merge</a></li>
+<li><a href="molsysmt/form/XYZ/add.html">molsysmt.form.XYZ.add</a></li>
+<li><a href="molsysmt/form/XYZ/append_structures.html">molsysmt.form.XYZ.append_structures</a></li>
+<li><a href="molsysmt/form/XYZ/copy.html">molsysmt.form.XYZ.copy</a></li>
+<li><a href="molsysmt/form/XYZ/extract.html">molsysmt.form.XYZ.extract</a></li>
+<li><a href="molsysmt/form/XYZ/has_attribute.html">molsysmt.form.XYZ.has_attribute</a></li>
+<li><a href="molsysmt/form/XYZ/is_form.html">molsysmt.form.XYZ.is_form</a></li>
+<li><a href="molsysmt/form/XYZ/iterators.html">molsysmt.form.XYZ.iterators</a></li>
+<li><a href="molsysmt/form/XYZ/merge.html">molsysmt.form.XYZ.merge</a></li>
+<li><a href="molsysmt/form/biopython_Seq/add.html">molsysmt.form.biopython_Seq.add</a></li>
+<li><a href="molsysmt/form/biopython_Seq/copy.html">molsysmt.form.biopython_Seq.copy</a></li>
+<li><a href="molsysmt/form/biopython_Seq/extract.html">molsysmt.form.biopython_Seq.extract</a></li>
+<li><a href="molsysmt/form/biopython_Seq/has_attribute.html">molsysmt.form.biopython_Seq.has_attribute</a></li>
+<li><a href="molsysmt/form/biopython_Seq/is_form.html">molsysmt.form.biopython_Seq.is_form</a></li>
+<li><a href="molsysmt/form/biopython_Seq/iterators.html">molsysmt.form.biopython_Seq.iterators</a></li>
+<li><a href="molsysmt/form/biopython_Seq/merge.html">molsysmt.form.biopython_Seq.merge</a></li>
+<li><a href="molsysmt/form/biopython_SeqRecord/add.html">molsysmt.form.biopython_SeqRecord.add</a></li>
+<li><a href="molsysmt/form/biopython_SeqRecord/extract.html">molsysmt.form.biopython_SeqRecord.extract</a></li>
+<li><a href="molsysmt/form/biopython_SeqRecord/has_attribute.html">molsysmt.form.biopython_SeqRecord.has_attribute</a></li>
+<li><a href="molsysmt/form/biopython_SeqRecord/is_form.html">molsysmt.form.biopython_SeqRecord.is_form</a></li>
+<li><a href="molsysmt/form/biopython_SeqRecord/iterators.html">molsysmt.form.biopython_SeqRecord.iterators</a></li>
+<li><a href="molsysmt/form/biopython_SeqRecord/merge.html">molsysmt.form.biopython_SeqRecord.merge</a></li>
+<li><a href="molsysmt/form/file_bcif/add.html">molsysmt.form.file_bcif.add</a></li>
+<li><a href="molsysmt/form/file_bcif/append_structures.html">molsysmt.form.file_bcif.append_structures</a></li>
+<li><a href="molsysmt/form/file_bcif/copy.html">molsysmt.form.file_bcif.copy</a></li>
+<li><a href="molsysmt/form/file_bcif/download.html">molsysmt.form.file_bcif.download</a></li>
+<li><a href="molsysmt/form/file_bcif/extract.html">molsysmt.form.file_bcif.extract</a></li>
+<li><a href="molsysmt/form/file_bcif/has_attribute.html">molsysmt.form.file_bcif.has_attribute</a></li>
+<li><a href="molsysmt/form/file_bcif/is_form.html">molsysmt.form.file_bcif.is_form</a></li>
+<li><a href="molsysmt/form/file_bcif/iterators.html">molsysmt.form.file_bcif.iterators</a></li>
+<li><a href="molsysmt/form/file_bcif/merge.html">molsysmt.form.file_bcif.merge</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/add.html">molsysmt.form.file_bcif_gz.add</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/append_structures.html">molsysmt.form.file_bcif_gz.append_structures</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/copy.html">molsysmt.form.file_bcif_gz.copy</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/download.html">molsysmt.form.file_bcif_gz.download</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/extract.html">molsysmt.form.file_bcif_gz.extract</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/has_attribute.html">molsysmt.form.file_bcif_gz.has_attribute</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/is_form.html">molsysmt.form.file_bcif_gz.is_form</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/iterators.html">molsysmt.form.file_bcif_gz.iterators</a></li>
+<li><a href="molsysmt/form/file_bcif_gz/merge.html">molsysmt.form.file_bcif_gz.merge</a></li>
+<li><a href="molsysmt/form/file_cif/add.html">molsysmt.form.file_cif.add</a></li>
+<li><a href="molsysmt/form/file_cif/append_structures.html">molsysmt.form.file_cif.append_structures</a></li>
+<li><a href="molsysmt/form/file_cif/copy.html">molsysmt.form.file_cif.copy</a></li>
+<li><a href="molsysmt/form/file_cif/extract.html">molsysmt.form.file_cif.extract</a></li>
+<li><a href="molsysmt/form/file_cif/has_attribute.html">molsysmt.form.file_cif.has_attribute</a></li>
+<li><a href="molsysmt/form/file_cif/is_form.html">molsysmt.form.file_cif.is_form</a></li>
+<li><a href="molsysmt/form/file_cif/iterators.html">molsysmt.form.file_cif.iterators</a></li>
+<li><a href="molsysmt/form/file_cif/merge.html">molsysmt.form.file_cif.merge</a></li>
+<li><a href="molsysmt/form/file_crd/add.html">molsysmt.form.file_crd.add</a></li>
+<li><a href="molsysmt/form/file_crd/append_structures.html">molsysmt.form.file_crd.append_structures</a></li>
+<li><a href="molsysmt/form/file_crd/copy.html">molsysmt.form.file_crd.copy</a></li>
+<li><a href="molsysmt/form/file_crd/extract.html">molsysmt.form.file_crd.extract</a></li>
+<li><a href="molsysmt/form/file_crd/has_attribute.html">molsysmt.form.file_crd.has_attribute</a></li>
+<li><a href="molsysmt/form/file_crd/is_form.html">molsysmt.form.file_crd.is_form</a></li>
+<li><a href="molsysmt/form/file_crd/iterators.html">molsysmt.form.file_crd.iterators</a></li>
+<li><a href="molsysmt/form/file_crd/merge.html">molsysmt.form.file_crd.merge</a></li>
+<li><a href="molsysmt/form/file_dcd/add.html">molsysmt.form.file_dcd.add</a></li>
+<li><a href="molsysmt/form/file_dcd/append_structures.html">molsysmt.form.file_dcd.append_structures</a></li>
+<li><a href="molsysmt/form/file_dcd/copy.html">molsysmt.form.file_dcd.copy</a></li>
+<li><a href="molsysmt/form/file_dcd/extract.html">molsysmt.form.file_dcd.extract</a></li>
+<li><a href="molsysmt/form/file_dcd/has_attribute.html">molsysmt.form.file_dcd.has_attribute</a></li>
+<li><a href="molsysmt/form/file_dcd/is_form.html">molsysmt.form.file_dcd.is_form</a></li>
+<li><a href="molsysmt/form/file_dcd/iterators.html">molsysmt.form.file_dcd.iterators</a></li>
+<li><a href="molsysmt/form/file_dcd/merge.html">molsysmt.form.file_dcd.merge</a></li>
+<li><a href="molsysmt/form/file_gro/add.html">molsysmt.form.file_gro.add</a></li>
+<li><a href="molsysmt/form/file_gro/append_structures.html">molsysmt.form.file_gro.append_structures</a></li>
+<li><a href="molsysmt/form/file_gro/copy.html">molsysmt.form.file_gro.copy</a></li>
+<li><a href="molsysmt/form/file_gro/extract.html">molsysmt.form.file_gro.extract</a></li>
+<li><a href="molsysmt/form/file_gro/has_attribute.html">molsysmt.form.file_gro.has_attribute</a></li>
+<li><a href="molsysmt/form/file_gro/is_form.html">molsysmt.form.file_gro.is_form</a></li>
+<li><a href="molsysmt/form/file_gro/iterators.html">molsysmt.form.file_gro.iterators</a></li>
+<li><a href="molsysmt/form/file_gro/merge.html">molsysmt.form.file_gro.merge</a></li>
+<li><a href="molsysmt/form/file_h5/add.html">molsysmt.form.file_h5.add</a></li>
+<li><a href="molsysmt/form/file_h5/append_structures.html">molsysmt.form.file_h5.append_structures</a></li>
+<li><a href="molsysmt/form/file_h5/copy.html">molsysmt.form.file_h5.copy</a></li>
+<li><a href="molsysmt/form/file_h5/extract.html">molsysmt.form.file_h5.extract</a></li>
+<li><a href="molsysmt/form/file_h5/has_attribute.html">molsysmt.form.file_h5.has_attribute</a></li>
+<li><a href="molsysmt/form/file_h5/is_form.html">molsysmt.form.file_h5.is_form</a></li>
+<li><a href="molsysmt/form/file_h5/iterators.html">molsysmt.form.file_h5.iterators</a></li>
+<li><a href="molsysmt/form/file_h5/merge.html">molsysmt.form.file_h5.merge</a></li>
+<li><a href="molsysmt/form/file_h5msm/add.html">molsysmt.form.file_h5msm.add</a></li>
+<li><a href="molsysmt/form/file_h5msm/append_structures.html">molsysmt.form.file_h5msm.append_structures</a></li>
+<li><a href="molsysmt/form/file_h5msm/copy.html">molsysmt.form.file_h5msm.copy</a></li>
+<li><a href="molsysmt/form/file_h5msm/extract.html">molsysmt.form.file_h5msm.extract</a></li>
+<li><a href="molsysmt/form/file_h5msm/has_attribute.html">molsysmt.form.file_h5msm.has_attribute</a></li>
+<li><a href="molsysmt/form/file_h5msm/is_form.html">molsysmt.form.file_h5msm.is_form</a></li>
+<li><a href="molsysmt/form/file_h5msm/iterators.html">molsysmt.form.file_h5msm.iterators</a></li>
+<li><a href="molsysmt/form/file_h5msm/merge.html">molsysmt.form.file_h5msm.merge</a></li>
+<li><a href="molsysmt/form/file_inpcrd/add.html">molsysmt.form.file_inpcrd.add</a></li>
+<li><a href="molsysmt/form/file_inpcrd/append_structures.html">molsysmt.form.file_inpcrd.append_structures</a></li>
+<li><a href="molsysmt/form/file_inpcrd/copy.html">molsysmt.form.file_inpcrd.copy</a></li>
+<li><a href="molsysmt/form/file_inpcrd/extract.html">molsysmt.form.file_inpcrd.extract</a></li>
+<li><a href="molsysmt/form/file_inpcrd/has_attribute.html">molsysmt.form.file_inpcrd.has_attribute</a></li>
+<li><a href="molsysmt/form/file_inpcrd/is_form.html">molsysmt.form.file_inpcrd.is_form</a></li>
+<li><a href="molsysmt/form/file_inpcrd/iterators.html">molsysmt.form.file_inpcrd.iterators</a></li>
+<li><a href="molsysmt/form/file_inpcrd/merge.html">molsysmt.form.file_inpcrd.merge</a></li>
+<li><a href="molsysmt/form/file_mol2/add.html">molsysmt.form.file_mol2.add</a></li>
+<li><a href="molsysmt/form/file_mol2/append_structures.html">molsysmt.form.file_mol2.append_structures</a></li>
+<li><a href="molsysmt/form/file_mol2/copy.html">molsysmt.form.file_mol2.copy</a></li>
+<li><a href="molsysmt/form/file_mol2/extract.html">molsysmt.form.file_mol2.extract</a></li>
+<li><a href="molsysmt/form/file_mol2/has_attribute.html">molsysmt.form.file_mol2.has_attribute</a></li>
+<li><a href="molsysmt/form/file_mol2/is_form.html">molsysmt.form.file_mol2.is_form</a></li>
+<li><a href="molsysmt/form/file_mol2/iterators.html">molsysmt.form.file_mol2.iterators</a></li>
+<li><a href="molsysmt/form/file_mol2/merge.html">molsysmt.form.file_mol2.merge</a></li>
+<li><a href="molsysmt/form/file_pdb/add.html">molsysmt.form.file_pdb.add</a></li>
+<li><a href="molsysmt/form/file_pdb/append_structures.html">molsysmt.form.file_pdb.append_structures</a></li>
+<li><a href="molsysmt/form/file_pdb/copy.html">molsysmt.form.file_pdb.copy</a></li>
+<li><a href="molsysmt/form/file_pdb/download.html">molsysmt.form.file_pdb.download</a></li>
+<li><a href="molsysmt/form/file_pdb/extract.html">molsysmt.form.file_pdb.extract</a></li>
+<li><a href="molsysmt/form/file_pdb/has_atoms_with_alternate_locations.html">molsysmt.form.file_pdb.has_atoms_with_alternate_locations</a></li>
+<li><a href="molsysmt/form/file_pdb/has_attribute.html">molsysmt.form.file_pdb.has_attribute</a></li>
+<li><a href="molsysmt/form/file_pdb/is_form.html">molsysmt.form.file_pdb.is_form</a></li>
+<li><a href="molsysmt/form/file_pdb/iterators.html">molsysmt.form.file_pdb.iterators</a></li>
+<li><a href="molsysmt/form/file_pdb/merge.html">molsysmt.form.file_pdb.merge</a></li>
+<li><a href="molsysmt/form/file_pdb/replace_HETATM_by_ATOM_in_terminal_cappings.html">molsysmt.form.file_pdb.replace_HETATM_by_ATOM_in_terminal_cappings</a></li>
+<li><a href="molsysmt/form/file_prmtop/add.html">molsysmt.form.file_prmtop.add</a></li>
+<li><a href="molsysmt/form/file_prmtop/append_structures.html">molsysmt.form.file_prmtop.append_structures</a></li>
+<li><a href="molsysmt/form/file_prmtop/copy.html">molsysmt.form.file_prmtop.copy</a></li>
+<li><a href="molsysmt/form/file_prmtop/extract.html">molsysmt.form.file_prmtop.extract</a></li>
+<li><a href="molsysmt/form/file_prmtop/has_attribute.html">molsysmt.form.file_prmtop.has_attribute</a></li>
+<li><a href="molsysmt/form/file_prmtop/is_form.html">molsysmt.form.file_prmtop.is_form</a></li>
+<li><a href="molsysmt/form/file_prmtop/iterators.html">molsysmt.form.file_prmtop.iterators</a></li>
+<li><a href="molsysmt/form/file_prmtop/merge.html">molsysmt.form.file_prmtop.merge</a></li>
+<li><a href="molsysmt/form/file_psf/add.html">molsysmt.form.file_psf.add</a></li>
+<li><a href="molsysmt/form/file_psf/append_structures.html">molsysmt.form.file_psf.append_structures</a></li>
+<li><a href="molsysmt/form/file_psf/copy.html">molsysmt.form.file_psf.copy</a></li>
+<li><a href="molsysmt/form/file_psf/extract.html">molsysmt.form.file_psf.extract</a></li>
+<li><a href="molsysmt/form/file_psf/has_attribute.html">molsysmt.form.file_psf.has_attribute</a></li>
+<li><a href="molsysmt/form/file_psf/is_form.html">molsysmt.form.file_psf.is_form</a></li>
+<li><a href="molsysmt/form/file_psf/iterators.html">molsysmt.form.file_psf.iterators</a></li>
+<li><a href="molsysmt/form/file_psf/merge.html">molsysmt.form.file_psf.merge</a></li>
+<li><a href="molsysmt/form/file_trjpk/add.html">molsysmt.form.file_trjpk.add</a></li>
+<li><a href="molsysmt/form/file_trjpk/append_structures.html">molsysmt.form.file_trjpk.append_structures</a></li>
+<li><a href="molsysmt/form/file_trjpk/copy.html">molsysmt.form.file_trjpk.copy</a></li>
+<li><a href="molsysmt/form/file_trjpk/extract.html">molsysmt.form.file_trjpk.extract</a></li>
+<li><a href="molsysmt/form/file_trjpk/has_attribute.html">molsysmt.form.file_trjpk.has_attribute</a></li>
+<li><a href="molsysmt/form/file_trjpk/is_form.html">molsysmt.form.file_trjpk.is_form</a></li>
+<li><a href="molsysmt/form/file_trjpk/iterators.html">molsysmt.form.file_trjpk.iterators</a></li>
+<li><a href="molsysmt/form/file_trjpk/merge.html">molsysmt.form.file_trjpk.merge</a></li>
+<li><a href="molsysmt/form/file_xtc/add.html">molsysmt.form.file_xtc.add</a></li>
+<li><a href="molsysmt/form/file_xtc/append_structures.html">molsysmt.form.file_xtc.append_structures</a></li>
+<li><a href="molsysmt/form/file_xtc/copy.html">molsysmt.form.file_xtc.copy</a></li>
+<li><a href="molsysmt/form/file_xtc/extract.html">molsysmt.form.file_xtc.extract</a></li>
+<li><a href="molsysmt/form/file_xtc/has_attribute.html">molsysmt.form.file_xtc.has_attribute</a></li>
+<li><a href="molsysmt/form/file_xtc/is_form.html">molsysmt.form.file_xtc.is_form</a></li>
+<li><a href="molsysmt/form/file_xtc/iterators.html">molsysmt.form.file_xtc.iterators</a></li>
+<li><a href="molsysmt/form/file_xtc/merge.html">molsysmt.form.file_xtc.merge</a></li>
+<li><a href="molsysmt/form/file_xyznpy/add.html">molsysmt.form.file_xyznpy.add</a></li>
+<li><a href="molsysmt/form/file_xyznpy/append_structures.html">molsysmt.form.file_xyznpy.append_structures</a></li>
+<li><a href="molsysmt/form/file_xyznpy/copy.html">molsysmt.form.file_xyznpy.copy</a></li>
+<li><a href="molsysmt/form/file_xyznpy/extract.html">molsysmt.form.file_xyznpy.extract</a></li>
+<li><a href="molsysmt/form/file_xyznpy/has_attribute.html">molsysmt.form.file_xyznpy.has_attribute</a></li>
+<li><a href="molsysmt/form/file_xyznpy/is_form.html">molsysmt.form.file_xyznpy.is_form</a></li>
+<li><a href="molsysmt/form/file_xyznpy/iterators.html">molsysmt.form.file_xyznpy.iterators</a></li>
+<li><a href="molsysmt/form/file_xyznpy/merge.html">molsysmt.form.file_xyznpy.merge</a></li>
+<li><a href="molsysmt/form/get_attributes.html">molsysmt.form.get_attributes</a></li>
+<li><a href="molsysmt/form/has_attribute.html">molsysmt.form.has_attribute</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/add.html">molsysmt.form.mdtraj_DCDTrajectoryFile.add</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/append_structures.html">molsysmt.form.mdtraj_DCDTrajectoryFile.append_structures</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/copy.html">molsysmt.form.mdtraj_DCDTrajectoryFile.copy</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/extract.html">molsysmt.form.mdtraj_DCDTrajectoryFile.extract</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/has_attribute.html">molsysmt.form.mdtraj_DCDTrajectoryFile.has_attribute</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/is_form.html">molsysmt.form.mdtraj_DCDTrajectoryFile.is_form</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/iterators.html">molsysmt.form.mdtraj_DCDTrajectoryFile.iterators</a></li>
+<li><a href="molsysmt/form/mdtraj_DCDTrajectoryFile/merge.html">molsysmt.form.mdtraj_DCDTrajectoryFile.merge</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/add.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.add</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/append_structures.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.append_structures</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/copy.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.copy</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/extract.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.extract</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/has_attribute.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.has_attribute</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/is_form.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.is_form</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/iterators.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.iterators</a></li>
+<li><a href="molsysmt/form/mdtraj_HDF5TrajectoryFile/merge.html">molsysmt.form.mdtraj_HDF5TrajectoryFile.merge</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/add.html">molsysmt.form.mdtraj_Topology.add</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/append_structures.html">molsysmt.form.mdtraj_Topology.append_structures</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/copy.html">molsysmt.form.mdtraj_Topology.copy</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/extract.html">molsysmt.form.mdtraj_Topology.extract</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/has_attribute.html">molsysmt.form.mdtraj_Topology.has_attribute</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/is_form.html">molsysmt.form.mdtraj_Topology.is_form</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/iterators.html">molsysmt.form.mdtraj_Topology.iterators</a></li>
+<li><a href="molsysmt/form/mdtraj_Topology/merge.html">molsysmt.form.mdtraj_Topology.merge</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/add.html">molsysmt.form.mdtraj_Trajectory.add</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/append_structures.html">molsysmt.form.mdtraj_Trajectory.append_structures</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/copy.html">molsysmt.form.mdtraj_Trajectory.copy</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/extract.html">molsysmt.form.mdtraj_Trajectory.extract</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/has_attribute.html">molsysmt.form.mdtraj_Trajectory.has_attribute</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/is_form.html">molsysmt.form.mdtraj_Trajectory.is_form</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/iterators.html">molsysmt.form.mdtraj_Trajectory.iterators</a></li>
+<li><a href="molsysmt/form/mdtraj_Trajectory/merge.html">molsysmt.form.mdtraj_Trajectory.merge</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/add.html">molsysmt.form.mdtraj_XTCTrajectoryFile.add</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/append_structures.html">molsysmt.form.mdtraj_XTCTrajectoryFile.append_structures</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/copy.html">molsysmt.form.mdtraj_XTCTrajectoryFile.copy</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/extract.html">molsysmt.form.mdtraj_XTCTrajectoryFile.extract</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/has_attribute.html">molsysmt.form.mdtraj_XTCTrajectoryFile.has_attribute</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/is_form.html">molsysmt.form.mdtraj_XTCTrajectoryFile.is_form</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/iterators.html">molsysmt.form.mdtraj_XTCTrajectoryFile.iterators</a></li>
+<li><a href="molsysmt/form/mdtraj_XTCTrajectoryFile/merge.html">molsysmt.form.mdtraj_XTCTrajectoryFile.merge</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/add.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.add</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/append_structures.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.append_structures</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/copy.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.copy</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/extract.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.extract</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/has_attribute.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.has_attribute</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/is_form.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.is_form</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/iterators.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.iterators</a></li>
+<li><a href="molsysmt/form/mmcif_PdbxContainers_DataContainer/merge.html">molsysmt.form.mmcif_PdbxContainers_DataContainer.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/add.html">molsysmt.form.molsysmt_CIFFileHandler.add</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/append_structures.html">molsysmt.form.molsysmt_CIFFileHandler.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/copy.html">molsysmt.form.molsysmt_CIFFileHandler.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/extract.html">molsysmt.form.molsysmt_CIFFileHandler.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/has_attribute.html">molsysmt.form.molsysmt_CIFFileHandler.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/is_form.html">molsysmt.form.molsysmt_CIFFileHandler.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/iterators.html">molsysmt.form.molsysmt_CIFFileHandler.iterators</a></li>
+<li><a href="molsysmt/form/molsysmt_CIFFileHandler/merge.html">molsysmt.form.molsysmt_CIFFileHandler.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/add.html">molsysmt.form.molsysmt_GROFileHandler.add</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/append_structures.html">molsysmt.form.molsysmt_GROFileHandler.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/copy.html">molsysmt.form.molsysmt_GROFileHandler.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/extract.html">molsysmt.form.molsysmt_GROFileHandler.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/has_attribute.html">molsysmt.form.molsysmt_GROFileHandler.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/is_form.html">molsysmt.form.molsysmt_GROFileHandler.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/iterators.html">molsysmt.form.molsysmt_GROFileHandler.iterators</a></li>
+<li><a href="molsysmt/form/molsysmt_GROFileHandler/merge.html">molsysmt.form.molsysmt_GROFileHandler.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_H5MSMFileHandler.html">molsysmt.form.molsysmt_H5MSMFileHandler</a></li>
+<ul><li><a href="molsysmt/form/molsysmt_H5MSMFileHandler/add.html">molsysmt.form.molsysmt_H5MSMFileHandler.add</a></li>
+<li><a href="molsysmt/form/molsysmt_H5MSMFileHandler/append_structures.html">molsysmt.form.molsysmt_H5MSMFileHandler.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_H5MSMFileHandler/copy.html">molsysmt.form.molsysmt_H5MSMFileHandler.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_H5MSMFileHandler/has_attribute.html">molsysmt.form.molsysmt_H5MSMFileHandler.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_H5MSMFileHandler/is_form.html">molsysmt.form.molsysmt_H5MSMFileHandler.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_H5MSMFileHandler/iterators.html">molsysmt.form.molsysmt_H5MSMFileHandler.iterators</a></li>
+<li><a href="molsysmt/form/molsysmt_H5MSMFileHandler/merge.html">molsysmt.form.molsysmt_H5MSMFileHandler.merge</a></li>
+</ul><li><a href="molsysmt/form/molsysmt_MolSys/add.html">molsysmt.form.molsysmt_MolSys.add</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/add_bonds.html">molsysmt.form.molsysmt_MolSys.add_bonds</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/append_structures.html">molsysmt.form.molsysmt_MolSys.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/copy.html">molsysmt.form.molsysmt_MolSys.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/extract.html">molsysmt.form.molsysmt_MolSys.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/has_attribute.html">molsysmt.form.molsysmt_MolSys.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/is_form.html">molsysmt.form.molsysmt_MolSys.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/iterators.html">molsysmt.form.molsysmt_MolSys.iterators</a></li>
+<li><a href="molsysmt/form/molsysmt_MolSys/merge.html">molsysmt.form.molsysmt_MolSys.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanics/add.html">molsysmt.form.molsysmt_MolecularMechanics.add</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanics/append_structures.html">molsysmt.form.molsysmt_MolecularMechanics.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanics/copy.html">molsysmt.form.molsysmt_MolecularMechanics.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanics/extract.html">molsysmt.form.molsysmt_MolecularMechanics.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanics/has_attribute.html">molsysmt.form.molsysmt_MolecularMechanics.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanics/is_form.html">molsysmt.form.molsysmt_MolecularMechanics.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanics/merge.html">molsysmt.form.molsysmt_MolecularMechanics.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanicsDict/add.html">molsysmt.form.molsysmt_MolecularMechanicsDict.add</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanicsDict/append_structures.html">molsysmt.form.molsysmt_MolecularMechanicsDict.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanicsDict/copy.html">molsysmt.form.molsysmt_MolecularMechanicsDict.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanicsDict/extract.html">molsysmt.form.molsysmt_MolecularMechanicsDict.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanicsDict/has_attribute.html">molsysmt.form.molsysmt_MolecularMechanicsDict.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanicsDict/is_form.html">molsysmt.form.molsysmt_MolecularMechanicsDict.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_MolecularMechanicsDict/merge.html">molsysmt.form.molsysmt_MolecularMechanicsDict.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_PDBFileHandler.html">molsysmt.form.molsysmt_PDBFileHandler</a></li>
+<ul><li><a href="molsysmt/form/molsysmt_PDBFileHandler/add.html">molsysmt.form.molsysmt_PDBFileHandler.add</a></li>
+<li><a href="molsysmt/form/molsysmt_PDBFileHandler/append_structures.html">molsysmt.form.molsysmt_PDBFileHandler.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_PDBFileHandler/copy.html">molsysmt.form.molsysmt_PDBFileHandler.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_PDBFileHandler/has_attribute.html">molsysmt.form.molsysmt_PDBFileHandler.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_PDBFileHandler/is_form.html">molsysmt.form.molsysmt_PDBFileHandler.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_PDBFileHandler/merge.html">molsysmt.form.molsysmt_PDBFileHandler.merge</a></li>
+</ul><li><a href="molsysmt/form/molsysmt_Structures/add.html">molsysmt.form.molsysmt_Structures.add</a></li>
+<li><a href="molsysmt/form/molsysmt_Structures/append_structures.html">molsysmt.form.molsysmt_Structures.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_Structures/copy.html">molsysmt.form.molsysmt_Structures.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_Structures/extract.html">molsysmt.form.molsysmt_Structures.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_Structures/has_attribute.html">molsysmt.form.molsysmt_Structures.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_Structures/is_form.html">molsysmt.form.molsysmt_Structures.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_Structures/iterators.html">molsysmt.form.molsysmt_Structures.iterators</a></li>
+<li><a href="molsysmt/form/molsysmt_Structures/merge.html">molsysmt.form.molsysmt_Structures.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/add.html">molsysmt.form.molsysmt_StructuresDict.add</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/append_structures.html">molsysmt.form.molsysmt_StructuresDict.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/copy.html">molsysmt.form.molsysmt_StructuresDict.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/extract.html">molsysmt.form.molsysmt_StructuresDict.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/has_attribute.html">molsysmt.form.molsysmt_StructuresDict.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/is_form.html">molsysmt.form.molsysmt_StructuresDict.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/iterators.html">molsysmt.form.molsysmt_StructuresDict.iterators</a></li>
+<li><a href="molsysmt/form/molsysmt_StructuresDict/merge.html">molsysmt.form.molsysmt_StructuresDict.merge</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/add.html">molsysmt.form.molsysmt_Topology.add</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/append_structures.html">molsysmt.form.molsysmt_Topology.append_structures</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/copy.html">molsysmt.form.molsysmt_Topology.copy</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/extract.html">molsysmt.form.molsysmt_Topology.extract</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/has_attribute.html">molsysmt.form.molsysmt_Topology.has_attribute</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/is_form.html">molsysmt.form.molsysmt_Topology.is_form</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/iterators.html">molsysmt.form.molsysmt_Topology.iterators</a></li>
+<li><a href="molsysmt/form/molsysmt_Topology/merge.html">molsysmt.form.molsysmt_Topology.merge</a></li>
+<li><a href="molsysmt/form/networkx_Graph/add.html">molsysmt.form.networkx_Graph.add</a></li>
+<li><a href="molsysmt/form/networkx_Graph/append_structures.html">molsysmt.form.networkx_Graph.append_structures</a></li>
+<li><a href="molsysmt/form/networkx_Graph/copy.html">molsysmt.form.networkx_Graph.copy</a></li>
+<li><a href="molsysmt/form/networkx_Graph/extract.html">molsysmt.form.networkx_Graph.extract</a></li>
+<li><a href="molsysmt/form/networkx_Graph/has_attribute.html">molsysmt.form.networkx_Graph.has_attribute</a></li>
+<li><a href="molsysmt/form/networkx_Graph/is_form.html">molsysmt.form.networkx_Graph.is_form</a></li>
+<li><a href="molsysmt/form/networkx_Graph/iterators.html">molsysmt.form.networkx_Graph.iterators</a></li>
+<li><a href="molsysmt/form/networkx_Graph/merge.html">molsysmt.form.networkx_Graph.merge</a></li>
+<li><a href="molsysmt/form/nglview_NGLWidget.html">molsysmt.form.nglview_NGLWidget</a></li>
+<ul><li><a href="molsysmt/form/nglview_NGLWidget/add.html">molsysmt.form.nglview_NGLWidget.add</a></li>
+<li><a href="molsysmt/form/nglview_NGLWidget/append_structures.html">molsysmt.form.nglview_NGLWidget.append_structures</a></li>
+<li><a href="molsysmt/form/nglview_NGLWidget/extract.html">molsysmt.form.nglview_NGLWidget.extract</a></li>
+<li><a href="molsysmt/form/nglview_NGLWidget/has_attribute.html">molsysmt.form.nglview_NGLWidget.has_attribute</a></li>
+<li><a href="molsysmt/form/nglview_NGLWidget/is_form.html">molsysmt.form.nglview_NGLWidget.is_form</a></li>
+<li><a href="molsysmt/form/nglview_NGLWidget/iterators.html">molsysmt.form.nglview_NGLWidget.iterators</a></li>
+<li><a href="molsysmt/form/nglview_NGLWidget/merge.html">molsysmt.form.nglview_NGLWidget.merge</a></li>
+</ul><li><a href="molsysmt/form/openmm_AmberInpcrdFile/add.html">molsysmt.form.openmm_AmberInpcrdFile.add</a></li>
+<li><a href="molsysmt/form/openmm_AmberInpcrdFile/append_structures.html">molsysmt.form.openmm_AmberInpcrdFile.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_AmberInpcrdFile/copy.html">molsysmt.form.openmm_AmberInpcrdFile.copy</a></li>
+<li><a href="molsysmt/form/openmm_AmberInpcrdFile/extract.html">molsysmt.form.openmm_AmberInpcrdFile.extract</a></li>
+<li><a href="molsysmt/form/openmm_AmberInpcrdFile/has_attribute.html">molsysmt.form.openmm_AmberInpcrdFile.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_AmberInpcrdFile/is_form.html">molsysmt.form.openmm_AmberInpcrdFile.is_form</a></li>
+<li><a href="molsysmt/form/openmm_AmberInpcrdFile/iterators.html">molsysmt.form.openmm_AmberInpcrdFile.iterators</a></li>
+<li><a href="molsysmt/form/openmm_AmberInpcrdFile/merge.html">molsysmt.form.openmm_AmberInpcrdFile.merge</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/add.html">molsysmt.form.openmm_AmberPrmtopFile.add</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/append_structures.html">molsysmt.form.openmm_AmberPrmtopFile.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/copy.html">molsysmt.form.openmm_AmberPrmtopFile.copy</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/extract.html">molsysmt.form.openmm_AmberPrmtopFile.extract</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/has_attribute.html">molsysmt.form.openmm_AmberPrmtopFile.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/is_form.html">molsysmt.form.openmm_AmberPrmtopFile.is_form</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/iterators.html">molsysmt.form.openmm_AmberPrmtopFile.iterators</a></li>
+<li><a href="molsysmt/form/openmm_AmberPrmtopFile/merge.html">molsysmt.form.openmm_AmberPrmtopFile.merge</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/add.html">molsysmt.form.openmm_CharmmCrdFile.add</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/append_structures.html">molsysmt.form.openmm_CharmmCrdFile.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/copy.html">molsysmt.form.openmm_CharmmCrdFile.copy</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/extract.html">molsysmt.form.openmm_CharmmCrdFile.extract</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/has_attribute.html">molsysmt.form.openmm_CharmmCrdFile.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/is_form.html">molsysmt.form.openmm_CharmmCrdFile.is_form</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/iterators.html">molsysmt.form.openmm_CharmmCrdFile.iterators</a></li>
+<li><a href="molsysmt/form/openmm_CharmmCrdFile/merge.html">molsysmt.form.openmm_CharmmCrdFile.merge</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/add.html">molsysmt.form.openmm_CharmmPsfFile.add</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/append_structures.html">molsysmt.form.openmm_CharmmPsfFile.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/copy.html">molsysmt.form.openmm_CharmmPsfFile.copy</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/extract.html">molsysmt.form.openmm_CharmmPsfFile.extract</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/has_attribute.html">molsysmt.form.openmm_CharmmPsfFile.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/is_form.html">molsysmt.form.openmm_CharmmPsfFile.is_form</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/iterators.html">molsysmt.form.openmm_CharmmPsfFile.iterators</a></li>
+<li><a href="molsysmt/form/openmm_CharmmPsfFile/merge.html">molsysmt.form.openmm_CharmmPsfFile.merge</a></li>
+<li><a href="molsysmt/form/openmm_Context/add.html">molsysmt.form.openmm_Context.add</a></li>
+<li><a href="molsysmt/form/openmm_Context/append_structures.html">molsysmt.form.openmm_Context.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_Context/copy.html">molsysmt.form.openmm_Context.copy</a></li>
+<li><a href="molsysmt/form/openmm_Context/extract.html">molsysmt.form.openmm_Context.extract</a></li>
+<li><a href="molsysmt/form/openmm_Context/has_attribute.html">molsysmt.form.openmm_Context.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_Context/is_form.html">molsysmt.form.openmm_Context.is_form</a></li>
+<li><a href="molsysmt/form/openmm_Context/iterators.html">molsysmt.form.openmm_Context.iterators</a></li>
+<li><a href="molsysmt/form/openmm_Context/merge.html">molsysmt.form.openmm_Context.merge</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/add.html">molsysmt.form.openmm_GromacsGroFile.add</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/append_structures.html">molsysmt.form.openmm_GromacsGroFile.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/copy.html">molsysmt.form.openmm_GromacsGroFile.copy</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/extract.html">molsysmt.form.openmm_GromacsGroFile.extract</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/has_attribute.html">molsysmt.form.openmm_GromacsGroFile.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/is_form.html">molsysmt.form.openmm_GromacsGroFile.is_form</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/iterators.html">molsysmt.form.openmm_GromacsGroFile.iterators</a></li>
+<li><a href="molsysmt/form/openmm_GromacsGroFile/merge.html">molsysmt.form.openmm_GromacsGroFile.merge</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/add.html">molsysmt.form.openmm_GromacsTopFile.add</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/append_structures.html">molsysmt.form.openmm_GromacsTopFile.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/copy.html">molsysmt.form.openmm_GromacsTopFile.copy</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/extract.html">molsysmt.form.openmm_GromacsTopFile.extract</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/has_attribute.html">molsysmt.form.openmm_GromacsTopFile.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/is_form.html">molsysmt.form.openmm_GromacsTopFile.is_form</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/iterators.html">molsysmt.form.openmm_GromacsTopFile.iterators</a></li>
+<li><a href="molsysmt/form/openmm_GromacsTopFile/merge.html">molsysmt.form.openmm_GromacsTopFile.merge</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/add.html">molsysmt.form.openmm_Modeller.add</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/append_structures.html">molsysmt.form.openmm_Modeller.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/copy.html">molsysmt.form.openmm_Modeller.copy</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/extract.html">molsysmt.form.openmm_Modeller.extract</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/has_attribute.html">molsysmt.form.openmm_Modeller.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/is_form.html">molsysmt.form.openmm_Modeller.is_form</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/iterators.html">molsysmt.form.openmm_Modeller.iterators</a></li>
+<li><a href="molsysmt/form/openmm_Modeller/merge.html">molsysmt.form.openmm_Modeller.merge</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/add.html">molsysmt.form.openmm_PDBFile.add</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/append_structures.html">molsysmt.form.openmm_PDBFile.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/copy.html">molsysmt.form.openmm_PDBFile.copy</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/extract.html">molsysmt.form.openmm_PDBFile.extract</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/has_attribute.html">molsysmt.form.openmm_PDBFile.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/is_form.html">molsysmt.form.openmm_PDBFile.is_form</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/iterators.html">molsysmt.form.openmm_PDBFile.iterators</a></li>
+<li><a href="molsysmt/form/openmm_PDBFile/merge.html">molsysmt.form.openmm_PDBFile.merge</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/add.html">molsysmt.form.openmm_Simulation.add</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/append_structures.html">molsysmt.form.openmm_Simulation.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/copy.html">molsysmt.form.openmm_Simulation.copy</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/extract.html">molsysmt.form.openmm_Simulation.extract</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/has_attribute.html">molsysmt.form.openmm_Simulation.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/is_form.html">molsysmt.form.openmm_Simulation.is_form</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/iterators.html">molsysmt.form.openmm_Simulation.iterators</a></li>
+<li><a href="molsysmt/form/openmm_Simulation/merge.html">molsysmt.form.openmm_Simulation.merge</a></li>
+<li><a href="molsysmt/form/openmm_State/add.html">molsysmt.form.openmm_State.add</a></li>
+<li><a href="molsysmt/form/openmm_State/append_structures.html">molsysmt.form.openmm_State.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_State/copy.html">molsysmt.form.openmm_State.copy</a></li>
+<li><a href="molsysmt/form/openmm_State/extract.html">molsysmt.form.openmm_State.extract</a></li>
+<li><a href="molsysmt/form/openmm_State/has_attribute.html">molsysmt.form.openmm_State.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_State/is_form.html">molsysmt.form.openmm_State.is_form</a></li>
+<li><a href="molsysmt/form/openmm_State/iterators.html">molsysmt.form.openmm_State.iterators</a></li>
+<li><a href="molsysmt/form/openmm_State/merge.html">molsysmt.form.openmm_State.merge</a></li>
+<li><a href="molsysmt/form/openmm_System/add.html">molsysmt.form.openmm_System.add</a></li>
+<li><a href="molsysmt/form/openmm_System/append_structures.html">molsysmt.form.openmm_System.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_System/copy.html">molsysmt.form.openmm_System.copy</a></li>
+<li><a href="molsysmt/form/openmm_System/extract.html">molsysmt.form.openmm_System.extract</a></li>
+<li><a href="molsysmt/form/openmm_System/has_attribute.html">molsysmt.form.openmm_System.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_System/is_form.html">molsysmt.form.openmm_System.is_form</a></li>
+<li><a href="molsysmt/form/openmm_System/iterators.html">molsysmt.form.openmm_System.iterators</a></li>
+<li><a href="molsysmt/form/openmm_System/merge.html">molsysmt.form.openmm_System.merge</a></li>
+<li><a href="molsysmt/form/openmm_Topology/add.html">molsysmt.form.openmm_Topology.add</a></li>
+<li><a href="molsysmt/form/openmm_Topology/append_structures.html">molsysmt.form.openmm_Topology.append_structures</a></li>
+<li><a href="molsysmt/form/openmm_Topology/copy.html">molsysmt.form.openmm_Topology.copy</a></li>
+<li><a href="molsysmt/form/openmm_Topology/extract.html">molsysmt.form.openmm_Topology.extract</a></li>
+<li><a href="molsysmt/form/openmm_Topology/has_attribute.html">molsysmt.form.openmm_Topology.has_attribute</a></li>
+<li><a href="molsysmt/form/openmm_Topology/is_form.html">molsysmt.form.openmm_Topology.is_form</a></li>
+<li><a href="molsysmt/form/openmm_Topology/iterators.html">molsysmt.form.openmm_Topology.iterators</a></li>
+<li><a href="molsysmt/form/openmm_Topology/merge.html">molsysmt.form.openmm_Topology.merge</a></li>
+<li><a href="molsysmt/form/openmm_Topology/write_topology_in_h5msm.html">molsysmt.form.openmm_Topology.write_topology_in_h5msm</a></li>
+<li><a href="molsysmt/form/parmed_Structure/add.html">molsysmt.form.parmed_Structure.add</a></li>
+<li><a href="molsysmt/form/parmed_Structure/append_structures.html">molsysmt.form.parmed_Structure.append_structures</a></li>
+<li><a href="molsysmt/form/parmed_Structure/copy.html">molsysmt.form.parmed_Structure.copy</a></li>
+<li><a href="molsysmt/form/parmed_Structure/extract.html">molsysmt.form.parmed_Structure.extract</a></li>
+<li><a href="molsysmt/form/parmed_Structure/has_attribute.html">molsysmt.form.parmed_Structure.has_attribute</a></li>
+<li><a href="molsysmt/form/parmed_Structure/is_form.html">molsysmt.form.parmed_Structure.is_form</a></li>
+<li><a href="molsysmt/form/parmed_Structure/iterators.html">molsysmt.form.parmed_Structure.iterators</a></li>
+<li><a href="molsysmt/form/parmed_Structure/merge.html">molsysmt.form.parmed_Structure.merge</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/add.html">molsysmt.form.pdbfixer_PDBFixer.add</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/append_structures.html">molsysmt.form.pdbfixer_PDBFixer.append_structures</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/copy.html">molsysmt.form.pdbfixer_PDBFixer.copy</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/extract.html">molsysmt.form.pdbfixer_PDBFixer.extract</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/has_attribute.html">molsysmt.form.pdbfixer_PDBFixer.has_attribute</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/is_form.html">molsysmt.form.pdbfixer_PDBFixer.is_form</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/iterators.html">molsysmt.form.pdbfixer_PDBFixer.iterators</a></li>
+<li><a href="molsysmt/form/pdbfixer_PDBFixer/merge.html">molsysmt.form.pdbfixer_PDBFixer.merge</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/add.html">molsysmt.form.pytraj_Topology.add</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/append_structures.html">molsysmt.form.pytraj_Topology.append_structures</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/copy.html">molsysmt.form.pytraj_Topology.copy</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/extract.html">molsysmt.form.pytraj_Topology.extract</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/has_attribute.html">molsysmt.form.pytraj_Topology.has_attribute</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/is_form.html">molsysmt.form.pytraj_Topology.is_form</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/iterators.html">molsysmt.form.pytraj_Topology.iterators</a></li>
+<li><a href="molsysmt/form/pytraj_Topology/merge.html">molsysmt.form.pytraj_Topology.merge</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/add.html">molsysmt.form.pytraj_Trajectory.add</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/append_structures.html">molsysmt.form.pytraj_Trajectory.append_structures</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/copy.html">molsysmt.form.pytraj_Trajectory.copy</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/extract.html">molsysmt.form.pytraj_Trajectory.extract</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/has_attribute.html">molsysmt.form.pytraj_Trajectory.has_attribute</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/is_form.html">molsysmt.form.pytraj_Trajectory.is_form</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/iterators.html">molsysmt.form.pytraj_Trajectory.iterators</a></li>
+<li><a href="molsysmt/form/pytraj_Trajectory/merge.html">molsysmt.form.pytraj_Trajectory.merge</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/add.html">molsysmt.form.string_alphafold_id.add</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/append_structures.html">molsysmt.form.string_alphafold_id.append_structures</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/copy.html">molsysmt.form.string_alphafold_id.copy</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/extract.html">molsysmt.form.string_alphafold_id.extract</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/has_attribute.html">molsysmt.form.string_alphafold_id.has_attribute</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/is_form.html">molsysmt.form.string_alphafold_id.is_form</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/iterators.html">molsysmt.form.string_alphafold_id.iterators</a></li>
+<li><a href="molsysmt/form/string_alphafold_id/merge.html">molsysmt.form.string_alphafold_id.merge</a></li>
+<li><a href="molsysmt/form/string_amino_acids_1/add.html">molsysmt.form.string_amino_acids_1.add</a></li>
+<li><a href="molsysmt/form/string_amino_acids_1/append_structures.html">molsysmt.form.string_amino_acids_1.append_structures</a></li>
+<li><a href="molsysmt/form/string_amino_acids_1/extract.html">molsysmt.form.string_amino_acids_1.extract</a></li>
+<li><a href="molsysmt/form/string_amino_acids_1/has_attribute.html">molsysmt.form.string_amino_acids_1.has_attribute</a></li>
+<li><a href="molsysmt/form/string_amino_acids_1/is_form.html">molsysmt.form.string_amino_acids_1.is_form</a></li>
+<li><a href="molsysmt/form/string_amino_acids_1/iterators.html">molsysmt.form.string_amino_acids_1.iterators</a></li>
+<li><a href="molsysmt/form/string_amino_acids_1/merge.html">molsysmt.form.string_amino_acids_1.merge</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/add.html">molsysmt.form.string_amino_acids_3.add</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/append_structures.html">molsysmt.form.string_amino_acids_3.append_structures</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/copy.html">molsysmt.form.string_amino_acids_3.copy</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/extract.html">molsysmt.form.string_amino_acids_3.extract</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/has_attribute.html">molsysmt.form.string_amino_acids_3.has_attribute</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/is_form.html">molsysmt.form.string_amino_acids_3.is_form</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/iterators.html">molsysmt.form.string_amino_acids_3.iterators</a></li>
+<li><a href="molsysmt/form/string_amino_acids_3/merge.html">molsysmt.form.string_amino_acids_3.merge</a></li>
+<li><a href="molsysmt/form/string_pdb_id/add.html">molsysmt.form.string_pdb_id.add</a></li>
+<li><a href="molsysmt/form/string_pdb_id/append_structures.html">molsysmt.form.string_pdb_id.append_structures</a></li>
+<li><a href="molsysmt/form/string_pdb_id/copy.html">molsysmt.form.string_pdb_id.copy</a></li>
+<li><a href="molsysmt/form/string_pdb_id/extract.html">molsysmt.form.string_pdb_id.extract</a></li>
+<li><a href="molsysmt/form/string_pdb_id/has_attribute.html">molsysmt.form.string_pdb_id.has_attribute</a></li>
+<li><a href="molsysmt/form/string_pdb_id/is_form.html">molsysmt.form.string_pdb_id.is_form</a></li>
+<li><a href="molsysmt/form/string_pdb_id/iterators.html">molsysmt.form.string_pdb_id.iterators</a></li>
+<li><a href="molsysmt/form/string_pdb_id/merge.html">molsysmt.form.string_pdb_id.merge</a></li>
+<li><a href="molsysmt/form/string_pdb_text/add.html">molsysmt.form.string_pdb_text.add</a></li>
+<li><a href="molsysmt/form/string_pdb_text/append_structures.html">molsysmt.form.string_pdb_text.append_structures</a></li>
+<li><a href="molsysmt/form/string_pdb_text/copy.html">molsysmt.form.string_pdb_text.copy</a></li>
+<li><a href="molsysmt/form/string_pdb_text/extract.html">molsysmt.form.string_pdb_text.extract</a></li>
+<li><a href="molsysmt/form/string_pdb_text/has_attribute.html">molsysmt.form.string_pdb_text.has_attribute</a></li>
+<li><a href="molsysmt/form/string_pdb_text/is_form.html">molsysmt.form.string_pdb_text.is_form</a></li>
+<li><a href="molsysmt/form/string_pdb_text/iterators.html">molsysmt.form.string_pdb_text.iterators</a></li>
+<li><a href="molsysmt/form/string_pdb_text/merge.html">molsysmt.form.string_pdb_text.merge</a></li>
+<li><a href="molsysmt/hbonds/get_acceptor_atoms.html">molsysmt.hbonds.get_acceptor_atoms</a></li>
+<li><a href="molsysmt/hbonds/get_buch_hbonds.html">molsysmt.hbonds.get_buch_hbonds</a></li>
+<li><a href="molsysmt/hbonds/get_donor_atoms.html">molsysmt.hbonds.get_donor_atoms</a></li>
+<li><a href="molsysmt/hbonds/get_luzard_chandler_hbonds.html">molsysmt.hbonds.get_luzard_chandler_hbonds</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_engine_forcefield.html">molsysmt.molecular_mechanics.get_engine_forcefield</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_forces.html">molsysmt.molecular_mechanics.get_forces</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_non_bonded_potential_energy.html">molsysmt.molecular_mechanics.get_non_bonded_potential_energy</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_potential_energy.html">molsysmt.molecular_mechanics.get_potential_energy</a></li>
+<li><a href="molsysmt/molecular_mechanics/potential_energy_minimization.html">molsysmt.molecular_mechanics.potential_energy_minimization</a></li>
+<li><a href="molsysmt/pbc/get_angles_from_box.html">molsysmt.pbc.get_angles_from_box</a></li>
+<li><a href="molsysmt/pbc/get_box_from_lengths_and_angles.html">molsysmt.pbc.get_box_from_lengths_and_angles</a></li>
+<li><a href="molsysmt/pbc/get_box_with_shape.html">molsysmt.pbc.get_box_with_shape</a></li>
+<li><a href="molsysmt/pbc/get_lengths_and_angles_from_box.html">molsysmt.pbc.get_lengths_and_angles_from_box</a></li>
+<li><a href="molsysmt/pbc/get_lengths_from_box.html">molsysmt.pbc.get_lengths_from_box</a></li>
+<li><a href="molsysmt/pbc/get_shape_from_angles.html">molsysmt.pbc.get_shape_from_angles</a></li>
+<li><a href="molsysmt/pbc/get_shape_from_box.html">molsysmt.pbc.get_shape_from_box</a></li>
+<li><a href="molsysmt/pbc/get_volume_from_box.html">molsysmt.pbc.get_volume_from_box</a></li>
+<li><a href="molsysmt/pbc/get_volume_from_lengths_and_angles.html">molsysmt.pbc.get_volume_from_lengths_and_angles</a></li>
+<li><a href="molsysmt/pbc/has_pbc.html">molsysmt.pbc.has_pbc</a></li>
+<li><a href="molsysmt/pbc/unwrap.html">molsysmt.pbc.unwrap</a></li>
+<li><a href="molsysmt/pbc/wrap_to_mic.html">molsysmt.pbc.wrap_to_mic</a></li>
+<li><a href="molsysmt/pbc/wrap_to_pbc.html">molsysmt.pbc.wrap_to_pbc</a></li>
+<li><a href="molsysmt/physchem/get_area_buried.html">molsysmt.physchem.get_area_buried</a></li>
+<li><a href="molsysmt/physchem/get_atomic_radius.html">molsysmt.physchem.get_atomic_radius</a></li>
+<li><a href="molsysmt/physchem/get_buried_fraction.html">molsysmt.physchem.get_buried_fraction</a></li>
+<li><a href="molsysmt/physchem/get_charge.html">molsysmt.physchem.get_charge</a></li>
+<li><a href="molsysmt/physchem/get_hydrophobicity.html">molsysmt.physchem.get_hydrophobicity</a></li>
+<li><a href="molsysmt/physchem/get_mass.html">molsysmt.physchem.get_mass</a></li>
+<li><a href="molsysmt/physchem/get_polarity.html">molsysmt.physchem.get_polarity</a></li>
+<li><a href="molsysmt/physchem/get_sasa.html">molsysmt.physchem.get_sasa</a></li>
+<li><a href="molsysmt/physchem/get_surface_area.html">molsysmt.physchem.get_surface_area</a></li>
+<li><a href="molsysmt/physchem/get_transmembrane_tendency.html">molsysmt.physchem.get_transmembrane_tendency</a></li>
+<li><a href="molsysmt/physchem/get_volume.html">molsysmt.physchem.get_volume</a></li>
+<li><a href="molsysmt/structure/align_principal_axes.html">molsysmt.structure.align_principal_axes</a></li>
+<li><a href="molsysmt/structure/center.html">molsysmt.structure.center</a></li>
+<li><a href="molsysmt/structure/flip.html">molsysmt.structure.flip</a></li>
+<li><a href="molsysmt/structure/get_angles.html">molsysmt.structure.get_angles</a></li>
+<li><a href="molsysmt/structure/get_center.html">molsysmt.structure.get_center</a></li>
+<li><a href="molsysmt/structure/get_contacts.html">molsysmt.structure.get_contacts</a></li>
+<li><a href="molsysmt/structure/get_dihedral_angles.html">molsysmt.structure.get_dihedral_angles</a></li>
+<li><a href="molsysmt/structure/get_distances.html">molsysmt.structure.get_distances</a></li>
+<li><a href="molsysmt/structure/get_least_rmsd.html">molsysmt.structure.get_least_rmsd</a></li>
+<li><a href="molsysmt/structure/get_maximum_distances.html">molsysmt.structure.get_maximum_distances</a></li>
+<li><a href="molsysmt/structure/get_minimum_distances.html">molsysmt.structure.get_minimum_distances</a></li>
+<li><a href="molsysmt/structure/get_neighbors.html">molsysmt.structure.get_neighbors</a></li>
+<li><a href="molsysmt/structure/get_principal_axes.html">molsysmt.structure.get_principal_axes</a></li>
+<li><a href="molsysmt/structure/get_radius_of_gyration.html">molsysmt.structure.get_radius_of_gyration</a></li>
+<li><a href="molsysmt/structure/get_rmsd.html">molsysmt.structure.get_rmsd</a></li>
+<li><a href="molsysmt/structure/least_rmsd_align.html">molsysmt.structure.least_rmsd_align</a></li>
+<li><a href="molsysmt/structure/least_rmsd_fit.html">molsysmt.structure.least_rmsd_fit</a></li>
+<li><a href="molsysmt/structure/move_away.html">molsysmt.structure.move_away</a></li>
+<li><a href="molsysmt/structure/principal_component_analysis.html">molsysmt.structure.principal_component_analysis</a></li>
+<li><a href="molsysmt/structure/rotate.html">molsysmt.structure.rotate</a></li>
+<li><a href="molsysmt/structure/set_dihedral_angles.html">molsysmt.structure.set_dihedral_angles</a></li>
+<li><a href="molsysmt/structure/shift_dihedral_angles.html">molsysmt.structure.shift_dihedral_angles</a></li>
+<li><a href="molsysmt/structure/show_contacts.html">molsysmt.structure.show_contacts</a></li>
+<li><a href="molsysmt/structure/translate.html">molsysmt.structure.translate</a></li>
+<li><a href="molsysmt/third_party/nglview/add_arrows.html">molsysmt.third_party.nglview.add_arrows</a></li>
+<li><a href="molsysmt/third_party/nglview/add_contacts.html">molsysmt.third_party.nglview.add_contacts</a></li>
+<li><a href="molsysmt/third_party/nglview/add_cylinders.html">molsysmt.third_party.nglview.add_cylinders</a></li>
+<li><a href="molsysmt/third_party/nglview/add_hbonds.html">molsysmt.third_party.nglview.add_hbonds</a></li>
+<li><a href="molsysmt/third_party/nglview/clear.html">molsysmt.third_party.nglview.clear</a></li>
+<li><a href="molsysmt/third_party/nglview/set_color.html">molsysmt.third_party.nglview.set_color</a></li>
+<li><a href="molsysmt/third_party/nglview/set_color_by_value.html">molsysmt.third_party.nglview.set_color_by_value</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_balls_and_sticks.html">molsysmt.third_party.nglview.show_as_balls_and_sticks</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_cartoon.html">molsysmt.third_party.nglview.show_as_cartoon</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_licorice.html">molsysmt.third_party.nglview.show_as_licorice</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_surface.html">molsysmt.third_party.nglview.show_as_surface</a></li>
+<li><a href="molsysmt/third_party/nglview/show_gui.html">molsysmt.third_party.nglview.show_gui</a></li>
+<li><a href="molsysmt/third_party/nglview/standardize_view.html">molsysmt.third_party.nglview.standardize_view</a></li>
+<li><a href="molsysmt/third_party/nglview/write_html.html">molsysmt.third_party.nglview.write_html</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_allowed_plane_region.html">molsysmt.third_party.openmm.forces.add_allowed_plane_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_allowed_z_region.html">molsysmt.third_party.openmm.forces.add_allowed_z_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_constant_force.html">molsysmt.third_party.openmm.forces.add_constant_force</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_forbidden_plane_region.html">molsysmt.third_party.openmm.forces.add_forbidden_plane_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_forbidden_z_region.html">molsysmt.third_party.openmm.forces.add_forbidden_z_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_harmonic_bond_force.html">molsysmt.third_party.openmm.forces.add_harmonic_bond_force</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_plane_harmonic_restraint.html">molsysmt.third_party.openmm.forces.add_plane_harmonic_restraint</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_point_harmonic_restraint.html">molsysmt.third_party.openmm.forces.add_point_harmonic_restraint</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/pin_atoms.html">molsysmt.third_party.openmm.forces.pin_atoms</a></li>
+<li><a href="molsysmt/third_party/openmm/platforms/platforms.html">molsysmt.third_party.openmm.platforms.platforms</a></li>
+<li><a href="molsysmt/third_party/openmm/reporters/StructuresDict.html">molsysmt.third_party.openmm.reporters.StructuresDict</a></li>
+<li><a href="molsysmt/third_party/openmm/reporters/h5msm.html">molsysmt.third_party.openmm.reporters.h5msm</a></li>
+<li><a href="molsysmt/third_party/openmm/reporters/tqdm.html">molsysmt.third_party.openmm.reporters.tqdm</a></li>
+<li><a href="molsysmt/topology/get_bondgraph.html">molsysmt.topology.get_bondgraph</a></li>
+<li><a href="molsysmt/topology/get_covalent_blocks.html">molsysmt.topology.get_covalent_blocks</a></li>
+<li><a href="molsysmt/topology/get_dihedral_quartets.html">molsysmt.topology.get_dihedral_quartets</a></li>
+<li><a href="molsysmt/topology/get_sequence_alignment.html">molsysmt.topology.get_sequence_alignment</a></li>
+<li><a href="molsysmt/topology/get_sequence_identity.html">molsysmt.topology.get_sequence_identity</a></li>
+</ul>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

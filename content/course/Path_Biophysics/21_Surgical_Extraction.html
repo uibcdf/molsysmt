@@ -1,0 +1,1106 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Path D - Module 21: Surgical Extraction & Deletion – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/course/Path_Biophysics/21_Surgical_Extraction';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Path D - Module 22: Structural Auditing (Diagnostics)" href="22_Structural_Auditing.html" />
+    <link rel="prev" title="Path D: Biophysics" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user/foundations/index.html">Foundations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/entrance/index.html">The Entrance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/entrance/what_is_molsysmt.html">What is MolSysMT?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/entrance/installation.html">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/entrance/navigating_documentation.html">Navigating the Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/entrance/toolbox_overview.html">Overview of Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/entrance/demo_systems.html">Demo Systems</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/molecular_system/index.html">The Molecular System</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/molecular_system/the_molecular_system.html">The Molecular System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/molecular_system/forms.html">Items and Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/molecular_system/elements.html">Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/molecular_system/attributes.html">Attributes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/native_world/index.html">The Native World</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/foundations/native_world/classes/index.html">Classes</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_MolSys.html">MolSys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_MolSysBuilder.html">MolSysBuilder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_MolSysDict.html">MolSysDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_Topology.html">Topology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_TopologyDict.html">TopologyDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_Structures.html">Structures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_StructuresDict.html">StructuresDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_MolecularMechanics.html">MolecularMechanics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_MolecularMechanicsDict.html">MolecularMechanicsDict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/classes/molsysmt_ViewerJSON.html">ViewerJSON</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/foundations/native_world/files/index.html">Files</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/files/file_h5msm.html">h5msm</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/foundations/native_world/file_handlers/index.html">File Handlers</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html">PDBFileHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html">H5MSMFileHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.html">GROFileHandler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/native_world/file_handlers/molsysmt_CIFFileHandler.html">CIFFileHandler</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/language/index.html">The Language</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/language/selection_grammar.html">Selection Language and Syntax</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/lazy_loading.html">Lazy Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/chunked_execution.html">Chunked Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/rust_core.html">The Rust Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/parallelization.html">Parallel Execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/internal_optimizations.html">Internal Optimizations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/diagnostics_and_profiling.html">Diagnostics &amp; Profiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/caching_and_memoization.html">Caching &amp; Memoization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/performance/gpu_roadmap.html">GPU Acceleration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/governance/index.html">Governance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/governance/quantities_and_units.html">Quantities &amp; Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/governance/argument_digestion.html">Argument Digestion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/governance/public_api_and_lifecycle.html">Public API &amp; Lifecycle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/governance/dependency_management.html">Dependency Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/governance/configuration_options.html">Configuration Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/governance/precision_and_types.html">Precision &amp; Data Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/governance/smonitor_and_telemetry.html">SMonitor &amp; Telemetry</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/support/index.html">Supported</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/foundations/support/forms/index.html">Forms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/support/forms/classes.html">Classes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/support/forms/files.html">Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/foundations/support/forms/strings.html">Strings</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/support/physchem.html">Physical-Chemical Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/support/molecular_mechanics.html">Molecular Mechanics Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/support/selection_syntaxes.html">Selection Syntaxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/support/viewers.html">Viewers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/foundations/ecosystem/index.html">The Ecosystem</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/ecosystem/viewers.html">Viewers and Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/ecosystem/molsysviewer.html">MolSysViewer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/foundations/ecosystem/third_party_bridges.html">Third-party Bridges</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user/tools/index.html">Tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/basic/index.html">Basic</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/add.html">Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/append_structures.html">Append structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/are_multiple_molecular_systems.html">Are multiple molecular systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/compare.html">Compare</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/concatenate_structures.html">Concatenate structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/contains.html">Contains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/convert.html">Convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/copy.html">Copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/extract.html">Extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/get_attributes.html">Get attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/get_form.html">Get form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/get_label.html">Get label</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/get.html">Get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/has_attribute.html">Has attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/info.html">Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/is_a_molecular_system.html">Is a molecular system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/is_composed_of.html">Is composed of</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/iterator.html">Iterator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/merge.html">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/remove.html">Remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/select.html">Select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/set.html">Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/view.html">View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/basic/where_is_attribute.html">Where is attribute</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/build/index.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/add_bonds.html">Add bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/add_missing_bonds.html">Add missing bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/add_missing_heavy_atoms.html">Add missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/add_missing_hydrogens.html">Add missing hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/add_missing_terminal_cappings.html">Add missing terminal cappings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/build_peptide.html">Build peptide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/define_new_chain.html">Define new chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/get_disulfide_bonds.html">Get disulfide bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/get_missing_bonds.html">Get missing bonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/get_missing_heavy_atoms.html">Get missing heavy atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/get_missing_residues.html">Get missing residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/get_missing_terminal_cappings.html">Get missing terminals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/get_non_standard_residues.html">Get non standard residues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/has_hydrogens.html">Has hydrogens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/is_solvated.html">Is solvated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/make_bioassembly.html">Make bioassembly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/make_water_box.html">Make water box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/mutate.html">Mutate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/remove_overlapping_molecules.html">Remove overlapping molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/solvate.html">Solvate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/build/solve_atoms_with_alternate_locations.html">Solve atoms with alternate locations</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/topology/index.html">Topology</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/topology/get_bondgraph.html">Get bondgraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/topology/get_covalent_blocks.html">Get covalent blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/topology/get_covalent_paths.html">Get covalent paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/topology/get_dihedral_quartets.html">Get dihedral quartets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/topology/get_sequence_alignment.html">Get sequence alignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/topology/get_sequence_identity.html">Get sequence identity</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/structure/index.html">Structure</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/align_principal_axes.html">Aligning principal axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/center.html">Center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/flip.html">Flip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_angles.html">Get angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_center.html">Get center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_contacts.html">Get contacts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_dihedral_angles.html">Get dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_distances.html">Get distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_least_rmsd.html">Get least RMSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_maximum_distances.html">Get maximum distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_minimum_distances.html">Get minimum distances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_neighbors.html">Get neighbors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_principal_axes.html">Getting principal axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_radius_of_gyration.html">Getting the radius of gyration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_rmsd.html">Get RMSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/get_rmsf.html">Getting root-mean-square fluctuations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/least_rmsd_align.html">Least RMSD align</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/least_rmsd_fit.html">Fitting by least RMSD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/move_away.html">Move away</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/principal_component_analysis.html">Computing principal components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/rotate.html">Rotating coordinates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/set_dihedral_angles.html">Set dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/shift_dihedral_angles.html">Shift dihedral angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/show_contacts.html">Show contacts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/structure/translate.html">Translate</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/pbc/index.html">Periodic boundary conditions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_angles_from_box.html">Get angles from vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_box_from_lengths_and_angles.html">Get boxfrom lengths and angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_lengths_and_angles_from_box.html">Get lengths and angles from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_lengths_from_box.html">Get lengths from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_shape_from_box.html">Get shape from box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_shape_from_angles.html">Shape from angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_volume_from_box.html">Angles from vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/get_volume_from_lengths_and_angles.html">Getting volume from box lengths and angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/has_pbc.html">Has PBC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/unwrap.html">Unwrapping temporal trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/wrap_to_mic.html">Wrapping to the minimum image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/pbc/wrap_to_pbc.html">Wrapping to the primary periodic box</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/physchem/index.html">Physical and chemical properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_area_buried.html">Get area buried</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_atomic_radius.html">Get atomic radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_buried_fraction.html">Get buried fraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_charge.html">Get charge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_degrees_of_freedom.html">Get degrees of freedom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_hydrophobicity.html">Get hydrophobicity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_mass.html">Get mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_polarity.html">Get polarity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_sasa.html">Get SASA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_surface_area.html">Get surface area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_transmembrane_tendency.html">Get transmembrane tendency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/physchem/get_volume.html">Get volume</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/hbonds/index.html">Hydrogen bonds</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/hbonds/get_acceptor_atoms.html">Get acceptor atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/hbonds/get_donor_atoms.html">Get donor atoms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/hbonds/get_buch_hbonds.html">Get Buch hbonds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/hbonds/get_luzard_chandler_hbonds.html">Get Luzard and Chandler hbonds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/molecular_mechanics/index.html">Molecular mechanics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/molecular_mechanics/get_forces.html">Get forces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/molecular_mechanics/potential_energy_minimization.html">Potential energy minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/molecular_mechanics/get_non_bonded_potential_energy.html">Get non bonded potential energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/molecular_mechanics/get_potential_energy.html">Get potential energy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/element/index.html">Element</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/element/atom/index.html">Atom</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/atom/get_atom_type_from_atom_name.html">Get atom type from atom name</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/element/group/index.html">Molecule</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/group/get_bonded_atom_pairs.html">Get bonded atom pairs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/group/get_group_type.html">Get group type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/group/is_group_type.html">Is group type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/element/component/index.html">Component</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/component/get_component_id.html">Get component id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/component/get_component_index.html">Get component index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/component/get_component_name.html">Get component name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/component/get_component_type.html">Get component type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/component/get_n_components.html">Get number of components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/component/is_component_type.html">Is component type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/element/molecule/index.html">Molecule</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/molecule/get_molecule_id.html">Get molecule id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/molecule/get_molecule_index.html">Get molecule index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/molecule/get_molecule_name.html">Get molecule name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/molecule/get_molecule_type.html">Get molecule type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/molecule/get_n_molecules.html">Get number of molecules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/molecule/is_molecule_type.html">Is component type</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/element/entity/index.html">Entity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/entity/get_entity_id.html">Get entity id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/entity/get_entity_index.html">Get entity index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/entity/get_entity_name.html">Get entity name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/entity/get_entity_type.html">Get entity type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/entity/get_n_entities.html">Get number of components</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/element/chain/index.html">Chain</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/element/chain/get_chain_type.html">Get chain type</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/form/index.html">Form</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/form/get_attributes.html">Get attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../user/tools/form/has_attribute.html">Has attribute</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../user/tools/third_party/index.html">Third Party</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/third_party/nglview/index.html">NGLView</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/add_arrows.html">Add arrows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/add_contacts.html">Add contacts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/add_cylinders.html">Add cylinders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/add_hbonds.html">Add hbonds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/set_color_by_value.html">Set color by value</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/show_as_balls_and_sticks.html">Show as balls and sticks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/show_as_licorice.html">Show as licorice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/show_as_surface.html">Show as surface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/nglview/show_cartoon.html">Show as balls and sticks</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../user/tools/third_party/openmm/index.html">OpenMM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/openmm/forces/index.html">Custom External Forces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../user/tools/third_party/openmm/reporters/index.html">Reporters</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Course</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Common_Core/index.html">Common Core</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/01_The_Form_Agnostic_Philosophy.html">Module 1: The Form-Agnostic Philosophy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/02_Molecular_Attributes.html">Module 2: Molecular Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/03_Molecular_Elements.html">Module 3: Molecular Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/04_Native_Forms.html">Module 4: Native Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/05_Combined_Forms.html">Module 5: Combined Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/06_Visualizing_Anything.html">Module 6: Visualizing Anything</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/07_Selection_Basics.html">Module 7: Selection Mechanism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/08_Extracting_Molecular_Attributes.html">Module 8: Extracting Molecular Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/09_Unit_Safety.html">Module 9: Physical Unit Safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/10_Modifying_Molecular_Attributes.html">Module 10: Modifying Molecular Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/11_Iterating_Systems.html">Module 11: Iterating Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/12_Building_Repairing_and_Auditing_Systems.html">Module 12: Building, Repairing and Auditing Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/13_Topological_Analysis.html">Module 13: Topological Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/14_System_Comparison_and_Validation.html">Module 14: System Comparison and Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/15_Semantic_Labeling.html">Module 15: Semantic Labeling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/16_Structural_Operations.html">Module 16: Structural Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/17_Merging_and_Growing_Systems.html">Module 17: Merging and Growing Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/18_Extracting_and_Removing_Elements.html">Module 18: Extracting and Removing Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/19_Structures_and_Trajectories.html">Module 19: Structures and Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Common_Core/20_The_Specialized_Domains.html">Module 20: The Specialized Domains</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Path_Alzheimer/index.html">Path Alzheimer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/21_Surgical_Extraction.html">Path A - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/22_Structural_Auditing.html">Path A - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/23_Structural_Repair.html">Path A - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/24_Peptide_Synthesis.html">Path A - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/25_Solvation_Engineering.html">Path A - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/26_Attribute_Engineering.html">Path A - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/27_Conformational_Engineering.html">Path A - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/28_MolSysBuilder.html">Path A - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/29_PDB_Frontier.html">Path A - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/30_Geometrical_Measurements.html">Path A - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/31_Proximity_Neighborhoods.html">Path A - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/32_Interaction_Matrices.html">Path A - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/33_Ensemble_Descriptors.html">Path A - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/34_Comparison_Superposition.html">Path A - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/35_Principal_Components.html">Path A - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/36_Secondary_Structure.html">Path A - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/37_Interaction_Networks.html">Path A - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/38_Advanced_HBonds.html">Path A - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/39_Physicochemical_Properties.html">Path A - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/40_PBC_Geometry.html">Path A - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/41_Wrapping_Unwrapping.html">Path A - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/42_Molecular_Mechanics.html">Path A - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/43_Energy_Minimization.html">Path A - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/44_AMBER_TLeap.html">Path A - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/45_OpenMM_Integration.html">Path A - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/46_Geometric_Transformations.html">Path A - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/47_Trajectory_Management.html">Path A - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/48_Scalability_Heavy_Trajectories.html">Path A - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/49_Performance_Optimization.html">Path A - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/50_Virtual_Forms.html">Path A - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/51_Custom_Functions.html">Path A - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/52_Framework_Reliability.html">Path A - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/53_Capability_Matrix.html">Path A - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Alzheimer/54_Final_Project.html">Path A - Module 54: Final Project: From Sequence to Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Path_Enzyme/index.html">Path Enzyme</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/21_Surgical_Extraction.html">Path B - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/22_Structural_Auditing.html">Path B - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/23_Structural_Repair.html">Path B - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/24_Peptide_Synthesis.html">Path B - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/25_Solvation_Engineering.html">Path B - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/26_Attribute_Engineering.html">Path B - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/27_Conformational_Engineering.html">Path B - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/28_MolSysBuilder.html">Path B - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/29_PDB_Frontier.html">Path B - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/30_Geometrical_Measurements.html">Path B - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/31_Proximity_Neighborhoods.html">Path B - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/32_Interaction_Matrices.html">Path B - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/33_Ensemble_Descriptors.html">Path B - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/34_Comparison_Superposition.html">Path B - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/35_Principal_Components.html">Path B - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/36_Secondary_Structure.html">Path B - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/37_Interaction_Networks.html">Path B - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/38_Advanced_HBonds.html">Path B - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/39_Physicochemical_Properties.html">Path B - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/40_PBC_Geometry.html">Path B - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/41_Wrapping_Unwrapping.html">Path B - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/42_Molecular_Mechanics.html">Path B - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/43_Energy_Minimization.html">Path B - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/44_AMBER_TLeap.html">Path B - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/45_OpenMM_Integration.html">Path B - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/46_Geometric_Transformations.html">Path B - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/47_Trajectory_Management.html">Path B - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/48_Scalability_Heavy_Trajectories.html">Path B - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/49_Performance_Optimization.html">Path B - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/50_Virtual_Forms.html">Path B - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/51_Custom_Functions.html">Path B - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/52_Framework_Reliability.html">Path B - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/53_Capability_Matrix.html">Path B - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Enzyme/54_Final_Project.html">Path B - Module 54: Final Project: Rational Enzyme Engineering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../Path_Antiviral/index.html">Path Antiviral</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/21_Surgical_Extraction.html">Path C - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/22_Structural_Auditing.html">Path C - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/23_Structural_Repair.html">Path C - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/24_Peptide_Synthesis.html">Path C - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/25_Solvation_Engineering.html">Path C - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/26_Attribute_Engineering.html">Path C - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/27_Conformational_Engineering.html">Path C - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/28_MolSysBuilder.html">Path C - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/29_PDB_Frontier.html">Path C - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/30_Geometrical_Measurements.html">Path C - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/31_Proximity_Neighborhoods.html">Path C - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/32_Interaction_Matrices.html">Path C - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/33_Ensemble_Descriptors.html">Path C - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/34_Comparison_Superposition.html">Path C - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/35_Principal_Components.html">Path C - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/36_Secondary_Structure.html">Path C - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/37_Interaction_Networks.html">Path C - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/38_Advanced_HBonds.html">Path C - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/39_Physicochemical_Properties.html">Path C - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/40_PBC_Geometry.html">Path C - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/41_Wrapping_Unwrapping.html">Path C - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/42_Molecular_Mechanics.html">Path C - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/43_Energy_Minimization.html">Path C - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/44_AMBER_TLeap.html">Path C - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/45_OpenMM_Integration.html">Path C - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/46_Geometric_Transformations.html">Path C - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/47_Trajectory_Management.html">Path C - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/48_Scalability_Heavy_Trajectories.html">Path C - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/49_Performance_Optimization.html">Path C - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/50_Virtual_Forms.html">Path C - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/51_Custom_Functions.html">Path C - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/52_Framework_Reliability.html">Path C - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/53_Capability_Matrix.html">Path C - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Path_Antiviral/54_Final_Project.html">Path C - Module 54: Final Project: Antiviral Drug Hunter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">Path Biophysics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Path D - Module 21: Surgical Extraction &amp; Deletion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="22_Structural_Auditing.html">Path D - Module 22: Structural Auditing (Diagnostics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="23_Structural_Repair.html">Path D - Module 23: Structural Repair &amp; Mutagenesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="24_Peptide_Synthesis.html">Path D - Module 24: Peptide Synthesis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="25_Solvation_Engineering.html">Path D - Module 25: Solvation &amp; Ion Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="26_Attribute_Engineering.html">Path D - Module 26: Attribute Engineering (Patching)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="27_Conformational_Engineering.html">Path D - Module 27: Conformational Engineering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="28_MolSysBuilder.html">Path D - Module 28: The MolSysBuilder API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="29_PDB_Frontier.html">Path D - Module 29: PDB Bioassemblies &amp; AltLocs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="30_Geometrical_Measurements.html">Path D - Module 30: Geometrical Measurements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="31_Proximity_Neighborhoods.html">Path D - Module 31: Proximity &amp; Neighborhoods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="32_Interaction_Matrices.html">Path D - Module 32: Visualizing Interaction Matrices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="33_Ensemble_Descriptors.html">Path D - Module 33: Ensemble Descriptors (Global Metrics)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="34_Comparison_Superposition.html">Path D - Module 34: Comparison &amp; Superposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="35_Principal_Components.html">Path D - Module 35: Principal Components (PCA) &amp; Axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="36_Secondary_Structure.html">Path D - Module 36: Secondary Structure &amp; Folds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="37_Interaction_Networks.html">Path D - Module 37: Hydrogen Bonds &amp; Salt Bridges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="38_Advanced_HBonds.html">Path D - Module 38: Advanced H-Bond Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="39_Physicochemical_Properties.html">Path D - Module 39: Physicochemical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="40_PBC_Geometry.html">Path D - Module 40: PBC Geometry &amp; Conventions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="41_Wrapping_Unwrapping.html">Path D - Module 41: Wrapping &amp; Unwrapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="42_Molecular_Mechanics.html">Path D - Module 42: Molecular Mechanics (Energies)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="43_Energy_Minimization.html">Path D - Module 43: Energy Minimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="44_AMBER_TLeap.html">Path D - Module 44: AMBER TLeap Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="45_OpenMM_Integration.html">Path D - Module 45: OpenMM Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="46_Geometric_Transformations.html">Path D - Module 46: Geometric Transformations (Space)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="47_Trajectory_Management.html">Path D - Module 47: Trajectory Management (Slicing)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="48_Scalability_Heavy_Trajectories.html">Path D - Module 48: Scalability &amp; Heavy Trajectories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="49_Performance_Optimization.html">Path D - Module 49: Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="50_Virtual_Forms.html">Path D - Module 50: Virtual Forms &amp; Memory I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51_Custom_Functions.html">Path D - Module 51: Writing Your Own Form-Agnostic Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="52_Framework_Reliability.html">Path D - Module 52: Framework Reliability &amp; SMonitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="53_Capability_Matrix.html">Path D - Module 53: Capability Matrix &amp; Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="54_Final_Project.html">Path D - Module 54: Final Project: Computational Biophysics of Ion Permeation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user/cookbook/index.html">Cookbook</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/01_Building_Complex_Dimers.html">Building Complex Dimers from Multiple PDBs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/02_Spectacular_Visualizations.html">Working with NGLView</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/03_Simulation_Workflow.html">Working with OpenMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/04_Big_Data_Trajectories.html">MSMH5 file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/05_From_PDB_to_Solvated_Box.html">From PDB to Solvated Box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/06_Binding_Pocket_Isolation.html">Binding Pocket Isolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/07_Trajectory_Performance_Analysis.html">Trajectory Performance Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/08_Structural_Surgery_Mutagenesis.html">Structural Surgery: In-memory Mutagenesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user/cookbook/09_Form_Teleportation.html">Form Teleportation: Seamless Conversions</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../user/index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">The Four Paths of the MolSysMT’s Master</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Path D: Biophysics</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Path D - Module 21: Surgical Extraction &amp; Deletion</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="path-d-module-21-surgical-extraction-deletion">
+<span id="course-biophysics-surgical-extraction"></span><h1>Path D - Module 21: Surgical Extraction &amp; Deletion<a class="headerlink" href="#path-d-module-21-surgical-extraction-deletion" title="Link to this heading">#</a></h1>
+<p>Welcome, Mechanic. Your mission is to study the ionic flux through a <strong>Potassium Channel</strong> embedded in a cellular membrane. These systems are massive and complex, involving proteins, lipids, ions, and water.</p>
+<p>In this module, you will learn to use <code class="docutils literal notranslate"><span class="pre">extract()</span></code> and <code class="docutils literal notranslate"><span class="pre">remove()</span></code> to simplify these large membrane models and focus on the pore.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">systems</span>
+
+<span class="c1"># Load a pre-equilibrated membrane system from the database</span>
+<span class="n">molsys</span> <span class="o">=</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;POPC membrane&#39;</span><span class="p">][</span><span class="s1">&#39;popc_membrane.dcd&#39;</span><span class="p">]</span>
+<span class="n">topo</span> <span class="o">=</span> <span class="n">systems</span><span class="p">[</span><span class="s1">&#39;POPC membrane&#39;</span><span class="p">][</span><span class="s1">&#39;popc_membrane.h5msm&#39;</span><span class="p">]</span>
+<span class="n">system</span> <span class="o">=</span> <span class="p">[</span><span class="n">topo</span><span class="p">,</span> <span class="n">molsys</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="identifying-the-components">
+<h2>1. Identifying the Components<a class="headerlink" href="#identifying-the-components" title="Link to this heading">#</a></h2>
+<p>Membrane systems are heterogeneous. Let’s see the entity inventory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;entity&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="extracting-a-membrane-patch">
+<h2>2. Extracting a Membrane Patch<a class="headerlink" href="#extracting-a-membrane-patch" title="Link to this heading">#</a></h2>
+<p>Sometimes the system is too large for your workstation. You can <code class="docutils literal notranslate"><span class="pre">extract()</span></code> only the channel and a small neighborhood of lipids.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract atoms within 2.0 nm of the Z-axis (the pore area)</span>
+<span class="n">pore_patch</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;within 2.0 nm of molecule_type==&quot;protein&quot;&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracted atoms: </span><span class="si">{</span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pore_patch</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">pore_patch</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+</section>
+<section id="path-d-challenge-the-membrane-trimmer">
+<h2>🏆 Path D Challenge: The Membrane Trimmer<a class="headerlink" href="#path-d-challenge-the-membrane-trimmer" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Load the POPC membrane system.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">msm.remove()</span></code> to delete all <strong>Water</strong> molecules (SOL) from the system to create a dry model.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">msm.extract()</span></code> to isolate only the <strong>POPC</strong> lipids into a new object called <code class="docutils literal notranslate"><span class="pre">bilayer</span></code>.</p></li>
+<li><p>Verify with <code class="docutils literal notranslate"><span class="pre">msm.info()</span></code> that your <code class="docutils literal notranslate"><span class="pre">bilayer</span></code> contains 0 protein atoms.</p></li>
+</ol>
+<p>You have isolated the nano-machine! In <strong>Module 22</strong>, we will perform a <strong>Structural Audit</strong> to ensure the channel tetramer is physically complete.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Path D: Biophysics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="22_Structural_Auditing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Path D - Module 22: Structural Auditing (Diagnostics)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identifying-the-components">1. Identifying the Components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-a-membrane-patch">2. Extracting a Membrane Patch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-d-challenge-the-membrane-trimmer">🏆 Path D Challenge: The Membrane Trimmer</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

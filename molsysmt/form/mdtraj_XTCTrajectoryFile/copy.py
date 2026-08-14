@@ -1,8 +1,0 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-
-@arg_digest(form='mdtraj.XTCTrajectoryFile')
-def copy(item, skip_digestion=False):
-
-    raise NotImplementedMethodError()
-

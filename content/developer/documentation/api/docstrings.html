@@ -1,0 +1,1234 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Docstrings – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/developer/documentation/api/docstrings';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Doctests" href="doctests.html" />
+    <link rel="prev" title="API documentation guidelines" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../intro/Introduction.html">Introduction</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../intro/fork.html">Fork MolSysMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting.html">Reporting bugs and proposals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../start_dev_env_usage.html">Development Environment Setup Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devcontainer.html">Contributing: Development Environment with Devcontainers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dependencies.html">Dependency Management Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../element_and_native_rebuild.html">Element Queries and Native Rebuild</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../molsys_builder.html">MolSysBuilder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../declarative_serialization_forms.html">Declarative Serialization Forms</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">New form</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../new_form.html">Adding a new form</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Heavy trajectories</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../heavy_trajectories.html">Heavy trajectory infrastructure</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Performance &amp; Benchmarking</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../benchmarks.html">Performance &amp; Benchmarking</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Warnings</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../warnings.html">MolSysMT Warning Catalog (via smonitor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">MolSysMT Diagnostics and Logging (via smonitor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../smonitor.html">SMonitor integration</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tests</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../testing/index.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/unit_tests.html">Unit Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/ci.html">Continuous Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../testing/code_coverage.html">Code Coverage</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">API documentation guidelines</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doctests.html">Doctests</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../web/index.html">Documentation for the web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../web/myst.html">MyST in MolSysMT documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../web/references.html">References and Cross-links in Documentation</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Developer guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">API documentation guidelines</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Docstrings</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="docstrings">
+<h1>Docstrings<a class="headerlink" href="#docstrings" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>MolSysMT follows a unified and structured approach to documenting its API using
+docstrings embedded in the source code. These docstrings are essential for both
+human understanding and for automatically generating the API Reference section
+of the documentation website.</p>
+<p>We use the <strong>NumPy docstring style</strong>, extended with <strong>Sphinx/MyST markup</strong> to
+allow cross-referencing, automatic documentation builds, and testable examples.
+Every public function, method, or class must include a complete docstring,
+which allows users and contributors to:</p>
+<ul class="simple">
+<li><p>Understand what the function does</p></li>
+<li><p>Learn how to call it and what arguments it expects</p></li>
+<li><p>Interpret the returned values</p></li>
+<li><p>See examples of usage</p></li>
+<li><p>Know when the function was added or modified</p></li>
+</ul>
+<p>This document is divided by docstring sections:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Functions</span> <span class="pre">and</span> <span class="pre">Methods</span></code>: How to document callable elements with parameters, returns, and testable examples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Classes</span></code>: How to document class constructors, attributes, and embedded methods.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Modules</span></code>: Guidelines for documenting whole modules and their role in the API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Attributes</span></code>: How to document public attributes exposed in classes or modules.</p></li>
+</ul>
+<p>Quick checklist:</p>
+<ul class="simple">
+<li><p>One-line summary in gerund with a trailing period.</p></li>
+<li><p>Section order: summary; optional extended description; Parameters; Returns (single section); Raises; Notes; See Also; Examples (doctest <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>); tutorial admonition; <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">versionadded::</span></code>.</p></li>
+<li><p>Types in lowercase; defaults described in text; reuse standard wording for <code class="docutils literal notranslate"><span class="pre">molecular_system</span></code>, <code class="docutils literal notranslate"><span class="pre">selection</span></code>, <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code>, <code class="docutils literal notranslate"><span class="pre">syntax</span></code>, <code class="docutils literal notranslate"><span class="pre">skip_digestion</span></code>, <code class="docutils literal notranslate"><span class="pre">to_form</span></code>; selections/structure indices are 0-based and <code class="docutils literal notranslate"><span class="pre">'all'</span></code> selects everything.</p></li>
+<li><p>Mention units for physical quantities (nm, ps, radians, elementary charge) and prefer deterministic, minimal examples using bundled systems.</p></li>
+</ul>
+<p>Each section includes usage instructions, conventions, and editorial rules.</p>
+<p>Where applicable, you’ll find blue boxes titled:</p>
+<div class="important admonition">
+<p class="admonition-title">Editorial guide</p>
+<ul class="simple">
+<li><p>Use English, in technical and clear tone,clear, concise, and direct.</p></li>
+<li><p>Avoid unnecessary jargon or verbosity, and colloquial language.</p></li>
+<li><p>Use present tense and third person.</p></li>
+</ul>
+</div>
+<p>These rules are based on best practices, the specific needs of MolSysMT, and
+aimed at maintaining a consistent and collaborative development style across
+the project.</p>
+</section>
+<section id="functions-and-methods">
+<h2>Functions and Methods<a class="headerlink" href="#functions-and-methods" title="Link to this heading">#</a></h2>
+<p>This section describes how to write docstrings for functions and methods in
+MolSysMT.</p>
+<p>These are the most common elements in the library at the eye of the common user, particularly under the
+<code class="docutils literal notranslate"><span class="pre">Tools</span></code> section in this documentation. Every public function must follow a consistent
+structure, be fully documented, and include at least one example that can be
+tested automatically.</p>
+<p>The following is a example to illustrate the structure of a MolSysMT function docstring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="nd">@digest</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">to_molecular_system</span><span class="p">,</span> <span class="n">from_molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">structure_indices</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span>
+        <span class="n">keep_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">syntax</span><span class="o">=</span><span class="s1">&#39;MolSysMT&#39;</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adding elements from one molecular system into another.</span>
+
+<span class="sd">    This function adds selected elements from a source molecular system (`from_molecular_system`)</span>
+<span class="sd">    into a target molecular system (`to_molecular_system`). Both systems must be compatible in</span>
+<span class="sd">    terms of structure count: if the target system contains structural information (e.g., coordinates),</span>
+<span class="sd">    the source must either match this number of structures or the user must explicitly provide</span>
+<span class="sd">    `structure_indices` to specify which structures to use during the addition.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    to_molecular_system : molecular system</span>
+<span class="sd">        The target molecular system, in any of the :ref:`supported forms &lt;Introduction_Forms&gt;`.</span>
+<span class="sd">        Elements from the source system will be added to this system by default. If `in_place=False`, </span>
+<span class="sd">        a copy will be returned instead of modifying this object directly.</span>
+<span class="sd">    from_molecular_system : molecular system</span>
+<span class="sd">        The source molecular system, in any of the :ref:`supported forms &lt;Introduction_Forms&gt;`.</span>
+<span class="sd">        Selected elements from this system will be added to the target system.</span>
+<span class="sd">    selection : str, list, tuple, or numpy.ndarray, default=&#39;all&#39;</span>
+<span class="sd">        Atoms to be dded, specified as a list/tuple/array of 0-based atom indices,</span>
+<span class="sd">        or as a string following one of the :ref:`supported selection syntaxes &lt;Introduction_Selection&gt;`.</span>
+<span class="sd">    structure_indices : str, list, tuple, or numpy.ndarray, default=&#39;all&#39;</span>
+<span class="sd">        Indices (0-based) of structures in the source system to use for copying structural attributes</span>
+<span class="sd">        (e.g., coordinates) of the selected atoms.</span>
+<span class="sd">    keep_ids : bool, default=True</span>
+<span class="sd">        Whether to preserve the unique IDs of elements from the source system when adding them</span>
+<span class="sd">        to the target system.</span>
+<span class="sd">    in_place : bool, default=True</span>
+<span class="sd">        If True, modifies `to_molecular_system` in place. If False, returns a new modified copy, leaving</span>
+<span class="sd">        the original unchanged.</span>
+<span class="sd">    syntax : str, default=&#39;MolSysMT&#39;</span>
+<span class="sd">        Selection syntax to interpret the `selection` string. See :ref:`Introduction_Selection` for options.</span>
+<span class="sd">    skip_digestion : bool, default=False</span>
+<span class="sd">        Whether to skip MolSysMT’s internal argument digestion mechanism.</span>
+
+<span class="sd">        MolSysMT includes a built-in digestion system that validates and normalizes</span>
+<span class="sd">        function arguments. This process checks types, shapes, and values, and automatically</span>
+<span class="sd">        adjusts them when possible to meet expected formats.</span>
+
+<span class="sd">        Setting `skip_digestion=True` disables this process, which may improve performance</span>
+<span class="sd">        in workflows where inputs are already validated. Use with caution: only set this to</span>
+<span class="sd">        `True` if you are certain all input arguments are correct and consistent.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    molecular system or None</span>
+<span class="sd">        If `in_place=True`, returns `None` and modifies `to_molecular_system` directly.</span>
+<span class="sd">        If `in_place=False`, returns a new molecular system (same form as the input) with the added structures.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    NotSupportedFormError</span>
+<span class="sd">        If any molecular system is provided in an unsupported form.</span>
+<span class="sd">    ArgumentError</span>
+<span class="sd">        If any argument has an invalid or inconsistent value.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - All forms listed in :ref:`Introduction_Forms` are accepted for both source and target systems.</span>
+<span class="sd">    - Selection strings must follow one of the syntaxes described in</span>
+<span class="sd">      :ref:`Introduction_Selection`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :func:`molsysmt.basic.select` :</span>
+<span class="sd">        Select elements from a molecular system.</span>
+<span class="sd">    :func:`molsysmt.basic.merge` :</span>
+<span class="sd">        Merge multiple molecular systems into one.</span>
+<span class="sd">    :func:`molsysmt.basic.append_structures` :</span>
+<span class="sd">        Append structures from one system to another.</span>
+<span class="sd">    :func:`molsysmt.basic.concatenate_structures` :</span>
+<span class="sd">        Concatenate multiple systems along the structural dimension.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import molsysmt as msm</span>
+<span class="sd">    &gt;&gt;&gt; from molsysmt import systems</span>
+<span class="sd">    &gt;&gt;&gt; molsys_A = msm.convert(systems[&#39;alanine dipeptide&#39;][&#39;alanine_dipeptide.h5msm&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; molsys_B = msm.convert(systems[&#39;valine dipeptide&#39;][&#39;valine_dipeptide.h5msm&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; msm.get(molsys_A, n_molecules=True)</span>
+<span class="sd">    1</span>
+<span class="sd">    &gt;&gt;&gt; msm.add(molsys_A, molsys_B)</span>
+<span class="sd">    &gt;&gt;&gt; msm.get(molsys_A, n_molecules=True)</span>
+<span class="sd">    2</span>
+
+<span class="sd">    .. admonition:: Tutorial with more examples</span>
+
+<span class="sd">       See the following tutorial for a practical demonstration of how to use this function,</span>
+<span class="sd">       along with additional examples: :ref:`Tutorial_Add`.</span>
+
+<span class="sd">    .. versionadded:: 1.0.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Function implementation goes here</span>
+
+</pre></div>
+</div>
+<p>Each public function <strong>must include</strong> the following sections in this order:
+As shown in the example above, a complete docstring for a function or method
+should include the following sections:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">One-line</span> <span class="pre">summary</span></code>: A short description in gerund form.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Extended</span> <span class="pre">description</span></code>: Optional, for added context or background.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Parameters</span></code>: A detailed list of input arguments.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Returns</span></code>: Output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Raises</span></code>: Possible exceptions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Notes</span></code>: Supplementary details and references.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">also</span></code>: Supplementary details and references.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Examples</span></code>: Minimal testable usage examples with <code class="docutils literal notranslate"><span class="pre">doctest</span></code> syntax.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Admonition</span> <span class="pre">with</span> <span class="pre">tutorial</span> <span class="pre">call</span></code>:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Version</span> <span class="pre">added</span></code>: The version in which the function was introduced.</p></li>
+</ul>
+<p>The structure described below also applies to methods of classes, with the
+exception that the first argument (<code class="docutils literal notranslate"><span class="pre">self</span></code> or <code class="docutils literal notranslate"><span class="pre">cls</span></code>) is not documented
+explicitly.</p>
+<section id="one-line-summary">
+<h3>One-line Summary<a class="headerlink" href="#one-line-summary" title="Link to this heading">#</a></h3>
+<p>A concise sentence that explains what the function does.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Adding elements of a molecular system into another molecular system.</span>
+
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Retrieving attribute values from a molecular system.</span>
+
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Removing atoms or structures from a molecular system.</span>
+
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Editorial guide</p>
+<ul class="simple">
+<li><p>The one-line summary starts with a verb in gerund form (e.g., “Adding”, “Calculating”, “Retrieving”).</p></li>
+<li><p>Always end with a period.</p></li>
+<li><p>Keep it short and action-oriented.</p></li>
+</ul>
+</div>
+</section>
+<section id="extended-description">
+<h3>Extended Description<a class="headerlink" href="#extended-description" title="Link to this heading">#</a></h3>
+<p>A paragraph (or more) that expands on the function’s purpose and clarifies special
+behavior, or situates the function in the context of MolSysMT.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">...</span>
+
+
+<span class="sd">This function adds selected elements from a source molecular system (`from_molecular_system`)</span>
+<span class="sd">into a target molecular system (`to_molecular_system`). Both systems must be compatible in</span>
+<span class="sd">terms of structure count: if the target system contains structural information (e.g., coordinates),</span>
+<span class="sd">the source must either match this number of structures or the user must explicitly provide</span>
+<span class="sd">`structure_indices` to specify which structures to use during the addition.</span>
+
+
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">...</span>
+
+<span class="sd">This function retrieves values of one or more attributes from a molecular system (or from</span>
+<span class="sd">a selected subset of it), optionally specifying the hierarchical `element` level. Attributes</span>
+<span class="sd">to be returned are indicated via keyword flags in `**kwargs` (e.g., ``n_atoms=True``,</span>
+<span class="sd">``coordinates=True``).</span>
+
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">...</span>
+
+<span class="sd">This function returns a new molecular system after removing the atoms and/or structures</span>
+<span class="sd">specified via `selection` and `structure_indices`. If `selection` is `None`, no atoms are</span>
+<span class="sd">removed. If `structure_indices` is `None`, no structures are removed. Optionally,</span>
+<span class="sd">the resulting system can be returned in a different form with `to_form`.</span>
+
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Editorial guide</p>
+<ul class="simple">
+<li><p>Use present tense, e.g., “This function retrieves…”</p></li>
+<li><p>Do not repeat the one-line summary verbatim.</p></li>
+<li><p>Prefer short paragraphs over bullet points (unless describing multiple modes).</p></li>
+</ul>
+</div>
+</section>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
+<p>List all function arguments, including optional ones.</p>
+<p>Each parameter must include:</p>
+<ul class="simple">
+<li><p>name</p></li>
+<li><p>type (lowercase, e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">molecular</span> <span class="pre">system</span></code>) -See the section on <a class="reference internal" href="#sec-object-typing">object typing</a>-</p></li>
+<li><p>optional: default value in description (not in signature)</p></li>
+<li><p>clear explanation of its use (1-3 lines if possible)</p></li>
+</ul>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">...</span>
+<span class="sd">    to_form : str or list of str, default &#39;molsysmt.MolSys&#39;</span>
+<span class="sd">        Target form (or list of forms) for the conversion output. When a list is given,</span>
+<span class="sd">        the function returns a list with one converted output per requested form.</span>
+<span class="sd">        See :ref:`Supported conversions &lt;Introduction_Supported&gt;`.</span>
+<span class="sd">    element : {&#39;atom&#39;, &#39;group&#39;, &#39;component&#39;, &#39;molecule&#39;, &#39;chain&#39;, &#39;entity&#39;}, default=&#39;atom&#39;</span>
+<span class="sd">        Structural level on which the selection is applied. Returned indices correspond to this level.</span>
+<span class="sd">    include_none : bool, default False</span>
+<span class="sd">        Whether to consider attributes currently holding `None` as available.</span>
+<span class="sd">        If `True`, an attribute that exists but is `None` will return `True`.</span>
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<div class="important admonition">
+<p class="admonition-title">Editorial guide</p>
+<ul class="simple">
+<li><p>List parameters in the order they appear in the function signature.</p></li>
+<li><p>Use lowercase for types (e.g., <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">molecular</span> <span class="pre">system</span></code>).</p></li>
+<li><p>Include default values in the description, not in the signature.</p></li>
+<li><p>Do not leave blank lines between parameters.</p></li>
+<li><p>Always document all parameters, including <code class="docutils literal notranslate"><span class="pre">self</span></code> or <code class="docutils literal notranslate"><span class="pre">cls</span></code> for methods.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">molecular</span> <span class="pre">system</span></code> type where applicable (see below)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">PyUnitWizard</span></code> quantities where applicable (see below)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> instead of <code class="docutils literal notranslate"><span class="pre">ndarray</span></code></p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> instead of <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p></li>
+</ul>
+</div>
+<p>Some parameters have standard descriptions that should be reused verbatim, if
+possible, across functions. This ensures consistency and clarity. Those
+parameters include: <code class="docutils literal notranslate"><span class="pre">molecular_system</span></code>, <code class="docutils literal notranslate"><span class="pre">to_form</span></code>, <code class="docutils literal notranslate"><span class="pre">selection</span></code>, <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code>,
+<code class="docutils literal notranslate"><span class="pre">syntax</span></code>, and <code class="docutils literal notranslate"><span class="pre">skip_digestion</span></code>. See below for their standard descriptions.</p>
+<section id="molecular-system">
+<h4><code class="docutils literal notranslate"><span class="pre">molecular_system</span></code><a class="headerlink" href="#molecular-system" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">...</span>
+<span class="sd">    molecular_system : molecular system</span>
+<span class="sd">        Molecular system to analyze, in any of the :ref:`supported forms &lt;Introduction_Forms&gt;`.</span>
+<span class="sd">...</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="selection">
+<h4><code class="docutils literal notranslate"><span class="pre">selection</span></code><a class="headerlink" href="#selection" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Can be: <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">list</span></code>, <code class="docutils literal notranslate"><span class="pre">tuple</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p></li>
+<li><p>Always indicate:</p>
+<ul>
+<li><p>That it accepts <strong>0-based</strong> indices.</p></li>
+<li><p>That <code class="docutils literal notranslate"><span class="pre">'all'</span></code> selects all relevant elements.</p></li>
+<li><p>A reference to the supported selection syntaxes, for example
+``:ref:`supported selection syntaxes &lt;Introduction_Selection&gt;``` when used
+inside docstrings.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="structure-indices">
+<h4><code class="docutils literal notranslate"><span class="pre">structure_indices</span></code><a class="headerlink" href="#structure-indices" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Same rules as for <code class="docutils literal notranslate"><span class="pre">selection</span></code>:</p>
+<ul>
+<li><p><strong>0-based</strong> indices.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'all'</span></code> applies to all structures.</p></li>
+<li><p>An optional reference to selection syntaxes (often placed in the <code class="docutils literal notranslate"><span class="pre">Notes</span></code>
+section).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="syntax">
+<h4><code class="docutils literal notranslate"><span class="pre">syntax</span></code><a class="headerlink" href="#syntax" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>Always clarify that it is the selector used to interpret <code class="docutils literal notranslate"><span class="pre">selection</span></code>.</p></li>
+<li><p>Include a reference such as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>See :ref:`Introduction_Selection` for details.
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="skip-digestion">
+<h4><code class="docutils literal notranslate"><span class="pre">skip_digestion</span></code><a class="headerlink" href="#skip-digestion" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>Standard text for all functions:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Whether to skip MolSysMT’s internal argument digestion mechanism.
+
+MolSysMT includes a built-in digestion system that validates and normalizes
+function arguments. This process checks types, shapes, and values, and automatically
+adjusts them when possible to meet expected formats.
+
+Setting `skip_digestion=True` disables this process, which may improve performance
+in workflows where inputs are already validated. Use with caution: only set this to
+`True` if you are certain all input arguments are correct and consistent.
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Describe return type and meaning</p></li>
+<li><p>Always use a single <code class="docutils literal notranslate"><span class="pre">Returns</span></code> section.</p></li>
+<li><p>Let Sphinx automatically generate the “Return type” field; do not add it manually.</p></li>
+<li><p>Return type and behavior, including any units if relevant.</p>
+<ul>
+<li><p>Tipo de retorno + descripción clara</p></li>
+<li><p>Si hay múltiples outputs, cada uno en su propia línea</p></li>
+</ul>
+</li>
+</ul>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Returns</span>
+<span class="o">-------</span>
+<span class="n">molecular</span> <span class="n">system</span> <span class="ow">or</span> <span class="kc">None</span>
+    <span class="n">If</span> <span class="err">`</span><span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="err">`</span><span class="p">,</span> <span class="n">returns</span> <span class="n">a</span> <span class="n">new</span> <span class="n">molecular</span> <span class="n">system</span><span class="o">.</span>  
+    <span class="n">If</span> <span class="err">`</span><span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="err">`</span><span class="p">,</span> <span class="n">returns</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">modifies</span> <span class="n">the</span> <span class="nb">input</span> <span class="ow">in</span> <span class="n">place</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Returns</span>
+<span class="o">-------</span>
+<span class="nb">bool</span>
+    <span class="kc">True</span> <span class="k">if</span> <span class="n">the</span> <span class="n">container</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">empty</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">tuple</span> <span class="ow">and</span> <span class="nb">all</span> <span class="n">items</span> <span class="n">are</span> <span class="n">valid</span>
+    <span class="n">molecular</span> <span class="n">systems</span><span class="o">.</span> <span class="kc">False</span> <span class="n">otherwise</span><span class="o">.</span>
+</pre></div>
+</div>
+<ul>
+<li><p>Only define a single <strong>Returns</strong> section.</p></li>
+<li><p>Use syntax like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Returns</span>
+<span class="o">-------</span>
+<span class="n">molecular</span> <span class="n">system</span> <span class="ow">or</span> <span class="kc">None</span>
+    <span class="n">If</span> <span class="err">`</span><span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="err">`</span><span class="p">,</span> <span class="n">returns</span> <span class="n">a</span> <span class="n">new</span> <span class="n">molecular</span> <span class="n">system</span><span class="o">.</span>  
+    <span class="n">If</span> <span class="err">`</span><span class="n">in_place</span><span class="o">=</span><span class="kc">True</span><span class="err">`</span><span class="p">,</span> <span class="n">returns</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">modifies</span> <span class="n">the</span> <span class="nb">input</span> <span class="ow">in</span> <span class="n">place</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>With PyData + napoleon, Sphinx will automatically generate a separate
+<strong>Return type</strong> field. Do <strong>not</strong> add one manually.</p></li>
+<li><p>If the function can return multiple types conceptually different, use different lines in the Returns section:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Returns</span>
+<span class="o">-------</span>
+<span class="n">Type1</span>
+    <span class="n">Justification</span> <span class="k">for</span> <span class="n">Type1</span><span class="o">.</span>    
+<span class="n">Type2</span>
+    <span class="n">Justification</span> <span class="k">for</span> <span class="n">Type2</span><span class="o">.</span>    
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="raises">
+<h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>List exceptions the function may raise, with conditions.</p></li>
+<li><p>Consistently includes <code class="docutils literal notranslate"><span class="pre">NotSupportedFormError</span></code>, <code class="docutils literal notranslate"><span class="pre">ArgumentError</span></code>, <code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code>.</p></li>
+</ul>
+</section>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Always use bullet points starting with <code class="docutils literal notranslate"><span class="pre">-</span></code>.</p></li>
+<li><p>Clarify internal assumptions and link to reference documentation (Forms,
+Selection syntaxes, Attributes).</p></li>
+<li><p>Add clarifications, implementation notes, or links to other docs, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">Supported</span> <span class="n">molecular</span><span class="o">-</span><span class="n">system</span> <span class="n">forms</span> <span class="n">are</span> <span class="n">described</span> <span class="ow">in</span> <span class="p">:</span><span class="n">ref</span><span class="p">:</span><span class="err">`</span><span class="n">Introduction_Forms</span><span class="err">`</span><span class="o">.</span>
+<span class="o">-</span> <span class="n">Selection</span> <span class="n">syntaxes</span> <span class="ow">and</span> <span class="n">valid</span> <span class="n">query</span> <span class="n">expressions</span> <span class="n">are</span> <span class="n">described</span> <span class="ow">in</span> <span class="p">:</span><span class="n">ref</span><span class="p">:</span><span class="err">`</span><span class="n">Introduction_Selection</span><span class="err">`</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>For functions such as <code class="docutils literal notranslate"><span class="pre">concatenate_structures</span></code>, the <code class="docutils literal notranslate"><span class="pre">Notes</span></code> section should
+explicitly list which structural attributes are concatenated
+(<code class="docutils literal notranslate"><span class="pre">coordinates</span></code>, <code class="docutils literal notranslate"><span class="pre">velocities</span></code>, <code class="docutils literal notranslate"><span class="pre">box</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>).</p></li>
+<li><p>When applicable, also include clarifications such as:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">If</span> <span class="pre">element</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">specified,</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">inferred</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">attribute</span> <span class="pre">definition.</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">If</span> <span class="pre">the</span> <span class="pre">attribute</span> <span class="pre">runs</span> <span class="pre">over</span> <span class="pre">structures,</span> <span class="pre">structure_indices</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">defined</span> <span class="pre">accordingly.</span></code></p></li>
+<li><p>Any other important internal rule (for example, that <code class="docutils literal notranslate"><span class="pre">where_is_attribute</span></code>
+returns the last matching item).</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="see-also">
+<h3>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Use infinitive verbs in descriptions (<code class="docutils literal notranslate"><span class="pre">Retrieve</span></code>, <code class="docutils literal notranslate"><span class="pre">Select</span></code>, <code class="docutils literal notranslate"><span class="pre">Remove</span></code>, etc.).</p></li>
+<li><p>Keep descriptions concise (ideally a single line).</p></li>
+<li><p>Cross-link functions that are conceptually related using <code class="docutils literal notranslate"><span class="pre">:func:</span></code> roles.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">Also</span></code> descriptions must be concise and in infinitive (no leading “to”):</p>
+<ul>
+<li><p>✅ <code class="docutils literal notranslate"><span class="pre">Retrieve</span> <span class="pre">attribute</span> <span class="pre">values</span> <span class="pre">from</span> <span class="pre">a</span> <span class="pre">molecular</span> <span class="pre">system</span></code></p></li>
+<li><p>❌ <code class="docutils literal notranslate"><span class="pre">To</span> <span class="pre">get</span> <span class="pre">the</span> <span class="pre">attributes</span> <span class="pre">of...</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Include at least one <code class="docutils literal notranslate"><span class="pre">doctest</span></code>-style example using <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code></p></li>
+<li><p>Keep realistic and minimal</p></li>
+<li><p>Link to doctest section</p></li>
+<li><p>Always provide <code class="docutils literal notranslate"><span class="pre">doctest</span></code>-compatible examples using <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>.</p></li>
+<li><p>Keep examples minimal but functional.</p></li>
+<li><p>Prefer using <code class="docutils literal notranslate"><span class="pre">molsysmt.systems</span></code> or small peptide builders instead of external files.</p></li>
+<li><p>Non-deterministic results must be avoided.</p></li>
+<li><p>Written in executable doctest format (with <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>).</p></li>
+<li><p>Always include at least one realistic use case.</p></li>
+<li><p>All examples inside docstrings must be written as <code class="docutils literal notranslate"><span class="pre">doctest</span></code> blocks (<code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>)
+and are executed automatically by <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">--doctest-modules</span></code>.</p></li>
+<li><p><strong>Do not duplicate</strong> examples in <code class="docutils literal notranslate"><span class="pre">tests/</span></code> unless additional complex checks
+are required (for example, fixtures, multiple asserts, heavy inputs).</p></li>
+<li><p>Unit tests in <code class="docutils literal notranslate"><span class="pre">tests/</span></code> should cover logic and edge cases not suitable for
+doctest format.</p></li>
+<li><p>Examples should use small, realistic systems (for example, <code class="docutils literal notranslate"><span class="pre">alanine</span> <span class="pre">dipeptide</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pentalanine</span></code>, or systems from <code class="docutils literal notranslate"><span class="pre">molsysmt.systems</span></code>).</p></li>
+</ul>
+</section>
+<section id="admonition-with-tutorial-call">
+<h3>Admonition with tutorial call<a class="headerlink" href="#admonition-with-tutorial-call" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A closing <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">admonition::</span> <span class="pre">User</span> <span class="pre">guide</span></code> block that links to the corresponding tutorial.</p></li>
+<li><p>Use Sphinx’s <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">admonition::</span></code> directive</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">admonition</span><span class="p">::</span> <span class="n">Tutorial</span> <span class="k">with</span> <span class="n">more</span> <span class="n">examples</span>
+
+   <span class="n">See</span> <span class="n">the</span> <span class="n">following</span> <span class="n">tutorial</span> <span class="k">for</span> <span class="n">a</span> <span class="n">practical</span> <span class="n">demonstration</span> <span class="n">of</span> <span class="n">how</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">function</span><span class="p">,</span>
+   <span class="n">along</span> <span class="k">with</span> <span class="n">additional</span> <span class="n">examples</span><span class="p">:</span>
+   <span class="p">:</span><span class="n">ref</span><span class="p">:</span><span class="err">`</span><span class="n">User</span> <span class="n">Guide</span> <span class="o">&gt;</span> <span class="n">Tools</span> <span class="o">&gt;</span> <span class="n">Basic</span> <span class="o">&gt;</span> <span class="n">Add</span> <span class="o">&lt;</span><span class="n">Tutorial_Add</span><span class="o">&gt;</span><span class="err">`</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">admonition</span><span class="p">::</span> Tutorial with more examples
+
+   See the following tutorial for a practical demonstration of how to use this function,
+   along with additional examples:
+   <span class="na">:ref:</span><span class="nv">`Tutorial_&lt;FunctionName&gt;`</span>.
+</pre></div>
+</div>
+</section>
+<section id="version-added">
+<h3>Version Added<a class="headerlink" href="#version-added" title="Link to this heading">#</a></h3>
+<p>Always indicate the version when the function was added at the end of the docstring.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">versionadded</span><span class="p">::</span> <span class="mf">1.0.0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
+</section>
+<section id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Link to this heading">#</a></h2>
+</section>
+<section id="id1">
+<h2>Modules<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
+</section>
+<section id="object-typing">
+<span id="sec-object-typing"></span><h2>Object typing<a class="headerlink" href="#object-typing" title="Link to this heading">#</a></h2>
+<p>Parameters, Return, … need to specify object types.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>type</p></th>
+<th class="head"><p>comment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Any</span></code></p></td>
+<td><p>See <a class="reference external" href="https://www.python.org/dev/peps/pep-0484/#the-any-type">PEP 484</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>boolean</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>string</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">list</span> <span class="pre">of</span> <span class="pre">str</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="other-finnal-editorial-rules">
+<h2>Other finnal editorial rules<a class="headerlink" href="#other-finnal-editorial-rules" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Avoid using bold text unnecessarily in descriptive parts of docstrings.</p></li>
+<li><p>You can use limited Markdown-style formatting inside docstrings
+(for example, <code class="docutils literal notranslate"><span class="pre">**bold**</span></code>, lists) as long as Sphinx parses it correctly.</p></li>
+<li><p>Avoid raw <code class="docutils literal notranslate"><span class="pre">.rst</span></code> constructs when they are not needed; rely on Sphinx roles
+such as <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> and <code class="docutils literal notranslate"><span class="pre">:func:</span></code> for cross-references.</p></li>
+<li><p>Triple backticks for code blocks are fine in <code class="docutils literal notranslate"><span class="pre">.md</span></code> files, but docstrings in
+Python code must still use triple quotes <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code>.</p></li>
+<li><p>Cross-references (<code class="docutils literal notranslate"><span class="pre">:ref:</span></code>, <code class="docutils literal notranslate"><span class="pre">:func:</span></code>) work as in reStructuredText and should
+point to stable labels defined in the documentation.</p></li>
+<li><p>Use lowercase identifiers in prose to match attribute names
+(for example, <code class="docutils literal notranslate"><span class="pre">atom_id</span></code>, <code class="docutils literal notranslate"><span class="pre">group_id</span></code>).</p></li>
+<li><p>Early validation of arguments is always performed with the <code class="docutils literal notranslate"><span class="pre">&#64;digest</span></code> decorator.</p></li>
+<li><p>There must be <strong>exactly one blank line</strong> between sections (<code class="docutils literal notranslate"><span class="pre">Parameters</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Returns</span></code>, <code class="docutils literal notranslate"><span class="pre">Notes</span></code>, etc.).</p></li>
+<li><p>Do not leave blank lines <strong>inside</strong> the parameter block between arguments.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">admonition::</span> <span class="pre">Tutorial</span> <span class="pre">with</span> <span class="pre">more</span> <span class="pre">examples</span></code> inside docstrings to link
+to notebooks; the MyST format for admonitions is reserved for documentation
+pages and tutorials, not for docstrings.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">API documentation guidelines</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="doctests.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Doctests</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-and-methods">Functions and Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-line-summary">One-line Summary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extended-description">Extended Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters">Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#molecular-system"><code class="docutils literal notranslate"><span class="pre">molecular_system</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#selection"><code class="docutils literal notranslate"><span class="pre">selection</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-indices"><code class="docutils literal notranslate"><span class="pre">structure_indices</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax"><code class="docutils literal notranslate"><span class="pre">syntax</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#skip-digestion"><code class="docutils literal notranslate"><span class="pre">skip_digestion</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returns">Returns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raises">Raises</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#admonition-with-tutorial-call">Admonition with tutorial call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#version-added">Version Added</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modules">Modules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Modules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-typing">Object typing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-finnal-editorial-rules">Other finnal editorial rules</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

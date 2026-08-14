@@ -1,0 +1,1390 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.build.solvate – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/build/solvate';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.build.solvate</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.build.solvate</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======================</span>
+<span class="c1"># Creando cajas solvatadas</span>
+<span class="c1"># =======================</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.smonitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotImplementedMethodError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.argdigest</span><span class="w"> </span><span class="kn">import</span> <span class="n">arg_digest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt._private.smonitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructuralInconsistencyError</span><span class="p">,</span> <span class="n">InternalAlgorithmError</span><span class="p">,</span> <span class="n">FormatError</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyunitwizard</span> <span class="k">as</span> <span class="n">puw</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Solvate Box</span>
+<span class="sd">==============</span>
+<span class="sd">Methods and wrappers to create and solvate boxes</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_tiled_water</span><span class="p">(</span><span class="n">water_tile</span><span class="p">,</span> <span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">n_z</span><span class="p">,</span> <span class="n">tile_nm</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a tiled water MolSys using pure numpy, without creating N³ intermediate objects.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    water_tile : molsysmt.MolSys</span>
+<span class="sd">        Pre-equilibrated single-box water template.</span>
+<span class="sd">    n_x, n_y, n_z : int</span>
+<span class="sd">        Number of tile repetitions in each direction.</span>
+<span class="sd">    tile_nm : float</span>
+<span class="sd">        Edge length of one water tile (nm).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    molsysmt.MolSys</span>
+<span class="sd">        A single MolSys containing all n_x*n_y*n_z copies of the water box</span>
+<span class="sd">        with correct translated coordinates, ready for out-of-box filtering.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolSys</span><span class="p">,</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">Structures</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native.topology</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bonds_DataFrame</span>
+
+    <span class="n">topo</span> <span class="o">=</span> <span class="n">water_tile</span><span class="o">.</span><span class="n">topology</span>
+    <span class="n">topo_bonds</span> <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">_get_chemical_state_bonds</span><span class="p">()</span>
+    <span class="n">n_atoms_tile</span>  <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">n_atoms</span>
+    <span class="n">n_groups_tile</span> <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">n_groups</span>
+    <span class="n">n_bonds_tile</span>  <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">topo_bonds</span><span class="p">)</span>
+
+    <span class="c1"># ── build offset grid ───────────────────────────────────────────────────</span>
+    <span class="n">ix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">iy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">iz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">IZ</span><span class="p">,</span> <span class="n">IY</span><span class="p">,</span> <span class="n">IX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">iz</span><span class="p">,</span> <span class="n">iy</span><span class="p">,</span> <span class="n">ix</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">&#39;ij&#39;</span><span class="p">)</span>   <span class="c1"># each (n_z, n_y, n_x)</span>
+    <span class="n">offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">IX</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="n">tile_nm</span><span class="p">,</span> <span class="n">IY</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="n">tile_nm</span><span class="p">,</span> <span class="n">IZ</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">*</span> <span class="n">tile_nm</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>  <span class="c1"># (n_tiles, 3)</span>
+    <span class="n">n_tiles</span> <span class="o">=</span> <span class="n">offsets</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># ── tile coordinates ─────────────────────────────────────────────────────</span>
+    <span class="c1"># template_xyz: (n_atoms_tile, 3)  →  broadcast to (n_tiles, n_atoms_tile, 3)</span>
+    <span class="n">template_xyz</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+        <span class="n">water_tile</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;nm&#39;</span>
+    <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># (n_atoms_tile, 3)</span>
+    <span class="n">tiled_xyz</span> <span class="o">=</span> <span class="n">template_xyz</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">+</span> <span class="n">offsets</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>  <span class="c1"># (n_tiles, n_atoms_tile, 3)</span>
+    <span class="n">all_xyz</span> <span class="o">=</span> <span class="n">tiled_xyz</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_tiles</span> <span class="o">*</span> <span class="n">n_atoms_tile</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>      <span class="c1"># (1, total_atoms, 3)</span>
+
+    <span class="c1"># ── tile topology arrays ──────────────────────────────────────────────────</span>
+    <span class="n">n_total_atoms</span>  <span class="o">=</span> <span class="n">n_tiles</span> <span class="o">*</span> <span class="n">n_atoms_tile</span>
+    <span class="n">n_total_groups</span> <span class="o">=</span> <span class="n">n_tiles</span> <span class="o">*</span> <span class="n">n_groups_tile</span>
+    <span class="n">n_total_bonds</span>  <span class="o">=</span> <span class="n">n_tiles</span> <span class="o">*</span> <span class="n">n_bonds_tile</span>
+
+    <span class="c1"># atoms</span>
+    <span class="n">atom_name_base</span>  <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">atom_type_base</span>  <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">grp_idx_base</span>    <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;group_index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+    <span class="n">atom_names</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">atom_name_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span>
+    <span class="n">atom_types</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">atom_type_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span>
+    <span class="n">grp_offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_tiles</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_groups_tile</span><span class="p">,</span> <span class="n">n_atoms_tile</span><span class="p">)</span>
+    <span class="n">group_indices</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">grp_idx_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span> <span class="o">+</span> <span class="n">grp_offsets</span>
+    <span class="c1"># component_index == group_index for water (one water per component)</span>
+    <span class="n">component_indices</span> <span class="o">=</span> <span class="n">group_indices</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">chain_indices</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_total_atoms</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">atom_ids</span>          <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_total_atoms</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># groups</span>
+    <span class="n">gname_base</span> <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">gtype_base</span> <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">mol_idx_base</span> <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;molecule_index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+    <span class="n">group_names</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">gname_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span>
+    <span class="n">group_types</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">gtype_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span>
+    <span class="n">mol_offsets</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_tiles</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_groups_tile</span><span class="p">,</span> <span class="n">n_groups_tile</span><span class="p">)</span>
+    <span class="n">mol_indices</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">mol_idx_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span> <span class="o">+</span> <span class="n">mol_offsets</span>
+    <span class="n">group_ids</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_total_groups</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># bonds</span>
+    <span class="n">b1_base</span> <span class="o">=</span> <span class="n">topo_bonds</span><span class="p">[</span><span class="s1">&#39;atom1_index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">b2_base</span> <span class="o">=</span> <span class="n">topo_bonds</span><span class="p">[</span><span class="s1">&#39;atom2_index&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">bond_offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_tiles</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_atoms_tile</span><span class="p">,</span> <span class="n">n_bonds_tile</span><span class="p">)</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">b1_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span> <span class="o">+</span> <span class="n">bond_offsets</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">b2_base</span><span class="p">,</span> <span class="n">n_tiles</span><span class="p">)</span> <span class="o">+</span> <span class="n">bond_offsets</span>
+
+    <span class="c1"># ── assemble Topology ────────────────────────────────────────────────────</span>
+    <span class="n">new_topo</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(</span>
+        <span class="n">n_atoms</span><span class="o">=</span><span class="n">n_total_atoms</span><span class="p">,</span>
+        <span class="n">n_groups</span><span class="o">=</span><span class="n">n_total_groups</span><span class="p">,</span>
+        <span class="n">n_components</span><span class="o">=</span><span class="n">n_total_groups</span><span class="p">,</span>  <span class="c1"># one component per water</span>
+        <span class="n">n_molecules</span><span class="o">=</span><span class="n">n_total_groups</span><span class="p">,</span>
+        <span class="n">n_entities</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">n_chains</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">n_bonds</span><span class="o">=</span><span class="n">n_total_bonds</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_id&#39;</span><span class="p">]</span>        <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">atom_ids</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_name&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">atom_names</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_type&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">atom_types</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;group_index&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">group_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">_set_component_indices</span><span class="p">(</span><span class="n">component_indices</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;chain_index&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">chain_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_id&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">group_ids</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_name&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">group_names</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_type&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="n">group_types</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;molecule_index&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mol_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+
+    <span class="n">chain_row</span> <span class="o">=</span> <span class="n">topo</span><span class="o">.</span><span class="n">chains</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">chains</span><span class="p">[</span><span class="s1">&#39;chain_id&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">chain_row</span><span class="p">[</span><span class="s1">&#39;chain_id&#39;</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">chains</span><span class="p">[</span><span class="s1">&#39;chain_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">chain_row</span><span class="p">[</span><span class="s1">&#39;chain_name&#39;</span><span class="p">]]</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">chains</span><span class="p">[</span><span class="s1">&#39;chain_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">chain_row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;chain_type&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span>
+
+    <span class="n">bonds_df</span> <span class="o">=</span> <span class="n">Bonds_DataFrame</span><span class="p">(</span><span class="n">n_total_bonds</span><span class="p">)</span>
+    <span class="n">bonds_df</span><span class="p">[</span><span class="s1">&#39;atom1_index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+    <span class="n">bonds_df</span><span class="p">[</span><span class="s1">&#39;atom2_index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">_set_chemical_state_bonds</span><span class="p">(</span><span class="n">bonds_df</span><span class="p">)</span>
+
+    <span class="c1"># ── assemble Structures ──────────────────────────────────────────────────</span>
+    <span class="n">new_struc</span> <span class="o">=</span> <span class="n">Structures</span><span class="p">(</span>
+        <span class="n">coordinates</span><span class="o">=</span><span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="n">all_xyz</span><span class="p">,</span> <span class="s1">&#39;nm&#39;</span><span class="p">),</span>
+        <span class="n">structure_id</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;1&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">MolSys</span><span class="p">()</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">topology</span>  <span class="o">=</span> <span class="n">new_topo</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">structures</span> <span class="o">=</span> <span class="n">new_struc</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_ions</span><span class="p">(</span><span class="n">ion_name</span><span class="p">,</span> <span class="n">atom_name</span><span class="p">,</span> <span class="n">atom_type</span><span class="p">,</span> <span class="n">positions</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a MolSys with single-atom ion groups at the given positions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ion_name : str</span>
+<span class="sd">        Group/residue name (PDB convention, e.g. &#39;NA&#39;, &#39;CL&#39;).</span>
+<span class="sd">    atom_name : str</span>
+<span class="sd">        Atom name (same as group name for monatomic ions).</span>
+<span class="sd">    atom_type : str</span>
+<span class="sd">        Element symbol (e.g. &#39;Na&#39;, &#39;Cl&#39;).</span>
+<span class="sd">    positions : np.ndarray, shape (n_ions, 3)</span>
+<span class="sd">        Coordinates in nm for each ion.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    molsysmt.MolSys</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.native</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolSys</span><span class="p">,</span> <span class="n">Topology</span><span class="p">,</span> <span class="n">Structures</span>
+
+    <span class="n">n_ions</span> <span class="o">=</span> <span class="n">positions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">new_topo</span> <span class="o">=</span> <span class="n">Topology</span><span class="p">(</span>
+        <span class="n">n_atoms</span><span class="o">=</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">n_groups</span><span class="o">=</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="n">n_ions</span><span class="p">,</span>
+        <span class="n">n_molecules</span><span class="o">=</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">n_entities</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_chains</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_bonds</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_id&#39;</span><span class="p">]</span>         <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ions</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_name&#39;</span><span class="p">]</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">atom_name</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;atom_type&#39;</span><span class="p">]</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">atom_type</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;group_index&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">_set_component_indices</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">))</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">atoms</span><span class="p">[</span><span class="s1">&#39;chain_index&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_id&#39;</span><span class="p">]</span>       <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ions</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_name&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">ion_name</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;group_type&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="s1">&#39;ion&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">groups</span><span class="p">[</span><span class="s1">&#39;molecule_index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_ions</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;Int64&#39;</span><span class="p">)</span>
+
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">chains</span><span class="p">[</span><span class="s1">&#39;chain_id&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;ION&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">chains</span><span class="p">[</span><span class="s1">&#39;chain_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+    <span class="n">new_topo</span><span class="o">.</span><span class="n">chains</span><span class="p">[</span><span class="s1">&#39;chain_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">positions</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_ions</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">new_struc</span> <span class="o">=</span> <span class="n">Structures</span><span class="p">(</span>
+        <span class="n">coordinates</span><span class="o">=</span><span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="n">xyz</span><span class="p">,</span> <span class="s1">&#39;nm&#39;</span><span class="p">),</span>
+        <span class="n">structure_id</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;1&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">MolSys</span><span class="p">()</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">topology</span>  <span class="o">=</span> <span class="n">new_topo</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">structures</span> <span class="o">=</span> <span class="n">new_struc</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<div class="viewcode-block" id="solvate">
+<a class="viewcode-back" href="../../../api/build/autosummary/molsysmt.build.solvate.html#molsysmt.build.solvate">[docs]</a>
+<span class="nd">@arg_digest</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">solvate</span> <span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">box_shape</span><span class="o">=</span><span class="s2">&quot;truncated octahedral&quot;</span><span class="p">,</span> <span class="n">clearance</span><span class="o">=</span><span class="s1">&#39;14.0 angstroms&#39;</span><span class="p">,</span>
+             <span class="n">anion</span><span class="o">=</span><span class="s1">&#39;Cl-&#39;</span><span class="p">,</span> <span class="n">n_anions</span><span class="o">=</span><span class="s2">&quot;neutralize&quot;</span><span class="p">,</span> <span class="n">cation</span><span class="o">=</span><span class="s1">&#39;Na+&#39;</span><span class="p">,</span> <span class="n">n_cations</span><span class="o">=</span><span class="s2">&quot;neutralize&quot;</span><span class="p">,</span>
+             <span class="n">ionic_strength</span><span class="o">=</span><span class="s1">&#39;0.0 molar&#39;</span><span class="p">,</span> <span class="n">water_model</span><span class="o">=</span><span class="s1">&#39;TIP3P&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;OpenMM&quot;</span><span class="p">,</span>
+             <span class="n">to_form</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solvate a molecular system by surrounding it with explicit water molecules and ions.</span>
+
+<span class="sd">    This function places the molecular system inside a solvent box of the chosen</span>
+<span class="sd">    geometry, fills it with explicit water molecules of the selected model, and</span>
+<span class="sd">    optionally adds counterions to neutralise the system charge and/or reach a</span>
+<span class="sd">    target ionic strength.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    molecular_system : molecular system</span>
+<span class="sd">        Molecular system in any of :ref:`the supported forms &lt;Introduction_Forms&gt;`.</span>
+<span class="sd">        Should not already contain explicit solvent.</span>
+
+<span class="sd">    box_shape : {&#39;truncated octahedral&#39;, &#39;rhombic dodecahedral&#39;, &#39;cubic&#39;, &#39;rectangular&#39;}, default &#39;truncated octahedral&#39;</span>
+<span class="sd">        Geometry of the periodic simulation box. A truncated octahedral box minimises</span>
+<span class="sd">        the volume of solvent required for a given clearance distance.</span>
+<span class="sd">        All four shapes are supported by all engines.</span>
+
+<span class="sd">    clearance : str or quantity, default &#39;14.0 angstroms&#39;</span>
+<span class="sd">        Minimum distance between any atom of the solute and the nearest box face.</span>
+<span class="sd">        Accepts a unit string parseable by pyunitwizard (e.g. ``&#39;14.0 angstroms&#39;``).</span>
+
+<span class="sd">    anion : {&#39;Cl-&#39;, &#39;Br-&#39;, &#39;F-&#39;, &#39;I-&#39;}, default &#39;Cl-&#39;</span>
+<span class="sd">        Species used as the negative counterion.</span>
+
+<span class="sd">    n_anions : int or &#39;neutralize&#39;, default &#39;neutralize&#39;</span>
+<span class="sd">        Number of anions to add. Use ``&#39;neutralize&#39;`` to add just enough to</span>
+<span class="sd">        neutralise the system charge.</span>
+
+<span class="sd">    cation : {&#39;Cs+&#39;, &#39;K+&#39;, &#39;Li+&#39;, &#39;Na+&#39;, &#39;Rb+&#39;}, default &#39;Na+&#39;</span>
+<span class="sd">        Species used as the positive counterion.</span>
+
+<span class="sd">    n_cations : int or &#39;neutralize&#39;, default &#39;neutralize&#39;</span>
+<span class="sd">        Number of cations to add. Use ``&#39;neutralize&#39;`` to add just enough to</span>
+<span class="sd">        neutralise the system charge.</span>
+
+<span class="sd">    ionic_strength : str or quantity, default &#39;0.0 molar&#39;</span>
+<span class="sd">        Target ionic strength of the solvent. Accepts a unit string parseable by</span>
+<span class="sd">        pyunitwizard (e.g. ``&#39;0.15 molar&#39;``).</span>
+
+<span class="sd">    water_model : {&#39;SPC&#39;, &#39;SPC/E&#39;, &#39;TIP3P&#39;, &#39;TIP3P-FB&#39;, &#39;TIP3P-PME-B&#39;, &#39;TIP3P-PME-F&#39;, &#39;TIP4P&#39;, &#39;TIP4P-EW&#39;, &#39;TIP4P-FB&#39;, &#39;TIP4P-2005&#39;, &#39;TIP5P&#39;, &#39;TIP5P-EW&#39;}, default &#39;TIP3P&#39;</span>
+<span class="sd">        Water model used to fill the solvent box.  Canonical names follow</span>
+<span class="sd">        ``molsysmt.molecular_mechanics.forcefields.water_models``.  If the</span>
+<span class="sd">        molecular system already stores a water model attribute, it takes</span>
+<span class="sd">        precedence over this argument.</span>
+
+<span class="sd">        Support by engine:</span>
+
+<span class="sd">        * **OpenMM** — all models listed above (delegates to</span>
+<span class="sd">          ``openmm.app.Modeller.addSolvent``).</span>
+<span class="sd">        * **PDBFixer** — same as OpenMM (delegates to the same OpenMM routine).</span>
+<span class="sd">        * **MolSysMT** — ``&#39;SPC&#39;``, ``&#39;SPC/E&#39;``, ``&#39;TIP3P&#39;``, ``&#39;TIP4P-EW&#39;``</span>
+<span class="sd">          (bundled preequilibrated boxes in ``molsysmt/data/water/``).</span>
+
+<span class="sd">    engine : {&#39;OpenMM&#39;, &#39;PDBFixer&#39;, &#39;MolSysMT&#39;}, default &#39;OpenMM&#39;</span>
+<span class="sd">        Backend used to add solvent and ions.</span>
+
+<span class="sd">        * **MolSysMT** — no external dependencies.  Supports all four box</span>
+<span class="sd">          shapes.  Water models limited to ``&#39;SPC&#39;``, ``&#39;SPC/E&#39;``,</span>
+<span class="sd">          ``&#39;TIP3P&#39;``, ``&#39;TIP4P-EW&#39;``.  Ions placed via rejection-sampling</span>
+<span class="sd">          (≥ 5 Å from solute, ≥ 0.5 Å between ions).</span>
+<span class="sd">        * **OpenMM** — delegates to ``openmm.app.Modeller.addSolvent``.</span>
+<span class="sd">          Supports all water models and box shapes.</span>
+<span class="sd">        * **PDBFixer** — same as OpenMM (delegates to the same routine).</span>
+
+<span class="sd">    to_form : str or None, default None</span>
+<span class="sd">        Target form for the output molecular system. If None, the form of the</span>
+<span class="sd">        input ``molecular_system`` is used.</span>
+
+<span class="sd">    verbose : bool, default False</span>
+<span class="sd">        If True, progress information may be printed by the engine.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    molecular system</span>
+<span class="sd">        A new solvated molecular system in the form specified by ``to_form`` (or</span>
+<span class="sd">        in the same form as the input). Component, molecule, and chain metadata</span>
+<span class="sd">        from the original system are preserved and entity labels are rebuilt.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    NotImplementedError</span>
+<span class="sd">        Raised if the requested ``engine`` or ``water_model`` is not supported.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    After solvation, water molecules and ions are automatically assigned to a new</span>
+<span class="sd">    chain by ``assign_selection_to_new_chain``. Atom and residue IDs in the output</span>
+<span class="sd">    topology are renumbered sequentially to work around a known OpenMM bug.</span>
+
+<span class="sd">    The forcefield used for solvation is read from the molecular system when</span>
+<span class="sd">    available; otherwise the MolSysMT default forcefield is used.</span>
+
+<span class="sd">    .. versionadded:: 1.0.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logfile</span><span class="o">=</span><span class="kc">False</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.basic</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_form</span><span class="p">,</span> <span class="n">convert</span>
+
+    <span class="k">if</span> <span class="n">to_form</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">to_form</span> <span class="o">=</span> <span class="n">get_form</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">engine</span><span class="o">==</span><span class="s2">&quot;OpenMM&quot;</span><span class="p">:</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">openmm</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vec3</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.basic</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="nb">set</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.build._private</span><span class="w"> </span><span class="kn">import</span> <span class="n">assign_selection_to_new_chain</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">openmm.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">ForceField</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.configure</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_attribute</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.molecular_mechanics</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_engine_forcefield</span>
+
+        <span class="n">component_indices</span><span class="p">,</span> <span class="n">component_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">component_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                 <span class="n">component_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">molecule_indices</span><span class="p">,</span> <span class="n">molecule_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">molecule_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                               <span class="n">molecule_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">chain_indices</span><span class="p">,</span> <span class="n">chain_ids</span><span class="p">,</span> <span class="n">chain_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                    <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">clearance</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">clearance</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.unit&#39;</span><span class="p">)</span>
+        <span class="n">ionic_strength</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">ionic_strength</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.unit&#39;</span><span class="p">)</span>
+
+        <span class="n">modeller</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.Modeller&#39;</span><span class="p">)</span>
+
+        <span class="n">aux_water_model</span><span class="p">,</span> <span class="n">aux_forcefield</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">water_model</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">forcefield</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">aux_water_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">water_model</span> <span class="o">=</span> <span class="n">aux_water_model</span>
+
+        <span class="k">if</span> <span class="n">aux_forcefield</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">forcefield</span> <span class="o">=</span> <span class="n">default_attribute</span><span class="p">[</span><span class="s1">&#39;forcefield&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">forcefield</span> <span class="o">=</span> <span class="n">aux_forcefield</span>
+
+        <span class="n">forcefield</span> <span class="o">=</span> <span class="n">get_engine_forcefield</span><span class="p">(</span><span class="n">forcefield</span><span class="p">,</span> <span class="n">water_model</span><span class="o">=</span><span class="n">water_model</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;OpenMM&#39;</span><span class="p">)</span>
+
+        <span class="n">solvent_model</span><span class="o">=</span><span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">water_model</span><span class="o">==</span><span class="s1">&#39;SPC&#39;</span><span class="p">:</span>
+            <span class="n">solvent_model</span><span class="o">=</span><span class="s1">&#39;tip3p&#39;</span>
+        <span class="k">elif</span> <span class="n">water_model</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;TIP3P&#39;</span><span class="p">,</span><span class="s1">&#39;TIP3PFB&#39;</span><span class="p">,</span><span class="s1">&#39;SPCE&#39;</span><span class="p">,</span><span class="s1">&#39;TIP4PEW&#39;</span><span class="p">,</span><span class="s1">&#39;TIP4PFB&#39;</span><span class="p">,</span><span class="s1">&#39;TIP5P&#39;</span><span class="p">]:</span>
+            <span class="n">solvent_model</span><span class="o">=</span><span class="n">water_model</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+        <span class="n">openmm_forcefield</span> <span class="o">=</span> <span class="n">ForceField</span><span class="p">(</span><span class="o">*</span><span class="n">forcefield</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">box_shape</span><span class="o">==</span><span class="s2">&quot;truncated octahedral&quot;</span><span class="p">:</span>
+
+            <span class="n">max_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">((</span><span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">modeller</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span><span class="o">-</span><span class="nb">min</span><span class="p">((</span><span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">modeller</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span><span class="o">/</span><span class="mf">3.0</span><span class="p">)</span>
+            <span class="n">box_vectors</span> <span class="o">=</span> <span class="p">[(</span><span class="n">max_size</span><span class="o">+</span><span class="n">clearance</span><span class="p">)</span><span class="o">*</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">]</span>
+
+            <span class="n">modeller</span><span class="o">.</span><span class="n">addSolvent</span><span class="p">(</span><span class="n">openmm_forcefield</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">solvent_model</span><span class="p">,</span> <span class="n">boxVectors</span> <span class="o">=</span> <span class="n">box_vectors</span><span class="p">,</span> <span class="n">ionicStrength</span><span class="o">=</span><span class="n">ionic_strength</span><span class="p">,</span>
+                                <span class="n">positiveIon</span><span class="o">=</span><span class="n">cation</span><span class="p">,</span> <span class="n">negativeIon</span><span class="o">=</span><span class="n">anion</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">box_shape</span><span class="o">==</span><span class="s2">&quot;rhombic dodecahedral&quot;</span><span class="p">:</span>
+
+            <span class="n">max_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">((</span><span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">modeller</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span><span class="o">-</span><span class="nb">min</span><span class="p">((</span><span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">modeller</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">box_vectors</span> <span class="o">=</span> <span class="p">[(</span><span class="n">max_size</span><span class="o">+</span><span class="n">clearance</span><span class="p">)</span><span class="o">*</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">]</span>
+
+            <span class="n">modeller</span><span class="o">.</span><span class="n">addSolvent</span><span class="p">(</span><span class="n">openmm_forcefield</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">solvent_model</span><span class="p">,</span> <span class="n">boxVectors</span> <span class="o">=</span> <span class="n">box_vectors</span><span class="p">,</span> <span class="n">ionicStrength</span><span class="o">=</span><span class="n">ionic_strength</span><span class="p">,</span>
+                                <span class="n">positiveIon</span><span class="o">=</span><span class="n">cation</span><span class="p">,</span> <span class="n">negativeIon</span><span class="o">=</span><span class="n">anion</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+           <span class="n">modeller</span><span class="o">.</span><span class="n">addSolvent</span><span class="p">(</span><span class="n">openmm_forcefield</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">solvent_model</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">clearance</span><span class="p">,</span>
+                               <span class="n">ionicStrength</span><span class="o">=</span><span class="n">ionic_strength</span><span class="p">,</span> <span class="n">positiveIon</span><span class="o">=</span><span class="n">cation</span><span class="p">,</span>
+                               <span class="n">negativeIon</span><span class="o">=</span><span class="n">anion</span><span class="p">)</span>
+
+        <span class="c1"># fixing a bug of OpenMM</span>
+        <span class="n">list_atoms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">modeller</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">atoms</span><span class="p">())</span>
+        <span class="n">atom_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">list_atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">list_atoms</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">atom_id</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">atom</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">atom_id</span><span class="p">)</span>
+        <span class="n">list_residues</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">modeller</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">residues</span><span class="p">())</span>
+        <span class="n">residue_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">list_residues</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">residue</span> <span class="ow">in</span> <span class="n">list_residues</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">residue_id</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">residue</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">residue_id</span><span class="p">)</span>
+        <span class="c1">#</span>
+
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">modeller</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">)</span>
+
+        <span class="k">del</span><span class="p">(</span><span class="n">modeller</span><span class="p">)</span>
+
+        <span class="nb">set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">component_indices</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="n">component_names</span><span class="p">,</span>
+            <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">molecule_indices</span><span class="p">,</span> <span class="n">molecule_name</span><span class="o">=</span><span class="n">molecule_names</span><span class="p">,</span>
+            <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">chain_indices</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="n">chain_ids</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="n">chain_names</span><span class="p">,</span>
+            <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">to_form</span><span class="o">==</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">:</span>
+            <span class="n">tmp_item</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">rebuild_entities</span><span class="p">(</span><span class="n">redefine_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_types</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">to_form</span><span class="o">==</span><span class="s1">&#39;molsysmt.Topology&#39;</span><span class="p">:</span>
+            <span class="n">tmp_item</span><span class="o">.</span><span class="n">rebuild_entities</span><span class="p">(</span><span class="n">redefine_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_types</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">assign_selection_to_new_chain</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_type in [&quot;water&quot;,&quot;ion&quot;]&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tmp_item</span>
+
+    <span class="k">elif</span> <span class="n">engine</span><span class="o">==</span><span class="s2">&quot;PDBFixer&quot;</span><span class="p">:</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">openmm</span><span class="w"> </span><span class="kn">import</span> <span class="n">Vec3</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.basic</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="nb">set</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.build._private</span><span class="w"> </span><span class="kn">import</span> <span class="n">assign_selection_to_new_chain</span>
+
+        <span class="n">component_indices</span><span class="p">,</span> <span class="n">component_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">component_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                 <span class="n">component_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">molecule_indices</span><span class="p">,</span> <span class="n">molecule_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">molecule_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                               <span class="n">molecule_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">chain_indices</span><span class="p">,</span> <span class="n">chain_ids</span><span class="p">,</span> <span class="n">chain_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                    <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">clearance</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">clearance</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.unit&#39;</span><span class="p">)</span>
+        <span class="n">ionic_strength</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">ionic_strength</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.unit&#39;</span><span class="p">)</span>
+
+        <span class="n">pdbfixer</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;pdbfixer.PDBFixer&#39;</span><span class="p">)</span>
+        <span class="n">max_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">((</span><span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">pdbfixer</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span><span class="o">-</span><span class="nb">min</span><span class="p">((</span><span class="n">pos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">pdbfixer</span><span class="o">.</span><span class="n">positions</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+        <span class="n">box_size</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">box_vectors</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">box_shape</span><span class="o">==</span><span class="s2">&quot;truncated octahedral&quot;</span><span class="p">:</span>
+
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span><span class="o">/</span><span class="mf">3.0</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">box_shape</span><span class="o">==</span><span class="s2">&quot;rhombic dodecahedral&quot;</span><span class="p">:</span>
+
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">box_shape</span><span class="o">==</span><span class="s2">&quot;cubic&quot;</span><span class="p">:</span>
+
+            <span class="n">vectors</span> <span class="o">=</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">Vec3</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+        <span class="n">box_vectors</span> <span class="o">=</span> <span class="p">[(</span><span class="n">max_size</span><span class="o">+</span><span class="n">clearance</span><span class="p">)</span><span class="o">*</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors</span><span class="p">]</span>
+
+        <span class="n">pdbfixer</span><span class="o">.</span><span class="n">addSolvent</span><span class="p">(</span><span class="n">boxVectors</span> <span class="o">=</span> <span class="n">box_vectors</span><span class="p">,</span>
+                            <span class="n">ionicStrength</span><span class="o">=</span><span class="n">ionic_strength</span><span class="p">,</span> <span class="n">positiveIon</span><span class="o">=</span><span class="n">cation</span><span class="p">,</span>
+                            <span class="n">negativeIon</span><span class="o">=</span><span class="n">anion</span><span class="p">)</span>
+
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">pdbfixer</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">)</span>
+
+        <span class="k">del</span><span class="p">(</span><span class="n">pdbfixer</span><span class="p">)</span>
+
+        <span class="nb">set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">component_indices</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="n">component_names</span><span class="p">,</span>
+            <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">molecule_indices</span><span class="p">,</span> <span class="n">molecule_name</span><span class="o">=</span><span class="n">molecule_names</span><span class="p">,</span>
+            <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">chain_indices</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="n">chain_ids</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="n">chain_names</span><span class="p">,</span>
+            <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">to_form</span><span class="o">==</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">:</span>
+            <span class="n">tmp_item</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">rebuild_entities</span><span class="p">(</span><span class="n">redefine_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_types</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">to_form</span><span class="o">==</span><span class="s1">&#39;molsysmt.Topology&#39;</span><span class="p">:</span>
+            <span class="n">tmp_item</span><span class="o">.</span><span class="n">rebuild_entities</span><span class="p">(</span><span class="n">redefine_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_types</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">assign_selection_to_new_chain</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_type in [&quot;water&quot;,&quot;ion&quot;]&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tmp_item</span>
+
+    <span class="k">elif</span> <span class="n">engine</span> <span class="o">==</span> <span class="s1">&#39;MolSysMT&#39;</span><span class="p">:</span>
+
+        <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.basic</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert</span><span class="p">,</span> <span class="n">get</span><span class="p">,</span> <span class="n">merge</span><span class="p">,</span> <span class="n">remove</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.structure</span><span class="w"> </span><span class="kn">import</span> <span class="n">translate</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.build</span><span class="w"> </span><span class="kn">import</span> <span class="n">remove_overlapping_molecules</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.build._private</span><span class="w"> </span><span class="kn">import</span> <span class="n">assign_selection_to_new_chain</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">importlib.resources</span><span class="w"> </span><span class="kn">import</span> <span class="n">files</span>
+
+        <span class="c1"># ── water-model → template mapping ─────────────────────────────────</span>
+        <span class="c1"># Keys are normalised (uppercase, stripped of -/_ ) for robust matching.</span>
+        <span class="c1"># Canonical names (from molsysmt.attribute) → normalised:</span>
+        <span class="c1">#   &#39;SPC&#39; → &#39;SPC&#39;, &#39;SPC/E&#39; → &#39;SPCE&#39;, &#39;TIP3P&#39; → &#39;TIP3P&#39;, &#39;TIP4P-EW&#39; → &#39;TIP4PEW&#39;</span>
+        <span class="n">_water_templates</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;TIP3P&#39;</span><span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="s1">&#39;tip3p.pdb&#39;</span><span class="p">,</span>   <span class="s1">&#39;tile_nm&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>      <span class="s1">&#39;o_name&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>  <span class="s1">&#39;canonical&#39;</span><span class="p">:</span> <span class="s1">&#39;TIP3P&#39;</span><span class="p">},</span>
+            <span class="s1">&#39;SPCE&#39;</span><span class="p">:</span>    <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="s1">&#39;spce.pdb&#39;</span><span class="p">,</span>    <span class="s1">&#39;tile_nm&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>      <span class="s1">&#39;o_name&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>  <span class="s1">&#39;canonical&#39;</span><span class="p">:</span> <span class="s1">&#39;SPC/E&#39;</span><span class="p">},</span>
+            <span class="s1">&#39;TIP4PEW&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="s1">&#39;tip4pew.pdb&#39;</span><span class="p">,</span> <span class="s1">&#39;tile_nm&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>      <span class="s1">&#39;o_name&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>  <span class="s1">&#39;canonical&#39;</span><span class="p">:</span> <span class="s1">&#39;TIP4P-EW&#39;</span><span class="p">},</span>
+            <span class="s1">&#39;SPC&#39;</span><span class="p">:</span>     <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="s1">&#39;spc216.gro&#39;</span><span class="p">,</span>  <span class="s1">&#39;tile_nm&#39;</span><span class="p">:</span> <span class="mf">1.86206</span><span class="p">,</span>  <span class="s1">&#39;o_name&#39;</span><span class="p">:</span> <span class="s1">&#39;OW&#39;</span><span class="p">,</span> <span class="s1">&#39;canonical&#39;</span><span class="p">:</span> <span class="s1">&#39;SPC&#39;</span><span class="p">},</span>
+        <span class="p">}</span>
+        <span class="n">wkey</span> <span class="o">=</span> <span class="n">water_model</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wkey</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_water_templates</span><span class="p">:</span>
+            <span class="n">_supported</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SPC&#39;</span><span class="p">,</span> <span class="s1">&#39;SPC/E&#39;</span><span class="p">,</span> <span class="s1">&#39;TIP3P&#39;</span><span class="p">,</span> <span class="s1">&#39;TIP4P-EW&#39;</span><span class="p">]</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;water_model=</span><span class="si">{</span><span class="n">water_model</span><span class="si">!r}</span><span class="s2"> is not supported with engine=&#39;MolSysMT&#39;. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Supported models: </span><span class="si">{</span><span class="n">_supported</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="s2">&quot;Use engine=&#39;OpenMM&#39; for other water models.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">tmpl_info</span> <span class="o">=</span> <span class="n">_water_templates</span><span class="p">[</span><span class="n">wkey</span><span class="p">]</span>
+        <span class="n">tile_nm</span>   <span class="o">=</span> <span class="n">tmpl_info</span><span class="p">[</span><span class="s1">&#39;tile_nm&#39;</span><span class="p">]</span>
+        <span class="n">o_name</span>    <span class="o">=</span> <span class="n">tmpl_info</span><span class="p">[</span><span class="s1">&#39;o_name&#39;</span><span class="p">]</span>
+
+        <span class="c1"># ── ion lookup table (PDB residue name, atom name, element symbol) ─</span>
+        <span class="n">_ion_info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Na+&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="s1">&#39;Na&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;K+&#39;</span><span class="p">:</span>  <span class="p">(</span><span class="s1">&#39;K&#39;</span><span class="p">,</span>  <span class="s1">&#39;K&#39;</span><span class="p">,</span>  <span class="s1">&#39;K&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;Li+&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;LI&#39;</span><span class="p">,</span> <span class="s1">&#39;LI&#39;</span><span class="p">,</span> <span class="s1">&#39;Li&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;Rb+&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;RB&#39;</span><span class="p">,</span> <span class="s1">&#39;RB&#39;</span><span class="p">,</span> <span class="s1">&#39;Rb&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;Cs+&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;CS&#39;</span><span class="p">,</span> <span class="s1">&#39;CS&#39;</span><span class="p">,</span> <span class="s1">&#39;Cs&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;Cl-&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;CL&#39;</span><span class="p">,</span> <span class="s1">&#39;CL&#39;</span><span class="p">,</span> <span class="s1">&#39;Cl&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;Br-&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;BR&#39;</span><span class="p">,</span> <span class="s1">&#39;BR&#39;</span><span class="p">,</span> <span class="s1">&#39;Br&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;F-&#39;</span><span class="p">:</span>  <span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">,</span>  <span class="s1">&#39;F&#39;</span><span class="p">,</span>  <span class="s1">&#39;F&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;I-&#39;</span><span class="p">:</span>  <span class="p">(</span><span class="s1">&#39;I&#39;</span><span class="p">,</span>  <span class="s1">&#39;I&#39;</span><span class="p">,</span>  <span class="s1">&#39;I&#39;</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">cation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_ion_info</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cation=</span><span class="si">{</span><span class="n">cation</span><span class="si">!r}</span><span class="s2"> is not supported with engine=&#39;MolSysMT&#39;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">anion</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_ion_info</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;anion=</span><span class="si">{</span><span class="n">anion</span><span class="si">!r}</span><span class="s2"> is not supported with engine=&#39;MolSysMT&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># ── save solute metadata ─────────────────────────────────────────────</span>
+        <span class="n">component_indices</span><span class="p">,</span> <span class="n">component_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span>
+            <span class="n">component_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">molecule_indices</span><span class="p">,</span> <span class="n">molecule_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span>
+            <span class="n">molecule_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">molecule_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">chain_indices</span><span class="p">,</span> <span class="n">chain_ids</span><span class="p">,</span> <span class="n">chain_names</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span>
+            <span class="n">chain_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_id</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ── 1. Convert solute to native form ────────────────────────────────</span>
+        <span class="n">solute</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">clearance_nm</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">clearance</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+
+        <span class="c1"># ── 2. Compute box matrix ────────────────────────────────────────────</span>
+        <span class="n">coords_nm</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">solute</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;nm&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mins</span> <span class="o">=</span> <span class="n">coords_nm</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">maxs</span> <span class="o">=</span> <span class="n">coords_nm</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">extents</span> <span class="o">=</span> <span class="n">maxs</span> <span class="o">-</span> <span class="n">mins</span>
+
+        <span class="k">if</span> <span class="n">box_shape</span> <span class="o">==</span> <span class="s1">&#39;cubic&#39;</span><span class="p">:</span>
+            <span class="n">side</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">extents</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">clearance_nm</span>
+            <span class="n">box_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="n">side</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">side</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">box_shape</span> <span class="o">==</span> <span class="s1">&#39;rectangular&#39;</span><span class="p">:</span>
+            <span class="n">box_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">extents</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">clearance_nm</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">box_shape</span> <span class="o">==</span> <span class="s1">&#39;truncated octahedral&#39;</span><span class="p">:</span>
+            <span class="c1"># Smallest truncated octahedron enclosing the solute + clearance.</span>
+            <span class="c1"># The circumradius of a truncated octahedron with edge length a is</span>
+            <span class="c1"># sqrt(5)/2 * a, and L (the conventional cell edge) = a*sqrt(2).</span>
+            <span class="c1"># We choose L so that every vertex is at least (max_extent/2 + clearance) away</span>
+            <span class="c1"># from the center.  For the TO the inscribed-sphere radius = L*sqrt(3)/3,</span>
+            <span class="c1"># so we need L = (max_half_extent + clearance) * 2*sqrt(3)/sqrt(3) …</span>
+            <span class="c1"># Simpler: use the circumscribed-sphere radius: max_half = max(extents)/2;</span>
+            <span class="c1"># L = 2*(max_half + clearance) guarantees the bounding box fits.</span>
+            <span class="c1"># Box vectors (rows): v1=L(1,0,0), v2=L(1/3, 2√2/3, 0), v3=L(-1/3, √2/3, √6/3)</span>
+            <span class="n">L</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">extents</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">clearance_nm</span>
+            <span class="n">box_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span><span class="n">L</span><span class="p">,</span>           <span class="mf">0.0</span><span class="p">,</span>                     <span class="mf">0.0</span><span class="p">],</span>
+                <span class="p">[</span><span class="n">L</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span>     <span class="n">L</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                <span class="p">[</span><span class="o">-</span><span class="n">L</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span>    <span class="n">L</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span>        <span class="n">L</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">],</span>
+            <span class="p">])</span>
+        <span class="k">elif</span> <span class="n">box_shape</span> <span class="o">==</span> <span class="s1">&#39;rhombic dodecahedral&#39;</span><span class="p">:</span>
+            <span class="c1"># Box vectors: v1=L(1,0,0), v2=L(0,1,0), v3=L(0.5, 0.5, √2/2)</span>
+            <span class="n">L</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">extents</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">clearance_nm</span>
+            <span class="n">box_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span><span class="n">L</span><span class="p">,</span>       <span class="mf">0.0</span><span class="p">,</span>     <span class="mf">0.0</span><span class="p">],</span>
+                <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span>     <span class="n">L</span><span class="p">,</span>       <span class="mf">0.0</span><span class="p">],</span>
+                <span class="p">[</span><span class="n">L</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">L</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">L</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">],</span>
+            <span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;box_shape=</span><span class="si">{</span><span class="n">box_shape</span><span class="si">!r}</span><span class="s2"> is not supported with engine=&#39;MolSysMT&#39;. &quot;</span>
+                <span class="s2">&quot;Supported shapes: &#39;cubic&#39;, &#39;rectangular&#39;, &#39;truncated octahedral&#39;, &quot;</span>
+                <span class="s2">&quot;&#39;rhombic dodecahedral&#39;.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># ── 3. Center solute in box ──────────────────────────────────────────</span>
+        <span class="n">solute_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">mins</span> <span class="o">+</span> <span class="n">maxs</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="n">box_center</span>    <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">box_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">shift</span> <span class="o">=</span> <span class="p">(</span><span class="n">box_center</span> <span class="o">-</span> <span class="n">solute_center</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">solute</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">solute</span><span class="p">,</span> <span class="n">translation</span><span class="o">=</span><span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="n">shift</span><span class="p">,</span> <span class="s1">&#39;nm&#39;</span><span class="p">),</span> <span class="n">in_place</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># ── 4. Load water template ───────────────────────────────────────────</span>
+        <span class="n">water_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s1">&#39;molsysmt.data.water&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">tmpl_info</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]))</span>
+        <span class="n">water_tile</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">water_path</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ── 5. Tile water boxes to fill the simulation box ──────────────────</span>
+        <span class="c1"># For non-orthogonal boxes, compute the bounding box of all 8 unit-cell</span>
+        <span class="c1"># corners in Cartesian space to determine tile counts.</span>
+        <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)],</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">cart_corners</span> <span class="o">=</span> <span class="n">corners</span> <span class="o">@</span> <span class="n">box_matrix</span>          <span class="c1"># (8, 3) Cartesian corner positions</span>
+        <span class="n">max_extents</span>  <span class="o">=</span> <span class="n">cart_corners</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>      <span class="c1"># largest extent per axis</span>
+        <span class="n">n_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">max_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">tile_nm</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">n_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">max_extents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">tile_nm</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">n_z</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">max_extents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">tile_nm</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="n">all_water</span> <span class="o">=</span> <span class="n">_build_tiled_water</span><span class="p">(</span><span class="n">water_tile</span><span class="p">,</span> <span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span><span class="p">,</span> <span class="n">n_z</span><span class="p">,</span> <span class="n">tile_nm</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">water_tile</span>
+
+        <span class="c1"># ── 6. Filter water molecules outside the box ────────────────────────</span>
+        <span class="c1"># Use fractional coordinates: s = xyz @ M⁻¹; keep if all s_i ∈ [0, 1).</span>
+        <span class="c1"># This works for any parallelepiped (orthogonal or not).</span>
+        <span class="n">o_indices</span><span class="p">,</span> <span class="n">o_coords</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">all_water</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span>
+                                  <span class="n">selection</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;atom_name==&quot;</span><span class="si">{</span><span class="n">o_name</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                                  <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                  <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">o_xyz</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">o_coords</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;nm&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">o_indices_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">o_indices</span><span class="p">)</span>
+
+        <span class="n">M_inv</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">box_matrix</span><span class="p">)</span>
+        <span class="n">s</span>      <span class="o">=</span> <span class="n">o_xyz</span> <span class="o">@</span> <span class="n">M_inv</span>                        <span class="c1"># fractional coordinates (n_w, 3)</span>
+        <span class="n">outside</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">((</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">outside</span><span class="p">):</span>
+            <span class="n">outside_atom_indices</span> <span class="o">=</span> <span class="n">o_indices_arr</span><span class="p">[</span><span class="n">outside</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">outside_mol_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span>
+                <span class="n">get</span><span class="p">(</span><span class="n">all_water</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">outside_atom_indices</span><span class="p">,</span>
+                    <span class="n">molecule_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">all_water</span> <span class="o">=</span> <span class="n">remove</span><span class="p">(</span><span class="n">all_water</span><span class="p">,</span>
+                                <span class="n">selection</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;molecule_index in @outside_mol_indices&#39;</span><span class="p">,</span>
+                                <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ── 7. Merge solute + water and set box vectors ───────────────────────</span>
+        <span class="n">solvated</span> <span class="o">=</span> <span class="n">merge</span><span class="p">([</span><span class="n">solute</span><span class="p">,</span> <span class="n">all_water</span><span class="p">],</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">all_water</span><span class="p">,</span> <span class="n">solute</span>
+
+        <span class="n">solvated</span><span class="o">.</span><span class="n">structures</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">quantity</span><span class="p">(</span><span class="n">box_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+
+        <span class="c1"># ── 8. Remove water molecules overlapping with solute ─────────────────</span>
+        <span class="n">solvated</span> <span class="o">=</span> <span class="n">remove_overlapping_molecules</span><span class="p">(</span>
+            <span class="n">solvated</span><span class="p">,</span>
+            <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">,</span>
+            <span class="n">selection_2</span><span class="o">=</span><span class="s1">&#39;molecule_type!=&quot;water&quot;&#39;</span><span class="p">,</span>
+            <span class="n">threshold</span><span class="o">=</span><span class="s1">&#39;2.5 angstroms&#39;</span><span class="p">,</span>
+            <span class="n">pbc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># ── 8.5. Add ions ──────────────────────────────────────────────────────</span>
+        <span class="c1"># Determine ion counts.</span>
+        <span class="c1"># Charge comes from the original solute (before solvation).</span>
+        <span class="n">n_cat_to_add</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">n_an_to_add</span>  <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">n_cations</span> <span class="o">==</span> <span class="s1">&#39;neutralize&#39;</span> <span class="ow">or</span> <span class="n">n_anions</span> <span class="o">==</span> <span class="s1">&#39;neutralize&#39;</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.physchem</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_charge</span> <span class="k">as</span> <span class="n">_get_charge</span>
+            <span class="n">solute_charge</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                <span class="n">_get_charge</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">definition</span><span class="o">=</span><span class="s1">&#39;physical_pH7&#39;</span><span class="p">),</span>
+                <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;elementary_charge&#39;</span><span class="p">,</span>
+            <span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">solute_charge</span> <span class="o">=</span> <span class="mi">0</span>   <span class="c1"># not needed</span>
+
+        <span class="k">if</span> <span class="n">n_cations</span> <span class="o">==</span> <span class="s1">&#39;neutralize&#39;</span><span class="p">:</span>
+            <span class="n">n_cat_to_add</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="n">solute_charge</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">n_cations</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">n_cat_to_add</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_cations</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n_anions</span> <span class="o">==</span> <span class="s1">&#39;neutralize&#39;</span><span class="p">:</span>
+            <span class="n">n_an_to_add</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">solute_charge</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">n_anions</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">n_an_to_add</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_anions</span><span class="p">)</span>
+
+        <span class="c1"># Extra pairs for ionic strength (OpenMM formula: n_pairs ≈ n_waters × C / 55.4 M)</span>
+        <span class="n">ionic_strength_M</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">ionic_strength</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;molar&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ionic_strength_M</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+            <span class="n">n_waters</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">solvated</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span>
+                           <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type==&quot;water&quot;&#39;</span><span class="p">,</span> <span class="n">n_molecules</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">n_pairs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n_waters</span> <span class="o">*</span> <span class="n">ionic_strength_M</span> <span class="o">/</span> <span class="mf">55.4</span><span class="p">))</span>
+            <span class="n">n_cat_to_add</span> <span class="o">+=</span> <span class="n">n_pairs</span>
+            <span class="n">n_an_to_add</span>  <span class="o">+=</span> <span class="n">n_pairs</span>
+
+        <span class="n">n_ions_total</span> <span class="o">=</span> <span class="n">n_cat_to_add</span> <span class="o">+</span> <span class="n">n_an_to_add</span>
+
+        <span class="k">if</span> <span class="n">n_ions_total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="c1"># Positions of all water oxygens (candidates for ion placement)</span>
+            <span class="n">o_atom_indices</span><span class="p">,</span> <span class="n">o_mol_indices</span><span class="p">,</span> <span class="n">o_coords</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span>
+                <span class="n">solvated</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span>
+                <span class="n">selection</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;atom_name==&quot;</span><span class="si">{</span><span class="n">o_name</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>
+                <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">molecule_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">o_xyz</span>      <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">o_coords</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;nm&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>        <span class="c1"># (n_w, 3)</span>
+            <span class="n">o_mol_idx</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">o_mol_indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>       <span class="c1"># (n_w,)</span>
+
+            <span class="c1"># Positions of all solute (non-water) atoms for distance checks</span>
+            <span class="n">solute_xyz</span> <span class="o">=</span> <span class="n">puw</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span>
+                <span class="n">get</span><span class="p">(</span><span class="n">solvated</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span>
+                    <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_type!=&quot;water&quot;&#39;</span><span class="p">,</span>
+                    <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+                <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;nm&#39;</span><span class="p">,</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>                                                          <span class="c1"># (n_sol, 3)</span>
+
+            <span class="n">min_dist_nm</span>      <span class="o">=</span> <span class="mf">0.5</span>    <span class="c1"># 5 Å — exclude waters in pockets / channels</span>
+            <span class="n">ion_ion_cutoff_nm</span> <span class="o">=</span> <span class="mf">0.05</span>  <span class="c1"># 0.5 Å — avoid placing two ions on top of each other</span>
+
+            <span class="c1"># Shuffle candidates and run rejection loop</span>
+            <span class="n">rng</span>      <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+            <span class="n">order</span>    <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">o_xyz</span><span class="p">))</span>
+            <span class="n">accepted_mol_indices</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># water molecule indices to remove</span>
+            <span class="n">accepted_positions</span>   <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># ion positions (nm)</span>
+
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">order</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">accepted_positions</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_ions_total</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">o_pos</span> <span class="o">=</span> <span class="n">o_xyz</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+                <span class="c1"># Distance to nearest solute atom</span>
+                <span class="n">diff</span>  <span class="o">=</span> <span class="n">solute_xyz</span> <span class="o">-</span> <span class="n">o_pos</span>          <span class="c1"># (n_sol, 3)</span>
+                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">diff</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">min_dist_nm</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Distance to already-placed ions</span>
+                <span class="n">too_close</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">prev_pos</span> <span class="ow">in</span> <span class="n">accepted_positions</span><span class="p">:</span>
+                    <span class="n">d</span> <span class="o">=</span> <span class="n">o_pos</span> <span class="o">-</span> <span class="n">prev_pos</span>
+                    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">d</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="o">&lt;</span> <span class="n">ion_ion_cutoff_nm</span><span class="p">:</span>
+                        <span class="n">too_close</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">too_close</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">accepted_mol_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">o_mol_idx</span><span class="p">[</span><span class="n">idx</span><span class="p">]))</span>
+                <span class="n">accepted_positions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o_pos</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">accepted_positions</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n_ions_total</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">InternalAlgorithmError</span><span class="p">(</span>
+                    <span class="n">caller</span><span class="o">=</span><span class="s2">&quot;molsysmt.build.solvate&quot;</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Could not place all </span><span class="si">{</span><span class="n">n_ions_total</span><span class="si">}</span><span class="s2"> ions: only &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">accepted_positions</span><span class="p">)</span><span class="si">}</span><span class="s2"> valid water positions found. &quot;</span>
+                        <span class="s2">&quot;Try reducing ionic_strength or increasing clearance.&quot;</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Remove the selected water molecules</span>
+            <span class="n">solvated</span> <span class="o">=</span> <span class="n">remove</span><span class="p">(</span>
+                <span class="n">solvated</span><span class="p">,</span>
+                <span class="n">selection</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;molecule_index in @accepted_mol_indices&#39;</span><span class="p">,</span>
+                <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Build ion MolSys objects and merge</span>
+            <span class="n">positions_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">accepted_positions</span><span class="p">)</span>   <span class="c1"># (n_ions_total, 3)</span>
+
+            <span class="k">if</span> <span class="n">n_cat_to_add</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">_ion_info</span><span class="p">[</span><span class="n">cation</span><span class="p">]</span>
+                <span class="n">cat_ms</span> <span class="o">=</span> <span class="n">_build_ions</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">positions_arr</span><span class="p">[:</span><span class="n">n_cat_to_add</span><span class="p">])</span>
+                <span class="n">solvated</span> <span class="o">=</span> <span class="n">merge</span><span class="p">([</span><span class="n">solvated</span><span class="p">,</span> <span class="n">cat_ms</span><span class="p">],</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">n_an_to_add</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">_ion_info</span><span class="p">[</span><span class="n">anion</span><span class="p">]</span>
+                <span class="n">an_ms</span> <span class="o">=</span> <span class="n">_build_ions</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">positions_arr</span><span class="p">[</span><span class="n">n_cat_to_add</span><span class="p">:])</span>
+                <span class="n">solvated</span> <span class="o">=</span> <span class="n">merge</span><span class="p">([</span><span class="n">solvated</span><span class="p">,</span> <span class="n">an_ms</span><span class="p">],</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># ── 9. Post-processing ─────────────────────────────────────────────────</span>
+        <span class="n">tmp_item</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="n">solvated</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="n">to_form</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">solvated</span>
+
+        <span class="k">if</span> <span class="n">to_form</span> <span class="o">==</span> <span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">:</span>
+            <span class="n">tmp_item</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">rebuild_entities</span><span class="p">(</span><span class="n">redefine_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                               <span class="n">redefine_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_types</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">to_form</span> <span class="o">==</span> <span class="s1">&#39;molsysmt.Topology&#39;</span><span class="p">:</span>
+            <span class="n">tmp_item</span><span class="o">.</span><span class="n">rebuild_entities</span><span class="p">(</span><span class="n">redefine_indices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">redefine_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">redefine_types</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt.basic</span><span class="w"> </span><span class="kn">import</span> <span class="nb">set</span> <span class="k">as</span> <span class="n">msm_set</span>
+        <span class="n">msm_set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;component&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">component_indices</span><span class="p">,</span>
+                <span class="n">component_name</span><span class="o">=</span><span class="n">component_names</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">msm_set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;molecule&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">molecule_indices</span><span class="p">,</span>
+                <span class="n">molecule_name</span><span class="o">=</span><span class="n">molecule_names</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">msm_set</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;chain&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">chain_indices</span><span class="p">,</span>
+                <span class="n">chain_id</span><span class="o">=</span><span class="n">chain_ids</span><span class="p">,</span> <span class="n">chain_name</span><span class="o">=</span><span class="n">chain_names</span><span class="p">,</span> <span class="n">skip_digestion</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">assign_selection_to_new_chain</span><span class="p">(</span><span class="n">tmp_item</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;group_type in [&quot;water&quot;, &quot;ion&quot;]&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tmp_item</span>
+
+    <span class="c1">#elif engine==&quot;LEaP&quot;:</span>
+
+    <span class="c1">#    from molsysmt.third_party.tleap import TLeap</span>
+    <span class="c1">#    from molsysmt._private.files_and_directories import temp_directory, temp_filename</span>
+    <span class="c1">#    from molsysmt.form.file_pdb import replace_HETATM_by_ATOM_in_terminal_cappings</span>
+    <span class="c1">#    from shutil import rmtree, copyfile</span>
+    <span class="c1">#    from os import getcwd, chdir</span>
+    <span class="c1">#    from molsysmt.basic import set, get, select, remove, contains</span>
+    <span class="c1">#    from molsysmt.build import define_new_chain</span>
+
+    <span class="c1">#    component_indices, component_names = get(molecular_system, element=&#39;component&#39;, component_index=True,</span>
+    <span class="c1">#                                             component_name=True)</span>
+    <span class="c1">#    molecule_indices, molecule_names = get(molecular_system, element=&#39;molecule&#39;, molecule_index=True,</span>
+    <span class="c1">#                                           molecule_name=True)</span>
+    <span class="c1">#    chain_indices, chain_ids, chain_names = get(molecular_system, element=&#39;chain&#39;, chain_index=True,</span>
+    <span class="c1">#                                                chain_id=True, chain_name=True)</span>
+
+    <span class="c1">#    if contains(molecular_system, hydrogens=True):</span>
+    <span class="c1">#        raise ValueError(&quot;A molecular system without hydrogen atoms is needed.&quot;)</span>
+    <span class="c1">#        #molecular_system = remove_hydrogens(molecular_system)</span>
+    <span class="c1">#        #if verbose:</span>
+    <span class="c1">#        #    print(&quot;All Hydrogen atoms were removed to be added by LEaP\n\n&quot;)</span>
+
+    <span class="c1">#    indices_NME_C = select(molecular_system, element=&#39;atom&#39;, selection=&#39;group_name==&quot;NME&quot; and atom_name==&quot;C&quot;&#39;)</span>
+    <span class="c1">#    with_NME_C = (len(indices_NME_C)&gt;0)</span>
+
+    <span class="c1">#    if with_NME_C:</span>
+    <span class="c1">#        set(molecular_system, element=&#39;atom&#39;, selection=&#39;group_name==&quot;NME&quot; and atom_name==&quot;C&quot;&#39;, atom_name=&#39;CH3&#39;)</span>
+
+    <span class="c1">#    current_directory = getcwd()</span>
+    <span class="c1">#    working_directory = temp_directory()</span>
+    <span class="c1">#    pdbfile_in = temp_filename(dir=working_directory, extension=&#39;pdb&#39;)</span>
+    <span class="c1">#    _ = convert(molecular_system, to_form=pdbfile_in)</span>
+    <span class="c1">#    #replace_HETATM_from_capping_atoms(pdbfile_in)</span>
+
+    <span class="c1">#    tmp_prmtop = temp_filename(dir=working_directory, extension=&#39;prmtop&#39;)</span>
+    <span class="c1">#    tmp_inpcrd = tmp_prmtop.replace(&#39;prmtop&#39;,&#39;inpcrd&#39;)</span>
+    <span class="c1">#    tmp_logfile = tmp_prmtop.replace(&#39;prmtop&#39;,&#39;leap.log&#39;)</span>
+
+    <span class="c1">#    molecular_mechanics = convert(molecular_system, to_form=&#39;molsysmt.MolecularMechanics&#39;)</span>
+    <span class="c1">#    parameters = molecular_mechanics.get_leap_parameters()</span>
+    <span class="c1">#    forcefield = parameters[&#39;forcefield&#39;]</span>
+    <span class="c1">#    water = parameters[&#39;water_model&#39;]</span>
+
+    <span class="c1">#    solvent_model=None</span>
+    <span class="c1">#    if water==&#39;SPC&#39;:</span>
+    <span class="c1">#        solvent_model=&#39;SPCBOX&#39;</span>
+    <span class="c1">#    elif water==&#39;TIP3P&#39;:</span>
+    <span class="c1">#        solvent_model=&#39;TIP3PBOX&#39;</span>
+    <span class="c1">#    elif water ==&#39;TIP4P&#39;:</span>
+    <span class="c1">#        solvent_model=&#39;TIP4PBOX&#39;</span>
+
+    <span class="c1">#    if False:</span>
+    <span class="c1">#        print(&#39;Working directory:&#39;, working_directory)</span>
+
+    <span class="c1">#    tleap = TLeap()</span>
+    <span class="c1">#    tleap.load_parameters(*forcefield)</span>
+    <span class="c1">#    tleap.load_unit(&#39;MolecularSystem&#39;, pdbfile_in)</span>
+    <span class="c1">#    tleap.check_unit(&#39;MolecularSystem&#39;)</span>
+    <span class="c1">#    tleap.get_total_charge(&#39;MolecularSystem&#39;)</span>
+    <span class="c1">#    tleap.solvate(&#39;MolecularSystem&#39;, solvent_model, clearance, box_geometry=box_shape)</span>
+
+    <span class="c1">#    if n_anions != 0:</span>
+    <span class="c1">#        if n_anions==&#39;neutralize&#39;:</span>
+    <span class="c1">#            n_anions=0</span>
+    <span class="c1">#        tleap.add_ions(&#39;MolecularSystem&#39;, anion, num_ions=n_anions, replace_solvent=True)</span>
+
+    <span class="c1">#    if n_cations != 0:</span>
+    <span class="c1">#        if n_cations==&#39;neutralize&#39;:</span>
+    <span class="c1">#            n_cations=0</span>
+    <span class="c1">#        tleap.add_ions(&#39;MolecularSystem&#39;, cation, num_ions=n_cations, replace_solvent=True)</span>
+
+    <span class="c1">#    tleap.save_unit(&#39;MolecularSystem&#39;, tmp_prmtop)</span>
+    <span class="c1">#    errors=tleap.run(working_directory=working_directory, verbose=False)</span>
+
+    <span class="c1">#    del(tleap)</span>
+
+    <span class="c1">#    if logfile:</span>
+    <span class="c1">#        copyfile(tmp_logfile, current_directory+&#39;/build_peptide.log&#39;)</span>
+
+    <span class="c1">#    tmp_item = convert([tmp_prmtop, tmp_inpcrd], to_form=to_form)</span>
+
+    <span class="c1">#    if with_NME_C:</span>
+    <span class="c1">#        set(tmp_item, element=&#39;atom&#39;, selection=&#39;group_name==&quot;NME&quot; and atom_name==&quot;CH3&quot;&#39;, atom_name=&#39;C&#39;)</span>
+
+    <span class="c1">#    rmtree(working_directory)</span>
+
+    <span class="c1">#    set(tmp_item, element=&#39;component&#39;, selection=component_indices, component_name=component_names,</span>
+    <span class="c1">#        skip_digestion=True)</span>
+    <span class="c1">#    set(tmp_item, element=&#39;molecule&#39;, selection=molecule_indices, molecule_name=molecule_names,</span>
+    <span class="c1">#        skip_digestion=True)</span>
+    <span class="c1">#    set(tmp_item, element=&#39;chain&#39;, selection=chain_indices, chain_id=chain_ids, chain_name=chain_names,</span>
+    <span class="c1">#        skip_digestion=True)</span>
+
+    <span class="c1">#    if to_form==&#39;molsysmt.MolSys&#39;:</span>
+    <span class="c1">#        tmp_item.topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)</span>
+    <span class="c1">#    elif to_form==&#39;molsysmt.Topology&#39;:</span>
+    <span class="c1">#        tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)</span>
+
+    <span class="c1">#    define_new_chain(tmp_item, selection=&#39;group_type in [&quot;water&quot;,&quot;ion&quot;]&#39;)</span>
+
+
+    <span class="c1">#    return tmp_item</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

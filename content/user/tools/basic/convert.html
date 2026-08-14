@@ -1,0 +1,1261 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Convert – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/basic/convert';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Copy" href="copy.html" />
+    <link rel="prev" title="Contains" href="contains.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="add.html">Add</a></li>
+<li class="toctree-l1"><a class="reference internal" href="append_structures.html">Append structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="are_multiple_molecular_systems.html">Are multiple molecular systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compare.html">Compare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concatenate_structures.html">Concatenate structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contains.html">Contains</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Convert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="copy.html">Copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extract.html">Extract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_attributes.html">Get attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_form.html">Get form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_label.html">Get label</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get.html">Get</a></li>
+<li class="toctree-l1"><a class="reference internal" href="has_attribute.html">Has attribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="info.html">Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="is_a_molecular_system.html">Is a molecular system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="is_composed_of.html">Is composed of</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iterator.html">Iterator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">Merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remove.html">Remove</a></li>
+<li class="toctree-l1"><a class="reference internal" href="select.html">Select</a></li>
+<li class="toctree-l1"><a class="reference internal" href="set.html">Set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="view.html">View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="where_is_attribute.html">Where is attribute</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link"><strong>Tools</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Basic</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Convert</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell tag_remove-input docutils container">
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="convert">
+<span id="tutorial-convert"></span><h1>Convert<a class="headerlink" href="#convert" title="Link to this heading">#</a></h1>
+<p><em>Converting a molecular system into another form or multiple forms.</em></p>
+<p>In MolSysMT, a molecular system can be represented in many different forms (files, third-party objects, or native data structures). The function <a class="reference internal" href="../../../../api/basic/autosummary/molsysmt.basic.convert.html#molsysmt.basic.convert" title="molsysmt.basic.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.convert()</span></code></a> provides a form-agnostic way to convert a molecular system from any supported input form into any target form.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Visit the section <a class="reference internal" href="../../foundations/molecular_system/forms.html#introduction-forms"><span class="std std-ref">Items and Forms</span></a> if you are not familiar with the concept of “form” in MolSysMT.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.0.0.</span></p>
+</div>
+<section id="how-this-function-works">
+<h2>How this function works<a class="headerlink" href="#how-this-function-works" title="Link to this heading">#</a></h2>
+<div class="admonition-api-documentation admonition">
+<p class="admonition-title">API documentation</p>
+<p>Follow this link for a detailed description of the input arguments, raised errors, and returned objects of this function: <a class="reference internal" href="../../../../api/basic/autosummary/molsysmt.basic.convert.html#molsysmt.basic.convert" title="molsysmt.basic.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.convert()</span></code></a>.</p>
+</div>
+<p>Let’s explore how conversion works starting with single-item conversions, moving to composite multi-item inputs, and concluding with splitting systems into multiple output forms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="single-item">
+<h2>Single item<a class="headerlink" href="#single-item" title="Link to this heading">#</a></h2>
+<p>Let’s start with a single molecular system from the local dataset (<code class="docutils literal notranslate"><span class="pre">181l.bcif.gz</span></code>) and convert it across several forms:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_A</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;T4 lysozyme L99A&#39;</span><span class="p">][</span><span class="s1">&#39;181l.bcif.gz&#39;</span><span class="p">]</span>
+<span class="n">molsys_B</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys_A</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span class="n">molsys_C</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys_B</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;string:pdb_text&#39;</span><span class="p">)</span>
+<span class="n">molsys_D</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys_B</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">)</span>
+<span class="n">molsys_E</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys_D</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;openmm.Topology&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All methods defined in the <a class="reference internal" href="../../../../api/basic/api_basic.html#api-basic"><span class="std std-ref">molsysmt.basic</span></a> module can also be invoked from the library’s top level. Hence, <code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.convert()</span></code> is the same method as <a class="reference internal" href="../../../../api/basic/autosummary/molsysmt.basic.convert.html#molsysmt.basic.convert" title="molsysmt.basic.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.convert()</span></code></a>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The default target form of <a class="reference internal" href="../../../../api/basic/autosummary/molsysmt.basic.convert.html#molsysmt.basic.convert" title="molsysmt.basic.convert"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.convert()</span></code></a> when <code class="docutils literal notranslate"><span class="pre">to_form</span></code> is omitted is the native <code class="docutils literal notranslate"><span class="pre">molsysmt.MolSys</span></code>.</p>
+</div>
+<p>We can inspect the form of any converted system using <a class="reference internal" href="../../../../api/basic/autosummary/molsysmt.basic.get_form.html#molsysmt.basic.get_form" title="molsysmt.basic.get_form"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.get_form()</span></code></a> or <code class="docutils literal notranslate"><span class="pre">msm.info()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molsys_B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_78524" class="dataframe">
+  <thead>
+    <tr>
+      <th id="T_78524_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_78524_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_78524_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_78524_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_78524_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_78524_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_78524_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_78524_level0_col7" class="col_heading level0 col7" >n_waters</th>
+      <th id="T_78524_level0_col8" class="col_heading level0 col8" >n_ions</th>
+      <th id="T_78524_level0_col9" class="col_heading level0 col9" >n_small_molecules</th>
+      <th id="T_78524_level0_col10" class="col_heading level0 col10" >n_proteins</th>
+      <th id="T_78524_level0_col11" class="col_heading level0 col11" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_78524_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_78524_row0_col1" class="data row0 col1" >1441</td>
+      <td id="T_78524_row0_col2" class="data row0 col2" >302</td>
+      <td id="T_78524_row0_col3" class="data row0 col3" >141</td>
+      <td id="T_78524_row0_col4" class="data row0 col4" >6</td>
+      <td id="T_78524_row0_col5" class="data row0 col5" >141</td>
+      <td id="T_78524_row0_col6" class="data row0 col6" >5</td>
+      <td id="T_78524_row0_col7" class="data row0 col7" >136</td>
+      <td id="T_78524_row0_col8" class="data row0 col8" >2</td>
+      <td id="T_78524_row0_col9" class="data row0 col9" >2</td>
+      <td id="T_78524_row0_col10" class="data row0 col10" >1</td>
+      <td id="T_78524_row0_col11" class="data row0 col11" >1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">molsys_D</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;mdtraj.Trajectory&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Conversion can also be restricted to a specific atom selection. Here we convert only the benzene ligand of T4 lysozyme into a PDB text string:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_sel</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys_B</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;string:pdb_text&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;molecule_name==&quot;BENZENE&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">molsys_sel</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HEADER    MOLECULAR SYSTEM                        06-AUG-26       
+REMARK   1 Created by MolSysMT version 1.0 on 06-AUG-2026 at 07:21:22
+CRYST1   60.900   60.900   97.000  90.00  90.00 120.00
+ATOM      1 C1   BNZ A 400      25.978   5.327   4.779  0.00 20.05           C  
+ATOM      2 C2   BNZ A 400      26.395   5.074   3.499  0.00 21.25           C  
+ATOM      3 C3   BNZ A 400      27.340   5.860   2.902  0.00 26.80           C  
+ATOM      4 C4   BNZ A 400      27.837   6.921   3.569  0.00 21.02           C  
+ATOM      5 C5   BNZ A 400      27.420   7.196   4.856  0.00 25.56           C  
+ATOM      6 C6   BNZ A 400      26.498   6.379   5.469  0.00 26.48           C  
+CONECT    1    2
+CONECT    1    6
+CONECT    2    3
+CONECT    3    4
+CONECT    4    5
+CONECT    5    6
+END
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="multiple-items-into-one">
+<h2>Multiple items into one<a class="headerlink" href="#multiple-items-into-one" title="Link to this heading">#</a></h2>
+<p>Often a molecular system is split across multiple complementary files or objects—for instance, a topology file paired with coordinate or trajectory files. <code class="docutils literal notranslate"><span class="pre">msm.convert</span></code> accepts a list of items and merges their information into a single system.</p>
+<p>First, consider an Amber topology (<code class="docutils literal notranslate"><span class="pre">.prmtop</span></code>) and its corresponding single-structure coordinate file (<code class="docutils literal notranslate"><span class="pre">.inpcrd</span></code>):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prmtop_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;pentalanine&#39;</span><span class="p">][</span><span class="s1">&#39;pentalanine.prmtop&#39;</span><span class="p">]</span>
+<span class="n">inpcrd_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;pentalanine&#39;</span><span class="p">][</span><span class="s1">&#39;pentalanine.inpcrd&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s inspect the two input items individually:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">prmtop_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_5744a" class="dataframe">
+  <thead>
+    <tr>
+      <th id="T_5744a_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_5744a_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_5744a_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_5744a_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_5744a_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_5744a_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_5744a_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_5744a_level0_col7" class="col_heading level0 col7" >n_waters</th>
+      <th id="T_5744a_level0_col8" class="col_heading level0 col8" >n_peptides</th>
+      <th id="T_5744a_level0_col9" class="col_heading level0 col9" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_5744a_row0_col0" class="data row0 col0" >file:prmtop</td>
+      <td id="T_5744a_row0_col1" class="data row0 col1" >5207</td>
+      <td id="T_5744a_row0_col2" class="data row0 col2" >1722</td>
+      <td id="T_5744a_row0_col3" class="data row0 col3" >1716</td>
+      <td id="T_5744a_row0_col4" class="data row0 col4" >1</td>
+      <td id="T_5744a_row0_col5" class="data row0 col5" >1716</td>
+      <td id="T_5744a_row0_col6" class="data row0 col6" >2</td>
+      <td id="T_5744a_row0_col7" class="data row0 col7" >1715</td>
+      <td id="T_5744a_row0_col8" class="data row0 col8" >1</td>
+      <td id="T_5744a_row0_col9" class="data row0 col9" >None</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">inpcrd_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_43a7b" class="dataframe">
+  <thead>
+    <tr>
+      <th id="T_43a7b_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_43a7b_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_43a7b_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_43a7b_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_43a7b_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_43a7b_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_43a7b_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_43a7b_level0_col7" class="col_heading level0 col7" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_43a7b_row0_col0" class="data row0 col0" >file:inpcrd</td>
+      <td id="T_43a7b_row0_col1" class="data row0 col1" >5207</td>
+      <td id="T_43a7b_row0_col2" class="data row0 col2" >None</td>
+      <td id="T_43a7b_row0_col3" class="data row0 col3" >None</td>
+      <td id="T_43a7b_row0_col4" class="data row0 col4" >None</td>
+      <td id="T_43a7b_row0_col5" class="data row0 col5" >None</td>
+      <td id="T_43a7b_row0_col6" class="data row0 col6" >None</td>
+      <td id="T_43a7b_row0_col7" class="data row0 col7" >1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>By passing both items as a list to <code class="docutils literal notranslate"><span class="pre">msm.convert</span></code>, we combine them into a single <code class="docutils literal notranslate"><span class="pre">molsysmt.MolSys</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_composite</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">prmtop_file</span><span class="p">,</span> <span class="n">inpcrd_file</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molsys_composite</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_8731f" class="dataframe">
+  <thead>
+    <tr>
+      <th id="T_8731f_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_8731f_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_8731f_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_8731f_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_8731f_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_8731f_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_8731f_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_8731f_level0_col7" class="col_heading level0 col7" >n_waters</th>
+      <th id="T_8731f_level0_col8" class="col_heading level0 col8" >n_peptides</th>
+      <th id="T_8731f_level0_col9" class="col_heading level0 col9" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_8731f_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_8731f_row0_col1" class="data row0 col1" >5207</td>
+      <td id="T_8731f_row0_col2" class="data row0 col2" >1722</td>
+      <td id="T_8731f_row0_col3" class="data row0 col3" >1716</td>
+      <td id="T_8731f_row0_col4" class="data row0 col4" >1</td>
+      <td id="T_8731f_row0_col5" class="data row0 col5" >1716</td>
+      <td id="T_8731f_row0_col6" class="data row0 col6" >2</td>
+      <td id="T_8731f_row0_col7" class="data row0 col7" >1715</td>
+      <td id="T_8731f_row0_col8" class="data row0 col8" >1</td>
+      <td id="T_8731f_row0_col9" class="data row0 col9" >1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The same mechanism applies when combining a topology file (which may hold a single reference structure) with an item containing multiple structures (such as a DCD, XTC, or multi-conformer file). In this case, the multi-structure item dictates the resulting structure axis.</p>
+<p>Let’s see this in action using a PSF topology and a DCD trajectory from the <code class="docutils literal notranslate"><span class="pre">POPC</span> <span class="pre">membrane</span></code> dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">psf_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;POPC membrane&#39;</span><span class="p">][</span><span class="s1">&#39;popc_membrane.psf&#39;</span><span class="p">]</span>
+<span class="n">dcd_file</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;POPC membrane&#39;</span><span class="p">][</span><span class="s1">&#39;popc_membrane.dcd&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When converting <code class="docutils literal notranslate"><span class="pre">[psf_file,</span> <span class="pre">dcd_file]</span></code>, notice that the resulting system contains <strong>5 structures</strong> (matching the DCD multi-structure file):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_traj1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">psf_file</span><span class="p">,</span> <span class="n">dcd_file</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molsys_traj1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_5ace7" class="dataframe">
+  <thead>
+    <tr>
+      <th id="T_5ace7_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_5ace7_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_5ace7_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_5ace7_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_5ace7_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_5ace7_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_5ace7_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_5ace7_level0_col7" class="col_heading level0 col7" >n_waters</th>
+      <th id="T_5ace7_level0_col8" class="col_heading level0 col8" >n_small_molecules</th>
+      <th id="T_5ace7_level0_col9" class="col_heading level0 col9" >n_lipids</th>
+      <th id="T_5ace7_level0_col10" class="col_heading level0 col10" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_5ace7_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_5ace7_row0_col1" class="data row0 col1" >78974</td>
+      <td id="T_5ace7_row0_col2" class="data row0 col2" >13532</td>
+      <td id="T_5ace7_row0_col3" class="data row0 col3" >13532</td>
+      <td id="T_5ace7_row0_col4" class="data row0 col4" >3</td>
+      <td id="T_5ace7_row0_col5" class="data row0 col5" >13239</td>
+      <td id="T_5ace7_row0_col6" class="data row0 col6" >70</td>
+      <td id="T_5ace7_row0_col7" class="data row0 col7" >13170</td>
+      <td id="T_5ace7_row0_col8" class="data row0 col8" >68</td>
+      <td id="T_5ace7_row0_col9" class="data row0 col9" >294</td>
+      <td id="T_5ace7_row0_col10" class="data row0 col10" >5</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Crucially, the order in which items are listed is transparent. Swapping the order to <code class="docutils literal notranslate"><span class="pre">[dcd_file,</span> <span class="pre">psf_file]</span></code> produces the exact same system:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_traj2</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">([</span><span class="n">dcd_file</span><span class="p">,</span> <span class="n">psf_file</span><span class="p">],</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+<span class="n">msm</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">molsys_traj1</span><span class="p">,</span> <span class="n">molsys_traj2</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Combining a topology item with a multi-structure item retrieves the full structural series. If your goal is instead to join multiple trajectory files sequentially, use <a class="reference internal" href="concatenate_structures.html#tutorial-concatenate-structures"><span class="std std-ref">Concatenate structures</span></a>.</p>
+</div>
+</section>
+<section id="one-item-into-multiple">
+<h2>One item into multiple<a class="headerlink" href="#one-item-into-multiple" title="Link to this heading">#</a></h2>
+<p>You can also split a single input system into multiple target forms simultaneously by passing a list to <code class="docutils literal notranslate"><span class="pre">to_form</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molsys_h5</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;pentalanine&#39;</span><span class="p">][</span><span class="s1">&#39;traj_pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">topology</span><span class="p">,</span> <span class="n">structures</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molsys_h5</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;molsysmt.Topology&#39;</span><span class="p">,</span> <span class="s1">&#39;molsysmt.Structures&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">topology</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_d12ed" class="dataframe">
+  <thead>
+    <tr>
+      <th id="T_d12ed_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_d12ed_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_d12ed_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_d12ed_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_d12ed_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_d12ed_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_d12ed_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_d12ed_level0_col7" class="col_heading level0 col7" >n_peptides</th>
+      <th id="T_d12ed_level0_col8" class="col_heading level0 col8" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_d12ed_row0_col0" class="data row0 col0" >molsysmt.Topology</td>
+      <td id="T_d12ed_row0_col1" class="data row0 col1" >62</td>
+      <td id="T_d12ed_row0_col2" class="data row0 col2" >7</td>
+      <td id="T_d12ed_row0_col3" class="data row0 col3" >1</td>
+      <td id="T_d12ed_row0_col4" class="data row0 col4" >1</td>
+      <td id="T_d12ed_row0_col5" class="data row0 col5" >1</td>
+      <td id="T_d12ed_row0_col6" class="data row0 col6" >1</td>
+      <td id="T_d12ed_row0_col7" class="data row0 col7" >1</td>
+      <td id="T_d12ed_row0_col8" class="data row0 col8" >None</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">structures</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_cd1f2" class="dataframe">
+  <thead>
+    <tr>
+      <th id="T_cd1f2_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_cd1f2_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_cd1f2_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_cd1f2_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_cd1f2_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_cd1f2_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_cd1f2_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_cd1f2_level0_col7" class="col_heading level0 col7" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_cd1f2_row0_col0" class="data row0 col0" >molsysmt.Structures</td>
+      <td id="T_cd1f2_row0_col1" class="data row0 col1" >62</td>
+      <td id="T_cd1f2_row0_col2" class="data row0 col2" >None</td>
+      <td id="T_cd1f2_row0_col3" class="data row0 col3" >None</td>
+      <td id="T_cd1f2_row0_col4" class="data row0 col4" >None</td>
+      <td id="T_cd1f2_row0_col5" class="data row0 col5" >None</td>
+      <td id="T_cd1f2_row0_col6" class="data row0 col6" >None</td>
+      <td id="T_cd1f2_row0_col7" class="data row0 col7" >5000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Let’s visualize the composite system formed by <code class="docutils literal notranslate"><span class="pre">[topology,</span> <span class="pre">structures]</span></code> interactively:</p>
+<div class="cell tag_remove-input docutils container">
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">view</span><span class="p">([</span><span class="n">topology</span><span class="p">,</span> <span class="n">structures</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="mi">3500</span><span class="p">,</span> <span class="n">standard</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><iframe src="../../../../_static/views/tools_basic_convert.html" width="100%" height="480px"
+        style="border:none;"></iframe></div></div>
+</div>
+</section>
+<section id="supported-conversions">
+<h2>Supported conversions<a class="headerlink" href="#supported-conversions" title="Link to this heading">#</a></h2>
+<p>To query available conversion paths, use <code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.supported.conversions()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">supported</span><span class="o">.</span><span class="n">conversions</span><span class="p">(</span><span class="n">from_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">,</span> <span class="n">to_form_type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_c0336_row0_col0, #T_c0336_row0_col3, #T_c0336_row0_col4, #T_c0336_row0_col5, #T_c0336_row0_col6 {
+  background-color: #E2856E;
+  text-align: center;
+}
+#T_c0336_row0_col1, #T_c0336_row0_col2 {
+  background-color: #C2CFB2;
+  text-align: center;
+}
+</style>
+<table id="T_c0336">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_c0336_level0_col0" class="col_heading level0 col0" >string:alphafold_id</th>
+      <th id="T_c0336_level0_col1" class="col_heading level0 col1" >string:amino_acids_1</th>
+      <th id="T_c0336_level0_col2" class="col_heading level0 col2" >string:amino_acids_3</th>
+      <th id="T_c0336_level0_col3" class="col_heading level0 col3" >string:pdb_id</th>
+      <th id="T_c0336_level0_col4" class="col_heading level0 col4" >string:pdb_text</th>
+      <th id="T_c0336_level0_col5" class="col_heading level0 col5" >string:smiles</th>
+      <th id="T_c0336_level0_col6" class="col_heading level0 col6" >string:uniprot_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_c0336_level0_row0" class="row_heading level0 row0" >mdtraj.Trajectory</th>
+      <td id="T_c0336_row0_col0" class="data row0 col0" >False</td>
+      <td id="T_c0336_row0_col1" class="data row0 col1" >True</td>
+      <td id="T_c0336_row0_col2" class="data row0 col2" >True</td>
+      <td id="T_c0336_row0_col3" class="data row0 col3" >False</td>
+      <td id="T_c0336_row0_col4" class="data row0 col4" >False</td>
+      <td id="T_c0336_row0_col5" class="data row0 col5" >False</td>
+      <td id="T_c0336_row0_col6" class="data row0 col6" >False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">supported</span><span class="o">.</span><span class="n">conversions</span><span class="p">(</span><span class="n">from_form</span><span class="o">=</span><span class="s1">&#39;mdtraj.Trajectory&#39;</span><span class="p">,</span> <span class="n">to_form_type</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">as_rows</span><span class="o">=</span><span class="s1">&#39;to&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_cdb0e_row0_col0, #T_cdb0e_row1_col0, #T_cdb0e_row2_col0, #T_cdb0e_row3_col0, #T_cdb0e_row4_col0, #T_cdb0e_row5_col0, #T_cdb0e_row6_col0, #T_cdb0e_row7_col0, #T_cdb0e_row8_col0, #T_cdb0e_row9_col0, #T_cdb0e_row10_col0, #T_cdb0e_row11_col0, #T_cdb0e_row12_col0, #T_cdb0e_row13_col0, #T_cdb0e_row15_col0, #T_cdb0e_row16_col0, #T_cdb0e_row17_col0, #T_cdb0e_row18_col0, #T_cdb0e_row19_col0, #T_cdb0e_row20_col0, #T_cdb0e_row21_col0, #T_cdb0e_row22_col0, #T_cdb0e_row24_col0, #T_cdb0e_row25_col0 {
+  background-color: #E2856E;
+  text-align: center;
+}
+#T_cdb0e_row14_col0, #T_cdb0e_row23_col0 {
+  background-color: #C2CFB2;
+  text-align: center;
+}
+</style>
+<table id="T_cdb0e">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_cdb0e_level0_col0" class="col_heading level0 col0" >mdtraj.Trajectory</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_cdb0e_level0_row0" class="row_heading level0 row0" >file:bcif</th>
+      <td id="T_cdb0e_row0_col0" class="data row0 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row1" class="row_heading level0 row1" >file:bcif.gz</th>
+      <td id="T_cdb0e_row1_col0" class="data row1 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row2" class="row_heading level0 row2" >file:cif</th>
+      <td id="T_cdb0e_row2_col0" class="data row2 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row3" class="row_heading level0 row3" >file:cif.gz</th>
+      <td id="T_cdb0e_row3_col0" class="data row3 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row4" class="row_heading level0 row4" >file:crd</th>
+      <td id="T_cdb0e_row4_col0" class="data row4 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row5" class="row_heading level0 row5" >file:dcd</th>
+      <td id="T_cdb0e_row5_col0" class="data row5 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row6" class="row_heading level0 row6" >file:fasta</th>
+      <td id="T_cdb0e_row6_col0" class="data row6 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row7" class="row_heading level0 row7" >file:gro</th>
+      <td id="T_cdb0e_row7_col0" class="data row7 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row8" class="row_heading level0 row8" >file:h5</th>
+      <td id="T_cdb0e_row8_col0" class="data row8 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row9" class="row_heading level0 row9" >file:h5msm</th>
+      <td id="T_cdb0e_row9_col0" class="data row9 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row10" class="row_heading level0 row10" >file:inpcrd</th>
+      <td id="T_cdb0e_row10_col0" class="data row10 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row11" class="row_heading level0 row11" >file:mdcrd</th>
+      <td id="T_cdb0e_row11_col0" class="data row11 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row12" class="row_heading level0 row12" >file:mol2</th>
+      <td id="T_cdb0e_row12_col0" class="data row12 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row13" class="row_heading level0 row13" >file:molsys_yaml</th>
+      <td id="T_cdb0e_row13_col0" class="data row13 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row14" class="row_heading level0 row14" >file:pdb</th>
+      <td id="T_cdb0e_row14_col0" class="data row14 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row15" class="row_heading level0 row15" >file:pir</th>
+      <td id="T_cdb0e_row15_col0" class="data row15 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row16" class="row_heading level0 row16" >file:prmtop</th>
+      <td id="T_cdb0e_row16_col0" class="data row16 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row17" class="row_heading level0 row17" >file:psf</th>
+      <td id="T_cdb0e_row17_col0" class="data row17 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row18" class="row_heading level0 row18" >file:smi</th>
+      <td id="T_cdb0e_row18_col0" class="data row18 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row19" class="row_heading level0 row19" >file:structures_yaml</th>
+      <td id="T_cdb0e_row19_col0" class="data row19 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row20" class="row_heading level0 row20" >file:top</th>
+      <td id="T_cdb0e_row20_col0" class="data row20 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row21" class="row_heading level0 row21" >file:topology_yaml</th>
+      <td id="T_cdb0e_row21_col0" class="data row21 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row22" class="row_heading level0 row22" >file:trjpk</th>
+      <td id="T_cdb0e_row22_col0" class="data row22 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row23" class="row_heading level0 row23" >file:xtc</th>
+      <td id="T_cdb0e_row23_col0" class="data row23 col0" >True</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row24" class="row_heading level0 row24" >file:xyz</th>
+      <td id="T_cdb0e_row24_col0" class="data row24 col0" >False</td>
+    </tr>
+    <tr>
+      <th id="T_cdb0e_level0_row25" class="row_heading level0 row25" >file:xyznpy</th>
+      <td id="T_cdb0e_row25_col0" class="data row25 col0" >False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../../foundations/molecular_system/forms.html#introduction-forms"><span class="std std-ref">Items and Forms</span></a>:<br />
+List and explain the different forms of molecular systems.</p>
+<p><a class="reference internal" href="../../foundations/entrance/demo_systems.html#user-foundations-entrance-demo-systems"><span class="std std-ref">Demo Systems Catalog</span></a>:<br />
+Access a collection of predefined molecular systems for testing and demonstration purposes.</p>
+<p><a class="reference internal" href="select.html#tutorial-select"><span class="std std-ref">Select</span></a>:<br />
+Select atoms or other elements from a molecular system.</p>
+<p><a class="reference internal" href="info.html#tutorial-info"><span class="std std-ref">Info</span></a>:<br />
+Display information about a molecular system.</p>
+<p><a class="reference internal" href="view.html#tutorial-view"><span class="std std-ref">View</span></a>:<br />
+Visualize a molecular system.</p>
+<p><a class="reference internal" href="concatenate_structures.html#tutorial-concatenate-structures"><span class="std std-ref">Concatenate structures</span></a>:<br />
+Join structural data from several systems into a single system with consecutive structures.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="contains.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Contains</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="copy.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Copy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-this-function-works">How this function works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-item">Single item</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-items-into-one">Multiple items into one</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-item-into-multiple">One item into multiple</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-conversions">Supported conversions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

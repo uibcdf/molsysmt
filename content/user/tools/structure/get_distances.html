@@ -1,0 +1,1991 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Get distances – MolSysMT 0.21.0</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../../../_static/documentation_options.js?v=c4f92b34"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script type="application/vnd.jupyter.widget-state+json">{"state": {"5a50ed197b6d484190da6fae67e3c41b": {"model_module": "nglview-js-widgets", "model_module_version": "3.1.5", "model_name": "ColormakerRegistryModel", "state": {"_dom_classes": [], "_model_module": "nglview-js-widgets", "_model_module_version": "3.1.5", "_model_name": "ColormakerRegistryModel", "_msg_ar": [], "_msg_q": [], "_ready": false, "_view_count": null, "_view_module": "nglview-js-widgets", "_view_module_version": "3.1.5", "_view_name": "ColormakerRegistryView", "layout": "IPY_MODEL_974b33738d594834870df2348ac4f0cf", "tabbable": null, "tooltip": null}}, "974b33738d594834870df2348ac4f0cf": {"model_module": "@jupyter-widgets/base", "model_module_version": "2.0.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "2.0.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "2.0.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border_bottom": null, "border_left": null, "border_right": null, "border_top": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}}, "version_major": 2, "version_minor": 0}</script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script crossorigin="anonymous" data-jupyter-widgets-cdn="https://cdn.jsdelivr.net/npm/" src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@1.0.6/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/user/tools/structure/get_distances';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Get least RMSD" href="get_least_rmsd.html" />
+    <link rel="prev" title="Get dihedral angles" href="get_dihedral_angles.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.21.0" />
+  
+    
+    <script src="../../../../_static/searchtools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script src="../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.21.0 documentation - Home"/>
+    <img src="../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.21.0 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../developer/index.html">
+    Developer guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="align_principal_axes.html">Aligning principal axes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="center.html">Center</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flip.html">Flip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_angles.html">Get angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_center.html">Get center</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_contacts.html">Get contacts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_dihedral_angles.html">Get dihedral angles</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Get distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_least_rmsd.html">Get least RMSD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_maximum_distances.html">Get maximum distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_minimum_distances.html">Get minimum distances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_neighbors.html">Get neighbors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_principal_axes.html">Getting principal axes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_radius_of_gyration.html">Getting the radius of gyration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_rmsd.html">Get RMSD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_rmsf.html">Getting root-mean-square fluctuations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="least_rmsd_align.html">Least RMSD align</a></li>
+<li class="toctree-l1"><a class="reference internal" href="least_rmsd_fit.html">Fitting by least RMSD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="move_away.html">Move away</a></li>
+<li class="toctree-l1"><a class="reference internal" href="principal_component_analysis.html">Computing principal components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotate.html">Rotating coordinates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="set_dihedral_angles.html">Set dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shift_dihedral_angles.html">Shift dihedral angles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="show_contacts.html">Show contacts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="translate.html">Translate</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link"><strong>User Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link"><strong>Tools</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Structure</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Get distances</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell tag_remove-input docutils container">
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="get-distances">
+<span id="userguide-tools-structure-getdistances"></span><h1>Get distances<a class="headerlink" href="#get-distances" title="Link to this heading">#</a></h1>
+<p>MolSysMT includes a very versatile function to calculate distances between atoms of molecular systems, and/or centers of groups of atoms, and/or points in the coordinates space. The <a class="reference internal" href="../../../../api/structure/autosummary/molsysmt.structure.get_distances.html#molsysmt.structure.get_distances" title="molsysmt.structure.get_distances"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.structure.get_distances()</span></code></a> has many possibilities, that’s why one of the longest sections in MolSysMT documentation. But let’s go step by step.</p>
+<p>The native engine inherits the session CPU policy. Use <code class="docutils literal notranslate"><span class="pre">parallel=False</span></code> for one thread or <code class="docutils literal notranslate"><span class="pre">parallel=True,</span> <span class="pre">num_threads=N</span></code> to override the session for this calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">msm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molsysmt</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyunitwizard</span> <span class="k">as</span> <span class="n">puw</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5a50ed197b6d484190da6fae67e3c41b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<section id="the-xyz-molecular-system-form">
+<h2>The XYZ molecular system form<a class="headerlink" href="#the-xyz-molecular-system-form" title="Link to this heading">#</a></h2>
+<p>The first case, and the most simple one, is getting distances from a points distribution in space. MolSysMT accepts a molecular system form where only spatial coordinates are described, with out topological information: the <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> form.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">get_form</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;XYZ&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> form accepts numpy arrays with length units of the shape <span class="math notranslate nohighlight">\([n\_structures, n\_atoms, 3]\)</span> or <span class="math notranslate nohighlight">\([n\_atoms, 3]\)</span>. In case of having an array of rank 2, MolSysMT always understands <span class="math notranslate nohighlight">\(n\_structures=1\)</span> and the first rank as the number of atoms:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">n_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 6]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets create a couple of <code class="docutils literal notranslate"><span class="pre">XYZ</span></code> molecular systems with more than a frame. These two systems will help us illustrate the firts distance calculations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Molecular system with three atoms and three structures.</span>
+
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+
+<span class="c1">## First atom</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+
+<span class="c1">## Second atom</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+
+<span class="c1">## Third atom</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+
+<span class="c1">## Fourth atom</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+<span class="n">molecular_system</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">puw</span><span class="o">.</span><span class="n">unit</span><span class="p">(</span><span class="s1">&#39;nm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[[[0.0 2.0 -1.0]  [-1.0 1.0 1.0]  [-2.0 0.0 1.0]  [-2.0 -2.0 -2.0]] [[1.0 2.0 -1.0]  [-1.0 0.0 1.0]  [-2.0 0.0 0.0]  [0.0 0.0 0.0]] [[0.0 2.0 -1.0]  [0.0 0.0 1.0]  [-1.0 1.0 0.0]  [2.0 2.0 2.0]]]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>nanometer</td></tr></tbody></table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_4e786">
+  <thead>
+    <tr>
+      <th id="T_4e786_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_4e786_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_4e786_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_4e786_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_4e786_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_4e786_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_4e786_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_4e786_level0_col7" class="col_heading level0 col7" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_4e786_row0_col0" class="data row0 col0" >XYZ</td>
+      <td id="T_4e786_row0_col1" class="data row0 col1" >4</td>
+      <td id="T_4e786_row0_col2" class="data row0 col2" >None</td>
+      <td id="T_4e786_row0_col3" class="data row0 col3" >None</td>
+      <td id="T_4e786_row0_col4" class="data row0 col4" >None</td>
+      <td id="T_4e786_row0_col5" class="data row0 col5" >None</td>
+      <td id="T_4e786_row0_col6" class="data row0 col6" >None</td>
+      <td id="T_4e786_row0_col7" class="data row0 col7" >3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="distance-between-atoms-in-space">
+<h2>Distance between atoms in space<a class="headerlink" href="#distance-between-atoms-in-space" title="Link to this heading">#</a></h2>
+<section id="distance-between-atoms-of-a-system">
+<h3>Distance between atoms of a system<a class="headerlink" href="#distance-between-atoms-of-a-system" title="Link to this heading">#</a></h3>
+<p>The first case shows how to get the distance between all points of a system at every frame</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result is an array of rank 3. Where the first axe or rank corresponds to the number of structures and the other two, the second and third axe, accounts for the point or atom indices:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 4, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<p>This way every distance between atoms at each frame is stored. Lets print out the distance between the 0-th and the 2-th atom at frame 1-th:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Distance at frame 1-th between atoms 0-th and 2-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distance at frame 1-th between atoms 0-th and 2-th: 3.7416573867739413 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>If only the distance between atoms 0-th and 2-th at every frame is required, there is no need to compute <span class="math notranslate nohighlight">\(n\_atoms x n\_atoms\)</span> distances. The input arguments <code class="docutils literal notranslate"><span class="pre">selection</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> help us to define the range of elements of the output distance matrix:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time the output is an array of rank 3 with shape <span class="math notranslate nohighlight">\([3,1,1]\)</span>. The distance for just a pair of atoms was computed for three structures:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 1, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Distance at frame </span><span class="si">{}</span><span class="s1">-th between atoms 0-th and 2-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="n">distances</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distance at frame 0-th between atoms 0-th and 2-th: 3.4641016151377544 nanometer
+Distance at frame 1-th between atoms 0-th and 2-th: 3.7416573867739413 nanometer
+Distance at frame 2-th between atoms 0-th and 2-th: 1.7320508075688772 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets try now to get the distance between the atom 1-th and the atoms 0-th and 2-th at every frame:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you will guess, the output matrix is an array of rank three this time with shape <span class="math notranslate nohighlight">\([3,1,2]\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 1, 2)
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we want now to print out the distance between atoms 1-th and 2-th for frame 0-th:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Distance at frame 0-th between atoms 1-th and 2-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distance at frame 0-th between atoms 1-th and 2-th: 1.4142135623730951 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>The position of each atom in lists <code class="docutils literal notranslate"><span class="pre">selection</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> is used to locate the corresponding distance in the output array. If instead, you want to use the original atom indices to locate a distance, the input argument <code class="docutils literal notranslate"><span class="pre">output_form='dict'</span></code> can help:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dictionary&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This way the output is no longer a numpy array of rank 3, the output object is now a dictionary of dictionaries of dictionaries. Where the set keys of the first dictionary corresponds to the atom indices of <code class="docutils literal notranslate"><span class="pre">selection_1</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{1: {0: &lt;Quantity([2.44948974 3.46410162 2.82842712], &#39;nanometer&#39;)&gt;,
+  2: &lt;Quantity([1.41421356 1.41421356 1.73205081], &#39;nanometer&#39;)&gt;}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([1])
+</pre></div>
+</div>
+</div>
+</div>
+<p>The second nested dictionary has the atom indices of <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> as keys:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([0, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<p>And the third and last nested dictionary is defined with the frame indices as keys:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table><tbody><tr><th>Magnitude</th><td style='text-align:left;'><pre>[1.4142135623730951 1.4142135623730951 1.7320508075688772]</pre></td></tr><tr><th>Units</th><td style='text-align:left;'>nanometer</td></tr></tbody></table></div></div>
+</div>
+<p>Thus, the distance now between atoms 0-th and 2-th in frame 1-th is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Distance at frame 0-th between atoms 1-th and 2-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distance at frame 0-th between atoms 1-th and 2-th: 1.4142135623730951 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>Just like <code class="docutils literal notranslate"><span class="pre">selection</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> can limit the range of atom indices of the calculation, <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code> can be used to define the list of structures where the method applies:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Distance at frame 2-th between atoms 1-th and 2-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can check again that with <code class="docutils literal notranslate"><span class="pre">output_form='dictionary'</span></code> the original indics for atoms and structures work to locate a distance:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                                        <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dictionary&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: &lt;Quantity([3.46410162 2.82842712], &#39;nanometer&#39;)&gt;,
+ 2: &lt;Quantity([1.41421356 1.73205081], &#39;nanometer&#39;)&gt;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Distance at frame 2-th between atoms 1-th and 2-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distance at frame 2-th between atoms 1-th and 2-th: 1.7320508075688772 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="distances-between-atoms-positions-in-different-structures">
+<h3>Distances between atoms positions in different structures<a class="headerlink" href="#distances-between-atoms-positions-in-different-structures" title="Link to this heading">#</a></h3>
+<p>At the end of last subsection we saw how, in addition to the input arguments <code class="docutils literal notranslate"><span class="pre">selection</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>, the input arguments <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code> and <code class="docutils literal notranslate"><span class="pre">structure_indices_2</span></code> alter the way distances are computed. Lets use the four arguments in the next example to revisit their function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">structure_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The distance between atoms 1-th and 2-th, and atom 1-th are computed. But, these distances are not between spatial positions in the same frame index. When two frame indices lists are provided by means of <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code> and <code class="docutils literal notranslate"><span class="pre">structure_indices_2</span></code>, pairs of structures are taken sequentially. In this case positions of <code class="docutils literal notranslate"><span class="pre">selection</span></code> at frame 0-th are confronted againts positions of <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> at frame 1-th, and the results are stored in the first frame of the distances output. Then, according to the last cell frame indices, positions of <code class="docutils literal notranslate"><span class="pre">selection</span></code> at frame 1-th are confronted againts positions of <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> at frame 2-th. Thus, lets print out for example the distance between the position of atom 2-th of <code class="docutils literal notranslate"><span class="pre">selection</span></code> in frame 1-th and the position of atom 1-th of <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> in frame 2-th:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between atom 2-th of selection at frame 1-th and atom 1-th of selection_2 at frame 2-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The distance between atom 2-th of selection at frame 1-th and atom 1-th of selection_2 at frame 2-th is: 2.23606797749979 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this case, when the output object is a dictionary of dictionaries of dictionaries, the last nested keys correspond to the frame indices in <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code>. Lets compute de same distances as before printing out the same specific distance:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">structure_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dictionary&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between atom 2-th of selection at frame 1-th and atom 1-th of selection_2 at frame 2-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The distance between atom 2-th of selection at frame 1-th and atom 1-th of selection_2 at frame 2-th is: [1.0 2.23606797749979] nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>The possibility to calculate distances between crossing frame indices opens the door to get displacement lengths as it is shown in next subsection.</p>
+</section>
+<section id="displacement-distances-of-atoms">
+<h3>Displacement distances of atoms<a class="headerlink" href="#displacement-distances-of-atoms" title="Link to this heading">#</a></h3>
+<p>When both input arguments <code class="docutils literal notranslate"><span class="pre">structure_indices</span></code> and <code class="docutils literal notranslate"><span class="pre">structure_indices_2</span></code> are used over a unique set of atoms of the same molecular system, the distances computed acquired a simple physical meaning: displacements. Lets see the following case:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                        <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">structure_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The shape of the output object is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 1, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The length of the distance walked by atom 1-th between structures 0-th and 1-th is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The displacement length of atom 1-th between structures 0-th and 1th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The displacement length of atom 1-th between structures 0-th and 1th is: 1.0 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>While the displacement length of the same atom between the next two consecutive structures is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The displacement length of atom 1-th between structures 1-th and 2-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The displacement length of atom 1-th between structures 1-th and 2-th is: 1.0 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we want to get the length distance an atom moves between a fixed frame, 0-th for instance, and the rest of structures we can invoke the command <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> this way:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                                        <span class="n">structure_indices_2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dictionary&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The displacement length of atom 1-th between its position at frame 0-th and all other structures is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The displacement length of atom 1-th between structures 0-th and </span><span class="si">{}</span><span class="s1">-th is: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">distances</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="n">ii</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The displacement length of atom 1-th between structures 0-th and 0-th is: 0.0 nanometer
+The displacement length of atom 1-th between structures 0-th and 1-th is: 1.0 nanometer
+The displacement length of atom 1-th between structures 0-th and 2-th is: 1.4142135623730951 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="distance-between-atoms-pairs">
+<h3>Distance between atoms pairs<a class="headerlink" href="#distance-between-atoms-pairs" title="Link to this heading">#</a></h3>
+<p>When the method <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> is invoked to calculate the distances between a set of <span class="math notranslate nohighlight">\(N\)</span> atoms of <code class="docutils literal notranslate"><span class="pre">selection</span></code> and a set of <span class="math notranslate nohighlight">\(M\)</span> atoms of <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>, the result is an object, a numpy array or a dictionary, with <span class="math notranslate nohighlight">\(N x M\)</span> distances per frame. Sometimes all these different distances are not needed, but only those between specific atom pairs. These atom pairs can be given by the elements in <code class="docutils literal notranslate"><span class="pre">selection</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> coupled sequantially one to one. This option is activated when the input argument <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code> the shape of the output numpy array is <span class="math notranslate nohighlight">\([n\_structures, N]\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the number of pairs: [0,1], [0,2] and [1,2], in this case.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets print out the distance between atoms 0-th and 2-th in frame 1-th:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between the pair of atoms 0-th and 2-th in frame 1-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The distance between the pair of atoms 0-th and 2-th in frame 1-th: 3.7416573867739413 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>The pairs list can also be define using only <code class="docutils literal notranslate"><span class="pre">selection</span></code>, and the result is the same:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]],</span> <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between the pair of atoms 0-th and 2-th in frame 1-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The distance between the pair of atoms 0-th and 2-th in frame 1-th: 3.7416573867739413 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+<p>The dictionary output form also works for atom pairs in the same way as with <code class="docutils literal notranslate"><span class="pre">pairs=False</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">selection_2</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                         <span class="n">structure_indices</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;dictionary&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The distance between the pair of atoms 0-th and 2-th in frame 1-th: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The distance between the pair of atoms 0-th and 2-th in frame 1-th: 1.7320508075688772 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="distance-between-atom-groups-in-space">
+<h2>Distance between atom groups in space<a class="headerlink" href="#distance-between-atom-groups-in-space" title="Link to this heading">#</a></h2>
+<p>Imagine the distance between geometric centers of atoms groups needs to be obtained. There is no reason why MolSysMT should have new functions to do that. Every method introduced in the previous section, about getting distances between atoms, has the possibility to do it over groups of atoms.</p>
+<section id="distance-between-atom-groups-of-a-system">
+<h3>Distance between atom groups of a system<a class="headerlink" href="#distance-between-atom-groups-of-a-system" title="Link to this heading">#</a></h3>
+<p>Lets load a new molecular system to illustrate how <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> can get distances between atom groups:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;1TCD&#39;</span><span class="p">,</span> <span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_4ada1">
+  <thead>
+    <tr>
+      <th id="T_4ada1_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_4ada1_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_4ada1_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_4ada1_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_4ada1_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_4ada1_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_4ada1_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_4ada1_level0_col7" class="col_heading level0 col7" >n_waters</th>
+      <th id="T_4ada1_level0_col8" class="col_heading level0 col8" >n_proteins</th>
+      <th id="T_4ada1_level0_col9" class="col_heading level0 col9" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_4ada1_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_4ada1_row0_col1" class="data row0 col1" >3983</td>
+      <td id="T_4ada1_row0_col2" class="data row0 col2" >662</td>
+      <td id="T_4ada1_row0_col3" class="data row0 col3" >167</td>
+      <td id="T_4ada1_row0_col4" class="data row0 col4" >4</td>
+      <td id="T_4ada1_row0_col5" class="data row0 col5" >167</td>
+      <td id="T_4ada1_row0_col6" class="data row0 col6" >2</td>
+      <td id="T_4ada1_row0_col7" class="data row0 col7" >165</td>
+      <td id="T_4ada1_row0_col8" class="data row0 col8" >2</td>
+      <td id="T_4ada1_row0_col9" class="data row0 col9" >1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Lets revisit how to get the distances between two atoms selections to start with, then the effect of input arguments <code class="docutils literal notranslate"><span class="pre">group_behavior</span></code> and <code class="docutils literal notranslate"><span class="pre">group_behavior_2</span></code> will be shown:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This molecular system has onle a single frame, so the shape of the output array is <span class="math notranslate nohighlight">\([1, n\_atoms\_1, n\_atoms\_2]\)</span> where <span class="math notranslate nohighlight">\(n\_atoms\_1\)</span> and <span class="math notranslate nohighlight">\(n\_atoms\_2\)</span> is the number of atoms in <code class="docutils literal notranslate"><span class="pre">selection</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>, respectively:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_atoms_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">n_atoms_2</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;atom&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">,</span> <span class="n">n_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_atoms_1</span><span class="p">,</span> <span class="n">n_atoms_2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9 7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 9, 7)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">0.5271685214426218 nanometer</div></div>
+</div>
+<p>Now, lets use <code class="docutils literal notranslate"><span class="pre">group_behavior=&quot;geometric_center&quot;</span></code> to obtain the distance between the geometric center of the set of atoms in <code class="docutils literal notranslate"><span class="pre">selection</span></code> to every atom in <code class="docutils literal notranslate"><span class="pre">selection_2</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                         
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1, 7)
+</pre></div>
+</div>
+</div>
+</div>
+<p>And with <code class="docutils literal notranslate"><span class="pre">group_behavior_2=&quot;geometric_center&quot;</span></code> the distance between both geometric centers can be obtain:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==1&quot;</span><span class="p">,</span> <span class="n">center_of_atoms_2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The input arguments <code class="docutils literal notranslate"><span class="pre">group_behavior</span></code> and <code class="docutils literal notranslate"><span class="pre">group_behavior_2</span></code> allow us to work with a unique position of a group of atoms, either the geometric center or the center of mass. But what happens then if we have several groups of atoms? The arguments <code class="docutils literal notranslate"><span class="pre">selection</span></code> and <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> do work with just a list of atom indices or a selection sentence. Thats why we have to use two new input arguments: <code class="docutils literal notranslate"><span class="pre">groups_of_atoms</span></code> and <code class="docutils literal notranslate"><span class="pre">groups_of_atoms_2</span></code>. Lets define a couple of list of lists of atom indices to illustrate their use.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_groups_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                        <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index in [0,1,2,3]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">list_groups_2</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
+                        <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index in [4,5,6,7,8]&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">list_groups_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0, 1, 2, 3, 4, 5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 19, 20, 21, 22, 23, 24], [25, 26, 27, 28, 29, 30, 31]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, lets compute the distance between every single atom in <code class="docutils literal notranslate"><span class="pre">selection</span></code> to the geometric center of the atoms groups defined in <code class="docutils literal notranslate"><span class="pre">list_groups_2</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span> <span class="n">center_of_atoms_2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 9, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, the distance between the geometric center of the set of atoms in <code class="docutils literal notranslate"><span class="pre">selection</span></code> and every geometric center of the atoms groups given by <code class="docutils literal notranslate"><span class="pre">list_groups_2</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span>
+                                        <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">selection_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span>
+                                        <span class="n">center_of_atoms_2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>And finnally, the distance between every geometric center of the atoms groups in <code class="docutils literal notranslate"><span class="pre">list_groups_1</span></code> to every geometric center of the atoms groups defined in <code class="docutils literal notranslate"><span class="pre">list_groups_2</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                        <span class="n">selection_2</span><span class="o">=</span><span class="n">list_groups_2</span><span class="p">,</span> <span class="n">center_of_atoms_2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 4, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">1.2406698330486778 nanometer</div></div>
+</div>
+<p>Just like with atoms, if only a list of atoms groups is used, the distance between its centers is obtained:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 4, 4)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finnally, lets proof that the distance between groups can be computed all along a trajectory as well as only at specific structures. Lets load the whole trajectory ‘pentalanine.h5’:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;pentalanine&#39;</span><span class="p">][</span><span class="s1">&#39;traj_pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_8ad8e">
+  <thead>
+    <tr>
+      <th id="T_8ad8e_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_8ad8e_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_8ad8e_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_8ad8e_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_8ad8e_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_8ad8e_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_8ad8e_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_8ad8e_level0_col7" class="col_heading level0 col7" >n_peptides</th>
+      <th id="T_8ad8e_level0_col8" class="col_heading level0 col8" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_8ad8e_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_8ad8e_row0_col1" class="data row0 col1" >62</td>
+      <td id="T_8ad8e_row0_col2" class="data row0 col2" >7</td>
+      <td id="T_8ad8e_row0_col3" class="data row0 col3" >1</td>
+      <td id="T_8ad8e_row0_col4" class="data row0 col4" >1</td>
+      <td id="T_8ad8e_row0_col5" class="data row0 col5" >1</td>
+      <td id="T_8ad8e_row0_col6" class="data row0 col6" >1</td>
+      <td id="T_8ad8e_row0_col7" class="data row0 col7" >1</td>
+      <td id="T_8ad8e_row0_col8" class="data row0 col8" >5000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_64835">
+  <thead>
+    <tr>
+      <th id="T_64835_level0_col0" class="col_heading level0 col0" >index</th>
+      <th id="T_64835_level0_col1" class="col_heading level0 col1" >id</th>
+      <th id="T_64835_level0_col2" class="col_heading level0 col2" >name</th>
+      <th id="T_64835_level0_col3" class="col_heading level0 col3" >type</th>
+      <th id="T_64835_level0_col4" class="col_heading level0 col4" >n atoms</th>
+      <th id="T_64835_level0_col5" class="col_heading level0 col5" >component index</th>
+      <th id="T_64835_level0_col6" class="col_heading level0 col6" >chain index</th>
+      <th id="T_64835_level0_col7" class="col_heading level0 col7" >molecule index</th>
+      <th id="T_64835_level0_col8" class="col_heading level0 col8" >molecule type</th>
+      <th id="T_64835_level0_col9" class="col_heading level0 col9" >entity index</th>
+      <th id="T_64835_level0_col10" class="col_heading level0 col10" >entity name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_64835_row0_col0" class="data row0 col0" >0</td>
+      <td id="T_64835_row0_col1" class="data row0 col1" >1</td>
+      <td id="T_64835_row0_col2" class="data row0 col2" >ACE</td>
+      <td id="T_64835_row0_col3" class="data row0 col3" >terminal capping</td>
+      <td id="T_64835_row0_col4" class="data row0 col4" >6</td>
+      <td id="T_64835_row0_col5" class="data row0 col5" >0</td>
+      <td id="T_64835_row0_col6" class="data row0 col6" >0</td>
+      <td id="T_64835_row0_col7" class="data row0 col7" >0</td>
+      <td id="T_64835_row0_col8" class="data row0 col8" >peptide</td>
+      <td id="T_64835_row0_col9" class="data row0 col9" >0</td>
+      <td id="T_64835_row0_col10" class="data row0 col10" >peptide 0</td>
+    </tr>
+    <tr>
+      <td id="T_64835_row1_col0" class="data row1 col0" >1</td>
+      <td id="T_64835_row1_col1" class="data row1 col1" >2</td>
+      <td id="T_64835_row1_col2" class="data row1 col2" >ALA</td>
+      <td id="T_64835_row1_col3" class="data row1 col3" >amino acid</td>
+      <td id="T_64835_row1_col4" class="data row1 col4" >10</td>
+      <td id="T_64835_row1_col5" class="data row1 col5" >0</td>
+      <td id="T_64835_row1_col6" class="data row1 col6" >0</td>
+      <td id="T_64835_row1_col7" class="data row1 col7" >0</td>
+      <td id="T_64835_row1_col8" class="data row1 col8" >peptide</td>
+      <td id="T_64835_row1_col9" class="data row1 col9" >0</td>
+      <td id="T_64835_row1_col10" class="data row1 col10" >peptide 0</td>
+    </tr>
+    <tr>
+      <td id="T_64835_row2_col0" class="data row2 col0" >2</td>
+      <td id="T_64835_row2_col1" class="data row2 col1" >3</td>
+      <td id="T_64835_row2_col2" class="data row2 col2" >ALA</td>
+      <td id="T_64835_row2_col3" class="data row2 col3" >amino acid</td>
+      <td id="T_64835_row2_col4" class="data row2 col4" >10</td>
+      <td id="T_64835_row2_col5" class="data row2 col5" >0</td>
+      <td id="T_64835_row2_col6" class="data row2 col6" >0</td>
+      <td id="T_64835_row2_col7" class="data row2 col7" >0</td>
+      <td id="T_64835_row2_col8" class="data row2 col8" >peptide</td>
+      <td id="T_64835_row2_col9" class="data row2 col9" >0</td>
+      <td id="T_64835_row2_col10" class="data row2 col10" >peptide 0</td>
+    </tr>
+    <tr>
+      <td id="T_64835_row3_col0" class="data row3 col0" >3</td>
+      <td id="T_64835_row3_col1" class="data row3 col1" >4</td>
+      <td id="T_64835_row3_col2" class="data row3 col2" >ALA</td>
+      <td id="T_64835_row3_col3" class="data row3 col3" >amino acid</td>
+      <td id="T_64835_row3_col4" class="data row3 col4" >10</td>
+      <td id="T_64835_row3_col5" class="data row3 col5" >0</td>
+      <td id="T_64835_row3_col6" class="data row3 col6" >0</td>
+      <td id="T_64835_row3_col7" class="data row3 col7" >0</td>
+      <td id="T_64835_row3_col8" class="data row3 col8" >peptide</td>
+      <td id="T_64835_row3_col9" class="data row3 col9" >0</td>
+      <td id="T_64835_row3_col10" class="data row3 col10" >peptide 0</td>
+    </tr>
+    <tr>
+      <td id="T_64835_row4_col0" class="data row4 col0" >4</td>
+      <td id="T_64835_row4_col1" class="data row4 col1" >5</td>
+      <td id="T_64835_row4_col2" class="data row4 col2" >ALA</td>
+      <td id="T_64835_row4_col3" class="data row4 col3" >amino acid</td>
+      <td id="T_64835_row4_col4" class="data row4 col4" >10</td>
+      <td id="T_64835_row4_col5" class="data row4 col5" >0</td>
+      <td id="T_64835_row4_col6" class="data row4 col6" >0</td>
+      <td id="T_64835_row4_col7" class="data row4 col7" >0</td>
+      <td id="T_64835_row4_col8" class="data row4 col8" >peptide</td>
+      <td id="T_64835_row4_col9" class="data row4 col9" >0</td>
+      <td id="T_64835_row4_col10" class="data row4 col10" >peptide 0</td>
+    </tr>
+    <tr>
+      <td id="T_64835_row5_col0" class="data row5 col0" >5</td>
+      <td id="T_64835_row5_col1" class="data row5 col1" >6</td>
+      <td id="T_64835_row5_col2" class="data row5 col2" >ALA</td>
+      <td id="T_64835_row5_col3" class="data row5 col3" >amino acid</td>
+      <td id="T_64835_row5_col4" class="data row5 col4" >10</td>
+      <td id="T_64835_row5_col5" class="data row5 col5" >0</td>
+      <td id="T_64835_row5_col6" class="data row5 col6" >0</td>
+      <td id="T_64835_row5_col7" class="data row5 col7" >0</td>
+      <td id="T_64835_row5_col8" class="data row5 col8" >peptide</td>
+      <td id="T_64835_row5_col9" class="data row5 col9" >0</td>
+      <td id="T_64835_row5_col10" class="data row5 col10" >peptide 0</td>
+    </tr>
+    <tr>
+      <td id="T_64835_row6_col0" class="data row6 col0" >6</td>
+      <td id="T_64835_row6_col1" class="data row6 col1" >7</td>
+      <td id="T_64835_row6_col2" class="data row6 col2" >NME</td>
+      <td id="T_64835_row6_col3" class="data row6 col3" >terminal capping</td>
+      <td id="T_64835_row6_col4" class="data row6 col4" >6</td>
+      <td id="T_64835_row6_col5" class="data row6 col5" >0</td>
+      <td id="T_64835_row6_col6" class="data row6 col6" >0</td>
+      <td id="T_64835_row6_col7" class="data row6 col7" >0</td>
+      <td id="T_64835_row6_col8" class="data row6 col8" >peptide</td>
+      <td id="T_64835_row6_col9" class="data row6 col9" >0</td>
+      <td id="T_64835_row6_col10" class="data row6 col10" >peptide 0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Lets represent the distance between the geometric center of the terminal groups vs. the simulation time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==6&quot;</span><span class="p">,</span> <span class="n">center_of_atoms_2</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">times</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="s1">&#39;nanoseconds&#39;</span><span class="p">),</span> <span class="n">distances</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MOLSYSMT WARNING | UnitStrippedWarning: The unit of the quantity is stripped when downcasting to ndarray.
+</pre></div>
+</div>
+<img alt="../../../../_images/5e415bb3245f9d8548e118f7e5fd2980436854380b6d0b83f36ecc3073936ad1.png" src="../../../../_images/5e415bb3245f9d8548e118f7e5fd2980436854380b6d0b83f36ecc3073936ad1.png" />
+</div>
+</div>
+<p>Or lets just get the distance between the geometric centers of all residues at the 3000-th frame:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_groups_1</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">list_groups_1</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">structure_indices</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 7, 7)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The distance between geometric_center of group 2-th and group 4-th at frame 3000-th is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The distance between geometric_center of group 2-th and group 4-th at frame 3000-th is: 0.6818505282832528 nanometer
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="distances-between-atom-groups-positions-in-different-structures">
+<h3>Distances between atom groups positions in different structures<a class="headerlink" href="#distances-between-atom-groups-positions-in-different-structures" title="Link to this heading">#</a></h3>
+<p>The method <code class="docutils literal notranslate"><span class="pre">molsysmt.distance()</span></code> works with atom groups just like with only atoms. There are two input arguments to select the coordinates of a set of atoms at two different structures:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;pentalanine&#39;</span><span class="p">][</span><span class="s1">&#39;traj_pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msm</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_95313">
+  <thead>
+    <tr>
+      <th id="T_95313_level0_col0" class="col_heading level0 col0" >form</th>
+      <th id="T_95313_level0_col1" class="col_heading level0 col1" >n_atoms</th>
+      <th id="T_95313_level0_col2" class="col_heading level0 col2" >n_groups</th>
+      <th id="T_95313_level0_col3" class="col_heading level0 col3" >n_components</th>
+      <th id="T_95313_level0_col4" class="col_heading level0 col4" >n_chains</th>
+      <th id="T_95313_level0_col5" class="col_heading level0 col5" >n_molecules</th>
+      <th id="T_95313_level0_col6" class="col_heading level0 col6" >n_entities</th>
+      <th id="T_95313_level0_col7" class="col_heading level0 col7" >n_peptides</th>
+      <th id="T_95313_level0_col8" class="col_heading level0 col8" >n_structures</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_95313_row0_col0" class="data row0 col0" >molsysmt.MolSys</td>
+      <td id="T_95313_row0_col1" class="data row0 col1" >62</td>
+      <td id="T_95313_row0_col2" class="data row0 col2" >7</td>
+      <td id="T_95313_row0_col3" class="data row0 col3" >1</td>
+      <td id="T_95313_row0_col4" class="data row0 col4" >1</td>
+      <td id="T_95313_row0_col5" class="data row0 col5" >1</td>
+      <td id="T_95313_row0_col6" class="data row0 col6" >1</td>
+      <td id="T_95313_row0_col7" class="data row0 col7" >1</td>
+      <td id="T_95313_row0_col8" class="data row0 col8" >5000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Let see how <code class="docutils literal notranslate"><span class="pre">structure_indices_1</span></code> and <code class="docutils literal notranslate"><span class="pre">structure_indices_2</span></code> works in this context:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span>
+                         <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">structure_indices</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="s2">&quot;group_index==6&quot;</span><span class="p">,</span> <span class="n">center_of_atoms_2</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">structure_indices_2</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 1, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The physical meaning of this former example is clear but not really useful, unless <code class="docutils literal notranslate"><span class="pre">selection</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">selection_2</span></code> as we can see in the following section.</p>
+</section>
+<section id="displacement-distances-of-atom-groups">
+<h3>Displacement distances of atom groups<a class="headerlink" href="#displacement-distances-of-atom-groups" title="Link to this heading">#</a></h3>
+<p>The possibility to get the distance between the coordinates of an object at two different structures makes the obtention of atom groups displacements straightforward. Lets plot the distance walked by the 0-th group of the former pentalanine peptide between consecutive structures of the trajectory store in <code class="docutils literal notranslate"><span class="pre">pentalanine.h5</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;pentalanine&#39;</span><span class="p">][</span><span class="s1">&#39;traj_pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_structures</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">n_structures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_structure_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_structures</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">displacements</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;group_index==0&quot;</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                             <span class="n">structure_indices</span><span class="o">=</span><span class="n">all_structure_indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">structure_indices_2</span><span class="o">=</span><span class="n">all_structure_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">structure_indices</span><span class="o">=</span><span class="n">all_structure_indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="s1">&#39;ns&#39;</span><span class="p">),</span> <span class="n">displacements</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MOLSYSMT WARNING | UnitStrippedWarning: The unit of the quantity is stripped when downcasting to ndarray.
+</pre></div>
+</div>
+<img alt="../../../../_images/39afef84e297c432c151953a4f0f0c138860775ea7d6f962878d4aec6262d656.png" src="../../../../_images/39afef84e297c432c151953a4f0f0c138860775ea7d6f962878d4aec6262d656.png" />
+</div>
+</div>
+<p>Or we can, for instance, get the distance of the center of mass of the whole molecule from the initial configuration to every time step along the trajectory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">displacements</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+                                            <span class="n">structure_indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_structures</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span>
+                                            <span class="n">structure_indices_2</span><span class="o">=</span><span class="n">all_structure_indices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">displacements</span><span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">0.45176813186030235 nanometer</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;ns&#39;</span><span class="p">),</span> <span class="n">displacements</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/8b56152531d007204eb8af78c3bf29983e41b657720f70662a525882c94abbf4.png" src="../../../../_images/8b56152531d007204eb8af78c3bf29983e41b657720f70662a525882c94abbf4.png" />
+</div>
+</div>
+</section>
+<section id="distance-between-pairs-of-groups-of-atoms">
+<h3>Distance between pairs of groups of atoms<a class="headerlink" href="#distance-between-pairs-of-groups-of-atoms" title="Link to this heading">#</a></h3>
+<p>Lets see the following example where all distances betweeen the geometric center of the residues of pentalanine is computed along a short trajectory:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">systems</span><span class="p">[</span><span class="s1">&#39;pentalanine&#39;</span><span class="p">][</span><span class="s1">&#39;traj_pentalanine.h5&#39;</span><span class="p">]</span>
+<span class="n">molecular_system</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">to_form</span><span class="o">=</span><span class="s1">&#39;molsysmt.MolSys&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_atom_groups</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">atom_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_atom_groups</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0, 1, 2, 3, 4, 5],
+ [6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+ [16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+ [26, 27, 28, 29, 30, 31, 32, 33, 34, 35],
+ [36, 37, 38, 39, 40, 41, 42, 43, 44, 45],
+ [46, 47, 48, 49, 50, 51, 52, 53, 54, 55],
+ [56, 57, 58, 59, 60, 61]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">list_atom_groups</span><span class="p">,</span>
+                         <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5000, 7, 7)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The method worked needlessly computing the distances between different groups twice, as well as getting the distance between a geometric center to the its self for every residue. This can be avoided thanks to the input argument <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>. Using <code class="docutils literal notranslate"><span class="pre">pairs=True</span></code>, as it can be seen in the corresponding section about distances of atoms pairs, the distances between atom groups pairs made by consecutive elements of two zipped lists are obtained. Lets see this with a pratical case:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">combinations</span> 
+
+<span class="n">list_atom_groups_1</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">list_atom_groups_2</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">aux_list_1</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">aux_list_2</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">jj</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.vs.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">))</span>
+    <span class="n">aux_list_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+    <span class="n">aux_list_2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jj</span><span class="p">)</span>
+    <span class="n">list_atom_groups_1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_atom_groups</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+    <span class="n">list_atom_groups_2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_atom_groups</span><span class="p">[</span><span class="n">jj</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.vs.1
+0.vs.2
+0.vs.3
+0.vs.4
+0.vs.5
+0.vs.6
+1.vs.2
+1.vs.3
+1.vs.4
+1.vs.5
+1.vs.6
+2.vs.3
+2.vs.4
+2.vs.5
+2.vs.6
+3.vs.4
+3.vs.5
+3.vs.6
+4.vs.5
+4.vs.6
+5.vs.6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">get_distances</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">selection</span><span class="o">=</span><span class="n">list_atom_groups_1</span><span class="p">,</span> <span class="n">center_of_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">selection_2</span><span class="o">=</span><span class="n">list_atom_groups_2</span><span class="p">,</span> <span class="n">center_of_atoms_2</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">distances</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5000, 21)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets plot the distance of a given pair, 12-th p.e., defined by the groups:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The 12-th pair is made by groups </span><span class="si">{}</span><span class="s1">-th and </span><span class="si">{}</span><span class="s1">-th, and its distance along the trajectory is:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aux_list_1</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">aux_list_2</span><span class="p">[</span><span class="mi">12</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The 12-th pair is made by groups 2-th and 4-th, and its distance along the trajectory is:
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time</span> <span class="o">=</span> <span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molecular_system</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">puw</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="s1">&#39;ns&#39;</span><span class="p">),</span> <span class="n">distances</span><span class="p">[:,</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MOLSYSMT WARNING | UnitStrippedWarning: The unit of the quantity is stripped when downcasting to ndarray.
+</pre></div>
+</div>
+<img alt="../../../../_images/378986b0de1afcdd775e65b96f7e03e5a84d9449b2351953240b205fbfbeb66f.png" src="../../../../_images/378986b0de1afcdd775e65b96f7e03e5a84d9449b2351953240b205fbfbeb66f.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="get_dihedral_angles.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Get dihedral angles</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="get_least_rmsd.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Get least RMSD</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-xyz-molecular-system-form">The XYZ molecular system form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-atoms-in-space">Distance between atoms in space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-atoms-of-a-system">Distance between atoms of a system</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distances-between-atoms-positions-in-different-structures">Distances between atoms positions in different structures</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displacement-distances-of-atoms">Displacement distances of atoms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-atoms-pairs">Distance between atoms pairs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-atom-groups-in-space">Distance between atom groups in space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-atom-groups-of-a-system">Distance between atom groups of a system</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distances-between-atom-groups-positions-in-different-structures">Distances between atom groups positions in different structures</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#displacement-distances-of-atom-groups">Displacement distances of atom groups</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-pairs-of-groups-of-atoms">Distance between pairs of groups of atoms</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.20.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
