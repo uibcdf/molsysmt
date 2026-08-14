@@ -38,6 +38,7 @@ VALIDATORS = [
     ("validate_course.py", "Four Paths course structure"),
     ("validate_demo_assets.py", "Demo assets / H5MSM fixtures"),
     ("validate_resources.py", "Resource manifests"),
+    ("validate_citation.py", "Citation and Zenodo metadata"),
     ("check_rust_hot_paths.py", "Rust kernel hot paths (no libm rounding calls)"),
 ]
 

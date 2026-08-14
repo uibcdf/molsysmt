@@ -1,6 +1,9 @@
+(About_Citation)=
 # Citation
 
-Citing the [Zenodo DOI of MolSysMT](https://doi.org/10.5281/zenodo.8092688) in addition to the scientific paper is a way to ensure that others can reproduce your results, as they will know exactly which version of the software you used.
+Use the stable [Zenodo concept DOI](https://doi.org/10.5281/zenodo.1298752) when
+citing MolSysMT as a software project. For reproducible work, open its Zenodo version
+history and cite the DOI assigned to the exact release used in your calculation.
 
 <br/>
 
@@ -13,11 +16,11 @@ Coming soon...
 ```
 ```{tab} Software
 
-Diego Prada-Gracia & Liliana M. Moreno-Vargas. (2023). uibcdf/MolSysMT: 0.8.1 (0.8.1). Zenodo. https://doi.org/10.5281/zenodo.8092688
+Diego Prada-Gracia & Liliana M. Moreno-Vargas. (2026). MolSysMT (Version
+1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.1298752
 
 [BibTeX](../../_bibtex/software.bib)
 
 ```
 
 ````
-

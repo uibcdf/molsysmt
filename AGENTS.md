@@ -98,6 +98,24 @@ release gate. The short version:
 - Never add a `Co-Authored-By` trailer to commit messages. Commit messages must contain only the subject line and, when necessary, a body — no attribution footers of any kind.
 - Always include `[skip ci]` in the commit message unless explicitly instructed otherwise.
 
+## Releases, citation, and Zenodo
+
+- Read [`devguide/release_and_citation.md`](devguide/release_and_citation.md) before
+  preparing a release or changing `CITATION.cff`, `.zenodo.json`, DOI badges, or
+  citation text.
+- `CITATION.cff` is the canonical user- and GitHub-facing citation record.
+  `.zenodo.json`, when present, controls Zenodo ingestion and must agree with the
+  shared title, creators, ORCIDs, and license.
+- Public project-level surfaces use the stable MolSysMT concept DOI
+  `10.5281/zenodo.1298752`. Never freeze a historical version DOI into a badge or
+  governance rule. Exact-version DOI records are verified after GitHub publishes the
+  release.
+- A Git tag alone is not a Zenodo release. Publish a GitHub Release only after every
+  exact-commit gate passes; the enabled Zenodo/GitHub integration archives that release.
+- Run `python devtools/scripts/validate_citation.py` after citation changes. Use
+  `python devtools/scripts/prepare_release.py <version>` to update release-specific
+  citation fields instead of editing derived citation surfaces independently.
+
 ## Safety and tooling
 
 - Prefer minimal, focused changes that respect the existing architecture and style.

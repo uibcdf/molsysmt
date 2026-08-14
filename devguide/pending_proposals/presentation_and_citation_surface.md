@@ -1,14 +1,13 @@
 # Presentation and citation surface: the remaining public-facing work
 
-**Status:** partially resolved on 2026-08-07. The authorship question and the
-duplicate landing page are decided and applied. Item 1c is decided but deliberately
-not yet executed: `CITATION.cff` is a placeholder until 1.0, and the Zenodo record
-and DOI are updated when the release closes — it is now a line in the
-[release gate](../release_gate.md) sign-off so it cannot drift again. Item 3, the
-installation-instruction sequencing, is still open.
+**Status:** partially resolved on 2026-08-14. Items 1 and 2 are decided and applied.
+The citation and Zenodo lifecycle is now governed by
+[`release_and_citation.md`](../release_and_citation.md), checked by the release gate,
+and reflected on every public citation surface. Item 3, the installation-instruction
+sequencing, is still open.
 **Raised:** 2026-07-29, during the positioning audit recorded in
 [`readme_positioning_and_1_0_refresh.md`](readme_positioning_and_1_0_refresh.md).
-**Scope:** `CITATION.cff`, `.zenodo.json`, `docs/index_v2.ipynb`, and the Conda
+**Scope:** `CITATION.cff`, `.zenodo.json`, `docs/index.ipynb`, and the Conda
 installation instructions across `README.md` and the documentation landing page.
 
 ## Why these are separated from the positioning work
@@ -23,7 +22,7 @@ They are also the surface that the forthcoming methods paper will point at. A
 reader arriving from the paper meets the citation record, the landing page and the
 installation instructions before anything else.
 
-## Item 1 — the citation record is stale, inconsistent, and misattributes an ORCID
+## Item 1 — the citation record was stale, inconsistent, and misattributed an ORCID — **resolved 2026-08-14**
 
 Three separate problems, in decreasing order of seriousness. **1a and 1b were
 resolved on 2026-08-07**: the maintainer's decision is that Daniel Ibarrola-Sánchez
@@ -31,7 +30,7 @@ is not an author, so he was removed from `CITATION.cff`. That settles the
 misattributed ORCID by removing the entry that carried it, and it makes the three
 records agree — `CITATION.cff` and `.zenodo.json` now list the same two authors with
 the same ORCIDs, and the README acknowledges his contributions to MolSysMT's early
-development. **1c remains open.**
+development. **1c was resolved on 2026-08-14.**
 
 **1a. A real person is listed with someone else's ORCID.** `CITATION.cff`
 records:
@@ -60,34 +59,36 @@ both machine-readable records.
 
 | Field | `CITATION.cff` | Reality |
 | --- | --- | --- |
-| `title` | `uibcdf/MolSysMT: 0.8.1` | current version is 0.21.0 |
-| `version` | `0.8.1` | 0.21.0 |
+| `title` | `uibcdf/MolSysMT: 0.8.1` | project title is `MolSysMT`; version is a separate field |
+| `version` | `0.8.1` | 1.0.0 candidate |
 | `date-released` | `2023-06-28` | over two years stale |
 | `doi` | `10.5281/8092688` | malformed — a Zenodo DOI is `10.5281/zenodo.<id>`; the README badge uses `10.5281/zenodo.2530946` |
 
-`.zenodo.json` carries no version or DOI at all, which is correct for a
-concept-level record, and its description is already well framed. It does not
-need the same treatment.
+`.zenodo.json` carries no version or DOI, which is correct: Zenodo obtains the version
+and publication date from the GitHub Release. Its license did need correction from an
+object to the supported `"mit"` identifier string.
 
-**Decisions required:** Daniel Ibarrola-Sánchez's ORCID; whether he is an author
-or an acknowledged contributor; and which DOI is canonical — the concept DOI that
-resolves to every release, or a version DOI updated at each tag.
+**Decision:** Daniel Ibarrola-Sánchez is an acknowledged contributor rather than an
+author. The canonical project identifier is the MolSysMT concept DOI
+`10.5281/zenodo.1298752`; Zenodo assigns a separate DOI to every published GitHub
+Release. `10.5281/zenodo.2530946`, previously used by the README, belongs to MolModMT.
 
 **Acceptance criteria:** no ORCID appears against more than one person; the author
 list is identical in `CITATION.cff` and `.zenodo.json` and consistent with the
 README; the DOI is well formed and resolves; and the release metadata either
 matches the tagged version or is deliberately concept-level, stated as such.
 
-**Worth considering:** version and date in `CITATION.cff` drifted for two years
-because nothing updates them. If the canonical choice is a version DOI, this
-should be part of the release procedure in `release_gate.md` rather than a manual
-step that will drift again.
+**Enforcement:** `prepare_release.py` updates version/date and derived citation
+surfaces; `validate_citation.py` checks their agreement in the fast gate; and
+`verify_zenodo_release.py` proves after publication that the exact tag received its own
+DOI inside the expected concept family.
 
-**Decided 2026-08-07.** `CITATION.cff` is treated as a placeholder until 1.0. The
-new Zenodo record, its DOI, and the version, title and date fields are all updated
-as part of closing the release rather than now, so the file is expected to read
-`0.8.1` until then. To keep it from drifting a second time, the release gate's
-sign-off checklist now carries the step explicitly.
+**Correction and resolution 2026-08-14.** The earlier plan incorrectly said that 1.0
+needed a new Zenodo record. MolSysMT already owns concept DOI
+`10.5281/zenodo.1298752`, and the GitHub integration has archived 24 versions in that
+family, most recently 0.12.0 as `10.5281/zenodo.17850104`. The 1.0 candidate now uses
+the concept DOI in `CITATION.cff`, README, documentation, BibTeX, and page governance.
+The exact 1.0 version DOI can only be verified after the GitHub Release is published.
 
 ## Item 2 — an unreferenced duplicate landing page — **resolved 2026-08-07**
 

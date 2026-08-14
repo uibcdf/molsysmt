@@ -7,7 +7,7 @@ homepage:
   path: "docs/index.ipynb"
   agents_file: "docs/index.AGENTS.md"
   status: "stable"
-  description: "Restored minimal, linear homepage with logo, install snippet, interactive code example, and citation tabs."
+  description: "Minimal linear homepage with logo, install snippet, interactive example, and concept-DOI citation governed by the release contract."
 
 sections:
   user_guide:

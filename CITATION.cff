@@ -1,14 +1,28 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
+type: software
 authors:
 - family-names: "Prada-Gracia"
   given-names: "Diego"
   orcid: "https://orcid.org/0000-0003-3375-870X"
+  affiliation: "Hospital Infantil de México Federico Gómez (HIMFG) – UIBCDF"
 - family-names: "Moreno-Vargas"
   given-names: "Liliana M."
   orcid: "https://orcid.org/0000-0003-2812-1499"
-title: "uibcdf/MolSysMT: 0.8.1"
-version: 0.8.1
-doi: 10.5281/8092688
-date-released: 2023-06-28
-url: "https://github.com/uibcdf/MolSysMT"
+  affiliation: "Hospital Infantil de México Federico Gómez (HIMFG) – UIBCDF"
+title: "MolSysMT"
+version: 1.0.0
+doi: 10.5281/zenodo.1298752
+date-released: 2026-08-14
+url: "https://github.com/uibcdf/molsysmt"
+license: MIT
+abstract: >-
+  Molecular Systems MultiToolkit (MolSysMT) is a core Python library for building,
+  manipulating, querying, analyzing, and visualizing molecular systems and molecular
+  dynamics trajectories within the MolSysSuite ecosystem.
+keywords:
+- molecular modeling
+- molecular dynamics
+- computational chemistry
+- structural biology
+- drug design

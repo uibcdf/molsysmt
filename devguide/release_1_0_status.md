@@ -80,10 +80,10 @@ and do not merge it across an unmet integration dependency.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** complete F6 in one release sign-off commit: update `CITATION.cff`
-  with the 1.0.0 title, version, release date, and selected Zenodo DOI; obtain
-  maintainer approval; run every release gate on that exact commit; and tag only that
-  verified commit. The current status-only checkpoint is not itself the tag candidate
+- **Next action:** land the F6 citation/governance candidate, run every release gate on
+  that exact commit, and tag only that verified commit. Publish its GitHub Release and
+  then require the post-release Zenodo verifier to find a distinct 1.0.0 DOI inside
+  concept family `10.5281/zenodo.1298752`. A tag alone does not close F6
 - **Parallel packaging action:** Segment C is closed, and installed-wheel
   validation with it, so the only packaging work left is the Conda delivery
   track — coordinate sibling and MolSysMT Conda publication during manuscript
@@ -94,17 +94,19 @@ and do not merge it across an unmet integration dependency.
   corrections landed as `d2b805e74`. Of the three items that required a maintainer
   decision, two are settled on 2026-08-07: Daniel Ibarrola-Sánchez is not an author
   and was removed from `CITATION.cff`, which also removes the ORCID misattributed to
-  him, and the unreferenced duplicate landing page is deleted. Updating the DOI and
-  version is deferred to F6 — `CITATION.cff` is a placeholder until the release
-  closes, the canonical concept-versus-version DOI still requires selection, and the
-  step is now in the release-gate sign-off. Only the timing of the
+  him, and the unreferenced duplicate landing page is deleted. F6 now selects the
+  existing MolSysMT concept DOI, corrects every public citation surface, and separates
+  the pre-tag metadata gate from post-release verification of the version DOI. The
+  lifecycle is normative in `release_and_citation.md` and executable through the fast
+  gate and release workflow. Only the timing of the
   Conda installation instructions remains open, in
   [Presentation and Citation Surface](pending_proposals/presentation_and_citation_surface.md).
   Public-facing code examples must be executed against the installed package
   before they are written: the 2026-07-29 audit found that none of the README's
   examples ran
-- **Known independent release-gate debt:** the fast release gate passes 12/12
-  on 2026-08-12. Form-adapter delivery is green with 89/89 forms, 78 accepted
+- **Known independent release-gate debt:** the F6 working candidate passes the
+  expanded fast release gate 13/13 on 2026-08-14, including the new citation
+  metadata gate. Form-adapter delivery is green with 89/89 forms, 78 accepted
   lower-tier declarations across nine forms, 343 resolved baseline
   declarations, and no Tier-1 debt. Conversion fidelity reports 40 exhaustive
   Tier-1 edges, 441 accepted non-exhaustive edges, 29 resolved baseline edges,
@@ -633,7 +635,7 @@ for the 1.0 source/tag, scientific validation, or manuscript:
 | F3 — function support-tier and pending-guide hygiene | 1% | `DONE` — 117 Tier 1, 56 Tier 3, seven outside-contract; completed records archived | 1% |
 | F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | 2% | `DONE` | 2% |
 | F5 — clean exact-commit fast, full, wheel, and documentation gates | 3% | `DONE` — exact commit `38ab61f6e` passes every declared F5 gate | 3% |
-| F6 — 1.0 release candidate and tag | 1% | `IN PROGRESS` — release sign-off, citation metadata, exact final gates, and tag remain | 0% |
+| F6 — 1.0 release candidate and tag | 1% | `IN PROGRESS` — citation metadata and governance are prepared; exact final gates, tag, GitHub Release, and Zenodo version verification remain | 0% |
 | **Segment F total** | **10%** | **`IN PROGRESS`** | **9%** |
 
 ## Deferred Work
@@ -765,3 +767,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-08-13 | Boundary-digestion re-audit | uibcdf/molsysmt#147 withdrawn; no stage or weighted-progress transition | instrumentation distinguishes 21 ordinarily digested calls from 568 fast-path calls in the representative viewer action: all 510 form-level `has_attribute` calls already use `skip_digestion=True`, perform zero molecular-system assessments, and forcing the bypass changes 46.62 ms to 46.82 ms. The original 29 ms diagnosis is refuted. The two real findings are separated into uibcdf/molsysviewer#32, where operation-local inventory reuse measures 46.71 ms → 26.62 ms, and post-1.0 uibcdf/molsysmt#154, where one direct public predicate performs four assessments | `archive/withdrawn_bugs/boundary_digestion_on_internal_predicates.md`; checkpoint commit before F5 |
 | 2026-08-14 | F5 controlled sibling alignment | remains `IN PROGRESS`; no weighted-progress transition | public metadata advances to ArgDigest `>=0.12.0` and PyUnitWizard `>=0.24.0`; controlled workflows pin their immutable release commits and the already-tested MolSysViewer commit; a clean Python 3.13 Conda environment resolves ArgDigest 0.12.0, PyUnitWizard 0.24.0, SMonitor 0.12.0, and DepDigest 0.10.1 from channels and imports them from `site-packages`; 17 focused workflow, receptor, and fast-path tests pass | candidate-preparation commit following `eca56ef1d` |
 | 2026-08-14 | F5 exact-commit recertification | `IN PROGRESS` → `DONE`; weighted closure 96% → 99%; F6 becomes active | exact commit `38ab61f6e` passes the fast gate 12/12; smoke `31781199983` and documentation `31781220979` pass; wheel run `31781218931` passes 28 jobs covering supported Linux/macOS artifacts, installed Python 3.11--3.13 checks, NumPy floors, sdist and Rust quality, with Windows retained only as non-blocking experimental evidence; full matrix `31781216880` passes all six Ubuntu/macOS Python 3.11--3.13 cells | `38ab61f6e`; post-gate status checkpoint |
+| 2026-08-14 | F6 citation and preservation preparation | remains `IN PROGRESS`; weighted closure stays 99% | the existing MolSysMT concept family `10.5281/zenodo.1298752` is verified through its 0.12.0 record; every current public surface uses that concept DOI; `CITATION.cff` and `.zenodo.json` agree; the old MolModMT DOI is removed; release preparation, offline validation, and post-release Zenodo verification are executable and documented for reuse across MolSysSuite; four focused tests, Ruff, devguide, and the expanded fast gate 13/13 pass; exact final commit gates, tag, GitHub Release, and 1.0.0 version DOI remain | dirty F6 candidate based on `503612269`; `release_and_citation.md` |

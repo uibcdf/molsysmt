@@ -8,7 +8,7 @@
 through one uniform API.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/137937243.svg)](https://zenodo.org/badge/latestdoi/137937243)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1298752.svg)](https://doi.org/10.5281/zenodo.1298752)
 [![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/downloads/)
 [![CI](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml)
 [![codecov](https://codecov.io/github/uibcdf/molsysmt/graph/badge.svg?token=9ZMA4YZLOR)](https://codecov.io/github/uibcdf/molsysmt)
@@ -266,9 +266,13 @@ See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the full list.
 
 ## Citation
 
-If you use MolSysMT in your research, please cite the software release:
+If you use MolSysMT in your research, cite the software project through its stable
+concept DOI:
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2530946.svg)](https://doi.org/10.5281/zenodo.2530946)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1298752.svg)](https://doi.org/10.5281/zenodo.1298752)
+
+For reproducible work, select and cite the DOI of the exact MolSysMT version from
+the Zenodo version history.
 
 A methods paper describing MolSysMT is in preparation. Please check the
 documentation for the most up-to-date citation instructions.

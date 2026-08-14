@@ -30,7 +30,9 @@ No contributor or AI agent may alter or remove the following core elements:
      - **Release Badge:** MUST match the current codebase version (e.g., `v0.21.0` / `molsysmt.__version__`); outdated hardcoded version strings are forbidden.
      - **License Badge:** MUST target `https://github.com/uibcdf/molsysmt/blob/main/LICENSE` (targeting legacy branches like `master` is forbidden).
      - **Conda & Python Badges:** Conda channel (`uibcdf`) and supported Python versions (`3.11 | 3.12 | 3.13`).
-     - **Zenodo DOI Badge:** Zenodo release DOI (`10.5281/zenodo.8092688`).
+     - **Zenodo DOI Badge:** stable MolSysMT concept DOI
+       (`10.5281/zenodo.1298752`). A historical version DOI must never be frozen into
+       the home-page contract; see `devguide/release_and_citation.md`.
 
 2. **Installation Block:**
    - Section heading: `## Install it`
@@ -51,6 +53,8 @@ No contributor or AI agent may alter or remove the following core elements:
 4. **Citation Section:**
    - Section heading: `## Citation`
    - Tabbed block (```{tabs}`) with tabs for **Paper** (BibTeX link) and **Software** (Zenodo citation & BibTeX link).
+   - The software citation uses the concept DOI and names the current release version.
+     Direct readers to Zenodo when they need the DOI for one exact archived version.
 
 5. **Hidden Sidebar Navigation Tree (`toctree`):**
    - Must maintain hidden toctrees referencing top-level sections:

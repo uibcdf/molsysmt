@@ -45,6 +45,7 @@ It aggregates every cheap, deterministic gate into one PASS/FAIL verdict:
 | Four Paths course structure | `validate_course.py` |
 | Demo assets / H5MSM fixtures | `validate_demo_assets.py` |
 | Resource manifests | `validate_resources.py` |
+| Citation and Zenodo metadata | `validate_citation.py` |
 | Rust kernel hot paths (no libm rounding calls) | `check_rust_hot_paths.py` |
 | Public-API smoke (import + convert + get + select + get_center) | (inline) |
 
@@ -99,13 +100,17 @@ Do not substitute a partial or single-platform run.
       as experimental evidence and not treated as a release blocker.
 - [ ] Docs build → green, course toctree warning-clean.
 - [ ] No open **blocker** in `pending_bugs/`; open items are accepted debt or post-1.0.
-- [ ] **Citation record updated for the tag.** `CITATION.cff` is a placeholder
-      between releases: its `title`, `version`, `doi` and `date-released` are
-      brought to the tagged release, and the Zenodo record is created so the DOI
-      resolves. This is deliberately a release-time step — the fields drifted for
-      two years when nothing owned them.
+- [ ] **Citation metadata prepared for the tag.** `CITATION.cff` carries the stable
+      concept DOI, intended version and release date; `.zenodo.json` agrees on shared
+      metadata; and `validate_citation.py --expected-version <tag>` passes. See
+      [`release_and_citation.md`](release_and_citation.md).
 
 Only then tag the release.
+
+After publishing the GitHub Release, F6 is complete only when Zenodo has archived the
+tag and `python devtools/scripts/verify_zenodo_release.py <tag>` resolves a distinct
+version DOI inside the declared concept family. The DOI of a not-yet-published version
+cannot be a pre-tag gate unless it was deliberately pre-reserved through the Zenodo API.
 
 ## Notes
 
