@@ -37,20 +37,19 @@ and do not merge it across an unmet integration dependency.
 ## Current Release Snapshot
 
 - **Active segment:** F — lifecycle and release candidate
-- **Active stage:** F5 exact-commit recertification after bounded pre-1.0 fixes
-- **Completed weighted closure:** 96% of the remaining 1.0 execution plan
+- **Active stage:** F6 release sign-off and 1.0 tag
+- **Completed weighted closure:** 99% of the remaining 1.0 execution plan
 - **Development-progress estimate:** Segments A and B are certified complete;
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** F1–F4 are closed. F5 passed previously on
-  `8faf62785`, but the bounded pre-1.0 corrections landed in `d5b066a35`, the
-  generated-form identity repair landed in `5412489c9`, and the retired
-  ArgDigest passport dependency landed in `2eca46926`; these changes require a
-  new exact-commit campaign. The candidate dependency contract now uses the
-  published ArgDigest `0.12.0` and PyUnitWizard `0.24.0` releases, with their
-  immutable tag commits pinned in the controlled workflows; a clean Python
-  3.13 Conda environment resolves and imports both without checkout leakage.
+- **Current repository state:** F1–F5 are closed. The recertified F5 candidate
+  `38ab61f6e` passes the complete fast, smoke, documentation, wheel, and
+  Linux/macOS Python 3.11--3.13 gates after the bounded pre-1.0 corrections.
+  Its dependency contract uses the published ArgDigest `0.12.0` and
+  PyUnitWizard `0.24.0` releases, with their immutable tag commits pinned in
+  the controlled workflows; a clean Python 3.13 Conda environment resolves
+  and imports both without checkout leakage.
   The remaining Common Core
   exception was removed in `c87a14036`: all 20 modules now use their permanent
   semantic manifest identities and the validator pins the 1–20 contract. The
@@ -70,21 +69,18 @@ and do not merge it across an unmet integration dependency.
   run `30394881487`
 - **Current E3 exact evidence commit:** `692479097`; 9,585 tests pass, two are
   accepted skips, and the fast release gate passes 12/12
-- **Previous F5 exact candidate:** `8faf62785`; fast gates passed 12/12 locally, full matrix
-  run `31589594289` passed on Ubuntu and macOS with Python 3.11--3.13, wheel run
-  `31589594286` passed the supported Linux/macOS build and installed-runtime matrix
-  (with Windows also green as experimental evidence), documentation run `31589594273`
-  passed, and smoke run `31589594438` passed
-- **Release readiness measure:** the formal weighted closure is 96%; no second
+- **Current F5 exact candidate:** `38ab61f6e`; fast gates passed 12/12 locally,
+  full matrix run `31781216880` passed on Ubuntu and macOS with Python
+  3.11--3.13, wheel run `31781218931` passed the supported Linux/macOS build
+  and installed-runtime matrix (with Windows green as experimental evidence
+  only), documentation run `31781220979` passed, and smoke run `31781199983`
+  passed
+- **Release readiness measure:** the formal weighted closure is 99%; no second
   subjective percentage is mixed into this operational ledger
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** freeze the pre-1.0 implementation scope, with the optional
-  `convert(from_form=...)` expert hint explicitly deferred as uibcdf/molsysmt#151;
-  land the synchronized dependency pins, run the complete F5 exact-commit campaign
-  again, and only then complete F6 in one release sign-off
-  commit: update `CITATION.cff`
+- **Next action:** complete F6 in one release sign-off commit: update `CITATION.cff`
   with the 1.0.0 title, version, release date, and selected Zenodo DOI; obtain
   maintainer approval; run every release gate on that exact commit; and tag only that
   verified commit. The current status-only checkpoint is not itself the tag candidate
@@ -127,8 +123,8 @@ consolidation, or Rust kernel work completed before this ledger was created.
 | C — Rust packaging | 20% | `DONE` | 20% | C1–C7 pass: permanent backend, private abi3 integration, five native wheels, Python 3.11–3.13, NumPy floors, sdist/package parity, and Rust quality/security gates |
 | D — Rust-only cut | 20% | `DONE` | 20% | the runtime, dependencies, tests, controls, and GPU experiments are Numba-free; compatibility facades route to Rust, the executable zero gate passes, and the affected scientific surface passes 450 tests |
 | E — scientific and ecosystem validation | 15% | `DONE` | 15% | E1–E6 pass: Rust/scientific/full-suite gates, installed-wheel matrix, maturity-weighted consumers, and runtime/thread benchmarks |
-| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 6% | F1–F4 are done; F5 must be recertified after three bounded pre-1.0 corrections, then F6 sign-off and tag remain |
-| **Total** | **100%** | **`IN PROGRESS`** | **96%** | A–E use complete segment gates; F uses the explicit stage weights below |
+| F — lifecycle and release candidate | 10% | `IN PROGRESS` | 9% | F1–F5 are done; only F6 sign-off and the verified tag remain |
+| **Total** | **100%** | **`IN PROGRESS`** | **99%** | A–E use complete segment gates; F uses the explicit stage weights below |
 
 ### B4 Pause Checkpoint — Transactional Structural Growth
 
@@ -636,9 +632,9 @@ for the 1.0 source/tag, scientific validation, or manuscript:
 | F2 — applicable Common Core and changed-behavior notebook execution | 2% | `DONE` — 40/40 pass from clean kernels at `2f6fd59d1` | 2% |
 | F3 — function support-tier and pending-guide hygiene | 1% | `DONE` — 117 Tier 1, 56 Tier 3, seven outside-contract; completed records archived | 1% |
 | F4 — User Guide, Cookbook, API, demos, and course lifecycle closure | 2% | `DONE` | 2% |
-| F5 — clean exact-commit fast, full, wheel, and documentation gates | 3% | `IN PROGRESS` — the previous exact campaign remains valid historical evidence, but the new candidate must pass again | 0% |
-| F6 — 1.0 release candidate and tag | 1% | `PENDING` — waits for the recertified F5 commit | 0% |
-| **Segment F total** | **10%** | **`IN PROGRESS`** | **6%** |
+| F5 — clean exact-commit fast, full, wheel, and documentation gates | 3% | `DONE` — exact commit `38ab61f6e` passes every declared F5 gate | 3% |
+| F6 — 1.0 release candidate and tag | 1% | `IN PROGRESS` — release sign-off, citation metadata, exact final gates, and tag remain | 0% |
+| **Segment F total** | **10%** | **`IN PROGRESS`** | **9%** |
 
 ## Deferred Work
 
@@ -768,3 +764,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-08-13 | Pre-1.0 scope freeze | no stage or weighted-progress transition; F5 remains active | uibcdf/molsysmt#151 remains a post-1.0 expert-interface proposal: automatic detection is already bounded and safe, no post-fix end-to-end speedup has been measured, and adding a public signature plus unresolved heterogeneous-list semantics would expand rather than stabilize the candidate. No further implementation item is admitted before the exact-commit campaign | `pending_proposals/add_an_explicit_source_form_hint_to_convert.md`; checkpoint commit following `2eca46926` |
 | 2026-08-13 | Boundary-digestion re-audit | uibcdf/molsysmt#147 withdrawn; no stage or weighted-progress transition | instrumentation distinguishes 21 ordinarily digested calls from 568 fast-path calls in the representative viewer action: all 510 form-level `has_attribute` calls already use `skip_digestion=True`, perform zero molecular-system assessments, and forcing the bypass changes 46.62 ms to 46.82 ms. The original 29 ms diagnosis is refuted. The two real findings are separated into uibcdf/molsysviewer#32, where operation-local inventory reuse measures 46.71 ms → 26.62 ms, and post-1.0 uibcdf/molsysmt#154, where one direct public predicate performs four assessments | `archive/withdrawn_bugs/boundary_digestion_on_internal_predicates.md`; checkpoint commit before F5 |
 | 2026-08-14 | F5 controlled sibling alignment | remains `IN PROGRESS`; no weighted-progress transition | public metadata advances to ArgDigest `>=0.12.0` and PyUnitWizard `>=0.24.0`; controlled workflows pin their immutable release commits and the already-tested MolSysViewer commit; a clean Python 3.13 Conda environment resolves ArgDigest 0.12.0, PyUnitWizard 0.24.0, SMonitor 0.12.0, and DepDigest 0.10.1 from channels and imports them from `site-packages`; 17 focused workflow, receptor, and fast-path tests pass | candidate-preparation commit following `eca56ef1d` |
+| 2026-08-14 | F5 exact-commit recertification | `IN PROGRESS` → `DONE`; weighted closure 96% → 99%; F6 becomes active | exact commit `38ab61f6e` passes the fast gate 12/12; smoke `31781199983` and documentation `31781220979` pass; wheel run `31781218931` passes 28 jobs covering supported Linux/macOS artifacts, installed Python 3.11--3.13 checks, NumPy floors, sdist and Rust quality, with Windows retained only as non-blocking experimental evidence; full matrix `31781216880` passes all six Ubuntu/macOS Python 3.11--3.13 cells | `38ab61f6e`; post-gate status checkpoint |
