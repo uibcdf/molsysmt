@@ -15,7 +15,7 @@ requirements:
   - python
   - h5py
   - numpy
-  - argdigest
+  - argdigest >=0.12.1
   - depdigest
   - smonitor
   - pyunitwizard

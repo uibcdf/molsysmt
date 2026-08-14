@@ -37,7 +37,7 @@ dependencies = [
     "networkx",
     "tqdm",
     "matplotlib",
-    "argdigest>=0.12.0",
+    "argdigest>=0.12.1",
     "depdigest>=0.10.0",
     "smonitor>=0.12.0",
 ]

@@ -1,3 +1,7 @@
+import pytest
+from argdigest import ArgumentConsistencyError
+
+import molsysmt as msm
 from molsysmt.attribute import attributes, get_argument_aliases
 from molsysmt._private.argdigest.normalization.attribute_synonyms import (
     _ATTRIBUTE_TAKING_CALLERS,
@@ -64,3 +68,8 @@ def test_runtime_element_tables_match_the_public_provider():
     observed = {table.when['element']: table.aliases for table in ELEMENT_TABLES}
 
     assert observed == expected
+
+
+def test_public_get_rejects_an_alias_together_with_its_canonical_name():
+    with pytest.raises(ArgumentConsistencyError, match="atom_names.*atom_name"):
+        msm.get(None, atom_names=True, atom_name=False)

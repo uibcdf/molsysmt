@@ -46,10 +46,11 @@ and do not merge it across an unmet integration dependency.
 - **Current repository state:** F1–F5 are closed. The recertified F5 candidate
   `38ab61f6e` passes the complete fast, smoke, documentation, wheel, and
   Linux/macOS Python 3.11--3.13 gates after the bounded pre-1.0 corrections.
-  Its dependency contract uses the published ArgDigest `0.12.0` and
-  PyUnitWizard `0.24.0` releases, with their immutable tag commits pinned in
-  the controlled workflows; a clean Python 3.13 Conda environment resolves
-  and imports both without checkout leakage.
+  That candidate used the published ArgDigest `0.12.0`; a subsequently found
+  silent alias collision is fixed upstream and raises the source dependency
+  floor to the planned `0.12.1` patch release. PyUnitWizard remains at
+  `0.24.0`. The exact release candidate must be recertified after ArgDigest
+  `0.12.1` reaches the controlled workflows and Conda channel.
   The remaining Common Core
   exception was removed in `c87a14036`: all 20 modules now use their permanent
   semantic manifest identities and the validator pins the 1–20 contract. The
@@ -769,3 +770,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-08-14 | F5 exact-commit recertification | `IN PROGRESS` → `DONE`; weighted closure 96% → 99%; F6 becomes active | exact commit `38ab61f6e` passes the fast gate 12/12; smoke `31781199983` and documentation `31781220979` pass; wheel run `31781218931` passes 28 jobs covering supported Linux/macOS artifacts, installed Python 3.11--3.13 checks, NumPy floors, sdist and Rust quality, with Windows retained only as non-blocking experimental evidence; full matrix `31781216880` passes all six Ubuntu/macOS Python 3.11--3.13 cells | `38ab61f6e`; post-gate status checkpoint |
 | 2026-08-14 | F6 citation and preservation preparation | remains `IN PROGRESS`; weighted closure stays 99% | the existing MolSysMT concept family `10.5281/zenodo.1298752` is verified through its 0.12.0 record; every current public surface uses that concept DOI; `CITATION.cff` and `.zenodo.json` agree; the old MolModMT DOI is removed; release preparation, offline validation, and post-release Zenodo verification are executable and documented for reuse across MolSysSuite; four focused tests, Ruff, devguide, and the expanded fast gate 13/13 pass; exact final commit gates, tag, GitHub Release, and 1.0.0 version DOI remain | dirty F6 candidate based on `503612269`; `release_and_citation.md` |
 | 2026-08-14 | Public MolSysSuite alias contract | uibcdf/molsysmt#157 `OPEN` → `DONE`; no stage or weighted-progress transition | `molsysmt.attribute.get_argument_aliases()` exposes schema-versioned defensive-copy plain data for attribute synonyms and explicit element-dependent short names; MolSysMT derives its own caller-scoped ArgDigest tables from that source; MolSysViewer removes both private imports while preserving its `viewer`, `Region`, and `Whole` behavior. The User Guide and Common Core module 8 reflect the alias contract and both notebooks execute. 119 MolSysMT tests, 23 focused MolSysViewer tests, Ruff, dependency/devguide/course/API validation, and the fast release gate 13/13 pass; MolSysViewer's full suite has 1609 passes, four accepted skips, and one unrelated pre-existing documentation failure from deprecated `add_label()` usage | closing commit for uibcdf/molsysmt#157; `archive/resolved_proposals/public_alias_contract_for_molsyssuite_consumers.md` |
+| 2026-08-14 | Alias-collision downstream guard | ArgDigest runtime fixed; no weighted-progress transition | ArgDigest now rejects alias-plus-canonical and multi-alias target collisions before normalization can discard a value. MolSysMT pins the public `get()` boundary, raises its wheel and Conda floor from `>=0.12.0` to the planned patch `>=0.12.1`, and records that the exact release candidate needs recertification after publication rather than accepting the known-bad release | downstream closure for ArgDigest commit `c46cd01`; `tests/attribute/test_argument_aliases.py` |

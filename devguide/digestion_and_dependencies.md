@@ -47,8 +47,9 @@ MolSysMT and sibling consumers must build caller-scoped `AliasTable` declaration
 that provider. They must not import `molsysmt.attribute._attribute_synonyms` or modules
 below `molsysmt._private.argdigest.normalization`. A consumer also owns an honest
 MolSysMT dependency floor for the schema it understands and tests both that metadata
-and its public calls. Canonical and alias keywords remain alternatives; simultaneous
-use is an ArgDigest contract violation, not a precedence rule for consumers to invent.
+and its public calls. Canonical and alias keywords are alternatives. ArgDigest 0.12.1
+and later reject simultaneous use with `ArgumentConsistencyError`, naming the caller,
+canonical target and conflicting sources; consumers must not invent a precedence rule.
 
 ### Explicit trusted delegation
 
