@@ -85,7 +85,7 @@ jobs:
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/requirements/controlled_hard_dependencies.txt \
-            git+https://github.com/uibcdf/molsysviewer@28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4
+            git+https://github.com/uibcdf/molsysviewer@7a1522662e30575caf580a9447e3e6d80b628e07
           python -m pip install --editable . --no-deps
 
       - name: Test import

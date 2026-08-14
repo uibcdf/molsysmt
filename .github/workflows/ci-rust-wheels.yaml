@@ -357,21 +357,21 @@ jobs:
       - uses: actions/checkout@v7
         with:
           repository: uibcdf/pyunitwizard
-          ref: 0ff6656abfbd9f1ebc7575bc3f67fb263f52bf4f
+          ref: b9be32d4b17a1b8f1d51c4aa734c56d679fb75db
           path: controlled-sources/pyunitwizard
           persist-credentials: false
 
       - uses: actions/checkout@v7
         with:
           repository: uibcdf/argdigest
-          ref: dfd8750642c0e2cb4b6690b527a4142d4122ef45
+          ref: 7d44bd1d8bbf7f482feb00ce24210bab171747b4
           path: controlled-sources/argdigest
           persist-credentials: false
 
       - uses: actions/checkout@v7
         with:
           repository: uibcdf/molsysviewer
-          ref: 28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4
+          ref: 7a1522662e30575caf580a9447e3e6d80b628e07
           path: controlled-sources/molsysviewer
           persist-credentials: false
 

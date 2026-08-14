@@ -141,9 +141,9 @@ def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
     for commit in (
         "4fccafda4aa37b4c152d6b7d887ee665c7adc443",
         "df86d5d33de23724a819c2cb883198522a0c0c47",
-        "0ff6656abfbd9f1ebc7575bc3f67fb263f52bf4f",
-        "dfd8750642c0e2cb4b6690b527a4142d4122ef45",
-        "28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4",
+        "b9be32d4b17a1b8f1d51c4aa734c56d679fb75db",
+        "7d44bd1d8bbf7f482feb00ce24210bab171747b4",
+        "7a1522662e30575caf580a9447e3e6d80b628e07",
     ):
         assert commit in text
     assert "validate_installed_molsysmt.py" in text
@@ -168,6 +168,8 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
         "cp311"
     )
     assert "numpy>=1.26,<3" in config["project"]["dependencies"]
+    assert "pyunitwizard>=0.24.0" in config["project"]["dependencies"]
+    assert "argdigest>=0.12.0" in config["project"]["dependencies"]
     assert config["tool"]["setuptools"]["packages"]["find"]["include"] == [
         "molsysmt*",
         "molsysviewer_molsysmt*",

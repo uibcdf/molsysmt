@@ -23,7 +23,7 @@ jobs:
       - name: Build the exact portable MolSysViewer dependency
         run: >-
           python -m pip wheel --no-deps
-          git+https://github.com/uibcdf/molsysviewer@28ebc4a9b624d81c1a09d27ffb91e96c63d2cfc4
+          git+https://github.com/uibcdf/molsysviewer@7a1522662e30575caf580a9447e3e6d80b628e07
           --wheel-dir controlled-wheelhouse
 
       - name: Require one platform-independent wheel

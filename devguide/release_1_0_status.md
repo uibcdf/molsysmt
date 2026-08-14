@@ -47,7 +47,11 @@ and do not merge it across an unmet integration dependency.
   `8faf62785`, but the bounded pre-1.0 corrections landed in `d5b066a35`, the
   generated-form identity repair landed in `5412489c9`, and the retired
   ArgDigest passport dependency landed in `2eca46926`; these changes require a
-  new exact-commit campaign. The remaining Common Core
+  new exact-commit campaign. The candidate dependency contract now uses the
+  published ArgDigest `0.12.0` and PyUnitWizard `0.24.0` releases, with their
+  immutable tag commits pinned in the controlled workflows; a clean Python
+  3.13 Conda environment resolves and imports both without checkout leakage.
+  The remaining Common Core
   exception was removed in `c87a14036`: all 20 modules now use their permanent
   semantic manifest identities and the validator pins the 1–20 contract. The
   PyTraj, OpenFF, OpenMM construction, and missing-converter work that followed
@@ -78,7 +82,8 @@ and do not merge it across an unmet integration dependency.
   reported upstream immediately
 - **Next action:** freeze the pre-1.0 implementation scope, with the optional
   `convert(from_form=...)` expert hint explicitly deferred as uibcdf/molsysmt#151;
-  run the complete F5 exact-commit campaign again; and only then complete F6 in one release sign-off
+  land the synchronized dependency pins, run the complete F5 exact-commit campaign
+  again, and only then complete F6 in one release sign-off
   commit: update `CITATION.cff`
   with the 1.0.0 title, version, release date, and selected Zenodo DOI; obtain
   maintainer approval; run every release gate on that exact commit; and tag only that
@@ -762,3 +767,4 @@ it with exact-commit evidence before marking a release gate `DONE`.
 | 2026-08-13 | Retired ArgDigest passport dependency | reported → `DONE`; no stage or weighted-progress transition | the only `ValidatedPayload` issuance path and its paired trusted-array branch were unreachable: 13,319 distinct decorated callables and the instrumented full suite produced no caller under `molsysmt.lib.*`. Both branches, the import, and the obsolete sandbox are removed without replacement; active rules use ordinary digestion or explicit caller-owned `skip_digestion=True`. The complete 372-test private-digester surface passes against both the pre-removal ArgDigest tree and `refactor/remove-the-passport` with `argdigest.core.contract` absent; fast release gate 12/12 | `2eca46926`; uibcdf/molsysmt#153; `tests/_private/argdigest/test_no_validated_payload.py` |
 | 2026-08-13 | Pre-1.0 scope freeze | no stage or weighted-progress transition; F5 remains active | uibcdf/molsysmt#151 remains a post-1.0 expert-interface proposal: automatic detection is already bounded and safe, no post-fix end-to-end speedup has been measured, and adding a public signature plus unresolved heterogeneous-list semantics would expand rather than stabilize the candidate. No further implementation item is admitted before the exact-commit campaign | `pending_proposals/add_an_explicit_source_form_hint_to_convert.md`; checkpoint commit following `2eca46926` |
 | 2026-08-13 | Boundary-digestion re-audit | uibcdf/molsysmt#147 withdrawn; no stage or weighted-progress transition | instrumentation distinguishes 21 ordinarily digested calls from 568 fast-path calls in the representative viewer action: all 510 form-level `has_attribute` calls already use `skip_digestion=True`, perform zero molecular-system assessments, and forcing the bypass changes 46.62 ms to 46.82 ms. The original 29 ms diagnosis is refuted. The two real findings are separated into uibcdf/molsysviewer#32, where operation-local inventory reuse measures 46.71 ms → 26.62 ms, and post-1.0 uibcdf/molsysmt#154, where one direct public predicate performs four assessments | `archive/withdrawn_bugs/boundary_digestion_on_internal_predicates.md`; checkpoint commit before F5 |
+| 2026-08-14 | F5 controlled sibling alignment | remains `IN PROGRESS`; no weighted-progress transition | public metadata advances to ArgDigest `>=0.12.0` and PyUnitWizard `>=0.24.0`; controlled workflows pin their immutable release commits and the already-tested MolSysViewer commit; a clean Python 3.13 Conda environment resolves ArgDigest 0.12.0, PyUnitWizard 0.24.0, SMonitor 0.12.0, and DepDigest 0.10.1 from channels and imports them from `site-packages`; 17 focused workflow, receptor, and fast-path tests pass | candidate-preparation commit following `eca56ef1d` |

@@ -19,6 +19,25 @@ fast paths for coordinates, box vectors, and box lengths.
 **Status:** Open. The first measured hot paths are migrated; the remaining quantity
 boundaries have not been classified.
 
+## Progress — 2026-08-14
+
+The first migrated family no longer depends on an unreleased sibling revision.
+PyUnitWizard `0.24.0`, which contains the tri-state `has_unit()` API and the optimized
+quantity paths used here, is published in the `uibcdf` Conda channel for Python
+3.11--3.13. ArgDigest `0.12.0`, which removes the retired passport protocol, is
+published for the same Python range.
+
+A clean Python 3.13 Conda environment resolved and imported both packages from
+`site-packages`, exposed a callable `pyunitwizard.has_unit`, and selected SMonitor
+`0.12.0` plus DepDigest `0.10.1` from the channel. The MolSysMT package metadata now
+requires `pyunitwizard>=0.24.0` and `argdigest>=0.12.0`; controlled F5 workflows retain
+the immutable tag commits rather than following moving sibling branches. Seventeen
+focused workflow, receptor, and scientific-array tests pass with this contract.
+
+This evidence closes the release-availability dependency only. The proposal remains
+open because its production call-site inventory, per-family benchmarks, and remaining
+boundary classifications are still pending and are not release blockers for F5.
+
 ## What
 
 Audit MolSysMT's quantity digesters and hot normalization boundaries against the
@@ -108,8 +127,7 @@ new value-certification containers, and unrelated form-conversion refactors.
 
 ## Dependencies and risks
 
-The audit depends on the PyUnitWizard version that provides the documented tri-state
-`has_unit()` contract and optimized `ensure_quantity()`. The primary risk is confusing
-exact-unit equality with dimensional compatibility and thereby changing which error a
-public caller receives.
-
+The audit requires PyUnitWizard `0.24.0` or newer, which provides the documented
+tri-state `has_unit()` contract and optimized `ensure_quantity()`. The primary risk is
+confusing exact-unit equality with dimensional compatibility and thereby changing which
+error a public caller receives.
