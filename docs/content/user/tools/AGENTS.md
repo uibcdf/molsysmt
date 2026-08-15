@@ -45,10 +45,8 @@ This guide is for agents editing the **Tools** section of the User Guide under
 All tool tutorial notebooks (`*.ipynb`) MUST adhere strictly to the following admonition styling and `{seealso}` rules:
 
 1. **Collapsible Dropdowns (`:class: dropdown`)**:
-   - **API Documentation Reference**: The admonition box under `## How this function works` MUST be a collapsible dropdown:
+   - **API Documentation Reference**: The `API documentation` box MUST be placed directly in the introductory header section under `:::{versionadded}` as a collapsible dropdown:
      ```markdown
-     ## How this function works
-
      :::{admonition} API documentation
      :class: dropdown
 
