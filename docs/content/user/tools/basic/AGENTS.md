@@ -31,12 +31,15 @@ All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectorie
 
 ### 3. API Documentation Reference (Markdown)
 - **Header H2**: `## How this function works`
-- **Admonition Box**:
+- **Collapsible Admonition Box**:
   ```markdown
-  ```{admonition} API documentation
-  Follow this link for a detailed description of the input arguments, raised errors, and returned objects of this function:{func}`molsysmt.basic.[function_name]`.
+  :::{admonition} API documentation
+  :class: dropdown
+
+  Follow this link for a detailed description of the input arguments, raised errors, and returned objects of this function: {func}`molsysmt.basic.[function_name]`.
+  :::
   ```
-  ```
+
 
 ### 4. Executable Hands-On Examples (Code & Markdown)
 - Organized under descriptive H2 / H3 section headers (e.g., `## Basic Usage`, `## Advanced Filtering`).
