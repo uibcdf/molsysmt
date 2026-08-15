@@ -5,7 +5,7 @@ import molsysmt as msm
 molsys = msm.systems['pentalanine']['traj_pentalanine.h5']
 topology, structures = msm.convert(molsys, to_form=['molsysmt.Topology', 'molsysmt.Structures'])
 
-view = msm.view([topology, structures], structure_indices=3500, standard=True)
+view = msm.view([topology, structures], structure_indices=3500)
 output_path = Path(__file__).resolve().parent.parent / "_static" / "views" / "tools_basic_convert.html"
 view.export.html(str(output_path), background="transparent")
 print(f"Generated MolSysViewer static view at: {output_path}")

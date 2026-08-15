@@ -16,5 +16,5 @@ molsys_C = msm.structure.translate(molsys_C, translation='[1.0, 0.0, 0.0] nanome
 msm.add(molsys_A, molsys_B)
 msm.add(molsys_A, molsys_C)
 
-view = msm.view(molsys_A, standard=True)
+view = msm.view(molsys_A)
 view.export.html(str(views_dir / "tools_basic_add.html"), shared_runtime=str(static_dir), background="transparent")
