@@ -51,8 +51,11 @@ All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectorie
     `molsysviewer_htmlfile = '_static/views/[name].html'` (do NOT hardcode `../../../../` relative jumps; `molsysviewer.py` automatically resolves the path relative to `MSM_DOCS_NOTEBOOK`).
 
 ### 5. Related Tools & References (Markdown)
-- Concludes with a `{seealso}` admonition pointing to related tools using MyST `{ref}` anchors (e.g. `{ref}`Tutorial_Build_peptide`) rather than relative `.ipynb` file paths.
-
+- Concludes with a collapsible `{seealso}` admonition (`:class: dropdown`) listing all MolSysMT functions used or referenced in the tutorial unit.
+- **Order of Appearance**: Referenced tools MUST appear in the exact order of their first appearance in the notebook text/code.
+- **Explicit Function Reference**: Each entry MUST mention the function name using backticks:
+  `[Tool Title]: [Short action description...] with {func}`molsysmt.[module].[function]`.`
+  (Example: `{ref}`Tutorial_Build_peptide`: Build natural peptides with or without terminal caps with {func}`molsysmt.build.build_peptide`.)
 ---
 
 ## ✍️ Editorial & Narrative Style Guide (Modeled after `add.ipynb` & `append_structures.ipynb`)
