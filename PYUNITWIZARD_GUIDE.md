@@ -5,8 +5,8 @@ Source of truth for integrating and using **PyUnitWizard** in this library.
 Metadata
 - Source repository: `pyunitwizard`
 - Source document: `standards/PYUNITWIZARD_GUIDE.md`
-- Source version: `pyunitwizard@5084a09`
-- Last synced: 2026-08-13
+- Source version: `pyunitwizard@bc69459`
+- Last synced: 2026-08-15
 
 ## What is PyUnitWizard
 
@@ -25,21 +25,81 @@ PyUnitWizard follows a strict separation between Hard and Soft dependencies:
 - **Hard Dependencies**: `numpy` and `pint`. These are always available.
 - **Soft Dependencies**: `unyt`, `openmm.unit`, `astropy.units`. These are optional and managed via `depdigest`.
 
-## Minimum initialization (recommended)
+## Minimum initialization (required pattern)
 
-Libraries using PyUnitWizard should configure it upon import to define their preferred standards:
+All libraries in a process share **one** PyUnitWizard kernel. A library that configures it
+unconditionally on import therefore overwrites whatever was already there — and with lazy
+imports, "whatever was already there" may be a choice the user made twenty minutes ago in
+another notebook cell.
+
+So a library configures **only when nobody has decided yet**:
 
 ```python
+# mylib/_pyunitwizard.py
+
 import pyunitwizard as puw
 
-# Load required backends
-puw.configure.load_library(['pint', 'openmm.unit'])
+STANDARD_UNITS = ['nm', 'ps', 'K', 'mole', 'dalton', 'e', 'kJ/mol', 'radians']
 
-# Set default form for outputs
-puw.configure.set_default_form('pint')
+if not puw.configure.has_active_policy():
+    puw.configure.set_default_form('pint')
+    puw.configure.set_default_parser('pint')
+    puw.configure.set_standard_units(STANDARD_UNITS, provenance='mylib')
 
-# Define standard units for the project
-puw.configure.set_standard_units(['nm', 'ps', 'kcal', 'mole', 'K'])
+# Fast tracks are named converters, not policy: `to_nanometers` means nanometers
+# whatever the active standard units are. Register them unconditionally.
+puw.register_fast_track('nanometers', puw.unit('nm'))
+```
+
+Three rules follow from this, and they are not stylistic:
+
+1. **Importing must not change an active policy.** `has_active_policy()` is the guard. Without
+   it, the last import wins and results depend on import order.
+2. **Sibling libraries in one suite must declare the *same* policy.** When they agree, who gets
+   there first stops mattering. When they disagree, the same call returns `1.0 radian` or
+   `57.3 degree` depending on which was imported first — a real defect, observed across
+   MolSysSuite before this rule existed.
+3. **Identify yourself with `provenance`.** It is what turns "why are my results in degrees?"
+   into a ten-second question.
+
+### Authority over the policy
+
+From strongest to weakest:
+
+1. an explicit unit, form, or parser passed to a call;
+2. an explicitly entered `puw.context(...)`;
+3. the policy chosen by the application, the user, or the session;
+4. PyUnitWizard's factory defaults.
+
+**Being imported is not on that list.** A library declares a policy; it does not own one.
+
+### Reading the active policy
+
+```python
+puw.configure.report()
+# {'default_form': 'pint', 'default_parser': 'pint',
+#  'standard_units': ['nm', 'ps', ...], 'provenance': 'molsysmt',
+#  'loaded_libraries': ['pint'], 'loaded_parsers': ['pint'],
+#  'fast_tracks': ['nanometers', 'picoseconds']}
+```
+
+Use it in a notebook to see what is active and who set it, and in tests to assert that
+importing your library did not disturb an existing policy.
+
+### Changing it as a user
+
+Permanently, for the session — this outranks any library, and later imports will not undo it:
+
+```python
+puw.configure.set_standard_units(['angstrom', 'fs'])
+puw.configure.add_standard_units(['angstrom'])   # replace one dimensionality only
+```
+
+Temporarily:
+
+```python
+with puw.context(standard_units=['angstrom', 'fs']):
+    ...
 ```
 
 ## Consumer decision guide
@@ -181,6 +241,7 @@ PyUnitWizard is instrumented with `@smonitor.signal`. Traceable tags include:
 1.  **Lazy Backend Checks**: Do not assume optional backends are installed. Use `puw.is_quantity()` or catch `LibraryNotFoundError`.
 2.  **No Direct Backend Imports**: Never `import pint` or `import unyt` in your scientific logic. Rely exclusively on the `puw` API.
 3.  **Use Contexts for Tests**: When testing unit-sensitive code, use `puw.context` to ensure a deterministic environment.
+4.  **Never configure unconditionally on import**: guard with `has_active_policy()`. See "Minimum initialization".
 
 ```python
 with puw.context(default_form='pint', standard_units=['nm', 'ps']):
@@ -255,4 +316,5 @@ The optimization is successful only when the canonical path becomes cheaper with
 changing non-canonical behavior or weakening validation.
 
 ---
-*Document created on February 6, 2026, as the authority for PyUnitWizard integration; consumer fast-path policy updated on August 13, 2026.*
+*Document created on February 6, 2026, as the authority for PyUnitWizard integration; consumer fast-path policy
+updated on August 13, 2026; unit-configuration authority added on August 15, 2026.*
