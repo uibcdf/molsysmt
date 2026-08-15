@@ -1,7 +1,7 @@
 (user-foundations-support-molecular-mechanics)=
 # Molecular Mechanics Data
 
-MolSysMT standardizes molecular mechanics forcefields, implicit solvent models, non-bonded interaction parameters, constraint options, and energy evaluation protocols across simulation engines.
+MolSysMT standardizes molecular mechanics forcefields, implicit solvent models, non-bonded interaction parameters, and constraint options across simulation engines.
 
 ---
 
@@ -29,8 +29,8 @@ Cutoff parameters, electrostatics algorithms, and continuum dielectric propertie
 | **`switch_distance`** | Real positive quantity | Distance at which non-bonded switching function begins. | `nanometer` (`nm`) |
 | **`implicit_solvent`** | `OBC1`, `OBC2`, `GBn`, `GBn2`, `HCT`, `GB` | Implicit continuum solvent model. | N/A |
 | **`salt_concentration`** | Real positive quantity | Ionic strength for Debye-Hückel / Generalized Born screening. | `molar` (`M`) |
-| **`solute_dielectric`** | Real positive scalar | Relative dielectric permittivity inside the solute cavity ($arepsilon_{solute}$). | N/A |
-| **`solvent_dielectric`** | Real positive scalar | Relative dielectric permittivity of bulk solvent ($arepsilon_{solvent}$). | N/A |
+| **`solute_dielectric`** | Real positive scalar | Relative dielectric permittivity inside the solute cavity (solute dielectric). | N/A |
+| **`solvent_dielectric`** | Real positive scalar | Relative dielectric permittivity of bulk solvent (solvent dielectric). | N/A |
 | **`dispersion_correction`** | Boolean | Analytical long-range dispersion correction for energy and pressure. | N/A |
 | **`ewald_error_tolerance`** | Real positive scalar | Target relative error tolerance for PME / Ewald direct-space sum. | N/A |
 
@@ -46,18 +46,3 @@ Geometric constraints, rigid water settings, and mass repartitioning:
 | **`flexible_constraints`** | Boolean | Policy allowing constrained bonds to vibrate harmonically. | N/A |
 | **`rigid_water`** | Boolean | Enforces rigid geometry on tri-atomic water molecules. | N/A |
 | **`hydrogen_mass`** | Real positive quantity | Mass repartitioning value assigned to hydrogen atoms for integration stability. | `dalton` (`Da`) |
-
----
-
-## Energy Evaluation and Operations
-
-Operations for evaluating physical potential energies, atomic forces, and structural minimization:
-
-| Function / Operation | Target Output | Description | Canonical Unit |
-| :--- | :--- | :--- | :--- |
-| **`msm.molecular_mechanics.get_potential_energy`** | Potential Energy | Evaluates total potential energy ($E_{pot}$) of the system. | `kilojoule_per_mole` (`kJ/mol`) |
-| **`msm.molecular_mechanics.get_non_bonded_potential_energy`** | Non-Bonded Energy | Evaluates electrostatics and Van der Waals potential energy contributions. | `kilojoule_per_mole` (`kJ/mol`) |
-| **`msm.molecular_mechanics.get_forces`** | Atomic Forces | Computes 3D gradient forces ($F_i = -
-abla_i E$). | `kilojoule_per_mole / nanometer` (`kJ/(mol*nm)`) |
-| **`msm.molecular_mechanics.potential_energy_minimization`** | Minimized System | Performs geometry optimization and energy minimization. | N/A |
-| **`msm.molecular_mechanics.get_engine_forcefield`** | Engine Forcefield | Resolves engine-native forcefield parameter representations (OpenMM, LEaP, GROMACS). | N/A |
