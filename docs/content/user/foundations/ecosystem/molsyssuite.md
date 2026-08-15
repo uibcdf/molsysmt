@@ -1,7 +1,7 @@
 (user-foundations-ecosystem-molsyssuite)=
 # MolSysSuite
 
-MolSysSuite is an integrated open-source collection of computational biophysics software packages developed at UIBCDF. Designed to cover structural molecular modeling, trajectory manipulation, topological analysis, pharmacophore identification, elastic network dynamics, and database query management, MolSysSuite provides a unified ecosystem for molecular simulations and structural bioinformatics.
+MolSysSuite is an integrated open-source collection of computational biophysics software packages developed at UIBCDF. Designed to cover structural molecular modeling, trajectory manipulation, 3D visualization, AI-assisted workflows, topological analysis, pharmacophore identification, elastic network dynamics, and database query management, MolSysSuite provides a unified ecosystem for molecular simulations and structural bioinformatics.
 
 ---
 
@@ -14,6 +14,14 @@ MolSysMT is the foundational molecular systems, topology, and trajectory kernel 
 ## MolSysViewer
 
 MolSysViewer is the native 3D WebGL visualization widget of the suite. Engineered for interactive Jupyter Notebook, JupyterLab, and web application environments, it enables high-performance 3D rendering, custom molecular representations, shape overlays, dynamic selections, and synchronized session state management.
+
+---
+
+## MolSys-AI
+
+*(Under development)*
+
+MolSys-AI is the AI-assisted agentic assistant and workflow automation package of the suite. It enables natural language query interpretation, automated simulation protocol assembly, intelligent trajectory diagnostics, and agent-driven biophysical analysis.
 
 ---
 
@@ -51,12 +59,10 @@ Sabueso is the biological database query and metadata parser agent of the suite.
 
 ## Infrastructure and Developer Tooling
 
-MolSysSuite relies on a dedicated suite of core software engineering and governance libraries developed to ensure strict numerical safety, lazy loading, boundary validation, and testing integrity:
+MolSysSuite relies on a dedicated suite of core software engineering and governance libraries developed to ensure strict numerical safety, lazy loading, boundary validation, and testing integrity across all suite packages:
 
-| Tooling Package | Category | Primary Function in Suite |
-| :--- | :--- | :--- |
-| **`PyUnitWizard`** | Physical Quantities | Standardizes physical unit handling, dimensional consistency checks, and Fast-Track unit bypass. |
-| **`ArgDigest`** | Boundary Validation | Enforces contract validation and parameter digestion on public API boundaries via `@digest`. |
-| **`DepDigest`** | Dependency Management | Manages centralized soft dependency registration, lazy imports, and runtime availability checks. |
-| **`SMonitor`** | Diagnostics & Logging | Provides catalog-driven warning systems, structured diagnostics, and execution monitoring. |
-| **`Pytest-Receptor`** | Testing Infrastructure | Receptor-aware test suite fixtures and deterministic validation frameworks. |
+- **`PyUnitWizard`**: Physical quantities and units management library. Standardizes physical unit handling, dimensional consistency checks, and Fast-Track unit bypass for high-performance array transformations.
+- **`ArgDigest`**: Public API boundary validation framework. Enforces contract validation, argument parsing, and parameter digestion on public entry points via `@digest`.
+- **`DepDigest`**: Centralized dependency management infrastructure. Controls soft dependency registration, lazy imports, and runtime package availability inspection without top-level import overhead.
+- **`SMonitor`**: Execution monitoring and diagnostics system. Provides catalog-driven warning protocols, structured diagnostics, and execution tracking.
+- **`Pytest-Receptor`**: Testing infrastructure and fixture suite. Enables receptor-aware test suite fixtures and deterministic validation frameworks for computational chemistry workflows.
