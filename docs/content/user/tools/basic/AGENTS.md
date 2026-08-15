@@ -1,95 +1,68 @@
-# Sub-Portal Governance: `tools/basic/` (`AGENTS.md`)
+# User Guide Tools Agents Guide
 
-This guide governs all content under `docs/content/user/tools/basic/`.
+This guide is for agents editing the **Tools** section of the User Guide under `docs/content/user/tools`.
 
----
+## Purpose and organization
 
-## 🧭 Subdirectory Purpose & Scope
-Houses tutorial units for basic core operations in MolSysMT: loading, inspecting, converting, copying, selecting, comparing, adding, and displaying molecular systems in a form-agnostic manner. Every public surface function in `molsysmt.basic` corresponds 1:1 to a dedicated tutorial unit notebook (`*.ipynb`).
+- Each tools subdirectory (`basic`, `build`, `topology`, `structure`, `pbc`, `physchem`, `hbonds`, `molecular_mechanics`, `element`, `form`, `thirds`) groups tutorials for related functions.
+- The main index `tools/index.md` presents these groups as a grid of cards and a hidden toctree; maintain this structure when adding new groups.
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
-- `index.md` ➔ `index.AGENTS.md`: Index portal with 2-column function catalog table and hidden `toctree`.
 
----
+- `index.md` ➔ `index.AGENTS.md`: Tools section landing page featuring 4-column card grid and hidden `toctree`.
 
-## 📐 Standard Architectural Pattern for Tool Tutorial Units (`*.ipynb`)
+## Per-group indexes
 
-All tool tutorial units in `tools/basic/` (and across all `tools/` subdirectories) MUST adhere to the following unified cell sequence, tone, and structural invariants:
+- Files like `basic/index.md`, `structure/index.md`, `topology/index.md`, etc., should briefly describe the purpose of that group of tools and list or link to key function tutorials within the group.
 
-### 1. Initial Setup Cell (Code, Tagged `"remove-input"`)
-- Must be the very first cell in the notebook.
-- Contains warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
-- Tagged with `"remove-input"` in metadata so code is hidden during HTML rendering.
+## Standard Architectural Pattern for Tool Notebooks (*.ipynb)
 
-### 2. Title, Anchor, and Conceptual Overview (Markdown)
-- **MyST Anchor**: `(Tutorial_[FunctionName])=` or `(user-tools-basic-[function-name])=`
-- **Title H1**: `# [FunctionName]`
-- **Italic Summary**: `*[Gerund action description of what the tool does...]*`
-- **Conceptual Intro**: Explains what the function does, its role in MolSysMT's form-agnostic philosophy, and typical use cases.
-- **Foundations Link (Optional)**: Optional `{hint}` admonition linking to relevant Foundations sections (e.g. Molecular Systems, Forms, Attributes).
-- **Version Added**: `:::{versionadded} 1.0.0`
+Every tool tutorial unit (`*.ipynb`) represents a 1:1 tutorial for a public surface function and MUST adhere strictly to the following cell sequence and layout rules:
 
-### 3. API Documentation Reference (Markdown)
-- **Header H2**: `## How this function works`
-- **Collapsible Admonition Box**:
-  ```markdown
-  :::{admonition} API documentation
-  :class: dropdown
+1. **Cell 1 (Code, `"remove-input"`)**: Warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
+2. **Cell 2 (Markdown - Introductory Header Block)**:
+   - Anchor `(Tutorial_[FunctionName])=`
+   - H1 Title `# [FunctionName]`
+   - Italic gerund summary `*[Action summary...]*`
+   - Narrative intro paragraph explaining function role.
+   - Version admonition `:::{versionadded} 1.0.0
+:::`
+   - Collapsible API documentation box:
+     ```markdown
+     :::{admonition} API documentation
+     :class: dropdown
 
-  Follow this link for a detailed description of the input arguments, raised errors, and returned objects of this function: {func}`molsysmt.basic.[function_name]`.
-  :::
-  ```
+     Follow this link for a detailed description of the input arguments, raised errors, and returned objects of this function: {func}`molsysmt.[module].[function_name]`.
+     :::
+     ```
+3. **Cell 3 (Markdown - First Real H2 Opener)**:
+   - Header H2: `## Basic usage`
+   - Opening sentence introducing the practical dataset: *"Let's show how this function works with..."*
+4. **Cell 4 (Code - Library Import)**:
+   - `import molsysmt as msm`
+5. **Cells 5+ (Code/Markdown)**: Executable examples using bundled datasets (`msm.systems`) or peptides (`msm.build.build_peptide`).
 
+## Admonition & Section Heading Rules
 
-### 4. Executable Hands-On Examples (Code & Markdown)
-- Organized under descriptive H2 / H3 section headers (e.g., `## Basic Usage`, `## Advanced Filtering`).
-- Uses pre-packaged datasets from `molsysmt.systems` (e.g. `msm.systems['Trp-Cage']['1l2y.h5msm']`) to ensure offline repeatability.
-- **Canonical Variable Naming Policy**:
-  - A single molecular system MUST be named **`molsys`** (never `mol`).
-  - Multiple systems MUST be named **`molsys_A`**, **`molsys_B`**, **`molsys_C`**, etc.
-- **3D Visualization & MolSysViewer Integration**:
-  - 3D interactive views MUST use **MolSysViewer** (never legacy NGLView HTML exports).
-  - Every embedded view requires a static generator script in `docs/generate_static_views/[name].py` exporting to `docs/_static/views/[name].html`.
-  - In the notebook setup cell preceding `msm.view(...)` (tagged `"remove-input"`), declare:
-    `molsysviewer_htmlfile = '_static/views/[name].html'` (do NOT hardcode `../../../../` relative jumps; `molsysviewer.py` automatically resolves the path relative to `MSM_DOCS_NOTEBOOK`).
+- **Clean Section Headings**: Headings (`H2`, `H3`) MUST NOT contain parentheses or parameter names (e.g. use `## Creating a new system` instead of `## Creating a new system (in_place=False)`).
+- **Collapsible Dropdowns (`:class: dropdown`)**:
+  - **API Documentation Reference**: Placed in the intro header block as a collapsible dropdown (`:class: dropdown`).
+  - **`{tip}` Boxes**: Must be collapsible dropdowns (`:::{tip}
+:class: dropdown`).
+  - **`{seealso}` Box**: Must be a collapsible dropdown (`:::{seealso} Related Tools & References
+:class: dropdown`).
+- **Non-Collapsible Warnings (`{warning}`)**:
+  - **`{warning}` Boxes**: MUST NOT be collapsible (`:::{warning}`). Structural constraints, data drop warnings, and safety rules must remain open and immediately visible to the reader.
 
-### 5. Related Tools & References (Markdown)
-- Concludes with a collapsible `{seealso}` admonition (`:class: dropdown`) listing all MolSysMT functions used or referenced in the tutorial unit.
-- **Order of Appearance**: Referenced tools MUST appear in the exact order of their first appearance in the notebook text/code.
-- **Explicit Function Reference**: Each entry MUST mention the function name using backticks:
-  `[Tool Title]: [Short action description...] with {func}`molsysmt.[module].[function]`.`
-  (Example: `{ref}`Tutorial_Build_peptide`: Build natural peptides with or without terminal caps with {func}`molsysmt.build.build_peptide`.)
----
+## `{seealso}` Formatting & Content Rules
 
-## ✍️ Editorial & Narrative Style Guide (Modeled after `add.ipynb` & `append_structures.ipynb`)
+- **Title**: `:::{seealso} Related Tools & References
+:class: dropdown`.
+- **Filtered Content**: Include ONLY MolSysMT functions in `tools/` that are actually used or referenced within that tutorial unit.
+- **Order of Appearance**: Entries MUST appear in the exact chronological order of their first appearance in the notebook code or text.
+- **Explicit Function Reference**: Each entry MUST state the tool title link, a short action description, and the explicit function name with `{func}`:
+  `- {ref}\`Tutorial_[FunctionName]\`: [Short action description...] with {func}\`molsysmt.[module].[function]\`.`
 
-To maintain complete narrative consistency across all tool tutorials, contributors MUST follow this 7-point editorial flow:
+## Boundaries and scope
 
-1. **Context & Pre-conditions Setup**:
-   - Introduce toy systems cleanly (using `msm.build.build_peptide` or `msm.systems`).
-   - Explain *why* pre-processing operations are performed (e.g., translating systems via `msm.structure.translate` before adding them to prevent spatial overlap).
-
-2. **The "Before & After" Verification Pattern**:
-   - Inspect the state of the target system **before** mutation using `msm.info()`.
-   - Run the target tool function.
-   - Re-inspect state **after** execution with `msm.info(..., element='system')` to explicitly highlight modified atom/group/component counts or structure counts.
-
-3. **Visual Confirmation via Interactive 3D View**:
-   - Complement tabular inspection with an interactive 3D view (`msm.view()`). Encourage the user to interact with the 3D canvas (e.g. "Try rotating and zooming to observe...").
-
-4. **In-Place vs. Out-of-Place (`in_place`) Behavior**:
-   - Explicitly contrast default mutation (`in_place=True`) against new object creation (`in_place=False` yielding `molsys_D`).
-   - Verify immutability of source systems using `msm.get(..., attribute=True)`.
-
-5. **Strategic Admonition Boxes**:
-   - **`{tip}`**: Use for top-level alias reminders (e.g., `msm.add` vs `msm.basic.add`). Must be collapsible dropdowns (`:class: dropdown`).
-   - **`{warning}`**: Use for structural constraints, structure matching rules (`structure_indices`), or attribute drops (`StructuralAttributeDropWarning`). MUST NOT be collapsible so warning visibility remains prominent.
-
-
-6. **Axis Differentiation & MyST Syntax Precision**:
-   - Ensure explanatory text and subsequent `msm.get()` calls explicitly match the target axis being mutated (e.g. querying `n_structures=True` for structure-axis tools like `append_structures`, vs `n_peptides=True` for topology-axis tools like `add`).
-   - Always format MyST function references with backticks: ``{func}`molsysmt.basic.[function]` `` (never un-backticked `{func}molsysmt.basic.[function]`).
-
-7. **Clean Import Patterns & Cross-Sectional MyST `{ref}` Links**:
-   - Access catalog systems directly via `msm.systems[...]` after `import molsysmt as msm`. Do not add separate imports like `from molsysmt import systems`.
-   - Cross-sectional and inter-tool links in `{seealso}` MUST use MyST `{ref}` target anchors (e.g. `{ref}`Tutorial_Build_peptide, `{ref}`user-foundations-entrance-demo-systems) rather than relative `.ipynb` file paths.
+- Tools documentation is about **how to use** functions effectively, not about internal implementation or development details.
