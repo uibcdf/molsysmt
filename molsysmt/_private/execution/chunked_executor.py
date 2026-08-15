@@ -18,7 +18,7 @@ import time
 
 import numpy as np
 
-from molsysmt._private.smonitor import ArgumentError, ArgumentConflictError
+from molsysmt._private.smonitor import ArgumentError, ArgumentConflictError, warn
 
 
 class ChunkedExecutor:
@@ -297,7 +297,7 @@ class ChunkedExecutor:
                 if config.emit_heavy_telemetry:
                     # Slow I/O warning
                     if elapsed > 5.0:
-                        warnings.warn(SlowChunkIOWarning(
+                        warn(SlowChunkIOWarning(
                             chunk_index=chunk_index,
                             io_time_s=elapsed,
                         ))
@@ -326,7 +326,7 @@ class ChunkedExecutor:
                         rss = _psutil.Process().memory_info().rss
                         pressure = rss / config.max_ram_usage
                         if pressure > config.memory_pressure_threshold and not memory_pressure_active:
-                            warnings.warn(MemoryPressureWarning(
+                            warn(MemoryPressureWarning(
                                 chunk_index=chunk_index,
                                 rss_bytes=rss,
                                 budget_bytes=config.max_ram_usage,

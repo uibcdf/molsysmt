@@ -37,9 +37,9 @@ def _merged_bioassembly(target, source, chain_offset):
     if renamed:
         import warnings
 
-        from molsysmt._private.smonitor import BioassemblyIdentifierCollisionWarning
+        from molsysmt._private.smonitor import BioassemblyIdentifierCollisionWarning, warn
 
-        warnings.warn(
+        warn(
             BioassemblyIdentifierCollisionWarning(renamed=renamed, caller='molsysmt.add'),
             stacklevel=2,
         )
@@ -76,9 +76,9 @@ def _merged_molecular_mechanics(target, source, attribute_policy):
                 ),
                 caller='molsysmt.native.MolSys.add',
             )
-        import warnings
+        from molsysmt._private.smonitor import warn
 
-        warnings.warn(
+        warn(
             StructuralAttributeDropWarning(attributes=['atoms_ff'], caller='molsysmt.add'),
             stacklevel=2,
         )

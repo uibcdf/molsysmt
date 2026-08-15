@@ -109,9 +109,9 @@ def get_angles(
             except ImportError:
                 taichi_available = False
                 import warnings
-                from molsysmt._private.smonitor import GpuNotAvailableWarning
+                from molsysmt._private.smonitor import GpuNotAvailableWarning, warn
 
-                warnings.warn(
+                warn(
                     GpuNotAvailableWarning(reason="the taichi package is not installed")
                 )
 

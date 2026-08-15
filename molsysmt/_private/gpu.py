@@ -30,9 +30,9 @@ def _warn_gpu_unavailable() -> None:
     import warnings
 
     try:
-        from molsysmt._private.smonitor import GpuNotAvailableWarning
+        from molsysmt._private.smonitor import GpuNotAvailableWarning, warn
 
-        warnings.warn(
+        warn(
             GpuNotAvailableWarning(
                 reason="MolSysMT 1.0 has no supported GPU kernel backend"
             ),

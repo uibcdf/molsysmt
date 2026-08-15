@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, warn
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 from smonitor import signal
@@ -214,7 +214,7 @@ def get_sasa(
                     import warnings
                     from molsysmt._private.smonitor import GpuNotAvailableWarning
 
-                    warnings.warn(
+                    warn(
                         GpuNotAvailableWarning(
                             reason="the taichi package is not installed"
                         )

@@ -154,9 +154,9 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
         # difference between an attribute that is absent and one that was truncated.
         import warnings
 
-        from molsysmt._private.smonitor import StructuralAttributeOffAxisWarning
+        from molsysmt._private.smonitor import StructuralAttributeOffAxisWarning, warn
 
-        warnings.warn(
+        warn(
             StructuralAttributeOffAxisWarning(attributes=[attribute],
                                               caller='molsysmt.where_is_attribute'),
             stacklevel=2,

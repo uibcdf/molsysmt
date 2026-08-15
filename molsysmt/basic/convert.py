@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedConversionError
+from molsysmt._private.smonitor import NotImplementedConversionError, warn
 from molsysmt._private.smonitor import NotCompatibleConversionError
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
@@ -227,7 +227,7 @@ def _prune_structural_attributes_off_the_axis(molecular_system, from_forms, from
     dropped -= on_axis
 
     if dropped:
-        warnings.warn(
+        warn(
             StructuralAttributeOffAxisWarning(attributes=sorted(dropped),
                                               caller='molsysmt.convert'),
             stacklevel=2,

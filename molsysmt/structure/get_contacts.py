@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, warn
 from smonitor import signal
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_iterable_of_pairs
@@ -245,7 +245,7 @@ def get_contacts(
                 import warnings
                 from molsysmt._private.smonitor import GpuNotAvailableWarning
 
-                warnings.warn(
+                warn(
                     GpuNotAvailableWarning(reason="the taichi package is not installed")
                 )
 

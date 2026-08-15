@@ -1,6 +1,7 @@
 from molsysmt._private.variables import is_all
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import (
+    warn,
     ArgumentLengthError,
     NotImplementedMethodError,
     StructuralInconsistencyError,
@@ -504,7 +505,7 @@ class Structures:
             import warnings
             from molsysmt._private.smonitor import StructuralAttributeDropWarning
 
-            warnings.warn(
+            warn(
                 StructuralAttributeDropWarning(attributes=dropped),
                 stacklevel=2,
             )
@@ -908,7 +909,7 @@ class Structures:
         # add() grows the atom axis; it never reinterprets the unit cell, so the target's
         # box stands and the disagreement is reported rather than resolved.
         if n_atoms_added and box_reason is not None:
-            warnings.warn(
+            warn(
                 IncompatibleBoxWarning(reason=box_reason, caller='molsysmt.add'),
                 stacklevel=2,
             )
@@ -930,7 +931,7 @@ class Structures:
 
         self._payload_dimensions(candidate, caller=caller)
         if dropped:
-            warnings.warn(
+            warn(
                 StructuralAttributeDropWarning(attributes=dropped, caller='molsysmt.add'),
                 stacklevel=2,
             )

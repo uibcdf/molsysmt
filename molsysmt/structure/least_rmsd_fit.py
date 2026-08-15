@@ -1,4 +1,5 @@
 from molsysmt._private.smonitor import (
+    warn,
     NotImplementedMethodError,
     StructuralInconsistencyError,
 )
@@ -238,7 +239,7 @@ def least_rmsd_fit(
                     import warnings
                     from molsysmt._private.smonitor import GpuNotAvailableWarning
 
-                    warnings.warn(
+                    warn(
                         GpuNotAvailableWarning(
                             reason="the taichi package is not installed"
                         )
