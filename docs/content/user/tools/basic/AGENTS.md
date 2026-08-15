@@ -82,8 +82,9 @@ To maintain complete narrative consistency across all tool tutorials, contributo
    - Verify immutability of source systems using `msm.get(..., attribute=True)`.
 
 5. **Strategic Admonition Boxes**:
-   - **`{tip}`**: Use for top-level alias reminders (e.g., `msm.add` vs `msm.basic.add`).
-   - **`{warning}`**: Use for structural constraints, structure matching rules (`structure_indices`), or attribute drops (`StructuralAttributeDropWarning`).
+   - **`{tip}`**: Use for top-level alias reminders (e.g., `msm.add` vs `msm.basic.add`). Must be collapsible dropdowns (`:class: dropdown`).
+   - **`{warning}`**: Use for structural constraints, structure matching rules (`structure_indices`), or attribute drops (`StructuralAttributeDropWarning`). MUST NOT be collapsible so warning visibility remains prominent.
+
 
 6. **Axis Differentiation & MyST Syntax Precision**:
    - Ensure explanatory text and subsequent `msm.get()` calls explicitly match the target axis being mutated (e.g. querying `n_structures=True` for structure-axis tools like `append_structures`, vs `n_peptides=True` for topology-axis tools like `add`).
