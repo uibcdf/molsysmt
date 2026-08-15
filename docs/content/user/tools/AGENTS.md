@@ -40,6 +40,38 @@ This guide is for agents editing the **Tools** section of the User Guide under
 - Avoid duplicating large docstring examples; tutorials should complement them with more narrative and context.
 
 
+## Admonition & See Also Collapsible Dropdown Rules
+
+All tool tutorial notebooks (`*.ipynb`) MUST adhere strictly to the following admonition styling and `{seealso}` rules:
+
+1. **Collapsible Dropdowns (`:class: dropdown`)**:
+   - **API Documentation Reference**: The admonition box under `## How this function works` MUST be a collapsible dropdown:
+     ```markdown
+     ## How this function works
+
+     :::{admonition} API documentation
+     :class: dropdown
+
+     Follow this link for a detailed description of the input arguments, raised errors, and returned objects of this function: {func}`molsysmt.basic.[function_name]`.
+     :::
+     ```
+   - **`{tip}` Boxes**: Must be collapsible dropdowns (`:::{tip}
+:class: dropdown`).
+   - **`{seealso}` Box**: Must be a collapsible dropdown (`:::{seealso} Related Tools & References
+:class: dropdown`).
+
+2. **Non-Collapsible Warnings (`{warning}`)**:
+   - **`{warning}` Boxes**: MUST NOT be collapsible (`:::{warning}`). Structural constraints, data drop warnings, and critical safety rules must remain open and immediately visible to the reader.
+
+3. **`{seealso}` Formatting & Content Rules**:
+   - **Title**: `:::{seealso} Related Tools & References
+:class: dropdown`.
+   - **Filtered Content**: Include ONLY MolSysMT functions in `tools/` that are actually used or referenced within that tutorial unit.
+   - **Order of Appearance**: Entries MUST appear in the exact chronological order of their first appearance in the notebook code or text.
+   - **Explicit Function Reference**: Each entry MUST state the tool title link, a short action description, and the explicit function name with `{func}`:
+     `- {ref}\`Tutorial_[FunctionName]\`: [Short action description...] with {func}\`molsysmt.[module].[function]\`.`
+     *(Example: `- {ref}\`Tutorial_Build_peptide\`: Build natural peptides with or without terminal caps with {func}\`molsysmt.build.build_peptide\`.)*
+
 ## Boundaries and scope
 
 - Tools documentation is about **how to use** functions effectively, not about their internal implementation or development details.
