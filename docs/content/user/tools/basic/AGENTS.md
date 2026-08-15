@@ -42,6 +42,16 @@ Every tool tutorial unit (`*.ipynb`) represents a 1:1 tutorial for a public surf
    - `import molsysmt as msm`
 5. **Cells 5+ (Code/Markdown)**: Executable examples using bundled datasets (`msm.systems`) or peptides (`msm.build.build_peptide`).
 
+
+- **Demo Systems Note Rule**: Whenever a tutorial notebook uses bundled datasets via `msm.systems`, include a collapsible `{note}` dropdown (`:class: dropdown`) right after the code cell that first calls `msm.systems`:
+  ```markdown
+  :::{note} Demo Systems Catalog
+  :class: dropdown
+
+  This tutorial uses demonstration datasets provided by MolSysMT. To explore the full catalog of bundled systems, forms, and file paths, visit the {ref}`Demo Systems <user-foundations-entrance-demo-systems>` guide.
+  :::
+  ```
+
 ## Admonition & Section Heading Rules
 
 - **Clean Section Headings**: Headings (`H2`, `H3`) MUST NOT contain parentheses or parameter names (e.g. use `## Creating a new system` instead of `## Creating a new system (in_place=False)`).
