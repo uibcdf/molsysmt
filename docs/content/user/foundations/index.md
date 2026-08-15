@@ -16,73 +16,72 @@ Rather than treating molecular systems as rigid data structures bound to a speci
 :link: entrance/index
 :link-type: doc
 
-Mission, installation, first steps, toolbox overview, and demo systems.
+Mission, installation, navigation, toolbox overview, and demo systems.
 :::
 
 :::{grid-item-card} **The Molecular System**
 :link: molecular_system/index
 :link-type: doc
 
-Definition, normalization, items and forms, forms, elements, and attributes.
+Universal definition of molecular systems, forms, items, topological elements, and physical attributes.
 :::
 
 :::{grid-item-card} **The Native World**
 :link: native_world/index
 :link-type: doc
 
-Native representations, topologies, H5MSM storage, and ViewerJSON.
+Native objects (MolSys, Topology, Structures), H5MSM file format, file handlers, and ViewerJSON.
 :::
 
 :::{grid-item-card} **The Language**
 :link: language/index
 :link-type: doc
 
-Selection language, atom queries, and syntactic rules.
+Syntactic modes, declarative selection queries, and API function patterns.
 :::
 
 :::{grid-item-card} **Performance**
 :link: performance/index
 :link-type: doc
 
-Memory management, big data trajectories, and parallelization.
+Zero-copy array views, chunked execution for large trajectories, Rust core, and caching.
 :::
 
 :::{grid-item-card} **Governance**
 :link: governance/index
 :link-type: doc
 
-Quantities, physical units, precision policies, and SMonitor.
+Physical units, ArgDigest boundary digestion, DepDigest lazy loading, and SMonitor diagnostics.
 :::
 
 :::{grid-item-card} **Supported**
 :link: support/index
 :link-type: doc
 
-Compatibility matrix across forms, libraries, and engines.
+Supported data forms, physical-chemical data, molecular mechanics, selection syntaxes, viewers, and third-party bridges.
 :::
 
 :::{grid-item-card} **The Ecosystem**
 :link: ecosystem/index
 :link-type: doc
 
-3D Viewers, MolSysViewer, and third-party integrations.
+MolSysSuite overview, biophysics tools (MolSysMT, MolSysViewer, TopoMT, PharmacophoreMT, ElastNetMT, Sabueso), and developer tooling.
 :::
 
 ::::
 
-```{eval-rst}
-.. toctree::
-   :maxdepth: 2
-   :hidden:
+```{toctree}
+:maxdepth: 2
+:hidden:
 
-   entrance/index.md
-   molecular_system/index.md
-   native_world/index.md
-   language/index.md
-   performance/index.md
-   governance/index.md
-   support/index.md
-   ecosystem/index.md
+entrance/index.md
+molecular_system/index.md
+native_world/index.md
+language/index.md
+performance/index.md
+governance/index.md
+support/index.md
+ecosystem/index.md
 ```
 
 --- 
