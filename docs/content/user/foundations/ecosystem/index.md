@@ -1,6 +1,6 @@
 # The Ecosystem
 
-3D molecular viewers, NGLView integration, MolSysViewer, and third-party package bridges.
+3D molecular viewers, NGLView integration, and MolSysViewer widget architecture.
 
 ---
 
@@ -10,5 +10,4 @@
 
    Viewers and Visualization <viewers.ipynb>
    MolSysViewer <molsysviewer.ipynb>
-   Third-party Bridges <third_party_bridges.ipynb>
 ```
