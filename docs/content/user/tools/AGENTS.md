@@ -57,7 +57,7 @@ Every tool tutorial unit (`*.ipynb`) represents a 1:1 tutorial for a public surf
 - **Clean Section Headings**: Headings (`H2`, `H3`) MUST NOT contain parentheses or parameter names (e.g. use `## Creating a new system` instead of `## Creating a new system (in_place=False)`).
 - **Collapsible Dropdowns (`:class: dropdown`)**:
   - **API Documentation Reference**: Placed in the intro header block as a collapsible dropdown (`:class: dropdown`).
-  - **`{tip}` Boxes**: Must be collapsible dropdowns (`:::{tip}
+  - **`{tip}`, `{hint}` & `{hint}` Boxes**: Must be collapsible dropdowns (`:::{tip}
 :class: dropdown`).
   - **`{seealso}` Box**: Must be a collapsible dropdown (`:::{seealso} Related Tools & References
 :class: dropdown`).
