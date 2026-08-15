@@ -165,6 +165,36 @@ typed data. `{message}` remains available for string callers
 Catching code should read `exc.code` and `exc.extra` rather than parsing the
 rendered English message.
 
+### 3.3.2 `warn()` also raises an ordinary Python warning
+
+Use `warn(...)` rather than `warnings.warn(...)`. It does both jobs: it emits the
+structured, catalog-backed event **and** raises the warning through Python's
+warning machinery, so everything your users and your test suite already rely on
+keeps working:
+
+```python
+# Your users' filters apply as usual.
+warnings.filterwarnings("ignore", category=UnknownAtomNameWarning)
+warnings.simplefilter("error")           # promotes it to an exception
+
+# Your tests assert on it as usual.
+with pytest.warns(UnknownAtomNameWarning, match="XXX"):
+    get_atom_type_from_atom_name("XXX")
+```
+
+Calling `warnings.warn(MyCatalogWarning(...))` directly instead is the mistake
+this replaces. The warning still reaches SMonitor when `capture_warnings` is on,
+but only by way of the `py.warnings` logger, which delivers it as Python's
+formatted text — file path and source line included — with `code=None`,
+`source="py.warnings"`, no `category` and none of your structured fields. The
+catalog entry is bypassed entirely, so the incident is invisible to
+`events_by_code`, to fingerprint summaries and to any QA policy keyed on codes.
+
+A filter that suppresses the warning for the user does **not** suppress the
+SMonitor event: filters govern the console, not your telemetry. And when
+`simplefilter("error")` promotes the warning to an exception, the event has
+already been recorded before it is raised.
+
 ### 3.4 Emission Failures Must Not Be Silenced
 
 Do not swallow diagnostics emission errors with `except Exception: pass`.
