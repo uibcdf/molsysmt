@@ -28,6 +28,14 @@ STANDARD_UNITS = [
 # Only when nobody has decided yet. An active policy belongs to whoever set it:
 # another suite library, or the user.
 if not puw.configure.has_active_policy():
+    # Letting pint cache its parsed definitions on disk is what makes
+    # configuring at import time affordable: it takes building the registry
+    # from about 180 ms to about 17 ms. PyUnitWizard leaves it off by default
+    # because writing to a user's filesystem is not something importing a units
+    # library should do uninvited; the suite opts in on its users' behalf, and
+    # a folder that cannot be written simply falls back to no cache.
+    puw.configure.set_pint_registry_cache(True)
+
     puw.configure.set_default_form('pint')
     puw.configure.set_default_parser('pint')
     puw.configure.set_standard_units(STANDARD_UNITS, provenance='molsysmt')

@@ -132,3 +132,12 @@ def __dir__():
 
 
 __all__ = []
+
+
+# The unit policy is declared when this package is imported, not on first use.
+# Reaching it lazily meant `puw.configure.report()` described an empty session
+# until something happened to touch it, and a user calling PyUnitWizard
+# directly after importing this package got NoStandardsError. The cost is paid
+# once per process -- a second suite library costs about 2 ms -- and it is a
+# cost the session pays anyway at its first unit operation.
+from . import _pyunitwizard  # noqa: E402,F401

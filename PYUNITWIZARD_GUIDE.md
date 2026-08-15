@@ -42,6 +42,7 @@ import pyunitwizard as puw
 STANDARD_UNITS = ['nm', 'ps', 'K', 'mole', 'dalton', 'e', 'kJ/mol', 'radians']
 
 if not puw.configure.has_active_policy():
+    puw.configure.set_pint_registry_cache(True)
     puw.configure.set_default_form('pint')
     puw.configure.set_default_parser('pint')
     puw.configure.set_standard_units(STANDARD_UNITS, provenance='mylib')
@@ -50,6 +51,28 @@ if not puw.configure.has_active_policy():
 # whatever the active standard units are. Register them unconditionally.
 puw.register_fast_track('nanometers', puw.unit('nm'))
 ```
+
+Declare it **when your package is imported**, not on first use. Reaching the
+configuration lazily means `puw.configure.report()` describes an empty session
+until something happens to touch it, and a user who calls PyUnitWizard directly
+after importing your package gets `NoStandardsError`. The cost is paid once per
+process -- a second library declaring the same policy costs about 2 ms -- and
+it is a cost the session pays anyway at its first unit operation.
+
+Most of that cost is importing the backend, which is why declaring a policy is
+worth pairing with:
+
+```python
+puw.configure.set_pint_registry_cache(True)
+```
+
+It lets pint cache its parsed definitions on disk, taking registry construction
+from about 180 ms to about 17 ms. It must be called **before** anything loads
+the pint backend, so it belongs above the standard-unit call. PyUnitWizard
+leaves it off by default because writing to a user's filesystem is not
+something importing a units library should do uninvited; a suite may reasonably
+opt in on its users' behalf. A folder that cannot be written falls back to no
+cache rather than failing.
 
 Three rules follow from this, and they are not stylistic:
 
