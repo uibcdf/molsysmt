@@ -59,10 +59,24 @@ Sabueso is the biological database query and metadata parser agent of the suite.
 
 ## Infrastructure and Developer Tooling
 
-MolSysSuite relies on a dedicated suite of core software engineering and governance libraries developed to ensure strict numerical safety, lazy loading, boundary validation, and testing integrity across all suite packages:
+MolSysSuite relies on a dedicated suite of core software engineering and governance libraries developed to ensure strict numerical safety, lazy loading, boundary validation, and testing integrity across all suite packages.
 
-- **`PyUnitWizard`**: Physical quantities and units management library. Standardizes physical unit handling, dimensional consistency checks, and Fast-Track unit bypass for high-performance array transformations.
-- **`ArgDigest`**: Public API boundary validation framework. Enforces contract validation, argument parsing, and parameter digestion on public entry points via `@digest`.
-- **`DepDigest`**: Centralized dependency management infrastructure. Controls soft dependency registration, lazy imports, and runtime package availability inspection without top-level import overhead.
-- **`SMonitor`**: Execution monitoring and diagnostics system. Provides catalog-driven warning protocols, structured diagnostics, and execution tracking.
-- **`Pytest-Receptor`**: Testing infrastructure and fixture suite. Enables receptor-aware test suite fixtures and deterministic validation frameworks for computational chemistry workflows.
+### PyUnitWizard
+
+PyUnitWizard standardizes physical unit handling, dimensional consistency checks, and Fast-Track unit bypass across Python scientific packages. It ensures seamless inter-conversion between unit libraries (Pint, OpenMM units, PyUnitWizard native quantities) and zero-overhead numerical extraction for high-performance array operations.
+
+### ArgDigest
+
+ArgDigest provides a declarative public boundary validation framework for Python packages. By decorating public API functions with `@digest`, ArgDigest validates argument contracts, sanitizes input types, handles default values, and enables explicit trusted delegation without boilerplate validation logic inside internal methods.
+
+### DepDigest
+
+DepDigest is the centralized dependency management infrastructure for MolSysSuite. It manages soft dependency registration, lazy loading, and runtime package availability inspection, ensuring that optional third-party packages are never imported at top-level load time.
+
+### SMonitor
+
+SMonitor is an execution monitoring, structured diagnostics, and warning catalog system. It provides catalog-driven warning protocols, diagnostic tracing, and execution monitoring to maintain operational transparency and error reporting across suite packages.
+
+### Pytest-Receptor
+
+Pytest-Receptor provides testing infrastructure, fixtures, and deterministic verification frameworks tailored for receptor-aware computational biophysics workflows and structural modeling test suites.
