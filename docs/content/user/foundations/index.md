@@ -16,56 +16,56 @@ Rather than treating molecular systems as rigid data structures bound to a speci
 :link: entrance/index
 :link-type: doc
 
-Mission, installation, navigation, toolbox overview, and demo systems.
+Mission, installation, toolbox overview, and demo systems.
 :::
 
 :::{grid-item-card} **The Molecular System**
 :link: molecular_system/index
 :link-type: doc
 
-Universal definition of molecular systems, forms, items, topological elements, and physical attributes.
+Universal system definitions, forms, items, and attributes.
 :::
 
 :::{grid-item-card} **The Native World**
 :link: native_world/index
 :link-type: doc
 
-Native objects (MolSys, Topology, Structures), H5MSM file format, file handlers, and ViewerJSON.
+Native object classes, H5MSM storage, and file handlers.
 :::
 
 :::{grid-item-card} **The Language**
 :link: language/index
 :link-type: doc
 
-Syntactic modes, declarative selection queries, and API function patterns.
+Syntactic modes, selection queries, and API patterns.
 :::
 
 :::{grid-item-card} **Performance**
 :link: performance/index
 :link-type: doc
 
-Zero-copy array views, chunked execution for large trajectories, Rust core, and caching.
+Zero-copy views, chunked trajectories, and Rust core.
 :::
 
 :::{grid-item-card} **Governance**
 :link: governance/index
 :link-type: doc
 
-Physical units, ArgDigest boundary digestion, DepDigest lazy loading, and SMonitor diagnostics.
+Physical units, ArgDigest boundary safety, and SMonitor.
 :::
 
 :::{grid-item-card} **Supported**
 :link: support/index
 :link-type: doc
 
-Supported data forms, physical-chemical data, molecular mechanics, selection syntaxes, viewers, and third-party bridges.
+Compatibility matrix across forms, syntaxes, and bridges.
 :::
 
 :::{grid-item-card} **The Ecosystem**
 :link: ecosystem/index
 :link-type: doc
 
-MolSysSuite overview, biophysics tools (MolSysMT, MolSysViewer, TopoMT, PharmacophoreMT, ElastNetMT, Sabueso), and developer tooling.
+MolSysSuite overview, biophysics tools, and developer tooling.
 :::
 
 ::::
