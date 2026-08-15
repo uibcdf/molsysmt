@@ -1,12 +1,15 @@
-# Section 08: The Ecosystem Directives (`AGENTS.md`)
+# Section: The Ecosystem Directives (`AGENTS.md`)
 
 This guide governs all content under `docs/content/user/foundations/ecosystem/`.
 
 ## 🧭 Subdirectory Purpose & Scope
-Cover ecosystem tools and visualizations: 3D visualization backends (NGLView, PyMOL), MolSysViewer suite, and third-party package bridges (OpenMM, MDAnalysis, RDKit, BioPython).
+Introduce the MolSysSuite ecosystem, its core biophysics tools, and developer infrastructure libraries.
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
-- `index.md` ➔ `index.AGENTS.md`: Group landing page with `toctree`.
-- `viewers.ipynb` ➔ `viewers.AGENTS.md`: Interactive 3D visualization backends.
-- `molsysviewer.ipynb` ➔ `molsysviewer.AGENTS.md`: MolSysViewer integration.
-- `third_party_bridges.ipynb` ➔ `third_party_bridges.AGENTS.md`: Interoperability bridges.
+- `index.md` ➔ `index.AGENTS.md`: Ecosystem landing page with `toctree`.
+- `molsyssuite.md` ➔ `molsyssuite.md.AGENTS.md`: Master MolSysSuite ecosystem specification.
+
+## 📐 Foundations Editorial & Style Standards
+- **Concise Section Titles**: Headings (`H2`, `H3`) must be brief, crisp, and direct.
+- **Published Table Formatting Standard**: All tables MUST expand to full line width (`class="table"`, `width: 100%`), feature zebra striping, and have all headers and cells left-aligned (`text-align: left`).
+- **Nested Toctree Chaining**: References in `toctree` directives MUST use relative paths without `.md` extensions (e.g. `molsyssuite`).
