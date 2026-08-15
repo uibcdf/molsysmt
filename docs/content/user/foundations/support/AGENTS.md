@@ -3,7 +3,7 @@
 This guide governs all content under `docs/content/user/foundations/support/`.
 
 ## 🧭 Subdirectory Purpose & Scope
-Cover the form-agnostic matrix: data forms (classes, files, strings), physical-chemical data, molecular mechanics, selection syntaxes, and 3D visualization engines.
+Cover the form-agnostic matrix: data forms (classes, files, strings), physical-chemical data, molecular mechanics, selection syntaxes, 3D visualization engines, and third-party ecosystem bridges.
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
 - `index.md` ➔ `index.AGENTS.md`: Support landing page with `toctree`.
@@ -15,6 +15,7 @@ Cover the form-agnostic matrix: data forms (classes, files, strings), physical-c
 - `molecular_mechanics.md` ➔ `molecular_mechanics.md.AGENTS.md`: Molecular mechanics parameters and models.
 - `selection_syntaxes.md` ➔ `selection_syntaxes.md.AGENTS.md`: Selection syntaxes and shortcuts.
 - `viewers.md` ➔ `viewers.md.AGENTS.md`: 3D visualization engines.
+- `third_party_bridges.md` ➔ `third_party_bridges.md.AGENTS.md`: Third-party ecosystem bridges.
 
 ## 📐 Foundations Editorial & Style Standards
 - **Concise Section Titles**: Headings (`H2`, `H3`) must be brief, crisp, and direct (typically 2 to 4 words).
