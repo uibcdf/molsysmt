@@ -1,7 +1,5 @@
-import warnings
-
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import UnknownAtomNameWarning
+from molsysmt._private.smonitor import UnknownAtomNameWarning, warn
 from .names import atom as atom_type_from_name
 
 
@@ -39,5 +37,5 @@ def get_atom_type_from_atom_name(atom_name):
     try:
         return atom_type_from_name[atom_name]
     except KeyError:
-        warnings.warn(UnknownAtomNameWarning(atom_name=atom_name), stacklevel=2)
+        warn(UnknownAtomNameWarning(atom_name=atom_name), stacklevel=2)
         return "UNK"
