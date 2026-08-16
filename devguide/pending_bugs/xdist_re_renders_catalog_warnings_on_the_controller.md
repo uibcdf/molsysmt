@@ -7,7 +7,7 @@ closed:
 severity: low
 verification: reproduced
 area: [tests, diagnostics]
-guard: conftest.py::_guard_xdist_warning_reconstruction
+guard: tests/_private/smonitor/test_xdist_warning_reconstruction.py::test_catalog_warnings_are_not_re_rendered
 normative:
 blocked_by: [pytest-dev/pytest-xdist#1372]
 supersedes: []
@@ -87,6 +87,18 @@ output is identical to serial.
 The guard also covers the quiet case in the third row above: a subclass whose
 parameters all have defaults reconstructs without error but with the *default*
 message, which is wrong without looking wrong.
+
+It installs itself only while the defect is present. `conftest.py` probes the
+installed xdist first — a real catalog warning through
+`serialize_warning_message` and the unpatched `unserialize_warning_message` —
+and re-rendering is told apart from every other outcome by the type that comes
+back. Watching the reported text instead would never work: the guard normalises
+it either way, so a fixed xdist and a broken one look identical downstream.
+
+`test_the_xdist_workaround_is_still_needed` fails the day the probe says the
+defect is gone, and its message carries the removal steps. A warning was tried
+first and does not survive: raised during `pytest_configure`, it is emitted
+before pytest installs its capture and never reaches the report.
 
 ## Acceptance
 
