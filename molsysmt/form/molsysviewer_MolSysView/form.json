@@ -4,5 +4,9 @@
     "item_class_key": [
         "molsysviewer",
         "MolSysView"
+    ],
+    "item_class_keys": [
+        ["molsysviewer", "MolSysView"],
+        ["molsysviewer", "IframeMarkup"]
     ]
 }

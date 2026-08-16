@@ -49,12 +49,17 @@ def _load():
     class_index = {}
     extension_index = {}
     for name, declaration in by_form.items():
-        key = declaration.get('item_class_key')
-        if key is not None:
-            class_index[(key[0], key[1])] = name
+        keys = declaration.get('item_class_keys')
+        if keys is None and declaration.get('item_class_key') is not None:
+            keys = [declaration['item_class_key']]
+        if keys:
+            for key in keys:
+                if key is not None:
+                    class_index[(key[0], key[1])] = name
         extension = declaration.get('extension')
         if extension is not None:
             extension_index[extension.lower()] = name
+
 
     _catalogue = {
         'by_form': by_form,
