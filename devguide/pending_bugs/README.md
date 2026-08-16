@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`devguide_issue_sync_fails_on_unknown_area_labels.md`](devguide_issue_sync_fails_on_unknown_area_labels.md) — [#159](https://github.com/uibcdf/molsysmt/issues/159) — devguide_issue.py cannot label an issue whose area tags are not already labels on the board. *(medium, reproduced)*
+
 ### Blocked (1)
 
 - [`xdist_re_renders_catalog_warnings_on_the_controller.md`](xdist_re_renders_catalog_warnings_on_the_controller.md) — [#158](https://github.com/uibcdf/molsysmt/issues/158) — Under pytest-xdist the controller rebuilds catalog warnings as cls(rendered_text), so the template renders around its own output a second time. *(low, reproduced)*
