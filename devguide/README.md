@@ -83,6 +83,7 @@ Read these documents in order when first working on MolSysMT:
 
 - [testing_strategy.md](testing_strategy.md)
 - [testing_form_adapters.md](testing_form_adapters.md)
+- [parallel_test_warning_counts.md](parallel_test_warning_counts.md)
 - [devtools_and_ci.md](devtools_and_ci.md)
 - [DIAGNOSTICS.md](DIAGNOSTICS.md)
 - [error_policy.md](error_policy.md)
