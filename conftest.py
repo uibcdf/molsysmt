@@ -6,6 +6,53 @@ from pathlib import Path
 _ROOT = Path(__file__).parent
 
 
+def _guard_xdist_warning_reconstruction():
+    """Stop xdist re-rendering a catalog warning when it crosses to the controller.
+
+    ``pytest_warning_recorded`` fires on the worker; xdist serializes the warning
+    and the controller rebuilds it as ``cls(*message_args)``, where
+    ``message_args`` is the original's ``.args``. ``CatalogWarning.__init__`` ends
+    in ``super().__init__(full_message)``, so that tuple is the *rendered* text —
+    and our subclasses take a domain field first positionally. The controller
+    therefore calls ``UnknownAtomNameWarning("Atom name 'Ar' is not ...")``, the
+    text lands in ``atom_name``, and the catalog template wraps its own output a
+    second time. Subclasses that reject the call fall back to a generic
+    ``Warning("module.Class: msg")``, and subclasses whose parameters all have
+    defaults rebuild quietly with the *default* message, which is wrong without
+    looking wrong.
+
+    Keep the reconstruction only when it round-trips. The worker already computed
+    the correct text, and ``category`` is rebuilt upstream from its own fields, so
+    the real class survives regardless. With this in place a ``-n 12`` run reports
+    exactly what a serial run reports.
+
+    Reporting only: the emitted diagnostics are correct either way. Remove once a
+    released pytest-xdist no longer rebuilds warnings this way. See
+    ``devguide/pending_bugs/xdist_re_renders_catalog_warnings_on_the_controller.md``.
+    """
+    try:
+        import xdist.workermanage as workermanage
+    except ImportError:  # running without xdist
+        return
+    if getattr(workermanage, "_molsysmt_warning_roundtrip_guard", False):
+        return
+
+    original = workermanage.unserialize_warning_message
+
+    def guarded(data):
+        message = original(data)
+        expected = data.get("message_str")
+        if expected is not None and str(message.message) != expected:
+            message.message = Warning(expected)
+        return message
+
+    workermanage.unserialize_warning_message = guarded
+    workermanage._molsysmt_warning_roundtrip_guard = True
+
+
+_guard_xdist_warning_reconstruction()
+
+
 def pytest_configure(config):
     """Pre-import first-party source packages collected for ``--doctest-modules``.
 
