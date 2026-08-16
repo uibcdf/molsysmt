@@ -20,6 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Blocked (1)
+
+- [`xdist_re_renders_catalog_warnings_on_the_controller.md`](xdist_re_renders_catalog_warnings_on_the_controller.md) — [#158](https://github.com/uibcdf/molsysmt/issues/158) — Under pytest-xdist the controller rebuilds catalog warnings as cls(rendered_text), so the template renders around its own output a second time. *(low, reproduced)*
+  Blocked by pytest-dev/pytest-xdist#1372.
+
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

@@ -1,15 +1,15 @@
 ---
 summary: Under pytest-xdist the controller rebuilds catalog warnings as cls(rendered_text), so the template renders around its own output a second time.
-issue:
-status: guarded
+issue: uibcdf/molsysmt#158
+status: blocked
 opened: 2026-08-16
 closed:
 severity: low
-verification: measured
-area: [test-tooling, diagnostics]
+verification: reproduced
+area: [tests, diagnostics]
 guard: conftest.py::_guard_xdist_warning_reconstruction
 normative:
-blocked_by: []
+blocked_by: [pytest-dev/pytest-xdist#1372]
 supersedes: []
 ---
 
@@ -91,6 +91,8 @@ message, which is wrong without looking wrong.
 ## Acceptance
 
 Remove the guard when a released `pytest-xdist` no longer rebuilds warnings this
-way. The test that fails if the defect returns is any parallel run of
+way. The fix is proposed upstream as `pytest-dev/pytest-xdist#1372`: keep the
+rebuilt instance only when it still says what the original said, otherwise take
+the fallback xdist already has for warnings it could not recreate. The test that fails if the defect returns is any parallel run of
 `tests/element/atom/test_get_atom_type_from_atom_name.py` whose reported warning
 text differs from the serial run's.
