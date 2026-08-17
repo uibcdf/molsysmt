@@ -36,6 +36,7 @@ Houses tutorial units for structural coordinate operations, spatial measurements
 - `get_principal_axes.ipynb` ➔ `get_principal_axes.ipynb.AGENTS.md`
 - `get_radius_of_gyration.ipynb` ➔ `get_radius_of_gyration.ipynb.AGENTS.md`
 - `get_rmsd.ipynb` ➔ `get_rmsd.ipynb.AGENTS.md`
+- `get_rmsf.ipynb` ➔ `get_rmsf.ipynb.AGENTS.md`
 - `get_secondary_structure.ipynb` ➔ `get_secondary_structure.ipynb.AGENTS.md`
 - `least_rmsd_align.ipynb` ➔ `least_rmsd_align.ipynb.AGENTS.md`
 - `least_rmsd_fit.ipynb` ➔ `least_rmsd_fit.ipynb.AGENTS.md`
