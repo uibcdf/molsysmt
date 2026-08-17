@@ -25,7 +25,7 @@ MIGRATION_BASELINE = REPOSITORY_ROOT / "devtools/data/devguide_migration_baselin
 
 BUG_QUEUES = ("pending_bugs", "pending_bugs/docs")
 PROPOSAL_QUEUES = ("pending_proposals", "pending_proposals/docs")
-BUG_ARCHIVES = ("archive/resolved_bugs",)
+BUG_ARCHIVES = ("archive/resolved_bugs", "archive/withdrawn_bugs")
 PROPOSAL_ARCHIVES = ("archive/resolved_proposals", "archive/resolved_proposals/docs")
 
 OPEN_STATUSES = ("open", "active", "blocked", "partial")
