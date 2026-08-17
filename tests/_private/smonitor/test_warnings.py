@@ -58,9 +58,18 @@ def test_selection_warning_instantiable():
 
 
 def test_structural_attribute_drop_warning_preserves_reconstructed_message():
+    """Rebuilding from `args` reproduces the warning, message first.
+
+    This used to hand the rendered text back as `attributes`, which the class
+    detected and passed through — a workaround for `cls(*args)` putting the
+    message wherever the first parameter happened to be. The first parameter is
+    now the message, so the rebuild every serializer performs is the one tested
+    here.
+    """
     from molsysmt._private.smonitor.warnings import StructuralAttributeDropWarning
 
     warning = StructuralAttributeDropWarning(attributes=["time", "velocities"])
-    reconstructed = StructuralAttributeDropWarning(attributes=str(warning))
+    reconstructed = type(warning)(*warning.args)
 
     assert str(reconstructed) == str(warning)
+    assert type(reconstructed) is type(warning)

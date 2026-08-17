@@ -857,7 +857,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     del(entity_name, entity_id, entity_type)
     # Warnings on struct conn new covalent bonds
     if len(atom_pairs_bonded_by_struct_conn):
-        warn(CrossChainCovalentBondsWarning(tmp_item, atom_pairs_bonded_by_struct_conn, caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys"))
+        warn(CrossChainCovalentBondsWarning(molecular_system=tmp_item,
+                                            atom_pairs=atom_pairs_bonded_by_struct_conn,
+                                            caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys"))
 
     # Extract
 
