@@ -20,8 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
+- [`define_new_chain_creates_multiple_chain_entities_with_identical_name_instead_of_.md`](define_new_chain_creates_multiple_chain_entities_with_identical_name_instead_of_.md) — [#160](https://github.com/uibcdf/molsysmt/issues/160) — define_new_chain creates multiple chain entities with identical name instead of a single merged chain *(medium, asserted)*
 - [`devguide_issue_sync_fails_on_unknown_area_labels.md`](devguide_issue_sync_fails_on_unknown_area_labels.md) — [#159](https://github.com/uibcdf/molsysmt/issues/159) — devguide_issue.py cannot label an issue whose area tags are not already labels on the board. *(medium, reproduced)*
 
 ### Blocked (1)
