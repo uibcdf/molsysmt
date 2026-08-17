@@ -1,16 +1,21 @@
-# Micro-Governance: `tools/topology/index.md` (`index.AGENTS.md`)
+# Sub-Portal Governance: tools/topology/index.md
 
-This micro-governance contract governs [`docs/content/user/tools/topology/index.md`](index.md).
+## Purpose
+Governance rules for `docs/content/user/tools/topology/index.md` (the Topology Tools sub-portal entrance page).
 
----
+## Structural Invariants
+1. **Title**: `# Topology`
+2. **Catalog Table**: 2-column catalog table listing all topology tools with Markdown link titles and brief gerund descriptions.
+3. **Hidden toctree**:
+   ```rst
+   .. toctree::
+      :maxdepth: 2
+      :hidden:
 
-## 🔒 Frozen & Inviolable Content
-
-1. **Format Policy**:
-   - MUST remain a pure MyST Markdown (`.md`) page.
-   - Header H1 MUST be `# Topology`.
-   - Table format MUST be a 2-column Markdown table mapping function tutorial links to short descriptions (`| [Title](file.ipynb) | Description |`).
-   - MUST include hidden `toctree` containing all tutorial `.ipynb` files in `docs/content/user/tools/topology/`.
-
-2. **Function Catalog Invariant**:
-   - The table and `toctree` MUST remain in sync with all user-facing tutorial notebooks in `docs/content/user/tools/topology/`.
+      get_bondgraph.ipynb
+      get_covalent_blocks.ipynb
+      get_covalent_paths.ipynb
+      get_dihedral_quartets.ipynb
+      get_sequence_alignment.ipynb
+      get_sequence_identity.ipynb
+   ```
