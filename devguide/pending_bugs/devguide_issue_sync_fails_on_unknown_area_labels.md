@@ -19,7 +19,10 @@ supersedes: []
 [reporting_protocol.md](../reporting_protocol.md). The report's `area:` named
 `diagnostics`, which other entries already use and the board does not have, and
 the synchronisation step failed.
-**Status:** open, cause identified, not started.
+**Status:** open, cause identified, not started. The *taxonomy* half is gone — every area
+tag now has a label — but that was fixed on the board, not here: the all-or-nothing call
+is unchanged and unguarded, so the defect returns with the next new area tag. See
+*Re-measured*.
 
 ## What
 
@@ -138,6 +141,39 @@ Assumed:
 
 - That `command_open` fails the same way. The mechanism is the same `gh` label
   validation, but it was not executed.
+
+### Re-measured — 2026-08-17
+
+The measurements above were true on their date and are left standing. On this checkout at
+`615da28fd` the picture is different:
+
+- The seven labels are on the board: `api`, `argdigest`, `diagnostics`, `digestion`,
+  `performance`, `selection`, `units`. Someone created them between 2026-08-16 and today.
+- **Zero** of the 16 area tags in use across `pending_bugs/`, `pending_proposals/` and
+  `archive/` lack a label. The `deps`/`dependencies` mismatch no longer appears either.
+- `sync --check` reports **1** entry drifted, down from 8.
+
+That one entry is worth its own line, because it is not the same defect and it did not
+exist when this was filed:
+
+```
+devguide/archive/withdrawn_bugs/boundary_digestion_on_internal_predicates.md:
+uibcdf/molsysmt#147 is missing labels ['digestion', 'form', 'performance']
+```
+
+`#147` is **closed**, withdrawn on 2026-08-13. It became visible to `sync` only because
+`615da28fd` added `archive/withdrawn_bugs` to the archive tuple in `devguide_reports.py`,
+which had been outside every check. So this row is a blind spot surfacing, not a
+regression — but it raises a question this report did not ask: **should `sync` write
+labels to closed issues at all?** While it does, `sync --check` cannot return 0 unless
+every archived report's issue is labelled to match front matter nobody will revisit, and
+the first acceptance criterion below is unreachable for a reason unrelated to the defect.
+
+What has **not** changed is the defect itself. `devguide_issue.py:198-207` still builds one
+`gh issue edit` per issue and appends every wanted label to it, so the next area tag that
+is not yet a label reproduces the original failure exactly — for `sync`, and worse for
+`open`. The board was brought into line by hand; the tool that was supposed to keep it
+there was not touched.
 
 ## What was refuted
 
