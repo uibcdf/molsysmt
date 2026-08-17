@@ -25,7 +25,7 @@ The canonical variable representing the input trajectory MUST be `molsys` and th
    - `molsys_fitted = msm.structure.least_rmsd_fit(molsys, selection='all', selection_fit='backbone', reference_structure_index=0)`
    - Header H2 `## Verifying alignment with get_rmsd`
    - Comparison of `get_rmsd(molsys_fitted)` with `get_least_rmsd(molsys)`.
-   - Header H2 `## Plotting fitted trajectory RMSD`
+   - Header H2 `## RMSD evolution of fitted structural ensembles`
    - Matplotlib time series comparison plot before vs after fitting.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

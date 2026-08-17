@@ -28,7 +28,7 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - Spherical cutoff search with `threshold='0.6 nm'`.
    - Header H2 `## Visualizing neighbor count distribution`
    - Matplotlib histogram plot of local packing density.
-   - Header H2 `## Inter-set neighbor search`
+   - Header H2 `## Neighbor search between different atom selections`
    - Inter-set contacts between reference and target selections.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

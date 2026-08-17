@@ -25,7 +25,7 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - Geometric radius of gyration with `get_radius_of_gyration`.
    - Header H2 `## Mass-weighted radius of gyration`
    - Mass-weighted calculation with `weights='masses'`.
-   - Header H2 `## Plotting radius of gyration trajectory`
+   - Header H2 `## Radius of gyration evolution across structural ensembles`
    - Matplotlib dual-panel plot (time series + distribution histogram).
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

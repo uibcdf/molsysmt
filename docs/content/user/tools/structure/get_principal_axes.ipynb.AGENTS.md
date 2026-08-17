@@ -23,10 +23,10 @@ The canonical variable representing the input coordinates is `coords`, the prote
    - Defining rectangular coordinates box.
    - `axes, moments = msm.structure.get_principal_axes(coords)`
    - Eigenvectors and moments printouts.
-   - Header H2 `## Mass-weighted principal moments of inertia on a protein`
+   - Header H2 `## Mass-weighted principal moments of inertia`
    - `axes_prot, moments_prot = msm.structure.get_principal_axes(molsys, selection='atom_type!="H"', weights='masses')`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
-   - Header H2 `## Principal moments evolution over a trajectory`
+   - Header H2 `## Principal moments evolution across structural ensembles`
    - Matplotlib time series plot of $I_1(t), I_2(t), I_3(t)$.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

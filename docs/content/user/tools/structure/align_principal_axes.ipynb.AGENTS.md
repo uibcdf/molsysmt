@@ -27,7 +27,7 @@ The canonical variable representing the input molecular system MUST be `molsys`,
    - `molsys_aligned = msm.structure.align_principal_axes(molsys, axes=[[1,0,0], [0,1,0], [0,0,1]])`
    - `axes_aligned, momenta_aligned = msm.structure.get_principal_axes(molsys_aligned)`
    - Loop printing aligned axes.
-   - Header H2 `## Aligning a protein structure`
+   - Header H2 `## Aligning macromolecular coordinates along target spatial axes`
    - `protein = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])`
    - `protein_aligned = msm.structure.align_principal_axes(protein, axes=[[1,0,0], [0,1,0], [0,0,1]])`
    - MolSysViewer static view tag (`molsysviewer_htmlfile = '_static/views/tools_structure_align_principal_axes_1.html'`) + `msm.view(protein_aligned)`

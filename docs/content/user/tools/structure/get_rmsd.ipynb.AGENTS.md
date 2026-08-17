@@ -23,7 +23,7 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - `molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'])`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
    - `rmsd_raw = msm.structure.get_rmsd(molsys, selection='backbone', reference_structure_index=0)`
-   - Header H2 `## Plotting RMSD time series`
+   - Header H2 `## RMSD evolution across structural ensembles`
    - Matplotlib time series plot of raw RMSD.
    - Header H2 `## Comparing unaligned RMSD against optimal least-RMSD`
    - Dual plot comparing raw RMSD vs `get_least_rmsd`.
