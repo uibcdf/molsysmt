@@ -9,3 +9,6 @@ Houses tutorial units for element-specific operations across the 6 orthogonal st
 
 ## 📄 Pages List & Paired Micro-`AGENTS.md` Files
 - `index.md` ➔ `index.AGENTS.md`: Index portal with 2-column structural tier catalog table and hidden `toctree`.
+- `is_element.ipynb` ➔ `is_element.ipynb.AGENTS.md`
+- `is_composed_of.ipynb` ➔ `is_composed_of.ipynb.AGENTS.md`
+- Subdirectories: `atom/`, `group/`, `component/`, `molecule/`, `entity/`, `chain/`.

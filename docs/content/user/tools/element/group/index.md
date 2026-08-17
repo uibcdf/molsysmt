@@ -1,11 +1,10 @@
-# Molecule
-
+# Group
 
 |      |      |
 | :--- | :--- |
-| [Get bonded_atom_pairs](get_bonded_atom_pairs.ipynb) | Getting the bonded atom pairs in a group |
-| [Get group_type](get_group_type.ipynb) | Getting the group type |
-| [Is group_type](is_group_type.ipynb) | Is group type |
+| [Get bonded atom pairs](get_bonded_atom_pairs.ipynb) | Extracting standard covalent bond pairs for residues |
+| [Get group type](get_group_type.ipynb) | Querying chemical group classification for residue names |
+| [Is group type](is_group_type.ipynb) | Validating whether residues match specific classifications |
 
 ```{eval-rst}
 .. toctree::
@@ -15,5 +14,4 @@
    get_bonded_atom_pairs.ipynb
    get_group_type.ipynb
    is_group_type.ipynb
-
 ```
