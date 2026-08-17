@@ -5,7 +5,7 @@ Governance rules for `docs/content/user/tools/build/index.md` (the Build Tools s
 
 ## Structural Invariants
 1. **Title**: `# Build`
-2. **Catalog Table**: 2-column catalog table listing all build tools with Markdown link titles and brief gerund descriptions. Clean layout without extra narrative intro paragraphs.
+2. **Catalog Table**: 2-column catalog table listing all build tools (including `editable.ipynb`) with Markdown link titles and brief gerund descriptions.
 3. **Hidden toctree**:
    ```rst
    .. toctree::
@@ -19,6 +19,7 @@ Governance rules for `docs/content/user/tools/build/index.md` (the Build Tools s
       add_missing_terminal_cappings.ipynb
       build_peptide.ipynb
       define_new_chain.ipynb
+      editable.ipynb
       get_disulfide_bonds.ipynb
       get_missing_bonds.ipynb
       get_missing_heavy_atoms.ipynb
