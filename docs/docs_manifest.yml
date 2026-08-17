@@ -1,110 +1,140 @@
-# MolSysMT Documentation Manifest
-# Tracks coverage, status, and metadata for non-course documentation pages.
-
-version: "1.0.0"
-
+version: 1.0.0
 homepage:
-  path: "docs/index.ipynb"
-  agents_file: "docs/index.AGENTS.md"
-  status: "stable"
-  description: "Minimal linear homepage with logo, install snippet, interactive example, and concept-DOI citation governed by the release contract."
-
+  path: docs/index.ipynb
+  agents_file: docs/index.AGENTS.md
+  status: stable
+  description: Minimal linear homepage with logo, install snippet, interactive example,
+    and concept-DOI citation governed by the release contract.
 sections:
   user_guide:
     foundations:
-      path: "docs/content/user/foundations"
-      agents_file: "docs/content/user/foundations/AGENTS.md"
-      status: "in_progress"
+      path: docs/content/user/foundations
+      agents_file: docs/content/user/foundations/AGENTS.md
+      status: in_progress
       groups:
-        - name: "entrance"
-          agents_file: "docs/content/user/foundations/entrance/AGENTS.md"
-          index_file: "docs/content/user/foundations/entrance/index.md"
-          index_agents_file: "docs/content/user/foundations/entrance/index.AGENTS.md"
-        - name: "molecular_system"
-          agents_file: "docs/content/user/foundations/molecular_system/AGENTS.md"
-          index_file: "docs/content/user/foundations/molecular_system/index.md"
-          index_agents_file: "docs/content/user/foundations/molecular_system/index.AGENTS.md"
-        - name: "native_world"
-          agents_file: "docs/content/user/foundations/native_world/AGENTS.md"
-          index_file: "docs/content/user/foundations/native_world/index.md"
-          index_agents_file: "docs/content/user/foundations/native_world/index.AGENTS.md"
-        - name: "language"
-          agents_file: "docs/content/user/foundations/language/AGENTS.md"
-          index_file: "docs/content/user/foundations/language/index.md"
-          index_agents_file: "docs/content/user/foundations/language/index.AGENTS.md"
-        - name: "performance"
-          agents_file: "docs/content/user/foundations/performance/AGENTS.md"
-          index_file: "docs/content/user/foundations/performance/index.md"
-          index_agents_file: "docs/content/user/foundations/performance/index.AGENTS.md"
-        - name: "governance"
-          agents_file: "docs/content/user/foundations/governance/AGENTS.md"
-          index_file: "docs/content/user/foundations/governance/index.md"
-          index_agents_file: "docs/content/user/foundations/governance/index.AGENTS.md"
-        - name: "support"
-          agents_file: "docs/content/user/foundations/support/AGENTS.md"
-          index_file: "docs/content/user/foundations/support/index.md"
-          index_agents_file: "docs/content/user/foundations/support/index.AGENTS.md"
-        - name: "ecosystem"
-          agents_file: "docs/content/user/foundations/ecosystem/AGENTS.md"
-          index_file: "docs/content/user/foundations/ecosystem/index.md"
-          index_agents_file: "docs/content/user/foundations/ecosystem/index.AGENTS.md"
+      - name: entrance
+        agents_file: docs/content/user/foundations/entrance/AGENTS.md
+        index_file: docs/content/user/foundations/entrance/index.md
+        index_agents_file: docs/content/user/foundations/entrance/index.AGENTS.md
+      - name: molecular_system
+        agents_file: docs/content/user/foundations/molecular_system/AGENTS.md
+        index_file: docs/content/user/foundations/molecular_system/index.md
+        index_agents_file: docs/content/user/foundations/molecular_system/index.AGENTS.md
+      - name: native_world
+        agents_file: docs/content/user/foundations/native_world/AGENTS.md
+        index_file: docs/content/user/foundations/native_world/index.md
+        index_agents_file: docs/content/user/foundations/native_world/index.AGENTS.md
+      - name: language
+        agents_file: docs/content/user/foundations/language/AGENTS.md
+        index_file: docs/content/user/foundations/language/index.md
+        index_agents_file: docs/content/user/foundations/language/index.AGENTS.md
+      - name: performance
+        agents_file: docs/content/user/foundations/performance/AGENTS.md
+        index_file: docs/content/user/foundations/performance/index.md
+        index_agents_file: docs/content/user/foundations/performance/index.AGENTS.md
+      - name: governance
+        agents_file: docs/content/user/foundations/governance/AGENTS.md
+        index_file: docs/content/user/foundations/governance/index.md
+        index_agents_file: docs/content/user/foundations/governance/index.AGENTS.md
+      - name: support
+        agents_file: docs/content/user/foundations/support/AGENTS.md
+        index_file: docs/content/user/foundations/support/index.md
+        index_agents_file: docs/content/user/foundations/support/index.AGENTS.md
+      - name: ecosystem
+        agents_file: docs/content/user/foundations/ecosystem/AGENTS.md
+        index_file: docs/content/user/foundations/ecosystem/index.md
+        index_agents_file: docs/content/user/foundations/ecosystem/index.AGENTS.md
     tools:
-      path: "docs/content/user/tools"
-      agents_file: "docs/content/user/tools/AGENTS.md"
-      status: "in_progress"
+      path: docs/content/user/tools
+      agents_file: docs/content/user/tools/AGENTS.md
+      status: in_progress
       groups:
-        - name: "basic"
-          path: "docs/content/user/tools/basic"
-          agents_file: "docs/content/user/tools/basic/AGENTS.md"
-          index_file: "docs/content/user/tools/basic/index.md"
-          index_agents_file: "docs/content/user/tools/basic/index.AGENTS.md"
-          reviewed_units:
-            - name: "add"
-              path: "docs/content/user/tools/basic/add.ipynb"
-              status: "reviewed"
-            - name: "append_structures"
-              path: "docs/content/user/tools/basic/append_structures.ipynb"
-              status: "reviewed"
-            - name: "are_multiple_molecular_systems"
-              path: "docs/content/user/tools/basic/are_multiple_molecular_systems.ipynb"
-              status: "reviewed"
-            - name: "compare"
-              path: "docs/content/user/tools/basic/compare.ipynb"
-              status: "reviewed"
-            - name: "concatenate_structures"
-              path: "docs/content/user/tools/basic/concatenate_structures.ipynb"
-              status: "reviewed"
-            - name: "contains"
-              path: "docs/content/user/tools/basic/contains.ipynb"
-              status: "reviewed"
-            - name: "convert"
-              path: "docs/content/user/tools/basic/convert.ipynb"
-              status: "reviewed"
-            - name: "select"
-              path: "docs/content/user/tools/basic/select.ipynb"
-              status: "reviewed"
+      - name: basic
+        path: docs/content/user/tools/basic
+        agents_file: docs/content/user/tools/basic/AGENTS.md
+        index_file: docs/content/user/tools/basic/index.md
+        index_agents_file: docs/content/user/tools/basic/index.AGENTS.md
+        status: reviewed
+      - name: build
+        path: docs/content/user/tools/build
+        agents_file: docs/content/user/tools/build/AGENTS.md
+        index_file: docs/content/user/tools/build/index.md
+        index_agents_file: docs/content/user/tools/build/index.AGENTS.md
+        status: reviewed
+      - name: topology
+        path: docs/content/user/tools/topology
+        agents_file: docs/content/user/tools/topology/AGENTS.md
+        index_file: docs/content/user/tools/topology/index.md
+        index_agents_file: docs/content/user/tools/topology/index.AGENTS.md
+        status: reviewed
+      - name: structure
+        path: docs/content/user/tools/structure
+        agents_file: docs/content/user/tools/structure/AGENTS.md
+        index_file: docs/content/user/tools/structure/index.md
+        index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
+        status: in_progress
+      - name: pbc
+        path: docs/content/user/tools/pbc
+        agents_file: docs/content/user/tools/pbc/AGENTS.md
+        index_file: docs/content/user/tools/pbc/index.md
+        index_agents_file: docs/content/user/tools/pbc/index.AGENTS.md
+        status: pending_review
+      - name: physchem
+        path: docs/content/user/tools/physchem
+        agents_file: docs/content/user/tools/physchem/AGENTS.md
+        index_file: docs/content/user/tools/physchem/index.md
+        index_agents_file: docs/content/user/tools/physchem/index.AGENTS.md
+        status: pending_review
+      - name: hbonds
+        path: docs/content/user/tools/hbonds
+        agents_file: docs/content/user/tools/hbonds/AGENTS.md
+        index_file: docs/content/user/tools/hbonds/index.md
+        index_agents_file: docs/content/user/tools/hbonds/index.AGENTS.md
+        status: pending_review
+      - name: molecular_mechanics
+        path: docs/content/user/tools/molecular_mechanics
+        agents_file: docs/content/user/tools/molecular_mechanics/AGENTS.md
+        index_file: docs/content/user/tools/molecular_mechanics/index.md
+        index_agents_file: docs/content/user/tools/molecular_mechanics/index.AGENTS.md
+        status: pending_review
+      - name: element
+        path: docs/content/user/tools/element
+        agents_file: docs/content/user/tools/element/AGENTS.md
+        index_file: docs/content/user/tools/element/index.md
+        index_agents_file: docs/content/user/tools/element/index.AGENTS.md
+        status: pending_review
+      - name: form
+        path: docs/content/user/tools/form
+        agents_file: docs/content/user/tools/form/AGENTS.md
+        index_file: docs/content/user/tools/form/index.md
+        index_agents_file: docs/content/user/tools/form/index.AGENTS.md
+        status: pending_review
+      - name: thirds
+        path: docs/content/user/tools/thirds
+        agents_file: docs/content/user/tools/thirds/AGENTS.md
+        index_file: docs/content/user/tools/thirds/index.md
+        index_agents_file: docs/content/user/tools/thirds/index.AGENTS.md
+        status: pending_review
     course:
-      path: "docs/content/course"
-      agents_file: "docs/content/course/AGENTS.md"
-      status: "stable"
-      description: "The Four Paths of the MolSysMT's Master course, modularly hosted inside User Guide."
+      path: docs/content/course
+      agents_file: docs/content/course/AGENTS.md
+      status: stable
+      description: The Four Paths of the MolSysMT's Master course, modularly hosted
+        inside User Guide.
       pages: []
     cookbook:
-      path: "docs/content/user/cookbook"
-      agents_file: "docs/content/user/cookbook/AGENTS.md"
-      status: "in_progress"
+      path: docs/content/user/cookbook
+      agents_file: docs/content/user/cookbook/AGENTS.md
+      status: in_progress
       pages: []
-
   showcase:
-    path: "docs/content/showcase"
-    status: "in_progress"
+    path: docs/content/showcase
+    status: in_progress
     pages: []
-
   developer_hub:
-    path: "docs/content/developer"
-    status: "in_progress"
+    path: docs/content/developer
+    status: in_progress
     pages: []
-
   api_reference:
-    path: "docs/api"
-    status: "stable"
+    path: docs/api
+    status: stable
