@@ -24,7 +24,7 @@ The canonical variable representing the trajectory MUST be `molsys` and the fitt
    - `molsys_fitted = msm.structure.least_rmsd_fit(molsys, selection='all', selection_fit='backbone', reference_structure_index=0)`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
    - `eigenvectors, eigenvalues = msm.structure.principal_component_analysis(molsys_fitted, selection='atom_type!="H"')`
-   - Header H2 `## Scree plot and explained variance`
+   - Header H2 `## Cumulative explained variance and eigenvalue spectrum`
    - Matplotlib dual bar/line scree plot.
    - Header H2 `## Projecting trajectory onto principal components`
    - 2D scatter plot projection onto PC1 and PC2 colored by time.
