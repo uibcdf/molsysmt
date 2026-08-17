@@ -4,7 +4,7 @@
 Governance rules and frozen contracts for `docs/content/user/tools/structure/get_least_rmsd.ipynb` (`msm.structure.get_least_rmsd`).
 
 ## Variable Naming Invariant
-The canonical variable representing the input molecular system MUST be `molsys`.
+The canonical variable representing the input molecular system MUST be `molsys` and external reference MUST be `native_ref`.
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, `"remove-input"`)**: Warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
@@ -26,5 +26,8 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - `lrmsd = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_index=0)`
    - `time = msm.get(molsys, element='system', time=True)`
    - Matplotlib comparison plot of RMSD vs Least RMSD over time.
+   - Header H2 `## Comparing against an external reference structure`
+   - `native_ref = msm.extract(molsys, structure_indices=0)`
+   - `lrmsd_ref = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_molecular_system=native_ref)`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

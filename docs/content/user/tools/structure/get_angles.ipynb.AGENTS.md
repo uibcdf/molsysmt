@@ -27,5 +27,7 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - `angles_deg = msm.pyunitwizard.convert(angles, to_unit='degrees')`
    - Shape and mean printouts.
    - Matplotlib time evolution plot.
+   - Header H2 `## Computing multiple angle triplets`
+   - `multi_angles = msm.structure.get_angles(molsys, triplets=[[0, 1, 2], [1, 2, 3]])`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

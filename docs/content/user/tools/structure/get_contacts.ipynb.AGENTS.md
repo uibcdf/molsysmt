@@ -31,5 +31,7 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - `ca_chain_1 = msm.select(molsys, selection='atom_name=="CA" and chain_index==1')`
    - `interchain = msm.structure.get_contacts(molsys, selection=ca_chain_0, selection_2=ca_chain_1, threshold='1.0 nm')`
    - Matplotlib `plt.imshow` plot of inter-chain interface contacts.
+   - Header H2 `## Extracting contact pairs`
+   - `pairs_list = msm.structure.get_contacts(molsys, selection=ca_atoms, threshold='1.2 nm', output_type='pairs')`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
