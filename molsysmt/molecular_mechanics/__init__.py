@@ -3,3 +3,4 @@ from .get_potential_energy import get_potential_energy
 from .get_non_bonded_potential_energy import get_non_bonded_potential_energy
 from .get_forces import get_forces
 from .get_engine_forcefield import get_engine_forcefield
+from .get_degrees_of_freedom import get_degrees_of_freedom
