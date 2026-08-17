@@ -1,21 +1,21 @@
 ---
 summary: Under pytest-xdist the controller rebuilds catalog warnings as cls(rendered_text), so the template renders around its own output a second time.
 issue: uibcdf/molsysmt#158
-status: blocked
+status: resolved
 opened: 2026-08-16
-closed:
+closed: 2026-08-17
 severity: low
 verification: reproduced
 area: [tests, diagnostics]
 guard: tests/_private/smonitor/test_xdist_warning_reconstruction.py::test_catalog_warnings_are_not_re_rendered
 normative:
-blocked_by: [pytest-dev/pytest-xdist#1372]
+blocked_by: []
 supersedes: []
 ---
 
 # Bug: xdist re-renders catalog warnings on the controller
 
-**Status:** upstream defect in `pytest-xdist`, guarded locally in `conftest.py`
+**Status:** resolved here by reshaping the warning classes; the upstream defect remains
 **Severity:** low — reporting only; the warnings themselves are correct
 **Locations:** `xdist/workermanage.py::unserialize_warning_message` (upstream)
 
@@ -108,3 +108,30 @@ rebuilt instance only when it still says what the original said, otherwise take
 the fallback xdist already has for warnings it could not recreate. The test that fails if the defect returns is any parallel run of
 `tests/element/atom/test_get_atom_type_from_atom_name.py` whose reported warning
 text differs from the serial run's.
+
+
+## Resolution
+
+Fixed in `1cf763f8d` by changing the classes rather than by defending against
+the rebuilder. `message` is now the first parameter of every catalog warning and
+the domain fields are keyword-only, so `type(w)(*w.args)` — the call every
+rebuilder makes — hands the rendered text back as the message instead of as
+`atom_name`, `reason` or `attributes`. It needed `smonitor c30a95d` first, which
+stopped folding the resolved hint into `args`: while the base class transformed
+its own input, no ordering of the subclass parameters could have made the
+rebuild idempotent, and ArgDigest's classes proved it — they already took the
+message first and doubled just the same.
+
+The workaround in `conftest.py` is gone, along with the probe that decided
+whether to install it and the test that watched for it becoming unnecessary.
+That test failed the day the fix landed, which is what it was written to do.
+Two older workarounds inside the classes themselves — `if isinstance(attributes,
+str)` — are gone for the same reason.
+
+What this does **not** resolve is the upstream defect: pytest-xdist still
+transfers only `args` and rebuilds by calling the class, so a warning whose text
+depends on state that `args` does not carry still arrives degraded. One of ours
+does: a hint interpolating a field re-renders with the field missing. That is
+`pytest-dev/pytest-xdist#1372`, and it is theirs to close.
+
+Guard: `tests/_private/smonitor/test_xdist_warning_reconstruction.py::test_catalog_warnings_are_not_re_rendered`.

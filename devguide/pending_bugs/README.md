@@ -25,11 +25,6 @@ that front matter -- edit the entries, not this list.
 - [`define_new_chain_creates_multiple_chain_entities_with_identical_name_instead_of_.md`](define_new_chain_creates_multiple_chain_entities_with_identical_name_instead_of_.md) — [#160](https://github.com/uibcdf/molsysmt/issues/160) — define_new_chain creates multiple chain entities with identical name instead of a single merged chain *(medium, asserted)*
 - [`devguide_issue_sync_fails_on_unknown_area_labels.md`](devguide_issue_sync_fails_on_unknown_area_labels.md) — [#159](https://github.com/uibcdf/molsysmt/issues/159) — devguide_issue.py cannot label an issue whose area tags are not already labels on the board. *(medium, reproduced)*
 
-### Blocked (1)
-
-- [`xdist_re_renders_catalog_warnings_on_the_controller.md`](xdist_re_renders_catalog_warnings_on_the_controller.md) — [#158](https://github.com/uibcdf/molsysmt/issues/158) — Under pytest-xdist the controller rebuilds catalog warnings as cls(rendered_text), so the template renders around its own output a second time. *(low, reproduced)*
-  Blocked by pytest-dev/pytest-xdist#1372.
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
