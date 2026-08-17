@@ -38,4 +38,4 @@ The canonical variable representing the molecular system MUST be `molsys`, the b
    - `scratch_molsys = empty_builder.build()`
    - `msm.info(scratch_molsys)`
 6. **Final Cell (Markdown)**:
-   - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.
+   - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance (NO self-reference), with explicit titles `{ref}`Title <AnchorLabel>``.
