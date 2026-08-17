@@ -22,12 +22,13 @@ The canonical variable representing the input molecular system MUST be `molsys`.
 5. **Cells 5+**:
    - `molsys = msm.convert(msm.systems['TcTIM']['1tcd.h5msm'])`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
+   - Header H2 `## Querying fixed nearest neighbors`
    - Nearest neighbor query with `n_neighbors=3`.
    - Header H2 `## Cutoff-based neighbor search`
    - Spherical cutoff search with `threshold='0.6 nm'`.
-   - Header H2 `## Visualizing neighbor distribution`
-   - Matplotlib histogram plot of local CA packing density.
-   - Header H2 `## Finding inter-chain interface neighbors`
-   - Inter-chain interface contacts between Chain 0 and Chain 1.
+   - Header H2 `## Visualizing neighbor count distribution`
+   - Matplotlib histogram plot of local packing density.
+   - Header H2 `## Inter-set neighbor search`
+   - Inter-set contacts between reference and target selections.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

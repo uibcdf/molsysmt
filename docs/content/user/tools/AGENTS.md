@@ -79,7 +79,7 @@ A tool tutorial (`*.ipynb`) is the primary user manual for a public API function
    - If a function supports multiple operational modes, key parameters, or alternative output formats (e.g., `center_of_atoms=True`, `center_of_selection`, `pairs=True`, `output_type='pairs'`, `phi=True, psi=True`, `reference_molecular_system`, custom weights, etc.), the notebook **MUST** include dedicated H2 subsections (`## [Descriptive Title]`) illustrating each major mode with concrete examples.
 
 2. **Visual & Graphical Richness**:
-   - When a function computes structural observables over trajectories or matrices (such as distances $d(t)$, angles $\theta(t)$, dihedral time-series, Ramachandran distributions, RMSD comparisons, contact maps, or distance heatmaps), the tutorial **MUST** include clear `matplotlib` plots (`plt.plot`, `plt.imshow`, `plt.scatter`) or interactive MolSysViewer 3D views. Visual plots help users immediately understand the physical meaning of the output.
+   - When a function computes structural observables over trajectories or matrices (such as distances $d(t)$, angles $	heta(t)$, dihedral time-series, Ramachandran distributions, RMSD comparisons, contact maps, or distance heatmaps), the tutorial **MUST** include clear `matplotlib` plots (`plt.plot`, `plt.imshow`, `plt.scatter`) or interactive MolSysViewer 3D views. Visual plots help users immediately understand the physical meaning of the output.
 
 3. **Realistic Biological Scenarios**:
    - In addition to simple element queries (e.g. atom index 0 to 1), tutorials should illustrate realistic structural biology use cases: residue groups, terminal end-to-end distances, domain/interface contacts, or comparisons against external native reference structures.
@@ -87,6 +87,16 @@ A tool tutorial (`*.ipynb`) is the primary user manual for a public API function
 4. **Anti-Simplification Contract**:
    - Conforming to governance rules (such as canonical `molsys` naming, standard H1/H2 layout, collapsible API dropdowns, and `{seealso}` boxes) **MUST NEVER** be achieved by deleting valid scientific scenarios, parameter demonstrations, or figures.
    - Standardization means *organizing and formatting* existing functionality cleanly, not *stripping down* the pedagogical scope of the tutorial.
+
+5. **General Conceptual Framing vs. Specific Case Illustration**:
+   - Section headings (`H2`, `H3`) and markdown narrative MUST be phrased in terms of the **general abstract capability** (e.g. `## Computing minimum distances between atom sets` or `## Measuring minimum displacement across structures`), NEVER named after a narrow, specific biological instance (e.g. NOT `## Computing minimum distance between whole chains`).
+   - The specific dataset (e.g. protein chains, terminal residues, solvent molecules) serves as the concrete, attractive illustration, but the text and title must make it crystal clear to the reader that the operation applies generally to any atom selection or system.
+
+6. **Self-Auditing for Functional Completeness**:
+   - For every tool tutorial, agents MUST ask:
+     - *"Am I omitting an interesting, powerful mode or parameter of this function?"*
+     - *"Is the usage description complete across its operational modes?"*
+   - Remember that users read the tutorial as their primary reference manual rather than the formal API docstring.
 
 ## Boundaries and scope
 

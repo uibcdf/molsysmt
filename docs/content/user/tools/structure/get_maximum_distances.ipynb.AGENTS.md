@@ -11,23 +11,25 @@ The canonical variable representing the input molecular system MUST be `molsys`.
 2. **Cell 2 (Markdown - Introductory Header Block)**:
    - Anchor `(Tutorial_Get_maximum_distances)=`
    - H1 Title `# Get maximum distances`
-   - Italic gerund summary `*Getting the maximum distance between specific groups of elements or systems.*`
+   - Italic gerund summary `*Calculating maximum spatial distances between atom selections or molecular groups.*`
    - Narrative intro paragraph explaining function role.
    - Version admonition `:::{versionadded} 1.0.0 :::`
    - Collapsible API documentation box `:::{admonition} API documentation \n :class: dropdown`.
 3. **Cell 3 (Markdown - First Real H2 Opener)**:
    - Header H2 `## Basic usage`
    - Opening sentence introducing pentalanine trajectory dataset.
-4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
+4. **Cell 4 (Code)**: `import molsysmt as msm`, `import matplotlib.pyplot as plt`, `import pyunitwizard as puw`
 5. **Cells 5+**:
-   - `molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')`
+   - `molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5msm'])`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
-   - `pairs, max_distances = msm.structure.get_maximum_distances(molsys, selection='group_index==0', selection_2='group_index==4')`
-   - `max_distances[:5]`
-   - `pairs[:5]`
-   - Header H2 `## Maximum molecular dimension (span)`
-   - `span_pairs, max_span = msm.structure.get_maximum_distances(molsys, selection='all', selection_2='all', structure_indices=0)`
-   - `max_span[0]`
-   - `span_pairs[0]`
+   - System diameter calculation with `get_maximum_distances(molsys)`.
+   - Header H2 `## Plotting maximum span time series`
+   - Matplotlib time series plot of molecular diameter.
+   - Header H2 `## Computing maximum distances between atom sets`
+   - Maximum distance between two distinct selections.
+   - Header H2 `## Computing maximum distances between group centers`
+   - Maximum distance between group centroids (`center_of_atoms=True, center_of_atoms_2=True`).
+   - Header H2 `## Measuring maximum displacements across trajectory structures`
+   - Maximum atom displacement with `pairs=True`.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

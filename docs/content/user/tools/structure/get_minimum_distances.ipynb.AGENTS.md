@@ -25,7 +25,13 @@ The canonical variable representing the trajectory system MUST be `molsys` and t
    - `pairs, min_distances = msm.structure.get_minimum_distances(molsys, selection='group_index==0', selection_2='group_index==4')`
    - Header H2 `## Plotting minimum distance time series`
    - Matplotlib time series plot of $d_{\min}(t)$.
-   - Header H2 `## Computing minimum distance between whole chains`
-   - TcTIM inter-chain minimum contact calculation.
+   - Header H2 `## Finding the closest atom in a target set`
+   - Querying with `as_entity=False, as_entity_2=True`.
+   - Header H2 `## Computing minimum distances between atom sets`
+   - Global minimum distance between two macro-selections.
+   - Header H2 `## Computing minimum distances between group centers`
+   - Minimum distance between group centroids (`center_of_atoms=True, center_of_atoms_2=True`).
+   - Header H2 `## Measuring minimum displacements across trajectory structures`
+   - Minimum atom displacement with `pairs=True`.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
