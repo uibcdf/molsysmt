@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_Topology.to\_networkx\_Graph
 ====================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_Topology
+.. automodule:: molsysmt.form.molsysmt_Topology.to_networkx_Graph
 
-.. autofunction:: to_networkx_Graph
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_networkx_Graph
+   

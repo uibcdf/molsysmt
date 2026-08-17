@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_prmtop.to\_file\_pdb
 ========================================
 
-.. currentmodule:: molsysmt.form.file_prmtop
+.. automodule:: molsysmt.form.file_prmtop.to_file_pdb
 
-.. autofunction:: to_file_pdb
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_pdb
+   

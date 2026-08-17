@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_StructuresDict.to\_molsysmt\_MolSys
 ===========================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_StructuresDict
+.. automodule:: molsysmt.form.molsysmt_StructuresDict.to_molsysmt_MolSys
 
-.. autofunction:: to_molsysmt_MolSys
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_MolSys
+   

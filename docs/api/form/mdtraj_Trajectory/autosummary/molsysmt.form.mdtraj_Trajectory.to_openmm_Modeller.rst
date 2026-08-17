@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_Trajectory.to\_openmm\_Modeller
 =====================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_Trajectory
+.. automodule:: molsysmt.form.mdtraj_Trajectory.to_openmm_Modeller
 
-.. autofunction:: to_openmm_Modeller
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Modeller
+   

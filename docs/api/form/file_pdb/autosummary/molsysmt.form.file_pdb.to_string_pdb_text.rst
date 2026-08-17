@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_string\_pdb\_text
 =============================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_string_pdb_text
 
-.. autofunction:: to_string_pdb_text
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_string_pdb_text
+   

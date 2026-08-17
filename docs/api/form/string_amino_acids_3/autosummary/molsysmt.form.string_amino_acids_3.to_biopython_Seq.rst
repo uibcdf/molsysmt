@@ -1,6 +1,12 @@
 ﻿molsysmt.form.string\_amino\_acids\_3.to\_biopython\_Seq
 ========================================================
 
-.. currentmodule:: molsysmt.form.string_amino_acids_3
+.. automodule:: molsysmt.form.string_amino_acids_3.to_biopython_Seq
 
-.. autofunction:: to_biopython_Seq
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_biopython_Seq
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_Topology.to\_openmm\_Modeller
 ===================================================
 
-.. currentmodule:: molsysmt.form.openmm_Topology
+.. automodule:: molsysmt.form.openmm_Topology.to_openmm_Modeller
 
-.. autofunction:: to_openmm_Modeller
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Modeller
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_openmm\_Simulation
 ==============================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_openmm_Simulation
 
-.. autofunction:: to_openmm_Simulation
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Simulation
+   

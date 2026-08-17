@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_h5.to\_openmm\_Topology
 ===========================================
 
-.. currentmodule:: molsysmt.form.file_h5
+.. automodule:: molsysmt.form.file_h5.to_openmm_Topology
 
-.. autofunction:: to_openmm_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Topology
+   

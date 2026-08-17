@@ -1,6 +1,12 @@
 ﻿molsysmt.form.pdbfixer\_PDBFixer.to\_molsysmt\_Structures
 =========================================================
 
-.. currentmodule:: molsysmt.form.pdbfixer_PDBFixer
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_molsysmt_Structures
 
-.. autofunction:: to_molsysmt_Structures
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Structures
+   

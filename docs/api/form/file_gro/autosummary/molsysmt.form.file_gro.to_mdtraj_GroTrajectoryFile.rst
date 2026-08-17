@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_gro.to\_mdtraj\_GroTrajectoryFile
 =====================================================
 
-.. currentmodule:: molsysmt.form.file_gro
+.. automodule:: molsysmt.form.file_gro.to_mdtraj_GroTrajectoryFile
 
-.. autofunction:: to_mdtraj_GroTrajectoryFile
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_mdtraj_GroTrajectoryFile
+   

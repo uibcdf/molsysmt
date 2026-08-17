@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_parmed\_Structure
 =============================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_parmed_Structure
 
-.. autofunction:: to_parmed_Structure
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_parmed_Structure
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_crd.to\_molsysmt\_MolSys
 ============================================
 
-.. currentmodule:: molsysmt.form.file_crd
+.. automodule:: molsysmt.form.file_crd.to_molsysmt_MolSys
 
-.. autofunction:: to_molsysmt_MolSys
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_MolSys
+   

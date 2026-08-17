@@ -1,6 +1,12 @@
 ﻿molsysmt.form.string\_pdb\_id.to\_openmm\_Topology
 ==================================================
 
-.. currentmodule:: molsysmt.form.string_pdb_id
+.. automodule:: molsysmt.form.string_pdb_id.to_openmm_Topology
 
-.. autofunction:: to_openmm_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Topology
+   

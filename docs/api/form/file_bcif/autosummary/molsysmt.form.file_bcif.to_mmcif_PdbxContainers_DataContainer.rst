@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_bcif.to\_mmcif\_PdbxContainers\_DataContainer
 =================================================================
 
-.. currentmodule:: molsysmt.form.file_bcif
+.. automodule:: molsysmt.form.file_bcif.to_mmcif_PdbxContainers_DataContainer
 
-.. autofunction:: to_mmcif_PdbxContainers_DataContainer
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_mmcif_PdbxContainers_DataContainer
+   

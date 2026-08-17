@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_State.to\_XYZ
 ===================================
 
-.. currentmodule:: molsysmt.form.openmm_State
+.. automodule:: molsysmt.form.openmm_State.to_XYZ
 
-.. autofunction:: to_XYZ
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_XYZ
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_MolSys.to\_molsysmt\_Topology
 =====================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_MolSys
+.. automodule:: molsysmt.form.molsysmt_MolSys.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

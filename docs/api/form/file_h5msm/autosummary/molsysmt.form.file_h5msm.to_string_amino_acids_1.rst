@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_h5msm.to\_string\_amino\_acids\_1
 =====================================================
 
-.. currentmodule:: molsysmt.form.file_h5msm
+.. automodule:: molsysmt.form.file_h5msm.to_string_amino_acids_1
 
-.. autofunction:: to_string_amino_acids_1
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_string_amino_acids_1
+   

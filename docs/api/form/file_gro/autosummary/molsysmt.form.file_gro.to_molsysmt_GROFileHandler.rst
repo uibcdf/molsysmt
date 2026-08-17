@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_gro.to\_molsysmt\_GROFileHandler
 ====================================================
 
-.. currentmodule:: molsysmt.form.file_gro
+.. automodule:: molsysmt.form.file_gro.to_molsysmt_GROFileHandler
 
-.. autofunction:: to_molsysmt_GROFileHandler
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_GROFileHandler
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_Topology.to\_openmm\_Topology
 ===================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_Topology
+.. automodule:: molsysmt.form.mdtraj_Topology.to_openmm_Topology
 
-.. autofunction:: to_openmm_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Topology
+   

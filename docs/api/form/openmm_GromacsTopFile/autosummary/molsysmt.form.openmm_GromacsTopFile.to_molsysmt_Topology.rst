@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_GromacsTopFile.to\_molsysmt\_Topology
 ===========================================================
 
-.. currentmodule:: molsysmt.form.openmm_GromacsTopFile
+.. automodule:: molsysmt.form.openmm_GromacsTopFile.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

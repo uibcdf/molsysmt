@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_gro.to\_openmm\_GromacsGroFile
 ==================================================
 
-.. currentmodule:: molsysmt.form.file_gro
+.. automodule:: molsysmt.form.file_gro.to_openmm_GromacsGroFile
 
-.. autofunction:: to_openmm_GromacsGroFile
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_GromacsGroFile
+   

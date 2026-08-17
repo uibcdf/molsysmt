@@ -1,6 +1,12 @@
 ﻿molsysmt.form.MDAnalysis\_Universe.to\_molsysmt\_Topology
 =========================================================
 
-.. currentmodule:: molsysmt.form.MDAnalysis_Universe
+.. automodule:: molsysmt.form.MDAnalysis_Universe.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_h5msm.to\_molsysmt\_Topology
 ================================================
 
-.. currentmodule:: molsysmt.form.file_h5msm
+.. automodule:: molsysmt.form.file_h5msm.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

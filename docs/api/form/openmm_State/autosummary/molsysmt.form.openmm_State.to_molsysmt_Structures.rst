@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_State.to\_molsysmt\_Structures
 ====================================================
 
-.. currentmodule:: molsysmt.form.openmm_State
+.. automodule:: molsysmt.form.openmm_State.to_molsysmt_Structures
 
-.. autofunction:: to_molsysmt_Structures
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Structures
+   

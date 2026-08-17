@@ -1,6 +1,12 @@
 ﻿molsysmt.form.string\_alphafold\_id.to\_openmm\_Topology
 ========================================================
 
-.. currentmodule:: molsysmt.form.string_alphafold_id
+.. automodule:: molsysmt.form.string_alphafold_id.to_openmm_Topology
 
-.. autofunction:: to_openmm_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Topology
+   

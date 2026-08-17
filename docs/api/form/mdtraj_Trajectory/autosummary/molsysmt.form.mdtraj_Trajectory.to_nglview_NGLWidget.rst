@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_Trajectory.to\_nglview\_NGLWidget
 =======================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_Trajectory
+.. automodule:: molsysmt.form.mdtraj_Trajectory.to_nglview_NGLWidget
 
-.. autofunction:: to_nglview_NGLWidget
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_nglview_NGLWidget
+   

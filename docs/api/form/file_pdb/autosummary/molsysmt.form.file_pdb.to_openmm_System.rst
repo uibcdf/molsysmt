@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_openmm\_System
 ==========================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_openmm_System
 
-.. autofunction:: to_openmm_System
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_System
+   

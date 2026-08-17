@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_Topology.to\_parmed\_Structure
 ====================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_Topology
+.. automodule:: molsysmt.form.mdtraj_Topology.to_parmed_Structure
 
-.. autofunction:: to_parmed_Structure
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_parmed_Structure
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_Topology.to\_string\_pdb\_text
 ======================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_Topology
+.. automodule:: molsysmt.form.molsysmt_Topology.to_string_pdb_text
 
-.. autofunction:: to_string_pdb_text
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_string_pdb_text
+   

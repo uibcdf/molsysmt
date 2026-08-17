@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_Topology.to\_file\_psf
 ============================================
 
-.. currentmodule:: molsysmt.form.openmm_Topology
+.. automodule:: molsysmt.form.openmm_Topology.to_file_psf
 
-.. autofunction:: to_file_psf
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_psf
+   

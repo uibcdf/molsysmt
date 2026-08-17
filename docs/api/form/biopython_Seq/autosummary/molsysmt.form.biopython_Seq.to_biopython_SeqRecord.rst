@@ -1,6 +1,12 @@
 ﻿molsysmt.form.biopython\_Seq.to\_biopython\_SeqRecord
 =====================================================
 
-.. currentmodule:: molsysmt.form.biopython_Seq
+.. automodule:: molsysmt.form.biopython_Seq.to_biopython_SeqRecord
 
-.. autofunction:: to_biopython_SeqRecord
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_biopython_SeqRecord
+   

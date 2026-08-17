@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_Topology.to\_nglview\_NGLWidget
 =====================================================
 
-.. currentmodule:: molsysmt.form.openmm_Topology
+.. automodule:: molsysmt.form.openmm_Topology.to_nglview_NGLWidget
 
-.. autofunction:: to_nglview_NGLWidget
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_nglview_NGLWidget
+   

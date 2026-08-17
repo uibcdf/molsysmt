@@ -1,6 +1,12 @@
 ﻿molsysmt.form.string\_pdb\_id.to\_molsysmt\_Structures
 ======================================================
 
-.. currentmodule:: molsysmt.form.string_pdb_id
+.. automodule:: molsysmt.form.string_pdb_id.to_molsysmt_Structures
 
-.. autofunction:: to_molsysmt_Structures
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Structures
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.pytraj\_Topology.to\_molsysmt\_Topology
 =====================================================
 
-.. currentmodule:: molsysmt.form.pytraj_Topology
+.. automodule:: molsysmt.form.pytraj_Topology.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

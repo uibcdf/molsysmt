@@ -1,6 +1,12 @@
 ﻿molsysmt.form.pdbfixer\_PDBFixer.to\_biopython\_Seq
 ===================================================
 
-.. currentmodule:: molsysmt.form.pdbfixer_PDBFixer
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_biopython_Seq
 
-.. autofunction:: to_biopython_Seq
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_biopython_Seq
+   

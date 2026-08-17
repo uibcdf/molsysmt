@@ -1,6 +1,12 @@
 ﻿molsysmt.form.MDAnalysis\_Universe.to\_nglview\_NGLWidget
 =========================================================
 
-.. currentmodule:: molsysmt.form.MDAnalysis_Universe
+.. automodule:: molsysmt.form.MDAnalysis_Universe.to_nglview_NGLWidget
 
-.. autofunction:: to_nglview_NGLWidget
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_nglview_NGLWidget
+   

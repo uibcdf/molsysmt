@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_Trajectory.to\_molsysmt\_MolSys
 =====================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_Trajectory
+.. automodule:: molsysmt.form.mdtraj_Trajectory.to_molsysmt_MolSys
 
-.. autofunction:: to_molsysmt_MolSys
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_MolSys
+   

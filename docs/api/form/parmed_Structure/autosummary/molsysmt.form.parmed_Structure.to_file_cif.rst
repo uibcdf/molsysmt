@@ -1,6 +1,12 @@
 ﻿molsysmt.form.parmed\_Structure.to\_file\_cif
 =============================================
 
-.. currentmodule:: molsysmt.form.parmed_Structure
+.. automodule:: molsysmt.form.parmed_Structure.to_file_cif
 
-.. autofunction:: to_file_cif
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_cif
+   

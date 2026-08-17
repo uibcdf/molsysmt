@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_pytraj\_Topology
 ============================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_pytraj_Topology
 
-.. autofunction:: to_pytraj_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_pytraj_Topology
+   

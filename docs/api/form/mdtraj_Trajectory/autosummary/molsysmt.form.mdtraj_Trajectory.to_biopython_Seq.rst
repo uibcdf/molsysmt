@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_Trajectory.to\_biopython\_Seq
 ===================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_Trajectory
+.. automodule:: molsysmt.form.mdtraj_Trajectory.to_biopython_Seq
 
-.. autofunction:: to_biopython_Seq
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_biopython_Seq
+   

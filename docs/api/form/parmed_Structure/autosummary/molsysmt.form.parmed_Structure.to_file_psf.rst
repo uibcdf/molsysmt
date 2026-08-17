@@ -1,6 +1,12 @@
 ﻿molsysmt.form.parmed\_Structure.to\_file\_psf
 =============================================
 
-.. currentmodule:: molsysmt.form.parmed_Structure
+.. automodule:: molsysmt.form.parmed_Structure.to_file_psf
 
-.. autofunction:: to_file_psf
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_psf
+   

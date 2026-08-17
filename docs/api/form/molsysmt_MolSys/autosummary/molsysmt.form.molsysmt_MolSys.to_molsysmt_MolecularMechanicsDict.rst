@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_MolSys.to\_molsysmt\_MolecularMechanicsDict
 ===================================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_MolSys
+.. automodule:: molsysmt.form.molsysmt_MolSys.to_molsysmt_MolecularMechanicsDict
 
-.. autofunction:: to_molsysmt_MolecularMechanicsDict
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_MolecularMechanicsDict
+   

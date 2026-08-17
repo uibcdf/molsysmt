@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_Topology.to\_parmed\_Structure
 ====================================================
 
-.. currentmodule:: molsysmt.form.openmm_Topology
+.. automodule:: molsysmt.form.openmm_Topology.to_parmed_Structure
 
-.. autofunction:: to_parmed_Structure
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_parmed_Structure
+   

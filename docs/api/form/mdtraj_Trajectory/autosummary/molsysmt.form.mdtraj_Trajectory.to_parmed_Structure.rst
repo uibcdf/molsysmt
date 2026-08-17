@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_Trajectory.to\_parmed\_Structure
 ======================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_Trajectory
+.. automodule:: molsysmt.form.mdtraj_Trajectory.to_parmed_Structure
 
-.. autofunction:: to_parmed_Structure
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_parmed_Structure
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_molsysmt\_PDBFileHandler
 ====================================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_molsysmt_PDBFileHandler
 
-.. autofunction:: to_molsysmt_PDBFileHandler
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_PDBFileHandler
+   

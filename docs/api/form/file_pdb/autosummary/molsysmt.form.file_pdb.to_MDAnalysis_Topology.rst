@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_MDAnalysis\_Topology
 ================================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_MDAnalysis_Topology
 
-.. autofunction:: to_MDAnalysis_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_MDAnalysis_Topology
+   

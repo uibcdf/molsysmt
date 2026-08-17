@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_PDBFile.to\_molsysmt\_Structures
 ======================================================
 
-.. currentmodule:: molsysmt.form.openmm_PDBFile
+.. automodule:: molsysmt.form.openmm_PDBFile.to_molsysmt_Structures
 
-.. autofunction:: to_molsysmt_Structures
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Structures
+   

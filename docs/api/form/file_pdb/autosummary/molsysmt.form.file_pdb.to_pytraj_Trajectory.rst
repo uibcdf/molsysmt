@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_pytraj\_Trajectory
 ==============================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_pytraj_Trajectory
 
-.. autofunction:: to_pytraj_Trajectory
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_pytraj_Trajectory
+   

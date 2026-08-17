@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_pdb.to\_nglview\_NGLWidget
 ==============================================
 
-.. currentmodule:: molsysmt.form.file_pdb
+.. automodule:: molsysmt.form.file_pdb.to_nglview_NGLWidget
 
-.. autofunction:: to_nglview_NGLWidget
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_nglview_NGLWidget
+   

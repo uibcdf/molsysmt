@@ -1,6 +1,12 @@
 ﻿molsysmt.form.pdbfixer\_PDBFixer.to\_molsysmt\_Topology
 =======================================================
 
-.. currentmodule:: molsysmt.form.pdbfixer_PDBFixer
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

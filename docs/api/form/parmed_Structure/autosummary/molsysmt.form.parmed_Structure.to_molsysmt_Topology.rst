@@ -1,6 +1,12 @@
 ﻿molsysmt.form.parmed\_Structure.to\_molsysmt\_Topology
 ======================================================
 
-.. currentmodule:: molsysmt.form.parmed_Structure
+.. automodule:: molsysmt.form.parmed_Structure.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

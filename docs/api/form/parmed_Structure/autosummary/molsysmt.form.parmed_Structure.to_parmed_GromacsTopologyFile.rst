@@ -1,6 +1,12 @@
 ﻿molsysmt.form.parmed\_Structure.to\_parmed\_GromacsTopologyFile
 ===============================================================
 
-.. currentmodule:: molsysmt.form.parmed_Structure
+.. automodule:: molsysmt.form.parmed_Structure.to_parmed_GromacsTopologyFile
 
-.. autofunction:: to_parmed_GromacsTopologyFile
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_parmed_GromacsTopologyFile
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_StructuresDict.to\_file\_trjpk
 ======================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_StructuresDict
+.. automodule:: molsysmt.form.molsysmt_StructuresDict.to_file_trjpk
 
-.. autofunction:: to_file_trjpk
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_trjpk
+   

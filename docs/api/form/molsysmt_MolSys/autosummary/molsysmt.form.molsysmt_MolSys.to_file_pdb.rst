@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_MolSys.to\_file\_pdb
 ============================================
 
-.. currentmodule:: molsysmt.form.molsysmt_MolSys
+.. automodule:: molsysmt.form.molsysmt_MolSys.to_file_pdb
 
-.. autofunction:: to_file_pdb
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_pdb
+   

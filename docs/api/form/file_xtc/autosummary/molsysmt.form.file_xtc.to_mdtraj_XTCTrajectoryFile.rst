@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_xtc.to\_mdtraj\_XTCTrajectoryFile
 =====================================================
 
-.. currentmodule:: molsysmt.form.file_xtc
+.. automodule:: molsysmt.form.file_xtc.to_mdtraj_XTCTrajectoryFile
 
-.. autofunction:: to_mdtraj_XTCTrajectoryFile
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_mdtraj_XTCTrajectoryFile
+   

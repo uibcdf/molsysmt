@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_MolSys.to\_openmm\_Simulation
 =====================================================
 
-.. currentmodule:: molsysmt.form.molsysmt_MolSys
+.. automodule:: molsysmt.form.molsysmt_MolSys.to_openmm_Simulation
 
-.. autofunction:: to_openmm_Simulation
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Simulation
+   

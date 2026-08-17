@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_inpcrd.to\_molsysmt\_Structures
 ===================================================
 
-.. currentmodule:: molsysmt.form.file_inpcrd
+.. automodule:: molsysmt.form.file_inpcrd.to_molsysmt_Structures
 
-.. autofunction:: to_molsysmt_Structures
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Structures
+   

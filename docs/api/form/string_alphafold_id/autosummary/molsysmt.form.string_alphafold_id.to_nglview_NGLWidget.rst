@@ -1,6 +1,12 @@
 ﻿molsysmt.form.string\_alphafold\_id.to\_nglview\_NGLWidget
 ==========================================================
 
-.. currentmodule:: molsysmt.form.string_alphafold_id
+.. automodule:: molsysmt.form.string_alphafold_id.to_nglview_NGLWidget
 
-.. autofunction:: to_nglview_NGLWidget
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_nglview_NGLWidget
+   

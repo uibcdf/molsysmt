@@ -1,6 +1,12 @@
 ﻿molsysmt.form.pdbfixer\_PDBFixer.to\_file\_pdb
 ==============================================
 
-.. currentmodule:: molsysmt.form.pdbfixer_PDBFixer
+.. automodule:: molsysmt.form.pdbfixer_PDBFixer.to_file_pdb
 
-.. autofunction:: to_file_pdb
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_pdb
+   

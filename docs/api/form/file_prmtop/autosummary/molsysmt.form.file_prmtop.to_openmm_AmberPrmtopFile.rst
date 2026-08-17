@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_prmtop.to\_openmm\_AmberPrmtopFile
 ======================================================
 
-.. currentmodule:: molsysmt.form.file_prmtop
+.. automodule:: molsysmt.form.file_prmtop.to_openmm_AmberPrmtopFile
 
-.. autofunction:: to_openmm_AmberPrmtopFile
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_AmberPrmtopFile
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_Structures.to\_XYZ
 ==========================================
 
-.. currentmodule:: molsysmt.form.molsysmt_Structures
+.. automodule:: molsysmt.form.molsysmt_Structures.to_XYZ
 
-.. autofunction:: to_XYZ
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_XYZ
+   

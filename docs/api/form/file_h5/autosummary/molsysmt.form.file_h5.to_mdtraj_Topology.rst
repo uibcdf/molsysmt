@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_h5.to\_mdtraj\_Topology
 ===========================================
 
-.. currentmodule:: molsysmt.form.file_h5
+.. automodule:: molsysmt.form.file_h5.to_mdtraj_Topology
 
-.. autofunction:: to_mdtraj_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_mdtraj_Topology
+   

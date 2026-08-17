@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_AmberPrmtopFile.to\_molsysmt\_Topology
 ============================================================
 
-.. currentmodule:: molsysmt.form.openmm_AmberPrmtopFile
+.. automodule:: molsysmt.form.openmm_AmberPrmtopFile.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.molsysmt\_MolSys.to\_file\_psf
 ============================================
 
-.. currentmodule:: molsysmt.form.molsysmt_MolSys
+.. automodule:: molsysmt.form.molsysmt_MolSys.to_file_psf
 
-.. autofunction:: to_file_psf
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_psf
+   

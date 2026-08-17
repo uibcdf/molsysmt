@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_Topology.to\_openmm\_Context
 ==================================================
 
-.. currentmodule:: molsysmt.form.openmm_Topology
+.. automodule:: molsysmt.form.openmm_Topology.to_openmm_Context
 
-.. autofunction:: to_openmm_Context
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Context
+   

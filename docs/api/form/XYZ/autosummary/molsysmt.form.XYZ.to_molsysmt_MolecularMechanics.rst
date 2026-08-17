@@ -1,6 +1,12 @@
 ﻿molsysmt.form.XYZ.to\_molsysmt\_MolecularMechanics
 ==================================================
 
-.. currentmodule:: molsysmt.form.XYZ
+.. automodule:: molsysmt.form.XYZ.to_molsysmt_MolecularMechanics
 
-.. autofunction:: to_molsysmt_MolecularMechanics
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_MolecularMechanics
+   

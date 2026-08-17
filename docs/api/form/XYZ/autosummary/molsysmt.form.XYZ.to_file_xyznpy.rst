@@ -1,6 +1,12 @@
 ﻿molsysmt.form.XYZ.to\_file\_xyznpy
 ==================================
 
-.. currentmodule:: molsysmt.form.XYZ
+.. automodule:: molsysmt.form.XYZ.to_file_xyznpy
 
-.. autofunction:: to_file_xyznpy
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_xyznpy
+   

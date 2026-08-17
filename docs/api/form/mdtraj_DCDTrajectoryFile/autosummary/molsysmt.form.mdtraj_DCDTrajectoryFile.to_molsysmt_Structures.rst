@@ -1,6 +1,12 @@
 ﻿molsysmt.form.mdtraj\_DCDTrajectoryFile.to\_molsysmt\_Structures
 ================================================================
 
-.. currentmodule:: molsysmt.form.mdtraj_DCDTrajectoryFile
+.. automodule:: molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_Structures
 
-.. autofunction:: to_molsysmt_Structures
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Structures
+   

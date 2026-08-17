@@ -1,6 +1,12 @@
 ﻿molsysmt.form.openmm\_PDBFile.to\_molsysmt\_Topology
 ====================================================
 
-.. currentmodule:: molsysmt.form.openmm_PDBFile
+.. automodule:: molsysmt.form.openmm_PDBFile.to_molsysmt_Topology
 
-.. autofunction:: to_molsysmt_Topology
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_molsysmt_Topology
+   

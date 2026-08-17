@@ -1,6 +1,12 @@
 ﻿molsysmt.form.MDAnalysis\_Universe.to\_file\_pdb
 ================================================
 
-.. currentmodule:: molsysmt.form.MDAnalysis_Universe
+.. automodule:: molsysmt.form.MDAnalysis_Universe.to_file_pdb
 
-.. autofunction:: to_file_pdb
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_file_pdb
+   

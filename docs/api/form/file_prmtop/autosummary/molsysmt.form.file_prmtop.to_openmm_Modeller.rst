@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_prmtop.to\_openmm\_Modeller
 ===============================================
 
-.. currentmodule:: molsysmt.form.file_prmtop
+.. automodule:: molsysmt.form.file_prmtop.to_openmm_Modeller
 
-.. autofunction:: to_openmm_Modeller
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_openmm_Modeller
+   

@@ -1,6 +1,12 @@
 ﻿molsysmt.form.file\_prmtop.to\_nglview\_NGLWidget
 =================================================
 
-.. currentmodule:: molsysmt.form.file_prmtop
+.. automodule:: molsysmt.form.file_prmtop.to_nglview_NGLWidget
 
-.. autofunction:: to_nglview_NGLWidget
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      to_nglview_NGLWidget
+   
