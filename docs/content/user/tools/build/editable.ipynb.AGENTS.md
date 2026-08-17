@@ -27,7 +27,8 @@ The canonical variable representing the molecular system MUST be `molsys`, the b
    - Header H2 `## Inspecting the builder`
    - `msm.get(builder, n_atoms=True, n_bonds=True, n_chains=True)`
    - Header H2 `## Modifying topology and bonds`
-   - `builder.add_bond(0, 10, bond_order=1, bond_type='covalent')`
+   - `builder.add_bond(atom_index_1=0, atom_index_2=10, bond_order=1, bond_type='covalent')`
+   - `builder.remove_bonds([0, 1])`
    - `builder.assign_groups_to_new_chain(group_indices=[0, 1], chain_id='B', chain_name='B')`
    - Header H2 `## Materializing the final molecular system`
    - `new_molsys = builder.build()`

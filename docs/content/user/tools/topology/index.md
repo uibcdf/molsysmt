@@ -2,7 +2,6 @@
 
 |      |      |
 | :--- | :--- |
-| [Add bonds](add_bonds.ipynb) | Adding new covalent bonds between atoms in a molecular system |
 | [Get bondgraph](get_bondgraph.ipynb) | Getting the bondgraph of a molecular system |
 | [Get covalent blocks](get_covalent_blocks.ipynb) | Getting the covalent blocks of a molecular system |
 | [Get covalent paths](get_covalent_paths.ipynb) | Getting covalent paths between atoms in a molecular system |
@@ -16,7 +15,6 @@
    :maxdepth: 2
    :hidden:
 
-   add_bonds.ipynb
    get_bondgraph.ipynb
    get_covalent_blocks.ipynb
    get_covalent_paths.ipynb

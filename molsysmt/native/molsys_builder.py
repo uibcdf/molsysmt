@@ -237,7 +237,7 @@ class MolSysBuilder:
     @arg_digest()
     def remove_bonds(self, bond_indices="all", skip_digestion=False):
 
-        if bond_indices == "all":
+        if isinstance(bond_indices, str) and bond_indices == "all":
             self.topology._remove_chemical_state_bonds(bond_indices="all")
             return
 
