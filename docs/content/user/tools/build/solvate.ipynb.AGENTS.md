@@ -4,7 +4,7 @@
 Governance rules and frozen contracts for `docs/content/user/tools/build/solvate.ipynb` (`msm.build.solvate`).
 
 ## Variable Naming Invariant
-The canonical variable representing the input molecular system MUST be `molsys`, and solvated variants MUST be `molsys_cub`, `molsys_ions`, and `molsys_oct`.
+The canonical variable representing the input molecular system MUST be `molsys`, and solvated variants MUST be `molsys_cub`, `molsys_ions`, `molsys_oct`, and `molsys_rhomb`.
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, `"remove-input"`)**: Warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
@@ -25,8 +25,8 @@ The canonical variable representing the input molecular system MUST be `molsys`,
    - Box inspection and MolSysViewer 3D view with static HTML view `tools_build_solvate_1.html`.
    - Header H2 `## Adding physiological ions`
    - `molsys_ions = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms', ionic_strength='150.0 millimolar')`
-   - Header H2 `## Solvation efficiency: Cubic vs. Truncated Octahedral box`
-   - Comparison of water count reduction between cubic and truncated octahedral boxes.
+   - Header H2 `## Box shape`
+   - Comparing water count and solvent savings across `'cubic'`, `'truncated octahedral'`, and `'rhombic dodecahedral'` geometries.
    - MolSysViewer 3D view with static HTML view `tools_build_solvate_2.html`.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
