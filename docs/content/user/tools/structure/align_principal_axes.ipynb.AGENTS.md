@@ -4,7 +4,7 @@
 Governance rules and frozen contracts for `docs/content/user/tools/structure/align_principal_axes.ipynb` (`msm.structure.align_principal_axes`).
 
 ## Variable Naming Invariant
-The canonical variable representing the input molecular system MUST be `molsys` and the aligned system MUST be `molsys_aligned`.
+The canonical variable representing the input molecular system MUST be `molsys`, the aligned system MUST be `molsys_aligned`, and the protein system MUST be `protein`.
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, `"remove-input"`)**: Warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
@@ -27,5 +27,9 @@ The canonical variable representing the input molecular system MUST be `molsys` 
    - `molsys_aligned = msm.structure.align_principal_axes(molsys, axes=[[1,0,0], [0,1,0], [0,0,1]])`
    - `axes_aligned, momenta_aligned = msm.structure.get_principal_axes(molsys_aligned)`
    - Loop printing aligned axes.
+   - Header H2 `## Aligning a protein structure`
+   - `protein = msm.convert(msm.systems['chicken villin HP35']['chicken_villin_HP35.h5msm'])`
+   - `protein_aligned = msm.structure.align_principal_axes(protein, axes=[[1,0,0], [0,1,0], [0,0,1]])`
+   - MolSysViewer static view tag (`molsysviewer_htmlfile = '_static/views/tools_structure_align_principal_axes_1.html'`) + `msm.view(protein_aligned)`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
