@@ -26,7 +26,6 @@
 | [Rotate](rotate.ipynb) | Rotating a molecular system |
 | [Set dihedral angles](set_dihedral_angles.ipynb) | Setting new dihedral angles values in a molecular system |
 | [Shift dihedral angles](shift_dihedral_angles.ipynb) | Shifting dihedral angles in a molecular system |
-| [Show contacts](show_contacts.ipynb) | Showing the graphical representation of the contact matrix of specific elements of a molecular system or two different molecular systems |
 | [Translate](translate.ipynb) | Translating a molecular system |
 
 
@@ -59,6 +58,5 @@
    rotate.ipynb
    set_dihedral_angles.ipynb
    shift_dihedral_angles.ipynb
-   show_contacts.ipynb
    translate.ipynb
 ```

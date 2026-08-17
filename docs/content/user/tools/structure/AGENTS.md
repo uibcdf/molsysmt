@@ -45,3 +45,4 @@ Houses tutorial units for structural coordinate operations, spatial measurements
 - `rotate.ipynb` ➔ `rotate.ipynb.AGENTS.md`
 - `set_dihedral_angles.ipynb` ➔ `set_dihedral_angles.ipynb.AGENTS.md`
 - `shift_dihedral_angles.ipynb` ➔ `shift_dihedral_angles.ipynb.AGENTS.md`
+- `translate.ipynb` ➔ `translate.ipynb.AGENTS.md`
