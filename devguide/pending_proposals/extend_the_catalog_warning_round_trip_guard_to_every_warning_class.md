@@ -5,7 +5,7 @@ status: open
 opened: 2026-08-17
 closed:
 verification: reproduced
-area: [tests]
+area: [diagnostics, tests]
 guard:
 normative:
 blocked_by: []

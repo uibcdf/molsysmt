@@ -5,7 +5,7 @@ status: resolved
 opened: 2026-08-14
 closed: 2026-08-14
 verification: reproduced
-area: [argdigest, api, dependencies]
+area: [argdigest, api, deps]
 guard: tests/attribute/test_argument_aliases.py
 normative: devguide/digestion_and_dependencies.md
 blocked_by: []

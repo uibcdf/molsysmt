@@ -6,7 +6,7 @@ opened: 2026-08-13
 closed: 2026-08-13
 severity: medium
 verification: measured
-area: [digestion, dependencies]
+area: [digestion, deps]
 guard: tests/_private/argdigest/test_no_validated_payload.py
 normative: ARGDIGEST_GUIDE.md
 blocked_by: []

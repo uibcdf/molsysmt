@@ -194,7 +194,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
         n_orig = topo.n_atoms
 
         for group_idx, missing_names in missing_atoms.items():
-            group_name = topo.groups.loc[group_idx, 'group_name']
+            group_name = topo.groups['group_name'].values[group_idx]
             template = load_residue_template(group_name)
             if template is None:
                 continue

@@ -252,12 +252,18 @@ This is the habit that has paid best. Keep it.
 |---|---|---|
 | kind, exactly one | `bug`, `proposal`, `enhancement`, `documentation` | by hand, at open |
 | state, zero or one | `in-progress`, `blocked`, `partial` | derived from `status` |
-| area, zero or more | `form`, `convert`, `structure`, `docs`, `build`, `ci`, `deps` | derived from `area` |
+| area, zero or more | `api`, `argdigest`, `attribute`, `basic`, `build`, `ci`, `convert`, `deps`, `diagnostics`, `digestion`, `docs`, `form`, `performance`, `selection`, `structure`, `tests`, `units` | derived from `area` |
 | triage | `needs-triage` | by hand, on arrival from outside |
 | severity | `scientific-integrity` | by hand, bugs only |
 
 No state label means open and unstarted. There is no `done` label: GitHub closes issues,
 and a `done` label on an open issue is a contradiction waiting to happen.
+
+An `area:` tag with no label on the board is not a cosmetic problem: it stops
+`devguide_issue.py` mid-call. `sync` applies nothing for that issue — not even the labels
+that do exist — and `open` refuses to create the issue at all. See `#159`. So a new area
+tag means creating its label first, `Area: <name>` in `#c5def5` like the rest. The tag is
+`deps`, never `dependencies`.
 
 Only `scientific-integrity` is promoted to a label, because it is the one severity a
 third party must see without reading anything. The rest stays in `severity`.
