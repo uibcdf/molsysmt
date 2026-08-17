@@ -65,6 +65,25 @@ gh issue edit 158 --add-label diagnostics failed: ... 'diagnostics' not found
 failed to update 1 issue
 ```
 
+### `open` is affected too, and worse
+
+Observed 2026-08-17 while filing `#161`. The defect is not confined to `sync`:
+`open` refuses to create the issue at all when `--area` names an unknown tag, so
+neither the issue nor its scaffolded document exists afterwards.
+
+```bash
+$ python devtools/scripts/devguide_issue.py open --kind proposal \
+    --title "Extend the catalog-warning round-trip guard to every warning class" \
+    --area diagnostics,tests
+gh issue create --title ... --label proposal,diagnostics,tests failed: could not add label: 'diagnostics' not found
+```
+
+`sync` leaves an issue with stale labels; `open` leaves nothing, and the filer
+has to pick an area tag that already exists on the board rather than the one
+that is accurate. `#161` was filed as `area: [tests]` for that reason alone —
+`diagnostics` is the second tag it should carry. That is how the drift grows:
+the workaround for an unlabelled area is to stop recording the area.
+
 ## How
 
 `devtools/scripts/devguide_issue.py:198-207` builds a single `gh issue edit` per
