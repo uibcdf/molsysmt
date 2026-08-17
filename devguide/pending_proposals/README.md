@@ -86,13 +86,6 @@ migration is in flight.
 - `sasa_methodologies_and_acceleration_post_1_0.md` — cell-list acceleration and
   alternative SASA methodologies (LCPO, Lee–Richards).
 - `molsysviewer_molsysmt_nonblocking_heavy_operations.md`
-- `known_source_form_and_large_string_detection.md` — avoid treating large
-  in-memory molecular text as a filename and expose a deterministic public
-  source-form hint for integrations that know their representation.
-- `declared_selection_syntaxes_without_implementation.md` — seven syntaxes are
-  declared and four of fourteen `(syntax, direction)` cells work; `MDAnalysis`
-  is documented as available but reachable only from PDB files and MDAnalysis
-  objects. Raised from MolSysViewer, which re-promises the same list.
 
 ### Exploratory architecture and operations
 
@@ -126,11 +119,6 @@ migration is in flight.
   `gh-pages` branch of 1907 site snapshots, and building the conda packages on a runner
   per platform instead of relabelling one Linux build. The second is blocking for 1.0;
   the first is not, and removes `contents: write` from a workflow.
-- `private_api_in_the_published_reference.md` — whether the published API
-  reference should carry its hidden `Developer` branch into `molsysmt._private`.
-  Undecided rather than broken; today the branch is four files documenting one
-  exception, and the only page a reader can reach describes a module that was
-  removed seven months ago.
 - `presentation_and_citation_surface.md` — partially resolved on 2026-08-07. The
   authorship question is decided and the misattributed ORCID is gone with it, and
   the duplicate landing page is deleted. Two items remain: the stale, malformed DOI
