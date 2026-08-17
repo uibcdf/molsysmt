@@ -6,7 +6,7 @@ Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
 - Source version: `smonitor@0.12.0`
-- Last synced: 2026-08-15
+- Last synced: 2026-08-17
 
 ## What is SMonitor
 
@@ -119,8 +119,8 @@ from smonitor.integrations import CatalogException
 from . import CATALOG, META
 
 class MyLibException(CatalogException):
-    def __init__(self, **kwargs):
-        super().__init__(catalog=CATALOG, meta=META, **kwargs)
+    def __init__(self, message=None, **kwargs):
+        super().__init__(message, catalog=CATALOG, meta=META, **kwargs)
 
 class ArgumentError(MyLibException):
     catalog_key = "ArgumentError"
@@ -150,11 +150,11 @@ it over as a string:
 ```python
 # Correct: the template owns the wording, the call site owns the data.
 # CODES["MYLIB-W010"]["user_message"] = "Atom name '{atom_name}' is not recognized."
-warn(UnknownAtomNameWarning(extra={"atom_name": atom_name}))
+warn(UnknownAtomNameWarning(atom_name=atom_name))
 
 # Avoid: the template can only say "{message}", and the structured field
 # never reaches report(), fingerprints, or resource counters.
-warn(UnknownAtomNameWarning(extra={"message": f"Atom name '{atom_name}' ..."}))
+warn(UnknownAtomNameWarning(message=f"Atom name '{atom_name}' ..."))
 ```
 
 `warn(instance)` carries the instance's `extra` into the emitted event, so those
@@ -164,6 +164,48 @@ typed data. `{message}` remains available for string callers
 
 Catching code should read `exc.code` and `exc.extra` rather than parsing the
 rendered English message.
+
+#### Declare the message first, and the fields keyword-only
+
+```python
+class UnknownAtomNameWarning(CatalogWarning):
+    catalog_key = "UnknownAtomNameWarning"
+
+    def __init__(self, message=None, *, atom_name=None):
+        super().__init__(message, catalog=CATALOG, extra={"atom_name": atom_name})
+```
+
+Python rebuilds a warning or exception as `type(w)(*w.args)`. `pickle` does it,
+`copy.deepcopy` does it, `warnings.warn(text, category)` does it, and pytest-xdist
+does it when a warning crosses from a worker to the controller. A class that
+names a domain field first therefore receives *its own rendered sentence* as that
+field, and the template renders around its own output:
+
+```
+Atom name 'Atom name 'Ar' is not recognized.' is not recognized.
+```
+
+Putting `message` first makes that rebuild land where it belongs. Keeping the
+fields keyword-only preserves what a per-field signature is for: a misspelled
+field stays a `TypeError` instead of becoming an extra nobody reads and a
+template rendered with holes in it.
+
+Where a class needs to *compute* its message, render it in a classmethod and
+hand the finished text to `__init__`, so the constructor still stores what it is
+given rather than deriving it:
+
+```python
+    @classmethod
+    def for_atoms(cls, names):
+        joined = ", ".join(sorted(names))
+        rendered, _ = smonitor.resolve(code="MYLIB-W010", extra={"atom_name": joined})
+        return cls(rendered, atom_name=joined)
+```
+
+One residue is not fixable this way: a hint whose template interpolates a field
+cannot be re-rendered by a rebuilder that carries only `args`, since the field is
+not there. That is a limitation of the transfer, not of the class, and it is
+being addressed upstream in `pytest-dev/pytest-xdist#1372`.
 
 ### 3.3.2 `warn()` also raises an ordinary Python warning
 
