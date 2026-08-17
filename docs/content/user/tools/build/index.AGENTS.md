@@ -1,16 +1,36 @@
-# Micro-Governance: `tools/build/index.md` (`index.AGENTS.md`)
+# Sub-Portal Governance: tools/build/index.md
 
-This micro-governance contract governs [`docs/content/user/tools/build/index.md`](index.md).
+## Purpose
+Governance rules for `docs/content/user/tools/build/index.md` (the Build Tools sub-portal entrance page).
 
----
+## Structural Invariants
+1. **Title**: `# Build`
+2. **Catalog Table**: 2-column catalog table listing all build tools with Markdown link titles and brief gerund descriptions. Clean layout without extra narrative intro paragraphs.
+3. **Hidden toctree**:
+   ```rst
+   .. toctree::
+      :maxdepth: 2
+      :hidden:
 
-## 🔒 Frozen & Inviolable Content
-
-1. **Format Policy**:
-   - MUST remain a pure MyST Markdown (`.md`) page.
-   - Header H1 MUST be `# Build`.
-   - Table format MUST be a 2-column Markdown table mapping function tutorial links to short descriptions (`| [Title](file.ipynb) | Description |`).
-   - MUST include hidden `toctree` containing all tutorial `.ipynb` files in `docs/content/user/tools/build/`.
-
-2. **Function Catalog Invariant**:
-   - The table and `toctree` MUST remain in sync with all user-facing tutorial notebooks in `docs/content/user/tools/build/`.
+      add_bonds.ipynb
+      add_missing_bonds.ipynb
+      add_missing_heavy_atoms.ipynb
+      add_missing_hydrogens.ipynb
+      add_missing_terminal_cappings.ipynb
+      build_peptide.ipynb
+      define_new_chain.ipynb
+      get_disulfide_bonds.ipynb
+      get_missing_bonds.ipynb
+      get_missing_heavy_atoms.ipynb
+      get_missing_residues.ipynb
+      get_missing_terminal_cappings.ipynb
+      get_non_standard_residues.ipynb
+      has_hydrogens.ipynb
+      is_solvated.ipynb
+      make_bioassembly.ipynb
+      make_water_box.ipynb
+      mutate.ipynb
+      remove_overlapping_molecules.ipynb
+      solvate.ipynb
+      solve_atoms_with_alternate_locations.ipynb
+   ```
