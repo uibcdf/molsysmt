@@ -127,7 +127,11 @@ migration is in flight.
 
 ### Education
 
-- `course_review/` — unresolved retrospective course improvements.
+- `course_review/` — unresolved retrospective course improvements. This one is not a
+  queue: it is outside the reporting protocol by design, and its documents carry no front
+  matter and no issue. See
+  [reporting_protocol.md](../reporting_protocol.md) for why, and split anything accepted
+  out of it into ordinary entries here.
 
 This index is organizational only. Priority comes from evidence, scientific
 risk, effort, and an explicit maintainer decision. Proposals marked exploratory

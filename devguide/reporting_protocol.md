@@ -7,6 +7,15 @@ This document is normative. It governs `pending_bugs/`, `pending_proposals/`, th
 [DOCUMENT_POLICY.md](DOCUMENT_POLICY.md), which governs what a developer document must
 contain; this one governs the lifecycle around it.
 
+One directory inside `pending_proposals/` is deliberately outside that scope:
+`course_review/`. As [course_structure.md](course_structure.md) states, it holds
+retrospective planning inputs rather than current course requirements — material that is
+read, argued with, and then *split into* testable work items, each of which becomes an
+ordinary entry with its own issue. A retrospective is not one theme, so it would be an
+issue that never closes. Its documents therefore carry no front matter, are not indexed,
+and are not synchronised to the board; `devguide_reports.py` leaves the directory out of
+its queue list for that reason and not by oversight.
+
 ## The rule
 
 **If it deserves a document in `devguide/`, it deserves an issue.**

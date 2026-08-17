@@ -24,6 +24,8 @@ DEVGUIDE_ROOT = REPOSITORY_ROOT / "devguide"
 MIGRATION_BASELINE = REPOSITORY_ROOT / "devtools/data/devguide_migration_baseline.json"
 
 BUG_QUEUES = ("pending_bugs", "pending_bugs/docs")
+# `pending_proposals/course_review` is absent on purpose: it holds retrospective planning
+# inputs, not reports, and `devguide/reporting_protocol.md` places it outside the protocol.
 PROPOSAL_QUEUES = ("pending_proposals", "pending_proposals/docs")
 BUG_ARCHIVES = ("archive/resolved_bugs", "archive/withdrawn_bugs")
 PROPOSAL_ARCHIVES = ("archive/resolved_proposals", "archive/resolved_proposals/docs")
