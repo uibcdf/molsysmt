@@ -71,7 +71,22 @@ Every tool tutorial unit (`*.ipynb`) represents a 1:1 tutorial for a public surf
 - **Filtered Content**: Include ONLY MolSysMT functions in `tools/` that are actually used or referenced within that tutorial unit.
 - **Order of Appearance**: Entries MUST appear in the exact chronological order of their first appearance in the notebook code or text.
 - **Explicit Function Reference**: Each entry MUST state the tool title link, a short action description, and the explicit function name with `{func}`:
-  `- {ref}\`Tutorial_[FunctionName]\`: [Short action description...] with {func}\`molsysmt.[module].[function]\`.`
+## Pedagogical Completeness & Representativeness Policy
+
+A tool tutorial (`*.ipynb`) is the primary user manual for a public API function—it is NOT a minimal smoke test or a 3-cell stub. When standardizing or creating tool notebooks, agents MUST adhere to the following depth and completeness rules:
+
+1. **Full Parameter & Mode Coverage**:
+   - If a function supports multiple operational modes, key parameters, or alternative output formats (e.g., `center_of_atoms=True`, `center_of_selection`, `pairs=True`, `output_type='pairs'`, `phi=True, psi=True`, `reference_molecular_system`, custom weights, etc.), the notebook **MUST** include dedicated H2 subsections (`## [Descriptive Title]`) illustrating each major mode with concrete examples.
+
+2. **Visual & Graphical Richness**:
+   - When a function computes structural observables over trajectories or matrices (such as distances $d(t)$, angles $\theta(t)$, dihedral time-series, Ramachandran distributions, RMSD comparisons, contact maps, or distance heatmaps), the tutorial **MUST** include clear `matplotlib` plots (`plt.plot`, `plt.imshow`, `plt.scatter`) or interactive MolSysViewer 3D views. Visual plots help users immediately understand the physical meaning of the output.
+
+3. **Realistic Biological Scenarios**:
+   - In addition to simple element queries (e.g. atom index 0 to 1), tutorials should illustrate realistic structural biology use cases: residue groups, terminal end-to-end distances, domain/interface contacts, or comparisons against external native reference structures.
+
+4. **Anti-Simplification Contract**:
+   - Conforming to governance rules (such as canonical `molsys` naming, standard H1/H2 layout, collapsible API dropdowns, and `{seealso}` boxes) **MUST NEVER** be achieved by deleting valid scientific scenarios, parameter demonstrations, or figures.
+   - Standardization means *organizing and formatting* existing functionality cleanly, not *stripping down* the pedagogical scope of the tutorial.
 
 ## Boundaries and scope
 
