@@ -5,6 +5,6 @@ Governs `docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuild
 ## 🔒 Directives
 - Title MUST be `# MolSysBuilder` (no `molsysmt.` prefix).
 - MUST preserve top anchor `(user-foundations-native-world-classes-molsysmt-molsysbuilder)=`.
-- Documents mutable staging area, dynamic DataFrames/tables, and staging operations workflow.
+- Documents mutable staging area, dynamic DataFrames/tables, staging operations workflow, and cross-reference to `{ref}`Tutorial_Editable``.
 - Headings MUST follow balanced 2-3 word standard without `&`.
 - Includes API documentation link.
