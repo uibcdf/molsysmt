@@ -489,6 +489,13 @@
       "documentation": "docs/content/user/tools/build",
       "contract_tests": "tests/build"
     },
+    "molsysmt.build.define_new_chain": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "build",
+      "documentation": "docs/content/user/tools/build",
+      "contract_tests": "tests/build"
+    },
     "molsysmt.build.editable": {
       "stability": "stable",
       "introduced": "pre-1.0",
