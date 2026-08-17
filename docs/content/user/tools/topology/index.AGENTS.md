@@ -5,13 +5,14 @@ Governance rules for `docs/content/user/tools/topology/index.md` (the Topology T
 
 ## Structural Invariants
 1. **Title**: `# Topology`
-2. **Catalog Table**: 2-column catalog table listing all topology tools with Markdown link titles and brief gerund descriptions.
+2. **Catalog Table**: 2-column catalog table listing all 7 topology tools (including `add_bonds.ipynb`) with Markdown link titles and brief gerund descriptions.
 3. **Hidden toctree**:
    ```rst
    .. toctree::
       :maxdepth: 2
       :hidden:
 
+      add_bonds.ipynb
       get_bondgraph.ipynb
       get_covalent_blocks.ipynb
       get_covalent_paths.ipynb

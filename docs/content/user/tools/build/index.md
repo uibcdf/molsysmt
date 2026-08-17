@@ -2,13 +2,11 @@
 
 |      |      |
 | :--- | :--- |
-| [Add bonds](add_bonds.ipynb) | Adding new covalent bonds between atoms in a molecular system |
 | [Add missing bonds](add_missing_bonds.ipynb) | Adding the missing bonds in a molecular system |
 | [Add missing heavy atoms](add_missing_heavy_atoms.ipynb) | Adding the missing heavy atoms in a molecular system |
 | [Add missing hydrogens](add_missing_hydrogens.ipynb) | Adding the missing hydrogen atoms in a molecular system |
 | [Add missing terminal cappings](add_missing_terminal_cappings.ipynb) | Adding the missing terminal cappings in a molecular system |
 | [Build peptide](build_peptide.ipynb) | Building a peptide |
-| [Define new chain](define_new_chain.ipynb) | Define a new chain with new id and name attributes |
 | [Editable](editable.ipynb) | Creating an editable molecular system builder to modify or construct topologies |
 | [Get disulfide bonds](get_disulfide_bonds.ipynb) | Getting the disulfide bonds of a molecular system |
 | [Get missing bonds](get_missing_bonds.ipynb) | Getting the missing bonds of a molecular system |
@@ -31,13 +29,11 @@
    :maxdepth: 2
    :hidden:
 
-   add_bonds.ipynb
    add_missing_bonds.ipynb
    add_missing_heavy_atoms.ipynb
    add_missing_hydrogens.ipynb
    add_missing_terminal_cappings.ipynb
    build_peptide.ipynb
-   define_new_chain.ipynb
    editable.ipynb
    get_disulfide_bonds.ipynb
    get_missing_bonds.ipynb
