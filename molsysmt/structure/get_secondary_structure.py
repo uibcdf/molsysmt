@@ -76,8 +76,7 @@ def get_secondary_structure(molecular_system, selection='all', structure_indices
         if selection != 'all':
             group_indices = get(molecular_system, element='group', selection=selection,
                                 syntax=syntax, group_index=True)
-            # group_index returns per-atom list; flatten to unique group indices
-            flat = np.unique(np.concatenate(group_indices))
+            flat = np.unique(np.ravel(group_indices))
             assignments = assignments[:, flat]
 
         return assignments

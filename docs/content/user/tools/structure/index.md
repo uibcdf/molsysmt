@@ -2,13 +2,13 @@
 
 |      |      |
 | :--- | :--- |
-| [Align principal axes](align_principal_axes.ipynb) | Aligning the principal inertia or geometric axes of a molecular system over a reference coordinates axes|
+| [Align principal axes](align_principal_axes.ipynb) | Aligning the principal inertia or geometric axes of a molecular system over a reference coordinates axes |
 | [Center](center.ipynb) | Centering a molecular system |
-| [Flip](flip.ipynb) | Flip a molecular system over a plane|
+| [Flip](flip.ipynb) | Flipping a molecular system over a plane |
 | [Get angles](get_angles.ipynb) | Getting the angles between specific triplets of atoms of a molecular system |
 | [Get center](get_center.ipynb) | Getting the center of a molecular system |
-| [Get contacts](get_contacts.ipynb) | Getting the contact matrix of specific elements of a molecular system or two different molecular systems|
-| [Get dihedral_angles](get_dihedral_angles.ipynb) | Getting the dihedral angles of a molecular system |
+| [Get contacts](get_contacts.ipynb) | Getting the contact matrix of specific elements of a molecular system or two different molecular systems |
+| [Get dihedral angles](get_dihedral_angles.ipynb) | Getting the dihedral angles of a molecular system |
 | [Get distances](get_distances.ipynb) | Getting the distance between specific elements of a molecular system or two different molecular systems |
 | [Get least RMSD](get_least_rmsd.ipynb) | Getting the least RMSD of a molecular system from a reference molecular system |
 | [Get maximum distances](get_maximum_distances.ipynb) | Getting the maximum distance between specific groups of elements of a molecular system or two different molecular systems |
@@ -18,8 +18,9 @@
 | [Get radius of gyration](get_radius_of_gyration.ipynb) | Getting radius of gyration of a molecular system |
 | [Get RMSD](get_rmsd.ipynb) | Getting the RMSD of a molecular system from a reference molecular system |
 | [Get RMSF](get_rmsf.ipynb) | Getting per-atom root-mean-square fluctuations over a trajectory |
-| [Least RMSD align](least_rmsd_align.ipynb) | Aligning the structure of a molecular system over a reference molecular system|
-| [Least RMSD fit](least_rmsd_fit.ipynb) | Fitting the structure of a molecular system over a reference molecular system|
+| [Get secondary structure](get_secondary_structure.ipynb) | Assigning secondary structure elements to amino acid residues across molecular structures |
+| [Least RMSD align](least_rmsd_align.ipynb) | Aligning the structure of a molecular system over a reference molecular system |
+| [Least RMSD fit](least_rmsd_fit.ipynb) | Fitting the structure of a molecular system over a reference molecular system |
 | [Move away](move_away.ipynb) | Moving away a molecular system from another molecular system |
 | [Principal component analysis](principal_component_analysis.ipynb) | Principal component analysis |
 | [Rotate](rotate.ipynb) | Rotating a molecular system |
@@ -28,11 +29,12 @@
 | [Show contacts](show_contacts.ipynb) | Showing the graphical representation of the contact matrix of specific elements of a molecular system or two different molecular systems |
 | [Translate](translate.ipynb) | Translating a molecular system |
 
+
 ```{eval-rst}
 .. toctree::
    :maxdepth: 2
    :hidden:
-   
+
    align_principal_axes.ipynb
    center.ipynb
    flip.ipynb
@@ -49,14 +51,14 @@
    get_radius_of_gyration.ipynb
    get_rmsd.ipynb
    get_rmsf.ipynb
+   get_secondary_structure.ipynb
    least_rmsd_align.ipynb
    least_rmsd_fit.ipynb
    move_away.ipynb
    principal_component_analysis.ipynb
-   rotate.ipynb   
+   rotate.ipynb
    set_dihedral_angles.ipynb
-   shift_dihedral_angles.ipynb   
+   shift_dihedral_angles.ipynb
    show_contacts.ipynb
    translate.ipynb
-
 ```
