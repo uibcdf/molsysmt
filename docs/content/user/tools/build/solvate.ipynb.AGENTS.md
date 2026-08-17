@@ -4,7 +4,7 @@
 Governance rules and frozen contracts for `docs/content/user/tools/build/solvate.ipynb` (`msm.build.solvate`).
 
 ## Variable Naming Invariant
-The canonical variable representing the molecular system MUST be `molsys` (`molsys_cub`, `molsys_oct`).
+The canonical variable representing the input molecular system MUST be `molsys`, and solvated variants MUST be `molsys_cub`, `molsys_ions`, and `molsys_oct`.
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, `"remove-input"`)**: Warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
@@ -17,22 +17,16 @@ The canonical variable representing the molecular system MUST be `molsys` (`mols
    - Collapsible API documentation box `:::{admonition} API documentation \n :class: dropdown`.
 3. **Cell 3 (Markdown - First Real H2 Opener)**:
    - Header H2 `## Basic usage`
-   - Opening sentence introducing PDB structure `1VII`.
-4. **Cell 4 (Code)**: `import molsysmt as msm`
-5. **Cells 5-25**:
+   - Opening sentence introducing PDB 1VII dataset.
+4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
+5. **Cells 5+**:
    - `molsys = msm.convert('pdb_id:1vii', to_form='molsysmt.MolSys')`
-   - `msm.info(molsys)`
-   - `msm.build.is_solvated(molsys)`
    - `molsys_cub = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms')`
-   - `msm.build.is_solvated(molsys_cub)`
-   - `msm.info(molsys_cub)`
-   - `box, box_angles, box_shape = msm.get(molsys_cub, element='system', box=True, box_angles=True, box_shape=True)`
-   - `molsys_cub = msm.pbc.wrap_to_pbc(molsys_cub, center_of_selection='molecule_type=="peptide"')`
-   - MolSysViewer static view 1 tag + `msm.view(molsys_cub)`
-   - Header H2 `## Periodic box geometries`
-   - `molsys_oct = msm.build.solvate(molsys, box_shape='truncated octahedral', clearance='14.0 angstroms')`
-   - `msm.info(molsys_oct)`
-   - `molsys_oct = msm.pbc.wrap_to_pbc(molsys_oct, center_of_selection='molecule_type=="peptide"')`
-   - MolSysViewer static view 2 tag + `msm.view(molsys_oct)`
+   - Box inspection and MolSysViewer 3D view with static HTML view `tools_build_solvate_1.html`.
+   - Header H2 `## Adding physiological ions`
+   - `molsys_ions = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms', ionic_strength='150.0 millimolar')`
+   - Header H2 `## Solvation efficiency: Cubic vs. Truncated Octahedral box`
+   - Comparison of water count reduction between cubic and truncated octahedral boxes.
+   - MolSysViewer 3D view with static HTML view `tools_build_solvate_2.html`.
 6. **Final Cell (Markdown)**:
-   - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.
+   - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
