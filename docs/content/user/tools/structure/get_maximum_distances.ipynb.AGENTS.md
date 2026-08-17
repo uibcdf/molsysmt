@@ -29,7 +29,7 @@ The canonical variable representing the input molecular system MUST be `molsys`.
    - Maximum distance between two distinct selections.
    - Header H2 `## Computing maximum distances between group centers`
    - Maximum distance between group centroids (`center_of_atoms=True, center_of_atoms_2=True`).
-   - Header H2 `## Measuring maximum displacements across trajectory structures`
+   - Header H2 `## Measuring maximum displacements across structures`
    - Maximum atom displacement with `pairs=True`.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

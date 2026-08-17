@@ -31,7 +31,7 @@ The canonical variable representing the trajectory system MUST be `molsys` and t
    - Global minimum distance between two macro-selections.
    - Header H2 `## Computing minimum distances between group centers`
    - Minimum distance between group centroids (`center_of_atoms=True, center_of_atoms_2=True`).
-   - Header H2 `## Measuring minimum displacements across trajectory structures`
+   - Header H2 `## Measuring minimum displacements across structures`
    - Minimum atom displacement with `pairs=True`.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
