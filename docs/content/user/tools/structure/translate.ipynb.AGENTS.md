@@ -28,7 +28,7 @@ The canonical variable representing the input system is `molsys` and translated 
    - Quantitative verification of displaced center.
    - Header H2 `## Translating a specific atom selection`
    - Translation of a specific residue subset with `selection='group_index==0'`.
-   - Header H2 `## Frame-by-frame translation along trajectories`
-   - Per-frame displacement array broadcasting over pentalanine trajectory.
+   - Header H2 `## Structure-dependent translations across ensembles`
+   - Structure-dependent displacement array broadcasting over pentalanine ensemble.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
