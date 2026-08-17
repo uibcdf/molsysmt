@@ -39,7 +39,7 @@ dependencies = [
     "matplotlib",
     "argdigest>=0.12.1",
     "depdigest>=0.10.0",
-    "smonitor>=0.12.0",
+    "smonitor>=0.13.0",
 ]
 keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory", "conversion"]
 
