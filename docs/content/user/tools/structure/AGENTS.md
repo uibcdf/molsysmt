@@ -42,5 +42,6 @@ Houses tutorial units for structural coordinate operations, spatial measurements
 - `least_rmsd_fit.ipynb` ➔ `least_rmsd_fit.ipynb.AGENTS.md`
 - `move_away.ipynb` ➔ `move_away.ipynb.AGENTS.md`
 - `principal_component_analysis.ipynb` ➔ `principal_component_analysis.ipynb.AGENTS.md`
+- `rotate.ipynb` ➔ `rotate.ipynb.AGENTS.md`
 - `set_dihedral_angles.ipynb` ➔ `set_dihedral_angles.ipynb.AGENTS.md`
 - `shift_dihedral_angles.ipynb` ➔ `shift_dihedral_angles.ipynb.AGENTS.md`
