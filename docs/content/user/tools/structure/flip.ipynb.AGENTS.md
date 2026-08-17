@@ -21,15 +21,10 @@ The canonical variable representing the input system is `molsys` and the flipped
 4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
 5. **Cells 5+**:
    - `crd = msm.systems['POPC']['popc.crd']`, `psf = msm.systems['POPC']['popc.psf']`, `molsys = msm.convert([crd, psf], to_form='molsysmt.MolSys')`
+   - Centering phosphorus atom `atom_name=="P"`.
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
-   - Centering around phosphorus atom (`atom_name=="P"`).
-   - Nitrogen atom coordinate inspection before flip.
-   - Header H2 `## Flipping coordinates over a plane`
-   - `molsys_flipped = msm.structure.flip(molsys, vector=[0, 0, 1], point='[0,0,0] nm')`
-   - Nitrogen atom coordinate inspection after flip ($z \to -z$).
-   - Header H2 `## Visualizing the flipped conformation in 3D`
-   - `molsys_both = msm.basic.concatenate_structures([molsys, molsys_flipped])`
-   - Hidden cell `molsysviewer_htmlfile = '_static/views/tools_structure_flip_1.html'`
-   - `msm.view(molsys_both)` 3D interactive MolSysViewer view.
+   - Initial 3D view with `molsysviewer_htmlfile = '_static/views/tools_structure_flip_1.html'` and `msm.view(molsys)`.
+   - `molsys_flipped = msm.structure.flip(molsys, vector=[0, 0, 1], point='[0,0,0] nm')`.
+   - Flipped 3D view with `molsysviewer_htmlfile = '_static/views/tools_structure_flip_2.html'` and `msm.view(molsys_flipped)`.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
