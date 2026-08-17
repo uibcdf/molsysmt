@@ -140,11 +140,21 @@ The builder introduces a single preferred path for explicit topology editing:
 - `molsysmt.MolSysBuilder`
 - `molsysmt.build.editable(...)`
 
-As a consequence, these legacy explicit-editing helpers have been removed from
-the public API:
+As a consequence, these legacy explicit-editing helpers were removed from the
+public API:
 - `molsysmt.build.add_bonds`
 - `molsysmt.build.remove_bonds`
 - `molsysmt.build.define_new_chain`
+
+The first two are still absent. **`define_new_chain` is not**: it was
+reimplemented in `eae26e164` and is public again, classified `experimental` in
+`devtools/data/public_api_stability.json`. Whether it stays is an open question,
+not a settled policy — [`uibcdf/molsysmt#167`](https://github.com/uibcdf/molsysmt/issues/167)
+asks whether it should be deprecated in favour of `msm.build.editable()`, and
+[`uibcdf/molsysmt#160`](https://github.com/uibcdf/molsysmt/issues/160) reports
+that it creates several chain entities carrying one name instead of merging them.
+The classification is deliberate: `experimental` leaves both answers to #167
+available, while `stable` would decide it by omission.
 
 This does not weaken the rest of `molsysmt.build`. Higher-level construction,
 repair, and chemically-informed editing functions remain valid members of the
