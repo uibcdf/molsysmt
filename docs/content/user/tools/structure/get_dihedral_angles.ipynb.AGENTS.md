@@ -18,17 +18,14 @@ The canonical variable representing the input molecular system MUST be `molsys`.
 3. **Cell 3 (Markdown - First Real H2 Opener)**:
    - Header H2 `## Basic usage`
    - Opening sentence introducing pentalanine trajectory dataset.
-4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
+4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`, `import matplotlib.pyplot as plt`
 5. **Cells 5+**:
    - `molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
    - `dihedrals = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=[[4, 6, 8, 14], [6, 8, 14, 16]])`
-   - `dihedrals.shape`
-   - `dihedrals[0]`
-   - Header H2 `## Named backbone dihedral angles`
+   - Matplotlib time series plot of explicit dihedral angles.
+   - Header H2 `## Ramachandran plot`
    - `phi, psi = msm.structure.get_dihedral_angles(molsys, phi=True, psi=True)`
-   - `print('phi shape:', phi.shape)`
-   - `print('psi shape:', psi.shape)`
-   - `phi[0]`
+   - Matplotlib Ramachandran 2D scatter plot ($\phi$ vs $\psi$).
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

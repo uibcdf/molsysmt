@@ -18,13 +18,14 @@ The canonical variable representing the input molecular system MUST be `molsys`.
 3. **Cell 3 (Markdown - First Real H2 Opener)**:
    - Header H2 `## Basic usage`
    - Opening sentence introducing pentalanine trajectory dataset.
-4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
+4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`, `import matplotlib.pyplot as plt`
 5. **Cells 5+**:
    - `molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
    - `msm.info(molsys, element='atom', selection=[0, 1, 2])`
    - `angles = msm.structure.get_angles(molsys, [0, 1, 2])`
-   - `angles.shape`
-   - `angles[:5]`
+   - `angles_deg = msm.pyunitwizard.convert(angles, to_unit='degrees')`
+   - Shape and mean printouts.
+   - Matplotlib time evolution plot.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

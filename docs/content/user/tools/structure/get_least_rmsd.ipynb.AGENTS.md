@@ -18,12 +18,13 @@ The canonical variable representing the input molecular system MUST be `molsys`.
 3. **Cell 3 (Markdown - First Real H2 Opener)**:
    - Header H2 `## Basic usage`
    - Opening sentence introducing pentalanine trajectory dataset.
-4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
+4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`, `import matplotlib.pyplot as plt`
 5. **Cells 5+**:
    - `molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
    - `rmsd = msm.structure.get_rmsd(molsys, selection='backbone', reference_structure_index=0)`
    - `lrmsd = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_index=0)`
-   - Shape printouts and comparison printout at frame 10.
+   - `time = msm.get(molsys, element='system', time=True)`
+   - Matplotlib comparison plot of RMSD vs Least RMSD over time.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

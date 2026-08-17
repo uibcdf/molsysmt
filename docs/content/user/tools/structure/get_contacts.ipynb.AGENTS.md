@@ -18,19 +18,18 @@ The canonical variable representing the input molecular system MUST be `molsys`.
 3. **Cell 3 (Markdown - First Real H2 Opener)**:
    - Header H2 `## Basic usage`
    - Opening sentence introducing TcTIM dataset.
-4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
+4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`, `import matplotlib.pyplot as plt`
 5. **Cells 5+**:
    - `molsys = msm.convert(msm.systems['TcTIM']['1tcd.h5msm'])`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
    - `ca_atoms = msm.select(molsys, selection='atom_name=="CA"')`
    - `contact_map = msm.structure.get_contacts(molsys, selection=ca_atoms, threshold='1.2 nm')`
-   - `contact_map.shape`
-   - `print(f'Total contacts: {np.sum(contact_map)}')`
+   - Printouts of shape and contact counts.
+   - Matplotlib `plt.imshow` plot of intra-chain contact map.
    - Header H2 `## Inter-chain contact map`
    - `ca_chain_0 = msm.select(molsys, selection='atom_name=="CA" and chain_index==0')`
    - `ca_chain_1 = msm.select(molsys, selection='atom_name=="CA" and chain_index==1')`
-   - `interchain_contacts = msm.structure.get_contacts(molsys, selection=ca_chain_0, selection_2=ca_chain_1, threshold='1.0 nm')`
-   - `interchain_contacts.shape`
-   - `print(f'Inter-chain contacts: {np.sum(interchain_contacts)}')`
+   - `interchain = msm.structure.get_contacts(molsys, selection=ca_chain_0, selection_2=ca_chain_1, threshold='1.0 nm')`
+   - Matplotlib `plt.imshow` plot of inter-chain interface contacts.
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.

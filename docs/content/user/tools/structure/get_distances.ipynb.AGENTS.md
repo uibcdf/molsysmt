@@ -4,7 +4,7 @@
 Governance rules and frozen contracts for `docs/content/user/tools/structure/get_distances.ipynb` (`msm.structure.get_distances`).
 
 ## Variable Naming Invariant
-The canonical variable representing the input molecular system MUST be `molsys`.
+The canonical variable representing the input molecular system MUST be `molsys` and distinct systems MUST be `molsys_A` and `molsys_B`.
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, `"remove-input"`)**: Warning suppression (`import warnings; warnings.filterwarnings('ignore')`).
@@ -18,20 +18,14 @@ The canonical variable representing the input molecular system MUST be `molsys`.
 3. **Cell 3 (Markdown - First Real H2 Opener)**:
    - Header H2 `## Basic usage`
    - Opening sentence introducing pentalanine trajectory dataset.
-4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
+4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`, `import matplotlib.pyplot as plt`
 5. **Cells 5+**:
    - `molsys = msm.convert(msm.systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')`
    - Collapsible `{note}` dropdown for Demo Systems Catalog.
-   - `distances = msm.structure.get_distances(molsys, selection=0, selection_2=10)`
-   - `distances.shape`
-   - `distances[0]`
-   - Header H2 `## Distances between centers of atom groups`
-   - `dist_groups = msm.structure.get_distances(molsys, selection='group_index==0', selection_2='group_index==4', center_of_atoms=True)`
-   - `dist_groups[0]`
-   - Header H2 `## Pairwise distance matrix`
-   - `ca_atoms = msm.select(molsys, selection='atom_name=="CA"')`
-   - `ca_dist_matrix = msm.structure.get_distances(molsys, selection=ca_atoms, structure_indices=0)`
-   - `ca_dist_matrix.shape`
-   - `ca_dist_matrix[0]`
+   - Distance between specific atoms across trajectory + Matplotlib time series plot.
+   - Distance between geometric centers of residue groups (`center_of_atoms=True, center_of_atoms_2=True`) + Matplotlib end-to-end distance plot.
+   - Pairwise distances (`pairs=True`).
+   - C-alpha distance matrix + Matplotlib 2D heatmap plot (`plt.imshow`).
+   - Distances between two different molecular systems (`molsys_A` and `molsys_B`).
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools in strict chronological order with explicit titles `{ref}`Title <AnchorLabel>``.
