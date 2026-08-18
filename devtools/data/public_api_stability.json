@@ -808,6 +808,13 @@
       "documentation": "devguide/api_surface.md",
       "contract_tests": "tests"
     },
+    "molsysmt.molecular_mechanics.get_degrees_of_freedom": {
+      "stability": "outside-contract",
+      "introduced": "pre-1.0",
+      "owner": "molecular_mechanics",
+      "documentation": "docs/content/user/tools/molecular_mechanics",
+      "contract_tests": "tests/molecular_mechanics"
+    },
     "molsysmt.molecular_mechanics.get_engine_forcefield": {
       "stability": "outside-contract",
       "introduced": "pre-1.0",

@@ -12,7 +12,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | --- | ---: |
 | stable | 123 |
 | experimental | 58 |
-| outside-contract | 8 |
+| outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
 ## Symbols
@@ -245,6 +245,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 
 | Symbol | Stability | Lifecycle | Introduced |
 | --- | --- | --- | --- |
+| `molsysmt.molecular_mechanics.get_degrees_of_freedom` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.get_engine_forcefield` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.get_forces` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.get_non_bonded_potential_energy` | outside-contract | active | pre-1.0 |
