@@ -25,11 +25,12 @@ API Basic
    info
    is_a_molecular_system
    is_composed_of
-   iterator
+   ConversionIssue
+   ConversionReport
+   Iterator
    merge
    remove
    select
    set
    view
    where_is_attribute
-

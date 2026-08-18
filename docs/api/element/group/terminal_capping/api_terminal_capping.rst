@@ -1,3 +1,5 @@
+.. _API TerminalCapping:
+
 API Terminal Capping
 ====================
 
@@ -6,5 +8,6 @@ API Terminal Capping
 .. autosummary::
    :toctree: autosummary
 
+   get_bonded_atom_pairs
+   get_group_db
    is_terminal_capping
-

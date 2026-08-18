@@ -7,14 +7,14 @@ API Build
 
 .. autosummary::
    :toctree: autosummary
-
-   add_bonds
+   
    add_missing_bonds
    add_missing_heavy_atoms
    add_missing_hydrogens
    add_missing_terminal_cappings
    build_peptide
    define_new_chain
+   editable
    get_disulfide_bonds
    get_missing_bonds
    get_missing_heavy_atoms
@@ -26,8 +26,6 @@ API Build
    make_bioassembly
    make_water_box
    mutate
-   remove_bonds
    remove_overlapping_molecules
    solvate
    solve_atoms_with_alternate_location
-

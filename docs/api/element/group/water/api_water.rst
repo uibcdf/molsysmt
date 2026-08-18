@@ -1,3 +1,5 @@
+.. _API Water:
+
 API Water
 =========
 
@@ -6,5 +8,5 @@ API Water
 .. autosummary::
    :toctree: autosummary
 
+   get_bonded_atom_pairs
    is_water
-

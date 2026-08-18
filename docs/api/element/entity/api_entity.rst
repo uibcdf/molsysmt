@@ -1,3 +1,5 @@
+.. _API Entity:
+
 API Entity
 ==========
 
@@ -6,3 +8,8 @@ API Entity
 .. autosummary::
    :toctree: autosummary
 
+   get_entity_id
+   get_entity_index
+   get_entity_name
+   get_entity_type
+   get_n_entities

@@ -1,3 +1,5 @@
+.. _API Nucleotide:
+
 API Nucleotide
 ==============
 
@@ -7,4 +9,3 @@ API Nucleotide
    :toctree: autosummary
 
    is_nucleotide
-

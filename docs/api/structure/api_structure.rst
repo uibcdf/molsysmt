@@ -7,7 +7,7 @@ API Structure
 
 .. autosummary::
    :toctree: autosummary
-
+   
    align_principal_axes
    center
    flip
@@ -23,6 +23,8 @@ API Structure
    get_principal_axes
    get_radius_of_gyration
    get_rmsd
+   get_rmsf
+   get_secondary_structure
    least_rmsd_align
    least_rmsd_fit
    move_away
@@ -32,4 +34,3 @@ API Structure
    shift_dihedral_angles
    show_contacts
    translate
-

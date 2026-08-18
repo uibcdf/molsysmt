@@ -1,77 +1,66 @@
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-import numpy as np
 
 @arg_digest()
-def get_forces(molecular_system, element='atom', selection='all', magnitude=False,
-        engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
+def get_forces(molecular_system, selection='all', engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
+    """
+    Calculating the atomic forces acting on the molecular system.
 
-    from molsysmt import convert, select, get_form, has_attribute
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any supported form.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of atoms for which forces are extracted.
+    engine : str, default='OpenMM'
+        Simulation engine backend used for force calculation.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    quantity
+        NumPy array of force vectors with shape `(n_atoms, 3)` in canonical units (`kJ/(mol*nm)`).
+
+    .. versionadded:: 1.0.0
+    """
+
+    from molsysmt import convert, get_form, has_attribute
     from molsysmt.configure import default_attribute
 
-    atom_indices = select(molecular_system, selection=selection, syntax=syntax)
-
-    if engine=='OpenMM':
-
-        import openmm as mm
+    if engine == 'OpenMM':
 
         form_in = get_form(molecular_system)
 
         if form_in == 'openmm.Context':
-
-            if is_all(selection):
-
-                context=molecular_system
-
-            else:
-
-                from molsysmt.form.openmm_Context import extract
-
-                context=extract(molecular_system, selection=selection, syntax=syntax)
-
+            context = molecular_system
         elif form_in == 'openmm.Simulation':
-
-            if is_all(selection):
-
-                context = molecular_system.context
-
-            else:
-
-                from molsysmt.form.openmm_Simulation import extract
-
-                context=extract(molecular_system, selection=selection, syntax=syntax)
-
+            context = molecular_system.context
         else:
+            extra_conversion_arguments = {}
+            possible_missing_attributes = ['forcefield', 'water_model', 'implicit_solvent', 'constraints',
+                                          'non_bonded_method', 'switch_distance', 'dispersion_correction', 'ewald_error_tolerance',
+                                          'integrator', 'temperature', 'friction', 'time_step']
 
-            raise NotImplementedError
+            for att in possible_missing_attributes:
+                if not has_attribute(molecular_system, att):
+                    extra_conversion_arguments[att] = default_attribute[att]
 
-            #extra_conversion_arguments={}
-
-            #possible_missing_attributes=['forcefield', 'water_model', 'implicit_solvent', 'constraints',
-            #        'non_bonded_method', 'switch_distance', 'dispersion_correction', 'ewald_error_tolerance',
-            #        'integrator', 'temperature', 'friction', 'time_step', 'platform']
-
-            #for att in possible_missing_attributes:
-            #    if not has_attribute(molecular_system, att):
-            #        extra_conversion_arguments[att]=default_attribute[att]
-
-            #context = convert(molecular_system, to_form='openmm.Context', selection=selection,
-            #        syntax=syntax, **extra_conversion_arguments)
+            context = convert(molecular_system, to_form='openmm.Context', **extra_conversion_arguments)
 
         state = context.getState(getForces=True)
-        output = state.getForces(asNumpy=True)
-        output = output[atom_indices]
-        output = puw.standardize(output)
+        forces = state.getForces(asNumpy=True)
+        forces = puw.standardize(forces)
 
-        if magnitude:
-            output_value, output_unit = puw.get_value_and_unit(output)
-            output_value = np.linalg.norm(output_value, axis=1)
-            output = puw.quantity(output_value, output_unit)
+        if not is_all(selection):
+            from molsysmt.basic import select
+            atom_indices = select(molecular_system, selection=selection, syntax=syntax)
+            forces = forces[atom_indices]
 
-        return output
+        return forces
 
     else:
-
         raise NotImplementedError
-

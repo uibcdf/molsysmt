@@ -1,42 +1,27 @@
 from molsysmt._private.argdigest import arg_digest
 
-
 @arg_digest()
-def get_n_components(molecular_system, selection='all', redefine_components=False,
-                     syntax='MolSysMT'):
+def get_n_components(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False):
+    """
+    Getting the total number of components in a molecular system or selection.
 
-    if isinstance(selection, str) and selection == 'all':
-        from molsysmt.native import MolSys, Topology
-        from .get_component_index import get_component_index
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any supported form.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection filter.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
 
-        if isinstance(molecular_system, Topology):
-            return len(molecular_system.components.index) if not redefine_components else len(
-                get_component_index(
-                    molecular_system, element='component', selection='all', redefine_indices=True, syntax=syntax
-                )
-            )
-        if isinstance(molecular_system, MolSys):
-            return len(molecular_system.topology.components.index) if not redefine_components else len(
-                get_component_index(
-                    molecular_system, element='component', selection='all', redefine_indices=True, syntax=syntax
-                )
-            )
+    Returns
+    -------
+    int
+        Number of components.
 
-    if redefine_components:
-
-        from .get_component_index import get_component_index
-
-        aux = get_component_index(molecular_system, element='component', selection=selection,
-                                  redefine_indices=True, syntax=syntax)
-        output = len(aux)
-
-        del aux
-
-    else:
-
-        from molsysmt.basic import get
-
-        output = get(molecular_system, element='atom', selection=selection, syntax=syntax,
-                     n_components=True)
-
-    return output
+    .. versionadded:: 1.0.0
+    """
+    from molsysmt.basic import get
+    return get(molecular_system, element='component', selection=selection, syntax=syntax, n_components=True, skip_digestion=True)

@@ -1,3 +1,5 @@
+.. _API Lipid:
+
 API Lipid
 =========
 
@@ -7,4 +9,3 @@ API Lipid
    :toctree: autosummary
 
    is_lipid
-

@@ -1,3 +1,5 @@
+.. _API Saccharide:
+
 API Saccharide
 ==============
 
@@ -6,5 +8,6 @@ API Saccharide
 .. autosummary::
    :toctree: autosummary
 
+   get_bonded_atom_pairs
+   get_group_db
    is_saccharide
-

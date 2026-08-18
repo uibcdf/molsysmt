@@ -1,3 +1,5 @@
+.. _API Ion:
+
 API Ion
 =======
 
@@ -6,5 +8,6 @@ API Ion
 .. autosummary::
    :toctree: autosummary
 
+   get_bonded_atom_pairs
+   get_group_db
    is_ion
-

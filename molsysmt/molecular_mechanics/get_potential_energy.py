@@ -1,15 +1,3 @@
-# =======================
-# Potential Energy
-# =======================
-
-"""
-Potential Energy
-================
-
-Methods related with the potential energy of the system.
-From energy minimization to potential energy contribution of specific set of atoms or interactions.
-"""
-
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
@@ -17,11 +5,38 @@ from molsysmt._private.variables import is_all
 @arg_digest()
 def get_potential_energy(molecular_system, selection='all', decomposition=False, platform='CPU',
         engine='OpenMM', syntax='MolSysMT', skip_digestion=False):
+    """
+    Calculating the potential energy of a molecular system or selected subsystem.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any supported form.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of atoms contributing to the energy evaluation.
+    decomposition : bool, default=False
+        Whether to return individual force group energy contributions as a dictionary.
+    platform : str, default='CPU'
+        OpenMM compute platform name (`'Reference'`, `'CPU'`, `'CUDA'`, `'OpenCL'`).
+    engine : str, default='OpenMM'
+        Simulation engine backend used for calculation.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    quantity or dict
+        Total potential energy in standard units (`kJ/mol`), or dictionary of decomposed energy terms if `decomposition=True`.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import convert, get_form, has_attribute
     from molsysmt.configure import default_attribute
 
-    if engine=='OpenMM':
+    if engine == 'OpenMM':
 
         import openmm as mm
 
@@ -30,38 +45,30 @@ def get_potential_energy(molecular_system, selection='all', decomposition=False,
         if form_in == 'openmm.Context':
 
             if is_all(selection):
-
-                context=molecular_system
-
+                context = molecular_system
             else:
-
                 from molsysmt.form.openmm_Context import extract
-
-                context=extract(molecular_system, selection=selection, syntax=syntax)
+                context = extract(molecular_system, selection=selection, syntax=syntax)
 
         elif form_in == 'openmm.Simulation':
 
             if is_all(selection):
-
                 context = molecular_system.context
-
             else:
-
                 from molsysmt.form.openmm_Simulation import extract
-
-                context=extract(molecular_system, selection=selection, syntax=syntax)
+                context = extract(molecular_system, selection=selection, syntax=syntax)
 
         else:
 
-            extra_conversion_arguments={}
+            extra_conversion_arguments = {}
 
-            possible_missing_attributes=['forcefield', 'water_model', 'implicit_solvent', 'constraints',
+            possible_missing_attributes = ['forcefield', 'water_model', 'implicit_solvent', 'constraints',
                     'non_bonded_method', 'switch_distance', 'dispersion_correction', 'ewald_error_tolerance',
                     'integrator', 'temperature', 'friction', 'time_step']
 
             for att in possible_missing_attributes:
                 if not has_attribute(molecular_system, att):
-                    extra_conversion_arguments[att]=default_attribute[att]
+                    extra_conversion_arguments[att] = default_attribute[att]
 
             context = convert(molecular_system, to_form='openmm.Context', selection=selection,
                     syntax=syntax, **extra_conversion_arguments, platform=platform)
@@ -88,7 +95,7 @@ def get_potential_energy(molecular_system, selection='all', decomposition=False,
                 output[forcegroup_name] = tmp_context.getPotentialEnergy()
 
             for energy_term, energy_value in output.items():
-                output[energy_term]=puw.standardize(energy_value)
+                output[energy_term] = puw.standardize(energy_value)
 
         else:
 
@@ -101,4 +108,3 @@ def get_potential_energy(molecular_system, selection='all', decomposition=False,
     else:
 
         raise NotImplementedError
-

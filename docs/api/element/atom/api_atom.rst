@@ -1,3 +1,5 @@
+.. _API Atom:
+
 API Atom
 ========
 
@@ -7,4 +9,3 @@ API Atom
    :toctree: autosummary
 
    get_atom_type_from_atom_name
-
