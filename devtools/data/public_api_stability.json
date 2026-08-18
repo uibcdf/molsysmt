@@ -1256,13 +1256,6 @@
       "documentation": "docs/content/user/tools/structure",
       "contract_tests": "tests/structure"
     },
-    "molsysmt.structure.show_contacts": {
-      "stability": "experimental",
-      "introduced": "pre-1.0",
-      "owner": "structure",
-      "documentation": "docs/content/user/tools/structure",
-      "contract_tests": "tests/structure"
-    },
     "molsysmt.structure.translate": {
       "stability": "stable",
       "introduced": "pre-1.0",

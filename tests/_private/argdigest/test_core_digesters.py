@@ -41,14 +41,11 @@ from molsysmt._private.argdigest.argument.n_chains import digest_n_chains
 from molsysmt._private.argdigest.argument.n_components import digest_n_components
 from molsysmt._private.argdigest.argument.n_entities import digest_n_entities
 from molsysmt._private.argdigest.argument.n_molecules import digest_n_molecules
-from molsysmt._private.argdigest.argument.show import digest_show
-from molsysmt._private.argdigest.argument.style import digest_style
 
 
 BOOL_CALLER = "molsysmt.basic.get.get"
 FORM_CONVERTER_CALLER = "molsysmt.form.file_pdb.to_molsysmt_MolSys.to_molsysmt_MolSys"
 CHAIN_BUILDER_CALLER = "molsysmt.native.molsys_builder.MolSysBuilder.add_chain"
-SHOW_CONTACTS_CALLER = "molsysmt.structure.show_contacts.show_contacts"
 
 
 @pytest.mark.parametrize(
@@ -229,19 +226,10 @@ def test_form_digester_normalizes_case_and_accepts_lists_and_files():
         digest_form("definitely:not_a_form")
 
 
-def test_engine_show_and_style_digesters_validate_expected_contracts():
+def test_engine_digester_validates_expected_contracts():
     assert digest_engine("molsysmt") == "MolSysMT"
     with pytest.raises(ArgumentError):
         digest_engine("unknown-engine")
-
-    assert digest_show(True) is True
-    with pytest.raises(ArgumentError):
-        digest_show("yes")
-
-    assert digest_style("plotly", caller=SHOW_CONTACTS_CALLER) == "plotly"
-    assert digest_style("matplotlib", caller=SHOW_CONTACTS_CALLER) == "matplotlib"
-    with pytest.raises(ArgumentError):
-        digest_style("text", caller=SHOW_CONTACTS_CALLER)
 
 
 def test_coordinates_digester_normalizes_rank_and_dtype():

@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 58 |
+| experimental | 57 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -151,7 +151,6 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.structure.rotate` | stable | active | pre-1.0 |
 | `molsysmt.structure.set_dihedral_angles` | stable | active | pre-1.0 |
 | `molsysmt.structure.shift_dihedral_angles` | stable | active | pre-1.0 |
-| `molsysmt.structure.show_contacts` | experimental | active | pre-1.0 |
 | `molsysmt.structure.translate` | stable | active | pre-1.0 |
 
 ### `molsysmt.build`

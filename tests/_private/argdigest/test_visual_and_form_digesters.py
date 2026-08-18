@@ -9,12 +9,9 @@ from molsysmt._private.argdigest.argument.color_values import digest_color_value
 from molsysmt._private.argdigest.argument.colormap import digest_colormap
 from molsysmt._private.argdigest.argument.file import digest_file
 from molsysmt._private.argdigest.argument.form import digest_form
-from molsysmt._private.argdigest.argument.show import digest_show
-from molsysmt._private.argdigest.argument.style import digest_style
 from molsysmt import pyunitwizard as puw
 
 WRITE_H5_CALLER = 'molsysmt.form.molsysmt_Topology.write_topology_in_h5msm'
-SHOW_CONTACTS_CALLER = 'molsysmt.structure.show_contacts.show_contacts'
 COMPARE_CALLER = 'molsysmt.basic.compare.compare'
 
 
@@ -73,20 +70,6 @@ def test_digest_to_form_singular_aliases():
     assert digest_to_form('MOLSYSMT.STRUCTURE') == 'molsysmt.Structures'
     assert digest_to_form('molsysmt.MolSys') == 'molsysmt.MolSys'
     assert digest_to_form('molsysmt.molsys') == 'molsysmt.MolSys'
-
-
-def test_digest_show_and_style_validate_expected_contracts():
-    assert digest_show(True) is True
-    assert digest_show(False) is False
-
-    with pytest.raises(ArgumentError):
-        digest_show('yes')
-
-    assert digest_style('plotly', caller=SHOW_CONTACTS_CALLER) == 'plotly'
-    assert digest_style('matplotlib', caller=SHOW_CONTACTS_CALLER) == 'matplotlib'
-
-    with pytest.raises(ArgumentError):
-        digest_style('nglview', caller=SHOW_CONTACTS_CALLER)
 
 
 def test_digest_file_accepts_h5msm_path_and_handler_for_h5_writer(tmp_path):

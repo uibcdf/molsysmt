@@ -32,5 +32,4 @@ API Structure
    rotate
    set_dihedral_angles
    shift_dihedral_angles
-   show_contacts
    translate

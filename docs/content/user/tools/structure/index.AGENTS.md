@@ -36,6 +36,5 @@ Governance rules for `docs/content/user/tools/structure/index.md` (the Structure
       rotate.ipynb
       set_dihedral_angles.ipynb
       shift_dihedral_angles.ipynb
-      show_contacts.ipynb
       translate.ipynb
    ```

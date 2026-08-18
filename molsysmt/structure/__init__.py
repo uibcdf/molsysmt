@@ -23,4 +23,3 @@ from .least_rmsd_align import least_rmsd_align
 from .get_principal_axes import get_principal_axes
 from .principal_component_analysis import principal_component_analysis
 from .align_principal_axes import align_principal_axes
-from .show_contacts import show_contacts

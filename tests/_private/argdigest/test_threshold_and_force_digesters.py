@@ -12,7 +12,7 @@ from molsysmt._private.argdigest.argument.threshold import digest_threshold
 
 ANGLE_CALLER = "molsysmt.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds"
 DISTANCE_CALLER = "molsysmt.hbonds.get_buch_hbonds.get_buch_hbonds"
-THRESHOLD_CALLER = "molsysmt.structure.show_contacts.show_contacts"
+THRESHOLD_CALLER = "molsysmt.structure.get_contacts.get_contacts"
 THRESHOLD_NONE_CALLER = "molsysmt.structure.get_neighbors.get_neighbors"
 FORM_CONVERTER_CALLER = "molsysmt.form.file_cif.to_mmcif_PdbxContainers_DataContainer.to_mmcif_PdbxContainers_DataContainer"
 FORCE_CONSTANT_CALLER = "molsysmt.molecular_mechanics.add_harmonic_bond_force.add_harmonic_bond_force"
