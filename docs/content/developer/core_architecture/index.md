@@ -15,6 +15,7 @@ Core design principles, lazy loading mechanisms, argument validation, and intern
 | {doc}`molsys_builder` | Interactive molecular system builder (`MolSysBuilder`) |
 | {doc}`declarative_serialization_forms` | Declarative YAML serialization formats |
 | {doc}`new_form` | Step-by-step guide to implementing a new form adapter |
+| {doc}`return_types` | Which scalar type a returned container carries, and why |
 
 ```{eval-rst}
 .. toctree::
@@ -28,4 +29,5 @@ Core design principles, lazy loading mechanisms, argument validation, and intern
    molsys_builder
    declarative_serialization_forms
    new_form
+   return_types
 ```

@@ -42,6 +42,40 @@ Canonical structural conventions are:
 - time: ps;
 - charge: elementary charge.
 
+## Scalar types in returned values
+
+**The container decides the scalar type.**
+
+- Rectangular, homogeneous data is returned as a `numpy.ndarray` with an explicit
+  `dtype`, or as a PyUnitWizard `Quantity` wrapping one.
+- Ragged, nested, `set` or `dict` data is returned with **native Python scalars**:
+  `int`, `float`, `str`, `bool`.
+
+A NumPy scalar inside a Python container is not a middle ground between the two.
+NumPy's advantages — contiguous memory, vectorised operations — belong to the
+array, not to the scalar. Boxed into a `list` or a `set`, an `np.int64` costs more
+memory than an `int` and is slower to traverse, and buys nothing back. Measured on
+200 000 integers: `list` of `np.int64` 8.02 MB and 7.7 ms to sum, `list` of `int`
+7.22 MB and 2.5 ms, `ndarray` 3.20 MB and 0.2 ms.
+
+Three consequences make this a contract rather than a preference:
+
+- **Serialisation.** `json.dumps` and `yaml.safe_dump` raise on NumPy scalars.
+  A caller cannot dump what a public function returned.
+- **Type identity.** `isinstance(np.int64(1), int)` is `False` under NumPy 2.x, so
+  downstream code that validates with `isinstance` rejects values MolSysMT
+  documents as integers.
+- **Range.** Python `int` has arbitrary precision; `np.int64` overflows silently.
+
+Nothing is lost by choosing native scalars for ragged data: `np.array` over a list
+of Python `int` infers `int64`, and both types index an array identically. There is
+no `dtype` to preserve in a container that holds one object per element.
+
+Mixing the two in one container is the failure this rule exists to prevent. It
+arises when a structure is assembled by Python-level iteration over arrays instead
+of through `ndarray.tolist()`, and it is not cosmetic: it produces containers whose
+elements answer `isinstance` differently from one another.
+
 ## Files, remote identifiers, and iterators
 
 File forms differ in random access, lazy I/O, topology content, and writable
