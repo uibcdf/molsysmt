@@ -16,6 +16,6 @@ This section collects editorial guidelines, docstring conventions, and web autho
    :maxdepth: 1
    :hidden:
 
-   api/index.md
-   web/index.md
+   api/index
+   web/index
 ```

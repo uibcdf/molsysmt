@@ -11,8 +11,9 @@ the User Guide, Showcase, Cookbook, and developer documentation.
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+   :hidden:
 
-   myst.ipynb
-   references.md
+   references
+   myst
 ```

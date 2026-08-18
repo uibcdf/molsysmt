@@ -14,8 +14,9 @@ patterns described in `docs/content/developer/documentation/web/`.
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+   :hidden:
 
-   docstrings.md
-   doctests.md
+   docstrings
+   doctests
 ```

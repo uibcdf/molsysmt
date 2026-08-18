@@ -84,22 +84,61 @@ Guidelines for writing docstrings, doctests, and web documentation:
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :caption: Getting Started
    :hidden:
 
-   intro/index.md
-   dependencies.md
-   argdigest.md
-   pyunitwizard.md
-   element_and_native_rebuild.md
-   molsys_builder.md
-   declarative_serialization_forms.md
-   new_form.md
-   heavy_trajectories.md
-   benchmarks.md
-   smonitor.md
-   warnings.md
-   logging.md
-   testing/index.md
-   documentation/index.md
+   intro/index
+   intro/Introduction
+   intro/fork
+   start_dev_env_usage
+   devcontainer
+   reporting
+
+.. toctree::
+   :caption: Core Architecture
+   :hidden:
+
+   dependencies
+   argdigest
+   pyunitwizard
+   element_and_native_rebuild
+   molsys_builder
+   declarative_serialization_forms
+   new_form
+
+.. toctree::
+   :caption: Performance and Scalability
+   :hidden:
+
+   heavy_trajectories
+   benchmarks
+
+.. toctree::
+   :caption: Diagnostics and Telemetry
+   :hidden:
+
+   smonitor
+   warnings
+   logging
+
+.. toctree::
+   :caption: Testing and QA
+   :hidden:
+
+   testing/index
+   testing/unit_tests
+   testing/code_coverage
+   testing/ci
+
+.. toctree::
+   :caption: Documentation Standards
+   :hidden:
+
+   documentation/index
+   documentation/api/index
+   documentation/api/docstrings
+   documentation/api/doctests
+   documentation/web/index
+   documentation/web/references
+   documentation/web/myst
 ```

@@ -17,7 +17,7 @@ This section covers the testing methodologies, coverage metrics, and continuous 
    :maxdepth: 1
    :hidden:
 
-   unit_tests.md
-   code_coverage.md
-   ci.md
+   unit_tests
+   code_coverage
+   ci
 ```
