@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='mdtraj.Trajectory')
 def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.Trajectory to openmm.Topology.
+
+    Parameters
+    ----------
+    item : mdtraj.Trajectory
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
     from molsysmt.form.mdtraj_Topology.to_openmm_Topology import to_openmm_Topology as mdtraj_Topology_to_openmm_Topology

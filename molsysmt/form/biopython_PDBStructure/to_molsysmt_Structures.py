@@ -3,6 +3,21 @@ import numpy as np
 
 @arg_digest(form='biopython.PDBStructure')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from biopython.PDBStructure to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : biopython.PDBStructure
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import Structures
     from molsysmt import pyunitwizard as puw

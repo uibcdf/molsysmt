@@ -4,6 +4,21 @@ import numpy as np
 
 @arg_digest(form='pytraj.Topology')
 def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
+    """
+    Converting from pytraj.Topology to pytraj.Trajectory.
+
+    Parameters
+    ----------
+    item : pytraj.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    pytraj.Trajectory
+        Converted molecular system representation.
+    """
 
     try:
         import pytraj as pt

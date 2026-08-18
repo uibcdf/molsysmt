@@ -3,5 +3,22 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:xyz', to_form='file:xyz')
 def add(to_item, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Adding elements from another item into an item of form file:xyz.
+
+    Parameters
+    ----------
+    to_item : file:xyz
+        Target item to modify or add elements to.
+    from_item : object
+        Source item providing elements.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file:xyz
+        Target item with added elements.
+    """
 
     raise NotImplementedMethodError()

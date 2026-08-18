@@ -5,6 +5,21 @@ from depdigest import dep_digest
 @arg_digest(form='file:dcd')
 @dep_digest('mdtraj')
 def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:dcd to mdtraj.DCDTrajectoryFile.
+
+    Parameters
+    ----------
+    item : file:dcd
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.DCDTrajectoryFile
+        Converted molecular system representation.
+    """
 
     from mdtraj.formats import DCDTrajectoryFile
     from molsysmt._private.backend_output import silence_backend_stdout

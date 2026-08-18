@@ -4,6 +4,21 @@ from molsysmt._private.argdigest import arg_digest
 def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_filename=None,
         compression='gzip', compression_opts=4, int_precision='single', float_precision='single',
                   skip_digestion=False):
+    """
+    Converting from file:dcd to file.h5msm.
+
+    Parameters
+    ----------
+    item : file:dcd
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.h5msm
+        Converted molecular system representation.
+    """
 
     from .to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.molsysmt_Structures.to_file_h5msm import to_file_h5msm as molsysmt_Structures_to_file_h5msm

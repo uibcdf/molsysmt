@@ -5,6 +5,21 @@ import numpy as np
 @arg_digest(form='molsysmt.GROFileHandler')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_missing_bonds=True,
                        skip_digestion=False):
+    """
+    Converting from molsysmt.GROFileHandler to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : molsysmt.GROFileHandler
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import MolSys
     from molsysmt.build import get_missing_bonds as _get_missing_bonds

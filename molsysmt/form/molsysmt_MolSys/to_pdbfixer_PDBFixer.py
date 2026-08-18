@@ -6,6 +6,21 @@ from depdigest import dep_digest
 @dep_digest('pdbfixer')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
                          pdb_chain_id='chain_name', skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to pdbfixer.PDBFixer.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    pdbfixer.PDBFixer
+        Converted molecular system representation.
+    """
 
     from pdbfixer.pdbfixer import PDBFixer
 

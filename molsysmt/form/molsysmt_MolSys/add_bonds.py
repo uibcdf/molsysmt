@@ -5,6 +5,16 @@ import numpy as np
 
 @arg_digest(form='molsysmt.MolSys')
 def add_bonds(item, bonded_atom_pairs, skip_digestion=False):
+    """
+    Performing add bonds on form molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Target item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+    """
 
     item.topology.add_bonds(bonded_atom_pairs, skip_digestion=True)
 

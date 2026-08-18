@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='file:pir')
 @dep_digest('Bio')
 def to_biopython_Seq(item, skip_digestion=False):
+    """
+    Converting from file:pir to biopython.Seq.
+
+    Parameters
+    ----------
+    item : file:pir
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    biopython.Seq
+        Converted molecular system representation.
+    """
 
     from .to_biopython_SeqRecord import to_biopython_SeqRecord
 

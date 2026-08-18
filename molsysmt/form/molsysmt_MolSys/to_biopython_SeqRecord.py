@@ -5,6 +5,21 @@ import numpy as np
 @arg_digest(form='molsysmt.MolSys')
 @dep_digest('Bio')
 def to_biopython_SeqRecord(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to biopython.SeqRecord.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    biopython.SeqRecord
+        Converted molecular system representation.
+    """
 
     from .to_string_amino_acids_1 import to_string_amino_acids_1
     from molsysmt.form.string_amino_acids_1.to_biopython_SeqRecord import to_biopython_SeqRecord as string_amino_acids_1_to_biopython_SeqRecord

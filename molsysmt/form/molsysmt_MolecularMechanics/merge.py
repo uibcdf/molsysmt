@@ -7,6 +7,21 @@ from copy import deepcopy
 
 @arg_digest(form='molsysmt.MolecularMechanics')
 def merge(items, atom_indices='all', skip_digestion=False):
+    """
+    Merging multiple items into a single item of form molsysmt.MolecularMechanics.
+
+    Parameters
+    ----------
+    items : list of object
+        List of items to merge.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolecularMechanics
+        Merged item.
+    """
 
     output = items[0].copy()
 

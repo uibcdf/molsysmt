@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='mdtraj.Trajectory')
 def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.Trajectory to pytraj.Topology.
+
+    Parameters
+    ----------
+    item : mdtraj.Trajectory
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    pytraj.Topology
+        Converted molecular system representation.
+    """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys.to_pytraj_Topology import to_pytraj_Topology as molsysmt_MolSys_to_pytraj_Topology

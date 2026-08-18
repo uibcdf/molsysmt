@@ -7,6 +7,21 @@ import numpy as np
 
 @arg_digest(form='file:crd')
 def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:crd to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
         # EXT:
         #      (i10,2x,a)  natoms,'EXT'

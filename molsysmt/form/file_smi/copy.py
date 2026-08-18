@@ -3,6 +3,21 @@ from molsysmt._private.smonitor import ArgumentError
 
 @arg_digest(form='file:smi')
 def copy(item, output_filename=None, skip_digestion=False):
+    """
+    Creating a copy of an item of form file:smi.
+
+    Parameters
+    ----------
+    item : file:smi
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file:smi
+        Copied item.
+    """
 
     if output_filename is None:
         raise ArgumentError(argument='output_filename', caller='molsysmt.form.file_smi.copy',

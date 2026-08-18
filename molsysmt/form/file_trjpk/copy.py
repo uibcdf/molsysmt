@@ -4,6 +4,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='file:trjpk')
 def copy(item, output_filename=None, skip_digestion=False):
+    """
+    Creating a copy of an item of form file:trjpk.
+
+    Parameters
+    ----------
+    item : file:trjpk
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file:trjpk
+        Copied item.
+    """
 
     if output_filename is None:
         output_filename = item

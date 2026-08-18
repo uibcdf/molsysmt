@@ -7,6 +7,25 @@ from depdigest import dep_digest
 @dep_digest('mdtraj')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
         progress_bar=False, skip_digestion=False):
+    """
+    Extracting a subset of atoms or structures from form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Atom selection to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.HDF5TrajectoryFile
+        Extracted subset in the same form.
+    """
 
     from mdtraj.formats import HDF5TrajectoryFile
     from molsysmt.form.mdtraj_Topology.extract import extract as extract_mdtraj_Topology

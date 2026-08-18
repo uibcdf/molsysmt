@@ -4,5 +4,20 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='molsysmt.PDBFileHandler')
 def copy(item, output_filename=None, skip_digestion=False):
+    """
+    Creating a copy of an item of form molsysmt.PDBFileHandler.
+
+    Parameters
+    ----------
+    item : molsysmt.PDBFileHandler
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.PDBFileHandler
+        Copied item.
+    """
 
     raise NotImplementedMethodError

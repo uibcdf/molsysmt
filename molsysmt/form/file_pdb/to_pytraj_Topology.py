@@ -4,6 +4,21 @@ from molsysmt import pyunitwizard as puw
 
 @arg_digest(form='file:pdb')
 def to_pytraj_Topology(item, atom_indices='all', max_bond_length=None, skip_digestion=False):
+    """
+    Converting from file:pdb to pytraj.Topology.
+
+    Parameters
+    ----------
+    item : file:pdb
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    pytraj.Topology
+        Converted molecular system representation.
+    """
 
     try:
         from pytraj import load_topology

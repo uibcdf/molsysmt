@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:uniprot_id')
 def to_file_fasta(item, atom_indices='all', output_filename=None, skip_digestion=False):
+    """
+    Converting from string:uniprot_id to file.fasta.
+
+    Parameters
+    ----------
+    item : string:uniprot_id
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.fasta
+        Converted molecular system representation.
+    """
 
     import urllib.request
     import tempfile

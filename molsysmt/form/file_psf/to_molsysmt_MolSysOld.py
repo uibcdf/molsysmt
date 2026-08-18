@@ -5,6 +5,21 @@ import numpy as np
 @arg_digest(form='file:psf')
 def to_molsysmt_MolSysOld(item, atom_indices='all',
         coordinates=None, structure_id=None, box=None, time=None, skip_digestion=False):
+    """
+    Converting from file:psf to molsysmt.MolSysOld.
+
+    Parameters
+    ----------
+    item : file:psf
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSysOld
+        Converted molecular system representation.
+    """
 
     from molsysmt.native.molsys_old import MolSysOld
     from molsysmt.native.structures_old import StructuresOld

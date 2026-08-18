@@ -6,6 +6,21 @@ import numpy as np
 
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
+    """
+    Converting from mmcif.PdbxContainers.DataContainer to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : mmcif.PdbxContainers.DataContainer
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
 

@@ -4,6 +4,21 @@ from molsysmt._private.files_and_directories import str_filename
 @arg_digest(form='file:cif.gz')
 def to_file_cif_gz(item, atom_indices='all', structure_indices='all', output_name=None, copy_if_all=True,
                 skip_digestion=False):
+    """
+    Converting from file:cif.gz to file.cif.gz.
+
+    Parameters
+    ----------
+    item : file:cif.gz
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.cif.gz
+        Converted molecular system representation.
+    """
 
     from .extract import extract
 

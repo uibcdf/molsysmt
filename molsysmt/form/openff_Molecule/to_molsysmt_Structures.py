@@ -3,6 +3,21 @@ import numpy as np
 
 @arg_digest(form='openff.Molecule')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from openff.Molecule to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : openff.Molecule
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from molsysmt import pyunitwizard as puw
     from molsysmt.native import Structures

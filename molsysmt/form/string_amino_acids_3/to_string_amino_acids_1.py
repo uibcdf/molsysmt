@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:amino_acids_3')
 def to_string_amino_acids_1(item, group_indices='all', skip_digestion=False):
+    """
+    Converting from string:amino_acids_3 to string.amino.acids.1.
+
+    Parameters
+    ----------
+    item : string:amino_acids_3
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.amino.acids.1
+        Converted molecular system representation.
+    """
 
     if item.startswith('amino_acids_3:'):
         item = item[12:]

@@ -3,6 +3,23 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='networkx.Graph', to_form='networkx.Graph')
 def add(to_item, item, atom_indices='all', skip_digestion=False):
+    """
+    Adding elements from another item into an item of form networkx.Graph.
+
+    Parameters
+    ----------
+    to_item : networkx.Graph
+        Target item to modify or add elements to.
+    from_item : object
+        Source item providing elements.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    networkx.Graph
+        Target item with added elements.
+    """
 
     raise NotImplementedMethodError()
 

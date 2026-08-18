@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:pdb_text')
 def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:pdb_text to openmm.System.
+
+    Parameters
+    ----------
+    item : string:pdb_text
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.System
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.openmm_Modeller.to_openmm_Modeller import to_openmm_Modeller
     from molsysmt.tools.openmm_Modeller import to_openmm_System as openmm_Modeller_to_openmm_System

@@ -4,6 +4,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='molsysviewer.MolSysView')
 def to_molsysviewer_MolSysView(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from molsysviewer.MolSysView to molsysviewer.MolSysView.
+
+    Parameters
+    ----------
+    item : molsysviewer.MolSysView
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysviewer.MolSysView
+        Converted molecular system representation.
+    """
 
     from molsysviewer import MolSysView
     from molsysmt.basic import extract

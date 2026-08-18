@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:gro')
 def to_mdtraj_GroTrajectoryFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:gro to mdtraj.GroTrajectoryFile.
+
+    Parameters
+    ----------
+    item : file:gro
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.GroTrajectoryFile
+        Converted molecular system representation.
+    """
 
     from mdtraj.formats import GroTrajectoryFile
     from . import extract

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:alphafold_id')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:alphafold_id to openmm.Topology.
+
+    Parameters
+    ----------
+    item : string:alphafold_id
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.string_pdb_text.to_string_pdb_text import to_string_pdb_text
     from molsysmt.form.string_pdb_text.to_openmm_Topology import to_openmm_Topology as string_pdb_text_to_openmm_Topology

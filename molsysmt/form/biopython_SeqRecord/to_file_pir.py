@@ -5,6 +5,21 @@ from depdigest import dep_digest
 @arg_digest(form='biopython.SeqRecord')
 @dep_digest('Bio')
 def to_file_pir(item, output_filename=None, skip_digestion=False):
+    """
+    Converting from biopython.SeqRecord to file.pir.
+
+    Parameters
+    ----------
+    item : biopython.SeqRecord
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.pir
+        Converted molecular system representation.
+    """
 
     if output_filename is None:
         raise ArgumentError(argument='output_filename', caller='molsysmt.form.biopython_SeqRecord.to_file_pir',

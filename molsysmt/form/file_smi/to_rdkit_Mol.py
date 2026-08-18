@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='file:smi')
 @dep_digest('rdkit')
 def to_rdkit_Mol(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from file:smi to rdkit.Mol.
+
+    Parameters
+    ----------
+    item : file:smi
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    rdkit.Mol
+        Converted molecular system representation.
+    """
 
     from rdkit import Chem
     from molsysmt._private.smonitor import FormatError

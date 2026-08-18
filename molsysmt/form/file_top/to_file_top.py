@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:top')
 def to_file_top(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+    """
+    Converting from file:top to file.top.
+
+    Parameters
+    ----------
+    item : file:top
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.top
+        Converted molecular system representation.
+    """
 
     from .extract import extract
 

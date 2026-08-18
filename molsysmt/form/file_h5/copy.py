@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:h5')
 def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
+    """
+    Creating a copy of an item of form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file:h5
+        Copied item.
+    """
 
     if output_filename is None:
         output_filename = item

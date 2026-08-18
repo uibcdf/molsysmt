@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='openmm.AmberPrmtopFile')
 @dep_digest('openmm')
 def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.AmberPrmtopFile to openmm.System.
+
+    Parameters
+    ----------
+    item : openmm.AmberPrmtopFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.System
+        Converted molecular system representation.
+    """
 
     tmp_item = item.createSystem()
 

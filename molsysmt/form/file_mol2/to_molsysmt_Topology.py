@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:mol2')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from file:mol2 to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : file:mol2
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys.to_molsysmt_Topology import to_molsysmt_Topology as molsysmt_MolSys_to_molsysmt_Topology

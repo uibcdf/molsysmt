@@ -5,6 +5,21 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='string:amino_acids_1')
 @dep_digest('Bio')
 def to_biopython_Seq(item, group_indices='all', skip_digestion=False):
+    """
+    Converting from string:amino_acids_1 to biopython.Seq.
+
+    Parameters
+    ----------
+    item : string:amino_acids_1
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    biopython.Seq
+        Converted molecular system representation.
+    """
 
     from Bio.Seq import Seq as bio_Seq
 

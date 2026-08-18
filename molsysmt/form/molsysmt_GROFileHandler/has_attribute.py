@@ -2,6 +2,19 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.GROFileHandler')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+    """
+    Checking if form molsysmt.GROFileHandler supports a specific attribute.
+
+    Parameters
+    ----------
+    attribute : str
+        Attribute name to query.
+
+    Returns
+    -------
+    bool
+        True if attribute is supported, False otherwise.
+    """
 
     from . import attributes
 

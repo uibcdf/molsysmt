@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='mdtraj.Trajectory')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.Trajectory to mdtraj.Topology.
+
+    Parameters
+    ----------
+    item : mdtraj.Trajectory
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Topology
+        Converted molecular system representation.
+    """
 
     from ..mdtraj_Topology.extract import extract as extract_mdtraj_Topology
     from mdtraj.core.topology import Topology as mdtraj_Topology

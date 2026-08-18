@@ -4,6 +4,21 @@ import numpy as np
 
 @arg_digest(form='mdtraj.DCDTrajectoryFile')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.DCDTrajectoryFile to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : mdtraj.DCDTrajectoryFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from .iterators import StructuresIterator
     from molsysmt.native import Structures

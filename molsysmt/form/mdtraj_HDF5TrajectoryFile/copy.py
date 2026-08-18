@@ -4,6 +4,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='mdtraj.HDF5TrajectoryFile')
 def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
+    """
+    Creating a copy of an item of form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.HDF5TrajectoryFile
+        Copied item.
+    """
 
     from .get_structural_attributes import get_n_structures_from_system
     from ..mdtraj_Topology.extract import extract as extract_mdtraj_Topology

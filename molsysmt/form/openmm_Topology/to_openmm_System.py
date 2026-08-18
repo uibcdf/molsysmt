@@ -4,6 +4,21 @@ from molsysmt._private.argdigest import arg_digest
 def to_openmm_System(item, atom_indices='all', forcefield='AMBER14', water_model=None, implicit_solvent=None,
         non_bonded_method=None, constraints='hbonds', switch_distance=None,
         dispersion_correction=None, ewald_error_tolerance=None, skip_digestion=False):
+    """
+    Converting from openmm.Topology to openmm.System.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.System
+        Converted molecular system representation.
+    """
 
     from openmm import app
     from molsysmt.molecular_mechanics import get_engine_forcefield

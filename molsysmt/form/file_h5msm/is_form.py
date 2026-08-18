@@ -3,6 +3,19 @@ import h5py
 import os
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form file:h5msm.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form file:h5msm, False otherwise.
+    """
 
     output = False
 

@@ -5,6 +5,21 @@ from depdigest import dep_digest
 @arg_digest(form='rdkit.Mol')
 @dep_digest('rdkit')
 def to_file_smi(item, output_filename=None, skip_digestion=False):
+    """
+    Converting from rdkit.Mol to file.smi.
+
+    Parameters
+    ----------
+    item : rdkit.Mol
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.smi
+        Converted molecular system representation.
+    """
 
     if output_filename is None:
         raise ArgumentError(argument='output_filename', caller='molsysmt.form.rdkit_Mol.to_file_smi',

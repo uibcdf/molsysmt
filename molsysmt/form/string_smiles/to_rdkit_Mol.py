@@ -6,6 +6,21 @@ from depdigest import dep_digest
 @arg_digest(form='string:smiles')
 @dep_digest('rdkit')
 def to_rdkit_Mol(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from string:smiles to rdkit.Mol.
+
+    Parameters
+    ----------
+    item : string:smiles
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    rdkit.Mol
+        Converted molecular system representation.
+    """
 
     from rdkit import Chem
 

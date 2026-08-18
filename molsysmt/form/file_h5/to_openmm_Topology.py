@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:h5')
 def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from file:h5 to openmm.Topology.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Topology
+        Converted molecular system representation.
+    """
 
     from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
     from molsysmt.form.mdtraj_HDF5TrajectoryFile.to_openmm_Topology import to_openmm_Topology as mdtraj_HDF5TrajectoryFile_to_openmm_Topology

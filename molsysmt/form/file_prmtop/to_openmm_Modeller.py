@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:prmtop')
 def to_openmm_Modeller(item, atom_indices='all', coordinates=None, skip_digestion=False):
+    """
+    Converting from file:prmtop to openmm.Modeller.
+
+    Parameters
+    ----------
+    item : file:prmtop
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Modeller
+        Converted molecular system representation.
+    """
 
     from .to_openmm_Topology import to_openmm_Topology
     from molsysmt.form.openmm_Topology.to_openmm_Modeller import to_openmm_Modeller as openmm_Topology_to_openmm_Modeller

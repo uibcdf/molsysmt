@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='pytraj.Trajectory')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from pytraj.Trajectory to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : pytraj.Trajectory
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from molsysmt.native.structures import Structures
     from . import get_coordinates_from_atom, get_structure_id_from_system, get_time_from_system, get_box_from_system

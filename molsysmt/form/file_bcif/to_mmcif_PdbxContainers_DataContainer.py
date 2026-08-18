@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:bcif')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from file:bcif to mmcif.PdbxContainers.DataContainer.
+
+    Parameters
+    ----------
+    item : file:bcif
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mmcif.PdbxContainers.DataContainer
+        Converted molecular system representation.
+    """
 
     from mmcif.io.BinaryCifReader import BinaryCifReader
     from smonitor.integrations import context_extra, emit_from_catalog

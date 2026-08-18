@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:structures_yaml')
 def to_molsysmt_Structures(item, skip_digestion=False):
+    """
+    Converting from file:structures_yaml to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : file:structures_yaml
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
     from .to_molsysmt_StructuresDict import to_molsysmt_StructuresDict
     from molsysmt.form.molsysmt_StructuresDict.to_molsysmt_Structures import to_molsysmt_Structures as _to_structures
 

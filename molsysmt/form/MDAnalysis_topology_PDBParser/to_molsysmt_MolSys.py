@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='MDAnalysis.topology.PDBParser')
 @dep_digest('MDAnalysis')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from MDAnalysis.topology.PDBParser to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : MDAnalysis.topology.PDBParser
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
 
     from MDAnalysis import Universe
     from molsysmt.form.MDAnalysis_Universe.to_molsysmt_MolSys import to_molsysmt_MolSys as MDAnalysis_Universe_to_molsysmt_MolSys

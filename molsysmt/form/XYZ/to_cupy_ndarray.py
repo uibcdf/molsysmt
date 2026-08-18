@@ -3,6 +3,21 @@ from molsysmt import pyunitwizard as puw
 
 @arg_digest(form='XYZ')
 def to_cupy_ndarray(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from XYZ to cupy.ndarray.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    cupy.ndarray
+        Converted molecular system representation.
+    """
     import cupy as cp
     from molsysmt.form.XYZ.get_structural_attributes import get_coordinates_from_atom
     

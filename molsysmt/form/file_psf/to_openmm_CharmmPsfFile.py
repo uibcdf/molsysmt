@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='file:psf')
 @dep_digest('openmm')
 def to_openmm_CharmmPsfFile(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from file:psf to openmm.CharmmPsfFile.
+
+    Parameters
+    ----------
+    item : file:psf
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.CharmmPsfFile
+        Converted molecular system representation.
+    """
 
     from openmm.app import CharmmPsfFile
     from molsysmt.form.openmm_CharmmPsfFile.extract import extract as extract_openmm_CharmmPsfFile

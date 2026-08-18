@@ -23,6 +23,21 @@ def to_openmm_Simulation(
     platform="CPU",
     skip_digestion=False,
 ):
+    """
+    Converting from openmm.Topology to openmm.Simulation.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Simulation
+        Converted molecular system representation.
+    """
 
     from .to_openmm_Topology import to_openmm_Topology
     from .to_openmm_System import to_openmm_System

@@ -8,6 +8,21 @@ from copy import deepcopy
 
 @arg_digest(form='molsysmt.Structures')
 def merge(items, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Merging multiple items into a single item of form molsysmt.Structures.
+
+    Parameters
+    ----------
+    items : list of object
+        List of items to merge.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Merged item.
+    """
 
     from molsysmt.native import Structures
 

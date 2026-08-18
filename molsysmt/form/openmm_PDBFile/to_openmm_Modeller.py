@@ -5,6 +5,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.Topology')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.PDBFile to openmm.Modeller.
+
+    Parameters
+    ----------
+    item : openmm.PDBFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Modeller
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
     from molsysmt import pyunitwizard as puw

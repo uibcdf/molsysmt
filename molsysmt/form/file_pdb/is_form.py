@@ -1,6 +1,19 @@
 from pathlib import PosixPath
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form file:pdb.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form file:pdb, False otherwise.
+    """
 
     output = False
 

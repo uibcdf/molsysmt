@@ -23,6 +23,21 @@ def to_openmm_Simulation(
     platform="CPU",
     skip_digestion=False,
 ):
+    """
+    Converting from file:pdb to openmm.Simulation.
+
+    Parameters
+    ----------
+    item : file:pdb
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Simulation
+        Converted molecular system representation.
+    """
 
     from .to_openmm_Modeller import to_openmm_Modeller
     from molsysmt.form.openmm_Modeller.to_openmm_Simulation import (

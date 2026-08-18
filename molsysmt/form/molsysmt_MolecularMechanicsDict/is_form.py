@@ -1,4 +1,17 @@
 def is_form(item):
+    """
+    Checking whether an item is an instance of form molsysmt.MolecularMechanicsDict.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form molsysmt.MolecularMechanicsDict, False otherwise.
+    """
 
     output = False
 

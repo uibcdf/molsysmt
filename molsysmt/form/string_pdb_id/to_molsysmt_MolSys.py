@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:pdb_id')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:pdb_id to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : string:pdb_id
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
 
     from .to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer
     from molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys import to_molsysmt_MolSys as mmcif_PdbxContainers_DataContainer_to_molsysmt_MolSys

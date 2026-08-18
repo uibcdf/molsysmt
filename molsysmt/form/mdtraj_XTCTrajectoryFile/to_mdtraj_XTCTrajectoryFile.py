@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='mdtraj.XTCTrajectoryFile')
 @dep_digest('mdtraj')
 def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Converting from mdtraj.XTCTrajectoryFile to mdtraj.XTCTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.XTCTrajectoryFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.XTCTrajectoryFile
+        Converted molecular system representation.
+    """
 
     from .extract import extract
 

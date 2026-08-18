@@ -5,6 +5,21 @@ from smonitor import signal
 @signal(tags=['conversion'])
 @arg_digest(form='molsysmt.MolSys')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to openmm.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Topology
+        Converted molecular system representation.
+    """
 
     from .to_molsysmt_Topology import to_molsysmt_Topology
     from . import get_box_from_system

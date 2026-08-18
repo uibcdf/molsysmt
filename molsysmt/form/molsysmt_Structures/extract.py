@@ -3,6 +3,25 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='molsysmt.Structures')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Extracting a subset of atoms or structures from form molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : molsysmt.Structures
+        Source item.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Atom selection to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Extracted subset in the same form.
+    """
 
     from molsysmt.native import Structures
     if not isinstance(item, Structures):

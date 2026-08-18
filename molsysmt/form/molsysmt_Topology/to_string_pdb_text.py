@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.Topology')
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
+    """
+    Converting from molsysmt.Topology to string.pdb.text.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.pdb.text
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import MolSys, Structures
     from . import extract

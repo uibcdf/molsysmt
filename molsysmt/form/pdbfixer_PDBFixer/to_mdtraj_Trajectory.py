@@ -4,6 +4,21 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='pdbfixer.PDBFixer')
 @dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from pdbfixer.PDBFixer to mdtraj.Trajectory.
+
+    Parameters
+    ----------
+    item : pdbfixer.PDBFixer
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Trajectory
+        Converted molecular system representation.
+    """
 
     from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory
 

@@ -5,6 +5,19 @@ form = 'molsysviewer.MolSysView'
 
 @arg_digest(form=form)
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+    """
+    Checking if form molsysviewer.MolSysView supports a specific attribute.
+
+    Parameters
+    ----------
+    attribute : str
+        Attribute name to query.
+
+    Returns
+    -------
+    bool
+        True if attribute is supported, False otherwise.
+    """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from ..molsysmt_MolSys.has_attribute import has_attribute as molsys_has_attribute

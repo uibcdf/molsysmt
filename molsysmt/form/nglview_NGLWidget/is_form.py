@@ -1,4 +1,17 @@
 def is_form(item):
+    """
+    Checking whether an item is an instance of form nglview.NGLWidget.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form nglview.NGLWidget, False otherwise.
+    """
 
     output = False
 

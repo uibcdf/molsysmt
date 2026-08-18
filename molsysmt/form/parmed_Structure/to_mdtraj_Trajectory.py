@@ -6,6 +6,21 @@ import numpy as np
 @arg_digest(form='parmed.Structure')
 @dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from parmed.Structure to mdtraj.Trajectory.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Trajectory
+        Converted molecular system representation.
+    """
 
     from .to_mdtraj_Topology import to_mdtraj_Topology
     from mdtraj import Trajectory

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.Simulation')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.Simulation to openmm.Modeller.
+
+    Parameters
+    ----------
+    item : openmm.Simulation
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Modeller
+        Converted molecular system representation.
+    """
 
     from openmm.app import Modeller
     from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology

@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='biopython.SeqRecord')
 def merge(items, group_indices='all', skip_digestion=False):
+    """
+    Merging multiple items into a single item of form biopython.SeqRecord.
+
+    Parameters
+    ----------
+    items : list of object
+        List of items to merge.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    biopython.SeqRecord
+        Merged item.
+    """
 
     raise NotImplementedMethodError()
 

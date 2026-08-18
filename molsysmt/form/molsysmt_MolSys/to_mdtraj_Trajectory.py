@@ -7,6 +7,21 @@ from smonitor import signal
 @arg_digest(form='molsysmt.MolSys')
 @dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to mdtraj.Trajectory.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Trajectory
+        Converted molecular system representation.
+    """
 
     from molsysmt import pyunitwizard as puw
     from .extract import extract

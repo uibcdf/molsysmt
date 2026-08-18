@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='string:pdb_text')
 @dep_digest('mdtraj')
 def to_mdtraj_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:pdb_text to mdtraj.Topology.
+
+    Parameters
+    ----------
+    item : string:pdb_text
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Topology
+        Converted molecular system representation.
+    """
 
     from mdtraj import load_topology as mdtraj_load_topology
 

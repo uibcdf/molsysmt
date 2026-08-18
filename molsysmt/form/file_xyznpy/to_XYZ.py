@@ -5,6 +5,21 @@ from molsysmt import pyunitwizard as puw
 
 @arg_digest(form='file:xyznpy')
 def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:xyznpy to XYZ.
+
+    Parameters
+    ----------
+    item : file:xyznpy
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    XYZ
+        Converted molecular system representation.
+    """
 
     with open(item, 'rb') as fff:
         shape = np.load(fff)

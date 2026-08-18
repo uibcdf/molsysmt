@@ -4,6 +4,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='file:h5msm')
 def copy(item, output_filename=None, skip_digestion=False):
+    """
+    Creating a copy of an item of form file:h5msm.
+
+    Parameters
+    ----------
+    item : file:h5msm
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file:h5msm
+        Copied item.
+    """
 
     if output_filename is None:
         output_filename = item

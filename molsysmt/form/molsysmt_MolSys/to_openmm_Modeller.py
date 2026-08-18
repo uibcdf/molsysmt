@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='molsysmt.MolSys')
 @dep_digest('openmm')
 def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to openmm.Modeller.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Modeller
+        Converted molecular system representation.
+    """
 
     from openmm.app import Modeller
 

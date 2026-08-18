@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='rdkit.Mol')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from rdkit.Mol to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : rdkit.Mol
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import MolSys, MolecularMechanics
     from .get_mechanical_attributes import _get_partial_charges

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.Structures')
 def to_molsysmt_StructuresDict(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.Structures to molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.Structures
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.StructuresDict
+        Converted molecular system representation.
+    """
 
     from . import (
         get_alternate_location_from_atom,

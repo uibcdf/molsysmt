@@ -1,6 +1,19 @@
 import re
 
 def is_form(string):
+    """
+    Checking whether an item is an instance of form string:pdb_text.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form string:pdb_text, False otherwise.
+    """
 
     output = False
 

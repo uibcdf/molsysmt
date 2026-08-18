@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='pdbfixer.PDBFixer')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Converting from pdbfixer.PDBFixer to pdbfixer.PDBFixer.
+
+    Parameters
+    ----------
+    item : pdbfixer.PDBFixer
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    pdbfixer.PDBFixer
+        Converted molecular system representation.
+    """
 
     from .extract import extract
 

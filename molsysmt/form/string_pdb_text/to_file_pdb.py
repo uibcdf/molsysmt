@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='string:pdb_text')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, 
         skip_digestion=False):
+    """
+    Converting from string:pdb_text to file.pdb.
+
+    Parameters
+    ----------
+    item : string:pdb_text
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.pdb
+        Converted molecular system representation.
+    """
 
     from . import extract
     from molsysmt._private.files_and_directories import temp_filename

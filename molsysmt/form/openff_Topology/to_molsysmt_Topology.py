@@ -3,6 +3,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='openff.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from openff.Topology to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : openff.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.openff_Molecule.to_molsysmt_Topology import to_molsysmt_Topology as mol_to_topology
 

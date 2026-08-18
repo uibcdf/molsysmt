@@ -1,6 +1,16 @@
 import re
 
 def replace_HETATM_by_ATOM_in_terminal_cappings (molecular_system):
+    """
+    Performing replace HETATM by ATOM in terminal cappings on form file:pdb.
+
+    Parameters
+    ----------
+    item : file:pdb
+        Target item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+    """
 
     from molsysmt import get_form
 

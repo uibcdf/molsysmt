@@ -4,6 +4,21 @@ from molsysmt._private.variables import make_coordinates_like
 import numpy as np
 
 def get_rank_3_XYZ(item):
+    """
+    Getting attributes from an item of form XYZ.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    object
+        Extracted attribute values.
+    """
 
     try:
         return make_coordinates_like(item, standardized=False)

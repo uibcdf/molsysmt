@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:amino_acids_3')
 def to_biopython_SeqRecord(item, group_indices='all', skip_digestion=False):
+    """
+    Converting from string:amino_acids_3 to biopython.SeqRecord.
+
+    Parameters
+    ----------
+    item : string:amino_acids_3
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    biopython.SeqRecord
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.string_amino_acids_1.to_string_amino_acids_1 import to_string_amino_acids_1
     from molsysmt.form.string_amino_acids_1.to_biopython_SeqRecord import to_biopython_SeqRecord as string_amino_acids_1_to_biopython_SeqRecord

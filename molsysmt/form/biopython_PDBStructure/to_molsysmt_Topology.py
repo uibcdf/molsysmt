@@ -4,6 +4,21 @@ import numpy as np
 
 @arg_digest(form='biopython.PDBStructure')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from biopython.PDBStructure to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : biopython.PDBStructure
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import Topology
     from molsysmt._private.variables import is_all

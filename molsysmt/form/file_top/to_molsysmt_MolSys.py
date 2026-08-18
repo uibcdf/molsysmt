@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:top')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:top to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : file:top
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
 
     from .to_parmed_GromacsTopologyFile import to_parmed_GromacsTopologyFile
     from molsysmt.form.parmed_GromacsTopologyFile.to_molsysmt_MolSys import to_molsysmt_MolSys as parmed_GromacsTopologyFile_to_molsysmt_MolSys

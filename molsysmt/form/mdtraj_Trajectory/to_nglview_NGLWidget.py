@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='mdtraj.Trajectory')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.Trajectory to nglview.NGLWidget.
+
+    Parameters
+    ----------
+    item : mdtraj.Trajectory
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    nglview.NGLWidget
+        Converted molecular system representation.
+    """
 
     from . import extract
     from nglview import show_mdtraj as show_mdtraj

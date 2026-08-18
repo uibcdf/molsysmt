@@ -5,6 +5,21 @@ from molsysmt import pyunitwizard as puw
 
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from mmcif.PdbxContainers.DataContainer to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : mmcif.PdbxContainers.DataContainer
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
 

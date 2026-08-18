@@ -3,6 +3,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='openmm.Topology')
 def copy(item, skip_digestion=False):
+    """
+    Creating a copy of an item of form openmm.Topology.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Topology
+        Copied item.
+    """
 
     from openmm.app import Topology
 

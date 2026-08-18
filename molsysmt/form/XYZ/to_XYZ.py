@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='XYZ')
 def to_XYZ(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Converting from XYZ to XYZ.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    XYZ
+        Converted molecular system representation.
+    """
 
     from .extract import extract
 

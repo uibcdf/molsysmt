@@ -7,6 +7,21 @@ def to_molsysmt_MolSys(
     structure_indices='all',
     skip_digestion=False,
 ):
+    """
+    Converting from molsysmt.StructuresDict to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
 
     from molsysmt.native.molsys import MolSys
     from .to_molsysmt_MolecularMechanics import to_molsysmt_MolecularMechanics

@@ -7,6 +7,21 @@ def to_openmm_Context(item, atom_indices='all', structure_indices='all',
         dispersion_correction=False, ewald_error_tolerance=0.0005,
         integrator='Langevin', temperature='300.0 kelvin', friction='1.0/picoseconds', time_step='2 femtoseconds',
         platform='CUDA', skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to openmm.Context.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Context
+        Converted molecular system representation.
+    """
 
     from .to_openmm_Topology import to_openmm_Topology
     from . import get_coordinates_from_atom

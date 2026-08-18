@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.Modeller')
 def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.Modeller to mdtraj.Trajectory.
+
+    Parameters
+    ----------
+    item : openmm.Modeller
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Trajectory
+        Converted molecular system representation.
+    """
 
     try:
         from mdtraj.core.trajectory import Trajectory as mdtraj_Trajectory

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.PDBFile')
 def to_openmm_Topology(item, atom_indices='all', structure_indices='all', get_missing_bonds=True, skip_digestion=False):
+    """
+    Converting from openmm.PDBFile to openmm.Topology.
+
+    Parameters
+    ----------
+    item : openmm.PDBFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Topology
+        Converted molecular system representation.
+    """
 
     from openmm.app import PDBFile
     import os

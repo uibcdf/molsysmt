@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='file:fasta')
 @dep_digest('Bio')
 def to_string_amino_acids_1(item, skip_digestion=False):
+    """
+    Converting from file:fasta to string.amino.acids.1.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.amino.acids.1
+        Converted molecular system representation.
+    """
 
     from .to_biopython_SeqRecord import to_biopython_SeqRecord
 

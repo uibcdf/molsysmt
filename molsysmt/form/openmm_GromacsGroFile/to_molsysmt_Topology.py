@@ -5,6 +5,21 @@ from depdigest import dep_digest
 @arg_digest(form='openmm.GromacsGroFile')
 @dep_digest('openmm')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.GromacsGroFile to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : openmm.GromacsGroFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import Topology
     from molsysmt.element.group import get_group_type_from_group_name

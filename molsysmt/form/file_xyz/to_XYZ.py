@@ -5,6 +5,21 @@ import numpy as np
 
 @arg_digest(form='file:xyz')
 def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:xyz to XYZ.
+
+    Parameters
+    ----------
+    item : file:xyz
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    XYZ
+        Converted molecular system representation.
+    """
 
     from .get_structural_attributes import _read_xyz
 

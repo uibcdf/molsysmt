@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.PDBFileHandler')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
+    """
+    Converting from molsysmt.PDBFileHandler to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.PDBFileHandler
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
     from .to_molsysmt_MolSys import _build_topology_from_content

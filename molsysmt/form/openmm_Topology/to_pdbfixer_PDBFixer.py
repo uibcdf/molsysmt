@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.Topology')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', coordinates=None, skip_digestion=False):
+    """
+    Converting from openmm.Topology to pdbfixer.PDBFixer.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    pdbfixer.PDBFixer
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.string_pdb_text.to_string_pdb_text import to_string_pdb_text as to_string_pdb_text
     from molsysmt.form.string_pdb_text.to_pdbfixer_PDBFixer import to_pdbfixer_PDBFixer as string_pdb_text_to_pdbfixer_PDBFixer

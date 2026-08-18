@@ -5,6 +5,21 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all',
         forcefield='AMBER14', water_model=None, implicit_solvent=None,
         non_bonded_method='no cutoff', constraints='hbonds', switch_distance=None,
         dispersion_correction=False, ewald_error_tolerance=0.0005, skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to openmm.System.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.System
+        Converted molecular system representation.
+    """
 
     # The sibling converter, which turns *this* form into an openmm.Topology. Reaching
     # for openmm_Topology's own to_openmm_Topology handed a molsysmt.MolSys to a

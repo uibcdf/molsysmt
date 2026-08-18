@@ -9,6 +9,21 @@ def to_file_psf(
     copy_if_all=True,
     skip_digestion=False,
 ):
+    """
+    Converting from file:psf to file.psf.
+
+    Parameters
+    ----------
+    item : file:psf
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.psf
+        Converted molecular system representation.
+    """
 
     from .extract import extract
 

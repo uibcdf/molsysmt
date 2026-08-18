@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:pdb_id')
 def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:pdb_id to openmm.PDBFile.
+
+    Parameters
+    ----------
+    item : string:pdb_id
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.PDBFile
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.string_pdb_id.to_string_pdb_text import to_string_pdb_text
     from molsysmt.form.string_pdb_text.to_openmm_PDBFile import to_openmm_PDBFile as string_pdb_text_to_openmm_PDBFile

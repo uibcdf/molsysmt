@@ -4,6 +4,21 @@ from molsysmt import pyunitwizard as puw
 
 @arg_digest(form='XYZ')
 def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+    """
+    Converting from XYZ to file.xyznpy.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.xyznpy
+        Converted molecular system representation.
+    """
 
     from molsysmt._private.variables import is_all
 

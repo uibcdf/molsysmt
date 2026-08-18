@@ -5,6 +5,21 @@ import pandas as pd
 
 @arg_digest(form='mdtraj.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.Topology to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : mdtraj.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import Topology
     from molsysmt._private.variables import is_all

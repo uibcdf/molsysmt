@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:pdb')
 def to_MDAnalysis_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from file:pdb to MDAnalysis.Topology.
+
+    Parameters
+    ----------
+    item : file:pdb
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    MDAnalysis.Topology
+        Converted molecular system representation.
+    """
 
     from .to_MDAnalysis_topology_PDBParser import to_MDAnalysis_topology_PDBParser
     from molsysmt.form.MDAnalysis_topology_PDBParser.to_MDAnalysis_Topology import to_MDAnalysis_Topology as MDAnalysis_topology_PDBParser_to_MDAnalysis_Topology

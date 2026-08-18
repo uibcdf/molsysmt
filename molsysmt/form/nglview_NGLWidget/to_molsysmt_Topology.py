@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='nglview.NGLWidget')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
+    """
+    Converting from nglview.NGLWidget to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : nglview.NGLWidget
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from ._topology_sidecar import get_topology_sidecar
 

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='MDAnalysis.AtomGroup')
 def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from MDAnalysis.AtomGroup to MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.AtomGroup
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    MDAnalysis.Universe
+        Converted molecular system representation.
+    """
 
     from molsysmt._private.variables import is_all
 

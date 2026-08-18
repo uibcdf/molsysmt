@@ -5,6 +5,21 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all',
                      forcefield=None, non_bonded_method='no_cutoff', non_bonded_cutoff='1.0 nm', constraints=None,
                      rigid_water=True, remove_cm_motion=True, hydrogen_mass=None, switch_distance=None,
                      flexible_constraints=False, skip_digestion=False):
+    """
+    Converting from openmm.Modeller to openmm.System.
+
+    Parameters
+    ----------
+    item : openmm.Modeller
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.System
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
     from molsysmt.form.openmm_Topology.to_openmm_System import to_openmm_System as openmm_Topology_to_openmm_System

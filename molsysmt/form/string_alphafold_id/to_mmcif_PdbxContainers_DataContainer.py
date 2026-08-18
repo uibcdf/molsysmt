@@ -3,6 +3,21 @@ from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlg
 
 @arg_digest(form='string:alphafold_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:alphafold_id to mmcif.PdbxContainers.DataContainer.
+
+    Parameters
+    ----------
+    item : string:alphafold_id
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mmcif.PdbxContainers.DataContainer
+        Converted molecular system representation.
+    """
 
     from mmcif.io.BinaryCifReader import BinaryCifReader
     import urllib.request

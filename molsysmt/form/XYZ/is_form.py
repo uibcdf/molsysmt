@@ -3,6 +3,19 @@ import numpy as np
 from pathlib import PurePath
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form XYZ.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form XYZ, False otherwise.
+    """
 
     output = False
 

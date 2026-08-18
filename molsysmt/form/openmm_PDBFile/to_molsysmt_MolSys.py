@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.PDBFile')
 def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.PDBFile to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : openmm.PDBFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
 
     from molsysmt.native.molsys_old import MolSys
     from molsysmt.form.molsysmt_TopologyOld.to_molsysmt_Topology import to_molsysmt_Topology

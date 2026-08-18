@@ -1,5 +1,18 @@
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form molsysmt.StructuresDict, False otherwise.
+    """
 
     output = False
 

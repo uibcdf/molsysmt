@@ -3,6 +3,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='openmm.Topology')
 def to_string_pdb_text(item, atom_indices='all', coordinates=None, box=None, skip_digestion=False):
+    """
+    Converting from openmm.Topology to string.pdb.text.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.pdb.text
+        Converted molecular system representation.
+    """
 
     from io import StringIO
     from openmm.app import PDBFile

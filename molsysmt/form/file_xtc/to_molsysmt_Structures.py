@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:xtc')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:xtc to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : file:xtc
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from .to_mdtraj_XTCTrajectoryFile import to_mdtraj_XTCTrajectoryFile
     from molsysmt.form.mdtraj_XTCTrajectoryFile.to_molsysmt_Structures import to_molsysmt_Structures as mdtraj_XTCTrajectoryFile_to_molsysmt_Structures

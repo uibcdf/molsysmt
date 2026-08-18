@@ -4,6 +4,21 @@ import numpy as np
 
 @arg_digest(form='mdtraj.Topology')
 def to_string_amino_acids_3(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.Topology to string.amino.acids.3.
+
+    Parameters
+    ----------
+    item : mdtraj.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.amino.acids.3
+        Converted molecular system representation.
+    """
 
     from . import get_group_index_from_atom
 

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:pdb')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:pdb to string.pdb.text.
+
+    Parameters
+    ----------
+    item : file:pdb
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.pdb.text
+        Converted molecular system representation.
+    """
 
     from ..string_pdb_text.extract import extract as extract_string_pdb_text
 

@@ -509,6 +509,21 @@ def to_molsysmt_MolSys(
     get_missing_bonds=True,
     skip_digestion=False,
 ):
+    """
+    Converting from molsysmt.PDBFileHandler to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : molsysmt.PDBFileHandler
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+    """
     from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
 
     if isinstance(item, (str, os.PathLike)):

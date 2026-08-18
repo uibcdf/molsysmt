@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='mdtraj.HDF5TrajectoryFile')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from mdtraj.HDF5TrajectoryFile to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from .to_mdtraj_Topology import to_mdtraj_Topology
     from molsysmt.form.mdtraj_Topology.to_molsysmt_Topology import to_molsysmt_Topology as mdtraj_Topology_to_molsysmt_Topology_func

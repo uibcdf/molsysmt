@@ -7,6 +7,21 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='openmm.PDBFile')
 @dep_digest('mdtraj')
 def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.PDBFile to mdtraj.Trajectory.
+
+    Parameters
+    ----------
+    item : openmm.PDBFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Trajectory
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
 

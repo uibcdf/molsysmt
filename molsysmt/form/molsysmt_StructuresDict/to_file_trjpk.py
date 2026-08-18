@@ -5,6 +5,21 @@ from molsysmt import pyunitwizard as puw
 
 @arg_digest(form='molsysmt.StructuresDict')
 def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+    """
+    Converting from molsysmt.StructuresDict to file.trjpk.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.trjpk
+        Converted molecular system representation.
+    """
 
     import pickle as pickle
 

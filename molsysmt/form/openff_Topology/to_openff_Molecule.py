@@ -3,6 +3,21 @@ from molsysmt._private.smonitor import NotImplementedMethodError
 
 @arg_digest(form='openff.Topology')
 def to_openff_Molecule(item, skip_digestion=False):
+    """
+    Converting from openff.Topology to openff.Molecule.
+
+    Parameters
+    ----------
+    item : openff.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openff.Molecule
+        Converted molecular system representation.
+    """
 
     molecules = list(item.molecules)
     if len(molecules) == 1:

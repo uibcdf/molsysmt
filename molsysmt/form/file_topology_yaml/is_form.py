@@ -2,6 +2,19 @@ from pathlib import Path
 
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form file:topology_yaml.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form file:topology_yaml, False otherwise.
+    """
     if isinstance(item, Path):
         item = str(item)
 

@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='openmm.GromacsTopFile')
 @dep_digest('openmm')
 def to_openmm_GromacsTopFile(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Converting from openmm.GromacsTopFile to openmm.GromacsTopFile.
+
+    Parameters
+    ----------
+    item : openmm.GromacsTopFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.GromacsTopFile
+        Converted molecular system representation.
+    """
 
 
     from molsysmt._private.variables import is_all

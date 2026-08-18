@@ -2,6 +2,19 @@ from molsysmt._private.smonitor import *
 from molsysmt._private.argdigest import *
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form string:amino_acids_3.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form string:amino_acids_3, False otherwise.
+    """
 
     output = False
 

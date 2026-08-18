@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.GromacsGroFile')
 def to_openmm_Modeller(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.GromacsGroFile to openmm.Modeller.
+
+    Parameters
+    ----------
+    item : openmm.GromacsGroFile
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Modeller
+        Converted molecular system representation.
+    """
 
     # openmm.GromacsGroFile does not expose a full Topology object, so
     # conversion to openmm.Modeller is not supported.

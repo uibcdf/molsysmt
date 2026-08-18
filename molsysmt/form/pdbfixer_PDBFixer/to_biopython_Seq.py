@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='pdbfixer.PDBfixer')
 def to_biopython_Seq(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from pdbfixer.PDBFixer to biopython.Seq.
+
+    Parameters
+    ----------
+    item : pdbfixer.PDBFixer
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    biopython.Seq
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.string_aminoacids1.to_string_aminoacids1 import to_string_aminoacids1
     from molsysmt.form.string_aminoacids1.to_biopython_Seq import to_biopython_Seq as string_aminoacids1_to_biopython_Seq

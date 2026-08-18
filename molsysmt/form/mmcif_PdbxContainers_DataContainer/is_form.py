@@ -1,5 +1,18 @@
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form mmcif.PdbxContainers.DataContainer.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form mmcif.PdbxContainers.DataContainer, False otherwise.
+    """
 
     item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
     output = (item_fullname == 'mmcif.api.PdbxContainers.DataContainer')

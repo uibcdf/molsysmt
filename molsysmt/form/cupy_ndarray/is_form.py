@@ -1,6 +1,19 @@
 import numpy as np
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form cupy_ndarray.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form cupy_ndarray, False otherwise.
+    """
     if item is None:
         return False
 

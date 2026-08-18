@@ -6,6 +6,21 @@ from depdigest import dep_digest
 @dep_digest('MDAnalysis')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None,
         multiframe=True, skip_digestion=False):
+    """
+    Converting from MDAnalysis.Universe to file.pdb.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.pdb
+        Converted molecular system representation.
+    """
 
     atom_group = item.atoms if is_all(atom_indices) else item.atoms[atom_indices]
     frames = 'all' if is_all(structure_indices) else structure_indices

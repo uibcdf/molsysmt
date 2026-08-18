@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.MolSys')
 def to_biopython_PDBStructure(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.MolSys to biopython.PDBStructure.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    biopython.PDBStructure
+        Converted molecular system representation.
+    """
 
     from molsysmt.basic import get
     from Bio.PDB.Structure import Structure

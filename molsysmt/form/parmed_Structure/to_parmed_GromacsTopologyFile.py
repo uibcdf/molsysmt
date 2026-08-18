@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='parmed.Structure')
 def to_parmed_GromacsTopologyFile(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from parmed.Structure to parmed.GromacsTopologyFile.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    parmed.GromacsTopologyFile
+        Converted molecular system representation.
+    """
 
     from . import extract
     from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile

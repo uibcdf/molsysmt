@@ -13,6 +13,25 @@ def extract(
     copy_if_all=True,
     skip_digestion=False,
 ):
+    """
+    Extracting a subset of atoms or structures from form file:psf.
+
+    Parameters
+    ----------
+    item : file:psf
+        Source item.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Atom selection to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file:psf
+        Extracted subset in the same form.
+    """
 
     if output_filename is None:
         output_filename = item

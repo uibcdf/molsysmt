@@ -3,6 +3,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='nglview.NGLWidget')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from nglview.NGLWidget to string.pdb.text.
+
+    Parameters
+    ----------
+    item : nglview.NGLWidget
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.pdb.text
+        Converted molecular system representation.
+    """
 
     from ..string_pdb_text.extract import extract
 

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:dcd')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:dcd to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : file:dcd
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
     from molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_Structures import to_molsysmt_Structures as mdtraj_DCDTrajectoryFile_to_molsysmt_Structures

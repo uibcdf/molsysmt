@@ -5,6 +5,21 @@ form = 'molsysviewer.MolSysView'
 
 @arg_digest(form=form)
 def copy(item, skip_digestion=False):
+    """
+    Creating a copy of an item of form molsysviewer.MolSysView.
+
+    Parameters
+    ----------
+    item : molsysviewer.MolSysView
+        Source item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysviewer.MolSysView
+        Copied item.
+    """
 
     from molsysmt.basic import copy as molsys_copy, convert
     from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys

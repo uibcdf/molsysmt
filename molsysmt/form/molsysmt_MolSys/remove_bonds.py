@@ -4,5 +4,15 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='molsysmt.MolSys')
 def remove_bonds(item, bond_indices='all', skip_digestion=False):
+    """
+    Performing remove bonds on form molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Target item.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+    """
 
     return item.topology.remove_bonds(bond_indices=bond_indices, skip_digestion=True)

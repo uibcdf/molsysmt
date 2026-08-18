@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openmm.Simulation')
 def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.Simulation to pdbfixer.PDBFixer.
+
+    Parameters
+    ----------
+    item : openmm.Simulation
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    pdbfixer.PDBFixer
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.file_pdb.to_file_pdb import to_file_pdb as openmm_Simulation_to_file_pdb
     from molsysmt._private.files_and_directories import temp_filename

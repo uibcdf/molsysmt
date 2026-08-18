@@ -3,6 +3,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='molsysmt.MolecularMechanics')
 def to_molsysmt_MolecularMechanicsDict(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.MolecularMechanics to molsysmt.MolecularMechanicsDict.
+
+    Parameters
+    ----------
+    item : molsysmt.MolecularMechanics
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.MolecularMechanicsDict
+        Converted molecular system representation.
+    """
 
     tmp_item = item.to_dict()
 

@@ -6,6 +6,21 @@ import pandas as pd
 
 @arg_digest(form='parmed.Structure')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from parmed.Structure to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import Topology
     from molsysmt.form.molsysmt_Topology.extract import extract as extract_molsysmt_Topology

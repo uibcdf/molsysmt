@@ -4,6 +4,21 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='nglview.NGLWidget')
 def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
+    """
+    Merging multiple items into a single item of form nglview.NGLWidget.
+
+    Parameters
+    ----------
+    items : list of object
+        List of items to merge.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    nglview.NGLWidget
+        Merged item.
+    """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from ..molsysmt_MolSys.merge import merge as merge_molsysmt_MolSys

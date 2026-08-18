@@ -19,6 +19,29 @@ def append_structures(
     attribute_policy='intersection',
     skip_digestion=False,
 ):
+    """
+    Appending coordinate structures to an item of form molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : molsysmt.Structures
+        Target item.
+    structure_id : object, optional
+        Structure identifier.
+    time : object, optional
+        Time coordinates.
+    coordinates : object, optional
+        Cartesian coordinate array in nanometers.
+    box : object, optional
+        Box vectors in nanometers.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Updated item with appended structures.
+    """
 
     if item is not None:
         to_item.append_structures(

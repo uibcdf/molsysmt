@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:pdb')
 def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:pdb to nglview.NGLWidget.
+
+    Parameters
+    ----------
+    item : file:pdb
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    nglview.NGLWidget
+        Converted molecular system representation.
+    """
 
     from .to_string_pdb_text import to_string_pdb_text
     from molsysmt.form.string_pdb_text.to_nglview_NGLWidget import to_nglview_NGLWidget as string_pdb_text_to_nglview_NGLWidget

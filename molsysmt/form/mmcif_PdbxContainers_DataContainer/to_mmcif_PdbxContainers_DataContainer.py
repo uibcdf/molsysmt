@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Converting from mmcif.PdbxContainers.DataContainer to mmcif.PdbxContainers.DataContainer.
+
+    Parameters
+    ----------
+    item : mmcif.PdbxContainers.DataContainer
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mmcif.PdbxContainers.DataContainer
+        Converted molecular system representation.
+    """
 
     if isinstance(item, str):
         from mmcif.io.PdbxReader import PdbxReader

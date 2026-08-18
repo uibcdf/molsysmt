@@ -4,6 +4,21 @@ from depdigest import dep_digest
 @arg_digest(form='molsysmt.Topology')
 @dep_digest('mdtraj')
 def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from molsysmt.Topology to mdtraj.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Topology
+        Converted molecular system representation.
+    """
 
     import pandas as pd
     from mdtraj import Topology, Single, Double, Triple, Aromatic

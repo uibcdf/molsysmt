@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='string:pdb_id')
 def to_mdtraj_Topology(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:pdb_id to mdtraj.Topology.
+
+    Parameters
+    ----------
+    item : string:pdb_id
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mdtraj.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.string_pdb_id.to_string_pdb_text import to_string_pdb_text
     from molsysmt.form.string_pdb_text.to_mdtraj_Topology import to_mdtraj_Topology as string_pdb_text_to_mdtraj_Topology

@@ -6,6 +6,21 @@ from depdigest import dep_digest
 @dep_digest('Bio')
 def to_file_fasta(item, output_filename=None, id='sequence', name='sequence', description='',
                   skip_digestion=False):
+    """
+    Converting from biopython.Seq to file.fasta.
+
+    Parameters
+    ----------
+    item : biopython.Seq
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.fasta
+        Converted molecular system representation.
+    """
 
     if output_filename is None:
         raise ArgumentError(argument='output_filename', caller='molsysmt.form.biopython_Seq.to_file_fasta',

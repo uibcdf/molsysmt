@@ -5,6 +5,21 @@ from os.path import exists
 
 @arg_digest(form='string:pdb_id')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from string:pdb_id to mmcif.PdbxContainers.DataContainer.
+
+    Parameters
+    ----------
+    item : string:pdb_id
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    mmcif.PdbxContainers.DataContainer
+        Converted molecular system representation.
+    """
 
     from .to_file_bcif_gz import to_file_bcif_gz
     from .to_file_bcif import to_file_bcif

@@ -7,6 +7,21 @@ import numpy as np
 
 @arg_digest(form='molsysmt.Topology')
 def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
+    """
+    Merging multiple items into a single item of form molsysmt.Topology.
+
+    Parameters
+    ----------
+    items : list of object
+        List of items to merge.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Merged item.
+    """
 
     from molsysmt.native import Topology
     from . import extract

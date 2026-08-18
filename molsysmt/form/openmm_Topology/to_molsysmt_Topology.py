@@ -5,6 +5,21 @@ import pandas as pd
 
 @arg_digest(form='openmm.Topology')
 def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_digestion=False):
+    """
+    Converting from openmm.Topology to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import Topology
     from molsysmt.form.molsysmt_Topology.extract import extract as extract_molsysmt_Topology

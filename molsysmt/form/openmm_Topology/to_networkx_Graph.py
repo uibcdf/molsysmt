@@ -5,6 +5,21 @@ import numpy as np
 
 @arg_digest(form='openmm.Topology')
 def to_networkx_Graph(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from openmm.Topology to networkx.Graph.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    networkx.Graph
+        Converted molecular system representation.
+    """
 
     g = nx.Graph()
 

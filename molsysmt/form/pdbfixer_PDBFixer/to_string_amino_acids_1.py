@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='pdbfixer.PDBFixer')
 def to_string_amino_acids_1(item, atom_indices='all', skip_digestion=False):
+    """
+    Converting from pdbfixer.PDBFixer to string.amino.acids.1.
+
+    Parameters
+    ----------
+    item : pdbfixer.PDBFixer
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    string.amino.acids.1
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.string_amino_acids_3.to_string_amino_acids_3 import to_string_amino_acids_3
     from molsysmt.form.string_amino_acids_3.to_string_amino_acids_1 import to_string_amino_acids_1 as string_amino_acids_3_to_string_amino_acids_1

@@ -2,6 +2,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:inpcrd')
 def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:inpcrd to molsysmt.Structures.
+
+    Parameters
+    ----------
+    item : file:inpcrd
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.Structures
+        Converted molecular system representation.
+    """
 
     from molsysmt.form.file_inpcrd.to_openmm_AmberInpcrdFile import to_openmm_AmberInpcrdFile as file_inpcrd_to_openmm_AmberInpcrdFile
     from molsysmt.form.openmm_AmberInpcrdFile.to_molsysmt_Structures import to_molsysmt_Structures as openmm_AmberInpcrdFile_to_molsysmt_Structures

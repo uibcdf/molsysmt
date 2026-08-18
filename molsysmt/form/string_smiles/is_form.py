@@ -7,6 +7,19 @@ _structural = re.compile(r'[bcnops()\[\]=#$@/\\\d]|Cl|Br')
 
 
 def is_form(item):
+    """
+    Checking whether an item is an instance of form string:smiles.
+
+    Parameters
+    ----------
+    item : object
+        Item to check.
+
+    Returns
+    -------
+    bool
+        True if item conforms to form string:smiles, False otherwise.
+    """
 
     if not isinstance(item, str) or not item:
         return False

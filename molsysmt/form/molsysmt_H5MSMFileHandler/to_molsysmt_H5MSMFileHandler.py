@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.H5MSMFileHandler')
 def to_molsysmt_H5MSMFileHandler(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Converting from molsysmt.H5MSMFileHandler to molsysmt.H5MSMFileHandler.
+
+    Parameters
+    ----------
+    item : molsysmt.H5MSMFileHandler
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.H5MSMFileHandler
+        Converted molecular system representation.
+    """
 
     from molsysmt.native.h5msm_file_handler import H5MSMFileHandler
     from molsysmt._private.variables import is_all

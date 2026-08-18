@@ -3,6 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.PDBFileHandler')
 def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+    """
+    Converting from molsysmt.PDBFileHandler to molsysmt.PDBFileHandler.
+
+    Parameters
+    ----------
+    item : molsysmt.PDBFileHandler
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    molsysmt.PDBFileHandler
+        Converted molecular system representation.
+    """
 
     from molsysmt.native.pdb_file_handler import PDBFileHandler
     from molsysmt._private.variables import is_all

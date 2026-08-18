@@ -4,6 +4,21 @@ from molsysmt._private.files_and_directories import str_filename
 @arg_digest(form='file:bcif.gz')
 def to_file_bcif_gz(item, atom_indices='all', structure_indices='all', output_name=None, copy_if_all=True,
                 skip_digestion=False):
+    """
+    Converting from file:bcif.gz to file.bcif.gz.
+
+    Parameters
+    ----------
+    item : file:bcif.gz
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.bcif.gz
+        Converted molecular system representation.
+    """
 
     from .extract import extract
 

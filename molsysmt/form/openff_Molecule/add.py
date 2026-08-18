@@ -3,5 +3,22 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='openff.Molecule', to_form='openff.Molecule')
 def add(to_item, item, atom_indices='all', skip_digestion=False):
+    """
+    Adding elements from another item into an item of form openff.Molecule.
+
+    Parameters
+    ----------
+    to_item : openff.Molecule
+        Target item to modify or add elements to.
+    from_item : object
+        Source item providing elements.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openff.Molecule
+        Target item with added elements.
+    """
 
     raise NotImplementedMethodError()

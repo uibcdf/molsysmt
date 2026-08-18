@@ -5,6 +5,21 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AM
         implicit_solvent=None, non_bonded_method='no cutoff', constraints='hbonds', switch_distance=None,
         dispersion_correction=False, ewald_error_tolerance=0.0005, integrator='Langevin', temperature=None,
         friction='1.0/picoseconds', time_step='2 femtoseconds', platform='CUDA', skip_digestion=False):
+    """
+    Converting from openmm.Topology to openmm.Context.
+
+    Parameters
+    ----------
+    item : openmm.Topology
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    openmm.Context
+        Converted molecular system representation.
+    """
 
 
     from .to_openmm_System import to_openmm_System

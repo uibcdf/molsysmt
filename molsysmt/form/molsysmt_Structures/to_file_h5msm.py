@@ -7,6 +7,21 @@ import numpy as np
 def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_filename=None,
         compression='gzip', compression_opts=4, int_precision='single', float_precision='single',
                   skip_digestion=False):
+    """
+    Converting from molsysmt.Structures to file.h5msm.
+
+    Parameters
+    ----------
+    item : molsysmt.Structures
+        Source item to convert.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    file.h5msm
+        Converted molecular system representation.
+    """
 
     from molsysmt.native import H5MSMFileHandler
 
