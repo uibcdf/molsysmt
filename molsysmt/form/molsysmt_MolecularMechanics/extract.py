@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
@@ -24,5 +24,5 @@ def extract(item, copy_if_all=True, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    raise NotWithThisMolecularSystemError()
+    raise NotWithThisFormError()
 

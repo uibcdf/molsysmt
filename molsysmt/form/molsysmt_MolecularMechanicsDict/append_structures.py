@@ -1,4 +1,4 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.MolecularMechanicsDict')
@@ -29,5 +29,5 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     .. versionadded:: 1.0.0
     """
 
-    raise NotWithThisMolecularSystemError()
+    raise NotWithThisFormError()
 
