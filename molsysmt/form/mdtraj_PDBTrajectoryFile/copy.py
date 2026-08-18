@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : mdtraj.PDBTrajectoryFile
-        Source item.
+        Source item in mdtraj.PDBTrajectoryFile form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.PDBTrajectoryFile
-        Copied item.
+        Resulting object in mdtraj.PDBTrajectoryFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

@@ -8,14 +8,18 @@ def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
     Parameters
     ----------
     item : openmm.Simulation
-        Source item to convert.
+        Source item in openmm.Simulation form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.Topology
-        Converted molecular system representation.
+        Resulting object in openmm.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.openmm_Topology import extract as extract_openmm_Topology

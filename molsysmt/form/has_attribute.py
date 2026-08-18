@@ -18,6 +18,9 @@ def has_attribute(form, attribute, skip_digestion=False):
     attribute: str
         The attribute name to be checked in the molecular system.
 
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
 
     Returns
     -------

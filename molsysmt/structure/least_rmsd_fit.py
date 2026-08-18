@@ -75,6 +75,12 @@ def least_rmsd_fit(
         returned.  If ``False`` a new copy is returned with the fitted
         coordinates.
     syntax : str, default 'MolSysMT'
+    use_gpu : bool, default=False
+        Whether to use GPU acceleration.
+    gpu_backend : str, optional
+        GPU compute backend.
+    precision : str, default=\'single\'
+        Floating point precision.
         Selection syntax used for all selections.
     engine : {'MolSysMT'}, default 'MolSysMT'
         Backend used for the Kabsch rotation computation.

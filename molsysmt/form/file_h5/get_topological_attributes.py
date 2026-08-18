@@ -6,6 +6,23 @@ form='file:h5'
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting n atoms from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     import mdtraj as md
     with md.open(item) as tmp_item:
         # mdtraj HDF5TrajectoryFile has no n_atoms, we check the first frame

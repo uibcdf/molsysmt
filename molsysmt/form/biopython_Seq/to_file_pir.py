@@ -7,19 +7,29 @@ from depdigest import dep_digest
 def to_file_pir(item, output_filename=None, id='sequence', name='sequence', description='',
                 skip_digestion=False):
     """
-    Converting from biopython.Seq to file.pir.
+    Converting from biopython.Seq to file:pir.
 
     Parameters
     ----------
     item : biopython.Seq
-        Source item to convert.
+        Source item in biopython.Seq form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    id : object
+        Argument id.
+    name : object
+        Argument name.
+    description : object
+        Argument description.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.pir
-        Converted molecular system representation.
+    file:pir
+        Resulting object in file:pir form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

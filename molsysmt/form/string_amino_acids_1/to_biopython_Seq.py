@@ -11,14 +11,18 @@ def to_biopython_Seq(item, group_indices='all', skip_digestion=False):
     Parameters
     ----------
     item : string:amino_acids_1
-        Source item to convert.
+        Source item in string:amino_acids_1 form.
+    group_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Group indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     biopython.Seq
-        Converted molecular system representation.
+        Resulting object in biopython.Seq form.
+
+    .. versionadded:: 1.0.0
     """
 
     from Bio.Seq import Seq as bio_Seq

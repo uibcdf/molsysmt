@@ -13,7 +13,24 @@ def add_contacts(view,
         mid_color_value_2=None, max_color_value_2=None,
         color_values_scale_2=None, colormap_2=None, syntax='MolSysMT',
         skip_digestion=False):
-    """Add contact cylinders between atom pairs to an NGLview widget."""
+    """
+    Adding visual contact lines or cylinders between atom pairs in NGLWidget.
+
+    Parameters
+    ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
+    contacts : list of tuple of int or numpy.ndarray
+        Array or list of interacting atom index pairs `(atom_1, atom_2)`.
+    selection : str, default='all'
+        Sub-selection filter.
+    color : str, default='red'
+        Color for contact cylinders.
+    radius : float, default=0.1
+        Radius of contact cylinders in nanometers.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.basic import get, select
     from molsysmt.structure import get_contacts

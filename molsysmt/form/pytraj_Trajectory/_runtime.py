@@ -6,7 +6,16 @@ import sys
 
 
 def has_unsafe_frame_finalizer() -> bool:
-    """Returning whether PyTraj exposes the obsolete double-free finalizer."""
+    """
+    Performing has unsafe frame finalizer on form pytraj.Trajectory.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if sys.version_info < (3, 13):
         return False
@@ -17,7 +26,16 @@ def has_unsafe_frame_finalizer() -> bool:
 
 
 def ensure_safe_runtime() -> None:
-    """Rejecting a PyTraj build known to abort the Python interpreter."""
+    """
+    Performing ensure safe runtime on form pytraj.Trajectory.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if has_unsafe_frame_finalizer():
         from molsysmt._private.smonitor import NotSupportedFormError

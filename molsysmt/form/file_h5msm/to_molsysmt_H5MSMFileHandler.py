@@ -8,14 +8,16 @@ def to_molsysmt_H5MSMFileHandler(item, skip_digestion=False):
     Parameters
     ----------
     item : file:h5msm
-        Source item to convert.
+        Source item in file:h5msm form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.H5MSMFileHandler
-        Converted molecular system representation.
+        Resulting object in molsysmt.H5MSMFileHandler form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.native import H5MSMFileHandler

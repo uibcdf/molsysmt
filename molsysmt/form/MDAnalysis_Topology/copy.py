@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : MDAnalysis.Topology
-        Source item.
+        Source item in MDAnalysis.Topology form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     MDAnalysis.Topology
-        Copied item.
+        Resulting object in MDAnalysis.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     from copy import deepcopy

@@ -13,7 +13,23 @@ def _load_quantity(value, unit):
 @dep_digest('yaml')
 @arg_digest(form='file:structures_yaml')
 def to_molsysmt_StructuresDict(item, skip_digestion=False):
-    """Reading a YAML structures file into StructuresDict."""
+    """
+    Converting from file:structures_yaml to molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : file:structures_yaml
+        Source item in file:structures_yaml form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.StructuresDict
+        Resulting object in molsysmt.StructuresDict form.
+
+    .. versionadded:: 1.0.0
+    """
 
     import yaml
 

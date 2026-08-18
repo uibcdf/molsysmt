@@ -15,6 +15,10 @@ def get_attributes(form, output_type='dictionary', skip_digestion=False):
         Any of :ref:`the supported forms <Introduction_Forms>` by MolSysMT, or a list of them.
 
     output_type : {'dictionary', 'list'}, default 'dictionary'
+        Format of the output container.
+
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
 
     Returns
     -------

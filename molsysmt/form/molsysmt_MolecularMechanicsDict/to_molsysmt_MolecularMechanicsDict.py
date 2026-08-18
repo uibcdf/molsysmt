@@ -8,14 +8,18 @@ def to_molsysmt_MolecularMechanicsDict(item, copy_if_all=True, skip_digestion=Fa
     Parameters
     ----------
     item : molsysmt.MolecularMechanicsDict
-        Source item to convert.
+        Source item in molsysmt.MolecularMechanicsDict form.
+    copy_if_all : object
+        Argument copy_if_all.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolecularMechanicsDict
-        Converted molecular system representation.
+        Resulting object in molsysmt.MolecularMechanicsDict form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .extract import extract

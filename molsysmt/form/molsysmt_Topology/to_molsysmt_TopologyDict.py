@@ -16,7 +16,23 @@ def _normalize_scalar(value):
 
 @arg_digest(form='molsysmt.Topology')
 def to_molsysmt_TopologyDict(item, skip_digestion=False):
-    """Converting Topology to TopologyDict."""
+    """
+    Converting from molsysmt.Topology to molsysmt.TopologyDict.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.TopologyDict
+        Resulting object in molsysmt.TopologyDict form.
+
+    .. versionadded:: 1.0.0
+    """
 
     atoms = []
     for atom_index in range(item.n_atoms):

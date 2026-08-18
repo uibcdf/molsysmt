@@ -24,23 +24,43 @@ def append_structures(
 
     Parameters
     ----------
+    to_item : molsysmt.Structures
+        Target item to modify or add elements to.
     item : molsysmt.Structures
-        Target item.
-    structure_id : object, optional
-        Structure identifier.
-    time : object, optional
-        Time coordinates.
-    coordinates : object, optional
+        Source item in molsysmt.Structures form.
+    structure_id : object
+        Structure identifiers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
+    coordinates : numpy.ndarray or quantity
         Cartesian coordinate array in nanometers.
-    box : object, optional
-        Box vectors in nanometers.
+    velocities : object
+        Argument velocities.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
+    temperature : object
+        Argument temperature.
+    potential_energy : object
+        Argument potential_energy.
+    kinetic_energy : object
+        Argument kinetic_energy.
+    b_factor : object
+        Argument b_factor.
+    alternate_location : object
+        Argument alternate_location.
+    occupancy : object
+        Argument occupancy.
+    attribute_policy : object
+        Argument attribute_policy.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.Structures
-        Updated item with appended structures.
+        Resulting object in molsysmt.Structures form.
+
+    .. versionadded:: 1.0.0
     """
 
     if item is not None:

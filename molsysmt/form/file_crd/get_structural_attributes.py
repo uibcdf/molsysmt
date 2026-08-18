@@ -6,6 +6,27 @@ form = 'file:crd'
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting coordinates from atom in form file:crd.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item in file:crd form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from .to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.molsysmt_Structures.get_structural_attributes import get_coordinates_from_atom as aux_get
 
@@ -15,6 +36,25 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 @arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting coordinates from system in form file:crd.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item in file:crd form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from .to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.molsysmt_Structures.get_structural_attributes import get_coordinates_from_system as aux_get
 
@@ -24,21 +64,97 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting n structures from system in form file:crd.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item in file:crd form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return 1
 
 
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting box from system in form file:crd.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item in file:crd form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return None
 
 
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting time from system in form file:crd.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item in file:crd form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return None
 
 
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting structure id from system in form file:crd.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item in file:crd form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return None
 
 

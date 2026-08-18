@@ -10,14 +10,18 @@ def copy(item, output_filename=None, skip_digestion=False):
     Parameters
     ----------
     item : molsysmt.PDBFileHandler
-        Source item.
+        Source item in molsysmt.PDBFileHandler form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.PDBFileHandler
-        Copied item.
+        Resulting object in molsysmt.PDBFileHandler form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError

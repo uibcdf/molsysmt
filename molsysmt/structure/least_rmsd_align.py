@@ -47,6 +47,12 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
     reference_structure_index : int, default 0
         Single frame index in the reference system to align to.
     syntax : str, default 'MolSysMT'
+    use_gpu : bool, default=False
+        Whether to use GPU acceleration.
+    gpu_backend : str, optional
+        GPU compute backend.
+    precision : str, default=\'single\'
+        Floating point precision.
         Selection syntax used for both selections.
     engine_sequence_alignment : {'Biopython'}, default 'Biopython'
         Backend used for pairwise sequence alignment.

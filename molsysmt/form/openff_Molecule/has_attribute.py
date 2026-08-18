@@ -7,13 +7,21 @@ def has_attribute(item, attribute, include_none=False, skip_digestion=False):
 
     Parameters
     ----------
+    item : openff.Molecule
+        Source item in openff.Molecule form.
     attribute : str
         Attribute name to query.
+    include_none : object
+        Argument include_none.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     bool
-        True if attribute is supported, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     from .attributes import attributes

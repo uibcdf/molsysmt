@@ -6,13 +6,28 @@ from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlg
 def get_entity_index(molecular_system, element='entity', selection='all',
                      redefine_indices=False, syntax='MolSysMT',
                      skip_digestion=False):
-    """Returning entity indices for a molecular system.
+    """
+    Getting 0-based entity indices from a molecular system.
 
-    Notes
-    -----
-    Entity indices are form-agnostic at the public API level. When they are
-    redefined, the grouping follows the native local rule that collapses water
-    molecules into a single entity key and groups the rest by molecule name.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='entity'
+        Structural element level at which entity indices are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of int
+        List of 0-based entity indices.
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

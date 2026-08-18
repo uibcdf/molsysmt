@@ -2,11 +2,22 @@
 
 MolSysMT is built on a form-agnostic architecture capable of ingesting, querying, and converting between dozens of data representations—including native memory containers, third-party library classes, disk file formats, and in-memory text representations.
 
-|      |      |
+---
+
+## Form Categories
+
+| Category | Description |
 | :--- | :--- |
 | [Class Forms](class/index.md) | In-memory object classes from MolSysMT and external libraries |
 | [File Forms](file/index.md) | On-disk file formats (PDB, H5MSM, GRO, CIF, XTC, DCD, etc.) |
 | [String Forms](string/index.md) | In-memory string forms (PDB text, sequences, SMILES, IDs) |
+
+---
+
+## Form Operations
+
+| Operation | Description |
+| :--- | :--- |
 | [Get attributes](get_attributes.ipynb) | Querying full attribute dictionaries for forms |
 | [Has attribute](has_attribute.ipynb) | Checking specific attribute availability in forms |
 | [Is item](is_item.ipynb) | Validating if an object is an instanced item of any form |

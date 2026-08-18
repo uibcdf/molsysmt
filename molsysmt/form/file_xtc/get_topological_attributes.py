@@ -6,6 +6,23 @@ form='file:xtc'
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting n atoms from system in form file:xtc.
+
+    Parameters
+    ----------
+    item : file:xtc
+        Source item in file:xtc form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     import mdtraj as md
     with md.open(item) as tmp_item:
         try:

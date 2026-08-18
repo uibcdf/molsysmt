@@ -16,6 +16,27 @@ form='XYZ'
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    """
+    Getting coordinates from atom in form XYZ.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item in XYZ form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from . import get_rank_3_XYZ
 
     tmp_coordinates = get_rank_3_XYZ(item)
@@ -43,6 +64,25 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting n structures from system in form XYZ.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item in XYZ form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if is_all(structure_indices):
 
         from . import get_rank_3_XYZ

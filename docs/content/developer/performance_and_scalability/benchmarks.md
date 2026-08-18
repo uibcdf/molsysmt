@@ -1,4 +1,4 @@
-# Performance & Benchmarking
+# Performance and Benchmarking
 
 MolSysMT is engineered with a strict **performance-first** mindset. To ensure that our safety layers (argument validation and physical unit checks) do not compromise numerical efficiency, we maintain a comprehensive regression-tested benchmarking suite.
 
@@ -19,7 +19,7 @@ Below is our interactive performance dashboard, compiled dynamically from the la
 
 ---
 
-## Benchmarking Philosophy & Telemetry
+## Benchmarking Philosophy and Telemetry
 
 Our benchmarking harness is designed around three primary tenets:
 1. **Isolated Resource Telemetry**: Benchmarks are executed inside ephemeral, isolated child subprocesses. This ensures that peak memory footprint metrics (Resident Set Size - RSS) start at a clean, consistent baseline (~477 MB) rather than inheriting cumulative high-water mark footprints from previous tasks.

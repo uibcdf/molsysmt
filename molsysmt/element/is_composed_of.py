@@ -1,5 +1,29 @@
 def is_composed_of(element_1, element_2):
-    """Return True if `element_1` contains `element_2` in the MolSysMT hierarchy."""
+    """
+    Checking whether a molecular system or subset is composed of specific element types.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any supported form.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='group'
+        Target element level to evaluate.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to inspect.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+    **kwargs : dict
+        Keyword arguments specifying expected element types (e.g. `amino_acids=True`, `water=False`).
+
+    Returns
+    -------
+    bool
+        True if composition criteria match, False otherwise.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.element import _plural_elements_to_singular
 

@@ -3,19 +3,27 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='file:mol2')
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
     """
-    Converting from file:mol2 to file.pdb.
+    Converting from file:mol2 to file:pdb.
 
     Parameters
     ----------
     item : file:mol2
-        Source item to convert.
+        Source item in file:mol2 form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.pdb
-        Converted molecular system representation.
+    file:pdb
+        Resulting object in file:pdb form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

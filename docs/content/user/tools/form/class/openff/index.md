@@ -1,17 +1,17 @@
-# Class: Openff
+# OpenFF
 
-Form adapters for in-memory classes from Openff.
+Form adapters for OpenFF in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [openff.Molecule](openff_Molecule.ipynb) | ['OpenFF Toolkit Molecule', 'https://docs.openforcefield.org/projects/toolkit/'] |
-| [openff.Topology](openff_Topology.ipynb) | ['OpenFF Toolkit Topology', 'https://docs.openforcefield.org/projects/toolkit/'] |
+| [Molecule](openff_Molecule.ipynb) | Form adapter for `Molecule` |
+| [Topology](openff_Topology.ipynb) | Form adapter for `Topology` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   openff_Molecule.ipynb
-   openff_Topology.ipynb
+   Molecule <openff_Molecule.ipynb>
+   Topology <openff_Topology.ipynb>
 ```

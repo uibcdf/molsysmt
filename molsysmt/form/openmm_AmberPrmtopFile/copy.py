@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : openmm.AmberPrmtopFile
-        Source item.
+        Source item in openmm.AmberPrmtopFile form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.AmberPrmtopFile
-        Copied item.
+        Resulting object in openmm.AmberPrmtopFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

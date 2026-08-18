@@ -10,14 +10,14 @@ def copy(item):
     Parameters
     ----------
     item : openmm.Context
-        Source item.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Source item in openmm.Context form.
 
     Returns
     -------
     openmm.Context
-        Copied item.
+        Resulting object in openmm.Context form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

@@ -5,6 +5,27 @@ from molsysmt import pyunitwizard as puw
 def add_harmonic_bond_force(molecular_system=None, atom_pair=None,
                             force_constant='1000 kilojoules_per_mole/nm**2', bond_length=None,
                             pbc=False, return_force=False, syntax='MolSysMT', skip_digestion=False):
+    """
+    Adding a HarmonicBondForce restraint between specified atom pairs in an OpenMM System.
+
+    Parameters
+    ----------
+    system : openmm.System
+        Target OpenMM system to modify.
+    bonded_atoms : list of tuple of int
+        List of atom index pairs `(atom_1, atom_2)` to restrain.
+    length : quantity
+        Equilibrium bond distance with length units (e.g. `nanometer`).
+    k : quantity
+        Harmonic force constant with energy/length^2 units (e.g. `kJ/(mol*nm^2)`).
+
+    Returns
+    -------
+    openmm.HarmonicBondForce
+        The added harmonic bond force instance.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import select, get, get_form
     from molsysmt.structure import get_distances

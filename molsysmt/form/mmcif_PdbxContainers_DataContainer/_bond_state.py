@@ -24,7 +24,23 @@ _MERGED_FIELDS = (
 
 
 def metadata_from_chem_comp_bond(record, attributes):
-    """Return canonical metadata supplied by one ``chem_comp_bond`` row."""
+    """
+    Performing metadata from chem comp bond on form mmcif.PdbxContainers.DataContainer.
+
+    Parameters
+    ----------
+    record : object
+        Argument record.
+    attributes : object
+        Argument attributes.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     metadata = {'bond_type': 'covalent', 'evidence': 'explicit'}
     if 'value_order' in attributes:
@@ -38,7 +54,21 @@ def metadata_from_chem_comp_bond(record, attributes):
 
 
 def has_unknown_chem_comp_bond_orders(container):
-    """Return whether supplied mmCIF order codes lack a canonical mapping."""
+    """
+    Performing has unknown chem comp bond orders on form mmcif.PdbxContainers.DataContainer.
+
+    Parameters
+    ----------
+    container : object
+        Argument container.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if not container.exists('chem_comp_bond'):
         return False
@@ -73,7 +103,21 @@ class BondAccumulator:
         return self._key(endpoints) in self._rows
 
     def add(self, endpoints, **metadata):
-        """Add or merge one canonical undirected bond."""
+        """
+        Adding elements from another item into an item of form mmcif.PdbxContainers.DataContainer.
+
+        Parameters
+        ----------
+        endpoints : object
+            Argument endpoints.
+
+        Returns
+        -------
+        mmcif.PdbxContainers.DataContainer
+            Resulting object in mmcif.PdbxContainers.DataContainer form.
+
+        .. versionadded:: 1.0.0
+        """
 
         key = self._key(endpoints)
         evidence = metadata.get('evidence', 'inferred')
@@ -111,13 +155,43 @@ class BondAccumulator:
             current['evidence'] = 'explicit'
 
     def extend(self, endpoints, **metadata):
-        """Add multiple bonds sharing the same metadata."""
+        """
+        Performing extend on form mmcif.PdbxContainers.DataContainer.
+
+        Parameters
+        ----------
+        endpoints : object
+            Argument endpoints.
+
+        Returns
+        -------
+        object
+            Resulting object in object form.
+
+        .. versionadded:: 1.0.0
+        """
 
         for pair in endpoints:
             self.add(pair, **metadata)
 
     def remap(self, kept_indices, replacements=None):
-        """Remap complete records after alternate-location atom filtering."""
+        """
+        Performing remap on form mmcif.PdbxContainers.DataContainer.
+
+        Parameters
+        ----------
+        kept_indices : object
+            Argument kept_indices.
+        replacements : object
+            Argument replacements.
+
+        Returns
+        -------
+        object
+            Resulting object in object form.
+
+        .. versionadded:: 1.0.0
+        """
 
         replacements = replacements or {}
         index_map = {old: new for new, old in enumerate(kept_indices)}
@@ -141,12 +215,30 @@ class BondAccumulator:
 
     @property
     def pairs(self):
-        """Return sorted endpoint pairs."""
+        """
+        Performing pairs on form mmcif.PdbxContainers.DataContainer.
+
+        Returns
+        -------
+        object
+            Resulting object in object form.
+
+        .. versionadded:: 1.0.0
+        """
 
         return [list(pair) for pair in sorted(self._rows)]
 
     def to_dataframe(self):
-        """Return sorted canonical rows without materializing absent columns."""
+        """
+        Converting from mmcif.PdbxContainers.DataContainer to dataframe.
+
+        Returns
+        -------
+        dataframe
+            Resulting object in dataframe form.
+
+        .. versionadded:: 1.0.0
+        """
 
         rows = [self._rows[key] for key in sorted(self._rows)]
         if not rows:

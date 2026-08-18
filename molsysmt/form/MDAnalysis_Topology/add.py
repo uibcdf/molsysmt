@@ -10,15 +10,19 @@ def add(to_item, item, atom_indices='all', skip_digestion=False):
     ----------
     to_item : MDAnalysis.Topology
         Target item to modify or add elements to.
-    from_item : object
-        Source item providing elements.
+    item : MDAnalysis.Topology
+        Source item in MDAnalysis.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     MDAnalysis.Topology
-        Target item with added elements.
+        Resulting object in MDAnalysis.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

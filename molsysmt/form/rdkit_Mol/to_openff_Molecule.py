@@ -10,14 +10,16 @@ def to_openff_Molecule(item, skip_digestion=False):
     Parameters
     ----------
     item : rdkit.Mol
-        Source item to convert.
+        Source item in rdkit.Mol form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openff.Molecule
-        Converted molecular system representation.
+        Resulting object in openff.Molecule form.
+
+    .. versionadded:: 1.0.0
     """
 
     from openff.toolkit.topology import Molecule

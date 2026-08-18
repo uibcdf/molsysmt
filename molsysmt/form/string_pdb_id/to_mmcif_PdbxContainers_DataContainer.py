@@ -11,14 +11,20 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     Parameters
     ----------
     item : string:pdb_id
-        Source item to convert.
+        Source item in string:pdb_id form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mmcif.PdbxContainers.DataContainer
-        Converted molecular system representation.
+        Resulting object in mmcif.PdbxContainers.DataContainer form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_file_bcif_gz import to_file_bcif_gz

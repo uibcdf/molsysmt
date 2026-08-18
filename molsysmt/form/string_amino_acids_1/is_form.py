@@ -4,13 +4,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : string:amino_acids_1
+        Source item in string:amino_acids_1 form.
 
     Returns
     -------
     bool
-        True if item conforms to form string:amino_acids_1, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

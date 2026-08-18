@@ -7,6 +7,25 @@ form = 'networkx.Graph'
 
 @arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting atom index from atom in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices is None:
         return None
     if is_all(indices):
@@ -16,6 +35,25 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting bond index from atom in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices is None:
         return None
     selected_atoms = list(item.nodes if is_all(indices) else indices)
@@ -31,6 +69,25 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting bonded atoms from atom in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices is None:
         return None
     selected_atoms = item.nodes if is_all(indices) else indices
@@ -39,6 +96,25 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
+    """
+    Getting bond index from bond in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices is None:
         return None
     if is_all(indices):
@@ -48,6 +124,25 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
+    """
+    Getting bonded atoms from bond in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices is None:
         return None
     edges = list(item.edges)
@@ -58,11 +153,45 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bond_index_from_system(item, skip_digestion=False):
+    """
+    Getting bond index from system in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bond_index_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting bonded atoms from system in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bonded_atoms_from_bond(item, skip_digestion=True)
 
 
@@ -83,6 +212,25 @@ def _edge_values(item, indices, attribute):
 def _make_node_getter(attribute):
     @arg_digest(form=form)
     def getter(item, indices='all', skip_digestion=False):
+        """
+        Performing getter on form networkx.Graph.
+
+        Parameters
+        ----------
+        item : networkx.Graph
+            Source item in networkx.Graph form.
+        indices : str, list, tuple, or numpy.ndarray, default='all'
+            0-based element indices to extract.
+        skip_digestion : bool, default=False
+            Whether to skip MolSysMT's internal argument digestion mechanism.
+
+        Returns
+        -------
+        object
+            Resulting object in object form.
+
+        .. versionadded:: 1.0.0
+        """
         return _node_values(item, indices, attribute)
 
     getter.__name__ = f'get_{attribute}_from_atom'
@@ -92,6 +240,25 @@ def _make_node_getter(attribute):
 def _make_edge_getter(attribute):
     @arg_digest(form=form)
     def getter(item, indices='all', skip_digestion=False):
+        """
+        Performing getter on form networkx.Graph.
+
+        Parameters
+        ----------
+        item : networkx.Graph
+            Source item in networkx.Graph form.
+        indices : str, list, tuple, or numpy.ndarray, default='all'
+            0-based element indices to extract.
+        skip_digestion : bool, default=False
+            Whether to skip MolSysMT's internal argument digestion mechanism.
+
+        Returns
+        -------
+        object
+            Resulting object in object form.
+
+        .. versionadded:: 1.0.0
+        """
         return _edge_values(item, indices, attribute)
 
     getter.__name__ = f'get_{attribute}_from_bond'
@@ -116,17 +283,68 @@ for _attribute in (
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting n atoms from system in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.number_of_nodes()
 
 
 @arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
+    """
+    Getting n bonds from system in form networkx.Graph.
+
+    Parameters
+    ----------
+    item : networkx.Graph
+        Source item in networkx.Graph form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.number_of_edges()
 
 
 def _make_graph_getter(attribute):
     @arg_digest(form=form)
     def getter(item, skip_digestion=False):
+        """
+        Performing getter on form networkx.Graph.
+
+        Parameters
+        ----------
+        item : networkx.Graph
+            Source item in networkx.Graph form.
+        skip_digestion : bool, default=False
+            Whether to skip MolSysMT's internal argument digestion mechanism.
+
+        Returns
+        -------
+        object
+            Resulting object in object form.
+
+        .. versionadded:: 1.0.0
+        """
         return item.graph.get(attribute)
 
     getter.__name__ = f'get_{attribute}_from_system'

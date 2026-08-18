@@ -6,7 +6,23 @@ from molsysmt.native import MolSysDict
 @dep_digest('yaml')
 @arg_digest(form='file:molsys_yaml')
 def to_molsysmt_MolSysDict(item, skip_digestion=False):
-    """Reading a YAML molecular system file into MolSysDict."""
+    """
+    Converting from file:molsys_yaml to molsysmt.MolSysDict.
+
+    Parameters
+    ----------
+    item : file:molsys_yaml
+        Source item in file:molsys_yaml form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.MolSysDict
+        Resulting object in molsysmt.MolSysDict form.
+
+    .. versionadded:: 1.0.0
+    """
 
     import yaml
 

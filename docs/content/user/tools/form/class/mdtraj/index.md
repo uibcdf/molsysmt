@@ -1,29 +1,29 @@
-# Class: Mdtraj
+# MDTraj
 
-Form adapters for in-memory classes from Mdtraj.
+Form adapters for MDTraj in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [mdtraj.AmberRestartFile](mdtraj_AmberRestartFile.ipynb) | ['', ''] |
-| [mdtraj.DCDTrajectoryFile](mdtraj_DCDTrajectoryFile.ipynb) | ['', ''] |
-| [mdtraj.GroTrajectoryFile](mdtraj_GroTrajectoryFile.ipynb) | ['', ''] |
-| [mdtraj.HDF5TrajectoryFile](mdtraj_HDF5TrajectoryFile.ipynb) | ['', ''] |
-| [mdtraj.PDBTrajectoryFile](mdtraj_PDBTrajectoryFile.ipynb) | ['', ''] |
-| [mdtraj.Topology](mdtraj_Topology.ipynb) | ['', ''] |
-| [mdtraj.Trajectory](mdtraj_Trajectory.ipynb) | ['', ''] |
-| [mdtraj.XTCTrajectoryFile](mdtraj_XTCTrajectoryFile.ipynb) | ['', ''] |
+| [AmberRestartFile](mdtraj_AmberRestartFile.ipynb) | Form adapter for `AmberRestartFile` |
+| [DCDTrajectoryFile](mdtraj_DCDTrajectoryFile.ipynb) | Form adapter for `DCDTrajectoryFile` |
+| [GroTrajectoryFile](mdtraj_GroTrajectoryFile.ipynb) | Form adapter for `GroTrajectoryFile` |
+| [HDF5TrajectoryFile](mdtraj_HDF5TrajectoryFile.ipynb) | Form adapter for `HDF5TrajectoryFile` |
+| [PDBTrajectoryFile](mdtraj_PDBTrajectoryFile.ipynb) | Form adapter for `PDBTrajectoryFile` |
+| [Topology](mdtraj_Topology.ipynb) | Form adapter for `Topology` |
+| [Trajectory](mdtraj_Trajectory.ipynb) | Form adapter for `Trajectory` |
+| [XTCTrajectoryFile](mdtraj_XTCTrajectoryFile.ipynb) | Form adapter for `XTCTrajectoryFile` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   mdtraj_AmberRestartFile.ipynb
-   mdtraj_DCDTrajectoryFile.ipynb
-   mdtraj_GroTrajectoryFile.ipynb
-   mdtraj_HDF5TrajectoryFile.ipynb
-   mdtraj_PDBTrajectoryFile.ipynb
-   mdtraj_Topology.ipynb
-   mdtraj_Trajectory.ipynb
-   mdtraj_XTCTrajectoryFile.ipynb
+   AmberRestartFile <mdtraj_AmberRestartFile.ipynb>
+   DCDTrajectoryFile <mdtraj_DCDTrajectoryFile.ipynb>
+   GroTrajectoryFile <mdtraj_GroTrajectoryFile.ipynb>
+   HDF5TrajectoryFile <mdtraj_HDF5TrajectoryFile.ipynb>
+   PDBTrajectoryFile <mdtraj_PDBTrajectoryFile.ipynb>
+   Topology <mdtraj_Topology.ipynb>
+   Trajectory <mdtraj_Trajectory.ipynb>
+   XTCTrajectoryFile <mdtraj_XTCTrajectoryFile.ipynb>
 ```

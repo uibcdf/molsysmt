@@ -5,13 +5,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
 
     Returns
     -------
     bool
-        True if item conforms to form molsysmt.StructuresDict, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

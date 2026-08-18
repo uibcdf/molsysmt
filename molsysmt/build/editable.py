@@ -11,6 +11,8 @@ def editable(molecular_system=None, skip_digestion=False):
     molecular_system : molecular system, optional
         Molecular system in any supported form. If not provided, an empty
         builder is created.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
 
     Returns
     -------

@@ -6,11 +6,11 @@ This must be a short description of the project
 import importlib
 
 # versioningit
-from importlib.metadata import version, PackageNotFoundError
+from importlib.metadata import version as _version_fn, PackageNotFoundError as _PackageNotFoundError
 
 try:
-    __version__ = version("molsysmt")
-except PackageNotFoundError:
+    __version__ = _version_fn("molsysmt")
+except _PackageNotFoundError:
     # Package is not installed
     try:
         from ._version import __version__

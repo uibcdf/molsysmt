@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : molsysmt.MolecularMechanics
-        Source item.
+        Source item in molsysmt.MolecularMechanics form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolecularMechanics
-        Copied item.
+        Resulting object in molsysmt.MolecularMechanics form.
+
+    .. versionadded:: 1.0.0
     """
 
     return item.copy()

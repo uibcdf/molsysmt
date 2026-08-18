@@ -8,23 +8,21 @@ def append_structures(to_item, item, structure_indices='all', skip_digestion=Fal
 
     Parameters
     ----------
+    to_item : string:uniprot_id
+        Target item to modify or add elements to.
     item : string:uniprot_id
-        Target item.
-    structure_id : object, optional
-        Structure identifier.
-    time : object, optional
-        Time coordinates.
-    coordinates : object, optional
-        Cartesian coordinate array in nanometers.
-    box : object, optional
-        Box vectors in nanometers.
+        Source item in string:uniprot_id form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     string:uniprot_id
-        Updated item with appended structures.
+        Resulting object in string:uniprot_id form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

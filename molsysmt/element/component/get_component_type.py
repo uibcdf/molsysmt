@@ -6,12 +6,32 @@ import pandas as pd
 @arg_digest()
 def get_component_type(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_types=False, syntax='MolSysMT', skip_digestion=False):
-    """Returning component types for a molecular system.
+    """
+    Getting component types from a molecular system.
 
-    Notes
-    -----
-    Explicit types are preserved when available. If `redefine_types=True`, the
-    types are inferred from local group identity and composition.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
+        Structural element level at which component types are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    redefine_indices : bool, default=False
+        Whether to recalculate component indices locally prior to querying.
+    redefine_types : bool, default=False
+        Whether to re-infer component types from constituent groups.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of str
+        List of component type classifications ('protein', 'peptide', 'dna', 'water', etc.).
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

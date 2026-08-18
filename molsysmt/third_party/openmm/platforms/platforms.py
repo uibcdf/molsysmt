@@ -1,34 +1,19 @@
 def available_platforms(verbose=True):
 
-    """Available platforms to run OpenMM integratos
-
-    List of available platforms to run an OpenMM MD integrators.
+    """
+    Listing available OpenMM compute platform backend names on the host machine.
 
     Parameters
     ----------
-    verbose : bool, default=True.
-        If True, the method prints out a message with a line corresponding to each available
-        platorm. If False, the method returns the list of platform names.
+    verbose : bool, default=True
+        If True, prints platform speeds. If False, returns platform names.
 
-    Examples
-    --------
+    Returns
+    -------
+    list of str
+        List of available platform names (e.g. `['Reference', 'CPU', 'CUDA', 'OpenCL']`).
 
-    >>> from molsysmt.third_party.openmm import available_platforms
-    >>> available_platorms()
-    Platform Reference with speed 1.0
-    Platform CPU with speed 10.0
-    Platform CUDA with speed 100.0
-    Platform OpenCL with speed 50.0
-
-
-    Notes
-    -----
-
-    This methods invokes the simtk.openmm methods to work with the class `Platform`. You can check
-    the `section Platforms in the OpenMM User Guide web page
-    <http://docs.openmm.org/7.1.0/userguide/application.html#platforms>`_ and the `OpenMM Python API
-    documentation <http://docs.openmm.org/latest/api-python/generated/simtk.openmm.openmm.Platform.html#>`_.
-
+    .. versionadded:: 1.0.0
     """
 
 
@@ -50,29 +35,15 @@ def available_platforms(verbose=True):
 
 def loading_failures():
 
-    """Loading failures of platorms to run OpenMM integrators
+    """
+    Retrieving OpenMM platform plugin loading failure messages.
 
-    List of failures at the time of importing OpenMM regarding the platforms to run the
-    integrators..
+    Returns
+    -------
+    tuple of str
+        Error strings reported when attempting to dynamically load platform plugins.
 
-    Parameters
-    ----------
-
-    Examples
-    --------
-
-    >>> from molsysmt.third_party.openmm import loading_failures
-    >>> loading_failures()
-    ('Error loading library /home/diego/Myopt/Miniconda/miniconda3/envs/UIBCDF_lab_dev/lib/plugins/libOpenMMCUDA.so: libcufft.so.9.2: cannot open shared object file: No such file or directory', 'Error loading library /home/diego/Myopt/Miniconda/miniconda3/envs/UIBCDF_lab_dev/lib/plugins/libOpenMMRPMDCUDA.so: libOpenMMCUDA.so: cannot open shared object file: No such file or directory', 'Error loading library /home/diego/Myopt/Miniconda/miniconda3/envs/UIBCDF_lab_dev/lib/plugins/libOpenMMDrudeCUDA.so: libOpenMMCUDA.so: cannot open shared object file: No such file or directory', 'Error loading library /home/diego/Myopt/Miniconda/miniconda3/envs/UIBCDF_lab_dev/lib/plugins/libOpenMMAmoebaCUDA.so: libOpenMMCUDA.so: cannot open shared object file: No such file or directory', 'Error loading library /home/diego/Myopt/Miniconda/miniconda3/envs/UIBCDF_lab_dev/lib/plugins/libOpenMMCudaCompiler.so: libnvrtc.so.9.2: cannot open shared object file: No such file or directory')
-
-    Notes
-    -----
-
-    This methods invokes the simtk.openmm methods to work with the class `Platform`. You can check
-    the `section Platforms in the OpenMM User Guide web page
-    <http://docs.openmm.org/7.1.0/userguide/application.html#platforms>`_ and the `OpenMM Python API
-    documentation <http://docs.openmm.org/latest/api-python/generated/simtk.openmm.openmm.Platform.html#>`_.
-
+    .. versionadded:: 1.0.0
     """
 
     from openmm import Platform

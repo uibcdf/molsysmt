@@ -5,14 +5,67 @@ form='openmm.AmberPrmtopFile'
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting n atoms from system in form openmm.AmberPrmtopFile.
+
+    Parameters
+    ----------
+    item : openmm.AmberPrmtopFile
+        Source item in openmm.AmberPrmtopFile form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.topology.getNumAtoms()
 
 @arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
+    """
+    Getting n groups from system in form openmm.AmberPrmtopFile.
+
+    Parameters
+    ----------
+    item : openmm.AmberPrmtopFile
+        Source item in openmm.AmberPrmtopFile form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.topology.getNumResidues()
 
 @arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting atom id from atom in form openmm.AmberPrmtopFile.
+
+    Parameters
+    ----------
+    item : openmm.AmberPrmtopFile
+        Source item in openmm.AmberPrmtopFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from molsysmt.form.openmm_Topology.get_topological_attributes import get_atom_id_from_atom as aux_get
     return aux_get(item.topology, indices=indices, skip_digestion=True)
 

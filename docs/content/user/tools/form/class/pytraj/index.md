@@ -1,17 +1,17 @@
-# Class: Pytraj
+# PyTraj
 
-Form adapters for in-memory classes from Pytraj.
+Form adapters for PyTraj in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [pytraj.Topology](pytraj_Topology.ipynb) | ['', ''] |
-| [pytraj.Trajectory](pytraj_Trajectory.ipynb) | ['', ''] |
+| [Topology](pytraj_Topology.ipynb) | Form adapter for `Topology` |
+| [Trajectory](pytraj_Trajectory.ipynb) | Form adapter for `Trajectory` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   pytraj_Topology.ipynb
-   pytraj_Trajectory.ipynb
+   Topology <pytraj_Topology.ipynb>
+   Trajectory <pytraj_Trajectory.ipynb>
 ```

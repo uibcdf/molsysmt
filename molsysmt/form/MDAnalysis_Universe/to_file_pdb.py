@@ -7,19 +7,29 @@ from depdigest import dep_digest
 def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None,
         multiframe=True, skip_digestion=False):
     """
-    Converting from MDAnalysis.Universe to file.pdb.
+    Converting from MDAnalysis.Universe to file:pdb.
 
     Parameters
     ----------
     item : MDAnalysis.Universe
-        Source item to convert.
+        Source item in MDAnalysis.Universe form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    multiframe : object
+        Argument multiframe.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.pdb
-        Converted molecular system representation.
+    file:pdb
+        Resulting object in file:pdb form.
+
+    .. versionadded:: 1.0.0
     """
 
     atom_group = item.atoms if is_all(atom_indices) else item.atoms[atom_indices]

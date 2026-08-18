@@ -29,6 +29,27 @@ def _slice_structures(value, structure_indices):
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting coordinates from atom in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     frames = _read_frames(item)
     output = _slice_structures(frames.coordinates, structure_indices)
     if not is_all(indices):
@@ -38,6 +59,27 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 @arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting velocities from atom in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     frames = _read_frames(item)
     output = _slice_structures(frames.velocities, structure_indices)
     if output is not None and not is_all(indices):
@@ -49,6 +91,25 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting box from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     frames = _read_frames(item)
     lengths = _slice_structures(frames.cell_lengths, structure_indices)
     angles = _slice_structures(frames.cell_angles, structure_indices)
@@ -66,6 +127,25 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting time from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_frames(item).time, structure_indices)
     if output is None:
         return None
@@ -74,6 +154,25 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting temperature from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_frames(item).temperature, structure_indices)
     if output is None:
         return None
@@ -82,6 +181,25 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
 
 @arg_digest(form=form)
 def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting potential energy from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_frames(item).potentialEnergy, structure_indices)
     if output is None:
         return None
@@ -90,6 +208,25 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
 
 @arg_digest(form=form)
 def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting kinetic energy from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_frames(item).kineticEnergy, structure_indices)
     if output is None:
         return None
@@ -98,6 +235,25 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
 
 @arg_digest(form=form)
 def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting total energy from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     potential = get_potential_energy_from_system(
         item,
         structure_indices=structure_indices,
@@ -115,11 +271,49 @@ def get_total_energy_from_system(item, structure_indices='all', skip_digestion=F
 
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting structure id from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return None
 
 @arg_digest(form=form)
 @dep_digest('mdtraj')
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting n structures from system in form file:h5.
+
+    Parameters
+    ----------
+    item : file:h5
+        Source item in file:h5 form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     import mdtraj as md
     with md.open(item) as tmp_item:
         # mdtraj HDF5TrajectoryFile uses __len__ for n_frames

@@ -11,7 +11,23 @@ form='file:crd'
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-    """Reading the number of atoms from a CHARMM CRD header."""
+    """
+    Getting n atoms from system in form file:crd.
+
+    Parameters
+    ----------
+    item : file:crd
+        Source item in file:crd form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt._private.files_and_directories import str_filename
 

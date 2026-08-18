@@ -4,12 +4,20 @@ pattern = re.compile(r"[0-9][A-Za-z0-9_]{3}")
 pattern_extended = re.compile(r"0{4}[0-9][A-Za-z0-9_]{3}")
 
 def is_form(item):
-    """Checking whether an item matches the local PDB id string format.
+    """
+    Checking whether an item is an instance of form string:pdb_id.
 
-    Notes
-    -----
-    This check validates only the string pattern (`pdb_id:XXXX`, `pdb_XXXX`,
-    or `XXXX`) and does not perform any remote server validation.
+    Parameters
+    ----------
+    item : string:pdb_id
+        Source item in string:pdb_id form.
+
+    Returns
+    -------
+    bool
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     if not isinstance(item, str):

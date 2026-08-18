@@ -5,23 +5,29 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='molsysmt.CIFFileHandler')
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True, skip_digestion=False):
     """
-    Extracting a subset of atoms or structures from form molsysmt.CIFFileHandler.
+    Extracting a subset of elements or structures from form molsysmt.CIFFileHandler.
 
     Parameters
     ----------
     item : molsysmt.CIFFileHandler
-        Source item.
-    selection : str, list, tuple, or numpy.ndarray, default='all'
-        Atom selection to extract.
+        Source item in molsysmt.CIFFileHandler form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices to extract.
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    copy_if_all : object
+        Argument copy_if_all.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.CIFFileHandler
-        Extracted subset in the same form.
+        Resulting object in molsysmt.CIFFileHandler form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

@@ -52,6 +52,6 @@ molsysmt/
 
 To start developing:
 
-- Set up your workspace following the {doc}`fork` and {doc}`../start_dev_env_usage` guides.
-- Explore the {doc}`../dependencies`, {doc}`../argdigest`, and {doc}`../pyunitwizard` architectural overviews.
+- Set up your workspace following the {doc}`fork` and {doc}`start_dev_env_usage` guides.
+- Explore the {doc}`../core_architecture/dependencies`, {doc}`../core_architecture/argdigest`, and {doc}`../core_architecture/pyunitwizard` architectural overviews.
 - Learn our testing workflows in {doc}`../testing/unit_tests`.

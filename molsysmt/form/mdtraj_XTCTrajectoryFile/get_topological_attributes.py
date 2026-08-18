@@ -6,6 +6,23 @@ form = 'mdtraj.XTCTrajectoryFile'
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting n atoms from system in form mdtraj.XTCTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.XTCTrajectoryFile
+        Source item in mdtraj.XTCTrajectoryFile form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     position = item.tell()
     try:
         item.seek(0)

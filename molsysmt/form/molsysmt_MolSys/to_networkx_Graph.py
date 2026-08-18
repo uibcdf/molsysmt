@@ -8,14 +8,18 @@ def to_networkx_Graph(item, atom_indices='all', skip_digestion=False):
     Parameters
     ----------
     item : molsysmt.MolSys
-        Source item to convert.
+        Source item in molsysmt.MolSys form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     networkx.Graph
-        Converted molecular system representation.
+        Resulting object in networkx.Graph form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.molsysmt_Topology.to_networkx_Graph import to_networkx_Graph as molsysmt_Topology_to_networkx_Graph

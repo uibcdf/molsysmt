@@ -8,13 +8,15 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : cupy_ndarray
-        Source item.
+        Source item in cupy_ndarray form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     cupy_ndarray
-        Copied item.
+        Resulting object in cupy_ndarray form.
+
+    .. versionadded:: 1.0.0
     """
     return item.copy()

@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : openmm.CharmmPsfFile
-        Source item.
+        Source item in openmm.CharmmPsfFile form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.CharmmPsfFile
-        Copied item.
+        Resulting object in openmm.CharmmPsfFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

@@ -8,14 +8,22 @@ def to_MDAnalysis_topology_PDBParser(item, atom_indices='all', structure_indices
     Parameters
     ----------
     item : MDAnalysis.topology.PDBParser
-        Source item to convert.
+        Source item in MDAnalysis.topology.PDBParser form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    copy_if_all : object
+        Argument copy_if_all.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     MDAnalysis.topology.PDBParser
-        Converted molecular system representation.
+        Resulting object in MDAnalysis.topology.PDBParser form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .extract import extract

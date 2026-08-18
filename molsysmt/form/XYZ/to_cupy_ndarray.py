@@ -9,14 +9,20 @@ def to_cupy_ndarray(item, atom_indices='all', structure_indices='all', skip_dige
     Parameters
     ----------
     item : XYZ
-        Source item to convert.
+        Source item in XYZ form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     cupy.ndarray
-        Converted molecular system representation.
+        Resulting object in cupy.ndarray form.
+
+    .. versionadded:: 1.0.0
     """
     import cupy as cp
     from molsysmt.form.XYZ.get_structural_attributes import get_coordinates_from_atom

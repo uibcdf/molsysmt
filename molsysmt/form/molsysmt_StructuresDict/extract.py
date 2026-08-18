@@ -5,23 +5,25 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='molsysmt.StructuresDict')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True):
     """
-    Extracting a subset of atoms or structures from form molsysmt.StructuresDict.
+    Extracting a subset of elements or structures from form molsysmt.StructuresDict.
 
     Parameters
     ----------
     item : molsysmt.StructuresDict
-        Source item.
-    selection : str, list, tuple, or numpy.ndarray, default='all'
-        Atom selection to extract.
+        Source item in molsysmt.StructuresDict form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices to extract.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Structure indices (0-based) to include.
+    copy_if_all : object
+        Argument copy_if_all.
 
     Returns
     -------
     molsysmt.StructuresDict
-        Extracted subset in the same form.
+        Resulting object in molsysmt.StructuresDict form.
+
+    .. versionadded:: 1.0.0
     """
 
     if is_all(atom_indices) and is_all(structure_indices):

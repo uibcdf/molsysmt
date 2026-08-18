@@ -9,14 +9,16 @@ def copy(item, skip_digestion=True):
     Parameters
     ----------
     item : openmm.GromacsGroFile
-        Source item.
+        Source item in openmm.GromacsGroFile form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.GromacsGroFile
-        Copied item.
+        Resulting object in openmm.GromacsGroFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     from copy import deepcopy

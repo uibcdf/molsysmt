@@ -1,39 +1,39 @@
-# Class: Openmm
+# OpenMM
 
-Form adapters for in-memory classes from Openmm.
+Form adapters for OpenMM in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [openmm.AmberInpcrdFile](openmm_AmberInpcrdFile.ipynb) | ['', ''] |
-| [openmm.AmberPrmtopFile](openmm_AmberPrmtopFile.ipynb) | ['', ''] |
-| [openmm.CharmmCrdFile](openmm_CharmmCrdFile.ipynb) | ['', ''] |
-| [openmm.CharmmPsfFile](openmm_CharmmPsfFile.ipynb) | ['', ''] |
-| [openmm.Context](openmm_Context.ipynb) | ['', ''] |
-| [openmm.GromacsGroFile](openmm_GromacsGroFile.ipynb) | ['', ''] |
-| [openmm.GromacsTopFile](openmm_GromacsTopFile.ipynb) | ['', ''] |
-| [openmm.Modeller](openmm_Modeller.ipynb) | ['', ''] |
-| [openmm.PDBFile](openmm_PDBFile.ipynb) | ['', ''] |
-| [openmm.Simulation](openmm_Simulation.ipynb) | ['', ''] |
-| [openmm.State](openmm_State.ipynb) | ['', ''] |
-| [openmm.System](openmm_System.ipynb) | ['', ''] |
-| [openmm.Topology](openmm_Topology.ipynb) | ['', ''] |
+| [AmberInpcrdFile](openmm_AmberInpcrdFile.ipynb) | Form adapter for `AmberInpcrdFile` |
+| [AmberPrmtopFile](openmm_AmberPrmtopFile.ipynb) | Form adapter for `AmberPrmtopFile` |
+| [CharmmCrdFile](openmm_CharmmCrdFile.ipynb) | Form adapter for `CharmmCrdFile` |
+| [CharmmPsfFile](openmm_CharmmPsfFile.ipynb) | Form adapter for `CharmmPsfFile` |
+| [Context](openmm_Context.ipynb) | Form adapter for `Context` |
+| [GromacsGroFile](openmm_GromacsGroFile.ipynb) | Form adapter for `GromacsGroFile` |
+| [GromacsTopFile](openmm_GromacsTopFile.ipynb) | Form adapter for `GromacsTopFile` |
+| [Modeller](openmm_Modeller.ipynb) | Form adapter for `Modeller` |
+| [PDBFile](openmm_PDBFile.ipynb) | Form adapter for `PDBFile` |
+| [Simulation](openmm_Simulation.ipynb) | Form adapter for `Simulation` |
+| [State](openmm_State.ipynb) | Form adapter for `State` |
+| [System](openmm_System.ipynb) | Form adapter for `System` |
+| [Topology](openmm_Topology.ipynb) | Form adapter for `Topology` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   openmm_AmberInpcrdFile.ipynb
-   openmm_AmberPrmtopFile.ipynb
-   openmm_CharmmCrdFile.ipynb
-   openmm_CharmmPsfFile.ipynb
-   openmm_Context.ipynb
-   openmm_GromacsGroFile.ipynb
-   openmm_GromacsTopFile.ipynb
-   openmm_Modeller.ipynb
-   openmm_PDBFile.ipynb
-   openmm_Simulation.ipynb
-   openmm_State.ipynb
-   openmm_System.ipynb
-   openmm_Topology.ipynb
+   AmberInpcrdFile <openmm_AmberInpcrdFile.ipynb>
+   AmberPrmtopFile <openmm_AmberPrmtopFile.ipynb>
+   CharmmCrdFile <openmm_CharmmCrdFile.ipynb>
+   CharmmPsfFile <openmm_CharmmPsfFile.ipynb>
+   Context <openmm_Context.ipynb>
+   GromacsGroFile <openmm_GromacsGroFile.ipynb>
+   GromacsTopFile <openmm_GromacsTopFile.ipynb>
+   Modeller <openmm_Modeller.ipynb>
+   PDBFile <openmm_PDBFile.ipynb>
+   Simulation <openmm_Simulation.ipynb>
+   State <openmm_State.ipynb>
+   System <openmm_System.ipynb>
+   Topology <openmm_Topology.ipynb>
 ```

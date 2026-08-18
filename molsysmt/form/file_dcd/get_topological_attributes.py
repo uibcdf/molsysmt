@@ -7,7 +7,23 @@ form='file:dcd'
 @arg_digest(form=form)
 @dep_digest('mdtraj')
 def get_n_atoms_from_system(item, skip_digestion=False):
-    """Reading the atom count through MDTraj's endian-aware DCD reader."""
+    """
+    Getting n atoms from system in form file:dcd.
+
+    Parameters
+    ----------
+    item : file:dcd
+        Source item in file:dcd form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from mdtraj.formats import DCDTrajectoryFile
     from molsysmt._private.backend_output import silence_backend_stdout

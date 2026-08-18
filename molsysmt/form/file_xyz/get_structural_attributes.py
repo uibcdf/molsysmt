@@ -36,6 +36,25 @@ def _read_header(item):
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting n atoms from system in form file:xyz.
+
+    Parameters
+    ----------
+    item : file:xyz
+        Source item in file:xyz form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     _, n_atoms = _read_header(item)
     return n_atoms
 
@@ -43,6 +62,25 @@ def get_n_atoms_from_system(item, structure_indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting n structures from system in form file:xyz.
+
+    Parameters
+    ----------
+    item : file:xyz
+        Source item in file:xyz form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     n_structures, _ = _read_header(item)
     if not is_all(structure_indices):
         return len(structure_indices)
@@ -54,6 +92,25 @@ def get_structure_index_from_system(
     item, structure_indices='all', skip_digestion=False
 ):
 
+    """
+    Getting structure index from system in form file:xyz.
+
+    Parameters
+    ----------
+    item : file:xyz
+        Source item in file:xyz form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     n_structures, _ = _read_header(item)
     output = np.arange(n_structures, dtype=int)
     if not is_all(structure_indices):
@@ -64,6 +121,27 @@ def get_structure_index_from_system(
 @arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from atom in form file:xyz.
+
+    Parameters
+    ----------
+    item : file:xyz
+        Source item in file:xyz form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     _, n_atoms = _read_header(item)
     output = np.arange(n_atoms)
     if not is_all(indices):
@@ -74,6 +152,27 @@ def get_atom_index_from_atom(item, indices='all', structure_indices='all', skip_
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    """
+    Getting coordinates from atom in form file:xyz.
+
+    Parameters
+    ----------
+    item : file:xyz
+        Source item in file:xyz form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     coords = _read_xyz(item)
 
     if not is_all(structure_indices):
@@ -91,6 +190,25 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting coordinates from system in form file:xyz.
+
+    Parameters
+    ----------
+    item : file:xyz
+        Source item in file:xyz form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     coords = _read_xyz(item)
 
     if not is_all(structure_indices):

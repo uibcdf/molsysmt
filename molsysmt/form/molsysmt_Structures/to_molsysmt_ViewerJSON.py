@@ -19,7 +19,23 @@ def _box_vectors(box):
 
 @arg_digest(form='molsysmt.Structures')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
-    """Converting a native Structures object into ViewerJSON (topology-free)."""
+    """
+    Converting from molsysmt.Structures to molsysmt.ViewerJSON.
+
+    Parameters
+    ----------
+    item : molsysmt.Structures
+        Source item in molsysmt.Structures form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.ViewerJSON
+        Resulting object in molsysmt.ViewerJSON form.
+
+    .. versionadded:: 1.0.0
+    """
 
     viewer = ViewerJSON()
     data = viewer.data

@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : pytraj.Trajectory
-        Source item.
+        Source item in pytraj.Trajectory form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     pytraj.Trajectory
-        Copied item.
+        Resulting object in pytraj.Trajectory form.
+
+    .. versionadded:: 1.0.0
     """
 
     from copy import deepcopy

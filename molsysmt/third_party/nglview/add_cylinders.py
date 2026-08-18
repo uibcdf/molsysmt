@@ -12,64 +12,51 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
         mid_color_value_2=None, max_color_value_2=None, color_values_scale_2=None, colormap_2=None,
                  skip_digestion=False):
 
-    """Add cylinders to an NGLview widget to depict bonds or vectors.
-
-    Cylinders can be added to an NGL view (NGLWidget).
+    """
+    Adding 3D cylinders connecting coordinates or atom pairs in NGLWidget.
 
     Parameters
     ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
+    cylinders : list of tuple
+        Pairs of coordinates or atom indices.
+    color : str, default='red'
+        Default cylinder color.
+    radius : float, default=0.1
+        Cylinder radius in nanometers.
+    bottom : list or numpy.ndarray, optional
+        Bottom endpoint coordinates.
+    top : list or numpy.ndarray, optional
+        Top endpoint coordinates.
+    color_values : list or numpy.ndarray, optional
+        Scalar values to map into cylinder colors.
+    min_color_value : float, optional
+        Minimum value for colormap scaling.
+    mid_color_value : float, optional
+        Midpoint value for colormap scaling.
+    max_color_value : float, optional
+        Maximum value for colormap scaling.
+    color_values_scale : str, optional
+        Scaling function for color mapping.
+    colormap : str, optional
+        Matplotlib or custom colormap name.
+    color_values_2 : list or numpy.ndarray, optional
+        Secondary color scalar values.
+    min_color_value_2 : float, optional
+        Minimum value for secondary colormap scaling.
+    mid_color_value_2 : float, optional
+        Midpoint value for secondary colormap scaling.
+    max_color_value_2 : float, optional
+        Maximum value for secondary colormap scaling.
+    color_values_scale_2 : str, optional
+        Scaling function for secondary color mapping.
+    colormap_2 : str, optional
+        Secondary colormap name.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
 
-    view: nglview.NGLWidget
-       A view of the molecular system as an nglview.NGLWidget native object.
-
-    start: Quantity (value:numpy.ndarray, dimensionality:['L']=1)
-       Positions of the origin points for the set of cylinders. A quantity with length
-       dimensions is required (['L']=1), the value must be a numpy ndarray with shape [n_cylinders,
-       3] (n_cylinders is the number of arrows to be added).
-
-    end: Quantity (value:numpy.ndarray, dimensionality:['L']=1)
-       Positions of the end points for the set of cylinders. A quantity with length
-       dimensions is required (['L']=1), the value must be a numpy ndarray with shape [n_cylinders,
-       3] (n_cylinders is the number of arrows to be added).
-
-    color: list, tuple, string default='#808080'
-       HEX or RGB color code of the first half of the cylinder.
-
-    color2: list, tuple, string default='#808080'
-       HEX or RGB color code of the first half of the cylinder.
-
-    radius: Quantity (value:float, dimensionality:['L']=1), default='0.2 angstroms'
-       Radius of the cylinder.
-
-    Returns
-    -------
-    None
-        The method modifies an nglview.NGLWidget object to add a list of arrows.
-
-    Examples
-    --------
-    >>> import molsysmt as msm
-    >>> from molsysmt import pyunitwizard as puw
-    >>> import nglview as nv
-    >>> view = nv.NGLWidget()
-    >>> start = puw.quantity([[0,0,0], [0,5,0]], 'angstroms')
-    >>> end = puw.quantity([[10,0,0], [0,10,0]], 'angstroms')
-    >>> msm.thirds.nglview.add_cylinders(view, start, end, color='#ff0000', color_2='#0000ff', radius='0.2 angstroms')
-    >>> view
-
-    See Also
-    --------
-    :func:`molsysmt.basic.view`, :func:`molsysmt.basic.select`
-
-    Notes
-    -----
-
-    Have a look to the `YYY`_.
-
-    .. YYY:
-       https://uibcdf.org/molsysmt
-
-
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt import get

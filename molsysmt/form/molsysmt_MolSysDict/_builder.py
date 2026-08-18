@@ -25,7 +25,21 @@ def _materialize_derived_components(builder):
 
 
 def build_molsys_builder_from_molsys_dict(item):
-    """Replaying a MolSysDict payload into a declared MolSysBuilder state."""
+    """
+    Performing build molsys builder from molsys dict on form molsysmt.MolSysDict.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSysDict
+        Source item in molsysmt.MolSysDict form.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     data = item.to_dict(copy=True)
     topology = data.get("topology", {}) or {}

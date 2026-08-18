@@ -5,6 +5,27 @@ from molsysmt import pyunitwizard as puw
 @arg_digest()
 def add_point_harmonic_restraint(molecular_system, selection='all', force_constant='5000 kilojoules/(mol*nanometers**2)',
         point=None, pbc=False, return_force=False, syntax='MolSysMT', skip_digestion=False):
+    """
+    Adding a harmonic point restraint pulling particles toward a 3D point in OpenMM.
+
+    Parameters
+    ----------
+    system : openmm.System
+        Target OpenMM system to modify.
+    atom_indices : list of int
+        Atom indices to restrain.
+    point : quantity or list of float
+        Target 3D position in nanometers.
+    k : quantity
+        Spring constant in `kJ/(mol*nm^2)`.
+
+    Returns
+    -------
+    openmm.CustomExternalForce
+        The added point restraint force instance.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce

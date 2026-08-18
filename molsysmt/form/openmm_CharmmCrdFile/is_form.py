@@ -5,13 +5,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
 
     Returns
     -------
     bool
-        True if item conforms to form openmm.CharmmCrdFile, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     item_fullname = item.__class__.__module__+'.'+item.__class__.__name__

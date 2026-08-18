@@ -1,16 +1,16 @@
 # Testing and Quality Assurance
 
-This section covers the testing methodologies, coverage metrics, and continuous integration workflows used in MolSysMT.
+Testing workflows, coverage measurement, continuous integration, and test fixtures.
 
 ---
 
-## Contents
+## Testing Guides
 
-| Topic | Description |
+| Guide | Description |
 | :--- | :--- |
-| {doc}`unit_tests` | Running unit tests with Pytest, fixtures, and parametrization conventions |
+| {doc}`unit_tests` | Running unit tests with Pytest, test organization, and fixtures |
 | {doc}`code_coverage` | Measuring code coverage locally and via Codecov |
-| {doc}`ci` | GitHub Actions workflows, scheduled matrices, and deployment |
+| {doc}`ci` | GitHub Actions CI workflows and validation matrix |
 
 ```{eval-rst}
 .. toctree::

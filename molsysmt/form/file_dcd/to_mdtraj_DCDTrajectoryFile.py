@@ -11,14 +11,20 @@ def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all
     Parameters
     ----------
     item : file:dcd
-        Source item to convert.
+        Source item in file:dcd form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.DCDTrajectoryFile
-        Converted molecular system representation.
+        Resulting object in mdtraj.DCDTrajectoryFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     from mdtraj.formats import DCDTrajectoryFile

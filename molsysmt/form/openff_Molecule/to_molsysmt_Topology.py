@@ -46,7 +46,25 @@ def _bond_stereo_metadata(item):
 
 @arg_digest(form='openff.Molecule')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
-    """Converting independent OpenFF atom and bond chemical fields."""
+    """
+    Converting from openff.Molecule to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : openff.Molecule
+        Source item in openff.Molecule form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Resulting object in molsysmt.Topology form.
+
+    .. versionadded:: 1.0.0
+    """
 
     import pandas as pd
     from molsysmt.native import Topology

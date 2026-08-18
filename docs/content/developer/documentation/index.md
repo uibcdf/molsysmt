@@ -1,19 +1,19 @@
 # Documentation Standards
 
-This section collects editorial guidelines, docstring conventions, and web authoring patterns for MolSysMT contributors.
+Standards, templates, and editorial guidelines for API docstrings, doctests, and Sphinx web documentation.
 
 ---
 
-## Contents
+## Documentation Sections
 
-| Area | Description |
+| Section | Description |
 | :--- | :--- |
-| {doc}`api/index` | Guidelines for writing NumPy-style docstrings and testable doctests |
-| {doc}`web/index` | Guidelines for writing web documentation using MyST Markdown and Sphinx |
+| {doc}`api/index` | Docstrings format, templates, typing, and executable doctests |
+| {doc}`web/index` | MyST Markdown, Sphinx cross-linking, references, and web components |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :hidden:
 
    api/index

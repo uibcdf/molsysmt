@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : openmm.System
-        Source item.
+        Source item in openmm.System form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.System
-        Copied item.
+        Resulting object in openmm.System form.
+
+    .. versionadded:: 1.0.0
     """
 
     tmp_item = item.__copy__()

@@ -4,19 +4,27 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='file:pir')
 def to_file_pir(item, atom_indices='all', output_filename=None, copy_if_all=True, skip_digestion=False):
     """
-    Converting from file:pir to file.pir.
+    Converting from file:pir to file:pir.
 
     Parameters
     ----------
     item : file:pir
-        Source item to convert.
+        Source item in file:pir form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    copy_if_all : object
+        Argument copy_if_all.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.pir
-        Converted molecular system representation.
+    file:pir
+        Resulting object in file:pir form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .extract import extract

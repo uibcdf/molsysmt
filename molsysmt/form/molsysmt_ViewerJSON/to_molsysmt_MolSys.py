@@ -86,7 +86,23 @@ def _collect_coordinates(frames, n_atoms):
 
 @arg_digest(form='molsysmt.ViewerJSON')
 def to_molsysmt_MolSys(item, skip_digestion=False):
-    """Convert a ViewerJSON object into a native MolSys."""
+    """
+    Converting from molsysmt.ViewerJSON to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : molsysmt.ViewerJSON
+        Source item in molsysmt.ViewerJSON form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Resulting object in molsysmt.MolSys form.
+
+    .. versionadded:: 1.0.0
+    """
 
     atoms = item.data.get('atoms', {}) or {}
     frames = item.data.get('structures', item.data.get('estructures', item.data.get('frames', []))) or []

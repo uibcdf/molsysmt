@@ -10,30 +10,26 @@ def to_molsysmt_MolSys(
     atom_indices="all",
     skip_digestion=False,
 ):
-    """Converting a native topology into a MolSys container.
+    """
+    Converting from molsysmt.Topology to molsysmt.MolSys.
 
     Parameters
     ----------
     item : molsysmt.Topology
-        Native topology to wrap.
-    coordinates : quantity, optional
-        Coordinates with shape ``(n_structures, n_atoms, 3)`` and length units.
-    box : quantity, optional
-        Periodic boxes with shape ``(n_structures, 3, 3)`` and length units.
-    atom_indices : array-like or 'all', default 'all'
-        Canonical atom indices to retain.
-    skip_digestion : bool, default False
-        Whether to bypass public argument digestion.
+        Source item in molsysmt.Topology form.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolSys
-        Container preserving the topology and any explicitly supplied structures.
-
-    Notes
-    -----
-    Omitting both ``coordinates`` and ``box`` produces a valid topology-only MolSys with
-    zero structures.
+        Resulting object in molsysmt.MolSys form.
 
     .. versionadded:: 1.0.0
     """

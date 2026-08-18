@@ -9,22 +9,26 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
     Parameters
     ----------
     item : nglview.NGLWidget
-        Target item.
-    structure_id : object, optional
-        Structure identifier.
-    time : object, optional
-        Time coordinates.
-    coordinates : object, optional
+        Source item in nglview.NGLWidget form.
+    structure_id : object
+        Structure identifiers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
+    coordinates : numpy.ndarray or quantity
         Cartesian coordinate array in nanometers.
-    box : object, optional
-        Box vectors in nanometers.
+    velocities : object
+        Argument velocities.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     nglview.NGLWidget
-        Updated item with appended structures.
+        Resulting object in nglview.NGLWidget form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

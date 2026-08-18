@@ -3,19 +3,23 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='molsysmt.Topology')
 def to_string_amino_acids_3(item, group_indices='all', skip_digestion=False):
     """
-    Converting from molsysmt.Topology to string.amino.acids.3.
+    Converting from molsysmt.Topology to string:amino_acids_3.
 
     Parameters
     ----------
     item : molsysmt.Topology
-        Source item to convert.
+        Source item in molsysmt.Topology form.
+    group_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Group indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.amino.acids.3
-        Converted molecular system representation.
+    string:amino_acids_3
+        Resulting object in string:amino_acids_3 form.
+
+    .. versionadded:: 1.0.0
     """
 
     from . import get_group_name_from_group, get_group_type_from_group

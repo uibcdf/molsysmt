@@ -2,9 +2,13 @@
 
 In-memory object and container forms supported across MolSysMT native containers and third-party libraries.
 
-|      |      |
+---
+
+## Supported Libraries and Containers
+
+| Library / Category | Description |
 | :--- | :--- |
-| [MolSysMT Native](molsysmt/index.md) | Native MolSysMT container classes and handlers |
+| [MolSysMT](molsysmt/index.md) | Native MolSysMT container classes and handlers |
 | [OpenMM](openmm/index.md) | OpenMM topology, system, and simulation classes |
 | [MDTraj](mdtraj/index.md) | MDTraj trajectory, topology, and file objects |
 | [MDAnalysis](mdanalysis/index.md) | MDAnalysis Universe and topology classes |

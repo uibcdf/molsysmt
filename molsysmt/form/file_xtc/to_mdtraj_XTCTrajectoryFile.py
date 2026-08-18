@@ -8,14 +8,20 @@ def to_mdtraj_XTCTrajectoryFile(item, atom_indices='all', structure_indices='all
     Parameters
     ----------
     item : file:xtc
-        Source item to convert.
+        Source item in file:xtc form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.XTCTrajectoryFile
-        Converted molecular system representation.
+        Resulting object in mdtraj.XTCTrajectoryFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     from mdtraj.formats import XTCTrajectoryFile

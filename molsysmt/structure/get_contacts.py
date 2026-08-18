@@ -67,6 +67,8 @@ def get_contacts(
         Frame indices for the second selection.  When ``None``, the same frames
         as ``structure_indices`` are used.
     threshold : str or quantity, default '12 angstroms'
+    cell_list : bool, default=False
+        Whether to accelerate calculations with spatial cell lists.
         Distance cutoff for defining a contact.  Accepts any PyUnitWizard-parseable
         length quantity (e.g. ``'12 angstroms'``, ``puw.quantity(1.2, 'nm')``).
     pairs : bool, default False

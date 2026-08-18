@@ -15,7 +15,21 @@ _RECOGNIZED_TYPE_LABELS = set(_ORDER_LABELS) | {'aromatic', 'covalent', 'dative'
 
 
 def has_opaque_bond_types(topology):
-    """Return whether independent scalar bond labels cannot be canonicalized."""
+    """
+    Performing has opaque bond types on form MDAnalysis.Topology.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if not hasattr(topology, 'bonds'):
         return False
@@ -62,7 +76,21 @@ def _apply_value(row, value):
 
 
 def bond_table_from_topology(topology):
-    """Build a canonical bond table from one MDAnalysis Topology."""
+    """
+    Performing bond table from topology on form MDAnalysis.Topology.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if not hasattr(topology, 'bonds'):
         return pd.DataFrame(columns=['atom1_index', 'atom2_index'])

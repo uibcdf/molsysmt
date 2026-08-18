@@ -5,19 +5,21 @@ from depdigest import dep_digest
 @dep_digest('rdkit')
 def to_string_smiles(item, skip_digestion=False):
     """
-    Converting from rdkit.Mol to string.smiles.
+    Converting from rdkit.Mol to string:smiles.
 
     Parameters
     ----------
     item : rdkit.Mol
-        Source item to convert.
+        Source item in rdkit.Mol form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.smiles
-        Converted molecular system representation.
+    string:smiles
+        Resulting object in string:smiles form.
+
+    .. versionadded:: 1.0.0
     """
 
     from rdkit import Chem

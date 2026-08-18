@@ -4,13 +4,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : openff.Molecule
+        Source item in openff.Molecule form.
 
     Returns
     -------
     bool
-        True if item conforms to form openff.Molecule, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     class_module = type(item).__module__

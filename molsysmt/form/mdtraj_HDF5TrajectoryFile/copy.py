@@ -10,14 +10,20 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
     Parameters
     ----------
     item : mdtraj.HDF5TrajectoryFile
-        Source item.
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    progress_bar : object
+        Argument progress_bar.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.HDF5TrajectoryFile
-        Copied item.
+        Resulting object in mdtraj.HDF5TrajectoryFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .get_structural_attributes import get_n_structures_from_system

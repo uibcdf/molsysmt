@@ -3,19 +3,25 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='mmcif.PdbxContainers.DataContainer')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
     """
-    Converting from mmcif.PdbxContainers.DataContainer to string.pdb.text.
+    Converting from mmcif.PdbxContainers.DataContainer to string:pdb_text.
 
     Parameters
     ----------
     item : mmcif.PdbxContainers.DataContainer
-        Source item to convert.
+        Source item in mmcif.PdbxContainers.DataContainer form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.pdb.text
-        Converted molecular system representation.
+    string:pdb_text
+        Resulting object in string:pdb_text form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

@@ -19,7 +19,49 @@ def append_structures(
     attribute_policy='intersection',
     skip_digestion=False,
 ):
-    """Appending one structural block to a native structures dictionary."""
+    """
+    Appending coordinate structures to an item of form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    to_item : molsysmt.StructuresDict
+        Target item to modify or add elements to.
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_id : object
+        Structure identifiers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    velocities : object
+        Argument velocities.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
+    temperature : object
+        Argument temperature.
+    potential_energy : object
+        Argument potential_energy.
+    kinetic_energy : object
+        Argument kinetic_energy.
+    b_factor : object
+        Argument b_factor.
+    alternate_location : object
+        Argument alternate_location.
+    occupancy : object
+        Argument occupancy.
+    attribute_policy : object
+        Argument attribute_policy.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.StructuresDict
+        Resulting object in molsysmt.StructuresDict form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.native import Structures
     from .to_molsysmt_Structures import to_molsysmt_Structures

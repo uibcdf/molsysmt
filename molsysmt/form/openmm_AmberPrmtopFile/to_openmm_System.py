@@ -10,14 +10,20 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_dig
     Parameters
     ----------
     item : openmm.AmberPrmtopFile
-        Source item to convert.
+        Source item in openmm.AmberPrmtopFile form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.System
-        Converted molecular system representation.
+        Resulting object in openmm.System form.
+
+    .. versionadded:: 1.0.0
     """
 
     tmp_item = item.createSystem()

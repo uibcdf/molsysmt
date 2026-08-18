@@ -6,6 +6,27 @@ def pin_atoms(molecular_system, selection='all',
               force_constant='5000 kilojoules/(mol*nanometers**2)',
               pbc=True, return_force=False, syntax='MolSysMT',
               skip_digestion=False):
+    """
+    Pinning selected atoms to fixed Cartesian positions using harmonic restraints in OpenMM.
+
+    Parameters
+    ----------
+    system : openmm.System
+        Target OpenMM system to modify.
+    atom_indices : list of int
+        Atom indices to pin.
+    coordinates : quantity or numpy.ndarray
+        Reference Cartesian coordinate vectors in nanometers.
+    k : quantity
+        Positional spring constant in `kJ/(mol*nm^2)`.
+
+    Returns
+    -------
+    openmm.CustomExternalForce
+        The added pinning restraint force instance.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce

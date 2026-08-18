@@ -10,14 +10,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : openmm.State
-        Source item.
+        Source item in openmm.State form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.State
-        Copied item.
+        Resulting object in openmm.State form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

@@ -53,6 +53,10 @@ def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indic
         Single frame index within the reference system used as the reference
         structure.
     syntax : str, default 'MolSysMT'
+    use_gpu : bool, default=False
+        Whether to use GPU acceleration.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
         Selection syntax used for both selections.
     engine : {'MolSysMT'}, default 'MolSysMT'
         Backend used for the Kabsch rotation and RMSD computation.

@@ -16,6 +16,23 @@ def _read_shape(item):
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting n atoms from system in form file:xyznpy.
+
+    Parameters
+    ----------
+    item : file:xyznpy
+        Source item in file:xyznpy form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _read_shape(item)[1]
 
 
@@ -23,6 +40,27 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 def get_atom_index_from_atom(
     item, indices='all', structure_indices='all', skip_digestion=False
 ):
+    """
+    Getting atom index from atom in form file:xyznpy.
+
+    Parameters
+    ----------
+    item : file:xyznpy
+        Source item in file:xyznpy form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = np.arange(_read_shape(item)[1], dtype=int)
     if not is_all(indices):
         output = output[indices]

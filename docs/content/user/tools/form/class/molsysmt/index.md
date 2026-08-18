@@ -1,41 +1,41 @@
-# Class: MolSysMT
+# MolSysMT
 
-Form adapters for in-memory classes from MolSysMT.
+Form adapters for MolSysMT in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [molsysmt.CIFFileHandler](molsysmt_CIFFileHandler.ipynb) | ['', ''] |
-| [molsysmt.GROFileHandler](molsysmt_GROFileHandler.ipynb) | ['', ''] |
-| [molsysmt.H5MSMFileHandler](molsysmt_H5MSMFileHandler.ipynb) | ['', ''] |
-| [molsysmt.MolSys](molsysmt_MolSys.ipynb) | ['', ''] |
-| [molsysmt.MolSysBuilder](molsysmt_MolSysBuilder.ipynb) | ['Editable native molecular system builder.', ''] |
-| [molsysmt.MolSysDict](molsysmt_MolSysDict.ipynb) | ['Declarative serializable molecular system dictionary.', ''] |
-| [molsysmt.MolecularMechanics](molsysmt_MolecularMechanics.ipynb) | ['', ''] |
-| [molsysmt.MolecularMechanicsDict](molsysmt_MolecularMechanicsDict.ipynb) | ['', ''] |
-| [molsysmt.PDBFileHandler](molsysmt_PDBFileHandler.ipynb) | ['', ''] |
-| [molsysmt.Structures](molsysmt_Structures.ipynb) | ['', ''] |
-| [molsysmt.StructuresDict](molsysmt_StructuresDict.ipynb) | ['', ''] |
-| [molsysmt.Topology](molsysmt_Topology.ipynb) | ['', ''] |
-| [molsysmt.TopologyDict](molsysmt_TopologyDict.ipynb) | ['Declared, serializable topology representation.', ''] |
-| [molsysmt.ViewerJSON](molsysmt_ViewerJSON.ipynb) | ['', ''] |
+| [CIFFileHandler](molsysmt_CIFFileHandler.ipynb) | Form adapter for `CIFFileHandler` |
+| [GROFileHandler](molsysmt_GROFileHandler.ipynb) | Form adapter for `GROFileHandler` |
+| [H5MSMFileHandler](molsysmt_H5MSMFileHandler.ipynb) | Form adapter for `H5MSMFileHandler` |
+| [MolSys](molsysmt_MolSys.ipynb) | Form adapter for `MolSys` |
+| [MolSysBuilder](molsysmt_MolSysBuilder.ipynb) | Form adapter for `MolSysBuilder` |
+| [MolSysDict](molsysmt_MolSysDict.ipynb) | Form adapter for `MolSysDict` |
+| [MolecularMechanics](molsysmt_MolecularMechanics.ipynb) | Form adapter for `MolecularMechanics` |
+| [MolecularMechanicsDict](molsysmt_MolecularMechanicsDict.ipynb) | Form adapter for `MolecularMechanicsDict` |
+| [PDBFileHandler](molsysmt_PDBFileHandler.ipynb) | Form adapter for `PDBFileHandler` |
+| [Structures](molsysmt_Structures.ipynb) | Form adapter for `Structures` |
+| [StructuresDict](molsysmt_StructuresDict.ipynb) | Form adapter for `StructuresDict` |
+| [Topology](molsysmt_Topology.ipynb) | Form adapter for `Topology` |
+| [TopologyDict](molsysmt_TopologyDict.ipynb) | Form adapter for `TopologyDict` |
+| [ViewerJSON](molsysmt_ViewerJSON.ipynb) | Form adapter for `ViewerJSON` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   molsysmt_CIFFileHandler.ipynb
-   molsysmt_GROFileHandler.ipynb
-   molsysmt_H5MSMFileHandler.ipynb
-   molsysmt_MolSys.ipynb
-   molsysmt_MolSysBuilder.ipynb
-   molsysmt_MolSysDict.ipynb
-   molsysmt_MolecularMechanics.ipynb
-   molsysmt_MolecularMechanicsDict.ipynb
-   molsysmt_PDBFileHandler.ipynb
-   molsysmt_Structures.ipynb
-   molsysmt_StructuresDict.ipynb
-   molsysmt_Topology.ipynb
-   molsysmt_TopologyDict.ipynb
-   molsysmt_ViewerJSON.ipynb
+   CIFFileHandler <molsysmt_CIFFileHandler.ipynb>
+   GROFileHandler <molsysmt_GROFileHandler.ipynb>
+   H5MSMFileHandler <molsysmt_H5MSMFileHandler.ipynb>
+   MolSys <molsysmt_MolSys.ipynb>
+   MolSysBuilder <molsysmt_MolSysBuilder.ipynb>
+   MolSysDict <molsysmt_MolSysDict.ipynb>
+   MolecularMechanics <molsysmt_MolecularMechanics.ipynb>
+   MolecularMechanicsDict <molsysmt_MolecularMechanicsDict.ipynb>
+   PDBFileHandler <molsysmt_PDBFileHandler.ipynb>
+   Structures <molsysmt_Structures.ipynb>
+   StructuresDict <molsysmt_StructuresDict.ipynb>
+   Topology <molsysmt_Topology.ipynb>
+   TopologyDict <molsysmt_TopologyDict.ipynb>
+   ViewerJSON <molsysmt_ViewerJSON.ipynb>
 ```

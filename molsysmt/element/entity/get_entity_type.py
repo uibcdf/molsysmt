@@ -4,12 +4,32 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest()
 def get_entity_type(molecular_system, element='entity', selection='all', redefine_indices=False,
                     redefine_types=False, syntax='MolSysMT', skip_digestion=False):
-    """Returning entity types for a molecular system.
+    """
+    Getting entity types from a molecular system.
 
-    Notes
-    -----
-    Explicit types are preserved when available. If types are redefined, they
-    are inferred locally from the molecule types that define each entity.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
+        Structural element level at which entity types are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    redefine_indices : bool, default=False
+        Whether to recalculate entity indices locally prior to querying.
+    redefine_types : bool, default=False
+        Whether to re-infer entity types from constituent molecules.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of str
+        List of entity type classifications ('protein', 'dna', 'water', etc.).
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

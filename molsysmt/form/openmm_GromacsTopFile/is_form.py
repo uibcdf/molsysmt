@@ -5,13 +5,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : openmm.GromacsTopFile
+        Source item in openmm.GromacsTopFile form.
 
     Returns
     -------
     bool
-        True if item conforms to form openmm.GromacsTopFile, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
     from openmm.app import GromacsTopFile
 

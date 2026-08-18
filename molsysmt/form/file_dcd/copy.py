@@ -9,14 +9,14 @@ def copy(item):
     Parameters
     ----------
     item : file:dcd
-        Source item.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Source item in file:dcd form.
 
     Returns
     -------
     file:dcd
-        Copied item.
+        Resulting object in file:dcd form.
+
+    .. versionadded:: 1.0.0
     """
 
     from shutil import copy as copy_file

@@ -104,7 +104,25 @@ def _read_nullable_table(group, dtypes, index):
 
 
 def write_chemical_states(topology, topology_group, dataset_options):
-    """Writing every native chemical state and compatibility hard links."""
+    """
+    Performing write chemical states on form molsysmt.Topology.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
+    topology_group : object
+        Argument topology_group.
+    dataset_options : object
+        Argument dataset_options.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if 'chemical_states' in topology_group:
         del topology_group['chemical_states']
@@ -170,7 +188,23 @@ def write_chemical_states(topology, topology_group, dataset_options):
 
 
 def read_chemical_states(topology_group, n_atoms):
-    """Reading all chemical states from an H5MSM 0.4 topology group."""
+    """
+    Performing read chemical states on form molsysmt.Topology.
+
+    Parameters
+    ----------
+    topology_group : object
+        Argument topology_group.
+    n_atoms : object
+        Argument n_atoms.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if 'chemical_states' not in topology_group:
         raise StructuralInconsistencyError(

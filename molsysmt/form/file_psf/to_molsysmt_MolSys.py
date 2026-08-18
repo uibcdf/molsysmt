@@ -13,7 +13,35 @@ def to_molsysmt_MolSys(
     time=None,
     skip_digestion=False,
 ):
-    """Converting a CHARMM PSF file to a native molecular system."""
+    """
+    Converting from file:psf to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : file:psf
+        Source item in file:psf form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    structure_id : object
+        Structure identifiers.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Resulting object in molsysmt.MolSys form.
+
+    .. versionadded:: 1.0.0
+    """
 
     import numpy as np
     from openmm.app import CharmmPsfFile

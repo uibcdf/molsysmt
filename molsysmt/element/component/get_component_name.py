@@ -4,13 +4,28 @@ import numpy as np
 @arg_digest()
 def get_component_name(molecular_system, element='component', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
-    """Returning component names for a molecular system.
+    """
+    Getting component names from a molecular system.
 
-    Notes
-    -----
-    Explicit names are preserved when available. If `redefine_names=True`, the
-    names may be inferred from local topology evidence using the canonical
-    naming rules documented in `devguide/CORE_SPECIFICATION.md`.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='component'
+        Structural element level at which component names are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of str
+        List of component names.
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

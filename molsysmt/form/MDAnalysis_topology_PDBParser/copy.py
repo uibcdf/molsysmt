@@ -10,14 +10,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : MDAnalysis.topology.PDBParser
-        Source item.
+        Source item in MDAnalysis.topology.PDBParser form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     MDAnalysis.topology.PDBParser
-        Copied item.
+        Resulting object in MDAnalysis.topology.PDBParser form.
+
+    .. versionadded:: 1.0.0
     """
 
     from MDAnalysis.topology.PDBParser import PDBParser

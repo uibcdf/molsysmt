@@ -34,77 +34,265 @@ def _get_atom_state_attribute(item, attribute, indices='all'):
 
 @arg_digest(form=form)
 def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
-    """Getting formal charges from the resolved chemical state."""
+    """
+    Getting formal charge from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _get_atom_state_attribute(item, 'formal_charge', indices=indices)
 
 
 @arg_digest(form=form)
 def get_formal_charge_from_system(item, skip_digestion=False):
-    """Getting atom-aligned formal charges from the resolved chemical state."""
+    """
+    Getting formal charge from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return get_formal_charge_from_atom(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_atom_is_aromatic_from_atom(item, indices='all', skip_digestion=False):
-    """Getting atom aromaticity from the resolved chemical state."""
+    """
+    Getting atom is aromatic from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _get_atom_state_attribute(item, 'atom_is_aromatic', indices=indices)
 
 
 @arg_digest(form=form)
 def get_n_unpaired_electrons_from_atom(item, indices='all', skip_digestion=False):
-    """Getting unpaired-electron counts from the resolved chemical state."""
+    """
+    Getting n unpaired electrons from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _get_atom_state_attribute(item, 'n_unpaired_electrons', indices=indices)
 
 
 @arg_digest(form=form)
 def get_n_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
-    """Getting implicit-hydrogen counts from the resolved chemical state."""
+    """
+    Getting n implicit hydrogens from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _get_atom_state_attribute(item, 'n_implicit_hydrogens', indices=indices)
 
 
 @arg_digest(form=form)
 def get_allows_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
-    """Getting implicit-hydrogen permission flags from the resolved chemical state."""
+    """
+    Getting allows implicit hydrogens from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _get_atom_state_attribute(item, 'allows_implicit_hydrogens', indices=indices)
 
 
 @arg_digest(form=form)
 def get_atom_stereochemistry_from_atom(item, indices='all', skip_digestion=False):
-    """Getting atom stereochemistry from the resolved chemical state."""
+    """
+    Getting atom stereochemistry from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _get_atom_state_attribute(item, 'atom_stereochemistry', indices=indices)
 
 
 @arg_digest(form=form)
 def get_chemical_state_index_from_system(item, skip_digestion=False):
-    """Getting the ordered chemical-state indices."""
+    """
+    Getting chemical state index from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return list(range(len(item._chemical_states)))
 
 
 @arg_digest(form=form)
 def get_chemical_state_id_from_system(item, skip_digestion=False):
-    """Getting the ordered chemical-state identifiers."""
+    """
+    Getting chemical state id from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return [state.state_id for state in item._chemical_states]
 
 
 @arg_digest(form=form)
 def get_n_chemical_states_from_system(item, skip_digestion=False):
-    """Getting the number of chemical states."""
+    """
+    Getting n chemical states from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return len(item._chemical_states)
 
 
 @arg_digest(form=form)
 def get_reference_chemical_state_index_from_system(item, skip_digestion=False):
-    """Getting the reference chemical-state index."""
+    """
+    Getting reference chemical state index from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if len(item._chemical_states) == 1:
         return 0
@@ -113,21 +301,69 @@ def get_reference_chemical_state_index_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_connectivity_completeness_from_system(item, skip_digestion=False):
-    """Getting connectivity completeness for every chemical state."""
+    """
+    Getting connectivity completeness from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return [state.connectivity_completeness for state in item._chemical_states]
 
 
 @arg_digest(form=form)
 def get_component_completeness_from_system(item, skip_digestion=False):
-    """Getting component completeness for every chemical state."""
+    """
+    Getting component completeness from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return [state.component_completeness for state in item._chemical_states]
 
 
 @arg_digest(form=form)
 def get_component_evidence_from_system(item, skip_digestion=False):
-    """Getting component evidence for every chemical state."""
+    """
+    Getting component evidence from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return [state.component_evidence for state in item._chemical_states]
 
@@ -142,6 +378,25 @@ def get_component_evidence_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = list(range(item.atoms.shape[0]))
     else:
@@ -153,6 +408,25 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom id from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_id_from_atom = item.atoms['atom_id'].to_numpy()
 
     if indices=='all':
@@ -168,6 +442,25 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom name from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_name_from_atom = item.atoms['atom_name'].to_numpy()
 
     if indices=='all':
@@ -183,6 +476,25 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom type from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_type_from_atom = item.atoms['atom_type'].to_numpy()
 
     if indices=='all':
@@ -198,6 +510,25 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_isotope_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting isotope from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     values = item.atoms['isotope']
     values = values if is_all(indices) else values.iloc[indices]
     return values.to_list()
@@ -206,6 +537,25 @@ def get_isotope_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
 
     if indices=='all':
@@ -221,6 +571,25 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group id from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_id_from_group = item.groups['group_id'].to_numpy()
 
@@ -238,6 +607,25 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group name from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_name_from_group = item.groups['group_name'].to_numpy()
 
@@ -255,6 +643,25 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group type from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_type_from_group = item.groups['group_type'].to_numpy()
 
@@ -272,6 +679,25 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
 
@@ -290,6 +716,25 @@ def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule id from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
     molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
@@ -311,6 +756,25 @@ def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule name from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
     molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
@@ -332,6 +796,25 @@ def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule type from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
     molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
@@ -353,6 +836,25 @@ def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -374,6 +876,25 @@ def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity id from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -397,6 +918,25 @@ def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity name from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -420,6 +960,25 @@ def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity type from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()       
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -443,6 +1002,25 @@ def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices=='all':
@@ -458,6 +1036,25 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component id from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
 
@@ -475,6 +1072,25 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component name from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
 
@@ -492,6 +1108,25 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component type from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components['component_type'].to_numpy()
 
@@ -509,6 +1144,25 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
 
     if indices=='all':
@@ -524,6 +1178,25 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain id from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_id_from_chain = item.chains['chain_id'].to_numpy()
 
@@ -541,6 +1214,25 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain name from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_name_from_chain = item.chains['chain_name'].to_numpy()
 
@@ -558,6 +1250,25 @@ def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain type from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_type_from_chain = item.chains['chain_type'].to_numpy()
 
@@ -575,6 +1286,25 @@ def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = None
 
     G = Graph()
@@ -603,6 +1333,25 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond type from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
     output = []
     for ii in aux_indices:
@@ -615,6 +1364,25 @@ def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond order from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
     output = []
     for ii in aux_indices:
@@ -627,6 +1395,25 @@ def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atoms from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = None
 
     G = Graph()
@@ -654,6 +1441,25 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = None
 
     if indices=='all':
@@ -675,6 +1481,25 @@ def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bond index from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = None
 
     G = Graph()
@@ -707,6 +1532,25 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atoms from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = None
 
     G = Graph()
@@ -730,6 +1574,25 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atom pairs from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = None
 
     if indices=='all':
@@ -755,6 +1618,25 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n atoms from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.atoms.shape[0]
     else:
@@ -766,12 +1648,50 @@ def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n atoms from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_atoms_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n groups from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.groups.shape[0]
     else:
@@ -785,12 +1705,50 @@ def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n groups from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_groups_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n molecules from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.molecules.shape[0]
     else:
@@ -807,12 +1765,50 @@ def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n molecules from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_molecules_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n entities from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.entities.shape[0]
     else:
@@ -831,12 +1827,50 @@ def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n entities from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_entities_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_components_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n components from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.components.shape[0]
     else:
@@ -850,12 +1884,50 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n components from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_components_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n chains from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.chains.shape[0]
     else:
@@ -869,12 +1941,50 @@ def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n chains from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_chains_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n bonds from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_indices = get_bond_index_from_atom(item, indices, skip_digestion=True)
     output = [len(ii) for ii in bond_indices]
     del bond_indices
@@ -885,6 +1995,25 @@ def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n bonds from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_bonds_from_system(item, skip_digestion=True)
@@ -901,6 +2030,25 @@ def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n inner bonds from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     inner_bond_indices = get_inner_bond_index_from_atom(item, indices, skip_digestion=True)
     output = [len(ii) for ii in inner_bond_indices]
     del inner_bond_indices
@@ -911,6 +2059,25 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n inner bonds from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_bonds_from_system(item, skip_digestion=True)
@@ -927,6 +2094,25 @@ def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n amino acids from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_groups = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -945,12 +2131,50 @@ def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n amino acids from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_amino_acids_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n nucleotides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_groups = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -969,12 +2193,50 @@ def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n nucleotides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_nucleotides_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n ions from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_groups = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -993,12 +2255,50 @@ def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_ions_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n ions from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_ions_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n waters from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_groups = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -1017,12 +2317,50 @@ def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_waters_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n waters from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_waters_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n small molecules from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_groups = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -1041,12 +2379,50 @@ def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n small molecules from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_small_molecules_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n lipids from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_groups = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -1065,12 +2441,50 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n lipids from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_lipids_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n saccharides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_groups = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -1089,12 +2503,50 @@ def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n saccharides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_saccharides_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n peptides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
 
     if indices=='all':
@@ -1115,12 +2567,50 @@ def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n peptides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_peptides_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n proteins from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
 
     if indices=='all':
@@ -1141,12 +2631,50 @@ def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n proteins from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_proteins_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n dnas from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
 
     if indices=='all':
@@ -1167,12 +2695,50 @@ def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n dnas from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_dnas_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n rnas from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
 
     if indices=='all':
@@ -1193,12 +2759,50 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n rnas from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_rnas_from_atom(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n polysaccharides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
 
     if indices=='all':
@@ -1219,6 +2823,25 @@ def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n polysaccharides from atom in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_polysaccharides_from_atom(item, indices=indices, skip_digestion=True)
 
 
@@ -1228,6 +2851,25 @@ def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_atom_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
 
     if indices =='all':
@@ -1255,6 +2897,25 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom id from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     atom_id_from_atom = item.atoms['atom_id'].to_numpy()
 
@@ -1283,6 +2944,25 @@ def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom name from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     atom_name_from_atom = item.atoms['atom_name'].to_numpy()
 
@@ -1311,6 +2991,25 @@ def get_atom_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom type from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     atom_type_from_atom = item.atoms['atom_type'].to_numpy()
 
@@ -1339,6 +3038,25 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = list(range(item.groups.shape[0]))
     else:
@@ -1350,6 +3068,25 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group id from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_id_from_group = item.groups['group_id'].to_numpy()
 
     if indices=='all':
@@ -1365,6 +3102,25 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group name from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_name_from_group = item.groups['group_name'].to_numpy()
 
     if indices=='all':
@@ -1380,6 +3136,25 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group type from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_type_from_group = item.groups['group_type'].to_numpy()
 
     if indices=='all':
@@ -1395,6 +3170,25 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
 
     if indices=='all':
@@ -1410,6 +3204,25 @@ def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule id from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
 
@@ -1428,6 +3241,25 @@ def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule name from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
 
@@ -1446,6 +3278,25 @@ def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule type from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
 
@@ -1464,6 +3315,25 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
 
@@ -1482,6 +3352,25 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity id from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     entity_id_from_entity = item.entities['entity_id'].to_numpy()
@@ -1502,6 +3391,25 @@ def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity name from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     entity_name_from_entity = item.entities['entity_name'].to_numpy()
@@ -1522,6 +3430,25 @@ def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity type from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     entity_type_from_entity = item.entities['entity_type'].to_numpy()
@@ -1542,6 +3469,25 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
 
@@ -1570,6 +3516,25 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component id from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
@@ -1602,6 +3567,25 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component name from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
@@ -1634,6 +3618,25 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component type from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components['component_type'].to_numpy()
@@ -1666,6 +3669,25 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
 
@@ -1696,6 +3718,25 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain id from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_id_from_chain = item.chains['chain_id'].to_numpy()
@@ -1728,6 +3769,25 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain name from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_name_from_chain = item.chains['chain_name'].to_numpy()
@@ -1760,6 +3820,25 @@ def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain type from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_type_from_chain = item.chains['chain_type'].to_numpy()
@@ -1792,6 +3871,25 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_group = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
 
@@ -1810,6 +3908,25 @@ def get_bond_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond type from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
 
@@ -1826,6 +3943,25 @@ def get_bond_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_order_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond order from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
 
@@ -1842,6 +3978,25 @@ def get_bond_order_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atoms from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
 
@@ -1858,6 +4013,25 @@ def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
 
@@ -1874,6 +4048,25 @@ def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bond index from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_group = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
@@ -1897,6 +4090,25 @@ def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atoms from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
     atom_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
@@ -1914,6 +4126,25 @@ def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atom pairs from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_group(item, indices=indices, skip_digestion=True)
 
     if indices=='all':
@@ -1940,6 +4171,25 @@ def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n atoms from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_atom_index_from_group(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -1949,6 +4199,25 @@ def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n atoms from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
@@ -1962,6 +4231,25 @@ def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n groups from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.groups.shape[0]
     else:
@@ -1973,12 +4261,50 @@ def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n groups from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_groups_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n molecules from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
@@ -1991,12 +4317,50 @@ def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n molecules from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_molecules_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n entities from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
@@ -2009,12 +4373,50 @@ def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_entities_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n entities from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_entities_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_components_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n components from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_component_index_from_group(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -2024,6 +4426,25 @@ def get_n_components_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_components_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n components from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
@@ -2041,6 +4462,25 @@ def get_total_n_components_from_group(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n chains from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_chain_index_from_group(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -2050,6 +4490,25 @@ def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n chains from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
@@ -2068,6 +4527,25 @@ def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n bonds from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_indices = get_bond_index_from_group(item, indices=indices, skip_digestion=True)
     output = [len(ii) for ii in bond_indices]
     del bond_indices
@@ -2078,6 +4556,25 @@ def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_bonds_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n bonds from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_bonds_from_system(item, skip_digestion=True)
@@ -2095,6 +4592,25 @@ def get_total_n_bonds_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n inner bonds from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     inner_bond_indices = get_inner_bond_index_from_group(item, indices=indices, skip_digestion=True)
     output = [len(ii) for ii in inner_bond_indices]
     del inner_bond_indices
@@ -2105,6 +4621,25 @@ def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n inner bonds from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_bonds_from_system(item, skip_digestion=True)
@@ -2122,6 +4657,25 @@ def get_total_n_inner_bonds_from_group(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n amino acids from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count('amino acid')
@@ -2132,12 +4686,50 @@ def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n amino acids from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_amino_acids_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n nucleotides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count('nucleotide')
@@ -2148,12 +4740,50 @@ def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n nucleotides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_nucleotides_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_ions_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n ions from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count('ion')
@@ -2164,12 +4794,50 @@ def get_n_ions_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_ions_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n ions from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_ions_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_waters_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n waters from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count('water')
@@ -2180,12 +4848,50 @@ def get_n_waters_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_waters_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n waters from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_waters_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n small molecules from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count('small molecule')
@@ -2196,12 +4902,50 @@ def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n small molecules from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_small_molecules_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n lipids from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count('lipid')
@@ -2212,12 +4956,50 @@ def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_lipids_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n lipids from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_lipids_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n saccharides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
     output = group_types.count('saccharide')
@@ -2228,12 +5010,50 @@ def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n saccharides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_saccharides_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n peptides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_peptides_from_system(item, skip_digestion=True)
     else:
@@ -2248,12 +5068,50 @@ def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n peptides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_peptides_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n proteins from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_proteins_from_system(item, skip_digestion=True)
     else:
@@ -2268,12 +5126,50 @@ def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n proteins from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_proteins_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n dnas from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_dnas_from_system(item, skip_digestion=True)
     else:
@@ -2288,12 +5184,50 @@ def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n dnas from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_dnas_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n rnas from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_rnas_from_system(item, skip_digestion=True)
     else:
@@ -2308,12 +5242,50 @@ def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n rnas from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_rnas_from_group(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n polysaccharides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
     else:
@@ -2328,6 +5300,25 @@ def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n polysaccharides from group in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_polysaccharides_from_group(item, indices=indices, skip_digestion=True)
 
 
@@ -2336,6 +5327,25 @@ def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -2365,6 +5375,25 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom id from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -2395,6 +5424,25 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom name from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
@@ -2425,6 +5473,25 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom type from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -2455,6 +5522,25 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
 
     if indices =='all':
@@ -2482,6 +5568,25 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group id from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     group_id_from_group = item.groups['group_id'].to_numpy()
 
@@ -2510,6 +5615,25 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group name from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     group_name_from_group = item.groups['group_name'].to_numpy()
 
@@ -2538,6 +5662,25 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group type from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     group_type_from_group = item.groups['group_type'].to_numpy()
 
@@ -2566,6 +5709,25 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = list(range(item.molecules.shape[0]))
     else:
@@ -2577,6 +5739,25 @@ def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule id from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
 
     if indices=='all':
@@ -2592,6 +5773,25 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule name from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
 
     if indices=='all':
@@ -2607,6 +5807,25 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule type from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
 
     if indices=='all':
@@ -2622,6 +5841,25 @@ def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
 
     if indices=='all':
@@ -2637,6 +5875,25 @@ def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity id from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     entity_id_from_entity = item.entities['entity_id'].to_numpy()
 
@@ -2655,6 +5912,25 @@ def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity name from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     entity_name_from_entity = item.entities['entity_name'].to_numpy()
 
@@ -2673,6 +5949,25 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity type from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     entity_type_from_entity = item.entities['entity_type'].to_numpy()
 
@@ -2691,6 +5986,25 @@ def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -2723,6 +6037,25 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component id from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
@@ -2756,6 +6089,25 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component name from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
@@ -2789,6 +6141,25 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component type from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
@@ -2822,6 +6193,25 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
@@ -2857,6 +6247,25 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain id from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
@@ -2895,6 +6304,25 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain name from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
@@ -2933,6 +6361,25 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain type from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
@@ -2971,6 +6418,25 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_molecule = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
 
@@ -2989,6 +6455,25 @@ def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond type from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
 
@@ -3005,6 +6490,25 @@ def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond order from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
 
@@ -3021,6 +6525,25 @@ def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atoms from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
 
@@ -3037,6 +6560,25 @@ def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
 
@@ -3053,6 +6595,25 @@ def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bond index from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_molecule = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
@@ -3076,6 +6637,25 @@ def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atoms from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
     atom_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
@@ -3093,6 +6673,25 @@ def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=Fal
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atom pairs from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_molecule(item, indices=indices, skip_digestion=True)
 
     if indices=='all':
@@ -3119,6 +6718,25 @@ def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestio
 @arg_digest(form=form)
 def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n atoms from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_atom_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -3128,6 +6746,25 @@ def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n atoms from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
@@ -3141,6 +6778,25 @@ def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n groups from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_group_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -3150,6 +6806,25 @@ def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n groups from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
@@ -3163,6 +6838,25 @@ def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n molecules from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
@@ -3174,12 +6868,50 @@ def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n molecules from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_molecules_from_molecule(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n entities from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
@@ -3192,12 +6924,50 @@ def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n entities from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_entities_from_molecule(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n components from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_component_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -3207,6 +6977,25 @@ def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_components_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n components from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
@@ -3225,6 +7014,25 @@ def get_total_n_components_from_molecule(item, indices='all', skip_digestion=Fal
 @arg_digest(form=form)
 def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n chains from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_chain_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -3234,6 +7042,25 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n chains from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
@@ -3252,6 +7079,25 @@ def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False): 
 
+    """
+    Getting n bonds from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_bond_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -3261,6 +7107,25 @@ def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n bonds from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
@@ -3274,6 +7139,25 @@ def get_total_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n inner bonds from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_inner_bond_index_from_molecule(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -3283,6 +7167,25 @@ def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n inner bonds from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_bonds_from_system(item, skip_digestion=True)
@@ -3299,6 +7202,25 @@ def get_total_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n amino acids from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = [ ii.count('amino acid') for ii in group_types ]
 
@@ -3308,6 +7230,25 @@ def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n amino acids from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
@@ -3323,6 +7264,25 @@ def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n nucleotides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = [ ii.count('nucleotide') for ii in group_types ]
 
@@ -3332,6 +7292,25 @@ def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n nucleotides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
@@ -3347,6 +7326,25 @@ def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n ions from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = [ ii.count('ion') for ii in group_types ]
 
@@ -3356,6 +7354,25 @@ def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n ions from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_ions_from_system(item, skip_digestion=True)
@@ -3371,6 +7388,25 @@ def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n waters from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = [ ii.count('water') for ii in group_types ]
 
@@ -3380,6 +7416,25 @@ def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n waters from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_waters_from_system(item, skip_digestion=True)
@@ -3395,6 +7450,25 @@ def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n small molecules from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = [ ii.count('small molecule') for ii in group_types ]
 
@@ -3404,6 +7478,25 @@ def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_total_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n small molecules from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
@@ -3419,6 +7512,25 @@ def get_total_n_small_molecules_from_molecule(item, indices='all', skip_digestio
 @arg_digest(form=form)
 def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n lipids from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = [ ii.count('lipid') for ii in group_types ]
 
@@ -3428,6 +7540,25 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n lipids from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_lipids_from_system(item, skip_digestion=True)
@@ -3443,6 +7574,25 @@ def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n saccharides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = [ ii.count('saccharide') for ii in group_types ]
 
@@ -3452,6 +7602,25 @@ def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n saccharides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_saccharides_from_system(item, skip_digestion=True)
@@ -3467,6 +7636,25 @@ def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n peptides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = molecule_types.count('peptide')
 
@@ -3476,6 +7664,25 @@ def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n peptides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_n_peptides_from_molecule(item, indices=indices, skip_digestion=True)
 
     return output
@@ -3484,6 +7691,25 @@ def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n proteins from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = molecule_types.count('protein')
 
@@ -3493,6 +7719,25 @@ def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n proteins from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_n_proteins_from_molecule(item, indices=indices, skip_digestion=True)
 
     return output
@@ -3501,6 +7746,25 @@ def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n polysaccharides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = molecule_types.count('polysaccharide')
 
@@ -3510,6 +7774,25 @@ def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n polysaccharides from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_n_polysaccharides_from_molecule(item, indices=indices, skip_digestion=True)
 
     return output
@@ -3518,6 +7801,25 @@ def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestio
 @arg_digest(form=form)
 def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n dnas from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = molecule_types.count('dna')
 
@@ -3527,6 +7829,25 @@ def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n dnas from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_n_dnas_from_molecule(item, indices=indices, skip_digestion=True)
 
     return output
@@ -3535,6 +7856,25 @@ def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n rnas from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
     output = molecule_types.count('rna')
 
@@ -3544,6 +7884,25 @@ def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n rnas from molecule in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_n_rnas_from_molecule(item, indices=indices, skip_digestion=True)
 
     return output
@@ -3555,6 +7914,25 @@ def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -3587,6 +7965,25 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom id from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -3620,6 +8017,25 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom name from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -3653,6 +8069,25 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom type from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -3686,6 +8121,25 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
     entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
@@ -3715,6 +8169,25 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group id from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
     entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
@@ -3745,6 +8218,25 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group name from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
     entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
@@ -3775,6 +8267,25 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group type from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
     entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
@@ -3805,6 +8316,25 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
 
     if indices =='all':
@@ -3832,6 +8362,25 @@ def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule id from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
 
@@ -3860,6 +8409,25 @@ def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule name from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
 
@@ -3888,6 +8456,25 @@ def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule type from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
     molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
 
@@ -3916,6 +8503,25 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = list(range(item.entities.shape[0]))
     else:
@@ -3927,6 +8533,25 @@ def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity id from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_id_from_entity = item.entities['entity_id'].to_numpy()
 
     if indices=='all':
@@ -3942,6 +8567,25 @@ def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity name from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_name_from_entity = item.entities['entity_name'].to_numpy()
 
     if indices=='all':
@@ -3957,6 +8601,25 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity type from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     entity_type_from_entity = item.entities['entity_type'].to_numpy()
 
     if indices=='all':
@@ -3972,6 +8635,25 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4007,6 +8689,25 @@ def get_component_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_id_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component id from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4044,6 +8745,25 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component name from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4081,6 +8801,25 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component type from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4118,6 +8857,25 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4153,6 +8911,25 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain id from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4190,6 +8967,25 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain name from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4227,6 +9023,25 @@ def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain type from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
     entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
@@ -4264,6 +9079,25 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
 
@@ -4282,6 +9116,25 @@ def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond type from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
 
@@ -4298,6 +9151,25 @@ def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond order from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
 
@@ -4314,6 +9186,25 @@ def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atoms from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
 
@@ -4330,6 +9221,25 @@ def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
 
@@ -4346,6 +9256,25 @@ def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bond index from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
@@ -4369,6 +9298,25 @@ def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atoms from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
     atom_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
@@ -4386,6 +9334,25 @@ def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atom pairs from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_entity(item, indices=indices, skip_digestion=True)
 
     if indices=='all':
@@ -4412,6 +9379,25 @@ def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=
 @arg_digest(form=form)
 def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n atoms from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_atom_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -4421,6 +9407,25 @@ def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n atoms from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
@@ -4434,6 +9439,25 @@ def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n groups from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_group_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -4443,6 +9467,25 @@ def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n groups from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
@@ -4456,6 +9499,25 @@ def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n molecules from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_molecule_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -4465,6 +9527,25 @@ def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n molecules from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
@@ -4478,6 +9559,25 @@ def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n entities from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_entities_from_system(item)
     else:
@@ -4489,12 +9589,50 @@ def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_entities_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n entities from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_entities_from_molecule(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_components_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n components from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_component_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -4504,6 +9642,25 @@ def get_n_components_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_components_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n components from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
@@ -4522,6 +9679,25 @@ def get_total_n_components_from_entity(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n chains from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_chain_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -4531,6 +9707,25 @@ def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n chains from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
@@ -4549,6 +9744,25 @@ def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n bonds from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_bond_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -4558,6 +9772,25 @@ def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n bonds from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
@@ -4571,6 +9804,25 @@ def get_total_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n inner bonds from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_inner_bond_index_from_entity(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -4580,6 +9832,25 @@ def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n inner bonds from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_bonds_from_system(item, skip_digestion=True)
@@ -4596,6 +9867,25 @@ def get_total_n_inner_bonds_from_entity(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n amino acids from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('amino acid') for ii in group_types ]
 
@@ -4605,6 +9895,25 @@ def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n amino acids from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
@@ -4620,6 +9929,25 @@ def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n nucleotides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('nucleotide') for ii in group_types ]
 
@@ -4629,6 +9957,25 @@ def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n nucleotides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
@@ -4644,6 +9991,25 @@ def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n ions from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('ion') for ii in group_types ]
 
@@ -4653,6 +10019,25 @@ def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n ions from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_ions_from_system(item, skip_digestion=True)
@@ -4668,6 +10053,25 @@ def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n waters from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('water') for ii in group_types ]
 
@@ -4677,6 +10081,25 @@ def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n waters from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_waters_from_system(item, skip_digestion=True)
@@ -4692,6 +10115,25 @@ def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n small molecules from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('small molecule') for ii in group_types ]
 
@@ -4701,6 +10143,25 @@ def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_total_n_small_molecules_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n small molecules from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
@@ -4716,6 +10177,25 @@ def get_total_n_small_molecules_from_entity(item, indices='all', skip_digestion=
 @arg_digest(form=form)
 def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n lipids from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('lipid') for ii in group_types ]
 
@@ -4725,6 +10205,25 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n lipids from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_lipids_from_system(item, skip_digestion=True)
@@ -4740,6 +10239,25 @@ def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n saccharides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('saccharide') for ii in group_types ]
 
@@ -4749,6 +10267,25 @@ def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n saccharides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_saccharides_from_system(item, skip_digestion=True)
@@ -4764,6 +10301,25 @@ def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n peptides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('peptide') for ii in molecule_types ]
 
@@ -4773,6 +10329,25 @@ def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n peptides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_peptides_from_system(item, skip_digestion=True)
@@ -4788,6 +10363,25 @@ def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n proteins from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('protein') for ii in molecule_types ]
 
@@ -4797,6 +10391,25 @@ def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n proteins from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_proteins_from_system(item, skip_digestion=True)
@@ -4812,6 +10425,25 @@ def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n polysaccharides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('polysaccharide') for ii in molecule_types ]
 
@@ -4821,6 +10453,25 @@ def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n polysaccharides from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
@@ -4836,6 +10487,25 @@ def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=
 @arg_digest(form=form)
 def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n dnas from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('dna') for ii in molecule_types ]
 
@@ -4845,6 +10515,25 @@ def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n dnas from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_dnas_from_system(item, skip_digestion=True)
@@ -4860,6 +10549,25 @@ def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n rnas from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
     output = [ ii.count('rna') for ii in molecule_types ]
 
@@ -4869,6 +10577,25 @@ def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n rnas from entity in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_rnas_from_system(item, skip_digestion=True)
@@ -4887,6 +10614,25 @@ def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
 
     if indices =='all':
@@ -4914,6 +10660,25 @@ def get_atom_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom id from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     atom_id_from_atom = item.atoms['atom_id'].to_numpy()
 
@@ -4942,6 +10707,25 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom name from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     atom_name_from_atom = item.atoms['atom_name'].to_numpy()
 
@@ -4970,6 +10754,25 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom type from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     atom_type_from_atom = item.atoms['atom_type'].to_numpy()
 
@@ -4998,6 +10801,25 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
 
@@ -5029,6 +10851,25 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group id from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_id_from_group = item.groups['group_id'].to_numpy()
@@ -5061,6 +10902,25 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group name from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_name_from_group = item.groups['group_name'].to_numpy()
@@ -5093,6 +10953,25 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group type from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_type_from_group = item.groups['group_type'].to_numpy()
@@ -5125,6 +11004,25 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5158,6 +11056,25 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule id from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5192,6 +11109,25 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule name from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5226,6 +11162,25 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule type from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5260,6 +11215,25 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5296,6 +11270,25 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity id from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5333,6 +11326,25 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity name from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5370,6 +11382,25 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity type from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -5407,6 +11438,25 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = list(range(item.components.shape[0]))
     else:
@@ -5418,6 +11468,25 @@ def get_component_index_from_component(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component id from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_id_from_component = item.components['component_id'].to_numpy()
 
     if indices=='all':
@@ -5433,6 +11502,25 @@ def get_component_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component name from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_name_from_component = item.components['component_name'].to_numpy()
 
     if indices=='all':
@@ -5448,6 +11536,25 @@ def get_component_name_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component type from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_type_from_component = item.components['component_type'].to_numpy()
 
     if indices=='all':
@@ -5463,6 +11570,25 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
 
@@ -5493,6 +11619,25 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain id from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_id_from_chain = item.chains['chain_id'].to_numpy()
@@ -5524,6 +11669,25 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain name from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_name_from_chain = item.chains['chain_name'].to_numpy()
@@ -5555,6 +11719,25 @@ def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain type from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     component_index_from_atom = item._get_component_indices().to_numpy()
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     chain_type_from_chain = item.chains['chain_type'].to_numpy()
@@ -5586,6 +11769,25 @@ def get_chain_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_component = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
 
@@ -5604,6 +11806,25 @@ def get_bond_index_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond type from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
 
@@ -5620,6 +11841,25 @@ def get_bond_type_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_order_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond order from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
 
@@ -5636,6 +11876,25 @@ def get_bond_order_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atoms from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
 
@@ -5652,6 +11911,25 @@ def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
 
@@ -5668,6 +11946,25 @@ def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=Fal
 @arg_digest(form=form)
 def get_inner_bond_index_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bond index from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_component = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
@@ -5691,6 +11988,25 @@ def get_inner_bond_index_from_component(item, indices='all', skip_digestion=Fals
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atoms from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
     atom_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
@@ -5708,6 +12024,25 @@ def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=Fa
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atom pairs from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_component(item, indices=indices, skip_digestion=True)
 
     if indices=='all':
@@ -5734,6 +12069,25 @@ def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digesti
 @arg_digest(form=form)
 def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n atoms from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_atom_index_from_component(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -5743,6 +12097,25 @@ def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n atoms from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
@@ -5756,6 +12129,25 @@ def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_groups_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n groups from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_group_index_from_component(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -5765,6 +12157,25 @@ def get_n_groups_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_groups_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n groups from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
@@ -5783,6 +12194,25 @@ def get_total_n_groups_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n molecules from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
@@ -5795,12 +12225,50 @@ def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_molecules_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n molecules from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_molecules_from_component(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_entities_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n entities from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
@@ -5813,12 +12281,50 @@ def get_n_entities_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_entities_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n entities from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_entities_from_component(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_components_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n components from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.components.shape[0]
     else:
@@ -5830,12 +12336,50 @@ def get_n_components_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_components_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n components from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_components_from_component(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_chains_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n chains from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_chain_index_from_component(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -5845,6 +12389,25 @@ def get_n_chains_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_chains_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n chains from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
@@ -5863,6 +12426,25 @@ def get_total_n_chains_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n bonds from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_bond_index_from_component(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -5872,6 +12454,25 @@ def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n bonds from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
@@ -5885,6 +12486,25 @@ def get_total_n_bonds_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n inner bonds from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_bond_index_from_component(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -5894,6 +12514,25 @@ def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n inner bonds from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
@@ -5907,6 +12546,25 @@ def get_total_n_inner_bonds_from_component(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n amino acids from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
     output = [ ii.count('amino acid') for ii in group_types ]
 
@@ -5916,6 +12574,25 @@ def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n amino acids from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
@@ -5931,6 +12608,25 @@ def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n nucleotides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
     output = [ ii.count('nucleotide') for ii in group_types ]
 
@@ -5940,6 +12636,25 @@ def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n nucleotides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
@@ -5955,6 +12670,25 @@ def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_ions_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n ions from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
     output = [ ii.count('ion') for ii in group_types ]
 
@@ -5964,6 +12698,25 @@ def get_n_ions_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n ions from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_ions_from_system(item, skip_digestion=True)
@@ -5979,6 +12732,25 @@ def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_waters_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n waters from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
     output = [ ii.count('water') for ii in group_types ]
 
@@ -5988,6 +12760,25 @@ def get_n_waters_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_waters_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n waters from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_waters_from_system(item, skip_digestion=True)
@@ -6003,6 +12794,25 @@ def get_total_n_waters_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_small_molecules_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n small molecules from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
     output = [ ii.count('small molecule') for ii in group_types ]
 
@@ -6012,6 +12822,25 @@ def get_n_small_molecules_from_component(item, indices='all', skip_digestion=Fal
 @arg_digest(form=form)
 def get_total_n_small_molecules_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n small molecules from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
@@ -6027,6 +12856,25 @@ def get_total_n_small_molecules_from_component(item, indices='all', skip_digesti
 @arg_digest(form=form)
 def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n lipids from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
     output = [ ii.count('lipid') for ii in group_types ]
 
@@ -6036,6 +12884,25 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n lipids from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_lipids_from_system(item, skip_digestion=True)
@@ -6051,6 +12918,25 @@ def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n saccharides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
     output = [ ii.count('saccharide') for ii in group_types ]
 
@@ -6060,6 +12946,25 @@ def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n saccharides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_saccharides_from_system(item, skip_digestion=True)
@@ -6075,6 +12980,25 @@ def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n polysaccharides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
     else:
@@ -6089,12 +13013,50 @@ def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=Fal
 @arg_digest(form=form)
 def get_total_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n polysaccharides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_polysaccharides_from_component(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n peptides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_peptides_from_system(item, skip_digestion=True)
     else:
@@ -6109,12 +13071,50 @@ def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_peptides_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n peptides from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_peptides_from_component(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n proteins from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_proteins_from_system(item, skip_digestion=True)
     else:
@@ -6129,12 +13129,50 @@ def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_proteins_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n proteins from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_proteins_from_component(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n dnas from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_dnas_from_system(item, skip_digestion=True)
     else:
@@ -6149,12 +13187,50 @@ def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_dnas_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n dnas from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_dnas_from_component(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n rnas from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_rnas_from_system(item, skip_digestion=True)
     else:
@@ -6169,6 +13245,25 @@ def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_rnas_from_component(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n rnas from component in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_rnas_from_component(item, indices=indices, skip_digestion=True)
 
 
@@ -6178,6 +13273,25 @@ def get_total_n_rnas_from_component(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
 
     if indices =='all':
@@ -6205,6 +13319,25 @@ def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom id from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     atom_id_from_atom = item.atoms['atom_id'].to_numpy()
 
@@ -6233,6 +13366,25 @@ def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom name from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     atom_name_from_atom = item.atoms['atom_name'].to_numpy()
 
@@ -6261,6 +13413,25 @@ def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom type from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     atom_type_from_atom = item.atoms['atom_type'].to_numpy()
 
@@ -6289,6 +13460,25 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
 
@@ -6319,6 +13509,25 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group id from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_id_from_group = item.groups['group_id'].to_numpy()
@@ -6351,6 +13560,25 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group name from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_name_from_group = item.groups['group_name'].to_numpy()
@@ -6383,6 +13611,25 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting group type from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     group_type_from_group = item.groups['group_type'].to_numpy()
@@ -6415,6 +13662,25 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6447,6 +13713,25 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule id from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6481,6 +13766,25 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule name from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6515,6 +13819,25 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting molecule type from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6551,6 +13874,25 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6587,6 +13929,25 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity id from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6624,6 +13985,25 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity name from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6661,6 +14041,25 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting entity type from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     group_index_from_atom = item.atoms['group_index'].to_numpy()
     molecule_index_from_group = item.groups['molecule_index'].to_numpy()
@@ -6698,6 +14097,25 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
 
@@ -6728,6 +14146,25 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component id from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_id_from_component = item.components['component_id'].to_numpy()
@@ -6759,6 +14196,25 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component name from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_name_from_component = item.components['component_name'].to_numpy()
@@ -6791,6 +14247,25 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting component type from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_index_from_atom = item.atoms['chain_index'].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
     component_type_from_component = item.components['component_type'].to_numpy()
@@ -6823,6 +14298,25 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = list(range(item.chains.shape[0]))
     else:
@@ -6833,6 +14327,25 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain id from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_id_from_chain = item.chains['chain_id'].to_numpy()
 
     if indices=='all':
@@ -6848,6 +14361,25 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain name from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_name_from_chain = item.chains['chain_name'].to_numpy()
 
     if indices=='all':
@@ -6863,6 +14395,25 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting chain type from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     chain_type_from_chain = item.chains['chain_type'].to_numpy()
 
     if indices=='all':
@@ -6878,6 +14429,25 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_chain = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
 
@@ -6896,6 +14466,25 @@ def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond type from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
 
@@ -6912,6 +14501,25 @@ def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond order from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
 
@@ -6928,6 +14536,25 @@ def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atoms from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
 
@@ -6944,6 +14571,25 @@ def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
 
@@ -6960,6 +14606,25 @@ def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bond index from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices_from_chain = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
@@ -6983,6 +14648,25 @@ def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atoms from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     bond_indices = get_bond_index_from_chain(item, indices=indices, skip_digestion=True)
     atom_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
@@ -7000,6 +14684,25 @@ def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting inner bonded atom pairs from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonded_atom_pairs = get_bonded_atom_pairs_from_chain(item, indices=indices, skip_digestion=True)
 
     if indices=='all':
@@ -7026,6 +14729,25 @@ def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n atoms from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_atom_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -7035,6 +14757,25 @@ def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n atoms from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
@@ -7048,6 +14789,25 @@ def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n groups from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_group_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -7057,6 +14817,25 @@ def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n groups from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
@@ -7075,6 +14854,25 @@ def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n molecules from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_molecule_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -7084,6 +14882,25 @@ def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n molecules from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
@@ -7102,6 +14919,25 @@ def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n entities from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_entity_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) if isinstance(ii, list) else 1 for ii in output]
 
@@ -7111,6 +14947,25 @@ def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n entities from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
@@ -7128,6 +14983,25 @@ def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n components from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     aux = get_component_index_from_chain(item, indices, skip_digestion=True)
     output = []
     for ii in aux:
@@ -7142,6 +15016,25 @@ def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_components_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n components from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
@@ -7160,6 +15053,25 @@ def get_total_n_components_from_chain(item, indices='all', skip_digestion=False)
 @arg_digest(form=form)
 def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n chains from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = item.chains.shape[0]
     else:
@@ -7171,12 +15083,50 @@ def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n chains from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_chains_from_chain(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n bonds from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_bond_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -7186,6 +15136,25 @@ def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n bonds from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
@@ -7199,6 +15168,25 @@ def get_total_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n inner bonds from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = get_bond_index_from_chain(item, indices, skip_digestion=True)
     output = [len(ii) for ii in output]
 
@@ -7208,6 +15196,25 @@ def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n inner bonds from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
@@ -7221,6 +15228,25 @@ def get_total_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n amino acids from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('amino acid') for ii in group_types ]
 
@@ -7230,6 +15256,25 @@ def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n amino acids from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
@@ -7245,6 +15290,25 @@ def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n nucleotides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('nucleotide') for ii in group_types ]
 
@@ -7254,6 +15318,25 @@ def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n nucleotides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
@@ -7269,6 +15352,25 @@ def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n ions from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('ion') for ii in group_types ]
 
@@ -7278,6 +15380,25 @@ def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n ions from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_ions_from_system(item, skip_digestion=True)
@@ -7293,6 +15414,25 @@ def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n waters from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('water') for ii in group_types ]
 
@@ -7302,6 +15442,25 @@ def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n waters from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_waters_from_system(item, skip_digestion=True)
@@ -7317,6 +15476,25 @@ def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n small molecules from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('small molecule') for ii in group_types ]
 
@@ -7326,6 +15504,25 @@ def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n small molecules from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
@@ -7341,6 +15538,25 @@ def get_total_n_small_molecules_from_chain(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n lipids from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('lipid') for ii in group_types ]
 
@@ -7350,6 +15566,25 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n lipids from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_lipids_from_system(item, skip_digestion=True)
@@ -7365,6 +15600,25 @@ def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n saccharides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('saccharide') for ii in group_types ]
 
@@ -7374,6 +15628,25 @@ def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n saccharides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_saccharides_from_system(item, skip_digestion=True)
@@ -7389,6 +15662,25 @@ def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False
 @arg_digest(form=form)
 def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n polysaccharides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('polysaccharide') for ii in molecule_types ]
 
@@ -7398,6 +15690,25 @@ def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n polysaccharides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
@@ -7413,6 +15724,25 @@ def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n peptides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('peptide') for ii in molecule_types ]
 
@@ -7422,6 +15752,25 @@ def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n peptides from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_peptides_from_system(item, skip_digestion=True)
@@ -7437,6 +15786,25 @@ def get_total_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n proteins from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('protein') for ii in molecule_types ]
 
@@ -7446,6 +15814,25 @@ def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n proteins from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_proteins_from_system(item, skip_digestion=True)
@@ -7461,6 +15848,25 @@ def get_total_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n dnas from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('dna') for ii in molecule_types ]
 
@@ -7470,6 +15876,25 @@ def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n dnas from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_dnas_from_system(item, skip_digestion=True)
@@ -7485,6 +15910,25 @@ def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n rnas from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
     output = [ ii.count('rna') for ii in molecule_types ]
 
@@ -7494,6 +15938,25 @@ def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
+    """
+    Getting total n rnas from chain in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
 
         output = get_n_rnas_from_system(item, skip_digestion=True)
@@ -7523,6 +15986,25 @@ def _get_optional_bond_attribute(item, column, indices):
 @arg_digest(form=form)
 def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond index from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         n_aux = get_n_bonds_from_system(item)
         output = np.arange(n_aux, dtype=int).tolist()
@@ -7535,48 +16017,200 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond id from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'bond_id', indices)
 
 
 @arg_digest(form=form)
 def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond order from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'bond_order', indices)
 
 
 @arg_digest(form=form)
 def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond type from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'bond_type', indices)
 
 
 @arg_digest(form=form)
 def get_fractional_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting fractional bond order from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'fractional_bond_order', indices)
 
 
 @arg_digest(form=form)
 def get_bond_is_aromatic_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond is aromatic from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'is_aromatic', indices)
 
 
 @arg_digest(form=form)
 def get_bond_is_conjugated_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond is conjugated from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'is_conjugated', indices)
 
 
 @arg_digest(form=form)
 def get_bond_stereochemistry_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond stereochemistry from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'stereochemistry', indices)
 
 
 @arg_digest(form=form)
 def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond stereo atom indices from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonds = item._get_chemical_state_bonds()
     n_values = len(bonds) if is_all(indices) else len(indices)
     columns = ('stereo_atom1_index', 'stereo_atom2_index')
@@ -7589,30 +16223,125 @@ def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_bond_donor_atom_index_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond donor atom index from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'donor_atom_index', indices)
 
 
 @arg_digest(form=form)
 def get_bond_acceptor_atom_index_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond acceptor atom index from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'acceptor_atom_index', indices)
 
 
 @arg_digest(form=form)
 def get_bond_joins_components_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond joins components from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'joins_components', indices)
 
 
 @arg_digest(form=form)
 def get_bond_evidence_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bond evidence from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_optional_bond_attribute(item, 'evidence', indices)
 
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atoms from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonds = item._get_chemical_state_bonds()
 
     if indices=='all':
@@ -7630,6 +16359,25 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     bonds = item._get_chemical_state_bonds()
 
     if indices=='all':
@@ -7646,6 +16394,25 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
+    """
+    Getting n bonds from bond in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if indices=='all':
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
@@ -7660,18 +16427,69 @@ def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
+    """
+    Getting n atoms from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.atoms.shape[0]
 
 
 @arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
 
+    """
+    Getting n groups from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.groups.shape[0]
 
 
 @arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
 
+    """
+    Getting n molecules from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if item._molecules_dirty or item.groups['molecule_index'].isnull().any():
         item.rebuild_molecules(force=True)
 
@@ -7681,6 +16499,23 @@ def get_n_molecules_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
 
+    """
+    Getting n entities from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if item._entities_dirty or item.molecules['entity_index'].isnull().any():
         item.rebuild_entities(force=True)
 
@@ -7690,6 +16525,23 @@ def get_n_entities_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
 
+    """
+    Getting n components from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if item._components_dirty or item._component_indices_are_missing():
         item.rebuild_components(force=True)
 
@@ -7699,18 +16551,69 @@ def get_n_components_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_chains_from_system(item, skip_digestion=False):
 
+    """
+    Getting n chains from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.chains.shape[0]
 
 
 @arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
 
+    """
+    Getting n bonds from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return item._get_chemical_state_bonds().shape[0]
 
 
 @arg_digest(form=form)
 def get_n_amino_acids_from_system(item, skip_digestion=False):
 
+    """
+    Getting n amino acids from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.groups['group_type'].tolist().count('amino acid')
 
     return output
@@ -7719,6 +16622,23 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_nucleotides_from_system(item, skip_digestion=False):
 
+    """
+    Getting n nucleotides from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.groups['group_type'].tolist().count('nucleotide')
 
     return output
@@ -7727,6 +16647,23 @@ def get_n_nucleotides_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_ions_from_system(item, skip_digestion=False):
 
+    """
+    Getting n ions from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.groups['group_type'].tolist().count('ion')
 
     return output
@@ -7735,6 +16672,23 @@ def get_n_ions_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_waters_from_system(item, skip_digestion=False):
 
+    """
+    Getting n waters from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.groups['group_type'].tolist().count('water')
 
     return output
@@ -7743,6 +16697,23 @@ def get_n_waters_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_small_molecules_from_system(item, skip_digestion=False):
 
+    """
+    Getting n small molecules from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.groups['group_type'].tolist().count('small molecule')
 
     return output
@@ -7751,6 +16722,23 @@ def get_n_small_molecules_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_lipids_from_system(item, skip_digestion=False):
 
+    """
+    Getting n lipids from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.groups['group_type'].tolist().count('lipid')
 
     return output
@@ -7759,6 +16747,23 @@ def get_n_lipids_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_saccharides_from_system(item, skip_digestion=False):
 
+    """
+    Getting n saccharides from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.groups['group_type'].tolist().count('saccharide')
 
     return output
@@ -7767,6 +16772,23 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_peptides_from_system(item, skip_digestion=False):
 
+    """
+    Getting n peptides from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.molecules['molecule_type'].tolist().count('peptide')
 
     return output
@@ -7775,6 +16797,23 @@ def get_n_peptides_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_proteins_from_system(item, skip_digestion=False):
 
+    """
+    Getting n proteins from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.molecules['molecule_type'].tolist().count('protein')
 
     return output
@@ -7783,6 +16822,23 @@ def get_n_proteins_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
+    """
+    Getting n polysaccharides from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.molecules['molecule_type'].tolist().count('polysaccharide')
 
     return output
@@ -7791,6 +16847,23 @@ def get_n_polysaccharides_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_dnas_from_system(item, skip_digestion=False):
 
+    """
+    Getting n dnas from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.molecules['molecule_type'].tolist().count('dna')
 
     return output
@@ -7799,6 +16872,23 @@ def get_n_dnas_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_n_rnas_from_system(item, skip_digestion=False):
 
+    """
+    Getting n rnas from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = item.molecules['molecule_type'].tolist().count('rna')
 
     return output
@@ -7807,36 +16897,138 @@ def get_n_rnas_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 def get_bond_index_from_system(item, skip_digestion=False):
 
+    """
+    Getting bond index from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bond_index_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_inner_bond_index_from_system(item, skip_digestion=False):
 
+    """
+    Getting inner bond index from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bond_index_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
+    """
+    Getting inner bonded atoms from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bonded_atoms_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
+    """
+    Getting inner bonded atom pairs from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
 
+    """
+    Getting bonded atoms from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bonded_atoms_from_bond(item, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
+    """
+    Getting bonded atom pairs from system in form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
    
 

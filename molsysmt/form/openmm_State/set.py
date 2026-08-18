@@ -12,6 +12,22 @@ form='openmm.State'
 @arg_digest(form=form)
 def set_coordinates_to_atom(item, indices='all', value=None, skip_digestion=False):
 
+    """
+    Setting coordinates to atom on form openmm.State.
+
+    Parameters
+    ----------
+    item : openmm.State
+        Source item in openmm.State form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    value : object
+        Argument value.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    .. versionadded:: 1.0.0
+    """
     value = puw.convert(value[0], to_unit='nanometers', to_form='openmm.unit')
 
     if is_all(indices):
@@ -30,5 +46,19 @@ def set_coordinates_to_atom(item, indices='all', value=None, skip_digestion=Fals
 @arg_digest(form=form)
 def set_coordinates_to_system(item, value=None, skip_digestion=False):
 
+    """
+    Setting coordinates to system on form openmm.State.
+
+    Parameters
+    ----------
+    item : openmm.State
+        Source item in openmm.State form.
+    value : object
+        Argument value.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    .. versionadded:: 1.0.0
+    """
     return set_coordinates_to_atom(item, indices='all', value=value)
 

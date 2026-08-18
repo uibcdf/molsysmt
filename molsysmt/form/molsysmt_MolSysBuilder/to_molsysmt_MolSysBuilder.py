@@ -9,13 +9,15 @@ def to_molsysmt_MolSysBuilder(item, skip_digestion=False):
     Parameters
     ----------
     item : molsysmt.MolSysBuilder
-        Source item to convert.
+        Source item in molsysmt.MolSysBuilder form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolSysBuilder
-        Converted molecular system representation.
+        Resulting object in molsysmt.MolSysBuilder form.
+
+    .. versionadded:: 1.0.0
     """
     return item.copy()

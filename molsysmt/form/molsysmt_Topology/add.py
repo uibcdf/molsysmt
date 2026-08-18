@@ -10,15 +10,19 @@ def add(to_item, item, keep_ids=True, skip_digestion=False):
     ----------
     to_item : molsysmt.Topology
         Target item to modify or add elements to.
-    from_item : object
-        Source item providing elements.
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    keep_ids : bool, default=True
+        Whether to preserve unique element IDs.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.Topology
-        Target item with added elements.
+        Resulting object in molsysmt.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

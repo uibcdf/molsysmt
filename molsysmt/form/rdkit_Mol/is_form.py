@@ -4,13 +4,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : rdkit.Mol
+        Source item in rdkit.Mol form.
 
     Returns
     -------
     bool
-        True if item conforms to form rdkit.Mol, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

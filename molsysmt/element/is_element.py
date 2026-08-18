@@ -1,5 +1,19 @@
 def is_element(element):
-    """Check whether a string identifies a valid MolSysMT element (atom, group, molecule, etc.)."""
+    """
+    Checking if a string represents a valid structural element level in MolSysMT.
+
+    Parameters
+    ----------
+    element : str
+        String to test.
+
+    Returns
+    -------
+    bool
+        True if element is in ('atom', 'group', 'component', 'molecule', 'chain', 'entity', 'bond'), False otherwise.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.element import _elements, _plural_elements_to_singular
 

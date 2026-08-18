@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : string:pdb_id
-        Source item.
+        Source item in string:pdb_id form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     string:pdb_id
-        Copied item.
+        Resulting object in string:pdb_id form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

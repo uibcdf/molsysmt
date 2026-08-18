@@ -6,19 +6,23 @@ from depdigest import dep_digest
 @dep_digest('Bio')
 def to_file_fasta(item, output_filename=None, skip_digestion=False):
     """
-    Converting from biopython.SeqRecord to file.fasta.
+    Converting from biopython.SeqRecord to file:fasta.
 
     Parameters
     ----------
     item : biopython.SeqRecord
-        Source item to convert.
+        Source item in biopython.SeqRecord form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.fasta
-        Converted molecular system representation.
+    file:fasta
+        Resulting object in file:fasta form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

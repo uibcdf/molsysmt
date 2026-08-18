@@ -25,7 +25,25 @@ def _partial_charges(item):
 def get_partial_charge_from_atom(
     item, indices='all', skip_digestion=False
 ):
-    """Returning complete partial charges in elementary-charge units."""
+    """
+    Getting partial charge from atom in form openff.Topology.
+
+    Parameters
+    ----------
+    item : openff.Topology
+        Source item in openff.Topology form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     values = _partial_charges(item)
     if values is None:
@@ -37,6 +55,22 @@ def get_partial_charge_from_atom(
 
 @arg_digest(form='openff.Topology')
 def get_partial_charge_from_system(item, skip_digestion=False):
-    """Returning all available partial charges in elementary-charge units."""
+    """
+    Getting partial charge from system in form openff.Topology.
+
+    Parameters
+    ----------
+    item : openff.Topology
+        Source item in openff.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return get_partial_charge_from_atom(item, skip_digestion=True)

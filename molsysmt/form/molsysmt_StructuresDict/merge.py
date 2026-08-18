@@ -10,13 +10,17 @@ def merge(items, atom_indices='all', structure_indices='all'):
     ----------
     items : list of object
         List of items to merge.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
 
     Returns
     -------
     molsysmt.StructuresDict
-        Merged item.
+        Resulting object in molsysmt.StructuresDict form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

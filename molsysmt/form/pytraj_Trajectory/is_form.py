@@ -5,13 +5,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : pytraj.Trajectory
+        Source item in pytraj.Trajectory form.
 
     Returns
     -------
     bool
-        True if item conforms to form pytraj.Trajectory, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     item_fullname = item.__class__.__module__+'.'+item.__class__.__name__

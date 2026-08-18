@@ -9,14 +9,16 @@ def to_molsysmt_PDBFileHandler(item, skip_digestion=False):
     Parameters
     ----------
     item : string:pdb_text
-        Source item to convert.
+        Source item in string:pdb_text form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.PDBFileHandler
-        Converted molecular system representation.
+        Resulting object in molsysmt.PDBFileHandler form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.native import PDBFileHandler

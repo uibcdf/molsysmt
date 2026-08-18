@@ -7,13 +7,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : file:molsys_yaml
+        Source item in file:molsys_yaml form.
 
     Returns
     -------
     bool
-        True if item conforms to form file:molsys_yaml, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
     if isinstance(item, Path):
         item = str(item)

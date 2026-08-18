@@ -22,6 +22,8 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
     engine : {'MolSysMT', 'OpenMM', 'PDBFixer'}, default 'OpenMM'
         The engine used to perform hydrogen placement. The engine determines
         residue protonation states and adds atoms accordingly.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
 
     Returns
     -------

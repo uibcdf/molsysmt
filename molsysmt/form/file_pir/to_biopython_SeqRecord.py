@@ -10,14 +10,16 @@ def to_biopython_SeqRecord(item, skip_digestion=False):
     Parameters
     ----------
     item : file:pir
-        Source item to convert.
+        Source item in file:pir form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     biopython.SeqRecord
-        Converted molecular system representation.
+        Resulting object in biopython.SeqRecord form.
+
+    .. versionadded:: 1.0.0
     """
 
     from Bio import SeqIO

@@ -7,7 +7,29 @@ def add_allowed_plane_region(molecular_system=None, selection='all',
                              force_constant='5000 kilojoules_per_mole/nm**2', point='[0,0,0] nm',
                              normal_vector=[0,0,1], width='1.0 nm', pbc=False, return_force=False,
                              syntax='MolSysMT', skip_digestion=False):
-    """Add a flat-bottom restraint confining atoms near a reference plane."""
+    """
+    Adding repulsive boundary restraints keeping particles inside an allowed half-space in OpenMM.
+
+    Parameters
+    ----------
+    system : openmm.System
+        Target OpenMM system to modify.
+    atom_indices : list of int
+        Atom indices to restrain.
+    plane_origin : quantity or list of float
+        Origin of the boundary plane in nanometers.
+    plane_normal : list of float
+        Normal vector pointing away from the allowed region.
+    k : quantity
+        Repulsive spring constant in `kJ/(mol*nm^2)`.
+
+    Returns
+    -------
+    openmm.CustomExternalForce
+        The added restraint force instance.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce

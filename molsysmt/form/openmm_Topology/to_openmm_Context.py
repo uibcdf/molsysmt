@@ -11,14 +11,46 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AM
     Parameters
     ----------
     item : openmm.Topology
-        Source item to convert.
+        Source item in openmm.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    forcefield : object
+        Argument forcefield.
+    water_model : object
+        Argument water_model.
+    implicit_solvent : object
+        Argument implicit_solvent.
+    non_bonded_method : object
+        Argument non_bonded_method.
+    constraints : object
+        Argument constraints.
+    switch_distance : object
+        Argument switch_distance.
+    dispersion_correction : object
+        Argument dispersion_correction.
+    ewald_error_tolerance : object
+        Argument ewald_error_tolerance.
+    integrator : object
+        Argument integrator.
+    temperature : object
+        Argument temperature.
+    friction : object
+        Argument friction.
+    time_step : object
+        Argument time_step.
+    platform : object
+        Argument platform.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.Context
-        Converted molecular system representation.
+        Resulting object in openmm.Context form.
+
+    .. versionadded:: 1.0.0
     """
 
 

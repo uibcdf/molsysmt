@@ -2,7 +2,23 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='file:smi')
 def to_string_smiles(item, skip_digestion=False):
-    """Read a .smi file and return smiles: strings (no rdkit required)."""
+    """
+    Converting from file:smi to string:smiles.
+
+    Parameters
+    ----------
+    item : file:smi
+        Source item in file:smi form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    string:smiles
+        Resulting object in string:smiles form.
+
+    .. versionadded:: 1.0.0
+    """
 
     results = []
     with open(item, 'r') as fff:

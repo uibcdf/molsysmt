@@ -63,7 +63,25 @@ def _rdkit_bond_metadata(bond):
 
 @arg_digest(form='rdkit.Mol')
 def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
-    """Converting RDKit atom and bond chemistry without collapsing semantics."""
+    """
+    Converting from rdkit.Mol to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : rdkit.Mol
+        Source item in rdkit.Mol form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Resulting object in molsysmt.Topology form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from rdkit import Chem
     from molsysmt.native import Topology

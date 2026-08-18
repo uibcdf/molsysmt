@@ -6,13 +6,32 @@ import pandas as pd
 def get_molecule_type(molecular_system, element='molecule', selection='all',
         redefine_indices=False, redefine_types=False, syntax='MolSysMT',
         skip_digestion=False):
-    """Returning molecule types for a molecular system.
+    """
+    Getting molecule types from a molecular system.
 
-    Notes
-    -----
-    Explicit types are preserved when available. If types are redefined, the
-    result is inferred from local group composition and from the canonical
-    molecule fallback rules.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
+        Structural element level at which the molecule types are returned.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    redefine_indices : bool, default=False
+        Whether to recalculate molecule indices locally prior to type assignment.
+    redefine_types : bool, default=False
+        Whether to re-infer molecule types from constituent components.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection`.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of str
+        List of molecule type classifications ('protein', 'dna', 'water', 'small molecule', etc.).
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

@@ -5,19 +5,27 @@ from molsysmt import pyunitwizard as puw
 @arg_digest(form='XYZ')
 def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
     """
-    Converting from XYZ to file.xyznpy.
+    Converting from XYZ to file:xyznpy.
 
     Parameters
     ----------
     item : XYZ
-        Source item to convert.
+        Source item in XYZ form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.xyznpy
-        Converted molecular system representation.
+    file:xyznpy
+        Resulting object in file:xyznpy form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt._private.variables import is_all

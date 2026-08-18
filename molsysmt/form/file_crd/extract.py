@@ -6,23 +6,31 @@ from molsysmt._private.variables import is_all
 def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True,
         progress_bar=False, skip_digestion=False):
     """
-    Extracting a subset of atoms or structures from form file:crd.
+    Extracting a subset of elements or structures from form file:crd.
 
     Parameters
     ----------
     item : file:crd
-        Source item.
-    selection : str, list, tuple, or numpy.ndarray, default='all'
-        Atom selection to extract.
+        Source item in file:crd form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices to extract.
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    copy_if_all : object
+        Argument copy_if_all.
+    progress_bar : object
+        Argument progress_bar.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     file:crd
-        Extracted subset in the same form.
+        Resulting object in file:crd form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

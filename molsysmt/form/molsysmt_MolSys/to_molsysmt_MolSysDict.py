@@ -19,7 +19,27 @@ def _normalize_scalar(value):
 def to_molsysmt_MolSysDict(
     item, atom_indices='all', structure_indices='all', skip_digestion=False
 ):
-    """Converting MolSys to MolSysDict."""
+    """
+    Converting from molsysmt.MolSys to molsysmt.MolSysDict.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item in molsysmt.MolSys form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.MolSysDict
+        Resulting object in molsysmt.MolSysDict form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from .extract import extract
 

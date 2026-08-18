@@ -6,19 +6,27 @@ from molsysmt import pyunitwizard as puw
 @arg_digest(form='molsysmt.StructuresDict')
 def to_file_trjpk(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
     """
-    Converting from molsysmt.StructuresDict to file.trjpk.
+    Converting from molsysmt.StructuresDict to file:trjpk.
 
     Parameters
     ----------
     item : molsysmt.StructuresDict
-        Source item to convert.
+        Source item in molsysmt.StructuresDict form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.trjpk
-        Converted molecular system representation.
+    file:trjpk
+        Resulting object in file:trjpk form.
+
+    .. versionadded:: 1.0.0
     """
 
     import pickle as pickle

@@ -9,7 +9,23 @@ def _series_to_list(series):
 
 @arg_digest(form='molsysmt.Topology')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
-    """Converting a native Topology into a ViewerJSON object (no coordinates)."""
+    """
+    Converting from molsysmt.Topology to molsysmt.ViewerJSON.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.ViewerJSON
+        Resulting object in molsysmt.ViewerJSON form.
+
+    .. versionadded:: 1.0.0
+    """
 
     topo = item
     viewer = ViewerJSON()

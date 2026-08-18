@@ -4,13 +4,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : openmm.State
+        Source item in openmm.State form.
 
     Returns
     -------
     bool
-        True if item conforms to form openmm.State, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
 

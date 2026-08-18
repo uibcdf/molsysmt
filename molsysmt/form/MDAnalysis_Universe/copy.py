@@ -9,14 +9,14 @@ def copy(item):
     Parameters
     ----------
     item : MDAnalysis.Universe
-        Source item.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Source item in MDAnalysis.Universe form.
 
     Returns
     -------
     MDAnalysis.Universe
-        Copied item.
+        Resulting object in MDAnalysis.Universe form.
+
+    .. versionadded:: 1.0.0
     """
 
     from copy import deepcopy

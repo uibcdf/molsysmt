@@ -11,6 +11,16 @@ def path(package, file):
 
 
 def get_group_db(group_name):
+    """
+    Getting the internal reference database dictionary for saccharide groups.
+
+    Returns
+    -------
+    dict
+        Reference dictionary containing residue connectivity and metadata.
+
+    .. versionadded:: 1.0.0
+    """
 
     if group_name not in group_names:
         raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.element.group.saccharide.get_group_db")

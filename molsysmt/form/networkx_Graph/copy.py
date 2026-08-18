@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : networkx.Graph
-        Source item.
+        Source item in networkx.Graph form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     networkx.Graph
-        Copied item.
+        Resulting object in networkx.Graph form.
+
+    .. versionadded:: 1.0.0
     """
 
     tmp_item = item.copy()

@@ -6,13 +6,15 @@ def is_form(string):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    string : object
+        Argument string.
 
     Returns
     -------
     bool
-        True if item conforms to form string:pdb_text, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

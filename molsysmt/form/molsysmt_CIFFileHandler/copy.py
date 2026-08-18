@@ -10,14 +10,18 @@ def copy(item, output_filename=None, skip_digestion=False):
     Parameters
     ----------
     item : molsysmt.CIFFileHandler
-        Source item.
+        Source item in molsysmt.CIFFileHandler form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.CIFFileHandler
-        Copied item.
+        Resulting object in molsysmt.CIFFileHandler form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

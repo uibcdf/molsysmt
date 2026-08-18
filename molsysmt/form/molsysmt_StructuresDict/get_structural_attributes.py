@@ -10,6 +10,27 @@ form = 'molsysmt.StructuresDict'
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting coordinates from atom in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     coordinates = copy(item['coordinates'])
 
     if not is_all(structure_indices):
@@ -25,6 +46,25 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting n structures from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if is_all(structure_indices):
         return item['coordinates'].shape[0]
     return len(structure_indices)
@@ -32,6 +72,25 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
 @arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting coordinates from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     coordinates = copy(item['coordinates'])
     if is_all(structure_indices):
         return coordinates
@@ -40,6 +99,25 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting box from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     box = item.get('box', None)
     if box is None:
         return None
@@ -54,6 +132,25 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting structure id from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     structure_id = item.get('structure_id', None)
     if structure_id is None:
         return None
@@ -66,6 +163,27 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
 @arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting velocities from atom in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     velocities = item.get('velocities', None)
     if velocities is None or indices is None or structure_indices is None:
         return None
@@ -80,6 +198,25 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
 @arg_digest(form=form)
 def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting velocities from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_velocities_from_atom(
         item,
         structure_indices=structure_indices,
@@ -89,6 +226,27 @@ def get_velocities_from_system(item, structure_indices='all', skip_digestion=Fal
 
 @arg_digest(form=form)
 def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting b factor from atom in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     b_factor = item.get('b_factor', None)
     if b_factor is None:
         return None
@@ -103,6 +261,27 @@ def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_di
 
 @arg_digest(form=form)
 def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting occupancy from atom in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     occupancy = item.get('occupancy', None)
     if occupancy is None or indices is None or structure_indices is None:
         return None
@@ -117,6 +296,27 @@ def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_d
 
 @arg_digest(form=form)
 def get_alternate_location_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting alternate location from atom in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     alternate_location = item.get('alternate_location', None)
     if alternate_location is None or indices is None or structure_indices is None:
         return None
@@ -134,11 +334,49 @@ def get_alternate_location_from_atom(item, indices='all', structure_indices='all
 
 @arg_digest(form=form)
 def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting b factor from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_b_factor_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting alternate location from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_alternate_location_from_atom(
         item,
         structure_indices=structure_indices,
@@ -147,6 +385,25 @@ def get_alternate_location_from_system(item, structure_indices='all', skip_diges
 
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting time from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     time = item.get('time', None)
     if time is None:
         return None
@@ -165,21 +422,97 @@ def _get_structure_series(value, structure_indices):
 
 @arg_digest(form=form)
 def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting temperature from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_structure_series(item.get('temperature'), structure_indices)
 
 
 @arg_digest(form=form)
 def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting potential energy from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_structure_series(item.get('potential_energy'), structure_indices)
 
 
 @arg_digest(form=form)
 def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting kinetic energy from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _get_structure_series(item.get('kinetic_energy'), structure_indices)
 
 
 @arg_digest(form=form)
 def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting total energy from system in form molsysmt.StructuresDict.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     potential_energy = get_potential_energy_from_system(
         item,
         structure_indices=structure_indices,

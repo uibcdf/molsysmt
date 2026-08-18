@@ -8,14 +8,20 @@ def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, skip_digest
     Parameters
     ----------
     item : file:prmtop
-        Source item to convert.
+        Source item in file:prmtop form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     nglview.NGLWidget
-        Converted molecular system representation.
+        Resulting object in nglview.NGLWidget form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

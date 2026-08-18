@@ -21,6 +21,27 @@ def _read_from_start(item, atom_indices=None):
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    """
+    Getting coordinates from atom in form mdtraj.DCDTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.DCDTrajectoryFile
+        Source item in mdtraj.DCDTrajectoryFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(
         item,
         atom_indices=indices if not is_all(indices) else None,
@@ -36,6 +57,25 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting box from system in form mdtraj.DCDTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.DCDTrajectoryFile
+        Source item in mdtraj.DCDTrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(item)
     if tmp_item[1] is not None: # cell_lengths
         from molsysmt.pbc import get_box_from_lengths_and_angles
@@ -50,6 +90,25 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting n structures from system in form mdtraj.DCDTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.DCDTrajectoryFile
+        Source item in mdtraj.DCDTrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if is_all(structure_indices):
         return len(item)
     else:

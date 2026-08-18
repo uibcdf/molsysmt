@@ -515,14 +515,22 @@ def to_molsysmt_MolSys(
     Parameters
     ----------
     item : molsysmt.PDBFileHandler
-        Source item to convert.
+        Source item in molsysmt.PDBFileHandler form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    get_missing_bonds : object
+        Argument get_missing_bonds.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolSys
-        Converted molecular system representation.
+        Resulting object in molsysmt.MolSys form.
+
+    .. versionadded:: 1.0.0
     """
     from .to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
 

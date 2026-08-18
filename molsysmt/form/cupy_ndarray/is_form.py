@@ -6,13 +6,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : cupy_ndarray
+        Source item in cupy_ndarray form.
 
     Returns
     -------
     bool
-        True if item conforms to form cupy_ndarray, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
     if item is None:
         return False

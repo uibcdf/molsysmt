@@ -21,7 +21,27 @@ def _selected_frame_indices(item, structure_indices):
 def get_coordinates_from_atom(
     item, indices='all', structure_indices='all', skip_digestion=False
 ):
-    """Returning coordinate frames in nanometers."""
+    """
+    Getting coordinates from atom in form parmed.Structure.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item in parmed.Structure form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     coordinates = item.get_coordinates('all')
     if coordinates is None:
@@ -37,7 +57,25 @@ def get_coordinates_from_atom(
 def get_structure_id_from_system(
     item, structure_indices='all', skip_digestion=False
 ):
-    """Returning positional identifiers for ParmEd coordinate frames."""
+    """
+    Getting structure id from system in form parmed.Structure.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item in parmed.Structure form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _selected_frame_indices(item, structure_indices)
 
@@ -46,7 +84,25 @@ def get_structure_id_from_system(
 def get_structure_index_from_system(
     item, structure_indices='all', skip_digestion=False
 ):
-    """Returning selected positional frame indices."""
+    """
+    Getting structure index from system in form parmed.Structure.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item in parmed.Structure form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return _selected_frame_indices(item, structure_indices)
 
@@ -55,21 +111,75 @@ def get_structure_index_from_system(
 def get_n_structures_from_system(
     item, structure_indices='all', skip_digestion=False
 ):
-    """Returning the number of selected coordinate frames."""
+    """
+    Getting n structures from system in form parmed.Structure.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item in parmed.Structure form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return len(_selected_frame_indices(item, structure_indices))
 
 
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
-    """Returning no time because ParmEd coordinate frames do not store it."""
+    """
+    Getting time from system in form parmed.Structure.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item in parmed.Structure form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return None
 
 
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
-    """Returning unit-cell vectors in nanometers."""
+    """
+    Getting box from system in form parmed.Structure.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item in parmed.Structure form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     boxes = item.get_box('all')
     if boxes is None:
@@ -90,7 +200,27 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 def get_b_factor_from_atom(
     item, indices='all', structure_indices='all', skip_digestion=False
 ):
-    """Returning atom B factors in squared nanometers."""
+    """
+    Getting b factor from atom in form parmed.Structure.
+
+    Parameters
+    ----------
+    item : parmed.Structure
+        Source item in parmed.Structure form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     frame_indices = _selected_frame_indices(item, structure_indices)
     if len(frame_indices) == 0:

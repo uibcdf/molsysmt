@@ -23,6 +23,8 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
         of the supported :ref:`selection syntaxes <Introduction_Selection>`.
 
     syntax : str, default 'MolSysMT'
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
         :ref:`Selection syntax <Introduction_Selection>` used when `selection` is a string.
 
     engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'

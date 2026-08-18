@@ -5,19 +5,21 @@ from depdigest import dep_digest
 @dep_digest('Bio')
 def to_string_amino_acids_1(item, skip_digestion=False):
     """
-    Converting from file:pir to string.amino.acids.1.
+    Converting from file:pir to string:amino_acids_1.
 
     Parameters
     ----------
     item : file:pir
-        Source item to convert.
+        Source item in file:pir form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.amino.acids.1
-        Converted molecular system representation.
+    string:amino_acids_1
+        Resulting object in string:amino_acids_1 form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_biopython_SeqRecord import to_biopython_SeqRecord

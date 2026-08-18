@@ -52,7 +52,21 @@ def _build_nglview_adapter():
 
 
 def get_molsysmt_trajectory():
-    """Returning the NGLView adapter class for molsysmt.MolSys objects."""
+    """
+    Returning the NGLView adapter class for molsysmt.MolSys objects.
+
+    Parameters
+    ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
+
+    Returns
+    -------
+    object
+        Trajectory bridge object.
+
+    .. versionadded:: 1.0.0
+    """
     return _build_nglview_adapter()
 
 

@@ -4,13 +4,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : openff.Topology
+        Source item in openff.Topology form.
 
     Returns
     -------
     bool
-        True if item conforms to form openff.Topology, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     class_module = type(item).__module__

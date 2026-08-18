@@ -20,6 +20,27 @@ def _read_from_start(item, atom_indices=None):
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    """
+    Getting coordinates from atom in form mdtraj.XTCTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.XTCTrajectoryFile
+        Source item in mdtraj.XTCTrajectoryFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     atom_indices = indices if not is_all(indices) else None
     tmp_item = _read_from_start(item, atom_indices=atom_indices)
     if is_all(structure_indices):
@@ -33,6 +54,25 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting box from system in form mdtraj.XTCTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.XTCTrajectoryFile
+        Source item in mdtraj.XTCTrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(item)
     if tmp_item[3] is not None and len(tmp_item[3]) > 0:  # box vectors
         output = tmp_item[3] * puw.unit('nanometer')
@@ -44,6 +84,25 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting n structures from system in form mdtraj.XTCTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.XTCTrajectoryFile
+        Source item in mdtraj.XTCTrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if is_all(structure_indices):
         return len(item)
     else:
@@ -52,6 +111,25 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting time from system in form mdtraj.XTCTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.XTCTrajectoryFile
+        Source item in mdtraj.XTCTrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(item)
     if tmp_item[1] is not None: # times
         output = tmp_item[1] * puw.unit('picosecond')
@@ -63,6 +141,25 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting structure id from system in form mdtraj.XTCTrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.XTCTrajectoryFile
+        Source item in mdtraj.XTCTrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(item)
     if tmp_item[2] is not None:
         output = tmp_item[2]

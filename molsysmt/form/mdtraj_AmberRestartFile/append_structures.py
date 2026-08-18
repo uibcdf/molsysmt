@@ -9,22 +9,24 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     Parameters
     ----------
     item : mdtraj.AmberRestartFile
-        Target item.
-    structure_id : object, optional
-        Structure identifier.
-    time : object, optional
-        Time coordinates.
-    coordinates : object, optional
+        Source item in mdtraj.AmberRestartFile form.
+    structure_id : object
+        Structure identifiers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
+    coordinates : numpy.ndarray or quantity
         Cartesian coordinate array in nanometers.
-    box : object, optional
-        Box vectors in nanometers.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.AmberRestartFile
-        Updated item with appended structures.
+        Resulting object in mdtraj.AmberRestartFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

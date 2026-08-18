@@ -4,19 +4,23 @@ import numpy as np
 @arg_digest(form='nglview.NGLWidget')
 def to_string_amino_acids_1(item, group_indices='all', skip_digestion=False):
     """
-    Converting from nglview.NGLWidget to string.amino.acids.1.
+    Converting from nglview.NGLWidget to string:amino_acids_1.
 
     Parameters
     ----------
     item : nglview.NGLWidget
-        Source item to convert.
+        Source item in nglview.NGLWidget form.
+    group_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Group indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.amino.acids.1
-        Converted molecular system representation.
+    string:amino_acids_1
+        Resulting object in string:amino_acids_1 form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_Topology import to_molsysmt_Topology

@@ -8,7 +8,27 @@ def has_attribute(
     include_none=False,
     skip_digestion=False,
 ):
-    """Checking instance availability by composing native form contracts."""
+    """
+    Checking if form molsysmt.MolSys supports a specific attribute.
+
+    Parameters
+    ----------
+    molecular_system : object
+        Argument molecular_system.
+    attribute : str
+        Attribute name to query.
+    include_none : object
+        Argument include_none.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    bool
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.form import (
         molsysmt_MolecularMechanics,

@@ -5,12 +5,37 @@ import numpy as np
 @arg_digest()
 def get_chain_type(molecular_system, element='atom', selection='all',
                    redefine_indices=False, redefine_types=False, syntax='MolSysMT', skip_digestion=False):
-    """Returning chain types for a molecular system.
+    """
+    Getting chain types from a molecular system.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
+        Structural element level at which the chain types are returned.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query, specified as 0-based indices or query string.
+    redefine_indices : bool, default=False
+        Whether to recalculate chain indices locally prior to type assignment.
+    redefine_types : bool, default=False
+        Whether to re-infer chain types from constituent molecule types.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection`.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    list of str
+        List of chain type classifications for each selected element.
 
     Notes
     -----
     Explicit types are preserved when available. If types are redefined, they
     are inferred locally from the molecule types assigned to each chain.
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

@@ -6,13 +6,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : file:psf
+        Source item in file:psf form.
 
     Returns
     -------
     bool
-        True if item conforms to form file:psf, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

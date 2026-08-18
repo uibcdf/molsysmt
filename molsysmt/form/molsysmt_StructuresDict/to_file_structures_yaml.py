@@ -22,7 +22,25 @@ def _serialize_quantity(value, unit):
 @dep_digest('yaml')
 @arg_digest(form='molsysmt.StructuresDict')
 def to_file_structures_yaml(item, output_filename, skip_digestion=False):
-    """Writing StructuresDict to a YAML structures file."""
+    """
+    Converting from molsysmt.StructuresDict to file:structures_yaml.
+
+    Parameters
+    ----------
+    item : molsysmt.StructuresDict
+        Source item in molsysmt.StructuresDict form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    file:structures_yaml
+        Resulting object in file:structures_yaml form.
+
+    .. versionadded:: 1.0.0
+    """
 
     import yaml
 

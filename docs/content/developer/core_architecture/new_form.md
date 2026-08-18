@@ -65,7 +65,7 @@ def is_form(item):
     return output
 ```
 
-### B. Attributes and Getters (`attributes.py` & `has_attribute.py`)
+### B. Attributes and Getters (`attributes.py` and `has_attribute.py`)
 The `attributes` dictionary in `attributes.py` maps supported attributes to `True` or `False`. 
 *   **Rule**: An attribute must be marked `True` if and only if a corresponding getter function (e.g. `get_n_atoms` or `get_coordinates`) is fully implemented in `get_topological_attributes.py` or `get_structural_attributes.py`.
 
@@ -82,7 +82,7 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
 ---
 
-## 4. Step 3: Lazy Imports & Dependency Isolation
+## 4. Step 3: Lazy Imports and Dependency Isolation
 
 > [!CAUTION]
 > **Never Import Soft Dependencies Eagerly**

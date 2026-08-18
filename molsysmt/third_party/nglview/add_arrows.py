@@ -8,58 +8,23 @@ import numpy as np
 @arg_digest()
 def add_arrows(view, origin=None, end=None, vectors=None,
                color='#808080', radius='0.2 angstroms'):
-    """Adding arrows to a view.
-
-    A list of arrows can be added to an NGL view (NGLWidget).
+    """
+    Adding 3D arrows between start and end coordinate points in NGLWidget.
 
     Parameters
     ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
+    start : list or numpy.ndarray
+        Starting 3D coordinates.
+    end : list or numpy.ndarray
+        Ending 3D coordinates.
+    color : str, default='red'
+        Arrow color.
+    radius : float, default=0.1
+        Arrow cylinder radius in nanometers.
 
-    view: nglview.NGLWidget
-       A view of the molecular system as an nglview.NGLWidget native object.
-
-    coordinates: Quantity (value:numpy.ndarray, dimensionality:['L']=1)
-       Positions of the points of origin for the set of arrows. A quantity with length dimensions is required (['L']=1), the value must be a numpy ndarray with shape [n_arrows, 3] (n_arrows is the number of arrows to be added).
-
-    arrows: Quantity (value:numpy.ndarray, dimensionality:['L']=1)
-       Vectors to be added as arrows. A quantity with length dimensions is required (['L']=1), the value must be a numpy ndarray with shape [n_arrows, 3] (n_arrows is the number of arrows to be added).
-
-    color: list, tuple, string default='#808080'
-       HEX or RGB color code of the arrows.
-
-    radius: Quantity (value:float, dimensionality:['L']=1), default='0.2 angstroms'
-       Radius of the arrows.
-
-    Returns
-    -------
-    None
-        The method modifies an nglview.NGLWidget object to add a list of arrows.
-
-    Examples
-    --------
-    >>> import molsysmt as msm
-    >>> from molsysmt import pyunitwizard as puw
-    >>> import numpy as np
-    >>> molecular_system = msm.convert('181L', selection='molecule_type=="protein"')
-    >>> coordinates = msm.get(molecular_system, element='atom', selection='atom_name=="CA"', coordinates=True)
-    >>> vectors = puw.quantity(np.ones([coordinates.shape[0],3]), 'angstroms')
-    >>> view = msm.view(molecular_system)
-    >>> msm.thirds.add_arrows(view, origin=coordinates, vectors=arrows)
-    >>> view
-
-    See Also
-    --------
-    :func:`molsysmt.basic.view`, :func:`molsysmt.basic.select`
-
-    Notes
-    -----
-
-    Have a look to the `YYY`_.
-
-    .. YYY:
-       https://uibcdf.org/molsysmt
-
-
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt import get

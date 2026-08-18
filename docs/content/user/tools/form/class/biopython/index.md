@@ -1,19 +1,19 @@
-# Class: Biopython
+# Biopython
 
-Form adapters for in-memory classes from Biopython.
+Form adapters for Biopython in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [biopython.PDBStructure](biopython_PDBStructure.ipynb) | ['', ''] |
-| [biopython.Seq](biopython_Seq.ipynb) | ['', ''] |
-| [biopython.SeqRecord](biopython_SeqRecord.ipynb) | ['', ''] |
+| [PDBStructure](biopython_PDBStructure.ipynb) | Form adapter for `PDBStructure` |
+| [Seq](biopython_Seq.ipynb) | Form adapter for `Seq` |
+| [SeqRecord](biopython_SeqRecord.ipynb) | Form adapter for `SeqRecord` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   biopython_PDBStructure.ipynb
-   biopython_Seq.ipynb
-   biopython_SeqRecord.ipynb
+   PDBStructure <biopython_PDBStructure.ipynb>
+   Seq <biopython_Seq.ipynb>
+   SeqRecord <biopython_SeqRecord.ipynb>
 ```

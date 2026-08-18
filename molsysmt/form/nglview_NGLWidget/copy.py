@@ -5,6 +5,23 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='nglview.NGLWidget')
 def extract(item, skip_digestion=False):
 
+    """
+    Extracting a subset of elements or structures from form nglview.NGLWidget.
+
+    Parameters
+    ----------
+    item : nglview.NGLWidget
+        Source item in nglview.NGLWidget form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    nglview.NGLWidget
+        Resulting object in nglview.NGLWidget form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = copy(item)
 
     return tmp_item

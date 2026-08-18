@@ -1,17 +1,17 @@
-# Class: Viewers
+# Viewers
 
-Form adapters for in-memory classes from Viewers.
+Form adapters for Viewers in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [molsysviewer.MolSysView](molsysviewer_MolSysView.ipynb) | ['MolSysViewer visualization native object.'] |
-| [nglview.NGLWidget](nglview_NGLWidget.ipynb) | [''] |
+| [MolSysView](molsysviewer_MolSysView.ipynb) | Form adapter for `MolSysView` |
+| [NGLWidget](nglview_NGLWidget.ipynb) | Form adapter for `NGLWidget` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   molsysviewer_MolSysView.ipynb
-   nglview_NGLWidget.ipynb
+   MolSysView <molsysviewer_MolSysView.ipynb>
+   NGLWidget <nglview_NGLWidget.ipynb>
 ```

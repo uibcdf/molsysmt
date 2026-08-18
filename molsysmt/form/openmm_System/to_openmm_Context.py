@@ -10,14 +10,30 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None,
     Parameters
     ----------
     item : openmm.System
-        Source item to convert.
+        Source item in openmm.System form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    integrator : object
+        Argument integrator.
+    temperature : object
+        Argument temperature.
+    friction : object
+        Argument friction.
+    time_step : object
+        Argument time_step.
+    platform : object
+        Argument platform.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.Context
-        Converted molecular system representation.
+        Resulting object in openmm.Context form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt import pyunitwizard as puw

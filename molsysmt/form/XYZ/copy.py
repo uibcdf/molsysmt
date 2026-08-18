@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : XYZ
-        Source item.
+        Source item in XYZ form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     XYZ
-        Copied item.
+        Resulting object in XYZ form.
+
+    .. versionadded:: 1.0.0
     """
 
     from copy import deepcopy

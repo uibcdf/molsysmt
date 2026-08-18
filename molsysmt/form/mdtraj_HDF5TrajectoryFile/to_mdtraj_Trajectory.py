@@ -12,11 +12,26 @@ def to_mdtraj_Trajectory(
     structure_indices="all",
     skip_digestion=False,
 ):
-    """Converting an MDTraj HDF5 reader without changing its cursor.
+    """
+    Converting from mdtraj.HDF5TrajectoryFile to mdtraj.Trajectory.
 
-    The returned in-memory trajectory contains the canonical atom selection and preserves
-    the requested structure order. Optional HDF5 fields that ``mdtraj.Trajectory`` cannot
-    represent remain available only through native MolSysMT conversions.
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    mdtraj.Trajectory
+        Resulting object in mdtraj.Trajectory form.
+
+    .. versionadded:: 1.0.0
     """
 
     mdtraj_atom_indices = None

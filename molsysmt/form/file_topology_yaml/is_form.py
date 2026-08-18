@@ -7,13 +7,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : file:topology_yaml
+        Source item in file:topology_yaml form.
 
     Returns
     -------
     bool
-        True if item conforms to form file:topology_yaml, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
     if isinstance(item, Path):
         item = str(item)

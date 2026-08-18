@@ -4,5 +4,21 @@ from copy import deepcopy
 
 @arg_digest(form='molsysmt.ViewerJSON')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
-    """Return a deep-copied ViewerJSON (identity conversion)."""
+    """
+    Converting from molsysmt.ViewerJSON to molsysmt.ViewerJSON.
+
+    Parameters
+    ----------
+    item : molsysmt.ViewerJSON
+        Source item in molsysmt.ViewerJSON form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.ViewerJSON
+        Resulting object in molsysmt.ViewerJSON form.
+
+    .. versionadded:: 1.0.0
+    """
     return deepcopy(item)

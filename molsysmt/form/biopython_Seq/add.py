@@ -10,15 +10,19 @@ def add(to_item, item, group_indices='all', skip_digestion=False):
     ----------
     to_item : biopython.Seq
         Target item to modify or add elements to.
-    from_item : object
-        Source item providing elements.
+    item : biopython.Seq
+        Source item in biopython.Seq form.
+    group_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Group indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     biopython.Seq
-        Target item with added elements.
+        Resulting object in biopython.Seq form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

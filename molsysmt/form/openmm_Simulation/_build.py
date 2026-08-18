@@ -14,7 +14,35 @@ def build_simulation(
     integration_timestep="2.0 fs",
     platform="CPU",
 ):
-    """Building an OpenMM Simulation without inventing an initial structure."""
+    """
+    Performing build simulation on form openmm.Simulation.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
+    system : object
+        Argument system.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    integrator : object
+        Argument integrator.
+    temperature : object
+        Argument temperature.
+    collisions_rate : object
+        Argument collisions_rate.
+    integration_timestep : object
+        Argument integration_timestep.
+    platform : object
+        Argument platform.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if coordinates is None:
         from molsysmt._private.smonitor import NotCompatibleConversionError

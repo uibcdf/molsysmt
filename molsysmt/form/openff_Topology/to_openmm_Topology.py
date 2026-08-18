@@ -8,14 +8,16 @@ def to_openmm_Topology(item, skip_digestion=False):
     Parameters
     ----------
     item : openff.Topology
-        Source item to convert.
+        Source item in openff.Topology form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.Topology
-        Converted molecular system representation.
+        Resulting object in openmm.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     return item.to_openmm()

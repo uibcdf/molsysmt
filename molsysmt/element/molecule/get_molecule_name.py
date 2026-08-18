@@ -5,14 +5,28 @@ import numpy as np
 @arg_digest()
 def get_molecule_name(molecular_system, element='molecule', selection='all', redefine_indices=False,
                        redefine_names=False, syntax='MolSysMT', skip_digestion=False):
-    """Returning molecule names for a molecular system.
+    """
+    Getting molecule names from a molecular system.
 
-    Notes
-    -----
-    Explicit names are preserved when available. If names are redefined,
-    molecule names follow the canonical local fallback rules; in particular,
-    when molecules fall back to components, `molecule_name` falls back to
-    `component_name`.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='molecule'
+        Structural element level at which molecule names are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of str
+        List of molecule names.
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

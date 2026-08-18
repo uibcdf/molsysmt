@@ -8,14 +8,20 @@ def to_openmm_Modeller(item, atom_indices='all', coordinates=None, skip_digestio
     Parameters
     ----------
     item : file:prmtop
-        Source item to convert.
+        Source item in file:prmtop form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.Modeller
-        Converted molecular system representation.
+        Resulting object in openmm.Modeller form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_openmm_Topology import to_openmm_Topology

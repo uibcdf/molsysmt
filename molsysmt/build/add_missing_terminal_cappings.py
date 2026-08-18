@@ -39,6 +39,8 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
         query string following :ref:`MolSysMT selection syntax <Introduction_Selection>`.
 
     syntax : str, default 'MolSysMT'
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
         Syntax used to parse the `selection` argument, if it is a string.
 
     engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'

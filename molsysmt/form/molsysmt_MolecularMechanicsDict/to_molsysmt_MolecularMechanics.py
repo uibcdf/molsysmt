@@ -9,14 +9,18 @@ def to_molsysmt_MolecularMechanics(item, atom_indices='all', skip_digestion=Fals
     Parameters
     ----------
     item : molsysmt.MolecularMechanicsDict
-        Source item to convert.
+        Source item in molsysmt.MolecularMechanicsDict form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolecularMechanics
-        Converted molecular system representation.
+        Resulting object in molsysmt.MolecularMechanics form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.native.molecular_mechanics import MolecularMechanics as molsysmt_MolecularMechanics

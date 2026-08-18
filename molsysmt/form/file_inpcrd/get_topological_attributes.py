@@ -7,7 +7,23 @@ form='file:inpcrd'
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-    """Read n_atoms from the AMBER inpcrd/restart header."""
+    """
+    Getting n atoms from system in form file:inpcrd.
+
+    Parameters
+    ----------
+    item : file:inpcrd
+        Source item in file:inpcrd form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from molsysmt._private.files_and_directories import str_filename
     filename = str_filename(item)
     with open(filename, 'r') as fff:

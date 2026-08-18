@@ -13,22 +13,36 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
     Parameters
     ----------
     item : molsysviewer.MolSysView
-        Target item.
-    structure_id : object, optional
-        Structure identifier.
-    time : object, optional
-        Time coordinates.
-    coordinates : object, optional
+        Source item in molsysviewer.MolSysView form.
+    structure_id : object
+        Structure identifiers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
+    coordinates : numpy.ndarray or quantity
         Cartesian coordinate array in nanometers.
-    box : object, optional
-        Box vectors in nanometers.
+    velocities : object
+        Argument velocities.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
+    temperature : object
+        Argument temperature.
+    potential_energy : object
+        Argument potential_energy.
+    kinetic_energy : object
+        Argument kinetic_energy.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysviewer.MolSysView
-        Updated item with appended structures.
+        Resulting object in molsysviewer.MolSysView form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys

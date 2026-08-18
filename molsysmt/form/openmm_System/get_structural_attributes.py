@@ -28,6 +28,25 @@ form='openmm.System'
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting box from system in form openmm.System.
+
+    Parameters
+    ----------
+    item : openmm.System
+        Source item in openmm.System form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     box = item.getDefaultPeriodicBoxVectors()
 
     output = None

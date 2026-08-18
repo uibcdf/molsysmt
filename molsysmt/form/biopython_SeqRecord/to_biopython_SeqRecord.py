@@ -8,14 +8,20 @@ def to_biopython_SeqRecord(item, group_indices='all', copy_if_all=True, skip_dig
     Parameters
     ----------
     item : biopython.SeqRecord
-        Source item to convert.
+        Source item in biopython.SeqRecord form.
+    group_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Group indices (0-based) to include.
+    copy_if_all : object
+        Argument copy_if_all.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     biopython.SeqRecord
-        Converted molecular system representation.
+        Resulting object in biopython.SeqRecord form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .extract import extract

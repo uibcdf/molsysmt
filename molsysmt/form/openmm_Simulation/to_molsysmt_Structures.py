@@ -8,14 +8,20 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     Parameters
     ----------
     item : openmm.Simulation
-        Source item to convert.
+        Source item in openmm.Simulation form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.Structures
-        Converted molecular system representation.
+        Resulting object in molsysmt.Structures form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.openmm_Context.to_openmm_Context import to_openmm_Context as openmm_Simulation_to_openmm_Context

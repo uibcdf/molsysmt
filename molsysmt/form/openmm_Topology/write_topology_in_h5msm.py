@@ -8,9 +8,20 @@ def write_topology_in_h5msm(item, file, atom_indices='all', skip_digestion=False
     Parameters
     ----------
     item : openmm.Topology
-        Target item.
+        Source item in openmm.Topology form.
+    file : object
+        Argument file.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_Topology import to_molsysmt_Topology as openmm_Topology_to_molsysmt_Topology

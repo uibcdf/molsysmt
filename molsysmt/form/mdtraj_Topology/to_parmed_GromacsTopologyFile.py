@@ -8,14 +8,18 @@ def to_parmed_GromacsTopologyFile(item, atom_indices='all', skip_digestion=False
     Parameters
     ----------
     item : mdtraj.Topology
-        Source item to convert.
+        Source item in mdtraj.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     parmed.GromacsTopologyFile
-        Converted molecular system representation.
+        Resulting object in parmed.GromacsTopologyFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.parmed_Structure.to_parmed_Structure import to_parmed_Structure

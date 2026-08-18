@@ -4,13 +4,28 @@ from molsysmt._private.argdigest import arg_digest
 def get_chain_name(molecular_system, element='atom', selection='all',
                    redefine_indices=False, redefine_ids=False, redefine_names=False, syntax='MolSysMT',
                    skip_digestion=False):
-    """Returning chain names for a molecular system.
+    """
+    Getting chain names from a molecular system.
 
-    Notes
-    -----
-    Explicit names are preserved when available. If names are redefined, the
-    result follows the deterministic local chain naming rules of the native
-    layer.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='chain'
+        Structural element level at which chain names are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of str
+        List of chain names.
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

@@ -3,19 +3,27 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='string:pdb_id')
 def to_file_bcif_gz(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
     """
-    Converting from string:pdb_id to file.bcif.gz.
+    Converting from string:pdb_id to file:bcif_gz.
 
     Parameters
     ----------
     item : string:pdb_id
-        Source item to convert.
+        Source item in string:pdb_id form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.bcif.gz
-        Converted molecular system representation.
+    file:bcif_gz
+        Resulting object in file:bcif_gz form.
+
+    .. versionadded:: 1.0.0
     """
 
     from ..file_bcif_gz import download

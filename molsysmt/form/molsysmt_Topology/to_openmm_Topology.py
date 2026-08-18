@@ -24,6 +24,27 @@ def _openmm_element(atom_type, app):
 @dep_digest('openmm')
 def to_openmm_Topology(item, box=None, atom_indices='all', skip_digestion=False):
 
+    """
+    Converting from molsysmt.Topology to openmm.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    openmm.Topology
+        Resulting object in openmm.Topology form.
+
+    .. versionadded:: 1.0.0
+    """
     import openmm as mm
     import openmm.app as app
 

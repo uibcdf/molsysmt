@@ -6,13 +6,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : file:bcif.gz
+        Source item in file:bcif.gz form.
 
     Returns
     -------
     bool
-        True if item conforms to form file:bcif.gz, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

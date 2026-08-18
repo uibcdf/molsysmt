@@ -8,14 +8,22 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', outp
     Parameters
     ----------
     item : mmcif.PdbxContainers.DataContainer
-        Source item to convert.
+        Source item in mmcif.PdbxContainers.DataContainer form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.Trajectory
-        Converted molecular system representation.
+        Resulting object in mdtraj.Trajectory form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

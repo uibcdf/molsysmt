@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : string:amino_acids_3
-        Source item.
+        Source item in string:amino_acids_3 form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     string:amino_acids_3
-        Copied item.
+        Resulting object in string:amino_acids_3 form.
+
+    .. versionadded:: 1.0.0
     """
 
     return copy(item)

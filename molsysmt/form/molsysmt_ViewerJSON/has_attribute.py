@@ -5,7 +5,27 @@ from . import get_topological_attributes as get_topo
 
 @arg_digest(form='molsysmt.ViewerJSON')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
-    """Attribute availability for `ViewerJSON` objects."""
+    """
+    Checking if form molsysmt.ViewerJSON supports a specific attribute.
+
+    Parameters
+    ----------
+    molecular_system : object
+        Argument molecular_system.
+    attribute : str
+        Attribute name to query.
+    include_none : object
+        Argument include_none.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    bool
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
+    """
 
     if not attributes[attribute]:
         return False

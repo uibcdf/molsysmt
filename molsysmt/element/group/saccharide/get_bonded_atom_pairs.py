@@ -4,6 +4,23 @@ import numpy as np
 _sorted=sorted
 
 def get_bonded_atom_pairs(group_name, atom_names, atom_indices=None, sorted=True):
+    """
+    Getting standard intra-group covalent bonded atom pairs for saccharide residues.
+
+    Parameters
+    ----------
+    group : str
+        Residue or group name (e.g. 'ALA', 'HOH').
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of tuple of str
+        List of bonded atom name pairs.
+
+    .. versionadded:: 1.0.0
+    """
 
     from . import group_names, get_group_db
 

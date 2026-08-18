@@ -509,44 +509,183 @@ Always indicate the version when the function was added at the end of the docstr
 .. versionadded:: 1.0.0
 ```
 
-## Classes
+## Classes and Constructors
 
-## Modules
+Classes in MolSysMT (such as native containers `MolSys`, `Topology`, `Structures`, `MolecularMechanics`, and `MolSysBuilder`) must document constructor parameters in the class docstring under `Parameters`, and document instance fields under `Attributes`.
 
-## Modules
+```python
+class MolSys:
+    """
+    Unified molecular system container combining topology, structures, and mechanics.
 
-## Attributes
+    Parameters
+    ----------
+    topology : molsysmt.Topology, optional
+        Topological graph and chemical metadata.
+    structures : molsysmt.Structures, optional
+        Spatial coordinates, simulation boxes, and time series.
+    molecular_mechanics : molsysmt.MolecularMechanics, optional
+        Force field parameters, force groups, and engine contexts.
+
+    Attributes
+    ----------
+    topology : molsysmt.Topology
+        Molecular topology instance.
+    structures : molsysmt.Structures
+        Molecular structures instance.
+    molecular_mechanics : molsysmt.MolecularMechanics
+        Molecular mechanics instance.
+
+    .. versionadded:: 1.0.0
+    """
+```
+
+:::{admonition} Editorial guide for classes
+:class: important
+- Document constructor parameters in the class-level docstring under `Parameters`.
+- Document public instance attributes under `Attributes`.
+- Do not repeat constructor parameters inside `__init__` docstrings unless `__init__` has custom private signature logic.
+:::
+
+## Properties and Class Attributes
+
+Class properties decorated with `@property` should have a concise summary, an optional description, and a `Returns` section describing the return type and meaning:
+
+```python
+@property
+def n_atoms(self):
+    """
+    Number of atoms in the molecular system.
+
+    Returns
+    -------
+    int
+        Total atom count.
+    """
+    return self._n_atoms
+```
+
+## Form Adapters and Converters
+
+Form adapters under `molsysmt/form/<form_name>/` represent the interoperability layer. Each form converter (`to_<target_form>.py`) and operation (`extract.py`, `add.py`, `merge.py`, `copy.py`, `append_structures.py`, `is_form.py`, `has_attribute.py`) must document:
+
+1. **One-line summary**: Stating source and target forms or operation in gerund.
+2. **Parameters**: All arguments in the exact signature (including `atom_indices`, `structure_indices`, `selection`, `syntax`, `output_filename`, `skip_digestion`).
+3. **Returns**: Target form instance or `None` if modifying in place.
+
+```python
+@arg_digest(form='file:pdb', to_form='molsysmt.MolSys')
+def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Converting from file:pdb to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : file:pdb
+        Source item in file:pdb form to convert.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include in the converted system.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include in the converted system.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Converted molecular system representation.
+
+    .. versionadded:: 1.0.0
+    """
+```
+
+## Atomic Attribute Extractors
+
+Inside form adapter files like `get_topological_attributes.py` and `get_structural_attributes.py`, individual attribute getters (`get_<attribute>_from_<element>`) must document their arguments and return value types:
+
+```python
+def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting Cartesian coordinates for selected atoms and structures.
+
+    Parameters
+    ----------
+    item : object
+        Molecular system item in the current form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to extract coordinates for.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to extract.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    numpy.ndarray
+        Coordinates array of shape `(n_structures, n_atoms, 3)` in nanometers.
+    """
+```
 
 (sec-object-typing)=
-## Object typing
+## Standard Object Typing
 
-Parameters, Return, ... need to specify object types.
+Use lowercase identifiers for standard types and explicit package qualifiers for external types:
 
-| type | comment |
-|------|----------|
-| `Any` | See [PEP 484](https://www.python.org/dev/peps/pep-0484/#the-any-type) |
-| `bool` | boolean |
-| `str` | string |
-|  `list of str` |   |
-|   |   |
+| Type Expression | Meaning and Usage |
+| :--- | :--- |
+| `molecular system` | Any object or file path recognized by MolSysMT in any supported form. |
+| `quantity` | Physical quantity carrying units managed by PyUnitWizard. |
+| `numpy.ndarray` | NumPy multidimensional array (specify shape when possible, e.g. `(n_structures, n_atoms, 3)`). |
+| `pandas.DataFrame` | Pandas DataFrame tabular structure. |
+| `pathlib.Path` | Pathlib filesystem path object. |
+| `str` | Character string. |
+| `int` | Integer value. |
+| `float` | Floating point scalar. |
+| `bool` | Boolean flag. |
+| `list of str` / `list of int` | Homogeneous lists of strings or integers. |
+| `tuple of int` | Fixed-length tuple of integers. |
+| `dict` | Key-value dictionary. |
 
-## Other finnal editorial rules
+## Canonical Physical Units
 
-- Avoid using bold text unnecessarily in descriptive parts of docstrings.
-- You can use limited Markdown-style formatting inside docstrings
-  (for example, `**bold**`, lists) as long as Sphinx parses it correctly.
-- Avoid raw `.rst` constructs when they are not needed; rely on Sphinx roles
-  such as `:ref:` and `:func:` for cross-references.
-- Triple backticks for code blocks are fine in `.md` files, but docstrings in
-  Python code must still use triple quotes `"""`.
-- Cross-references (`:ref:`, `:func:`) work as in reStructuredText and should
-  point to stable labels defined in the documentation.
-- Use lowercase identifiers in prose to match attribute names
-  (for example, `atom_id`, `group_id`).
-- Early validation of arguments is always performed with the `@digest` decorator.
-- There must be **exactly one blank line** between sections (`Parameters`,
-  `Returns`, `Notes`, etc.).
-- Do not leave blank lines **inside** the parameter block between arguments.
-- Use `.. admonition:: Tutorial with more examples` inside docstrings to link
-  to notebooks; the MyST format for admonitions is reserved for documentation
-  pages and tutorials, not for docstrings.
+MolSysMT defines canonical internal physical units registered in `puw.fast_track`. All docstrings documenting physical dimensions must state these units:
+
+- **Lengths, Coordinates, Box dimensions**: `nanometers` (`nm`).
+- **Angles and Dihedrals**: `degrees` or `radians` (explicitly documented).
+- **Time and Timesteps**: `picoseconds` (`ps`).
+- **Atomic Masses**: `daltons` (`Da`).
+- **Temperature**: `kelvin` (`K`).
+- **Potential and Interaction Energy**: `kJ/mol`.
+- **Forces**: `kJ/(mol*nm)`.
+- **Partial and Net Electric Charges**: `elementary charge` units (`e`).
+
+## Standard Reusable Parameters Vocabulary
+
+Reuse the standard description verbatim for these universal parameters:
+
+| Parameter | Type | Standard Description |
+| :--- | :--- | :--- |
+| `molecular_system` | `molecular system` | Molecular system to query or manipulate, in any of the :ref:`supported forms <Introduction_Forms>`. |
+| `selection` | `str, list, tuple, or numpy.ndarray, default='all'` | Selection of atoms or elements (0-based indices or query string following :ref:`supported syntaxes <Introduction_Selection>`). |
+| `structure_indices` | `str, list, tuple, or numpy.ndarray, default='all'` | Structure indices (0-based) to include or process. |
+| `syntax` | `str, default='MolSysMT'` | Selection syntax used to evaluate `selection`. See :ref:`Introduction_Selection`. |
+| `skip_digestion` | `bool, default=False` | Whether to skip MolSysMT's internal argument digestion and validation mechanism. |
+| `to_form` | `str or list of str, default='molsysmt.MolSys'` | Target form (or list of forms) for the conversion output. |
+| `in_place` | `bool, default=False` | Whether to modify `molecular_system` in place or return a new copy. |
+| `element` | `{'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'` | Structural hierarchical element level at which the query is applied. |
+| `redefine_indices` | `bool, default=False` | Whether to recalculate element indices locally prior to querying. |
+| `redefine_types` | `bool, default=False` | Whether to re-infer element classifications from constituent components. |
+| `keep_ids` | `bool, default=True` | Whether to preserve original element IDs during merging or addition. |
+| `engine` | `str, default='OpenMM'` | Target simulation engine backend. |
+| `platform` | `str, default='CPU'` | Compute platform name (`'Reference'`, `'CPU'`, `'CUDA'`, `'OpenCL'`). |
+| `output_filename` | `str or pathlib.Path` | Output file path for serialization. |
+| `definition` | `str, default='collantes'` | Reference parameter dataset used for property calculation. |
+
+## General Editorial and Formatting Invariants
+
+- Always use English in technical, active, and direct tone.
+- Avoid bold text in descriptive paragraphs unless strictly necessary.
+- Exactly one blank line between docstring sections (`Parameters`, `Returns`, `Notes`, etc.).
+- Do not leave blank lines between parameters within the `Parameters` block.
+- Use `.. admonition:: Tutorial with more examples` inside docstrings to link to notebooks.
+- Every public function must conclude with `.. versionadded:: 1.0.0`.

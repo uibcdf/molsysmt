@@ -2,6 +2,21 @@ import numpy as np
 from .group_names import group_names
 
 def small_molecule_is_amino_acid(molecular_system, group_name):
+    """
+    Checking whether a small molecule residue is categorized as an amino acid.
+
+    Parameters
+    ----------
+    group_name : str
+        Group or residue name.
+
+    Returns
+    -------
+    bool
+        True if the group is an amino acid, False otherwise.
+
+    .. versionadded:: 1.0.0
+    """
 
     output = False
 

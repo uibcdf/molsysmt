@@ -9,14 +9,20 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
     Parameters
     ----------
     item : file:h5
-        Source item.
+        Source item in file:h5 form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    progress_bar : object
+        Argument progress_bar.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     file:h5
-        Copied item.
+        Resulting object in file:h5 form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

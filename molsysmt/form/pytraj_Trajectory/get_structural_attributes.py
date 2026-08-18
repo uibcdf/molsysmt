@@ -13,7 +13,27 @@ def get_coordinates_from_atom(
     structure_indices='all',
     skip_digestion=False,
 ):
-    """Getting coordinates from a PyTraj trajectory in canonical units."""
+    """
+    Getting coordinates from atom in form pytraj.Trajectory.
+
+    Parameters
+    ----------
+    item : pytraj.Trajectory
+        Source item in pytraj.Trajectory form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     coordinates = item.xyz
     if not is_all(structure_indices):
@@ -31,7 +51,25 @@ def get_n_structures_from_system(
     structure_indices='all',
     skip_digestion=False,
 ):
-    """Getting the number of selected structures from a PyTraj trajectory."""
+    """
+    Getting n structures from system in form pytraj.Trajectory.
+
+    Parameters
+    ----------
+    item : pytraj.Trajectory
+        Source item in pytraj.Trajectory form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if is_all(structure_indices):
         return item.n_frames
@@ -44,7 +82,25 @@ def get_box_from_system(
     structure_indices='all',
     skip_digestion=False,
 ):
-    """Getting periodic boxes from a PyTraj trajectory in canonical units."""
+    """
+    Getting box from system in form pytraj.Trajectory.
+
+    Parameters
+    ----------
+    item : pytraj.Trajectory
+        Source item in pytraj.Trajectory form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     unitcells = item.unitcells
     if unitcells is None:
@@ -69,7 +125,25 @@ def get_time_from_system(
     structure_indices='all',
     skip_digestion=False,
 ):
-    """Getting time from a PyTraj trajectory in picoseconds when available."""
+    """
+    Getting time from system in form pytraj.Trajectory.
+
+    Parameters
+    ----------
+    item : pytraj.Trajectory
+        Source item in pytraj.Trajectory form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if item.time is None:
         return None
@@ -85,7 +159,25 @@ def get_structure_id_from_system(
     structure_indices='all',
     skip_digestion=False,
 ):
-    """Getting structure identifiers unavailable in PyTraj trajectories."""
+    """
+    Getting structure id from system in form pytraj.Trajectory.
+
+    Parameters
+    ----------
+    item : pytraj.Trajectory
+        Source item in pytraj.Trajectory form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return None
 

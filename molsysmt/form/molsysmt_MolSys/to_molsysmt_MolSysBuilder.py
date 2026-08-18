@@ -9,14 +9,20 @@ def to_molsysmt_MolSysBuilder(item, atom_indices="all", structure_indices="all",
     Parameters
     ----------
     item : molsysmt.MolSys
-        Source item to convert.
+        Source item in molsysmt.MolSys form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolSysBuilder
-        Converted molecular system representation.
+        Resulting object in molsysmt.MolSysBuilder form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.native import MolSysBuilder

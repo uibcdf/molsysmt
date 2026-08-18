@@ -4,19 +4,25 @@ from molsysmt._private.smonitor import ArgumentError
 @arg_digest(form='string:smiles')
 def to_file_smi(item, output_filename=None, name=None, skip_digestion=False):
     """
-    Converting from string:smiles to file.smi.
+    Converting from string:smiles to file:smi.
 
     Parameters
     ----------
     item : string:smiles
-        Source item to convert.
+        Source item in string:smiles form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    name : object
+        Argument name.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.smi
-        Converted molecular system representation.
+    file:smi
+        Resulting object in file:smi form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

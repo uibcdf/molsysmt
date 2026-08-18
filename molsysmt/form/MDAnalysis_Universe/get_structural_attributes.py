@@ -22,6 +22,27 @@ def _timestep_has_time(timestep):
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting coordinates from atom in form MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item in MDAnalysis.Universe form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     frames = _get_frame_indices(item, structure_indices)
     output = []
     source_frame = _source_frame(item)
@@ -40,6 +61,27 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 @arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting velocities from atom in form MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item in MDAnalysis.Universe form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     frames = _get_frame_indices(item, structure_indices)
     output = []
     source_frame = _source_frame(item)
@@ -59,11 +101,49 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
 @arg_digest(form=form)
 def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting coordinates from system in form MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item in MDAnalysis.Universe form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_coordinates_from_atom(item, indices='all', structure_indices=structure_indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting n structures from system in form MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item in MDAnalysis.Universe form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if not hasattr(item, 'trajectory') or item.trajectory is None:
         return 0
     return len(_get_frame_indices(item, structure_indices))
@@ -71,6 +151,25 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting box from system in form MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item in MDAnalysis.Universe form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if not hasattr(item, 'trajectory') or item.trajectory is None:
         return None
     frames = _get_frame_indices(item, structure_indices)
@@ -99,6 +198,25 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting time from system in form MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item in MDAnalysis.Universe form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if not hasattr(item, 'trajectory') or item.trajectory is None:
         return None
     frames = _get_frame_indices(item, structure_indices)
@@ -120,6 +238,25 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting structure id from system in form MDAnalysis.Universe.
+
+    Parameters
+    ----------
+    item : MDAnalysis.Universe
+        Source item in MDAnalysis.Universe form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     frames = _get_frame_indices(item, structure_indices)
     return np.asarray(frames, dtype=np.int64)
 

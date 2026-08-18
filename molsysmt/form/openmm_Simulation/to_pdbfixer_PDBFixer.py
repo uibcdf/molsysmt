@@ -8,14 +8,20 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all', skip
     Parameters
     ----------
     item : openmm.Simulation
-        Source item to convert.
+        Source item in openmm.Simulation form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     pdbfixer.PDBFixer
-        Converted molecular system representation.
+        Resulting object in pdbfixer.PDBFixer form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.file_pdb.to_file_pdb import to_file_pdb as openmm_Simulation_to_file_pdb

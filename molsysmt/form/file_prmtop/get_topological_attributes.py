@@ -5,6 +5,23 @@ form='file:prmtop'
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
+    """
+    Getting n atoms from system in form file:prmtop.
+
+    Parameters
+    ----------
+    item : file:prmtop
+        Source item in file:prmtop form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from .to_openmm_AmberPrmtopFile import to_openmm_AmberPrmtopFile
     from molsysmt.form.openmm_AmberPrmtopFile.get_topological_attributes import get_n_atoms_from_system as aux_get
     tmp_item = to_openmm_AmberPrmtopFile(item, skip_digestion=True)
@@ -12,6 +29,25 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting atom id from atom in form file:prmtop.
+
+    Parameters
+    ----------
+    item : file:prmtop
+        Source item in file:prmtop form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from .to_openmm_AmberPrmtopFile import to_openmm_AmberPrmtopFile
     from molsysmt.form.openmm_AmberPrmtopFile.get_topological_attributes import get_atom_id_from_atom as aux_get
     tmp_item = to_openmm_AmberPrmtopFile(item, skip_digestion=True)

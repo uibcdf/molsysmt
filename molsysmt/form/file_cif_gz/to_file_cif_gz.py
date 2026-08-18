@@ -5,19 +5,29 @@ from molsysmt._private.files_and_directories import str_filename
 def to_file_cif_gz(item, atom_indices='all', structure_indices='all', output_name=None, copy_if_all=True,
                 skip_digestion=False):
     """
-    Converting from file:cif.gz to file.cif.gz.
+    Converting from file:cif.gz to file:cif_gz.
 
     Parameters
     ----------
     item : file:cif.gz
-        Source item to convert.
+        Source item in file:cif.gz form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_name : object
+        Argument output_name.
+    copy_if_all : object
+        Argument copy_if_all.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.cif.gz
-        Converted molecular system representation.
+    file:cif_gz
+        Resulting object in file:cif_gz form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .extract import extract

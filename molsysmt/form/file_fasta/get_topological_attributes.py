@@ -25,6 +25,23 @@ def _parse_fasta(item):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_chains_from_system(item, skip_digestion=False):
+    """
+    Getting n chains from system in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     return len(records)
 
@@ -32,6 +49,23 @@ def get_n_chains_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_entities_from_system(item, skip_digestion=False):
+    """
+    Getting n entities from system in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     return len(records)
 
@@ -39,6 +73,23 @@ def get_n_entities_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_groups_from_system(item, skip_digestion=False):
+    """
+    Getting n groups from system in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     return sum(len(r.seq) for r in records)
 
@@ -46,6 +97,23 @@ def get_n_groups_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_amino_acids_from_system(item, skip_digestion=False):
+    """
+    Getting n amino acids from system in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     return sum(len(r.seq) for r in records)
 
@@ -55,6 +123,25 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
+    """
+    Getting chain id from chain in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     ids = [r.id for r in records]
     if indices == 'all':
@@ -65,6 +152,25 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
+    """
+    Getting chain name from chain in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     names = [r.name for r in records]
     if indices == 'all':
@@ -75,6 +181,25 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
+    """
+    Getting chain type from chain in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     n = len(records)
     types_ = ['protein'] * n
@@ -86,6 +211,25 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
+    """
+    Getting n groups from chain in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     lengths = [len(r.seq) for r in records]
     if indices == 'all':
@@ -96,6 +240,25 @@ def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
+    """
+    Getting n amino acids from chain in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_groups_from_chain(item, indices=indices, skip_digestion=True)
 
 
@@ -104,12 +267,50 @@ def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
+    """
+    Getting entity id from entity in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_chain_id_from_chain(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
+    """
+    Getting entity name from entity in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     names = [r.description for r in records]
     if indices == 'all':
@@ -120,6 +321,25 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
+    """
+    Getting entity type from entity in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     n = len(records)
     types_ = ['protein'] * n
@@ -131,12 +351,50 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
+    """
+    Getting n groups from entity in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_groups_from_chain(item, indices=indices, skip_digestion=True)
 
 
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
+    """
+    Getting n amino acids from entity in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return get_n_groups_from_chain(item, indices=indices, skip_digestion=True)
 
 
@@ -145,6 +403,25 @@ def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
+    """
+    Getting group name from group in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     all_names = []
     for r in records:
@@ -158,6 +435,25 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
+    """
+    Getting group type from group in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     total = sum(len(r.seq) for r in records)
     types_ = ['amino acid'] * total
@@ -169,6 +465,25 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 @dep_digest('Bio')
 def get_group_index_from_group(item, indices='all', skip_digestion=False):
+    """
+    Getting group index from group in form file:fasta.
+
+    Parameters
+    ----------
+    item : file:fasta
+        Source item in file:fasta form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     records = _parse_fasta(item)
     total = sum(len(r.seq) for r in records)
     all_indices = list(range(total))

@@ -11,14 +11,26 @@ def to_molsysmt_MolSysOld(item, atom_indices='all',
     Parameters
     ----------
     item : file:psf
-        Source item to convert.
+        Source item in file:psf form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    structure_id : object
+        Structure identifiers.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolSysOld
-        Converted molecular system representation.
+        Resulting object in molsysmt.MolSysOld form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.native.molsys_old import MolSysOld

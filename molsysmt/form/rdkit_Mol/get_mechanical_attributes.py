@@ -41,7 +41,25 @@ def _get_partial_charges(item):
 
 @arg_digest(form='rdkit.Mol')
 def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
-    """Returning available partial charges in elementary-charge units."""
+    """
+    Getting partial charge from atom in form rdkit.Mol.
+
+    Parameters
+    ----------
+    item : rdkit.Mol
+        Source item in rdkit.Mol form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     values = _get_partial_charges(item)
     if values is None:
@@ -53,6 +71,22 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 
 @arg_digest(form='rdkit.Mol')
 def get_partial_charge_from_system(item, skip_digestion=False):
-    """Returning all available partial charges in elementary-charge units."""
+    """
+    Getting partial charge from system in form rdkit.Mol.
+
+    Parameters
+    ----------
+    item : rdkit.Mol
+        Source item in rdkit.Mol form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return get_partial_charge_from_atom(item, skip_digestion=True)

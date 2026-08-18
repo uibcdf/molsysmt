@@ -5,23 +5,23 @@ from molsysmt._private.variables import is_all
 @arg_digest(form='molsysmt.MolecularMechanics')
 def extract(item, copy_if_all=True, skip_digestion=False):
     """
-    Extracting a subset of atoms or structures from form molsysmt.MolecularMechanics.
+    Extracting a subset of elements or structures from form molsysmt.MolecularMechanics.
 
     Parameters
     ----------
     item : molsysmt.MolecularMechanics
-        Source item.
-    selection : str, list, tuple, or numpy.ndarray, default='all'
-        Atom selection to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices to extract.
+        Source item in molsysmt.MolecularMechanics form.
+    copy_if_all : object
+        Argument copy_if_all.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolecularMechanics
-        Extracted subset in the same form.
+        Resulting object in molsysmt.MolecularMechanics form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotWithThisMolecularSystemError()

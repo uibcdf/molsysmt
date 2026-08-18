@@ -15,6 +15,25 @@ form='XYZ'
 @arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
+    """
+    Getting atom index from atom in form XYZ.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item in XYZ form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if is_all(indices):
         n_aux = get_n_atoms_from_system(item, skip_digestion=True)
         output = list(range(n_aux))
@@ -38,6 +57,23 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
 
+    """
+    Getting n atoms from system in form XYZ.
+
+    Parameters
+    ----------
+    item : XYZ
+        Source item in XYZ form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from . import get_rank_3_XYZ
 
     tmp_coordinates = get_rank_3_XYZ(item)

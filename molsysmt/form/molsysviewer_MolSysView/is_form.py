@@ -4,13 +4,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : molsysviewer.MolSysView
+        Source item in molsysviewer.MolSysView form.
 
     Returns
     -------
     bool
-        True if item conforms to form molsysviewer.MolSysView, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     item_fullname = item.__class__.__module__ + '.' + item.__class__.__name__

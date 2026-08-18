@@ -11,14 +11,38 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all',
     Parameters
     ----------
     item : openmm.Modeller
-        Source item to convert.
+        Source item in openmm.Modeller form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    forcefield : object
+        Argument forcefield.
+    non_bonded_method : object
+        Argument non_bonded_method.
+    non_bonded_cutoff : object
+        Argument non_bonded_cutoff.
+    constraints : object
+        Argument constraints.
+    rigid_water : object
+        Argument rigid_water.
+    remove_cm_motion : object
+        Argument remove_cm_motion.
+    hydrogen_mass : object
+        Argument hydrogen_mass.
+    switch_distance : object
+        Argument switch_distance.
+    flexible_constraints : object
+        Argument flexible_constraints.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.System
-        Converted molecular system representation.
+        Resulting object in openmm.System form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology

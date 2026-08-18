@@ -5,19 +5,35 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
                   compression='gzip', compression_opts=4, int_precision='single', float_precision='single',
                   skip_digestion=False):
     """
-    Converting from file:bcif to file.h5msm.
+    Converting from file:bcif to file:h5msm.
 
     Parameters
     ----------
     item : file:bcif
-        Source item to convert.
+        Source item in file:bcif form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    compression : object
+        Argument compression.
+    compression_opts : object
+        Argument compression_opts.
+    int_precision : object
+        Argument int_precision.
+    float_precision : object
+        Argument float_precision.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.h5msm
-        Converted molecular system representation.
+    file:h5msm
+        Resulting object in file:h5msm form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

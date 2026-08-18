@@ -8,14 +8,20 @@ def to_nglview_NGLWidget(item, atom_indices='all', coordinates=None, skip_digest
     Parameters
     ----------
     item : openmm.Topology
-        Source item to convert.
+        Source item in openmm.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     nglview.NGLWidget
-        Converted molecular system representation.
+        Resulting object in nglview.NGLWidget form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.string_pdb_text.to_string_pdb_text import to_string_pdb_text as to_string_pdb_text

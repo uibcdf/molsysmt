@@ -5,7 +5,22 @@ import numpy as np
 #@arg_digest()
 def add_hbonds(view, hbonds, selection=None, selection_2=None, hbond_level='atom',
         color='#FFC300', radius='0.1 angstroms', syntax='MolSysMT'):
-    """Render hydrogen bonds as cylinders on an NGLview widget."""
+    """
+    Adding hydrogen bond interaction cylinders in NGLWidget.
+
+    Parameters
+    ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
+    hbonds : list of tuple or numpy.ndarray
+        Donor-acceptor or donor-hydrogen-acceptor atom index tuples.
+    color : str, default='blue'
+        Color for hydrogen bond visualization cylinders.
+    radius : float, default=0.05
+        Cylinder radius in nanometers.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt.basic import get, select
     from . import add_cylinders

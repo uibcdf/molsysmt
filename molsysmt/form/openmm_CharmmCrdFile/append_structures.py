@@ -9,22 +9,24 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     Parameters
     ----------
     item : openmm.CharmmCrdFile
-        Target item.
-    structure_id : object, optional
-        Structure identifier.
-    time : object, optional
-        Time coordinates.
-    coordinates : object, optional
+        Source item in openmm.CharmmCrdFile form.
+    structure_id : object
+        Structure identifiers.
+    time : numpy.ndarray or quantity
+        Simulation time coordinates in picoseconds.
+    coordinates : numpy.ndarray or quantity
         Cartesian coordinate array in nanometers.
-    box : object, optional
-        Box vectors in nanometers.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.CharmmCrdFile
-        Updated item with appended structures.
+        Resulting object in openmm.CharmmCrdFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

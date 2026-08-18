@@ -29,27 +29,26 @@ def to_molsysmt_MolSysDict(
     structure_indices="all",
     skip_digestion=False,
 ):
-    """Converting MolSysBuilder to MolSysDict.
-
-    A complete builder is serialized directly without materializing a
-    ``MolSys``. Requested atom or structure subsets are materialized so both
-    axes can be extracted with their documented ordering contracts.
+    """
+    Converting from molsysmt.MolSysBuilder to molsysmt.MolSysDict.
 
     Parameters
     ----------
     item : molsysmt.MolSysBuilder
-        Editable native system to serialize.
-    atom_indices : array-like of int or 'all', default 'all'
-        Canonically ordered atom indices to include.
-    structure_indices : array-like of int or 'all', default 'all'
-        Structure indices to include in the requested order.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Source item in molsysmt.MolSysBuilder form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysmt.MolSysDict
-        Serializable reduced-schema representation.
+        Resulting object in molsysmt.MolSysDict form.
+
+    .. versionadded:: 1.0.0
     """
 
     if atom_indices != "all" or structure_indices != "all":

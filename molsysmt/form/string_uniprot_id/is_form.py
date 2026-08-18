@@ -8,12 +8,20 @@ _pattern = re.compile(
 )
 
 def is_form(item):
-    """Check whether item matches a UniProt accession number string format.
+    """
+    Checking whether an item is an instance of form string:uniprot_id.
 
-    Notes
-    -----
-    Validates only the string pattern (`uniprot_id:P12345` or `P12345`) and
-    does not perform remote server validation.
+    Parameters
+    ----------
+    item : string:uniprot_id
+        Source item in string:uniprot_id form.
+
+    Returns
+    -------
+    bool
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     if not isinstance(item, str):

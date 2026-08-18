@@ -29,6 +29,27 @@ def _slice_structures(value, structure_indices):
 @arg_digest(form=form)
 def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+    """
+    Getting coordinates from atom in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(
         item,
         atom_indices=None if is_all(indices) else indices,
@@ -41,6 +62,25 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 @arg_digest(form=form)
 def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting box from system in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(item)
     if tmp_item.cell_lengths is not None and tmp_item.cell_angles is not None:
         from molsysmt.pbc import get_box_from_lengths_and_angles
@@ -53,6 +93,25 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 @arg_digest(form=form)
 def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting n structures from system in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     if is_all(structure_indices):
         return len(item)
     else:
@@ -61,6 +120,25 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 @arg_digest(form=form)
 def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+    """
+    Getting time from system in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_from_start(item).time, structure_indices)
     if output is not None:
         return output * puw.unit('picosecond')
@@ -69,6 +147,27 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+    """
+    Getting velocities from atom in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     tmp_item = _read_from_start(
         item,
         atom_indices=None if is_all(indices) else indices,
@@ -81,6 +180,25 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
 @arg_digest(form=form)
 def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting temperature from system in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_from_start(item).temperature, structure_indices)
     if output is None:
         return None
@@ -89,6 +207,25 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
 
 @arg_digest(form=form)
 def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting potential energy from system in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_from_start(item).potentialEnergy, structure_indices)
     if output is None:
         return None
@@ -97,6 +234,25 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
 
 @arg_digest(form=form)
 def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting kinetic energy from system in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     output = _slice_structures(_read_from_start(item).kineticEnergy, structure_indices)
     if output is None:
         return None
@@ -105,6 +261,25 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
 
 @arg_digest(form=form)
 def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+    """
+    Getting total energy from system in form mdtraj.HDF5TrajectoryFile.
+
+    Parameters
+    ----------
+    item : mdtraj.HDF5TrajectoryFile
+        Source item in mdtraj.HDF5TrajectoryFile form.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     potential = get_potential_energy_from_system(
         item, structure_indices=structure_indices, skip_digestion=True
     )

@@ -6,13 +6,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : file:mol2
+        Source item in file:mol2 form.
 
     Returns
     -------
     bool
-        True if item conforms to form file:mol2, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

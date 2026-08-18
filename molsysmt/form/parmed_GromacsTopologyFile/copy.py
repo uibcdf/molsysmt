@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : parmed.GromacsTopologyFile
-        Source item.
+        Source item in parmed.GromacsTopologyFile form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     parmed.GromacsTopologyFile
-        Copied item.
+        Resulting object in parmed.GromacsTopologyFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     raise NotImplementedMethodError()

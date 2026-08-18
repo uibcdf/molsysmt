@@ -3,5 +3,21 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.MolSysDict')
 def to_molsysmt_MolSysDict(item, skip_digestion=False):
-    """Copying MolSysDict."""
+    """
+    Converting from molsysmt.MolSysDict to molsysmt.MolSysDict.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSysDict
+        Source item in molsysmt.MolSysDict form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.MolSysDict
+        Resulting object in molsysmt.MolSysDict form.
+
+    .. versionadded:: 1.0.0
+    """
     return item.copy()

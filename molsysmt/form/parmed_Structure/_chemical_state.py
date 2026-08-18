@@ -31,7 +31,21 @@ def _qualitative_name(bond):
 
 
 def has_unsupported_relationships(structure):
-    """Return whether ParmEd contains a relationship outside native bonds."""
+    """
+    Performing has unsupported relationships on form parmed.Structure.
+
+    Parameters
+    ----------
+    structure : object
+        Argument structure.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return any(
         _qualitative_name(bond) in _UNSUPPORTED_RELATIONSHIPS
@@ -40,13 +54,41 @@ def has_unsupported_relationships(structure):
 
 
 def has_mechanical_bond_types(structure):
-    """Return whether any ParmEd bond carries force-field parameters."""
+    """
+    Performing has mechanical bond types on form parmed.Structure.
+
+    Parameters
+    ----------
+    structure : object
+        Argument structure.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return any(getattr(bond, 'type', None) is not None for bond in structure.bonds)
 
 
 def bond_table_from_structure(structure):
-    """Build canonical chemistry and report whether any relation was omitted."""
+    """
+    Performing bond table from structure on form parmed.Structure.
+
+    Parameters
+    ----------
+    structure : object
+        Argument structure.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     rows = []
     omitted_relationship = False

@@ -9,14 +9,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : openmm.PDBFile
-        Source item.
+        Source item in openmm.PDBFile form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.PDBFile
-        Copied item.
+        Resulting object in openmm.PDBFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     from copy import deepcopy

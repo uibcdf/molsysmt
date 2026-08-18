@@ -7,12 +7,14 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : molsysmt.MolSysDict
+        Source item in molsysmt.MolSysDict form.
 
     Returns
     -------
     bool
-        True if item conforms to form molsysmt.MolSysDict, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
     return isinstance(item, MolSysDict)

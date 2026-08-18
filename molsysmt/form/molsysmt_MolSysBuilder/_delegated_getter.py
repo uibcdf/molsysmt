@@ -4,7 +4,25 @@ from molsysmt._private.argdigest import arg_digest
 
 
 def make_delegated_getter(name, target, component):
-    """Creating a form getter that delegates to a stored native component."""
+    """
+    Performing make delegated getter on form molsysmt.MolSysBuilder.
+
+    Parameters
+    ----------
+    name : object
+        Argument name.
+    target : object
+        Argument target.
+    component : object
+        Argument component.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     signature = inspect.signature(target)
     parameters = ", ".join(

@@ -6,13 +6,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : file:xyznpy
+        Source item in file:xyznpy form.
 
     Returns
     -------
     bool
-        True if item conforms to form file:xyznpy, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     output = False

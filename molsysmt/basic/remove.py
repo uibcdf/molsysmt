@@ -30,6 +30,8 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
         Output form of the resulting molecular system. If omitted, the output form matches
         the input system.
     syntax : str, default 'MolSysMT'
+    in_place : bool, default=False
+        Whether to modify the input object in place.
         Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
     skip_digestion : bool, default False
         Whether to skip MolSysMT’s internal argument digestion mechanism.

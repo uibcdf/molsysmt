@@ -4,13 +4,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : networkx.Graph
+        Source item in networkx.Graph form.
 
     Returns
     -------
     bool
-        True if item conforms to form networkx.Graph, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
     import networkx as nx
 

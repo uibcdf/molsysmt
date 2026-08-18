@@ -41,6 +41,8 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
         Whether to apply periodic boundary conditions when computing distances.
 
     syntax : str, default 'MolSysMT'
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
         :ref:`Supported syntax <Introduction_Selection>` used to parse the `selection` argument (if string).
 
     engine : {'MolSysMT'}, default 'MolSysMT'

@@ -3,12 +3,20 @@ import re
 _pattern = re.compile(r"AF-[A-Za-z0-9]+-F[0-9]+(?:-model_v[0-9]+)?")
 
 def is_form(item):
-    """Checking whether an item matches the local AlphaFold id string format.
+    """
+    Checking whether an item is an instance of form string:alphafold_id.
 
-    Notes
-    -----
-    This check validates only the string pattern (`alphafold_id:AF-...` or
-    `AF-...`) and does not perform any remote API validation.
+    Parameters
+    ----------
+    item : string:alphafold_id
+        Source item in string:alphafold_id form.
+
+    Returns
+    -------
+    bool
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     if not isinstance(item, str):

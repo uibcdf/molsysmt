@@ -43,6 +43,8 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
     structure_indices : 'all' or array-like, default 'all'
         Frame indices over which the angles are computed.
     syntax : str, default 'MolSysMT'
+    use_gpu : bool, default=False
+        Whether to use GPU acceleration if available.
         Selection syntax used when ``selection`` is a string.
     pbc : bool, default False
         Apply minimum-image convention when the system has a periodic box.

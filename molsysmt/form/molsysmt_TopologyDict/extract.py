@@ -21,7 +21,29 @@ def extract(
     copy_if_all=True,
     skip_digestion=False,
 ):
-    """Extracting an atom subset while remapping every hierarchy reference."""
+    """
+    Extracting a subset of elements or structures from form molsysmt.TopologyDict.
+
+    Parameters
+    ----------
+    item : molsysmt.TopologyDict
+        Source item in molsysmt.TopologyDict form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    copy_if_all : object
+        Argument copy_if_all.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.TopologyDict
+        Resulting object in molsysmt.TopologyDict form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if is_all(atom_indices):
         return item.copy() if copy_if_all else item

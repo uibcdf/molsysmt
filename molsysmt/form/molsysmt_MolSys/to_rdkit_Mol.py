@@ -54,7 +54,27 @@ def to_rdkit_Mol(
     structure_indices='all',
     skip_digestion=False,
 ):
-    """Converting the resolved native chemical state and conformers to RDKit."""
+    """
+    Converting from molsysmt.MolSys to rdkit.Mol.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item in molsysmt.MolSys form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    rdkit.Mol
+        Resulting object in rdkit.Mol form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from rdkit import Chem
     from molsysmt._private.smonitor import NotCompatibleConversionError

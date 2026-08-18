@@ -10,14 +10,20 @@ def to_pytraj_Topology(item, atom_indices='all', max_bond_length=None, skip_dige
     Parameters
     ----------
     item : file:pdb
-        Source item to convert.
+        Source item in file:pdb form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    max_bond_length : object
+        Argument max_bond_length.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     pytraj.Topology
-        Converted molecular system representation.
+        Resulting object in pytraj.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     try:

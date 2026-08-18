@@ -101,7 +101,21 @@ def _source_metadata(path):
 
 @dep_digest('parmed')
 def read_mol2(path):
-    """Return a ParmEd structure and validated source-level MOL2 metadata."""
+    """
+    Performing read mol2 on form file:mol2.
+
+    Parameters
+    ----------
+    path : object
+        Argument path.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from parmed.formats.mol2 import Mol2File
 

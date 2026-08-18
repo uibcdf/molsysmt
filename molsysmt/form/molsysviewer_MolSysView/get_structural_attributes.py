@@ -14,6 +14,21 @@ def _wrap_getter(func):
     @arg_digest(form=form)
     @functools.wraps(func)
     def wrapper(item, *args, **kwargs):
+        """
+        Performing wrapper on form molsysviewer.MolSysView.
+
+        Parameters
+        ----------
+        item : molsysviewer.MolSysView
+            Source item in molsysviewer.MolSysView form.
+
+        Returns
+        -------
+        object
+            Resulting object in object form.
+
+        .. versionadded:: 1.0.0
+        """
         from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
 
         tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)

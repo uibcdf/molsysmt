@@ -8,14 +8,20 @@ def to_mdtraj_Topology(item, atom_indices='all', syntax='MolSysMT', skip_digesti
     Parameters
     ----------
     item : openmm.PDBFile
-        Source item to convert.
+        Source item in openmm.PDBFile form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection`.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     mdtraj.Topology
-        Converted molecular system representation.
+        Resulting object in mdtraj.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology

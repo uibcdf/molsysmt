@@ -4,19 +4,23 @@ import numpy as np
 @arg_digest(form='openmm.Topology')
 def to_string_amino_acids_1(item, atom_indices='all', skip_digestion=False):
     """
-    Converting from openmm.Topology to string.amino.acids.1.
+    Converting from openmm.Topology to string:amino_acids_1.
 
     Parameters
     ----------
     item : openmm.Topology
-        Source item to convert.
+        Source item in openmm.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.amino.acids.1
-        Converted molecular system representation.
+    string:amino_acids_1
+        Resulting object in string:amino_acids_1 form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_Topology import to_molsysmt_Topology

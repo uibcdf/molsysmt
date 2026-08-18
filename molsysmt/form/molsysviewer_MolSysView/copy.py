@@ -11,14 +11,16 @@ def copy(item, skip_digestion=False):
     Parameters
     ----------
     item : molsysviewer.MolSysView
-        Source item.
+        Source item in molsysviewer.MolSysView form.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysviewer.MolSysView
-        Copied item.
+        Resulting object in molsysviewer.MolSysView form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import copy as molsys_copy, convert

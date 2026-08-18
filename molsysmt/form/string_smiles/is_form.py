@@ -12,13 +12,15 @@ def is_form(item):
 
     Parameters
     ----------
-    item : object
-        Item to check.
+    item : string:smiles
+        Source item in string:smiles form.
 
     Returns
     -------
     bool
-        True if item conforms to form string:smiles, False otherwise.
+        True if condition is satisfied, False otherwise.
+
+    .. versionadded:: 1.0.0
     """
 
     if not isinstance(item, str) or not item:

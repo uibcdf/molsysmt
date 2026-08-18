@@ -9,19 +9,35 @@ def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=No
         compression='gzip', compression_opts=4, int_precision='single', float_precision='single',
                   skip_digestion=False):
     """
-    Converting from molsysmt.Topology to file.h5msm.
+    Converting from molsysmt.Topology to file:h5msm.
 
     Parameters
     ----------
     item : molsysmt.Topology
-        Source item to convert.
+        Source item in molsysmt.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    compression : object
+        Argument compression.
+    compression_opts : object
+        Argument compression_opts.
+    int_precision : object
+        Argument int_precision.
+    float_precision : object
+        Argument float_precision.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.h5msm
-        Converted molecular system representation.
+    file:h5msm
+        Resulting object in file:h5msm form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.native import H5MSMFileHandler
@@ -38,6 +54,25 @@ def to_file_h5msm(item, atom_indices='all', coordinates=None, output_filename=No
 
 def dump_topology_to_h5msm(item, file, atom_indices='all'):
 
+    """
+    Performing dump topology to h5msm on form molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    file : object
+        Argument file.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from molsysmt.native import H5MSMFileHandler
     from datetime import datetime
 

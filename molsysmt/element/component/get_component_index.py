@@ -6,14 +6,28 @@ import numpy as np
 @arg_digest()
 def get_component_index(molecular_system, element='component', selection='all', redefine_indices=False,
                         syntax='MolSysMT', skip_digestion=False):
-    """Returning component indices for a molecular system.
+    """
+    Getting 0-based component indices from a molecular system.
 
-    Notes
-    -----
-    This is a public form-agnostic helper. When the input is already a native
-    `molsysmt.Topology` or `molsysmt.MolSys` and `selection='all'`, the
-    function delegates to the native hierarchy layer instead of recomputing the
-    same semantics through the generic dispatch path.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='component'
+        Structural element level at which component indices are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of int
+        List of 0-based component indices.
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

@@ -9,7 +9,7 @@ MolSysMT uses a sophisticated **Decorator-based Lazy Loading** architecture to h
 - **Runtime Validation:** The `@dep_digest` decorator enforces availability just-in-time.
 - **Lazy Discovery:** Form modules are only scanned and imported when accessed, allowing for dynamic capability filtering.
 
-## 2. Configuration & Mapping
+## 2. Configuration and Mapping
 
 ### Dependency Definitions (`molsysmt/_depdigest.py`)
 

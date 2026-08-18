@@ -23,7 +23,23 @@ def _json_list(values):
 
 @arg_digest(form='molsysmt.MolSys')
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
-    """Converting a native MolSys into a ViewerJSON container."""
+    """
+    Converting from molsysmt.MolSys to molsysmt.ViewerJSON.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item in molsysmt.MolSys form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.ViewerJSON
+        Resulting object in molsysmt.ViewerJSON form.
+
+    .. versionadded:: 1.0.0
+    """
 
     topo_vjson = topology_to_viewer(item.topology, skip_digestion=True)
     struct_vjson = structures_to_viewer(item.structures, skip_digestion=True)

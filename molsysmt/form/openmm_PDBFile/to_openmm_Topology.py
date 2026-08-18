@@ -8,14 +8,22 @@ def to_openmm_Topology(item, atom_indices='all', structure_indices='all', get_mi
     Parameters
     ----------
     item : openmm.PDBFile
-        Source item to convert.
+        Source item in openmm.PDBFile form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    get_missing_bonds : object
+        Argument get_missing_bonds.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.Topology
-        Converted molecular system representation.
+        Resulting object in openmm.Topology form.
+
+    .. versionadded:: 1.0.0
     """
 
     from openmm.app import PDBFile

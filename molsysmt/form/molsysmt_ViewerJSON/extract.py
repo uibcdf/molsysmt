@@ -6,7 +6,29 @@ import numpy as np
 
 @arg_digest(form='molsysmt.ViewerJSON')
 def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
-    """Extract a subset of atoms/structures from a ViewerJSON."""
+    """
+    Extracting a subset of elements or structures from form molsysmt.ViewerJSON.
+
+    Parameters
+    ----------
+    item : molsysmt.ViewerJSON
+        Source item in molsysmt.ViewerJSON form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    copy_if_all : object
+        Argument copy_if_all.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.ViewerJSON
+        Resulting object in molsysmt.ViewerJSON form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if is_all(atom_indices) and is_all(structure_indices):
         return deepcopy(item) if copy_if_all else item

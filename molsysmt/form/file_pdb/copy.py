@@ -9,14 +9,18 @@ def copy(item, output_filename=None, skip_digestion=False):
     Parameters
     ----------
     item : file:pdb
-        Source item.
+        Source item in file:pdb form.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     file:pdb
-        Copied item.
+        Resulting object in file:pdb form.
+
+    .. versionadded:: 1.0.0
     """
 
     if output_filename is None:

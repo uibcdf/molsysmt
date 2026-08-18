@@ -1,17 +1,17 @@
-# Class: Parmed
+# ParmEd
 
-Form adapters for in-memory classes from Parmed.
+Form adapters for ParmEd in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [parmed.GromacsTopologyFile](parmed_GromacsTopologyFile.ipynb) | ['', ''] |
-| [parmed.Structure](parmed_Structure.ipynb) | ['', ''] |
+| [GromacsTopologyFile](parmed_GromacsTopologyFile.ipynb) | Form adapter for `GromacsTopologyFile` |
+| [Structure](parmed_Structure.ipynb) | Form adapter for `Structure` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   parmed_GromacsTopologyFile.ipynb
-   parmed_Structure.ipynb
+   GromacsTopologyFile <parmed_GromacsTopologyFile.ipynb>
+   Structure <parmed_Structure.ipynb>
 ```

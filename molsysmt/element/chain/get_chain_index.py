@@ -3,12 +3,28 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest()
 def get_chain_index(molecular_system, element='atom', selection='all',
                     redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
-    """Returning chain indices for a molecular system.
+    """
+    Getting 0-based chain indices from a molecular system.
 
-    Notes
-    -----
-    This public helper remains form-agnostic. When the input is already
-    native and `selection='all'`, it delegates to the native hierarchy layer.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='chain'
+        Structural element level at which chain indices are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of int
+        List of 0-based chain indices.
+
+    .. versionadded:: 1.0.0
     """
 
     if isinstance(selection, str) and selection == 'all':

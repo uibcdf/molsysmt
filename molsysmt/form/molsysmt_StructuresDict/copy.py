@@ -9,14 +9,14 @@ def copy(item):
     Parameters
     ----------
     item : molsysmt.StructuresDict
-        Source item.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Source item in molsysmt.StructuresDict form.
 
     Returns
     -------
     molsysmt.StructuresDict
-        Copied item.
+        Resulting object in molsysmt.StructuresDict form.
+
+    .. versionadded:: 1.0.0
     """
 
     from copy import deepcopy

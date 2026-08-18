@@ -3,19 +3,27 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='file:xyz')
 def to_file_xyz(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
     """
-    Converting from file:xyz to file.xyz.
+    Converting from file:xyz to file:xyz.
 
     Parameters
     ----------
     item : file:xyz
-        Source item to convert.
+        Source item in file:xyz form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.xyz
-        Converted molecular system representation.
+    file:xyz
+        Resulting object in file:xyz form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .extract import extract

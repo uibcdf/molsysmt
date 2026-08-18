@@ -4,7 +4,25 @@ from copy import deepcopy
 
 @arg_digest(form='molsysmt.ViewerJSON')
 def append_structures(item, items, skip_digestion=False):
-    """Append structures from other ViewerJSON items."""
+    """
+    Appending coordinate structures to an item of form molsysmt.ViewerJSON.
+
+    Parameters
+    ----------
+    item : molsysmt.ViewerJSON
+        Source item in molsysmt.ViewerJSON form.
+    items : list of object
+        List of items to merge.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.ViewerJSON
+        Resulting object in molsysmt.ViewerJSON form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if not isinstance(items, (list, tuple)):
         items = [items]

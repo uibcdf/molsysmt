@@ -6,6 +6,22 @@ from molsysmt._private.variables import is_all
 
 @arg_digest(form='nglview.NGLWidget')
 def show_as_surface(view, selection='all', opacity=0.3, color='lightblue', skip_digestion=False):
+    """
+    Adding surface representation for selected elements in NGLWidget.
+
+    Parameters
+    ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
+    selection : str or list of int, default='all'
+        Selection of atoms or residues for surface generation.
+    color : str or list, optional
+        Color name, hex code, or scheme.
+    opacity : float, optional
+        Opacity value between 0.0 and 1.0.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import select
 

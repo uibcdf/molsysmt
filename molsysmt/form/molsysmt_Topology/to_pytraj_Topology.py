@@ -54,7 +54,25 @@ def _pytraj_uses_text_chain_id(residue_type):
 @arg_digest(form='molsysmt.Topology')
 @dep_digest('pytraj')
 def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
-    """Converting a native topology to PyTraj's reduced topology model."""
+    """
+    Converting from molsysmt.Topology to pytraj.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.Topology
+        Source item in molsysmt.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    pytraj.Topology
+        Resulting object in pytraj.Topology form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from pytraj import Atom as PyTrajAtom
     from pytraj import Residue as PyTrajResidue

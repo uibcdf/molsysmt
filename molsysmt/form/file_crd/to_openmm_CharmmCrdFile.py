@@ -8,14 +8,20 @@ def to_openmm_CharmmCrdFile(item, atom_indices='all', structure_indices='all', s
     Parameters
     ----------
     item : file:crd
-        Source item to convert.
+        Source item in file:crd form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.CharmmCrdFile
-        Converted molecular system representation.
+        Resulting object in openmm.CharmmCrdFile form.
+
+    .. versionadded:: 1.0.0
     """
 
     from openmm.app import CharmmCrdFile

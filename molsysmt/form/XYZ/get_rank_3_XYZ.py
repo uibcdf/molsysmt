@@ -5,19 +5,19 @@ import numpy as np
 
 def get_rank_3_XYZ(item):
     """
-    Getting attributes from an item of form XYZ.
+    Getting rank 3 XYZ from form XYZ.
 
     Parameters
     ----------
     item : XYZ
-        Source item.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Source item in XYZ form.
 
     Returns
     -------
     object
-        Extracted attribute values.
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
     """
 
     try:

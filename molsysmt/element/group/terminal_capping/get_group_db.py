@@ -10,6 +10,16 @@ def path(package, file):
     return files(package).joinpath(file)
 
 def get_group_db(group_name):
+    """
+    Getting the internal reference database dictionary for terminal capping groups.
+
+    Returns
+    -------
+    dict
+        Reference dictionary containing residue connectivity and metadata.
+
+    .. versionadded:: 1.0.0
+    """
 
     if group_name in n_terminal_capping_names:
         with open(path('molsysmt.data.databases.terminal_cappings','n_terminal.json'), 'r') as fff:

@@ -5,6 +5,22 @@ from ._builder import build_molsys_builder_from_molsys_dict
 
 @arg_digest(form='molsysmt.MolSysDict')
 def to_molsysmt_MolSys(item, skip_digestion=False):
-    """Converting MolSysDict to MolSys."""
+    """
+    Converting from molsysmt.MolSysDict to molsysmt.MolSys.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSysDict
+        Source item in molsysmt.MolSysDict form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.MolSys
+        Resulting object in molsysmt.MolSys form.
+
+    .. versionadded:: 1.0.0
+    """
 
     return build_molsys_builder_from_molsys_dict(item).build(skip_digestion=True)

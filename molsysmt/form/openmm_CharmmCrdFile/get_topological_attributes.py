@@ -40,21 +40,97 @@ def _group_records(item):
 
 @arg_digest(form=form)
 def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting atom index from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select(np.arange(item.natom, dtype=np.int64), indices)
 
 
 @arg_digest(form=form)
 def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting atom id from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select(item.atomno, indices)
 
 
 @arg_digest(form=form)
 def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting atom name from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select(item.attype, indices)
 
 
 @arg_digest(form=form)
 def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting atom type from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from molsysmt.element.atom import get_atom_type_from_atom_name
 
     values = [get_atom_type_from_atom_name(name) for name in item.attype]
@@ -63,21 +139,97 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_group_index_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting group index from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select(_atom_group_indices(item), indices)
 
 
 @arg_digest(form=form)
 def get_group_id_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting group id from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select(item.resno, indices)
 
 
 @arg_digest(form=form)
 def get_group_name_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting group name from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select(item.resname, indices)
 
 
 @arg_digest(form=form)
 def get_group_type_from_atom(item, indices='all', skip_digestion=False):
+    """
+    Getting group type from atom in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from molsysmt.element.group import get_group_type_from_group_name
 
     values = [get_group_type_from_group_name(name, skip_digestion=True) for name in item.resname]
@@ -86,21 +238,97 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_group_index_from_group(item, indices='all', skip_digestion=False):
+    """
+    Getting group index from group in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select(np.arange(len(_group_records(item)), dtype=np.int64), indices)
 
 
 @arg_digest(form=form)
 def get_group_id_from_group(item, indices='all', skip_digestion=False):
+    """
+    Getting group id from group in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select([record[0] for record in _group_records(item)], indices)
 
 
 @arg_digest(form=form)
 def get_group_name_from_group(item, indices='all', skip_digestion=False):
+    """
+    Getting group name from group in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     return _select([record[1] for record in _group_records(item)], indices)
 
 
 @arg_digest(form=form)
 def get_group_type_from_group(item, indices='all', skip_digestion=False):
+    """
+    Getting group type from group in form openmm.CharmmCrdFile.
+
+    Parameters
+    ----------
+    item : openmm.CharmmCrdFile
+        Source item in openmm.CharmmCrdFile form.
+    indices : str, list, tuple, or numpy.ndarray, default='all'
+        0-based element indices to extract.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
     from molsysmt.element.group import get_group_type_from_group_name
 
     values = [

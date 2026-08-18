@@ -11,9 +11,18 @@ def add_bonds(item, bonded_atom_pairs, skip_digestion=False):
     Parameters
     ----------
     item : molsysmt.MolSys
-        Target item.
+        Source item in molsysmt.MolSys form.
+    bonded_atom_pairs : object
+        Argument bonded_atom_pairs.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
     """
 
     item.topology.add_bonds(bonded_atom_pairs, skip_digestion=True)

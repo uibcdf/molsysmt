@@ -1,15 +1,15 @@
-# Class: Rdkit
+# RDKit
 
-Form adapters for in-memory classes from Rdkit.
+Form adapters for RDKit in-memory classes and objects.
 
-|      |      |
+| Class | Description |
 | :--- | :--- |
-| [rdkit.Mol](rdkit_Mol.ipynb) | ['', ''] |
+| [Mol](rdkit_Mol.ipynb) | Form adapter for `Mol` |
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :hidden:
 
-   rdkit_Mol.ipynb
+   Mol <rdkit_Mol.ipynb>
 ```

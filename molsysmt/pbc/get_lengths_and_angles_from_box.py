@@ -10,6 +10,8 @@ def get_lengths_and_angles_from_box(box, skip_digestion=False):
     Parameters
     ----------
     box : array-like
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
         A single box with shape (3, 3) or an array of boxes with shape (n, 3, 3).
         Vectors correspond to the three box edges: v0, v1, v2.
 

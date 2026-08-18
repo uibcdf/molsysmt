@@ -10,14 +10,22 @@ def to_pytraj_Trajectory(item, atom_indices='all', coordinates=None, box=None, s
     Parameters
     ----------
     item : pytraj.Topology
-        Source item to convert.
+        Source item in pytraj.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    coordinates : numpy.ndarray or quantity
+        Cartesian coordinate array in nanometers.
+    box : numpy.ndarray or quantity
+        Simulation box vectors in nanometers.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     pytraj.Trajectory
-        Converted molecular system representation.
+        Resulting object in pytraj.Trajectory form.
+
+    .. versionadded:: 1.0.0
     """
 
     try:

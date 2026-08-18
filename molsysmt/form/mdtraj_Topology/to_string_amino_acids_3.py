@@ -5,19 +5,23 @@ import numpy as np
 @arg_digest(form='mdtraj.Topology')
 def to_string_amino_acids_3(item, atom_indices='all', skip_digestion=False):
     """
-    Converting from mdtraj.Topology to string.amino.acids.3.
+    Converting from mdtraj.Topology to string:amino_acids_3.
 
     Parameters
     ----------
     item : mdtraj.Topology
-        Source item to convert.
+        Source item in mdtraj.Topology form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.amino.acids.3
-        Converted molecular system representation.
+    string:amino_acids_3
+        Resulting object in string:amino_acids_3 form.
+
+    .. versionadded:: 1.0.0
     """
 
     from . import get_group_index_from_atom

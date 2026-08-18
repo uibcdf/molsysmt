@@ -3,19 +3,25 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='string:alphafold_id')
 def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_digestion=False):
     """
-    Converting from string:alphafold_id to string.pdb.text.
+    Converting from string:alphafold_id to string:pdb_text.
 
     Parameters
     ----------
     item : string:alphafold_id
-        Source item to convert.
+        Source item in string:alphafold_id form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string.pdb.text
-        Converted molecular system representation.
+    string:pdb_text
+        Resulting object in string:pdb_text form.
+
+    .. versionadded:: 1.0.0
     """
 
     from .to_molsysmt_MolSys import to_molsysmt_MolSys

@@ -129,6 +129,10 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
     engine : {'MolSysMT'}, default 'MolSysMT'
         Backend for the calculation.
     syntax : str, default 'MolSysMT'
+    heavy_mode : bool, default=False
+        Whether to process large trajectories in chunked heavy mode.
+    use_gpu : bool, default=False
+        Whether to use GPU acceleration.
         Selection syntax when using strings.
     parallel : bool or str, optional
         Parallel mode override: True | False | 'auto'.

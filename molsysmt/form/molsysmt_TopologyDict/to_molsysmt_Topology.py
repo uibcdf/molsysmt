@@ -5,7 +5,23 @@ from molsysmt._private.argdigest import arg_digest
 
 @arg_digest(form='molsysmt.TopologyDict')
 def to_molsysmt_Topology(item, skip_digestion=False):
-    """Converting TopologyDict to Topology."""
+    """
+    Converting from molsysmt.TopologyDict to molsysmt.Topology.
+
+    Parameters
+    ----------
+    item : molsysmt.TopologyDict
+        Source item in molsysmt.TopologyDict form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    molsysmt.Topology
+        Resulting object in molsysmt.Topology form.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import MolSysBuilder
 

@@ -5,7 +5,25 @@ from molsysmt import pyunitwizard as puw
 def add_constant_force(molecular_system, selection='all',
                        force='[500,0,0] kilojoules/(mole*nanometer)', return_force=False,
                        syntax='MolSysMT', skip_digestion=False):
-    """Apply a constant external force to a selection of atoms."""
+    """
+    Adding a constant directional force vector to selected particles in OpenMM.
+
+    Parameters
+    ----------
+    system : openmm.System
+        Target OpenMM system to modify.
+    atom_indices : list of int
+        Atom indices to apply constant force to.
+    force_vector : quantity or list of float
+        3D force vector in `kJ/(mol*nm)`.
+
+    Returns
+    -------
+    openmm.CustomExternalForce
+        The added constant force instance.
+
+    .. versionadded:: 1.0.0
+    """
 
     from molsysmt import select, get, get_form
     from openmm import CustomExternalForce

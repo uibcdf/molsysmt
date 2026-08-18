@@ -6,23 +6,27 @@ form = 'molsysviewer.MolSysView'
 @arg_digest(form=form)
 def extract(item, selection='all', structure_indices='all', syntax='MolSysMT', skip_digestion=False):
     """
-    Extracting a subset of atoms or structures from form molsysviewer.MolSysView.
+    Extracting a subset of elements or structures from form molsysviewer.MolSysView.
 
     Parameters
     ----------
     item : molsysviewer.MolSysView
-        Source item.
+        Source item in molsysviewer.MolSysView form.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Atom selection to extract.
+        Selection of atoms or elements (0-based indices or query string).
     structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices to extract.
+        Structure indices (0-based) to include.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection`.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molsysviewer.MolSysView
-        Extracted subset in the same form.
+        Resulting object in molsysviewer.MolSysView form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import extract as molsys_extract, convert

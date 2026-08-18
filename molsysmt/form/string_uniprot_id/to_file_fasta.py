@@ -3,19 +3,25 @@ from molsysmt._private.argdigest import arg_digest
 @arg_digest(form='string:uniprot_id')
 def to_file_fasta(item, atom_indices='all', output_filename=None, skip_digestion=False):
     """
-    Converting from string:uniprot_id to file.fasta.
+    Converting from string:uniprot_id to file:fasta.
 
     Parameters
     ----------
     item : string:uniprot_id
-        Source item to convert.
+        Source item in string:uniprot_id form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    file.fasta
-        Converted molecular system representation.
+    file:fasta
+        Resulting object in file:fasta form.
+
+    .. versionadded:: 1.0.0
     """
 
     import urllib.request

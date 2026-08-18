@@ -105,7 +105,29 @@ def to_string_pdb_text(
     pdb_chain_id="chain_name",
     skip_digestion=False,
 ):
-    """Converting a native molecular system to PDB text."""
+    """
+    Converting from molsysmt.MolSys to string:pdb_text.
+
+    Parameters
+    ----------
+    item : molsysmt.MolSys
+        Source item in molsysmt.MolSys form.
+    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include.
+    pdb_chain_id : object
+        Argument pdb_chain_id.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    string:pdb_text
+        Resulting object in string:pdb_text form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if not (is_all(atom_indices) and is_all(structure_indices)):
         item = item.extract(

@@ -6,10 +6,15 @@ def replace_HETATM_by_ATOM_in_terminal_cappings (molecular_system):
 
     Parameters
     ----------
-    item : file:pdb
-        Target item.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+    molecular_system : object
+        Argument molecular_system.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt import get_form

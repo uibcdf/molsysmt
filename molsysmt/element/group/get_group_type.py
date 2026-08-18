@@ -13,13 +13,30 @@ import numpy as np
 @arg_digest()
 def get_group_type(molecular_system, element='group', selection='all', redefine_types=False, syntax='MolSysMT',
                    skip_digestion=False):
-    """Returning group types for a molecular system.
+    """
+    Getting group types from a molecular system.
 
-    Notes
-    -----
-    Explicit types are preserved when available. If types are redefined, they
-    are inferred locally from group identity and, for reserved small
-    molecules, from local atom composition.
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
+    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
+        Structural element level at which group types are queried.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection of elements to query.
+    redefine_types : bool, default=False
+        Whether to re-infer group types from residue names.
+    syntax : str, default='MolSysMT'
+        Selection syntax used.
+    skip_digestion : bool, default=False
+        Whether to skip argument validation.
+
+    Returns
+    -------
+    list of str
+        List of group types ('amino acid', 'water', 'ion', 'small molecule', 'lipid', etc.).
+
+    .. versionadded:: 1.0.0
     """
 
     from molsysmt.basic import get

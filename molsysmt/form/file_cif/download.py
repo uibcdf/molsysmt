@@ -3,7 +3,35 @@ from molsysmt._private.files_and_directories import temp_filename
 
 
 def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='RCSB PDB', skip_digestion=False, retries=5, timeout=30, backoff_base=2.0):
-    """Downloading a remote cif file from a wwPDB partner."""
+    """
+    Performing download on form file:cif.
+
+    Parameters
+    ----------
+    pdb_id : object
+        Argument pdb_id.
+    output_filename : str or pathlib.Path
+        Output file path for serialization.
+    tempfile : object
+        Argument tempfile.
+    wwPDB_Partner : object
+        Argument wwPDB_Partner.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+    retries : object
+        Argument retries.
+    timeout : object
+        Argument timeout.
+    backoff_base : object
+        Argument backoff_base.
+
+    Returns
+    -------
+    object
+        Resulting object in object form.
+
+    .. versionadded:: 1.0.0
+    """
 
     if pdb_id.startswith('pdb_id:'):
         pdb_id = pdb_id.split(':')[-1]
