@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (9)
+### Open (10)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
@@ -46,6 +46,7 @@ Entries carrying front matter under
 - [`evaluate_if_msm_topology_add_bonds_is_redundant_given_msm_build_editable.md`](evaluate_if_msm_topology_add_bonds_is_redundant_given_msm_build_editable.md) — [#166](https://github.com/uibcdf/molsysmt/issues/166) — evaluate if msm.topology.add_bonds is redundant given msm.build.editable *(asserted)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
 - [`extend_the_catalog_warning_round_trip_guard_to_every_warning_class.md`](extend_the_catalog_warning_round_trip_guard_to_every_warning_class.md) — [#161](https://github.com/uibcdf/molsysmt/issues/161) — Extend the catalog-warning round-trip guard to every warning class *(reproduced)*
+- [`no_automatic_workflow_runs_the_test_suite_on_push.md`](no_automatic_workflow_runs_the_test_suite_on_push.md) — [#171](https://github.com/uibcdf/molsysmt/issues/171) — No automatic workflow runs the test suite on push *(measured)*
 - [`remove_msm_structure_show_contacts_public_function.md`](remove_msm_structure_show_contacts_public_function.md) — [#168](https://github.com/uibcdf/molsysmt/issues/168) — Remove msm.structure.show_contacts public function *(asserted)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 
