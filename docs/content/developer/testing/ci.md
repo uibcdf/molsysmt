@@ -1,12 +1,18 @@
 # Continuous Integration
 
-- GitHub Actions is used for all testing and documentation workflows.
-- Documentation is deployed to GitHub Pages using:
-  <https://github.com/uibcdf/action-sphinx-docs-to-gh-pages>
-- Push and pull request checks run the fast tier on Ubuntu with Python 3.13.
-- Full matrix checks run weekly (scheduled) and on manual dispatch:
-  Python 3.11 through 3.13 on the platforms declared by each workflow.
-- The weekly matrix runs `tests/scientific_truth/` as an explicit early gate
-  with MDTraj and MDAnalysis installed, before executing the full suite.
-- Docs-only changes are skipped via workflow `paths-ignore`.
-- Explicit CI skip is supported with `[skip ci]` in commit or PR metadata.
+MolSysMT relies on GitHub Actions to ensure code quality, test integrity, and documentation freshness on every change.
+
+---
+
+## 1. Workflow Architecture
+
+- **Pull Request Checks**: Fast validation tier running on Ubuntu with Python 3.13, verifying formatting with Ruff, unit tests, and documentation build.
+- **Scheduled Weekly Matrix**: Full compatibility matrix testing Python 3.11 through 3.13 across Linux and macOS environments.
+- **Scientific Truth Verification**: Runs `tests/scientific_truth/` as an early gate with external engines (MDTraj, MDAnalysis, OpenMM) installed to verify algorithm correctness.
+- **Documentation Deployment**: Documentation is automatically built and deployed to GitHub Pages upon merging into `main`.
+
+---
+
+## 2. CI Control Flags
+
+- To skip CI runs on documentation-only commits, include `[skip ci]` in your Git commit message.
