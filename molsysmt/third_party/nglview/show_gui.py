@@ -1,4 +1,8 @@
-def show_gui(view, gui=True):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest()
+def show_gui(view):
     """
     Toggling or showing the interactive graphical user interface controls in NGLWidget.
 
@@ -11,5 +15,7 @@ def show_gui(view, gui=True):
 
     .. versionadded:: 1.0.0
     """
-    if gui:
-        view.display(gui=True)
+
+    view.gui_style = 'ngl'
+
+    pass

@@ -1,4 +1,11 @@
-def clear(view):
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+# https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
+
+
+@arg_digest(form='nglview.NGLWidget')
+def clear(view, skip_digestion=False):
     """
     Clearing all visual representations and components from an NGLWidget viewer.
 
@@ -9,4 +16,8 @@ def clear(view):
 
     .. versionadded:: 1.0.0
     """
+
     view.clear_representations()
+
+    pass
+
