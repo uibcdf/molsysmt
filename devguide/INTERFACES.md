@@ -44,14 +44,25 @@ Canonical structural conventions are:
 
 ## Scalar types in returned values
 
-**The container decides the scalar type.**
+**The nature of the datum decides the container; the container decides the scalar
+type.**
 
-- Rectangular, homogeneous data is returned as a `numpy.ndarray` with an explicit
-  `dtype`, or as a PyUnitWizard `Quantity` wrapping one.
-- Ragged, nested, `set` or `dict` data is returned with **native Python scalars**:
-  `int`, `float`, `str`, `bool`.
+- Numeric physical magnitudes — the things computations are performed on — are
+  returned as a `numpy.ndarray` with an explicit `dtype`, or as a PyUnitWizard
+  `Quantity` when they carry units: `coordinates`, `box`, `b_factor`, `occupancy`.
+- Identifiers, labels, categories and relations are returned in Python containers
+  with **native Python scalars**: `atom_index`, `atom_name`, `atom_id`,
+  `group_name`, `chain_id`, `bond_type`, `bonded_atom_pairs`.
+- A single count or measure is returned as a native scalar, or as a `Quantity` when
+  it carries units.
 
-A NumPy scalar inside a Python container is not a middle ground between the two.
+Shape decides nothing. `bonded_atom_pairs` is rectangular — *n* rows of two — and is
+correctly a `list`, because it is a relation between atoms and not a matrix anyone
+computes on. Conversely a ragged numeric magnitude would still not become a list of
+floats. Ask what the datum *is*, not what shape it happens to have in one system:
+some attributes are rectangular for one molecular system and ragged for the next.
+
+Whatever the container, a NumPy scalar inside a Python one is not a middle ground.
 NumPy's advantages — contiguous memory, vectorised operations — belong to the
 array, not to the scalar. Boxed into a `list` or a `set`, an `np.int64` costs more
 memory than an `int` and is slower to traverse, and buys nothing back. Measured on
@@ -67,9 +78,9 @@ Three consequences make this a contract rather than a preference:
   documents as integers.
 - **Range.** Python `int` has arbitrary precision; `np.int64` overflows silently.
 
-Nothing is lost by choosing native scalars for ragged data: `np.array` over a list
-of Python `int` infers `int64`, and both types index an array identically. There is
-no `dtype` to preserve in a container that holds one object per element.
+Nothing is lost by choosing native scalars in a Python container: `np.array` over a
+list of Python `int` infers `int64`, and both types index an array identically.
+There is no `dtype` to preserve in a container that holds one object per element.
 
 Mixing the two in one container is the failure this rule exists to prevent. It
 arises when a structure is assembled by Python-level iteration over arrays instead
