@@ -89,6 +89,14 @@ Measured, on this checkout:
 - `ruff check --no-cache molsysmt/form/molsysmt_Topology/to_file_h5msm.py` reported
   6 errors.
 - `import molsysmt` succeeded in the same state.
+- The whole backlog behind the three exclusions is **61 findings**, measured on a
+  repaired tree:
+
+  ```bash
+  $ ruff check --no-cache molsysmt/form molsysmt/third_party molsysmt/molecular_dynamics
+  Found 61 errors.
+  No fixes available (7 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  ```
 
 Assumed:
 
@@ -103,15 +111,21 @@ Assumed:
 *Ruff does not report syntax errors.* No — it reports six on the same file when the
 path is given explicitly.
 
+*Removing the exclusions would surface a backlog too large to clear at once.* This
+report asserted that in its first version and it is wrong. Measured afterwards, the
+three directories together produce **61 findings**. That is one sitting, not a
+programme, and it removes the reason to prefer per-rule ignores over simply deleting
+the exclusions.
+
 ## Scope and exclusions
 
 Covers whether the three excluded directories should be exempt from **syntax**
 checking, which is separable from style checking.
 
 Excludes which style rules should apply to adapter code. That is the question the
-exclusion probably meant to answer, and narrowing it to specific rule codes rather
-than whole directories is one available fix — but choosing the rule set is a
-maintainer decision, not something this report settles.
+exclusion probably meant to answer — but see *What was refuted*: the backlog is
+small enough that narrowing the rule set is no longer the obviously cheaper route.
+Choosing it remains a maintainer decision.
 
 ## Acceptance criteria
 
@@ -124,10 +138,9 @@ maintainer decision, not something this report settles.
 
 ## Dependencies and risks
 
-Removing the exclusions outright will surface a large backlog of style findings in
-89 adapters at once, which is why narrowing to specific rules is likely the
-practical route. The risk of doing nothing is that the next bulk edit of the
-adapters is unlinted, as the last one was.
+Little. The measured backlog is 61 findings, of which 7 have fixes available behind
+`--unsafe-fixes`; the rest need reading. The risk of doing nothing is larger: the
+next bulk edit of the adapters is unlinted, as the last one was.
 
 ## Provenance
 

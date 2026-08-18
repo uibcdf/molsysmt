@@ -132,6 +132,13 @@ Measured, on this checkout:
 - `ruff check molsysmt` reports `All checks passed!` while 28 files under
   `molsysmt/form` fail `ast.parse`. Confirmed with `--no-cache`. See
   [uibcdf/molsysmt#170](https://github.com/uibcdf/molsysmt/issues/170).
+- `devtools/data/public_api_stability.json` carries no signature information: the
+  only fields present across all entries are `stability`, `introduced`, `owner`,
+  `documentation`, `contract_tests` and `subtree_stability`. `get_molecule_id` has
+  no entry.
+- In the damaged `get_component_type`, signature and docstring both declare
+  `element='atom'`, so they agree with each other and disagree with the correct
+  value `'component'`.
 
 Assumed:
 
@@ -182,15 +189,40 @@ but it predates this defect and deserves its own decision.
 
 ## Acceptance criteria
 
-- A guard that fails when a commit changes a public signature without a
-  corresponding change in `devtools/data/public_api_stability.json` or an explicit
-  waiver. Comparing the AST of every changed `.py` against its parent is sufficient
-  and costs seconds; this report used exactly that check. Names the `guard` field.
 - The generator preserves the existing signature, body, imports and defaults, and
   edits only the docstring node — or is not used again on this repository.
+
+- A guard that compares the AST of every changed `.py` **against its parent commit**
+  and fails when a public signature, default or body changed. Names the `guard`
+  field. This report used exactly that check; it costs seconds over 1358 files.
+
+  The comparison basis must be the parent commit, not
+  `devtools/data/public_api_stability.json`. That registry records
+  `stability`, `introduced`, `owner`, `documentation`, `contract_tests` and
+  `subtree_stability` — it does not record signatures, so there is nothing in it to
+  compare against, and `get_molecule_id`, one of the eleven functions mutilated
+  here, has no entry in it at all. The registry belongs in the guard only as the
+  waiver: *this signature changed — is the change declared?*
+
 - `devtools/scripts/validate_docstrings.py` gains, or is paired with, a check that a
   documented parameter list matches the actual signature in both directions. Today
   it can only detect a missing docstring, not a docstring that ate its function.
+
+  This is worth doing and **it does not close this report**. Bidirectional
+  validation detects only *disagreement* between docstring and signature, and this
+  generator does not produce disagreement: it rewrites both, consistently. The
+  damaged `get_component_type` reads
+
+  ```python
+  def get_component_type(molecular_system, element='atom', ...):
+      """
+      element : {'atom', 'group', ...}, default='atom'
+  ```
+
+  Signature and docstring agree on `'atom'`; the correct default was `'component'`.
+  Any bidirectional check passes here, and the function silently returns one type
+  per atom instead of one per component. Only comparison against the previous
+  version catches the third shape of damage.
 
 ## Dependencies and risks
 
