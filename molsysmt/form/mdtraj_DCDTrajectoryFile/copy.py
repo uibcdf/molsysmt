@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form mdtraj.DCDTrajectoryFile.
 
+
     Parameters
     ----------
-    item : mdtraj.DCDTrajectoryFile
-        Source item in mdtraj.DCDTrajectoryFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     mdtraj.DCDTrajectoryFile
         Resulting object in mdtraj.DCDTrajectoryFile form.
+
 
     .. versionadded:: 1.0.0
     """

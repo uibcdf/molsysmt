@@ -11,27 +11,29 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     """
     Unwrapping coordinates across periodic boundaries to produce continuous trajectories.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms to unwrap.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to process.
-    syntax : str, default 'MolSysMT'
-        Selection syntax when using strings.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend.
-    in_place : bool, default False
-        If True, modify the input system; otherwise return an unwrapped copy.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    in_place : object, default=False
+        Argument in_place.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system or None
         Unwrapped system when `in_place=False`, otherwise `None`.
+
 
     Raises
     ------
@@ -40,12 +42,14 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     StructuralInconsistencyError
         If box vectors are missing, malformed, non-finite, or singular.
 
+
     Notes
     -----
     This operation restores temporal continuity independently for every atom.
     It does not reconstruct a molecule within one frame. Use
     :func:`molsysmt.pbc.wrap_to_pbc` or :func:`molsysmt.pbc.wrap_to_mic` with
     ``keep_covalent_bonds=True`` for covalent reconstruction.
+
 
     .. versionadded:: 1.0.0
     """

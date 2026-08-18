@@ -5,10 +5,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form pdbfixer.PDBFixer.
 
+
     Parameters
     ----------
-    item : pdbfixer.PDBFixer
-        Source item in pdbfixer.PDBFixer form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def copy(item, skip_digestion=False):
     -------
     pdbfixer.PDBFixer
         Resulting object in pdbfixer.PDBFixer form.
+
 
     .. versionadded:: 1.0.0
     """

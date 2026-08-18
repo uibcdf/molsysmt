@@ -13,23 +13,21 @@ def get_atomic_radius(molecular_system, element='atom', selection='all', definit
     and the requested radius definition (e.g. van der Waals radius).  Values
     are returned as a PyUnitWizard quantity in nm.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'atom'}, default 'atom'
-        Hierarchical element for which the radius is returned.  Currently
-        only ``'atom'`` level is meaningful.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of atoms to include in the output.
-    definition : {'vdw', 'protor'}, default 'vdw'
-        Radius definition to use.  ``'vdw'`` returns the van der Waals radius
-        for each element. ``'protor'`` returns the implicit-hydrogen-aware ProtOr
-        van der Waals radius for protein heavy atoms.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    element : str, default='atom'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    definition : object, default='vdw'
+        Argument definition.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -37,10 +35,12 @@ def get_atomic_radius(molecular_system, element='atom', selection='all', definit
         Atomic radii as a PyUnitWizard quantity in nm.
         Shape: ``(n_atoms,)``.
 
+
     Raises
     ------
     NotImplementedError
         If an unsupported ``definition`` is requested.
+
 
     Notes
     -----
@@ -48,6 +48,7 @@ def get_atomic_radius(molecular_system, element='atom', selection='all', definit
     all elements of the periodic table. When using ``definition='protor'``, standard
     ProtOr radii are assigned to protein heavy atoms, falling back to element
     defaults where applicable.
+
 
     .. versionadded:: 1.0.0
     """

@@ -14,23 +14,24 @@ def get_covalent_paths(molecular_system, path=None, selection='all', syntax='Mol
     n-th selection of `path`. Typical uses are locating the atom quartets that define
     a dihedral angle, or the donor-hydrogen pairs of a hydrogen bond.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any of the :ref:`supported forms <Introduction_Forms>`.
-    path : list of selections
-        Ordered pattern. Position *n* is a selection listing the atoms allowed at step
-        *n* of the walk, so `len(path)` is the length of every returned path.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Global atom filter applied before the walk.
-    syntax : str, default 'MolSysMT'
-        Selection syntax for string-based selections.
+        Molecular system in any supported MolSysMT format.
+    path : object, default=None
+        Argument path.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------
     numpy.ndarray
         Array of shape `(n_paths, len(path))` with the atom indices of every path found.
         Order within a path follows the pattern; paths are not deduplicated by reversal.
+
 
     Notes
     -----
@@ -40,11 +41,13 @@ def get_covalent_paths(molecular_system, path=None, selection='all', syntax='Mol
     - Only covalent bonds are traversed. See :func:`molsysmt.topology.get_bondgraph`
       for the graph itself.
 
+
     See Also
     --------
     :func:`molsysmt.topology.get_covalent_blocks`
         Sets of atoms mutually connected through covalent bonds, optionally after
         removing bonds.
+
 
     .. versionadded:: 1.0.0
     """

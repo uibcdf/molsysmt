@@ -4,11 +4,11 @@ def is_nucleotide(name):
     """
     Check whether a group name corresponds to a nucleotide residue.
 
+
     Parameters
     ----------
-    name : str
-        Residue or group name as stored in the topology (e.g. ``'DA'``, ``'DG'``,
-        ``'ADE'``, ``'URA'``).
+    name : object
+        Argument name.
 
     Returns
     -------
@@ -16,11 +16,13 @@ def is_nucleotide(name):
         True if ``name`` belongs to the set of known nucleotide group names, False
         otherwise.
 
+
     Notes
     -----
     The recognised names are defined in
     ``molsysmt.element.group.nucleotide.nucleotide_names`` and cover standard DNA
     and RNA nucleotides.
+
 
     .. versionadded:: 1.0.0
     """

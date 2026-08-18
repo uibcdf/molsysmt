@@ -6,21 +6,23 @@ def add(to_item, item, atom_indices='all', structure_indices='all'):
     """
     Adding elements from another item into an item of form molsysmt.StructuresDict.
 
+
     Parameters
     ----------
-    to_item : molsysmt.StructuresDict
-        Target item to modify or add elements to.
-    item : molsysmt.StructuresDict
-        Source item in molsysmt.StructuresDict form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    to_item : object
+        Argument to_item.
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
 
     Returns
     -------
     molsysmt.StructuresDict
         Resulting object in molsysmt.StructuresDict form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -13,30 +13,31 @@ def get_area_buried(molecular_system, element='group', selection='all', definiti
     to the folded protein interior.  Values are looked up from a static scale
     indexed by residue name.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'group'}, default 'group'
-        Hierarchical element for which buried area is returned.  Currently
-        only ``'group'`` (i.e. residue) is supported.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of groups to include in the output.
-    definition : {'rose'}, default 'rose'
-        Buried-area scale to use.  Currently the only supported scale is
-        ``'rose'``, taken from Rose et al. (1985).
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    element : str, default='group'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    definition : object, default='rose'
+        Argument definition.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     numpy.ndarray
         1-D array of shape ``(n_groups,)`` with buried area values in Å².
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
+
 
     Notes
     -----
@@ -46,6 +47,7 @@ def get_area_buried(molecular_system, element='group', selection='all', definiti
 
         Rose G.D., Geselowitz A.R., Lesser G.J., Lee R.H., Zehfus M.H.
         *Science* 229:834–838 (1985).
+
 
     .. versionadded:: 1.0.0
     """

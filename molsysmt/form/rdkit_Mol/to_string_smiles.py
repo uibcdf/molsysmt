@@ -7,10 +7,11 @@ def to_string_smiles(item, skip_digestion=False):
     """
     Converting from rdkit.Mol to string:smiles.
 
+
     Parameters
     ----------
-    item : rdkit.Mol
-        Source item in rdkit.Mol form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -18,6 +19,7 @@ def to_string_smiles(item, skip_digestion=False):
     -------
     string:smiles
         Resulting object in string:smiles form.
+
 
     .. versionadded:: 1.0.0
     """

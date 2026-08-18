@@ -13,7 +13,16 @@ from molsysmt._private.rust_backend import (
 
 
 def get_distance_two_points_single_structure(point1, point2):
-    """Returning the Euclidean distance between two points."""
+    """
+    Returning the Euclidean distance between two points.
+
+    Parameters
+    ----------
+    point1 : object
+        Argument point1.
+    point2 : object
+        Argument point2.
+    """
     return float(np.linalg.norm(np.asarray(point2) - np.asarray(point1)))
 
 

@@ -1,23 +1,26 @@
 # This method must not be digested
 def load_converter(module, converter):
-    """Resolve a converter that a form declares lazily, by submodule name.
+    """
+    Resolve a converter that a form declares lazily, by submodule name.
 
     A form's `_convert_to` maps a target form to either the converter itself or, for the
     ones that would drag a third-party library in at import time, the *name* of the
     submodule holding it. This resolves the second case and leaves the first alone, so
     callers do not each need to know the difference.
 
+
     Parameters
     ----------
-    module : module
-        The form module declaring the conversion.
-    converter : callable or str
-        The value read from `_convert_to`.
+    module : object
+        Argument module.
+    converter : object
+        Argument converter.
 
     Returns
     -------
     callable
         The converter.
+
 
     Notes
     -----

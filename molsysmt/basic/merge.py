@@ -22,38 +22,23 @@ def merge(molecular_systems,
     provide per-system atom selections via `selections`. The output form can be set with
     `to_form` (defaults to the first system’s form).
 
+
     Parameters
     ----------
-    molecular_systems : list of molecular systems
-        Input systems, each in one of the :ref:`supported forms <Introduction_Forms>`.
-    selections : list, tuple, numpy.ndarray, int, str or 'all', default 'all'
-        Atom selections for the input systems. A list or tuple contains one selection per
-        system and must match `molecular_systems` in length. A scalar, string, NumPy array,
-        or range is applied to every system. Nest index collections to provide a different
-        collection for each system. Selection strings follow :ref:`Introduction_Selection`.
-    structure_indices : list, tuple, numpy.ndarray, range, int or 'all', default 'all'
-        0-based structure indices to include. A list or tuple contains one value or index
-        collection per system and must match `molecular_systems` in length. A scalar, NumPy
-        array, range, or `'all'` is applied to every system.
-    keep_ids : bool, default True
-        Whether to preserve original ids (atom, group, molecule) from the inputs. If `False`,
-        ids are reassigned in the merged system.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when any entry in `selections` is a string.
-        See :ref:`Introduction_Selection`.
-    to_form : str or None, default None
-        Output form of the merged molecular system. If `None`, the output molecular system inherits the first input
-        system’s form.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+    molecular_systems : object
+        Argument molecular_systems.
+    selections : object, default='all'
+        Argument selections.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    keep_ids : object, default=True
+        Argument keep_ids.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    to_form : object, default=None
+        Argument to_form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -61,12 +46,14 @@ def merge(molecular_systems,
         New molecular system composed of the selected elements from the inputs. Its form is
         controlled by `to_form` (or inherited from the first input when `None`).
 
+
     Raises
     ------
     NotSupportedFormError
         If any input molecular system has an unsupported form.
     ArgumentError
         If input arguments are invalid or inconsistent in length or compatibility.
+
 
     Notes
     -----
@@ -79,6 +66,7 @@ def merge(molecular_systems,
     - Lists and tuples always express per-system intent. Use a NumPy array or range when one
       index collection should be applied to every system.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select`
@@ -90,6 +78,7 @@ def merge(molecular_systems,
     :func:`molsysmt.basic.concatenate_structures` :
         Concatenate structures across multiple molecular systems.
 
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -99,6 +88,7 @@ def merge(molecular_systems,
     >>> molsys_merged = msm.basic.merge([molsys_A, molsys_B])
     >>> msm.basic.get(molsys_merged, n_peptides=True)
     2
+
 
     .. admonition:: Tutorial with more examples
 

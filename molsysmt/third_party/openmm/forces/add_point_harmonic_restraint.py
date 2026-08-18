@@ -8,21 +8,31 @@ def add_point_harmonic_restraint(molecular_system, selection='all', force_consta
     """
     Adding a harmonic point restraint pulling particles toward a 3D point in OpenMM.
 
+
     Parameters
     ----------
-    system : openmm.System
-        Target OpenMM system to modify.
-    atom_indices : list of int
-        Atom indices to restrain.
-    point : quantity or list of float
-        Target 3D position in nanometers.
-    k : quantity
-        Spring constant in `kJ/(mol*nm^2)`.
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    force_constant : object, default='5000 kilojoules/(mol*nanometers**2)'
+        Argument force_constant.
+    point : object, default=None
+        Argument point.
+    pbc : bool, default=False
+        Whether to take periodic boundary conditions into account.
+    return_force : object, default=False
+        Argument return_force.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.CustomExternalForce
         The added point restraint force instance.
+
 
     .. versionadded:: 1.0.0
     """

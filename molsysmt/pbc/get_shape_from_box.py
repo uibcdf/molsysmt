@@ -7,17 +7,19 @@ def get_shape_from_box(box, skip_digestion=False):
     """
     Inferring the box shape from its matrix.
 
+
     Parameters
     ----------
-    box : quantity
-        Box matrix (single or array), shape (3, 3) or (n, 3, 3).
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+    box : object
+        Argument box.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     str or None
         Shape label inferred from the box angles, or `None` if no box.
+
 
     .. versionadded:: 1.0.0
     """

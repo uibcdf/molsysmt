@@ -6,18 +6,19 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     """
     Appending coordinate structures to an item of form openmm.CharmmPsfFile.
 
+
     Parameters
     ----------
-    item : openmm.CharmmPsfFile
-        Source item in openmm.CharmmPsfFile form.
-    structure_id : object
-        Structure identifiers.
-    time : numpy.ndarray or quantity
-        Simulation time coordinates in picoseconds.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
+    item : molecular system
+        Argument item.
+    structure_id : object, default=None
+        Argument structure_id.
+    time : object, default=None
+        Argument time.
+    coordinates : object, default=None
+        Argument coordinates.
+    box : object, default=None
+        Argument box.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -25,6 +26,7 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     -------
     openmm.CharmmPsfFile
         Resulting object in openmm.CharmmPsfFile form.
+
 
     .. versionadded:: 1.0.0
     """

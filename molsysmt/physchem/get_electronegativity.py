@@ -13,23 +13,21 @@ def get_electronegativity(molecular_system, element='atom', selection='all',
     Returns a tabulated per-element electronegativity for every selected atom,
     looked up from the requested scale. The value is dimensionless.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'atom'}, default 'atom'
-        Hierarchical element for which electronegativity is returned. Only
-        ``'atom'`` is supported, since electronegativity is a per-element
-        property and is not meaningfully aggregated to coarser levels.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of atoms to include in the output.
-    definition : {'pauling'}, default 'pauling'
-        Electronegativity scale to use. ``'pauling'`` returns the Pauling-scale
-        electronegativity for each element.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    element : str, default='atom'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    definition : object, default='pauling'
+        Argument definition.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -39,15 +37,18 @@ def get_electronegativity(molecular_system, element='atom', selection='all',
         several f-block and super-heavy elements) and the neutral dummy elements
         ``Du``/``X`` return ``NaN``.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
 
+
     Notes
     -----
     The Pauling values can be regenerated from the ``mendeleev`` package, like
     the other physchem atom tables.
+
 
     .. versionadded:: 1.0.0
     """

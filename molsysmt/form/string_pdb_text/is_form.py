@@ -4,6 +4,7 @@ def is_form(string):
     """
     Checking whether an item is an instance of form string:pdb_text.
 
+
     Parameters
     ----------
     string : object
@@ -13,6 +14,7 @@ def is_form(string):
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

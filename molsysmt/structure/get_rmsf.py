@@ -79,45 +79,47 @@ from molsysmt.configure import with_configure_overrides
 def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='all',
              syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto',
              parallel=None, num_threads=None, skip_digestion=False):
-    """
+    r"""
     Computing root-mean-square fluctuations per atom over a set of structures.
 
     The RMSF of atom *i* is defined as:
 
     .. math::
 
-        \\mathrm{RMSF}_i = \\sqrt{\\frac{1}{T} \\sum_{t=1}^{T}
-        \\left| \\mathbf{r}_i(t) - \\langle \\mathbf{r}_i \\rangle \\right|^2}
+        \mathrm{RMSF}_i = \sqrt{\frac{1}{T} \sum_{t=1}^{T}
+        \left| \mathbf{r}_i(t) - \langle \mathbf{r}_i \rangle \right|^2}
 
-    where :math:`\\langle \\mathbf{r}_i \\rangle` is the time-averaged position of atom *i*
+    where :math:`\langle \mathbf{r}_i \rangle` is the time-averaged position of atom *i*
     and *T* is the number of structures.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    selection : str, list, tuple or numpy.ndarray, default 'atom_type!="H"'
-        Atom selection for which RMSF is computed.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to include.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for the computation.
-    heavy_mode : str, default 'auto'
-        Chunked execution path: 'auto' | 'force' | 'off'.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='atom_type!="H"'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    heavy_mode : object, default='auto'
+        Argument heavy_mode.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         RMSF per selected atom as a PyUnitWizard quantity in length units.
         Shape: (n_atoms,).
+
 
     Raises
     ------
@@ -126,11 +128,13 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
     NotImplementedMethodError
         If an unsupported engine is requested.
 
+
     Notes
     -----
     All structures must be pre-aligned to a common reference frame before calling
     this function if positional fluctuations relative to a reference are intended.
     Use :func:`molsysmt.structure.least_rmsd_align` to align first.
+
 
     Examples
     --------
@@ -138,6 +142,7 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
     >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     >>> msm.structure.get_rmsf(molsys, selection='all').shape[0] == msm.get(molsys, n_atoms=True)
     True
+
 
     .. versionadded:: 1.0.0
     """

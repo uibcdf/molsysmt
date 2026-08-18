@@ -8,19 +8,27 @@ def add_constant_force(molecular_system, selection='all',
     """
     Adding a constant directional force vector to selected particles in OpenMM.
 
+
     Parameters
     ----------
-    system : openmm.System
-        Target OpenMM system to modify.
-    atom_indices : list of int
-        Atom indices to apply constant force to.
-    force_vector : quantity or list of float
-        3D force vector in `kJ/(mol*nm)`.
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    force : object, default='[500,0,0] kilojoules/(mole*nanometer)'
+        Argument force.
+    return_force : object, default=False
+        Argument return_force.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.CustomExternalForce
         The added constant force instance.
+
 
     .. versionadded:: 1.0.0
     """

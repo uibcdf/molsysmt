@@ -26,10 +26,11 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     """
     Converting from molsysmt.MolSys to molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -37,6 +38,7 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     -------
     molsysmt.ViewerJSON
         Resulting object in molsysmt.ViewerJSON form.
+
 
     .. versionadded:: 1.0.0
     """

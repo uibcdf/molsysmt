@@ -2,15 +2,21 @@ def is_component_type(component_type):
     """
     Checking if a string represents a valid recognized component type in MolSysMT.
 
+
+
+
     Parameters
     ----------
-    component_type : str
-        String to test.
+    component_type : object
+        Argument component_type.
 
     Returns
     -------
     bool
         True if recognized component type, False otherwise.
+
+
+
 
     .. versionadded:: 1.0.0
     """

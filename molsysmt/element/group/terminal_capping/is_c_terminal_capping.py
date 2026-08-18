@@ -6,10 +6,11 @@ def is_c_terminal_capping(name):
     C-terminal cappings are protecting groups added to the C-terminus of a peptide
     chain (e.g. ``'NME'`` — N-methyl amide, ``'NH2'`` — amide).
 
+
     Parameters
     ----------
-    name : str
-        Residue or group name as stored in the topology.
+    name : object
+        Argument name.
 
     Returns
     -------
@@ -17,10 +18,12 @@ def is_c_terminal_capping(name):
         True if ``name`` belongs to the set of known C-terminal capping group
         names, False otherwise.
 
+
     Notes
     -----
     The recognised names are defined in
     ``molsysmt.element.group.terminal_capping.c_terminal_capping_names``.
+
 
     .. versionadded:: 1.0.0
     """

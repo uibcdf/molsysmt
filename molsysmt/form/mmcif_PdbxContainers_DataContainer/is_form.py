@@ -3,15 +3,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

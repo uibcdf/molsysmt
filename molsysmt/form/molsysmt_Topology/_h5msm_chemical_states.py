@@ -107,6 +107,7 @@ def write_chemical_states(topology, topology_group, dataset_options):
     """
     Performing write chemical states on form molsysmt.Topology.
 
+
     Parameters
     ----------
     topology : object
@@ -120,6 +121,7 @@ def write_chemical_states(topology, topology_group, dataset_options):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -191,6 +193,7 @@ def read_chemical_states(topology_group, n_atoms):
     """
     Performing read chemical states on form molsysmt.Topology.
 
+
     Parameters
     ----------
     topology_group : object
@@ -202,6 +205,7 @@ def read_chemical_states(topology_group, n_atoms):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

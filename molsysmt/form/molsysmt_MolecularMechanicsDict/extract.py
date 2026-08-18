@@ -7,11 +7,12 @@ def extract(item, copy_if_all=True, skip_digestion=False):
     """
     Extracting a subset of elements or structures from form molsysmt.MolecularMechanicsDict.
 
+
     Parameters
     ----------
-    item : molsysmt.MolecularMechanicsDict
-        Source item in molsysmt.MolecularMechanicsDict form.
-    copy_if_all : object
+    item : molecular system
+        Argument item.
+    copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def extract(item, copy_if_all=True, skip_digestion=False):
     -------
     molsysmt.MolecularMechanicsDict
         Resulting object in molsysmt.MolecularMechanicsDict form.
+
 
     .. versionadded:: 1.0.0
     """

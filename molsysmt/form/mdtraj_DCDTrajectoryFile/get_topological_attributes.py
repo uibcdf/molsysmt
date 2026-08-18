@@ -9,10 +9,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form mdtraj.DCDTrajectoryFile.
 
+
     Parameters
     ----------
-    item : mdtraj.DCDTrajectoryFile
-        Source item in mdtraj.DCDTrajectoryFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -20,6 +21,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -36,10 +38,11 @@ def get_n_groups_from_system(item, skip_digestion=False):
     """
     Getting n groups from system in form mdtraj.DCDTrajectoryFile.
 
+
     Parameters
     ----------
-    item : mdtraj.DCDTrajectoryFile
-        Source item in mdtraj.DCDTrajectoryFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -47,6 +50,7 @@ def get_n_groups_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

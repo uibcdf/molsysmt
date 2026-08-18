@@ -8,25 +8,27 @@ def get_surface_area(molecular_system, element='group', selection='all', syntax=
     """
     Getting standard surface area values for elements in a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='group'
-        Topological element level.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='group'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of elements to query.
+        Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
-    definition : str, default='collantes'
-        Reference dataset for surface area values.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    definition : object, default='collantes'
+        Argument definition.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     list
         List of surface area values in nm^2 for each selected element.
+
 
     .. versionadded:: 1.0.0
     """

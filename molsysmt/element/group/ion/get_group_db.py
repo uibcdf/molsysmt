@@ -13,10 +13,17 @@ def get_group_db(group_name):
     """
     Getting the internal reference database dictionary for ion groups.
 
+
+    Parameters
+    ----------
+    group_name : str
+        Name of the chemical group (residue).
+
     Returns
     -------
     dict
         Reference dictionary containing residue connectivity and metadata.
+
 
     .. versionadded:: 1.0.0
     """

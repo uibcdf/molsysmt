@@ -6,16 +6,17 @@ def add(to_item, item, atom_indices='all', structure_indices='all', skip_digesti
     """
     Adding elements from another item into an item of form openmm.CharmmCrdFile.
 
+
     Parameters
     ----------
-    to_item : openmm.CharmmCrdFile
-        Target item to modify or add elements to.
-    item : openmm.CharmmCrdFile
-        Source item in openmm.CharmmCrdFile form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    to_item : object
+        Argument to_item.
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,6 +24,7 @@ def add(to_item, item, atom_indices='all', structure_indices='all', skip_digesti
     -------
     openmm.CharmmCrdFile
         Resulting object in openmm.CharmmCrdFile form.
+
 
     .. versionadded:: 1.0.0
     """

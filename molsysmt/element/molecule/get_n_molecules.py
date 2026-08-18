@@ -7,21 +7,23 @@ def get_n_molecules(molecular_system, selection='all', redefine_molecules=False,
     """
     Getting the total number of molecules in a molecular system or selection.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
+        Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection filter.
+        Selection string or boolean/integer array specifying elements.
+    redefine_molecules : bool, default=False
+        Whether to rebuild molecule partitioning.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------
     int
         Number of molecules.
+
 
     .. versionadded:: 1.0.0
     """

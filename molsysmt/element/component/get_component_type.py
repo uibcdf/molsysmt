@@ -9,27 +9,29 @@ def get_component_type(molecular_system, element='component', selection='all', r
     """
     Getting component types from a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
-        Structural element level at which component types are queried.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='component'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of elements to query.
+        Selection string or boolean/integer array specifying elements.
     redefine_indices : bool, default=False
-        Whether to recalculate component indices locally prior to querying.
-    redefine_types : bool, default=False
-        Whether to re-infer component types from constituent groups.
+        Whether to reassign contiguous 0-based indices.
+    redefine_types : object, default=False
+        Argument redefine_types.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     list of str
         List of component type classifications ('protein', 'peptide', 'dna', 'water', etc.).
+
 
     .. versionadded:: 1.0.0
     """

@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form openmm.Topology.
 
+
     Parameters
     ----------
-    item : openmm.Topology
-        Source item in openmm.Topology form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     openmm.Topology
         Resulting object in openmm.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

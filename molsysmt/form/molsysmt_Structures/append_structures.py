@@ -22,35 +22,36 @@ def append_structures(
     """
     Appending coordinate structures to an item of form molsysmt.Structures.
 
+
     Parameters
     ----------
-    to_item : molsysmt.Structures
-        Target item to modify or add elements to.
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    structure_id : object
-        Structure identifiers.
-    time : numpy.ndarray or quantity
-        Simulation time coordinates in picoseconds.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    velocities : object
+    to_item : object
+        Argument to_item.
+    item : molecular system, default=None
+        Argument item.
+    structure_id : object, default=None
+        Argument structure_id.
+    time : object, default=None
+        Argument time.
+    coordinates : object, default=None
+        Argument coordinates.
+    velocities : object, default=None
         Argument velocities.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
-    temperature : object
+    box : object, default=None
+        Argument box.
+    temperature : object, default=None
         Argument temperature.
-    potential_energy : object
+    potential_energy : object, default=None
         Argument potential_energy.
-    kinetic_energy : object
+    kinetic_energy : object, default=None
         Argument kinetic_energy.
-    b_factor : object
+    b_factor : object, default=None
         Argument b_factor.
-    alternate_location : object
+    alternate_location : object, default=None
         Argument alternate_location.
-    occupancy : object
+    occupancy : object, default=None
         Argument occupancy.
-    attribute_policy : object
+    attribute_policy : object, default='intersection'
         Argument attribute_policy.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -59,6 +60,7 @@ def append_structures(
     -------
     molsysmt.Structures
         Resulting object in molsysmt.Structures form.
+
 
     .. versionadded:: 1.0.0
     """

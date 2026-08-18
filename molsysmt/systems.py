@@ -5,12 +5,13 @@ def path(package, file):
     """
     Getting the filesystem path to a bundled data file.
 
+
     Parameters
     ----------
-    package : str
-        Resource package name.
-    file : str
-        File name.
+    package : object
+        Argument package.
+    file : object
+        Argument file.
 
     Returns
     -------

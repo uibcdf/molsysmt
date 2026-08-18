@@ -4,15 +4,21 @@ def load_html_in_jupyter_notebook(filename):
     """
     Loading and rendering a standalone HTML viewer file inside a Jupyter Notebook.
 
+
+
+
     Parameters
     ----------
     filename : str or pathlib.Path
-        HTML file path to render.
+        Argument filename.
 
     Returns
     -------
     IPython.display.HTML
         Interactive HTML display object.
+
+
+
 
     .. versionadded:: 1.0.0
     """

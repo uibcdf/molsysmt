@@ -20,45 +20,31 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
     system and returns those that are missing. Peptidic bonds between consecutive amino
     acids and, optionally, disulfide bonds between cysteine residues are also detected.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Atom selection that limits the scope of the search.
-
-    structure_index : int, default 0
-        Index of the structure frame used for distance-based bond detection.
-
-    max_bond_length : str or quantity, default '2 angstroms'
-        Maximum interatomic distance to be considered a potential bond when using
-        distance-based inference for groups without a known template.
-
-    disulfide_bonds : bool, default False
-        Whether to detect disulfide bonds between sulfur atoms of the specified
-        ``disulfide_group_names`` residues.
-
-    disulfide_group_names : list of str, default ['CYS']
-        Residue names to search for potential disulfide bond partners when
-        ``disulfide_bonds`` is True.
-
-    pbc : bool, default True
-        Whether to apply periodic boundary conditions when computing interatomic
-        distances.
-
-    syntax : str, default 'MolSysMT'
-        Syntax used to interpret the ``selection`` string.
-
-    engine : {'MolSysMT', 'pytraj'}, default 'MolSysMT'
-        Backend used to perform bond detection.
-
-    sorted : bool, default True
-        If True, each pair in the output is ordered so that the smaller atom index
-        comes first, and the list itself is sorted lexicographically.
-
-    skip_digestion : bool, default False
-        If True, argument digestion is skipped (intended for internal use).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_index : object, default=0
+        Argument structure_index.
+    max_bond_length : object, default='2 angstroms'
+        Argument max_bond_length.
+    disulfide_bonds : object, default=False
+        Argument disulfide_bonds.
+    disulfide_group_names : object, default=None
+        Argument disulfide_group_names.
+    pbc : bool, default=True
+        Whether to take periodic boundary conditions into account.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    sorted : bool, default=True
+        Whether to sort the returned bonded atom pairs.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -67,6 +53,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
         present according to chemical templates or distance criteria but not yet
         recorded in the molecular system topology.
 
+
     Raises
     ------
     NotImplementedMethodError
@@ -74,6 +61,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
 
     ArgumentChoiceError
         Raised if a terminal capping group cannot be classified as N- or C-terminal.
+
 
     Notes
     -----
@@ -85,6 +73,7 @@ def get_missing_bonds(molecular_system, selection='all', structure_index=0, max_
 
     Peptidic C–N bonds between consecutive residues are detected via a distance
     filter applied to the backbone C and N atoms of adjacent groups.
+
 
     .. versionadded:: 1.0.0
     """

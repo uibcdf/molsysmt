@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form string:pdb_text.
 
+
     Parameters
     ----------
-    item : string:pdb_text
-        Source item in string:pdb_text form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     string:pdb_text
         Resulting object in string:pdb_text form.
+
 
     .. versionadded:: 1.0.0
     """

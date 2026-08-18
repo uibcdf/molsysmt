@@ -14,38 +14,39 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
     """
     Wrap coordinates into the minimum image convention (MIC) box.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms to wrap.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to process.
-    mic_origin : quantity, default '[0,0,0] nanometers'
-        Origin of the MIC box.
-    center_of_selection : str or array-like, optional
-        Selection to center before wrapping (uses `center_coordinates`).
-    center_coordinates : quantity, default '[0,0,0] nanometers'
-        Target coordinates for centering the `center_of_selection`.
-    weights : array-like, optional
-        Weights for centering when `center_of_selection` is given.
-    keep_covalent_bonds : bool, default False
-        Whether to reconstruct bonded atoms through minimum-image displacements
-        and wrap each connected block as a unit. Requires topology with bonds.
-    syntax : str, default 'MolSysMT'
-        Selection syntax for string selections.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend.
-    in_place : bool, default False
-        If True, modify the input system; otherwise return a wrapped copy.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    mic_origin : object, default='[0,0,0] nanometers'
+        Argument mic_origin.
+    center_of_selection : object, default=None
+        Argument center_of_selection.
+    center_coordinates : object, default='[0,0,0] nanometers'
+        Argument center_coordinates.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    keep_covalent_bonds : object, default=False
+        Argument keep_covalent_bonds.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    in_place : object, default=False
+        Argument in_place.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system or None
         Wrapped system when `in_place=False`, otherwise `None`.
+
 
     Raises
     ------
@@ -55,11 +56,13 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         If box vectors are invalid, or if ``keep_covalent_bonds=True`` and
         bonds are unavailable.
 
+
     Notes
     -----
     With ``keep_covalent_bonds=False``, atoms are wrapped independently. With
     ``keep_covalent_bonds=True``, bonded blocks are reconstructed with
     minimum-image bond displacements and translated as complete units.
+
 
     .. versionadded:: 1.0.0
     """

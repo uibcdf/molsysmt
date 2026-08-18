@@ -7,14 +7,15 @@ def to_parmed_Structure(item, atom_indices='all', structure_indices='all', skip_
     """
     Converting from file:pdb to parmed.Structure.
 
+
     Parameters
     ----------
-    item : file:pdb
-        Source item in file:pdb form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -22,6 +23,7 @@ def to_parmed_Structure(item, atom_indices='all', structure_indices='all', skip_
     -------
     parmed.Structure
         Resulting object in parmed.Structure form.
+
 
     .. versionadded:: 1.0.0
     """

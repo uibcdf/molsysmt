@@ -12,37 +12,23 @@ def potential_energy_minimization(molecular_system, method='L-BFGS',
     coordinates are applied either in-place to the original molecular system or to
     a new copy depending on the ``in_place`` flag.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        When ``engine='OpenMM'``, the system may also be provided directly as an
-        ``openmm.Context`` or ``openmm.Simulation`` object, in which case the
-        context is used and reused without conversion.
-
-    method : str, default 'L-BFGS'
-        Energy minimization algorithm. Currently only the L-BFGS method provided
-        by OpenMM's ``LocalEnergyMinimizer`` is supported.
-
-    platform : str, default 'CPU'
-        OpenMM platform used when creating a new context from the molecular system.
-        Common values: ``'CPU'``, ``'CUDA'``, ``'OpenCL'``, ``'Reference'``.
-
-    engine : {'OpenMM'}, default 'OpenMM'
-        Backend used to perform the minimization. Only ``'OpenMM'`` is currently
-        supported.
-
-    to_form : str or None, default None
-        Target form for the output molecular system when ``in_place=False``. If
-        None, a copy of the input is returned in its original form.
-
-    in_place : bool, default False
-        If True, the minimized coordinates are written back into ``molecular_system``
-        directly and the function returns None. If False, a new molecular system is
-        returned with the relaxed coordinates.
-
-    verbose : bool, default False
-        If True, print the potential energy before and after minimization.
+        Molecular system in any supported MolSysMT format.
+    method : object, default='L-BFGS'
+        Argument method.
+    platform : str, default='CPU'
+        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
+    engine : object, default='OpenMM'
+        Argument engine.
+    to_form : object, default=None
+        Argument to_form.
+    in_place : object, default=False
+        Argument in_place.
+    verbose : object, default=False
+        Argument verbose.
 
     Returns
     -------
@@ -52,10 +38,12 @@ def potential_energy_minimization(molecular_system, method='L-BFGS',
         When ``in_place=True``, returns None and updates ``molecular_system`` in
         place (only applicable for non-Context/Simulation forms).
 
+
     Raises
     ------
     NotImplementedError
         Raised if the requested ``engine`` is not supported.
+
 
     Notes
     -----
@@ -67,6 +55,7 @@ def potential_energy_minimization(molecular_system, method='L-BFGS',
     The minimization is performed by OpenMM's ``LocalEnergyMinimizer.minimize``,
     which converges to the nearest local minimum of the force-field potential
     energy surface.
+
 
     .. versionadded:: 1.0.0
     """

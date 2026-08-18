@@ -17,19 +17,21 @@ def subset_universe(universe, atom_indices="all", structure_indices="all"):
     """
     Performing subset universe on form MDAnalysis.Universe.
 
+
     Parameters
     ----------
     universe : object
         Argument universe.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

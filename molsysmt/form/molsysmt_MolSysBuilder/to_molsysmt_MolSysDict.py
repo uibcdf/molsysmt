@@ -32,14 +32,15 @@ def to_molsysmt_MolSysDict(
     """
     Converting from molsysmt.MolSysBuilder to molsysmt.MolSysDict.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -47,6 +48,7 @@ def to_molsysmt_MolSysDict(
     -------
     molsysmt.MolSysDict
         Resulting object in molsysmt.MolSysDict form.
+
 
     .. versionadded:: 1.0.0
     """

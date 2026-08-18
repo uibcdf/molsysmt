@@ -6,10 +6,11 @@ def to_file_topology_yaml(item, output_filename, skip_digestion=False):
     """
     Converting from molsysmt.Topology to file:topology_yaml.
 
+
     Parameters
     ----------
-    item : molsysmt.Topology
-        Source item in molsysmt.Topology form.
+    item : molecular system
+        Argument item.
     output_filename : str or pathlib.Path
         Output file path for serialization.
     skip_digestion : bool, default=False
@@ -19,6 +20,7 @@ def to_file_topology_yaml(item, output_filename, skip_digestion=False):
     -------
     file:topology_yaml
         Resulting object in file:topology_yaml form.
+
 
     .. versionadded:: 1.0.0
     """

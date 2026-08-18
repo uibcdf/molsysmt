@@ -5,17 +5,18 @@ def to_biopython_SeqRecord(item, group_indices='all', id=None, name=None, descri
     """
     Converting from biopython.Seq to biopython.SeqRecord.
 
+
     Parameters
     ----------
-    item : biopython.Seq
-        Source item in biopython.Seq form.
-    group_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Group indices (0-based) to include.
-    id : object
+    item : molecular system
+        Argument item.
+    group_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Argument group_indices.
+    id : object, default=None
         Argument id.
-    name : object
+    name : object, default=None
         Argument name.
-    description : object
+    description : object, default=None
         Argument description.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -24,6 +25,7 @@ def to_biopython_SeqRecord(item, group_indices='all', id=None, name=None, descri
     -------
     biopython.SeqRecord
         Resulting object in biopython.SeqRecord form.
+
 
     .. versionadded:: 1.0.0
     """

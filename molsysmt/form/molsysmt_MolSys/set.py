@@ -34,13 +34,14 @@ def set_formal_charge_to_atom(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting formal charge to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -55,13 +56,14 @@ def set_atom_is_aromatic_to_atom(item, indices='all', value=None, skip_digestion
     """
     Setting atom is aromatic to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -76,13 +78,14 @@ def set_n_unpaired_electrons_to_atom(item, indices='all', value=None, skip_diges
     """
     Setting n unpaired electrons to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -97,13 +100,14 @@ def set_n_implicit_hydrogens_to_atom(item, indices='all', value=None, skip_diges
     """
     Setting n implicit hydrogens to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -118,13 +122,14 @@ def set_allows_implicit_hydrogens_to_atom(item, indices='all', value=None, skip_
     """
     Setting allows implicit hydrogens to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -139,13 +144,14 @@ def set_atom_stereochemistry_to_atom(item, indices='all', value=None, skip_diges
     """
     Setting atom stereochemistry to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -172,13 +178,14 @@ def set_bond_id_to_bond(item, indices='all', value=None, skip_digestion=False):
     """
     Setting bond id to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -193,13 +200,14 @@ def set_bond_order_to_bond(item, indices='all', value=None, skip_digestion=False
     """
     Setting bond order to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -214,13 +222,14 @@ def set_fractional_bond_order_to_bond(item, indices='all', value=None, skip_dige
     """
     Setting fractional bond order to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -235,13 +244,14 @@ def set_bond_type_to_bond(item, indices='all', value=None, skip_digestion=False)
     """
     Setting bond type to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -256,13 +266,14 @@ def set_bond_is_aromatic_to_bond(item, indices='all', value=None, skip_digestion
     """
     Setting bond is aromatic to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -277,13 +288,14 @@ def set_bond_is_conjugated_to_bond(item, indices='all', value=None, skip_digesti
     """
     Setting bond is conjugated to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -298,13 +310,14 @@ def set_bond_stereochemistry_to_bond(item, indices='all', value=None, skip_diges
     """
     Setting bond stereochemistry to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -319,13 +332,14 @@ def set_bond_stereo_atom_indices_to_bond(item, indices='all', value=None, skip_d
     """
     Setting bond stereo atom indices to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -340,13 +354,14 @@ def set_bond_donor_atom_index_to_bond(item, indices='all', value=None, skip_dige
     """
     Setting bond donor atom index to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -361,13 +376,14 @@ def set_bond_acceptor_atom_index_to_bond(item, indices='all', value=None, skip_d
     """
     Setting bond acceptor atom index to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -382,13 +398,14 @@ def set_bond_joins_components_to_bond(item, indices='all', value=None, skip_dige
     """
     Setting bond joins components to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -403,13 +420,14 @@ def set_bond_evidence_to_bond(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting bond evidence to bond on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -424,13 +442,14 @@ def set_atom_index_to_atom(item, indices='all', value=None, skip_digestion=False
     """
     Setting atom index to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -447,13 +466,14 @@ def set_atom_name_to_atom(item, indices='all', value=None, skip_digestion=False)
     """
     Setting atom name to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -470,13 +490,14 @@ def set_atom_id_to_atom(item, indices='all', value=None, skip_digestion=False):
     """
     Setting atom id to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -493,13 +514,14 @@ def set_atom_type_to_atom(item, indices='all', value=None, skip_digestion=False)
     """
     Setting atom type to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -517,13 +539,14 @@ def set_isotope_to_atom(item, indices='all', value=None, skip_digestion=False):
     """
     Setting isotope to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -539,13 +562,14 @@ def set_group_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting group index to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -562,13 +586,14 @@ def set_group_name_to_atom(item, indices='all', value=None, skip_digestion=False
     """
     Setting group name to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -585,13 +610,14 @@ def set_group_id_to_atom(item, indices='all', value=None, skip_digestion=False):
     """
     Setting group id to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -608,13 +634,14 @@ def set_group_type_to_atom(item, indices='all', value=None, skip_digestion=False
     """
     Setting group type to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -631,13 +658,14 @@ def set_component_index_to_atom(item, indices='all', value=None, skip_digestion=
     """
     Setting component index to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -654,13 +682,14 @@ def set_component_name_to_atom(item, indices='all', value=None, skip_digestion=F
     """
     Setting component name to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -677,13 +706,14 @@ def set_component_id_to_atom(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting component id to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -700,13 +730,14 @@ def set_component_type_to_atom(item, indices='all', value=None, skip_digestion=F
     """
     Setting component type to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -723,13 +754,14 @@ def set_molecule_index_to_atom(item, indices='all', value=None, skip_digestion=F
     """
     Setting molecule index to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -746,13 +778,14 @@ def set_molecule_name_to_atom(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting molecule name to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -769,13 +802,14 @@ def set_molecule_id_to_atom(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting molecule id to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -792,13 +826,14 @@ def set_molecule_type_to_atom(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting molecule type to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -815,13 +850,14 @@ def set_chain_index_to_atom(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting chain index to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -838,13 +874,14 @@ def set_chain_name_to_atom(item, indices='all', value=None, skip_digestion=False
     """
     Setting chain name to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -861,13 +898,14 @@ def set_chain_id_to_atom(item, indices='all', value=None, skip_digestion=False):
     """
     Setting chain id to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -884,13 +922,14 @@ def set_chain_type_to_atom(item, indices='all', value=None, skip_digestion=False
     """
     Setting chain type to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -907,13 +946,14 @@ def set_entity_index_to_atom(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting entity index to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -930,13 +970,14 @@ def set_entity_name_to_atom(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting entity name to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -953,13 +994,14 @@ def set_entity_id_to_atom(item, indices='all', value=None, skip_digestion=False)
     """
     Setting entity id to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -976,13 +1018,14 @@ def set_entity_type_to_atom(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting entity type to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -999,15 +1042,16 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
     """
     Setting coordinates to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1031,15 +1075,16 @@ def set_velocities_to_atom(item, indices='all', structure_indices='all', value=N
     """
     Setting velocities to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1063,15 +1108,16 @@ def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=Non
     """
     Setting b factor to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1088,15 +1134,16 @@ def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=No
     """
     Setting occupancy to atom on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1115,13 +1162,14 @@ def set_group_index_to_group(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting group index to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1138,13 +1186,14 @@ def set_group_name_to_group(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting group name to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1161,13 +1210,14 @@ def set_group_id_to_group(item, indices='all', value=None, skip_digestion=False)
     """
     Setting group id to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1184,13 +1234,14 @@ def set_group_type_to_group(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting group type to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1207,13 +1258,14 @@ def set_component_index_to_group(item, indices='all', value=None, skip_digestion
     """
     Setting component index to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1230,13 +1282,14 @@ def set_component_name_to_group(item, indices='all', value=None, skip_digestion=
     """
     Setting component name to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1253,13 +1306,14 @@ def set_component_id_to_group(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting component id to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1276,13 +1330,14 @@ def set_component_type_to_group(item, indices='all', value=None, skip_digestion=
     """
     Setting component type to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1299,13 +1354,14 @@ def set_molecule_index_to_group(item, indices='all', value=None, skip_digestion=
     """
     Setting molecule index to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1322,13 +1378,14 @@ def set_molecule_name_to_group(item, indices='all', value=None, skip_digestion=F
     """
     Setting molecule name to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1345,13 +1402,14 @@ def set_molecule_id_to_group(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting molecule id to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1368,13 +1426,14 @@ def set_molecule_type_to_group(item, indices='all', value=None, skip_digestion=F
     """
     Setting molecule type to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1391,13 +1450,14 @@ def set_chain_index_to_group(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting chain index to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1414,13 +1474,14 @@ def set_chain_name_to_group(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting chain name to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1437,13 +1498,14 @@ def set_chain_id_to_group(item, indices='all', value=None, skip_digestion=False)
     """
     Setting chain id to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1460,13 +1522,14 @@ def set_chain_type_to_group(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting chain type to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1483,13 +1546,14 @@ def set_entity_index_to_group(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting entity index to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1506,13 +1570,14 @@ def set_entity_name_to_group(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting entity name to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1529,13 +1594,14 @@ def set_entity_id_to_group(item, indices='all', value=None, skip_digestion=False
     """
     Setting entity id to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1552,13 +1618,14 @@ def set_entity_type_to_group(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting entity type to group on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1577,13 +1644,14 @@ def set_component_index_to_component(item, indices='all', value=None, skip_diges
     """
     Setting component index to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1600,13 +1668,14 @@ def set_component_name_to_component(item, indices='all', value=None, skip_digest
     """
     Setting component name to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1623,13 +1692,14 @@ def set_component_id_to_component(item, indices='all', value=None, skip_digestio
     """
     Setting component id to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1646,13 +1716,14 @@ def set_component_type_to_component(item, indices='all', value=None, skip_digest
     """
     Setting component type to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1669,13 +1740,14 @@ def set_molecule_index_to_component(item, indices='all', value=None, skip_digest
     """
     Setting molecule index to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1692,13 +1764,14 @@ def set_molecule_name_to_component(item, indices='all', value=None, skip_digesti
     """
     Setting molecule name to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1715,13 +1788,14 @@ def set_molecule_id_to_component(item, indices='all', value=None, skip_digestion
     """
     Setting molecule id to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1738,13 +1812,14 @@ def set_molecule_type_to_component(item, indices='all', value=None, skip_digesti
     """
     Setting molecule type to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1761,13 +1836,14 @@ def set_chain_index_to_component(item, indices='all', value=None, skip_digestion
     """
     Setting chain index to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1784,13 +1860,14 @@ def set_chain_name_to_component(item, indices='all', value=None, skip_digestion=
     """
     Setting chain name to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1807,13 +1884,14 @@ def set_chain_id_to_component(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting chain id to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1830,13 +1908,14 @@ def set_chain_type_to_component(item, indices='all', value=None, skip_digestion=
     """
     Setting chain type to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1853,13 +1932,14 @@ def set_entity_index_to_component(item, indices='all', value=None, skip_digestio
     """
     Setting entity index to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1876,13 +1956,14 @@ def set_entity_name_to_component(item, indices='all', value=None, skip_digestion
     """
     Setting entity name to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1899,13 +1980,14 @@ def set_entity_id_to_component(item, indices='all', value=None, skip_digestion=F
     """
     Setting entity id to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1922,13 +2004,14 @@ def set_entity_type_to_component(item, indices='all', value=None, skip_digestion
     """
     Setting entity type to component on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1947,13 +2030,14 @@ def set_molecule_index_to_molecule(item, indices='all', value=None, skip_digesti
     """
     Setting molecule index to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1970,13 +2054,14 @@ def set_molecule_name_to_molecule(item, indices='all', value=None, skip_digestio
     """
     Setting molecule name to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -1993,13 +2078,14 @@ def set_molecule_id_to_molecule(item, indices='all', value=None, skip_digestion=
     """
     Setting molecule id to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2016,13 +2102,14 @@ def set_molecule_type_to_molecule(item, indices='all', value=None, skip_digestio
     """
     Setting molecule type to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2039,13 +2126,14 @@ def set_chain_index_to_molecule(item, indices='all', value=None, skip_digestion=
     """
     Setting chain index to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2062,13 +2150,14 @@ def set_chain_name_to_molecule(item, indices='all', value=None, skip_digestion=F
     """
     Setting chain name to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2085,13 +2174,14 @@ def set_chain_id_to_molecule(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting chain id to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2108,13 +2198,14 @@ def set_chain_type_to_molecule(item, indices='all', value=None, skip_digestion=F
     """
     Setting chain type to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2131,13 +2222,14 @@ def set_entity_index_to_molecule(item, indices='all', value=None, skip_digestion
     """
     Setting entity index to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2154,13 +2246,14 @@ def set_entity_name_to_molecule(item, indices='all', value=None, skip_digestion=
     """
     Setting entity name to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2177,13 +2270,14 @@ def set_entity_id_to_molecule(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting entity id to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2200,13 +2294,14 @@ def set_entity_type_to_molecule(item, indices='all', value=None, skip_digestion=
     """
     Setting entity type to molecule on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2225,13 +2320,14 @@ def set_molecule_index_to_chain(item, indices='all', value=None, skip_digestion=
     """
     Setting molecule index to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2248,13 +2344,14 @@ def set_molecule_name_to_chain(item, indices='all', value=None, skip_digestion=F
     """
     Setting molecule name to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2271,13 +2368,14 @@ def set_molecule_id_to_chain(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting molecule id to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2294,13 +2392,14 @@ def set_molecule_type_to_chain(item, indices='all', value=None, skip_digestion=F
     """
     Setting molecule type to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2317,13 +2416,14 @@ def set_chain_index_to_chain(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting chain index to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2340,13 +2440,14 @@ def set_chain_name_to_chain(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting chain name to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2363,13 +2464,14 @@ def set_chain_id_to_chain(item, indices='all', value=None, skip_digestion=False)
     """
     Setting chain id to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2386,13 +2488,14 @@ def set_chain_type_to_chain(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting chain type to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2409,13 +2512,14 @@ def set_entity_index_to_chain(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting entity index to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2432,13 +2536,14 @@ def set_entity_name_to_chain(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting entity name to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2455,13 +2560,14 @@ def set_entity_id_to_chain(item, indices='all', value=None, skip_digestion=False
     """
     Setting entity id to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2478,13 +2584,14 @@ def set_entity_type_to_chain(item, indices='all', value=None, skip_digestion=Fal
     """
     Setting entity type to chain on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2503,13 +2610,14 @@ def set_entity_index_to_entity(item, indices='all', value=None, skip_digestion=F
     """
     Setting entity index to entity on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2526,13 +2634,14 @@ def set_entity_name_to_entity(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting entity name to entity on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2549,13 +2658,14 @@ def set_entity_id_to_entity(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting entity id to entity on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2572,13 +2682,14 @@ def set_entity_type_to_entity(item, indices='all', value=None, skip_digestion=Fa
     """
     Setting entity type to entity on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2600,13 +2711,14 @@ def set_structure_id_to_system(item, structure_indices='all', value=None, skip_d
     """
     Setting structure id to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2626,13 +2738,14 @@ def set_structure_chemical_state_index_to_system(
     """
     Setting structure chemical state index to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2650,13 +2763,14 @@ def set_time_to_system(item, structure_indices='all', value=None, skip_digestion
     """
     Setting time to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2674,13 +2788,14 @@ def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=
     """
     Setting box to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2698,13 +2813,14 @@ def set_coordinates_to_system(item, structure_indices='all', value=None, skip_di
     """
     Setting coordinates to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2722,11 +2838,12 @@ def set_forcefield_to_system(item, value=None, skip_digestion=False):
     """
     Setting forcefield to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2743,11 +2860,12 @@ def set_non_bonded_method_to_system(item, value=None, skip_digestion=False):
     """
     Setting non bonded method to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2764,11 +2882,12 @@ def set_cutoff_distance_to_system(item, value=None, skip_digestion=False):
     """
     Setting cutoff distance to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2785,11 +2904,12 @@ def set_switch_distance_to_system(item, value=None, skip_digestion=False):
     """
     Setting switch distance to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2806,11 +2926,12 @@ def set_dispersion_correction_to_system(item, value=None, skip_digestion=False):
     """
     Setting dispersion correction to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2827,11 +2948,12 @@ def set_ewald_error_tolerance_to_system(item, value=None, skip_digestion=False):
     """
     Setting ewald error tolerance to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2848,11 +2970,12 @@ def set_hydrogen_mass_to_system(item, value=None, skip_digestion=False):
     """
     Setting hydrogen mass to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2869,11 +2992,12 @@ def set_constraints_to_system(item, value=None, skip_digestion=False):
     """
     Setting constraints to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2890,11 +3014,12 @@ def set_flexible_constraints_to_system(item, value=None, skip_digestion=False):
     """
     Setting flexible constraints to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2911,11 +3036,12 @@ def set_water_model_to_system(item, value=None, skip_digestion=False):
     """
     Setting water model to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2932,11 +3058,12 @@ def set_rigid_water_to_system(item, value=None, skip_digestion=False):
     """
     Setting rigid water to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2953,11 +3080,12 @@ def set_implicit_solvent_to_system(item, value=None, skip_digestion=False):
     """
     Setting implicit solvent to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2974,11 +3102,12 @@ def set_solute_dielectric_to_system(item, value=None, skip_digestion=False):
     """
     Setting solute dielectric to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -2995,11 +3124,12 @@ def set_solvent_dielectric_to_system(item, value=None, skip_digestion=False):
     """
     Setting solvent dielectric to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -3016,11 +3146,12 @@ def set_salt_concentration_to_system(item, value=None, skip_digestion=False):
     """
     Setting salt concentration to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -3037,11 +3168,12 @@ def set_kappa_to_system(item, value=None, skip_digestion=False):
     """
     Setting kappa to system on form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.

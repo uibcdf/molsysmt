@@ -20,39 +20,28 @@ def get_label(molecular_system,
     attribute names for the chosen `element` (e.g., `atom_name`, `group_id`). Explicit
     attribute names (e.g., `molecule_name`) are also allowed regardless of `element`.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'atom'
-        Level of the molecular hierarchy for which labels are generated.
-    selection : int, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements of the specified type. It can be a 0-based index collection or a
-        selection string parsed according to :ref:`Introduction_Selection`. The selection is
-        interpreted at the level given by `element`.
-    string : str, default '{name}-{id}@{index}'
-        Pattern template used to construct the labels. It must be a valid `str.format()` template.
-        Supported generic placeholders are `{name}`, `{id}`, `{index}` (mapped to the element’s
-        attribute names). Additionally, explicit attribute names such as `atom_name`, `group_id`,
-        `molecule_id`, etc., can be used directly.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='atom'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    string : object, default='{name}-{id}@{index}'
+        Argument string.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     str or list of str
         A single label string if only one element is selected; otherwise, a list of label strings
         in the order of the selection.
+
 
     Raises
     ------
@@ -61,11 +50,13 @@ def get_label(molecular_system,
     ArgumentError
         If input arguments are invalid or inconsistent.
 
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+
 
     See Also
     --------
@@ -74,6 +65,7 @@ def get_label(molecular_system,
     :func:`molsysmt.basic.get`
         Retrieve values of attributes for selected elements.
 
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -81,6 +73,7 @@ def get_label(molecular_system,
     >>> msm.get_label(molsys, element='group', selection=[10, 12, 14],
     ...               string='{group_name}{group_id}/{entity_name}')
     ['GLU11/T4 LYSOZYME', 'LEU13/T4 LYSOZYME', 'LEU15/T4 LYSOZYME']
+
 
     .. admonition:: Tutorial with more examples
 

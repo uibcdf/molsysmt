@@ -6,24 +6,25 @@ def get_degrees_of_freedom(molecular_system, forcefield='AMBER14', water_model=N
     """
     Calculating the mechanical degrees of freedom for a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input molecular system in any supported form (e.g. ``openmm.System``,
-        ``openmm.Modeller``, ``pdbfixer.PDBFixer``, or native MolSysMT objects).
-    forcefield : str, default 'AMBER14'
-        Forcefield used to parametrize the system and identify constraints.
-    water_model : str or None, default None
-        Water model used if system contains solvent.
-    implicit_solvent : str or None, default None
-        Implicit solvent model if applicable.
-    skip_digestion : bool, default False
-        Whether to skip argument validation.
+        Molecular system in any supported MolSysMT format.
+    forcefield : str, default='AMBER14'
+        Force field parameter identifier or name.
+    water_model : str, default=None
+        Water model parameter identifier (e.g., 'TIP3P').
+    implicit_solvent : str, default=None
+        Implicit solvent model name if applicable.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     int
-        The total number of mechanical degrees of freedom ($3 N_{\text{particles}} - N_{\text{constraints}}$).
+        The total number of mechanical degrees of freedom ($3 N_{	ext{particles}} - N_{	ext{constraints}}$).
+
 
     .. versionadded:: 1.0.0
     """

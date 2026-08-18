@@ -5,28 +5,40 @@ import numpy as np
 @arg_digest()
 def add_allowed_plane_region(molecular_system=None, selection='all',
                              force_constant='5000 kilojoules_per_mole/nm**2', point='[0,0,0] nm',
-                             normal_vector=[0,0,1], width='1.0 nm', pbc=False, return_force=False,
+                             normal_vector=(0, 0, 1), width='1.0 nm', pbc=False, return_force=False,
                              syntax='MolSysMT', skip_digestion=False):
     """
     Adding repulsive boundary restraints keeping particles inside an allowed half-space in OpenMM.
 
+
     Parameters
     ----------
-    system : openmm.System
-        Target OpenMM system to modify.
-    atom_indices : list of int
-        Atom indices to restrain.
-    plane_origin : quantity or list of float
-        Origin of the boundary plane in nanometers.
-    plane_normal : list of float
-        Normal vector pointing away from the allowed region.
-    k : quantity
-        Repulsive spring constant in `kJ/(mol*nm^2)`.
+    molecular_system : molecular system, default=None
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    force_constant : object, default='5000 kilojoules_per_mole/nm**2'
+        Argument force_constant.
+    point : object, default='[0,0,0] nm'
+        Argument point.
+    normal_vector : object, default=(0, 0, 1)
+        Argument normal_vector.
+    width : object, default='1.0 nm'
+        Argument width.
+    pbc : bool, default=False
+        Whether to take periodic boundary conditions into account.
+    return_force : object, default=False
+        Argument return_force.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.CustomExternalForce
         The added restraint force instance.
+
 
     .. versionadded:: 1.0.0
     """

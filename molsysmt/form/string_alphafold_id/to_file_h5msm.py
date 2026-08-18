@@ -5,15 +5,16 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
     """
     Converting from string:alphafold_id to file:h5msm.
 
+
     Parameters
     ----------
-    item : string:alphafold_id
-        Source item in string:alphafold_id form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    output_filename : str or pathlib.Path
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -22,6 +23,7 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
     -------
     file:h5msm
         Resulting object in file:h5msm form.
+
 
     .. versionadded:: 1.0.0
     """

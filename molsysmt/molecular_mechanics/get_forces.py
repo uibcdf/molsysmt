@@ -9,23 +9,29 @@ def get_forces(molecular_system, element='atom', selection='all', magnitude=Fals
     """
     Calculating the atomic forces acting on the molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='atom'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of atoms for which forces are extracted.
-    engine : str, default='OpenMM'
-        Simulation engine backend used for force calculation.
+        Selection string or boolean/integer array specifying elements.
+    magnitude : bool, default=False
+        Whether to return the scalar magnitude of forces.
+    engine : object, default='OpenMM'
+        Argument engine.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         NumPy array of force vectors with shape `(n_atoms, 3)` in canonical units (`kJ/(mol*nm)`).
+
 
     .. versionadded:: 1.0.0
     """

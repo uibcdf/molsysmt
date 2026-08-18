@@ -14,36 +14,37 @@ def align_principal_axes(molecular_system, selection='all',
     """
     Aligning selected atoms to reference principal axes.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        System whose coordinates will be rotated.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms to rotate.
-    principal_axes_of_selection : str, list, tuple or numpy.ndarray, optional
-        Atoms used to compute principal axes; defaults to `selection`.
-    principal_axes_type : {'inertia', 'geometric'}, default 'inertia'
-        Type of principal axes to compute.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to align.
-    weights : array-like, quantity, 'masses' or None, default None
-        Non-negative weights used for both the axes and center. ``None`` uses
-        unit weights. Use ``'masses'`` for physical inertia axes.
-    axes : array-like shape (3,3), default identity
-        Target axes to align to.
-    center : bool, default False
-        If True, recenter coordinates after rotation.
-    syntax : str, default 'MolSysMT'
-        Selection syntax when using strings.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend.
-    in_place : bool, default False
-        If True, modify the input system; otherwise return a rotated copy.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    principal_axes_of_selection : object, default=None
+        Argument principal_axes_of_selection.
+    principal_axes_type : object, default='inertia'
+        Argument principal_axes_type.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    axes : object, default=None
+        Argument axes.
+    center : object, default=False
+        Argument center.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    in_place : object, default=False
+        Argument in_place.
 
     Returns
     -------
     molecular system or None
         Rotated system when `in_place=False`, otherwise `None`.
+
 
     Raises
     ------
@@ -53,11 +54,13 @@ def align_principal_axes(molecular_system, selection='all',
         If target axes are not a right-handed orthonormal basis or if principal
         moments are degenerate and do not define three unique axes.
 
+
     Notes
     -----
     Target axes are supplied as rows. Alignment is intentionally rejected when
     two principal moments are equal within numerical tolerance because the
     corresponding individual axes are not uniquely defined.
+
 
     See Also
     --------
@@ -65,6 +68,7 @@ def align_principal_axes(molecular_system, selection='all',
         Compute principal axes and moments without changing coordinates.
     :func:`molsysmt.structure.least_rmsd_fit`
         Fit coordinates to an explicit reference structure.
+
 
     Examples
     --------
@@ -80,6 +84,7 @@ def align_principal_axes(molecular_system, selection='all',
     ... )
     >>> np.allclose(np.abs(axes[0]), np.eye(3), atol=1.0e-10)
     True
+
 
     .. admonition:: Tutorial with more examples
 

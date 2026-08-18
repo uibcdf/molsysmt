@@ -6,13 +6,14 @@ def to_file_smi(item, output_filename=None, name=None, skip_digestion=False):
     """
     Converting from string:smiles to file:smi.
 
+
     Parameters
     ----------
-    item : string:smiles
-        Source item in string:smiles form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    name : object
+    name : object, default=None
         Argument name.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -21,6 +22,7 @@ def to_file_smi(item, output_filename=None, name=None, skip_digestion=False):
     -------
     file:smi
         Resulting object in file:smi form.
+
 
     .. versionadded:: 1.0.0
     """

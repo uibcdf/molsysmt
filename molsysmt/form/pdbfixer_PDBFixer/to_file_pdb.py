@@ -5,13 +5,14 @@ def to_file_pdb(item, atom_indices='all', output_filename=None, skip_digestion=F
     """
     Converting from pdbfixer.PDBFixer to file:pdb.
 
+
     Parameters
     ----------
-    item : pdbfixer.PDBFixer
-        Source item in pdbfixer.PDBFixer form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    output_filename : str or pathlib.Path
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def to_file_pdb(item, atom_indices='all', output_filename=None, skip_digestion=F
     -------
     file:pdb
         Resulting object in file:pdb form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -16,12 +16,13 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting partial charge from atom in form file:psf.
 
+
     Parameters
     ----------
-    item : file:psf
-        Source item in file:psf form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -29,6 +30,7 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -45,10 +47,11 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     """
     Getting partial charge from system in form file:psf.
 
+
     Parameters
     ----------
-    item : file:psf
-        Source item in file:psf form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -56,6 +59,7 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -68,12 +72,13 @@ def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting atom ff type from atom in form file:psf.
 
+
     Parameters
     ----------
-    item : file:psf
-        Source item in file:psf form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -81,6 +86,7 @@ def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -97,10 +103,11 @@ def get_atom_ff_type_from_system(item, skip_digestion=False):
     """
     Getting atom ff type from system in form file:psf.
 
+
     Parameters
     ----------
-    item : file:psf
-        Source item in file:psf form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -108,6 +115,7 @@ def get_atom_ff_type_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

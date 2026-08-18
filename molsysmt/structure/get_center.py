@@ -61,35 +61,35 @@ def get_center(molecular_system, selection='all', weights=None,
     """
     Computing centers (centroids or weighted centers) of atom selections.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms (or groups of atoms) to center; nested iterables are treated as groups.
-    weights : array-like or 'masses', optional
-        Non-negative weights per atom (or per group) when computing centers.
-        Use ``'masses'`` to compute centers of mass. Every group must have a
-        positive total weight.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames over which centers are computed.
-    syntax : str, default 'MolSysMT'
-        Selection syntax when using strings.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend.
-    heavy_mode : str, default 'auto'
-        Chunked execution mode: 'auto' | 'force' | 'off'.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    heavy_mode : object, default='auto'
+        Argument heavy_mode.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         Centers as a PyUnitWizard quantity in length units.
+
 
     Raises
     ------
@@ -101,12 +101,14 @@ def get_center(molecular_system, selection='all', weights=None,
     NotImplementedMethodError
         If an unsupported engine is requested.
 
+
     Examples
     --------
     >>> import molsysmt as msm
     >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     >>> msm.structure.get_center(molsys, weights='masses').shape
     (1, 1, 3)
+
 
     .. versionadded:: 1.0.0
     """

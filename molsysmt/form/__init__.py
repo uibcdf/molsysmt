@@ -33,7 +33,21 @@ RESOURCE_FORMS = {
 }
 
 def close(item):
-    """Explicitly close a resource form if it is registered in RESOURCE_FORMS."""
+    """
+    Explicitly closing a resource form object or file handler.
+
+    Parameters
+    ----------
+    item : object
+        Item in any resource form (e.g. file handler or stream).
+
+    Returns
+    -------
+    None
+        Modifies item by closing its handle.
+
+    .. versionadded:: 1.0.0
+    """
     from molsysmt.basic import get_form
     try:
         form = get_form(item)

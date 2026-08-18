@@ -15,12 +15,12 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-def equilibration_NVT (item, protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
-                       contraint_HBonds=True, engine='OpenMM', verbose=True, *kwargs):
+def equilibration_NVT (item, protocol=0, forcefield=('AMBER99SB-ILDN','TIP3P'),
+                       contraint_HBonds=True, engine='OpenMM', verbose=True, **kwargs):
     raise NotImplementedError
 
 def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
-                       time='1.0 ns', protocol=0, forcefield=['AMBER99SB-ILDN','TIP3P'],
+                       time='1.0 ns', protocol=0, forcefield=('AMBER99SB-ILDN','TIP3P'),
                        engine='OpenMM', verbose=True, form_out=None, *kwargs):
     """equilibration_NPT (item, protocol, forcefield, constraint_HBonds, engine, verbose)
 
@@ -77,7 +77,7 @@ def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
                                                                                      time=time,
                                                                                      forcefield=forcefield,
                                                                                      verbose=verbose,
-                                                                                     progress_bar=progress_bar if 'progress_bar' in locals() else True)
+                                                                                     progress_bar=kwargs.get('progress_bar', True))
     else:
 
         raise NotImplementedError

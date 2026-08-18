@@ -3,15 +3,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form molsysmt.H5MSMFileHandler.
 
+
     Parameters
     ----------
-    item : molsysmt.H5MSMFileHandler
-        Source item in molsysmt.H5MSMFileHandler form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

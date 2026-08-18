@@ -28,12 +28,13 @@ def get_partial_charge_from_atom(
     """
     Getting partial charge from atom in form openff.Topology.
 
+
     Parameters
     ----------
-    item : openff.Topology
-        Source item in openff.Topology form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -41,6 +42,7 @@ def get_partial_charge_from_atom(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -58,10 +60,11 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     """
     Getting partial charge from system in form openff.Topology.
 
+
     Parameters
     ----------
-    item : openff.Topology
-        Source item in openff.Topology form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -69,6 +72,7 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

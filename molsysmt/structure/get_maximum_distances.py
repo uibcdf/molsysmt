@@ -16,51 +16,41 @@ def get_maximum_distances(molecular_system, selection="all", center_of_atoms=Fal
     selecting the maximum entry according to the ``as_entity`` / ``as_entity_2``
     flags.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        First set of atoms.  Nested iterables are treated as groups of atoms when
-        ``center_of_atoms=True``.
-    center_of_atoms : bool, default False
-        If ``True``, use the (weighted) centroid of each group in ``selection``
-        instead of individual atom positions.
-    weights : array-like, optional
-        Per-atom weights for centroid computation of the first selection.
-    as_entity : bool, default True
-        If ``True``, reduce over the entire first set to yield a single maximum
-        per frame.  If ``False``, return the maximum partner for each element in
-        the first set.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which the computation is performed.
-    molecular_system_2 : molecular system or None, default None
-        Second system.  When ``None``, both selections are drawn from
-        ``molecular_system``.
-    selection_2 : str, list, tuple or numpy.ndarray or None, default None
-        Second set of atoms.  When ``None``, the maximum is computed within the
-        first selection.
-    center_of_atoms_2 : bool, default False
-        If ``True``, use the (weighted) centroid of each group in ``selection_2``.
-    weights_2 : array-like, optional
-        Per-atom weights for centroid computation of the second selection.
-    as_entity_2 : bool, default True
-        If ``True``, reduce over the entire second set to yield a single maximum
-        per frame.  If ``False``, return the maximum partner for each element in
-        the second set.
-    structure_indices_2 : 'all', array-like or None, default None
-        Frame indices for the second system.  When ``None``, the same frames as
-        ``structure_indices`` are used.
-    pairs : bool, default False
-        If ``True``, ``selection`` is interpreted as an array of pre-defined pairs
-        and the maximum is found among those pairs only.  Requires both
-        ``as_entity`` and ``as_entity_2`` to be ``True``.
-    pbc : bool, default False
-        Apply minimum-image convention for periodic boundary conditions.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for distance computation.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when selections are strings.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    center_of_atoms : bool, default=False
+        Whether to compute distances relative to geometric centers.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    as_entity : object, default=True
+        Argument as_entity.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    molecular_system_2 : object, default=None
+        Argument molecular_system_2.
+    selection_2 : str, list, tuple, or numpy.ndarray, default=None
+        Second selection string or boolean/integer array.
+    center_of_atoms_2 : bool, default=False
+        Whether to compute distances relative to geometric centers for selection_2.
+    weights_2 : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for selection_2.
+    as_entity_2 : object, default=True
+        Argument as_entity_2.
+    structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
+        Structure indices (0-based) for the second selection.
+    pairs : object, default=False
+        Argument pairs.
+    pbc : bool, default=False
+        Whether to take periodic boundary conditions into account.
+    engine : object, default='MolSysMT'
+        Argument engine.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------
@@ -72,12 +62,14 @@ def get_maximum_distances(molecular_system, selection="all", center_of_atoms=Fal
         PyUnitWizard length quantity of the corresponding maximum distances in the
         standard length unit (nm).
 
+
     Raises
     ------
     ArgumentConflictError
         If both ``as_entity`` and ``as_entity_2`` are ``False`` (use
         ``get_distances`` directly in that case), or if ``pairs=True`` with
         ``as_entity=False`` or ``as_entity_2=False``.
+
 
     .. versionadded:: 1.0.0
     """

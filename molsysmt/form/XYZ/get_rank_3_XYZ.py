@@ -7,15 +7,17 @@ def get_rank_3_XYZ(item):
     """
     Getting rank 3 XYZ from form XYZ.
 
+
     Parameters
     ----------
-    item : XYZ
-        Source item in XYZ form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

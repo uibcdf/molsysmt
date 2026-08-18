@@ -9,18 +9,17 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
     """
     Finding atom quartets that define standard dihedral angles.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system.
-    with_blocks : bool, default False
-        If True, also return covalent blocks after severing the central bond.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atom selection to restrict the search.
-    syntax : str, default 'MolSysMT'
-        Selection syntax for string selections.
-    **kwargs
-        Flags indicating which dihedrals to compute (e.g., `phi=True`, `psi=True`, `chi1=True`, ...).
+        Molecular system in any supported MolSysMT format.
+    with_blocks : object, default=False
+        Argument with_blocks.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------
@@ -32,9 +31,11 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
         two sets of a quartet are the groups of atoms that move apart when that dihedral
         angle is rotated. This is ragged on purpose and is not a NumPy array.
 
+
     Notes
     -----
     - Uses `get_covalent_paths` to assemble quartets for each requested dihedral type.
+
 
     .. versionadded:: 1.0.0
     """

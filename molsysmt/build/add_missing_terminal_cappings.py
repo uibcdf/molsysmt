@@ -7,56 +7,38 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     """
     Adding terminal cappings to peptides and proteins.
 
-    This function adds chemical groups to the N- and/or C-termini of protein or peptide chains. 
-    These terminal groups can either neutralize terminal charges or simply complete missing atoms 
-    for a standard terminal residue. The resulting cappings are consistent with typical protonation 
+    This function adds chemical groups to the N- and/or C-termini of protein or peptide chains.
+    These terminal groups can either neutralize terminal charges or simply complete missing atoms
+    for a standard terminal residue. The resulting cappings are consistent with typical protonation
     states at the specified pH.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` to which terminal 
-        cappings will be added.
-
-    N_terminal : str or None, default None
-        Residue name to cap the N-terminus. If `None`, the missing atoms are added to the 
-        native terminal residue without introducing a separate cap. Use `'ACE'` to cap with 
-        an acetyl group, or other recognized residue names.
-
-    C_terminal : str or None, default None
-        Residue name to cap the C-terminus. If `None`, the missing atoms are added to the 
-        native terminal residue without introducing a separate cap. Use `'NME'` to cap with 
-        a N-methyl amide group, or other recognized residue names.
-
-    pH : float, default 7.4
-        Approximate pH used to determine the protonation states of terminal groups and nearby residues.
-
-    keep_ids : bool, default False
-        If `True`, preserves the original atom and group ids. Otherwise, new IDs may be reassigned.
-
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Selection of atoms or residues to which this operation applies. Can be a list of indices or a 
-        query string following :ref:`MolSysMT selection syntax <Introduction_Selection>`.
-
-    syntax : str, default 'MolSysMT'
+        Molecular system in any supported MolSysMT format.
+    N_terminal : object, default=None
+        Argument N_terminal.
+    C_terminal : object, default=None
+        Argument C_terminal.
+    pH : object, default=7.4
+        Argument pH.
+    keep_ids : object, default=False
+        Argument keep_ids.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
-        Syntax used to parse the `selection` argument, if it is a string.
-
-    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
-        Engine used to perform capping.
-
-        * ``'MolSysMT'``: native implementation using internal residue templates and
-          geometric peptide-bond construction. No external dependencies required.
-          For ACE/NME capping, energy minimisation is recommended afterwards to
-          relax the newly inserted groups.
-        * ``'PDBFixer'``: delegates to PDBFixer's missing-atom and missing-residue
-          machinery.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system
         A new molecular system with modified termini, in the same form as the input system.
+
 
     Raises
     ------
@@ -66,17 +48,19 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     ArgumentError
         Raised if an input argument value is invalid.
 
+
     Notes
     -----
     Common capping groups:
       - `'ACE'` for acetyl (N-terminal)
       - `'NME'` for N-methyl amide (C-terminal)
 
-    If no capping residues are provided, the function only completes missing terminal atoms 
+    If no capping residues are provided, the function only completes missing terminal atoms
     in the native residues (which are often charged).
 
     The list of supported molecular system forms is detailed in:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
+
 
     See Also
     --------
@@ -92,6 +76,7 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     :func:`molsysmt.physchem.get_charge`
         Calculate the total or partial charge of a system.
 
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -102,9 +87,10 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
     >>> msm.convert(molsys, to_form='string:amino_acids_3')
     'AceAlaValProNme'
 
+
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:  
+       Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Build > Add missing terminal cappings <Tutorial_Add_missing_terminal_cappings>`
 
     .. versionadded:: 1.0.0

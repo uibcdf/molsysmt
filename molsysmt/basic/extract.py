@@ -14,40 +14,25 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     native `molsysmt.MolSys` before extraction so topology and structural data remain aligned.
     Optionally, the result can be returned in another form using `to_form`.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to extract from, in any of the :ref:`supported forms <Introduction_Forms>`.
-        A list or tuple can combine complementary forms of the same system, such as one topology
-        file and one coordinate trajectory.
-    selection : str, tuple, list or numpy.ndarray, default 'all'
-        Subset of atoms to extract. Either a 0-based index collection or a selection string
-        parsed according to :ref:`Introduction_Selection`. The default 'all' selects all atoms.
-    structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
-        0-based indices of the structures to extract. The default 'all' includes all structures.
-    to_form : str or None, default None
-        Target form of the output system. If `None`, the output form matches a singular input;
-        composite inputs return `molsysmt.MolSys`. See
-        :ref:`Supported conversions <Introduction_Supported>`.
-    output_filename : str or None, optional
-        Optional output target used by certain form handlers. When applicable, the underlying
-        conversion/extraction backend may write to this location.
-    copy_if_all : bool, default True
-        If both `selection` and `structure_indices` equal `'all'`:
-        * `True`: return an independent copy of the system.
-        * `False`: return a view/reference to the original data, if the backend supports it.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    to_form : object, default=None
+        Argument to_form.
+    output_filename : str or pathlib.Path, default=None
+        Output file path for serialization.
+    copy_if_all : object, default=True
+        Argument copy_if_all.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -55,6 +40,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         A new molecular system containing only the selected atoms and structures, in `to_form`
         if provided. Otherwise, the result uses the singular input form or `molsysmt.MolSys`
         for a composite input.
+
 
     Raises
     ------
@@ -64,11 +50,13 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         If input arguments are invalid or inconsistent, including an
         out-of-range structure index.
 
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+
 
     See Also
     --------
@@ -78,6 +66,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         Create an independent copy of a molecular system.
     :func:`molsysmt.basic.convert`
         Convert a molecular system into a different form.
+
 
     Examples
     --------
@@ -89,6 +78,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     True
     >>> msm.contains(molsys_B, waters=True)
     False
+
 
     .. admonition:: Tutorial with more examples
 

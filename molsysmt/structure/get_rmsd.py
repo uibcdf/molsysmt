@@ -73,38 +73,40 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
       compared to each reference frame.
     * Equal numbers of frames on both sides — frame-by-frame comparison.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        The candidate system containing the structures to evaluate.
-    selection : str or array-like, default 'atom_type!="H"'
-        Atoms to include in the RMSD calculation.
-    structure_indices : 'all' or array-like, default 'all'
-        Candidate frames to evaluate.
-    reference_molecular_system : molecular system, optional
-        The reference system. Defaults to ``molecular_system``.
-    reference_selection : str or array-like, optional
-        Reference atoms. Defaults to ``selection``.
-    reference_structure_index : int, default 0
-        Reference structure frame index.
-    syntax : str, default 'MolSysMT'
-        Atom selection syntax.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Calculation backend.
-    heavy_mode : str, default 'auto'
-        Chunked execution path: 'auto' | 'force' | 'off'.
-    use_gpu : bool or 'auto', optional
-        Whether to run calculations on GPU if supported.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='atom_type!="H"'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    reference_molecular_system : object, default=None
+        Argument reference_molecular_system.
+    reference_selection : object, default=None
+        Argument reference_selection.
+    reference_structure_index : object, default=0
+        Argument reference_structure_index.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    heavy_mode : object, default='auto'
+        Argument heavy_mode.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
 
     Returns
     -------
     quantity
         PyUnitWizard length quantity of shape ``(n_structures,)`` containing the
         RMSD values in the standard length unit (nm).
+
 
     Raises
     ------
@@ -113,6 +115,7 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
     StructuralInconsistencyError
         If the number of atoms resolved by ``selection`` and ``reference_selection``
         differ.
+
 
     .. versionadded:: 1.0.0
     """

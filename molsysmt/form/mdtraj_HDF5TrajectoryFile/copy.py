@@ -7,13 +7,14 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
     """
     Creating a copy of an item of form mdtraj.HDF5TrajectoryFile.
 
+
     Parameters
     ----------
-    item : mdtraj.HDF5TrajectoryFile
-        Source item in mdtraj.HDF5TrajectoryFile form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    progress_bar : object
+    progress_bar : object, default=False
         Argument progress_bar.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -22,6 +23,7 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
     -------
     mdtraj.HDF5TrajectoryFile
         Resulting object in mdtraj.HDF5TrajectoryFile form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -43,7 +45,7 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
         iterator = range(n_structures)
 
     for ii in iterator:
-        output = item.read(1, atom_indices=mdtraj_atom_indices)
+        output = item.read(1)
         tmp_item.write(coordinates=output.coordinates, time=output.time,
             cell_lengths=output.cell_lengths, cell_angles=output.cell_angles,
             velocities=output.velocities, kineticEnergy=output.kineticEnergy, potentialEnergy=output.potentialEnergy,

@@ -5,10 +5,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def copy(item, skip_digestion=False):
     -------
     molsysmt.Structures
         Resulting object in molsysmt.Structures form.
+
 
     .. versionadded:: 1.0.0
     """

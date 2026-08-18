@@ -14,15 +14,16 @@ def to_nglview_NGLWidget(
     """
     Converting from molsysmt.Topology to nglview.NGLWidget.
 
+
     Parameters
     ----------
-    item : molsysmt.Topology
-        Source item in molsysmt.Topology form.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    coordinates : object, default=None
+        Argument coordinates.
+    box : object, default=None
+        Argument box.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -31,6 +32,7 @@ def to_nglview_NGLWidget(
     -------
     nglview.NGLWidget
         Resulting object in nglview.NGLWidget form.
+
 
     .. versionadded:: 1.0.0
     """

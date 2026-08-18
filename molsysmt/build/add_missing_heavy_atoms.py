@@ -11,36 +11,25 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     inferred topological context. The coordinates of new atoms are estimated using internal
     geometry rules or external reconstruction engines such as PDBFixer.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` to which missing
-        heavy atoms will be added.
-
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of atoms that define the residues or molecules to analyze.
-        Can be provided as indices (list, tuple, array of 0-based integers) or as a string using any
-        of the supported :ref:`selection syntaxes <Introduction_Selection>`.
-
-    syntax : str, default 'MolSysMT'
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
-        :ref:`Selection syntax <Introduction_Selection>` used when `selection` is a string.
-
-    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
-        Engine used to rebuild the missing atoms.
-
-        * ``'MolSysMT'`` — places missing atoms by Kabsch alignment against
-          3D residue templates stored in ``data/databases/residue_templates/``.
-          No external dependencies required.  Supports the 20 standard amino
-          acids, ACE, NME, and the 8 standard DNA/RNA nucleotides.
-        * ``'PDBFixer'`` — delegates to ``pdbfixer.findMissingAtoms`` /
-          ``addMissingAtoms``.  Requires PDBFixer and OpenMM.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system
         A molecular system with the missing heavy atoms added, in the same form as the input system.
+
 
     Raises
     ------
@@ -53,6 +42,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     EngineError
         Raised if the specified engine fails to rebuild the atoms.
 
+
     Notes
     -----
     This function adds only non-hydrogen atoms (heavy atoms) that are missing from standard
@@ -63,6 +53,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
     The list of supported selection syntaxes is available at:
     :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
+
 
     See Also
     --------
@@ -78,6 +69,7 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     :func:`molsysmt.build.build_peptide`
         Build capped peptide structures from amino acid sequences.
 
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -91,9 +83,10 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
     3
 
+
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:  
+       Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Build > Add missing heavy atoms <Tutorial_Add_missing_heavy_atoms>`.
 
     .. versionadded:: 1.0.0

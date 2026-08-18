@@ -55,15 +55,16 @@ def get_molsysmt_trajectory():
     """
     Returning the NGLView adapter class for molsysmt.MolSys objects.
 
-    Parameters
-    ----------
-    view : nglview.NGLWidget
-        Target molecular viewer.
+
+
 
     Returns
     -------
     object
         Trajectory bridge object.
+
+
+
 
     .. versionadded:: 1.0.0
     """
@@ -71,7 +72,28 @@ def get_molsysmt_trajectory():
 
 
 def show_molsysmt(molsys, selection='all', structure_indices='all', **kwargs):
-    """Showing an NGLView widget from a molsysmt.MolSys object."""
+    """
+    Showing an NGLView widget from a molsysmt.MolSys object.
+
+
+
+
+    Parameters
+    ----------
+    molsys : molecular system
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+
+    Returns
+    -------
+    nglview.NGLWidget
+        Configured interactive 3D molecular viewer instance.
+
+    .. versionadded:: 1.0.0
+    """
     from nglview import NGLWidget
 
     trajectory_cls = get_molsysmt_trajectory()

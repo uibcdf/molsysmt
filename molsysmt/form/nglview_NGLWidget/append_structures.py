@@ -6,20 +6,21 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
     """
     Appending coordinate structures to an item of form nglview.NGLWidget.
 
+
     Parameters
     ----------
-    item : nglview.NGLWidget
-        Source item in nglview.NGLWidget form.
-    structure_id : object
-        Structure identifiers.
-    time : numpy.ndarray or quantity
-        Simulation time coordinates in picoseconds.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    velocities : object
+    item : molecular system
+        Argument item.
+    structure_id : object, default=None
+        Argument structure_id.
+    time : object, default=None
+        Argument time.
+    coordinates : object, default=None
+        Argument coordinates.
+    velocities : object, default=None
         Argument velocities.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
+    box : object, default=None
+        Argument box.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -27,6 +28,7 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
     -------
     nglview.NGLWidget
         Resulting object in nglview.NGLWidget form.
+
 
     .. versionadded:: 1.0.0
     """

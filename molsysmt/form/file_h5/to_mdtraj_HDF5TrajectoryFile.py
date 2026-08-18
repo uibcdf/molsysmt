@@ -6,14 +6,15 @@ def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='al
     """
     Converting from file:h5 to mdtraj.HDF5TrajectoryFile.
 
+
     Parameters
     ----------
-    item : file:h5
-        Source item in file:h5 form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -21,6 +22,7 @@ def to_mdtraj_HDF5TrajectoryFile(item, atom_indices='all', structure_indices='al
     -------
     mdtraj.HDF5TrajectoryFile
         Resulting object in mdtraj.HDF5TrajectoryFile form.
+
 
     .. versionadded:: 1.0.0
     """

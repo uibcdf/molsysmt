@@ -26,45 +26,37 @@ def move_away(molecular_system, selection='all', center_of_selection='all', weig
       along the supplied unit vector.  Only single-frame / single-group use is
       supported in this mode.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms that will be physically displaced.
-    center_of_selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms whose center defines the starting point of the displacement vector
-        (ignored when ``direction`` is provided).
-    weights : array-like, optional
-        Per-atom weights for computing the center of ``center_of_selection``.
-    structure_indices : int or array-like, default 0
-        Frame index (or indices) of the system to operate on.
-    reference_molecular_system : molecular system or None, default None
-        System that defines the reference center.  When ``None``,
-        ``molecular_system`` itself is used.
-    reference_center_of_selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms in the reference system whose center serves as the origin of the
-        displacement direction.
-    reference_weights : array-like, optional
-        Per-atom weights for computing the reference center.
-    reference_structure_indices : int, array-like or None, default None
-        Frame indices for the reference system.  When ``None``, the same value as
-        ``structure_indices`` is used.
-    direction : array-like or None, default None
-        Explicit unit displacement vector of shape ``(1, 3)``.  When ``None``, the
-        direction is derived from the two centers.
-    distance : str or quantity, default '3 angstroms'
-        Distance by which the atoms are displaced.  Accepts any
-        PyUnitWizard-parseable length quantity (e.g. ``'3 angstroms'``,
-        ``puw.quantity(0.3, 'nm')``).
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is
-        returned.  If ``False`` a new copy is returned with the updated
-        coordinates.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when selections are strings.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    center_of_selection : object, default='all'
+        Argument center_of_selection.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    structure_indices : int, list, tuple, or numpy.ndarray, default=0
+        Structure indices (0-based) to include or process.
+    reference_molecular_system : object, default=None
+        Argument reference_molecular_system.
+    reference_center_of_selection : object, default='all'
+        Argument reference_center_of_selection.
+    reference_weights : object, default=None
+        Argument reference_weights.
+    reference_structure_indices : object, default=None
+        Argument reference_structure_indices.
+    direction : object, default=None
+        Argument direction.
+    distance : object, default='3 angstroms'
+        Argument distance.
+    in_place : object, default=False
+        Argument in_place.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -72,11 +64,13 @@ def move_away(molecular_system, selection='all', center_of_selection='all', weig
         A new molecular system with the displaced coordinates when
         ``in_place=False``; ``None`` when ``in_place=True``.
 
+
     Raises
     ------
     NotImplementedMethodError
         When called with an explicit ``direction`` and more than one frame or more
         than one group — not yet implemented for that case.
+
 
     .. versionadded:: 1.0.0
     """

@@ -24,31 +24,30 @@ def flip(
     and is perpendicular to ``vector``. The native kernel
     The reflection is performed in-place on the coordinate array by the compute kernel.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    vector : array-like of float, default [0, 0, 1]
-        Normal vector of the reflection plane (need not be unit length).
-        The reflection plane is perpendicular to this vector.
-    point : str or quantity, default '[0,0,0] nm'
-        A point lying on the reflection plane, given as a PyUnitWizard length
-        quantity or a parseable string (e.g. ``'[0,0,0] nm'``).
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms whose coordinates are reflected.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which the reflection is applied.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when ``selection`` is a string.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is returned.
-        If ``False`` a new copy is returned with the reflected coordinates.
+        Molecular system in any supported MolSysMT format.
+    vector : object, default=None
+        Argument vector.
+    point : object, default='[0,0,0] nm'
+        Argument point.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    in_place : object, default=False
+        Argument in_place.
 
     Returns
     -------
     molecular system or None
         A new molecular system with the reflected coordinates when ``in_place=False``;
         ``None`` when ``in_place=True``.
+
 
     .. versionadded:: 1.0.0
     """

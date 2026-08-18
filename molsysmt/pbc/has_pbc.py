@@ -5,17 +5,19 @@ def has_pbc(molecular_system, skip_digestion=False):
     """
     Check whether a molecular system has periodic boundary conditions (box).
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        System to inspect.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     bool
         `True` if the system has a box defined; otherwise `False`.
+
 
     .. versionadded:: 1.0.0
     """

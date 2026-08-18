@@ -3,15 +3,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form parmed.GromacsTopologyFile.
 
+
     Parameters
     ----------
-    item : parmed.GromacsTopologyFile
-        Source item in parmed.GromacsTopologyFile form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

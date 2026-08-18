@@ -5,15 +5,16 @@ def to_molsysmt_CIFFileHandler(item, atom_indices='all', structure_indices='all'
     """
     Converting from molsysmt.CIFFileHandler to molsysmt.CIFFileHandler.
 
+
     Parameters
     ----------
-    item : molsysmt.CIFFileHandler
-        Source item in molsysmt.CIFFileHandler form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    copy_if_all : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -22,6 +23,7 @@ def to_molsysmt_CIFFileHandler(item, atom_indices='all', structure_indices='all'
     -------
     molsysmt.CIFFileHandler
         Resulting object in molsysmt.CIFFileHandler form.
+
 
     .. versionadded:: 1.0.0
     """

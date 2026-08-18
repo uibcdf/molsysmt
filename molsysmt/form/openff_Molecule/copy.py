@@ -5,10 +5,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form openff.Molecule.
 
+
     Parameters
     ----------
-    item : openff.Molecule
-        Source item in openff.Molecule form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def copy(item, skip_digestion=False):
     -------
     openff.Molecule
         Resulting object in openff.Molecule form.
+
 
     .. versionadded:: 1.0.0
     """

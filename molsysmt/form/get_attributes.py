@@ -8,17 +8,15 @@ def get_attributes(form, output_type='dictionary', skip_digestion=False):
     reporting whether or not the attribute is in the molecular system's form.
 
 
+
     Parameters
     ----------
-
-    form : str, list or tuple of str
-        Any of :ref:`the supported forms <Introduction_Forms>` by MolSysMT, or a list of them.
-
-    output_type : {'dictionary', 'list'}, default 'dictionary'
-        Format of the output container.
-
+    form : object
+        Argument form.
+    output_type : object, default='dictionary'
+        Argument output_type.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -30,12 +28,14 @@ def get_attributes(form, output_type='dictionary', skip_digestion=False):
         attribute names in the molecular system's form.
 
 
+
     Raises
     ------
 
     NotSupportedFormError
         The function raises a NotSupportedFormError in case a molecular system
         is introduced with a not supported form.
+
 
 
     .. versionadded:: 0.8.3
@@ -70,8 +70,6 @@ def get_attributes(form, output_type='dictionary', skip_digestion=False):
 
        Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Form > Get attributes <UTF_Get_attributes>`.
-
-
     """
 
     from . import _dict_modules

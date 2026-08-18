@@ -65,13 +65,27 @@ _dict_helix_class = {
 
 
 def guess_format_version(file):
-    """Return the PDB format version guessed from the file contents."""
+    """
+    Return the PDB format version guessed from the file contents.
+
+    Parameters
+    ----------
+    file : object
+        Argument file.
+    """
 
     return '3.3'
 
 
 def parse_format33(file):
-    """Parse a PDB file using the v3.3 specification."""
+    """
+    Parse a PDB file using the v3.3 specification.
+
+    Parameters
+    ----------
+    file : object
+        Argument file.
+    """
 
     from .pdb_atomic_coordinate_entry import PDBAtomicCoordinateEntry
     from .pdb_atomic_coordinate_entry import HeaderRecord, ObslteRecord, TitleRecord, SplitRecord,\

@@ -5,10 +5,11 @@ def to_string_smiles(item, skip_digestion=False):
     """
     Converting from file:smi to string:smiles.
 
+
     Parameters
     ----------
-    item : file:smi
-        Source item in file:smi form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def to_string_smiles(item, skip_digestion=False):
     -------
     string:smiles
         Resulting object in string:smiles form.
+
 
     .. versionadded:: 1.0.0
     """

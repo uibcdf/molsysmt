@@ -7,11 +7,12 @@ def copy(item, output_filename=None, skip_digestion=False):
     """
     Creating a copy of an item of form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def copy(item, output_filename=None, skip_digestion=False):
     -------
     file:h5msm
         Resulting object in file:h5msm form.
+
 
     .. versionadded:: 1.0.0
     """

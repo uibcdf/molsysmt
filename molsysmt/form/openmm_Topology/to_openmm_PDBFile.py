@@ -5,14 +5,15 @@ def to_openmm_PDBFile(item, atom_indices='all', coordinates=None, skip_digestion
     """
     Converting from openmm.Topology to openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : openmm.Topology
-        Source item in openmm.Topology form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
+    coordinates : object, default=None
+        Argument coordinates.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -20,6 +21,7 @@ def to_openmm_PDBFile(item, atom_indices='all', coordinates=None, skip_digestion
     -------
     openmm.PDBFile
         Resulting object in openmm.PDBFile form.
+
 
     .. versionadded:: 1.0.0
     """

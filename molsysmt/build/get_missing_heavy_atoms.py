@@ -9,25 +9,17 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     residue templates and returns a mapping of residue (group) indices to the names
     of atoms that are absent from the structure.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Atom selection used to restrict the search to a subset of groups.
-
-    syntax : str, default 'MolSysMT'
-        Syntax used to interpret the ``selection`` string.
-
-    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
-        Backend used to identify missing atoms.
-
-        * ``'MolSysMT'``: native implementation using MolSysMT's amino-acid
-          topology database.  Compares the heavy atoms present in each residue
-          against the best-matching topology variant.  Works with any supported
-          form; no external dependency required.
-        * ``'PDBFixer'``: delegates to ``pdbfixer.findMissingAtoms``.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
 
     Returns
     -------
@@ -36,10 +28,12 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
         system to lists of missing atom names (list of str). Groups with no missing
         atoms are not included.
 
+
     Raises
     ------
     NotImplementedError
         Raised if the requested ``engine`` is not supported.
+
 
     Notes
     -----
@@ -51,6 +45,7 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
     Only amino-acid residues (including recognized non-standard forms) are
     processed; water, ions, and ligands are silently skipped.
+
 
     .. versionadded:: 1.0.0
     """

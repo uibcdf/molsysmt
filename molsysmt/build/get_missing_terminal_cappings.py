@@ -10,26 +10,17 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
     ``OXT`` (C-terminal oxygen). The result maps group (residue) indices to the list of
     missing terminal atoms.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Atom selection used to restrict the search to a subset of the system.
-
-    syntax : str, default 'MolSysMT'
-        Syntax used to interpret the ``selection`` string.
-
-    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
-        Backend used to detect missing terminal atoms.
-
-        * ``'MolSysMT'``: native implementation.  For each chain, identifies
-          the C-terminal amino-acid residue (last by group sequence number) and
-          checks whether ``OXT`` is present.  Works with any supported form; no
-          external dependency required.
-        * ``'PDBFixer'``: delegates to ``pdbfixer.findMissingAtoms`` /
-          ``missingTerminals``.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
 
     Returns
     -------
@@ -38,10 +29,12 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
         system to lists of missing terminal atom names (list of str). Only terminal
         groups with missing cappings are included.
 
+
     Raises
     ------
     NotImplementedError
         Raised if the requested ``engine`` is not supported.
+
 
     Notes
     -----
@@ -52,6 +45,7 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
     assemblies).
 
     Non-amino-acid chains (water, ions, small molecules) are silently skipped.
+
 
     .. versionadded:: 1.0.0
     """

@@ -7,11 +7,12 @@ def remove_bonds(item, bond_indices='all', skip_digestion=False):
     """
     Performing remove bonds on form molsysmt.Topology.
 
+
     Parameters
     ----------
-    item : molsysmt.Topology
-        Source item in molsysmt.Topology form.
-    bond_indices : object
+    item : molecular system
+        Argument item.
+    bond_indices : object, default='all'
         Argument bond_indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def remove_bonds(item, bond_indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

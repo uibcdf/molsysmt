@@ -6,13 +6,14 @@ def add(to_item, item, atom_indices='all', skip_digestion=False):
     """
     Adding elements from another item into an item of form openmm.GromacsTopFile.
 
+
     Parameters
     ----------
-    to_item : openmm.GromacsTopFile
-        Target item to modify or add elements to.
-    item : openmm.GromacsTopFile
-        Source item in openmm.GromacsTopFile form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    to_item : object
+        Argument to_item.
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -21,6 +22,7 @@ def add(to_item, item, atom_indices='all', skip_digestion=False):
     -------
     openmm.GromacsTopFile
         Resulting object in openmm.GromacsTopFile form.
+
 
     .. versionadded:: 1.0.0
     """

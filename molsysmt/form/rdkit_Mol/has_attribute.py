@@ -5,13 +5,14 @@ def has_attribute(item, attribute, include_none=False, skip_digestion=False):
     """
     Checking if form rdkit.Mol supports a specific attribute.
 
+
     Parameters
     ----------
-    item : rdkit.Mol
-        Source item in rdkit.Mol form.
-    attribute : str
-        Attribute name to query.
-    include_none : object
+    item : molecular system
+        Argument item.
+    attribute : object
+        Argument attribute.
+    include_none : object, default=False
         Argument include_none.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def has_attribute(item, attribute, include_none=False, skip_digestion=False):
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

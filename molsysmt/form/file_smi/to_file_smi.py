@@ -6,15 +6,16 @@ def to_file_smi(item, atom_indices='all', output_filename=None, copy_if_all=True
     """
     Converting from file:smi to file:smi.
 
+
     Parameters
     ----------
-    item : file:smi
-        Source item in file:smi form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    output_filename : str or pathlib.Path
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    copy_if_all : object
+    copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -23,6 +24,7 @@ def to_file_smi(item, atom_indices='all', output_filename=None, copy_if_all=True
     -------
     file:smi
         Resulting object in file:smi form.
+
 
     .. versionadded:: 1.0.0
     """

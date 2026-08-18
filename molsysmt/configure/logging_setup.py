@@ -24,6 +24,19 @@ def setup_logging(
     .. deprecated:: 1.1.0
        Use ``smonitor.configure()`` or ``molsysmt._smonitor.py`` instead.
        MolSysMT now uses SMonitor as its primary diagnostic layer.
+
+    Parameters
+    ----------
+    level : object, default='WARNING'
+        Argument level.
+    stream : object, default=None
+        Argument stream.
+    capture_warnings : object, default=True
+        Argument capture_warnings.
+    simplify_warning_format : object, default=True
+        Argument simplify_warning_format.
+    logger_name : object, default='molsysmt'
+        Argument logger_name.
     """
     from molsysmt._private.smonitor import warn, MolSysMTDeprecationWarning
     warn(

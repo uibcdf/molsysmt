@@ -26,40 +26,41 @@ def to_openmm_Simulation(
     """
     Converting from molsysmt.MolSys to openmm.Simulation.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    forcefield : object
-        Argument forcefield.
-    water_model : object
-        Argument water_model.
-    implicit_solvent : object
-        Argument implicit_solvent.
-    non_bonded_method : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    forcefield : str, default='AMBER14'
+        Force field parameter identifier or name.
+    water_model : str, default=None
+        Water model parameter identifier (e.g., 'TIP3P').
+    implicit_solvent : str, default=None
+        Implicit solvent model name if applicable.
+    non_bonded_method : object, default='no cutoff'
         Argument non_bonded_method.
-    constraints : object
+    constraints : object, default='hbonds'
         Argument constraints.
-    switch_distance : object
+    switch_distance : object, default=None
         Argument switch_distance.
-    dispersion_correction : object
+    dispersion_correction : object, default=False
         Argument dispersion_correction.
-    ewald_error_tolerance : object
+    ewald_error_tolerance : object, default=0.0005
         Argument ewald_error_tolerance.
-    integrator : object
+    integrator : object, default='Langevin'
         Argument integrator.
-    temperature : object
+    temperature : object, default='300.0 K'
         Argument temperature.
-    collisions_rate : object
+    collisions_rate : object, default='1.0 1/ps'
         Argument collisions_rate.
-    integration_timestep : object
+    integration_timestep : object, default='2.0 fs'
         Argument integration_timestep.
-    platform : object
-        Argument platform.
+    platform : str, default='CPU'
+        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -67,6 +68,7 @@ def to_openmm_Simulation(
     -------
     openmm.Simulation
         Resulting object in openmm.Simulation form.
+
 
     .. versionadded:: 1.0.0
     """

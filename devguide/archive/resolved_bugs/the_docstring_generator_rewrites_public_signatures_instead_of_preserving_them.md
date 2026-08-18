@@ -1,14 +1,14 @@
 ---
 summary: The docstring generator rewrites public signatures instead of preserving them
 issue: uibcdf/molsysmt#169
-status: open
+status: resolved
 opened: 2026-08-18
-closed:
+closed: 2026-08-18
 severity: high
 verification: reproduced
 area: [docs, api, ci]
-guard:
-normative:
+guard: devtools/tests/test_validate_public_api_stability.py
+normative: docs/content/developer/documentation/api/docstrings.md
 blocked_by: []
 supersedes: []
 ---

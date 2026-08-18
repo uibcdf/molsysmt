@@ -11,24 +11,15 @@ def copy(molecular_system, output_filename=None, skip_digestion=False):
     the original. If the input is in a file-based form and `output_filename` is provided,
     the copy is written to a new file using the corresponding form handler.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to duplicate, in any of the :ref:`supported forms <Introduction_Forms>`.
-        A list/tuple of molecular systems is also accepted, in which case a list is returned.
-    output_filename : str, optional
-        Path for the output file when copying a file-based form. If omitted, the copy
-        is returned using a temporary filename.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Molecular system in any supported MolSysMT format.
+    output_filename : str or pathlib.Path, default=None
+        Output file path for serialization.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -38,6 +29,7 @@ def copy(molecular_system, output_filename=None, skip_digestion=False):
         When `output_filename` is given for a file-based form, the returned object follows
         the form-specific handler’s semantics (typically the path or a file-form handle).
 
+
     Raises
     ------
     NotSupportedFormError
@@ -45,14 +37,17 @@ def copy(molecular_system, output_filename=None, skip_digestion=False):
     ArgumentError
         If input arguments are invalid or inconsistent.
 
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+
 
     See Also
     --------
     :func:`molsysmt.basic.convert`
         Convert a molecular system into another form.
+
 
     Examples
     --------
@@ -63,6 +58,7 @@ def copy(molecular_system, output_filename=None, skip_digestion=False):
     True
     >>> id(molsys_A) == id(molsys_B)
     False
+
 
     .. admonition:: Tutorial with more examples
 

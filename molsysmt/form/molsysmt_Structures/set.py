@@ -13,15 +13,16 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
     """
     Setting coordinates to atom on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -37,15 +38,16 @@ def set_velocities_to_atom(item, indices='all', structure_indices='all', value=N
     """
     Setting velocities to atom on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -61,15 +63,16 @@ def set_occupancy_to_atom(item, indices='all', structure_indices='all', value=No
     """
     Setting occupancy to atom on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -85,15 +88,16 @@ def set_b_factor_to_atom(item, indices='all', structure_indices='all', value=Non
     """
     Setting b factor to atom on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -111,13 +115,14 @@ def set_structure_id_to_system(item, structure_indices='all', value=None, skip_d
     """
     Setting structure id to system on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -132,13 +137,14 @@ def set_time_to_system(item, structure_indices='all', value=None, skip_digestion
     """
     Setting time to system on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -153,13 +159,14 @@ def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=
     """
     Setting box to system on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -174,15 +181,16 @@ def set_coordinates_to_system(item, indices='all', structure_indices='all', valu
     """
     Setting coordinates to system on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -198,15 +206,16 @@ def set_velocities_to_system(item, indices='all', structure_indices='all', value
     """
     Setting velocities to system on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.

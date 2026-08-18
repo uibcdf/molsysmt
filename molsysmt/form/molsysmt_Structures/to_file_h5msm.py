@@ -10,23 +10,24 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
     """
     Converting from molsysmt.Structures to file:h5msm.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    output_filename : str or pathlib.Path
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    compression : object
+    compression : object, default='gzip'
         Argument compression.
-    compression_opts : object
+    compression_opts : object, default=4
         Argument compression_opts.
-    int_precision : object
+    int_precision : object, default='single'
         Argument int_precision.
-    float_precision : object
+    float_precision : object, default='single'
         Argument float_precision.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -35,6 +36,7 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
     -------
     file:h5msm
         Resulting object in file:h5msm form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -57,21 +59,23 @@ def dump_structures_to_h5msm(item, file, atom_indices='all', structure_indices='
     """
     Performing dump structures to h5msm on form molsysmt.Structures.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
+    item : molecular system
+        Argument item.
     file : object
         Argument file.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

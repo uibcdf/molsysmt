@@ -7,10 +7,11 @@ def to_openff_Molecule(item, skip_digestion=False):
     """
     Converting from rdkit.Mol to openff.Molecule.
 
+
     Parameters
     ----------
-    item : rdkit.Mol
-        Source item in rdkit.Mol form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -18,6 +19,7 @@ def to_openff_Molecule(item, skip_digestion=False):
     -------
     openff.Molecule
         Resulting object in openff.Molecule form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -8,17 +8,19 @@ def get_lengths_from_box(box, skip_digestion=False):
     """
     Extracting box edge lengths from a box matrix.
 
+
     Parameters
     ----------
-    box : quantity
-        Box matrix (single or array), shape (3, 3) or (n, 3, 3).
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+    box : object
+        Argument box.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         Edge lengths (a, b, c) in the same units as the input.
+
 
     .. versionadded:: 1.0.0
     """

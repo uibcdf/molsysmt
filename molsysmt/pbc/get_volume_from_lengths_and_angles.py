@@ -7,17 +7,19 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
     """
     Computing box volume from lengths and angles.
 
+
     Parameters
     ----------
-    box_lengths : quantity
-        Edge lengths (a, b, c).
-    box_angles : quantity
-        Angles (alpha, beta, gamma).
+    box_lengths : object
+        Argument box_lengths.
+    box_angles : object
+        Argument box_angles.
 
     Returns
     -------
     quantity
         Volume in cubic nanometers.
+
 
     Notes
     -----
@@ -29,10 +31,12 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
     This avoids propagating the six-decimal matrix rounding performed by
     :func:`molsysmt.pbc.get_box_from_lengths_and_angles`.
 
+
     See Also
     --------
     :func:`molsysmt.pbc.get_volume_from_box`
         Computing the volume from a box matrix.
+
 
     Examples
     --------
@@ -45,6 +49,7 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
     >>> volume = msm.pbc.get_volume_from_lengths_and_angles(lengths, angles)
     >>> value = msm.pyunitwizard.get_value(volume, to_unit='nm**3')
     >>> np.testing.assert_allclose(value, [6.0 * np.sqrt(3.0)], atol=1.0e-12)
+
 
     .. admonition:: User guide
 

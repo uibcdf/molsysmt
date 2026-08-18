@@ -6,11 +6,12 @@ def copy(item, output_filename=None, skip_digestion=False):
     """
     Creating a copy of an item of form file:mol2.
 
+
     Parameters
     ----------
-    item : file:mol2
-        Source item in file:mol2 form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -19,6 +20,7 @@ def copy(item, output_filename=None, skip_digestion=False):
     -------
     file:mol2
         Resulting object in file:mol2 form.
+
 
     .. versionadded:: 1.0.0
     """

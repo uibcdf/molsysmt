@@ -7,10 +7,11 @@ def to_biopython_SeqRecord(item, skip_digestion=False):
     """
     Converting from file:pir to biopython.SeqRecord.
 
+
     Parameters
     ----------
-    item : file:pir
-        Source item in file:pir form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -18,6 +19,7 @@ def to_biopython_SeqRecord(item, skip_digestion=False):
     -------
     biopython.SeqRecord
         Resulting object in biopython.SeqRecord form.
+
 
     .. versionadded:: 1.0.0
     """

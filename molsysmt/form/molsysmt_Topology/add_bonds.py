@@ -8,10 +8,11 @@ def add_bonds(item, bonded_atom_pairs, skip_digestion=False):
     """
     Performing add bonds on form molsysmt.Topology.
 
+
     Parameters
     ----------
-    item : molsysmt.Topology
-        Source item in molsysmt.Topology form.
+    item : molecular system
+        Argument item.
     bonded_atom_pairs : object
         Argument bonded_atom_pairs.
     skip_digestion : bool, default=False
@@ -21,6 +22,7 @@ def add_bonds(item, bonded_atom_pairs, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

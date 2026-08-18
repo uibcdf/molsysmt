@@ -26,20 +26,27 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
     ``present_atom_names`` is ``None``, the first (CCD canonical) variant is
     used.
 
+
     Parameters
     ----------
     group_name : str
-        Residue name as stored in the topology.  Non-standard names are
-        canonicalized via :func:`get_standard_name` before the database look-up.
-    present_atom_names : list of str or None, default None
-        Atom names already present in the residue.  Used to select the best
-        matching topology variant.
+        Name of the chemical group (residue).
+    present_atom_names : object, default=None
+        Argument present_atom_names.
 
     Returns
     -------
     set of str or None
         Set of heavy-atom names expected for the residue, or ``None`` when the
         residue is not found in the amino-acid database.
+
+
+    Notes
+    -----
+    Heavy atoms are identified by PDB naming convention: a name is a hydrogen
+    if it starts with ``'H'`` or with a digit followed by ``'H'`` (e.g.
+    ``'1HB'``).
+
 
     Examples
     --------
@@ -50,11 +57,6 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
     >>> get_expected_heavy_atoms('MSE')   # selenomethionine → look up MET
     {'N', 'CA', 'C', 'O', 'CB', 'CG', 'SD', 'CE', 'OXT'}
 
-    Notes
-    -----
-    Heavy atoms are identified by PDB naming convention: a name is a hydrogen
-    if it starts with ``'H'`` or with a digit followed by ``'H'`` (e.g.
-    ``'1HB'``).
 
     .. versionadded:: 1.0.0
     """

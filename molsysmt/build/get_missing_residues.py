@@ -124,35 +124,19 @@ def get_missing_residues(molecular_system, sequence=None, selection='all',
     reference sequence and returns a mapping of insertion positions to the names of the
     residues that are absent.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
-    sequence : dict or None, default None
-        Reference sequence as ``{chain_id: [res_name_1, res_name_2, ...]}``, where
-        residue names are 3-letter codes.  When ``None`` (default), the function
-        attempts to extract the reference sequence automatically:
-
-        * **file:pdb** — from SEQRES records.
-        * **file:bcif / file:bcif_gz** — from the ``_entity_poly_seq`` mmCIF table.
-        * **string:pdb_id** — downloads the binary CIF and uses the same path.
-        * All other forms — emits a ``UserWarning`` and returns ``{}``.
-
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Atom selection used to restrict the search to a subset of the system.
-
-    syntax : str, default 'MolSysMT'
-        Syntax used to interpret the ``selection`` string.
-
-    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
-        Backend used to detect missing residues.
-
-        * ``'MolSysMT'``: native implementation using ``SequenceMatcher`` to align
-          the structural sequence against the reference.  Requires a reference
-          sequence (from ``sequence`` or auto-detected).
-        * ``'PDBFixer'``: delegates to ``pdbfixer.PDBFixer.findMissingResidues``.
-          Ignores the ``sequence`` argument.
+        Molecular system in any supported MolSysMT format.
+    sequence : object, default=None
+        Argument sequence.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
 
     Returns
     -------
@@ -164,10 +148,12 @@ def get_missing_residues(molecular_system, sequence=None, selection='all',
         inserted.  For insertions after the last residue of a chain the
         ``insertion_position`` equals the number of residues in that chain.
 
+
     Raises
     ------
     NotImplementedMethodError
         Raised if the requested ``engine`` is not supported.
+
 
     Notes
     -----
@@ -181,6 +167,7 @@ def get_missing_residues(molecular_system, sequence=None, selection='all',
     When ``sequence=None`` and the molecular system has no embedded sequence
     information, a future version will optionally query UniProt or the PDB REST API
     using the entity name or PDB ID.
+
 
     .. versionadded:: 1.0.0
     """

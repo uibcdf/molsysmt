@@ -6,29 +6,31 @@ def download(pdb_id=None, output_filename=None, tempfile=False, wwPDB_Partner='R
     """
     Performing download on form file:bcif.
 
+
     Parameters
     ----------
-    pdb_id : object
+    pdb_id : object, default=None
         Argument pdb_id.
-    output_filename : str or pathlib.Path
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    tempfile : object
+    tempfile : object, default=False
         Argument tempfile.
-    wwPDB_Partner : object
+    wwPDB_Partner : object, default='RCSB PDB'
         Argument wwPDB_Partner.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
-    retries : object
+    retries : object, default=5
         Argument retries.
-    timeout : object
+    timeout : object, default=30
         Argument timeout.
-    backoff_base : object
+    backoff_base : object, default=2.0
         Argument backoff_base.
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

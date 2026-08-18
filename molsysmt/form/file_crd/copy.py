@@ -7,13 +7,14 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
     """
     Creating a copy of an item of form file:crd.
 
+
     Parameters
     ----------
-    item : file:crd
-        Source item in file:crd form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    progress_bar : object
+    progress_bar : object, default=False
         Argument progress_bar.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -22,6 +23,7 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
     -------
     file:crd
         Resulting object in file:crd form.
+
 
     .. versionadded:: 1.0.0
     """

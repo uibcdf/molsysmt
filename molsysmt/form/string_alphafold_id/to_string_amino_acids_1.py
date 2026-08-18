@@ -5,15 +5,16 @@ def to_string_amino_acids_1(item, atom_indices='all', structure_indices='all', o
     """
     Converting from string:alphafold_id to string:amino_acids_1.
 
+
     Parameters
     ----------
-    item : string:alphafold_id
-        Source item in string:alphafold_id form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    output_filename : str or pathlib.Path
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -22,6 +23,7 @@ def to_string_amino_acids_1(item, atom_indices='all', structure_indices='all', o
     -------
     string:amino_acids_1
         Resulting object in string:amino_acids_1 form.
+
 
     .. versionadded:: 1.0.0
     """

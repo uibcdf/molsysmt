@@ -6,15 +6,16 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', get_
     """
     Converting from file:gro to molsysmt.Topology.
 
+
     Parameters
     ----------
-    item : file:gro
-        Source item in file:gro form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    get_missing_bonds : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    get_missing_bonds : object, default=True
         Argument get_missing_bonds.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -23,6 +24,7 @@ def to_molsysmt_Topology(item, atom_indices='all', structure_indices='all', get_
     -------
     molsysmt.Topology
         Resulting object in molsysmt.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

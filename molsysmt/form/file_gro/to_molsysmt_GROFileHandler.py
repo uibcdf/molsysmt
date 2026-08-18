@@ -5,10 +5,11 @@ def to_molsysmt_GROFileHandler(item, skip_digestion=False):
     """
     Converting from file:gro to molsysmt.GROFileHandler.
 
+
     Parameters
     ----------
-    item : file:gro
-        Source item in file:gro form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def to_molsysmt_GROFileHandler(item, skip_digestion=False):
     -------
     molsysmt.GROFileHandler
         Resulting object in molsysmt.GROFileHandler form.
+
 
     .. versionadded:: 1.0.0
     """

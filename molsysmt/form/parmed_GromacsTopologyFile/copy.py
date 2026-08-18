@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form parmed.GromacsTopologyFile.
 
+
     Parameters
     ----------
-    item : parmed.GromacsTopologyFile
-        Source item in parmed.GromacsTopologyFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     parmed.GromacsTopologyFile
         Resulting object in parmed.GromacsTopologyFile form.
+
 
     .. versionadded:: 1.0.0
     """

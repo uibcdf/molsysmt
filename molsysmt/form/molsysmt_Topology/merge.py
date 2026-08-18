@@ -10,14 +10,15 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
     """
     Merging multiple items into a single item of form molsysmt.Topology.
 
+
     Parameters
     ----------
-    items : list of object
-        List of items to merge.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    items : object
+        Argument items.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    keep_ids : bool, default=True
-        Whether to preserve unique element IDs.
+    keep_ids : object, default=True
+        Argument keep_ids.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -25,6 +26,7 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
     -------
     molsysmt.Topology
         Resulting object in molsysmt.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

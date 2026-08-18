@@ -5,10 +5,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form parmed.Structure.
 
+
     Parameters
     ----------
-    item : parmed.Structure
-        Source item in parmed.Structure form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def copy(item, skip_digestion=False):
     -------
     parmed.Structure
         Resulting object in parmed.Structure form.
+
 
     .. versionadded:: 1.0.0
     """

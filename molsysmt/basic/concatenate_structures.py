@@ -15,37 +15,23 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     use `selections` to provide per-system matching subsets when needed. Optionally, select specific
     structures from each input with `structure_indices`.
 
+
     Parameters
     ----------
-    molecular_systems : list of molecular systems
-        List of input molecular systems in any of the :ref:`supported forms <Introduction_Forms>`.
-        Structures will be taken from these systems.
-    selections : list, tuple, numpy.ndarray, int, str or 'all', default 'all'
-        Atom selections for the input systems. A list or tuple contains one selection per
-        system and must match `molecular_systems` in length. A scalar, string, NumPy array,
-        or range is applied to every system. Nest index collections to provide a different
-        collection for each system.
-    structure_indices : list, tuple, numpy.ndarray, range, int or 'all', default 'all'
-        0-based structure indices to include. A list or tuple contains one value or index
-        collection per system and must match `molecular_systems` in length. A scalar, NumPy
-        array, range, or `'all'` is applied to every system.
-    to_form : str or None, default None
-        Output form for the resulting molecular system. If `None`, the form is inherited from the
-        first input system.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when entries of `selections` are strings. See :ref:`Introduction_Selection`.
-    attribute_policy : {'intersection', 'strict'}, default 'intersection'
-        Policy for structural attributes present in only one input block.
-        ``'intersection'`` discards one-sided series with a warning; ``'strict'``
-        rejects the operation.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+    molecular_systems : object
+        Argument molecular_systems.
+    selections : object, default='all'
+        Argument selections.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    to_form : object, default=None
+        Argument to_form.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    attribute_policy : object, default='intersection'
+        Argument attribute_policy.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -54,12 +40,14 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
         from the first item in `molecular_systems`. The output form is controlled by `to_form`
         (or inherited if `None`).
 
+
     Raises
     ------
     NotSupportedFormError
         If any input system is provided in an unsupported form.
     ArgumentError
         If input values are invalid or inconsistent.
+
 
     Notes
     -----
@@ -78,12 +66,14 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     - Lists and tuples always express per-system intent. Use a NumPy array or range when one
       index collection should be applied to every system.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select` :
         Select elements from a molecular system.
     :func:`molsysmt.basic.append_structures` :
         Append structures from one molecular system to another.
+
 
     Examples
     --------
@@ -94,6 +84,7 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     >>> C = msm.concatenate_structures([A, B])
     >>> msm.get(C, n_structures=True)
     2
+
 
     .. admonition:: Tutorial with more examples
 

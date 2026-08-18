@@ -23,42 +23,32 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
     * An object providing an ``apply(coordinates)`` method, such as
       ``scipy.spatial.transform.Rotation``. SciPy is not required.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    rotation : array-like or rotation-like object
-        Rotation to apply.
-
-        * array-like of shape ``(n_structures, 3, 3)``: different
-          rotation per frame, same rotation for all atoms within a frame.
-        * array-like of shape ``(3, 3)``: single rotation broadcast to all frames.
-        * array-like of shape ``(n_structures, n_atoms, 3, 3)``: one rotation
-          per atom and frame.
-        * rotation-like object: its ``apply`` method is used for every frame.
-    rotation_center : quantity or None, default None
-        Centre of rotation as a PyUnitWizard length quantity of shape
-        ``(n_structures, 1, 3)`` or ``(1, 1, 3)``.  When provided, coordinates
-        are shifted to the origin before rotation and shifted back afterwards.
-        When ``None``, the rotation is applied around the global origin.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms whose coordinates are rotated.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which the rotation is applied.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when ``selection`` is a string.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is
-        returned.  If ``False`` a new copy is returned with the rotated
-        coordinates.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+        Molecular system in any supported MolSysMT format.
+    rotation : object, default=None
+        Argument rotation.
+    rotation_center : object, default=None
+        Argument rotation_center.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    in_place : object, default=False
+        Argument in_place.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system or None
         A new molecular system with the rotated coordinates when
         ``in_place=False``; ``None`` when ``in_place=True``.
+
 
     Raises
     ------
@@ -71,10 +61,12 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
         If the number of per-frame or per-atom matrices cannot be broadcast to
         the selected coordinates.
 
+
     Notes
     -----
     MolSysMT uses active proper rotations on row-vector coordinates. Distances
     and handedness are therefore preserved.
+
 
     See Also
     --------
@@ -82,6 +74,7 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
         Translate selected coordinates.
     :func:`molsysmt.structure.least_rmsd_fit`
         Estimate and apply a least-RMSD rigid transformation.
+
 
     Examples
     --------
@@ -91,6 +84,7 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
     >>> rotated = msm.structure.rotate(coordinates, rotation=rotation)
     >>> msm.pyunitwizard.get_value(rotated, to_unit='nm').round(12).tolist()
     [[[0.0, 1.0, 0.0]]]
+
 
     .. admonition:: Tutorial with more examples
 

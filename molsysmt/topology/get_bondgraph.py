@@ -10,32 +10,36 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
     """
     Building a bond graph from a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    nodes_name : {'atom_index'}, default 'atom_index'
-        Label to use for nodes; currently only atom indices are supported.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atom selection (MolSysMT syntax or indices) used to build the graph.
-    syntax : str, default 'MolSysMT'
-        Selection syntax when `selection` is a string.
-    to_form : {'networkx.Graph'}, default 'networkx.Graph'
-        Output graph type.
+        Molecular system in any supported MolSysMT format.
+    nodes_name : object, default='atom_index'
+        Argument nodes_name.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    to_form : object, default='networkx.Graph'
+        Argument to_form.
 
     Returns
     -------
     networkx.Graph
         Graph where nodes represent atoms and edges represent bonds.
 
+
     Raises
     ------
     NotImplementedError
         If `nodes_name` or `to_form` is not supported.
 
+
     Notes
     -----
     - Bonds are taken from `inner_bonded_atom_pairs` at the atom level.
+
 
     Examples
     --------
@@ -44,6 +48,7 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
     >>> G = msm.topology.get_bondgraph(systems['pentalanine']['pentalanine.prmtop'])
     >>> G.number_of_nodes() > 0
     True
+
 
     .. versionadded:: 1.0.0
     """

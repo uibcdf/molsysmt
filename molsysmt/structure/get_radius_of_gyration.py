@@ -53,38 +53,38 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
     """
     Computing the radius of gyration over one or more structures.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atom selection over which the radius of gyration is computed.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to include.
-    weights : array-like, 'masses' or None, default None
-        If None, all atoms have equal weight (geometric radius of gyration).
-        If 'masses', atoms are weighted by their atomic mass. Explicit weights
-        must be non-negative and have a positive sum.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for the computation.
-    heavy_mode : str, default 'auto'
-        Chunked execution path: 'auto' | 'force' | 'off'.
-    use_gpu : bool or 'auto', optional
-        Whether to use a supported GPU backend on the eager path.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    heavy_mode : object, default='auto'
+        Argument heavy_mode.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         Radius of gyration per structure as a PyUnitWizard quantity in length units.
         Shape: (n_structures,).
+
 
     Raises
     ------
@@ -96,12 +96,14 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
     NotImplementedMethodError
         If an unsupported engine is requested.
 
+
     Examples
     --------
     >>> import molsysmt as msm
     >>> molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], to_form='molsysmt.MolSys')
     >>> msm.structure.get_radius_of_gyration(molsys).shape
     (1,)
+
 
     .. versionadded:: 1.0.0
     """

@@ -47,6 +47,7 @@ class MolSysReporter():
         from openmm import unit
 
         if self._temperature:
+            system = simulation.system
             dof = 0
             for i in range(system.getNumParticles()):
                 if system.getParticleMass(i) > 0*unit.dalton:

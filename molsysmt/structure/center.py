@@ -17,32 +17,29 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
     is moved to the origin.  A second-pass correction is applied when floating-point
     residuals exceed 1e-12 nm.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms that are physically moved by the translation.
-    center_of_selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms whose center defines the reference point to be relocated.
-    weights : array-like, optional
-        Per-atom weights for computing the center of ``center_of_selection``.
-        When ``None``, all atoms have equal weight (centroid).
-    center_coordinates : quantity or None, default None
-        Target position for the center.  Must be a PyUnitWizard length quantity
-        with shape compatible with ``(n_structures, 1, 3)``.
-        When ``None`` the center is moved to the origin.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which the operation is performed.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when ``selection`` or ``center_of_selection`` are strings.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for center computation and translation.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is returned.
-        If ``False`` a new copy is returned with the translated coordinates.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    center_of_selection : object, default='all'
+        Argument center_of_selection.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    center_coordinates : object, default=None
+        Argument center_coordinates.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    in_place : object, default=False
+        Argument in_place.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -50,10 +47,12 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
         A new molecular system with the translated coordinates when ``in_place=False``;
         ``None`` when ``in_place=True``.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported engine is requested.
+
 
     .. versionadded:: 1.0.0
     """

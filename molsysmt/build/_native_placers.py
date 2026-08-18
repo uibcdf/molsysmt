@@ -29,7 +29,14 @@ _template_cache: dict = {}
 
 
 def load_residue_template(group_name: str) -> dict | None:
-    """Return the residue template dict for *group_name*, or None if absent."""
+    """
+    Return the residue template dict for *group_name*, or None if absent.
+
+    Parameters
+    ----------
+    group_name : str
+        Name of the chemical group (residue).
+    """
     if group_name in _template_cache:
         return _template_cache[group_name]
     try:
@@ -61,15 +68,22 @@ def _sort_bonds_inplace(bonds_df):
 # ---------------------------------------------------------------------------
 
 def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, template):
-    """Compute coordinates for *missing_names* in *group_idx* via Kabsch alignment.
+    """
+    Compute coordinates for *missing_names* in *group_idx* via Kabsch alignment.
+
 
     Parameters
     ----------
-    topo : Topology
-    all_coords_nm : ndarray, shape (n_structures, n_atoms, 3)
-    group_idx : int
-    missing_names : list[str]
-    template : dict
+    topo : object
+        Argument topo.
+    all_coords_nm : object
+        Argument all_coords_nm.
+    group_idx : object
+        Argument group_idx.
+    missing_names : object
+        Argument missing_names.
+    template : object
+        Argument template.
 
     Returns
     -------
@@ -130,13 +144,18 @@ def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, templa
 # ---------------------------------------------------------------------------
 
 def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
-    """Return a new MolSys with extra atoms appended after the existing ones.
+    """
+    Return a new MolSys with extra atoms appended after the existing ones.
+
 
     Parameters
     ----------
-    native_molsys : molsysmt.MolSys
-    new_atom_info : list of (group_idx, atom_name, coords_array(n_structures, 3))
-    new_bonds_info : list of (new_atom_idx1, new_atom_idx2)
+    native_molsys : object
+        Argument native_molsys.
+    new_atom_info : object
+        Argument new_atom_info.
+    new_bonds_info : object
+        Argument new_bonds_info.
 
     Returns
     -------
@@ -253,16 +272,24 @@ def _perpendicular_component(vec, axis):
 
 
 def place_oxt_atom(C_pos, CA_pos, O_pos, n_structures):
-    """Place the OXT carboxylate oxygen at the C-terminus.
+    """
+    Place the OXT carboxylate oxygen at the C-terminus.
 
     OXT is the mirror image of O reflected through the C→CA axis (in the
     CA-C-O plane).  Both C=O and C-OXT bonds are approximately 1.23 Å; the
     O-C-OXT angle is approximately 125°.
 
+
     Parameters
     ----------
-    C_pos, CA_pos, O_pos : np.ndarray, shape (n_structures, 3)
-    n_structures : int
+    C_pos : object
+        Argument C_pos.
+    CA_pos : object
+        Argument CA_pos.
+    O_pos : object
+        Argument O_pos.
+    n_structures : object
+        Argument n_structures.
 
     Returns
     -------
@@ -289,13 +316,22 @@ def place_oxt_atom(C_pos, CA_pos, O_pos, n_structures):
 
 
 def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):
-    """Place an ACE capping group at the N-terminus of a residue.
+    """
+    Place an ACE capping group at the N-terminus of a residue.
+
 
     Parameters
     ----------
-    N_pos, CA_pos, C_pos : ndarray(n_structures, 3) – positions of N, CA, C of the first residue
-    template : dict  – ACE template
-    n_structures : int
+    N_pos : object
+        Argument N_pos.
+    CA_pos : object
+        Argument CA_pos.
+    C_pos : object
+        Argument C_pos.
+    template : object
+        Argument template.
+    n_structures : object
+        Argument n_structures.
 
     Returns
     -------
@@ -372,13 +408,22 @@ def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):
 
 
 def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
-    """Place an NME capping group at the C-terminus of a residue.
+    """
+    Place an NME capping group at the C-terminus of a residue.
+
 
     Parameters
     ----------
-    C_pos, CA_pos, N_pos_last : ndarray(n_structures, 3) – C, CA, N of the last residue
-    template : dict  – NME template
-    n_structures : int
+    C_pos : object
+        Argument C_pos.
+    CA_pos : object
+        Argument CA_pos.
+    N_pos_last : object
+        Argument N_pos_last.
+    template : object
+        Argument template.
+    n_structures : object
+        Argument n_structures.
 
     Returns
     -------
@@ -463,14 +508,20 @@ def rebuild_molsys_with_new_groups(
     extra_groups_before,
     extra_groups_after,
 ):
-    """Rebuild a MolSys inserting ACE/NME groups at the correct positions.
+    """
+    Rebuild a MolSys inserting ACE/NME groups at the correct positions.
+
 
     Parameters
     ----------
-    native_molsys : molsysmt.MolSys
-    mol_group_ranges : dict {mol_idx: (first_group_idx, last_group_idx)}
-    extra_groups_before : dict {mol_idx: (group_name, {atom_name: coords(n_s, 3)})}
-    extra_groups_after  : dict {mol_idx: (group_name, {atom_name: coords(n_s, 3)})}
+    native_molsys : object
+        Argument native_molsys.
+    mol_group_ranges : object
+        Argument mol_group_ranges.
+    extra_groups_before : object
+        Argument extra_groups_before.
+    extra_groups_after : object
+        Argument extra_groups_after.
 
     Returns
     -------
@@ -711,7 +762,14 @@ _H_BOND_LENGTH_DEFAULT = 0.109
 
 
 def h_bond_length(parent_element: str) -> float:
-    """Return the standard X-H bond length in nm for a given element."""
+    """
+    Return the standard X-H bond length in nm for a given element.
+
+    Parameters
+    ----------
+    parent_element : object
+        Argument parent_element.
+    """
     return _H_BOND_LENGTHS.get(parent_element.upper(), _H_BOND_LENGTH_DEFAULT)
 
 
@@ -735,21 +793,24 @@ def _rotate_around_axis(v, axis, angle):
 
 def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridization,
                                bond_length, n_structures):
-    """Compute positions for *n_hs* hydrogen atoms bonded to *parent_pos*.
+    """
+    Compute positions for *n_hs* hydrogen atoms bonded to *parent_pos*.
+
 
     Parameters
     ----------
-    parent_pos : ndarray, shape (n_structures, 3)
-        Position of the parent (heavy) atom.
-    neighbor_positions : list of ndarray, each shape (n_structures, 3)
-        Positions of the existing heavy atoms bonded to the parent.
-    n_hs : int
-        Number of H atoms to place (1, 2, or 3).
-    hybridization : str
-        ``'sp3'``, ``'sp2'``, or ``'sp'``.
-    bond_length : float
-        X-H bond length in nm.
-    n_structures : int
+    parent_pos : object
+        Argument parent_pos.
+    neighbor_positions : object
+        Argument neighbor_positions.
+    n_hs : object
+        Argument n_hs.
+    hybridization : object
+        Argument hybridization.
+    bond_length : object
+        Argument bond_length.
+    n_structures : object
+        Argument n_structures.
 
     Returns
     -------

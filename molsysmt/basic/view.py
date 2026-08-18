@@ -13,38 +13,28 @@ def view(molecular_system=None, selection='all', structure_indices='all',
     This function displays a molecular system using an external interactive 3D visualization library
     inside a Jupyter notebook. The visualization backend can be selected by the `viewer` argument.
 
+
     Parameters
     ----------
-    molecular_system : molecular system, optional
-        Molecular system to be displayed. It can be in any of the :ref:`supported forms <Introduction_Forms>`.
-        If `None`, an empty viewer is returned.
-    selection : str, tuple, list or numpy.ndarray, default='all'
-        Selection of atoms to be shown. It can be a list/array of 0-based indices, or a query string
-        using one of the :ref:`supported selection syntaxes <Introduction_Selection>`. The default `'all'`
-        includes all atoms in the system.
-    structure_indices : int, tuple, list, numpy.ndarray or 'all', default='all'
-        0-based indices of structures to be shown. The default `'all'` includes all structures.
-    viewer : {'MolSysViewer', 'NGLView'}, default='MolSysViewer'
-        Viewer backend to use for visualization. `'MolSysViewer'` is the default backend in MolSysMT.
-        `'NGLView'` is supported when the optional `nglview` dependency is installed.
+    molecular_system : molecular system, default=None
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    viewer : object, default='MolSysViewer'
+        Argument viewer.
     syntax : str, default='MolSysMT'
-        Syntax used to interpret the `selection` string. See :ref:`Introduction_Selection` for details.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
 
     Returns
     -------
     object
         Visualization widget returned by the selected viewer. For `'MolSysViewer'`, this is a
         `molsysviewer.MolSysView` instance. For `'NGLView'`, this is an `nglview.NGLWidget` instance.
+
 
     Raises
     ------
@@ -56,16 +46,19 @@ def view(molecular_system=None, selection='all', structure_indices='all',
     ModuleNotFoundError
         If the requested viewer backend is not available in the current environment.
 
+
     Notes
     -----
     - Supported molecular-system forms are described in :ref:`Introduction_Forms`.
     - Selection syntaxes and valid query expressions are described in :ref:`Introduction_Selection`.
     - Selections and structure indices are validated before the viewer backend is created.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select`
        Selecting atoms or elements from a molecular system.
+
 
     Examples
     --------
@@ -80,6 +73,7 @@ def view(molecular_system=None, selection='all', structure_indices='all',
 
     >>> msm.basic.view(molecular_system, selection='molecule_type=="protein"', viewer='NGLView')
     NGLWidget()
+
 
     .. admonition:: Tutorial with more examples
 

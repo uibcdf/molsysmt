@@ -6,11 +6,12 @@ def copy(item, output_filename=None, skip_digestion=False):
     """
     Creating a copy of an item of form file:bcif.gz.
 
+
     Parameters
     ----------
-    item : file:bcif.gz
-        Source item in file:bcif.gz form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -19,6 +20,7 @@ def copy(item, output_filename=None, skip_digestion=False):
     -------
     file:bcif.gz
         Resulting object in file:bcif.gz form.
+
 
     .. versionadded:: 1.0.0
     """

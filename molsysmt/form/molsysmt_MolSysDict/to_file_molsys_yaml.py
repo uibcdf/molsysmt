@@ -8,10 +8,11 @@ def to_file_molsys_yaml(item, output_filename, skip_digestion=False):
     """
     Converting from molsysmt.MolSysDict to file:molsys_yaml.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysDict
-        Source item in molsysmt.MolSysDict form.
+    item : molecular system
+        Argument item.
     output_filename : str or pathlib.Path
         Output file path for serialization.
     skip_digestion : bool, default=False
@@ -21,6 +22,7 @@ def to_file_molsys_yaml(item, output_filename, skip_digestion=False):
     -------
     file:molsys_yaml
         Resulting object in file:molsys_yaml form.
+
 
     .. versionadded:: 1.0.0
     """

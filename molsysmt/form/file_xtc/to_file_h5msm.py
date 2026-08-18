@@ -7,23 +7,24 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
     """
     Converting from file:xtc to file:h5msm.
 
+
     Parameters
     ----------
-    item : file:xtc
-        Source item in file:xtc form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    output_filename : str or pathlib.Path
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    compression : object
+    compression : object, default='gzip'
         Argument compression.
-    compression_opts : object
+    compression_opts : object, default=4
         Argument compression_opts.
-    int_precision : object
+    int_precision : object, default='single'
         Argument int_precision.
-    float_precision : object
+    float_precision : object, default='single'
         Argument float_precision.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -32,6 +33,7 @@ def to_file_h5msm(item, atom_indices='all', structure_indices='all', output_file
     -------
     file:h5msm
         Resulting object in file:h5msm form.
+
 
     .. versionadded:: 1.0.0
     """

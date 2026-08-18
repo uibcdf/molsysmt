@@ -14,25 +14,21 @@ def get_hydrophobicity(molecular_system, element='group', selection='all', defin
     group, looked up from one of several published hydrophobicity scales.
     Values are normalized or consensus-derived depending on the chosen scale.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'group'}, default 'group'
-        Hierarchical element for which hydrophobicity is returned.  Only
-        ``'group'`` (residue level) is currently supported.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of groups to include in the output.
-    definition : {'eisenberg', 'rao', 'sweet', 'kyte', 'abraham', 'bull', \
-'guy', 'miyazawa', 'roseman', 'wolfenden', 'chothia', 'hopp', \
-'manavalan', 'black', 'fauchere'}, default 'eisenberg'
-        Hydrophobicity scale to use.  All scales are taken from the ExPASy
-        ProtScale resource.  The default ``'eisenberg'`` is the normalized
-        consensus scale (Eisenberg et al., 1984).
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    element : str, default='group'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    definition : object, default='eisenberg'
+        Argument definition.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -40,10 +36,12 @@ def get_hydrophobicity(molecular_system, element='group', selection='all', defin
         1-D array of shape ``(n_groups,)`` with dimensionless hydrophobicity
         values for the selected residues.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
+
 
     Notes
     -----
@@ -56,6 +54,7 @@ def get_hydrophobicity(molecular_system, element='group', selection='all', defin
     * ``'chothia'``: Chothia C. *J. Mol. Biol.* 105:1–14 (1976).
     * ``'wolfenden'``: Wolfenden R. et al. *Science* 206:575–577 (1979).
     * Other scales follow their respective original publications as indexed in ExPASy ProtScale.
+
 
     .. versionadded:: 1.0.0
     """

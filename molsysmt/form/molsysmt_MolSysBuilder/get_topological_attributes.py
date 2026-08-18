@@ -50,12 +50,13 @@ def get_atom_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom index from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -63,6 +64,7 @@ def get_atom_index_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -76,12 +78,13 @@ def get_atom_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom id from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -89,6 +92,7 @@ def get_atom_id_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -101,12 +105,13 @@ def get_atom_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom name from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -114,6 +119,7 @@ def get_atom_name_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -126,12 +132,13 @@ def get_atom_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom type from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -139,6 +146,7 @@ def get_atom_type_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -151,12 +159,13 @@ def get_group_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group index from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -164,6 +173,7 @@ def get_group_index_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -176,12 +186,13 @@ def get_group_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group index from group in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -189,6 +200,7 @@ def get_group_index_from_group(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -202,12 +214,13 @@ def get_group_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group id from group in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -215,6 +228,7 @@ def get_group_id_from_group(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -227,12 +241,13 @@ def get_group_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group name from group in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -240,6 +255,7 @@ def get_group_name_from_group(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -252,12 +268,13 @@ def get_group_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group type from group in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -265,6 +282,7 @@ def get_group_type_from_group(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -277,12 +295,13 @@ def get_chain_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain index from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -290,6 +309,7 @@ def get_chain_index_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -303,12 +323,13 @@ def get_chain_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain index from group in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -316,6 +337,7 @@ def get_chain_index_from_group(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -334,12 +356,13 @@ def get_chain_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain index from chain in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -347,6 +370,7 @@ def get_chain_index_from_chain(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -360,12 +384,13 @@ def get_chain_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain id from chain in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -373,6 +398,7 @@ def get_chain_id_from_chain(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -385,12 +411,13 @@ def get_chain_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain name from chain in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -398,6 +425,7 @@ def get_chain_name_from_chain(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -410,12 +438,13 @@ def get_chain_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain type from chain in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -423,6 +452,7 @@ def get_chain_type_from_chain(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -435,12 +465,13 @@ def get_molecule_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from group in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -448,6 +479,7 @@ def get_molecule_index_from_group(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -460,12 +492,13 @@ def get_molecule_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -473,6 +506,7 @@ def get_molecule_index_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -486,12 +520,13 @@ def get_molecule_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from molecule in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -499,6 +534,7 @@ def get_molecule_index_from_molecule(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -512,12 +548,13 @@ def get_molecule_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from molecule in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -525,6 +562,7 @@ def get_molecule_id_from_molecule(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -537,12 +575,13 @@ def get_molecule_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from molecule in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -550,6 +589,7 @@ def get_molecule_name_from_molecule(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -562,12 +602,13 @@ def get_molecule_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from molecule in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -575,6 +616,7 @@ def get_molecule_type_from_molecule(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -587,12 +629,13 @@ def get_entity_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity index from molecule in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -600,6 +643,7 @@ def get_entity_index_from_molecule(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -612,12 +656,13 @@ def get_entity_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity index from atom in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -625,6 +670,7 @@ def get_entity_index_from_atom(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -638,12 +684,13 @@ def get_entity_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity index from entity in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -651,6 +698,7 @@ def get_entity_index_from_entity(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -664,12 +712,13 @@ def get_entity_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity id from entity in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -677,6 +726,7 @@ def get_entity_id_from_entity(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -689,12 +739,13 @@ def get_entity_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity name from entity in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -702,6 +753,7 @@ def get_entity_name_from_entity(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -714,12 +766,13 @@ def get_entity_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity type from entity in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -727,6 +780,7 @@ def get_entity_type_from_entity(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -739,10 +793,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -750,6 +805,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -761,10 +817,11 @@ def get_n_groups_from_system(item, skip_digestion=False):
     """
     Getting n groups from system in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -772,6 +829,7 @@ def get_n_groups_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -783,10 +841,11 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     """
     Getting n bonds from system in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -794,6 +853,7 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -805,10 +865,11 @@ def get_n_molecules_from_system(item, skip_digestion=False):
     """
     Getting n molecules from system in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -816,6 +877,7 @@ def get_n_molecules_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -827,10 +889,11 @@ def get_n_chains_from_system(item, skip_digestion=False):
     """
     Getting n chains from system in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -838,6 +901,7 @@ def get_n_chains_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -849,10 +913,11 @@ def get_n_entities_from_system(item, skip_digestion=False):
     """
     Getting n entities from system in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -860,6 +925,7 @@ def get_n_entities_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -871,10 +937,11 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
     """
     Getting bonded atom pairs from system in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -882,6 +949,7 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -896,12 +964,13 @@ def get_n_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from group in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -909,6 +978,7 @@ def get_n_atoms_from_group(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -929,12 +999,13 @@ def get_n_groups_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n groups from chain in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -942,6 +1013,7 @@ def get_n_groups_from_chain(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -959,12 +1031,13 @@ def get_n_groups_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n groups from molecule in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -972,6 +1045,7 @@ def get_n_groups_from_molecule(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -989,12 +1063,13 @@ def get_n_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from entity in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -1002,6 +1077,7 @@ def get_n_molecules_from_entity(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -1019,12 +1095,13 @@ def get_n_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from chain in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -1032,6 +1109,7 @@ def get_n_atoms_from_chain(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -1049,12 +1127,13 @@ def get_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from molecule in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -1062,6 +1141,7 @@ def get_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -1080,12 +1160,13 @@ def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from entity in form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysBuilder
-        Source item in molsysmt.MolSysBuilder form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -1093,6 +1174,7 @@ def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

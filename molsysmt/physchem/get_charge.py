@@ -21,36 +21,25 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
       is provided, the system is first converted to ``openmm.System`` using
       the specified ``forcefield``.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'group'
-        Hierarchical element for which charge is returned.  When
-        ``definition`` is ``'physical_pH7'`` or ``'collantes'``, ``element``
-        must be ``'group'`` or coarser (``'atom'`` raises an error).  When
-        ``definition`` is ``'OpenMM'`` and the form is ``openmm.System``,
-        only ``'atom'`` and ``'system'`` are supported.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of elements to include in the output.
-    definition : {'physical_pH7', 'collantes', 'OpenMM'}, default 'physical_pH7'
-        Charge definition to use.
-
-        * ``'physical_pH7'``: fixed integer charges at pH 7 for the 20
-          standard amino acids (e.g. Arg +1, Asp −1).
-        * ``'collantes'``: alternative tabulated scale from Collantes et al.
-        * ``'OpenMM'``: partial charges extracted from an OpenMM
-          ``NonbondedForce``.
-    forcefield : str, default 'AMBER14'
-        Force field used to build the ``openmm.System`` when
-        ``definition='OpenMM'`` and the input is not already an OpenMM
-        system object.
-    water_model : str or None, default None
-        Water model passed to the OpenMM system builder (when applicable).
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    element : str, default='group'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    definition : object, default='physical_pH7'
+        Argument definition.
+    forcefield : str, default='AMBER14'
+        Force field parameter identifier or name.
+    water_model : str, default=None
+        Water model parameter identifier (e.g., 'TIP3P').
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -58,6 +47,7 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
         Electric charge as a PyUnitWizard quantity in elementary charge
         units (e).  Shape is ``(n_elements,)`` for atom/group/component/
         molecule/chain/entity elements, or a scalar for ``element='system'``.
+
 
     Raises
     ------
@@ -67,10 +57,12 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
         If ``element='atom'`` is combined with a residue-based definition, or
         if a mid-hierarchy element is combined with the ``openmm.System`` form.
 
+
     Notes
     -----
     Values are rounded to 4 decimal places for the ``'OpenMM'`` definition
     to avoid floating-point noise from unit conversions.
+
 
     .. versionadded:: 1.0.0
     """

@@ -1,27 +1,34 @@
 from molsysmt._private.argdigest import arg_digest
 
 def define_new_chain(molecular_system, selection='all', chain_id=None, chain_name=None, syntax='MolSysMT', skip_digestion=False):
-    """Defining a new chain for a selection of atoms.
+    """
+    Defining a new chain for a selection of atoms.
+
+
+
 
     Parameters
     ----------
-    molecular_system : molecular_system
-        Molecular system as supported by MolSysMT.
-    selection : selection, default='all'
-        Selection of atoms to assign to the new chain.
-    chain_id : str, optional
-        Chain ID for the new chain.
-    chain_name : str, optional
-        Chain name for the new chain.
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    chain_id : object, default=None
+        Argument chain_id.
+    chain_name : object, default=None
+        Argument chain_name.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        If True, skip digestion.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular_system
         The modified molecular system.
+
+
+
 
     .. versionadded:: 1.0.0
     """

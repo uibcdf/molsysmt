@@ -15,41 +15,42 @@ def append_structures(to_item, item=None, structure_id=None, time=None, coordina
     """
     Appending coordinate structures to an item of form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    to_item : molsysmt.MolSys
-        Target item to modify or add elements to.
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    structure_id : object
-        Structure identifiers.
-    time : numpy.ndarray or quantity
-        Simulation time coordinates in picoseconds.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    velocities : object
+    to_item : object
+        Argument to_item.
+    item : molecular system, default=None
+        Argument item.
+    structure_id : object, default=None
+        Argument structure_id.
+    time : object, default=None
+        Argument time.
+    coordinates : object, default=None
+        Argument coordinates.
+    velocities : object, default=None
         Argument velocities.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
-    temperature : object
+    box : object, default=None
+        Argument box.
+    temperature : object, default=None
         Argument temperature.
-    potential_energy : object
+    potential_energy : object, default=None
         Argument potential_energy.
-    kinetic_energy : object
+    kinetic_energy : object, default=None
         Argument kinetic_energy.
-    structure_chemical_state_index : object
+    structure_chemical_state_index : object, default=None
         Argument structure_chemical_state_index.
-    b_factor : object
+    b_factor : object, default=None
         Argument b_factor.
-    alternate_location : object
+    alternate_location : object, default=None
         Argument alternate_location.
-    occupancy : object
+    occupancy : object, default=None
         Argument occupancy.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    attribute_policy : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    attribute_policy : object, default='intersection'
         Argument attribute_policy.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -58,6 +59,7 @@ def append_structures(to_item, item=None, structure_id=None, time=None, coordina
     -------
     molsysmt.MolSys
         Resulting object in molsysmt.MolSys form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -2,19 +2,29 @@ def get_engine_forcefield(forcefield, implicit_solvent=None, water_model=None, e
     """
     Getting the engine-specific force field or simulation object from a molecular system.
 
+
+
+
     Parameters
     ----------
-    molecular_system : molecular system
-        Molecular system in any supported form.
-    engine : str, default='OpenMM'
-        Target simulation engine backend.
+    forcefield : str
+        Force field parameter identifier or name.
+    implicit_solvent : str, default=None
+        Implicit solvent model name if applicable.
+    water_model : str, default=None
+        Water model parameter identifier (e.g., 'TIP3P').
+    engine : object, default='OpenMM'
+        Argument engine.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     object
         Engine-specific force field representation (e.g. `openmm.app.ForceField` or `openmm.System`).
+
+
+
 
     .. versionadded:: 1.0.0
     """

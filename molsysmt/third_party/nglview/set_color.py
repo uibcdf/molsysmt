@@ -8,14 +8,17 @@ def set_color(view, color, selection='all', syntax='MolSysMT'):
     """
     Setting uniform or custom color on representations in NGLWidget.
 
+
     Parameters
     ----------
     view : nglview.NGLWidget
-        Target molecular viewer.
-    color : str, default='white'
-        Color name or hex code.
-    selection : str or list of int, default='all'
-        Selection of atoms or components to color.
+        Target molecular viewer instance.
+    color : object
+        Argument color.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     .. versionadded:: 1.0.0
     """

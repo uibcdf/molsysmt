@@ -8,13 +8,14 @@ def extract(item, group_indices='all', copy_if_all=True, skip_digestion=False):
     """
     Extracting a subset of elements or structures from form string:amino_acids_3.
 
+
     Parameters
     ----------
-    item : string:amino_acids_3
-        Source item in string:amino_acids_3 form.
-    group_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Group indices (0-based) to include.
-    copy_if_all : object
+    item : molecular system
+        Argument item.
+    group_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Argument group_indices.
+    copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -23,6 +24,7 @@ def extract(item, group_indices='all', copy_if_all=True, skip_digestion=False):
     -------
     string:amino_acids_3
         Resulting object in string:amino_acids_3 form.
+
 
     .. versionadded:: 1.0.0
     """

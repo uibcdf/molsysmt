@@ -19,14 +19,15 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     """
     Getting coordinates from atom in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -34,6 +35,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -51,14 +53,15 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
     """
     Getting occupancy from atom in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -66,6 +69,7 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -83,14 +87,15 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
     """
     Getting alternate location from atom in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -98,6 +103,7 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -115,14 +121,15 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
     """
     Getting b factor from atom in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -130,6 +137,7 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -147,12 +155,13 @@ def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
     """
     Getting formal charge from atom in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -160,6 +169,7 @@ def get_formal_charge_from_atom (item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -177,12 +187,13 @@ def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
     """
     Getting partial charge from atom in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -190,6 +201,7 @@ def get_partial_charge_from_atom (item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -211,12 +223,13 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     """
     Getting n structures from system in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -224,6 +237,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -240,12 +254,13 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     """
     Getting box from system in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -253,6 +268,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -303,12 +319,13 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     """
     Getting time from system in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -316,6 +333,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -327,12 +345,13 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     """
     Getting structure id from system in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -340,6 +359,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -351,10 +371,11 @@ def get_bioassembly_from_system(item, skip_digestion=False):
     """
     Getting bioassembly from system in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -362,6 +383,7 @@ def get_bioassembly_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -376,10 +398,11 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
     """
     Getting n bioassemblies from system in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -387,6 +410,7 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -402,12 +426,13 @@ def get_alternate_location_from_system(item, structure_indices='all', skip_diges
     """
     Getting alternate location from system in form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -415,6 +440,7 @@ def get_alternate_location_from_system(item, structure_indices='all', skip_diges
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -8,10 +8,11 @@ def to_molsysmt_Topology(item, skip_digestion=False):
     """
     Converting from molsysmt.TopologyDict to molsysmt.Topology.
 
+
     Parameters
     ----------
-    item : molsysmt.TopologyDict
-        Source item in molsysmt.TopologyDict form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -19,6 +20,7 @@ def to_molsysmt_Topology(item, skip_digestion=False):
     -------
     molsysmt.Topology
         Resulting object in molsysmt.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

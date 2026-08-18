@@ -39,6 +39,18 @@
       "discovery": "package-init"
     }
   },
+  "signature_waivers": {
+    "molsysmt/form/file_dcd/copy.py:copy": "Add missing output_filename parameter used in function body",
+    "molsysmt/form/file_dcd/extract.py:extract": "Add missing output_filename parameter used in function body",
+    "molsysmt/form/file_inpcrd/extract.py:extract": "Add missing output_filename parameter used in function body",
+    "molsysmt/molecular_dynamics/md_protocols.py:equilibration_NVT": "Fix mutable default argument forcefield (Ruff B006) and kwargs forwarding",
+    "molsysmt/molecular_dynamics/md_protocols.py:equilibration_NPT": "Fix mutable default argument forcefield (Ruff B006)",
+    "molsysmt/molecular_dynamics/protocols/OpenMM/md_protocols.py:equilibration_NVT": "Fix mutable default argument forcefield (Ruff B006) and kwargs forwarding",
+    "molsysmt/molecular_dynamics/protocols/OpenMM/md_protocols.py:equilibration_NPT": "Fix mutable default argument forcefield (Ruff B006)",
+    "molsysmt/third_party/openmm/forces/add_allowed_plane_region.py:add_allowed_plane_region": "Fix mutable default argument normal_vector (Ruff B006)",
+    "molsysmt/third_party/openmm/forces/add_forbidden_plane_region.py:add_forbidden_plane_region": "Fix mutable default argument normal_vector (Ruff B006)",
+    "molsysmt/third_party/openmm/forces/add_plane_harmonic_restraint.py:add_plane_harmonic_restraint": "Fix mutable default argument normal_vector (Ruff B006)"
+  },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {
       "stability": "stable",

@@ -2,17 +2,19 @@ def get_group_type_from_group_name(group_name, skip_digestion=False):
     """
     Determining the group type classification from a residue or group name.
 
+
     Parameters
     ----------
     group_name : str
-        Residue or group name string.
+        Name of the chemical group (residue).
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     str or None
         Classified group type ('amino_acid', 'ion', 'water', 'lipid', 'nucleotide', 'saccharide', 'small_molecule', 'terminal_capping') or None.
+
 
     .. versionadded:: 1.0.0
     """

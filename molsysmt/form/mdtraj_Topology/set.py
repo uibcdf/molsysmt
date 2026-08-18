@@ -8,13 +8,14 @@ def set_atom_id_to_atom(item, indices='all', value=None, skip_digestion=False):
     """
     Setting atom id to atom on form mdtraj.Topology.
 
+
     Parameters
     ----------
-    item : mdtraj.Topology
-        Source item in mdtraj.Topology form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.

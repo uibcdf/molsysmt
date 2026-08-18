@@ -108,15 +108,16 @@ def to_string_pdb_text(
     """
     Converting from molsysmt.MolSys to string:pdb_text.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    pdb_chain_id : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    pdb_chain_id : object, default='chain_name'
         Argument pdb_chain_id.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -125,6 +126,7 @@ def to_string_pdb_text(
     -------
     string:pdb_text
         Resulting object in string:pdb_text form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -9,15 +9,16 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
     """
     Converting from molsysmt.MolSys to pdbfixer.PDBFixer.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    pdb_chain_id : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    pdb_chain_id : object, default='chain_name'
         Argument pdb_chain_id.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -26,6 +27,7 @@ def to_pdbfixer_PDBFixer(item, atom_indices='all', structure_indices='all',
     -------
     pdbfixer.PDBFixer
         Resulting object in pdbfixer.PDBFixer form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -6,14 +6,15 @@ def append_structures(to_item, item, structure_indices='all', skip_digestion=Fal
     """
     Appending coordinate structures to an item of form file:xyz.
 
+
     Parameters
     ----------
-    to_item : file:xyz
-        Target item to modify or add elements to.
-    item : file:xyz
-        Source item in file:xyz form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    to_item : object
+        Argument to_item.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -21,6 +22,7 @@ def append_structures(to_item, item, structure_indices='all', skip_digestion=Fal
     -------
     file:xyz
         Resulting object in file:xyz form.
+
 
     .. versionadded:: 1.0.0
     """

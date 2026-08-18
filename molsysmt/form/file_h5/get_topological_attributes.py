@@ -9,10 +9,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form file:h5.
 
+
     Parameters
     ----------
-    item : file:h5
-        Source item in file:h5 form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -20,6 +21,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

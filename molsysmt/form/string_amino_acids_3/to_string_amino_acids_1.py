@@ -5,12 +5,13 @@ def to_string_amino_acids_1(item, group_indices='all', skip_digestion=False):
     """
     Converting from string:amino_acids_3 to string:amino_acids_1.
 
+
     Parameters
     ----------
-    item : string:amino_acids_3
-        Source item in string:amino_acids_3 form.
-    group_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Group indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    group_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Argument group_indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -18,6 +19,7 @@ def to_string_amino_acids_1(item, group_indices='all', skip_digestion=False):
     -------
     string:amino_acids_1
         Resulting object in string:amino_acids_1 form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -6,13 +6,14 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
     """
     Converting from molsysmt.PDBFileHandler to molsysmt.Topology.
 
+
     Parameters
     ----------
-    item : molsysmt.PDBFileHandler
-        Source item in molsysmt.PDBFileHandler form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    get_missing_bonds : object
+    get_missing_bonds : object, default=True
         Argument get_missing_bonds.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -21,6 +22,7 @@ def to_molsysmt_Topology(item, atom_indices='all', get_missing_bonds=True, skip_
     -------
     molsysmt.Topology
         Resulting object in molsysmt.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

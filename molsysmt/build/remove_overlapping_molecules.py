@@ -14,22 +14,23 @@ def remove_overlapping_molecules(molecular_system, selection, selection_2=None,
     Given a reference selection (and optionally a second selection), this function finds
     contacts closer than `threshold` and removes the molecules containing the overlapping atoms.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        System to process.
-    selection : str, list, tuple or numpy.ndarray
-        Reference atoms (MolSysMT selection syntax or indices).
-    selection_2 : str, list, tuple or numpy.ndarray, optional
-        Second set of atoms; if `None`, uses the complement of `selection`.
-    structure_index : int, default 0
-        Structure/frame index used to detect contacts.
-    threshold : pyunitwizard quantity or str, default '3 angstroms'
-        Distance cutoff for defining overlaps.
-    pbc : bool, default True
-        Whether to consider periodic boundary conditions (auto-detected if `True`).
-    syntax : str, default 'MolSysMT'
-        Selection syntax for string-based selections.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray
+        Selection string or boolean/integer array specifying elements.
+    selection_2 : str, list, tuple, or numpy.ndarray, default=None
+        Second selection string or boolean/integer array.
+    structure_index : object, default=0
+        Argument structure_index.
+    threshold : float or quantity, default='3 angstroms'
+        Distance cutoff threshold quantity.
+    pbc : bool, default=True
+        Whether to take periodic boundary conditions into account.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------

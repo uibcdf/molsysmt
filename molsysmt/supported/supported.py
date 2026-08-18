@@ -66,7 +66,14 @@ _metadata = _SupportedMetadata()
 ## Types
 
 def forms(form_type=None):
-    """Return a styled DataFrame listing supported forms filtered by type."""
+    """
+    Return a styled DataFrame listing supported forms filtered by type.
+
+    Parameters
+    ----------
+    form_type : object, default=None
+        Argument form_type.
+    """
 
     tmp_output = []
 
@@ -106,7 +113,26 @@ def forms(form_type=None):
 
 def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=None,
                 from_viewer=None, to_viewer=None, as_rows='from'):
-    """Return a styled table showing available conversions between forms."""
+    """
+    Return a styled table showing available conversions between forms.
+
+    Parameters
+    ----------
+    from_form : object, default=None
+        Argument from_form.
+    to_form : object, default=None
+        Argument to_form.
+    from_form_type : object, default=None
+        Argument from_form_type.
+    to_form_type : object, default=None
+        Argument to_form_type.
+    from_viewer : object, default=None
+        Argument from_viewer.
+    to_viewer : object, default=None
+        Argument to_viewer.
+    as_rows : object, default='from'
+        Argument as_rows.
+    """
 
     if from_viewer is not None or to_viewer is not None:
 
@@ -175,7 +201,9 @@ def conversions(from_form=None, to_form=None, from_form_type=None, to_form_type=
     return tmp_output.style.map(color).set_properties(**{'text-align': 'center'})
 
 def syntaxes():
-    """Returning the directional selection-syntax capability matrix.
+    """
+    Returning the directional selection-syntax capability matrix.
+
 
     Returns
     -------
@@ -183,10 +211,12 @@ def syntaxes():
         Table reporting whether each syntax can parse selection strings and
         whether MolSysMT can translate selected indices into that syntax.
 
+
     Notes
     -----
     A syntax may be supported in only one direction. The scope column records
     form or element restrictions that apply to an implemented direction.
+
 
     .. versionadded:: 1.0.0
     """

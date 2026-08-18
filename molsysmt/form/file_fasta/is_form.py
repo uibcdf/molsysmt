@@ -4,15 +4,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form file:fasta.
 
+
     Parameters
     ----------
-    item : file:fasta
-        Source item in file:fasta form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

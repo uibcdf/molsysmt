@@ -10,12 +10,13 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting atom index from atom in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,6 +24,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -38,12 +40,13 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting bond index from atom in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -51,6 +54,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -72,12 +76,13 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting bonded atoms from atom in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -85,6 +90,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -99,12 +105,13 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     """
     Getting bond index from bond in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -112,6 +119,7 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -127,12 +135,13 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
     """
     Getting bonded atoms from bond in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -140,6 +149,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -156,10 +166,11 @@ def get_bond_index_from_system(item, skip_digestion=False):
     """
     Getting bond index from system in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -167,6 +178,7 @@ def get_bond_index_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -178,10 +190,11 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
     """
     Getting bonded atoms from system in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -189,6 +202,7 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -286,10 +300,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -297,6 +312,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -308,10 +324,11 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     """
     Getting n bonds from system in form networkx.Graph.
 
+
     Parameters
     ----------
-    item : networkx.Graph
-        Source item in networkx.Graph form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -319,6 +336,7 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

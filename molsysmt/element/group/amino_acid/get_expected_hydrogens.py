@@ -17,33 +17,35 @@ def _is_hydrogen(atom_name):
 def get_expected_hydrogens(group_name, present_atom_names=None, pH=7.4,
                            is_n_terminal=False, is_c_terminal=False,
                            is_disulfide=False):
-    """Return the list of expected hydrogen atom names for a residue.
+    """
+    Return the list of expected hydrogen atom names for a residue.
 
     Selects the best-matching topology variant from the amino-acid database,
     then applies pH-dependent protonation rules to decide which H atoms should
     be present.
 
+
     Parameters
     ----------
     group_name : str
-        Residue name as stored in the topology.
-    present_atom_names : list of str or None, default None
-        Heavy atoms currently in the residue.  Used to select the best variant
-        (tightest-fit strategy, same as :func:`get_expected_heavy_atoms`).
-    pH : float, default 7.4
-        Approximate pH for protonation-state assignment.
-    is_n_terminal : bool, default False
-        True if this is the N-terminal residue of a peptide chain.
-    is_c_terminal : bool, default False
-        True if this is the C-terminal residue of a peptide chain.
-    is_disulfide : bool, default False
-        True if this CYS is part of a disulfide bridge (removes HG).
+        Name of the chemical group (residue).
+    present_atom_names : object, default=None
+        Argument present_atom_names.
+    pH : object, default=7.4
+        Argument pH.
+    is_n_terminal : object, default=False
+        Argument is_n_terminal.
+    is_c_terminal : object, default=False
+        Argument is_c_terminal.
+    is_disulfide : object, default=False
+        Argument is_disulfide.
 
     Returns
     -------
     list of str or None
         Hydrogen atom names to be present, or ``None`` if the residue is not
         in the amino-acid database.
+
 
     Notes
     -----
@@ -54,6 +56,7 @@ def get_expected_hydrogens(group_name, present_atom_names=None, pH=7.4,
     * **HIS**: HIP (HD1+HE2) when pH < 6.5; HIE (HE2 only) otherwise
     * **LYS**: deprotonated NZ (no HZ3) when pH ≥ 10.5
     * **CYS**: no HG when *is_disulfide* is True
+
 
     .. versionadded:: 1.0.0
     """

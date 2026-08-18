@@ -21,27 +21,29 @@ def get_non_bonded_potential_energy(molecular_system, selection='all', selection
     """
     Calculating non-bonded interaction potential energy between selections or pairwise across structures.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
+        Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Primary selection of atoms.
-    selection_2 : str, list, tuple, or numpy.ndarray, optional
-        Secondary selection of atoms for interaction energy calculations.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure frames to evaluate.
-    engine : str, default='OpenMM'
-        Simulation engine backend.
+        Selection string or boolean/integer array specifying elements.
+    selection_2 : str, list, tuple, or numpy.ndarray, default=None
+        Second selection string or boolean/integer array.
+    platform : str, default='CPU'
+        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
+    engine : object, default='OpenMM'
+        Argument engine.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity or dict
         Non-bonded potential energy interaction values in canonical units (`kJ/mol`).
+
 
     .. versionadded:: 1.0.0
     """

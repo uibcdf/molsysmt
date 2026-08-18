@@ -98,3 +98,8 @@ jobs:
         uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Report failure on scheduled CI
+        if: failure() && github.event_name == 'schedule'
+        run: |
+          echo "::error title=Weekly CI Run Failed::The scheduled weekly CI run on ${{ matrix.cfg.os }} (Python ${{ matrix.cfg.python-version }}) failed. Inspect the workflow logs to triage."

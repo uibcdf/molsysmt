@@ -14,36 +14,27 @@ def has_attribute(molecular_system, attribute, include_none=False,
     This function returns `True` if the given attribute is available for the input molecular
     system, and `False` otherwise. Availability depends on the form-specific backend and the global attribute registry.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
-    attribute : str
-        Name of the attribute to check.
-    include_none : bool, default False
-        Whether to consider attributes currently holding `None` as **available**.
-        If `True`, an attribute that exists but is `None` will return `True`.
-    structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
-        Structures used when ``chemical_state='structure'`` resolves
-        state-dependent availability.
-    chemical_state : {'reference', 'structure'} or int, default 'reference'
-        Chemical state used to resolve state-dependent attribute availability.
-        ``'structure'`` uses the unique state associated with `structure_indices`.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Molecular system in any supported MolSysMT format.
+    attribute : object
+        Argument attribute.
+    include_none : object, default=False
+        Argument include_none.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    chemical_state : object, default='reference'
+        Argument chemical_state.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     bool
         `True` if the attribute is available in the molecular system, `False` otherwise.
+
 
     Raises
     ------
@@ -51,6 +42,7 @@ def has_attribute(molecular_system, attribute, include_none=False,
         If the molecular system has a form that is not supported.
     ArgumentError
         If input arguments are invalid or inconsistent.
+
 
     Notes
     -----
@@ -62,12 +54,14 @@ def has_attribute(molecular_system, attribute, include_none=False,
     - Explicit integer state selection currently requires a native Topology or
       MolSys.
 
+
     See Also
     --------
     :func:`molsysmt.basic.get_attributes`
         Retrieve the list of available attributes in a molecular system.
     :func:`molsysmt.basic.get`
         Retrieve values of specific attributes from a molecular system.
+
 
     Examples
     --------
@@ -78,6 +72,7 @@ def has_attribute(molecular_system, attribute, include_none=False,
     True
     >>> msm.has_attribute(molsys, 'forcefield')
     False
+
 
     .. admonition:: Tutorial with more examples
 

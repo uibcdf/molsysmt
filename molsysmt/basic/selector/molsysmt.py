@@ -278,13 +278,29 @@ _PUBLIC_BOND_QUERY_COLUMNS = {
 
 
 def selection_uses_bond_attributes(selection):
-    """Return whether a query references a canonical bond-domain attribute."""
+    """
+    Return whether a query references a canonical bond-domain attribute.
+
+    Parameters
+    ----------
+    selection : str, list, tuple, or numpy.ndarray
+        Selection string or boolean/integer array specifying elements.
+    """
 
     return any(attribute in selection for attribute in _PUBLIC_BOND_QUERY_COLUMNS)
 
 
 def select_bonds_standard(item, selection):
-    """Evaluate a MolSysMT query directly on the resolved bond table."""
+    """
+    Evaluate a MolSysMT query directly on the resolved bond table.
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
+    selection : str, list, tuple, or numpy.ndarray
+        Selection string or boolean/integer array specifying elements.
+    """
 
     from molsysmt.basic import convert
     from molsysmt.native import MolSys, Topology

@@ -7,17 +7,18 @@ def to_file_cif_gz(item, atom_indices='all', structure_indices='all', output_nam
     """
     Converting from file:cif.gz to file:cif_gz.
 
+
     Parameters
     ----------
-    item : file:cif.gz
-        Source item in file:cif.gz form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    output_name : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    output_name : object, default=None
         Argument output_name.
-    copy_if_all : object
+    copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -26,6 +27,7 @@ def to_file_cif_gz(item, atom_indices='all', structure_indices='all', output_nam
     -------
     file:cif_gz
         Resulting object in file:cif_gz form.
+
 
     .. versionadded:: 1.0.0
     """

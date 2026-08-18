@@ -38,14 +38,15 @@ def get_atom_index_from_atom(item, indices='all', structure_indices='all', skip_
     """
     Getting atom index from atom in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -53,6 +54,7 @@ def get_atom_index_from_atom(item, indices='all', structure_indices='all', skip_
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -68,14 +70,15 @@ def get_atom_name_from_atom(item, indices='all', structure_indices='all', skip_d
     """
     Getting atom name from atom in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -83,6 +86,7 @@ def get_atom_name_from_atom(item, indices='all', structure_indices='all', skip_d
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -97,14 +101,15 @@ def get_group_index_from_atom(item, indices='all', structure_indices='all', skip
     """
     Getting group index from atom in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -112,6 +117,7 @@ def get_group_index_from_atom(item, indices='all', structure_indices='all', skip
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -126,14 +132,15 @@ def get_group_id_from_atom(item, indices='all', structure_indices='all', skip_di
     """
     Getting group id from atom in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -141,6 +148,7 @@ def get_group_id_from_atom(item, indices='all', structure_indices='all', skip_di
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -155,14 +163,15 @@ def get_group_name_from_atom(item, indices='all', structure_indices='all', skip_
     """
     Getting group name from atom in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -170,6 +179,7 @@ def get_group_name_from_atom(item, indices='all', structure_indices='all', skip_
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -184,14 +194,15 @@ def get_group_type_from_atom(item, indices='all', structure_indices='all', skip_
     """
     Getting group type from atom in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -199,6 +210,7 @@ def get_group_type_from_atom(item, indices='all', structure_indices='all', skip_
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -217,14 +229,15 @@ def get_group_id_from_group(item, indices='all', structure_indices='all', skip_d
     """
     Getting group id from group in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -232,6 +245,7 @@ def get_group_id_from_group(item, indices='all', structure_indices='all', skip_d
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -246,14 +260,15 @@ def get_group_name_from_group(item, indices='all', structure_indices='all', skip
     """
     Getting group name from group in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -261,6 +276,7 @@ def get_group_name_from_group(item, indices='all', structure_indices='all', skip
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -275,14 +291,15 @@ def get_group_type_from_group(item, indices='all', structure_indices='all', skip
     """
     Getting group type from group in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -290,6 +307,7 @@ def get_group_type_from_group(item, indices='all', structure_indices='all', skip
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -308,12 +326,13 @@ def get_n_atoms_from_system(item, structure_indices='all', skip_digestion=False)
     """
     Getting n atoms from system in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -321,6 +340,7 @@ def get_n_atoms_from_system(item, structure_indices='all', skip_digestion=False)
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -332,12 +352,13 @@ def get_n_groups_from_system(item, structure_indices='all', skip_digestion=False
     """
     Getting n groups from system in form openmm.GromacsGroFile.
 
+
     Parameters
     ----------
-    item : openmm.GromacsGroFile
-        Source item in openmm.GromacsGroFile form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -345,6 +366,7 @@ def get_n_groups_from_system(item, structure_indices='all', skip_digestion=False
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

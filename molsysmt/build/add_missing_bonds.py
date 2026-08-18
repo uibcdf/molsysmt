@@ -14,43 +14,32 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
     bonding distances. The new bonds are added to the `bonded_atoms` attribute. No bond types
     or orders are assigned. The procedure can be applied in-place or return a modified copy.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` to which new
-        covalent bonds will be added.
-
-    max_bond_length : str or float with unit, default '2 angstroms'
-        Maximum distance between two atoms for a bond to be considered. Atoms further than this
-        value will not be bonded. If a string is passed, it must include units (e.g., '0.19 nm').
-
-    selection : tuple, list, numpy.ndarray or str, default 'all'
-        Selection of atoms to which the method applies. The selection can be given by a list, tuple
-        or numpy array of atom indices (0-based integers), or by a query string following any of
-        :ref:`the selection syntaxes parsable by MolSysMT <Introduction_Selection>`.
-
-    structure_index : int, default 0
-        Structure index (0-based) to use when the molecular system contains multiple structures.
-        The bond detection is based on the atomic positions at this structure.
-
-    syntax : str, default 'MolSysMT'
-        :ref:`Supported syntax <Introduction_Selection>` used in the `selection` argument (in case it is a string).
-
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Engine used to infer bonds. Currently only the native 'MolSysMT' engine is supported.
-
-    in_place : bool, default True
-        If `True`, the input molecular system is modified directly. If `False`, a new system with
-        the added bonds is returned.
-
-    skip_digestion : bool, default False
-        If `True`, skips initial validation of input arguments. Used internally.
+        Molecular system in any supported MolSysMT format.
+    max_bond_length : object, default='2 angstroms'
+        Argument max_bond_length.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_index : object, default=0
+        Argument structure_index.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    in_place : object, default=True
+        Argument in_place.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system or None
         If `in_place=True`, the function returns `None` and modifies the input molecular system.
         If `in_place=False`, a new molecular system is returned with inferred bonds added.
+
 
     Raises
     ------
@@ -59,6 +48,7 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
 
     ArgumentError
         Raised if any of the input arguments are invalid or inconsistent.
+
 
     Notes
     -----
@@ -74,6 +64,7 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
     The list of supported selection syntaxes can be found here:
     :ref:`User Guide > Introduction > Selection syntaxes <Introduction_Selection>`
 
+
     See Also
     --------
     :meth:`molsysmt.Topology.add_bonds`
@@ -88,6 +79,7 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
     :func:`molsysmt.basic.convert()`
         Convert the system into a supported editable form.
 
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -99,6 +91,7 @@ def add_missing_bonds(molecular_system, max_bond_length='2 angstroms', selection
     array([[0, 1],
            [1, 2],
            [2, 3]])
+
 
     .. admonition:: User guide
 

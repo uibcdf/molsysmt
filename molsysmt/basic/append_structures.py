@@ -9,53 +9,47 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
                       attribute_policy='intersection', skip_digestion=False):
     """
     Appending structures from one molecular system into another.
-    
+
     This function appends structural information (coordinates, box dimensions, velocities, etc.)
     from a source molecular system (`from_molecular_system`) into a target molecular system
     (`to_molecular_system`). The result is a molecular system with additional structures
     (frames or conformations).
-    
+
     The appended structures must correspond to the same number and ordering of atoms as the
     target system. The source does not need to provide topology; coordinate-only forms such as
     XTC, DCD, and XYZ are accepted. If the number of atoms differs, a selection of atoms from
     the source system must be provided using the `selection` argument. Matching atom ordering
     is the caller's responsibility when the source has no topology.
-    
+
     By default, the operation modifies the input molecular system in place. This behavior can be
     changed by setting `in_place=False`, in which case a new molecular system is returned.
-    
+
+
     Parameters
     ----------
-    to_molecular_system : molecular system
-        Molecular system that will receive the new structures. Must be in one of
-        :ref:`the supported forms <Introduction_Forms>`.
-    from_molecular_system : molecular system
-        Molecular system providing the structures to append. Must be in one of
-        :ref:`the supported forms <Introduction_Forms>`.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of atoms from the source system whose structural attributes
-        will be appended. Can be a list/array of 0-based atom indices, or a string using
-        any of the supported selection syntaxes (:ref:`Introduction_Selection`).
-        Only needed when the number of atoms differs between systems.
-    structure_indices : int, list, tuple, numpy.ndarray or 'all', default 'all'
-        0-based indices of the structures in the source system to append.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used if `selection` is a string. Must be one of the
-        supported syntaxes in :ref:`Introduction_Selection`.
-    in_place : bool, default True
-        If True, modifies `to_molecular_system` directly. If False, returns a new
-        molecular system with the appended structures, leaving the original unmodified.
-    attribute_policy : {'intersection', 'strict'}, default 'intersection'
-        Policy for structural attributes present in only one block. ``'intersection'``
-        discards one-sided series with a warning; ``'strict'`` rejects the operation.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism. Use with caution.
-    
+    to_molecular_system : object
+        Argument to_molecular_system.
+    from_molecular_system : object
+        Argument from_molecular_system.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    in_place : object, default=True
+        Argument in_place.
+    attribute_policy : object, default='intersection'
+        Argument attribute_policy.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
     Returns
     -------
     molecular system or None
         If `in_place=True`, returns `None` and modifies `to_molecular_system` directly.
         If `in_place=False`, returns a new molecular system (same form as the input) with the appended structures.
+
 
     Raises
     ------
@@ -66,6 +60,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         rejects one-sided attributes.
     SyntaxError
         If the selection syntax is not recognized.
+
 
     Notes
     -----
@@ -78,6 +73,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
       Multi-state targets preserve explicit source associations when inventories match and use
       an unknown association only when the incoming state cannot be determined.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select` :
@@ -88,6 +84,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         Adding elements from one molecular system into another.
     :func:`molsysmt.basic.merge` :
         Merge multiple molecular systems into one.
+
 
     Examples
     --------
@@ -100,9 +97,10 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     >>> msm.append_structures(molsys_A, molsys_B)
     >>> msm.get(molsys_A, n_structures=True)
     2
-    
+
+
     .. admonition:: Tutorial with more examples
-    
+
        See the following tutorial for a practical demonstration of how to use this function,
        along with additional examples: :ref:`Tutorial_Append_structures`.
 

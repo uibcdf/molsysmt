@@ -6,15 +6,17 @@ def copy(item):
     """
     Creating a copy of an item of form molsysmt.StructuresDict.
 
+
     Parameters
     ----------
-    item : molsysmt.StructuresDict
-        Source item in molsysmt.StructuresDict form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     molsysmt.StructuresDict
         Resulting object in molsysmt.StructuresDict form.
+
 
     .. versionadded:: 1.0.0
     """

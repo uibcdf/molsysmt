@@ -2,6 +2,7 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
+import numpy as np
 from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all

@@ -1,13 +1,13 @@
 ---
 summary: No automatic workflow runs the test suite on push
 issue: uibcdf/molsysmt#171
-status: open
+status: resolved
 opened: 2026-08-18
-closed:
+closed: 2026-08-18
 verification: measured
 area: [ci, tests]
 guard:
-normative:
+normative: devguide/release_gate.md
 blocked_by: []
 supersedes: []
 ---

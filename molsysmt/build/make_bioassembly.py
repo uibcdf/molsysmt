@@ -14,34 +14,26 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
     the bioassembly transformation matrices stored in the molecular system, applies
     them, and returns the fully assembled system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        Must contain bioassembly metadata (rotations, translations, and chain
-        indices) accessible via ``get(molecular_system, bioassembly=True)``.
-
-    bioassembly : str or None, default None
-        Name/key of the bioassembly to construct. If None, the first available
-        bioassembly is used. If a string, the corresponding entry from the
-        bioassembly metadata dictionary is selected.
-
-    structure_indices : int or list of int, default 0
-        Index or indices of the structure frames from which the asymmetric unit
-        is extracted before applying bioassembly transformations.
-
-    to_form : str or None, default None
-        Target form for the output molecular system. If None, the form of the
-        input ``molecular_system`` is used.
-
-    skip_digestion : bool, default False
-        If True, argument digestion is skipped (intended for internal use).
+        Molecular system in any supported MolSysMT format.
+    bioassembly : object, default=None
+        Argument bioassembly.
+    structure_indices : int, list, tuple, or numpy.ndarray, default=0
+        Structure indices (0-based) to include or process.
+    to_form : object, default=None
+        Argument to_form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system
         The biological assembly as a merged molecular system in the form specified
         by ``to_form`` (or in the same form as the input if ``to_form`` is None).
+
 
     Raises
     ------
@@ -50,12 +42,14 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
         transformation operators (heterogeneous assemblies), which is not yet
         supported.
 
+
     Notes
     -----
     Each transformation in the bioassembly consists of a rotation matrix and a
     translation vector. The function extracts the relevant chains, applies each
     rotation and translation in sequence, and merges all transformed copies into
     a single molecular system.
+
 
     .. versionadded:: 1.0.0
     """

@@ -7,11 +7,15 @@ def are_multiple_molecular_systems(molecular_systems):
     This function verifies that every element in the given container is a valid
     molecular system in one of the supported forms recognized by MolSysMT.
 
+
+
+
+
+
     Parameters
     ----------
-    molecular_systems : list or tuple of molecular systems
-        Container to check. Each item must be in one of the
-        :ref:`supported forms <Introduction_Forms>`.
+    molecular_systems : object
+        Argument molecular_systems.
 
     Returns
     -------
@@ -19,15 +23,30 @@ def are_multiple_molecular_systems(molecular_systems):
         `True` if (i) the input is a list or tuple, (ii) it is not empty, and
         (iii) all items are valid molecular systems. `False` otherwise.
 
+
+
+
+
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - See :func:`molsysmt.basic.is_a_molecular_system` to validate single objects.
 
+
+
+
+
+
     See Also
     --------
     :func:`molsysmt.basic.is_a_molecular_system`
         Check whether a single object is a valid molecular system.
+
+
+
+
+
 
     Examples
     --------
@@ -42,6 +61,11 @@ def are_multiple_molecular_systems(molecular_systems):
     False
     >>> msm.are_multiple_molecular_systems(A)  # not a list/tuple
     False
+
+
+
+
+
 
     .. admonition:: Tutorial with more examples
 

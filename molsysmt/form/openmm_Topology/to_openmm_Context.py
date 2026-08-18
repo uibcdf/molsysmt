@@ -8,40 +8,41 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AM
     """
     Converting from openmm.Topology to openmm.Context.
 
+
     Parameters
     ----------
-    item : openmm.Topology
-        Source item in openmm.Topology form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    forcefield : object
-        Argument forcefield.
-    water_model : object
-        Argument water_model.
-    implicit_solvent : object
-        Argument implicit_solvent.
-    non_bonded_method : object
+    coordinates : object, default=None
+        Argument coordinates.
+    forcefield : str, default='AMBER14'
+        Force field parameter identifier or name.
+    water_model : str, default=None
+        Water model parameter identifier (e.g., 'TIP3P').
+    implicit_solvent : str, default=None
+        Implicit solvent model name if applicable.
+    non_bonded_method : object, default='no cutoff'
         Argument non_bonded_method.
-    constraints : object
+    constraints : object, default='hbonds'
         Argument constraints.
-    switch_distance : object
+    switch_distance : object, default=None
         Argument switch_distance.
-    dispersion_correction : object
+    dispersion_correction : object, default=False
         Argument dispersion_correction.
-    ewald_error_tolerance : object
+    ewald_error_tolerance : object, default=0.0005
         Argument ewald_error_tolerance.
-    integrator : object
+    integrator : object, default='Langevin'
         Argument integrator.
-    temperature : object
+    temperature : object, default=None
         Argument temperature.
-    friction : object
+    friction : object, default='1.0/picoseconds'
         Argument friction.
-    time_step : object
+    time_step : object, default='2 femtoseconds'
         Argument time_step.
-    platform : object
-        Argument platform.
+    platform : str, default='CUDA'
+        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -49,6 +50,7 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None, forcefield='AM
     -------
     openmm.Context
         Resulting object in openmm.Context form.
+
 
     .. versionadded:: 1.0.0
     """

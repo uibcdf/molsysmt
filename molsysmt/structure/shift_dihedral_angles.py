@@ -17,44 +17,34 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
     All covalent-block detection and PBC handling are delegated to
     ``set_dihedral_angles``.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    dihedral_quartets : list, tuple or numpy.ndarray of shape (n_quartets, 4)
-        Global atom indices defining each dihedral angle.  Each row contains
-        four indices ``[i, j, k, l]``.  A 1-D array of length 4 is accepted
-        and automatically reshaped to ``(1, 4)``.
-    shifts : quantity or array-like
-        Angular increments to apply as a PyUnitWizard angle quantity.  Broadcast
-        rules:
-
-        * A scalar float is accepted only when both ``n_quartets`` and
-          ``n_structures`` are 1.
-        * A 1-D array of length ``n_quartets`` is reshaped to
-          ``(n_structures, n_quartets)``.
-        * A 2-D array of shape ``(n_structures, n_quartets)`` is used directly.
-    blocks : list of sets or None, default None
-        Pre-computed covalent blocks passed through to ``set_dihedral_angles``.
-        When ``None`` the blocks are computed on-the-fly.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which the operation is performed.
-    pbc : bool, default True
-        Apply minimum-image convention when the system has a periodic box.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is
-        returned.  If ``False`` a new copy is returned with the updated
-        coordinates.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for the dihedral rotation kernels.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+        Molecular system in any supported MolSysMT format.
+    dihedral_quartets : object, default=None
+        Argument dihedral_quartets.
+    shifts : object, default=None
+        Argument shifts.
+    blocks : object, default=None
+        Argument blocks.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    pbc : bool, default=True
+        Whether to take periodic boundary conditions into account.
+    in_place : object, default=False
+        Argument in_place.
+    engine : object, default='MolSysMT'
+        Argument engine.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system or None
         A new molecular system with the shifted dihedral angles when
         ``in_place=False``; ``None`` when ``in_place=True``.
+
 
     Raises
     ------
@@ -65,6 +55,7 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
     ArgumentLengthError
         If a scalar ``shifts`` value is provided but there is more than one
         frame or quartet.
+
 
     .. versionadded:: 1.0.0
     """

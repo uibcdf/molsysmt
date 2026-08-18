@@ -19,10 +19,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form file:xyznpy.
 
+
     Parameters
     ----------
-    item : file:xyznpy
-        Source item in file:xyznpy form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -30,6 +31,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -43,14 +45,15 @@ def get_atom_index_from_atom(
     """
     Getting atom index from atom in form file:xyznpy.
 
+
     Parameters
     ----------
-    item : file:xyznpy
-        Source item in file:xyznpy form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -58,6 +61,7 @@ def get_atom_index_from_atom(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

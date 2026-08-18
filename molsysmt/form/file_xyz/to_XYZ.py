@@ -8,14 +8,15 @@ def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=Fal
     """
     Converting from file:xyz to XYZ.
 
+
     Parameters
     ----------
-    item : file:xyz
-        Source item in file:xyz form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,6 +24,7 @@ def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=Fal
     -------
     XYZ
         Resulting object in XYZ form.
+
 
     .. versionadded:: 1.0.0
     """

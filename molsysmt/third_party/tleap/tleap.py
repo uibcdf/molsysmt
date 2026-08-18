@@ -106,7 +106,7 @@ class TLeap:
         elif extension == ".pdb":
             load_command = "loadPdb"
         else:
-            raise FormatError(f"cannot load format {extension} in tLeap", caller="molsysmt.third_party.tleap.tleap")
+            raise ArgumentError(argument='file_path', message=f"cannot load format {extension} in tLeap", caller="molsysmt.third_party.tleap.tleap")
 
         self.add_commands(f"{unit_name} = {load_command} {local_name}")
         self._input_file_paths[local_name] = file_path
@@ -192,7 +192,7 @@ class TLeap:
             self.add_commands(f"savePDB {unit_name} {local_name}")
 
         else:
-            raise FormatError(f"cannot export format {extension} from tLeap", caller="molsysmt.third_party.tleap.tleap")
+            raise ArgumentError(argument='extension', message=f"cannot export format {extension} from tLeap", caller="molsysmt.third_party.tleap.tleap")
 
     @_sanitize_tleap_unit_name
     def transform(self, unit_name, transformation):

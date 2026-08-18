@@ -10,13 +10,14 @@ def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=
     """
     Setting box to system on form openmm.Topology.
 
+
     Parameters
     ----------
-    item : openmm.Topology
-        Source item in openmm.Topology form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    value : object
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.

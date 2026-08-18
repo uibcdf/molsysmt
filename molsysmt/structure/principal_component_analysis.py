@@ -25,26 +25,29 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
     principal vector that captures the largest mean squared dispersion. The
     function does not project the input trajectory onto those eigenvectors.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms to include in the PCA.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to analyze.
-    weights : array-like, optional
-        Dimensionless weights per atom. Unit weights are used by default.
-    syntax : str, default 'MolSysMT'
-        Selection syntax when using strings.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -55,10 +58,12 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
         Eigenvalues are a quantity with shape
         ``(3*n_atoms,)`` and squared-coordinate units (normally ``nm**2``).
 
+
     Raises
     ------
     NotImplementedMethodError
         If the engine is unsupported.
+
 
     Notes
     -----
@@ -67,10 +72,12 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
     first row captures the largest mean squared dispersion. The output does not
     contain per-structure projections.
 
+
     See Also
     --------
     :func:`molsysmt.structure.get_principal_axes` :
         Compute geometric or inertia principal axes for individual structures.
+
 
     Examples
     --------
@@ -86,6 +93,7 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
     (3, 3)
     >>> msm.pyunitwizard.get_value(eigenvalues, to_unit='nm**2').tolist()
     [1.0, 0.0, 0.0]
+
 
     .. admonition:: Tutorial with more examples
 

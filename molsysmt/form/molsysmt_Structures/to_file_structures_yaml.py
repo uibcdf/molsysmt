@@ -6,16 +6,17 @@ def to_file_structures_yaml(item, output_filename, atom_indices='all', structure
     """
     Converting from molsysmt.Structures to file:structures_yaml.
 
+
     Parameters
     ----------
-    item : molsysmt.Structures
-        Source item in molsysmt.Structures form.
+    item : molecular system
+        Argument item.
     output_filename : str or pathlib.Path
         Output file path for serialization.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,6 +24,7 @@ def to_file_structures_yaml(item, output_filename, atom_indices='all', structure
     -------
     file:structures_yaml
         Resulting object in file:structures_yaml form.
+
 
     .. versionadded:: 1.0.0
     """

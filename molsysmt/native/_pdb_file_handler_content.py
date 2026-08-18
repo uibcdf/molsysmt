@@ -255,7 +255,16 @@ def _parse_bioassemblies(lines, issues):
 
 
 def parse_pdb_content(lines, parse_serial):
-    """Parsing normalized content for the owning PDB handler."""
+    """
+    Parsing normalized content for the owning PDB handler.
+
+    Parameters
+    ----------
+    lines : object
+        Argument lines.
+    parse_serial : object
+        Argument parse_serial.
+    """
 
     normalized_lines = [line.rstrip("\r\n").ljust(80) for line in lines]
     content = PDBContent()

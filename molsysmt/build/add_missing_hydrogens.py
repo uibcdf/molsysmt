@@ -10,26 +10,24 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
     added atoms are positioned using predefined rules for protonation states and
     geometry constraints.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` 
-        to which hydrogens will be added.
-
-    pH : float, default 7.4
-        Approximate pH used to determine the protonation state of ionizable groups.
-
-    engine : {'MolSysMT', 'OpenMM', 'PDBFixer'}, default 'OpenMM'
-        The engine used to perform hydrogen placement. The engine determines
-        residue protonation states and adds atoms accordingly.
+        Molecular system in any supported MolSysMT format.
+    pH : object, default=7.4
+        Argument pH.
+    engine : object, default='OpenMM'
+        Argument engine.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system
         A new molecular system with hydrogens added, returned in the same form
         as the input.
+
 
     Raises
     ------
@@ -42,6 +40,7 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
     EngineError
         Raised if the selected engine fails to perform hydrogen addition.
 
+
     Notes
     -----
     Hydrogen atoms are added based on standard residue templates and general
@@ -50,6 +49,7 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
 
     The list of supported molecular systems' forms is available at:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
+
 
     See Also
     --------
@@ -61,6 +61,7 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
 
     :func:`molsysmt.basic.contains`
         Check for the presence of specific atoms or molecules.
+
 
     Examples
     --------
@@ -74,9 +75,10 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
     >>> msm.build.has_hydrogens(molsys)
     True
 
+
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:  
+       Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Build > Add missing hydrogens <Tutorial_Add_missing_hydrogens>`
 
     .. versionadded:: 1.0.0

@@ -8,19 +8,21 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
     """
     Building a box matrix from lengths and angles.
 
+
     Parameters
     ----------
-    box_lengths : quantity
-        Box edge lengths (a, b, c) with units.
-    box_angles : quantity, optional
-        Box angles (alpha, beta, gamma) with units. If None, 90 degrees are assumed.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+    box_lengths : object
+        Argument box_lengths.
+    box_angles : object, default=None
+        Argument box_angles.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         Box matrix of shape (3, 3) with the same length units as the input.
+
 
     .. versionadded:: 1.0.0
     """

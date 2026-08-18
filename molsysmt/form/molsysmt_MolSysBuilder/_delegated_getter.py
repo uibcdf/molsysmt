@@ -7,6 +7,7 @@ def make_delegated_getter(name, target, component):
     """
     Performing make delegated getter on form molsysmt.MolSysBuilder.
 
+
     Parameters
     ----------
     name : object
@@ -20,6 +21,7 @@ def make_delegated_getter(name, target, component):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

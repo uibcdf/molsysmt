@@ -18,12 +18,13 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting formal charge from atom in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -31,6 +32,7 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -43,12 +45,13 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting partial charge from atom in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -56,6 +59,7 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -68,12 +72,13 @@ def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting atom ff type from atom in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -81,6 +86,7 @@ def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -95,10 +101,11 @@ def get_formal_charge_from_system(item, skip_digestion=False):
     """
     Getting formal charge from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -106,6 +113,7 @@ def get_formal_charge_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -117,10 +125,11 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     """
     Getting partial charge from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -128,6 +137,7 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -139,10 +149,11 @@ def get_atom_ff_type_from_system(item, skip_digestion=False):
     """
     Getting atom ff type from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -150,6 +161,7 @@ def get_atom_ff_type_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -162,10 +174,11 @@ def get_forcefield_from_system(item, skip_digestion=False):
     """
     Getting forcefield from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -173,6 +186,7 @@ def get_forcefield_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -185,10 +199,11 @@ def get_non_bonded_method_from_system(item, skip_digestion=False):
     """
     Getting non bonded method from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -196,6 +211,7 @@ def get_non_bonded_method_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -208,10 +224,11 @@ def get_cutoff_distance_from_system(item, skip_digestion=False):
     """
     Getting cutoff distance from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -219,6 +236,7 @@ def get_cutoff_distance_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -231,10 +249,11 @@ def get_switch_distance_from_system(item, skip_digestion=False):
     """
     Getting switch distance from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -242,6 +261,7 @@ def get_switch_distance_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -254,10 +274,11 @@ def get_dispersion_correction_from_system(item, skip_digestion=False):
     """
     Getting dispersion correction from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -265,6 +286,7 @@ def get_dispersion_correction_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -277,10 +299,11 @@ def get_ewald_error_tolerance_from_system(item, skip_digestion=False):
     """
     Getting ewald error tolerance from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -288,6 +311,7 @@ def get_ewald_error_tolerance_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -300,10 +324,11 @@ def get_hydrogen_mass_from_system(item, skip_digestion=False):
     """
     Getting hydrogen mass from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -311,6 +336,7 @@ def get_hydrogen_mass_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -323,10 +349,11 @@ def get_constraints_from_system(item, skip_digestion=False):
     """
     Getting constraints from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -334,6 +361,7 @@ def get_constraints_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -346,10 +374,11 @@ def get_flexible_constraints_from_system(item, skip_digestion=False):
     """
     Getting flexible constraints from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -357,6 +386,7 @@ def get_flexible_constraints_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -369,10 +399,11 @@ def get_water_model_from_system(item, skip_digestion=False):
     """
     Getting water model from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -380,6 +411,7 @@ def get_water_model_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -392,10 +424,11 @@ def get_rigid_water_from_system(item, skip_digestion=False):
     """
     Getting rigid water from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -403,6 +436,7 @@ def get_rigid_water_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -415,10 +449,11 @@ def get_implicit_solvent_from_system(item, skip_digestion=False):
     """
     Getting implicit solvent from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -426,6 +461,7 @@ def get_implicit_solvent_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -438,10 +474,11 @@ def get_solute_dielectric_from_system(item, skip_digestion=False):
     """
     Getting solute dielectric from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -449,6 +486,7 @@ def get_solute_dielectric_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -461,10 +499,11 @@ def get_solvent_dielectric_from_system(item, skip_digestion=False):
     """
     Getting solvent dielectric from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -472,6 +511,7 @@ def get_solvent_dielectric_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -484,10 +524,11 @@ def get_salt_concentration_from_system(item, skip_digestion=False):
     """
     Getting salt concentration from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -495,6 +536,7 @@ def get_salt_concentration_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -507,10 +549,11 @@ def get_kappa_from_system(item, skip_digestion=False):
     """
     Getting kappa from system in form molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSys
-        Source item in molsysmt.MolSys form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -518,6 +561,7 @@ def get_kappa_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

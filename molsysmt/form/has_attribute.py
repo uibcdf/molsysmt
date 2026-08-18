@@ -9,24 +9,22 @@ def has_attribute(form, attribute, skip_digestion=False):
     otherwise.
 
 
+
     Parameters
     ----------
-
-    form : str, list or tuple of str
-        Any of :ref:`the supported forms <Introduction_Forms>` by MolSysMT, or a list of them.
-
-    attribute: str
-        The attribute name to be checked in the molecular system.
-
+    form : object
+        Argument form.
+    attribute : object
+        Argument attribute.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
-
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     bool
         The function returns a boolean value reporting whether or not the attribute is found in the
         molecular system.
+
 
 
     .. versionadded:: 0.8.3
@@ -70,8 +68,6 @@ def has_attribute(form, attribute, skip_digestion=False):
 
        Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Form > Has attribute <UTF_Has_attribute>`.
-
-
     """
 
     from . import _dict_modules

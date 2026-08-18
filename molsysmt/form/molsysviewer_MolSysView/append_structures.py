@@ -10,30 +10,31 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
     """
     Appending coordinate structures to an item of form molsysviewer.MolSysView.
 
+
     Parameters
     ----------
-    item : molsysviewer.MolSysView
-        Source item in molsysviewer.MolSysView form.
-    structure_id : object
-        Structure identifiers.
-    time : numpy.ndarray or quantity
-        Simulation time coordinates in picoseconds.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    velocities : object
+    item : molecular system
+        Argument item.
+    structure_id : object, default=None
+        Argument structure_id.
+    time : object, default=None
+        Argument time.
+    coordinates : object, default=None
+        Argument coordinates.
+    velocities : object, default=None
         Argument velocities.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
-    temperature : object
+    box : object, default=None
+        Argument box.
+    temperature : object, default=None
         Argument temperature.
-    potential_energy : object
+    potential_energy : object, default=None
         Argument potential_energy.
-    kinetic_energy : object
+    kinetic_energy : object, default=None
         Argument kinetic_energy.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -41,6 +42,7 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
     -------
     molsysviewer.MolSysView
         Resulting object in molsysviewer.MolSysView form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -3,15 +3,17 @@ def available_platforms(verbose=True):
     """
     Listing available OpenMM compute platform backend names on the host machine.
 
+
     Parameters
     ----------
-    verbose : bool, default=True
-        If True, prints platform speeds. If False, returns platform names.
+    verbose : object, default=True
+        Argument verbose.
 
     Returns
     -------
     list of str
         List of available platform names (e.g. `['Reference', 'CPU', 'CUDA', 'OpenCL']`).
+
 
     .. versionadded:: 1.0.0
     """
@@ -38,10 +40,12 @@ def loading_failures():
     """
     Retrieving OpenMM platform plugin loading failure messages.
 
+
     Returns
     -------
     tuple of str
         Error strings reported when attempting to dynamically load platform plugins.
+
 
     .. versionadded:: 1.0.0
     """

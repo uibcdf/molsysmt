@@ -4,15 +4,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form file:crd.
 
+
     Parameters
     ----------
-    item : file:crd
-        Source item in file:crd form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

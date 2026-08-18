@@ -18,43 +18,35 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
     that belong to specified residue types (e.g., `CYS`) and lie within a covalent bond distance.
     These S–S bridges are returned as atom index pairs.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>` to be analyzed.
-
-    selection : index, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of atoms to be considered for disulfide bond detection. This can be a list, tuple, or array
-        of atom indices (0-based), or a string parsed using the specified selection syntax.
-
-    structure_index : int, default 0
-        Index of the structure (frame) in which disulfide bonds will be searched.
-
-    max_bond_length : float or str with units, optional
-        Maximum distance between two sulfur atoms to be considered a disulfide bond. If not provided,
-        a default threshold (typically 2.05 Å) will be used.
-
-    group_names : list of str, default ['CYS']
-        List of residue names to be considered as potential cysteine-like residues forming disulfide bonds.
-
-    pbc : bool, default True
-        Whether to apply periodic boundary conditions when computing distances.
-
-    syntax : str, default 'MolSysMT'
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_index : object, default=0
+        Argument structure_index.
+    max_bond_length : object, default=None
+        Argument max_bond_length.
+    group_names : object, default=None
+        Argument group_names.
+    pbc : bool, default=True
+        Whether to take periodic boundary conditions into account.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    sorted : bool, default=True
+        Whether to sort the returned bonded atom pairs.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
-        :ref:`Supported syntax <Introduction_Selection>` used to parse the `selection` argument (if string).
-
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Engine used to perform the analysis. Currently only 'MolSysMT' is supported.
-
-    sorted : bool, default True
-        Whether to sort the indices in each pair (i.e., smaller index first).
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     numpy.ndarray of shape (n, 2)
         Array of atom index pairs (each a disulfide bond) detected in the selected atoms and structure.
+
 
     Raises
     ------
@@ -64,11 +56,13 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
     ArgumentError
         If input values do not meet required conditions.
 
+
     Notes
     -----
     - Sulfur atoms are identified based on element type and filtered by group name (e.g., `'CYS'`).
     - This function assumes that disulfide bonds are formed between SG atoms of cysteines or equivalent residues.
     - Distance units are internally standardized to nanometers.
+
 
     See Also
     --------
@@ -81,6 +75,7 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
     :func:`molsysmt.build.get_missing_bonds`
         Automatically infer missing covalent bonds.
 
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -89,9 +84,10 @@ def get_disulfide_bonds(molecular_system, selection='all', structure_index=0, ma
     >>> s_s_pairs.shape
     (2, 2)
 
+
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:  
+       Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Build > Get disulfide bonds <Tutorial_Get_disulfide_bonds>`
 
     .. versionadded:: 1.0.0

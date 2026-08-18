@@ -2,15 +2,21 @@ def is_group_type(group_type):
     """
     Checking if a string represents a valid, recognized group type in MolSysMT.
 
+
+
+
     Parameters
     ----------
-    group_type : str
-        String to test.
+    group_type : object
+        Argument group_type.
 
     Returns
     -------
     bool
         True if recognized group type, False otherwise.
+
+
+
 
     .. versionadded:: 1.0.0
     """

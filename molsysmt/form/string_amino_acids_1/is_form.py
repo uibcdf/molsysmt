@@ -2,15 +2,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form string:amino_acids_1.
 
+
     Parameters
     ----------
-    item : string:amino_acids_1
-        Source item in string:amino_acids_1 form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

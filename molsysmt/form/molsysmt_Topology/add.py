@@ -6,14 +6,15 @@ def add(to_item, item, keep_ids=True, skip_digestion=False):
     """
     Adding elements from another item into an item of form molsysmt.Topology.
 
+
     Parameters
     ----------
-    to_item : molsysmt.Topology
-        Target item to modify or add elements to.
-    item : molsysmt.Topology
-        Source item in molsysmt.Topology form.
-    keep_ids : bool, default=True
-        Whether to preserve unique element IDs.
+    to_item : object
+        Argument to_item.
+    item : molecular system
+        Argument item.
+    keep_ids : object, default=True
+        Argument keep_ids.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -21,6 +22,7 @@ def add(to_item, item, keep_ids=True, skip_digestion=False):
     -------
     molsysmt.Topology
         Resulting object in molsysmt.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

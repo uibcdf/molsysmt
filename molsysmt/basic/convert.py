@@ -588,42 +588,25 @@ def convert(molecular_system,
     multiple target forms. Optionally, a subset of atoms and/or structures can be selected using
     `selection` and `structure_indices` before the conversion takes place.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system provided in any of the :ref:`supported forms <Introduction_Forms>`.
-    to_form : str or list of str, default 'molsysmt.MolSys'
-        Target form (or list of forms) for the conversion output. When a list is given,
-        the function returns a list with one converted output per requested form.
-        See :ref:`Supported conversions <Introduction_Supported>`.
-    selection : str, tuple, list or numpy.ndarray, default 'all'
-        Atom selection to apply prior to conversion. Either a 0-based index collection or a
-        selection string parsed according to :ref:`Introduction_Selection`. The default 'all' includes
-        the entire system.
-    structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
-        0-based indices of the structures to include in the conversion. The default 'all' includes all structures.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    strict : bool, default=False
-        Whether to reject the conversion before execution when the semantic
-        preflight identifies supplied semantics that the target cannot preserve.
-    return_report : bool, default=False
-        Whether to return an immutable :class:`molsysmt.ConversionReport`
-        together with the converted object. The conversion preflight runs only
-        when this option or `strict=True` requests it.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
-    **kwargs
-        Additional keyword arguments forwarded to specific conversion handlers when required
-        by a particular input-output path (e.g., topology or box handling options).
+        Molecular system in any supported MolSysMT format.
+    to_form : object, default='molsysmt.MolSys'
+        Argument to_form.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    strict : object, default=False
+        Argument strict.
+    return_report : object, default=False
+        Argument return_report.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -631,6 +614,7 @@ def convert(molecular_system,
         The converted molecular system in the requested `to_form`. If `to_form` is a list,
         a list of converted systems is returned. With `return_report=True`, returns
         ``(output, report)`` or ``(outputs, reports)`` for multiple targets.
+
 
     Raises
     ------
@@ -641,6 +625,7 @@ def convert(molecular_system,
     ArgumentError
         If any input argument is invalid or inconsistent, including an
         out-of-range structure index.
+
 
     Notes
     -----
@@ -658,6 +643,7 @@ def convert(molecular_system,
     - Ordinary conversions do not construct a preflight report. This keeps the
       reporting layer opt-in when neither `strict` nor `return_report` is used.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select`
@@ -666,6 +652,7 @@ def convert(molecular_system,
         Retrieve the form of a molecular system.
     :func:`molsysmt.basic.extract`
         Extract a subset of a molecular system.
+
 
     Examples
     --------
@@ -679,6 +666,7 @@ def convert(molecular_system,
     >>> _, report = msm.convert(molsys_B, to_form='molsysmt.Topology', return_report=True)
     >>> report.outcome in {'exact', 'equivalent', 'lossy'}
     True
+
 
     .. admonition:: Tutorial with more examples
 

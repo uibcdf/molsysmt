@@ -6,12 +6,13 @@ def merge(items, group_indices='all', skip_digestion=False):
     """
     Merging multiple items into a single item of form string:amino_acids_3.
 
+
     Parameters
     ----------
-    items : list of object
-        List of items to merge.
-    group_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Group indices (0-based) to include.
+    items : object
+        Argument items.
+    group_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Argument group_indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -19,6 +20,7 @@ def merge(items, group_indices='all', skip_digestion=False):
     -------
     string:amino_acids_3
         Resulting object in string:amino_acids_3 form.
+
 
     .. versionadded:: 1.0.0
     """

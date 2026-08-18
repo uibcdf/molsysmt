@@ -2,15 +2,17 @@ def has_atoms_with_alternate_locations(filename):
     """
     Performing has atoms with alternate locations on form file:pdb.
 
+
     Parameters
     ----------
-    filename : object
+    filename : str or pathlib.Path
         Argument filename.
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

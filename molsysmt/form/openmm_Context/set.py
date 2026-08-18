@@ -15,13 +15,14 @@ def set_coordinates_to_atom(item, indices='all', value=None, skip_digestion=Fals
     """
     Setting coordinates to atom on form openmm.Context.
 
+
     Parameters
     ----------
-    item : openmm.Context
-        Source item in openmm.Context form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    value : object
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -49,11 +50,12 @@ def set_coordinates_to_system(item, value=None, skip_digestion=False):
     """
     Setting coordinates to system on form openmm.Context.
 
+
     Parameters
     ----------
-    item : openmm.Context
-        Source item in openmm.Context form.
-    value : object
+    item : molecular system
+        Argument item.
+    value : object, default=None
         Argument value.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.

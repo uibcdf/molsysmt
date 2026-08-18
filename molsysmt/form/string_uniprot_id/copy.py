@@ -5,10 +5,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form string:uniprot_id.
 
+
     Parameters
     ----------
-    item : string:uniprot_id
-        Source item in string:uniprot_id form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def copy(item, skip_digestion=False):
     -------
     string:uniprot_id
         Resulting object in string:uniprot_id form.
+
 
     .. versionadded:: 1.0.0
     """

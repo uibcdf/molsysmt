@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form openmm.CharmmPsfFile.
 
+
     Parameters
     ----------
-    item : openmm.CharmmPsfFile
-        Source item in openmm.CharmmPsfFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     openmm.CharmmPsfFile
         Resulting object in openmm.CharmmPsfFile form.
+
 
     .. versionadded:: 1.0.0
     """

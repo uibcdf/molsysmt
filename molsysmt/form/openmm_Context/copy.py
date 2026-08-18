@@ -7,15 +7,17 @@ def copy(item):
     """
     Creating a copy of an item of form openmm.Context.
 
+
     Parameters
     ----------
-    item : openmm.Context
-        Source item in openmm.Context form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     openmm.Context
         Resulting object in openmm.Context form.
+
 
     .. versionadded:: 1.0.0
     """

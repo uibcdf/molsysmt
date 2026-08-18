@@ -5,15 +5,19 @@ def small_molecule_is_amino_acid(molecular_system, group_name):
     """
     Checking whether a small molecule residue is categorized as an amino acid.
 
+
     Parameters
     ----------
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
     group_name : str
-        Group or residue name.
+        Name of the chemical group (residue).
 
     Returns
     -------
     bool
         True if the group is an amino acid, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

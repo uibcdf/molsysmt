@@ -11,21 +11,21 @@ def get_secondary_structure(molecular_system, selection='all', structure_indices
     """
     Secondary structure assignment per residue over one or more structures.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Residue (group) selection. Non-protein residues are assigned 'NA'.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to include.
-    simplified : bool, default True
-        If True, use the simplified 3-category DSSP scheme ('H', 'E', 'C').
-        If False, use the full 8-category DSSP scheme.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    engine : {'MDTraj'}, default 'MDTraj'
-        Backend used for the DSSP computation.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    simplified : object, default=True
+        Argument simplified.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MDTraj'
+        Argument engine.
 
     Returns
     -------
@@ -51,10 +51,12 @@ def get_secondary_structure(molecular_system, selection='all', structure_indices
         - ``' '`` : Loop or irregular element.
         - ``'NA'`` : Non-protein residue.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported engine is requested.
+
 
     .. versionadded:: 1.0.0
     """

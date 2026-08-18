@@ -21,18 +21,23 @@ def get_acceptor_atoms(molecular_system, selection='all', inclusion_rules=None,
     """
     Identify acceptor atoms within a molecular system for hydrogen-bond detection.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atom selection to filter candidates.
-    inclusion_rules, exclusion_rules : list of str or None
-        Selection rules to include or exclude atoms.
-    default_inclusion_rules, default_exclusion_rules : bool, default True
-        Whether to apply built-in acceptor rules.
-    syntax : str, default 'MolSysMT'
-        Selection syntax for string rules.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    inclusion_rules : dict, default=None
+        Custom inclusion rules dictionary for hydrogen bond detection.
+    exclusion_rules : dict, default=None
+        Custom exclusion rules dictionary for hydrogen bond detection.
+    default_inclusion_rules : bool, default=True
+        Whether to apply default chemical inclusion rules.
+    default_exclusion_rules : bool, default=True
+        Whether to apply default chemical exclusion rules.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------

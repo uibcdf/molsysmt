@@ -1,17 +1,19 @@
 # This method must not be digested
 def is_file(item_or_form):
-    """Whether a molecular system, or a form name, is one of the file forms.
+    """
+    Whether a molecular system, or a form name, is one of the file forms.
+
 
     Parameters
     ----------
-    item_or_form : object or str or pathlib.Path
-        A molecular system, the path of a file, or the name of a form in any
-        capitalization.
+    item_or_form : object
+        Argument item_or_form.
 
     Returns
     -------
     bool
         True when the input is, or names, a form whose items are files.
+
 
     Notes
     -----

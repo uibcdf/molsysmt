@@ -2,15 +2,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form openff.Topology.
 
+
     Parameters
     ----------
-    item : openff.Topology
-        Source item in openff.Topology form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

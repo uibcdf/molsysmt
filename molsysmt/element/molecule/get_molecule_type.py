@@ -9,27 +9,29 @@ def get_molecule_type(molecular_system, element='molecule', selection='all',
     """
     Getting molecule types from a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
-        Structural element level at which the molecule types are returned.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='molecule'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of elements to query.
+        Selection string or boolean/integer array specifying elements.
     redefine_indices : bool, default=False
-        Whether to recalculate molecule indices locally prior to type assignment.
-    redefine_types : bool, default=False
-        Whether to re-infer molecule types from constituent components.
+        Whether to reassign contiguous 0-based indices.
+    redefine_types : object, default=False
+        Argument redefine_types.
     syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate `selection`.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     list of str
         List of molecule type classifications ('protein', 'dna', 'water', 'small molecule', etc.).
+
 
     .. versionadded:: 1.0.0
     """

@@ -8,21 +8,31 @@ def add_harmonic_bond_force(molecular_system=None, atom_pair=None,
     """
     Adding a HarmonicBondForce restraint between specified atom pairs in an OpenMM System.
 
+
     Parameters
     ----------
-    system : openmm.System
-        Target OpenMM system to modify.
-    bonded_atoms : list of tuple of int
-        List of atom index pairs `(atom_1, atom_2)` to restrain.
-    length : quantity
-        Equilibrium bond distance with length units (e.g. `nanometer`).
-    k : quantity
-        Harmonic force constant with energy/length^2 units (e.g. `kJ/(mol*nm^2)`).
+    molecular_system : molecular system, default=None
+        Molecular system in any supported MolSysMT format.
+    atom_pair : object, default=None
+        Argument atom_pair.
+    force_constant : object, default='1000 kilojoules_per_mole/nm**2'
+        Argument force_constant.
+    bond_length : object, default=None
+        Argument bond_length.
+    pbc : bool, default=False
+        Whether to take periodic boundary conditions into account.
+    return_force : object, default=False
+        Argument return_force.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.HarmonicBondForce
         The added harmonic bond force instance.
+
 
     .. versionadded:: 1.0.0
     """

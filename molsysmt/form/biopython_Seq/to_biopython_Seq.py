@@ -5,13 +5,14 @@ def to_biopython_Seq(item, group_indices='all', copy_if_all=True, skip_digestion
     """
     Converting from biopython.Seq to biopython.Seq.
 
+
     Parameters
     ----------
-    item : biopython.Seq
-        Source item in biopython.Seq form.
-    group_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Group indices (0-based) to include.
-    copy_if_all : object
+    item : molecular system
+        Argument item.
+    group_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Argument group_indices.
+    copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def to_biopython_Seq(item, group_indices='all', copy_if_all=True, skip_digestion
     -------
     biopython.Seq
         Resulting object in biopython.Seq form.
+
 
     .. versionadded:: 1.0.0
     """

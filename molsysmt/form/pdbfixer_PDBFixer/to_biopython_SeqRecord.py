@@ -5,11 +5,12 @@ def to_biopython_SeqRecord(item, atom_indices='all', skip_digestion=False):
     """
     Converting from pdbfixer.PDBFixer to biopython.SeqRecord.
 
+
     Parameters
     ----------
-    item : pdbfixer.PDBFixer
-        Source item in pdbfixer.PDBFixer form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -19,14 +20,15 @@ def to_biopython_SeqRecord(item, atom_indices='all', skip_digestion=False):
     biopython.SeqRecord
         Resulting object in biopython.SeqRecord form.
 
+
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.string_aminoacids1.to_string_aminoacids1 import to_string_aminoacids1
-    from molsysmt.form.string_aminoacids1.to_biopython_SeqRecord import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
+    from molsysmt.form.string_amino_acids_1.to_string_amino_acids_1 import to_string_amino_acids_1 as pdbfixer_PDBFixer_to_string_amino_acids_1
+    from molsysmt.form.string_amino_acids_1.to_biopython_SeqRecord import to_biopython_SeqRecord as string_amino_acids_1_to_biopython_SeqRecord
 
-    tmp_item = pdbfixer_PDBFixer_to_string_aminoacids1(item, atom_indices=atom_indices, skip_digestion=True)
-    tmp_item = string_aminoacids1_to_biopython_SeqRecord(tmp_item, skip_digestion=True)
+    tmp_item = pdbfixer_PDBFixer_to_string_amino_acids_1(item, atom_indices=atom_indices, skip_digestion=True)
+    tmp_item = string_amino_acids_1_to_biopython_SeqRecord(tmp_item, skip_digestion=True)
 
     return tmp_item
 

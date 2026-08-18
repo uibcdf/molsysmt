@@ -8,11 +8,12 @@ def to_file_smi(item, output_filename=None, skip_digestion=False):
     """
     Converting from rdkit.Mol to file:smi.
 
+
     Parameters
     ----------
-    item : rdkit.Mol
-        Source item in rdkit.Mol form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -21,6 +22,7 @@ def to_file_smi(item, output_filename=None, skip_digestion=False):
     -------
     file:smi
         Resulting object in file:smi form.
+
 
     .. versionadded:: 1.0.0
     """

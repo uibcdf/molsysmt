@@ -9,12 +9,13 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting atom index from atom in form openmm.AmberInpcrdFile.
 
+
     Parameters
     ----------
-    item : openmm.AmberInpcrdFile
-        Source item in openmm.AmberInpcrdFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -22,6 +23,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -37,10 +39,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form openmm.AmberInpcrdFile.
 
+
     Parameters
     ----------
-    item : openmm.AmberInpcrdFile
-        Source item in openmm.AmberInpcrdFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -48,6 +51,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -33,32 +33,23 @@ def info(molecular_system,
     level and `selection`. The columns returned depend on the chosen `element` and on the attributes
     available in the underlying form(s).
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, default 'system'
-        Hierarchical level for which the summary is generated.
-    selection : int, tuple, list, numpy.ndarray or str, default 'all'
-        Selection of elements at the specified level. It can be a 0-based index collection or
-        a selection string parsed according to :ref:`Introduction_Selection`.
-    structure_indices : int, list, tuple, numpy.ndarray or str, default 'all'
-        Indices of the structures to be considered if the system summary is requested.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    output_type : {'styler', 'dataframe', 'dictionary'}, default 'styler'
-        The type of the output object. 'styler' returns a Pandas Styler (best for notebooks),
-        'dataframe' returns a raw Pandas DataFrame, and 'dictionary' returns a Python dict.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='system'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    output_type : object, default='styler'
+        Argument output_type.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -67,6 +58,7 @@ def info(molecular_system,
         `element` and on the attributes exposed by the input form(s). Its HTML table carries
         the `dataframe` class, the same one `DataFrame.to_html()` emits.
 
+
     Raises
     ------
     NotSupportedFormError
@@ -74,6 +66,7 @@ def info(molecular_system,
     ArgumentError
         If any input argument is invalid or inconsistent, including an
         out-of-range structure index.
+
 
     Notes
     -----
@@ -87,6 +80,7 @@ def info(molecular_system,
       documentation themes style it as they style any other Pandas table. Without it the table
       matches no theme rule and renders unstyled once compiled to HTML.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select`
@@ -95,6 +89,7 @@ def info(molecular_system,
         Retrieve values of attributes from a molecular system.
     :func:`molsysmt.basic.get_form`
         Retrieve the form of a molecular system.
+
 
     Examples
     --------
@@ -111,6 +106,7 @@ def info(molecular_system,
     >>> # If you are working in a Jupyter notebook, you can simply run:
     >>> # msm.info(molsys, element='entity')
     >>> # And the table will be displayed in a nicely formatted style by Pandas.
+
 
     .. admonition:: Tutorial with more examples
 

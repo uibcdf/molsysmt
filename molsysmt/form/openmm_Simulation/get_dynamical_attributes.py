@@ -14,10 +14,11 @@ def get_integrator_from_system(item, skip_digestion=False):
     """
     Getting integrator from system in form openmm.Simulation.
 
+
     Parameters
     ----------
-    item : openmm.Simulation
-        Source item in openmm.Simulation form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -25,6 +26,7 @@ def get_integrator_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -39,10 +41,11 @@ def get_friction_from_system(item, skip_digestion=False):
     """
     Getting friction from system in form openmm.Simulation.
 
+
     Parameters
     ----------
-    item : openmm.Simulation
-        Source item in openmm.Simulation form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -50,6 +53,7 @@ def get_friction_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

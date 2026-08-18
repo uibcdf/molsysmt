@@ -2,15 +2,17 @@ def is_element(element):
     """
     Checking if a string represents a valid structural element level in MolSysMT.
 
+
     Parameters
     ----------
     element : str
-        String to test.
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
 
     Returns
     -------
     bool
         True if element is in ('atom', 'group', 'component', 'molecule', 'chain', 'entity', 'bond'), False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

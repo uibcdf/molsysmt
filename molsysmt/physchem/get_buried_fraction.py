@@ -13,23 +13,21 @@ def get_buried_fraction(molecular_system, element='group', selection='all', defi
     reference dataset of folded proteins.  Values are looked up from a static
     scale indexed by residue name.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'group'}, default 'group'
-        Hierarchical element for which the buried fraction is returned.
-        Currently only ``'group'`` (i.e. residue) is supported.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of groups to include in the output.
-    definition : {'janin'}, default 'janin'
-        Buried-fraction scale to use.  Currently the only supported scale is
-        ``'janin'``, which reports the molar fraction (%) of each residue
-        type among 2001 buried residues.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    element : str, default='group'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    definition : object, default='janin'
+        Argument definition.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -37,10 +35,12 @@ def get_buried_fraction(molecular_system, element='group', selection='all', defi
         Buried fraction values (in %) for each selected group, in the same
         order as the selection.  Length ``n_groups``.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
+
 
     Notes
     -----
@@ -48,6 +48,7 @@ def get_buried_fraction(molecular_system, element='group', selection='all', defi
     among 2001 buried residues from a structural database, as described in:
 
         Janin J. *Nature* 277:491–492 (1979).
+
 
     .. versionadded:: 1.0.0
     """

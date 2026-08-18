@@ -16,10 +16,11 @@ def to_molsysmt_StructuresDict(item, skip_digestion=False):
     """
     Converting from file:structures_yaml to molsysmt.StructuresDict.
 
+
     Parameters
     ----------
-    item : file:structures_yaml
-        Source item in file:structures_yaml form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -27,6 +28,7 @@ def to_molsysmt_StructuresDict(item, skip_digestion=False):
     -------
     molsysmt.StructuresDict
         Resulting object in molsysmt.StructuresDict form.
+
 
     .. versionadded:: 1.0.0
     """

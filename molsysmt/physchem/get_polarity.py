@@ -13,25 +13,21 @@ def get_polarity(molecular_system, element='group', selection = 'all', syntax='M
     quantifies the tendency of the side chain to participate in electrostatic
     interactions and hydrogen bonding.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'group'}, default 'group'
-        Hierarchical element for which polarity is returned.  Only ``'group'``
-        (residue level) is currently supported.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of groups to include in the output.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    definition : {'grantham', 'zimmerman'}, default 'grantham'
-        Polarity scale to use.
-
-        * ``'grantham'``: side-chain polarity from Grantham (1974), used in
-          the original amino acid distance metric.
-        * ``'zimmerman'``: polarity scale from Zimmerman et al. (1968).
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    element : str, default='group'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    definition : object, default='grantham'
+        Argument definition.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -39,10 +35,12 @@ def get_polarity(molecular_system, element='group', selection = 'all', syntax='M
         Polarity values for each selected group, in the same order as the
         selection.  Length ``n_groups``.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
+
 
     Notes
     -----
@@ -51,6 +49,7 @@ def get_polarity(molecular_system, element='group', selection = 'all', syntax='M
     * ``'grantham'``: Grantham R. *Science* 185:862–864 (1974).
     * ``'zimmerman'``: Zimmerman J.M., Eliezer N., Simha R.
       *J. Theor. Biol.* 21:170–201 (1968).
+
 
     .. versionadded:: 1.0.0
     """

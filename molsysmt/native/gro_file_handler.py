@@ -23,7 +23,14 @@ class GROAtomicCoordinateEntry():
 
 
 def parse(file):
-    """Parse a GRO file-like object into a GROAtomicCoordinateEntry."""
+    """
+    Parse a GRO file-like object into a GROAtomicCoordinateEntry.
+
+    Parameters
+    ----------
+    file : object
+        Argument file.
+    """
 
     gro = GROAtomicCoordinateEntry()
 

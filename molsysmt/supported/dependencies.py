@@ -5,6 +5,7 @@ def dependencies():
     """
     Display a summary of the dependency ecosystem.
 
+
     Returns
     -------
     pandas.io.formats.style.Styler

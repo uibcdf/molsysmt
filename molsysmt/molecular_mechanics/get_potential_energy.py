@@ -8,27 +8,29 @@ def get_potential_energy(molecular_system, selection='all', decomposition=False,
     """
     Calculating the potential energy of a molecular system or selected subsystem.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
+        Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of atoms contributing to the energy evaluation.
-    decomposition : bool, default=False
-        Whether to return individual force group energy contributions as a dictionary.
+        Selection string or boolean/integer array specifying elements.
+    decomposition : object, default=False
+        Argument decomposition.
     platform : str, default='CPU'
-        OpenMM compute platform name (`'Reference'`, `'CPU'`, `'CUDA'`, `'OpenCL'`).
-    engine : str, default='OpenMM'
-        Simulation engine backend used for calculation.
+        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
+    engine : object, default='OpenMM'
+        Argument engine.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity or dict
         Total potential energy in standard units (`kJ/mol`), or dictionary of decomposed energy terms if `decomposition=True`.
+
 
     .. versionadded:: 1.0.0
     """

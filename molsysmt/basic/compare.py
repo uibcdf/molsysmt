@@ -24,59 +24,35 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     If no explicit attributes are provided via keyword arguments, a default set of attributes
     (or those filtered by `attribute_type`) is considered.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        First molecular system to compare. Accepted in any of the
-        :ref:`supported forms <Introduction_Forms>`.
-    molecular_system_2 : molecular system
-        Second molecular system to compare. Accepted in any of the
-        :ref:`supported forms <Introduction_Forms>`.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Elements to include from the first system. Either a selection string following the
-        :ref:`supported syntaxes <Introduction_Selection>` or a 0-based sequence of atom indices.
-    structure_indices : int, list, tuple, numpy.ndarray or 'all', default 'all'
-        0-based indices of structures to include from the first system.
-    selection_2 : str, list, tuple or numpy.ndarray, default 'all'
-        Elements to include from the second system. Same semantics as `selection`.
-    structure_indices_2 : int, list, tuple, numpy.ndarray or 'all', default 'all'
-        0-based indices of structures to include from the second system.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection`/`selection_2` are strings.
-        See :ref:`Introduction_Selection`.
-    rule : {'equal', 'in'}, default 'equal'
-        Comparison rule:
-        * ``'equal'`` — checks that values are numerically or exactly identical (see Notes).
-        * ``'in'`` — planned rule. It is currently not implemented and raises
-          `NotImplementedMethodError`.
-    output_type : {'boolean', 'dictionary'}, default 'boolean'
-        Output format:
-        * ``'boolean'`` — a single `True`/`False` indicating overall success.
-        * ``'dictionary'`` — a per-attribute dictionary with individual results.
-    attribute_type : {'topological', 'structural', 'mechanical', 'all', None}, default None
-        Attribute subset to compare. If `None`, attributes specified in `**kwargs` are used
-        (if any). Otherwise, a default list for the given subset is applied.
-        This is the canonical argument name.
-    include_none : bool, default False
-        Whether to include attributes with `None` values when inferring comparable attributes.
-    redefine_indices : bool, default False
-        Whether to force a recalculation of hierarchical indices (components, molecules, entities)
-        based on current connectivity before performing the comparison.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
-    **kwargs
-        Attribute names to compare as keyword booleans indicating the **expected** outcome
-        under `rule`:
-        * `True` — the rule should hold (e.g., equality expected).
-        * `False` — the negation should hold (e.g., inequality expected).
+        Molecular system in any supported MolSysMT format.
+    molecular_system_2 : object
+        Argument molecular_system_2.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    selection_2 : str, list, tuple, or numpy.ndarray, default='all'
+        Second selection string or boolean/integer array.
+    structure_indices_2 : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) for the second selection.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    rule : object, default='equal'
+        Argument rule.
+    output_type : object, default='boolean'
+        Argument output_type.
+    attribute_type : object, default=None
+        Argument attribute_type.
+    include_none : object, default=False
+        Argument include_none.
+    redefine_indices : bool, default=False
+        Whether to reassign contiguous 0-based indices.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -84,12 +60,14 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         `True`/`False` when `output_type='boolean'`, or a dictionary mapping attribute names
         to booleans when `output_type='dictionary'`.
 
+
     Raises
     ------
     NotSupportedFormError
         If any molecular system is provided in an unsupported form.
     ArgumentError
         If arguments are inconsistent or invalid.
+
 
     Notes
     -----
@@ -100,6 +78,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     - Backward compatibility: the alias `attributes_type` is accepted and normalized
       internally to `attribute_type`.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select` :
@@ -108,6 +87,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         Retrieve attribute values.
     :func:`molsysmt.info` :
         Display a concise system summary.
+
 
     Examples
     --------
@@ -123,6 +103,7 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     True
     >>> msm.compare(A, B, selection='molecule_type=="protein"', n_groups=True)
     True
+
 
     .. admonition:: Tutorial with more examples
 

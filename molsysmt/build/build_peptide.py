@@ -759,25 +759,22 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
     for the resulting system. Optionally, terminal capping groups can be included in the input
     sequence.
 
+
     Parameters
     ----------
-    molecular_system : str or list of str
-        The peptide sequence provided using either three-letter or one-letter amino acid codes.
-        The sequence can also include optional terminal caps such as 'ACE' or 'NME'.
-
-    to_form : str, default='molsysmt.MolSys'
-        Output form of the resulting molecular system. Must be one of the :ref:`supported forms <Introduction_Forms>`.
-
-    engine : {'LEaP', 'MolSysMT'}, default 'LEaP'
-        Engine used to build the peptide.
-        ``'LEaP'`` uses AmberTools and requires ``tleap`` in the environment.
-        ``'MolSysMT'`` builds the peptide using bundled residue templates.
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    to_form : object, default='molsysmt.MolSys'
+        Argument to_form.
+    engine : object, default='LEaP'
+        Argument engine.
 
     Returns
     -------
     molecular system
         A new molecular system representing the fully constructed peptide, including coordinates
         and all relevant topological information.
+
 
     Raises
     ------
@@ -790,6 +787,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
     NotSupportedFormError
         Raised if the output form is not recognized or supported.
 
+
     Notes
     -----
     - The sequence must contain amino acid and/or capping group codes recognized by the selected engine.
@@ -797,6 +795,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
       when the same characters are also valid SMILES.
     - Terminal caps can be specified explicitly by using residue names such as 'ACE' (N-terminus) and 'NME' (C-terminus).
     - The resulting structure is built in vacuum and can be subsequently solvated using :func:`molsysmt.build.solvate`.
+
 
     See Also
     --------
@@ -812,6 +811,7 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
     :func:`molsysmt.basic.view`
         Visualize the resulting molecular system in a Jupyter notebook.
 
+
     Examples
     --------
     >>> import molsysmt as msm
@@ -819,9 +819,10 @@ def build_peptide(molecular_system, to_form='molsysmt.MolSys', engine='LEaP'):
     >>> msm.basic.get(molsys, n_groups=True)
     4
 
+
     .. admonition:: User guide
 
-       Follow this link for a tutorial on how to work with this function:  
+       Follow this link for a tutorial on how to work with this function:
        :ref:`User Guide > Tools > Build > Build peptide <Tutorial_Build_peptide>`
 
     .. versionadded:: 1.0.0

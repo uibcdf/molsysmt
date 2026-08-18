@@ -12,11 +12,11 @@ def get_atom_type_from_atom_name(atom_name):
     returns the corresponding element symbol. If the name is not found, a structured
     warning is emitted and the string ``'UNK'`` is returned.
 
+
     Parameters
     ----------
-    atom_name : str
-        Standard atom name as used in PDB/topology files (e.g. ``'CA'``, ``'OW'``,
-        ``'HB2'``).
+    atom_name : object
+        Argument atom_name.
 
     Returns
     -------
@@ -24,12 +24,14 @@ def get_atom_type_from_atom_name(atom_name):
         Element symbol of the atom (e.g. ``'C'``, ``'O'``, ``'H'``, ``'N'``), or
         ``'UNK'`` if the name is not recognised.
 
+
     Notes
     -----
     The mapping is stored in
     ``molsysmt.element.atom.names.atom`` and covers common atom names from standard
     biomolecular force fields. Unrecognised names emit
     :class:`molsysmt.UnknownAtomNameWarning` rather than raising an exception.
+
 
     .. versionadded:: 1.0.0
     """

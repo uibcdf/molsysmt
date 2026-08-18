@@ -11,45 +11,21 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
     missing heavy atoms, and optionally re-adds hydrogens. The mutated structure is
     returned in the same form as the input.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
-    mutations : list of str, or dict, or None, default None
-        Mutations to apply. Accepted formats depend on the ``keys`` parameter:
-
-        - **list of str**: Each string must follow the pattern
-          ``"<from_name>-<group_id>-<to_name>"`` (e.g. ``"ALA-42-GLY"``).
-        - **dict with** ``keys='group_index'``: Maps group indices (int) to target
-          residue names (str).
-        - **dict with** ``keys='group_id'``: Maps group IDs (int or str) to target
-          residue names (str). Raises an error if the ID is ambiguous.
-        - **dict with** ``keys='group_name'``: Maps source residue names (str) to
-          target residue names (str); all matching residues within ``selection``
-          are mutated.
-
-    keys : {'group_index', 'group_id', 'group_name'}, default 'group_index'
-        Interpretation of the keys in a dict-style ``mutations`` argument.
-
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Atom selection used as a mask when resolving group identifiers.
-
-    syntax : str, default 'MolSysMT'
-        Syntax used to interpret the ``selection`` string.
-
-    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
-        Backend used to apply mutations.
-
-        * **PDBFixer** — removes the old sidechain and rebuilds it via
-          template-based Kabsch alignment followed by force-field energy
-          minimisation (Langevin + LocalEnergyMinimizer).  Requires OpenMM
-          and PDBFixer.
-        * **MolSysMT** — removes the old sidechain, keeps backbone atoms
-          (N, CA, C, O, OXT), and places the new sidechain by Kabsch
-          alignment against a JSON residue template.  No energy minimisation
-          is performed; it is strongly recommended to minimise the structure
-          afterwards to resolve any steric clashes.
+        Molecular system in any supported MolSysMT format.
+    mutations : object, default=None
+        Argument mutations.
+    keys : object, default='group_index'
+        Argument keys.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
 
     Returns
     -------
@@ -57,6 +33,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
         A new molecular system with the requested mutations applied, missing heavy
         atoms rebuilt, and hydrogens re-added if the original system contained them.
         Returned in the same form as the input.
+
 
     Raises
     ------
@@ -70,6 +47,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
     NotImplementedMethodError
         Raised if the requested ``engine`` is not supported.
 
+
     Notes
     -----
     All target residue names are converted to uppercase before being passed to the
@@ -77,6 +55,7 @@ def mutate(molecular_system, mutations=None, keys='group_index', selection="all"
     ``findMissingAtoms``, and ``addMissingAtoms`` to produce a chemically complete
     structure. If the original system contained hydrogen atoms, ``addMissingHydrogens``
     is called at pH 7.4.
+
 
     .. versionadded:: 1.0.0
     """

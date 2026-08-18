@@ -9,16 +9,25 @@ def is_a_molecular_system(molecular_system):
     items (e.g., topology + coordinates files). For sequence inputs, validity requires internal
     consistency such as a matching number of atoms across all items.
 
+
+
+
+
+
     Parameters
     ----------
     molecular_system : molecular system
-        Tentative molecular system, provided as a single item or a list/tuple of items in any of
-        the :ref:`supported forms <Introduction_Forms>`.
+        Molecular system in any supported MolSysMT format.
 
     Returns
     -------
     bool
         `True` if the input encodes a single valid molecular system, `False` otherwise.
+
+
+
+
+
 
     Notes
     -----
@@ -28,12 +37,22 @@ def is_a_molecular_system(molecular_system):
     - Complementary items are validated by atom count. The function returns `False` when they
       are inconsistent or when consistency cannot be verified.
 
+
+
+
+
+
     See Also
     --------
     :func:`molsysmt.basic.are_multiple_molecular_systems` :
         Check whether each item in a container is a valid molecular system.
     :func:`molsysmt.basic.get_form` :
         Retrieve the form of a molecular system.
+
+
+
+
+
 
     Examples
     --------
@@ -46,6 +65,11 @@ def is_a_molecular_system(molecular_system):
     True
     >>> msm.basic.is_a_molecular_system([topology, structures_B])
     False
+
+
+
+
+
 
     .. admonition:: Tutorial with more examples
 

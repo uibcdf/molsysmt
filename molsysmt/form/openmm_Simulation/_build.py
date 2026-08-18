@@ -17,29 +17,31 @@ def build_simulation(
     """
     Performing build simulation on form openmm.Simulation.
 
+
     Parameters
     ----------
     topology : object
         Argument topology.
     system : object
         Argument system.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    integrator : object
+    coordinates : object
+        Argument coordinates.
+    integrator : object, default='Langevin'
         Argument integrator.
-    temperature : object
+    temperature : object, default='300.0 K'
         Argument temperature.
-    collisions_rate : object
+    collisions_rate : object, default='1.0 1/ps'
         Argument collisions_rate.
-    integration_timestep : object
+    integration_timestep : object, default='2.0 fs'
         Argument integration_timestep.
-    platform : object
-        Argument platform.
+    platform : str, default='CPU'
+        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

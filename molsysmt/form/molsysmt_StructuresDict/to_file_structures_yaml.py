@@ -25,10 +25,11 @@ def to_file_structures_yaml(item, output_filename, skip_digestion=False):
     """
     Converting from molsysmt.StructuresDict to file:structures_yaml.
 
+
     Parameters
     ----------
-    item : molsysmt.StructuresDict
-        Source item in molsysmt.StructuresDict form.
+    item : molecular system
+        Argument item.
     output_filename : str or pathlib.Path
         Output file path for serialization.
     skip_digestion : bool, default=False
@@ -38,6 +39,7 @@ def to_file_structures_yaml(item, output_filename, skip_digestion=False):
     -------
     file:structures_yaml
         Resulting object in file:structures_yaml form.
+
 
     .. versionadded:: 1.0.0
     """

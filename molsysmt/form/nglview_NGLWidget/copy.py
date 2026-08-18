@@ -8,10 +8,11 @@ def extract(item, skip_digestion=False):
     """
     Extracting a subset of elements or structures from form nglview.NGLWidget.
 
+
     Parameters
     ----------
-    item : nglview.NGLWidget
-        Source item in nglview.NGLWidget form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -19,6 +20,7 @@ def extract(item, skip_digestion=False):
     -------
     nglview.NGLWidget
         Resulting object in nglview.NGLWidget form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -9,16 +9,15 @@ def show_as_balls_and_sticks(view, selection='all', skip_digestion=False):
     """
     Adding ball-and-stick representation for selected elements in NGLWidget.
 
+
     Parameters
     ----------
     view : nglview.NGLWidget
-        Target molecular viewer.
-    selection : str or list of int, default='all'
-        Selection of atoms to represent.
-    color : str or list, optional
-        Color name, hex code, or scheme.
-    opacity : float, optional
-        Opacity value between 0.0 and 1.0.
+        Target molecular viewer instance.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     .. versionadded:: 1.0.0
     """

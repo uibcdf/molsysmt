@@ -7,16 +7,17 @@ def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, ski
     """
     Merging multiple items into a single item of form nglview.NGLWidget.
 
+
     Parameters
     ----------
-    items : list of object
-        List of items to merge.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    items : object
+        Argument items.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    keep_ids : bool, default=True
-        Whether to preserve unique element IDs.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    keep_ids : object, default=True
+        Argument keep_ids.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -24,6 +25,7 @@ def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, ski
     -------
     nglview.NGLWidget
         Resulting object in nglview.NGLWidget form.
+
 
     .. versionadded:: 1.0.0
     """

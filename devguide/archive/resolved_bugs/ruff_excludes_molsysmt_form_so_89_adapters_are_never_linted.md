@@ -1,14 +1,14 @@
 ---
 summary: ruff excludes molsysmt/form, so 89 adapters are never linted
 issue: uibcdf/molsysmt#170
-status: open
+status: resolved
 opened: 2026-08-18
-closed:
+closed: 2026-08-18
 severity: medium
 verification: reproduced
 area: [ci, form]
-guard:
-normative:
+guard: devtools/tests/test_ruff_clean.py
+normative: AGENTS.md
 blocked_by: []
 supersedes: []
 ---

@@ -7,16 +7,17 @@ def add(to_item, item, atom_indices='all', structure_indices='all', skip_digesti
     """
     Adding elements from another item into an item of form mdtraj.Topology.
 
+
     Parameters
     ----------
-    to_item : mdtraj.Topology
-        Target item to modify or add elements to.
-    item : mdtraj.Topology
-        Source item in mdtraj.Topology form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    to_item : object
+        Argument to_item.
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -24,6 +25,7 @@ def add(to_item, item, atom_indices='all', structure_indices='all', skip_digesti
     -------
     mdtraj.Topology
         Resulting object in mdtraj.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

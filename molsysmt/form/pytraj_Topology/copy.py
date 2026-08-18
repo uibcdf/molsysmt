@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form pytraj.Topology.
 
+
     Parameters
     ----------
-    item : pytraj.Topology
-        Source item in pytraj.Topology form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     pytraj.Topology
         Resulting object in pytraj.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

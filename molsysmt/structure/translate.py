@@ -22,25 +22,23 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     * **Per-atom-per-frame array** — shape ``(n_structures, n_atoms, 3)``: each
       atom in each frame can have a different displacement.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    translation : quantity
-        Displacement vector as a PyUnitWizard length quantity.  Must have a shape
-        compatible with one of the three broadcasting modes described above.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms whose coordinates are translated.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which the translation is applied.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when ``selection`` is a string.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is
-        returned.  If ``False`` a new copy is returned with the translated
-        coordinates.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+        Molecular system in any supported MolSysMT format.
+    translation : object, default=None
+        Argument translation.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    in_place : object, default=False
+        Argument in_place.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -48,11 +46,13 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
         A new molecular system with the translated coordinates when
         ``in_place=False``; ``None`` when ``in_place=True``.
 
+
     Raises
     ------
     StructuralInconsistencyError
         If the shape of ``translation`` is not compatible with any of the supported
         broadcasting modes for the given coordinate array.
+
 
     .. versionadded:: 1.0.0
     """

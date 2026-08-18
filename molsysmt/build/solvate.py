@@ -211,70 +211,33 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
     optionally adds counterions to neutralise the system charge and/or reach a
     target ionic strength.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-        Should not already contain explicit solvent.
-
-    box_shape : {'truncated octahedral', 'rhombic dodecahedral', 'cubic', 'rectangular'}, default 'truncated octahedral'
-        Geometry of the periodic simulation box. A truncated octahedral box minimises
-        the volume of solvent required for a given clearance distance.
-        All four shapes are supported by all engines.
-
-    clearance : str or quantity, default '14.0 angstroms'
-        Minimum distance between any atom of the solute and the nearest box face.
-        Accepts a unit string parseable by pyunitwizard (e.g. ``'14.0 angstroms'``).
-
-    anion : {'Cl-', 'Br-', 'F-', 'I-'}, default 'Cl-'
-        Species used as the negative counterion.
-
-    n_anions : int or 'neutralize', default 'neutralize'
-        Number of anions to add. Use ``'neutralize'`` to add just enough to
-        neutralise the system charge.
-
-    cation : {'Cs+', 'K+', 'Li+', 'Na+', 'Rb+'}, default 'Na+'
-        Species used as the positive counterion.
-
-    n_cations : int or 'neutralize', default 'neutralize'
-        Number of cations to add. Use ``'neutralize'`` to add just enough to
-        neutralise the system charge.
-
-    ionic_strength : str or quantity, default '0.0 molar'
-        Target ionic strength of the solvent. Accepts a unit string parseable by
-        pyunitwizard (e.g. ``'0.15 molar'``).
-
-    water_model : {'SPC', 'SPC/E', 'TIP3P', 'TIP3P-FB', 'TIP3P-PME-B', 'TIP3P-PME-F', 'TIP4P', 'TIP4P-EW', 'TIP4P-FB', 'TIP4P-2005', 'TIP5P', 'TIP5P-EW'}, default 'TIP3P'
-        Water model used to fill the solvent box.  Canonical names follow
-        ``molsysmt.molecular_mechanics.forcefields.water_models``.  If the
-        molecular system already stores a water model attribute, it takes
-        precedence over this argument.
-
-        Support by engine:
-
-        * **OpenMM** — all models listed above (delegates to
-          ``openmm.app.Modeller.addSolvent``).
-        * **PDBFixer** — same as OpenMM (delegates to the same OpenMM routine).
-        * **MolSysMT** — ``'SPC'``, ``'SPC/E'``, ``'TIP3P'``, ``'TIP4P-EW'``
-          (bundled preequilibrated boxes in ``molsysmt/data/water/``).
-
-    engine : {'OpenMM', 'PDBFixer', 'MolSysMT'}, default 'OpenMM'
-        Backend used to add solvent and ions.
-
-        * **MolSysMT** — no external dependencies.  Supports all four box
-          shapes.  Water models limited to ``'SPC'``, ``'SPC/E'``,
-          ``'TIP3P'``, ``'TIP4P-EW'``.  Ions placed via rejection-sampling
-          (≥ 5 Å from solute, ≥ 0.5 Å between ions).
-        * **OpenMM** — delegates to ``openmm.app.Modeller.addSolvent``.
-          Supports all water models and box shapes.
-        * **PDBFixer** — same as OpenMM (delegates to the same routine).
-
-    to_form : str or None, default None
-        Target form for the output molecular system. If None, the form of the
-        input ``molecular_system`` is used.
-
-    verbose : bool, default False
-        If True, progress information may be printed by the engine.
+        Molecular system in any supported MolSysMT format.
+    box_shape : object, default='truncated octahedral'
+        Argument box_shape.
+    clearance : object, default='14.0 angstroms'
+        Argument clearance.
+    anion : object, default='Cl-'
+        Argument anion.
+    n_anions : object, default='neutralize'
+        Argument n_anions.
+    cation : object, default='Na+'
+        Argument cation.
+    n_cations : object, default='neutralize'
+        Argument n_cations.
+    ionic_strength : object, default='0.0 molar'
+        Argument ionic_strength.
+    water_model : str, default='TIP3P'
+        Water model parameter identifier (e.g., 'TIP3P').
+    engine : object, default='OpenMM'
+        Argument engine.
+    to_form : object, default=None
+        Argument to_form.
+    verbose : object, default=False
+        Argument verbose.
 
     Returns
     -------
@@ -283,10 +246,12 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
         in the same form as the input). Component, molecule, and chain metadata
         from the original system are preserved and entity labels are rebuilt.
 
+
     Raises
     ------
     NotImplementedError
         Raised if the requested ``engine`` or ``water_model`` is not supported.
+
 
     Notes
     -----
@@ -296,6 +261,7 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
     The forcefield used for solvation is read from the molecular system when
     available; otherwise the MolSysMT default forcefield is used.
+
 
     .. versionadded:: 1.0.0
     """

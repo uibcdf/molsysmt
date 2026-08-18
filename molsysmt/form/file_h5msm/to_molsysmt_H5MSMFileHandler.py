@@ -5,10 +5,11 @@ def to_molsysmt_H5MSMFileHandler(item, skip_digestion=False):
     """
     Converting from file:h5msm to molsysmt.H5MSMFileHandler.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def to_molsysmt_H5MSMFileHandler(item, skip_digestion=False):
     -------
     molsysmt.H5MSMFileHandler
         Resulting object in molsysmt.H5MSMFileHandler form.
+
 
     .. versionadded:: 1.0.0
     """

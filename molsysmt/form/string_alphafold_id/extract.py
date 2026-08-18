@@ -7,15 +7,16 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     """
     Extracting a subset of elements or structures from form string:alphafold_id.
 
+
     Parameters
     ----------
-    item : string:alphafold_id
-        Source item in string:alphafold_id form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    copy_if_all : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -25,16 +26,9 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     string:alphafold_id
         Resulting object in string:alphafold_id form.
 
+
     .. versionadded:: 1.0.0
     """
 
-    if is_all(atom_indices) and is_all(structure_indices):
-
-        raise NotImplementedMethodError()
-
-    else:
-
-        raise NotImplementedMethodError()
-
-    return tmp_item
+    raise NotImplementedMethodError()
 

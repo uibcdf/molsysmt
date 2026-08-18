@@ -38,27 +38,28 @@ def solve_atoms_with_alternate_location(
     location_id="occupancy",
     syntax="MolSysMT",
 ):
-    """Resolving alternate-location atoms in selected structures.
+    """
+    Resolving alternate-location atoms in selected structures.
+
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system carrying alternate-location metadata.
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Atoms whose alternate locations are resolved.
-    structure_indices : int, list of int, or 'all', default 'all'
-        Structures in which coordinates and B factors are updated.
-    location_id : str, list, tuple, or numpy.ndarray, default 'occupancy'
-        Location identifier to choose. ``'occupancy'`` chooses independently
-        in every structure. A sequence supplies one identifier per selected
-        atom.
-    syntax : str, default 'MolSysMT'
-        Syntax used to interpret a string selection.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    location_id : object, default='occupancy'
+        Argument location_id.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------
     None
         The molecular system is modified in place.
+
 
     Notes
     -----
@@ -66,10 +67,12 @@ def solve_atoms_with_alternate_location(
     B factors are stored in nm². When occupancies tie at 0.5, location ``A``
     is preferred when available.
 
+
     See Also
     --------
     :func:`molsysmt.basic.get`
         Getting alternate-location metadata.
+
 
     Examples
     --------
@@ -84,6 +87,7 @@ def solve_atoms_with_alternate_location(
     ... )
     >>> molecular_system.structures.coordinates.shape[0]
     1
+
 
     .. admonition:: Tutorial with more examples
 

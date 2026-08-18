@@ -16,14 +16,15 @@ def get_coordinates_from_atom(
     """
     Getting coordinates from atom in form pytraj.Trajectory.
 
+
     Parameters
     ----------
-    item : pytraj.Trajectory
-        Source item in pytraj.Trajectory form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -31,6 +32,7 @@ def get_coordinates_from_atom(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -54,12 +56,13 @@ def get_n_structures_from_system(
     """
     Getting n structures from system in form pytraj.Trajectory.
 
+
     Parameters
     ----------
-    item : pytraj.Trajectory
-        Source item in pytraj.Trajectory form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -67,6 +70,7 @@ def get_n_structures_from_system(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -85,12 +89,13 @@ def get_box_from_system(
     """
     Getting box from system in form pytraj.Trajectory.
 
+
     Parameters
     ----------
-    item : pytraj.Trajectory
-        Source item in pytraj.Trajectory form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -98,6 +103,7 @@ def get_box_from_system(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -128,12 +134,13 @@ def get_time_from_system(
     """
     Getting time from system in form pytraj.Trajectory.
 
+
     Parameters
     ----------
-    item : pytraj.Trajectory
-        Source item in pytraj.Trajectory form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -141,6 +148,7 @@ def get_time_from_system(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -162,12 +170,13 @@ def get_structure_id_from_system(
     """
     Getting structure id from system in form pytraj.Trajectory.
 
+
     Parameters
     ----------
-    item : pytraj.Trajectory
-        Source item in pytraj.Trajectory form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -175,6 +184,7 @@ def get_structure_id_from_system(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

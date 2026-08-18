@@ -5,14 +5,15 @@ def to_biopython_SeqRecord(item, atom_indices='all', structure_indices='all', sk
     """
     Converting from mdtraj.Trajectory to biopython.SeqRecord.
 
+
     Parameters
     ----------
-    item : mdtraj.Trajectory
-        Source item in mdtraj.Trajectory form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -21,15 +22,16 @@ def to_biopython_SeqRecord(item, atom_indices='all', structure_indices='all', sk
     biopython.SeqRecord
         Resulting object in biopython.SeqRecord form.
 
+
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.string_aminoacids1.to_string_aminoacids1 import to_string_aminoacids1
-    from molsysmt.form.string_aminoacids1.to_biopython_SeqRecord import to_biopython_SeqRecord as string_aminoacids1_to_biopython_SeqRecord
+    from molsysmt.form.string_amino_acids_1.to_string_amino_acids_1 import to_string_amino_acids_1
+    from molsysmt.form.string_amino_acids_1.to_biopython_SeqRecord import to_biopython_SeqRecord as string_amino_acids_1_to_biopython_SeqRecord
 
-    tmp_item = to_string_amionacids1(item, atom_indices=atom_indices,
+    tmp_item = to_string_amino_acids_1(item, atom_indices=atom_indices,
             structure_indices=structure_indices, skip_digestion=True)
-    tmp_item = string_aminoacids1_to_biopython_SeqRecord(tmp_item, skip_digestion=True)
+    tmp_item = string_amino_acids_1_to_biopython_SeqRecord(tmp_item, skip_digestion=True)
 
     return tmp_item
 

@@ -102,59 +102,71 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
     """
     Computing distances between atoms or centers of selections.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        First system (or the only one if `molecular_system_2` is None).
-    selection, selection_2 : str, list, tuple or numpy.ndarray, default 'all'
-        Atom selections for each system; if `pairs=True`, a list/array of index pairs is also accepted.
-    structure_indices, structure_indices_2 : 'all' or array-like, default 'all'
-        Structures/frames to analyze (0-based) for each system.
-    center_of_atoms, center_of_atoms_2 : bool, default False
-        If True, use centers of the selected atoms (weighted if `weights` provided).
-    weights, weights_2 : array-like, optional
-        Weights for centers when `center_of_atoms` is True.
-    molecular_system_2 : molecular system, optional
-        Second system; if None, distances are computed within `molecular_system`.
-    pairs : bool, default False
-        If True, interpret `selection` (or `selection`/`selection_2`) as explicit pairs.
-    pbc : bool, default True
-        Whether to consider periodic boundary conditions.
-    output_type : {'numpy.ndarray', 'dictionary'}, default 'numpy.ndarray'
-        Format of the returned distances.
-    output_indices : {'selection', 'atom', 'group'}, optional
-        When `output_type='dictionary'`, controls labeling of indices.
-    output_structure_indices : {'structure'}, optional
-        When `output_type='dictionary'`, controls labeling of structure indices.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend for the calculation.
-    syntax : str, default 'MolSysMT'
-    heavy_mode : bool, default=False
-        Whether to process large trajectories in chunked heavy mode.
-    use_gpu : bool, default=False
-        Whether to use GPU acceleration.
-        Selection syntax when using strings.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    center_of_atoms : bool, default=False
+        Whether to compute distances relative to geometric centers.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    molecular_system_2 : object, default=None
+        Argument molecular_system_2.
+    selection_2 : str, list, tuple, or numpy.ndarray, default=None
+        Second selection string or boolean/integer array.
+    structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
+        Structure indices (0-based) for the second selection.
+    center_of_atoms_2 : bool, default=False
+        Whether to compute distances relative to geometric centers for selection_2.
+    weights_2 : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for selection_2.
+    pairs : object, default=False
+        Argument pairs.
+    pbc : bool, default=True
+        Whether to take periodic boundary conditions into account.
+    output_type : object, default='numpy.ndarray'
+        Argument output_type.
+    output_indices : object, default=None
+        Argument output_indices.
+    output_structure_indices : object, default=None
+        Argument output_structure_indices.
+    engine : object, default='MolSysMT'
+        Argument engine.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    heavy_mode : object, default='auto'
+        Argument heavy_mode.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     numpy.ndarray or dict
         Distances with shape `(n_structures, n_selection[, n_selection_2])` or structured dictionaries, depending on `output_type`.
 
+
     Raises
     ------
     NotImplementedMethodError
         If a requested path/output is not supported.
 
+
     Notes
     -----
     - Uses minimum image convention when `pbc=True` and box is available.
     - When `pairs=True`, expects explicit pairs; otherwise Cartesian products of selections are used.
+
 
     .. versionadded:: 1.0.0
     """

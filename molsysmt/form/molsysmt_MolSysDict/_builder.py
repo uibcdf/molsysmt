@@ -28,15 +28,17 @@ def build_molsys_builder_from_molsys_dict(item):
     """
     Performing build molsys builder from molsys dict on form molsysmt.MolSysDict.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysDict
-        Source item in molsysmt.MolSysDict form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

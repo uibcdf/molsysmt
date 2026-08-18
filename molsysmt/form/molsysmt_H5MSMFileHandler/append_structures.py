@@ -6,18 +6,19 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     """
     Appending coordinate structures to an item of form molsysmt.H5MSMFileHandler.
 
+
     Parameters
     ----------
-    item : molsysmt.H5MSMFileHandler
-        Source item in molsysmt.H5MSMFileHandler form.
-    structure_id : object
-        Structure identifiers.
-    time : numpy.ndarray or quantity
-        Simulation time coordinates in picoseconds.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
+    item : molecular system
+        Argument item.
+    structure_id : object, default=None
+        Argument structure_id.
+    time : object, default=None
+        Argument time.
+    coordinates : object, default=None
+        Argument coordinates.
+    box : object, default=None
+        Argument box.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -25,6 +26,7 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     -------
     molsysmt.H5MSMFileHandler
         Resulting object in molsysmt.H5MSMFileHandler form.
+
 
     .. versionadded:: 1.0.0
     """

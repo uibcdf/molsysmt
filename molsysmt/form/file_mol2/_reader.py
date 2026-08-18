@@ -104,6 +104,7 @@ def read_mol2(path):
     """
     Performing read mol2 on form file:mol2.
 
+
     Parameters
     ----------
     path : object
@@ -113,6 +114,7 @@ def read_mol2(path):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

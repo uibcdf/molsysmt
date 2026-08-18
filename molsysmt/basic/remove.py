@@ -16,39 +16,30 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     removed. If `structure_indices` is `None`, no structures are removed. Optionally,
     the resulting system can be returned in a different form with `to_form`.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system provided in any of the :ref:`supported forms <Introduction_Forms>`.
-    selection : str, tuple, list or numpy.ndarray, optional
-        Atoms to remove, as a 0-based index collection or a selection string parsed according to
-        :ref:`Introduction_Selection`. If `'all'`, all atoms are removed. If `None`, no atoms are removed.
-    structure_indices : int, tuple, list, numpy.ndarray or 'all', optional
-        0-based indices of structures to remove. If `'all'`, all frames are removed.
-        If `None`, no structures are removed.
-    to_form : str, optional
-        Output form of the resulting molecular system. If omitted, the output form matches
-        the input system.
-    syntax : str, default 'MolSysMT'
-    in_place : bool, default=False
-        Whether to modify the input object in place.
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default=None
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default=None
+        Structure indices (0-based) to include or process.
+    to_form : object, default=None
+        Argument to_form.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    in_place : object, default=True
+        Argument in_place.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system
         A new molecular system with the selected atoms and/or structures removed.
         The form of the returned system is either specified by `to_form` or inferred from the input.
+
 
     Raises
     ------
@@ -58,6 +49,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
         If the selection or `structure_indices` are invalid or incompatible
         with the system. Explicit structure indices are range checked.
 
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
@@ -66,12 +58,14 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     - Removal is implemented by selecting the complementary indices and delegating to
       :func:`molsysmt.basic.extract`, minimizing data copies when possible.
 
+
     See Also
     --------
     :func:`molsysmt.select`
         Select atoms or structures from a molecular system.
     :func:`molsysmt.basic.extract` :
         Extract a subset of atoms/structures into a new molecular system.
+
 
     Examples
     --------
@@ -82,6 +76,7 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     >>> new_system = msm.remove(system, selection='chain_id=="A" or chain_id=="B"')
     >>> msm.get(new_system, n_chains=True)
     6
+
 
     .. admonition:: Tutorial with more examples
 

@@ -8,23 +8,29 @@ def get_molecule_name(molecular_system, element='molecule', selection='all', red
     """
     Getting molecule names from a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='molecule'
-        Structural element level at which molecule names are queried.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='molecule'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of elements to query.
+        Selection string or boolean/integer array specifying elements.
+    redefine_indices : bool, default=False
+        Whether to reassign contiguous 0-based indices.
+    redefine_names : bool, default=False
+        Whether to assign normalized element names.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     list of str
         List of molecule names.
+
 
     .. versionadded:: 1.0.0
     """

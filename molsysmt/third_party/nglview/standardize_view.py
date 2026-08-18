@@ -8,10 +8,15 @@ def standardize_view(view, atom_indices='all', structure_indices='all'):
     """
     Applying standardized camera perspective and background rendering settings to an NGLWidget view.
 
+
     Parameters
     ----------
     view : nglview.NGLWidget
-        Target molecular viewer.
+        Target molecular viewer instance.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
 
     .. versionadded:: 1.0.0
     """

@@ -8,14 +8,15 @@ def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all
     """
     Converting from file:dcd to mdtraj.DCDTrajectoryFile.
 
+
     Parameters
     ----------
-    item : file:dcd
-        Source item in file:dcd form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,6 +24,7 @@ def to_mdtraj_DCDTrajectoryFile(item, atom_indices='all', structure_indices='all
     -------
     mdtraj.DCDTrajectoryFile
         Resulting object in mdtraj.DCDTrajectoryFile form.
+
 
     .. versionadded:: 1.0.0
     """

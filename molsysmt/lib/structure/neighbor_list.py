@@ -24,7 +24,26 @@ def neighbor_list_csr(
     half=False,
     return_distances=False,
 ):
-    """Returning a CSR neighbour list for one structure."""
+    """
+    Returning a CSR neighbour list for one structure.
+
+    Parameters
+    ----------
+    query_coords : object
+        Argument query_coords.
+    ref_coords : object, default=None
+        Argument ref_coords.
+    box : object, default=None
+        Argument box.
+    cutoff : object, default=None
+        Argument cutoff.
+    exclude_self : object, default=True
+        Argument exclude_self.
+    half : object, default=False
+        Argument half.
+    return_distances : object, default=False
+        Argument return_distances.
+    """
     if cutoff is None:
         raise ValueError("neighbor_list_csr requires a cutoff.")
 
@@ -72,7 +91,24 @@ def neighbor_pairs(
     half=True,
     exclude_self=True,
 ):
-    """Returning neighbour pairs derived from a CSR list."""
+    """
+    Returning neighbour pairs derived from a CSR list.
+
+    Parameters
+    ----------
+    query_coords : object
+        Argument query_coords.
+    ref_coords : object, default=None
+        Argument ref_coords.
+    box : object, default=None
+        Argument box.
+    cutoff : object, default=None
+        Argument cutoff.
+    half : object, default=True
+        Argument half.
+    exclude_self : object, default=True
+        Argument exclude_self.
+    """
     offsets, indices = neighbor_list_csr(
         query_coords,
         ref_coords,

@@ -2,15 +2,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form openmm.Simulation.
 
+
     Parameters
     ----------
-    item : openmm.Simulation
-        Source item in openmm.Simulation form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

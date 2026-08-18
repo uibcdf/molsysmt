@@ -13,28 +13,19 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
     according to MolSysMT’s attribute registry. The result can be returned either as a dictionary
     mapping attribute names to booleans or as a list containing only the present attributes.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
-    include_none : bool, default False
-        Whether to consider attributes with value `None` as present when probing availability.
-        If `True`, attributes that exist but currently hold `None` will be marked as present.
-    attribute_type : {'all', 'structural', 'topological', 'dynamical', 'mechanical'}, default 'all'
-    output_type : {'dictionary', 'list'}, default 'list'
-        Format of the returned result. If ``'dictionary'``, returns all supported attributes as
-        keys with boolean values indicating presence. If ``'list'``, returns only the names of
-        attributes present in the molecular system.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Molecular system in any supported MolSysMT format.
+    include_none : object, default=False
+        Argument include_none.
+    attribute_type : object, default='all'
+        Argument attribute_type.
+    output_type : object, default='list'
+        Argument output_type.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -43,6 +34,7 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
         booleans as values indicating availability. If ``output_type == 'list'``: list with the names of attributes
         present.
 
+
     Raises
     ------
     NotSupportedFormError
@@ -50,11 +42,13 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
     ArgumentError
         If input arguments are invalid or inconsistent.
 
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+
 
     See Also
     --------
@@ -64,6 +58,7 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
         Retrieve the form of a molecular system.
     :func:`molsysmt.basic.get` :
         Retrieve attribute values from a molecular system.
+
 
     Examples
     --------
@@ -81,6 +76,7 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
     True
     >>> 'forcefield' in output
     False
+
 
     .. admonition:: Tutorial with more examples
 

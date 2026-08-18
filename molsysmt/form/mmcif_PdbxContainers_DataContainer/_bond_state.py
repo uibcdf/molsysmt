@@ -27,6 +27,7 @@ def metadata_from_chem_comp_bond(record, attributes):
     """
     Performing metadata from chem comp bond on form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
     record : object
@@ -38,6 +39,7 @@ def metadata_from_chem_comp_bond(record, attributes):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -57,6 +59,7 @@ def has_unknown_chem_comp_bond_orders(container):
     """
     Performing has unknown chem comp bond orders on form mmcif.PdbxContainers.DataContainer.
 
+
     Parameters
     ----------
     container : object
@@ -66,6 +69,7 @@ def has_unknown_chem_comp_bond_orders(container):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

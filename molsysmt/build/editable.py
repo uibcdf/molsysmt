@@ -6,13 +6,13 @@ def editable(molecular_system=None, skip_digestion=False):
     """
     Creating an editable molecular-system builder.
 
+
     Parameters
     ----------
-    molecular_system : molecular system, optional
-        Molecular system in any supported form. If not provided, an empty
-        builder is created.
+    molecular_system : molecular system, default=None
+        Molecular system in any supported MolSysMT format.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------

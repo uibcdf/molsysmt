@@ -20,14 +20,15 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     """
     Getting coordinates from atom in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -35,6 +36,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -53,14 +55,15 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     """
     Getting velocities from atom in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -68,6 +71,7 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -86,14 +90,15 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
     """
     Getting occupancy from atom in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -101,6 +106,7 @@ def get_occupancy_from_atom (item, indices='all', structure_indices='all', skip_
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -119,14 +125,15 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
     """
     Getting alternate location from atom in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -134,6 +141,7 @@ def get_alternate_location_from_atom (item, indices='all', structure_indices='al
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -152,14 +160,15 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
     """
     Getting b factor from atom in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -167,6 +176,7 @@ def get_b_factor_from_atom (item, indices='all', structure_indices='all', skip_d
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -189,12 +199,13 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
     """
     Getting coordinates from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -202,6 +213,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -220,12 +232,13 @@ def get_velocities_from_system(item, structure_indices='all', skip_digestion=Fal
     """
     Getting velocities from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -233,6 +246,7 @@ def get_velocities_from_system(item, structure_indices='all', skip_digestion=Fal
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -251,12 +265,13 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     """
     Getting box from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -264,6 +279,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -282,12 +298,13 @@ def get_box_shape_from_system(item, structure_indices='all', skip_digestion=Fals
     """
     Getting box shape from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -295,6 +312,7 @@ def get_box_shape_from_system(item, structure_indices='all', skip_digestion=Fals
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -313,12 +331,13 @@ def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=Fa
     """
     Getting box lengths from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -326,6 +345,7 @@ def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=Fa
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -344,12 +364,13 @@ def get_box_angles_from_system(item, structure_indices='all', skip_digestion=Fal
     """
     Getting box angles from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -357,6 +378,7 @@ def get_box_angles_from_system(item, structure_indices='all', skip_digestion=Fal
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -375,12 +397,13 @@ def get_box_volume_from_system(item, structure_indices='all', skip_digestion=Fal
     """
     Getting box volume from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -388,6 +411,7 @@ def get_box_volume_from_system(item, structure_indices='all', skip_digestion=Fal
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -406,12 +430,13 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     """
     Getting time from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -419,6 +444,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -438,12 +464,13 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
     """
     Getting temperature from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -451,6 +478,7 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -469,12 +497,13 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
     """
     Getting potential energy from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -482,6 +511,7 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -500,12 +530,13 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
     """
     Getting kinetic energy from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -513,6 +544,7 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -531,12 +563,13 @@ def get_total_energy_from_system(item, structure_indices='all', skip_digestion=F
     """
     Getting total energy from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -544,6 +577,7 @@ def get_total_energy_from_system(item, structure_indices='all', skip_digestion=F
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -562,12 +596,13 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     """
     Getting structure id from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -575,6 +610,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -594,12 +630,13 @@ def get_structure_chemical_state_index_from_system(
     """
     Getting structure chemical state index from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -607,6 +644,7 @@ def get_structure_chemical_state_index_from_system(
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -629,12 +667,13 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     """
     Getting n structures from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -642,6 +681,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -659,12 +699,13 @@ def get_occupancy_from_system(item, structure_indices='all', skip_digestion=Fals
     """
     Getting occupancy from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -672,6 +713,7 @@ def get_occupancy_from_system(item, structure_indices='all', skip_digestion=Fals
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -689,12 +731,13 @@ def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False
     """
     Getting b factor from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -702,6 +745,7 @@ def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -719,12 +763,13 @@ def get_alternate_location_from_system(item, structure_indices='all', skip_diges
     """
     Getting alternate location from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    item : molecular system
+        Argument item.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -732,6 +777,7 @@ def get_alternate_location_from_system(item, structure_indices='all', skip_diges
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -749,10 +795,11 @@ def get_bioassembly_from_system(item, skip_digestion=False):
     """
     Getting bioassembly from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -760,6 +807,7 @@ def get_bioassembly_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -777,10 +825,11 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
     """
     Getting n bioassemblies from system in form file:h5msm.
 
+
     Parameters
     ----------
-    item : file:h5msm
-        Source item in file:h5msm form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -788,6 +837,7 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

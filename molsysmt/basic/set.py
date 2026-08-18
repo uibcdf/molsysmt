@@ -27,39 +27,23 @@ def set(molecular_system,
     on specific elements (atoms, groups, etc.) and optionally for selected structures.
     The attributes to be modified are passed as keyword arguments.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to be modified. It can be in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'system'}, optional
-        Level of elements on which the attribute values will be set. If not provided,
-        the function will infer it from the attribute definitions.
-    selection : str, tuple, list or numpy.ndarray, default='all'
-        Selection of elements whose attributes will be modified. It can be a list/array
-        of 0-based indices or a query string using one of the :ref:`supported selection syntaxes <Introduction_Selection>`.
-        The default 'all' includes the entire system.
-    structure_indices : str, tuple, list or numpy.ndarray, default='all'
-        0-based indices of structures for which structural attributes will be modified. The default 'all' includes all
-        structures.
+        Molecular system in any supported MolSysMT format.
+    element : str, default=None
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
-        Syntax used to interpret the `selection` string. See :ref:`Introduction_Selection` for details.
-    chemical_state : {'reference', 'structure'} or int, default 'reference'
-        Chemical state on which state-dependent atom, component, and bond
-        attributes are modified. Integer values are 0-based state indices;
-        ``'structure'`` resolves a unique state from `structure_indices`.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    chemical_state : object, default='reference'
+        Argument chemical_state.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
-    **kwargs : dict
-        Attributes to modify, passed as keyword arguments where the key is the attribute name
-        and the value is the new value to be assigned.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Raises
     ------
@@ -68,6 +52,7 @@ def set(molecular_system,
     ArgumentError
         If the input arguments do not meet the expected requirements, including
         an out-of-range structure index for a structural attribute.
+
 
     Notes
     -----
@@ -91,12 +76,14 @@ def set(molecular_system,
     - ``structure_chemical_state_index`` sets the nullable MolSys association
       aligned to `structure_indices`; it does not change the topology reference.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select`
         Selecting elements of a molecular system.
     :func:`molsysmt.basic.get`
         Retrieving attribute values from a molecular system.
+
 
     Examples
     --------
@@ -115,6 +102,7 @@ def set(molecular_system,
     >>> msm.set(topology, element='atom', isotope=[13, 2])
     >>> msm.get(topology, element='atom', isotope=True)
     [13, 2]
+
 
     .. admonition:: Tutorial with more examples
 

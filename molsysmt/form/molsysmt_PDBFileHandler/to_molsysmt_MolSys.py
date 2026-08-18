@@ -512,15 +512,16 @@ def to_molsysmt_MolSys(
     """
     Converting from molsysmt.PDBFileHandler to molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : molsysmt.PDBFileHandler
-        Source item in molsysmt.PDBFileHandler form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    get_missing_bonds : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    get_missing_bonds : object, default=True
         Argument get_missing_bonds.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -529,6 +530,7 @@ def to_molsysmt_MolSys(
     -------
     molsysmt.MolSys
         Resulting object in molsysmt.MolSys form.
+
 
     .. versionadded:: 1.0.0
     """

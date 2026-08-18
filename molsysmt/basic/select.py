@@ -26,51 +26,34 @@ def select(molecular_system, selection='all', structure_indices='all', element='
 
     Selection strings must follow one of the syntaxes described in :ref:`Introduction_Selection`.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to be queried. It can be in any of the :ref:`supported forms <Introduction_Forms>`.
-    selection : str, tuple, list or numpy.ndarray, default='all'
-        Selection query defining the elements to be selected. It can be:
-        - A string with a selection expression (e.g. `"group_name in ['ALA', 'GLY']"`)
-        - A list/array of 0-based indices
-        - A nested list of multiple queries (for grouped selections)
-    structure_indices : str, tuple, list or numpy.ndarray, default='all'
-        0-based indices of the structures over which the selection is applied.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
-        Structural level on which the selection is applied. Returned indices correspond to this level.
-    mask : str, tuple, list or numpy.ndarray, optional
-        Optional subset of elements to restrict the selection. It can be a
-        selection string, a collection of 0-based indices, or a Boolean array
-        with one entry per element. It is applied as an intersection filter.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    element : str, default='atom'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    mask : object, default=None
+        Argument mask.
     syntax : str, default='MolSysMT'
-        Syntax used to interpret the `selection` string. MolSysMT and MDTraj
-        are available from any convertible molecular-system form. MDAnalysis
-        is available when the input can be converted to an
-        ``MDAnalysis.Universe``.
-    to_syntax : str, optional
-        If provided, returns the translated selection query string instead of
-        indices. MDTraj and NGLView output syntaxes are supported.
-    chemical_state : {'reference', 'structure'} or int, default 'reference'
-        Chemical state used by state-dependent predicates and hierarchy
-        resolution. Integer values are 0-based state indices. ``'structure'``
-        resolves the unique state associated with `structure_indices`.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    to_syntax : object, default=None
+        Argument to_syntax.
+    chemical_state : object, default='reference'
+        Argument chemical_state.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     list or str
         If `to_syntax` is `None`, returns a list of selected element indices.
         Otherwise, returns a translated selection string in the specified syntax.
+
 
     Raises
     ------
@@ -79,6 +62,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     ArgumentError
         Raised if a selection cannot be parsed or if an element, mask, or
         structure index is outside the valid range.
+
 
     Notes
     -----
@@ -106,10 +90,12 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     - A structure selection spanning multiple associated states cannot return
       one ordinary atom-index selection and is rejected.
 
+
     See Also
     --------
     :func:`molsysmt.basic.get`
         Retrieving attributes of selected elements.
+
 
     Examples
     --------
@@ -130,6 +116,7 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     >>> topology._append_chemical_state_bonds([[0, 1]], is_aromatic=[True])
     >>> msm.select(topology, 'bond_is_aromatic==True', element='bond')
     [0]
+
 
     .. admonition:: Tutorial with more examples
 

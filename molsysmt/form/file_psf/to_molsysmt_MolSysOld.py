@@ -8,20 +8,21 @@ def to_molsysmt_MolSysOld(item, atom_indices='all',
     """
     Converting from file:psf to molsysmt.MolSysOld.
 
+
     Parameters
     ----------
-    item : file:psf
-        Source item in file:psf form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    structure_id : object
-        Structure identifiers.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
-    time : numpy.ndarray or quantity
-        Simulation time coordinates in picoseconds.
+    coordinates : object, default=None
+        Argument coordinates.
+    structure_id : object, default=None
+        Argument structure_id.
+    box : object, default=None
+        Argument box.
+    time : object, default=None
+        Argument time.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -29,6 +30,7 @@ def to_molsysmt_MolSysOld(item, atom_indices='all',
     -------
     molsysmt.MolSysOld
         Resulting object in molsysmt.MolSysOld form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -56,10 +56,16 @@ def project_group_type_from_topology(topology, *, element="group", redefine_type
 
 
 def infer_component_indices_from_topology(topology):
-    """Return per-atom component_index array.
+    """
+    Return per-atom component_index array.
 
     Architecture invariant: component_index is atom-aligned state data.
     Groups do NOT have a component_index column.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
     """
     from molsysmt._private.rust_backend import get_component_index_from_bonded_atom_pairs
 
@@ -156,7 +162,8 @@ def infer_component_names_from_topology(topology):
 
 
 def infer_molecule_indices_from_topology(topology):
-    """Partition groups into molecules, decoupled from connected components.
+    """
+    Partition groups into molecules, decoupled from connected components.
 
     A new molecule begins whenever:
     - the chain changes, or
@@ -170,6 +177,11 @@ def infer_molecule_indices_from_topology(topology):
     covalently or coordinatively bonded complex (e.g. MnATP bound to a
     protein, or a covalent drug) becomes one component but several
     molecules of different types.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
     """
     _CHAIN_POLYMER = frozenset(
         {'amino acid', 'terminal capping', 'unknown', 'nucleotide', 'saccharide', 'lipid'}
@@ -218,10 +230,16 @@ def infer_molecule_indices_from_topology(topology):
 
 
 def infer_molecule_types_from_topology(topology):
-    """Infer molecule_type from the group_types within each molecule.
+    """
+    Infer molecule_type from the group_types within each molecule.
 
     Derives type directly from the groups belonging to the molecule,
     not from the component the molecule happens to be bonded into.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
     """
     from molsysmt.element.component.get_component_type import (
         _get_component_type_from_group_names_and_types,
@@ -244,7 +262,14 @@ def infer_molecule_types_from_topology(topology):
 
 
 def infer_molecule_names_from_topology(topology):
-    """Infer molecule_name from the group_names/types within each molecule."""
+    """
+    Infer molecule_name from the group_names/types within each molecule.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
+    """
     molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
     molecule_types = topology.molecules["molecule_type"].to_numpy(dtype=object)
     group_names = topology.groups["group_name"].to_numpy(dtype=object)
@@ -339,10 +364,16 @@ def infer_entity_types_from_topology(topology):
 
 
 def infer_chain_indices_from_topology(topology):
-    """Return per-atom chain_index array.
+    """
+    Return per-atom chain_index array.
 
     Architecture invariant: chain_index is defined at the ATOM level only.
     Groups do NOT have a chain_index column.
+
+    Parameters
+    ----------
+    topology : object
+        Argument topology.
     """
     n_atoms = topology.n_atoms
 

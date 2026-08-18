@@ -6,10 +6,11 @@ def to_molsysmt_MolSysDict(item, skip_digestion=False):
     """
     Converting from molsysmt.MolSysDict to molsysmt.MolSysDict.
 
+
     Parameters
     ----------
-    item : molsysmt.MolSysDict
-        Source item in molsysmt.MolSysDict form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def to_molsysmt_MolSysDict(item, skip_digestion=False):
     -------
     molsysmt.MolSysDict
         Resulting object in molsysmt.MolSysDict form.
+
 
     .. versionadded:: 1.0.0
     """

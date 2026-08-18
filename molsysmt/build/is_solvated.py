@@ -11,13 +11,13 @@ def is_solvated(molecular_system, skip_digestion=False):
     threshold (> 15 molecules per nm³, consistent with liquid water at ambient
     conditions).
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
-    skip_digestion : bool, default False
-        If True, argument digestion is skipped (intended for internal use).
+        Molecular system in any supported MolSysMT format.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -25,12 +25,14 @@ def is_solvated(molecular_system, skip_digestion=False):
         True if the system contains water molecules inside a periodic box with
         a water number density greater than 15 molecules/nm³, False otherwise.
 
+
     Notes
     -----
     The number density threshold of 15 molecules/nm³ is well below the density of
     liquid water (approximately 33 molecules/nm³ at 300 K) but above values typical
     of gas-phase or vacuum simulations, making it a reliable discriminator for
     explicit solvation.
+
 
     .. versionadded:: 1.0.0
     """

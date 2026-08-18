@@ -5,10 +5,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form biopython.Seq.
 
+
     Parameters
     ----------
-    item : biopython.Seq
-        Source item in biopython.Seq form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def copy(item, skip_digestion=False):
     -------
     biopython.Seq
         Resulting object in biopython.Seq form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -6,14 +6,15 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
     """
     Converting from nglview.NGLWidget to string:pdb_text.
 
+
     Parameters
     ----------
-    item : nglview.NGLWidget
-        Source item in nglview.NGLWidget form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -21,6 +22,7 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', skip_d
     -------
     string:pdb_text
         Resulting object in string:pdb_text form.
+
 
     .. versionadded:: 1.0.0
     """

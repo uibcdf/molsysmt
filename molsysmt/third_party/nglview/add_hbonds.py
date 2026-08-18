@@ -8,16 +8,27 @@ def add_hbonds(view, hbonds, selection=None, selection_2=None, hbond_level='atom
     """
     Adding hydrogen bond interaction cylinders in NGLWidget.
 
+
+
+
     Parameters
     ----------
     view : nglview.NGLWidget
-        Target molecular viewer.
-    hbonds : list of tuple or numpy.ndarray
-        Donor-acceptor or donor-hydrogen-acceptor atom index tuples.
-    color : str, default='blue'
-        Color for hydrogen bond visualization cylinders.
-    radius : float, default=0.05
-        Cylinder radius in nanometers.
+        Target molecular viewer instance.
+    hbonds : object
+        Argument hbonds.
+    selection : str, list, tuple, or numpy.ndarray, default=None
+        Selection string or boolean/integer array specifying elements.
+    selection_2 : str, list, tuple, or numpy.ndarray, default=None
+        Second selection string or boolean/integer array.
+    hbond_level : object, default='atom'
+        Hydrogen bond element level representation.
+    color : object, default='#FFC300'
+        Argument color.
+    radius : object, default='0.1 angstroms'
+        Argument radius.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     .. versionadded:: 1.0.0
     """

@@ -9,10 +9,12 @@ def has_unsafe_frame_finalizer() -> bool:
     """
     Performing has unsafe frame finalizer on form pytraj.Trajectory.
 
+
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -29,10 +31,12 @@ def ensure_safe_runtime() -> None:
     """
     Performing ensure safe runtime on form pytraj.Trajectory.
 
+
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

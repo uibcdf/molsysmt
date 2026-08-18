@@ -20,32 +20,31 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
     In that case it adds nothing to `get(molecular_system, element='component')`, which
     is the ordinary way of asking for them.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any of the :ref:`supported forms <Introduction_Forms>`.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atom selection used to build the bond graph. Atoms outside it are absent from
-        every block, so a selection can split a block just as removing a bond does.
-    remove_bonds : array-like, optional
-        Pairs of atom indices to remove from the bond graph before the blocks are
-        computed. The molecular system itself is not modified: the removal is
-        hypothetical and affects only this result.
-    output_type : {'sets', 'numpy.ndarray'}, default 'sets'
-        Output format: a list of sets of atom indices, or an array labeling each atom
-        with the index of the block it belongs to.
-    syntax : str, default 'MolSysMT'
-        Selection syntax for string-based selections.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    remove_bonds : object, default=None
+        Argument remove_bonds.
+    output_type : object, default='sets'
+        Argument output_type.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------
     numpy.ndarray or list
         Covalent blocks as sets of atom indices, or a 0-based block label per atom.
 
+
     Raises
     ------
     NotImplementedMethodError
         If `output_type` is unsupported.
+
 
     Notes
     -----
@@ -55,12 +54,14 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
       is `None` and `selection` is `'all'`. With either of them the result describes a
       hypothetical connectivity, not the system's own components.
 
+
     See Also
     --------
     :func:`molsysmt.basic.get`
         Retrieving `component_index` and the rest of the system's own attributes.
     :func:`molsysmt.topology.get_covalent_paths`
         Finding paths of covalently bonded atoms matching an ordered pattern.
+
 
     .. versionadded:: 1.0.0
     """

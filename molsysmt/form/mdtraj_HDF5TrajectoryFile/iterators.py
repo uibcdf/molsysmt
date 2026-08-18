@@ -117,6 +117,6 @@ class TopologyIterator():
         return self
 
     def __next__(self):
-        raise NotImplementedIteration
+        raise NotImplementedError
 
 

@@ -20,13 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (5)
+### Open (3)
 
-- [`the_docstring_generator_rewrites_public_signatures_instead_of_preserving_them.md`](the_docstring_generator_rewrites_public_signatures_instead_of_preserving_them.md) — [#169](https://github.com/uibcdf/molsysmt/issues/169) — The docstring generator rewrites public signatures instead of preserving them *(high, reproduced)*
 - [`define_new_chain_creates_multiple_chain_entities_with_identical_name_instead_of_.md`](define_new_chain_creates_multiple_chain_entities_with_identical_name_instead_of_.md) — [#160](https://github.com/uibcdf/molsysmt/issues/160) — define_new_chain creates multiple chain entities with identical name instead of a single merged chain *(medium, asserted)*
 - [`devguide_issue_sync_fails_on_unknown_area_labels.md`](devguide_issue_sync_fails_on_unknown_area_labels.md) — [#159](https://github.com/uibcdf/molsysmt/issues/159) — devguide_issue.py cannot label an issue whose area tags are not already labels on the board. *(medium, reproduced)*
 - [`make_bioassembly_tutorial_3d_representations_render_incomplete_cartoon_or_omit_g.md`](make_bioassembly_tutorial_3d_representations_render_incomplete_cartoon_or_omit_g.md) — [#163](https://github.com/uibcdf/molsysmt/issues/163) — make_bioassembly tutorial 3D representations render incomplete cartoons or omit generated assemblies in MolSysViewer *(medium, asserted)*
-- [`ruff_excludes_molsysmt_form_so_89_adapters_are_never_linted.md`](ruff_excludes_molsysmt_form_so_89_adapters_are_never_linted.md) — [#170](https://github.com/uibcdf/molsysmt/issues/170) — ruff excludes molsysmt/form, so 89 adapters are never linted *(medium, reproduced)*
 
 ### Partially resolved (2)
 

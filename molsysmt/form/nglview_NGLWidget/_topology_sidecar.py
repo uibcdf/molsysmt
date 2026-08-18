@@ -8,6 +8,7 @@ def get_topology_sidecar(widget):
     """
     Getting topology sidecar from form nglview.NGLWidget.
 
+
     Parameters
     ----------
     widget : object
@@ -17,6 +18,7 @@ def get_topology_sidecar(widget):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

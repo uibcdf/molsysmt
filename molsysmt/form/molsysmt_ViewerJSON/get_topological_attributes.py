@@ -75,10 +75,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -86,6 +87,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -98,10 +100,11 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     """
     Getting n bonds from system in form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -109,6 +112,7 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -128,12 +132,13 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting formal charge from atom in form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -141,6 +146,7 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -157,12 +163,13 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting partial charge from atom in form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -170,6 +177,7 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -189,12 +197,13 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     """
     Getting bond index from bond in form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -202,6 +211,7 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -217,12 +227,13 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
     """
     Getting bond order from bond in form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -230,6 +241,7 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -246,12 +258,13 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
     """
     Getting bond type from bond in form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -259,6 +272,7 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

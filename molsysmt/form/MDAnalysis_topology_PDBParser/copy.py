@@ -7,10 +7,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form MDAnalysis.topology.PDBParser.
 
+
     Parameters
     ----------
-    item : MDAnalysis.topology.PDBParser
-        Source item in MDAnalysis.topology.PDBParser form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -18,6 +19,7 @@ def copy(item, skip_digestion=False):
     -------
     MDAnalysis.topology.PDBParser
         Resulting object in MDAnalysis.topology.PDBParser form.
+
 
     .. versionadded:: 1.0.0
     """

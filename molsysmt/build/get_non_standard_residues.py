@@ -10,26 +10,17 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
     recognised by the backend and maps their group indices to the names of the
     standard residues that can be used as replacements.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any of :ref:`the supported forms <Introduction_Forms>`.
-
-    selection : str, list, tuple, or numpy.ndarray, default 'all'
-        Atom selection used to restrict the search to a subset of the system.
-
-    syntax : str, default 'MolSysMT'
-        Syntax used to interpret the ``selection`` string.
-
-    engine : {'MolSysMT', 'PDBFixer'}, default 'MolSysMT'
-        Backend used to detect non-standard residues.
-
-        * ``'MolSysMT'``: native implementation using MolSysMT's built-in
-          amino-acid database (~817 entries from MDTraj/PDB).  Works with any
-          supported form; no external dependency required.
-        * ``'PDBFixer'``: delegates to ``pdbfixer.findNonstandardResidues``
-          (~150-entry substitution table).  Also reads MODRES records when the
-          source is a PDB/mmCIF file.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
 
     Returns
     -------
@@ -38,10 +29,12 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
         system to the names (str) of the closest standard residue replacements
         suggested by the backend.
 
+
     Raises
     ------
     NotImplementedMethodError
         Raised if the requested ``engine`` is not supported.
+
 
     Notes
     -----
@@ -52,6 +45,7 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
     residue is reported as non-standard when its name maps to a *different*
     standard code (e.g. ``'MSE'`` → ``'MET'``).  Residues that map to
     ``'XAA'`` (completely unknown) are not reported.
+
 
     .. versionadded:: 1.0.0
     """

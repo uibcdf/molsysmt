@@ -5,13 +5,14 @@ def to_file_fasta(item, atom_indices='all', output_filename=None, skip_digestion
     """
     Converting from string:uniprot_id to file:fasta.
 
+
     Parameters
     ----------
-    item : string:uniprot_id
-        Source item in string:uniprot_id form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    output_filename : str or pathlib.Path
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def to_file_fasta(item, atom_indices='all', output_filename=None, skip_digestion
     -------
     file:fasta
         Resulting object in file:fasta form.
+
 
     .. versionadded:: 1.0.0
     """

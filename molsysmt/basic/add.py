@@ -17,46 +17,27 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     the source must either match this number of structures or the user must explicitly provide
     `structure_indices` to specify which structures to use during the addition.
 
+
     Parameters
     ----------
-    to_molecular_system : molecular system
-        The target molecular system, in any of the :ref:`supported forms <Introduction_Forms>`.
-        Elements from the source system will be added to this system by default. If `in_place=False`, 
-        a copy will be returned instead of modifying this object directly.
-    from_molecular_system : molecular system
-        The source molecular system, in any of the :ref:`supported forms <Introduction_Forms>`.
-        Selected elements from this system will be added to the target system.
+    to_molecular_system : object
+        Argument to_molecular_system.
+    from_molecular_system : object
+        Argument from_molecular_system.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Atoms to be added, specified as a list/tuple/array of 0-based atom indices,
-        or as a string following one of the :ref:`supported selection syntaxes <Introduction_Selection>`.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Indices (0-based) of structures in the source system to use for copying structural attributes
-        (e.g., coordinates) of the selected atoms.
-    keep_ids : bool, default=True
-        Whether to preserve the unique IDs of elements from the source system when adding them
-        to the target system.
-    in_place : bool, default=True
-        If True, modifies `to_molecular_system` in place. If False, returns a new modified copy, leaving
-        the original unchanged.
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    keep_ids : object, default=True
+        Argument keep_ids.
+    in_place : object, default=True
+        Argument in_place.
     syntax : str, default='MolSysMT'
-        Selection syntax to interpret the `selection` string. See :ref:`Introduction_Selection` for options.
-    attribute_policy : str, default='intersection'
-        What to do when an atom-aligned attribute (coordinates, velocities, B factor,
-        occupancy, force-field parameters) is present in only one of the two systems.
-        With ``'intersection'`` the attribute is discarded, because a series covering
-        only part of the resulting atom axis is not a valid series, and a
-        ``StructuralAttributeDropWarning`` reports it. With ``'strict'`` the operation
-        is rejected instead, leaving both systems untouched.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    attribute_policy : object, default='intersection'
+        Argument attribute_policy.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -64,12 +45,14 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         If `in_place=True`, returns `None` and modifies `to_molecular_system` directly.
         If `in_place=False`, returns a new molecular system (same form as the input) with the added elements.
 
+
     Raises
     ------
     NotSupportedFormError
         If any molecular system is provided in an unsupported form.
     ArgumentError
         If any argument has an invalid or inconsistent value.
+
 
     Notes
     -----
@@ -92,6 +75,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     - Bioassemblies from both systems are combined, with the incoming chain indices
       remapped; a colliding assembly identifier is renamed and reported.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select` :
@@ -102,6 +86,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
         Append structures from one system to another.
     :func:`molsysmt.basic.concatenate_structures` :
         Concatenate multiple systems along the structural dimension.
+
 
     Examples
     --------
@@ -114,6 +99,7 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     >>> msm.add(molsys_A, molsys_B)
     >>> msm.get(molsys_A, n_molecules=True)
     2
+
 
     .. admonition:: Tutorial with more examples
 

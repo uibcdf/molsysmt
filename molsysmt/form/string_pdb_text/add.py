@@ -6,16 +6,17 @@ def add(to_item, item, atom_indices='all', structure_indices='all', skip_digesti
     """
     Adding elements from another item into an item of form string:pdb_text.
 
+
     Parameters
     ----------
-    to_item : string:pdb_text
-        Target item to modify or add elements to.
-    item : string:pdb_text
-        Source item in string:pdb_text form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    to_item : object
+        Argument to_item.
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -23,6 +24,7 @@ def add(to_item, item, atom_indices='all', structure_indices='all', skip_digesti
     -------
     string:pdb_text
         Resulting object in string:pdb_text form.
+
 
     .. versionadded:: 1.0.0
     """

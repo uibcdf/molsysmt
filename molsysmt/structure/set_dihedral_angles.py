@@ -23,33 +23,25 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
     dihedral kernel is used; otherwise the standard (non-periodic) kernel is
     applied.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    dihedral_quartets : numpy.ndarray of shape (n_quartets, 4)
-        Global atom indices defining each dihedral angle to be set.  Each row
-        contains four atom indices ``[i, j, k, l]``.
-    angles : quantity
-        Target dihedral angle values as a PyUnitWizard angle quantity.  The array
-        must be compatible with shape ``(n_structures, n_quartets)``.  Values are
-        internally converted to radians.
-    blocks : list of sets or None, default None
-        Pre-computed covalent blocks (one per quartet) used to determine which
-        atoms move.  When ``None``, the blocks are computed on-the-fly for every
-        quartet by calling ``molsysmt.topology.get_covalent_blocks`` with the
-        relevant bond removed.  Providing pre-computed blocks avoids redundant
-        topology traversals when calling this function in a loop.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which the operation is performed.
-    pbc : bool, default True
-        Use the minimum-image dihedral kernel when the system has a periodic box.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is
-        returned.  If ``False`` a new copy is returned with the updated
-        coordinates.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for the dihedral rotation kernels.
+        Molecular system in any supported MolSysMT format.
+    dihedral_quartets : object, default=None
+        Argument dihedral_quartets.
+    angles : object, default=None
+        Argument angles.
+    blocks : object, default=None
+        Argument blocks.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    pbc : bool, default=True
+        Whether to take periodic boundary conditions into account.
+    in_place : object, default=False
+        Argument in_place.
+    engine : object, default='MolSysMT'
+        Argument engine.
 
     Returns
     -------
@@ -57,10 +49,12 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
         A new molecular system with the updated dihedral angles when
         ``in_place=False``; ``None`` when ``in_place=True``.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported engine is requested.
+
 
     .. versionadded:: 1.0.0
     """

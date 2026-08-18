@@ -8,23 +8,33 @@ def add_allowed_z_region(molecular_system, selection='all', z0='0.0 nm', width='
     """
     Adding repulsive restraints confining particles within an allowed z-coordinate interval in OpenMM.
 
+
     Parameters
     ----------
-    system : openmm.System
-        Target OpenMM system to modify.
-    atom_indices : list of int
-        Atom indices to confine.
-    z_min : quantity
-        Minimum allowed z-coordinate in nanometers.
-    z_max : quantity
-        Maximum allowed z-coordinate in nanometers.
-    k : quantity
-        Harmonic confining constant in `kJ/(mol*nm^2)`.
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    z0 : object, default='0.0 nm'
+        Argument z0.
+    width : object, default='1.0 nm'
+        Argument width.
+    force_constant : object, default='5000 kilojoules_per_mole/nm**2'
+        Argument force_constant.
+    pbc : bool, default=False
+        Whether to take periodic boundary conditions into account.
+    return_force : object, default=False
+        Argument return_force.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     openmm.CustomExternalForce
         The added confining force instance.
+
 
     .. versionadded:: 1.0.0
     """

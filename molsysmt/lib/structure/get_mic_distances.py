@@ -20,7 +20,22 @@ def get_mic_distance_two_points_single_structure(
     inv_box=None,
     orthogonal=None,
 ):
-    """Returning the minimum-image distance between two points."""
+    """
+    Returning the minimum-image distance between two points.
+
+    Parameters
+    ----------
+    point1 : object
+        Argument point1.
+    point2 : object
+        Argument point2.
+    box : object
+        Argument box.
+    inv_box : object, default=None
+        Argument inv_box.
+    orthogonal : object, default=None
+        Argument orthogonal.
+    """
     displacement = np.asarray(point2, dtype=np.float64) - np.asarray(
         point1, dtype=np.float64
     )

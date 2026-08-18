@@ -95,9 +95,16 @@ jobs:
           python -c "from argdigest import Domain, UnknownArgumentError"
           python -c "import molsysmt; print('Version:', molsysmt.__version__)"
 
-      - name: Run smoke tests
+      - name: Validate public API stability against parent
         shell: bash -l {0}
-        run: devtools/tests/run_tiers.sh smoke
+        run: |
+          if git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
+            python devtools/scripts/validate_public_api_stability.py --base HEAD~1
+          fi
+
+      - name: Validate docstrings bidirectionally
+        shell: bash -l {0}
+        run: python devtools/scripts/validate_docstrings.py
 
       - name: Validate form contracts
         shell: bash -l {0}
@@ -106,3 +113,7 @@ jobs:
       - name: Enforce the Rust-only runtime
         shell: bash -l {0}
         run: python devtools/scripts/audit_numba_surface.py --require-zero
+
+      - name: Run test suite
+        shell: bash -l {0}
+        run: python -m pytest --receptor=ci

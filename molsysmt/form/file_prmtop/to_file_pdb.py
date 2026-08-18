@@ -5,15 +5,16 @@ def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None
     """
     Converting from file:prmtop to file:pdb.
 
+
     Parameters
     ----------
-    item : file:prmtop
-        Source item in file:prmtop form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    output_filename : str or pathlib.Path
+    coordinates : object, default=None
+        Argument coordinates.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -22,6 +23,7 @@ def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None
     -------
     file:pdb
         Resulting object in file:pdb form.
+
 
     .. versionadded:: 1.0.0
     """

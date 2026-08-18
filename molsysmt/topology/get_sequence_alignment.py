@@ -11,36 +11,39 @@ def get_sequence_alignment(molecular_system, selection='all', reference_molecula
     """
     Aligning sequences between a query and reference molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Query system providing the sequence to align.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Group-level selection in the query system.
-    reference_molecular_system : molecular system, optional
-        Reference system to align against.
-    reference_selection : str, list, tuple or numpy.ndarray, default 'all'
-        Group-level selection in the reference.
-    engine : {'Biopython'}, default 'Biopython'
-        Alignment engine.
-    syntax : str, default 'MolSysMT'
-        Selection syntax for string selections.
-    prettyprint : bool, default False
-        If True, print a colorized alignment; if False, return aligned sequences.
-    alignment_index : int, default 0
-        Alignment index to return when multiple alignments are produced.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    reference_molecular_system : object, default=None
+        Argument reference_molecular_system.
+    reference_selection : object, default='all'
+        Argument reference_selection.
+    engine : object, default='Biopython'
+        Argument engine.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    prettyprint : object, default=False
+        Argument prettyprint.
+    alignment_index : object, default=0
+        Argument alignment_index.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     tuple of str or None
         `(seq, seq_ref)` aligned strings when `prettyprint=False`; otherwise prints and returns `None`.
 
+
     Raises
     ------
     NotImplementedError
         If an unsupported engine is requested.
+
 
     .. versionadded:: 1.0.0
     """

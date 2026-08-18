@@ -5,10 +5,11 @@ def to_openmm_Topology(item, skip_digestion=False):
     """
     Converting from openff.Topology to openmm.Topology.
 
+
     Parameters
     ----------
-    item : openff.Topology
-        Source item in openff.Topology form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def to_openmm_Topology(item, skip_digestion=False):
     -------
     openmm.Topology
         Resulting object in openmm.Topology form.
+
 
     .. versionadded:: 1.0.0
     """

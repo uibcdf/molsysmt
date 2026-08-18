@@ -9,17 +9,18 @@ def to_file_pir(item, output_filename=None, id='sequence', name='sequence', desc
     """
     Converting from biopython.Seq to file:pir.
 
+
     Parameters
     ----------
-    item : biopython.Seq
-        Source item in biopython.Seq form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    id : object
+    id : object, default='sequence'
         Argument id.
-    name : object
+    name : object, default='sequence'
         Argument name.
-    description : object
+    description : object, default=''
         Argument description.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -28,6 +29,7 @@ def to_file_pir(item, output_filename=None, id='sequence', name='sequence', desc
     -------
     file:pir
         Resulting object in file:pir form.
+
 
     .. versionadded:: 1.0.0
     """

@@ -104,29 +104,54 @@ def get_form(molecular_system):
     such as ``'file:pdb'``, ``'openmm.Topology'``, ``'string:pdb_id'``, or any other
     supported form.
 
+
+
+
+
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
+        Molecular system in any supported MolSysMT format.
 
     Returns
     -------
     str
         Name of the form of the input molecular system.
 
+
+
+
+
+
     Raises
     ------
     NotSupportedFormError
         If the input molecular system has a form that is not supported.
 
+
+
+
+
+
     Notes
     -----
     - See :ref:`Introduction_Forms` for a full list of supported forms.
+
+
+
+
+
 
     See Also
     --------
     :func:`molsysmt.convert`
         Convert a molecular system into a different form.
+
+
+
+
+
 
     Examples
     --------
@@ -141,6 +166,11 @@ def get_form(molecular_system):
     >>> molsys_C = msm.convert(molsys_B, to_form='openmm.Topology')
     >>> msm.get_form(molsys_C)
     'openmm.Topology'
+
+
+
+
+
 
     .. admonition:: Tutorial with more examples
 

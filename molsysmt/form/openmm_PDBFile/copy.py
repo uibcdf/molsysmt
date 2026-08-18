@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : openmm.PDBFile
-        Source item in openmm.PDBFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     openmm.PDBFile
         Resulting object in openmm.PDBFile form.
+
 
     .. versionadded:: 1.0.0
     """

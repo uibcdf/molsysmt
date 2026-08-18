@@ -5,16 +5,17 @@ def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, ski
     """
     Converting from openmm.Topology to molsysmt.MolSys.
 
+
     Parameters
     ----------
-    item : openmm.Topology
-        Source item in openmm.Topology form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    box : numpy.ndarray or quantity
-        Simulation box vectors in nanometers.
+    coordinates : object, default=None
+        Argument coordinates.
+    box : object, default=None
+        Argument box.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -22,6 +23,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', coordinates=None, box=None, ski
     -------
     molsysmt.MolSys
         Resulting object in molsysmt.MolSys form.
+
 
     .. versionadded:: 1.0.0
     """

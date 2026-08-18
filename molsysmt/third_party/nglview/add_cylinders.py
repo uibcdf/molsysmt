@@ -15,46 +15,49 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
     """
     Adding 3D cylinders connecting coordinates or atom pairs in NGLWidget.
 
+
     Parameters
     ----------
     view : nglview.NGLWidget
-        Target molecular viewer.
-    cylinders : list of tuple
-        Pairs of coordinates or atom indices.
-    color : str, default='red'
-        Default cylinder color.
-    radius : float, default=0.1
-        Cylinder radius in nanometers.
-    bottom : list or numpy.ndarray, optional
-        Bottom endpoint coordinates.
-    top : list or numpy.ndarray, optional
-        Top endpoint coordinates.
-    color_values : list or numpy.ndarray, optional
-        Scalar values to map into cylinder colors.
-    min_color_value : float, optional
-        Minimum value for colormap scaling.
-    mid_color_value : float, optional
-        Midpoint value for colormap scaling.
-    max_color_value : float, optional
-        Maximum value for colormap scaling.
-    color_values_scale : str, optional
-        Scaling function for color mapping.
-    colormap : str, optional
-        Matplotlib or custom colormap name.
-    color_values_2 : list or numpy.ndarray, optional
-        Secondary color scalar values.
-    min_color_value_2 : float, optional
-        Minimum value for secondary colormap scaling.
-    mid_color_value_2 : float, optional
-        Midpoint value for secondary colormap scaling.
-    max_color_value_2 : float, optional
-        Maximum value for secondary colormap scaling.
-    color_values_scale_2 : str, optional
-        Scaling function for secondary color mapping.
-    colormap_2 : str, optional
+        Target molecular viewer instance.
+    bottom : object, default=None
+        Argument bottom.
+    top : object, default=None
+        Argument top.
+    vectors : numpy.ndarray, list, or tuple, default=None
+        Direction and magnitude vectors array.
+    color : object, default='#808080'
+        Argument color.
+    color_2 : object, default=None
+        Secondary color string or RGB tuple.
+    radius : object, default='0.1 angstroms'
+        Argument radius.
+    color_values : numpy.ndarray, list, or tuple, default=None
+        Scalar numerical values used to color contacts.
+    min_color_value : float or quantity, default=None
+        Minimum value for contact colormap normalization.
+    mid_color_value : float or quantity, default=None
+        Midpoint value for contact colormap normalization.
+    max_color_value : float or quantity, default=None
+        Maximum value for contact colormap normalization.
+    color_values_scale : str, default='linear'
+        Scaling mode for contact colormap ('linear', 'log').
+    colormap : str, default='bwr'
+        Colormap name for contact coloring.
+    color_values_2 : numpy.ndarray, list, or tuple, default=None
+        Secondary scalar values array for coloring.
+    min_color_value_2 : float or quantity, default=None
+        Minimum value for secondary colormap.
+    mid_color_value_2 : float or quantity, default=None
+        Midpoint value for secondary colormap.
+    max_color_value_2 : float or quantity, default=None
+        Maximum value for secondary colormap.
+    color_values_scale_2 : str, default=None
+        Scaling mode for secondary colormap.
+    colormap_2 : str, default=None
         Secondary colormap name.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     .. versionadded:: 1.0.0
     """

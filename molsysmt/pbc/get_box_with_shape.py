@@ -8,21 +8,23 @@ def get_box_with_shape(shape='cubic', length='1 nm', n_structures=1, skip_digest
     """
     Constructing a box matrix for a given shape.
 
+
     Parameters
     ----------
-    shape : {'cubic', 'truncated octahedral', 'rhombic dodecahedral'}, default 'cubic'
-        Desired box shape.
-    length : quantity, default '1 nm'
-        Edge length (or characteristic length) with units.
-    n_structures : int, default 1
-        Number of structures (frames) to generate.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+    shape : object, default='cubic'
+        Argument shape.
+    length : object, default='1 nm'
+        Argument length.
+    n_structures : object, default=1
+        Argument n_structures.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         Box array of shape `(n_structures, 3, 3)` in the specified length units.
+
 
     .. versionadded:: 1.0.0
     """

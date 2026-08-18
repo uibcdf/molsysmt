@@ -15,27 +15,27 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
     """
     Computing principal axes for a selection of atoms.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Atoms used for axis computation.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to evaluate.
-    weights : array-like, quantity, 'masses' or None, default None
-        Non-negative weights per atom. ``None`` assigns unit weight to every
-        atom. Use ``'masses'`` for physical principal inertia axes.
-    principal_axes_type : {'inertia', 'geometric'}, default 'inertia'
-        Kind of principal axes to compute.
-    syntax : str, default 'MolSysMT'
-        Selection syntax when using strings.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend.
-    use_gpu : bool or 'auto', optional
-        Whether to use a supported GPU backend.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    principal_axes_type : object, default='inertia'
+        Argument principal_axes_type.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -44,6 +44,7 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
         ``(n_structures, 3, 3)`` and ``moments`` has shape
         ``(n_structures, 3)``. Moments are geometric variances or inertia
         moments, depending on ``principal_axes_type``.
+
 
     Raises
     ------
@@ -54,6 +55,7 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
     NotImplementedMethodError
         If the engine is unsupported.
 
+
     Notes
     -----
     Axes are returned as rows, ordered by ascending eigenvalue, and form a
@@ -61,12 +63,14 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
     arbitrary. Degenerate eigenvalues define a subspace rather than unique
     individual axes.
 
+
     See Also
     --------
     :func:`molsysmt.structure.align_principal_axes`
         Align coordinates to a target principal-axis basis.
     :func:`molsysmt.structure.get_center`
         Compute geometric or weighted centers.
+
 
     Examples
     --------
@@ -79,6 +83,7 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
     ((1, 3, 3), (1, 3))
     >>> round(float(np.linalg.det(axes[0])), 12)
     1.0
+
 
     .. admonition:: Tutorial with more examples
 

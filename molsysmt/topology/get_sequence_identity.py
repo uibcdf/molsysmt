@@ -10,20 +10,21 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
     """
     Calculating sequence identity between two molecular systems.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Query system containing the sequence to compare.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Group-level selection in the query system (MolSysMT syntax or indices).
-    reference_molecular_system : molecular system, optional
-        Reference system against which identity is computed.
-    reference_selection : str, list, tuple or numpy.ndarray, default 'all'
-        Group-level selection in the reference system.
-    syntax : str, default 'MolSysMT'
-        Selection syntax when using string selections.
-    engine : {'Biopython'}, default 'Biopython'
-        Alignment engine to use.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    reference_molecular_system : object, default=None
+        Argument reference_molecular_system.
+    reference_selection : object, default='all'
+        Argument reference_selection.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='Biopython'
+        Argument engine.
 
     Returns
     -------
@@ -34,14 +35,17 @@ def get_sequence_identity(molecular_system, selection='all', reference_molecular
     list of int
         Group indices in the reference sequence that matched.
 
+
     Raises
     ------
     NotImplementedError
         If an unsupported engine is requested.
 
+
     Notes
     -----
     - Uses `get_sequence_alignment` to align the two selections and counts identical, aligned positions.
+
 
     .. versionadded:: 1.0.0
     """

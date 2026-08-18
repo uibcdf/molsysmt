@@ -5,14 +5,15 @@ def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all', skip_di
     """
     Converting from string:pdb_id to openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : string:pdb_id
-        Source item in string:pdb_id form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -20,6 +21,7 @@ def to_openmm_PDBFile(item, atom_indices='all', structure_indices='all', skip_di
     -------
     openmm.PDBFile
         Resulting object in openmm.PDBFile form.
+
 
     .. versionadded:: 1.0.0
     """

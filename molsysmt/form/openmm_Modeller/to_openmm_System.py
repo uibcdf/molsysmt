@@ -8,31 +8,32 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all',
     """
     Converting from openmm.Modeller to openmm.System.
 
+
     Parameters
     ----------
-    item : openmm.Modeller
-        Source item in openmm.Modeller form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
-    forcefield : object
-        Argument forcefield.
-    non_bonded_method : object
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    forcefield : str, default=None
+        Force field parameter identifier or name.
+    non_bonded_method : object, default='no_cutoff'
         Argument non_bonded_method.
-    non_bonded_cutoff : object
+    non_bonded_cutoff : object, default='1.0 nm'
         Argument non_bonded_cutoff.
-    constraints : object
+    constraints : object, default=None
         Argument constraints.
-    rigid_water : object
+    rigid_water : object, default=True
         Argument rigid_water.
-    remove_cm_motion : object
+    remove_cm_motion : object, default=True
         Argument remove_cm_motion.
-    hydrogen_mass : object
+    hydrogen_mass : object, default=None
         Argument hydrogen_mass.
-    switch_distance : object
+    switch_distance : object, default=None
         Argument switch_distance.
-    flexible_constraints : object
+    flexible_constraints : object, default=False
         Argument flexible_constraints.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -41,6 +42,7 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all',
     -------
     openmm.System
         Resulting object in openmm.System form.
+
 
     .. versionadded:: 1.0.0
     """

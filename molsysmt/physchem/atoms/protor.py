@@ -188,16 +188,17 @@ def get_protor_atom_type(molecular_system, selection='all', syntax='MolSysMT', s
     Assigns implicit-hydrogen-aware ProtOr atom types to protein heavy atoms
     based on residue identities, atom labels, and connectivity.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of atoms to include.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -206,11 +207,13 @@ def get_protor_atom_type(molecular_system, selection='all', syntax='MolSysMT', s
         The second array contains the rule provenance/matching category (str).
         Shape of both: ``(n_atoms,)``.
 
+
     Notes
     -----
-    Types are assigned to standard amino acids and their common variants, and 
-    backbone defaults are applied. Elements that do not match are labeled as 
+    Types are assigned to standard amino acids and their common variants, and
+    backbone defaults are applied. Elements that do not match are labeled as
     ``'element_fallback'`` or ``'ignored'`` (e.g. for hydrogen).
+
 
     .. versionadded:: 1.0.0
     """
@@ -279,16 +282,17 @@ def get_protor_vdw_radius(molecular_system, selection='all', syntax='MolSysMT', 
     Computes the implicit-hydrogen-aware ProtOr radii in nanometers, applying
     specific protein heavy-atom definitions or standard element-level fallbacks.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of atoms to include.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    skip_digestion : bool, default False
-        If ``True``, bypass argument validation (for internal use only).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -296,11 +300,13 @@ def get_protor_vdw_radius(molecular_system, selection='all', syntax='MolSysMT', 
         Atomic van der Waals radii as a PyUnitWizard quantity in nm.
         Shape: ``(n_atoms,)``.
 
+
     Notes
     -----
     Standard ProtOr radii are defined in Ångstroms and converted to nanometers (nm)
     for integration with MolSysMT's default unit framework. Non-protein atoms or
     unrecognized residues utilize standard element fallbacks or global default values.
+
 
     .. versionadded:: 1.0.0
     """

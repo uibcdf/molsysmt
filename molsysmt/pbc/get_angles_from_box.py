@@ -7,17 +7,19 @@ def get_angles_from_box(box, skip_digestion=False):
     """
     Extracting box angles from a box matrix.
 
+
     Parameters
     ----------
-    box : quantity
-        Box matrix (single or array), shape (3, 3) or (n, 3, 3).
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+    box : object
+        Argument box.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
         Angles (alpha, beta, gamma) in radians.
+
 
     .. versionadded:: 1.0.0
     """

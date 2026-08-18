@@ -8,21 +8,34 @@ def run_NPT_equilibration (item, temperature='300 K', pressure='1.0 atm',
 
     Description
 
+
     Parameters
     ----------
-    item : molecular model
-        Molecular model in any form to be operated by the method.
-    protocol : int (default 0)
-        description.
-    forcefield : list or str (default ["AMBER99SB-ILDN", "TIP3P"])
-        Forcefield to model the inter-atomic interactions.
-    engine : str (default "OpenMM")
+    item : molecular system
+        Argument item.
+    temperature : object, default='300 K'
+        Argument temperature.
+    pressure : object, default='1.0 atm'
+        Argument pressure.
+    time : object, default='1.0 ns'
+        Argument time.
+    protocol : object, default=0
+        Argument protocol.
+    forcefield : str, default=('AMBER99SB-ILDN', 'TIP3P')
+        Force field parameter identifier or name.
+    engine : object, default='OpenMM'
+        Argument engine.
+    verbose : object, default=True
+        Argument verbose.
+    form_out : object, default=None
+        Argument form_out.
 
     Returns
     -------
     item : molecular model
         The result is a new molecular model with coordinates or positions relaxed to the nearest local minimum of
         the potential energy.
+
 
     Examples
     --------

@@ -13,41 +13,23 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     composed of the requested element types and counts provided via keyword conditions in
     `**kwargs`; otherwise it returns `False`.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to analyze, provided in any of the
-        :ref:`supported forms <Introduction_Forms>`.
-    selection : int, tuple, list, numpy.ndarray or str, default 'all'
-        Subset of the molecular system to check. It can be a 0-based index collection or
-        a selection string following :ref:`Introduction_Selection`. If 'all', the entire
-        molecular system is considered.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
-    **kwargs
-        Composition conditions as ``name=value`` pairs. Accepted names include type
-        counters (`n_ions`, `n_waters`, `n_small_molecules`, `n_peptides`, `n_proteins`,
-        `n_dnas`, `n_rnas`, `n_lipids`, `n_polysaccharides`, `n_saccharides`, ...) and element
-        counters (`n_atoms`, `n_groups`, `n_components`, `n_molecules`, `n_chains`, `n_entities`, ...).
-        Values are interpreted as:
-        - `True`  → the count must be **> 0** (presence required)
-        - `False` → the count must be **== 0** (absence required)
-        - `int`   → the count must be **exactly** that integer
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     bool
         `True` if all provided conditions are satisfied by the selection; `False` otherwise.
+
 
     Raises
     ------
@@ -56,11 +38,13 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     ArgumentError
         If any argument is invalid or inconsistent.
 
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+
 
     See Also
     --------
@@ -68,6 +52,7 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
         Select specific elements from a molecular system.
     :func:`molsysmt.basic.contains`
         Check whether certain elements or attributes are present in a molecular system.
+
 
     Examples
     --------
@@ -80,6 +65,7 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     True
     >>> msm.basic.is_composed_of(molsys, n_chains=6)
     True
+
 
     .. admonition:: Tutorial with more examples
 

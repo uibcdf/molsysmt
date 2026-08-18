@@ -7,11 +7,12 @@ def to_openmm_CharmmPsfFile(item, atom_indices='all', skip_digestion=False):
     """
     Converting from file:psf to openmm.CharmmPsfFile.
 
+
     Parameters
     ----------
-    item : file:psf
-        Source item in file:psf form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def to_openmm_CharmmPsfFile(item, atom_indices='all', skip_digestion=False):
     -------
     openmm.CharmmPsfFile
         Resulting object in openmm.CharmmPsfFile form.
+
 
     .. versionadded:: 1.0.0
     """

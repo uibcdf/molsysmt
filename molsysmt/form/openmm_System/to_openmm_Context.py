@@ -7,24 +7,25 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None,
     """
     Converting from openmm.System to openmm.Context.
 
+
     Parameters
     ----------
-    item : openmm.System
-        Source item in openmm.System form.
-    atom_indices : str, list, tuple, or numpy.ndarray, default='all'
+    item : molecular system
+        Argument item.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
         Atom indices (0-based) to include.
-    coordinates : numpy.ndarray or quantity
-        Cartesian coordinate array in nanometers.
-    integrator : object
+    coordinates : object, default=None
+        Argument coordinates.
+    integrator : object, default='Langevin'
         Argument integrator.
-    temperature : object
+    temperature : object, default='300 kelvin'
         Argument temperature.
-    friction : object
+    friction : object, default='1.0/picoseconds'
         Argument friction.
-    time_step : object
+    time_step : object, default='2 femtoseconds'
         Argument time_step.
-    platform : object
-        Argument platform.
+    platform : str, default='CUDA'
+        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -32,6 +33,7 @@ def to_openmm_Context(item, atom_indices='all', coordinates=None,
     -------
     openmm.Context
         Resulting object in openmm.Context form.
+
 
     .. versionadded:: 1.0.0
     """

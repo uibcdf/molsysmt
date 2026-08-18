@@ -7,11 +7,12 @@ def copy(item, output_filename=None, skip_digestion=False):
     """
     Creating a copy of an item of form molsysmt.PDBFileHandler.
 
+
     Parameters
     ----------
-    item : molsysmt.PDBFileHandler
-        Source item in molsysmt.PDBFileHandler form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -20,6 +21,7 @@ def copy(item, output_filename=None, skip_digestion=False):
     -------
     molsysmt.PDBFileHandler
         Resulting object in molsysmt.PDBFileHandler form.
+
 
     .. versionadded:: 1.0.0
     """

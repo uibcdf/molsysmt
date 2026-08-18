@@ -19,16 +19,15 @@ def make_water_box(box, form='molsysmt.MolSys', skip_digestion=False):
     equilibrated cubic tile, minimization and short equilibration are recommended to relax
     any residual overlaps.
 
+
     Parameters
     ----------
-    box : array-like or pint.Quantity
-        Box matrix (or sequence of box matrices) with shape ``(3, 3)`` or ``(n_structures, 3, 3)``.
-        Only the first box is used. Supports triclinic cells; side lengths and tilt must be in
-        nanometers.
-    form : str, default 'molsysmt.MolSys'
-        Target form of the returned system. Currently returns a ``molsysmt.MolSys`` instance.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s argument digestion.
+    box : object
+        Argument box.
+    form : object, default='molsysmt.MolSys'
+        Argument form.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------

@@ -7,15 +7,17 @@ def is_form(item):
     """
     Checking whether an item is an instance of form string:pdb_id.
 
+
     Parameters
     ----------
-    item : string:pdb_id
-        Source item in string:pdb_id form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     bool
         True if condition is satisfied, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

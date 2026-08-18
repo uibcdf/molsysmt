@@ -8,16 +8,17 @@ def extract(item, selection='all', structure_indices='all', syntax='MolSysMT', s
     """
     Extracting a subset of elements or structures from form molsysviewer.MolSysView.
 
+
     Parameters
     ----------
-    item : molsysviewer.MolSysView
-        Source item in molsysviewer.MolSysView form.
+    item : molecular system
+        Argument item.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of atoms or elements (0-based indices or query string).
-    structure_indices : str, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include.
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate `selection`.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -25,6 +26,7 @@ def extract(item, selection='all', structure_indices='all', syntax='MolSysMT', s
     -------
     molsysviewer.MolSysView
         Resulting object in molsysviewer.MolSysView form.
+
 
     .. versionadded:: 1.0.0
     """

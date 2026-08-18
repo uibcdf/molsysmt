@@ -7,21 +7,23 @@ def get_n_components(molecular_system, selection='all', redefine_components=Fals
     """
     Getting the total number of components in a molecular system or selection.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
+        Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection filter.
+        Selection string or boolean/integer array specifying elements.
+    redefine_components : bool, default=False
+        Whether to rebuild component partitioning.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
-    skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 
     Returns
     -------
     int
         Number of components.
+
 
     .. versionadded:: 1.0.0
     """

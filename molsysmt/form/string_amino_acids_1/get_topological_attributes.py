@@ -15,12 +15,13 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
     """
     Getting group index from group in form string:amino_acids_1.
 
+
     Parameters
     ----------
-    item : string:amino_acids_1
-        Source item in string:amino_acids_1 form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -28,6 +29,7 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -42,12 +44,13 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
     """
     Getting group name from group in form string:amino_acids_1.
 
+
     Parameters
     ----------
-    item : string:amino_acids_1
-        Source item in string:amino_acids_1 form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -55,6 +58,7 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

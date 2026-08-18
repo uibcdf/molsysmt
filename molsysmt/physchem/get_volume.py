@@ -13,18 +13,17 @@ def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition=
     measure of steric bulk of the amino acid side chain and is used in
     evolutionary distance metrics.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of groups to include in the output.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    definition : {'grantham'}, default 'grantham'
-        Volume scale to use.  Currently the only supported scale is
-        ``'grantham'``, which tabulates side-chain volumes (in arbitrary
-        units) for the 20 standard amino acids.
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    definition : object, default='grantham'
+        Argument definition.
 
     Returns
     -------
@@ -33,10 +32,12 @@ def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition=
         selected residues (dimensionless relative units as defined by the
         scale).
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported ``definition`` is requested.
+
 
     Notes
     -----
@@ -44,6 +45,7 @@ def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition=
     composite physicochemical distance between amino acids defined in:
 
         Grantham R. *Science* 185:862–864 (1974).
+
 
     .. versionadded:: 1.0.0
     """

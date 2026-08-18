@@ -42,36 +42,24 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
     of it, satisfies a set of conditions expressed via keyword arguments. Each keyword corresponds
     to an attribute to check, and its value specifies the condition to apply.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to analyze, in any of the :ref:`supported forms <Introduction_Forms>`.
-    selection : str, tuple, list or numpy.ndarray, default 'all'
-        Subset of atoms the conditions are applied to. Either a 0-based index collection or a
-        selection string parsed according to :ref:`Introduction_Selection`. The default 'all'
-        applies the conditions to the entire system.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
-    **kwargs
-        Attribute conditions expressed as ``attribute=value`` pairs, where the value can be:
-        - `True`: the attribute must be present and **non-zero/non-empty** on the selected subset.
-        - `False`: the attribute must be **absent or zero/empty** on the selected subset.
-        - `int`: the attribute (interpreted as a count/size) must be **greater than or equal to**
-          the given integer (threshold).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     bool
         `True` if all specified conditions are satisfied by the selected subset of the system;
         otherwise, `False`.
+
 
     Raises
     ------
@@ -80,11 +68,13 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
     ArgumentError
         If input arguments are invalid or inconsistent.
 
+
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
+
 
     See Also
     --------
@@ -92,6 +82,7 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
         Select elements from a molecular system.
     :func:`molsysmt.basic.is_composed_of`
         Check if a molecular system is composed of specific types of elements.
+
 
     Examples
     --------
@@ -103,6 +94,7 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
     True
     >>> msm.contains(molsys, selection='molecule_type!="water"', waters=True)
     False
+
 
     .. admonition:: User guide
 

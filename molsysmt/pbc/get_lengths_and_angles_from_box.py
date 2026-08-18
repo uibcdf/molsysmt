@@ -5,15 +5,16 @@ import numpy as np
 
 @arg_digest()
 def get_lengths_and_angles_from_box(box, skip_digestion=False):
-    """Return box lengths and angles from a 3x3 box matrix or an array of boxes.
+    """
+    Return box lengths and angles from a 3x3 box matrix or an array of boxes.
+
 
     Parameters
     ----------
-    box : array-like
+    box : object
+        Argument box.
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
-        A single box with shape (3, 3) or an array of boxes with shape (n, 3, 3).
-        Vectors correspond to the three box edges: v0, v1, v2.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -26,6 +27,7 @@ def get_lengths_and_angles_from_box(box, skip_digestion=False):
             gamma = angle between v0 and v1.
           This matches the conventional nomenclature (alpha between b and c,
           beta between a and c, gamma between a and b).
+
     .. versionadded:: 1.0.0
     """
 

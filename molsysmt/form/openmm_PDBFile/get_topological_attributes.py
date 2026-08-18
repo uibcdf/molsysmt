@@ -8,12 +8,13 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting atom id from atom in form openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : openmm.PDBFile
-        Source item in openmm.PDBFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -21,6 +22,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -32,12 +34,13 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting atom name from atom in form openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : openmm.PDBFile
-        Source item in openmm.PDBFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -45,6 +48,7 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -56,12 +60,13 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
     """
     Getting atom type from atom in form openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : openmm.PDBFile
-        Source item in openmm.PDBFile form.
-    indices : str, list, tuple, or numpy.ndarray, default='all'
-        0-based element indices to extract.
+    item : molecular system
+        Argument item.
+    indices : object, default='all'
+        Argument indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -69,6 +74,7 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -80,10 +86,11 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     Getting n atoms from system in form openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : openmm.PDBFile
-        Source item in openmm.PDBFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -91,6 +98,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -101,10 +109,11 @@ def get_n_groups_from_system(item, skip_digestion=False):
     """
     Getting n groups from system in form openmm.PDBFile.
 
+
     Parameters
     ----------
-    item : openmm.PDBFile
-        Source item in openmm.PDBFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -112,6 +121,7 @@ def get_n_groups_from_system(item, skip_digestion=False):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

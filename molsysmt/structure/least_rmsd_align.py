@@ -29,41 +29,37 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
     This function is suitable for aligning homologous proteins whose sequences
     differ, where a simple atom-by-atom correspondence cannot be assumed.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Query system to be aligned, in any form supported by MolSysMT.
-    selection : str, list, tuple or numpy.ndarray, default 'atom_name=="CA"'
-        Atoms (typically C-alpha carbons) used for sequence alignment and fitting.
-        The entire component(s) containing the selected atoms are translated and
-        rotated.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices of the query system to align.
-    reference_molecular_system : molecular system or None, default None
-        Reference system.  When ``None``, ``molecular_system`` itself is used.
-    reference_selection : str, list, tuple or numpy.ndarray or None, default None
-        Atoms in the reference used for sequence alignment.  When ``None``, the
-        same expression as ``selection`` is applied to the reference.
-    reference_structure_index : int, default 0
-        Single frame index in the reference system to align to.
-    syntax : str, default 'MolSysMT'
-    use_gpu : bool, default=False
-        Whether to use GPU acceleration.
-    gpu_backend : str, optional
-        GPU compute backend.
-    precision : str, default=\'single\'
-        Floating point precision.
-        Selection syntax used for both selections.
-    engine_sequence_alignment : {'Biopython'}, default 'Biopython'
-        Backend used for pairwise sequence alignment.
-    engine_least_rmsd_fit : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for the Kabsch rotation / RMSD minimisation.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is
-        returned.  If ``False`` a new copy is returned with the aligned
-        coordinates.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='atom_name=="CA"'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    reference_molecular_system : object, default=None
+        Argument reference_molecular_system.
+    reference_selection : object, default=None
+        Argument reference_selection.
+    reference_structure_index : object, default=0
+        Argument reference_structure_index.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine_sequence_alignment : object, default='Biopython'
+        Argument engine_sequence_alignment.
+    engine_least_rmsd_fit : object, default='MolSysMT'
+        Argument engine_least_rmsd_fit.
+    in_place : object, default=False
+        Argument in_place.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    gpu_backend : object, default=None
+        Argument gpu_backend.
+    precision : object, default=None
+        Argument precision.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -71,11 +67,13 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
         A new molecular system with the aligned coordinates when
         ``in_place=False``; ``None`` when ``in_place=True``.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported sequence-alignment engine or least-RMSD-fit engine is
         requested.
+
 
     .. versionadded:: 1.0.0
     """

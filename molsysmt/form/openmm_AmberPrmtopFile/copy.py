@@ -6,10 +6,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form openmm.AmberPrmtopFile.
 
+
     Parameters
     ----------
-    item : openmm.AmberPrmtopFile
-        Source item in openmm.AmberPrmtopFile form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -17,6 +18,7 @@ def copy(item, skip_digestion=False):
     -------
     openmm.AmberPrmtopFile
         Resulting object in openmm.AmberPrmtopFile form.
+
 
     .. versionadded:: 1.0.0
     """

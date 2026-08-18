@@ -34,6 +34,7 @@ def has_unsupported_relationships(structure):
     """
     Performing has unsupported relationships on form parmed.Structure.
 
+
     Parameters
     ----------
     structure : object
@@ -43,6 +44,7 @@ def has_unsupported_relationships(structure):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -57,6 +59,7 @@ def has_mechanical_bond_types(structure):
     """
     Performing has mechanical bond types on form parmed.Structure.
 
+
     Parameters
     ----------
     structure : object
@@ -66,6 +69,7 @@ def has_mechanical_bond_types(structure):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -77,6 +81,7 @@ def bond_table_from_structure(structure):
     """
     Performing bond table from structure on form parmed.Structure.
 
+
     Parameters
     ----------
     structure : object
@@ -86,6 +91,7 @@ def bond_table_from_structure(structure):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

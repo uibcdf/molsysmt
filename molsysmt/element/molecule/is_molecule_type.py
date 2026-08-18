@@ -2,15 +2,21 @@ def is_molecule_type(molecule_type):
     """
     Checking if a string represents a valid recognized molecule type in MolSysMT.
 
+
+
+
     Parameters
     ----------
-    molecule_type : str
-        String to test.
+    molecule_type : object
+        Argument molecule_type.
 
     Returns
     -------
     bool
         True if recognized molecule type, False otherwise.
+
+
+
 
     .. versionadded:: 1.0.0
     """

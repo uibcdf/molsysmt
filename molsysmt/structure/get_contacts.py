@@ -42,68 +42,51 @@ def get_contacts(
     between all pairs within that selection.  When both ``selection`` and
     ``selection_2`` are provided the map is computed between the two sets.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any form supported by MolSysMT.
-    selection : str, list, tuple or numpy.ndarray, optional
-        First set of atoms (or atom-group centroids when ``center_of_atoms=True``).
-        Nested iterables are treated as groups of atoms.
-    center_of_atoms : bool, default False
-        If ``True``, use the (weighted) centroid of each group in ``selection``
-        instead of individual atom positions.
-    weights : array-like, optional
-        Per-atom weights for centroid computation of the first selection.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices over which contacts are evaluated.
-    selection_2 : str, list, tuple or numpy.ndarray, optional
-        Second set of atoms.  When ``None``, contacts are computed within
-        ``selection`` itself.
-    center_of_atoms_2 : bool, default False
-        If ``True``, use the (weighted) centroid of each group in ``selection_2``.
-    weights_2 : array-like, optional
-        Per-atom weights for centroid computation of the second selection.
-    structure_indices_2 : 'all', array-like or None, default None
-        Frame indices for the second selection.  When ``None``, the same frames
-        as ``structure_indices`` are used.
-    threshold : str or quantity, default '12 angstroms'
-    cell_list : bool, default=False
-        Whether to accelerate calculations with spatial cell lists.
-        Distance cutoff for defining a contact.  Accepts any PyUnitWizard-parseable
-        length quantity (e.g. ``'12 angstroms'``, ``puw.quantity(1.2, 'nm')``).
-    pairs : bool, default False
-        If ``True``, ``selection`` is interpreted as an array of pre-defined pairs
-        and only the distance for each pair is evaluated (1-D output instead of 2-D).
-    pbc : bool, default True
-        Whether to apply periodic boundary conditions.  The actual PBC state is
-        queried from the system; this flag disables the query when set to ``False``.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when selections are strings.
-    output_type : {'numpy.ndarray', 'pairs', 'sorted pairs'}, default 'numpy.ndarray'
-        Format of the returned contact map.
-
-        * ``'numpy.ndarray'``: boolean array of shape
-          ``(n_structures, n_elements_1)`` (pairs mode) or
-          ``(n_structures, n_elements_1, n_elements_2)`` (matrix mode).
-        * ``'pairs'`` / ``'sorted pairs'``: list of lists of contacting pair indices,
-          one list per frame.
-    output_indices : {None, 'selection', 'atom'}, default None
-        Controls the index convention used when ``output_type`` is ``'pairs'``
-        or ``'sorted pairs'``.
-
-        * ``None``: raw positional indices into the distance array.
-          ``'selection'``: positional indices within the selection arrays.
-          ``'atom'``: global atom indices in the molecular system.
-    use_gpu : bool or 'auto' or None, default None
-        Whether to run calculation on GPU.
-    gpu_backend : {'cuda', 'taichi'} or None, default None
-        The preferred GPU framework to execute calculations on.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default=None
+        Selection string or boolean/integer array specifying elements.
+    center_of_atoms : bool, default=False
+        Whether to compute distances relative to geometric centers.
+    weights : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for center calculation.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    selection_2 : str, list, tuple, or numpy.ndarray, default=None
+        Second selection string or boolean/integer array.
+    center_of_atoms_2 : bool, default=False
+        Whether to compute distances relative to geometric centers for selection_2.
+    weights_2 : numpy.ndarray, list, or tuple, default=None
+        Atomic mass weights array for selection_2.
+    structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
+        Structure indices (0-based) for the second selection.
+    threshold : float or quantity, default='12 angstroms'
+        Distance cutoff threshold quantity.
+    pairs : object, default=False
+        Argument pairs.
+    pbc : bool, default=True
+        Whether to take periodic boundary conditions into account.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    output_type : object, default='numpy.ndarray'
+        Argument output_type.
+    output_indices : object, default=None
+        Argument output_indices.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    gpu_backend : object, default=None
+        Argument gpu_backend.
+    cell_list : object, default=None
+        Argument cell_list.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -111,6 +94,7 @@ def get_contacts(
         Contact map as a boolean ``numpy.ndarray`` (``output_type='numpy.ndarray'``)
         or as a list of contacting pairs per frame (``output_type='pairs'`` or
         ``'sorted pairs'``).
+
 
     .. versionadded:: 1.0.0
     """

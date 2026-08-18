@@ -4,15 +4,17 @@ def replace_HETATM_by_ATOM_in_terminal_cappings (molecular_system):
     """
     Performing replace HETATM by ATOM in terminal cappings on form file:pdb.
 
+
     Parameters
     ----------
-    molecular_system : object
-        Argument molecular_system.
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
 
     Returns
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

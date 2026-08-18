@@ -7,12 +7,13 @@ def append_structures(item, items, skip_digestion=False):
     """
     Appending coordinate structures to an item of form molsysmt.ViewerJSON.
 
+
     Parameters
     ----------
-    item : molsysmt.ViewerJSON
-        Source item in molsysmt.ViewerJSON form.
-    items : list of object
-        List of items to merge.
+    item : molecular system
+        Argument item.
+    items : object
+        Argument items.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -20,6 +21,7 @@ def append_structures(item, items, skip_digestion=False):
     -------
     molsysmt.ViewerJSON
         Resulting object in molsysmt.ViewerJSON form.
+
 
     .. versionadded:: 1.0.0
     """

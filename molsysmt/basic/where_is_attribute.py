@@ -12,26 +12,17 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     is `False`, items that have the attribute but with value `None` will be ignored.
 
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to be analyzed. It can be in any of the :ref:`supported forms <Introduction_Forms>`.
-    attribute : str
-        Name of the attribute to search for within the molecular system.
-    include_none : bool, default=False
-        Whether to ignore items that have the attribute defined but its value is `None`. With default value `False`,
-        such items will be ignored.
+        Molecular system in any supported MolSysMT format.
+    attribute : object
+        Argument attribute.
+    include_none : object, default=False
+        Argument include_none.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent.
-
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -39,6 +30,7 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
         The item in which the attribute was found.
     str
         The form of the item where the attribute was found.
+
 
 
     Notes
@@ -55,12 +47,14 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     - If no item contains the attribute both outputs will be `None`.
 
 
+
     See Also
     --------
     :func:`molsysmt.basic.has_attribute`
         Checking whether a molecular system contains a given attribute.
     :func:`molsysmt.basic.get_attributes`
         Retrieving the list of attributes present in a molecular system.
+
 
 
     Examples
@@ -76,6 +70,7 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     >>> item, form = msm.basic.where_is_attribute(molecular_system, 'atom_id')
     >>> form
     'file:prmtop'
+
 
 
     .. admonition:: Tutorial with more examples

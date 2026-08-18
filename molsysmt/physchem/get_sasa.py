@@ -38,52 +38,37 @@ def get_sasa(
     Uses the Shrake–Rupley rolling-sphere algorithm. The default engine
     computes SASA with the bundled Rust kernels.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Input system in any supported form.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default 'atom'
-        Hierarchical element over which SASA is accumulated.
-        When ``element='atom'``, the raw per-atom SASA is returned.
-        For any other element, per-atom values are summed within each element.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        Selection of elements to return.  The full system is always used for
-        the SASA calculation; this parameter only filters the output.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to include.
-    syntax : str, default 'MolSysMT'
-        Selection syntax.
-    engine : {'MolSysMT', 'MDTraj'}, default 'MolSysMT'
-        Backend used for the SASA calculation.
-    probe_radius : quantity or str, default '1.4 angstroms'
-        Radius of the rolling solvent probe as a unit-aware length quantity
-        (e.g. ``puw.quantity(1.4, 'angstroms')`` or ``'0.14 nm'``). The default is
-        the standard water-probe radius of 1.4 Å. Both the ``'MolSysMT'`` and
-        ``'MDTraj'`` engines honour it.
-    n_sphere_points : int, default 240
-        Number of points of the Shrake–Rupley test sphere used to sample each
-        atom's surface. More points reduce the angular quantization error at a
-        proportional cost (the occlusion cost scales linearly with this number).
-        The default of 240 is a balance between FreeSASA's default of 100 (faster,
-        ~1–2% error) and MDTraj's default of 960 (slower, <0.5% error); both
-        engines use this value so their results agree closely.
-    use_cell_list : bool or 'auto', default 'auto'
-        Only for the native ``'MolSysMT'`` CPU path. When enabled, the O(N²)
-        occlusion scan is restricted to a cell-list of candidate neighbours,
-        reducing the per-frame cost to roughly O(N) for large systems with
-        numerically identical results. ``'auto'`` enables it above
-        ``CELL_LIST_MIN_ATOMS`` atoms, where the neighbour-list build pays off.
-        Ignored by the GPU kernels and the ``'MDTraj'`` engine.
-    use_gpu : bool or 'auto' or None, default None
-        Whether to run calculation on GPU.
-    gpu_backend : {'cuda', 'taichi'} or None, default None
-        The preferred GPU framework to execute calculations on.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='atom'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    probe_radius : object, default='1.4 angstroms'
+        Argument probe_radius.
+    n_sphere_points : object, default=240
+        Argument n_sphere_points.
+    use_cell_list : object, default='auto'
+        Argument use_cell_list.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    gpu_backend : object, default=None
+        Argument gpu_backend.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -91,15 +76,18 @@ def get_sasa(
         SASA values as a PyUnitWizard quantity in area units (nm²).
         Shape: ``(n_structures, n_elements)``.
 
+
     Raises
     ------
     NotImplementedMethodError
         If an unsupported engine is requested.
 
+
     Notes
     -----
     Non-protein atoms (e.g. solvent) are included in the SASA calculation
     but their contribution to neighbouring atoms is accounted for.
+
 
     .. versionadded:: 1.0.0
     """

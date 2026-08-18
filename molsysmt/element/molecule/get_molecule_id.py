@@ -8,23 +8,29 @@ def get_molecule_id(molecular_system, element='molecule', selection='all', redef
     """
     Getting molecule identifier strings from a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
+        Molecular system in any supported MolSysMT format.
     element : str, default='molecule'
-        Target element level.
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of elements to query.
+        Selection string or boolean/integer array specifying elements.
+    redefine_indices : bool, default=False
+        Whether to reassign contiguous 0-based indices.
+    redefine_ids : bool, default=False
+        Whether to assign sequential string identifiers.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     list of str
         List of molecule IDs.
+
 
     .. versionadded:: 1.0.0
     """

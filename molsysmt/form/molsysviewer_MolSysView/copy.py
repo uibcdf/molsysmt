@@ -8,10 +8,11 @@ def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form molsysviewer.MolSysView.
 
+
     Parameters
     ----------
-    item : molsysviewer.MolSysView
-        Source item in molsysviewer.MolSysView form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -19,6 +20,7 @@ def copy(item, skip_digestion=False):
     -------
     molsysviewer.MolSysView
         Resulting object in molsysviewer.MolSysView form.
+
 
     .. versionadded:: 1.0.0
     """

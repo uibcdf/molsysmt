@@ -9,7 +9,22 @@ from molsysmt._private.variables import is_all
 
 
 def validate_element_indices(molecular_system, indices, element, argument, caller):
-    """Validate and normalize element indices without invoking the public API recursively."""
+    """
+    Validate and normalize element indices without invoking the public API recursively.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    indices : object
+        Argument indices.
+    element : str
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    argument : object
+        Argument argument.
+    caller : object
+        Argument caller.
+    """
 
     if indices is None or is_all(indices):
         return indices
@@ -47,7 +62,20 @@ def validate_element_indices(molecular_system, indices, element, argument, calle
 
 
 def normalize_mask(molecular_system, mask, element, caller):
-    """Normalize a Boolean mask or validate an index-based mask."""
+    """
+    Normalize a Boolean mask or validate an index-based mask.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    mask : object
+        Argument mask.
+    element : str
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    caller : object
+        Argument caller.
+    """
 
     if mask is None or is_all(mask) or isinstance(mask, str):
         return mask
@@ -71,7 +99,18 @@ def normalize_mask(molecular_system, mask, element, caller):
 
 
 def validate_structure_indices(molecular_system, structure_indices, caller):
-    """Validate explicit structure indices when a structure count is available."""
+    """
+    Validate explicit structure indices when a structure count is available.
+
+    Parameters
+    ----------
+    molecular_system : molecular system
+        Molecular system in any supported MolSysMT format.
+    structure_indices : int, list, tuple, or numpy.ndarray
+        Structure indices (0-based) to include or process.
+    caller : object
+        Argument caller.
+    """
 
     if structure_indices is None or is_all(structure_indices):
         return structure_indices

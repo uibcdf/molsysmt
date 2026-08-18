@@ -7,21 +7,23 @@ def has_hydrogens(molecular_system, selection='all', syntax='MolSysMT', skip_dig
     """
     Checking if a molecular system or selected subset contains hydrogen atoms.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported form.
+        Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of atoms to inspect.
+        Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     bool
         True if any hydrogen atom is present in the selection, False otherwise.
+
 
     .. versionadded:: 1.0.0
     """

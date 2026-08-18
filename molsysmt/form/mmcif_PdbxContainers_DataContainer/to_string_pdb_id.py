@@ -5,10 +5,11 @@ def to_string_pdb_id(item, skip_digestion=False):
     """
     Converting from mmcif.PdbxContainers.DataContainer to string:pdb_id.
 
+
     Parameters
     ----------
-    item : mmcif.PdbxContainers.DataContainer
-        Source item in mmcif.PdbxContainers.DataContainer form.
+    item : molecular system
+        Argument item.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -16,6 +17,7 @@ def to_string_pdb_id(item, skip_digestion=False):
     -------
     string:pdb_id
         Resulting object in string:pdb_id form.
+
 
     .. versionadded:: 1.0.0
     """

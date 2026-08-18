@@ -6,15 +6,17 @@ def copy(item):
     """
     Creating a copy of an item of form MDAnalysis.Universe.
 
+
     Parameters
     ----------
-    item : MDAnalysis.Universe
-        Source item in MDAnalysis.Universe form.
+    item : molecular system
+        Argument item.
 
     Returns
     -------
     MDAnalysis.Universe
         Resulting object in MDAnalysis.Universe form.
+
 
     .. versionadded:: 1.0.0
     """

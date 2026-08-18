@@ -27,55 +27,29 @@ def get(molecular_system,
     to be returned are indicated via keyword flags in `**kwargs` (e.g., ``n_atoms=True``,
     ``coordinates=True``).
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity', 'bond', 'system'}, default 'system'
-        Element level at which attributes are retrieved.
-    selection : int, tuple, list, numpy.ndarray or str, default 'all'
-        Subset of elements (interpreted at the level set by `element`) to use when retrieving
-        attributes. Either a 0-based index collection or a selection string parsed according to
-        :ref:`Introduction_Selection`.
-    structure_indices : int, tuple, list, numpy.ndarray or 'all', default 'all'
-        0-based indices of structures to include in the query. Required for structural attributes (e.g., coordinates, box, time).
-    mask : str or array-like, optional
-        Additional subset applied after selection. It can be a selection string,
-        a collection of 0-based element indices, or a Boolean array with one
-        entry per element.
-    syntax : str, default 'MolSysMT'
-        Selection syntax used when `selection` is a string. See :ref:`Introduction_Selection`.
-    get_missing_bonds : bool, default True
-        Whether to infer and return bond information on the fly when bond-related attributes
-        are requested and the input form lacks explicit connectivity. The inference uses the
-        form backend’s heuristics (distance/chemistry-aware thresholds).
-    output_type : {'values', 'dictionary'}, default 'values'
-        Output format:
-        - ``value` — **convenience mode**:
-          * if exactly **one** attribute is requested, return its value directly;
-          * if **multiple** attributes are requested, return a **list** of values following
-            the order in which the attributes were provided in `**kwargs`.
-        - ``'dictionary'`` — return a dictionary mapping attribute names to values.
-    chemical_state : {'reference', 'structure'} or int, default 'reference'
-        Chemical state used to resolve state-dependent atom, component, and bond
-        attributes. A non-negative integer selects a state by its 0-based index.
-        ``'structure'`` resolves the unique state associated with the requested
-        structures of a native MolSys. State identifiers are not accepted
-        because they need not be unique.
-    skip_digestion : bool, default False
-        Whether to skip MolSysMT’s internal argument digestion mechanism.
-
-        MolSysMT includes a built-in digestion system that validates and normalizes
-        function arguments. This process checks types, shapes, and values, and automatically
-        adjusts them when possible to meet expected formats.
-
-        Setting `skip_digestion=True` disables this process, which may improve performance
-        in workflows where inputs are already validated. Use with caution: only set this to
-        `True` if you are certain all input arguments are correct and consistent
-    **kwargs
-        Attribute flags selecting which values to retrieve (e.g., ``n_atoms=True``,
-        ``coordinates=True``, ``time=True``, ``box=True``, etc.). Only attributes flagged
-        as `True` are returned.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='system'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    mask : object, default=None
+        Argument mask.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    get_missing_bonds : object, default=True
+        Argument get_missing_bonds.
+    output_type : object, default='values'
+        Argument output_type.
+    chemical_state : object, default='reference'
+        Argument chemical_state.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
@@ -86,6 +60,7 @@ def get(molecular_system,
         - If ``output_type == 'values'`` and multiple attributes are requested: a list with values
           in the order given by `**kwargs`.
         - If ``output_type == 'dictionary'``: a dictionary ``{attribute_name: value}``.
+
 
     Raises
     ------
@@ -98,6 +73,7 @@ def get(molecular_system,
         If a form declares a requested attribute but provides neither a
         compatible direct getter, registered derivation, nor usable attribute
         pipe.
+
 
     Notes
     -----
@@ -133,12 +109,14 @@ def get(molecular_system,
       are derived from the box matrix when the source form exposes that matrix
       but does not implement a dedicated getter.
 
+
     See Also
     --------
     :func:`molsysmt.basic.select`
         Select elements from a molecular system.
     :func:`molsysmt.basic.get_attributes`
         Get the list of available attributes for a molecular system.
+
 
     Examples
     --------
@@ -168,6 +146,7 @@ def get(molecular_system,
     >>> molsys.structures.coordinates = msm.pyunitwizard.quantity(np.zeros((2, 1, 3)), 'nm')
     >>> msm.get(molsys, structure_chemical_state_index=True)
     [0, 0]
+
 
     .. admonition:: Tutorial with more examples
 

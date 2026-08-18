@@ -9,11 +9,11 @@ def get_standard_name(group_name):
     entries) which covers modified amino acids, D-amino acids, protonation-state
     variants, and other non-canonical residues found in the PDB.
 
+
     Parameters
     ----------
     group_name : str
-        Residue name as stored in the topology (e.g. ``'MSE'``, ``'SEP'``,
-        ``'HID'``).
+        Name of the chemical group (residue).
 
     Returns
     -------
@@ -27,6 +27,12 @@ def get_standard_name(group_name):
           ions, ligands).
         * The residue has no known standard equivalent (maps to ``'XAA'``).
 
+
+    Notes
+    -----
+    The source table is ``element.group.amino_acid.group_types.name_to_type``.
+
+
     Examples
     --------
     >>> get_standard_name('MSE')   # selenomethionine
@@ -38,9 +44,6 @@ def get_standard_name(group_name):
     >>> get_standard_name('HOH')   # water — not an amino acid
     None
 
-    Notes
-    -----
-    The source table is ``element.group.amino_acid.group_types.name_to_type``.
 
     .. versionadded:: 1.0.0
     """

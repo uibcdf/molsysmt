@@ -14,22 +14,25 @@ NEUTRAL_GROUP_NAMES = {'DUM', 'X'}
 
 
 def group_table_value(values, group_name, neutral=0.0):
-    """Return the property value for ``group_name`` from a residue table.
+    """
+    Return the property value for ``group_name`` from a residue table.
+
 
     Parameters
     ----------
-    values : dict
-        Residue-property table keyed by upper-case residue name.
+    values : object
+        Argument values.
     group_name : str
-        Residue name (case-insensitive).
-    neutral : float, default 0.0
-        Value returned for dummy residues in :data:`NEUTRAL_GROUP_NAMES`.
+        Name of the chemical group (residue).
+    neutral : object, default=0.0
+        Argument neutral.
 
     Returns
     -------
     float
         ``values[group_name.upper()]`` when present; ``neutral`` for dummy
         residues.
+
 
     Raises
     ------

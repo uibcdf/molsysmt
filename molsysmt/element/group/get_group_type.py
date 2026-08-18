@@ -16,25 +16,27 @@ def get_group_type(molecular_system, element='group', selection='all', redefine_
     """
     Getting group types from a molecular system.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system to query, in any of the :ref:`supported forms <Introduction_Forms>`.
-    element : {'atom', 'group', 'component', 'molecule', 'chain', 'entity'}, default='atom'
-        Structural element level at which group types are queried.
+        Molecular system in any supported MolSysMT format.
+    element : str, default='group'
+        Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection of elements to query.
-    redefine_types : bool, default=False
-        Whether to re-infer group types from residue names.
+        Selection string or boolean/integer array specifying elements.
+    redefine_types : object, default=False
+        Argument redefine_types.
     syntax : str, default='MolSysMT'
-        Selection syntax used.
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
-        Whether to skip argument validation.
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     list of str
         List of group types ('amino acid', 'water', 'ion', 'small molecule', 'lipid', etc.).
+
 
     .. versionadded:: 1.0.0
     """
@@ -101,6 +103,23 @@ def get_group_type(molecular_system, element='group', selection='all', redefine_
 
 
 def get_group_type_from_group_name(group_name, skip_digestion=False):
+    """
+    Determining the group type classification from a residue or group name.
+
+    Parameters
+    ----------
+    group_name : str
+        Name of the chemical group (residue).
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
+
+    Returns
+    -------
+    str or None
+        Classified group type ('amino acid', 'ion', 'water', 'lipid', 'nucleotide', 'saccharide', 'small molecule', 'terminal capping') or 'unknown'.
+
+    .. versionadded:: 1.0.0
+    """
 
     output = None
 

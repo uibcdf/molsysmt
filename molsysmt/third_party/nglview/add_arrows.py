@@ -11,18 +11,21 @@ def add_arrows(view, origin=None, end=None, vectors=None,
     """
     Adding 3D arrows between start and end coordinate points in NGLWidget.
 
+
     Parameters
     ----------
     view : nglview.NGLWidget
-        Target molecular viewer.
-    start : list or numpy.ndarray
-        Starting 3D coordinates.
-    end : list or numpy.ndarray
-        Ending 3D coordinates.
-    color : str, default='red'
-        Arrow color.
-    radius : float, default=0.1
-        Arrow cylinder radius in nanometers.
+        Target molecular viewer instance.
+    origin : numpy.ndarray, list, or tuple, default=None
+        Origin coordinates vector for arrows.
+    end : object, default=None
+        Argument end.
+    vectors : numpy.ndarray, list, or tuple, default=None
+        Direction and magnitude vectors array.
+    color : object, default='#808080'
+        Argument color.
+    radius : object, default='0.2 angstroms'
+        Argument radius.
 
     .. versionadded:: 1.0.0
     """

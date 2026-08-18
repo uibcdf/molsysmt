@@ -46,56 +46,50 @@ def least_rmsd_fit(
     then applied to the broader ``selection`` (which may include more atoms than
     ``selection_fit``).
 
+
     Parameters
     ----------
-    molecular_system : molecular system
-        System to be fitted, in any form supported by MolSysMT.
-    selection : str, list, tuple or numpy.ndarray, default 'all'
-        All atoms that will be physically moved by the fitted transformation.
-        This is usually a superset of ``selection_fit`` (e.g., all atoms in a
-        chain, while fitting is done on C-alpha only).
-    selection_fit : str, list, tuple or numpy.ndarray, default 'atom_type!="H"'
-        Subset of atoms used to compute the optimal superposition (heavy atoms
-        by default).  Must resolve to the same number of atoms as
-        ``reference_selection_fit``.
-    structure_indices : 'all' or array-like, default 'all'
-        Frame indices of the query system to fit.
-    reference_molecular_system : molecular system or None, default None
-        Reference system.  When ``None``, ``molecular_system`` itself is used.
-    reference_selection_fit : str, list, tuple or numpy.ndarray or None, default None
-        Atoms in the reference used to compute the superposition.  When ``None``,
-        the same expression as ``selection_fit`` is applied to the reference.
-    reference_structure_index : int, default 0
-        Single frame index in the reference system to fit to.
-    to_form : str or None, default None
-        Convert the output to the specified MolSysMT form before returning.
-        When ``None``, the same form as the input is kept.
-    in_place : bool, default False
-        If ``True`` the molecular system is modified in-place and ``None`` is
-        returned.  If ``False`` a new copy is returned with the fitted
-        coordinates.
-    syntax : str, default 'MolSysMT'
-    use_gpu : bool, default=False
-        Whether to use GPU acceleration.
-    gpu_backend : str, optional
-        GPU compute backend.
-    precision : str, default=\'single\'
-        Floating point precision.
-        Selection syntax used for all selections.
-    engine : {'MolSysMT'}, default 'MolSysMT'
-        Backend used for the Kabsch rotation computation.
-    parallel : bool or str, optional
-        Parallel mode override: True | False | 'auto'.
-    num_threads : int, optional
-        Number of threads override.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion (for internal use on trusted hot paths).
+    molecular_system : molecular system, default=None
+        Molecular system in any supported MolSysMT format.
+    selection : str, list, tuple, or numpy.ndarray, default='all'
+        Selection string or boolean/integer array specifying elements.
+    selection_fit : object, default='atom_type!="H"'
+        Argument selection_fit.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    reference_molecular_system : object, default=None
+        Argument reference_molecular_system.
+    reference_selection_fit : object, default=None
+        Argument reference_selection_fit.
+    reference_structure_index : object, default=0
+        Argument reference_structure_index.
+    to_form : object, default=None
+        Argument to_form.
+    in_place : object, default=False
+        Argument in_place.
+    syntax : str, default='MolSysMT'
+        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    engine : object, default='MolSysMT'
+        Argument engine.
+    parallel : object, default=None
+        Argument parallel.
+    num_threads : object, default=None
+        Argument num_threads.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    gpu_backend : object, default=None
+        Argument gpu_backend.
+    precision : object, default=None
+        Argument precision.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     molecular system or None
         A new molecular system with the fitted coordinates (optionally converted
         to ``to_form``) when ``in_place=False``; ``None`` when ``in_place=True``.
+
 
     Raises
     ------
@@ -107,11 +101,13 @@ def least_rmsd_fit(
         collinear and therefore cannot define a unique three-dimensional
         rigid transformation.
 
+
     Notes
     -----
     A unique three-dimensional rotation requires at least three non-collinear
     fit atoms in both systems. A fit based on one atom, two atoms, or collinear
     atoms is rejected instead of returning an arbitrary rotation.
+
 
     See Also
     --------
@@ -119,6 +115,7 @@ def least_rmsd_fit(
         Compute RMSD without changing coordinates.
     :func:`molsysmt.structure.rotate`
         Apply an explicit proper rotation.
+
 
     Examples
     --------
@@ -133,6 +130,7 @@ def least_rmsd_fit(
     ... )
     >>> msm.get(fitted, element='system', n_structures=True)
     2
+
 
     .. admonition:: Tutorial with more examples
 

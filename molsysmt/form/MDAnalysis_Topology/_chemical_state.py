@@ -18,6 +18,7 @@ def has_opaque_bond_types(topology):
     """
     Performing has opaque bond types on form MDAnalysis.Topology.
 
+
     Parameters
     ----------
     topology : object
@@ -27,6 +28,7 @@ def has_opaque_bond_types(topology):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """
@@ -79,6 +81,7 @@ def bond_table_from_topology(topology):
     """
     Performing bond table from topology on form MDAnalysis.Topology.
 
+
     Parameters
     ----------
     topology : object
@@ -88,6 +91,7 @@ def bond_table_from_topology(topology):
     -------
     object
         Resulting object in object form.
+
 
     .. versionadded:: 1.0.0
     """

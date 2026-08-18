@@ -72,37 +72,61 @@ def _load():
 
 
 def form_names():
-    """Every declared form name."""
+    """
+    Every declared form name.
+    """
 
     return tuple(_load()['by_form'])
 
 
 def forms_lowercase():
-    """Lowercased form name -> the canonical spelling."""
+    """
+    Lowercased form name -> the canonical spelling.
+    """
 
     return _load()['forms_lowercase']
 
 
 def form_type(form_name):
-    """`'file'`, `'string'` or `'class'`, or None when the form is not declared."""
+    """
+    `'file'`, `'string'` or `'class'`, or None when the form is not declared.
+
+    Parameters
+    ----------
+    form_name : object
+        Argument form_name.
+    """
 
     declaration = _load()['by_form'].get(form_name)
     return None if declaration is None else declaration['form_type']
 
 
 def plugin_of(form_name):
-    """The subpackage implementing a form, or None when it is not declared."""
+    """
+    The subpackage implementing a form, or None when it is not declared.
+
+    Parameters
+    ----------
+    form_name : object
+        Argument form_name.
+    """
 
     declaration = _load()['by_form'].get(form_name)
     return None if declaration is None else declaration['plugin']
 
 
 def form_of_class(item):
-    """The form whose items are instances of this item's class, or None.
+    """
+    The form whose items are instances of this item's class, or None.
 
     Walks the item's own class and its bases, so a subclass of a supported class is
     recognised as the form it specialises. No import happens: the comparison is between
     the strings a class carries and the strings a form declared.
+
+    Parameters
+    ----------
+    item : molecular system
+        Argument item.
     """
 
     index = _load()['class_index']
@@ -115,12 +139,18 @@ def form_of_class(item):
 
 
 def form_of_extension(name):
-    """The file form a path names, or None.
+    """
+    The file form a path names, or None.
 
     Longest extension first, so `1l2y.bcif.gz` is a `file:bcif.gz` and not a `file:gz`.
     Molecular text is rejected before suffix inspection, and only extension-sized slices
     are copied. Consequently, auxiliary memory does not grow with an in-memory molecular
     payload or a long path.
+
+    Parameters
+    ----------
+    name : object
+        Argument name.
     """
 
     index = _load()['extension_index']
@@ -141,11 +171,17 @@ _modules = {}
 
 
 def module_of(form_name):
-    """Import and return the plugin implementing a form. Only that one.
+    """
+    Import and return the plugin implementing a form. Only that one.
 
     The registry cannot do this: it learns a form's name by importing the module that
     declares it, so it has to import all of them before it can hand back any. Here the name
     came from the declaration, so the module is known before it is loaded.
+
+    Parameters
+    ----------
+    form_name : object
+        Argument form_name.
     """
 
     if form_name in _modules:

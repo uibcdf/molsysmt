@@ -22,22 +22,23 @@ def get_angles(
     """
     Calculating bond angles for given atom triplets.
 
+
     Parameters
     ----------
     molecular_system : molecular system
-        System providing coordinates.
-    triplets : numpy.ndarray
-        Array of shape (n_triplets, 3) with atom indices defining each angle.
-    structure_indices : 'all' or array-like, default 'all'
-        Structures/frames to compute over.
-    pbc : bool, default False
-        Whether to apply minimum image convention using the box.
-    use_gpu : bool or 'auto' or None, default None
-        Whether to run calculation on GPU.
-    gpu_backend : {'cuda', 'taichi'} or None, default None
-        The preferred GPU framework to execute calculations on.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+        Molecular system in any supported MolSysMT format.
+    triplets : object
+        Argument triplets.
+    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Structure indices (0-based) to include or process.
+    pbc : bool, default=False
+        Whether to take periodic boundary conditions into account.
+    use_gpu : bool, default=None
+        Whether to perform computation using GPU acceleration.
+    gpu_backend : object, default=None
+        Argument gpu_backend.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------

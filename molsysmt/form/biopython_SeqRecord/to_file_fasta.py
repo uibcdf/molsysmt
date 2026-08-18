@@ -8,11 +8,12 @@ def to_file_fasta(item, output_filename=None, skip_digestion=False):
     """
     Converting from biopython.SeqRecord to file:fasta.
 
+
     Parameters
     ----------
-    item : biopython.SeqRecord
-        Source item in biopython.SeqRecord form.
-    output_filename : str or pathlib.Path
+    item : molecular system
+        Argument item.
+    output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
@@ -21,6 +22,7 @@ def to_file_fasta(item, output_filename=None, skip_digestion=False):
     -------
     file:fasta
         Resulting object in file:fasta form.
+
 
     .. versionadded:: 1.0.0
     """

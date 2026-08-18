@@ -20,7 +20,18 @@ norm_vector = _rust.norm_vector
 
 
 def rodrigues_rotation(vector, unit_vector, angle):
-    """Rotating a vector in place with Rodrigues' formula."""
+    """
+    Rotating a vector in place with Rodrigues' formula.
+
+    Parameters
+    ----------
+    vector : object
+        Argument vector.
+    unit_vector : object
+        Argument unit_vector.
+    angle : object
+        Argument angle.
+    """
     vector[...] = _rodrigues_rotation(vector, unit_vector, angle)
 
 

@@ -7,17 +7,19 @@ def get_shape_from_angles(box_angles, skip_digestion=False):
     """
     Determining box shape from its angles.
 
+
     Parameters
     ----------
-    box_angles : quantity
-        Angles (alpha, beta, gamma) with units.
-    skip_digestion : bool, default False
-        Whether to skip argument digestion.
+    box_angles : object
+        Argument box_angles.
+    skip_digestion : bool, default=False
+        Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     str
         Box shape label inferred from the angles.
+
 
     .. versionadded:: 1.0.0
     """

@@ -8,10 +8,11 @@ def to_file_structures_yaml(item, output_filename, skip_digestion=False):
     """
     Converting from file:structures_yaml to file:structures_yaml.
 
+
     Parameters
     ----------
-    item : file:structures_yaml
-        Source item in file:structures_yaml form.
+    item : molecular system
+        Argument item.
     output_filename : str or pathlib.Path
         Output file path for serialization.
     skip_digestion : bool, default=False
@@ -21,6 +22,7 @@ def to_file_structures_yaml(item, output_filename, skip_digestion=False):
     -------
     file:structures_yaml
         Resulting object in file:structures_yaml form.
+
 
     .. versionadded:: 1.0.0
     """
