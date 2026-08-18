@@ -21,5 +21,4 @@ def add(to_item, item, atom_indices='all', structure_indices='all', skip_digesti
         Target item with added elements.
     """
 
-   raise NotImplementedMethodError()
-
+    raise NotImplementedMethodError()

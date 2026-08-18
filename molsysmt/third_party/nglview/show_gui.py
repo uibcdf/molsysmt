@@ -1,9 +1,15 @@
-from molsysmt._private.argdigest import arg_digest
+def show_gui(view, gui=True):
+    """
+    Toggling or showing the interactive graphical user interface controls in NGLWidget.
 
+    Parameters
+    ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
+    gui : bool, default=True
+        Whether GUI controls should be visible.
 
-@arg_digest()
-def show_gui(view):
-
-    view.gui_style = 'ngl'
-
-    pass
+    .. versionadded:: 1.0.0
+    """
+    if gui:
+        view.display(gui=True)

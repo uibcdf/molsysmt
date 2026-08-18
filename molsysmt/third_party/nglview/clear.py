@@ -1,13 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
+def clear(view):
+    """
+    Clearing all visual representations and components from an NGLWidget viewer.
 
-# https://github.com/arose/ngl/blob/master/doc/usage/selection-language.md
+    Parameters
+    ----------
+    view : nglview.NGLWidget
+        Target molecular viewer.
 
-
-@arg_digest(form='nglview.NGLWidget')
-def clear(view, skip_digestion=False):
-
+    .. versionadded:: 1.0.0
+    """
     view.clear_representations()
-
-    pass
-
