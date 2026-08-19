@@ -159,7 +159,7 @@ Excluded:
 - the tooling, per *Decision* above;
 - the evidence labels of `DOCUMENT_POLICY.md`, permanently;
 - this repository's own label taxonomy, and the `deps`/`dependencies` mismatch, which
-  belong to [`devguide_issue_sync_fails_on_unknown_area_labels.md`](../pending_bugs/devguide_issue_sync_fails_on_unknown_area_labels.md);
+  belong to [`devguide_issue_sync_fails_on_unknown_area_labels.md`](../archive/resolved_bugs/devguide_issue_sync_fails_on_unknown_area_labels.md);
 - the choice of consensus repository for Phase 2, which is not a MolSysMT decision.
 
 ## Acceptance criteria

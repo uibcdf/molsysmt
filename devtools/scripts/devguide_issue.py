@@ -77,6 +77,24 @@ def _slug(title: str) -> str:
     return slug.strip("_")[:80]
 
 
+def _board_labels() -> set:
+    """The labels that exist on the board, fetched once.
+
+    `gh` validates every label in a call against the repository and rejects the whole
+    command if one is unknown, so a label that does not exist stops the labels that do
+    from being applied — including the state label, which is what makes the board say
+    a theme is open and unstarted while the document says it is blocked. Checking
+    first is what turns that into a message the filer can act on.
+    """
+
+    listed = _gh("label", "list", "--limit", "200", "--json", "name", "-q", ".[].name")
+    return {name.strip() for name in listed.splitlines() if name.strip()}
+
+
+def _missing_labels(labels) -> list:
+    return sorted(set(labels) - _board_labels())
+
+
 def command_open(arguments: argparse.Namespace) -> int:
     """Create the issue, then scaffold the document with its number already in place."""
 
@@ -91,6 +109,17 @@ def command_open(arguments: argparse.Namespace) -> int:
         f"Why   — <impact, or the problem it solves>\n"
         f"Record — <filled in when the document lands>\n"
     )
+
+    missing = _missing_labels(labels)
+    if missing:
+        available = ", ".join(sorted(_board_labels()))
+        raise SystemExit(
+            f"these labels do not exist on the board: {', '.join(missing)}\n"
+            f"Nothing was created. `gh` rejects a call containing an unknown label, so "
+            f"the issue and its document would both be lost.\n"
+            f"Create them with `gh label create <name>`, or use an existing area:\n"
+            f"  {available}"
+        )
 
     url = _gh(
         "issue",
@@ -179,12 +208,22 @@ def command_sync(arguments: argparse.Namespace) -> int:
 
     remote = _remote_state()
     drifted = 0
+    unknown_labels = set()
 
     for report in reports:
         number = report.issue_number
         if number is None:
             continue
         issue = remote.get(number)
+
+        # A closed issue is history. Its report is archived, nobody will revisit either,
+        # and labelling it keeps `sync --check` permanently non-zero over documents that
+        # will never change again — a check that cannot go green stops being read. The
+        # point of this command is to keep the *open* board agreeing with the *open*
+        # queues. See uibcdf/molsysmt#159.
+        if issue is not None and issue.get("state", "").upper() == "CLOSED":
+            continue
+
         problems = _drift(report, issue)
         if not problems:
             continue
@@ -198,6 +237,20 @@ def command_sync(arguments: argparse.Namespace) -> int:
         wanted = set(report.labels)
         add = sorted(wanted - present)
         remove = sorted((present & set(MANAGED_LABELS)) - wanted)
+
+        # A label the board does not have would make `gh` reject the whole call, so the
+        # labels that do exist — the state label above all — would not be applied
+        # either. Apply what can be applied and name what cannot, rather than losing
+        # both. See uibcdf/molsysmt#159.
+        unknown = _missing_labels(add)
+        if unknown:
+            add = [label for label in add if label not in unknown]
+            print(
+                f"  #{number}: skipping labels that do not exist on the board: "
+                f"{', '.join(unknown)}. Create them with `gh label create <name>`."
+            )
+            unknown_labels.update(unknown)
+
         if add or remove:
             call = ["issue", "edit", str(number)]
             for label in add:
@@ -207,12 +260,18 @@ def command_sync(arguments: argparse.Namespace) -> int:
             _gh(*call)
             print(f"  synchronised labels on #{number}")
 
+    if unknown_labels:
+        print(
+            f"\n{len(unknown_labels)} label(s) used by a report do not exist on the "
+            f"board: {', '.join(sorted(unknown_labels))}"
+        )
+
     if arguments.check:
         print(f"\n{drifted} entr(ies) drifted." if drifted else "\nBoard agrees with the queues.")
-        return 1 if (drifted or errors) else 0
+        return 1 if (drifted or errors or unknown_labels) else 0
 
     print(f"\n{drifted} entr(ies) needed synchronising.")
-    return 1 if errors else 0
+    return 1 if (errors or unknown_labels) else 0
 
 
 def command_close(arguments: argparse.Namespace) -> int:

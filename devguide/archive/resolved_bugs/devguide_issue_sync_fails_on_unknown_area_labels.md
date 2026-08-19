@@ -1,13 +1,13 @@
 ---
 summary: devguide_issue.py cannot label an issue whose area tags are not already labels on the board.
 issue: uibcdf/molsysmt#159
-status: open
+status: resolved
 opened: 2026-08-16
-closed:
+closed: 2026-08-19
 severity: medium
 verification: reproduced
 area: [build, docs]
-guard:
+guard: devtools/tests/test_devguide_issue_labels.py
 normative:
 blocked_by: []
 supersedes: []
@@ -216,3 +216,62 @@ taxonomy stops being one.
 
 Host: this development checkout, molsysmt at `ca60317da`. Python 3.13.14,
 `gh` against `uibcdf/molsysmt`. 2026-08-16.
+
+## Resolution — 2026-08-19
+
+The two commands needed different answers, because the cost of refusing is not the
+same in each.
+
+**`open` refuses before it creates anything.** A failure there leaves neither the
+issue nor its document, so the protocol's first step — open the issue to obtain the
+number — cannot complete, and the filer is left with nothing to retry from. It now
+checks the labels against the board first and exits naming the missing one, how to
+create it, and the areas that do exist:
+
+```
+$ devguide_issue.py open --kind bug --title "..." --area no_such_area,docs
+these labels do not exist on the board: no_such_area
+Nothing was created. `gh` rejects a call containing an unknown label, so the issue
+and its document would both be lost.
+Create them with `gh label create <name>`, or use an existing area:
+  api, argdigest, attribute, basic, ..., pbc, performance, ...
+```
+
+**`sync` applies what it can and names what it cannot.** Refusing outright is what
+left the board stale, and the state label is the one that matters: `blocked`,
+`partial` and `in-progress` are derived from `status`, so while a label was missing
+the board kept saying a theme was open and unstarted when its document said it was
+blocked.
+
+### The question this report raised, now answered
+
+*Should `sync` write labels to closed issues at all?* No. A closed issue is history:
+its report is archived, nobody will revisit either, and chasing it kept
+`sync --check` permanently non-zero over documents that will never change again. A
+check that cannot go green stops being read, which is what this report said about
+the drift it could not clear. The command exists to keep the *open* board agreeing
+with the *open* queues.
+
+With that, the first acceptance criterion is met for the first time since this was
+filed:
+
+```
+$ devguide_issue.py sync --check
+Board agrees with the queues.
+exit=0
+```
+
+### Reproduced again before fixing
+
+On 2026-08-19, filing `uibcdf/molsysmt#173`, `open --area pbc,api` failed because
+the board had no `pbc` label. Exactly the failure described here, three days after
+it was filed, on a checkout where the taxonomy half had been fixed by hand. The
+label was created manually to get the issue open — which is the workaround this
+report predicted: the filer stops recording the area rather than fight the tool.
+
+### Guard
+
+`devtools/tests/test_devguide_issue_labels.py` covers all three behaviours offline,
+with `_gh` and `_board_labels` replaced. Each was verified by mutation: removing the
+pre-flight check fails the `open` test, and removing the closed-issue skip fails the
+`sync` test.

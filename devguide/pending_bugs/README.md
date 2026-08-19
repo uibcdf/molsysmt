@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`devguide_issue_sync_fails_on_unknown_area_labels.md`](devguide_issue_sync_fails_on_unknown_area_labels.md) — [#159](https://github.com/uibcdf/molsysmt/issues/159) — devguide_issue.py cannot label an issue whose area tags are not already labels on the board. *(medium, reproduced)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
