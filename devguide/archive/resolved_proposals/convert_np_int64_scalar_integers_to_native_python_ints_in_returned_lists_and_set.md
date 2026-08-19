@@ -1,12 +1,12 @@
 ---
 summary: Public returns deliver numpy scalars where the rest of the API delivers native ones
 issue: uibcdf/molsysmt#165
-status: open
+status: resolved
 opened: 2026-08-17
-closed:
+closed: 2026-08-19
 verification: measured
 area: [api, basic, topology]
-guard:
+guard: tests/basic/get/test_native_scalar_delivery.py
 normative: devguide/INTERFACES.md
 blocked_by: []
 supersedes: []
@@ -17,9 +17,9 @@ supersedes: []
 **Reported:** 2026-08-17 during a User Guide audit, as a rendering complaint about
 `np.int64(...)` in notebook output. **Rewritten 2026-08-18** after an audit that
 found the original scope wrong in both directions and the cause elsewhere.
-**Status:** open. The rule this resolves to is written in
-[INTERFACES.md](../INTERFACES.md), *Scalar types in returned values*; the code does
-not yet follow it everywhere.
+**Status:** resolved 2026-08-19 in `375d4347c`. The rule is written in
+[INTERFACES.md](../INTERFACES.md), *Scalar types in returned values*, and the code
+now follows it.
 
 ## What
 
@@ -279,3 +279,30 @@ change and belongs in the release notes.
 Host: this development checkout, molsysmt at `2a77a8cb0`. Python 3.13.14,
 NumPy 2.4.6. Systems: `181l.pdb` (1441 atoms) and `traj_pentalanine.h5msm`.
 2026-08-18.
+
+## Resolution — 2026-08-19
+
+`375d4347c` normalises the 23 affected attributes at the delivery boundary in
+`molsysmt/basic/get.py`, and `tests/basic/get/test_native_scalar_delivery.py` sweeps
+the whole 118-attribute catalogue over every element level to keep it that way.
+
+The normalisation is applied to a named set rather than to every return. A blanket
+pass must walk a value to discover whether it needs anything, and on a 78 974-atom
+system that costs 12.4 ms on the already-clean `atom_index` against a 6.1 ms call —
+tripling the most used attribute in the library to achieve nothing. Membership is
+O(1); the 23 pay 17-34 % of their own call.
+
+`get_covalent_blocks` was fixed by this without a change of its own, confirming the
+diagnosis recorded above: its mixed sets came from NetworkX using the delivered
+bond-pair objects as adjacency keys.
+
+Full suite on the resolved tree: 10 100 passed, 11 skipped.
+
+**What this does not do.** The getters still build the NumPy scalars that are then
+converted away, and building them is itself the slow part —
+`itertuples` over the bond table costs 91.2 ms where `to_numpy().tolist()` costs
+11.0 ms for the same result. That is tracked as
+[uibcdf/molsysmt#172](https://github.com/uibcdf/molsysmt/issues/172), which does not
+supersede this one: the delivery net stays whatever happens to the producers,
+because 89 adapters carry hand-written getters and this guard certifies the ones
+that exist today, not the next one.
