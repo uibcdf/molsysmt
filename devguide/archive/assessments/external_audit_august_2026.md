@@ -194,3 +194,27 @@ what the layer *is* had already been decided.
 The closing sentence of *The assessment* stands as written on the fact — 84% of the
 codebase is a materialised adapter matrix, and that belongs in the paper — but not on its
 framing as something to resolve. It is a fact to state, not a question to answer.
+
+## Addendum — 2026-08-19
+
+Two pre-submission items named in discussion of this audit had no tracked home and were
+filed after it was written:
+
+- [#190](https://github.com/uibcdf/molsysmt/issues/190) — the evidence matrix cannot show
+  the surfaces the manuscript will lead with. 43 experimental scientific symbols sit
+  outside the contract's scope by construction, so the matrix reports `0 gap` where the
+  accurate reading is `0 gap among the stable`.
+- [#191](https://github.com/uibcdf/molsysmt/issues/191) — `paper/main.tex` is an unfilled
+  template, and no document states what the manuscript claims. Three existing documents
+  already depend on that answer.
+
+The third item raised in the same discussion, availability through Conda with a
+version DOI, is already tracked by
+[`../../pending_proposals/molsysmt_1_0_conda_release_coordination.md`](../../pending_proposals/molsysmt_1_0_conda_release_coordination.md)
+and [`../../release_1_0_status.md`](../../release_1_0_status.md), and was not re-filed.
+
+One claim made in that discussion is corrected here. The LEaP parity suite was described
+as effectively disabled by its `skipif` on `tleap`. It is not: `ambertools` is in
+`devtools/conda-envs/test_env.yaml` and `ci-weekly.yaml` applies no marker deselection,
+so the 40-sequence comparison runs weekly. The accurate statement is that this evidence
+exists and the matrix cannot show it, which is what #190 addresses.
