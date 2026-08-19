@@ -20,9 +20,8 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
-- [`pdb_atom_names_alignment_in_to_string_pdb_text_breaks_secondary_structure_render.md`](pdb_atom_names_alignment_in_to_string_pdb_text_breaks_secondary_structure_render.md) — [#174](https://github.com/uibcdf/molsysmt/issues/174) — PDB atom names alignment in to_string_pdb_text breaks secondary structure rendering in NGLView *(high, reproduced)*
 - [`devguide_issue_sync_fails_on_unknown_area_labels.md`](devguide_issue_sync_fails_on_unknown_area_labels.md) — [#159](https://github.com/uibcdf/molsysmt/issues/159) — devguide_issue.py cannot label an issue whose area tags are not already labels on the board. *(medium, reproduced)*
 
 ### Partially resolved (2)

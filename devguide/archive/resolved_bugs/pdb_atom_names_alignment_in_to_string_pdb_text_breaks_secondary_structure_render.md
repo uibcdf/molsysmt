@@ -1,13 +1,13 @@
 ---
 summary: PDB atom names alignment in to_string_pdb_text breaks secondary structure rendering in NGLView
 issue: uibcdf/molsysmt#174
-status: open
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-08-19
 severity: high
 verification: reproduced
 area: [form, convert]
-guard:
+guard: tests/form/molsysmt_MolSys/test_pdb_text_atom_name_alignment.py
 normative:
 blocked_by: []
 supersedes: []
@@ -81,3 +81,49 @@ This affects every downstream tool or converter relying on `string:pdb_text`, in
 ## Provenance
 
 - Linux 6.6, Python 3.13.2, NGLView 4.0.1, MolSysMT 0.20.0 (2026-08-19).
+
+## Resolution — 2026-08-19
+
+The report is correct, and was validated against the specification rather than
+accepted. wwPDB v3.3, ATOM record: "Alignment of one-letter atom name such as C
+starts at column 14, while two-letter atom name such as FE starts at column 13."
+
+The rule keys on the element symbol, not on the length of the name. The alpha carbon
+`CA` is element `C` and starts at column 14; the calcium ion `CA` is element `CA` and
+starts at column 13.
+
+Measured against the RCSB file MolSysMT ships for the same system, **1439 of 1441
+atoms** were misaligned. The two that matched were chlorides, where a two-letter
+element makes left-justification correct by accident — which is itself the clearest
+demonstration that the rule is about the element.
+
+After the fix, 9 312 atoms across `181l`, `1tcd`, `1atp` and `1ycr` round-trip with
+zero differences in columns 13-16.
+
+### This is the cause of uibcdf/molsysmt#163
+
+That report was closed on 2026-08-18 as a MolSysViewer defect and filed as
+[`uibcdf/molsysviewer#64`](https://github.com/uibcdf/molsysviewer/issues/64). The
+diagnosis was wrong.
+
+`third_party/nglview/molsysmt_trajectory.py` converts the system to
+`string:pdb_text` and returns it from `get_structure_string()`, which is what NGL
+parses. A backbone NGL.js cannot recognise explains precisely what was observed: the
+waters of every symmetry copy rendered as points, and the proteins — which need a
+recognised backbone for cartoon — rendered as nothing.
+
+Everything measured for #163 remains true: `make_bioassembly` does generate all 60
+copies, transformed and with secondary structure assigned, and the viewer does
+receive all 95 280 atoms. What was wrong was the conclusion drawn from it. The data
+reached the viewer; the *format* did not let it be read.
+
+### What was refuted
+
+*The problem is only that MolSysViewer does not render large assemblies.* It is not
+about size. The same misalignment affects every system converted to `string:pdb_text`,
+including a single-chain protein.
+
+### Scope
+
+`to_string_pdb_text` in `molsysmt_MolSys` is the only writer of ATOM records.
+`native/_pdb_file_handler_content.py` matches the same names but parses them.
