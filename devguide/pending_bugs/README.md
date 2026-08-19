@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`incorrect_to_string_pdb_text_import_in_multiple_form_adapters_breaks_conversion_.md`](incorrect_to_string_pdb_text_import_in_multiple_form_adapters_breaks_conversion_.md) — [#180](https://github.com/uibcdf/molsysmt/issues/180) — Incorrect to_string_pdb_text import in multiple form adapters breaks conversion with skip_digestion *(high, reproduced)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

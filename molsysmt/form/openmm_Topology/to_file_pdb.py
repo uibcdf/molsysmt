@@ -28,7 +28,7 @@ def to_file_pdb(item, atom_indices='all', coordinates=None, output_filename=None
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.string_pdb_text.to_string_pdb_text import to_string_pdb_text
+    from .to_string_pdb_text import to_string_pdb_text
 
     string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates, skip_digestion=True)
 

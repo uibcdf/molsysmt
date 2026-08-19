@@ -26,15 +26,14 @@ def to_openmm_PDBFile(item, atom_indices='all', coordinates=None, skip_digestion
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.string_pdb_text.to_string_pdb_text import to_string_pdb_text
+    from .to_string_pdb_text import to_string_pdb_text
     from io import StringIO
     from openmm.app import PDBFile
 
     string_pdb_text = to_string_pdb_text(item, atom_indices=atom_indices, coordinates=coordinates, skip_digestion=True)
 
-    tmp_io = StringIO()
-    tmp_io.read(string_pdb_text)
-    tmp_item = PDBFile.readFile(tmp_io)
+    tmp_io = StringIO(string_pdb_text)
+    tmp_item = PDBFile(tmp_io)
 
     return tmp_item
 

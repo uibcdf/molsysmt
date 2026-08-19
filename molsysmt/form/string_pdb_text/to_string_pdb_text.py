@@ -30,5 +30,24 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', copy_i
 
     from .extract import extract
 
+    # An identity converter is the one place a wrong item cannot be inferred from what
+    # it is asked to do, and internal two-step conversions reach it with
+    # skip_digestion=True, which turns off the form check that would have caught it.
+    # That combination is how `uibcdf/molsysmt#180` stayed hidden for eleven days: seven
+    # adapters imported this function instead of their own, and the failure surfaced as
+    # `NotImplementedError: Widgets cannot be copied` from inside `copy()`.
+    if not isinstance(item, str):
+        from molsysmt._private.smonitor import NotSupportedFormError
+        raise NotSupportedFormError(
+            form=type(item).__name__,
+            caller='molsysmt.form.string_pdb_text.to_string_pdb_text',
+            message=(
+                f"string:pdb_text's own converter received a {type(item).__name__}. "
+                "This usually means an adapter imported "
+                "'molsysmt.form.string_pdb_text.to_string_pdb_text' instead of its own "
+                "'from .to_string_pdb_text import to_string_pdb_text'."
+            ),
+        )
+
     return extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all, skip_digestion=True)
 
