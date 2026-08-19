@@ -48,7 +48,7 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     This operation restores temporal continuity independently for every atom.
     It does not reconstruct a molecule within one frame. Use
     :func:`molsysmt.pbc.wrap_to_pbc` or :func:`molsysmt.pbc.wrap_to_mic` with
-    ``keep_covalent_bonds=True`` for covalent reconstruction.
+    ``compact='component'`` for covalent reconstruction.
 
 
     .. versionadded:: 1.0.0

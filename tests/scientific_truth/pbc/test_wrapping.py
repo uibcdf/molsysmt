@@ -117,7 +117,7 @@ def test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block(float64_ker
     box = (2.0 * np.eye(3))[None, :, :]
     wrapped = msm.pbc.wrap_to_pbc(
         _bonded_system(coordinates, box),
-        keep_covalent_bonds=True,
+        compact='component',
         in_place=False,
     )
     observed = msm.pyunitwizard.get_value(wrapped.structures.coordinates, to_unit="nm")
@@ -144,7 +144,7 @@ def test_wrap_to_mic_reconstructs_a_triclinic_covalent_block(float64_kernel_atol
     coordinates = (fractional @ box_matrix)[None, :, :]
     wrapped = msm.pbc.wrap_to_mic(
         _bonded_system(coordinates, box_matrix[None, :, :]),
-        keep_covalent_bonds=True,
+        compact='component',
         in_place=False,
     )
     observed = msm.pyunitwizard.get_value(wrapped.structures.coordinates, to_unit="nm")

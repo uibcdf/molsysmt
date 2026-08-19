@@ -73,7 +73,7 @@ def test_covalent_wrapping_reconstructs_real_solvent_molecules(
 
     wrapped = msm.pbc.wrap_to_pbc(
         molecular_system,
-        keep_covalent_bonds=True,
+        compact='component',
         in_place=False,
     )
     wrapped_coordinates = msm.pyunitwizard.get_value(

@@ -9,7 +9,7 @@ import gc
 def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
                 mic_origin='[0,0,0] nanometers',
                 center_of_selection=None, center_coordinates='[0,0,0] nanometers', weights=None,
-                keep_covalent_bonds=False, syntax='MolSysMT', engine='MolSysMT', in_place=False,
+                compact='component', syntax='MolSysMT', engine='MolSysMT', in_place=False,
                 skip_digestion=False):
     """
     Wrap coordinates into the minimum image convention (MIC) box.
@@ -31,8 +31,11 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         Argument center_coordinates.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
-    keep_covalent_bonds : object, default=False
-        Argument keep_covalent_bonds.
+    compact : False or str, default='component'
+        Element kept whole when wrapping. ``'component'`` translates each covalent
+        component as one piece, so no bond is stretched across the cell. ``False``
+        wraps every atom independently, which is what a simulation engine does and
+        what leaves a molecule split across opposite faces.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : object, default='MolSysMT'
@@ -53,14 +56,14 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
     NotImplementedMethodError
         If an unsupported engine is requested.
     StructuralInconsistencyError
-        If box vectors are invalid, or if ``keep_covalent_bonds=True`` and
+        If box vectors are invalid, or if ``compact`` names an element and
         bonds are unavailable.
 
 
     Notes
     -----
-    With ``keep_covalent_bonds=False``, atoms are wrapped independently. With
-    ``keep_covalent_bonds=True``, bonded blocks are reconstructed with
+    With ``compact=False``, atoms are wrapped independently. With
+    ``compact='component'``, bonded blocks are reconstructed with
     minimum-image bond displacements and translated as complete units.
 
 
@@ -115,11 +118,13 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
         if np.all(np.isclose(mic_origin, 0, atol=1e-4)):
             mic_origin = np.zeros((3), dtype=np.float64)
 
-        if keep_covalent_bonds:
-            from molsysmt._private.pbc_reconstruction import (
-                localize_bonded_pairs,
-                reconstruct_and_wrap_covalent_blocks,
-            )
+        # With no bonds every atom is a covalent component of its own, so compacting by
+        # component is atom-wise wrapping. That is the degenerate answer rather than a
+        # fallback, and it is taken through the atom-wise kernel because walking one
+        # block per atom would cost far more than the operation it stands for.
+        compact_pairs = None
+        if compact:
+            from molsysmt._private.pbc_reconstruction import localize_bonded_pairs
             from molsysmt._private.smonitor import (
                 NotImplementedConversionError,
                 NotImplementedMethodError,
@@ -141,10 +146,18 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
                 NotSupportedFormError,
             ) as error:
                 raise StructuralInconsistencyError(
-                    reason="keep_covalent_bonds requires a topology that provides bonds.",
+                    reason="compact requires a topology that provides bonds.",
                     caller="molsysmt.pbc.wrap_to_mic",
                 ) from error
-            bonded_pairs = localize_bonded_pairs(atom_indices, bonded_pairs)
+
+            if bonded_pairs is not None and len(bonded_pairs) > 0:
+                compact_pairs = localize_bonded_pairs(atom_indices, bonded_pairs)
+
+        if compact_pairs is not None:
+            from molsysmt._private.pbc_reconstruction import (
+                reconstruct_and_wrap_covalent_blocks,
+            )
+            bonded_pairs = compact_pairs
             reconstruct_and_wrap_covalent_blocks(
                 coordinates,
                 box,
