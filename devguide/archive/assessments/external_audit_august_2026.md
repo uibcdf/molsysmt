@@ -180,3 +180,17 @@ Conducted 2026-08-19 at repository commit `b9a2098e4` on Linux 7.0.0-28-generic 
 2.4.6, pandas 2.3.3, mdtraj 1.11.1, MDAnalysis 2.10.0, with OpenMM available. GitHub
 Actions history read through `gh` on the same date; run identifiers are recorded in the
 entries so the outcomes stay checkable after the history scrolls.
+
+## Correction — 2026-08-19
+
+[#189](https://github.com/uibcdf/molsysmt/issues/189) was withdrawn the day this
+assessment was written, so the table above lists eight entries where seven stand. The
+maintainer's judgement, recorded in
+[`../resolved_proposals/the_generated_form_layer_is_84_of_the_codebase_and_carries_placeholder_documenta.md`](../resolved_proposals/the_generated_form_layer_is_84_of_the_codebase_and_carries_placeholder_documenta.md):
+the form layer's volume is the arithmetic of covering 89 forms with per-form semantics,
+one explicit function per cell is a deliberate and correct choice, and the question of
+what the layer *is* had already been decided.
+
+The closing sentence of *The assessment* stands as written on the fact — 84% of the
+codebase is a materialised adapter matrix, and that belongs in the paper — but not on its
+framing as something to resolve. It is a fact to state, not a question to answer.

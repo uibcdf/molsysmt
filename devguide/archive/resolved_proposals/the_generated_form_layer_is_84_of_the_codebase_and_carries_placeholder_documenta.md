@@ -1,9 +1,9 @@
 ---
 summary: The generated form layer is 84% of the codebase and carries placeholder documentation.
 issue: uibcdf/molsysmt#189
-status: open
+status: withdrawn
 opened: 2026-08-19
-closed:
+closed: 2026-08-19
 verification: measured
 area: [form, docs]
 guard:
@@ -16,8 +16,7 @@ supersedes: []
 
 **Raised:** 2026-08-19, during an external audit, on reading
 `molsysmt/form/molsysmt_Topology/get_topological_attributes.py`.
-**Status:** proposed, and deliberately not scoped as pre-1.0 work. What is proposed for
-now is a decision and a measurement, not a rewrite.
+**Status:** withdrawn on 2026-08-19, the day it was filed. See *Resolution* at the end.
 
 ## What
 
@@ -195,3 +194,40 @@ arrangement by default, and the paper quotes an aggregate nobody has split.
 
 Measured 2026-08-19 on Linux 7.0.0-28-generic x86_64, Python 3.13.14, MolSysMT
 `0.21.0+325.g7cedab74a` at repository commit `b9a2098e4`.
+
+## Resolution — withdrawn 2026-08-19
+
+Declined by the maintainer on the day it was filed, and the decision is right.
+
+The premise of the first acceptance criterion was that the project had not decided what
+the form layer is. It had. It is source with a generator of record, and asking for that
+to be declared is ceremony, not work.
+
+The rest of the reasoning does not survive contact with the decision either:
+
+- 363,813 lines is the arithmetic of covering 89 forms with per-form semantics. There is
+  no smaller arrangement that does the same thing.
+- One explicit function per cell, rather than dynamic dispatch or metaprogramming, is a
+  deliberate and good choice. The cells are greppable, breakpointable, and free to
+  diverge where a form requires it. The elegant alternative would be worse to maintain.
+- A defect replicating across adapters — `788fe1d50` was cited as evidence — is inherent
+  to having N adapters, not to generating them. Every multi-reader library in this space
+  has it, and `devtools/scripts/validate_form_adapters.py` is already the correct answer.
+
+What the audit framed as an architectural question was a reporting question wearing an
+architectural one's clothes, and it was addressed to an author who had already answered
+it.
+
+Two narrower points were raised in the same entry and are **not** withdrawn with it,
+because neither follows from the layer's size:
+
+- The generator emits `Argument item.` and *"Resulting object in object form"* when the
+  attribute catalogue holds the description and the units. That is a template, not a
+  design consequence. It is the durable part of
+  [#187](https://github.com/uibcdf/molsysmt/issues/187), whose acceptance criteria
+  already cover the criterion and the gate.
+- Repository metrics quoted in a publication should say which part of the total is the
+  materialised layer. That is a decision about the manuscript, not about the code, and it
+  belongs to whoever writes it.
+
+No code, document or gate changed as a result of this entry.
