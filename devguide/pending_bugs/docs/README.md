@@ -17,8 +17,6 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`solvate_tutorial_visualizations_show_broken_split_protein_across_pbc_box_faces.md`](solvate_tutorial_visualizations_show_broken_split_protein_across_pbc_box_faces.md) — [#162](https://github.com/uibcdf/molsysmt/issues/162) — solvate tutorial 3D views show broken/split protein across periodic boundary faces *(medium, asserted)*
+*No entries.*
 
 <!-- /generated -->
