@@ -22,7 +22,7 @@ that front matter -- edit the entries, not this list.
 
 ### Open (1)
 
-- [`the_hydrogen_builder_never_removes_a_hydrogen_the_requested_ph_contradicts.md`](the_hydrogen_builder_never_removes_a_hydrogen_the_requested_ph_contradicts.md) — [#178](https://github.com/uibcdf/molsysmt/issues/178) — The hydrogen builder never removes a hydrogen the requested pH contradicts. *(medium, measured)*
+- [`incorrect_to_string_pdb_text_import_in_multiple_form_adapters_breaks_conversion_.md`](incorrect_to_string_pdb_text_import_in_multiple_form_adapters_breaks_conversion_.md) — [#180](https://github.com/uibcdf/molsysmt/issues/180) — Incorrect to_string_pdb_text import in multiple form adapters breaks conversion with skip_digestion *(high, reproduced)*
 
 ### Partially resolved (2)
 

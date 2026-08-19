@@ -17,4 +17,5 @@ from .is_solvated import is_solvated
 from .solvate import solvate
 from .mutate import mutate
 from .make_water_box import make_water_box
+from .reconcile_protonation import reconcile_protonation
 from .remove_overlapping_molecules import remove_overlapping_molecules

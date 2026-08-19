@@ -253,6 +253,27 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
             g_atoms = topo.atoms[topo.atoms['group_index'] == g]
             group_name_to_idx[g] = dict(zip(g_atoms['atom_name'], g_atoms.index.tolist()))
 
+        # This function only adds. Reporting what it will not touch is the whole of its
+        # answer to uibcdf/molsysmt#178: the silence was the defect, not the inaction.
+        from warnings import warn as _warn
+
+        from molsysmt._private.smonitor import UnexpectedProtonationWarning
+        from molsysmt.build._protonation import unexpected_hydrogens
+
+        _unexpected = unexpected_hydrogens(native_ms, pH=pH)
+        if _unexpected:
+            _examples = ', '.join(
+                f"{name} in {group_name} {group_index}"
+                for _, name, group_index, group_name in _unexpected[:3])
+            if len(_unexpected) > 3:
+                _examples += f", and {len(_unexpected) - 3} more"
+            _warn(
+                UnexpectedProtonationWarning(
+                    count=len(_unexpected), pH=pH, examples=_examples,
+                    caller='molsysmt.build.add_missing_hydrogens'),
+                stacklevel=2,
+            )
+
         new_atom_info  = []   # (group_idx, atom_name, coords(n_s,3))
         new_bonds_info = []   # (new_idx1, new_idx2) or (existing_idx, new_idx)
 

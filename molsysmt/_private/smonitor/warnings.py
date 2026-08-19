@@ -138,6 +138,25 @@ class StructuralAttributeOffAxisWarning(UserMolSysMTWarning):
         })
 
 
+class UnexpectedProtonationWarning(UserMolSysMTWarning):
+    """Hydrogens already present that the requested pH does not call for.
+
+    Raised by an operation that only adds, so it reports rather than acts. Its purpose
+    is to remove the silence: before this, a system arriving over-protonated went
+    through preparation unchanged and unremarked, and the force field then simulated a
+    protonation state nobody asked for.
+    """
+
+    catalog_key = "UnexpectedProtonationWarning"
+
+    def __init__(self, count, pH, examples, caller=None, message=None):
+        extra = {"count": count, "pH": pH, "examples": examples}
+        if caller:
+            extra["caller"] = caller
+
+        super().__init__(message=message, extra=extra)
+
+
 class StructuralAttributeDropWarning(UserMolSysMTWarning):
     """Warning about one-sided structural series discarded by intersection."""
 
@@ -274,6 +293,7 @@ __all__ = [
     "NotDigestedArgumentWarning",
     "MolecularSystemMismatchWarning",
     "StructuralAttributeDropWarning",
+    "UnexpectedProtonationWarning",
     "StructuralAttributeOffAxisWarning",
     "IncompatibleBoxWarning",
     "BioassemblyIdentifierCollisionWarning",

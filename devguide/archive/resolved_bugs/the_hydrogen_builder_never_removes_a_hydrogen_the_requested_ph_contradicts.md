@@ -1,13 +1,13 @@
 ---
 summary: The hydrogen builder never removes a hydrogen the requested pH contradicts.
 issue: uibcdf/molsysmt#178
-status: open
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-08-19
 severity: medium
 verification: measured
 area: [build, scientific-integrity]
-guard:
+guard: tests/build/test_reconcile_protonation.py
 normative:
 blocked_by: []
 supersedes: []
@@ -18,7 +18,7 @@ supersedes: []
 **Reported:** 2026-08-19, split off from
 [`uibcdf/molsysmt#176`](https://github.com/uibcdf/molsysmt/issues/176), which fixed the
 protonation rules and could not fix this.
-**Status:** open. It is a contract question, not a threshold one.
+**Status:** resolved by a new function rather than by changing the existing one.
 
 ## What
 
@@ -102,3 +102,64 @@ Also excluded: `engine='OpenMM'` and `engine='PDBFixer'`, unmeasured here.
 
 Linux 7.0.0-28-generic, Python 3.13.14, MolSysMT at `d77786517`, 2026-08-19. Systems
 `chicken villin HP35` (`1vii.pdb`) and `Trp-Cage` (`1l2y.pdb`) from `molsysmt.systems`.
+
+## Resolution
+
+Two changes, chosen together after weighing four options.
+
+**`molsysmt.build.reconcile_protonation(system, pH=..., in_place=False)`** removes the
+hydrogens the pH does not call for, and never adds. Run it before
+`add_missing_hydrogens` to bring an incoming structure to the requested pH.
+
+**`add_missing_hydrogens` now warns** rather than acting, naming the count, the pH,
+examples and the new function. It still only adds.
+
+Detection is shared, in `molsysmt/build/_protonation.py`. The rule that decides is
+`get_expected_hydrogens` with the same terminal and disulfide context in both cases, and
+two implementations of *which hydrogens belong here* would eventually disagree silently.
+
+### Why a new function rather than an argument
+
+Four options were considered:
+
+| | verdict |
+|---|---|
+| an argument on `add_missing_hydrogens` | rejected — cheap, but leaves the name lying whenever it is set |
+| **a separate reconciliation function** | **chosen** — the name states what it does, and it composes |
+| declare it out of scope and document it | rejected — the project's own example systems are NMR structures |
+| detect and warn without acting | adopted *as well*, not instead |
+
+The fourth was not on the original list and turned out to matter most. Removing a
+hydrogen is destructive and is decided by an approximation — a deposited hydrogen may be
+experimental evidence that a residue titrates away from its textbook threshold. Warning
+removes the silence without deciding for the caller, which is why both landed rather
+than only the function.
+
+### Measured
+
+On 1VII at pH 12.0, six hydrogens are unexpected: `H3` on the N-terminal amine and
+`HZ3` on all five lysines. `reconcile_protonation` takes the system from 596 atoms to
+590, and a second pass finds nothing further. At pH 7.4 it removes nothing.
+
+The lysines are worth noting: `HZ3` at pH >= 10.5 is a rule that predates this work, in
+the same table as the termini. Nothing had ever applied it to a structure that arrived
+protonated, so the reach of the defect was wider than the termini this was split from.
+
+### What was checked rather than assumed
+
+The count of `HZ3` before and after did not match the number of lysines — six present,
+five removed. The sixth is in a **TRP**, where `HZ3` is an aromatic hydrogen of the
+indole ring and not a titratable proton. It is correctly kept: the tryptophan
+expectation includes it. An atom-name rule applied without the residue's own expectation
+would have destroyed it.
+
+### One correction to this report
+
+It claims the over-protonated system "reaches a simulation at the wrong formal charge",
+implying MolSysMT would report that charge. It would not: `physchem.get_charge` with the
+default definition reads a per-residue table rather than counting atoms, so it returns
+2.0 for 1VII at both pH 7.4 and 12.0, and `solvate`'s counter-ion count is unaffected.
+
+The harm is real but downstream, where atoms are actually read: the force field builds
+the charged template from the topology it is given. The claim was right about the
+consequence and wrong about the path.

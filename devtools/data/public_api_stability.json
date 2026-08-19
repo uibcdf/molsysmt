@@ -585,6 +585,13 @@
       "documentation": "docs/content/user/tools/build",
       "contract_tests": "tests/build"
     },
+    "molsysmt.build.reconcile_protonation": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "build",
+      "documentation": "docs/content/user/tools/build",
+      "contract_tests": "tests/build"
+    },
     "molsysmt.build.remove_overlapping_molecules": {
       "stability": "experimental",
       "introduced": "pre-1.0",

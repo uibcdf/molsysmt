@@ -108,6 +108,12 @@ CATALOG = {
             "category": "structure",
             "level": "WARNING",
         },
+        "UnexpectedProtonationWarning": {
+            "code": "MSM-WARN-BUILD-001",
+            "source": "molsysmt.warning.build.unexpected_protonation",
+            "category": "data_quality",
+            "level": "WARNING",
+        },
         "StructuralAttributeDropWarning": {
             "code": "MSM-WARN-STRUCT-005",
             "source": "molsysmt.warning.structure.attribute_drop",
@@ -447,6 +453,30 @@ CODES = {
         "qa_hint": "Validate topology identity consistency across all models. Docs: {doc_url}",
         "agent_message": "{count} models have incompatible molecular systems. Returned as separate systems.",
         "agent_hint": "Normalize model topology before merging.",
+    },
+    "MSM-WARN-BUILD-001": {
+        "title": "Protonation already present that the pH does not call for",
+        "user_message": (
+            "{count} hydrogen atom(s) already in the system are not expected at pH "
+            "{pH}: {examples}."
+        ),
+        "user_hint": (
+            "This function only adds hydrogens; it left these untouched. Use "
+            "molsysmt.build.reconcile_protonation(system, pH=...) first if the system "
+            "should match the requested pH. Docs: {doc_url}"
+        ),
+        "dev_message": "Unexpected hydrogens at pH {pH} in '{caller}': {count} ({examples}).",
+        "dev_hint": (
+            "Detection is shared with reconcile_protonation through "
+            "molsysmt.build._protonation.unexpected_hydrogens. Docs: {doc_url}"
+        ),
+        "qa_message": "{count} unexpected hydrogen(s) at pH {pH}: {examples}.",
+        "qa_hint": "Check whether the fixture is expected to arrive protonated.",
+        "agent_message": "{count} hydrogen(s) present are not expected at pH {pH}: {examples}.",
+        "agent_hint": (
+            "Not added by this call. The input carried them. reconcile_protonation "
+            "removes them."
+        ),
     },
     "MSM-WARN-STRUCT-005": {
         "title": "One-sided structural attributes discarded",
