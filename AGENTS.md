@@ -69,6 +69,16 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
 - Place tests in the mirrored path under `tests/` corresponding to the package area you change.
 - Keep tests deterministic and reasonably fast; rely on bundled systems in `molsysmt.systems` and small fixtures when possible.
 - When changing behavior, update or add tests to capture the intended semantics instead of weakening existing expectations.
+- **A gate must check intent, not form.** A validator, test or lint must be satisfiable
+  only by the property it exists to protect, never by output shaped to match it.
+  `validate_form_adapters.py` is the model: a declared attribute fails unless a real
+  delivery route exists. `validate_docstrings.py` was the counterexample: it checked that
+  every parameter appears with a matching default, and one generated sweep supplied 8,810
+  descriptions that restate the parameter name and passed
+  (see [`devguide/pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](devguide/pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md)).
+  This rule matters more, not less, as contributions are machine-generated: generation
+  scales exactly to the criterion and not one step past it. Review every new gate against
+  the question *what conforming output would satisfy this without doing the work?*
 
 ## Reporting a defect or a proposal
 

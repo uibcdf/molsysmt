@@ -197,6 +197,40 @@ pytest -m peptide_parity tests/build/build_peptide/test_build_peptide_molsysmt_M
 
 ---
 
+## What each gate actually checks
+
+A gate is only worth what it refuses. Classified by whether it can be satisfied *only* by
+the property it protects (**intent**) or also by output shaped to match it (**form**):
+
+| Gate | Class |
+| --- | --- |
+| `validate_form_adapters.py` — declared attribute against a real delivery route | intent |
+| `validate_demo_assets.py` — actual HDF5 hierarchy against `demo_manifest.json` | intent |
+| `validate_dependencies.py` — absence of real top-level soft imports | intent |
+| `check_rust_hot_paths.py` — absence of libm rounding in kernel inner loops | intent |
+| `audit_conversion_fidelity.py` — discovered edge set against the accepted-debt baseline | intent |
+| `validate_api_stability.py` — every AST-discovered export classified | intent on coverage, form on the classification |
+| `validate_function_tiers.py` — declared tiers against the stability registry | consistency; inherits the above |
+| `validate_scientific_evidence.py` — every stable API classified, cited node defined | intent on coverage, form on the evidence: it confirms the test exists, not that it passes |
+| `validate_citation.py` — exact agreement across the citation surfaces | consistency; form on the values |
+| `validate_devguide.py` — front matter, vocabularies, links, indexes, `guard` path exists | form |
+| `validate_course.py` — manifests, toctrees, labels, numbering | form, and the contract is structural |
+| `validate_resources.py` — resource-manifest schema | form, and the contract is structural |
+| `validate_docstrings.py` — parameter presence, default fidelity, `Returns` present | form on the content |
+
+Form is the right class where the contract *is* structural — the course layout and the
+resource manifests are exactly that. It is the wrong class where the record is supposed
+to carry meaning, and the consequence is measured: one generated sweep supplied 8,810
+conforming, empty parameter descriptions and `validate_docstrings.py` passed on all of
+them. See
+[`pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md)
+and the rule in the root `AGENTS.md`.
+
+Keep this table current when a gate is added or its assertions change. It is judgement
+applied to a read of each validator's assertion set, not a generated artifact.
+
+---
+
 ## Active CI (GitHub Actions)
 
 The repository currently contains these testing and validation workflows:
