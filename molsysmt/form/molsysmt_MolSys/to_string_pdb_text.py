@@ -97,6 +97,30 @@ def _bioassembly_lines(item):
     return lines
 
 
+def _atom_name_field(atom_name, element_symbol):
+    """The PDB atom name, aligned in columns 13-16 as the format specifies.
+
+    wwPDB v3.3, ATOM record: "Alignment of one-letter atom name such as C starts at
+    column 14, while two-letter atom name such as FE starts at column 13." The rule
+    keys on the **element symbol**, not on the length of the name, which is the part
+    that is easy to get wrong: the alpha carbon `CA` is element `C` and starts at
+    column 14, while the calcium ion `CA` is element `CA` and starts at column 13.
+
+    Writing every name from column 13 makes NGL.js fail to recognise the backbone, so
+    a cartoon or ribbon representation renders nothing — uibcdf/molsysmt#174.
+
+    A four-character name fills the field and has no room to be shifted.
+    """
+    name = str(atom_name)[:4]
+    element = str(element_symbol).strip().upper()
+
+    if len(name) >= 4:
+        return name
+    if len(element) == 2 and name.upper().startswith(element):
+        return name.ljust(4)
+    return " " + name.ljust(3)
+
+
 @arg_digest(form="molsysmt.MolSys")
 def to_string_pdb_text(
     item,
@@ -288,7 +312,7 @@ def to_string_pdb_text(
                 location = str(location_ids[variant_index])[:1]
                 lines.append(
                     f"{'ATOM':<6}{serial:>5} "
-                    f"{str(atom.atom_name)[:4]:<4}{location:1}"
+                    f"{_atom_name_field(atom.atom_name, element_symbol)}{location:1}"
                     f"{str(group['group_name'])[:3]:>3} "
                     f"{chain_id[:1]:1}{str(group['group_id'])[:4]:>4}    "
                     f"{x:>8.3f}{y:>8.3f}{z:>8.3f}"
