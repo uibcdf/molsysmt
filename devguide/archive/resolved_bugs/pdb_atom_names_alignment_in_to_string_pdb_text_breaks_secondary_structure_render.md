@@ -100,22 +100,24 @@ demonstration that the rule is about the element.
 After the fix, 9 312 atoms across `181l`, `1tcd`, `1atp` and `1ycr` round-trip with
 zero differences in columns 13-16.
 
-### This is the cause of uibcdf/molsysmt#163
+### It is *not* the cause of uibcdf/molsysmt#163
 
-That report was closed on 2026-08-18 as a MolSysViewer defect and filed as
-[`uibcdf/molsysviewer#64`](https://github.com/uibcdf/molsysviewer/issues/64). The
-diagnosis was wrong.
+Claimed here on 2026-08-19 and withdrawn the same day. The reasoning was that
+`third_party/nglview/molsysmt_trajectory.py` converts to `string:pdb_text` and
+returns it from `get_structure_string()`, so a backbone NGL.js cannot parse would
+explain waters rendering as points and proteins as nothing.
 
-`third_party/nglview/molsysmt_trajectory.py` converts the system to
-`string:pdb_text` and returns it from `get_structure_string()`, which is what NGL
-parses. A backbone NGL.js cannot recognise explains precisely what was observed: the
-waters of every symmetry copy rendered as points, and the proteins — which need a
-recognised backbone for cartoon — rendered as nothing.
+That path is real, but it is not the path #163 used. `msm.view()` defaults to
+`viewer='MolSysViewer'`, and `to_molsysviewer_MolSysView` calls `view.load(item)`
+with the native `molsysmt.MolSys` object. **No PDB text is involved.** The text
+conversion belongs to `to_nglview_NGLWidget` alone.
 
-Everything measured for #163 remains true: `make_bioassembly` does generate all 60
-copies, transformed and with secondary structure assigned, and the viewer does
-receive all 95 280 atoms. What was wrong was the conclusion drawn from it. The data
-reached the viewer; the *format* did not let it be read.
+So this defect affects NGLView output and nothing else, `uibcdf/molsysviewer#64`
+was correctly filed, and #163 remains what it was measured to be: correct data
+reaching MolSysViewer, which does not render it.
+
+The mistake was assuming one viewer path where there are two, after having traced
+only one of them.
 
 ### What was refuted
 
