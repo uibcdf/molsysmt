@@ -57,7 +57,7 @@ mol = msm.convert('1l2y.pdb', to_form='molsysmt.MolSys')
 mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
 mol = msm.build.solvate(mol, box_shape='cubic', clearance='12 angstroms',
                         water_model='TIP3P', ionic_strength='0.15 molar')
-sim = msm.convert(mol, to_form='openmm.Simulation', forcefield='amber14-all.xml')
+sim = msm.convert(mol, to_form='openmm.Simulation', forcefield='AMBER14')
 ```
 
 Every step there but the last is MolSysMT's own: the preparation needs no OpenMM
@@ -125,7 +125,7 @@ mol = msm.build.add_missing_terminal_cappings(mol, engine='MolSysMT')
 mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
 
 # Solvate
-mol = msm.build.solvate(mol, box_shape='truncated_octahedral',
+mol = msm.build.solvate(mol, box_shape='truncated octahedral',
                         clearance='12 angstroms', water_model='TIP3P',
                         ionic_strength='0.15 molar', engine='MolSysMT')
 ```
