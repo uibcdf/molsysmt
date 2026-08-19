@@ -174,6 +174,32 @@ This does not weaken the rest of `molsysmt.build`. Higher-level construction,
 repair, and chemically-informed editing functions remain valid members of the
 namespace.
 
+### Where the line falls, and where it does not
+
+The line is between **explicit editing** and **chemically-informed inference**, not
+between one namespace and another.
+
+Explicit editing states what the answer is — *bond these two atoms*, *these groups
+are now a chain* — and belongs to the builder alone. It is why `add_bonds`,
+`remove_bonds` and `define_new_chain` have no place in `molsysmt.build`,
+`molsysmt.topology` or `molsysmt.basic`, and this is settled policy rather than an
+open question: it is the answer to
+[`uibcdf/molsysmt#166`](https://github.com/uibcdf/molsysmt/issues/166).
+
+Inference works out what the answer should be, and stays. `molsysmt.build` keeps
+`add_missing_bonds`, `get_missing_bonds` and `get_disulfide_bonds`; `molsysmt.topology`
+keeps `get_bondgraph`. None of them asks the caller which bonds to create.
+
+Two things this does **not** say:
+
+- `molsysmt.Topology.add_bonds` is unaffected. It is the native class method the
+  form adapters and `molsysmt.native` build on — `native/molsys.py`,
+  `native/topology.py`, `form/molsysmt_Topology/add_bonds.py` and the PyTraj and
+  NGLView adapters all call it. It is machinery, not a competing public path, and it
+  stays.
+- The tools namespaces are not forbidden from touching bonds. They are forbidden
+  from being the place where a caller dictates one.
+
 The builder now covers the explicit editing primitives that motivated those
 public helpers:
 - `MolSysBuilder.add_bond(...)`
