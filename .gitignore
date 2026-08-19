@@ -127,6 +127,7 @@ devtools/playground/*
 !molsysmt/lib
 molsysmt/_version.py
 *.nbconvert.log
+*.nbconvert.last_run
 notebook_errors.log
 docs/_static/viewer.js
 docs/_static/molsysviewer*

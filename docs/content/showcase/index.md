@@ -1,22 +1,15 @@
 # Showcase
 
-Find in the following table some examples on what MolSysMT can do for you:
+Discover what MolSysMT can do through practical, real-world examples:
 
-<br/>
-
-| Title | Content |
-| :---- | :------ |
-| [Quickstart guide](quickstart) | Brief introduction for those who want to have a quick and fast first contact with MolSysMT |
-| [Barnase-Barstar](barnase_barstar) | How to prepare the protein complex Barnase-Barstar from the 1BRS PDB id |
-| [Dialanine Monte Carlo](dialanine_montecarlo) | A Monte Carlo sampling of the dihedral coordinates space of Ace-Ala-NMe |
-| [MD Trajectory analysis](md_trajectory) | An example of an analysis of a Molecular Dynamics trajectory |
-| [Working with OpenMM](openmm) | How MolSysMT can help you to work with OpenMM |
-| [Working with NGLView](nglview) | How MolSysMT can help you to work with NGLView |
-
-<br/>
-
-<br/>
-
+| Showcase | Description |
+| :--- | :--- |
+| [Quickstart](quickstart.ipynb) | Quick introductory tour of core tools, conversions, and data structures. |
+| [Barnase-Barstar](barnase_barstar.ipynb) | Assembly and curation of a protein-protein complex from the 1BRS PDB entry. |
+| [Dialanine Monte Carlo](dialanine_montecarlo.ipynb) | Metropolis Monte Carlo conformational sampling of the peptide dihedral space. |
+| [Trajectory Analysis](md_trajectory.ipynb) | Time-series analysis of RMSD, RMSF, radius of gyration, and conformations. |
+| [OpenMM Integration](openmm.ipynb) | Seamless workflow integration, energy minimization, and dynamics with OpenMM. |
+| [NGLView Interoperability](nglview.ipynb) | Interactive 3D visualization and analysis with NGLView as a molecular system form. |
 
 ```{toctree}
 :hidden:

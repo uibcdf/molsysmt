@@ -1,11 +1,17 @@
 # Reporters
 
+| Reporter | Description |
+| :--- | :--- |
+| [H5MSMReporter](H5MSMReporter.ipynb) | Streaming OpenMM simulation trajectories directly to binary H5MSM files on disk |
+| [StructuresDictReporter](StructuresDictReporter.ipynb) | Capturing simulation trajectories in a lightweight Python structures dictionary |
+| [TQDMReporter](TQDMReporter.ipynb) | Displaying dynamic progress bars during OpenMM simulations |
+
 ```{eval-rst}
 .. toctree::
    :maxdepth: 2
+   :hidden:
 
-   TQDMReporter.ipynb
+   H5MSMReporter.ipynb
    StructuresDictReporter.ipynb
-   h5msm.ipynb
-   
+   TQDMReporter.ipynb
 ```

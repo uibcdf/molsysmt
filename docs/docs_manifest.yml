@@ -125,8 +125,36 @@ sections:
     cookbook:
       path: docs/content/user/cookbook
       agents_file: docs/content/user/cookbook/AGENTS.md
-      status: in_progress
-      pages: []
+      index_file: docs/content/user/cookbook/index.md
+      status: reviewed
+      pages:
+      - name: building_complex_dimers
+        file: docs/content/user/cookbook/building_complex_dimers.ipynb
+        agents_file: docs/content/user/cookbook/building_complex_dimers.ipynb.AGENTS.md
+      - name: spectacular_visualizations
+        file: docs/content/user/cookbook/spectacular_visualizations.ipynb
+        agents_file: docs/content/user/cookbook/spectacular_visualizations.ipynb.AGENTS.md
+      - name: simulation_workflow
+        file: docs/content/user/cookbook/simulation_workflow.ipynb
+        agents_file: docs/content/user/cookbook/simulation_workflow.ipynb.AGENTS.md
+      - name: big_data_trajectories
+        file: docs/content/user/cookbook/big_data_trajectories.ipynb
+        agents_file: docs/content/user/cookbook/big_data_trajectories.ipynb.AGENTS.md
+      - name: from_pdb_to_solvated_box
+        file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb
+        agents_file: docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb.AGENTS.md
+      - name: binding_pocket_isolation
+        file: docs/content/user/cookbook/binding_pocket_isolation.ipynb
+        agents_file: docs/content/user/cookbook/binding_pocket_isolation.ipynb.AGENTS.md
+      - name: trajectory_performance_analysis
+        file: docs/content/user/cookbook/trajectory_performance_analysis.ipynb
+        agents_file: docs/content/user/cookbook/trajectory_performance_analysis.ipynb.AGENTS.md
+      - name: structural_surgery_mutagenesis
+        file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb
+        agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
+      - name: form_teleportation
+        file: docs/content/user/cookbook/form_teleportation.ipynb
+        agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
   showcase:
     path: docs/content/showcase
     status: in_progress
