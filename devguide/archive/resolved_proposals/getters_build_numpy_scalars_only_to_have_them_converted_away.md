@@ -1,15 +1,15 @@
 ---
 summary: Getters build numpy scalars only to have them converted away
 issue: uibcdf/molsysmt#172
-status: open
+status: resolved
 opened: 2026-08-19
 verification: measured
 area: [api, performance, form]
 guard:
-normative:
+normative: devguide/form_adapter_implementation.md
 blocked_by: []
 supersedes: []
-closed:
+closed: 2026-08-19
 ---
 
 # Getters build NumPy scalars only to have them converted away
@@ -144,3 +144,72 @@ whose columns are nullable need checking before substitution.
 
 Host: this development checkout, molsysmt at `375d4347c`. Python 3.13.14,
 NumPy 2.4.6. System: POPC membrane, 78 974 atoms and 65 442 bonds. 2026-08-19.
+
+## Resolution — 2026-08-19
+
+Two patterns done, the third measured and declined. The rule is written into
+`form_adapter_implementation.md` so new getters are built the fast way without
+anyone rewriting the ones that work.
+
+### Done
+
+**The bond-pair root**, in `57e2a2e25`. `itertuples` replaced by
+`to_numpy().tolist()` in the three branches that build it: 98.5 ms to 15.0 ms over
+65 442 bonds for an identical result. It is the root of a family, so
+`bonded_atoms`, `bonded_atom_pairs` and both `inner_*` variants are clean with three
+substitutions. Delivered cost on a 78 974-atom system: `bonded_atom_pairs` 260.8 ms
+to 208.6 ms, `bonded_atoms` 589.6 ms to 533.1 ms.
+
+**The counters.** All 48 `np.count_nonzero` results wrapped in `int()`, so the twelve
+`n_*` attributes are native from the source as `n_atoms` already was.
+
+### Declined, with the measurement
+
+The third pattern is `to_numpy()` feeding a Python loop. Its surface is **13
+getters**, not the 402 `to_numpy()` calls and not the 60 a first static pass
+suggested. Found by executing all 488 getters of `molsysmt_Topology` and inspecting
+their raw output, which is ground truth where the static classification was not:
+
+```
+get_chain_id_from_molecule          get_component_index_from_chain
+get_chain_index_from_component      get_component_index_from_entity
+get_chain_index_from_entity         get_component_index_from_molecule
+get_chain_index_from_group          get_entity_index_from_component
+get_chain_index_from_molecule       get_group_index_from_component
+get_chain_name_from_molecule        get_molecule_index_from_component
+get_chain_type_from_molecule
+```
+
+They are declined on two grounds.
+
+**The gain is about 1 % where a caller can see it.** The loop itself improves 1.48x —
+15.7 ms to 10.7 ms over 78 974 atoms — but it is a small part of a call that runs
+around 533 ms. And there is no correctness gain at all: `uibcdf/molsysmt#165`
+normalises the delivered values and its guard sweeps the whole catalogue, so what
+these getters produce internally never reaches a caller as a NumPy scalar.
+
+**The mechanical route does not work here.** Three attempts failed, each differently:
+the first converted `aux_dict`, which is a dict; the second converted an array that
+is *subscripted* by fancy indexing, which then raises `only integer scalar arrays can
+be converted to a scalar index`; the third left three getters raising and four still
+leaking. These functions mix iterating one array, indexing another element by
+element, and using a third as an index, and the decision is per variable rather than
+per function.
+
+A baseline of all 488 getter outputs, captured before each attempt and compared
+after, is what caught all three. Without it the second attempt would have been
+committed with three broken getters.
+
+### What was refuted
+
+*The surface is the 402 `to_numpy()` calls.* Most feed vectorised operations and must
+not be touched. A first classification put 60 in Python loops; of those, the ones
+that actually leak are 13.
+
+*`arr[indices].tolist()` is a candidate.* It is already correct — fancy indexing
+followed by a single conversion — and accounts for most of what a syntactic pass
+flags as scalar indexing.
+
+*Iterating a list is enough faster to justify the change.* It is faster, and by less
+than it looks: including the `tolist()` call the synthetic gain is 1.03x to 1.24x,
+and 1.48x on the real function. Neither is 1 % of a call away from being invisible.

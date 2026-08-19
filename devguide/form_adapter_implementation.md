@@ -41,6 +41,44 @@ direct adapter behavior and public `molsysmt.get()` delivery.
 An `attributes=True` declaration is invalid unless the public path can deliver
 the attribute with correct shape, units, indexing, and `None` semantics.
 
+### Building the value a getter returns
+
+`INTERFACES.md`, *Scalar types in returned values*, says what a getter must
+deliver. This is how to build it, and the two are not the same question: the
+delivered types are already guaranteed by a normalisation step in
+`molsysmt/basic/get.py`, so what follows is about not creating work for it.
+
+**Leave the array in C for as long as possible.** `ndarray.tolist()` converts a
+whole array to native Python types in one pass; iterating it with `enumerate` or
+indexing it element by element allocates one boxed NumPy scalar per element, and
+those are what the normalisation step then has to walk and convert.
+
+The measured difference is worth having where the value is built row by row.
+Replacing `DataFrame.itertuples()` with `frame[[...]].to_numpy().tolist()` in the
+bond-pair getter cost 98.5 ms instead of 15.0 ms for an identical result over
+65 442 bonds — 6.6x — because `itertuples` builds a namedtuple and two scalars per
+row. Prefer `int(np.count_nonzero(...))` over returning the NumPy integer for the
+same reason: it costs nothing and the value arrives native.
+
+Two cautions, both learned the hard way in `uibcdf/molsysmt#172`:
+
+- **A pandas nullable column does not convert the way it looks.** `to_numpy()` on
+  an `Int64` column yields an object array, not `int64`. With no missing values the
+  leaves come out as native `int` and the values match; forcing
+  `to_numpy(dtype='int64')` is *slower*, because it adds a pass to avoid a problem
+  that does not arise. Check for nulls rather than forcing a dtype.
+- **An array feeding fancy indexing must stay an array.** In a getter that both
+  iterates one array and uses another as `other[indices]`, converting the wrong one
+  raises `only integer scalar arrays can be converted to a scalar index`. The rule
+  is per variable, not per function, and three attempts to apply it mechanically
+  across the cross-level getters failed on exactly this.
+
+Where a getter mixes iteration, scalar indexing and fancy indexing over the same
+kind of variable — as the thirteen cross-level getters in `molsysmt_Topology` do —
+the conversion is not worth doing mechanically. Measured there, the loop improves
+1.48x while the enclosing call moves about 1 %, and the delivered types are correct
+either way. Write new getters the fast way; do not rewrite those.
+
 ## Iterators and heavy support
 
 Only adapters that implement a usable context-managed `StructuresIterator`

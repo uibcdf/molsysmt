@@ -65,6 +65,8 @@ Nothing is lost in exchange. `np.array` over a list of Python `int` infers `int6
 
 Prefer `ndarray.tolist()` over iterating an array in Python, and `.item()` over indexing out a single element. `tolist()` converts NumPy scalars to native types recursively in C, in one pass, and never materialises the boxed scalars — which is why it is roughly six times faster than building the list and converting it afterwards. It is also how the flat attribute paths already produce `list[int]` today.
 
+This is a rule for code being written, not a licence to rewrite code that works. Where a getter mixes iterating one array, indexing another element by element, and using a third for fancy indexing, the conversion has to be decided per variable: converting an array that is used as `other[indices]` raises `only integer scalar arrays can be converted to a scalar index`. `devguide/form_adapter_implementation.md` carries the detail, including why a pandas nullable column does not convert the way it looks.
+
 Do not normalise at the return boundary instead. Walking every returned structure in Python to find out whether anything needs fixing costs more than doing the conversion at the source even when there is nothing to fix. The correctness net belongs in the test suite, where it costs nothing at run time.
 
 The failure mode this rule prevents is a **mixed container**: some elements `int`, others `np.int64`. It appears when a structure is assembled element by element from arrays instead of through `tolist()`, and it is not cosmetic — the elements of one collection then answer `isinstance` differently from one another.
