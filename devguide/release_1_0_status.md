@@ -117,6 +117,35 @@ The 99% figure measures only the newly defined remaining-plan exit gates. It
 does not attempt to restate the much larger body of MolSysMT development,
 consolidation, or Rust kernel work completed before this ledger was created.
 
+## F6 blockers deferred by decision — 2026-08-19
+
+Both are recorded here rather than tracked elsewhere because they block the tag
+itself, and a release blocker with no home is how the 2026-08-17 weekly failure went
+four weeks unread.
+
+**The pinned MolSysViewer revision is stale, and `ci-full` is red because of it.**
+Deferred by maintainer decision on 2026-08-19; local suites are green and the
+deferral is not a disagreement about the diagnosis.
+
+`.github/workflows/{ci-full,ci-smoke,ci-weekly,sphinx_docs_to_gh_pages}.yaml` all pin
+`molsysviewer@7a1522662e30575caf580a9447e3e6d80b628e07`, dated 2026-08-13 and 26
+commits behind that project's `main`. The pinned revision predates `a80270a2`,
+"adopt the shared MolSysSuite unit policy", so it declares the old mass standard and
+`tests/cross_repo/test_unit_policy_authority.py` fails — 3 tests, identically on
+ubuntu and macOS across Python 3.11, 3.12 and 3.13, with 9 980+ passing around them.
+
+Note that the Conda channel is irrelevant here: `devtools/requirements/controlled_hard_dependencies.txt`
+installs the suite projects from pinned Git revisions with `--no-deps`, precisely so
+the solver cannot substitute them. Publishing a package does not move this pin.
+
+**`ci-full.yaml` runs only on `workflow_dispatch`.** `release_gate.md` requires a
+green matrix on the exact committed tag candidate, and nothing produces one
+automatically. This was excluded from the scope of `uibcdf/molsysmt#171`, which
+covered running the suite on push.
+
+Both must be resolved before F6 can be signed off. Neither affects library
+correctness: the fast gate is 13/13 and the full suite passes locally.
+
 ## Segment Ledger
 
 | Segment | Weight | Status | Earned | Current evidence or reason |
