@@ -146,15 +146,29 @@ public API:
 - `molsysmt.build.remove_bonds`
 - `molsysmt.build.define_new_chain`
 
-The first two are still absent. **`define_new_chain` is not**: it was
-reimplemented in `eae26e164` and is public again, classified `experimental` in
-`devtools/data/public_api_stability.json`. Whether it stays is an open question,
-not a settled policy — [`uibcdf/molsysmt#167`](https://github.com/uibcdf/molsysmt/issues/167)
-asks whether it should be deprecated in favour of `msm.build.editable()`, and
-[`uibcdf/molsysmt#160`](https://github.com/uibcdf/molsysmt/issues/160) reports
-that it creates several chain entities carrying one name instead of merging them.
-The classification is deliberate: `experimental` leaves both answers to #167
-available, while `stable` would decide it by omission.
+All three are absent, and this is now settled policy rather than an open question.
+`define_new_chain` returned once — reimplemented in `eae26e164` and classified
+`experimental` — and was removed again on 2026-08-19, which is the answer to
+[`uibcdf/molsysmt#167`](https://github.com/uibcdf/molsysmt/issues/167). Defining a
+chain is done with the builder:
+
+```python
+builder = msm.build.editable(molecular_system)
+builder.add_chain(group_indices=[...], chain_name='C')
+molecular_system = builder.build()
+```
+
+The `experimental` classification had been chosen deliberately to leave that answer
+available; `stable` would have decided it by omission and forced a deprecation cycle.
+
+Its removal also closes
+[`uibcdf/molsysmt#160`](https://github.com/uibcdf/molsysmt/issues/160), which
+reported that it produced several chain entities carrying one name instead of one
+merged chain. The cause is visible in what it did: it delegated to
+`msm.set(..., chain_id=..., chain_name=...)`, which relabels the chains an atom
+selection already belongs to rather than restructuring the topology. Renaming
+fragments is not defining a chain, and the builder's `add_chain` is what actually
+creates one.
 
 This does not weaken the rest of `molsysmt.build`. Higher-level construction,
 repair, and chemically-informed editing functions remain valid members of the

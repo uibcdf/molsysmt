@@ -13,7 +13,6 @@ API Build
    add_missing_hydrogens
    add_missing_terminal_cappings
    build_peptide
-   define_new_chain
    editable
    get_disulfide_bonds
    get_missing_bonds

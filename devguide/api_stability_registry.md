@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 123 |
-| experimental | 57 |
+| experimental | 56 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -162,7 +162,6 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.build.add_missing_hydrogens` | experimental | active | pre-1.0 |
 | `molsysmt.build.add_missing_terminal_cappings` | experimental | active | pre-1.0 |
 | `molsysmt.build.build_peptide` | experimental | active | pre-1.0 |
-| `molsysmt.build.define_new_chain` | experimental | active | pre-1.0 |
 | `molsysmt.build.editable` | stable | active | pre-1.0 |
 | `molsysmt.build.get_disulfide_bonds` | experimental | active | pre-1.0 |
 | `molsysmt.build.get_missing_bonds` | experimental | active | pre-1.0 |
