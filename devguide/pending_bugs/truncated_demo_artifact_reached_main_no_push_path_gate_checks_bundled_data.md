@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-08-19, during an external audit of the repository conducted as a
 reader arriving from the forthcoming methods paper.
-**Status:** open. The regression is present on `main` at `b9a2098e4`, one commit after the
-one that introduced it.
+**Status:** open, and deliberately postponed on 2026-08-19 after an attempted fix showed
+the restore target is not established. The regression is present on `main`.
 
 ## What
 
@@ -133,10 +133,26 @@ file. The commit contents make no other source plausible, but the specific noteb
 not been identified. Identifying it is part of the fix — a restored artifact with the
 writer still in place is restored until the next documentation pass.
 
+Measured 2026-08-19, during an attempted restore, and decisive for the shape of the fix:
+the pre-truncation revision does not match the recorded digest either.
+
+```bash
+$ git show 3bee6f054^:molsysmt/data/h5msm/traj_pentalanine.h5msm > /tmp/prev.h5msm
+$ python -c "
+import hashlib; print(hashlib.sha256(open('/tmp/prev.h5msm','rb').read()).hexdigest())"
+d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6
+```
+
+That file is 3,494,262 bytes and holds 5000 structures, so it satisfies
+`demo_manifest.json`. It is not the file `PROVENANCE.md` was written against. Either the
+artifact was replaced more than once, or the digest was recorded against a revision that
+is not `3bee6f054^`.
+
 Not established: whether any other catalog artifact has drifted. `validate_demo_assets.py`
 reports only this one, and `traj_pentalanine.h5` still matches its recorded digest, but
 the digest table as a whole has never been executed and no row other than these two was
-checked by hand.
+checked by hand. Given the finding above, the other rows are now more suspect than they
+looked, not less.
 
 ## What was refuted
 
@@ -153,6 +169,14 @@ constants `[0, 499, 999, 2499, 4999]` address them correctly.
 *The weekly job makes this harmless.* It makes it recoverable, not harmless. Five days of
 latency on `main` is what let a second commit land on top of it.
 
+*Restoring `3bee6f054^` closes this.* **Refuted on 2026-08-19 by attempting it.** The
+restore produces a 5000-structure artifact that passes `validate_demo_assets.py` and
+whose digest is `d882572a…`, not the `3eda9e88…` recorded in `PROVENANCE.md`. So the
+first question is not how to restore the file but *which file is the artifact*, and the
+guard in criterion 3 cannot be written until that is answered — a hash test is worthless
+if the hash it enforces was never the hash of anything in the tree. The working tree was
+returned to its committed state and the entry postponed rather than closed on a guess.
+
 ## Scope and exclusions
 
 Covers restoring the artifact, identifying and stopping whatever regenerated it, putting
@@ -166,8 +190,10 @@ restoring, or the restoration cannot be verified against the recorded digest.
 
 ## Acceptance criteria
 
-1. `molsysmt/data/h5msm/traj_pentalanine.h5msm` reports 5000 structures and hashes to
-   `3eda9e88…`.
+1. The correct artifact is identified, `molsysmt/data/h5msm/traj_pentalanine.h5msm` holds
+   it with 5000 structures, and `PROVENANCE.md` records that artifact's actual digest.
+   **This criterion originally read "hashes to `3eda9e88…` again". That was false** — see
+   *What was refuted* — and it is the reason this entry is not a one-line restore.
 2. `python devtools/scripts/validate_demo_assets.py` and
    `python -m pytest tests/scientific_truth` both pass.
 3. A `pytest` test walks every row of `tests/scientific_truth/curated/PROVENANCE.md`,
@@ -182,8 +208,9 @@ restoring, or the restoration cannot be verified against the recorded digest.
 Restoring the file re-adds 3.3 MB to a repository already carrying the history problem
 described in
 [`../pending_proposals/git_history_bloat_cleanup.md`](../pending_proposals/git_history_bloat_cleanup.md).
-Restoring from `3bee6f054^` rather than regenerating keeps that to one blob revision,
-because the original object is already in history.
+Restoring from `3bee6f054^` rather than regenerating would keep that to one blob
+revision, because the object is already in history — but per *What was refuted* that
+revision is not known to be the recorded artifact, so the choice is not yet available.
 
 ## Provenance
 
