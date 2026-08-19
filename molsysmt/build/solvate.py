@@ -199,6 +199,42 @@ def _build_ions(ion_name, atom_name, atom_type, positions):
 
 
 @arg_digest()
+def _place_in_box_origin_convention(item):
+    """Translate a solvated system so the box it declares occupies ``[0, L)``.
+
+    `devguide/INTERFACES.md`, *Periodic box origin*: the box vectors describe shape and
+    size, and the cell they span starts at the origin. The three solvation engines do
+    not agree on this by themselves — the native one centres the solute before adding
+    water and lands there, while OpenMM's `Modeller` and PDBFixer return a system
+    centred on the origin, which is a corner of that cell.
+
+    The move is a rigid translation, so no molecule is split and nothing else changes.
+    It is idempotent: a system already in the convention is shifted by zero.
+    """
+
+    from molsysmt.basic import get
+    from molsysmt.structure import translate
+    import numpy as np
+
+    box = get(item, element='system', box=True, skip_digestion=True)
+    if box is None:
+        return item
+
+    box_value = np.asarray(puw.get_value(box, to_unit='nm'), dtype=float)[0]
+    coordinates = np.asarray(
+        puw.get_value(get(item, element='system', coordinates=True, skip_digestion=True),
+                      to_unit='nm'), dtype=float)
+
+    system_center = (coordinates[0].min(axis=0) + coordinates[0].max(axis=0)) / 2.0
+    box_center = 0.5 * box_value.sum(axis=0)
+    shift = (box_center - system_center).reshape(1, 1, 3)
+
+    if np.allclose(shift, 0.0, atol=1e-6):
+        return item
+
+    return translate(item, translation=puw.quantity(shift, 'nm'), in_place=False)
+
+
 def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0 angstroms',
              anion='Cl-', n_anions="neutralize", cation='Na+', n_cations="neutralize",
              ionic_strength='0.0 molar', water_model='TIP3P', engine="OpenMM",
@@ -372,6 +408,8 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
         assign_selection_to_new_chain(tmp_item, selection='group_type in ["water","ion"]')
 
+        tmp_item = _place_in_box_origin_convention(tmp_item)
+
         return tmp_item
 
     elif engine=="PDBFixer":
@@ -432,6 +470,8 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
             tmp_item.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
 
         assign_selection_to_new_chain(tmp_item, selection='group_type in ["water","ion"]')
+
+        tmp_item = _place_in_box_origin_convention(tmp_item)
 
         return tmp_item
 
@@ -740,6 +780,8 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
                 chain_id=chain_ids, chain_name=chain_names, skip_digestion=True)
 
         assign_selection_to_new_chain(tmp_item, selection='group_type in ["water", "ion"]')
+
+        tmp_item = _place_in_box_origin_convention(tmp_item)
 
         return tmp_item
 

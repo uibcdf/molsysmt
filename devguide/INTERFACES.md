@@ -42,6 +42,36 @@ Canonical structural conventions are:
 - time: ps;
 - charge: elementary charge.
 
+## Periodic box origin
+
+**The box vectors describe shape and size. The cell they span starts at the origin,
+and coordinates live in `[0, L)`.**
+
+Molecules are kept whole, so a few atoms sit just outside the cell where one crosses
+a face. That is the correct picture, not a defect: on a solvated 1VII the three
+solvation engines leave between 0.9 % and 1.7 % of atoms outside, and MDTraj's
+`image_molecules` produces the same signature on the same system.
+
+The convention is not arbitrary. It is what `msm.pbc.wrap_to_pbc` already assumed,
+and it is what the ecosystem does: OpenMM's `enforcePeriodicBox` returns a system in
+`[0, L]`, and MDTraj's `image_molecules` moves one centred on the origin into `[0, L]`.
+NAMD is the exception that proves the point by parameterising `cellOrigin` explicitly.
+
+There is no computational argument either way. The minimum-image kernels operate on
+displacement vectors, which are invariant under the choice of origin — see
+`mic_vector_ortho` in `rust/src/mic.rs` — and wrapping costs one `floor` or one
+`round` per axis whichever convention is chosen. The reason to pick this one is
+interoperability: exporting to the majority of forms then needs no translation, and a
+translation on every export is a place for defects to live.
+
+Anything that builds a box must land in this convention, and the requirement is on
+the result rather than on the route. `msm.build.solvate` reaches it through three
+engines that do not agree by themselves: the native one centres the solute before
+adding water, while OpenMM's `Modeller` and PDBFixer return a system centred on the
+origin, which is a corner of the cell. Left unnormalised that put 86 % of atoms
+outside the box, and the notebook that tried to correct it with an atom-wise wrap
+stretched 93 bonds of the solute to 6.8 nm.
+
 ## Scalar types in returned values
 
 **The nature of the datum decides the container; the container decides the scalar
