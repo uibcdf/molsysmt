@@ -2215,11 +2215,11 @@ def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
     group_type_from_groups = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(group_type_from_groups=='amino acid')
+        output = int(np.count_nonzero(group_type_from_groups=='amino acid'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
-        output = np.count_nonzero(group_type_from_groups[aux]=='amino acid')
+        output = int(np.count_nonzero(group_type_from_groups[aux]=='amino acid'))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2281,11 +2281,11 @@ def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
     group_type_from_groups = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(group_type_from_groups=='nucleotide')
+        output = int(np.count_nonzero(group_type_from_groups=='nucleotide'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
-        output = np.count_nonzero(group_type_from_groups[aux]=='nucleotide')
+        output = int(np.count_nonzero(group_type_from_groups[aux]=='nucleotide'))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2347,11 +2347,11 @@ def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
     group_type_from_groups = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(group_type_from_groups=='ion')
+        output = int(np.count_nonzero(group_type_from_groups=='ion'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
-        output = np.count_nonzero(group_type_from_groups[aux]=='ion')
+        output = int(np.count_nonzero(group_type_from_groups[aux]=='ion'))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2413,11 +2413,11 @@ def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
     group_type_from_groups = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(group_type_from_groups=='water')
+        output = int(np.count_nonzero(group_type_from_groups=='water'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
-        output = np.count_nonzero(group_type_from_groups[aux]=='water')
+        output = int(np.count_nonzero(group_type_from_groups[aux]=='water'))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2479,11 +2479,11 @@ def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
     group_type_from_groups = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(group_type_from_groups=='small molecule')
+        output = int(np.count_nonzero(group_type_from_groups=='small molecule'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
-        output = np.count_nonzero(group_type_from_groups[aux]=='small molecule')
+        output = int(np.count_nonzero(group_type_from_groups[aux]=='small molecule'))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2545,11 +2545,11 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
     group_type_from_groups = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(group_type_from_groups=='lipid')
+        output = int(np.count_nonzero(group_type_from_groups=='lipid'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
-        output = np.count_nonzero(group_type_from_groups[aux]=='lipid')
+        output = int(np.count_nonzero(group_type_from_groups[aux]=='lipid'))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2611,11 +2611,11 @@ def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
     group_type_from_groups = item.file['topology']['groups']['group_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(group_type_from_groups=='saccharide')
+        output = int(np.count_nonzero(group_type_from_groups=='saccharide'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
-        output = np.count_nonzero(group_type_from_groups[aux]=='saccharide')
+        output = int(np.count_nonzero(group_type_from_groups[aux]=='saccharide'))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2677,13 +2677,13 @@ def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
     molecule_type_from_molecules = item.file['topology']['molecules']['molecule_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(molecule_type_from_molecules=='peptide')
+        output = int(np.count_nonzero(molecule_type_from_molecules=='peptide'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = np.count_nonzero(molecule_type_from_molecules[aux]=='peptide')
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='peptide'))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2745,13 +2745,13 @@ def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
     molecule_type_from_molecules = item.file['topology']['molecules']['molecule_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(molecule_type_from_molecules=='protein')
+        output = int(np.count_nonzero(molecule_type_from_molecules=='protein'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = np.count_nonzero(molecule_type_from_molecules[aux]=='protein')
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='protein'))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2813,13 +2813,13 @@ def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
     molecule_type_from_molecules = item.file['topology']['molecules']['molecule_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(molecule_type_from_molecules=='dna')
+        output = int(np.count_nonzero(molecule_type_from_molecules=='dna'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = np.count_nonzero(molecule_type_from_molecules[aux]=='dna')
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='dna'))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2881,13 +2881,13 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
     molecule_type_from_molecules = item.file['topology']['molecules']['molecule_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(molecule_type_from_molecules=='rna')
+        output = int(np.count_nonzero(molecule_type_from_molecules=='rna'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = np.count_nonzero(molecule_type_from_molecules[aux]=='rna')
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='rna'))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2950,13 +2950,13 @@ def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
     molecule_type_from_molecules = item.file['topology']['molecules']['molecule_type'][:].astype('str')
 
     if indices=='all':
-        output = np.count_nonzero(molecule_type_from_molecules=='polysaccharide')
+        output = int(np.count_nonzero(molecule_type_from_molecules=='polysaccharide'))
     else:
         group_indices_from_atoms = item.file['topology']['atoms']['group_index'][:].astype('int')
         molecule_indices_from_groups = item.file['topology']['groups']['molecule_index'][:].astype('int')
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = np.count_nonzero(molecule_type_from_molecules[aux]=='polysaccharide')
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='polysaccharide'))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
