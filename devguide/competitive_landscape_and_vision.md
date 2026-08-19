@@ -9,6 +9,51 @@ The dated March 2026 comparison and capability inventory are archived under
 `archive/assessments/` because several absolute claims were not reproducibly
 supported and implementation status has changed.
 
+## Comparison classes
+
+MolSysMT does not sit in one category, so "how does it compare" has no single answer
+until the reference class is chosen. Naming that class is a decision, and it belongs to
+whoever writes the manuscript
+([`pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md)).
+Four classes are relevant, in decreasing order of how crowded they are.
+
+**Trajectory analysis.** MDAnalysis, MDTraj, pytraj/cpptraj, LOOS. Mature, widely cited,
+and not the ground MolSysMT is contesting.
+
+**Unified molecular-system abstraction** — a native object model, many input formats, a
+selection language, and analysis over the same abstraction. **Biotite** and **ProDy** are
+the closest architectural analogues in structural biology, together with MDAnalysis.
+Outside the domain, ASE and pymatgen are the same pattern in materials science, and their
+adoption is the evidence that the abstraction wins where it wins.
+
+- **Biotite** builds on a unified array-based structure representation with compiled
+  inner loops, covers a broad set of structural-biology formats and analyses, is
+  peer-reviewed and team-maintained. It is the nearest comparison on engineering and on
+  scope of the abstraction.
+- **ProDy** builds on a unified atom-group representation with a powerful selection
+  language, and is long-established in normal-mode and ensemble analysis. It is the
+  nearest comparison on the selection-and-attribute interface.
+
+**Programmatic structure preparation** without requiring a simulation engine. PDBFixer is
+the main Python-native incumbent and is narrow and tied to OpenMM; the alternatives
+(tleap, `gmx pdb2gmx`, pdb2pqr, CHARMM-GUI, Modeller, pmx) are command-line, web, or
+domain-specific. This is the thinnest class and the one where MolSysMT's `build`
+namespace has the least-occupied ground — conditional on that namespace acquiring
+governed evidence, which it does not have today
+([`pending_proposals/the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](pending_proposals/the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md)).
+
+**Conversion with declared fidelity.** InterMol pursued validated MD-input conversion and
+is dormant; ParmEd converts widely without reporting loss; MDAnalysis exposes
+`convert_to()` without a fidelity record. No occupied position was identified.
+
+These are positioning statements, not measurements. **No reproducible comparison against
+Biotite or ProDy has been run.** Until one exists under the dimensions below, this
+section says which tools a reader will have in mind, not how MolSysMT scores against
+them. Both were absent from this document before 2026-08-19, which is why the external
+audit of that date flagged the omission: a referee in this field knows them, and a
+related-work section that compares only against MDTraj and MDAnalysis invites the
+question in the first round.
+
 ## Evidence-based comparison dimensions
 
 External comparisons should use reproducible workflows and current releases:
