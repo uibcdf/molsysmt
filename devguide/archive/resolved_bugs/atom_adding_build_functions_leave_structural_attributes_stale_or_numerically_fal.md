@@ -1,13 +1,13 @@
 ---
 summary: Atom-adding build functions leave structural attributes stale or numerically false.
 issue: uibcdf/molsysmt#175
-status: open
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-08-19
 severity: high
 verification: measured
 area: [build, attribute, scientific-integrity]
-guard:
+guard: tests/build/test_structural_attributes_after_adding_atoms.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-08-19, from an audit of the README's code examples. The flagship
 example names `1l2y.pdb` and does not run; following the failure led here.
-**Status:** open. Measured on all three functions and both insertion routes. Nothing
-modified.
+**Status:** resolved. Both insertion routes now delegate to a shared helper; guard in
+`tests/build/test_structural_attributes_after_adding_atoms.py`.
 
 ## What
 
@@ -146,11 +146,34 @@ and may not fit directly.
 
 ## What was refuted
 
-**That the cause was `alternate_location`.** It is not, and it is the one attribute
-structurally immune to this. It is stored as a sparse mapping keyed by atom index, one
-per structure — `structures.py:75`, *"the series is stored per structure but its content
-is keyed by atom index"* — so appending atoms leaves existing keys valid. It is
-deliberately outside `_ATOM_ALIGNED_ATTRIBUTES`. The cause is adding atoms, nothing else.
+**That the cause was `alternate_location`.** It is not — the cause is adding atoms. But
+the claim made alongside it, that `alternate_location` is *immune*, is false and was
+disproved while implementing the fix. It is recorded here because it was believed for
+most of the analysis.
+
+It is stored as a sparse mapping keyed by atom index, one per structure —
+`structures.py:75`, *"the series is stored per structure but its content is keyed by atom
+index"* — and it is deliberately outside `_ATOM_ALIGNED_ATTRIBUTES`. That makes it immune
+to *appending*. It is not immune to *reordering*, and the placers reorder: new atoms are
+sorted into their groups, through `new_order` / `old_to_new` in
+`append_atoms_to_molsys`.
+
+Measured on 181L, `add_missing_hydrogens`, with four atoms marked before the call:
+
+| key | atom before | atom after |
+|---|---|---|
+| 0 | `N`, group 0 | `N`, group 0 |
+| 500 | `OE2`, group 63 | `N`, group 30 |
+| 1000 | `C`, group 127 | `C`, group 63 |
+| 1440 | `O`, group 301 | `CG`, group 90 |
+
+The keys survive and point at different atoms. Like the energies, no dimension check can
+detect this. It does not appear on 1L2Y, where the single added hydrogen lands last and
+no existing index moves — which is why a small system hides it.
+
+The labels themselves remain valid data, so the fix remaps the keys through `old_to_new`
+rather than dropping them. `_merge_alternate_locations` already does exactly that on the
+native path, with an `atom_offset`.
 
 **That `b_factor` for new atoms should be inherited from the parent heavy atom.**
 Proposed during this audit on the claim that PDBFixer and OpenMM do so. They do not:
@@ -228,3 +251,31 @@ Linux 7.0.0-28-generic, Python 3.13.14, NumPy 2.4.6, pandas 2.3.3,
 PyUnitWizard 0.22.0, MolSysMT `0.21.0+325.g7cedab74a` at `a9aa5f883`, 2026-08-19.
 Systems from `molsysmt.systems`; wwPDB v3.3 ATOM record consulted at
 <https://www.wwpdb.org/documentation/file-format-content/format33/sect9.html>.
+
+## Resolution
+
+Both routes in `_native_placers.py` now build their structural block through
+`carry_structures_through_atom_change`, which applies the policy `Structures.add`
+already applied: `coordinates` is rebuilt, every other atom-aligned series is dropped
+rather than filled, the system-level observables are cleared, and the drop is reported
+through `StructuralAttributeDropWarning`.
+
+`alternate_location` is remapped rather than dropped, through the routes' own
+`old_to_new` / `old_to_new_atom` maps. The labels are still valid data; only the keys
+had to follow the reordering.
+
+Verified: the three functions leave a consistent atom axis and no stale observables;
+altloc key 500 on 181L becomes 1006 and still names `OE2` of group 63; `tests/build`
+passes 353/353. The guard fails 5/5 against the previous code.
+
+### Not fixed here, found on the way
+
+- `add_missing_terminal_cappings` does not produce an AMBER-recognisable C-terminus for
+  1L2Y: `createSystem` still reports *"No template found for residue 19 (SER) ... similar
+  to CTHR, but is missing 1 H atom and 1 C atom."* This predates the change and is
+  independent of it.
+- Three README errata, now three rather than two: the flagship block omits
+  `add_missing_terminal_cappings`; block 3 spells `box_shape='truncated_octahedral'`
+  where the accepted value is `'truncated octahedral'`; and it passes
+  `forcefield='amber14-all.xml'`, an OpenMM filename, where MolSysMT accepts only its own
+  vocabulary — `AMBER14`, `CHARMM36` and eight others.

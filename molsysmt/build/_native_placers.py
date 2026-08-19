@@ -143,6 +143,81 @@ def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, templa
 # Append atoms to an existing native MolSys (no group-index changes)
 # ---------------------------------------------------------------------------
 
+def _remap_alternate_locations(series, old_to_new):
+    """Re-key an alternate-location series after the atom order changed.
+
+    The series is a list of dictionaries, one per structure, keyed by atom index. The
+    labels stay valid when atoms move; only the keys have to follow them.
+    """
+
+    remapped = []
+    for entry in series:
+        if not entry:
+            remapped.append({})
+            continue
+        remapped.append({old_to_new.get(int(key), int(key)): value
+                         for key, value in entry.items()})
+    return remapped
+
+
+def carry_structures_through_atom_change(structs, new_coordinates_nm, old_to_new, caller):
+    """Return the structural block for a system whose atom axis has just changed.
+
+    `coordinates` is the one atom-aligned series the placers can rebuild, because they
+    computed the positions of the atoms they added. The rest cannot be rebuilt: a
+    constructed atom has no measured B-factor, no occupancy and no velocity. Carrying
+    them over unchanged leaves an array whose atom axis no longer matches the system,
+    which is what `uibcdf/molsysmt#175` reported.
+
+    The policy is the one `molsysmt.native.Structures.add` already applies when it grows
+    the atom axis: a series that cannot cover the whole axis is dropped rather than
+    filled, and the drop is reported. Filling would be worse than dropping, since a
+    fabricated B-factor is indistinguishable from a measured one once it is in the array.
+
+    `temperature` and the energies are dropped for the reason `Structures.add` gives:
+    they describe the system, and the system just changed. They matter more than the
+    rest here — having no atom axis, no dimension check can ever catch them, so a stale
+    kinetic energy would survive every downstream validation.
+    """
+
+    from warnings import warn
+
+    from molsysmt._private.smonitor import StructuralAttributeDropWarning
+    from molsysmt.native.structures import (
+        _ATOM_ALIGNED_ATTRIBUTES,
+        _SYSTEM_LEVEL_OBSERVABLES,
+    )
+    from molsysmt import pyunitwizard as puw
+
+    new_structs = structs.copy()
+    new_structs.coordinates = puw.quantity(new_coordinates_nm, "nm")
+
+    dropped = []
+    for name in _ATOM_ALIGNED_ATTRIBUTES:
+        if name == "coordinates":
+            continue
+        if getattr(new_structs, name) is not None:
+            setattr(new_structs, name, None)
+            dropped.append(name)
+
+    for name in _SYSTEM_LEVEL_OBSERVABLES:
+        if getattr(new_structs, name) is not None:
+            setattr(new_structs, name, None)
+            dropped.append(name)
+
+    # Kept rather than dropped: this one is a sparse mapping keyed by atom index, so the
+    # labels survive the operation and only the keys need to follow the reordering.
+    if new_structs.alternate_location is not None and old_to_new:
+        new_structs.alternate_location = _remap_alternate_locations(
+            new_structs.alternate_location, old_to_new)
+
+    if dropped:
+        warn(StructuralAttributeDropWarning(attributes=dropped, caller=caller),
+             stacklevel=3)
+
+    return new_structs
+
+
 def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     """
     Return a new MolSys with extra atoms appended after the existing ones.
@@ -251,8 +326,9 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     # --- Assemble new MolSys ---
     new_molsys = MolSys()
     new_molsys.topology   = new_topo
-    new_molsys.structures = structs.copy()
-    new_molsys.structures.coordinates = puw.quantity(new_all_coords, "nm")
+    new_molsys.structures = carry_structures_through_atom_change(
+        structs, new_all_coords, old_to_new,
+        caller="molsysmt.build._native_placers.append_atoms_to_molsys")
 
     return new_molsys
 
@@ -741,8 +817,9 @@ def rebuild_molsys_with_new_groups(
     # --- Assemble MolSys ---
     new_molsys = MolSys()
     new_molsys.topology   = new_topo
-    new_molsys.structures = structs.copy()
-    new_molsys.structures.coordinates = puw.quantity(new_coords, "nm")
+    new_molsys.structures = carry_structures_through_atom_change(
+        structs, new_coords, old_to_new_atom,
+        caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups")
 
     return new_molsys
 

@@ -20,10 +20,6 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
-
-- [`atom_adding_build_functions_leave_structural_attributes_stale_or_numerically_fal.md`](atom_adding_build_functions_leave_structural_attributes_stale_or_numerically_fal.md) — [#175](https://github.com/uibcdf/molsysmt/issues/175) — Atom-adding build functions leave structural attributes stale or numerically false. *(high, measured)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
