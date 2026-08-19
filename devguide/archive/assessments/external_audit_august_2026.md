@@ -218,3 +218,39 @@ as effectively disabled by its `skipif` on `tleap`. It is not: `ambertools` is i
 `devtools/conda-envs/test_env.yaml` and `ci-weekly.yaml` applies no marker deselection,
 so the 40-sequence comparison runs weekly. The accurate statement is that this evidence
 exists and the matrix cannot show it, which is what #190 addresses.
+
+## Addendum — 2026-08-19, second
+
+After this assessment was written and its entries filed, the maintainer stated the
+context the repository does not carry: MolSysMT is the substrate of MolSysSuite, with
+MolSysViewer coordinating with it, MolSys-AI built on it as an assistant and later an
+agent, and TopoMT, PharmacophoreMT and ElasNetMT queued as consumers.
+
+That is now [#192](https://github.com/uibcdf/molsysmt/issues/192), because an audit that
+read every governance document and still reached the wrong frame is a measurement of the
+surfaces rather than of the auditor. Three judgements above were wrong in the same
+direction and are corrected here:
+
+- **The 89 forms.** Described as an inflated headline. As the ingestion surface every
+  downstream tool inherits, breadth is the product, not the advertisement.
+- **The governance apparatus.** Described as unusually rigorous for a scientific project.
+  For six repositories with cross-dependencies it is the minimum that works, and the
+  cross-repository unit-policy failures noted above are that coordination problem
+  appearing rather than a fragile test.
+- **The comparison peers.** `competitive_landscape_and_vision.md` now records a fifth
+  class, substrate for a tool ecosystem, whose analogues are ASE, RDKit, OpenMM and the
+  MDAnalysis MDAKits ecosystem — not Biotite and ProDy.
+
+Two priorities change with it, and the affected entries carry the note:
+
+- [#187](https://github.com/uibcdf/molsysmt/issues/187) — an agent's tool description is
+  the docstring. `to_form : object — Argument to_form.` is the text an agent would be
+  given to call `convert`.
+- [#188](https://github.com/uibcdf/molsysmt/issues/188) — capability introspection is the
+  first call an agent makes, and it currently returns a `Styler`.
+
+What does not change: the seven open defects, the absence of a manuscript, and the
+caveat that a suite of tools by the same authors is evidence that the abstraction serves
+its authors, not evidence of external adoption. The overall reading of the software's
+state stands. Its design coherence reads considerably better against the plan than
+against the repository.

@@ -15,7 +15,8 @@ MolSysMT does not sit in one category, so "how does it compare" has no single an
 until the reference class is chosen. Naming that class is a decision, and it belongs to
 whoever writes the manuscript
 ([`pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md)).
-Four classes are relevant, in decreasing order of how crowded they are.
+Four classes answer *what is it like*, in decreasing order of how crowded they are. A
+fifth answers *what is it for*, and it reframes the other four.
 
 **Trajectory analysis.** MDAnalysis, MDTraj, pytraj/cpptraj, LOOS. Mature, widely cited,
 and not the ground MolSysMT is contesting.
@@ -46,10 +47,38 @@ governed evidence, which it does not have today
 is dormant; ParmEd converts widely without reporting loss; MDAnalysis exposes
 `convert_to()` without a fidelity record. No occupied position was identified.
 
+**Substrate for a tool ecosystem.** MolSysMT is the core of MolSysSuite: MolSysViewer
+coordinates with it, MolSys-AI is built on it, and TopoMT, PharmacophoreMT and ElasNetMT
+consume it. On that axis the analogues are not structural-biology libraries at all — they
+are **ASE** in materials, **RDKit** in cheminformatics, **OpenMM** with its plugin
+interface, and **MDAnalysis** with the MDAKits ecosystem. Each became a substrate rather
+than a library, and each is judged by whether third parties build on it, not by beating a
+specialist at one task.
+
+This class changes how the previous four should be read:
+
+- Breadth of accepted forms stops being a headline count and becomes the ingestion
+  surface every downstream tool inherits.
+- Conversion with declared fidelity stops being a feature and becomes the mechanism that
+  makes the ecosystem possible: tools cannot exchange molecular systems across
+  heterogeneous representations unless the conversions state what they lose.
+- The governance apparatus — stability registry, support tiers, shared reporting
+  protocol, cross-repository issue references, a shared unit policy — stops looking
+  disproportionate for one library and becomes the minimum coordination for six
+  repositories. The recurring cross-repository unit-policy failures are that problem
+  appearing, not a fragile test.
+
+One caveat is load-bearing and belongs in any claim made on this axis: **no third party
+outside UIBCDF is known to build on MolSysMT.** ASE and RDKit are substrates because
+outsiders adopted them. A suite of tools by the same authors demonstrates that the
+abstraction serves its authors. Until external adoption exists, the substrate position is
+a statement of design intent, and it must be made as one.
+
 These are positioning statements, not measurements. **No reproducible comparison against
 Biotite or ProDy has been run.** Until one exists under the dimensions below, this
 section says which tools a reader will have in mind, not how MolSysMT scores against
-them. Both were absent from this document before 2026-08-19, which is why the external
+them, and the substrate class carries the further caveat above. Biotite and ProDy were
+absent from this document before 2026-08-19, which is why the external
 audit of that date flagged the omission: a referee in this field knows them, and a
 related-work section that compares only against MDTraj and MDAnalysis invites the
 question in the first round.

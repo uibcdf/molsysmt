@@ -56,13 +56,29 @@ contribution, its claimed surfaces, and its venue, written before the LaTeX.
 The statement needs five things, none of which is prose about the software:
 
 **1. The contribution, in one sentence that survives a hostile reading.** The audit's
-view, offered as input and not as a decision: the defensible contribution is
-*conversions that declare what they lose*. `msm.convert(..., return_report=True)` returns
-`outcome='lossy'` with a per-attribute account of what the destination form cannot
-represent, and the audit found no equivalent in the tools MolSysMT interoperates with.
-That is a methodological claim about how heterogeneous molecular representations should
-interoperate, and the 89 forms are its demonstration surface rather than the claim
-itself.
+view, offered as input and not as a decision, and revised once during the same session.
+
+*First reading:* the defensible contribution is *conversions that declare what they lose*.
+`msm.convert(..., return_report=True)` returns `outcome='lossy'` with a per-attribute
+account of what the destination form cannot represent, and the audit found no equivalent
+in the tools MolSysMT interoperates with. That is a methodological claim about how
+heterogeneous molecular representations should interoperate, and the 89 forms are its
+demonstration surface rather than the claim itself.
+
+*Revised reading, after the maintainer stated the ecosystem context the repository does
+not carry* ([#192](https://github.com/uibcdf/molsysmt/issues/192)): the fidelity contract
+is the mechanism, not the thesis. The thesis is that **a common molecular-system
+substrate is what lets a family of tools interoperate at all, and declared-loss
+conversion is the condition that makes such a substrate possible.** MolSysViewer,
+MolSys-AI, TopoMT, PharmacophoreMT and ElasNetMT are the demonstration that the
+abstraction carries weight beyond one library.
+
+This framing is more ambitious and better supported by what exists, and it comes with a
+cost the manuscript must pay openly: **no third party outside UIBCDF is known to build on
+MolSysMT.** ASE and RDKit are substrates because outsiders adopted them. A suite by the
+same authors demonstrates that the abstraction serves its authors, which is evidence of
+design soundness and not of adoption. A reviewer will find this in one search, so the
+paper states it rather than being asked.
 
 The alternative framing — a unified API over many libraries — is the one
 [`readme_positioning_and_1_0_refresh.md`](readme_positioning_and_1_0_refresh.md) already
@@ -82,7 +98,13 @@ paper positioned as a unified API over many libraries is read against MDAnalysis
 the comparison is adoption and MolSysMT loses it. One positioned on declared-loss
 interoperability and native preparation is read against a much thinner field.
 
-Whichever is chosen, the related-work section must name **Biotite** and **ProDy**. They
+If the substrate thesis is chosen, the peers change with it: not Biotite and ProDy but
+**ASE**, **RDKit**, **OpenMM** and the **MDAnalysis MDAKits** ecosystem, where the
+criterion is whether third parties build on the abstraction. The five classes and the
+tools in each are recorded in
+[`../competitive_landscape_and_vision.md`](../competitive_landscape_and_vision.md).
+
+Whichever is chosen, the related-work section must still name **Biotite** and **ProDy**. They
 are the closest architectural analogues in structural biology — a native object model,
 many formats, a selection language, analysis over the same abstraction — and until
 2026-08-19 neither appeared in
@@ -151,12 +173,17 @@ installation-sequencing item still open in
 3. [#190](https://github.com/uibcdf/molsysmt/issues/190) can populate its claimed scope
    from item 1 without further decisions.
 4. The chosen comparison class names Biotite and ProDy, or records why the manuscript
-   excludes them.
+   excludes them; if the substrate thesis is chosen, it also names the substrate peers
+   and states the absence of external adopters.
 
 ## Dependencies and risks
 
 [#190](https://github.com/uibcdf/molsysmt/issues/190) depends on this for its scope,
-though its registry mechanism does not. The risk of writing this down is that it fixes an
+though its registry mechanism does not.
+[#192](https://github.com/uibcdf/molsysmt/issues/192) is the repository-side half of the
+same question: this entry decides what the paper argues, that one decides whether the
+public surfaces argue it too. They should be settled together, and the paper should not
+claim a role the README does not state. The risk of writing this down is that it fixes an
 argument early; the risk of not writing it is that four documents keep serving a referee
 nobody has specified.
 
