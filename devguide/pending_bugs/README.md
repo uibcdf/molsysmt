@@ -20,9 +20,13 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Partially resolved (3)
+### Open (2)
 
-- [`add_missing_hydrogens_protonates_the_termini_regardless_of_ph_blocking_every_sta.md`](add_missing_hydrogens_protonates_the_termini_regardless_of_ph_blocking_every_sta.md) — [#176](https://github.com/uibcdf/molsysmt/issues/176) — add_missing_hydrogens protonates the termini regardless of pH, blocking every standard force field. *(high, measured)*
+- [`the_hydrogen_builder_never_removes_a_hydrogen_the_requested_ph_contradicts.md`](the_hydrogen_builder_never_removes_a_hydrogen_the_requested_ph_contradicts.md) — [#178](https://github.com/uibcdf/molsysmt/issues/178) — The hydrogen builder never removes a hydrogen the requested pH contradicts. *(medium, measured)*
+- [`an_unparameterised_residue_surfaces_as_a_bare_keyerror_naming_only_the_residue_c.md`](an_unparameterised_residue_surfaces_as_a_bare_keyerror_naming_only_the_residue_c.md) — [#179](https://github.com/uibcdf/molsysmt/issues/179) — An unparameterised residue surfaces as a bare KeyError naming only the residue code. *(low, reproduced)*
+
+### Partially resolved (2)
+
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 

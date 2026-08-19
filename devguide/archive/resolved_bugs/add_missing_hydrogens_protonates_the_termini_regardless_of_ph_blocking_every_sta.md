@@ -1,9 +1,9 @@
 ---
 summary: add_missing_hydrogens protonates the termini regardless of pH, blocking every standard force field.
 issue: uibcdf/molsysmt#176
-status: partial
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-08-19
 severity: high
 verification: measured
 area: [build, scientific-integrity]
@@ -18,9 +18,9 @@ normative:
 **Reported:** 2026-08-19, while verifying the README's structure-preparation example
 after [`uibcdf/molsysmt#175`](https://github.com/uibcdf/molsysmt/issues/175) unblocked
 it. The example got as far as `openmm.Simulation` and stopped there.
-**Status:** partial. The C-terminal half is fixed and guarded. The N-terminal rule is
-in place and unit-tested, but cannot correct a structure that arrives over-protonated,
-because neither function removes a hydrogen. That remainder is stated under *Scope*.
+**Status:** resolved. Both terminal rules are in place and guarded. The separate
+question of correcting a structure that *arrives* over-protonated is
+[`uibcdf/molsysmt#178`](https://github.com/uibcdf/molsysmt/issues/178).
 
 ## What
 
@@ -212,10 +212,12 @@ proton is expected at pH 7.4 and not at pH 12.0. Neither can help 1VII or 1L2Y, 
 `H3` is in the deposited file. **Neither function removes a hydrogen**, which is the
 remaining gap and is not a threshold question.
 
-**Not resolved, and why this stays `partial`:** a structure that arrives protonated in a
-way the requested pH contradicts is passed through unchanged. Making
-`add_missing_hydrogens` remove hydrogens changes its contract and its name stops
-describing it, so it is a separate decision rather than an extension of this fix.
+**Split off rather than left inside this theme:** a structure that arrives protonated in
+a way the requested pH contradicts is passed through unchanged. That is one theme, one
+issue — making `add_missing_hydrogens` remove hydrogens changes its contract to the point
+where its name stops describing it, which is an API decision and not an extension of
+these rules. Filed as
+[`uibcdf/molsysmt#178`](https://github.com/uibcdf/molsysmt/issues/178).
 
 **The pH model is unchanged and remains an approximation.** Fixed thresholds from
 free-amino-acid pKa values, as `structure_preparation_pipeline.md` already stated for

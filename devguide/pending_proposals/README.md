@@ -37,12 +37,13 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (5)
+### Open (6)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
+- [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 
 <!-- /generated -->
