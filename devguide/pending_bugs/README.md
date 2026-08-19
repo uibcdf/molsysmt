@@ -20,12 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Partially resolved (3)
 
 - [`add_missing_hydrogens_protonates_the_termini_regardless_of_ph_blocking_every_sta.md`](add_missing_hydrogens_protonates_the_termini_regardless_of_ph_blocking_every_sta.md) — [#176](https://github.com/uibcdf/molsysmt/issues/176) — add_missing_hydrogens protonates the termini regardless of pH, blocking every standard force field. *(high, measured)*
-
-### Partially resolved (2)
-
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
 - [`sphinx_warning_baseline_and_api_reference_debt.md`](sphinx_warning_baseline_and_api_reference_debt.md) — [#144](https://github.com/uibcdf/molsysmt/issues/144) — The documentation build carries a large accepted warning population that hides new warnings. *(low, measured)*
 

@@ -1,7 +1,7 @@
 ---
 summary: add_missing_hydrogens protonates the termini regardless of pH, blocking every standard force field.
 issue: uibcdf/molsysmt#176
-status: open
+status: partial
 opened: 2026-08-19
 closed:
 severity: high
@@ -9,7 +9,7 @@ verification: measured
 area: [build, scientific-integrity]
 blocked_by: []
 supersedes: []
-guard:
+guard: tests/build/test_terminal_protonation_follows_ph.py
 normative:
 ---
 
@@ -18,8 +18,9 @@ normative:
 **Reported:** 2026-08-19, while verifying the README's structure-preparation example
 after [`uibcdf/molsysmt#175`](https://github.com/uibcdf/molsysmt/issues/175) unblocked
 it. The example got as far as `openmm.Simulation` and stopped there.
-**Status:** open. Cause located in the source and confirmed by removing the single
-offending atom. Nothing modified.
+**Status:** partial. The C-terminal half is fixed and guarded. The N-terminal rule is
+in place and unit-tested, but cannot correct a structure that arrives over-protonated,
+because neither function removes a hydrogen. That remainder is stated under *Scope*.
 
 ## What
 
@@ -182,3 +183,45 @@ Linux 7.0.0-28-generic, Python 3.13.14, OpenMM as packaged in
 `molsyssuite@uibcdf_3.13`, MolSysMT `0.21.0+325.g7cedab74a` at `ef4d13db1`, 2026-08-19.
 Systems `chicken villin HP35` (`1vii.pdb`) and `Trp-Cage` (`1l2y.pdb`) from
 `molsysmt.systems`.
+
+## Resolution, and one correction to this report
+
+**Corrected.** This document claimed 1VII arrives with all-heavy atoms. It does not:
+1VII is an NMR structure carrying 301 hydrogens of 596 atoms, and 1L2Y carries 150 of
+304. The count was assumed from a `n_atoms` figure and never checked. It matters,
+because it changes what the N-terminal half of the fix can do.
+
+**C-terminus — fixed.** `get_expected_hydrogens` now removes `HXT`/`HO2` at pH >= 3.2.
+The existing OXT rule stays: it asks whether the terminal oxygen exists, which is a
+topology question, and the new one asks whether it should carry a proton, which is the
+chemistry question. Both are needed and they compose, since the rules only add to
+`remove_hs`.
+
+Measured on 1VII: `HXT` present at pH 1.0, 2.0, 3.0 and absent at 4.0, 7.4, 9.0, 12.0.
+The full `build -> solvate -> openmm.Simulation` path completes with AMBER14 at pH 7.4.
+
+**N-terminus — rule added, effect bounded.** The third proton is not placed by
+`add_missing_hydrogens` at all; it is placed by `add_missing_terminal_cappings`, step
+A3, which chose between NH3+ and NH2 without consulting the `pH` it already accepts and
+already documents as governing protonation states. That step is now pH-aware, and
+`get_expected_hydrogens` carries the matching rule for the path where the variant does
+include `H3`.
+
+Both are correct and unit-tested: for a residue with `H1`/`H2` and no `H3`, the third
+proton is expected at pH 7.4 and not at pH 12.0. Neither can help 1VII or 1L2Y, whose
+`H3` is in the deposited file. **Neither function removes a hydrogen**, which is the
+remaining gap and is not a threshold question.
+
+**Not resolved, and why this stays `partial`:** a structure that arrives protonated in a
+way the requested pH contradicts is passed through unchanged. Making
+`add_missing_hydrogens` remove hydrogens changes its contract and its name stops
+describing it, so it is a separate decision rather than an extension of this fix.
+
+**The pH model is unchanged and remains an approximation.** Fixed thresholds from
+free-amino-acid pKa values, as `structure_preparation_pipeline.md` already stated for
+all three engines. What changed is that the statement is now also in the public
+docstring of `add_missing_hydrogens`, with the consequence spelled out — a buried or
+electrostatically shifted residue can titrate more than a pH unit from its threshold —
+and that the docstring says the function only adds. Deferring PROPKA-style
+environment-dependent pKa is a schedule decision; leaving it undisclosed to callers was
+not, and that part is now closed.

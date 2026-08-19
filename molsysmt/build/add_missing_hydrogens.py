@@ -44,8 +44,23 @@ def add_missing_hydrogens(molecular_system, pH=7.4, engine='OpenMM', skip_digest
     Notes
     -----
     Hydrogen atoms are added based on standard residue templates and general
-    rules for protonation. Ionizable side chains (e.g., ASP, GLU, HIS) are adjusted
-    according to the provided pH.
+    rules for protonation. Ionizable side chains (e.g., ASP, GLU, HIS) and both
+    chain termini are adjusted according to the provided pH.
+
+    .. warning::
+
+       `pH` is applied through **fixed pKa thresholds** taken from free-amino-acid
+       values, not through a calculation of each residue's own pKa in its
+       environment. A buried or electrostatically shifted residue can titrate more
+       than a pH unit away from its threshold, and this function will not reflect
+       that. Where the assignment matters — a residue near a threshold, or a
+       pH-dependent result — verify it rather than assuming it, or obtain the
+       protonation from a dedicated pKa predictor. Environment-dependent pKa
+       prediction, comparable to PROPKA, is not implemented in any of the engines
+       offered here.
+
+    This function only **adds** hydrogens. A hydrogen already present that the pH
+    rules would not have placed is left untouched.
 
     The list of supported molecular systems' forms is available at:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`

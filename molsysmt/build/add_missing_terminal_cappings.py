@@ -286,7 +286,12 @@ def add_missing_terminal_cappings(molecular_system, N_terminal=None, C_terminal=
                 gmask = topo_n.atoms['group_index'] == nterm_group_idx
                 grow = topo_n.atoms[gmask]
                 existing_names = frozenset(grow['atom_name'].tolist())
-                missing_h = [h for h in ['H2', 'H3'] if h not in existing_names]
+                # The amine's pKa is around 9.6: NH3+ below it, neutral NH2 above. `pH`
+                # is already accepted here and documented as governing protonation
+                # states; this step was the one place that never consulted it, so the
+                # terminus came out charged at every pH (uibcdf/molsysmt#176).
+                expected_h = ['H2', 'H3'] if pH < 9.6 else ['H2']
+                missing_h = [h for h in expected_h if h not in existing_names]
                 if not missing_h:
                     continue
 

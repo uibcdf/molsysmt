@@ -56,6 +56,12 @@ def get_expected_hydrogens(group_name, present_atom_names=None, pH=7.4,
     * **HIS**: HIP (HD1+HE2) when pH < 6.5; HIE (HE2 only) otherwise
     * **LYS**: deprotonated NZ (no HZ3) when pH ≥ 10.5
     * **CYS**: no HG when *is_disulfide* is True
+    * **C-terminus**: carboxylate (no HXT/HO2) when pH ≥ 3.2
+    * **N-terminus**: neutral amine (no H3) when pH ≥ 9.6
+
+    These are fixed thresholds taken from free-amino-acid pKa values. They do not
+    model the pKa shifts a residue's environment produces, which is what a
+    PROPKA-style calculation would do; see `devguide/structure_preparation_pipeline.md`.
 
 
     .. versionadded:: 1.0.0
@@ -123,6 +129,21 @@ def get_expected_hydrogens(group_name, present_atom_names=None, pH=7.4,
     # CYS in disulfide: remove HG / HG1
     if lookup_name == 'CYS' and is_disulfide:
         remove_hs.update(h for h in all_hs_set if h in ('HG', 'HG1'))
+
+    # C-terminal carboxylate: pKa is 2.0-3.5 across the residues, so above the
+    # threshold the group is a carboxylate and carries no proton. The rule below asks
+    # only whether OXT exists, which is a topology question; this one asks whether it
+    # should be protonated, which is the chemistry question, and both are needed.
+    # Without this the terminus stays COOH at every pH and no standard force field has
+    # a template for it (uibcdf/molsysmt#176).
+    if is_c_terminal and pH >= 3.2:
+        remove_hs.update(h for h in all_hs_set if h in ('HXT', 'HO2'))
+
+    # N-terminal amine: pKa around 9.6. Above it the amine is neutral and loses its
+    # third proton. This one never raises downstream, since NH3+ has a template
+    # everywhere, so it has to be asserted directly rather than through a force field.
+    if is_n_terminal and pH >= 9.6:
+        remove_hs.update(h for h in all_hs_set if h in ('H3',))
 
     # Non-terminal residues: remove OXT-bound hydrogen (HXT) if OXT is absent.
     # If present_atom_names is given and OXT is absent, remove HXT.

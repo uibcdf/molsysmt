@@ -53,7 +53,8 @@ interoperates with them, and hands work over to them when that is what you want.
 import molsysmt as msm
 
 # A raw structure, prepared and handed to OpenMM — without leaving Python
-mol = msm.convert('1l2y.pdb', to_form='molsysmt.MolSys')
+mol = msm.convert('1vii.pdb', to_form='molsysmt.MolSys')
+mol = msm.build.add_missing_terminal_cappings(mol, pH=7.4, engine='MolSysMT')
 mol = msm.build.add_missing_hydrogens(mol, pH=7.4, engine='MolSysMT')
 mol = msm.build.solvate(mol, box_shape='cubic', clearance='12 angstroms',
                         water_model='TIP3P', ionic_strength='0.15 molar')
