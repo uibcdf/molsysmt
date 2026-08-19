@@ -20,6 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
+### Open (1)
+
+- [`add_missing_hydrogens_protonates_the_termini_regardless_of_ph_blocking_every_sta.md`](add_missing_hydrogens_protonates_the_termini_regardless_of_ph_blocking_every_sta.md) — [#176](https://github.com/uibcdf/molsysmt/issues/176) — add_missing_hydrogens protonates the termini regardless of pH, blocking every standard force field. *(high, measured)*
+
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
