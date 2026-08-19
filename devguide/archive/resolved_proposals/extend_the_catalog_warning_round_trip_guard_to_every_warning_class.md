@@ -1,12 +1,12 @@
 ---
 summary: Extend the catalog-warning round-trip guard to every warning class
 issue: uibcdf/molsysmt#161
-status: open
+status: resolved
 opened: 2026-08-17
-closed:
+closed: 2026-08-19
 verification: reproduced
 area: [diagnostics, tests]
-guard:
+guard: tests/_private/smonitor/test_xdist_warning_reconstruction.py
 normative:
 blocked_by: []
 supersedes: []
@@ -154,3 +154,69 @@ Risk: none to runtime. The change is test-only.
 
 Counts taken on 2026-08-17 from `molsysmt/_private/smonitor/warnings.py` at
 `d0e90f423`, with `smonitor 0.13.0`.
+
+## Resolution — 2026-08-19
+
+The guard covers every warning class and is self-extending. One test became 19.
+
+### Discovery is by module, not by base class
+
+The proposal said to walk `MolSysMTCatalogWarning.__subclasses__()`. That was the
+wrong root, on two counts found while implementing it. `__subclasses__()` only sees
+classes that have been imported, and it excludes `MolSysMTDeprecationWarning`, which
+inherits `DeprecationWarning` deliberately so Python's own tooling treats it as a
+deprecation. The invariant is not which base a class hangs off but whether its own
+`__init__` renders a template — that is what `cls(*args)` can double. Discovery now
+walks every `Warning` subclass defined in `molsysmt/_private/smonitor/warnings.py`,
+which is the single file that defines them.
+
+### The registry, as proposed
+
+Each discovered class must appear in `SAMPLES` with field values and a fragment that
+must appear in the rendered sentence or in `extra`. Building from the defaults would
+render nothing, so the fragment is what proves the sample exercised the constructor.
+Two tests keep the registry honest in both directions: a class with no sample fails,
+and a sample for a class that no longer exists fails.
+
+The fragment is looked for in the sentence *or* in `extra` because the classes split
+into two kinds. `UnknownAtomNameWarning` interpolates its field into the sentence;
+`MolecularSystemMismatchWarning` renders a fixed sentence and carries `caller` and
+`count` as structured payload. Both consumed the field; only one shows it.
+
+### One check the proposal did not ask for
+
+Every declared `catalog_key` must exist in the catalog. A class pointing at a missing
+key fails quietly: `_catalog_entry` returns nothing, `code` stays `None`, and the
+warning still raises with whatever text the caller passed. Verified by mutation —
+pointing `GpuNotAvailableWarning` at `NoSuchKey` fails the test with the dangling
+pair named.
+
+### What was refuted
+
+*The eleven current classes might be wrong, and the parametrised guard might fail on
+its first run.* The proposal said so and said it would be a result rather than a
+setback. They are all correct: the run was green on the first parametrised pass.
+
+*The structured payload is lost on the round trip because of how the classes are
+shaped.* It is lost, but the cause is xdist's protocol, not the classes.
+`xdist.remote.serialize_warning_message` transfers `message_str`, the class name and
+`args`, never `__dict__`, and the controller rebuilds with `cls(*args)`. `pickle` and
+`copy.deepcopy` preserve the payload in full because they restore `__dict__`.
+
+An earlier revision of this work was about to assert that loss as expected
+behaviour, and to file it upstream as an SMonitor defect. Both would have been
+wrong. SMonitor's design is well suited to the constraint: putting the un-hinted
+message in `args` and making `__init__` idempotent over it is precisely what makes
+the text cross intact, and its own source says so. Nothing to change upstream. What
+is written now is the consequence for callers: code on the controller must branch on
+the text, not on `extra`.
+
+### Four catalog keys with no class
+
+`AmbiguousStructureWarning`, `MultiContainerWarning`, `SupportTier2Warning` and
+`MolSysMTDeprecationWarning` appear in the catalog without a catalog-warning class.
+None is a gap: the first two are emitted by passing the catalog entry to `warn()`
+directly, the third is emitted by SMonitor's tier registry, and the fourth is a
+`pass` with no template to double. Checked rather than assumed.
+
+Full suite: 10 118 passed, 11 skipped.

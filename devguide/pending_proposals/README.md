@@ -37,13 +37,12 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (7)
+### Open (6)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
-- [`extend_the_catalog_warning_round_trip_guard_to_every_warning_class.md`](extend_the_catalog_warning_round_trip_guard_to_every_warning_class.md) — [#161](https://github.com/uibcdf/molsysmt/issues/161) — Extend the catalog-warning round-trip guard to every warning class *(reproduced)*
 - [`getters_build_numpy_scalars_only_to_have_them_converted_away.md`](getters_build_numpy_scalars_only_to_have_them_converted_away.md) — [#172](https://github.com/uibcdf/molsysmt/issues/172) — Getters build numpy scalars only to have them converted away *(measured)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 
