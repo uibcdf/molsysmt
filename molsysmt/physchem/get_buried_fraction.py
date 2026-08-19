@@ -65,7 +65,7 @@ def get_buried_fraction(molecular_system, element='group', selection='all', defi
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii))
+        output.append(group_table_value(values, ii, table='buried fraction', caller='molsysmt.physchem.get_buried_fraction'))
 
     return output
 

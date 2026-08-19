@@ -64,7 +64,7 @@ def get_area_buried(molecular_system, element='group', selection='all', definiti
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii))
+        output.append(group_table_value(values, ii, table='area buried', caller='molsysmt.physchem.get_area_buried'))
 
     output = np.array(output)
 

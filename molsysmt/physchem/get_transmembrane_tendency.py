@@ -68,7 +68,7 @@ def get_transmembrane_tendency(molecular_system, element='group', selection='all
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii))
+        output.append(group_table_value(values, ii, table='transmembrane tendency', caller='molsysmt.physchem.get_transmembrane_tendency'))
 
     return output
 

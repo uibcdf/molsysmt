@@ -68,7 +68,7 @@ def get_polarity(molecular_system, element='group', selection = 'all', syntax='M
     output = []
 
     for ii in group_names:
-        output.append(group_table_value(values, ii))
+        output.append(group_table_value(values, ii, table='polarity', caller='molsysmt.physchem.get_polarity'))
 
     return output
 

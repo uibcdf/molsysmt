@@ -102,7 +102,7 @@ def get_hydrophobicity(molecular_system, element='group', selection='all', defin
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii))
+        output.append(group_table_value(values, ii, table='hydrophobicity', caller='molsysmt.physchem.get_hydrophobicity'))
 
     output = np.array(output)
 

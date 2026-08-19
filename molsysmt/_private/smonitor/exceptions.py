@@ -248,6 +248,26 @@ class FileContentError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class UnknownGroupInTableError(MolSysMTCatalogException, KeyError):
+    """A residue with no entry in a per-residue property table.
+
+    Still a `KeyError`, so code written against the previous bare `raise` keeps
+    catching it. The base order matters and is not incidental: `KeyError.__str__`
+    wraps its argument in quotes, which would mangle the message this class exists to
+    carry, so the catalog base has to come first for its `__str__` and `__init__` to
+    win.
+    """
+
+    catalog_key = "UnknownGroupInTableError"
+
+    def __init__(self, group_name, table, caller=None, message=None):
+        extra = {"group_name": group_name, "table": table}
+        if caller:
+            extra["caller"] = caller
+
+        super().__init__(message=message, extra=extra)
+
+
 class FormatError(CoreFormatError, MolSysMTCatalogException):
     catalog_key = "FormatError"
 
@@ -308,6 +328,7 @@ __all__ = [
     "FileAlreadyHandledError",
     "FileContentError",
     "FormatError",
+    "UnknownGroupInTableError",
     "NotDigestedArgumentWarning",
     "UnsupportedHeavyOperationError",
     "HeavyOutputFailureError",

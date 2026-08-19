@@ -45,6 +45,6 @@ def get_surface_area(molecular_system, element='group', selection='all', syntax=
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii))
+        output.append(group_table_value(values, ii, table='surface area', caller='molsysmt.physchem.get_surface_area'))
 
     return output

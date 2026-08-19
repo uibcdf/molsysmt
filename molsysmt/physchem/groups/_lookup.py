@@ -9,11 +9,14 @@ helper treats those dummy residues as chemically neutral instead of raising, so
 while genuine unknown residues still raise so real gaps are not masked.
 """
 
+from molsysmt._private.smonitor import UnknownGroupInTableError
+
+
 # Placeholder / dummy residue names treated as chemically neutral.
 NEUTRAL_GROUP_NAMES = {'DUM', 'X'}
 
 
-def group_table_value(values, group_name, neutral=0.0):
+def group_table_value(values, group_name, neutral=0.0, table='property', caller=None):
     """
     Return the property value for ``group_name`` from a residue table.
 
@@ -26,6 +29,10 @@ def group_table_value(values, group_name, neutral=0.0):
         Name of the chemical group (residue).
     neutral : object, default=0.0
         Argument neutral.
+    table : str, default='property'
+        Name of the property table, used to say which one has no entry.
+    caller : str, optional
+        Qualified name of the public function to name in the failure.
 
     Returns
     -------
@@ -36,7 +43,7 @@ def group_table_value(values, group_name, neutral=0.0):
 
     Raises
     ------
-    KeyError
+    UnknownGroupInTableError
         If ``group_name`` is neither in ``values`` nor a recognised dummy
         residue.
     """
@@ -46,4 +53,9 @@ def group_table_value(values, group_name, neutral=0.0):
     except KeyError:
         if key in NEUTRAL_GROUP_NAMES:
             return neutral
-        raise
+        # Raising here is deliberate — see the module docstring: a genuine gap must
+        # not be read as a neutral value. What is reported is not: the bare KeyError
+        # named only the residue, so it read as an internal defect rather than as a
+        # system the caller has to decide about (uibcdf/molsysmt#179).
+        raise UnknownGroupInTableError(
+            group_name=group_name, table=table, caller=caller) from None

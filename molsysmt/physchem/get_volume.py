@@ -62,7 +62,7 @@ def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition=
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii))
+        output.append(group_table_value(values, ii, table='volume', caller='molsysmt.physchem.get_volume'))
 
     output = np.array(output)
 

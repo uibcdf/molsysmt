@@ -284,6 +284,12 @@ CATALOG = {
             "category": "io",
             "level": "ERROR",
         },
+        "UnknownGroupInTableError": {
+            "code": "MSM-ERR-DATA-001",
+            "source": "molsysmt.error.data.unknown_group_in_table",
+            "category": "data_quality",
+            "level": "ERROR",
+        },
         "FormatError": {
             "code": "MSM-ERR-IO-003",
             "source": "molsysmt.error.format",
@@ -750,6 +756,31 @@ CODES = {
         "qa_hint": "Check parser logic and upstream file integrity. Docs: {doc_url}",
         "agent_message": "Invalid file content in '{caller}': {reason}. Record: {record}. File: {filename}.",
         "agent_hint": "The file does not follow the expected standard. Check if it is corrupted or incomplete. Docs: {doc_url}",
+    },
+    "MSM-ERR-DATA-001": {
+        "title": "Residue missing from a property table",
+        "user_message": (
+            "Residue '{group_name}' has no entry in the {table} table, so "
+            "'{caller}' cannot evaluate it."
+        ),
+        "user_hint": (
+            "Ligands, crystallisation additives and non-standard residues are not "
+            "parameterised. Remove them from the selection, or supply the value "
+            "yourself. Docs: {doc_url} | Issues: {issues_url}"
+        ),
+        "dev_message": "No '{table}' entry for group '{group_name}' in '{caller}'.",
+        "dev_hint": (
+            "The table is deliberately strict: an unknown residue raises rather than "
+            "defaulting, so a real gap is not silently read as a neutral value. Add "
+            "the residue to the table or exclude it upstream. Docs: {doc_url}"
+        ),
+        "qa_message": "No '{table}' entry for group '{group_name}' in '{caller}'.",
+        "qa_hint": "Check whether the fixture is expected to contain unparameterised residues.",
+        "agent_message": "Residue '{group_name}' is not in the '{table}' table, reached from '{caller}'.",
+        "agent_hint": (
+            "Not a defect in the caller. The system contains a residue with no "
+            "parameters; remove it or parameterise it."
+        ),
     },
     "MSM-ERR-IO-003": {
         "title": "Format error",

@@ -20,10 +20,9 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (1)
 
 - [`the_hydrogen_builder_never_removes_a_hydrogen_the_requested_ph_contradicts.md`](the_hydrogen_builder_never_removes_a_hydrogen_the_requested_ph_contradicts.md) — [#178](https://github.com/uibcdf/molsysmt/issues/178) — The hydrogen builder never removes a hydrogen the requested pH contradicts. *(medium, measured)*
-- [`an_unparameterised_residue_surfaces_as_a_bare_keyerror_naming_only_the_residue_c.md`](an_unparameterised_residue_surfaces_as_a_bare_keyerror_naming_only_the_residue_c.md) — [#179](https://github.com/uibcdf/molsysmt/issues/179) — An unparameterised residue surfaces as a bare KeyError naming only the residue code. *(low, reproduced)*
 
 ### Partially resolved (2)
 
