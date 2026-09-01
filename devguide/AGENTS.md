@@ -2,6 +2,21 @@
 
 Rules for working inside `devguide/`. Read `../AGENTS.md` first.
 
+## Reading scope
+
+A general request to read or become familiar with `devguide/` means the maintained
+developer guide and the active work queues. It does **not** require a recursive reading
+of `archive/`. Read [`archive/README.md`](archive/README.md) for the archive's scope and
+directory-level summary; that overview is sufficient for ordinary repository
+orientation.
+
+Read individual archived documents only when there is a concrete, stated reason, such
+as tracing the rationale for a current rule, investigating the history of a regression,
+checking provenance for a dated claim, or following an explicit reference from active
+code, tests, or documentation. Record or explain that reason before treating archived
+material as relevant. Archived documents are historical evidence and do not define
+current behavior.
+
 ## Before you write anything here
 
 Two documents govern this directory, and they answer different questions:
