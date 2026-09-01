@@ -1,13 +1,13 @@
 ---
 summary: A truncated demo artifact reached main because no push-path gate checks bundled data.
 issue: uibcdf/molsysmt#182
-status: active
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-09-01
 severity: high
 verification: reproduced
 area: [tests, ci]
-guard:
+guard: tests/scientific_truth/curated/test_provenance.py
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,9 @@ supersedes: []
 
 **Reported:** 2026-08-19, during an external audit of the repository conducted as a
 reader arriving from the forthcoming methods paper.
-**Status:** active. Work resumed on 2026-09-01 after the legacy-input and migrated-output
-hashes were distinguished from one another.
+**Status:** resolved on 2026-09-01 after the legacy-input and migrated-output hashes were
+distinguished, the scientific artifact was restored, and executable integrity guards
+were added.
 
 ## What
 
@@ -213,7 +214,7 @@ restoring, or the restoration cannot be verified against the recorded digest.
 5. The documentation build cannot write into `molsysmt/data/`, or the notebook that did
    writes elsewhere.
 
-## Working-tree resolution — 2026-09-01
+## Resolution — 2026-09-01
 
 The scientifically identified H5MSM 0.4 output from `75072dd2c` is restored with 5000
 structures and SHA-256 `d882572a…`. `PROVENANCE.md` now records that output digest and
@@ -223,10 +224,16 @@ used by the curated suite so an undeclared curated catalog input also fails.
 
 `.github/workflows/ci-data-integrity.yaml` runs the existing H5MSM manifest validator and
 the provenance guard whenever bundled data, the catalog, provenance, or either validator
-changes. It deliberately has no `[skip ci]` condition. The documentation workflow makes
-`molsysmt/data` read-only before building and checks the Git diff afterwards. This closes
-the recurrence path without claiming a specific historical writer that Git cannot
-identify.
+changes. The documentation workflow makes `molsysmt/data` read-only before building and
+checks the Git diff afterwards. This closes the write path without claiming a specific
+historical writer that Git cannot identify.
+
+GitHub Actions run `33518299337`, dispatched manually on exact commit `ae382a2cf`, passes
+both workflow steps. The push that introduced the workflow did not start it: GitHub
+interprets `[skip ci]` before workflow-level conditions, so omitting a custom skip guard
+does not override the platform suppression. The path trigger therefore requires either
+a data-change exception to the repository's mandatory `[skip ci]` commit rule or the
+general trigger-policy resolution tracked by #185.
 
 Local verification in `molsysmt@uibcdf_3.12`:
 
@@ -238,11 +245,15 @@ tests/scientific_truth                          99 passed
 ruff check test_provenance.py                   passed
 git diff --check                                passed
 release_gate.py                                 13/13 passed
+Bundled data integrity run 33518299337           passed (manual dispatch)
 ```
 
-Criteria 1–3 and 5 are satisfied in the working tree. Criterion 4 is implemented and
-must be observed on the first pushed commit that changes the affected paths before the
-report moves to `resolved` and the issue closes.
+Criteria 1–3 and 5 are satisfied. The data workflow is implemented and both steps pass
+remotely, while its automatic push trigger remains suppressed when the mandatory
+`[skip ci]` marker is used. On 2026-09-01 the maintainer accepted the complete local
+suite plus the manual remote run as sufficient evidence for this restoration commit.
+The repository-wide push-trigger policy remains tracked by #185 and is not duplicated
+as a blocker here.
 
 ## Dependencies and risks
 

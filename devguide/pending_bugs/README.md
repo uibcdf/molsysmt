@@ -28,10 +28,6 @@ that front matter -- edit the entries, not this list.
 - [`validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md) — [#187](https://github.com/uibcdf/molsysmt/issues/187) — Validators that check form instead of intent admit conforming emptiness. *(high, measured)*
 - [`solvate_rejects_multi_structure_systems_with_an_internal_merge_error.md`](solvate_rejects_multi_structure_systems_with_an_internal_merge_error.md) — [#184](https://github.com/uibcdf/molsysmt/issues/184) — solvate rejects multi-structure systems with an internal merge error. *(medium, reproduced)*
 
-### In progress (1)
-
-- [`truncated_demo_artifact_reached_main_no_push_path_gate_checks_bundled_data.md`](truncated_demo_artifact_reached_main_no_push_path_gate_checks_bundled_data.md) — [#182](https://github.com/uibcdf/molsysmt/issues/182) — A truncated demo artifact reached main because no push-path gate checks bundled data. *(high, reproduced)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
