@@ -5,7 +5,6 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt.basic import get
 from molsysmt._private import rust_backend as _kernels
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
-import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
@@ -144,6 +143,5 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
             ii+=jj
 
     del(angles)
-    gc.collect()
 
     return output

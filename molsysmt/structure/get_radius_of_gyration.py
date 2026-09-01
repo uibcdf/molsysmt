@@ -7,7 +7,6 @@ from molsysmt._private.weighted_geometry import prepare_weights
 from smonitor import signal
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 
 
 class _RadiusOfGyrationReducer(Reducer):
@@ -173,7 +172,6 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
         rg = puw.standardize(rg)
 
         del coordinates, weights_arr, length_unit
-        gc.collect()
 
         return rg
 

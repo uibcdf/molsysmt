@@ -3,7 +3,6 @@ from molsysmt._private.argdigest import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
 import numpy as np
-import gc
 
 @arg_digest()
 def unwrap(molecular_system, selection='all', structure_indices='all',
@@ -102,7 +101,6 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
         del(coordinates, box)
 
-        gc.collect()
 
     else:
 
@@ -113,6 +111,5 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
         del(coordinates, box)
         
-        gc.collect()
 
         return tmp_molecular_system

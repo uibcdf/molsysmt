@@ -6,7 +6,6 @@ from molsysmt._private.execution import Reducer
 from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 from smonitor import signal
 
 
@@ -690,6 +689,5 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
     # The result is already in a coherent physical unit.
 
 
-    gc.collect()
 
     return distances

@@ -3,7 +3,6 @@ from smonitor import signal
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
-import gc
 
 
 @signal(tags=["api", "structure"])
@@ -88,7 +87,6 @@ def flip(
             coordinates=coordinates,
         )
         del coordinates
-        gc.collect()
 
     else:
         tmp_molecular_system = copy(molecular_system)
@@ -100,6 +98,5 @@ def flip(
             coordinates=coordinates,
         )
         del coordinates
-        gc.collect()
 
         return tmp_molecular_system

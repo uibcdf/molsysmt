@@ -4,7 +4,6 @@ from smonitor import signal
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private import rust_backend as _kernels
 from molsysmt.configure import with_configure_overrides
-import gc
 
 
 @signal(tags=["api", "structure"])
@@ -169,6 +168,5 @@ def get_angles(
     angles = puw.quantity(angles, "radians")
     angles = puw.standardize(angles)
 
-    gc.collect()
 
     return angles

@@ -5,7 +5,6 @@ from molsysmt._private import rust_backend as _kernels
 from molsysmt._private.weighted_geometry import prepare_weights
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
@@ -147,7 +146,6 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
 
         del(coordinates, atom_indices, weights)
 
-        gc.collect()
 
         return axes, moments
 

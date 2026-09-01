@@ -7,7 +7,6 @@ from molsysmt import lib as msmlib
 from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 
 
 class _RMSDReducer(Reducer):
@@ -228,7 +227,6 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
             rmsd_val = puw.quantity(rmsd_val, length_unit)
 
             del coordinates, reference_coordinates, length_unit
-            gc.collect()
 
             return rmsd_val
 

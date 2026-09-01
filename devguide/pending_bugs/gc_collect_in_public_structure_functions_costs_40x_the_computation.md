@@ -1,7 +1,7 @@
 ---
 summary: gc.collect() in public structure functions costs 40x the computation.
 issue: uibcdf/molsysmt#183
-status: open
+status: active
 opened: 2026-08-19
 closed:
 severity: high
@@ -17,8 +17,13 @@ supersedes: []
 
 **Reported:** 2026-08-19, during an external audit that profiled `structure.get_center`
 after finding it two orders of magnitude slower than the Rust kernel it calls.
-**Status:** open. Measured on `b9a2098e4`; the call sites have been present since the
+**Status:** active. Measured on `b9a2098e4`; the call sites have been present since the
 memory-hygiene pass and are not gated by size, mode, or configuration.
+
+Work started on 2026-09-01. The memory-risk investigation found that repeated public
+calls do create cyclic garbage, but the cycles originate in ArgDigest's recursive
+dependency traversal rather than in MolSysMT arrays or molecular objects. The upstream
+defect is tracked as `uibcdf/argdigest#3`.
 
 ## What
 
@@ -123,6 +128,19 @@ Not measured: whether any call site was added to solve a real memory-pressure in
 The chunked heavy path in `ChunkedExecutor` is a plausible origin and is the one place
 where a bounded collection could be justified.
 
+Measured on 2026-09-01: with the explicit collections suppressed and automatic cyclic
+GC disabled, one call produced 52 to 158 unreachable objects across representative
+functions. They were closure cells, dictionaries, lists, tuples, and recursive
+`argdigest...gut` function objects; no NumPy array occurred in the cycles. Across 1,000
+`get_center` calls, normal automatic GC performed 94 generation-0 and 8 generation-1
+collections and RSS grew by about 4.9 MiB. With automatic GC disabled, 72,000 cyclic
+objects accumulated and RSS grew by about 99 MiB before the final manual collection.
+
+This narrows the removal risk: ordinary Python execution already amortizes collection,
+and large NumPy temporaries are released by reference counting when their local
+references are deleted. A caller that disables automatic GC would accumulate ArgDigest
+cycles, so `uibcdf/argdigest#3` must be fixed and verified as part of this resolution.
+
 ## What was refuted
 
 *The overhead is argument digestion.* Refuted by the profile: ArgDigest and SMonitor
@@ -163,6 +181,10 @@ benchmark gate's ability to detect this class of regression, which is
 The risk is memory, not correctness. If any call site was load-bearing under chunked
 execution, removing it raises peak RSS on large trajectories; the heavy suite and the
 `peak_rss_mb` fields the benchmark harness already records are the check.
+
+The per-call ArgDigest reference cycle is tracked as `uibcdf/argdigest#3`. Removing it
+prevents callers that disable automatic cyclic GC from inheriting the only retention
+observed during the risk investigation.
 
 ## Provenance
 

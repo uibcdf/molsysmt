@@ -8,7 +8,6 @@ from molsysmt._private.execution import Reducer
 from molsysmt._private.weighted_geometry import prepare_weights
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 
 
 class _CenterReducer(Reducer):
@@ -228,7 +227,6 @@ def get_center(molecular_system, selection='all', weights=None,
 
         center = puw.standardize(center)
 
-        gc.collect()
 
         return center
 

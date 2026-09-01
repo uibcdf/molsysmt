@@ -3,7 +3,6 @@ from molsysmt._private.smonitor import StructuralInconsistencyError
 from smonitor import signal
 import numpy as np
 from molsysmt import pyunitwizard as puw
-import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
@@ -84,12 +83,10 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
         set(molecular_system, selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates, skip_digestion=True)
         del(coordinates, translation)
-        gc.collect()
     else:
         tmp_molecular_system = copy(molecular_system)
         set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates, skip_digestion=True)
         del(coordinates, translation)
-        gc.collect()
         return tmp_molecular_system
 

@@ -3,7 +3,6 @@ from smonitor import signal
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentConflictError
 import numpy as np
-import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
@@ -103,7 +102,6 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
                 dists[indice_structure] = all_dists[indice_structure,ii,jj]
 
             del(all_dists)
-            gc.collect()
 
             dists=dists*length_units
 
@@ -120,7 +118,6 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
                     dists[indice_structure,ii]=all_dists[indice_structure,ii,jj]
 
             del(all_dists)
-            gc.collect()
 
             dists=dists*length_units
 
@@ -136,7 +133,6 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
                     dists[indice_structure,ii]=all_dists[indice_structure,jj,ii]
 
             del(all_dists)
-            gc.collect()
 
             dists=dists*length_units
 
@@ -166,7 +162,6 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
                 dists[indice_structure] = all_dists[indice_structure,ii]
 
             del(all_dists)
-            gc.collect()
 
             dists=dists*length_units
 

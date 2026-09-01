@@ -3,7 +3,6 @@ from smonitor import signal
 from molsysmt._private.argdigest import arg_digest
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
@@ -168,7 +167,6 @@ def align_principal_axes(molecular_system, selection='all',
             set(molecular_system, selection=atom_indices, structure_indices=structure_indices,
                 syntax=syntax, coordinates=coordinates)
             del(coordinates, aux_center, aux_axes, moments, atom_indices)
-            gc.collect()
 
         else:
 
@@ -176,7 +174,6 @@ def align_principal_axes(molecular_system, selection='all',
             set(tmp_molecular_system, selection=atom_indices, structure_indices=structure_indices,
                 syntax=syntax, coordinates=coordinates)
             del(coordinates, aux_center, aux_axes, moments, atom_indices)
-            gc.collect()
 
             return tmp_molecular_system
 

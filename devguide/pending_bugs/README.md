@@ -20,13 +20,16 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (5)
+### Open (4)
 
 - [`conda_recipe_omits_declared_dependency_floors.md`](conda_recipe_omits_declared_dependency_floors.md) — [#193](https://github.com/uibcdf/molsysmt/issues/193) — The conda recipe omits four dependency floors, and the channel cannot satisfy two of them. *(high, measured)*
-- [`gc_collect_in_public_structure_functions_costs_40x_the_computation.md`](gc_collect_in_public_structure_functions_costs_40x_the_computation.md) — [#183](https://github.com/uibcdf/molsysmt/issues/183) — gc.collect() in public structure functions costs 40x the computation. *(high, measured)*
 - [`no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md`](no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md) — [#185](https://github.com/uibcdf/molsysmt/issues/185) — No test workflow runs on a push to main and the CI badge names a missing workflow. *(high, measured)*
 - [`validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md) — [#187](https://github.com/uibcdf/molsysmt/issues/187) — Validators that check form instead of intent admit conforming emptiness. *(high, measured)*
 - [`solvate_rejects_multi_structure_systems_with_an_internal_merge_error.md`](solvate_rejects_multi_structure_systems_with_an_internal_merge_error.md) — [#184](https://github.com/uibcdf/molsysmt/issues/184) — solvate rejects multi-structure systems with an internal merge error. *(medium, reproduced)*
+
+### In progress (1)
+
+- [`gc_collect_in_public_structure_functions_costs_40x_the_computation.md`](gc_collect_in_public_structure_functions_costs_40x_the_computation.md) — [#183](https://github.com/uibcdf/molsysmt/issues/183) — gc.collect() in public structure functions costs 40x the computation. *(high, measured)*
 
 ### Partially resolved (2)
 

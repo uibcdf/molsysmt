@@ -10,7 +10,6 @@ import numpy as np
 from molsysmt import lib as msmlib
 from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
-import gc
 
 from molsysmt.configure import with_configure_overrides
 
@@ -285,7 +284,6 @@ def least_rmsd_fit(
                     skip_digestion=True,
                 )
                 del fitted_coords
-                gc.collect()
                 return None
             else:
                 tmp_molecular_system = copy(molecular_system)
@@ -298,7 +296,6 @@ def least_rmsd_fit(
                     skip_digestion=True,
                 )
                 del fitted_coords
-                gc.collect()
 
                 if config.precision == "single":
                     if puw.is_quantity(tmp_molecular_system):
@@ -390,7 +387,6 @@ def least_rmsd_fit(
                     )
 
                 del (rotation, rotation_center, translation)
-                gc.collect()
                 return None
 
             else:
@@ -445,7 +441,6 @@ def least_rmsd_fit(
                         )
 
                 del (rotation, rotation_center, translation)
-                gc.collect()
 
                 if to_form is None:
                     return tmp_molecular_system

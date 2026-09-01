@@ -6,7 +6,6 @@ from molsysmt._private.variables import is_all
 from smonitor import signal
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 
 
 class _RMSFReducer(Reducer):
@@ -204,7 +203,6 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
         rmsf = puw.standardize(rmsf)
 
         del coordinates, length_unit
-        gc.collect()
 
         return rmsf
 

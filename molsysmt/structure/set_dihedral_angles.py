@@ -5,7 +5,6 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
 from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
-import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
@@ -111,12 +110,10 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
         if in_place:
             set(molecular_system, structure_indices=structure_indices, coordinates=coordinates)
             del(coordinates)
-            gc.collect()
         else:
             tmp_molecular_system = copy(molecular_system)
             set(tmp_molecular_system, structure_indices=structure_indices, coordinates=coordinates)
             del(coordinates)
-            gc.collect()
             return tmp_molecular_system
 
     else:

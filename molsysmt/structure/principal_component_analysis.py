@@ -6,7 +6,6 @@ from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_
 from molsysmt._private.variables import is_all, is_iterable_of_iterables
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 from molsysmt.configure import with_configure_overrides
 
 @signal(tags=['api', 'structure'])
@@ -135,7 +134,6 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
 
         del(coordinates, atom_indices, weights)
 
-        gc.collect()
 
         return eigenvectors, eigenvalues
 

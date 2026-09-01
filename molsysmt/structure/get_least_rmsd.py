@@ -6,7 +6,6 @@ from molsysmt import lib as msmlib
 from molsysmt._private import rust_backend as _kernels
 from molsysmt import pyunitwizard as puw
 import numpy as np
-import gc
 
 from molsysmt.configure import with_configure_overrides
 
@@ -144,7 +143,6 @@ def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indic
         rmsd_val = puw.quantity(rmsd_val, length_unit, standardized=True)
 
         del(coordinates, reference_coordinates, length_unit)
-        gc.collect()
 
         return rmsd_val
 

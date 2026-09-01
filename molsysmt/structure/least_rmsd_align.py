@@ -1,7 +1,6 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
 import numpy as np
-import gc
 from smonitor import signal
 
 from molsysmt.configure import with_configure_overrides
@@ -128,7 +127,6 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
             del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
             del(structure_indices, reference_structure_index)
 
-            gc.collect()
 
         else:
 
@@ -143,7 +141,6 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
             del(atoms_in_components_selected, selection_to_be_fitted, reference_selection_to_be_fitted)
             del(structure_indices, reference_structure_index)
 
-            gc.collect()
 
             return output
 

@@ -3,7 +3,6 @@ from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInco
 from smonitor import signal
 import numpy as np
 from molsysmt import pyunitwizard as puw
-import gc
 
 @signal(tags=['api', 'structure'])
 @arg_digest()
@@ -161,7 +160,6 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
         set(molecular_system, selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
         del(coordinates, rotation_center)
-        gc.collect()
 
     else:
 
@@ -169,6 +167,5 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
         set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
             syntax=syntax, coordinates=coordinates)
         del(coordinates, rotation_center)
-        gc.collect()
 
         return tmp_molecular_system

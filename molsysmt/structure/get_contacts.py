@@ -5,7 +5,6 @@ from molsysmt._private.variables import is_iterable_of_pairs
 from molsysmt import pyunitwizard as puw
 from molsysmt.configure import with_configure_overrides
 import numpy as np
-import gc
 
 
 @signal(tags=["api", "structure"])
@@ -420,7 +419,6 @@ def get_contacts(
                     )
 
             del (all_dists, num_structures, indice_structure, length_units)
-            gc.collect()
 
     output = None
 
