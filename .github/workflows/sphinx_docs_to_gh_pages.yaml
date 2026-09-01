@@ -21,6 +21,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Protect bundled scientific data
+        shell: bash
+        run: chmod -R a-w molsysmt/data
+
       - name: Additional info about the build
         shell: bash
         run: |
@@ -96,3 +100,8 @@ jobs:
           branch: ''            # publish the reference this workflow checked out, not the tip of main
           sphinx-apidoc: false  # MolSysMT writes its own API reference under docs/api
           sphinx-opts: '-j auto'
+
+      - name: Verify that documentation did not alter bundled data
+        if: always()
+        shell: bash
+        run: git diff --exit-code -- molsysmt/data

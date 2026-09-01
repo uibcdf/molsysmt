@@ -1,0 +1,40 @@
+name: Bundled data integrity
+
+on:
+  push:
+    paths:
+      - "molsysmt/data/**"
+      - "molsysmt/systems.py"
+      - "tests/scientific_truth/curated/PROVENANCE.md"
+      - "tests/scientific_truth/curated/test_provenance.py"
+      - "tests/scientific_truth/conftest.py"
+      - "devtools/scripts/validate_demo_assets.py"
+      - ".github/workflows/ci-data-integrity.yaml"
+  pull_request:
+    paths:
+      - "molsysmt/data/**"
+      - "molsysmt/systems.py"
+      - "tests/scientific_truth/curated/PROVENANCE.md"
+      - "tests/scientific_truth/curated/test_provenance.py"
+      - "tests/scientific_truth/conftest.py"
+      - "devtools/scripts/validate_demo_assets.py"
+      - ".github/workflows/ci-data-integrity.yaml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Install validation dependencies
+        run: python -m pip install h5py pytest
+      - name: Validate H5MSM demo contracts
+        run: python devtools/scripts/validate_demo_assets.py
+      - name: Validate curated artifact provenance
+        run: >-
+          python -m pytest --confcutdir=tests/scientific_truth/curated -q
+          tests/scientific_truth/curated/test_provenance.py

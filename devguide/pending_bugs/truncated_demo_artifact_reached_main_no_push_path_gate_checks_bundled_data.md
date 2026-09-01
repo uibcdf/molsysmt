@@ -1,7 +1,7 @@
 ---
 summary: A truncated demo artifact reached main because no push-path gate checks bundled data.
 issue: uibcdf/molsysmt#182
-status: open
+status: active
 opened: 2026-08-19
 closed:
 severity: high
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-08-19, during an external audit of the repository conducted as a
 reader arriving from the forthcoming methods paper.
-**Status:** open, and deliberately postponed on 2026-08-19 after an attempted fix showed
-the restore target is not established. The regression is present on `main`.
+**Status:** active. Work resumed on 2026-09-01 after the legacy-input and migrated-output
+hashes were distinguished from one another.
 
 ## What
 
@@ -128,10 +128,13 @@ assertion failure, the four fixture errors, the identity of the commit, the abse
 any `pytest`-reachable invocation of `validate_demo_assets.py`, and the trigger of every
 workflow that could run it.
 
-Assumed: that a documentation notebook executed during that pass produced the truncated
-file. The commit contents make no other source plausible, but the specific notebook has
-not been identified. Identifying it is part of the fix — a restored artifact with the
-writer still in place is restored until the next documentation pass.
+Not established: which process wrote the subset. The replacement landed in a
+documentation commit, but Git records the resulting blob rather than the command that
+created it. A byte-level comparison performed on 2026-09-01 establishes that the
+replacement contains exactly structures `range(0, 500, 5)` from the migrated artifact:
+all 38 datasets were inspected, and coordinates, boxes, and times agree at those source
+indices. That pattern is consistent with a visualization subset, but attributing it to a
+specific notebook or command would exceed the evidence.
 
 Measured 2026-08-19, during an attempted restore, and decisive for the shape of the fix:
 the pre-truncation revision does not match the recorded digest either.
@@ -148,11 +151,18 @@ That file is 3,494,262 bytes and holds 5000 structures, so it satisfies
 artifact was replaced more than once, or the digest was recorded against a revision that
 is not `3bee6f054^`.
 
-Not established: whether any other catalog artifact has drifted. `validate_demo_assets.py`
-reports only this one, and `traj_pentalanine.h5` still matches its recorded digest, but
-the digest table as a whole has never been executed and no row other than these two was
-checked by hand. Given the finding above, the other rows are now more suspect than they
-looked, not less.
+At the 2026-08-19 checkpoint it was not established whether any other catalog artifact
+had drifted: the digest table had never been executed. The 2026-09-01 guard now hashes
+all eight rows. Every row matches after correcting the H5MSM output digest, so no second
+artifact drift is present in the curated set.
+
+Established on 2026-09-01: the apparent disagreement between the last 5000-structure
+revision and `PROVENANCE.md` was a provenance-labeling error, not evidence for a missing
+third artifact. Commit `2e019dd9d` contains the legacy H5MSM 0.3 input with SHA-256
+`3eda9e88…`. Commit `75072dd2c` migrates it to H5MSM 0.4 while asserting equality of all
+scientific arrays; the migrated output has SHA-256 `d882572a…`. The manifest correctly
+stores `3eda9e88…` as `source_sha256`, while `PROVENANCE.md` incorrectly presented that
+input digest as the identity of the migrated output.
 
 ## What was refuted
 
@@ -202,6 +212,37 @@ restoring, or the restoration cannot be verified against the recorded digest.
 4. A push that changes anything under `molsysmt/data/` runs the demo-asset gate.
 5. The documentation build cannot write into `molsysmt/data/`, or the notebook that did
    writes elsewhere.
+
+## Working-tree resolution — 2026-09-01
+
+The scientifically identified H5MSM 0.4 output from `75072dd2c` is restored with 5000
+structures and SHA-256 `d882572a…`. `PROVENANCE.md` now records that output digest and
+separately explains the legacy `source_sha256`. A pytest guard parses every provenance
+row, hashes every declared file, and statically resolves every `molsysmt.systems` entry
+used by the curated suite so an undeclared curated catalog input also fails.
+
+`.github/workflows/ci-data-integrity.yaml` runs the existing H5MSM manifest validator and
+the provenance guard whenever bundled data, the catalog, provenance, or either validator
+changes. It deliberately has no `[skip ci]` condition. The documentation workflow makes
+`molsysmt/data` read-only before building and checks the Git diff afterwards. This closes
+the recurrence path without claiming a specific historical writer that Git cannot
+identify.
+
+Local verification in `molsysmt@uibcdf_3.12`:
+
+```text
+validate_demo_assets.py                         17 H5MSM 0.4 demos + one 0.3 fixture
+test_provenance.py                              1 passed
+tests/scientific_truth/curated/pentalanine      4 passed
+tests/scientific_truth                          99 passed
+ruff check test_provenance.py                   passed
+git diff --check                                passed
+release_gate.py                                 13/13 passed
+```
+
+Criteria 1–3 and 5 are satisfied in the working tree. Criterion 4 is implemented and
+must be observed on the first pushed commit that changes the affected paths before the
+report moves to `resolved` and the issue closes.
 
 ## Dependencies and risks
 
