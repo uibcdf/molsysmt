@@ -21,6 +21,8 @@ The canonical variable representing the input molecular system MUST be `molsys`,
 4. **Cell 4 (Code)**: `import molsysmt as msm`, `import numpy as np`
 5. **Cells 5+**:
    - `molsys = msm.convert('pdb_id:1vii', to_form='molsysmt.MolSys')`
+   - The narrative must state that `solvate()` requires exactly one structure and must
+     point ensemble and trajectory users to `structure_indices`.
    - `molsys_cub = msm.build.solvate(molsys, box_shape='cubic', clearance='14.0 angstroms')`
    - Box inspection and MolSysViewer 3D view with static HTML view `tools_build_solvate_1.html`.
    - Header H2 `## Adding physiological ions`

@@ -13,6 +13,14 @@ def ala_val_pro():
     return msm.build.build_peptide('AlaValPro', engine='MolSysMT')
 
 
+@pytest.fixture(scope='module')
+def trp_cage_ensemble():
+    return msm.convert(
+        msm.systems['Trp-Cage']['1l2y.h5msm'],
+        to_form='molsysmt.MolSys',
+    )
+
+
 def test_tiled_water_uses_authoritative_bond_table():
     from molsysmt.build.solvate import _build_tiled_water
     from molsysmt.native import MolSys
@@ -55,6 +63,19 @@ def test_tiled_water_uses_authoritative_bond_table():
 
 
 # ── basic smoke test ──────────────────────────────────────────────────────────
+
+@pytest.mark.parametrize('engine', ['MolSysMT', 'OpenMM', 'PDBFixer'])
+def test_solvate_rejects_multiple_structures_before_engine_work(
+    trp_cage_ensemble, engine
+):
+    with pytest.raises(msm.ArgumentError) as caught:
+        msm.build.solvate(trp_cage_ensemble, engine=engine)
+
+    message = str(caught.value)
+    assert 'solvate()' in message
+    assert '38 structures' in message
+    assert 'structure_indices' in message
+
 
 def test_solvate_returns_molsys(ala_val_pro):
     solvated = msm.build.solvate(ala_val_pro, box_shape='cubic',

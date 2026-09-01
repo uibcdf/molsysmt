@@ -1,13 +1,13 @@
 ---
 summary: solvate rejects multi-structure systems with an internal merge error.
 issue: uibcdf/molsysmt#184
-status: open
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-09-01
 severity: medium
 verification: reproduced
 area: [build]
-guard:
+guard: tests/build/solvate/test_solvate_engine_MolSysMT.py::test_solvate_rejects_multiple_structures_before_engine_work
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,8 @@ supersedes: []
 # Bug: `build.solvate` fails on any system with more than one structure
 
 **Reported:** 2026-08-19, during an external audit, on the first bundled system tried.
-**Status:** open. Reproduced on `b9a2098e4` with both engines.
+**Status:** resolved on 2026-09-01. `solvate()` now rejects a multi-structure input
+before dispatching to any engine and explains how to select one structure.
 
 ## What
 
@@ -132,3 +133,17 @@ loop, it is a feature and belongs in a proposal.
 Reproduced 2026-08-19 on Linux 7.0.0-28-generic x86_64, Python 3.13.14, MolSysMT
 `0.21.0+325.g7cedab74a` at repository commit `b9a2098e4`, OpenMM available in the
 environment.
+
+## Resolution
+
+`solvate()` now reads the public structure count before engine dispatch. Inputs with
+more than one structure raise `ArgumentError` naming `solvate()`, the observed count,
+and `structure_indices` as the remedy. This deliberately refuses to invent
+per-structure solvent topologies: independently solvated frames may differ in box,
+water count, ion count and consequently atom axis.
+
+The guard uses the original 38-structure Trp-Cage ensemble and verifies the same public
+error for the MolSysMT, OpenMM and PDBFixer engines. The validated branch precedes all
+three engine branches, so rejection occurs before engine-specific construction work.
+The API docstring, User Guide solvation tutorial and Module 25 of all four course paths
+now state the single-structure precondition and the explicit selection remedy.

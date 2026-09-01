@@ -2,7 +2,7 @@
 # Creando cajas solvatadas
 # =======================
 
-from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
 import numpy as np
@@ -251,7 +251,9 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported MolSysMT format.
+        Molecular system in any supported MolSysMT format. The system must
+        contain exactly one structure. Select one structure first with
+        ``structure_indices`` when the input is an ensemble or trajectory.
     box_shape : object, default='truncated octahedral'
         Argument box_shape.
     clearance : object, default='14.0 angstroms'
@@ -285,8 +287,23 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
     Raises
     ------
+    ArgumentError
+        Raised if ``molecular_system`` contains more than one structure.
     NotImplementedError
         Raised if the requested ``engine`` or ``water_model`` is not supported.
+
+
+    Examples
+    --------
+    Selecting one structure from an ensemble before solvation:
+
+    >>> import molsysmt as msm
+    >>> ensemble = msm.systems['Trp-Cage']['1l2y.h5msm']
+    >>> molsys = msm.convert(
+    ...     ensemble, to_form='molsysmt.MolSys', structure_indices=0
+    ... )
+    >>> msm.get(molsys, n_structures=True)
+    1
 
 
     Notes
@@ -304,7 +321,20 @@ def solvate (molecular_system, box_shape="truncated octahedral", clearance='14.0
 
     logfile=False
 
-    from molsysmt.basic import get_form, convert
+    from molsysmt.basic import convert, get, get_form
+
+    n_structures = get(molecular_system, n_structures=True)
+    if n_structures > 1:
+        raise ArgumentError(
+            "molecular_system",
+            value=n_structures,
+            caller="molsysmt.build.solvate",
+            message=(
+                f"solvate() received {n_structures} structures, but solvation requires "
+                "exactly one. Select one structure with structure_indices before "
+                "calling solvate()."
+            ),
+        )
 
     if to_form is None:
         to_form = get_form(molecular_system)
