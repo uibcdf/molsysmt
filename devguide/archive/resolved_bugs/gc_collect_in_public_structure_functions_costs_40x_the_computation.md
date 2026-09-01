@@ -1,13 +1,13 @@
 ---
 summary: gc.collect() in public structure functions costs 40x the computation.
 issue: uibcdf/molsysmt#183
-status: active
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-09-01
 severity: high
 verification: measured
 area: [structure, performance]
-guard:
+guard: tests/structure/get_center/test_get_center_performance.py::test_get_center_small_system_stays_below_public_call_budget
 normative:
 blocked_by: []
 supersedes: []
@@ -192,3 +192,42 @@ Measured 2026-08-19 on Linux 7.0.0-28-generic x86_64, 20-core Intel Xeon E5-2630
 Python 3.13.14, MolSysMT `0.21.0+325.g7cedab74a` at repository commit `b9a2098e4`,
 NumPy 2.4.6. Median of 15 calls after one warm-up, per function. Historical rows are
 quoted from the committed 2026-05-22 session on MolSysMT 0.18.0 and were not re-run.
+
+## Resolution
+
+Resolved in `f9dd4b0b6`. All 37 unconditional collections and their now-unused imports
+were removed from the 22 structure and PBC modules in scope. The adjacent `del`
+statements remain, so large NumPy temporaries still lose their local references as soon
+as the calculation finishes.
+
+The only repeated-call reference retention found during the risk investigation came
+from ArgDigest's recursive traversal closure. It was fixed independently in
+`uibcdf/argdigest#3` at `fd09a24`. With that fix in the integrated environment, 1,000
+`get_center` calls with automatic cyclic GC disabled leave no unreachable objects and
+increase RSS by about 0.01 MiB in the probe, compared with 72,000 objects and about
+99 MiB before the ArgDigest correction.
+
+The reproducible `devtools/scripts/gc_collect_cost.py` benchmark now reports 4.82 ms for
+`get_center`, 4.57 ms for `get_radius_of_gyration`, 3.40 ms for
+`get_principal_axes`, and 9.94 ms for `get_contacts` on the report environment. The new
+guard places the small-system public center budget at 50 ms; its measured median was
+6.44 ms across repeated ten-call blocks.
+
+The regenerated competitor matrix, anchored to `f9dd4b0b6`, records these public-path
+changes against the previous baseline:
+
+| benchmark | previous median | resolved median |
+| --- | ---: | ---: |
+| center | 280.3 ms | 49.7 ms |
+| RMSD | 284.5 ms | 35.7 ms |
+| pairwise distances | 325.0 ms | 6.73 ms |
+
+The matrix reports `git_dirty: true` because its runner creates the untracked temporary
+`solvated_villin.pdb` before `save_session_results()` captures Git metadata, then removes
+it after saving. The recorded commit identifies the exact scientific implementation;
+the separate benchmark-gate reliability report owns runner metadata semantics.
+
+Validation completed locally under Python 3.13 with `--receptor=llm`: 181 affected-area
+tests and 117 scientific-truth, heavy-parity, alignment, and fitting tests passed. Ruff
+passed for `molsysmt`, the new guard, and the benchmark script. The developer-guide
+validator and generated-index check also passed.

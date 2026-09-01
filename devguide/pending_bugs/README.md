@@ -27,10 +27,6 @@ that front matter -- edit the entries, not this list.
 - [`validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md) — [#187](https://github.com/uibcdf/molsysmt/issues/187) — Validators that check form instead of intent admit conforming emptiness. *(high, measured)*
 - [`solvate_rejects_multi_structure_systems_with_an_internal_merge_error.md`](solvate_rejects_multi_structure_systems_with_an_internal_merge_error.md) — [#184](https://github.com/uibcdf/molsysmt/issues/184) — solvate rejects multi-structure systems with an internal merge error. *(medium, reproduced)*
 
-### In progress (1)
-
-- [`gc_collect_in_public_structure_functions_costs_40x_the_computation.md`](gc_collect_in_public_structure_functions_costs_40x_the_computation.md) — [#183](https://github.com/uibcdf/molsysmt/issues/183) — gc.collect() in public structure functions costs 40x the computation. *(high, measured)*
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*
