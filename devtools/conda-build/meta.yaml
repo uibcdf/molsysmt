@@ -14,11 +14,11 @@ requirements:
   run:
   - python
   - h5py
-  - numpy
+  - numpy >=1.26,<3
   - argdigest >=0.12.1
-  - depdigest
-  - smonitor
-  - pyunitwizard
+  - depdigest >=0.10.0
+  - smonitor >=0.13.0
+  - pyunitwizard >=0.24.0
   - pandas
   - molsysviewer
   - networkx

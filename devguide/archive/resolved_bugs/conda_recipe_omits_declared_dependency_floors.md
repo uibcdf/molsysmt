@@ -1,13 +1,13 @@
 ---
 summary: The conda recipe omits four dependency floors, and the channel cannot satisfy two of them.
 issue: uibcdf/molsysmt#193
-status: open
+status: resolved
 opened: 2026-09-01
-closed:
+closed: 2026-09-01
 severity: high
 verification: measured
 area: [build, deps]
-guard:
+guard: tests/test_distribution_manifests.py
 normative:
 blocked_by: []
 supersedes: []
@@ -18,8 +18,8 @@ supersedes: []
 **Reported:** 2026-09-01, from MolSysViewer, while auditing the release chain that ends
 in MolSysViewer 1.0 and passes through this repository. Found by reading both manifests
 side by side, then querying the channel.
-**Status:** open. Nothing is broken in a source checkout; the defect is in what the
-conda package promises versus what it installs.
+**Status:** resolved on 2026-09-01. The recipe now matches the source manifest and a
+mutation-verified guard rejects future divergence.
 
 ## What
 
@@ -181,3 +181,21 @@ Read and measured on 2026-09-01. MolSysMT at `cc48b26d9` (`0.21.0-553`), working
 carrying three unrelated modifications. Sibling checkouts: smonitor `0.13.0-2`,
 pyunitwizard `0.25.0-1`, depdigest `0.10.1-10`, argdigest `0.12.0-13`. Channel contents
 read from `api.anaconda.org` the same day. Linux, Python 3.13.14.
+
+## Resolution
+
+The Conda recipe now carries the same runtime constraints as `pyproject.toml` for
+NumPy, ArgDigest, DepDigest, SMonitor and PyUnitWizard. The guard parses every runtime
+requirement from both manifests and compares their specifiers; it is not limited to a
+second hand-maintained list of the four original omissions. Five mutation cases remove
+each current constraint from the recipe and prove that the guard detects the drift.
+
+The live channel changed after this report was opened: ArgDigest 0.12.1 and SMonitor
+0.13.0 are now published for Python 3.11--3.13. `conda build --check` renders the
+corrected recipe, and a dry-run resolution of its runtime dependencies succeeds for
+Python 3.12, selecting the declared floors or newer compatible versions.
+
+The equivalent Python 3.13 resolution fails explicitly because the channel has no
+Python 3.13 MolSysViewer artifact. That is not manifest drift and is tracked separately
+as uibcdf/molsysmt#195; importantly, it is now a named solver failure rather than an
+unsupported dependency set accepted silently.
