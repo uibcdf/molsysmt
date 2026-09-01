@@ -1,13 +1,13 @@
 ---
 summary: Published benchmark surfaces retain pre-#183 timings
 issue: uibcdf/molsysmt#194
-status: active
+status: resolved
 opened: 2026-09-01
-closed:
+closed: 2026-09-01
 severity: medium
 verification: reproduced
 area: [docs, performance]
-guard:
+guard: tests/documentation/test_benchmark_baseline_sync.py
 normative:
 blocked_by: []
 supersedes: []
@@ -112,3 +112,26 @@ Inspected and reproduced on 2026-09-01 at MolSysMT `ade8a0d51`, Linux
 7.0.0-28-generic x86_64, Python 3.13.14. The post-#183 competitor matrix was generated in
 the `molsyssuite@uibcdf_3.13` environment. Historical values above come directly from the
 committed JSON and notebook cells named in this report.
+
+## Resolution
+
+Resolved in `6cea6580a`. The macro-kernel baseline was regenerated at commit
+`a50caa292`; public medians changed from 256.3 to 13.30 ms for center, from 265.3
+to 14.46 ms for RMSD, and from 709.0 to 147.12 ms for pairwise distances. The
+published competitor and macro files now exactly match their canonical baselines.
+
+The notebook now reads the published competitor JSON instead of maintaining timing
+literals. Its table was executed successfully and presents the same session as the
+dashboard. The dashboard reads the producer's `competitor_rmsd_*` keys, and its legend
+states that the shared series uses MDTraj or SciPy according to the operation. The active
+Rust guide now labels its full-GC profile as historical and records the resolutions in
+`uibcdf/molsysmt#183` and `uibcdf/argdigest#3`.
+
+The synchronization command and its `--check` mode are documented for developers. The
+guard compares both published JSON objects with their canonical sources and verifies
+that every competitor key referenced by the dashboard exists in the producer output.
+All three guard tests pass with `--receptor=llm`, Ruff passes, the notebook executes, and
+the full Sphinx HTML build completes. The build used MolSysViewer's local stable
+`build/lib` copy because the concurrently edited source checkout contained an incomplete
+`catalog.py`; no MolSysViewer file was changed. The build retained only pre-existing
+not-in-toctree warnings.
