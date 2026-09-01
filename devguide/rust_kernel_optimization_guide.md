@@ -352,13 +352,16 @@ from this order.
    the pairs under the threshold. Fixed by routing through the cell-list primitive; the
    threshold now sits at **> 400 atoms** in `molsysmt/structure/get_contacts.py`, with the
    crossover measured near 500. If you touch that constant, re-measure the crossover.
-2. **`gc.collect` is a first-class cost.** In the mixed profile it was **1.8 s of 5.0 s**; in
-   `get_contacts` alone, 0.48 s — the Python garbage collector tracing the per-operation
-   temporaries the naturally-written Numba allocates. The Rust ports remove that pressure by
-   doing arithmetic on the stack (verified: 50 `get_rmsd` calls, 47 KB input, 4.2 KB
-   Python-side peak; `PyReadonlyArray` borrows numpy's buffer and `wrap_to_pbc` mutates in
-   place at the same address). Keep it that way: a Rust kernel that allocates per call gives
-   back one of the migration's main wins, and no benchmark of the kernel alone will show it.
+2. **`gc.collect` was a first-class cost.** In the pre-#183 mixed profile it was **1.8 s
+   of 5.0 s**; in `get_contacts` alone, 0.48 s. MolSysMT removed the unconditional public
+   return-path collections in `uibcdf/molsysmt#183`, after `uibcdf/argdigest#3` removed
+   the only repeated-call reference cycle found in the risk investigation. The Rust
+   ports still avoid Python-side allocation pressure by doing arithmetic on the stack
+   (verified in that historical profile: 50 `get_rmsd` calls, 47 KB input, 4.2 KB
+   Python-side peak; `PyReadonlyArray` borrows NumPy's buffer and `wrap_to_pbc` mutates in
+   place at the same address). Keep it that way: a Rust kernel that allocates per call
+   gives back one of the migration's main wins, and no benchmark of the kernel alone will
+   show it.
 
 ### 10.3 Three kernels that are already optimal — do not "discover" them again
 

@@ -353,28 +353,28 @@
             const data = baselineData.competitor.results || {};
             
             // Timing bar data
-            const labels = ['Center of Geometry', 'Pairwise Distances', 'Least-RMSD'];
+            const labels = ['Center of Geometry', 'Pairwise Distances', 'RMSD'];
             
             // Map values to milliseconds
             const msmJit = [
                 (data.competitor_center_molsysmt_jit?.median_seconds || 0) * 1000,
                 (data.competitor_distances_molsysmt_jit?.median_seconds || 0) * 1000,
-                (data.competitor_least_rmsd_molsysmt_jit?.median_seconds || 0) * 1000
+                (data.competitor_rmsd_molsysmt_jit?.median_seconds || 0) * 1000
             ];
             const msmPublic = [
                 (data.competitor_center_molsysmt_public?.median_seconds || 0) * 1000,
                 (data.competitor_distances_molsysmt_public?.median_seconds || 0) * 1000,
-                (data.competitor_least_rmsd_molsysmt_public?.median_seconds || 0) * 1000
+                (data.competitor_rmsd_molsysmt_public?.median_seconds || 0) * 1000
             ];
             const mdtraj = [
                 (data.competitor_center_mdtraj?.median_seconds || 0) * 1000,
                 (data.competitor_distances_mdtraj?.median_seconds || 0) * 1000,
-                (data.competitor_least_rmsd_mdtraj?.median_seconds || 0) * 1000
+                (data.competitor_rmsd_mdtraj?.median_seconds || 0) * 1000
             ];
             const mdanalysis = [
                 (data.competitor_center_mdanalysis?.median_seconds || 0) * 1000,
                 (data.competitor_distances_mdanalysis?.median_seconds || 0) * 1000,
-                (data.competitor_least_rmsd_mdanalysis?.median_seconds || 0) * 1000
+                (data.competitor_rmsd_mdanalysis?.median_seconds || 0) * 1000
             ];
 
             // Render CPU Chart
@@ -387,7 +387,7 @@
                     datasets: [
                         { label: 'MolSysMT (JIT)', data: msmJit, backgroundColor: '#3b82f6', borderRadius: 4 },
                         { label: 'MolSysMT (Public)', data: msmPublic, backgroundColor: '#1d4ed8', borderRadius: 4 },
-                        { label: 'MDTraj', data: mdtraj, backgroundColor: '#a855f7', borderRadius: 4 },
+                        { label: 'MDTraj / SciPy', data: mdtraj, backgroundColor: '#a855f7', borderRadius: 4 },
                         { label: 'MDAnalysis', data: mdanalysis, backgroundColor: '#f43f5e', borderRadius: 4 }
                     ]
                 },

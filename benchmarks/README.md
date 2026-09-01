@@ -19,6 +19,14 @@ python benchmarks/structure_coordinate_paths.py
 python benchmarks/rust/bench_release_runtime.py --output /tmp/molsysmt-rust-runtime.json
 ```
 
+After regenerating `competitor_matrix_session.json` or `macro_kernels_session.json`,
+synchronize the copies served by the documentation and verify that they match:
+
+```bash
+python devtools/scripts/sync_benchmark_docs.py
+python devtools/scripts/sync_benchmark_docs.py --check
+```
+
 The coordinate-path script prepares common operations before timing and reports
 median/min/max time per call for representative coordinate-heavy workflows.
 The Rust release script uses fresh subprocesses to keep startup and memory

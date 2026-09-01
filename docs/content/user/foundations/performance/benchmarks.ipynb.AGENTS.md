@@ -11,5 +11,8 @@ This micro-governance contract governs [`docs/content/user/foundations/performan
    - MUST preserve top anchor `(user-foundations-performance-benchmarks)=`.
 
 2. **Table Formatting & Status**:
-   - Displays comparative timing matrix against MDTraj, MDAnalysis, and SciPy.
+   - Displays the producer-defined competitive timing matrix against MDTraj,
+     MDAnalysis, and SciPy where the benchmark operation uses it.
+   - Values MUST be loaded from the published competitor baseline, never maintained as
+     independent timing literals in the notebook.
    - Temporarily frozen; pending expansion documented in `devguide/pending_proposals/benchmarks_future_expansion.md`.

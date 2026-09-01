@@ -45,3 +45,14 @@ python benchmarks/compare_runs.py --baseline benchmarks/baselines/competitor_mat
 ```
 
 If any hot path has degraded by more than the 15% permitted limit, `compare_runs.py` will exit with a non-zero code, failing the CI validation gate.
+
+### 3. Publishing Updated Baselines
+
+The dashboard serves derived copies under `docs/_static/benchmarks_data/`. After
+regenerating the competitor or macro-kernel baseline, synchronize and verify those
+copies from the repository root:
+
+```bash
+python devtools/scripts/sync_benchmark_docs.py
+python devtools/scripts/sync_benchmark_docs.py --check
+```

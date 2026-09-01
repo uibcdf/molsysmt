@@ -1,126 +1,128 @@
 {
   "environment": {
+    "git_commit": "a50caa2927634e1c9671c557913d6834cc9e6cf7",
+    "git_dirty": false,
     "machine": "x86_64",
-    "molsysmt_version": "0.18.0",
+    "molsysmt_version": "0.21.0+325.g7cedab74a.dirty",
     "os": "Linux",
-    "os_release": "6.17.0-14-generic",
-    "python": "3.13.12"
+    "os_release": "7.0.0-28-generic",
+    "python": "3.13.14"
   },
-  "generated_at_utc": "2026-05-23T12:06:44.588466+00:00",
+  "generated_at_utc": "2026-09-01T16:42:33.290714+00:00",
   "results": {
     "macro_get_center_jit_kernel": {
-      "base_rss_mb": 477.48046875,
-      "delta_rss_mb": 9.08203125,
+      "base_rss_mb": 371.1796875,
+      "delta_rss_mb": 5.5234375,
       "environment": {
         "machine": "x86_64",
-        "molsysmt_version": "0.18.0",
-        "python_version": "3.13.12",
+        "molsysmt_version": "0.21.0+325.g7cedab74a.dirty",
+        "python_version": "3.13.14",
         "system": "Linux"
       },
       "iterations": 100,
-      "max_seconds": 0.001127544566988945,
-      "median_seconds": 0.0010766636673361064,
-      "min_seconds": 0.0010671256016939878,
+      "max_seconds": 0.005039032218046486,
+      "median_seconds": 0.004986364678479731,
+      "min_seconds": 0.004962659240700305,
       "name": "macro_get_center_jit_kernel",
-      "peak_rss_mb": 486.5625,
+      "peak_rss_mb": 376.703125,
       "repeats": 5,
-      "stddev_seconds": 2.4628375980348125e-05,
-      "timestamp_utc": "2026-05-23T12:04:41.610469+00:00"
+      "stddev_seconds": 3.22014485452188e-05,
+      "timestamp_utc": "2026-09-01T16:41:53.137544+00:00"
     },
     "macro_get_center_public_api": {
-      "base_rss_mb": 477.48046875,
-      "delta_rss_mb": 14.76953125,
+      "base_rss_mb": 371.1796875,
+      "delta_rss_mb": 9.44140625,
       "environment": {
         "machine": "x86_64",
-        "molsysmt_version": "0.18.0",
-        "python_version": "3.13.12",
+        "molsysmt_version": "0.21.0+325.g7cedab74a.dirty",
+        "python_version": "3.13.14",
         "system": "Linux"
       },
       "iterations": 50,
-      "max_seconds": 0.2629242751002312,
-      "median_seconds": 0.2563022268563509,
-      "min_seconds": 0.251013443749398,
+      "max_seconds": 0.014069055682048201,
+      "median_seconds": 0.013300578678026795,
+      "min_seconds": 0.012230910360813141,
       "name": "macro_get_center_public_api",
-      "peak_rss_mb": 492.25,
+      "peak_rss_mb": 380.62109375,
       "repeats": 5,
-      "stddev_seconds": 0.004517969605029452,
-      "timestamp_utc": "2026-05-23T12:04:41.013622+00:00"
+      "stddev_seconds": 0.0007406788112938115,
+      "timestamp_utc": "2026-09-01T16:41:50.599346+00:00"
     },
     "macro_get_distances_jit_kernel": {
-      "base_rss_mb": 477.48046875,
-      "delta_rss_mb": 35.6953125,
+      "base_rss_mb": 371.1796875,
+      "delta_rss_mb": 59.5,
       "environment": {
         "machine": "x86_64",
-        "molsysmt_version": "0.18.0",
-        "python_version": "3.13.12",
+        "molsysmt_version": "0.21.0+325.g7cedab74a.dirty",
+        "python_version": "3.13.14",
         "system": "Linux"
       },
       "iterations": 20,
-      "max_seconds": 0.19087756280787288,
-      "median_seconds": 0.1894507159013301,
-      "min_seconds": 0.18861841987818478,
+      "max_seconds": 0.31992675114888697,
+      "median_seconds": 0.2593029632465914,
+      "min_seconds": 0.20490168819669635,
       "name": "macro_get_distances_jit_kernel",
-      "peak_rss_mb": 513.17578125,
+      "peak_rss_mb": 430.6796875,
       "repeats": 5,
-      "stddev_seconds": 0.001065614376846332,
-      "timestamp_utc": "2026-05-23T12:06:44.587908+00:00"
+      "stddev_seconds": 0.041587716884319344,
+      "timestamp_utc": "2026-09-01T16:42:33.290279+00:00"
     },
     "macro_get_distances_public_api": {
-      "base_rss_mb": 477.48046875,
-      "delta_rss_mb": 41.80859375,
+      "base_rss_mb": 371.1796875,
+      "delta_rss_mb": 34.4765625,
       "environment": {
         "machine": "x86_64",
-        "molsysmt_version": "0.18.0",
-        "python_version": "3.13.12",
+        "molsysmt_version": "0.21.0+325.g7cedab74a.dirty",
+        "python_version": "3.13.14",
         "system": "Linux"
       },
       "iterations": 10,
-      "max_seconds": 0.7141439604572952,
-      "median_seconds": 0.7090038610622287,
-      "min_seconds": 0.7032397964969277,
+      "max_seconds": 0.14875554642640054,
+      "median_seconds": 0.14711829288862646,
+      "min_seconds": 0.1408297677990049,
       "name": "macro_get_distances_public_api",
-      "peak_rss_mb": 519.2890625,
+      "peak_rss_mb": 405.65625,
       "repeats": 5,
-      "stddev_seconds": 0.004068651791366792,
-      "timestamp_utc": "2026-05-23T12:06:25.361940+00:00"
+      "stddev_seconds": 0.003181684115977141,
+      "timestamp_utc": "2026-09-01T16:42:06.594364+00:00"
     },
     "macro_get_rmsd_jit_kernel": {
-      "base_rss_mb": 477.48046875,
-      "delta_rss_mb": 9.09375,
+      "base_rss_mb": 371.1796875,
+      "delta_rss_mb": 5.5078125,
       "environment": {
         "machine": "x86_64",
-        "molsysmt_version": "0.18.0",
-        "python_version": "3.13.12",
+        "molsysmt_version": "0.21.0+325.g7cedab74a.dirty",
+        "python_version": "3.13.14",
         "system": "Linux"
       },
       "iterations": 100,
-      "max_seconds": 0.0010559989139437675,
-      "median_seconds": 0.000941429091617465,
-      "min_seconds": 0.0009345201216638088,
+      "max_seconds": 0.00460680257063359,
+      "median_seconds": 0.004567776150070131,
+      "min_seconds": 0.0045419247401878235,
       "name": "macro_get_rmsd_jit_kernel",
-      "peak_rss_mb": 486.57421875,
+      "peak_rss_mb": 376.6875,
       "repeats": 5,
-      "stddev_seconds": 5.119894974897388e-05,
-      "timestamp_utc": "2026-05-23T12:05:49.014032+00:00"
+      "stddev_seconds": 2.6502937868652343e-05,
+      "timestamp_utc": "2026-09-01T16:41:59.055138+00:00"
     },
     "macro_get_rmsd_public_api": {
-      "base_rss_mb": 477.48046875,
-      "delta_rss_mb": 14.71875,
+      "base_rss_mb": 371.1796875,
+      "delta_rss_mb": 8.8671875,
       "environment": {
         "machine": "x86_64",
-        "molsysmt_version": "0.18.0",
-        "python_version": "3.13.12",
+        "molsysmt_version": "0.21.0+325.g7cedab74a.dirty",
+        "python_version": "3.13.14",
         "system": "Linux"
       },
       "iterations": 50,
-      "max_seconds": 0.2669304171204567,
-      "median_seconds": 0.2653044500388205,
-      "min_seconds": 0.26506513295695183,
+      "max_seconds": 0.01477267686277628,
+      "median_seconds": 0.014458686374127864,
+      "min_seconds": 0.012186498064547777,
       "name": "macro_get_rmsd_public_api",
-      "peak_rss_mb": 492.19921875,
+      "peak_rss_mb": 380.046875,
       "repeats": 5,
-      "stddev_seconds": 0.0007906577882803848,
-      "timestamp_utc": "2026-05-23T12:05:48.480287+00:00"
+      "stddev_seconds": 0.0010700680668169313,
+      "timestamp_utc": "2026-09-01T16:41:56.729101+00:00"
     }
   },
   "session_name": "macro-coordinate-kernels"
