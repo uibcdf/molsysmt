@@ -1,3 +1,4 @@
-echo "Building"
-$PYTHON -m pip install --no-deps .
-echo "Done"
+#!/usr/bin/env bash
+set -euxo pipefail
+
+"${PYTHON}" -m pip install . --no-deps --no-build-isolation

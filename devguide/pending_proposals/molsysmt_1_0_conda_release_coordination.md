@@ -1,7 +1,7 @@
 # MolSysMT 1.0 — Conda release coordination
 
-**Status:** investigation report; scheduled as a parallel final-delivery track.
-No code changed.
+**Status:** active delivery track. The MolSysMT staging implementation exists in source;
+native publication and coordinated pair validation remain pending.
 **Segment:** independent Conda publication coordination for the
 [MolSysMT 1.0 Execution Plan](release_1_0_execution_plan.md); status in
 [release_1_0_status.md](../release_1_0_status.md).
@@ -22,18 +22,43 @@ checkouts.
 > appear on the `uibcdf` channel. This report remains the acceptance plan for
 > the eventual Conda delivery.
 
+> **Current checkpoint — 2026-09-02**
+>
+> The July inventory in §§1--13 is retained as the measured baseline, not as current
+> channel state. ArgDigest 0.12.1 and SMonitor 0.13.0 are now available for Python
+> 3.11--3.13, and the full MolSysMT dependency set resolves on Python 3.12. The remaining
+> reproduced hole is MolSysViewer on Python 3.13, tracked by uibcdf/molsysmt#195.
+>
+> The coordinated releases are now MolSysMT 0.22.0 followed later by 1.0.0, and
+> MolSysViewer 0.21.0. MolSysViewer remains a hard dependency. Its 0.21.0 candidate is
+> `b0888d9a78243b8d1829a2793f42b816e0b1643e` and its Conda recipe requires
+> `molsysmt >=0.22.0`, creating a deliberate publication cycle.
+>
+> The cycle is broken only on the `staging` label: MolSysMT builds an exact-SHA 0.22.0
+> bootstrap build 0 without creating its runtime test environment; the Viewer team then stages
+> its `noarch: python` 0.21.0 package; finally MolSysMT installs and validates the exact
+> pair on five native platforms crossed with Python 3.11--3.13. Production publication
+> does not retain the bootstrap exception: release build 1 runs the recipe test using
+> the staged Viewer before uploading to `main`. The build-number change avoids replacing
+> staged bytes under an already validated package coordinate.
+>
+> Route A from
+> [`migration_off_the_in_house_publication_actions.md`](migration_off_the_in_house_publication_actions.md)
+> is implemented in source. A local Linux x86-64/Python 3.13 Conda build has compiled
+> `molsysmt._rust` with Rust 1.97.1. The native matrix, staging upload and installed-pair
+> gate remain unexecuted, so this is not yet release evidence.
+
 ## 0. The one-line answer
 
-The command that must eventually work
+The command that must eventually work on the default channel
 
 ```bash
 conda create -n molsysmt-release-test -c uibcdf -c conda-forge python=3.13 molsysmt
 ```
 
-**cannot work today.** C2 is now complete, but four of the five required
-packages are absent from the channel at the required versions, three of the required Git
-tags exist only on local clones, and one dependency has no Python 3.13 build at all. Every
-missing artefact is identified below, per step.
+did not work at the July baseline captured below. The current pre-release target is first
+to make the equivalent exact-version solve pass on `uibcdf/label/staging`; the default
+channel command remains the final acceptance condition after the coordinated releases.
 
 ## 1. Package and version inventory
 
@@ -282,13 +307,16 @@ this was observed during the C1 spike):
 ```bash
 cd /tmp && conda activate molsysmt-release-test
 python - <<'EOF'
-import importlib.metadata as md, pathlib, sys, molsysmt
+import importlib.metadata as md, json, pathlib, sys, molsysmt
 prefix = pathlib.Path(sys.prefix).resolve()
 for name in ('molsysmt','pyunitwizard','smonitor','argdigest','depdigest','molsysviewer'):
     d = md.distribution(name)
     loc = pathlib.Path(d.locate_file('')).resolve()
     assert prefix in loc.parents or loc == prefix, f'{name} resolves outside the env: {loc}'
-    assert d.read_text('direct_url.json') is None, f'{name} is a direct/editable install'
+    direct_url = d.read_text('direct_url.json')
+    assert direct_url is None or not json.loads(direct_url).get('dir_info', {}).get('editable', False)
+    records = list((prefix / 'conda-meta').glob(f'{name}-{d.version}-*.json'))
+    assert len(records) == 1, f'{name} has no unique Conda installation record'
     assert '+' not in d.version and 'dirty' not in d.version, f'{name} is not a released version: {d.version}'
 import molsysmt._rust as r
 assert pathlib.Path(r.__file__).resolve().is_relative_to(prefix)
@@ -296,11 +324,14 @@ print('clean install verified:', molsysmt.__version__)
 EOF
 ```
 
-Four independent signals: the file lives under `sys.prefix`, there is no
-`direct_url.json` (editable/local installs always write one), the version carries no
+Five independent signals: the file lives under `sys.prefix`, the installation is not
+marked editable, an exact record exists under `conda-meta`, the version carries no
 `+N.gHASH`/`dirty` local segment, and the compiled extension also resolves inside the
-prefix. Add `conda list --explicit` to the CI log so the exact provenance of every package
-is recorded.
+prefix. A non-editable `direct_url.json` alone is not evidence of a local final install:
+`pip install .` can place that build-source record inside a package later installed by
+Conda. The `conda-meta` record is the positive distribution evidence. Add
+`conda list --explicit` to the CI log so the exact provenance of every package is
+recorded.
 
 ## 9. What can be tested now vs. what needs C2
 

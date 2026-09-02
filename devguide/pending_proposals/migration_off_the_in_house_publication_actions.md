@@ -1,7 +1,7 @@
 # Migrating MolSysMT's two publication pipelines off the in-house actions
 
-**Status:** open. Two decisions, independent of each other, both with the
-implementation sketched here and neither taken.
+**Status:** partial. The Conda decision is accepted and implemented in source; its native
+staging matrix still has to run. The documentation decision remains open.
 **Raised:** 2026-08-08, after auditing `uibcdf/action-sphinx-docs-to-gh-pages` and
 `uibcdf/action-build-and-upload-conda-packages` and repairing both.
 **Scope:** `.github/workflows/sphinx_docs_to_gh_pages.yaml`,
@@ -26,6 +26,26 @@ The two cases are not symmetric and should not be decided together:
 | Is our action at fault | no — the whole approach is superseded | no — `conda convert` cannot do what we ask |
 | Urgency | low, it works | **blocking for 1.0 delivery** |
 | Effort | one afternoon | one to three days, depending on the route |
+
+### Conda implementation checkpoint — 2026-09-02
+
+Route A is accepted. MolSysMT no longer uses the in-house Conda publication action:
+
+- native GitHub-hosted runners build `linux-64`, `linux-aarch64`, `osx-64`,
+  `osx-arm64` and `win-64`, each for Python 3.11, 3.12 and 3.13;
+- the Conda recipe uses C and Rust compiler metapackages, with Rust pinned to 1.97.1,
+  and tests the mandatory `molsysmt._rust` extension;
+- all 15 build artefacts must exist before the official Anaconda upload action runs;
+- manual candidates go only to the `staging` label; release events go to `main` only
+  after the normal recipe test succeeds. The bootstrap is build 0 and the tested release
+  is build 1, so publication never overwrites an existing coordinate; and
+- a separate 15-cell workflow installs exact MolSysMT and MolSysViewer versions from
+  staging and verifies versions, provenance, native code and packaged Viewer resources.
+
+The source implementation is **Contract-tested** and a local Linux x86-64/Python 3.13
+Conda build compiled the Rust extension. Criteria 2 and 4 in §2.5 remain pending until
+the native workflow and the coordinated staging pair have run. The Pages half of this
+proposal is unaffected.
 
 ## 1. Documentation: from a `gh-pages` branch to native Pages deployment
 

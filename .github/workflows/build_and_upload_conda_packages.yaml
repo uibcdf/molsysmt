@@ -2,69 +2,146 @@ name: Build and upload conda packages
 
 on:
   release:
-    types: ['released', 'prereleased']
-
+    types: [released]
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full commit SHA to build into the staging label
+        required: true
+        type: string
+      version:
+        description: Candidate version (for example, 0.22.0)
+        required: true
+        default: 0.22.0
+        type: string
+
+permissions:
+  contents: read
 
 jobs:
-  conda_deployment_with_new_tag:
-    name: Conda deployment of package with Python ${{ matrix.python-version }}
-    runs-on: ubuntu-latest
+  prepare:
+    name: Validate the immutable candidate identity
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Validate staging inputs or the release tag
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          INPUT_VERSION: ${{ inputs.version }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            [[ "$CANDIDATE_SHA" =~ ^[0-9a-f]{40}$ ]]
+            [[ "$INPUT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          else
+            [[ "$RELEASE_TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          fi
+
+  build:
+    name: ${{ matrix.target.platform }} · Python ${{ matrix.python }}
+    needs: prepare
+    runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 120
-    concurrency:
-      group: conda-build-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
     strategy:
-      fail-fast: false  # do not cancel all in-progress jobs if any job variation fails
+      fail-fast: false
       matrix:
-        #os: ubuntu-latest #[macOS-latest, ubuntu-latest]
-        python-version: ["3.11", "3.12", "3.13"]
+        target:
+          - {platform: linux-64, runner: ubuntu-24.04}
+          - {platform: linux-aarch64, runner: ubuntu-24.04-arm}
+          - {platform: osx-64, runner: macos-15-intel}
+          - {platform: osx-arm64, runner: macos-15}
+          - {platform: win-64, runner: windows-2025}
+        python: ['3.11', '3.12', '3.13']
 
     steps:
-
-      - uses: actions/checkout@v7
+      - name: Check out the exact candidate
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ inputs.candidate_sha || github.event.release.tag_name }}
 
-      - name: Additional info about the build
+      - name: Verify the staging candidate and create an ephemeral version tag
+        if: github.event_name == 'workflow_dispatch'
         shell: bash
+        env:
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          RELEASE_VERSION: ${{ inputs.version }}
         run: |
-          uname -a
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
+          git tag "$RELEASE_VERSION" HEAD
 
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Setup conda env
+      - name: Set up the conda build environment
         uses: mamba-org/setup-micromamba@v3.2.1
         with:
           environment-file: devtools/conda-envs/build_env.yaml
           environment-name: build
           condarc: |
             channels:
+              - uibcdf/label/staging
               - uibcdf
               - conda-forge
+              - ambermd
             channel_priority: strict
           create-args: >-
-            python=${{ matrix.python-version }}
+            python=${{ matrix.python }}
 
-      - name: Info conda
-        shell: bash -l {0}
+      - name: Verify the derived package version
+        shell: bash -el {0}
+        env:
+          EXPECTED_VERSION: ${{ inputs.version || github.event.release.tag_name }}
         run: |
-          micromamba activate build
-          micromamba info
-          micromamba list
+          test "$(python -m versioningit)" = "$EXPECTED_VERSION"
 
-      - name: Build and upload the conda packages
-        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.1
+      - name: Build the staging package without its circular runtime test
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash -el {0}
+        env:
+          MOLSYSMT_CONDA_BUILD_NUMBER: 0
+        run: >-
+          conda build devtools/conda-build
+          --python ${{ matrix.python }}
+          --output-folder conda-bld
+          --package-format .conda
+          --no-test
+
+      - name: Build and test the release package
+        if: github.event_name == 'release'
+        shell: bash -el {0}
+        env:
+          MOLSYSMT_CONDA_BUILD_NUMBER: 1
+        run: >-
+          conda build devtools/conda-build
+          --python ${{ matrix.python }}
+          --output-folder conda-bld
+          --package-format .conda
+
+      - name: Retain the native package
+        uses: actions/upload-artifact@v7
         with:
-          meta_yaml_dir: devtools/conda-build
-          mambabuild: false
-          user: uibcdf
-          label: main
-          conda_build_args: --python ${{ matrix.python-version }} --package-format tar.bz2
-          platform_linux-64: true
-          platform_osx-64: true
-          platform_osx-arm64: true
-          token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }} # Replace with the right name of your secret
+          name: molsysmt-${{ matrix.target.platform }}-py${{ matrix.python }}
+          path: conda-bld/**/*.conda
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish the complete native matrix
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download every native package
+        uses: actions/download-artifact@v8
+        with:
+          pattern: molsysmt-*
+          path: dist
+          merge-multiple: true
+
+      - name: Upload to Anaconda.org
+        uses: anaconda/actions/upload-package@v0
+        with:
+          token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
+          channel: uibcdf
+          packages: dist/*.conda
+          labels: ${{ github.event_name == 'workflow_dispatch' && 'staging' || 'main' }}
+          package-type: conda

@@ -4,15 +4,19 @@ package:
 source:
   path: ../../
 build:
-  number: 1
+  number: "{{ environ.get('MOLSYSMT_CONDA_BUILD_NUMBER', '1') }}"
 requirements:
   build:
-  - python
+  - {{ compiler('c') }}
+  - {{ compiler('rust') }}
+  host:
+  - python >=3.11,<3.14
   - pip
   - setuptools >=68.0
-  - versioningit>=3.0
+  - setuptools-rust >=1.10
+  - versioningit >=3.0
   run:
-  - python
+  - python >=3.11,<3.14
   - h5py
   - numpy >=1.26,<3
   - argdigest >=0.12.1
@@ -24,6 +28,12 @@ requirements:
   - networkx
   - tqdm
   - matplotlib
+test:
+  imports:
+  - molsysmt
+  - molsysmt._rust
+  commands:
+  - python -c "import importlib.metadata as md, os, molsysmt; expected=os.environ['PKG_VERSION']; assert md.version('molsysmt') == expected; assert molsysmt.__version__ == expected"
 about:
   home: https://uibcdf.org
   license: MIT License

@@ -1,7 +1,7 @@
 ---
 summary: Conda cannot resolve MolSysMT on supported Python 3.13 because MolSysViewer has no compatible build
 issue: uibcdf/molsysmt#195
-status: open
+status: active
 opened: 2026-09-01
 closed:
 severity: high
@@ -17,7 +17,47 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** open. MolSysMT resolves on Python 3.12 but not on its supported Python 3.13.
+**Status:** active. The source-side staging path is implemented; publication and the
+installed-pair matrix remain pending.
+
+## Implementation checkpoint — 2026-09-02
+
+The maintainers settled the dependency and release decisions that were still assumed in
+the original report:
+
+- MolSysViewer remains a hard MolSysMT dependency.
+- MolSysMT 0.22.0 will be staged before MolSysMT 1.0.0.
+- MolSysViewer 0.21.0 is the coordinated counterpart. Its candidate is
+  `b0888d9a78243b8d1829a2793f42b816e0b1643e`; its source release gate reports 9 passed,
+  0 failed and 2 blocked. The Qt check is blocked by the absence of a display on the
+  candidate machine, and the Conda check is blocked by the package cycle described below.
+- MolSysViewer's platform-independent Python and JavaScript payload is prepared as one
+  `noarch: python` package with the runtime floor `molsysmt >=0.22.0`. This replaces the
+  old assumption that Python 3.13 needed a separate `py313` Viewer artefact.
+
+The accompanying MolSysMT change implements Route A from
+[`../pending_proposals/migration_off_the_in_house_publication_actions.md`](../pending_proposals/migration_off_the_in_house_publication_actions.md):
+
+1. `devtools/conda-build/meta.yaml` builds with native C and Rust compiler
+   metapackages, pins Rust 1.97.1, separates `build` and `host`, and imports both
+   `molsysmt` and `molsysmt._rust` in the package test.
+2. `.github/workflows/build_and_upload_conda_packages.yaml` builds 15 native cells:
+   five platforms crossed with Python 3.11--3.13. Upload occurs only after every build
+   cell succeeds.
+3. A manual build of an exact SHA creates a temporary local `0.22.0` tag and publishes
+   build 0 only to the `staging` label. It uses `--no-test` solely for this bootstrap
+   package, because MolSysViewer 0.21.0 cannot yet be installed without MolSysMT 0.22.0.
+4. After the Viewer team stages 0.21.0, `validate_conda_staging.yaml` installs the exact
+   pair in all 15 native cells. It checks versions, non-editable provenance, the Rust
+   extension, Viewer runtime resources and the explicit Conda environment.
+5. The release-event path produces build 1 and does not use `--no-test`; it resolves the
+   staged Viewer and runs the recipe test before any package reaches the `main` label.
+   Distinct build numbers prevent overwriting the validated bootstrap coordinates.
+
+This is **Implemented** and locally contract-tested. A Linux x86-64/Python 3.13 Conda
+build also compiled `molsysmt._rust` successfully with Rust 1.97.1. It is not yet
+cross-platform evidence: the workflow matrix, the staging upload and the installed-pair
+gate have not run.
 
 ## What
 
@@ -38,9 +78,9 @@ same command with `python=3.12` succeeds and selects `molsysviewer-0.7.0-py312_1
 
 The live `uibcdf` channel contains MolSysViewer 0.5.3, 0.6.0, 0.6.1 and 0.7.0, each
 built for Python 3.10--3.12. It has no Python 3.13 artifact. The current MolSysViewer
-source declares `requires-python = ">=3.11"`, and its Conda publication workflow already
-contains a Python 3.11--3.13 matrix, so the source contract and intended build matrix
-include 3.13 while the published channel does not.
+source declares Python 3.11--3.13 support. Its coordinated 0.21.0 recipe is now
+`noarch: python`, so one staged artefact will cover that interpreter range while the
+published channel still does not.
 
 MolSysMT's recipe therefore becomes unsatisfiable when its own supported Python 3.13 is
 selected, before MolSysMT itself can be built or installed.
@@ -62,8 +102,9 @@ Python 3.12 dry run succeeds; `conda search -c uibcdf --override-channels --json
 molsysviewer` reports no Python 3.13 build; MolSysViewer source and workflow declare
 Python 3.13.
 
-**Assumed:** the MolSysViewer stabilization work will produce the next publishable
-release. This report does not assume its version or publication date.
+**Settled after the original measurement:** the coordinated release pair is MolSysMT
+0.22.0 and MolSysViewer 0.21.0. The Viewer candidate identity and its remaining blocked
+checks are recorded in the implementation checkpoint above.
 
 ## What was refuted
 
@@ -85,18 +126,20 @@ tracked separately as uibcdf/molsysmt#193.
 
 ## Acceptance criteria
 
-1. A MolSysViewer Conda artifact compatible with Python 3.13 is available from the
-   channel used by MolSysMT's recipe.
+1. The MolSysViewer 0.21.0 `noarch: python` package is available from the staging channel
+   and declares Python 3.11--3.13 support.
 2. The MolSysMT runtime dependency set resolves in dry-run mode for Python 3.11, 3.12
    and 3.13.
-3. The release evidence includes a guard or matrix job that fails if any supported
-   Python version loses a resolvable MolSysViewer dependency.
+3. The staging evidence installs exact MolSysMT 0.22.0 and MolSysViewer 0.21.0 packages
+   on all five native platforms with Python 3.11, 3.12 and 3.13, and fails on a version,
+   provenance, native-extension or packaged-resource mismatch.
 
 ## Dependencies and risks
 
-Resolution depends on the separately owned MolSysViewer stabilization and publication
-work. Publishing an interim artifact from this repository would cross that ownership
-boundary and is deliberately excluded.
+Resolution depends on the separately owned MolSysViewer staging step. The agreed
+bootstrap publishes MolSysMT only from this repository and validates the exact staged
+pair after the Viewer team publishes its own artefact; neither repository publishes on
+behalf of the other.
 
 ## Provenance
 

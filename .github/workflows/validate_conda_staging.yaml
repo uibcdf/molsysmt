@@ -1,0 +1,89 @@
+name: Validate conda staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      molsysmt_version:
+        description: MolSysMT version already present in the staging label
+        required: true
+        default: 0.22.0
+        type: string
+      molsysviewer_version:
+        description: MolSysViewer version already present in the staging label
+        required: true
+        default: 0.21.0
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    name: Validate the requested package versions
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require stable package versions
+        shell: bash
+        env:
+          MOLSYS_MT_VERSION: ${{ inputs.molsysmt_version }}
+          MOLSYS_VIEWER_VERSION: ${{ inputs.molsysviewer_version }}
+        run: |
+          [[ "$MOLSYS_MT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$MOLSYS_VIEWER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+
+  validate:
+    name: ${{ matrix.target.platform }} · Python ${{ matrix.python }}
+    needs: prepare
+    runs-on: ${{ matrix.target.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - {platform: linux-64, runner: ubuntu-24.04}
+          - {platform: linux-aarch64, runner: ubuntu-24.04-arm}
+          - {platform: osx-64, runner: macos-15-intel}
+          - {platform: osx-arm64, runner: macos-15}
+          - {platform: win-64, runner: windows-2025}
+        python: ['3.11', '3.12', '3.13']
+
+    steps:
+      - name: Check out validation tooling
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install the staged package pair
+        uses: mamba-org/setup-micromamba@v3.2.1
+        with:
+          environment-name: staging-test
+          condarc: |
+            channels:
+              - uibcdf/label/staging
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: >-
+            python=${{ matrix.python }}
+            molsysmt=${{ inputs.molsysmt_version }}
+            molsysviewer=${{ inputs.molsysviewer_version }}
+
+      - name: Validate versions, provenance, native code, and viewer resources
+        shell: bash -el {0}
+        run: >-
+          python devtools/scripts/validate_conda_staging.py
+          --molsysmt-version "${{ inputs.molsysmt_version }}"
+          --molsysviewer-version "${{ inputs.molsysviewer_version }}"
+
+      - name: Record the exact environment
+        shell: bash -el {0}
+        run: conda list --explicit > conda-${{ matrix.target.platform }}-py${{ matrix.python }}.txt
+
+      - name: Retain the environment record
+        uses: actions/upload-artifact@v7
+        with:
+          name: conda-staging-${{ matrix.target.platform }}-py${{ matrix.python }}
+          path: conda-${{ matrix.target.platform }}-py${{ matrix.python }}.txt
+          if-no-files-found: error
+          retention-days: 30
