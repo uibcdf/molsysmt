@@ -67,8 +67,10 @@ checkouts.
 > `33671942326` published those three Windows artifacts from exact candidate
 > `0856e0c71c47e4d95adb54d2671062d7197423a4`. All 15 build-0 artifacts are present, but
 > the Windows/Python 3.12 artifact inherited an erroneous `*_debug_cpython` run export
-> from conda-forge CPython 3.12.14 build 2. Its build-1 repair is tracked by
-> uibcdf/molsysmt#201. MolSysViewer staging and the installed-pair gate remain pending.
+> from conda-forge CPython 3.12.14 build 2. Targeted run `33682123937` published clean
+> build-1 replacements from `d53268c449434be761b4762c48ee5e47538b8ec2`; live metadata
+> confirms that Python 3.12 now targets normal CPython and uibcdf/molsysmt#201 is
+> resolved. MolSysViewer staging and the installed-pair gate remain pending.
 
 ## 0. The one-line answer
 

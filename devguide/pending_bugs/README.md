@@ -26,10 +26,9 @@ that front matter -- edit the entries, not this list.
 - [`scientific_evidence_registry_accepts_tests_that_were_never_executed.md`](scientific_evidence_registry_accepts_tests_that_were_never_executed.md) — [#196](https://github.com/uibcdf/molsysmt/issues/196) — Scientific evidence registry accepts tests that were never executed *(high, inspected)*
 - [`devguide_closure_accepts_guards_unrelated_to_the_reported_defect.md`](devguide_closure_accepts_guards_unrelated_to_the_reported_defect.md) — [#197](https://github.com/uibcdf/molsysmt/issues/197) — Devguide closure accepts guards unrelated to the reported defect *(medium, inspected)*
 
-### In progress (2)
+### In progress (1)
 
 - [`conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md`](conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md) — [#195](https://github.com/uibcdf/molsysmt/issues/195) — Conda cannot resolve MolSysMT on supported Python 3.13 because MolSysViewer has no compatible build *(high, reproduced)*
-- [`conda_forge_python_3_12_run_export_makes_windows_package_require_debug_cpython.md`](conda_forge_python_3_12_run_export_makes_windows_package_require_debug_cpython.md) — [#201](https://github.com/uibcdf/molsysmt/issues/201) — Conda-forge Python 3.12 run export makes Windows package require debug CPython *(high, reproduced)*
 
 ### Partially resolved (2)
 

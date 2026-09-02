@@ -17,9 +17,8 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. All MolSysMT bootstrap artifacts have been uploaded, but the
-Windows/Python 3.12 metadata repair tracked by uibcdf/molsysmt#201, MolSysViewer
-publication and the installed-pair matrix remain pending.
+**Status:** active. MolSysMT's native staging set is valid; MolSysViewer publication and
+the installed-pair matrix remain pending.
 
 ## Implementation checkpoint — 2026-09-02
 
@@ -79,8 +78,10 @@ to the build environment's interpreter. Targeted run `33671942326` then publishe
 candidate `0856e0c71c47e4d95adb54d2671062d7197423a4`. All 15 build-0 artifacts are staged,
 but a direct metadata audit found that the Windows/Python 3.12 artifact inherited an
 erroneous `*_debug_cpython` run export from conda-forge CPython 3.12.14 build 2. That
-single cell is invalid and its non-overwriting repair is tracked by uibcdf/molsysmt#201.
-MolSysViewer staging and the installed-pair gate also remain pending.
+single cell was invalid. Targeted run `33682123937` published clean Windows build-1
+artifacts from `d53268c449434be761b4762c48ee5e47538b8ec2`; the Python 3.12 record no longer
+contains the debug constraint. The repair is resolved as uibcdf/molsysmt#201.
+MolSysViewer staging and the installed-pair gate remain pending.
 
 ## What
 

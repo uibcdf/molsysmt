@@ -1,8 +1,7 @@
 # Modernizing MolSysMT's two publication pipelines
 
-**Status:** partial. The Conda decision is accepted and its 15 native bootstrap artifacts
-were uploaded; one Windows metadata repair and installed-package validation remain. The
-documentation decision remains open.
+**Status:** partial. The Conda decision is accepted and its native staging artifacts are
+valid; installed-package validation remains. The documentation decision remains open.
 **Raised:** 2026-08-08, after auditing `uibcdf/action-sphinx-docs-to-gh-pages` and
 `uibcdf/action-build-and-upload-conda-packages` and repairing both.
 **Scope:** `.github/workflows/sphinx_docs_to_gh_pages.yaml`,
@@ -59,9 +58,10 @@ three distinct build-0 outputs on both `linux-64` and `win-64`, rather than reso
 every build against the workflow environment's Python. Targeted run `33671942326`
 published the three Windows variants from exact candidate
 `0856e0c71c47e4d95adb54d2671062d7197423a4`. A direct channel audit then found an
-upstream `*_debug_cpython` run export in the Windows/Python 3.12 artifact; criterion 2
-therefore remains open until the non-overwriting repair tracked by uibcdf/molsysmt#201
-lands. Criterion 4 remains pending until the coordinated staging pair validation run
+upstream `*_debug_cpython` run export in the Windows/Python 3.12 artifact. Targeted run
+`33682123937` published clean build-1 replacements from exact candidate
+`d53268c449434be761b4762c48ee5e47538b8ec2`, resolving uibcdf/molsysmt#201 and completing
+criterion 2. Criterion 4 remains pending until the coordinated staging pair validation run
 imports the native extension from a fresh macOS ARM environment. The Pages half of this
 proposal is unaffected.
 

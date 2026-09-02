@@ -84,13 +84,26 @@ Do not substitute a partial or single-platform run.
 - A green Windows artifact is evidence of buildability, not a declaration of
   supported-platform status.
 
-## 4. Documentation build
+## 4. Native Conda artifacts
+
+- A green build/upload job is not sufficient evidence that a Conda artifact is
+  installable. Query the published channel records and inspect the runtime constraints
+  for every platform/Python coordinate. Release CPython variants must not carry an
+  unintended `*_debug_cpython`, free-threading, or mismatched `python_abi` constraint.
+- `validate_conda_staging.yaml` must install the exact coordinated MolSysMT/MolSysViewer
+  versions with normal CPython on all five native platforms crossed with Python
+  3.11--3.13. The installed version, provenance, native extension and Viewer resources
+  must pass before the release artifacts are published to `main`.
+- A corrective staging build must increment the build number instead of overwriting the
+  defective coordinate. The final release uses a distinct later build number.
+
+## 5. Documentation build
 
 - `sphinx_docs_to_gh_pages.yaml` builds the docs (`nb_execution_mode = "off"`). The build
   must be warning-clean for the course tree (no "toctree contains reference to nonexistent
   document"); `validate_course.py` guards the structure statically, the build confirms it.
 
-## 5. Sign-off checklist (all must hold on the tag commit)
+## 6. Sign-off checklist (all must hold on the tag commit)
 
 - [ ] Working tree clean; tag commit does **not** carry `[skip ci]`.
 - [ ] `python devtools/scripts/release_gate.py` → all fast gates PASS.
@@ -98,6 +111,8 @@ Do not substitute a partial or single-platform run.
 - [ ] `ci-full.yaml` (or candidate-pinned `ci-weekly.yaml`) → green on all 6 combos.
 - [ ] `ci-rust-wheels.yaml` → supported Linux/macOS jobs green; Windows result recorded
       as experimental evidence and not treated as a release blocker.
+- [ ] Native Conda channel metadata contains only the intended Python/ABI constraints,
+      and the exact staged MolSysMT/MolSysViewer pair installs in all 15 cells.
 - [ ] Docs build → green, course toctree warning-clean.
 - [ ] No open **blocker** in `pending_bugs/`; open items are accepted debt or post-1.0.
 - [ ] **Citation metadata prepared for the tag.** `CITATION.cff` carries the stable

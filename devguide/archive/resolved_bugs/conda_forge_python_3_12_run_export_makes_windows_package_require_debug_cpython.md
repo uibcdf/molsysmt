@@ -1,14 +1,14 @@
 ---
 summary: Conda-forge Python 3.12 run export makes Windows package require debug CPython
 issue: uibcdf/molsysmt#201
-status: active
+status: resolved
 opened: 2026-09-02
-closed:
+closed: 2026-09-02
 severity: high
 verification: reproduced
 area: [build, deps]
 guard:
-normative:
+normative: devguide/release_gate.md
 blocked_by: []
 supersedes: []
 ---
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-09-02, while auditing the metadata uploaded by MolSysMT native
 staging run `33671942326`.
-**Status:** active. The upstream defect is reproduced and a bounded recipe workaround
-is implemented locally; a corrected Windows staging build remains to be published.
+**Status:** resolved and archived. A bounded recipe workaround produced a clean build 1,
+and the release gate now requires inspection of actual published Conda constraints.
 
 ## What
 
@@ -111,7 +111,23 @@ declared Python support. Reporting the upstream defect is a separate external ac
    and supersedes build 0 without overwriting it.
 2. The Windows Python 3.11 and 3.13 variants remain buildable under the bounded pin.
 3. A repository test checks both the conditional host pin and explicit staging build
-   number, and the installed-pair gate ultimately installs normal CPython 3.12.
+   number, while the normative release gate requires the eventual installed-pair check
+   with normal CPython 3.12.
+
+## Resolution checkpoint — 2026-09-02
+
+Targeted workflow run `33682123937` built and published Windows build 1 from exact
+candidate `d53268c449434be761b4762c48ee5e47538b8ec2`. Live channel metadata confirms:
+
+- `py311h2d2bc06_1` requires normal CPython 3.11 and `python_abi 3.11.* *_cp311`;
+- `py312h2d2bc06_1` requires normal CPython 3.12 and `python_abi 3.12.* *_cp312`, with
+  no `*_debug_cpython` constraint; and
+- `py313h2d2bc06_1` requires normal CPython 3.13 and `python_abi 3.13.* *_cp313`.
+
+Build 1 supersedes, but does not overwrite, the defective Python 3.12 build 0. The
+repository contract test guards the bounded pin and build-number separation. The durable
+release rule is in [`release_gate.md`](../release_gate.md): actual published Conda
+constraints must be audited and the exact 15-cell pair must install before release.
 
 ## Dependencies and risks
 
