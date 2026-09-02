@@ -1,7 +1,8 @@
 # Modernizing MolSysMT's two publication pipelines
 
-**Status:** partial. The Conda decision is accepted and implemented in source; its native
-staging matrix still has to run. The documentation decision remains open.
+**Status:** partial. The Conda decision is accepted and its 15 native bootstrap packages
+are staged; installed-package validation remains. The documentation decision remains
+open.
 **Raised:** 2026-08-08, after auditing `uibcdf/action-sphinx-docs-to-gh-pages` and
 `uibcdf/action-build-and-upload-conda-packages` and repairing both.
 **Scope:** `.github/workflows/sphinx_docs_to_gh_pages.yaml`,
@@ -54,9 +55,11 @@ v2.0.2 removes the carriage return and its integration run `33668608034` builds,
 installs and imports two variants on both Ubuntu and Windows. MolSysMT can now dispatch
 only the failed native target. Local renders verify that one recipe invocation exposes
 three distinct build-0 outputs on both `linux-64` and `win-64`, rather than resolving
-every build against the workflow environment's Python. Criteria 2 and 4 in §2.5 remain
-pending until Windows publication and the coordinated staging pair validation run. The
-Pages half of this proposal is unaffected.
+every build against the workflow environment's Python. Targeted run `33671942326`
+published the three Windows variants from exact candidate
+`0856e0c71c47e4d95adb54d2671062d7197423a4`, completing criterion 2. Criterion 4 remains
+pending until the coordinated staging pair validation run imports the native extension
+from a fresh macOS ARM environment. The Pages half of this proposal is unaffected.
 
 ## 1. Documentation: from a `gh-pages` branch to native Pages deployment
 

@@ -62,8 +62,11 @@ checkouts.
 > path normalization and passes its Ubuntu/Windows integration run `33668608034`.
 > MolSysMT's dispatch can now generate a matrix for only `win-64`. Local renders return
 > separate `py311`, `py312` and `py313` build-0 coordinates for both `linux-64` and
-> `win-64`, confirming that the variant set reaches `conda-build`. Windows publication
-> and the installed-pair gate remain pending.
+> `win-64`, confirming that the variant set reaches `conda-build`. Targeted run
+> `33671942326` published those three Windows artifacts from exact candidate
+> `0856e0c71c47e4d95adb54d2671062d7197423a4`. MolSysMT 0.22.0 build 0 is now staged
+> across all 15 native/Python cells; MolSysViewer staging and the installed-pair gate
+> remain pending.
 
 ## 0. The one-line answer
 

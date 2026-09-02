@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. The source-side staging path is implemented; publication and the
-installed-pair matrix remain pending.
+**Status:** active. MolSysMT staging publication is complete; MolSysViewer publication
+and the installed-pair matrix remain pending.
 
 ## Implementation checkpoint — 2026-09-02
 
@@ -72,8 +72,11 @@ remaining Windows platform to be rebuilt without allocating the four successful
 platform runners. Local `conda render` checks produce distinct `py311`, `py312` and
 `py313` build-0 coordinates for both `linux-64` and `win-64`; the recipe's Python
 requirements are governed by `conda_build_config.yaml` so the variants cannot collapse
-to the build environment's interpreter. Windows staging publication and the
-installed-pair gate remain pending.
+to the build environment's interpreter. Targeted run `33671942326` then published
+`py311h2d2bc06_0`, `py312h2d2bc06_0` and `py313h2d2bc06_0` for `win-64` from exact
+candidate `0856e0c71c47e4d95adb54d2671062d7197423a4`. MolSysMT 0.22.0 build 0 is
+therefore staged in all 15 cells. MolSysViewer staging and the installed-pair gate
+remain pending.
 
 ## What
 
