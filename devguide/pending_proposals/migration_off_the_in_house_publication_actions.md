@@ -1,8 +1,8 @@
 # Modernizing MolSysMT's two publication pipelines
 
-**Status:** partial. The Conda decision is accepted and its 15 native bootstrap packages
-are staged; installed-package validation remains. The documentation decision remains
-open.
+**Status:** partial. The Conda decision is accepted and its 15 native bootstrap artifacts
+were uploaded; one Windows metadata repair and installed-package validation remain. The
+documentation decision remains open.
 **Raised:** 2026-08-08, after auditing `uibcdf/action-sphinx-docs-to-gh-pages` and
 `uibcdf/action-build-and-upload-conda-packages` and repairing both.
 **Scope:** `.github/workflows/sphinx_docs_to_gh_pages.yaml`,
@@ -41,8 +41,9 @@ Route A is accepted. MolSysMT retains
   own three builds succeed; successful platforms do not wait for or depend on failed
   platforms;
 - manual candidates go only to the `staging` label; release events go to `main` only
-  after the normal recipe test succeeds. The bootstrap is build 0 and the tested release
-  is build 1, so publication never overwrites an existing coordinate; and
+  after the normal recipe test succeeds. The bootstrap starts at build 0, build 1 is
+  available for non-overwriting staging repairs, and the tested release is build 2, so
+  publication never overwrites an existing coordinate; and
 - a separate 15-cell workflow installs exact MolSysMT and MolSysViewer versions from
   staging and verifies versions, provenance, native code and packaged Viewer resources.
 
@@ -57,9 +58,12 @@ only the failed native target. Local renders verify that one recipe invocation e
 three distinct build-0 outputs on both `linux-64` and `win-64`, rather than resolving
 every build against the workflow environment's Python. Targeted run `33671942326`
 published the three Windows variants from exact candidate
-`0856e0c71c47e4d95adb54d2671062d7197423a4`, completing criterion 2. Criterion 4 remains
-pending until the coordinated staging pair validation run imports the native extension
-from a fresh macOS ARM environment. The Pages half of this proposal is unaffected.
+`0856e0c71c47e4d95adb54d2671062d7197423a4`. A direct channel audit then found an
+upstream `*_debug_cpython` run export in the Windows/Python 3.12 artifact; criterion 2
+therefore remains open until the non-overwriting repair tracked by uibcdf/molsysmt#201
+lands. Criterion 4 remains pending until the coordinated staging pair validation run
+imports the native extension from a fresh macOS ARM environment. The Pages half of this
+proposal is unaffected.
 
 ## 1. Documentation: from a `gh-pages` branch to native Pages deployment
 

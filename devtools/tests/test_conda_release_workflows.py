@@ -52,7 +52,9 @@ def test_recipe_builds_and_tests_the_native_extension():
     )
     assert variant_config["python"] == ["3.11", "3.12", "3.13"]
     assert variant_config["rust_compiler_version"] == ["1.97.1"]
-    assert "  host:\n  - python\n" in recipe
+    assert "  host:\n" in recipe
+    assert "python 3.12.14 *_1_cpython  # [win and py == 312]" in recipe
+    assert "python  # [not (win and py == 312)]" in recipe
     assert "  run:\n  - python\n" in recipe
     assert "python >=3.11,<3.14" not in recipe
     assert "MOLSYSMT_CONDA_BUILD_NUMBER" in recipe
@@ -84,6 +86,7 @@ def test_publish_workflow_is_atomic_per_native_platform():
     )["run"]
     assert "^[0-9a-f]{40}$" in validate_identity
     assert validate_identity.count("^[0-9]+\\.[0-9]+\\.[0-9]+$") == 2
+    assert "^[0-9]+$" in validate_identity
     for platform, runner in EXPECTED_TARGETS:
         assert f'"platform":"{platform}","runner":"{runner}"' in validate_identity
     assert 'echo "matrix=$matrix" >> "$GITHUB_OUTPUT"' in validate_identity
@@ -95,14 +98,16 @@ def test_publish_workflow_is_atomic_per_native_platform():
         build_and_publish, "Build, test, and publish the release platform"
     )
     assert staging_build["if"] == "github.event_name == 'workflow_dispatch'"
-    assert staging_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 0
+    assert staging_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == (
+        "${{ inputs.build_number }}"
+    )
     assert staging_build["uses"] == (
         "uibcdf/action-build-and-upload-conda-packages@v2.0.2"
     )
     assert staging_build["with"]["label"] == "staging"
     assert "--no-test" in staging_build["with"]["conda_build_args"]
     assert release_build["if"] == "github.event_name == 'release'"
-    assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 1
+    assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 2
     assert release_build["uses"] == (
         "uibcdf/action-build-and-upload-conda-packages@v2.0.2"
     )

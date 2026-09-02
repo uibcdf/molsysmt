@@ -10,7 +10,11 @@ requirements:
   - {{ compiler('c') }}  # [linux]
   - {{ compiler('rust') }}
   host:
-  - python
+  # conda-forge's win-64 CPython 3.12.14 build 2 has an erroneous debug
+  # run export. Keep the last verified release build until the upstream
+  # package is corrected; see uibcdf/molsysmt#201.
+  - python 3.12.14 *_1_cpython  # [win and py == 312]
+  - python  # [not (win and py == 312)]
   - pip
   - setuptools >=68.0
   - setuptools-rust >=1.10

@@ -38,9 +38,10 @@ checkouts.
 > bootstrap build 0 without creating its runtime test environment; the Viewer team then stages
 > its `noarch: python` 0.21.0 package; finally MolSysMT installs and validates the exact
 > pair on five native platforms crossed with Python 3.11--3.13. Production publication
-> does not retain the bootstrap exception: release build 1 runs the recipe test using
+> does not retain the bootstrap exception: release build 2 runs the recipe test using
 > the staged Viewer before uploading to `main`. The build-number change avoids replacing
-> staged bytes under an already validated package coordinate.
+> staged bytes under an already validated package coordinate; build 1 is reserved for
+> non-overwriting staging repairs.
 >
 > Route A from
 > [`migration_off_the_in_house_publication_actions.md`](migration_off_the_in_house_publication_actions.md)
@@ -64,9 +65,10 @@ checkouts.
 > separate `py311`, `py312` and `py313` build-0 coordinates for both `linux-64` and
 > `win-64`, confirming that the variant set reaches `conda-build`. Targeted run
 > `33671942326` published those three Windows artifacts from exact candidate
-> `0856e0c71c47e4d95adb54d2671062d7197423a4`. MolSysMT 0.22.0 build 0 is now staged
-> across all 15 native/Python cells; MolSysViewer staging and the installed-pair gate
-> remain pending.
+> `0856e0c71c47e4d95adb54d2671062d7197423a4`. All 15 build-0 artifacts are present, but
+> the Windows/Python 3.12 artifact inherited an erroneous `*_debug_cpython` run export
+> from conda-forge CPython 3.12.14 build 2. Its build-1 repair is tracked by
+> uibcdf/molsysmt#201. MolSysViewer staging and the installed-pair gate remain pending.
 
 ## 0. The one-line answer
 

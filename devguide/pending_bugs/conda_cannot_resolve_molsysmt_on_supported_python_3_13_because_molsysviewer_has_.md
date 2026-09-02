@@ -17,8 +17,9 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. MolSysMT staging publication is complete; MolSysViewer publication
-and the installed-pair matrix remain pending.
+**Status:** active. All MolSysMT bootstrap artifacts have been uploaded, but the
+Windows/Python 3.12 metadata repair tracked by uibcdf/molsysmt#201, MolSysViewer
+publication and the installed-pair matrix remain pending.
 
 ## Implementation checkpoint — 2026-09-02
 
@@ -52,9 +53,10 @@ The accompanying MolSysMT change implements Route A from
 4. After the Viewer team stages 0.21.0, `validate_conda_staging.yaml` installs the exact
    pair in all 15 native cells. It checks versions, non-editable provenance, the Rust
    extension, Viewer runtime resources and the explicit Conda environment.
-5. The release-event path produces build 1 and does not use `--no-test`; it resolves the
+5. The release-event path produces build 2 and does not use `--no-test`; it resolves the
    staged Viewer and runs the recipe test before any package reaches the `main` label.
-   Distinct build numbers prevent overwriting the validated bootstrap coordinates.
+   Build 1 is reserved for non-overwriting bootstrap repairs such as uibcdf/molsysmt#201;
+   distinct build numbers prevent overwriting the validated bootstrap coordinates.
 
 This is **Implemented** and locally contract-tested. Native workflow run `33637476601`
 compiled all 15 platform/interpreter combinations, including three successful Windows
@@ -74,9 +76,11 @@ platform runners. Local `conda render` checks produce distinct `py311`, `py312` 
 requirements are governed by `conda_build_config.yaml` so the variants cannot collapse
 to the build environment's interpreter. Targeted run `33671942326` then published
 `py311h2d2bc06_0`, `py312h2d2bc06_0` and `py313h2d2bc06_0` for `win-64` from exact
-candidate `0856e0c71c47e4d95adb54d2671062d7197423a4`. MolSysMT 0.22.0 build 0 is
-therefore staged in all 15 cells. MolSysViewer staging and the installed-pair gate
-remain pending.
+candidate `0856e0c71c47e4d95adb54d2671062d7197423a4`. All 15 build-0 artifacts are staged,
+but a direct metadata audit found that the Windows/Python 3.12 artifact inherited an
+erroneous `*_debug_cpython` run export from conda-forge CPython 3.12.14 build 2. That
+single cell is invalid and its non-overwriting repair is tracked by uibcdf/molsysmt#201.
+MolSysViewer staging and the installed-pair gate also remain pending.
 
 ## What
 
