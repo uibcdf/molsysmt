@@ -87,10 +87,23 @@ gh run view 33668608034 --repo uibcdf/action-build-and-upload-conda-packages
 ```
 
 **Measured:** local `conda build --output` with the ABI3 selector and exclusive config
-resolved exactly one Linux package:
+resolved exactly one Linux package before the dedicated `pyabi3` build string was added:
 
 ```text
 molsysmt-0.21.0-py311h03bb3b7_0.conda
+```
+
+**Measured:** the first five-platform experiment, run `33690618780`, passed the exact
+artifact's metadata and Python 3.11--3.13 native execution on four platforms. Total job
+times were Linux x86-64 5:18, Linux ARM64 4:43, macOS ARM64 5:47, and macOS x86-64
+16:44. Windows built one correctly named `pyabi3` artifact in 8:41 instead of the prior
+three-variant build's 22:22, then exposed an over-strict validator assumption: PyO3's
+stable-ABI Windows extension is `_rust.pyd`, not `_rust.abi3.pyd`. The validator now
+uses the platform's real filename convention, and the workflow accepts a target input so
+only the failed platform needs to be repeated.
+
+```bash
+gh run view 33690618780 --repo uibcdf/molsysmt
 ```
 
 **Estimate:** reducing three native builds to one should remove most repeated Rust

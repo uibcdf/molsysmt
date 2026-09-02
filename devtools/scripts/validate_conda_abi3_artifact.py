@@ -56,21 +56,28 @@ def validate_extracted_artifact(root: Path, expected_subdir: str) -> list[str]:
             "package does not declare exactly one Python >=3.11,<3.14 requirement"
         )
 
-    extensions = [
-        path.relative_to(root).as_posix()
+    extension_paths = [
+        path.relative_to(root)
         for path in root.rglob("_rust.*")
-        if path.is_file() and path.suffix in {".so", ".pyd", ".dylib"}
+        if path.is_file()
+        and path.suffix in {".so", ".pyd", ".dylib"}
+        and path.parent.as_posix().endswith("site-packages/molsysmt")
     ]
-    abi3_extensions = [path for path in extensions if "/_rust.abi3." in path]
-    if len(extensions) != 1 or len(abi3_extensions) != 1:
+    extensions = [path.as_posix() for path in extension_paths]
+    if len(extension_paths) != 1:
         problems.append(
-            "expected exactly one molsysmt/_rust.abi3 native extension, "
+            "expected exactly one molsysmt/_rust native extension, "
             f"found {extensions}"
         )
-    elif not abi3_extensions[0].startswith("site-packages/molsysmt/"):
+    elif expected_subdir == "win-64" and extension_paths[0].name != "_rust.pyd":
         problems.append(
-            "ABI3 extension is not stored under the relocatable site-packages path: "
-            f"{abi3_extensions[0]}"
+            "Windows ABI3 extension is not named _rust.pyd: "
+            f"{extensions[0]}"
+        )
+    elif expected_subdir != "win-64" and ".abi3." not in extension_paths[0].name:
+        problems.append(
+            "Unix ABI3 extension filename does not declare abi3: "
+            f"{extensions[0]}"
         )
     return problems
 

@@ -17,16 +17,23 @@ def _workflow():
 
 
 def test_experiment_builds_all_native_release_platforms():
-    job = _workflow()["jobs"]["build-and-test"]
-    targets = job["strategy"]["matrix"]["target"]
+    workflow = _workflow()
+    prepare = workflow["jobs"]["prepare"]
+    job = workflow["jobs"]["build-and-test"]
+    matrix_script = prepare["steps"][0]["run"]
 
-    assert {(target["platform"], target["runner"]) for target in targets} == {
-        ("linux-64", "ubuntu-24.04"),
-        ("linux-aarch64", "ubuntu-24.04-arm"),
-        ("osx-64", "macos-15-intel"),
-        ("osx-arm64", "macos-15"),
-        ("win-64", "windows-2025"),
-    }
+    for platform, runner in {
+        "linux-64": "ubuntu-24.04",
+        "linux-aarch64": "ubuntu-24.04-arm",
+        "osx-64": "macos-15-intel",
+        "osx-arm64": "macos-15",
+        "win-64": "windows-2025",
+    }.items():
+        assert f'"platform":"{platform}","runner":"{runner}"' in matrix_script
+    assert job["needs"] == "prepare"
+    assert job["strategy"]["matrix"] == (
+        "${{ fromJSON(needs.prepare.outputs.matrix) }}"
+    )
     assert job["strategy"]["fail-fast"] is False
     assert "continue-on-error" not in job
 

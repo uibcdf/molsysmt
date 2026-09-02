@@ -2,24 +2,56 @@ name: Test one Conda ABI3 artifact per platform
 
 on:
   workflow_dispatch:
+    inputs:
+      target:
+        description: Native platform to test, or all platforms
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - linux-64
+          - linux-aarch64
+          - osx-64
+          - osx-arm64
+          - win-64
 
 permissions:
   contents: read
 
 jobs:
+  prepare:
+    name: Select the requested native platform matrix
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Build the target matrix
+        id: matrix
+        shell: bash
+        env:
+          INPUT_TARGET: ${{ inputs.target }}
+        run: |
+          all_targets='{"target":[{"platform":"linux-64","runner":"ubuntu-24.04"},{"platform":"linux-aarch64","runner":"ubuntu-24.04-arm"},{"platform":"osx-64","runner":"macos-15-intel"},{"platform":"osx-arm64","runner":"macos-15"},{"platform":"win-64","runner":"windows-2025"}]}'
+          case "$INPUT_TARGET" in
+            all) matrix="$all_targets" ;;
+            linux-64) matrix='{"target":[{"platform":"linux-64","runner":"ubuntu-24.04"}]}' ;;
+            linux-aarch64) matrix='{"target":[{"platform":"linux-aarch64","runner":"ubuntu-24.04-arm"}]}' ;;
+            osx-64) matrix='{"target":[{"platform":"osx-64","runner":"macos-15-intel"}]}' ;;
+            osx-arm64) matrix='{"target":[{"platform":"osx-arm64","runner":"macos-15"}]}' ;;
+            win-64) matrix='{"target":[{"platform":"win-64","runner":"windows-2025"}]}' ;;
+            *) exit 1 ;;
+          esac
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
   build-and-test:
     name: ${{ matrix.target.platform }} · one build / Python 3.11–3.13
+    needs: prepare
     runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 90
     strategy:
       fail-fast: false
-      matrix:
-        target:
-          - {platform: linux-64, runner: ubuntu-24.04}
-          - {platform: linux-aarch64, runner: ubuntu-24.04-arm}
-          - {platform: osx-64, runner: macos-15-intel}
-          - {platform: osx-arm64, runner: macos-15}
-          - {platform: win-64, runner: windows-2025}
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
 
     steps:
       - uses: actions/checkout@v7

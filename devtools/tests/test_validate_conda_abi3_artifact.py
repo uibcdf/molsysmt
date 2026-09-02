@@ -67,7 +67,20 @@ def test_rejects_interpreter_specific_extension(tmp_path):
     )
 
     problems = validate_extracted_artifact(artifact, "linux-64")
-    assert any("exactly one molsysmt/_rust.abi3" in problem for problem in problems)
+    assert any("does not declare abi3" in problem for problem in problems)
+
+
+def test_accepts_windows_abi3_extension_name(tmp_path):
+    artifact = _artifact(
+        tmp_path,
+        extension="site-packages/molsysmt/_rust.pyd",
+    )
+    index_path = artifact / "info" / "index.json"
+    payload = json.loads(index_path.read_text(encoding="utf-8"))
+    payload["subdir"] = "win-64"
+    index_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    assert validate_extracted_artifact(artifact, "win-64") == []
 
 
 def test_rejects_package_from_another_platform(tmp_path):
