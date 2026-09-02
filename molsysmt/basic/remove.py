@@ -25,12 +25,12 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default=None
         Structure indices (0-based) to include or process.
-    to_form : object, default=None
-        Argument to_form.
+    to_form : str, list of str, or None, default=None
+        Target molecular-system form; `None` preserves or infers the input form.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    in_place : object, default=True
-        Argument in_place.
+    in_place : bool, default=True
+        Whether to modify the input molecular system in place.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

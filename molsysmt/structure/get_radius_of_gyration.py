@@ -65,16 +65,16 @@ def get_radius_of_gyration(molecular_system, selection='all', structure_indices=
         Atomic mass weights array for center calculation.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    heavy_mode : object, default='auto'
-        Argument heavy_mode.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
+    heavy_mode : {'auto', 'force', 'off'}, default='auto'
+        Policy controlling the chunked path for memory-intensive calculations.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or `None` to use the configured default.
+    num_threads : int or None, default=None
+        Number of CPU worker threads, or `None` to use the configured default.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

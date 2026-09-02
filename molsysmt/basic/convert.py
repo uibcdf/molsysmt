@@ -593,18 +593,18 @@ def convert(molecular_system,
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    to_form : object, default='molsysmt.MolSys'
-        Argument to_form.
+    to_form : str, list of str, or None, default='molsysmt.MolSys'
+        Target form or forms for the conversion output.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    strict : object, default=False
-        Argument strict.
-    return_report : object, default=False
-        Argument return_report.
+    strict : bool, default=False
+        Whether conversion warnings and fidelity losses are promoted to errors.
+    return_report : bool, default=False
+        Whether to return the conversion report together with the converted system.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

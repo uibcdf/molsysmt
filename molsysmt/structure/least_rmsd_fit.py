@@ -52,34 +52,34 @@ def least_rmsd_fit(
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    selection_fit : object, default='atom_type!="H"'
-        Argument selection_fit.
+    selection_fit : str, list, tuple, or numpy.ndarray, default='atom_type!="H"'
+        Atoms from the input system used to determine the rigid fit.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    reference_molecular_system : object, default=None
-        Argument reference_molecular_system.
-    reference_selection_fit : object, default=None
-        Argument reference_selection_fit.
-    reference_structure_index : object, default=0
-        Argument reference_structure_index.
-    to_form : object, default=None
-        Argument to_form.
-    in_place : object, default=False
-        Argument in_place.
+    reference_molecular_system : molecular system or None, default=None
+        Reference molecular system; `None` uses the input molecular system.
+    reference_selection_fit : str, list, tuple, or numpy.ndarray, or None, default=None
+        Reference atoms paired with `selection_fit` during fitting.
+    reference_structure_index : int, default=0
+        Zero-based structure index selected from the reference system.
+    to_form : str, list of str, or None, default=None
+        Target molecular-system form; `None` preserves or infers the input form.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or `None` to use the configured default.
+    num_threads : int or None, default=None
+        Number of CPU worker threads, or `None` to use the configured default.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
-    gpu_backend : object, default=None
-        Argument gpu_backend.
-    precision : object, default=None
-        Argument precision.
+    gpu_backend : str or None, default=None
+        GPU array backend, or `None` to use the configured backend.
+    precision : {'single', 'double'} or None, default=None
+        Floating-point precision, or `None` to use the configured precision.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

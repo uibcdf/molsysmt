@@ -29,8 +29,8 @@ def get_label(molecular_system,
         Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    string : object, default='{name}-{id}@{index}'
-        Argument string.
+    string : str, default='{name}-{id}@{index}'
+        Format template built from element attributes such as name, ID, and index.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -122,4 +122,3 @@ def get_label(molecular_system,
         return output[0]
     else:
         return output
-

@@ -22,8 +22,8 @@ def get_atomic_radius(molecular_system, element='atom', selection='all', definit
         Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    definition : object, default='vdw'
-        Argument definition.
+    definition : str, default='vdw'
+        Reference dataset used to assign the requested physical property.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -78,4 +78,3 @@ def get_atomic_radius(molecular_system, element='atom', selection='all', definit
     output = puw.quantity(np.array(output), units)
 
     return output
-

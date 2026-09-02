@@ -25,8 +25,8 @@ def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'M
         Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    definition : object, default='physical'
-        Argument definition.
+    definition : str, default='physical'
+        Reference dataset used to assign the requested physical property.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -142,4 +142,3 @@ def get_mass(molecular_system, element ='system', selection = 'all', syntax = 'M
     output = puw.standardize(output)
 
     return output
-

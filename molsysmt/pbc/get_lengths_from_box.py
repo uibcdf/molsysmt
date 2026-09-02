@@ -11,8 +11,8 @@ def get_lengths_from_box(box, skip_digestion=False):
 
     Parameters
     ----------
-    box : object
-        Argument box.
+    box : PyUnitWizard quantity
+        Periodic box vectors with shape `(n_structures, 3, 3)` in units of length.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

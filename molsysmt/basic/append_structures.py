@@ -27,20 +27,20 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
 
     Parameters
     ----------
-    to_molecular_system : object
-        Argument to_molecular_system.
-    from_molecular_system : object
-        Argument from_molecular_system.
+    to_molecular_system : molecular system
+        Target molecular system that receives the added elements or structures.
+    from_molecular_system : molecular system
+        Source molecular system providing the elements or structures to add.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    in_place : object, default=True
-        Argument in_place.
-    attribute_policy : object, default='intersection'
-        Argument attribute_policy.
+    in_place : bool, default=True
+        Whether to modify the input molecular system in place.
+    attribute_policy : {'intersection', 'strict'}, default='intersection'
+        Policy for attributes available in only one input system.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

@@ -27,18 +27,18 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    rotation : object, default=None
-        Argument rotation.
-    rotation_center : object, default=None
-        Argument rotation_center.
+    rotation : array-like or rotation-like object, default=None
+        Proper rotation matrices or an object providing an `apply` method.
+    rotation_center : PyUnitWizard quantity or None, default=None
+        Point about which coordinates are rotated, in units of length.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    in_place : object, default=False
-        Argument in_place.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

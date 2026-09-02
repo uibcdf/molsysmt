@@ -75,7 +75,7 @@ More specific `AGENTS.md` files in subdirectories refine or override these rules
   delivery route exists. `validate_docstrings.py` was the counterexample: it checked that
   every parameter appears with a matching default, and one generated sweep supplied 8,810
   descriptions that restate the parameter name and passed
-  (see [`devguide/pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](devguide/pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md)).
+  (see [`devguide/archive/resolved_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](devguide/archive/resolved_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md)).
   This rule matters more, not less, as contributions are machine-generated: generation
   scales exactly to the criterion and not one step past it. Review every new gate against
   the question *what conforming output would satisfy this without doing the work?*

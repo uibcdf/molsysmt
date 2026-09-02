@@ -24,20 +24,20 @@ def center(molecular_system, selection='all', center_of_selection='all', weights
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    center_of_selection : object, default='all'
-        Argument center_of_selection.
+    center_of_selection : str, list, tuple, or numpy.ndarray, or None, default='all'
+        Atoms whose center defines the translation reference.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
-    center_coordinates : object, default=None
-        Argument center_coordinates.
+    center_coordinates : PyUnitWizard quantity or None, default=None
+        Coordinates to which the selected center is translated, in units of length.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    in_place : object, default=False
-        Argument in_place.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

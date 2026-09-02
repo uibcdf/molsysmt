@@ -10,8 +10,8 @@ def get_shape_from_angles(box_angles, skip_digestion=False):
 
     Parameters
     ----------
-    box_angles : object
-        Argument box_angles.
+    box_angles : PyUnitWizard quantity
+        Periodic box angles with shape `(n_structures, 3)` in angular units.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

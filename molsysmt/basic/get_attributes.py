@@ -18,12 +18,12 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    include_none : object, default=False
-        Argument include_none.
-    attribute_type : object, default='all'
-        Argument attribute_type.
-    output_type : object, default='list'
-        Argument output_type.
+    include_none : bool, default=False
+        Whether to include attributes whose value is `None`.
+    attribute_type : str or None, default='all'
+        Attribute category used to filter the comparison or result.
+    output_type : str, default='list'
+        Representation used for the returned result.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -111,4 +111,3 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
         return output
     elif output_type=='list':
         return [att for att in output if output[att]]
-

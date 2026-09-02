@@ -20,24 +20,24 @@ def align_principal_axes(molecular_system, selection='all',
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    principal_axes_of_selection : object, default=None
-        Argument principal_axes_of_selection.
-    principal_axes_type : object, default='inertia'
-        Argument principal_axes_type.
+    principal_axes_of_selection : str, list, tuple, or numpy.ndarray, or None, default=None
+        Atoms used to calculate the principal axes for alignment.
+    principal_axes_type : {'inertia', 'geometric'}, default='inertia'
+        Definition used to calculate the principal axes.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
-    axes : object, default=None
-        Argument axes.
-    center : object, default=False
-        Argument center.
+    axes : array-like or None, default=None
+        Right-handed orthonormal target axes supplied as three row vectors.
+    center : bool, default=False
+        Whether to leave the aligned selection centered at the origin.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    in_place : object, default=False
-        Argument in_place.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
 
     Returns
     -------
@@ -72,10 +72,11 @@ def align_principal_axes(molecular_system, selection='all',
     Examples
     --------
     >>> import molsysmt as msm
+    >>> from molsysmt.structure.align_principal_axes import align_principal_axes
     >>> molsys = msm.convert(
     ...     msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
     ... )
-    >>> aligned = msm.structure.align_principal_axes(
+    >>> aligned = align_principal_axes(
     ...     molsys, structure_indices=0, weights='masses', center=True
     ... )
     >>> axes, _ = msm.structure.get_principal_axes(

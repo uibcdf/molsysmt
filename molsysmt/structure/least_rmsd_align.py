@@ -37,26 +37,26 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    reference_molecular_system : object, default=None
-        Argument reference_molecular_system.
-    reference_selection : object, default=None
-        Argument reference_selection.
-    reference_structure_index : object, default=0
-        Argument reference_structure_index.
+    reference_molecular_system : molecular system or None, default=None
+        Reference molecular system; `None` uses the input molecular system.
+    reference_selection : str, list, tuple, or numpy.ndarray, or None, default=None
+        Atoms selected from the reference molecular system.
+    reference_structure_index : int, default=0
+        Zero-based structure index selected from the reference system.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine_sequence_alignment : object, default='Biopython'
-        Argument engine_sequence_alignment.
-    engine_least_rmsd_fit : object, default='MolSysMT'
-        Argument engine_least_rmsd_fit.
-    in_place : object, default=False
-        Argument in_place.
+    engine_sequence_alignment : str, default='Biopython'
+        Backend used to align the reference and target sequences.
+    engine_least_rmsd_fit : str, default='MolSysMT'
+        Backend used for the least-RMSD fit.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
-    gpu_backend : object, default=None
-        Argument gpu_backend.
-    precision : object, default=None
-        Argument precision.
+    gpu_backend : str or None, default=None
+        GPU array backend, or `None` to use the configured backend.
+    precision : {'single', 'double'} or None, default=None
+        Floating-point precision, or `None` to use the configured precision.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -147,5 +147,4 @@ def least_rmsd_align(molecular_system, selection='atom_name=="CA"', structure_in
     else:
 
         raise NotImplementedMethodError(caller='molsysmt.structure.least_rmsd_align')
-
 

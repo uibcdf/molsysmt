@@ -28,28 +28,28 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
         Whether to compute distances relative to geometric centers.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
-    as_entity : object, default=True
-        Argument as_entity.
+    as_entity : bool, default=True
+        Whether each nested selection is treated as a single distance entity.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    molecular_system_2 : object, default=None
-        Argument molecular_system_2.
+    molecular_system_2 : molecular system or None, default=None
+        Second molecular system to compare with the first one.
     selection_2 : str, list, tuple, or numpy.ndarray, default=None
         Second selection string or boolean/integer array.
     center_of_atoms_2 : bool, default=False
         Whether to compute distances relative to geometric centers for selection_2.
     weights_2 : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for selection_2.
-    as_entity_2 : object, default=True
-        Argument as_entity_2.
+    as_entity_2 : bool, default=True
+        Whether each nested selection in the second system is treated as one entity.
     structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
         Structure indices (0-based) for the second selection.
-    pairs : object, default=False
-        Argument pairs.
+    pairs : bool, default=False
+        Whether corresponding selections define explicit pairs instead of a Cartesian product.
     pbc : bool, default=False
         Whether to take periodic boundary conditions into account.
-    engine : object, default='MolSysMT'
-        Argument engine.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -174,4 +174,3 @@ def get_minimum_distances(molecular_system, selection="all", center_of_atoms=Fal
                 reason="If 'pairs=True' both input arguments 'as_entity' and 'as_entity_2' need to be True",
                 caller="molsysmt.structure.get_minimum_distances"
             )
-

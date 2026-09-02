@@ -37,14 +37,14 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
         Atomic mass weights array for center calculation.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or `None` to use the configured default.
+    num_threads : int or None, default=None
+        Number of CPU worker threads, or `None` to use the configured default.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

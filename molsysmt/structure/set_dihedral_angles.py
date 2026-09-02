@@ -27,20 +27,20 @@ def set_dihedral_angles(molecular_system, dihedral_quartets=None, angles=None, b
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    dihedral_quartets : object, default=None
-        Argument dihedral_quartets.
-    angles : object, default=None
-        Argument angles.
-    blocks : object, default=None
-        Argument blocks.
+    dihedral_quartets : list, tuple, numpy.ndarray, or None, default=None
+        Zero-based atom-index quartets defining the dihedral angles.
+    angles : PyUnitWizard quantity or None, default=None
+        Target dihedral angles in angular units.
+    blocks : list, tuple, numpy.ndarray, or None, default=None
+        Atom-index blocks that move together when changing each dihedral.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     pbc : bool, default=True
         Whether to take periodic boundary conditions into account.
-    in_place : object, default=False
-        Argument in_place.
-    engine : object, default='MolSysMT'
-        Argument engine.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
 
     Returns
     -------

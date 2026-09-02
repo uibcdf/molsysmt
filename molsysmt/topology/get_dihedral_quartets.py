@@ -14,8 +14,8 @@ def get_dihedral_quartets(molecular_system, with_blocks=False, selection='all',
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    with_blocks : object, default=False
-        Argument with_blocks.
+    with_blocks : bool, default=False
+        Whether to return the movable atom blocks with each dihedral quartet.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'

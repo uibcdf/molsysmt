@@ -27,10 +27,10 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    remove_bonds : object, default=None
-        Argument remove_bonds.
-    output_type : object, default='sets'
-        Argument output_type.
+    remove_bonds : list, tuple, numpy.ndarray, or None, default=None
+        Zero-based atom-index pairs removed before finding covalent blocks.
+    output_type : str, default='sets'
+        Representation used for the returned result.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
 

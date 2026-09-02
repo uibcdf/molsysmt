@@ -11,10 +11,10 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
 
     Parameters
     ----------
-    box_lengths : object
-        Argument box_lengths.
-    box_angles : object, default=None
-        Argument box_angles.
+    box_lengths : PyUnitWizard quantity
+        Periodic box lengths with shape `(n_structures, 3)` in units of length.
+    box_angles : PyUnitWizard quantity, default=None
+        Periodic box angles with shape `(n_structures, 3)` in angular units.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

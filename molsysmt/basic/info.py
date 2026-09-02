@@ -46,8 +46,8 @@ def info(molecular_system,
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    output_type : object, default='styler'
-        Argument output_type.
+    output_type : str, default='styler'
+        Representation used for the returned result.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

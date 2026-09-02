@@ -33,26 +33,26 @@ def move_away(molecular_system, selection='all', center_of_selection='all', weig
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    center_of_selection : object, default='all'
-        Argument center_of_selection.
+    center_of_selection : str, list, tuple, or numpy.ndarray, or None, default='all'
+        Atoms whose center defines the translation reference.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
     structure_indices : int, list, tuple, or numpy.ndarray, default=0
         Structure indices (0-based) to include or process.
-    reference_molecular_system : object, default=None
-        Argument reference_molecular_system.
-    reference_center_of_selection : object, default='all'
-        Argument reference_center_of_selection.
-    reference_weights : object, default=None
-        Argument reference_weights.
-    reference_structure_indices : object, default=None
-        Argument reference_structure_indices.
-    direction : object, default=None
-        Argument direction.
-    distance : object, default='3 angstroms'
-        Argument distance.
-    in_place : object, default=False
-        Argument in_place.
+    reference_molecular_system : molecular system or None, default=None
+        Reference molecular system; `None` uses the input molecular system.
+    reference_center_of_selection : str, list, tuple, or numpy.ndarray, default='all'
+        Atoms whose center defines the reference position.
+    reference_weights : str, list, tuple, numpy.ndarray, or None, default=None
+        Weights used to calculate the reference center.
+    reference_structure_indices : int, list, tuple, numpy.ndarray, or None, default=None
+        Zero-based structures used to calculate the reference center.
+    direction : array-like or None, default=None
+        Direction of displacement; `None` uses the vector between the two centers.
+    distance : PyUnitWizard quantity, default='3 angstroms'
+        Requested separation between the selected centers, in units of length.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False
@@ -172,4 +172,3 @@ def move_away(molecular_system, selection='all', center_of_selection='all', weig
                 coordinates=coordinates, skip_digestion=True)
 
             return tmp_molecular_system
-

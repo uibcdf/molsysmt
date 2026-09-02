@@ -64,26 +64,26 @@ def get_contacts(
         Structure indices (0-based) for the second selection.
     threshold : float or quantity, default='12 angstroms'
         Distance cutoff threshold quantity.
-    pairs : object, default=False
-        Argument pairs.
+    pairs : bool, default=False
+        Whether corresponding selections define explicit pairs instead of a Cartesian product.
     pbc : bool, default=True
         Whether to take periodic boundary conditions into account.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    output_type : object, default='numpy.ndarray'
-        Argument output_type.
-    output_indices : object, default=None
-        Argument output_indices.
+    output_type : str, default='numpy.ndarray'
+        Representation used for the returned result.
+    output_indices : {'selection', 'atom', 'group'} or None, default=None
+        Index convention included with the returned values.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
-    gpu_backend : object, default=None
-        Argument gpu_backend.
-    cell_list : object, default=None
-        Argument cell_list.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    gpu_backend : str or None, default=None
+        GPU array backend, or `None` to use the configured backend.
+    cell_list : {'auto'}, bool, or None, default=None
+        Whether to use cell-list acceleration for eligible contact calculations.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or `None` to use the configured default.
+    num_threads : int or None, default=None
+        Number of CPU worker threads, or `None` to use the configured default.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

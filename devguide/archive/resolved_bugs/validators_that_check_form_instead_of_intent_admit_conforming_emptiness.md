@@ -1,13 +1,13 @@
 ---
 summary: Validators that check form instead of intent admit conforming emptiness.
 issue: uibcdf/molsysmt#187
-status: open
+status: resolved
 opened: 2026-08-19
-closed:
+closed: 2026-09-02
 severity: high
 verification: measured
 area: [docs, api, ci]
-guard:
+guard: devtools/tests/test_validate_docstrings.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,11 +16,13 @@ supersedes: []
 # Bug: a gate that checks form gets filled with form
 
 **Reported:** 2026-08-19, during the external audit
-([`../archive/assessments/external_audit_august_2026.md`](../archive/assessments/external_audit_august_2026.md)),
+([`../assessments/external_audit_august_2026.md`](../assessments/external_audit_august_2026.md)),
 as a documentation defect on the stable surface. **Rewritten the same day**, after the
 originating commit was traced: the placeholders are the instance, the gate criterion is
 the theme.
-**Status:** open.
+**Status:** resolved. The docstring criterion and stable surface are repaired. The
+scientific-evidence and devguide-guard findings are tracked independently by
+uibcdf/molsysmt#196 and uibcdf/molsysmt#197.
 
 ## What
 
@@ -131,9 +133,12 @@ already demonstrated the failure at a scale of 184,251 lines in a single day.
 ## What is measured and what is assumed
 
 Measured: the commit, its file and line counts, and the two placeholder counts it
-introduced; the 18 stable symbols and 49 parameters, by iterating the stability registry
-and matching `^\s*Argument (\w+)\.$` against `inspect.getdoc`; the assertion set of each
-validator, read from source; the release-gate membership list in `release_gate.py`.
+introduced; the original 18 stable root symbols and 49 parameters, by iterating the
+stability registry and matching `^\s*Argument (\w+)\.$` against `inspect.getdoc`; the
+assertion set of each validator, read from source; the release-gate membership list in
+`release_gate.py`. A complete stable-function audit on 2026-09-02 found 60 affected
+functions and 205 parameters typed as `object` and described with the generated
+restatement.
 
 The classification column is judgement applied to a measured assertion set, not a
 measurement. Reasonable disagreement is possible on `validate_api_stability.py` and
@@ -159,8 +164,12 @@ route exists — is the model the others should be measured against.
 
 ## Scope and exclusions
 
-Covers the docstring criterion, the normative rule, and the two silent gates named above
-whose subject is not documentation.
+Covers the docstring criterion and the stable public-function docstrings. The normative
+rule and maintained gate inventory remain part of this resolution.
+
+The scientific-evidence validator is now tracked by uibcdf/molsysmt#196. The devguide
+guard validator and protocol wording are tracked by uibcdf/molsysmt#197. They were split
+because each requires its own contract, risks, and regression guard.
 
 Excludes the ~9,000 remaining placeholder occurrences inside `molsysmt/form/`: correcting
 the criterion and the template is what prevents their return, and regenerating the layer
@@ -180,13 +189,39 @@ axis; their blind spots are recorded here as inventory, not as work items.
    to protect, never by conforming output. New validators are reviewed against it.
 4. `devtools_and_ci.md` carries the inventory above, so the classification is maintained
    rather than rediscovered.
-5. `validate_scientific_evidence.py` verifies that a cited test node passes, or the
-   matrix stops describing an unexecuted test as evidence.
-6. `validate_devguide.py` requires more of a `guard` than the existence of a path, or the
-   protocol stops calling it "a test that fails if the defect returns".
+5. The scientific-evidence finding is independently tracked by uibcdf/molsysmt#196.
+6. The devguide-guard finding is independently tracked by uibcdf/molsysmt#197.
 
-Criteria 5 and 6 may split into their own entries if they grow; they are here because
-they share one cause and were found by one criterion.
+## Resolution
+
+`validate_docstrings.py` now parses each parameter's type and description in addition to
+its name and default. On functions classified `stable` by the public API registry, it
+rejects empty descriptions, descriptions that only restate the parameter name, the
+generated `Resulting object in object form.` return description, and the non-informative
+parameter type `object`. The restriction to stable functions is deliberate: the gate
+protects the contractual surface without turning the generated and experimental form
+layer into hidden 1.0 scope.
+
+Mutation tests establish that each forbidden pattern independently fails the content
+check, while an informative control passes. The stable-surface repair replaces the 205
+affected parameter entries across 60 functions with concrete types and operational
+descriptions. Two examples that failed when their own submodules were collected now
+import the callable explicitly.
+
+The maintained gate inventory describes this as a bounded semantic floor. It does not
+claim that a validator can judge arbitrary prose. The two other weak-gate findings were
+split into uibcdf/molsysmt#196 and uibcdf/molsysmt#197 rather than being nominally closed
+by unrelated changes.
+
+Validation on 2026-09-02:
+
+- `python -m pytest devtools/tests/test_validate_docstrings.py -p no:rerunfailures
+  --receptor=llm`: 10 passed;
+- doctests for all 60 changed package modules: 27 passed;
+- `python devtools/scripts/validate_docstrings.py`: 201 public functions passed;
+- `ruff check molsysmt devtools/scripts/validate_docstrings.py
+  devtools/tests/test_validate_docstrings.py`: passed;
+- `python devtools/scripts/release_gate.py`: 13 of 13 fast gates passed.
 
 ## Provenance
 

@@ -10,8 +10,8 @@ def get_volume_from_box(box):
 
     Parameters
     ----------
-    box : object
-        Argument box.
+    box : PyUnitWizard quantity
+        Periodic box vectors with shape `(n_structures, 3, 3)` in units of length.
 
     Returns
     -------

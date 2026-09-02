@@ -15,14 +15,14 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    nodes_name : object, default='atom_index'
-        Argument nodes_name.
+    nodes_name : str, default='atom_index'
+        Atom attribute used to label graph nodes.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    to_form : object, default='networkx.Graph'
-        Argument to_form.
+    to_form : str, default='networkx.Graph'
+        Graph form to return; only `'networkx.Graph'` is currently implemented.
 
     Returns
     -------
@@ -45,7 +45,8 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
     --------
     >>> import molsysmt as msm
     >>> from molsysmt import systems
-    >>> G = msm.topology.get_bondgraph(systems['pentalanine']['pentalanine.prmtop'])
+    >>> from molsysmt.topology.get_bondgraph import get_bondgraph
+    >>> G = get_bondgraph(systems['pentalanine']['pentalanine.prmtop'])
     >>> G.number_of_nodes() > 0
     True
 

@@ -40,8 +40,8 @@ def set(molecular_system,
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    chemical_state : object, default='reference'
-        Argument chemical_state.
+    chemical_state : {'reference', 'structure'}, int, or None, default='reference'
+        Chemical state used to resolve state-dependent attributes.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

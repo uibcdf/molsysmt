@@ -106,8 +106,8 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
         Whether to compute distances relative to geometric centers.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
-    molecular_system_2 : object, default=None
-        Argument molecular_system_2.
+    molecular_system_2 : molecular system or None, default=None
+        Second molecular system to compare with the first one.
     selection_2 : str, list, tuple, or numpy.ndarray, default=None
         Second selection string or boolean/integer array.
     structure_indices_2 : int, list, tuple, or numpy.ndarray, default=None
@@ -118,32 +118,32 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
         Atomic mass weights array for selection_2.
     threshold : float or quantity, default=None
         Distance cutoff threshold quantity.
-    n_neighbors : object, default=None
-        Argument n_neighbors.
-    pairs : object, default=False
-        Argument pairs.
-    unique_pairs : object, default=False
-        Argument unique_pairs.
-    mutual_only : object, default=False
-        Argument mutual_only.
+    n_neighbors : int or None, default=None
+        Maximum number of nearest neighbors returned for each selected element.
+    pairs : bool, default=False
+        Whether corresponding selections define explicit pairs instead of a Cartesian product.
+    unique_pairs : bool, default=False
+        Whether to remove duplicate undirected neighbor pairs.
+    mutual_only : bool, default=False
+        Whether to retain only neighbor relations shared in both directions.
     pbc : bool, default=True
         Whether to take periodic boundary conditions into account.
-    output_type : object, default='numpy.ndarray'
-        Argument output_type.
-    output_indices : object, default=None
-        Argument output_indices.
-    output_structure_indices : object, default=None
-        Argument output_structure_indices.
+    output_type : str, default='numpy.ndarray'
+        Representation used for the returned result.
+    output_indices : {'selection', 'atom', 'group'} or None, default=None
+        Index convention included with the returned values.
+    output_structure_indices : {'selection', 'structure'} or None, default=None
+        Structure-index convention included with the returned values.
     sorted : bool, default=True
         Whether to sort the returned bonded atom pairs.
-    engine : object, default='MolSysMT'
-        Argument engine.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or `None` to use the configured default.
+    num_threads : int or None, default=None
+        Number of CPU worker threads, or `None` to use the configured default.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

@@ -23,12 +23,12 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    to_form : object, default=None
-        Argument to_form.
+    to_form : str, list of str, or None, default=None
+        Target molecular-system form; `None` preserves or infers the input form.
     output_filename : str or pathlib.Path, default=None
         Output file path for serialization.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+    copy_if_all : bool, default=True
+        Whether an unrestricted extraction returns a copy instead of the original object.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False

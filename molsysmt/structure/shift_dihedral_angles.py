@@ -22,20 +22,20 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    dihedral_quartets : object, default=None
-        Argument dihedral_quartets.
-    shifts : object, default=None
-        Argument shifts.
-    blocks : object, default=None
-        Argument blocks.
+    dihedral_quartets : list, tuple, numpy.ndarray, or None, default=None
+        Zero-based atom-index quartets defining the dihedral angles.
+    shifts : PyUnitWizard quantity or None, default=None
+        Angular increments applied to the current dihedral angles.
+    blocks : list, tuple, numpy.ndarray, or None, default=None
+        Atom-index blocks that move together when changing each dihedral.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     pbc : bool, default=True
         Whether to take periodic boundary conditions into account.
-    in_place : object, default=False
-        Argument in_place.
-    engine : object, default='MolSysMT'
-        Argument engine.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -145,4 +145,3 @@ def shift_dihedral_angles(molecular_system, dihedral_quartets=None, shifts=None,
     return set_dihedral_angles(molecular_system, dihedral_quartets=dihedral_quartets, angles=angles, blocks=None,
                                structure_indices=structure_indices, pbc=pbc, in_place=in_place,
                                engine=engine)
-

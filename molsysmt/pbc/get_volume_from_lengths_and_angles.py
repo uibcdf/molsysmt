@@ -10,10 +10,10 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
 
     Parameters
     ----------
-    box_lengths : object
-        Argument box_lengths.
-    box_angles : object
-        Argument box_angles.
+    box_lengths : PyUnitWizard quantity
+        Periodic box lengths with shape `(n_structures, 3)` in units of length.
+    box_angles : PyUnitWizard quantity
+        Periodic box angles with shape `(n_structures, 3)` in angular units.
 
     Returns
     -------

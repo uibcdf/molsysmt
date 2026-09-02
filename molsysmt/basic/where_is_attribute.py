@@ -17,10 +17,10 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    attribute : object
-        Argument attribute.
-    include_none : object, default=False
-        Argument include_none.
+    attribute : str
+        Name of the molecular-system attribute to locate or inspect.
+    include_none : bool, default=False
+        Whether to include attributes whose value is `None`.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

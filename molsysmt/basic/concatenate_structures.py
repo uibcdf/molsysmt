@@ -18,18 +18,18 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
 
     Parameters
     ----------
-    molecular_systems : object
-        Argument molecular_systems.
-    selections : object, default='all'
-        Argument selections.
+    molecular_systems : list or tuple of molecular systems
+        Molecular systems to inspect or combine in their given order.
+    selections : str, list, tuple, or numpy.ndarray, default='all'
+        Atom selection shared by the inputs or one selection per molecular system.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    to_form : object, default=None
-        Argument to_form.
+    to_form : str, list of str, or None, default=None
+        Target molecular-system form; `None` preserves or infers the input form.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    attribute_policy : object, default='intersection'
-        Argument attribute_policy.
+    attribute_policy : {'intersection', 'strict'}, default='intersection'
+        Policy for attributes available in only one input system.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

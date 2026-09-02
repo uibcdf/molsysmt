@@ -41,22 +41,22 @@ def get_least_rmsd(molecular_system, selection='atom_type!="H"', structure_indic
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    reference_molecular_system : object, default=None
-        Argument reference_molecular_system.
-    reference_selection : object, default=None
-        Argument reference_selection.
-    reference_structure_index : object, default=0
-        Argument reference_structure_index.
+    reference_molecular_system : molecular system or None, default=None
+        Reference molecular system; `None` uses the input molecular system.
+    reference_selection : str, list, tuple, or numpy.ndarray, or None, default=None
+        Atoms selected from the reference molecular system.
+    reference_structure_index : int, default=0
+        Zero-based structure index selected from the reference system.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or `None` to use the configured default.
+    num_threads : int or None, default=None
+        Number of CPU worker threads, or `None` to use the configured default.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

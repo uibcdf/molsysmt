@@ -25,12 +25,12 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
         Structure indices (0-based) to include or process.
     weights : numpy.ndarray, list, or tuple, default=None
         Atomic mass weights array for center calculation.
-    principal_axes_type : object, default='inertia'
-        Argument principal_axes_type.
+    principal_axes_type : {'inertia', 'geometric'}, default='inertia'
+        Definition used to calculate the principal axes.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
     skip_digestion : bool, default=False

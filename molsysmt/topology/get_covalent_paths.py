@@ -19,8 +19,8 @@ def get_covalent_paths(molecular_system, path=None, selection='all', syntax='Mol
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    path : object, default=None
-        Argument path.
+    path : list, tuple, or numpy.ndarray, or None, default=None
+        Ordered atom indices defining the covalent path to evaluate.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     syntax : str, default='MolSysMT'

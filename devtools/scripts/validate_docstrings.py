@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Validate docstring completeness, formatting, bidirectional signature consistency, and default value fidelity across MolSysMT."""
+"""Validate public docstring structure, fidelity, and minimum useful content."""
 
 import ast
 import inspect
+import json
 import re
 import sys
 from pathlib import Path
+
 import molsysmt as msm
 
 EXEMPT_RETURNS = {
@@ -13,6 +15,22 @@ EXEMPT_RETURNS = {
     'add_arrows', 'add_contacts', 'add_cylinders', 'add_hbonds',
     'show_as_balls_and_sticks', 'show_as_cartoon', 'show_as_licorice', 'show_as_surface',
     'set_color', 'set_color_by_value'
+}
+
+API_STABILITY_REGISTRY = (
+    Path(__file__).resolve().parents[1] / "data" / "public_api_stability.json"
+)
+SECTION_NAMES = {
+    "Attributes",
+    "Examples",
+    "Notes",
+    "Parameters",
+    "Raises",
+    "References",
+    "Returns",
+    "See Also",
+    "Warns",
+    "Yields",
 }
 
 
@@ -27,52 +45,137 @@ def normalize_default_repr(val_str: str) -> str:
         return val_str.strip()
 
 
-def parse_docstring_params_and_defaults(doc: str) -> tuple[list[str], dict[str, str]]:
-    """Extract parameter names and documented default values from NumPy-style docstrings."""
-    if not doc or 'Parameters' not in doc:
-        return [], {}
-    lines = doc.splitlines()
-    in_params = False
-    param_names = []
-    param_defaults = {}
-    
-    for line in lines:
-        stripped = line.strip()
-        if stripped == 'Parameters':
-            in_params = True
-            continue
-        if in_params:
-            if stripped.startswith('---'):
-                continue
-            if stripped in ('Returns', 'Raises', 'Notes', 'See Also', 'Examples', 'References') or stripped.startswith('.. '):
-                break
-            if line and not line.startswith('        ') and ':' in stripped:
-                # Match parameter definition: name : type, default=value
-                match_def = re.match(r'^([a-zA-Z_][a-zA-Z0-9_]*)\s*:\s*(?:.*?,\s*)?default=([^\n]+)$', stripped)
-                if match_def:
-                    p_name = match_def.group(1)
-                    p_def = match_def.group(2).strip()
-                    param_names.append(p_name)
-                    param_defaults[p_name] = p_def
-                else:
-                    match_no_def = re.match(r'^([a-zA-Z_][a-zA-Z0-9_]*)\s*:', stripped)
-                    if match_no_def:
-                        p_name = match_no_def.group(1)
-                        param_names.append(p_name)
-                        param_defaults[p_name] = "<no_default>"
-            elif line.startswith('    ') and not line.startswith('        ') and ':' not in stripped and stripped:
-                # Undecorated parameter name on its own line
-                match_plain = re.match(r'^([a-zA-Z_][a-zA-Z0-9_]*)$', stripped)
-                if match_plain:
-                    p_name = match_plain.group(1)
-                    param_names.append(p_name)
-                    param_defaults[p_name] = "<no_default>"
+def _section_lines(doc: str, section_name: str) -> list[str]:
+    """Return the body of a NumPy-style docstring section."""
+    if not doc:
+        return []
 
-    return param_names, param_defaults
+    lines = inspect.cleandoc(doc).splitlines()
+    for index, line in enumerate(lines):
+        if line.strip() != section_name:
+            continue
+        body_start = index + 1
+        if body_start < len(lines) and set(lines[body_start].strip()) == {"-"}:
+            body_start += 1
+        body = []
+        for candidate in lines[body_start:]:
+            stripped = candidate.strip()
+            if stripped in SECTION_NAMES or stripped.startswith(".. "):
+                break
+            body.append(candidate)
+        return body
+    return []
+
+
+def parse_docstring_parameters(doc: str) -> dict[str, dict[str, str]]:
+    """Extract types, defaults, and descriptions from a Parameters section."""
+    parameters = {}
+    current_name = None
+
+    for line in _section_lines(doc, "Parameters"):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        header = re.match(r"^([a-zA-Z_][a-zA-Z0-9_]*)\s*:\s*(.+)$", stripped)
+        plain_header = re.match(r"^([a-zA-Z_][a-zA-Z0-9_]*)$", stripped)
+        if not line.startswith(" ") and (header or plain_header):
+            if header:
+                name, documented_type = header.groups()
+                default_match = re.search(r",\s*default\s*=\s*(.+)$", documented_type)
+                if default_match:
+                    default = default_match.group(1).strip()
+                    documented_type = documented_type[: default_match.start()].strip()
+                else:
+                    default = "<no_default>"
+            else:
+                name = plain_header.group(1)
+                documented_type = ""
+                default = "<no_default>"
+            parameters[name] = {
+                "type": documented_type,
+                "default": default,
+                "description": "",
+            }
+            current_name = name
+        elif current_name is not None:
+            description = parameters[current_name]["description"]
+            parameters[current_name]["description"] = f"{description} {stripped}".strip()
+
+    return parameters
+
+
+def parse_docstring_params_and_defaults(doc: str) -> tuple[list[str], dict[str, str]]:
+    """Extract parameter names and documented defaults from a NumPy docstring."""
+    parameters = parse_docstring_parameters(doc)
+    return list(parameters), {name: entry["default"] for name, entry in parameters.items()}
+
+
+def _normalize_prose(text: str) -> str:
+    """Normalize lightweight markup and whitespace for vacuity comparisons."""
+    text = re.sub(r"[`*_]", "", text)
+    return re.sub(r"\s+", " ", text).strip().casefold()
+
+
+def find_vacuous_docstring_content(doc: str) -> list[str]:
+    """Find known content-free patterns in a public API docstring."""
+    errors = []
+    for name, entry in parse_docstring_parameters(doc).items():
+        description = _normalize_prose(entry["description"])
+        normalized_name = _normalize_prose(name)
+        restatements = {
+            f"{normalized_name}.",
+            f"argument {normalized_name}.",
+            f"the {normalized_name} argument.",
+        }
+        if not description:
+            errors.append(f"Parameter '{name}' has an empty description.")
+        elif description in restatements:
+            errors.append(f"Parameter '{name}' only restates its name.")
+        if _normalize_prose(entry["type"]) == "object":
+            errors.append(f"Parameter '{name}' uses the non-informative type 'object'.")
+
+    returns_body = _section_lines(doc, "Returns")
+    if returns_body:
+        return_descriptions = [
+            line.strip()
+            for line in returns_body
+            if line.startswith(" ") and line.strip()
+        ]
+        normalized_return_description = _normalize_prose(" ".join(return_descriptions))
+        if not normalized_return_description:
+            errors.append("The Returns section has an empty description.")
+        elif normalized_return_description == "resulting object in object form.":
+            errors.append("The Returns section uses the generated placeholder description.")
+
+    return errors
+
+
+def _resolve_public_symbol(symbol: str):
+    """Resolve a registry symbol without importing modules outside MolSysMT's public tree."""
+    obj = msm
+    for part in symbol.split(".")[1:]:
+        obj = getattr(obj, part)
+    return obj
+
+
+def stable_function_ids() -> set[int]:
+    """Return object identities for functions classified as stable in the API registry."""
+    registry = json.loads(API_STABILITY_REGISTRY.read_text())
+    identities = set()
+    for symbol, record in registry["symbols"].items():
+        if record["stability"] != "stable":
+            continue
+        try:
+            obj = _resolve_public_symbol(symbol)
+        except (AttributeError, ImportError):
+            continue
+        if inspect.isfunction(obj):
+            identities.add(id(obj))
+    return identities
 
 
 def validate() -> int:
-    print("Running MolSysMT bidirectional docstring and default validation...")
+    print("Running MolSysMT docstring fidelity and minimum-content validation...")
     
     public_modules = {
         'molsysmt': msm,
@@ -111,6 +214,7 @@ def validate() -> int:
     errors = []
     total_checked = 0
     visited = set()
+    stable_ids = stable_function_ids()
 
     def check_fn(obj, full_name):
         nonlocal total_checked
@@ -144,7 +248,10 @@ def validate() -> int:
             # 1. Forward check: signature -> docstring
             for p in sig_params:
                 if p.name not in doc_param_names:
-                    errors.append(f"{full_name}: Parameter '{p.name}' from signature is not in docstring Parameters section.")
+                            errors.append(
+                                f"{full_name}: Parameter '{p.name}' from signature is not "
+                                "in docstring Parameters section."
+                            )
                 else:
                     # Validate default value fidelity (Item B.3)
                     if p.default is not inspect.Parameter.empty:
@@ -170,6 +277,10 @@ def validate() -> int:
         if 'Returns' not in doc and not fn_name.startswith('set') and fn_name not in EXEMPT_RETURNS:
             errors.append(f"{full_name}: Missing 'Returns' section.")
 
+        if id(obj) in stable_ids:
+            for error in find_vacuous_docstring_content(doc):
+                errors.append(f"{full_name}: {error}")
+
     for mod_name, mod in public_modules.items():
         for attr in dir(mod):
             if attr.startswith('_'):
@@ -182,12 +293,15 @@ def validate() -> int:
                 check_fn(obj, f"{mod_name}.{attr}")
 
     if errors:
-        print(f"\nFAILED: Found {len(errors)} bidirectional docstring/default issues across {total_checked} public functions:")
+        print(f"\nFAILED: Found {len(errors)} docstring issues across {total_checked} public functions:")
         for err in errors:
             print(f"  - {err}")
         return 1
     else:
-        print(f"PASSED: All {total_checked} public functions have valid, bidirectionally consistent NumPy docstrings with exact default fidelity!")
+        print(
+            f"PASSED: All {total_checked} public functions have structurally consistent "
+            "NumPy docstrings, exact default fidelity, and no known vacuous stable-API content!"
+        )
         return 0
 
 if __name__ == '__main__':

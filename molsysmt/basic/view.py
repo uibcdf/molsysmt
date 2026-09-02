@@ -22,8 +22,8 @@ def view(molecular_system=None, selection='all', structure_indices='all',
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    viewer : object, default='MolSysViewer'
-        Argument viewer.
+    viewer : str, default='MolSysViewer'
+        Viewer backend used to create the interactive representation.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     skip_digestion : bool, default=False

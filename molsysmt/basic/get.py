@@ -38,16 +38,16 @@ def get(molecular_system,
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    mask : object, default=None
-        Argument mask.
+    mask : str, list, tuple, numpy.ndarray, or None, default=None
+        Boolean mask combined with `selection` when choosing elements.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    get_missing_bonds : object, default=True
-        Argument get_missing_bonds.
-    output_type : object, default='values'
-        Argument output_type.
-    chemical_state : object, default='reference'
-        Argument chemical_state.
+    get_missing_bonds : bool, default=True
+        Whether to infer missing covalent bonds before resolving derived attributes.
+    output_type : str, default='values'
+        Representation used for the returned result.
+    chemical_state : {'reference', 'structure'}, int, or None, default='reference'
+        Chemical state used to resolve state-dependent attributes.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

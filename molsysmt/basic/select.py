@@ -37,14 +37,14 @@ def select(molecular_system, selection='all', structure_indices='all', element='
         Structure indices (0-based) to include or process.
     element : str, default='atom'
         Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
-    mask : object, default=None
-        Argument mask.
+    mask : str, list, tuple, numpy.ndarray, or None, default=None
+        Boolean mask combined with `selection` when choosing elements.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    to_syntax : object, default=None
-        Argument to_syntax.
-    chemical_state : object, default='reference'
-        Argument chemical_state.
+    to_syntax : str or None, default=None
+        Selection syntax used to format the returned selection string.
+    chemical_state : {'reference', 'structure'}, int, or None, default='reference'
+        Chemical state used to resolve state-dependent attributes.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

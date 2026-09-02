@@ -25,18 +25,18 @@ def merge(molecular_systems,
 
     Parameters
     ----------
-    molecular_systems : object
-        Argument molecular_systems.
-    selections : object, default='all'
-        Argument selections.
+    molecular_systems : list or tuple of molecular systems
+        Molecular systems to inspect or combine in their given order.
+    selections : str, list, tuple, or numpy.ndarray, default='all'
+        Atom selection shared by the inputs or one selection per molecular system.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    keep_ids : object, default=True
-        Argument keep_ids.
+    keep_ids : bool, default=True
+        Whether to preserve element identifiers from the input systems.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    to_form : object, default=None
-        Argument to_form.
+    to_form : str, list of str, or None, default=None
+        Target molecular-system form; `None` preserves or infers the input form.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

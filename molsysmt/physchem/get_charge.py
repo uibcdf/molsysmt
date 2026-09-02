@@ -30,8 +30,8 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
         Structural element level to query ('atom', 'group', 'component', 'molecule', 'chain', 'entity').
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    definition : object, default='physical_pH7'
-        Argument definition.
+    definition : str, default='physical_pH7'
+        Reference dataset used to assign the requested physical property.
     forcefield : str, default='AMBER14'
         Force field parameter identifier or name.
     water_model : str, default=None
@@ -252,4 +252,3 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
     output = puw.standardize(output)
 
     return output
-

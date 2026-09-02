@@ -73,14 +73,14 @@ def get_center(molecular_system, selection='all', weights=None,
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    heavy_mode : object, default='auto'
-        Argument heavy_mode.
-    parallel : object, default=None
-        Argument parallel.
-    num_threads : object, default=None
-        Argument num_threads.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
+    heavy_mode : {'auto', 'force', 'off'}, default='auto'
+        Policy controlling the chunked path for memory-intensive calculations.
+    parallel : bool or None, default=None
+        Whether to use CPU parallelism, or `None` to use the configured default.
+    num_threads : int or None, default=None
+        Number of CPU worker threads, or `None` to use the configured default.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

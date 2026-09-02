@@ -216,15 +216,18 @@ the property it protects (**intent**) or also by output shaped to match it (**fo
 | `validate_devguide.py` — front matter, vocabularies, links, indexes, `guard` path exists | form |
 | `validate_course.py` — manifests, toctrees, labels, numbering | form, and the contract is structural |
 | `validate_resources.py` — resource-manifest schema | form, and the contract is structural |
-| `validate_docstrings.py` — parameter presence, default fidelity, `Returns` present | form on the content |
+| `validate_docstrings.py` — signature fidelity plus known vacuous stable-API patterns | intent against known empty templates; prose meaning remains review-owned |
 
 Form is the right class where the contract *is* structural — the course layout and the
 resource manifests are exactly that. It is the wrong class where the record is supposed
 to carry meaning, and the consequence is measured: one generated sweep supplied 8,810
-conforming, empty parameter descriptions and `validate_docstrings.py` passed on all of
-them. See
-[`pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](pending_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md)
-and the rule in the root `AGENTS.md`.
+conforming, empty parameter descriptions and the earlier `validate_docstrings.py` passed
+on all of them. The validator now rejects empty descriptions, name restatements, the
+generated return placeholder, and non-informative `object` parameter types on stable
+functions. This is a deliberately bounded semantic floor, not a claim that automation
+can judge whether arbitrary prose is scientifically useful. See
+[`archive/resolved_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md`](archive/resolved_bugs/validators_that_check_form_instead_of_intent_admit_conforming_emptiness.md),
+uibcdf/molsysmt#196, uibcdf/molsysmt#197, and the rule in the root `AGENTS.md`.
 
 Keep this table current when a gate is added or its assertions change. It is judgement
 applied to a read of each validator's assertion set, not a generated artifact.

@@ -21,10 +21,10 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
-    in_place : object, default=False
-        Argument in_place.
+    engine : str, default='MolSysMT'
+        Backend used to perform the calculation.
+    in_place : bool, default=False
+        Whether to modify the input molecular system in place.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

@@ -29,8 +29,8 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    molecular_system_2 : object
-        Argument molecular_system_2.
+    molecular_system_2 : molecular system
+        Second molecular system to compare with the first one.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
@@ -41,14 +41,14 @@ def compare(molecular_system, molecular_system_2, selection='all', structure_ind
         Structure indices (0-based) for the second selection.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    rule : object, default='equal'
-        Argument rule.
-    output_type : object, default='boolean'
-        Argument output_type.
-    attribute_type : object, default=None
-        Argument attribute_type.
-    include_none : object, default=False
-        Argument include_none.
+    rule : {'equal', 'in'}, default='equal'
+        Comparison rule applied to the requested attributes.
+    output_type : str, default='boolean'
+        Representation used for the returned result.
+    attribute_type : str or None, default=None
+        Attribute category used to filter the comparison or result.
+    include_none : bool, default=False
+        Whether to include attributes whose value is `None`.
     redefine_indices : bool, default=False
         Whether to reassign contiguous 0-based indices.
     skip_digestion : bool, default=False

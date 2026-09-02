@@ -14,8 +14,8 @@ def are_multiple_molecular_systems(molecular_systems):
 
     Parameters
     ----------
-    molecular_systems : object
-        Argument molecular_systems.
+    molecular_systems : list or tuple of molecular systems
+        Molecular systems to inspect or combine in their given order.
 
     Returns
     -------
@@ -85,4 +85,3 @@ def are_multiple_molecular_systems(molecular_systems):
         return False
 
     return all(is_a_molecular_system(item) for item in molecular_systems)
-

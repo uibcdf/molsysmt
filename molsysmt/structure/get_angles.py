@@ -26,16 +26,16 @@ def get_angles(
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    triplets : object
-        Argument triplets.
+    triplets : list, tuple, or numpy.ndarray
+        Zero-based atom-index triplets defining the angles.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     pbc : bool, default=False
         Whether to take periodic boundary conditions into account.
     use_gpu : bool, default=None
         Whether to perform computation using GPU acceleration.
-    gpu_backend : object, default=None
-        Argument gpu_backend.
+    gpu_backend : str or None, default=None
+        GPU array backend, or `None` to use the configured backend.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

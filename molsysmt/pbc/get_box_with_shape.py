@@ -11,12 +11,12 @@ def get_box_with_shape(shape='cubic', length='1 nm', n_structures=1, skip_digest
 
     Parameters
     ----------
-    shape : object, default='cubic'
-        Argument shape.
-    length : object, default='1 nm'
-        Argument length.
-    n_structures : object, default=1
-        Argument n_structures.
+    shape : str, default='cubic'
+        Geometric shape of the periodic box.
+    length : PyUnitWizard quantity, default='1 nm'
+        Edge length used to construct the periodic box.
+    n_structures : int, default=1
+        Number of identical box matrices to return.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 

@@ -36,8 +36,8 @@ def get_dihedral_angles(molecular_system, selection='all', dihedral_quartets=Non
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    dihedral_quartets : object, default=None
-        Argument dihedral_quartets.
+    dihedral_quartets : list, tuple, numpy.ndarray, or None, default=None
+        Zero-based atom-index quartets defining the dihedral angles.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     syntax : str, default='MolSysMT'
