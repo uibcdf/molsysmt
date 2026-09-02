@@ -20,11 +20,12 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (4)
+### Open (5)
 
 - [`conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md`](conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md) — [#195](https://github.com/uibcdf/molsysmt/issues/195) — Conda cannot resolve MolSysMT on supported Python 3.13 because MolSysViewer has no compatible build *(high, reproduced)*
 - [`no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md`](no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md) — [#185](https://github.com/uibcdf/molsysmt/issues/185) — No test workflow runs on a push to main and the CI badge names a missing workflow. *(high, measured)*
 - [`scientific_evidence_registry_accepts_tests_that_were_never_executed.md`](scientific_evidence_registry_accepts_tests_that_were_never_executed.md) — [#196](https://github.com/uibcdf/molsysmt/issues/196) — Scientific evidence registry accepts tests that were never executed *(high, inspected)*
+- [`bioassembly_copies_share_their_chain_labels.md`](bioassembly_copies_share_their_chain_labels.md) — [#198](https://github.com/uibcdf/molsysmt/issues/198) — After make_bioassembly, a chain-and-residue selection silently returns every copy *(medium, reproduced)*
 - [`devguide_closure_accepts_guards_unrelated_to_the_reported_defect.md`](devguide_closure_accepts_guards_unrelated_to_the_reported_defect.md) — [#197](https://github.com/uibcdf/molsysmt/issues/197) — Devguide closure accepts guards unrelated to the reported defect *(medium, inspected)*
 
 ### Partially resolved (2)
