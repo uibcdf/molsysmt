@@ -40,16 +40,21 @@ def _step(job: dict, name: str) -> dict:
 
 def test_recipe_builds_and_tests_the_native_extension():
     recipe = RECIPE.read_text(encoding="utf-8")
-    variant_config = (
+    variant_config_path = (
         REPO / "devtools" / "conda-build" / "conda_build_config.yaml"
-    ).read_text(encoding="utf-8")
+    )
+    variant_config = yaml.safe_load(variant_config_path.read_text(encoding="utf-8"))
 
     assert (
         "  - {{ compiler('c') }}  # [linux]\n"
         "  - {{ compiler('rust') }}\n"
         "  host:" in recipe
     )
-    assert "rust_compiler_version:\n- 1.97.1" in variant_config
+    assert variant_config["python"] == ["3.11", "3.12", "3.13"]
+    assert variant_config["rust_compiler_version"] == ["1.97.1"]
+    assert "  host:\n  - python\n" in recipe
+    assert "  run:\n  - python\n" in recipe
+    assert "python >=3.11,<3.14" not in recipe
     assert "MOLSYSMT_CONDA_BUILD_NUMBER" in recipe
     assert "  - setuptools-rust >=1.10" in recipe
     assert "test:\n  imports:\n  - molsysmt\n  - molsysmt._rust" in recipe
@@ -60,16 +65,15 @@ def test_recipe_builds_and_tests_the_native_extension():
     ).read_text(encoding="utf-8")
 
 
-def test_publish_workflow_uses_native_runners_and_atomic_upload():
+def test_publish_workflow_is_atomic_per_native_platform():
     workflow = _workflow(PUBLISH_WORKFLOW)
     prepare = workflow["jobs"]["prepare"]
-    build = workflow["jobs"]["build"]
-    publish = workflow["jobs"]["publish"]
+    build_and_publish = workflow["jobs"]["build-and-publish"]
 
-    assert build["needs"] == "prepare"
-    assert _targets(build) == EXPECTED_TARGETS
-    assert build["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
-    assert publish["needs"] == "build"
+    assert set(workflow["jobs"]) == {"prepare", "build-and-publish"}
+    assert build_and_publish["needs"] == "prepare"
+    assert _targets(build_and_publish) == EXPECTED_TARGETS
+    assert set(build_and_publish["strategy"]["matrix"]) == {"target"}
 
     validate_identity = _step(
         prepare, "Validate staging inputs or the release tag"
@@ -78,23 +82,29 @@ def test_publish_workflow_uses_native_runners_and_atomic_upload():
     assert validate_identity.count("^[0-9]+\\.[0-9]+\\.[0-9]+$") == 2
 
     staging_build = _step(
-        build, "Build the staging package without its circular runtime test"
+        build_and_publish, "Build and publish the staging platform"
     )
-    release_build = _step(build, "Build and test the release package")
-    upload = _step(publish, "Upload to Anaconda.org")
+    release_build = _step(
+        build_and_publish, "Build, test, and publish the release platform"
+    )
     assert staging_build["if"] == "github.event_name == 'workflow_dispatch'"
     assert staging_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 0
-    assert "--no-test" in staging_build["run"]
+    assert staging_build["uses"] == (
+        "uibcdf/action-build-and-upload-conda-packages@v2.0.1"
+    )
+    assert staging_build["with"]["label"] == "staging"
+    assert "--no-test" in staging_build["with"]["conda_build_args"]
     assert release_build["if"] == "github.event_name == 'release'"
     assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 1
-    assert "--no-test" not in release_build["run"]
-    assert upload["uses"] == "anaconda/actions/upload-package@v0"
-    assert upload["with"]["labels"] == (
-        "${{ github.event_name == 'workflow_dispatch' && 'staging' || 'main' }}"
+    assert release_build["uses"] == (
+        "uibcdf/action-build-and-upload-conda-packages@v2.0.1"
     )
+    assert release_build["with"]["label"] == "main"
+    assert "--no-test" not in release_build["with"]["conda_build_args"]
 
     text = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
-    assert "uibcdf/action-build-and-upload-conda-packages" not in text
+    assert "anaconda/actions/upload-package" not in text
+    assert "actions/upload-artifact" not in text
     assert "platform_linux-64" not in text
 
 

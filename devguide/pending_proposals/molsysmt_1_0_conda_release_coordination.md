@@ -49,8 +49,17 @@ checkouts.
 > Windows solver conflict between Conda's default VS2017 C compiler and Rust 1.97.1's
 > `vs_win-64 >=2019` requirement. The C compiler metapackage is now Linux-only: it exists
 > there to export `libgcc`, while each non-Linux Rust metapackage owns its native linker
-> dependency. A corrected native matrix still has to run, so this is not yet release
-> evidence.
+> dependency. Corrected run `33637476601` then built all 15 native combinations,
+> including Windows on Python 3.11--3.13. Its common upload job failed before contacting
+> Anaconda because `anaconda/actions/upload-package@v0` does not exist.
+>
+> Publication is now atomic per platform and uses
+> `uibcdf/action-build-and-upload-conda-packages@v2.0.1`: each of five native jobs builds
+> all three Python variants and uploads only its complete platform set. A failed platform
+> can be rerun alone, while successful platforms remain staged. Local renders return
+> separate `py311`, `py312` and `py313` build-0 coordinates for both `linux-64` and
+> `win-64`, confirming that the variant set reaches `conda-build`. Publication and the
+> installed-pair gate remain pending.
 
 ## 0. The one-line answer
 

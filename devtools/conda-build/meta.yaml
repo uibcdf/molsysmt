@@ -10,13 +10,13 @@ requirements:
   - {{ compiler('c') }}  # [linux]
   - {{ compiler('rust') }}
   host:
-  - python >=3.11,<3.14
+  - python
   - pip
   - setuptools >=68.0
   - setuptools-rust >=1.10
   - versioningit >=3.0
   run:
-  - python >=3.11,<3.14
+  - python
   - h5py
   - numpy >=1.26,<3
   - argdigest >=0.12.1

@@ -38,8 +38,8 @@ jobs:
             [[ "$RELEASE_TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
           fi
 
-  build:
-    name: ${{ matrix.target.platform }} · Python ${{ matrix.python }}
+  build-and-publish:
+    name: ${{ matrix.target.platform }} · Python 3.11–3.13
     needs: prepare
     runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 120
@@ -52,7 +52,6 @@ jobs:
           - {platform: osx-64, runner: macos-15-intel}
           - {platform: osx-arm64, runner: macos-15}
           - {platform: win-64, runner: windows-2025}
-        python: ['3.11', '3.12', '3.13']
 
     steps:
       - name: Check out the exact candidate
@@ -85,7 +84,7 @@ jobs:
               - ambermd
             channel_priority: strict
           create-args: >-
-            python=${{ matrix.python }}
+            python=3.13
 
       - name: Verify the derived package version
         shell: bash -el {0}
@@ -94,54 +93,26 @@ jobs:
         run: |
           test "$(python -m versioningit)" = "$EXPECTED_VERSION"
 
-      - name: Build the staging package without its circular runtime test
+      - name: Build and publish the staging platform
         if: github.event_name == 'workflow_dispatch'
-        shell: bash -el {0}
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.1
         env:
           MOLSYSMT_CONDA_BUILD_NUMBER: 0
-        run: >-
-          conda build devtools/conda-build
-          --python ${{ matrix.python }}
-          --output-folder conda-bld
-          --package-format .conda
-          --no-test
+        with:
+          meta_yaml_dir: devtools/conda-build
+          user: uibcdf
+          token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
+          label: staging
+          conda_build_args: --package-format .conda --no-test
 
-      - name: Build and test the release package
+      - name: Build, test, and publish the release platform
         if: github.event_name == 'release'
-        shell: bash -el {0}
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.1
         env:
           MOLSYSMT_CONDA_BUILD_NUMBER: 1
-        run: >-
-          conda build devtools/conda-build
-          --python ${{ matrix.python }}
-          --output-folder conda-bld
-          --package-format .conda
-
-      - name: Retain the native package
-        uses: actions/upload-artifact@v7
         with:
-          name: molsysmt-${{ matrix.target.platform }}-py${{ matrix.python }}
-          path: conda-bld/**/*.conda
-          if-no-files-found: error
-          retention-days: 14
-
-  publish:
-    name: Publish the complete native matrix
-    needs: build
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Download every native package
-        uses: actions/download-artifact@v8
-        with:
-          pattern: molsysmt-*
-          path: dist
-          merge-multiple: true
-
-      - name: Upload to Anaconda.org
-        uses: anaconda/actions/upload-package@v0
-        with:
+          meta_yaml_dir: devtools/conda-build
+          user: uibcdf
           token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
-          channel: uibcdf
-          packages: dist/*.conda
-          labels: ${{ github.event_name == 'workflow_dispatch' && 'staging' || 'main' }}
-          package-type: conda
+          label: main
+          conda_build_args: --package-format .conda

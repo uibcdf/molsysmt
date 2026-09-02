@@ -1,4 +1,4 @@
-# Migrating MolSysMT's two publication pipelines off the in-house actions
+# Modernizing MolSysMT's two publication pipelines
 
 **Status:** partial. The Conda decision is accepted and implemented in source; its native
 staging matrix still has to run. The documentation decision remains open.
@@ -12,41 +12,47 @@ maintenance; see §3.
 
 ## 0. The one-line answer
 
-Both pipelines were built when their technique was the only one available. One of the two
-has since been replaced by a native GitHub mechanism, and the other rests on a conda
-feature that cannot work for a package with a compiled extension. Neither is broken today
-in a way that a patch can fix, because in both cases the patch would have to be a
-different pipeline.
+Both pipelines were built when their technique was the only one available. Pages now has
+a native GitHub mechanism. The Conda pipeline used a conversion feature that cannot work
+for a package with a compiled extension, but the UIBCDF action remains valid when invoked
+once on each native runner with conversion disabled.
 
 The two cases are not symmetric and should not be decided together:
 
 | | documentation | conda packages |
 |---|---|---|
-| What replaced it | a native GitHub Pages mechanism | nothing official; the ecosystem moved |
+| What replaced it | a native GitHub Pages mechanism | a native-runner matrix using the same action |
 | Is our action at fault | no — the whole approach is superseded | no — `conda convert` cannot do what we ask |
 | Urgency | low, it works | **blocking for 1.0 delivery** |
 | Effort | one afternoon | one to three days, depending on the route |
 
 ### Conda implementation checkpoint — 2026-09-02
 
-Route A is accepted. MolSysMT no longer uses the in-house Conda publication action:
+Route A is accepted. MolSysMT retains
+`uibcdf/action-build-and-upload-conda-packages@v2.0.1` but changes how it is invoked:
 
 - native GitHub-hosted runners build `linux-64`, `linux-aarch64`, `osx-64`,
   `osx-arm64` and `win-64`, each for Python 3.11, 3.12 and 3.13;
 - the Conda recipe uses the Rust compiler metapackage on every platform and the C
   compiler metapackage on Linux for its `libgcc` run export, pins Rust to 1.97.1, and
   tests the mandatory `molsysmt._rust` extension;
-- all 15 build artefacts must exist before the official Anaconda upload action runs;
+- each native platform job builds all three Python variants and uploads only after its
+  own three builds succeed; successful platforms do not wait for or depend on failed
+  platforms;
 - manual candidates go only to the `staging` label; release events go to `main` only
   after the normal recipe test succeeds. The bootstrap is build 0 and the tested release
   is build 1, so publication never overwrites an existing coordinate; and
 - a separate 15-cell workflow installs exact MolSysMT and MolSysViewer versions from
   staging and verifies versions, provenance, native code and packaged Viewer resources.
 
-The source implementation is **Contract-tested** and a local Linux x86-64/Python 3.13
-Conda build compiled the Rust extension. Criteria 2 and 4 in §2.5 remain pending until
-the native workflow and the coordinated staging pair have run. The Pages half of this
-proposal is unaffected.
+The source implementation is **Contract-tested**. Workflow run `33637476601` built all
+15 native combinations successfully, including Windows, before a common upload step
+failed on a nonexistent reference to a third-party action. The platform-atomic design
+removes that step and reuses the UIBCDF action. Local renders verify that one recipe
+invocation exposes three distinct build-0 outputs on both `linux-64` and `win-64`, rather
+than resolving every build against the workflow environment's Python. Criteria 2 and 4
+in §2.5 remain pending until publication and the coordinated staging pair validation
+run. The Pages half of this proposal is unaffected.
 
 ## 1. Documentation: from a `gh-pages` branch to native Pages deployment
 
@@ -257,10 +263,11 @@ strategy:
       - {os: windows-latest,  platform: win-64}
 ```
 
-Crossed with the existing Python matrix (3.11, 3.12, 3.13) this is 15 jobs. The upload can
-stay on our own action with every `platform_*` input false, or move to Anaconda's official
-`anaconda/actions/upload-package`, published on 2026-06-26, which takes `token`, `channel`
-and a `packages` glob.
+Python 3.11, 3.12 and 3.13 are recipe variants within each of the five platform jobs.
+The UIBCDF action builds every variant before entering its upload step, with all
+`platform_*` conversion inputs left false. Atomicity is therefore per platform: one
+failed Python variant prevents that platform from publishing, while successful platforms
+remain available and need not be rebuilt.
 
 `linux-aarch64` — required by C3 and built by no current workflow, per §2 of the
 coordination report — comes free with this shape, since GitHub now hosts ARM Linux runners.
@@ -334,9 +341,9 @@ and for a project without its own API reference the Sphinx action is still the s
 path to a published site. Both received a substantive fix on 2026-08-08 (v2.0.0 and
 v3.0.0) and both remain worth maintaining.
 
-What changes is that **MolSysMT stops being one of their users**. That is a statement about
-MolSysMT having outgrown them — a compiled extension, and a documentation site large enough
-that a branch of snapshots is a liability — not about the actions being poor.
+What changes is how MolSysMT uses them. The Conda action runs once on each native runner
+and performs no cross-platform conversion; the documentation migration can still remove
+the Sphinx action because a branch of built snapshots is a liability for this site.
 
 If both migrations are carried out, the honest follow-up is a line in each README pointing
 at the native mechanism, so that a reader deciding today can make the same comparison

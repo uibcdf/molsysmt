@@ -42,9 +42,10 @@ The accompanying MolSysMT change implements Route A from
    every platform and the C compiler metapackage on Linux to capture the `libgcc` run
    export. It pins Rust 1.97.1, separates `build` and `host`, and imports both `molsysmt`
    and `molsysmt._rust` in the package test.
-2. `.github/workflows/build_and_upload_conda_packages.yaml` builds 15 native cells:
-   five platforms crossed with Python 3.11--3.13. Upload occurs only after every build
-   cell succeeds.
+2. `.github/workflows/build_and_upload_conda_packages.yaml` runs one native job per
+   platform. Each invocation of the UIBCDF publication action builds Python 3.11, 3.12
+   and 3.13 without conversion, then uploads that platform only if all three variants
+   succeeded. A failed platform can be rerun without rebuilding successful platforms.
 3. A manual build of an exact SHA creates a temporary local `0.22.0` tag and publishes
    build 0 only to the `staging` label. It uses `--no-test` solely for this bootstrap
    package, because MolSysViewer 0.21.0 cannot yet be installed without MolSysMT 0.22.0.
@@ -55,10 +56,16 @@ The accompanying MolSysMT change implements Route A from
    staged Viewer and runs the recipe test before any package reaches the `main` label.
    Distinct build numbers prevent overwriting the validated bootstrap coordinates.
 
-This is **Implemented** and locally contract-tested. A Linux x86-64/Python 3.13 Conda
-build also compiled `molsysmt._rust` successfully with Rust 1.97.1. It is not yet
-cross-platform evidence: the workflow matrix, the staging upload and the installed-pair
-gate have not run.
+This is **Implemented** and locally contract-tested. Native workflow run `33637476601`
+compiled all 15 platform/interpreter combinations, including three successful Windows
+packages. Its common upload job failed before contacting Anaconda because it referenced
+a nonexistent third-party action tag. The workflow now retains
+`uibcdf/action-build-and-upload-conda-packages@v2.0.1` and publishes independently per
+complete platform. Local `conda render` checks now produce distinct `py311`, `py312`
+and `py313` build-0 coordinates for both `linux-64` and `win-64`; the recipe's Python
+requirements are governed by `conda_build_config.yaml` so the variants cannot collapse
+to the build environment's interpreter. Staging publication and the installed-pair gate
+remain pending.
 
 ## What
 

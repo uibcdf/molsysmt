@@ -1,2 +1,7 @@
+python:
+- "3.11"
+- "3.12"
+- "3.13"
+
 rust_compiler_version:
 - 1.97.1
