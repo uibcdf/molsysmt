@@ -5,22 +5,27 @@ source:
   path: ../../
 build:
   number: "{{ environ.get('MOLSYSMT_CONDA_BUILD_NUMBER', '1') }}"
+  string: "pyabi3h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') == 'true']
+  python_version_independent: true  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') == 'true']
 requirements:
   build:
   - {{ compiler('c') }}  # [linux]
   - {{ compiler('rust') }}
   host:
+  - python 3.11.*  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') == 'true']
+  - python-abi3 3.11.*  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') == 'true']
   # conda-forge's win-64 CPython 3.12.14 build 2 has an erroneous debug
   # run export. Keep the last verified release build until the upstream
   # package is corrected; see uibcdf/molsysmt#201.
-  - python 3.12.14 *_1_cpython  # [win and py == 312]
-  - python  # [not (win and py == 312)]
+  - python 3.12.14 *_1_cpython  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') != 'true' and win and py == 312]
+  - python  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') != 'true' and not (win and py == 312)]
   - pip
   - setuptools >=68.0
   - setuptools-rust >=1.10
   - versioningit >=3.0
   run:
-  - python
+  - python >=3.11,<3.14  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') == 'true']
+  - python  # [environ.get('MOLSYSMT_CONDA_ABI3', 'false') != 'true']
   - h5py
   - numpy >=1.26,<3
   - argdigest >=0.12.1

@@ -1,0 +1,93 @@
+name: Test one Conda ABI3 artifact per platform
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.target.platform }} · one build / Python 3.11–3.13
+    runs-on: ${{ matrix.target.runner }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - {platform: linux-64, runner: ubuntu-24.04}
+          - {platform: linux-aarch64, runner: ubuntu-24.04-arm}
+          - {platform: osx-64, runner: macos-15-intel}
+          - {platform: osx-arm64, runner: macos-15}
+          - {platform: win-64, runner: windows-2025}
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Create an ephemeral candidate version
+        shell: bash
+        run: git tag --force 0.22.0a0 HEAD
+
+      - name: Set up the Conda build environment
+        uses: mamba-org/setup-micromamba@v3.2.1
+        with:
+          environment-file: devtools/conda-envs/build_env.yaml
+          environment-name: build
+          condarc: |
+            channels:
+              - uibcdf/label/staging
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: python=3.13
+
+      - name: Build one platform-specific ABI3 artifact
+        id: build
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
+        env:
+          MOLSYSMT_CONDA_ABI3: "true"
+          MOLSYSMT_CONDA_BUILD_NUMBER: 0
+        with:
+          meta_yaml_dir: devtools/conda-build
+          upload: false
+          conda_build_args: >-
+            --package-format .conda
+            --no-test
+            --exclusive-config-file conda_build_config_abi3.yaml
+
+      - name: Inspect metadata and test the exact artifact on every Python
+        shell: bash -el {0}
+        working-directory: ${{ runner.temp }}
+        env:
+          BUILT_PATHS: ${{ steps.build.outputs.built_paths }}
+          EXPECTED_SUBDIR: ${{ matrix.target.platform }}
+        run: |
+          set -euo pipefail
+          read -r -a built_paths <<< "$BUILT_PATHS"
+          if [[ "${#built_paths[@]}" -ne 1 ]]; then
+            echo "Expected one ABI3 artifact, found ${#built_paths[@]}: $BUILT_PATHS"
+            exit 1
+          fi
+          package_path="${built_paths[0]}"
+          python "$GITHUB_WORKSPACE/devtools/scripts/validate_conda_abi3_artifact.py" \
+            "$package_path" --expected-subdir "$EXPECTED_SUBDIR"
+
+          for python_version in 3.11 3.12 3.13; do
+            test_prefix="$RUNNER_TEMP/conda-abi3-py${python_version/./}"
+            conda create --yes --prefix "$test_prefix" \
+              "python=$python_version" "numpy>=1.26,<3"
+            conda install --yes --prefix "$test_prefix" --no-deps "$package_path"
+            conda run --prefix "$test_prefix" python \
+              "$GITHUB_WORKSPACE/devtools/scripts/validate_installed_rust_extension.py"
+          done
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: molsysmt-conda-abi3-${{ matrix.target.platform }}
+          path: ${{ steps.build.outputs.built_paths }}
+          if-no-files-found: error
+          retention-days: 7

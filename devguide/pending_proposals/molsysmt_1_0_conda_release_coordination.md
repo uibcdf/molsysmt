@@ -71,6 +71,17 @@ checkouts.
 > build-1 replacements from `d53268c449434be761b4762c48ee5e47538b8ec2`; live metadata
 > confirms that Python 3.12 now targets normal CPython and uibcdf/molsysmt#201 is
 > resolved. MolSysViewer staging and the installed-pair gate remain pending.
+>
+> Action v2.0.3 removes the redundant post-build `conda build --output` resolution. Its
+> Linux/Windows integration run `33687074611` remains behaviorally green while reducing
+> the two-variant job from 3:44 to 2:14 on Linux and from 5:45 to 4:27 on Windows.
+> MolSysMT's staging and release jobs now use this version.
+>
+> Packaging performance work is tracked by #202. Approved Conda CEP 20 provides a
+> platform-specific ABI3 package contract, so the July conclusion in §7 that ABI3 was
+> irrelevant inside Conda has been corrected. A no-upload five-platform experiment must
+> pass metadata inspection and all fifteen Python/runtime cells before the existing
+> three-build recipe can be replaced.
 
 ## 0. The one-line answer
 
@@ -290,15 +301,21 @@ package for the kernels is needed**. Two viable shapes:
 
 **(a) Build the extension inside the recipe (preferred; one source of truth).**
 `build.sh` already runs `pip install --no-deps .`, which with `setuptools-rust` in
-`[build-system] requires` compiles the crate during the Conda build. The recipe must then
-declare a Rust toolchain and move the Python build tools to `host:`:
+`[build-system] requires` compiles the crate during the Conda build. Approved
+[Conda CEP 20](https://github.com/conda/ceps/blob/main/cep-0020.md) defines how one
+platform-specific ABI3 artifact can serve multiple CPython minors. The recipe must
+declare a Rust toolchain, opt into Python-version-independent relocation metadata, and
+use the official ABI3 host metapackage:
 
 ```yaml
+build:
+  python_version_independent: true
 requirements:
   build:
     - {{ compiler('rust') }}          # or: rust
   host:
-    - python >=3.11,<3.14
+    - python 3.11.*
+    - python-abi3 3.11.*
     - pip
     - setuptools >=68.0
     - setuptools-rust >=1.10
@@ -308,9 +325,13 @@ requirements:
     ...
 ```
 
-Consequence: the abi3 property becomes irrelevant *inside* Conda, because Conda already
-builds one artefact per Python version. abi3 still matters for the wheels published
-elsewhere and for C3.
+Consequence: one artifact is built per native platform rather than per platform and
+Python minor. Its metadata retains the native platform subdirectory, carries CEP 20's
+`noarch: python` relocation marker, accepts `python >=3.11,<3.14`, and inherits
+`cpython >=3.11` plus `_python_abi3_support` from `python-abi3`. This replaces the July
+assumption that Conda necessarily required one artifact per Python minor. Adoption is
+conditional on #202 proving the exact same artifact under Python 3.11--3.13 on all five
+native targets.
 
 **(b) Install a pre-built abi3 wheel in the recipe.** `build.sh` would
 `pip install --no-deps <wheel>` from a build artefact. This removes the Rust toolchain from

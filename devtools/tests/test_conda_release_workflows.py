@@ -53,10 +53,10 @@ def test_recipe_builds_and_tests_the_native_extension():
     assert variant_config["python"] == ["3.11", "3.12", "3.13"]
     assert variant_config["rust_compiler_version"] == ["1.97.1"]
     assert "  host:\n" in recipe
-    assert "python 3.12.14 *_1_cpython  # [win and py == 312]" in recipe
-    assert "python  # [not (win and py == 312)]" in recipe
-    assert "  run:\n  - python\n" in recipe
-    assert "python >=3.11,<3.14" not in recipe
+    assert "python 3.12.14 *_1_cpython" in recipe
+    assert "and win and py == 312]" in recipe
+    assert "and not (win and py == 312)]" in recipe
+    assert "MOLSYSMT_CONDA_ABI3" in recipe
     assert "MOLSYSMT_CONDA_BUILD_NUMBER" in recipe
     assert "  - setuptools-rust >=1.10" in recipe
     assert "test:\n  imports:\n  - molsysmt\n  - molsysmt._rust" in recipe
@@ -102,19 +102,20 @@ def test_publish_workflow_is_atomic_per_native_platform():
         "${{ inputs.build_number }}"
     )
     assert staging_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.0.2"
+        "uibcdf/action-build-and-upload-conda-packages@v2.0.3"
     )
     assert staging_build["with"]["label"] == "staging"
     assert "--no-test" in staging_build["with"]["conda_build_args"]
     assert release_build["if"] == "github.event_name == 'release'"
     assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 2
     assert release_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.0.2"
+        "uibcdf/action-build-and-upload-conda-packages@v2.0.3"
     )
     assert release_build["with"]["label"] == "main"
     assert "--no-test" not in release_build["with"]["conda_build_args"]
 
     text = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
+    assert "MOLSYSMT_CONDA_ABI3" not in text
     assert "anaconda/actions/upload-package" not in text
     assert "actions/upload-artifact" not in text
     assert "platform_linux-64" not in text

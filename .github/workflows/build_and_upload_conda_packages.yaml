@@ -125,7 +125,7 @@ jobs:
 
       - name: Build and publish the staging platform
         if: github.event_name == 'workflow_dispatch'
-        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.2
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
         env:
           MOLSYSMT_CONDA_BUILD_NUMBER: ${{ inputs.build_number }}
         with:
@@ -137,7 +137,7 @@ jobs:
 
       - name: Build, test, and publish the release platform
         if: github.event_name == 'release'
-        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.2
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
         env:
           MOLSYSMT_CONDA_BUILD_NUMBER: 2
         with:
