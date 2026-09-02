@@ -45,8 +45,12 @@ checkouts.
 > Route A from
 > [`migration_off_the_in_house_publication_actions.md`](migration_off_the_in_house_publication_actions.md)
 > is implemented in source. A local Linux x86-64/Python 3.13 Conda build has compiled
-> `molsysmt._rust` with Rust 1.97.1. The native matrix, staging upload and installed-pair
-> gate remain unexecuted, so this is not yet release evidence.
+> `molsysmt._rust` with Rust 1.97.1. The first native staging attempt then exposed a
+> Windows solver conflict between Conda's default VS2017 C compiler and Rust 1.97.1's
+> `vs_win-64 >=2019` requirement. The C compiler metapackage is now Linux-only: it exists
+> there to export `libgcc`, while each non-Linux Rust metapackage owns its native linker
+> dependency. A corrected native matrix still has to run, so this is not yet release
+> evidence.
 
 ## 0. The one-line answer
 

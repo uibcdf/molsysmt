@@ -33,8 +33,9 @@ Route A is accepted. MolSysMT no longer uses the in-house Conda publication acti
 
 - native GitHub-hosted runners build `linux-64`, `linux-aarch64`, `osx-64`,
   `osx-arm64` and `win-64`, each for Python 3.11, 3.12 and 3.13;
-- the Conda recipe uses C and Rust compiler metapackages, with Rust pinned to 1.97.1,
-  and tests the mandatory `molsysmt._rust` extension;
+- the Conda recipe uses the Rust compiler metapackage on every platform and the C
+  compiler metapackage on Linux for its `libgcc` run export, pins Rust to 1.97.1, and
+  tests the mandatory `molsysmt._rust` extension;
 - all 15 build artefacts must exist before the official Anaconda upload action runs;
 - manual candidates go only to the `staging` label; release events go to `main` only
   after the normal recipe test succeeds. The bootstrap is build 0 and the tested release

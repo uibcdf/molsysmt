@@ -38,9 +38,10 @@ the original report:
 The accompanying MolSysMT change implements Route A from
 [`../pending_proposals/migration_off_the_in_house_publication_actions.md`](../pending_proposals/migration_off_the_in_house_publication_actions.md):
 
-1. `devtools/conda-build/meta.yaml` builds with native C and Rust compiler
-   metapackages, pins Rust 1.97.1, separates `build` and `host`, and imports both
-   `molsysmt` and `molsysmt._rust` in the package test.
+1. `devtools/conda-build/meta.yaml` builds with the native Rust compiler metapackage on
+   every platform and the C compiler metapackage on Linux to capture the `libgcc` run
+   export. It pins Rust 1.97.1, separates `build` and `host`, and imports both `molsysmt`
+   and `molsysmt._rust` in the package test.
 2. `.github/workflows/build_and_upload_conda_packages.yaml` builds 15 native cells:
    five platforms crossed with Python 3.11--3.13. Upload occurs only after every build
    cell succeeds.

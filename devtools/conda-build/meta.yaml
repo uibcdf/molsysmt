@@ -7,7 +7,7 @@ build:
   number: "{{ environ.get('MOLSYSMT_CONDA_BUILD_NUMBER', '1') }}"
 requirements:
   build:
-  - {{ compiler('c') }}
+  - {{ compiler('c') }}  # [linux]
   - {{ compiler('rust') }}
   host:
   - python >=3.11,<3.14

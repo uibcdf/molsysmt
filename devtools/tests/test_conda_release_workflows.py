@@ -44,7 +44,11 @@ def test_recipe_builds_and_tests_the_native_extension():
         REPO / "devtools" / "conda-build" / "conda_build_config.yaml"
     ).read_text(encoding="utf-8")
 
-    assert "  - {{ compiler('c') }}\n  - {{ compiler('rust') }}\n  host:" in recipe
+    assert (
+        "  - {{ compiler('c') }}  # [linux]\n"
+        "  - {{ compiler('rust') }}\n"
+        "  host:" in recipe
+    )
     assert "rust_compiler_version:\n- 1.97.1" in variant_config
     assert "MOLSYSMT_CONDA_BUILD_NUMBER" in recipe
     assert "  - setuptools-rust >=1.10" in recipe
