@@ -72,14 +72,21 @@ def test_publish_workflow_is_atomic_per_native_platform():
 
     assert set(workflow["jobs"]) == {"prepare", "build-and-publish"}
     assert build_and_publish["needs"] == "prepare"
-    assert _targets(build_and_publish) == EXPECTED_TARGETS
-    assert set(build_and_publish["strategy"]["matrix"]) == {"target"}
+    assert build_and_publish["strategy"]["matrix"] == (
+        "${{ fromJSON(needs.prepare.outputs.matrix) }}"
+    )
+    assert prepare["outputs"]["matrix"] == (
+        "${{ steps.candidate.outputs.matrix }}"
+    )
 
     validate_identity = _step(
         prepare, "Validate staging inputs or the release tag"
     )["run"]
     assert "^[0-9a-f]{40}$" in validate_identity
     assert validate_identity.count("^[0-9]+\\.[0-9]+\\.[0-9]+$") == 2
+    for platform, runner in EXPECTED_TARGETS:
+        assert f'"platform":"{platform}","runner":"{runner}"' in validate_identity
+    assert 'echo "matrix=$matrix" >> "$GITHUB_OUTPUT"' in validate_identity
 
     staging_build = _step(
         build_and_publish, "Build and publish the staging platform"
@@ -90,14 +97,14 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert staging_build["if"] == "github.event_name == 'workflow_dispatch'"
     assert staging_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 0
     assert staging_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.0.1"
+        "uibcdf/action-build-and-upload-conda-packages@v2.0.2"
     )
     assert staging_build["with"]["label"] == "staging"
     assert "--no-test" in staging_build["with"]["conda_build_args"]
     assert release_build["if"] == "github.event_name == 'release'"
     assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 1
     assert release_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.0.1"
+        "uibcdf/action-build-and-upload-conda-packages@v2.0.2"
     )
     assert release_build["with"]["label"] == "main"
     assert "--no-test" not in release_build["with"]["conda_build_args"]

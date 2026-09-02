@@ -29,7 +29,7 @@ The two cases are not symmetric and should not be decided together:
 ### Conda implementation checkpoint — 2026-09-02
 
 Route A is accepted. MolSysMT retains
-`uibcdf/action-build-and-upload-conda-packages@v2.0.1` but changes how it is invoked:
+`uibcdf/action-build-and-upload-conda-packages@v2.0.2` but changes how it is invoked:
 
 - native GitHub-hosted runners build `linux-64`, `linux-aarch64`, `osx-64`,
   `osx-arm64` and `win-64`, each for Python 3.11, 3.12 and 3.13;
@@ -45,14 +45,18 @@ Route A is accepted. MolSysMT retains
 - a separate 15-cell workflow installs exact MolSysMT and MolSysViewer versions from
   staging and verifies versions, provenance, native code and packaged Viewer resources.
 
-The source implementation is **Contract-tested**. Workflow run `33637476601` built all
+The source implementation is **Platform-tested**. Workflow run `33637476601` built all
 15 native combinations successfully, including Windows, before a common upload step
-failed on a nonexistent reference to a third-party action. The platform-atomic design
-removes that step and reuses the UIBCDF action. Local renders verify that one recipe
-invocation exposes three distinct build-0 outputs on both `linux-64` and `win-64`, rather
-than resolving every build against the workflow environment's Python. Criteria 2 and 4
-in §2.5 remain pending until publication and the coordinated staging pair validation
-run. The Pages half of this proposal is unaffected.
+failed on a nonexistent reference to a third-party action. Platform-atomic run
+`33645401415` then published the three variants for four platforms; Windows built all
+three but exposed a CRLF path-handling defect in action v2.0.1 before upload. Action
+v2.0.2 removes the carriage return and its integration run `33668608034` builds,
+installs and imports two variants on both Ubuntu and Windows. MolSysMT can now dispatch
+only the failed native target. Local renders verify that one recipe invocation exposes
+three distinct build-0 outputs on both `linux-64` and `win-64`, rather than resolving
+every build against the workflow environment's Python. Criteria 2 and 4 in §2.5 remain
+pending until Windows publication and the coordinated staging pair validation run. The
+Pages half of this proposal is unaffected.
 
 ## 1. Documentation: from a `gh-pages` branch to native Pages deployment
 
@@ -267,7 +271,9 @@ Python 3.11, 3.12 and 3.13 are recipe variants within each of the five platform 
 The UIBCDF action builds every variant before entering its upload step, with all
 `platform_*` conversion inputs left false. Atomicity is therefore per platform: one
 failed Python variant prevents that platform from publishing, while successful platforms
-remain available and need not be rebuilt.
+remain available and need not be rebuilt. Manual dispatch exposes a `target` choice;
+selecting one platform generates a one-entry matrix, instead of merely skipping steps
+after allocating the other four runners.
 
 `linux-aarch64` — required by C3 and built by no current workflow, per §2 of the
 coordination report — comes free with this shape, since GitHub now hosts ARM Linux runners.

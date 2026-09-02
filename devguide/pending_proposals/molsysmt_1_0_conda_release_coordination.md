@@ -54,12 +54,16 @@ checkouts.
 > Anaconda because `anaconda/actions/upload-package@v0` does not exist.
 >
 > Publication is now atomic per platform and uses
-> `uibcdf/action-build-and-upload-conda-packages@v2.0.1`: each of five native jobs builds
+> `uibcdf/action-build-and-upload-conda-packages@v2.0.2`: each of five native jobs builds
 > all three Python variants and uploads only its complete platform set. A failed platform
-> can be rerun alone, while successful platforms remain staged. Local renders return
+> can be rerun alone, while successful platforms remain staged. Run `33645401415`
+> published the four Linux/macOS platform sets (12 packages); Windows built its three
+> variants and then exposed a CRLF path defect in action v2.0.1. Action v2.0.2 fixes the
+> path normalization and passes its Ubuntu/Windows integration run `33668608034`.
+> MolSysMT's dispatch can now generate a matrix for only `win-64`. Local renders return
 > separate `py311`, `py312` and `py313` build-0 coordinates for both `linux-64` and
-> `win-64`, confirming that the variant set reaches `conda-build`. Publication and the
-> installed-pair gate remain pending.
+> `win-64`, confirming that the variant set reaches `conda-build`. Windows publication
+> and the installed-pair gate remain pending.
 
 ## 0. The one-line answer
 

@@ -309,7 +309,9 @@ the slowest native runner completes.
   treating a 15% delta as a deterministic regression.
 - `test_import.yaml` provides a manually dispatched import check.
 - `sphinx_docs_to_gh_pages.yaml` builds and publishes documentation.
-- `build_and_upload_conda_packages.yaml` builds Conda packages when dispatched.
+- `build_and_upload_conda_packages.yaml` builds Conda packages when dispatched. Its
+  `target` input accepts either all five native platforms or one platform, so a failed
+  platform can be rebuilt and published without repeating successful ones.
 
 ### Python version policy
 

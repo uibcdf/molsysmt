@@ -59,13 +59,21 @@ The accompanying MolSysMT change implements Route A from
 This is **Implemented** and locally contract-tested. Native workflow run `33637476601`
 compiled all 15 platform/interpreter combinations, including three successful Windows
 packages. Its common upload job failed before contacting Anaconda because it referenced
-a nonexistent third-party action tag. The workflow now retains
-`uibcdf/action-build-and-upload-conda-packages@v2.0.1` and publishes independently per
-complete platform. Local `conda render` checks now produce distinct `py311`, `py312`
-and `py313` build-0 coordinates for both `linux-64` and `win-64`; the recipe's Python
+a nonexistent third-party action tag. Platform-atomic run `33645401415` subsequently
+published all three variants for `linux-64`, `linux-aarch64`, `osx-64` and `osx-arm64`.
+Windows built its three variants but retained a carriage return in each path reported by
+`conda build --output`, so publication stopped when the action checked those paths.
+
+`uibcdf/action-build-and-upload-conda-packages@v2.0.2` normalizes that Windows output.
+Its integration run `33668608034` builds Python 3.11 and 3.12 variants on both Ubuntu
+and Windows, installs each artifact in a clean matching environment, and imports it.
+MolSysMT's manual publication dispatch also accepts one native `target`, allowing the
+remaining Windows platform to be rebuilt without allocating the four successful
+platform runners. Local `conda render` checks produce distinct `py311`, `py312` and
+`py313` build-0 coordinates for both `linux-64` and `win-64`; the recipe's Python
 requirements are governed by `conda_build_config.yaml` so the variants cannot collapse
-to the build environment's interpreter. Staging publication and the installed-pair gate
-remain pending.
+to the build environment's interpreter. Windows staging publication and the
+installed-pair gate remain pending.
 
 ## What
 
