@@ -117,9 +117,13 @@ jobs:
               "$GITHUB_WORKSPACE/devtools/scripts/validate_installed_rust_extension.py"
           done
 
+          evidence_dir="$RUNNER_TEMP/molsysmt-conda-abi3"
+          mkdir -p "$evidence_dir"
+          cp "$package_path" "$evidence_dir/"
+
       - uses: actions/upload-artifact@v7
         with:
           name: molsysmt-conda-abi3-${{ matrix.target.platform }}
-          path: ${{ steps.build.outputs.built_paths }}
+          path: ${{ runner.temp }}/molsysmt-conda-abi3/*.conda
           if-no-files-found: error
           retention-days: 7

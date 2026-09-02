@@ -48,6 +48,8 @@ def test_experiment_builds_once_and_tests_one_artifact_three_times():
     assert "for python_version in 3.11 3.12 3.13" in text
     assert "validate_conda_abi3_artifact.py" in text
     assert "validate_installed_rust_extension.py" in text
+    assert 'cp "$package_path" "$evidence_dir/"' in text
+    assert "${{ runner.temp }}/molsysmt-conda-abi3/*.conda" in text
     assert "upload: false" in text
 
 

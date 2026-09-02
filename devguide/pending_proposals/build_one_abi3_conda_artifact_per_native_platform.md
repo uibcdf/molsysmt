@@ -106,6 +106,13 @@ only the failed platform needs to be repeated.
 gh run view 33690618780 --repo uibcdf/molsysmt
 ```
 
+**Measured:** targeted Windows run `33692126791` then passed metadata inspection and
+executed the exact package under Python 3.11, 3.12, and 3.13 in 13:24. Its only failure
+was the final evidence upload: the Node-based upload action could not interpret the
+POSIX `/tmp` path emitted inside Git Bash. The workflow now copies the already validated
+artifact to the runner's native temporary directory before upload; package behavior did
+not fail.
+
 **Estimate:** reducing three native builds to one should remove most repeated Rust
 compilation time, but the actual saving will be reported only after the experiment.
 
