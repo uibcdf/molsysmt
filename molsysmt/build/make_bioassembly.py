@@ -50,6 +50,27 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
     rotation and translation in sequence, and merges all transformed copies into
     a single molecular system.
 
+    Source ``chain_id`` values are preserved for their first occurrence. Generated
+    copies that would repeat an identifier receive the next unused uppercase
+    identifier (``A`` through ``Z``, then ``AA``, ``AB``, and so on). Author-provided
+    ``chain_name`` values are preserved and may repeat across copies.
+
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> path = msm.systems['Barnase-Barstar']['1brs.bcif.gz']
+    >>> molsys = msm.convert(path)
+    >>> assembled_molsys = make_bioassembly(molsys, bioassembly='1')
+    >>> chain_ids = msm.get(assembled_molsys, element='chain', chain_id=True)
+    >>> len(chain_ids) == len(set(chain_ids))
+    True
+
+
+    .. admonition:: Tutorial with more examples
+
+       See :ref:`Tutorial_Make_bioassembly`.
+
 
     .. versionadded:: 1.0.0
     """
@@ -123,6 +144,8 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
 
             raise NotImplementedError
 
+    _make_chain_ids_unique(units)
+
     output = merge(units, to_form=to_form, skip_digestion=True)
 
     return output
@@ -140,3 +163,44 @@ def _all_chains_equal(bioassembly):
             break
 
     return output
+
+
+def _make_chain_ids_unique(units):
+    """Preserve source chain IDs once and replace assembly-copy collisions."""
+
+    from molsysmt.basic import get, set as set_attribute
+    from molsysmt.element.chain import all_chain_names
+
+    chain_ids_by_unit = []
+    reserved_chain_ids = set()
+
+    for unit in units:
+        chain_ids = [str(chain_id) for chain_id in get(
+            unit, element='chain', chain_id=True, skip_digestion=True
+        )]
+        chain_ids_by_unit.append(chain_ids)
+        reserved_chain_ids.update(chain_ids)
+
+    used_chain_ids = set()
+    available_chain_ids = iter(
+        chain_id for chain_id in all_chain_names if chain_id not in reserved_chain_ids
+    )
+
+    for unit, chain_ids in zip(units, chain_ids_by_unit):
+        output_chain_ids = []
+
+        for chain_id in chain_ids:
+            if chain_id not in used_chain_ids:
+                output_chain_id = chain_id
+            else:
+                output_chain_id = next(available_chain_ids)
+
+            output_chain_ids.append(output_chain_id)
+            used_chain_ids.add(output_chain_id)
+
+        set_attribute(
+            unit,
+            element='chain',
+            chain_id=output_chain_ids,
+            skip_digestion=True,
+        )

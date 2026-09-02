@@ -1,13 +1,13 @@
 ---
 summary: After make_bioassembly, a chain-and-residue selection silently returns every copy
 issue: uibcdf/molsysmt#198
-status: open
+status: resolved
 opened: 2026-09-02
-closed:
+closed: 2026-09-02
 severity: medium
 verification: reproduced
 area: [build, selection]
-guard:
+guard: tests/build/make_bioassembly/test_make_bioassembly.py::test_generated_copies_receive_unique_chain_ids_and_keep_author_names
 normative:
 blocked_by: []
 supersedes: []
@@ -65,6 +65,54 @@ The decision is MolSysMT's. The options visible from here:
    mmCIF does), keeping the original label in its own attribute;
 2. keep the labels and warn from `make_bioassembly` that they no longer identify;
 3. document it as expected, and point users at `chain_index` for addressing copies.
+
+## Decision
+
+`chain_id` is the local, addressable identity and must be unique in the generated
+assembly. `chain_name` is the author-provided name and may repeat legitimately. The
+1BRS BCIF makes the distinction explicit: its twelve `label_asym_id` values map to
+`chain_id` values `A` through `L`, while its `auth_asym_id` values map to the repeated
+`chain_name` sequence `A` through `F`, twice.
+
+`make_bioassembly` therefore preserves the first occurrence of every source `chain_id`
+and replaces only collisions in later generated copies. Replacement identifiers use
+the repository's established uppercase sequence: `A` through `Z`, then `AA`, `AB`, and
+so on. Allocation follows output chain order and skips every source identifier, so a
+generated identifier cannot displace a source identifier that occurs later.
+
+Author names are copied unchanged. Legacy PDB output remains a separate representation
+constraint because its chain field cannot encode multi-character identifiers; this fix
+must not truncate identifiers while constructing the assembly.
+
+## Implementation
+
+Before merging the transformed units, `make_bioassembly` now collects every source
+`chain_id`, reserves those values, and walks the units in output order. The first
+occurrence of a source identifier is unchanged. Every later collision receives the
+next free value from `molsysmt.element.chain.all_chain_names`. Only `chain_id` is set;
+the copied `chain_name` column and all other element identifiers remain untouched.
+
+The docstring and the User Guide describe the distinction between local identity and
+author naming. The three path-specific course modules that call `make_bioassembly`
+carry the same contract; the Antiviral path does not call this function.
+
+## Validation
+
+The contract test uses the bundled 1BRS BCIF, whose source fields provide the needed
+counterexample without network access: twelve unique chain IDs `A` through `L`, but
+author names `A` through `F` repeated twice. Three identity copies produce 36 unique
+IDs `A` through `Z`, then `AA` through `AJ`, while the complete author-name sequence is
+preserved three times. Selecting `chain_id == 'A'` in the assembly returns exactly as
+many atoms as it does in the source, rather than all generated copies.
+
+Validation commands:
+
+```text
+pytest -q --receptor=llm tests/build/make_bioassembly/test_make_bioassembly.py
+pytest -q --receptor=llm --doctest-modules molsysmt/build/make_bioassembly.py
+ruff check molsysmt/build/make_bioassembly.py tests/build/make_bioassembly/test_make_bioassembly.py
+python devtools/scripts/validate_docstrings.py
+```
 
 ## What was refuted
 
