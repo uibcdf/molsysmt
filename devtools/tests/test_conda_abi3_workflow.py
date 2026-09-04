@@ -55,6 +55,7 @@ def test_experiment_builds_once_and_tests_one_artifact_three_times():
     assert 'cp "$package_path" "$evidence_dir/"' in text
     assert "benchmarks/rust/bench_release_runtime.py" in text
     assert "--worker threads" in text
+    assert "--installed-extension" in text
     assert "${{ runner.temp }}/molsysmt-conda-abi3/*" in text
     assert "upload: false" in text
 

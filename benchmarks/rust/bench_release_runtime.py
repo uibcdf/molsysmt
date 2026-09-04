@@ -12,6 +12,8 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import hashlib
+import importlib.util
+from importlib import metadata
 import json
 import os
 from pathlib import Path
@@ -21,9 +23,49 @@ import subprocess
 import sys
 import tempfile
 from time import perf_counter
+import types
 
 
 REPOSITORY = Path(__file__).resolve().parents[2]
+INSTALLED_EXTENSION_ENV = "MOLSYSMT_BENCHMARK_INSTALLED_EXTENSION"
+
+
+def _rust_module():
+    """Returning the source or isolated installed Rust extension."""
+
+    if os.environ.get(INSTALLED_EXTENSION_ENV) != "1":
+        import molsysmt._rust as rust
+
+        return rust
+
+    distribution = metadata.distribution("molsysmt")
+    candidates = [
+        distribution.locate_file(item).resolve()
+        for item in distribution.files or ()
+        if item.parent.as_posix() == "molsysmt"
+        and item.name.startswith("_rust.")
+        and item.suffix in {".so", ".pyd", ".dylib"}
+    ]
+    if len(candidates) != 1:
+        raise RuntimeError(
+            "expected exactly one installed molsysmt._rust extension, "
+            f"found {len(candidates)}"
+        )
+    extension_path = candidates[0]
+    package = types.ModuleType("molsysmt")
+    package.__path__ = [str(extension_path.parent)]
+    package.__package__ = "molsysmt"
+    package.__spec__ = importlib.util.spec_from_loader(
+        "molsysmt", loader=None, is_package=True
+    )
+    sys.modules["molsysmt"] = package
+    spec = importlib.util.spec_from_file_location("molsysmt._rust", extension_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load extension from {extension_path}")
+    rust = importlib.util.module_from_spec(spec)
+    sys.modules["molsysmt._rust"] = rust
+    spec.loader.exec_module(rust)
+    return rust
 
 
 def _sha256(path: Path) -> str:
@@ -75,7 +117,7 @@ def _minimum_time(function, repeats: int = 5) -> tuple[float, list[float]]:
 def _startup_worker() -> dict:
     import_started = perf_counter()
     import numpy as np
-    import molsysmt._rust as rust
+    rust = _rust_module()
 
     import_seconds = perf_counter() - import_started
     coordinates = np.arange(18_000, dtype=np.float64).reshape(2_000, 3, 3)
@@ -112,7 +154,7 @@ def _startup_worker() -> dict:
 
 def _memory_worker() -> dict:
     import numpy as np
-    import molsysmt._rust as rust
+    rust = _rust_module()
 
     baseline_mb = _peak_rss_mb()
     rng = np.random.default_rng(20260728)
@@ -140,7 +182,7 @@ def _memory_worker() -> dict:
 
 def _thread_worker() -> dict:
     import numpy as np
-    import molsysmt._rust as rust
+    rust = _rust_module()
 
     rng = np.random.default_rng(20260728)
     coordinates = rng.random((1_200, 2_500, 3), dtype=np.float64)
@@ -182,7 +224,7 @@ def _thread_worker() -> dict:
 
 def _oversubscription_worker() -> dict:
     import numpy as np
-    import molsysmt._rust as rust
+    rust = _rust_module()
 
     rng = np.random.default_rng(20260728)
     coordinates = rng.random((400, 1_500, 3), dtype=np.float64)
@@ -266,17 +308,17 @@ def _git_metadata() -> dict:
 
 def _environment() -> dict:
     import numpy as np
-    import molsysmt as msm
-    import molsysmt._rust as rust
+    rust = _rust_module()
 
     extension_path = Path(rust.__file__).resolve()
+    distribution = metadata.distribution("molsysmt")
 
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "python": platform.python_version(),
         "numpy": np.__version__,
-        "molsysmt": msm.__version__,
-        "molsysmt_import_path": str(Path(msm.__file__).resolve()),
+        "molsysmt": distribution.version,
+        "molsysmt_import_path": str(extension_path.parent),
         "rust_extension_path": str(extension_path),
         "rust_extension_sha256": _sha256(extension_path),
         "platform": platform.platform(),
@@ -291,7 +333,15 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path)
     parser.add_argument("--worker", choices=WORKERS)
+    parser.add_argument(
+        "--installed-extension",
+        action="store_true",
+        help="load the installed extension without importing MolSysMT's public package",
+    )
     arguments = parser.parse_args()
+
+    if arguments.installed_extension:
+        os.environ[INSTALLED_EXTENSION_ENV] = "1"
 
     if arguments.worker:
         print(json.dumps(WORKERS[arguments.worker](), sort_keys=True))

@@ -133,7 +133,8 @@ jobs:
           cp "$package_path" "$evidence_dir/"
           conda run --prefix "$RUNNER_TEMP/conda-abi3-py313" python \
             "$GITHUB_WORKSPACE/benchmarks/rust/bench_release_runtime.py" \
-            --worker threads > "$evidence_dir/runtime-${{ inputs.lto }}.json"
+            --worker threads --installed-extension \
+            > "$evidence_dir/runtime-${{ inputs.lto }}.json"
 
       - uses: actions/upload-artifact@v7
         with:
