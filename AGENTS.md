@@ -145,3 +145,5 @@ These guides are required reading for anyone developing this library. They descr
 - `ARGDIGEST_GUIDE.md` — Required guide for argument validation and explicit trusted delegation.
 - `PYUNITWIZARD_GUIDE.md` — Required guide for unit management and Fast-Track conversion registration.
 - `DEPDIGEST_GUIDE.md` — Required guide for dependency management and lazy loading.
+- `GH_RUN_RECEPTOR_GUIDE.md` — Required guide for compact, truth-preserving inspection of
+  GitHub Actions runs and the native-command fallback.
