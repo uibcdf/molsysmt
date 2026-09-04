@@ -6,7 +6,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.3.0`
+- Source version: `gh-run-receptor@0.4.0`
 - Last synced: 2026-09-04
 
 ## What gh-run-receptor is
@@ -31,14 +31,17 @@ Measured MolSysMT examples reduced a competent diagnostic baseline from 5,138 to
 `cl100k_base` tokens for a partial Conda failure, and a matrix-verification baseline from
 143 to 39 tokens for a successful run. These are case measurements, not a universal rate.
 For a status-only green query, native GitHub JSON was smaller and remains preferable.
+A failing seven-job MolSysViewer CI case reduced an already filtered native result from
+223 to 198 tokens (11.2%) while adding roles and replay identity; the ungrouped draft was
+larger than native output and was rejected.
 
 ## Supported integration level
 
-Version `0.3.0` is a source preview with:
+Version `0.4.0` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
-- generic and initial Conda profiles;
+- generic, initial CI, and initial Conda profiles;
 - strict `bundle@1`, `model@1`, and `report@1` boundaries;
 - dependency-free runtime on Python 3.11 through 3.13;
 - installation as a GitHub CLI script extension;
@@ -46,8 +49,9 @@ Version `0.3.0` is a source preview with:
 - offline `config check` and `config explain` commands;
 - required-platform enforcement for the Conda profile.
 
-CI, documentation, and release profiles; pattern matching; arbitrary rule keys; workflow
-discovery; and the embedded GitHub Action are not implemented in `0.3.0`.
+Documentation and release profiles; configurable CI roles or required jobs; pattern
+matching; arbitrary rule keys; workflow discovery; and the embedded GitHub Action are not
+implemented in `0.4.0`.
 
 ## Installation
 
@@ -55,14 +59,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.3.0
+gh extension install uibcdf/gh-run-receptor --pin 0.4.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.3.0
+0.4.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -158,6 +162,19 @@ The initial Conda profile reports observed platform outcomes and calls an artifa
 only when its platform job succeeded and a matching artifact exists. It does not yet prove
 ABI validation, upload, or channel publication.
 
+Use `ci` for test, lint, coverage, documentation-check, build, or publication jobs:
+
+```text
+gh run-receptor inspect RUN_ID --repo OWNER/REPO --profile=ci --receptor=llm
+```
+
+The initial CI profile assigns every job one bounded presentation role and preserves
+unknown names under `other`. When several unsuccessful jobs have the same official
+conclusion and ordered failed-step names, LLM text reports one group with a count and
+sample; JSON retains every individual job. It does not yet enforce required jobs, coverage
+thresholds, annotations, or structured matrix dimensions, and never derives `PARTIAL`
+merely because some CI jobs succeeded.
+
 ## Repository workflow rules
 
 Place the version 1 configuration at `.github/gh-run-receptor.yaml`:
@@ -177,9 +194,9 @@ workflows:
         - win-64
 ```
 
-Version `0.3.0` supports exactly one identity per rule: an exact `path`, positive numeric
+Version `0.4.0` supports exactly one identity per rule: an exact `path`, positive numeric
 `id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
-one distinct rule matches the observed workflow. Rules select only `generic` or `conda`.
+one distinct rule matches the observed workflow. Rules select `generic`, `ci`, or `conda`.
 The only configurable setting is `expected_platforms`, whose values are `linux-64`,
 `linux-aarch64`, `osx-64`, `osx-arm64`, and `win-64`.
 

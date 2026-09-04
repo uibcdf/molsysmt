@@ -1,6 +1,30 @@
 schema_version: 1
 workflows:
   - match:
+      path: .github/workflows/ci-smoke.yaml
+    profile: ci
+  - match:
+      path: .github/workflows/ci-full.yaml
+    profile: ci
+  - match:
+      path: .github/workflows/ci-weekly.yaml
+    profile: ci
+  - match:
+      path: .github/workflows/ci-devguide.yaml
+    profile: ci
+  - match:
+      path: .github/workflows/ci-data-integrity.yaml
+    profile: ci
+  - match:
+      path: .github/workflows/ci-rust-wheels.yaml
+    profile: ci
+  - match:
+      path: .github/workflows/ruff.yaml
+    profile: ci
+  - match:
+      path: .github/workflows/test_import.yaml
+    profile: ci
+  - match:
       path: .github/workflows/build_and_upload_conda_packages.yaml
     profile: conda
   - match:
