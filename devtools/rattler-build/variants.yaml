@@ -1,0 +1,4 @@
+python:
+  - "3.11"
+rust_compiler_version:
+  - "1.97.1"

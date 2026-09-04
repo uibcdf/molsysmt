@@ -1,0 +1,62 @@
+context:
+  version: ${{ env.get("MOLSYSMT_RATTLER_VERSION") }}
+
+package:
+  name: molsysmt
+  version: ${{ version }}
+
+source:
+  path: ../..
+  use_gitignore: true
+
+build:
+  number: 0
+  string: pyabi3h${{ hash }}_${{ build_number }}
+  python:
+    version_independent: true
+  script: ${{ PYTHON }} -m pip install . --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - if: linux
+      then: ${{ compiler("c") }}
+    - ${{ compiler("rust") }}
+  host:
+    - python 3.11.*
+    - python-abi3 3.11.*
+    - pip
+    - setuptools >=68.0
+    - setuptools-rust >=1.10
+    - versioningit >=3.0
+  run:
+    - python >=3.11,<3.14
+    - h5py
+    - numpy >=1.26,<3
+    - argdigest >=0.12.1
+    - depdigest >=0.10.0
+    - smonitor >=0.13.0
+    - pyunitwizard >=0.24.0
+    - pandas
+    - molsysviewer
+    - networkx
+    - tqdm
+    - matplotlib
+
+tests:
+  - python:
+      imports:
+        - molsysmt
+        - molsysmt._rust
+
+about:
+  homepage: https://uibcdf.org
+  repository: https://github.com/uibcdf/MolSysMT
+  documentation: https://uibcdf.org/MolSysMT
+  license: MIT
+  summary: >-
+    Molecular Systems Multi-Toolkit: build, prepare, query, transform, analyse and
+    visualise molecular systems through one uniform API.
+  description: >-
+    MolSysMT is a toolkit for working with molecular systems. One uniform API lets
+    users build, prepare, query, modify, analyse, and visualise molecular systems
+    while interoperating with other molecular modelling libraries and file formats.

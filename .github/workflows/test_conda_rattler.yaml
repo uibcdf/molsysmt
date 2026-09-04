@@ -1,0 +1,148 @@
+name: Test Conda ABI3 artifacts with Rattler Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Native platform to test, or all platforms
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - linux-64
+          - linux-aarch64
+          - osx-64
+          - osx-arm64
+          - win-64
+      lto:
+        description: Cargo release LTO override
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - thin
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    name: Select the requested native platform matrix
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Build the target matrix
+        id: matrix
+        shell: bash
+        env:
+          INPUT_TARGET: ${{ inputs.target }}
+        run: |
+          all_targets='{"target":[{"platform":"linux-64","runner":"ubuntu-24.04"},{"platform":"linux-aarch64","runner":"ubuntu-24.04-arm"},{"platform":"osx-64","runner":"macos-15-intel"},{"platform":"osx-arm64","runner":"macos-15"},{"platform":"win-64","runner":"windows-2025"}]}'
+          case "$INPUT_TARGET" in
+            all) matrix="$all_targets" ;;
+            linux-64) matrix='{"target":[{"platform":"linux-64","runner":"ubuntu-24.04"}]}' ;;
+            linux-aarch64) matrix='{"target":[{"platform":"linux-aarch64","runner":"ubuntu-24.04-arm"}]}' ;;
+            osx-64) matrix='{"target":[{"platform":"osx-64","runner":"macos-15-intel"}]}' ;;
+            osx-arm64) matrix='{"target":[{"platform":"osx-arm64","runner":"macos-15"}]}' ;;
+            win-64) matrix='{"target":[{"platform":"win-64","runner":"windows-2025"}]}' ;;
+            *) exit 1 ;;
+          esac
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  build-and-test:
+    name: ${{ matrix.target.platform }} · Rattler · LTO ${{ inputs.lto }}
+    needs: prepare
+    runs-on: ${{ matrix.target.runner }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Create an ephemeral candidate version
+        shell: bash
+        run: git tag --force 0.22.0a0 HEAD
+
+      - name: Set up Rattler Build and Conda clients
+        uses: mamba-org/setup-micromamba@v3.2.1
+        with:
+          environment-name: rattler-build
+          condarc: |
+            channels:
+              - uibcdf/label/staging
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: >-
+            python=3.13
+            rattler-build=0.72.2
+            conda=26.5.3
+            conda-package-handling
+
+      - name: Build one platform-specific ABI3 artifact
+        shell: bash -el {0}
+        env:
+          CARGO_PROFILE_RELEASE_LTO: ${{ inputs.lto }}
+          MOLSYSMT_RATTLER_VERSION: 0.22.0a0
+          RATTLER_CACHE_DIR: ${{ runner.temp }}/rattler-cache
+        run: |
+          set -euo pipefail
+          rattler-build build \
+            --recipe devtools/rattler-build/recipe.yaml \
+            --target-platform "${{ matrix.target.platform }}" \
+            --test skip \
+            --package-format conda \
+            --compression-threads 4 \
+            --output-dir "$RUNNER_TEMP/rattler-output" \
+            --log-style plain \
+            --no-config \
+            -c uibcdf/label/staging \
+            -c uibcdf \
+            -c conda-forge \
+            -c ambermd
+
+      - name: Inspect metadata and test the exact artifact on every Python
+        shell: bash -el {0}
+        env:
+          EXPECTED_SUBDIR: ${{ matrix.target.platform }}
+        run: |
+          set -euo pipefail
+          mapfile -t packages < <(find "$RUNNER_TEMP/rattler-output" \
+            -type f -name 'molsysmt-*.conda' | sort)
+          if [[ "${#packages[@]}" -ne 1 ]]; then
+            echo "Expected one Rattler artifact, found ${#packages[@]}: ${packages[*]}"
+            exit 1
+          fi
+          package_path="${packages[0]}"
+          python "$GITHUB_WORKSPACE/devtools/scripts/validate_conda_abi3_artifact.py" \
+            "$package_path" --expected-subdir "$EXPECTED_SUBDIR"
+
+          for python_version in 3.11 3.12 3.13; do
+            test_prefix="$RUNNER_TEMP/rattler-abi3-py${python_version/./}"
+            conda create --yes --prefix "$test_prefix" \
+              "python=$python_version" "numpy>=1.26,<3"
+            conda install --yes --prefix "$test_prefix" --no-deps "$package_path"
+            conda run --prefix "$test_prefix" python \
+              "$GITHUB_WORKSPACE/devtools/scripts/validate_installed_rust_extension.py"
+          done
+
+          evidence_dir="$RUNNER_TEMP/molsysmt-conda-rattler"
+          mkdir -p "$evidence_dir"
+          cp "$package_path" "$evidence_dir/"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: molsysmt-conda-rattler-${{ matrix.target.platform }}-lto-${{ inputs.lto }}
+          path: ${{ runner.temp }}/molsysmt-conda-rattler/*
+          if-no-files-found: error
+          retention-days: 7
+
