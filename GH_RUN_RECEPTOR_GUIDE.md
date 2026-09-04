@@ -6,7 +6,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.2.1`
+- Source version: `gh-run-receptor@0.3.0`
 - Last synced: 2026-09-04
 
 ## What gh-run-receptor is
@@ -34,19 +34,20 @@ For a status-only green query, native GitHub JSON was smaller and remains prefer
 
 ## Supported integration level
 
-Version `0.2.1` is a source preview with:
+Version `0.3.0` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
 - generic and initial Conda profiles;
 - strict `bundle@1`, `model@1`, and `report@1` boundaries;
 - dependency-free runtime on Python 3.11 through 3.13;
-- installation as a GitHub CLI script extension.
+- installation as a GitHub CLI script extension;
+- trusted default-branch repository configuration with exact workflow matching;
+- offline `config check` and `config explain` commands;
+- required-platform enforcement for the Conda profile.
 
-Repository-defined configuration, CI/docs/release profiles, and the embedded GitHub Action
-are not implemented in `0.2.1`. Do not add an inert `.github/gh-run-receptor.yaml` and
-assume it is being enforced. This guide will define that adoption after the configuration
-gate ships.
+CI, documentation, and release profiles; pattern matching; arbitrary rule keys; workflow
+discovery; and the embedded GitHub Action are not implemented in `0.3.0`.
 
 ## Installation
 
@@ -54,14 +55,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.2.1
+gh extension install uibcdf/gh-run-receptor --pin 0.3.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.2.1
+0.3.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -151,11 +152,58 @@ gh run-receptor inspect RUN_ID --repo OWNER/REPO --profile=conda --receptor=llm
 
 Omitting `--profile` enables conservative auto-detection. Current Conda detection requires
 at least two recognized platform names and a workflow identity containing `conda` or
-`rattler`. An explicit profile is preferable in automation.
+`rattler`. An exact reviewed repository rule is preferable in automation.
 
 The initial Conda profile reports observed platform outcomes and calls an artifact reusable
 only when its platform job succeeded and a matching artifact exists. It does not yet prove
-ABI validation, upload, channel publication, or repository-specific expectations.
+ABI validation, upload, or channel publication.
+
+## Repository workflow rules
+
+Place the version 1 configuration at `.github/gh-run-receptor.yaml`:
+
+```yaml
+schema_version: 1
+workflows:
+  - match:
+      path: .github/workflows/build_and_upload_conda_packages.yaml
+    profile: conda
+    settings:
+      expected_platforms:
+        - linux-64
+        - linux-aarch64
+        - osx-64
+        - osx-arm64
+        - win-64
+```
+
+Version `0.3.0` supports exactly one identity per rule: an exact `path`, positive numeric
+`id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
+one distinct rule matches the observed workflow. Rules select only `generic` or `conda`.
+The only configurable setting is `expected_platforms`, whose values are `linux-64`,
+`linux-aarch64`, `osx-64`, `osx-arm64`, and `win-64`.
+
+Unknown fields, duplicates, globs, YAML tags, anchors, multiline scalars, flow mappings,
+and unsupported profile or platform values are errors. This strict subset prevents a
+misspelling or future-looking inert rule from appearing to protect a workflow.
+
+Before committing a client rule, run:
+
+```text
+gh run-receptor config check
+gh run-receptor config explain .github/workflows/build_and_upload_conda_packages.yaml
+```
+
+`config check` and `config explain` inspect an explicit local candidate. Remote `inspect`,
+`capture`, and `watch` do not trust the current checkout: they fetch the file from the
+target repository's default branch and store its path, branch, Git blob SHA, and content
+SHA-256 in `config.json`. Replay uses that captured policy offline. If the default branch
+has no configuration, existing conservative auto-detection remains active.
+
+An explicit CLI `--profile` overrides the repository profile. A matched rule's settings
+remain visible, but settings that do not apply to the explicit profile cannot change its
+assessment. A successful GitHub run missing a required Conda platform is receptor `FAIL`
+with exit code 1; the report still retains GitHub's authoritative `conclusion=success`.
 
 ## Reading the result safely
 
@@ -221,11 +269,10 @@ For adoption at the current level:
 2. Copy this guide to `GH_RUN_RECEPTOR_GUIDE.md` and record it in the repository's required
    external-tooling guides.
 3. Use `--receptor=llm` explicitly in agent-facing commands.
-4. Start with known archived runs before relying on live development runs.
-5. Record unsupported workflow shapes in gh-run-receptor, not as silent local filters.
-6. Preserve `gh run view` as the fallback for incomplete evidence.
-
-When repository configuration ships, clients will additionally add the canonical
-`.github/gh-run-receptor.yaml`, validate it with `gh run-receptor config check`, and test
-each workflow match with `config explain`. Until then, MolSysMT needs no configuration file
-to use the external CLI.
+4. Add `.github/gh-run-receptor.yaml` only for settings supported by the pinned version.
+5. Run `config check` and test each workflow path with `config explain`.
+6. Start with known archived runs before relying on live development runs.
+7. Confirm that live JSON reports show `configuration.matched: true` and the expected
+   default-branch source.
+8. Record unsupported workflow shapes in gh-run-receptor, not as silent local filters.
+9. Preserve `gh run view` as the fallback for incomplete evidence.

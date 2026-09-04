@@ -1,0 +1,21 @@
+schema_version: 1
+workflows:
+  - match:
+      path: .github/workflows/build_and_upload_conda_packages.yaml
+    profile: conda
+  - match:
+      path: .github/workflows/test_conda_abi3.yaml
+    profile: conda
+  - match:
+      path: .github/workflows/test_conda_rattler.yaml
+    profile: conda
+  - match:
+      path: .github/workflows/validate_conda_staging.yaml
+    profile: conda
+    settings:
+      expected_platforms:
+        - linux-64
+        - linux-aarch64
+        - osx-64
+        - osx-arm64
+        - win-64
