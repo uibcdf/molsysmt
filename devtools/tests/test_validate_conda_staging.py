@@ -34,26 +34,42 @@ def _set_distribution(monkeypatch, prefix: Path, *, editable: bool) -> None:
     monkeypatch.setattr(validate_conda_staging.sys, "prefix", str(prefix))
 
 
+def _write_conda_record(
+    prefix: Path,
+    *,
+    build: str = "pyabi3h1234567_2",
+    dependencies: list[str] | None = None,
+) -> None:
+    conda_meta = prefix / "conda-meta"
+    conda_meta.mkdir()
+    payload = {
+        "build": build,
+        "depends": dependencies
+        or [
+            "python >=3.11,<3.14",
+            "cpython >=3.11",
+            "_python_abi3_support 1.*",
+        ],
+    }
+    (conda_meta / f"molsysmt-0.22.0-{build}.json").write_text(
+        json.dumps(payload), encoding="utf-8"
+    )
+
+
 def test_noneditable_build_metadata_is_accepted_with_a_conda_record(
     monkeypatch, tmp_path
 ):
     _set_distribution(monkeypatch, tmp_path, editable=False)
-    conda_meta = tmp_path / "conda-meta"
-    conda_meta.mkdir()
-    (conda_meta / "molsysmt-0.22.0-py313_1.json").write_text(
-        "{}", encoding="utf-8"
-    )
+    _write_conda_record(tmp_path)
 
-    validate_conda_staging._require_conda_install("molsysmt", "0.22.0")
+    validate_conda_staging._require_conda_install(
+        "molsysmt", "0.22.0", require_abi3=True
+    )
 
 
 def test_editable_install_is_rejected_even_with_a_conda_record(monkeypatch, tmp_path):
     _set_distribution(monkeypatch, tmp_path, editable=True)
-    conda_meta = tmp_path / "conda-meta"
-    conda_meta.mkdir()
-    (conda_meta / "molsysmt-0.22.0-py313_1.json").write_text(
-        "{}", encoding="utf-8"
-    )
+    _write_conda_record(tmp_path)
 
     with pytest.raises(RuntimeError, match="editable installation"):
         validate_conda_staging._require_conda_install("molsysmt", "0.22.0")
@@ -65,3 +81,31 @@ def test_install_without_a_conda_record_is_rejected(monkeypatch, tmp_path):
 
     with pytest.raises(RuntimeError, match="Expected one Conda record"):
         validate_conda_staging._require_conda_install("molsysmt", "0.22.0")
+
+
+def test_legacy_python_specific_build_is_rejected(monkeypatch, tmp_path):
+    _set_distribution(monkeypatch, tmp_path, editable=False)
+    _write_conda_record(tmp_path, build="py313h1234567_1")
+
+    with pytest.raises(RuntimeError, match="non-ABI3 Conda build"):
+        validate_conda_staging._require_conda_install(
+            "molsysmt", "0.22.0", require_abi3=True
+        )
+
+
+def test_abi3_build_with_exact_python_abi_is_rejected(monkeypatch, tmp_path):
+    _set_distribution(monkeypatch, tmp_path, editable=False)
+    _write_conda_record(
+        tmp_path,
+        dependencies=[
+            "python >=3.11,<3.14",
+            "cpython >=3.11",
+            "_python_abi3_support 1.*",
+            "python_abi 3.11.* *_cp311",
+        ],
+    )
+
+    with pytest.raises(RuntimeError, match="exact python_abi requirement"):
+        validate_conda_staging._require_conda_install(
+            "molsysmt", "0.22.0", require_abi3=True
+        )

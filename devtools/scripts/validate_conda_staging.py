@@ -11,7 +11,12 @@ import pathlib
 import sys
 
 
-def _require_conda_install(distribution_name: str, expected_version: str) -> None:
+def _require_conda_install(
+    distribution_name: str,
+    expected_version: str,
+    *,
+    require_abi3: bool = False,
+) -> None:
     distribution = importlib.metadata.distribution(distribution_name)
     direct_url = distribution.read_text("direct_url.json")
     if direct_url is not None:
@@ -36,6 +41,29 @@ def _require_conda_install(distribution_name: str, expected_version: str) -> Non
             f"Expected one Conda record for {distribution_name} {expected_version}, "
             f"found {len(conda_records)}"
         )
+    if require_abi3:
+        record = json.loads(conda_records[0].read_text(encoding="utf-8"))
+        build = str(record.get("build", ""))
+        if not build.startswith("pyabi3h"):
+            raise RuntimeError(
+                f"MolSysMT resolved non-ABI3 Conda build {build!r}"
+            )
+        requirements = record.get("depends", [])
+        requirement_names = {
+            requirement.split()[0]
+            for requirement in requirements
+            if isinstance(requirement, str) and requirement.split()
+        }
+        missing = {"python", "cpython", "_python_abi3_support"} - requirement_names
+        if missing:
+            raise RuntimeError(
+                "MolSysMT ABI3 Conda record is missing runtime requirements: "
+                f"{sorted(missing)}"
+            )
+        if "python_abi" in requirement_names:
+            raise RuntimeError(
+                "MolSysMT ABI3 Conda record retains an exact python_abi requirement"
+            )
 
 
 def _require_version(distribution_name: str, expected: str) -> None:
@@ -49,7 +77,7 @@ def _require_version(distribution_name: str, expected: str) -> None:
 def validate(molsysmt_version: str, molsysviewer_version: str) -> None:
     """Validate the installed package pair and its native/runtime resources."""
 
-    _require_conda_install("molsysmt", molsysmt_version)
+    _require_conda_install("molsysmt", molsysmt_version, require_abi3=True)
     _require_conda_install("molsysviewer", molsysviewer_version)
 
     _require_version("molsysmt", molsysmt_version)

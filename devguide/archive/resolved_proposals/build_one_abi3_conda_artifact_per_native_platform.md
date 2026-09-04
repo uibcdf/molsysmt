@@ -1,12 +1,12 @@
 ---
 summary: Build one ABI3 Conda artifact per native platform
 issue: uibcdf/molsysmt#202
-status: active
+status: resolved
 opened: 2026-09-02
-closed:
+closed: 2026-09-04
 verification: measured
 area: [build, performance, ci]
-guard:
+guard: devtools/tests/test_conda_release_workflows.py
 normative:
 blocked_by: []
 supersedes: []
@@ -15,8 +15,9 @@ supersedes: []
 # Build one ABI3 Conda artifact per native platform
 
 **Reported:** 2026-09-02, while measuring the first native Conda staging builds.
-**Status:** Active. The redundant post-build render is being removed first; the single
-artifact design will then be tested without uploading.
+**Status:** Resolved. The redundant post-build render was removed, the single-artifact
+design passed on all five native platforms and all fifteen interpreter cells, and the
+production staging/release workflow now uses it.
 
 ## What
 
@@ -50,8 +51,9 @@ Before this architectural change, the shared build action will stop invoking a s
 complete and less ambiguous source of the package paths.
 
 The ABI3 branch is conditional inside the shared recipe and has a separate one-entry
-variant file. The production three-variant rendering remains unchanged until the
-experiment is accepted.
+variant file. The production workflow now selects that branch and file explicitly. The
+legacy three-variant rendering remains available as a rollback path, but it is no
+longer the publication path.
 
 ## Why
 
@@ -113,8 +115,16 @@ POSIX `/tmp` path emitted inside Git Bash. The workflow now copies the already v
 artifact to the runner's native temporary directory before upload; package behavior did
 not fail.
 
-**Estimate:** reducing three native builds to one should remove most repeated Rust
-compilation time, but the actual saving will be reported only after the experiment.
+**Measured:** final targeted Windows run `33693263538` passed the complete experiment,
+including evidence upload, in 13:40. Its single build step took 9:25 and the metadata
+plus Python 3.11, 3.12, and 3.13 runtime validation took 2:30. Together with the four
+platforms that passed run `33690618780`, this proves five artifacts across fifteen
+platform/interpreter cells. The design reduces Rust compilations from fifteen to five,
+a 66.7% reduction, while retaining all fifteen runtime validations.
+
+```bash
+gh run view 33693263538 --repo uibcdf/molsysmt
+```
 
 ## What was refuted
 
@@ -149,6 +159,10 @@ outside this scope.
 - The production workflow changes only after those conditions pass, and the invariant
   is retained by an automated guard.
 
+All criteria passed. Production uses staging build number 2 so the ABI3 artifacts
+supersede the pre-existing builds 0 and 1; release publication uses the distinct later
+build number 3.
+
 ## Dependencies and risks
 
 Incorrect ABI3 metadata could create a package that the solver admits but whose
@@ -162,4 +176,5 @@ build host, but final metadata still requires direct inspection.
 GitHub-hosted `windows-2025` runner, Conda recipe Python variants 3.11--3.13, Rust 1.97.1,
 actions `uibcdf/action-build-and-upload-conda-packages@v2.0.2` and `v2.0.3`, Conda CEP
 20, 2026-09-02. Runs `uibcdf/molsysmt/actions/runs/33682123937` and
-`uibcdf/action-build-and-upload-conda-packages/actions/runs/33687074611`.
+`uibcdf/action-build-and-upload-conda-packages/actions/runs/33687074611`, plus MolSysMT
+runs `33690618780`, `33692126791`, and `33693263538`.

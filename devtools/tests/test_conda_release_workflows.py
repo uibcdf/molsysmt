@@ -73,6 +73,11 @@ def test_publish_workflow_is_atomic_per_native_platform():
     build_and_publish = workflow["jobs"]["build-and-publish"]
 
     assert set(workflow["jobs"]) == {"prepare", "build-and-publish"}
+    build_number = workflow[True]["workflow_dispatch"]["inputs"]["build_number"]
+    assert build_number["default"] == 2
+    assert build_and_publish["name"] == (
+        "${{ matrix.target.platform }} · one ABI3 artifact"
+    )
     assert build_and_publish["needs"] == "prepare"
     assert build_and_publish["strategy"]["matrix"] == (
         "${{ fromJSON(needs.prepare.outputs.matrix) }}"
@@ -101,21 +106,30 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert staging_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == (
         "${{ inputs.build_number }}"
     )
+    assert staging_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert staging_build["uses"] == (
         "uibcdf/action-build-and-upload-conda-packages@v2.0.3"
     )
     assert staging_build["with"]["label"] == "staging"
     assert "--no-test" in staging_build["with"]["conda_build_args"]
+    assert (
+        "--exclusive-config-file conda_build_config_abi3.yaml"
+        in staging_build["with"]["conda_build_args"]
+    )
     assert release_build["if"] == "github.event_name == 'release'"
-    assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 2
+    assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 3
+    assert release_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert release_build["uses"] == (
         "uibcdf/action-build-and-upload-conda-packages@v2.0.3"
     )
     assert release_build["with"]["label"] == "main"
     assert "--no-test" not in release_build["with"]["conda_build_args"]
+    assert (
+        "--exclusive-config-file conda_build_config_abi3.yaml"
+        in release_build["with"]["conda_build_args"]
+    )
 
     text = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
-    assert "MOLSYSMT_CONDA_ABI3" not in text
     assert "anaconda/actions/upload-package" not in text
     assert "actions/upload-artifact" not in text
     assert "platform_linux-64" not in text

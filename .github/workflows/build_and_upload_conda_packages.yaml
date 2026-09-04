@@ -29,7 +29,7 @@ on:
       build_number:
         description: Staging build number; increment only to supersede a defective artifact
         required: true
-        default: 0
+        default: 2
         type: number
 
 permissions:
@@ -75,7 +75,7 @@ jobs:
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   build-and-publish:
-    name: ${{ matrix.target.platform }} · Python 3.11–3.13
+    name: ${{ matrix.target.platform }} · one ABI3 artifact
     needs: prepare
     runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 120
@@ -127,22 +127,29 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
         env:
+          MOLSYSMT_CONDA_ABI3: "true"
           MOLSYSMT_CONDA_BUILD_NUMBER: ${{ inputs.build_number }}
         with:
           meta_yaml_dir: devtools/conda-build
           user: uibcdf
           token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
           label: staging
-          conda_build_args: --package-format .conda --no-test
+          conda_build_args: >-
+            --package-format .conda
+            --no-test
+            --exclusive-config-file conda_build_config_abi3.yaml
 
       - name: Build, test, and publish the release platform
         if: github.event_name == 'release'
         uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
         env:
-          MOLSYSMT_CONDA_BUILD_NUMBER: 2
+          MOLSYSMT_CONDA_ABI3: "true"
+          MOLSYSMT_CONDA_BUILD_NUMBER: 3
         with:
           meta_yaml_dir: devtools/conda-build
           user: uibcdf
           token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
           label: main
-          conda_build_args: --package-format .conda
+          conda_build_args: >-
+            --package-format .conda
+            --exclusive-config-file conda_build_config_abi3.yaml

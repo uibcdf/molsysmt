@@ -50,10 +50,6 @@ Entries carrying front matter under
 - [`supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md`](supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md) — [#188](https://github.com/uibcdf/molsysmt/issues/188) — supported.forms() and info() return only styled tables, with no programmatic result. *(measured)*
 - [`the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md) — [#190](https://github.com/uibcdf/molsysmt/issues/190) — The evidence matrix cannot show the surfaces the manuscript will lead with. *(measured)*
 
-### In progress (1)
-
-- [`build_one_abi3_conda_artifact_per_native_platform.md`](build_one_abi3_conda_artifact_per_native_platform.md) — [#202](https://github.com/uibcdf/molsysmt/issues/202) — Build one ABI3 Conda artifact per native platform *(measured)*
-
 <!-- /generated -->
 
 ## Triage map

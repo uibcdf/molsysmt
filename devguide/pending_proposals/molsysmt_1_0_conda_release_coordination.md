@@ -329,9 +329,12 @@ Consequence: one artifact is built per native platform rather than per platform 
 Python minor. Its metadata retains the native platform subdirectory, carries CEP 20's
 `noarch: python` relocation marker, accepts `python >=3.11,<3.14`, and inherits
 `cpython >=3.11` plus `_python_abi3_support` from `python-abi3`. This replaces the July
-assumption that Conda necessarily required one artifact per Python minor. Adoption is
-conditional on #202 proving the exact same artifact under Python 3.11--3.13 on all five
-native targets.
+assumption that Conda necessarily required one artifact per Python minor. Issue #202
+proved the exact same artifact under Python 3.11--3.13 on all five native targets:
+four platforms passed run `33690618780`, and the final Windows run `33693263538` passed
+the build, three runtimes, and evidence upload in 13:40. The production workflow now
+uses this path, reducing native compilation from fifteen builds to five while preserving
+the fifteen-cell coordinated staging gate.
 
 **(b) Install a pre-built abi3 wheel in the recipe.** `build.sh` would
 `pip install --no-deps <wheel>` from a build artefact. This removes the Rust toolchain from
