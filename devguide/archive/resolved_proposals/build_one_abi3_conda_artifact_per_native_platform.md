@@ -126,6 +126,27 @@ a 66.7% reduction, while retaining all fifteen runtime validations.
 gh run view 33693263538 --repo uibcdf/molsysmt
 ```
 
+**Measured:** production staging run `33849332945` built and uploaded the five
+MolSysMT 0.22.0 build-2 artifacts successfully. The complete matrix took 19:56,
+bounded by macOS x86-64; individual job times were Linux ARM64 4:12, Linux x86-64
+4:34, macOS ARM64 8:05, Windows 10:49, and macOS x86-64 19:56. An independent query of
+the `uibcdf/label/staging` channel found exactly one build-2 artifact in every native
+subdirectory, each with the required ABI3 metadata and no `python_abi` dependency:
+
+| Subdirectory | SHA-256 |
+| --- | --- |
+| `linux-64` | `6fa364cba5b22140c3205b3dc032d017250e05919a4092a5c02d5367a7ba8b2f` |
+| `linux-aarch64` | `352fc567edd1d43442b84fd8d52ec52e2825b439ca5a15540947c1ed3d6445b0` |
+| `osx-64` | `7e9cc6d8ded8f30da405784d672e82ad6a00dda55b8609dce9ed661ff84fbe25` |
+| `osx-arm64` | `d7e660ab794b15e0e542f505444e2726a94633d35a4ac75ce78e3bd535c94d8b` |
+| `win-64` | `7075929e7636126a68f9e85fd24b15a494158125406548d7cc72ce952579123b` |
+
+```bash
+gh run view 33849332945 --repo uibcdf/molsysmt
+conda search --override-channels -c uibcdf/label/staging \
+  --subdir <native-subdirectory> molsysmt=0.22.0 --json
+```
+
 ## What was refuted
 
 - Forcing four compilation jobs is not the primary design: Cargo already parallelizes

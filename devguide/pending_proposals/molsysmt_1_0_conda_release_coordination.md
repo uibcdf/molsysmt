@@ -334,7 +334,10 @@ proved the exact same artifact under Python 3.11--3.13 on all five native target
 four platforms passed run `33690618780`, and the final Windows run `33693263538` passed
 the build, three runtimes, and evidence upload in 13:40. The production workflow now
 uses this path, reducing native compilation from fifteen builds to five while preserving
-the fifteen-cell coordinated staging gate.
+the fifteen-cell coordinated staging gate. Production run `33849332945` subsequently
+published all five MolSysMT 0.22.0 build-2 artifacts to `uibcdf/label/staging` in 19:56;
+an independent channel query confirmed their ABI3 requirements and absence of
+`python_abi` constraints.
 
 **(b) Install a pre-built abi3 wheel in the recipe.** `build.sh` would
 `pip install --no-deps <wheel>` from a build artefact. This removes the Rust toolchain from
