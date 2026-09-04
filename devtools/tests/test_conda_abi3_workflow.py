@@ -40,8 +40,12 @@ def test_experiment_builds_all_native_release_platforms():
 
 def test_experiment_builds_once_and_tests_one_artifact_three_times():
     text = WORKFLOW.read_text(encoding="utf-8")
+    workflow = _workflow()
+    lto_input = workflow[True]["workflow_dispatch"]["inputs"]["lto"]
 
     assert "action-build-and-upload-conda-packages@v2.0.3" in text
+    assert lto_input["options"] == ["true", "thin", "false", "off"]
+    assert "CARGO_PROFILE_RELEASE_LTO: ${{ inputs.lto }}" in text
     assert 'MOLSYSMT_CONDA_ABI3: "true"' in text
     assert "--exclusive-config-file conda_build_config_abi3.yaml" in text
     assert '[[ "${#built_paths[@]}" -ne 1 ]]' in text
@@ -49,7 +53,9 @@ def test_experiment_builds_once_and_tests_one_artifact_three_times():
     assert "validate_conda_abi3_artifact.py" in text
     assert "validate_installed_rust_extension.py" in text
     assert 'cp "$package_path" "$evidence_dir/"' in text
-    assert "${{ runner.temp }}/molsysmt-conda-abi3/*.conda" in text
+    assert "benchmarks/rust/bench_release_runtime.py" in text
+    assert "--worker threads" in text
+    assert "${{ runner.temp }}/molsysmt-conda-abi3/*" in text
     assert "upload: false" in text
 
 

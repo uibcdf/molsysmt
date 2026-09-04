@@ -15,6 +15,16 @@ on:
           - osx-64
           - osx-arm64
           - win-64
+      lto:
+        description: Cargo release LTO override for the experimental artifact
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - thin
+          - "false"
+          - "off"
 
 permissions:
   contents: read
@@ -45,7 +55,7 @@ jobs:
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   build-and-test:
-    name: ${{ matrix.target.platform }} · one build / Python 3.11–3.13
+    name: ${{ matrix.target.platform }} · LTO ${{ inputs.lto }}
     needs: prepare
     runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 90
@@ -81,6 +91,7 @@ jobs:
         id: build
         uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
         env:
+          CARGO_PROFILE_RELEASE_LTO: ${{ inputs.lto }}
           MOLSYSMT_CONDA_ABI3: "true"
           MOLSYSMT_CONDA_BUILD_NUMBER: 0
         with:
@@ -120,10 +131,13 @@ jobs:
           evidence_dir="$RUNNER_TEMP/molsysmt-conda-abi3"
           mkdir -p "$evidence_dir"
           cp "$package_path" "$evidence_dir/"
+          conda run --prefix "$RUNNER_TEMP/conda-abi3-py313" python \
+            "$GITHUB_WORKSPACE/benchmarks/rust/bench_release_runtime.py" \
+            --worker threads > "$evidence_dir/runtime-${{ inputs.lto }}.json"
 
       - uses: actions/upload-artifact@v7
         with:
-          name: molsysmt-conda-abi3-${{ matrix.target.platform }}
-          path: ${{ runner.temp }}/molsysmt-conda-abi3/*.conda
+          name: molsysmt-conda-abi3-${{ matrix.target.platform }}-lto-${{ inputs.lto }}
+          path: ${{ runner.temp }}/molsysmt-conda-abi3/*
           if-no-files-found: error
           retention-days: 7
