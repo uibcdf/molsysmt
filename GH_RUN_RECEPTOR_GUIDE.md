@@ -34,6 +34,8 @@ For a status-only green query, native GitHub JSON was smaller and remains prefer
 A failing seven-job MolSysViewer CI case reduced an already filtered native result from
 223 to 198 tokens (11.2%) while adding roles and replay identity; the ungrouped draft was
 larger than native output and was rejected.
+A successful MolSysViewer noarch Conda case reduced an equivalent run/jobs plus artifact
+inventory baseline from 101 to 45 tokens (55.4%).
 
 ## Supported integration level
 
