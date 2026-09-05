@@ -313,7 +313,7 @@ the slowest native runner completes.
   `target` input accepts either all five native platforms or one platform, so a failed
   platform can be rebuilt and published without repeating successful ones.
 
-MolSysMT adopts the pinned `gh-run-receptor` 0.4.0 contract through
+MolSysMT adopts the pinned `gh-run-receptor` 0.6.1 contract through
 `.github/gh-run-receptor.yaml` (uibcdf/gh-run-receptor#5). The build, Conda ABI3 test,
 Rattler experiment, and staging-validation workflows select the Conda profile by exact
 path. Only `validate_conda_staging.yaml` requires all five native platforms: the other
@@ -326,6 +326,10 @@ The smoke, full, weekly, developer-guide, bundled-data, Rust-wheel, Ruff, and im
 workflows select the CI profile by exact path (uibcdf/gh-run-receptor#6). This profile
 groups repeated failed-step signatures in compact output but leaves every job in JSON and
 never turns a GitHub CI failure into `PARTIAL`.
+
+The Sphinx/GitHub Pages workflow selects the documentation profile by exact path
+(uibcdf/gh-run-receptor#8). The profile preserves every step in JSON and treats its
+combined Sphinx-to-Pages action as one indivisible `build_deploy` evidence unit.
 
 ### Python version policy
 

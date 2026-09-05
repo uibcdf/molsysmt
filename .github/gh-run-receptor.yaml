@@ -25,6 +25,9 @@ workflows:
       path: .github/workflows/test_import.yaml
     profile: ci
   - match:
+      path: .github/workflows/sphinx_docs_to_gh_pages.yaml
+    profile: docs
+  - match:
       path: .github/workflows/build_and_upload_conda_packages.yaml
     profile: conda
   - match:

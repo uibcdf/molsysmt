@@ -6,8 +6,8 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.5.0`
-- Last synced: 2026-09-04
+- Source version: `gh-run-receptor@0.6.1`
+- Last synced: 2026-09-05
 
 ## What gh-run-receptor is
 
@@ -36,14 +36,16 @@ A failing seven-job MolSysViewer CI case reduced an already filtered native resu
 larger than native output and was rejected.
 A successful MolSysViewer noarch Conda case reduced an equivalent run/jobs plus artifact
 inventory baseline from 101 to 45 tokens (55.4%).
+A failing MolSysViewer notebook case reduced a competent filtered baseline from 136 to
+113 tokens (16.9%); a successful MolSysMT Sphinx/Pages case fell from 254 to 48 (81.1%).
 
 ## Supported integration level
 
-Version `0.5.0` is a source preview with:
+Version `0.6.1` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
-- generic, initial CI, and initial Conda profiles;
+- generic, initial CI, documentation, and Conda profiles;
 - strict `bundle@1`, `model@1`, and `report@1` boundaries;
 - dependency-free runtime on Python 3.11 through 3.13;
 - installation as a GitHub CLI script extension;
@@ -51,9 +53,9 @@ Version `0.5.0` is a source preview with:
 - offline `config check` and `config explain` commands;
 - required-platform enforcement for the Conda profile.
 
-Documentation and release profiles; configurable CI roles or required jobs; pattern
-matching; arbitrary rule keys; workflow discovery; and the embedded GitHub Action are not
-implemented in `0.5.0`.
+The release profile; configurable required jobs or documentation phases; pattern matching;
+arbitrary rule keys; workflow discovery; and the embedded GitHub Action are not implemented
+in `0.6.1`.
 
 ## Installation
 
@@ -61,14 +63,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.5.0
+gh extension install uibcdf/gh-run-receptor --pin 0.6.1
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.5.0
+0.6.1
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -193,6 +195,19 @@ sample; JSON retains every individual job. It does not yet enforce required jobs
 thresholds, annotations, or structured matrix dimensions, and never derives `PARTIAL`
 merely because some CI jobs succeeded.
 
+Use `docs` for Sphinx, notebook, link-checking, documentation-artifact, or Pages workflows:
+
+```text
+gh run-receptor inspect RUN_ID --repo OWNER/REPO --profile=docs --receptor=llm
+```
+
+The first documentation profile retains complete step state in JSON and groups it into
+bounded phases. A single Sphinx-to-Pages action remains `build_deploy`; the receptor does
+not pretend its build and deployment succeeded independently. A separately successful
+build followed by failed deployment is `PARTIAL` while preserving GitHub's failure and
+exit status 1. Required phases, warning parsing, page validation, and deployment probing
+are not implemented.
+
 ## Repository workflow rules
 
 Place the version 1 configuration at `.github/gh-run-receptor.yaml`:
@@ -200,6 +215,10 @@ Place the version 1 configuration at `.github/gh-run-receptor.yaml`:
 ```yaml
 schema_version: 1
 workflows:
+  - match:
+      path: .github/workflows/docs-notebooks.yaml
+    profile: docs
+
   - match:
       path: .github/workflows/build_and_upload_conda_packages.yaml
     profile: conda
@@ -212,9 +231,10 @@ workflows:
         - win-64
 ```
 
-Version `0.5.0` supports exactly one identity per rule: an exact `path`, positive numeric
+Version `0.6.1` supports exactly one identity per rule: an exact `path`, positive numeric
 `id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
-one distinct rule matches the observed workflow. Rules select `generic`, `ci`, or `conda`.
+one distinct rule matches the observed workflow. Rules select `generic`, `ci`, `docs`, or
+`conda`.
 Conda rules accept `expected_platforms`, whose values are `linux-64`, `linux-aarch64`,
 `osx-64`, `osx-arm64`, and `win-64`, or `package_kind` with `native` or `noarch`.
 
