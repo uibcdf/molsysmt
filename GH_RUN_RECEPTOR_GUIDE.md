@@ -6,7 +6,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.6.1`
+- Source version: `gh-run-receptor@0.7.0`
 - Last synced: 2026-09-05
 
 ## What gh-run-receptor is
@@ -38,14 +38,16 @@ A successful MolSysViewer noarch Conda case reduced an equivalent run/jobs plus 
 inventory baseline from 101 to 45 tokens (55.4%).
 A failing MolSysViewer notebook case reduced a competent filtered baseline from 136 to
 113 tokens (16.9%); a successful MolSysMT Sphinx/Pages case fell from 254 to 48 (81.1%).
+A failing MolSysViewer npm release case fell from 103 to 93 tokens (9.7%), and a
+successful npm release case from 95 to 84 tokens (11.6%).
 
 ## Supported integration level
 
-Version `0.6.1` is a source preview with:
+Version `0.7.0` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
-- generic, initial CI, documentation, and Conda profiles;
+- generic, initial CI, documentation, Conda, and release profiles;
 - strict `bundle@1`, `model@1`, and `report@1` boundaries;
 - dependency-free runtime on Python 3.11 through 3.13;
 - installation as a GitHub CLI script extension;
@@ -53,9 +55,9 @@ Version `0.6.1` is a source preview with:
 - offline `config check` and `config explain` commands;
 - required-platform enforcement for the Conda profile.
 
-The release profile; configurable required jobs or documentation phases; pattern matching;
-arbitrary rule keys; workflow discovery; and the embedded GitHub Action are not implemented
-in `0.6.1`.
+Configurable required jobs, documentation phases, or release gates; pattern matching;
+arbitrary rule keys; workflow discovery; external registry/archive verification; and the
+embedded GitHub Action are not implemented in `0.7.0`.
 
 ## Installation
 
@@ -63,14 +65,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.6.1
+gh extension install uibcdf/gh-run-receptor --pin 0.7.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.6.1
+0.7.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -208,6 +210,20 @@ build followed by failed deployment is `PARTIAL` while preserving GitHub's failu
 exit status 1. Required phases, warning parsing, page validation, and deployment probing
 are not implemented.
 
+Use `release` for package-registry publication, GitHub Release, or archive-verification
+workflows:
+
+```text
+gh run-receptor inspect RUN_ID --repo OWNER/REPO --profile=release --receptor=llm
+```
+
+The first release profile retains the observed event, head ref, and exact SHA. It marks
+the tag as unverified unless a future capture source proves the Git ref, keeps composite
+package/test/publish steps indivisible, and distinguishes successful workflow steps from
+external registry or archive verification. Separate successful packaging followed by
+failed or skipped publication may be `PARTIAL`; GitHub's failure and exit status 1 remain
+authoritative. It does not yet query npm, Anaconda, GitHub Releases, Git refs, or Zenodo.
+
 ## Repository workflow rules
 
 Place the version 1 configuration at `.github/gh-run-receptor.yaml`:
@@ -218,6 +234,10 @@ workflows:
   - match:
       path: .github/workflows/docs-notebooks.yaml
     profile: docs
+
+  - match:
+      path: .github/workflows/npm-publish.yaml
+    profile: release
 
   - match:
       path: .github/workflows/build_and_upload_conda_packages.yaml
@@ -231,10 +251,10 @@ workflows:
         - win-64
 ```
 
-Version `0.6.1` supports exactly one identity per rule: an exact `path`, positive numeric
+Version `0.7.0` supports exactly one identity per rule: an exact `path`, positive numeric
 `id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
-one distinct rule matches the observed workflow. Rules select `generic`, `ci`, `docs`, or
-`conda`.
+one distinct rule matches the observed workflow. Rules select `generic`, `ci`, `docs`,
+`conda`, or `release`.
 Conda rules accept `expected_platforms`, whose values are `linux-64`, `linux-aarch64`,
 `osx-64`, `osx-arm64`, and `win-64`, or `package_kind` with `native` or `noarch`.
 
@@ -268,8 +288,9 @@ Every report retains both layers:
 PARTIAL conclusion=failure status=completed | OWNER/REPO | run=123 attempt=1
 ```
 
-`conclusion=failure` is the GitHub source fact. `PARTIAL` says that the profile found
-independently reusable successful work alongside that failure. It never means success.
+`conclusion=failure` is the GitHub source fact. `PARTIAL` says that the selected profile
+found a meaningful completed phase separately from the failed or skipped phase; some
+profiles impose stronger artifact-reuse requirements. It never means success.
 
 Preliminary exit codes:
 

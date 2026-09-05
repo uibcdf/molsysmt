@@ -331,6 +331,11 @@ The Sphinx/GitHub Pages workflow selects the documentation profile by exact path
 (uibcdf/gh-run-receptor#8). The profile preserves every step in JSON and treats its
 combined Sphinx-to-Pages action as one indivisible `build_deploy` evidence unit.
 
+The Zenodo verification workflow selects the release profile by exact path
+(uibcdf/gh-run-receptor#9). The profile preserves event, observed ref, and exact SHA while
+distinguishing a successful archive-verification step from an external query performed by
+the receptor. Conda publication remains on the Conda profile.
+
 ### Python version policy
 
 Package metadata and release workflows support Python **3.11–3.13**. Python
