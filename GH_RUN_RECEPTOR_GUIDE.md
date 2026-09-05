@@ -6,7 +6,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.8.0`
+- Source version: `gh-run-receptor@0.9.0`
 - Last synced: 2026-09-05
 
 ## What gh-run-receptor is
@@ -43,7 +43,7 @@ successful npm release case from 95 to 84 tokens (11.6%).
 
 ## Supported integration level
 
-Version `0.8.0` is a source preview with:
+Version `0.9.0` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
@@ -55,10 +55,12 @@ Version `0.8.0` is a source preview with:
 - offline `config check` and `config explain` commands;
 - bounded local workflow discovery and non-overwriting `init` configuration generation;
 - required-platform enforcement for the Conda profile.
+- attempt-consistent historical capture and fail-closed bundle identity validation;
+- real-fixture coverage of cancellation, expired logs, and failed/successful reruns.
 
 Configurable required jobs, documentation phases, or release gates; pattern matching;
 arbitrary rule keys; remote workflow discovery; external registry/archive verification;
-and the embedded GitHub Action are not implemented in `0.8.0`.
+and the embedded GitHub Action are not implemented in `0.9.0`.
 
 ## Installation
 
@@ -66,14 +68,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.8.0
+gh extension install uibcdf/gh-run-receptor --pin 0.9.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.8.0
+0.9.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -136,7 +138,9 @@ Capture policies:
 
 Bundles separate hostname, repository, run, attempt, and policy. Members carry exact byte
 counts and SHA-256 digests. A metadata bundle is never reused as if it satisfied a full
-request.
+request. An explicit historical attempt uses attempt-specific run, job, and log evidence;
+replay rejects contradictory retained identity. If requested logs have expired, capture
+remains replayable but is marked incomplete and cannot produce `PASS`.
 
 ## Monitoring without repeated output
 
@@ -272,7 +276,7 @@ workflows:
         - win-64
 ```
 
-Version `0.8.0` supports exactly one identity per rule: an exact `path`, positive numeric
+Version `0.9.0` supports exactly one identity per rule: an exact `path`, positive numeric
 `id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
 one distinct rule matches the observed workflow. Rules select `generic`, `ci`, `docs`,
 `conda`, or `release`.
