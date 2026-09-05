@@ -6,7 +6,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.4.0`
+- Source version: `gh-run-receptor@0.5.0`
 - Last synced: 2026-09-04
 
 ## What gh-run-receptor is
@@ -37,7 +37,7 @@ larger than native output and was rejected.
 
 ## Supported integration level
 
-Version `0.4.0` is a source preview with:
+Version `0.5.0` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
@@ -51,7 +51,7 @@ Version `0.4.0` is a source preview with:
 
 Documentation and release profiles; configurable CI roles or required jobs; pattern
 matching; arbitrary rule keys; workflow discovery; and the embedded GitHub Action are not
-implemented in `0.4.0`.
+implemented in `0.5.0`.
 
 ## Installation
 
@@ -59,14 +59,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.4.0
+gh extension install uibcdf/gh-run-receptor --pin 0.5.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.4.0
+0.5.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -162,6 +162,22 @@ The initial Conda profile reports observed platform outcomes and calls an artifa
 only when its platform job succeeded and a matching artifact exists. It does not yet prove
 ABI validation, upload, or channel publication.
 
+For a `noarch: python` package, declare the package kind explicitly instead of inventing a
+native matrix:
+
+```yaml
+  - match:
+      path: .github/workflows/build_and_upload_conda_packages.yaml
+    profile: conda
+    settings:
+      package_kind: noarch
+```
+
+The report then summarizes package jobs and says whether GitHub artifact evidence is
+available, expired, observed with unknown expiry, or currently not observed. It does not
+equate a successful job with verified channel publication. A noarch rule cannot also set
+`expected_platforms`.
+
 Use `ci` for test, lint, coverage, documentation-check, build, or publication jobs:
 
 ```text
@@ -194,11 +210,11 @@ workflows:
         - win-64
 ```
 
-Version `0.4.0` supports exactly one identity per rule: an exact `path`, positive numeric
+Version `0.5.0` supports exactly one identity per rule: an exact `path`, positive numeric
 `id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
 one distinct rule matches the observed workflow. Rules select `generic`, `ci`, or `conda`.
-The only configurable setting is `expected_platforms`, whose values are `linux-64`,
-`linux-aarch64`, `osx-64`, `osx-arm64`, and `win-64`.
+Conda rules accept `expected_platforms`, whose values are `linux-64`, `linux-aarch64`,
+`osx-64`, `osx-arm64`, and `win-64`, or `package_kind` with `native` or `noarch`.
 
 Unknown fields, duplicates, globs, YAML tags, anchors, multiline scalars, flow mappings,
 and unsupported profile or platform values are errors. This strict subset prevents a
