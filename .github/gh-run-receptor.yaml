@@ -1,6 +1,9 @@
 schema_version: 1
 workflows:
   - match:
+      path: .github/workflows/benchmarks.yml
+    profile: ci
+  - match:
       path: .github/workflows/ci-smoke.yaml
     profile: ci
   - match:

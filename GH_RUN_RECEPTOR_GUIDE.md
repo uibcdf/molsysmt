@@ -6,7 +6,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.7.0`
+- Source version: `gh-run-receptor@0.8.0`
 - Last synced: 2026-09-05
 
 ## What gh-run-receptor is
@@ -43,7 +43,7 @@ successful npm release case from 95 to 84 tokens (11.6%).
 
 ## Supported integration level
 
-Version `0.7.0` is a source preview with:
+Version `0.8.0` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
@@ -53,11 +53,12 @@ Version `0.7.0` is a source preview with:
 - installation as a GitHub CLI script extension;
 - trusted default-branch repository configuration with exact workflow matching;
 - offline `config check` and `config explain` commands;
+- bounded local workflow discovery and non-overwriting `init` configuration generation;
 - required-platform enforcement for the Conda profile.
 
 Configurable required jobs, documentation phases, or release gates; pattern matching;
-arbitrary rule keys; workflow discovery; external registry/archive verification; and the
-embedded GitHub Action are not implemented in `0.7.0`.
+arbitrary rule keys; remote workflow discovery; external registry/archive verification;
+and the embedded GitHub Action are not implemented in `0.8.0`.
 
 ## Installation
 
@@ -65,14 +66,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.7.0
+gh extension install uibcdf/gh-run-receptor --pin 0.8.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.7.0
+0.8.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -226,6 +227,26 @@ authoritative. It does not yet query npm, Anaconda, GitHub Releases, Git refs, o
 
 ## Repository workflow rules
 
+Generate a local proposal before writing rules manually:
+
+```text
+gh run-receptor init > /tmp/gh-run-receptor.yaml
+gh run-receptor config check /tmp/gh-run-receptor.yaml
+```
+
+The command scans only regular, non-symlink `.yml` and `.yaml` files immediately under
+`.github/workflows/`. It prints one bounded explanation per workflow to stderr and the
+deterministic configuration to stdout. Unknown or ambiguous shapes remain `generic` and
+are never omitted. To create the default file directly:
+
+```text
+gh run-receptor init --write
+```
+
+`--write` refuses an existing `.github/gh-run-receptor.yaml`. Discovery does not execute
+workflow YAML, contact GitHub, edit workflows, or infer required jobs, release gates, or
+native platforms. Treat every suggestion as a starting point for human review.
+
 Place the version 1 configuration at `.github/gh-run-receptor.yaml`:
 
 ```yaml
@@ -251,7 +272,7 @@ workflows:
         - win-64
 ```
 
-Version `0.7.0` supports exactly one identity per rule: an exact `path`, positive numeric
+Version `0.8.0` supports exactly one identity per rule: an exact `path`, positive numeric
 `id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
 one distinct rule matches the observed workflow. Rules select `generic`, `ci`, `docs`,
 `conda`, or `release`.
@@ -345,10 +366,12 @@ For adoption at the current level:
 2. Copy this guide to `GH_RUN_RECEPTOR_GUIDE.md` and record it in the repository's required
    external-tooling guides.
 3. Use `--receptor=llm` explicitly in agent-facing commands.
-4. Add `.github/gh-run-receptor.yaml` only for settings supported by the pinned version.
-5. Run `config check` and test each workflow path with `config explain`.
-6. Start with known archived runs before relying on live development runs.
-7. Confirm that live JSON reports show `configuration.matched: true` and the expected
+4. Preview `init`, review every suggested profile, and add requirements discovery cannot
+   prove.
+5. Add `.github/gh-run-receptor.yaml` only for settings supported by the pinned version.
+6. Run `config check` and test each workflow path with `config explain`.
+7. Start with known archived runs before relying on live development runs.
+8. Confirm that live JSON reports show `configuration.matched: true` and the expected
    default-branch source.
-8. Record unsupported workflow shapes in gh-run-receptor, not as silent local filters.
-9. Preserve `gh run view` as the fallback for incomplete evidence.
+9. Record unsupported workflow shapes in gh-run-receptor, not as silent local filters.
+10. Preserve `gh run view` as the fallback for incomplete evidence.
