@@ -78,7 +78,8 @@ def test_declared_converters_can_be_resolved():
 # Three forms cannot satisfy the contract without a decision that is not this test's to
 # make: the two mechanics forms have no element axis, and the sequence form indexes by
 # group everywhere in its module, not by atom. They raise TypeError through `msm.extract`
-# today. Listed rather than skipped, so the debt is visible and any *new* breach fails.
+# today, and that is tracked as uibcdf/molsysmt#210. Listed rather than skipped, so the
+# debt is visible and any *new* breach fails.
 EXTRACT_CONTRACT_DEBT = {
     'molsysmt_MolecularMechanics',
     'molsysmt_MolecularMechanicsDict',
