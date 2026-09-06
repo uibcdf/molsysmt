@@ -1,10 +1,11 @@
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
 
 form = 'molsysviewer.MolSysView'
 
 
 @arg_digest(form=form)
-def extract(item, selection='all', structure_indices='all', syntax='MolSysMT', skip_digestion=False):
+def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
     """
     Extracting a subset of elements or structures from form molsysviewer.MolSysView.
 
@@ -13,12 +14,13 @@ def extract(item, selection='all', structure_indices='all', syntax='MolSysMT', s
     ----------
     item : molecular system
         Argument item.
-    selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
+    atom_indices : int, list, tuple, or numpy.ndarray, default='all'
+        Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    syntax : str, default='MolSysMT'
-        Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
+    copy_if_all : bool, default=True
+        Whether a copy is returned when every atom and every structure is extracted.
+        With False the same object is returned.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -31,13 +33,20 @@ def extract(item, selection='all', structure_indices='all', syntax='MolSysMT', s
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import extract as molsys_extract, convert
-    from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
+    if is_all(atom_indices) and is_all(structure_indices):
 
-    tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
+        if copy_if_all:
+            from .copy import copy as copy_molsysviewer_MolSysView
+            return copy_molsysviewer_MolSysView(item, skip_digestion=True)
+
+        return item
+
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
+    from ..molsysmt_MolSys.to_molsysviewer_MolSysView import to_molsysviewer_MolSysView
+
+    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices,
+                                  structure_indices=structure_indices, skip_digestion=True)
     if tmp_item is None:
         return None
 
-    tmp_item = molsys_extract(tmp_item, selection=selection, structure_indices=structure_indices,
-                              syntax=syntax, skip_digestion=True)
-    return convert(tmp_item, to_form='molsysviewer.MolSysView', skip_digestion=True)
+    return to_molsysviewer_MolSysView(tmp_item, skip_digestion=True)

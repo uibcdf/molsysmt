@@ -73,3 +73,43 @@ def test_declared_converters_can_be_resolved():
                 broken.append(f'{form} -> {target}: resolved to {type(resolved).__name__}')
 
     assert not broken, 'unresolvable conversions:\n' + '\n'.join(broken)
+
+
+# Three forms cannot satisfy the contract without a decision that is not this test's to
+# make: the two mechanics forms have no element axis, and the sequence form indexes by
+# group everywhere in its module, not by atom. They raise TypeError through `msm.extract`
+# today. Listed rather than skipped, so the debt is visible and any *new* breach fails.
+EXTRACT_CONTRACT_DEBT = {
+    'molsysmt_MolecularMechanics',
+    'molsysmt_MolecularMechanicsDict',
+    'string_amino_acids_3',
+}
+
+
+def test_every_form_extract_accepts_the_dispatch_contract():
+    """`basic.extract` calls every form the same way, so every form must accept it.
+
+    `molsysmt/basic/extract.py` dispatches with `atom_indices`, `structure_indices`,
+    `copy_if_all` and `skip_digestion`. A form whose `extract` declares anything else
+    raises `TypeError` for every call, including the default one -- which is what
+    `molsysviewer.MolSysView` did with the public signature instead of the form-level
+    one, and `molsysmt.StructuresDict` did without `skip_digestion`.
+    See uibcdf/molsysmt#204.
+    """
+
+    import ast
+
+    required = {'item', 'atom_indices', 'structure_indices', 'copy_if_all', 'skip_digestion'}
+
+    offenders = {}
+    for path in sorted(FORM_ROOT.glob('*/extract.py')):
+        form = path.parent.name
+        if form in EXTRACT_CONTRACT_DEBT:
+            continue
+        for node in ast.parse(path.read_text()).body:
+            if isinstance(node, ast.FunctionDef) and node.name == 'extract':
+                missing = required - {argument.arg for argument in node.args.args}
+                if missing:
+                    offenders[form] = sorted(missing)
+
+    assert offenders == {}
