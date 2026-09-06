@@ -611,8 +611,8 @@ For functions that *must* succeed (e.g., "parse this unit"), keep the default `E
 
 Level: **Mandatory**
 
-An integration can be wired correctly and still be silently useless. The failure
-modes below raise nothing, fail no test and print no warning — they only make
+An integration can be wired correctly and still be silently useless. The five
+failure modes below raise nothing, fail no test and print no warning — they only make
 your diagnostics say less than they should, and they are found months later by a
 user who reports "the error message was blank". Each check below is one
 assertion, and each corresponds to a defect that reached a released library in
@@ -659,15 +659,30 @@ It is the `args`-only rebuilders — `warnings.warn(text, category)` and
 pytest-xdist between a worker and the controller — that expose the defect, and
 `args` idempotence is what they test.
 
-### One file that does all four
+### Check 5 — no class assigns a name the base owns
+
+`CatalogException` and `CatalogWarning` own `code`, `message`, `raw_message`,
+`extra` and `hint`, and assign them **last**, from what they were given. A
+subclass that sets one of those before calling `super().__init__()` is writing
+into a variable the base is about to overwrite. Nothing raises; the value is
+simply discarded, and the day a subclass computes a value different from the
+base's is the day it is silently lost.
+
+`hint` protects itself — it is a read-only property, so assigning it raises at the
+offending line. The other four cannot, so a static check stands in for them.
+
+### One file that does all five
 
 ```python
 # tests/test_smonitor_integration.py
+import ast
+import pathlib
 import pickle
 
 import pytest
 import smonitor
 
+import mylib
 from mylib._private.smonitor import CATALOG
 from mylib._private.smonitor.catalog import CODES
 
@@ -704,6 +719,50 @@ def test_catalog_classes_survive_a_rebuild(build):
     original = build()
     assert type(original)(*original.args).args == original.args
     assert str(pickle.loads(pickle.dumps(original))) == str(original)
+
+
+# Names the base classes own. Add your own base classes to BASES: a subclass is
+# recognised through them, and they usually live in a module of yours rather
+# than being imported from SMonitor at every definition.
+RESERVED = {"code", "message", "raw_message", "extra", "hint"}
+BASES = {"CatalogException", "CatalogWarning", "MyLibCatalogError"}
+PACKAGE = pathlib.Path(mylib.__file__).parent
+
+
+def _catalog_classes(tree):
+    known, found, changed = set(BASES), set(), True
+    while changed:
+        changed = False
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef) and node.name not in found:
+                names = {getattr(b, "id", getattr(b, "attr", "")) for b in node.bases}
+                if names & known:
+                    found.add(node.name)
+                    known.add(node.name)
+                    changed = True
+    return found
+
+
+def test_no_catalog_class_assigns_a_base_owned_name():
+    offenders = []
+    for path in sorted(PACKAGE.rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        classes = _catalog_classes(tree)
+        for cls in (n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)):
+            if cls.name not in classes:
+                continue
+            for node in ast.walk(cls):
+                if not isinstance(node, ast.Assign):
+                    continue
+                for target in node.targets:
+                    if (
+                        isinstance(target, ast.Attribute)
+                        and target.attr in RESERVED
+                        and getattr(target.value, "id", "") == "self"
+                    ):
+                        where = f"{path.name}:{node.lineno}"
+                        offenders.append(f"{where} {cls.name}.self.{target.attr}")
+    assert not offenders, "assigns a name a base class owns: " + "; ".join(offenders)
 ```
 
 Add the bundle smoke from the minimum recipe alongside it — `smonitor export`
