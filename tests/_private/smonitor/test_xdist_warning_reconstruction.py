@@ -124,6 +124,11 @@ SAMPLES = {
         '1383370752',
     ),
     'UnknownAtomNameWarning': ({'atom_name': 'Ar'}, "'Ar'"),
+    'UnexpectedProtonationWarning': (
+        {'count': 4, 'pH': 7.4, 'examples': 'HD2 in ASP 12',
+         'caller': 'molsysmt.build.add_missing_hydrogens'},
+        'HD2 in ASP 12',
+    ),
     'GpuNotAvailableWarning': ({'reason': 'no CUDA GPU is accessible'}, 'CUDA'),
 }
 

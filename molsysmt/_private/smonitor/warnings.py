@@ -149,7 +149,15 @@ class UnexpectedProtonationWarning(UserMolSysMTWarning):
 
     catalog_key = "UnexpectedProtonationWarning"
 
-    def __init__(self, count, pH, examples, caller=None, message=None):
+    def __init__(self, message=None, *, count=None, pH=None, examples=None, caller=None):
+        if message is not None:
+            # Already rendered: this is a rebuild — `pickle`, `copy.deepcopy`,
+            # pytest-xdist or `warnings.warn(text, category)` — or a caller
+            # supplying its own prose. Recomputing from the fields would either
+            # fail on the absent ones or quietly render defaults.
+            super().__init__(message)
+            return
+
         extra = {"count": count, "pH": pH, "examples": examples}
         if caller:
             extra["caller"] = caller
