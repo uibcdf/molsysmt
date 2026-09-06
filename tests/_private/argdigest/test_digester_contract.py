@@ -42,3 +42,29 @@ def test_no_digester_returns_the_error_it_should_raise():
                 offenders.append(f"{relative}:{node.lineno}")
 
     assert offenders == []
+
+
+def test_every_attribute_has_a_digester():
+    """An attribute with no digester module is not validated at all: it is accepted
+    whatever its type, answered as if it were a flag, and warned about on every
+    legitimate call. See uibcdf/molsysmt#208.
+
+    Module presence plus a callable of the expected name is the floor this can check
+    structurally; whether a given digester refuses the right values stays with the
+    behavioural tests for that digester.
+    """
+    from importlib import import_module
+
+    from molsysmt.attribute import attributes
+
+    missing = []
+    for attribute in sorted(attributes):
+        try:
+            module = import_module(f'molsysmt._private.argdigest.argument.{attribute}')
+        except ModuleNotFoundError:
+            missing.append(attribute)
+            continue
+        if not callable(getattr(module, f'digest_{attribute}', None)):
+            missing.append(attribute)
+
+    assert missing == []

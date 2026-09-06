@@ -7,6 +7,10 @@ from molsysmt._private.argdigest.argument.n_chains import digest_n_chains
 from molsysmt._private.argdigest.argument.n_components import digest_n_components
 from molsysmt._private.argdigest.argument.n_molecules import digest_n_molecules
 from molsysmt._private.argdigest.argument.n_entities import digest_n_entities
+from molsysmt._private.argdigest.argument.n_nucleotides import digest_n_nucleotides
+from molsysmt._private.argdigest.argument.n_peptides import digest_n_peptides
+from molsysmt._private.argdigest.argument.n_dnas import digest_n_dnas
+from molsysmt._private.argdigest.argument.n_rnas import digest_n_rnas
 from molsysmt._private.argdigest.argument.element import digest_element
 from molsysmt._private.argdigest.argument.from_element import digest_from_element
 from molsysmt._private.argdigest.argument.water_model import digest_water_model
@@ -51,3 +55,16 @@ def test_water_model_digester_accepts_boolean_none_and_known_models():
     assert digest_water_model('tip3p') == 'TIP3P'
     with pytest.raises(ArgumentError):
         digest_water_model('bad-model')
+
+
+def test_composition_count_digesters_accept_the_three_callers_that_ask_for_them():
+    """`n_nucleotides` was the one attribute of 118 with no digester, so it accepted
+    any type and answered 0. See uibcdf/molsysmt#208."""
+    for digester in (digest_n_nucleotides, digest_n_peptides, digest_n_dnas, digest_n_rnas):
+        assert digester(True, caller='molsysmt.basic.get.get') is True
+        assert digester(2, caller='molsysmt.basic.contains.contains') == 2
+        assert digester(3, caller='molsysmt.basic.is_composed_of.is_composed_of') == 3
+        with pytest.raises(ArgumentError):
+            digester('no soy booleano', caller='molsysmt.basic.get.get')
+        with pytest.raises(ArgumentError):
+            digester(True, caller='molsysmt.native.topology.__init__')
