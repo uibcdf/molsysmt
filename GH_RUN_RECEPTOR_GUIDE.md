@@ -6,8 +6,8 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@0.10.0`
-- Last synced: 2026-09-05
+- Source version: `gh-run-receptor@0.11.0`
+- Last synced: 2026-09-06
 
 ## What gh-run-receptor is
 
@@ -43,7 +43,7 @@ successful npm release case from 95 to 84 tokens (11.6%).
 
 ## Supported integration level
 
-Version `0.10.0` is a source preview with:
+Version `0.11.0` is a source preview with:
 
 - `inspect`, `capture`, offline `replay`, and transition-only `watch`;
 - `human`, `llm`, and JSON rendering;
@@ -58,10 +58,13 @@ Version `0.10.0` is a source preview with:
 - attempt-consistent historical capture and fail-closed bundle identity validation;
 - real-fixture coverage of cancellation, expired logs, and failed/successful reruns.
 - structured, bounded, and redacted GitHub acquisition-error categories.
+- Python console-command, test, build, wheel-installation, and smoke-test validation on
+  Ubuntu, macOS, and Windows with Python 3.11, 3.12, and 3.13.
 
 Configurable required jobs, documentation phases, or release gates; pattern matching;
 arbitrary rule keys; remote workflow discovery; external registry/archive verification;
-and the embedded GitHub Action are not implemented in `0.10.0`.
+and the embedded GitHub Action are not implemented in `0.11.0`. Cross-platform validation
+does not yet cover installation as a GitHub CLI script extension.
 
 ## Installation
 
@@ -69,14 +72,14 @@ The client requires Git, Python 3.11 through 3.13, and an authenticated GitHub C
 Install the exact preview tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 0.10.0
+gh extension install uibcdf/gh-run-receptor --pin 0.11.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-0.10.0
+0.11.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -277,7 +280,7 @@ workflows:
         - win-64
 ```
 
-Version `0.10.0` supports exactly one identity per rule: an exact `path`, positive numeric
+Version `0.11.0` supports exactly one identity per rule: an exact `path`, positive numeric
 `id`, or exact display `name`. Path has precedence over ID, and ID over name, if more than
 one distinct rule matches the observed workflow. Rules select `generic`, `ci`, `docs`,
 `conda`, or `release`.
