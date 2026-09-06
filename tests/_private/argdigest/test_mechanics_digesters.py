@@ -2,6 +2,7 @@ import pytest
 
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.argdigest.argument.engine import digest_engine
+from molsysmt._private.argdigest.argument.method import digest_method
 from molsysmt._private.argdigest.argument.forcefield import digest_forcefield
 from molsysmt._private.argdigest.argument.non_bonded_method import digest_non_bonded_method
 from molsysmt._private.argdigest.argument.constraints import digest_constraints
@@ -53,3 +54,30 @@ def test_digest_rigid_water_and_dispersion_correction():
     assert digest_dispersion_correction(False) is False
     with pytest.raises(ArgumentError):
         digest_dispersion_correction('bad')
+
+
+def test_digest_method_refuses_by_raising_and_accepts_only_the_implemented_algorithm():
+    assert digest_method('L-BFGS') == 'L-BFGS'
+    assert digest_method('l-bfgs') == 'L-BFGS'
+    with pytest.raises(ArgumentError):
+        digest_method('steepest-descent')
+    with pytest.raises(ArgumentError):
+        digest_method(3)
+
+
+def test_the_minimization_default_survives_its_own_digester():
+    """A default that digests into an error object is a guard that cannot refuse."""
+    import inspect
+
+    from molsysmt.molecular_mechanics.potential_energy_minimization import (
+        potential_energy_minimization,
+    )
+
+    target = getattr(potential_energy_minimization, '__wrapped__', potential_energy_minimization)
+    default = inspect.signature(target).parameters['method'].default
+    caller = ('molsysmt.molecular_mechanics.potential_energy_minimization.'
+              'potential_energy_minimization')
+
+    digested = digest_method(default, caller=caller)
+    assert not isinstance(digested, BaseException)
+    assert digested == default

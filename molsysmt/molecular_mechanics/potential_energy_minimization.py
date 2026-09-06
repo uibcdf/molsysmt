@@ -17,18 +17,21 @@ def potential_energy_minimization(molecular_system, method='L-BFGS',
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    method : object, default='L-BFGS'
-        Argument method.
+    method : str, default='L-BFGS'
+        Local minimization algorithm. OpenMM's ``LocalEnergyMinimizer`` implements
+        L-BFGS, so 'L-BFGS' is the only accepted value; any other name is refused.
     platform : str, default='CPU'
-        OpenMM platform name ('Reference', 'CPU', 'CUDA', 'OpenCL').
-    engine : object, default='OpenMM'
-        Argument engine.
-    to_form : object, default=None
-        Argument to_form.
-    in_place : object, default=False
-        Argument in_place.
-    verbose : object, default=False
-        Argument verbose.
+        OpenMM platform name. Accepted values are 'CPU' and 'CUDA'.
+    engine : str, default='OpenMM'
+        Engine performing the minimization. Only 'OpenMM' is implemented.
+    to_form : str, default=None
+        Form of the returned molecular system when ``in_place=False``. With None the
+        input form is preserved.
+    in_place : bool, default=False
+        Whether the minimized coordinates are written into ``molecular_system``
+        instead of being returned in a new molecular system.
+    verbose : bool, default=False
+        Whether the potential energy before and after the minimization is printed.
 
     Returns
     -------
