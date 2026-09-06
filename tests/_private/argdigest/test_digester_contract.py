@@ -68,3 +68,44 @@ def test_every_attribute_has_a_digester():
             missing.append(attribute)
 
     assert missing == []
+
+
+def test_a_string_that_is_not_a_quantity_is_refused_as_an_argument():
+    """The unit registry's own exception must not reach the caller.
+
+    An unparseable string used to leave these digesters as pint's `UndefinedUnitError`,
+    while a bare number left them as `ArgumentError`: the same class of bad input arrived
+    as two different exception types, and the one that escaped named pint rather than the
+    argument. See uibcdf/molsysmt#203.
+
+    The set is discovered from the source, so a digester that starts parsing quantity
+    strings is covered the day it is written.
+    """
+    from importlib import import_module
+
+    from molsysmt._private.smonitor import ArgumentError
+
+    argument_root = DIGESTION_ROOT / "argument"
+    parsers = [
+        path.stem
+        for path in sorted(argument_root.glob("*.py"))
+        if path.stem != "_quantity_parsing"
+        and ("parse_quantity_string(" in path.read_text(encoding="utf-8")
+             or "puw.parse.parse(" in path.read_text(encoding="utf-8"))
+    ]
+    assert parsers, "no quantity-parsing digester was discovered"
+
+    escapes = {}
+    for name in parsers:
+        digester = getattr(import_module(f"molsysmt._private.argdigest.argument.{name}"),
+                           f"digest_{name}")
+        try:
+            digester("definitely-not-a-unit", caller=None)
+        except ArgumentError:
+            continue
+        except Exception as error:  # noqa: BLE001 - the point is which type escapes
+            escapes[name] = type(error).__name__
+        else:
+            escapes[name] = "returned instead of raising"
+
+    assert escapes == {}

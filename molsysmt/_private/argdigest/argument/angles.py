@@ -2,11 +2,12 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
 from ...variables import is_iterable
+from ._quantity_parsing import parse_quantity_string
 
 def digest_angles(angles, caller=None):
 
     if isinstance(angles, str):
-        angles = puw.parse.parse(angles)
+        angles = parse_quantity_string('angles', angles, caller=caller)
 
     if is_iterable(angles):
         if puw.is_quantity(angles[0]):

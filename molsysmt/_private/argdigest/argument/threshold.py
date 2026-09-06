@@ -1,6 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+from ._quantity_parsing import parse_quantity_string
 
 common_functions_with_threshold = [
     'molsysmt.structure.get_contacts.get_contacts',
@@ -15,7 +16,7 @@ common_functions_with_threshold_and_None = [
 def digest_threshold(threshold, caller=None):
 
     if isinstance(threshold, str):
-        threshold = puw.parse.parse(threshold)
+        threshold = parse_quantity_string('threshold', threshold, caller=caller)
 
     if caller in common_functions_with_threshold:
 

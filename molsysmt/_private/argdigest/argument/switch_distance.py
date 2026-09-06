@@ -1,13 +1,14 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+from ._quantity_parsing import parse_quantity_string
 
 def digest_switch_distance(switch_distance, caller=None):
 
     if isinstance(switch_distance, str):
-        switch_distance = puw.parse.parse(switch_distance)
+        switch_distance = parse_quantity_string('switch_distance', switch_distance, caller=caller)
 
-    if caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    if caller is not None and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         if switch_distance is None:
             return switch_distance
 

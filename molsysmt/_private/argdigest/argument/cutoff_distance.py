@@ -1,11 +1,12 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+from ._quantity_parsing import parse_quantity_string
 
 def digest_cutoff_distance(cutoff_distance, caller=None):
 
     if isinstance(cutoff_distance, str):
-        cutoff_distance = puw.parse.parse(cutoff_distance)
+        cutoff_distance = parse_quantity_string('cutoff_distance', cutoff_distance, caller=caller)
 
     if caller is not None and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
         if cutoff_distance is None:

@@ -2,6 +2,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_iterable
+from ._quantity_parsing import parse_quantity_string
 
 functions_with_boolean = (
         )
@@ -14,7 +15,7 @@ functions_with_list_as_output = (
 def digest_force_constant(force_constant, caller=None):
 
     if isinstance(force_constant, str):
-        force_constant = puw.parse.parse(force_constant)
+        force_constant = parse_quantity_string('force_constant', force_constant, caller=caller)
 
     if caller is not None:
         if caller.endswith(functions_with_list_as_output):

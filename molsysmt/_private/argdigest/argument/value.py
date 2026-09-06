@@ -1,10 +1,17 @@
 from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 from molsysmt import pyunitwizard as puw
+from ._quantity_parsing import parse_quantity_string
 
 
 
 def digest_value(value, caller=None):
+
+    # Every branch below dispatches on the caller: without one there is nothing to
+    # decide, and the refusal belongs at this boundary rather than as an AttributeError
+    # from the first `caller.endswith` further down.
+    if caller is None:
+        raise ArgumentError('value', value=value, caller=caller, message=None)
 
     quantity_callers = {
         'set_coordinates_to_atom',
@@ -16,7 +23,7 @@ def digest_value(value, caller=None):
     }
 
     if isinstance(value, str) and caller is not None and any(caller.endswith(ii) for ii in quantity_callers):
-        value = puw.parse.parse(value)
+        value = parse_quantity_string('value', value, caller=caller)
 
     # Atom
 

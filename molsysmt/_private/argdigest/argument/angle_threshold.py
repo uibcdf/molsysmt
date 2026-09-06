@@ -1,6 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+from ._quantity_parsing import parse_quantity_string
 
 common_functions_with_angle_threshold = [
     'molsysmt.hbonds.get_luzard_chandler_hbonds.get_luzard_chandler_hbonds',
@@ -12,7 +13,7 @@ common_functions_with_angle_threshold_and_None = [
 def digest_angle_threshold(angle_threshold, caller=None):
 
     if isinstance(angle_threshold, str):
-        angle_threshold = puw.parse.parse(angle_threshold)
+        angle_threshold = parse_quantity_string('angle_threshold', angle_threshold, caller=caller)
 
     if caller in common_functions_with_angle_threshold:
 

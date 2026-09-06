@@ -1,6 +1,7 @@
 import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+from ._quantity_parsing import parse_quantity_string
 
 common_functions_with_distance_threshold = [
     'molsysmt.hbonds.get_buch_hbonds.get_buch_hbonds',
@@ -13,7 +14,7 @@ common_functions_with_distance_threshold_and_None = [
 def digest_distance_threshold(distance_threshold, caller=None):
 
     if isinstance(distance_threshold, str):
-        distance_threshold = puw.parse.parse(distance_threshold)
+        distance_threshold = parse_quantity_string('distance_threshold', distance_threshold, caller=caller)
 
     if caller in common_functions_with_distance_threshold:
 

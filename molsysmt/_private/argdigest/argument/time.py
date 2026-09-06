@@ -1,6 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 from molsysmt import pyunitwizard as puw
 import numpy as np
+from ._quantity_parsing import parse_quantity_string
 
 functions_with_boolean = (
         'molsysmt.basic.get.get',
@@ -12,7 +13,7 @@ functions_with_boolean = (
 def digest_time(time, caller=None):
 
     if isinstance(time, str):
-        time = puw.parse.parse(time)
+        time = parse_quantity_string('time', time, caller=caller)
     """ Checks if time arguments has the correct type.
 
         Parameters
