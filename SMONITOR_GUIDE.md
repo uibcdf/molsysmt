@@ -297,6 +297,145 @@ If emission fails in non-critical paths:
 
 Silencing emission failures causes loss of traceability and empty/noisy diagnostics in downstream libraries.
 
+### 3.5 What to write, and what it buys you
+
+Level: **Mandatory**
+
+Sections 3.1 to 3.4 are the wiring. This one is the craft: given an error
+condition in your code, what do you actually write, and what does each choice buy
+you downstream.
+
+#### Four places, one job each
+
+| | owned by | holds |
+| --- | --- | --- |
+| `code` | the catalog | the stable identity of *this kind of incident* |
+| message | the catalog | the sentence, per profile |
+| hint | the catalog | what to do about it, per profile |
+| `extra` | the call site | the typed facts of *this occurrence* |
+
+One rule follows from the table, and everything else in this section is a
+consequence of it:
+
+> **Prose belongs to the catalog. Data belongs to the call site.**
+
+#### The same diagnostic, written both ways
+
+A caller misspells an argument. Written with prose at the call site:
+
+```python
+# The call site renders both sentences and passes them as strings.
+raise UnknownArgumentError(
+    f"{caller!r} does not accept the argument {name!r}.",
+    hint=f"Did you mean {guess!r}?",
+)
+```
+```python
+"MYLIB-E010": {"user_message": "{message}", "user_hint": "{hint}"}
+```
+
+Written with data:
+
+```python
+raise UnknownArgumentError.for_keyword(caller=caller, argname=name, guess=guess)
+```
+```python
+"MYLIB-E010": {
+    "user_message": "'{caller}' does not accept the argument '{argname}'.",
+    "user_hint": "{guess} See {doc_url}.",
+    "dev_message": "Argument '{argname}' is not in the contract of '{caller}'.",
+    "dev_hint": "{guess} Extend the contract if legitimate.",
+}
+```
+
+The user reads the same sentence either way. What differs is everything after
+the console:
+
+```
+prose:  extra = {"message": "'pkg.get' does not accept…", "hint": "Did you mean…"}
+data:   extra = {"caller": "pkg.get", "argname": "structur_indices",
+                 "guess": "Did you mean 'structure_indices'?"}
+```
+
+In the first, `report()` receives two English sentences and one duplicate of the
+message the event already carries. In the second it receives fields it can count,
+group and compare. A template of `"{message}"` also means the catalog cannot
+improve the user-facing wording at all: it can only echo what a call site
+hardcoded, in one language, the same for every profile.
+
+#### When the value really is prose
+
+Some values are irreducibly a sentence — a did-you-mean, a remedy derived from
+something the user declared at runtime. Those travel as a **declared field**, with
+a template that is a bare placeholder:
+
+```python
+"MYLIB-E011": {"user_hint": "{remedy}", "dev_hint": "{remedy} (contract: {caller})"}
+```
+
+This is not the previous case wearing a disguise. Which codes accept a call-site
+sentence is visible in the catalog, to a reviewer, instead of being discoverable
+only by reading every raise site; the per-profile framing stays with the catalog;
+and the value reaches `report()` and the bundle as its own field. What is not
+allowed is a diagnostic that bypasses the catalog entirely.
+
+#### Choosing a code
+
+- **Namespace it** with your library: `MYLIB-E010`, `MYLIB-W010`.
+- **One code per thing the user must do differently**, not one per raise site.
+  Three call sites that all mean "this file is not readable" share a code and
+  differ in `extra`; two conditions with different remedies need two codes even if
+  they are raised on adjacent lines.
+- **A published code is frozen.** Its wording may improve; its meaning may not
+  change. Retire a code rather than repurpose it — QA policies, dashboards and
+  triage baselines are keyed on it.
+
+#### What each field buys, and what you lose without it
+
+| you write | you get |
+| --- | --- |
+| `code` | `events_by_code`, `top_codes`, and any CI or QA policy keyed on codes |
+| `source` | `events_by_source` — which module the incident came from |
+| `category` | `events_by_category` — the coarse grouping in reports and bundles |
+| typed `extra` | `most_noisy_resources`, and the fingerprint below |
+| `@signal` (section 4) | `context.chain` — the breadcrumb across library boundaries |
+| canonical `extra` keys | the incident **fingerprint**, and everything built on it |
+
+Skip the code and the incident is invisible to `events_by_code` and to every
+policy keyed on it. Skip `@signal` on the orchestration path and the event says
+where it was raised but not how the user got there.
+
+#### The fingerprint: which fields group two occurrences into one incident
+
+A fingerprint is what makes "the same problem, again" recognisable — in
+`events_by_fingerprint`, in `recurrent_incidents`, and in `smonitor compare`
+between two runs. It is derived from `code`, `source`, `exception_type`, and **only
+these `extra` keys**:
+
+```
+caller, form, requested_attribute, resource, provider, operation,
+retry_attempt, retry_max, retry_exhausted, failure_class,
+cause_exception_type, cause_code
+```
+
+Two consequences worth knowing before you choose key names, because neither is
+guessable:
+
+- **A fact outside that list does not split the incident.** Two failures on the
+  same `resource` that differ only in a field of your own naming group as one.
+  That is usually what you want; if you need them apart, the distinguishing fact
+  has to be one of the keys above.
+- **`retry_attempt` is on the list**, so a retry loop that stamps it produces a
+  *different* fingerprint per attempt. Fingerprints therefore do not collapse
+  retries, and neither does `duplicate_policy`, which keys on the fingerprint.
+  `warning_coalesce_window_s` is what collapses them: it keys on code, source,
+  `resource`, `caller` and message instead. Use coalescing for retry storms and
+  `duplicate_policy` for genuinely identical repeats.
+
+Use `context_extra(...)` (section 5.2) to fill those keys, rather than spelling
+them yourself: it is the list, in code, and a typo in a key name is a field that
+silently stops taking part in any of this.
+
 ## 4. Telemetry with `@signal`
 
 Level: **Recommended**
@@ -558,7 +697,7 @@ def test_every_code_renders_in_every_profile(profile):
     "build",
     [
         # One builder per catalog class you define, in the shape a call site uses.
-        lambda: UnknownAtomNameWarning("Atom name 'Ar' is not recognized.", atom_name="Ar"),
+        lambda: UnknownAtomNameWarning("Atom 'Ar' is unknown.", atom_name="Ar"),
     ],
 )
 def test_catalog_classes_survive_a_rebuild(build):
