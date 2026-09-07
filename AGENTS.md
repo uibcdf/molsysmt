@@ -3,6 +3,10 @@
 This document defines global rules for automated agents and human contributors working on the MolSysMT repository.
 More specific `AGENTS.md` files in subdirectories refine or override these rules within their scope.
 
+Read `MOLSYSSUITE_GUIDE.md` before development. It is the synchronized, read-only
+suite-governance guide owned by `uibcdf/molsyssuite` and routes shared policies,
+cross-component feedback, and issue ownership.
+
 ## Scope
 
 - This file applies to every file in the repository unless a more specific `AGENTS.md` in a subdirectory states otherwise.
