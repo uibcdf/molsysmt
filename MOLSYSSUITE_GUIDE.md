@@ -31,6 +31,7 @@ Start with these central documents:
 - [cross-component feedback policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md);
 - [Python support policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md);
 - [Python tooling policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md).
+- [GH Run Receptor dogfooding policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md).
 
 Consult the central repository before changing a shared dependency boundary, supported
 Python range, development baseline, issue vocabulary, reusable workflow, vendored guide,
@@ -79,6 +80,21 @@ Every root integration guide synchronized from another repository is generated,
 read-only content. List its exact path in Ruff's `extend-exclude`; do not reformat or edit
 it in a component. Propose changes at the canonical source and resynchronize the exact
 copy. The suite checks both the exclusion and byte-level drift.
+
+## GitHub Actions inspection
+
+Use GH Run Receptor as the preferred first inspection path during development, following
+the repository's `GH_RUN_RECEPTOR_GUIDE.md` where present. Use the latest published
+release for routine work; an unreleased capability is experimental and must be pinned to
+an exact reviewed commit, never a floating branch.
+
+GitHub conclusions remain authoritative. Fall back to native `gh run view` inspection
+when the receptor reports incomplete evidence, errors, omits a fact needed for the
+decision, or disagrees with GitHub. During controlled adoption, the receptor is not the
+only approval source for releases, publication, deployment, or other irreversible work.
+Report limitations to `uibcdf/gh-run-receptor` with the workflow, run ID, selected profile,
+expected and observed results, and only sanitized evidence. The complete contract and
+exception process live in the central dogfooding policy linked above.
 
 ## Stabilization order
 
