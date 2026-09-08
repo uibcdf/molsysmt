@@ -10,8 +10,8 @@ Source of truth for integrating and using **SMonitor** in this library.
 Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
-- Source version: `smonitor@0.14.0`
-- Last synced: 2026-09-06
+- Source version: `smonitor@0.15.0`
+- Last synced: 2026-09-08
 
 ## What is SMonitor
 
@@ -440,6 +440,21 @@ guessable:
 Use `context_extra(...)` (section 5.2) to fill those keys, rather than spelling
 them yourself: it is the list, in code, and a typo in a key name is a field that
 silently stops taking part in any of this.
+
+**A fingerprint means something only for a coded event.** With no `code`, the
+derivation above leaves `source` alone, so every uncoded event from one module —
+every `logging` call the bridge captures — collapses into a single bucket
+whatever it says. Measured on a real suite: 219 events in one bucket, carrying
+102 distinct messages.
+
+`top_fingerprints` therefore labels each row with the code behind it, and
+`recurrent_incidents` holds only the coded ones: a log line is not an incident,
+and a list named for incidents should not report it as one. Nothing is hidden —
+the uncoded buckets stay in `top_fingerprints` and in `events_by_fingerprint`.
+
+The practical consequence for you is section 3.5's first rule, again from the
+other side: **a diagnostic without a code is invisible to every aggregate this
+section describes.** Not degraded — invisible.
 
 ## 4. Telemetry with `@signal`
 
