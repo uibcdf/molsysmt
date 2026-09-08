@@ -102,6 +102,8 @@ The first stabilization wave is SMonitor, ArgDigest, DepDigest, PyUnitWizard, Mo
 and MolSysViewer. Pytest Receptor and GH Run Receptor are supporting infrastructure.
 TopoMT, PharmacophoreMT, and ElastNetMT are incubating: common policies still apply, but
 their missing adoption work does not block the first stabilization outcome.
+Lindelint is an auxiliary component developed for ElastNetMT and the wider suite: it is a
+full governed member, while its adoption work likewise does not block wave 1.
 
 Priority affects scheduling, not whether contributors communicate valuable discoveries
 from any component.
