@@ -1,3 +1,8 @@
+<!--
+SYNCHRONIZED MOLSYSSUITE GUIDE — DO NOT EDIT COMPONENT COPIES.
+Canonical source: https://github.com/uibcdf/smonitor/blob/main/standards/SMONITOR_GUIDE.md
+-->
+
 # SMonitor Guide (Canonical)
 
 Source of truth for integrating and using **SMonitor** in this library.
@@ -767,6 +772,21 @@ def test_no_catalog_class_assigns_a_base_owned_name():
 
 Add the bundle smoke from the minimum recipe alongside it — `smonitor export`
 followed by reading `triage` — and the integration is verified end to end.
+
+### Running the checks from outside
+
+The file above is yours: it runs in your suite, on your schedule, and check 4
+needs builders only you can write. When the question is instead *where does every
+library stand*, SMonitor ships the same checks as a sweep:
+
+```bash
+python devtools/verify_integration.py ../mylib          # one
+python devtools/verify_integration.py --all             # every sibling carrying this guide
+```
+
+It covers checks 1, 2, 3 and 5, reads your catalog without importing your
+library, and exits non-zero on any failure, so it works as a gate. Check 4 stays
+in your own test file.
 
 
 ## Required behavior (non-negotiable)

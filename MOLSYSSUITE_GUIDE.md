@@ -75,8 +75,10 @@ isort, and Flake8. The required shared lint core is `E4`, `E7`, `E9`, `F`, and `
 repositories may add stricter rules. Pytest is the common test runner. Type checking and
 domain-specific scientific or UI gates remain repository-local.
 
-The synchronized `MOLSYSSUITE_GUIDE.md` is vendored governance content. Do not reformat
-or edit it in a component. Propose changes centrally and resynchronize the exact copy.
+Every root integration guide synchronized from another repository is generated,
+read-only content. List its exact path in Ruff's `extend-exclude`; do not reformat or edit
+it in a component. Propose changes at the canonical source and resynchronize the exact
+copy. The suite checks both the exclusion and byte-level drift.
 
 ## Stabilization order
 

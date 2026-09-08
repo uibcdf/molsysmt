@@ -1,3 +1,8 @@
+<!--
+SYNCHRONIZED MOLSYSSUITE GUIDE — DO NOT EDIT COMPONENT COPIES.
+Canonical source: https://github.com/uibcdf/gh-run-receptor/blob/main/standards/GH_RUN_RECEPTOR_GUIDE.md
+-->
+
 # gh-run-receptor Guide (Canonical)
 
 Source of truth for adopting **gh-run-receptor** in a client repository.

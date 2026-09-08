@@ -1,3 +1,8 @@
+<!--
+SYNCHRONIZED MOLSYSSUITE GUIDE — DO NOT EDIT COMPONENT COPIES.
+Canonical source: https://github.com/uibcdf/depdigest/blob/main/standards/DEPDIGEST_GUIDE.md
+-->
+
 # DepDigest Guide (Canonical)
 
 Source of truth for integrating and using **DepDigest** in this library.
@@ -28,15 +33,15 @@ Create a file named `_depdigest.py` in your package root. DepDigest uses the mod
 
 # Define all external dependencies
 LIBRARIES = {
-    'numpy': {'type': 'hard', 'pypi': 'numpy'},
-    'mdtraj': {'type': 'soft', 'pypi': 'mdtraj'},
-    'openmm.unit': {'type': 'soft', 'pypi': 'openmm', 'conda': 'openmm'},
+    "numpy": {"type": "hard", "pypi": "numpy"},
+    "mdtraj": {"type": "soft", "pypi": "mdtraj"},
+    "openmm.unit": {"type": "soft", "pypi": "openmm", "conda": "openmm"},
 }
 
 # Map sub-directories to their required library (for LazyRegistry)
 MAPPING = {
-    'mdtraj_Trajectory': 'mdtraj',
-    'openmm_Topology': 'openmm.unit',
+    "mdtraj_Trajectory": "mdtraj",
+    "openmm_Topology": "openmm.unit",
 }
 
 # Global visibility toggle
@@ -44,29 +49,31 @@ SHOW_ALL_CAPABILITIES = True
 
 # Custom exception class (Recommended for professional APIs)
 from .exceptions import MyLibraryNotFoundError
+
 EXCEPTION_CLASS = MyLibraryNotFoundError
 ```
 
 ## 2. Core API for Developers
 
 ### 2.1 The `@dep_digest` Decorator
-Resolved at runtime. It checks `is_installed(library_key)` before executing the function.  
+Resolved at runtime. It checks `is_installed(library_key)` before executing the function.
 The optional `pypi` field is used for installation hints/messages.
 
 ```python
 from depdigest import dep_digest
 
-@dep_digest('mdtraj')
+
+@dep_digest("mdtraj")
 def to_mdtraj(item):
-    import mdtraj # Lazy import is MANDATORY
+    import mdtraj  # Lazy import is MANDATORY
+
     ...
 ```
 
 **Conditional Check**: Enforce the dependency only if a specific argument is passed.
 ```python
-@dep_digest('openmm.unit', when={'to_form': 'openmm.unit'})
-def convert(item, to_form):
-    ...
+@dep_digest("openmm.unit", when={"to_form": "openmm.unit"})
+def convert(item, to_form): ...
 ```
 
 ### 2.2 The `LazyRegistry`
@@ -77,9 +84,9 @@ Acts as a dictionary. It only imports a sub-module if its dependency (defined in
 from depdigest import LazyRegistry
 
 registry = LazyRegistry(
-    package_prefix='MyLibrary.plugins',
-    directory='/path/to/plugins',
-    attr_name='plugin_name' # Each plugin file must have a 'plugin_name' variable
+    package_prefix="MyLibrary.plugins",
+    directory="/path/to/plugins",
+    attr_name="plugin_name",  # Each plugin file must have a 'plugin_name' variable
 )
 ```
 
@@ -87,11 +94,11 @@ Optional entry-point mode:
 
 ```python
 registry = LazyRegistry(
-    package_prefix='MyLibrary.plugins',
-    directory='/unused',
-    attr_name='plugin_name',
-    discovery_mode='entry_points',
-    entrypoint_group='MyLibrary.plugins',
+    package_prefix="MyLibrary.plugins",
+    directory="/unused",
+    attr_name="plugin_name",
+    discovery_mode="entry_points",
+    entrypoint_group="MyLibrary.plugins",
 )
 ```
 
@@ -103,10 +110,13 @@ Useful for testing or dynamic plugin systems where a root `_depdigest.py` is not
 ```python
 from depdigest import register_package_config, DepConfig
 
-register_package_config('my_dynamic_pkg', DepConfig(
-    libraries={'secret_lib': {'type': 'soft', 'pypi': 'secret'}},
-    exception_class=ValueError
-))
+register_package_config(
+    "my_dynamic_pkg",
+    DepConfig(
+        libraries={"secret_lib": {"type": "soft", "pypi": "secret"}},
+        exception_class=ValueError,
+    ),
+)
 ```
 
 You can remove or scope these overrides:
@@ -114,9 +124,9 @@ You can remove or scope these overrides:
 ```python
 from depdigest import unregister_package_config, temporary_package_config
 
-unregister_package_config('my_dynamic_pkg')
+unregister_package_config("my_dynamic_pkg")
 
-with temporary_package_config('my_dynamic_pkg', DepConfig(libraries={})):
+with temporary_package_config("my_dynamic_pkg", DepConfig(libraries={})):
     ...
 ```
 
@@ -126,14 +136,15 @@ Expose a function to let users know their environment's status:
 ```python
 from depdigest import get_info
 
+
 def dependency_info():
-    return get_info('MyLibrary')
+    return get_info("MyLibrary")
 ```
 
 Machine-readable status is also available:
 
 ```python
-payload = get_info('MyLibrary', format='dict')  # or format='json'
+payload = get_info("MyLibrary", format="dict")  # or format='json'
 ```
 
 `dict/json` outputs follow schema `depdigest.get_info@1.0`.

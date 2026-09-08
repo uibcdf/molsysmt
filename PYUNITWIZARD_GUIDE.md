@@ -1,3 +1,8 @@
+<!--
+SYNCHRONIZED MOLSYSSUITE GUIDE — DO NOT EDIT COMPONENT COPIES.
+Canonical source: https://github.com/uibcdf/pyunitwizard/blob/main/standards/PYUNITWIZARD_GUIDE.md
+-->
+
 # PyUnitWizard Guide (Canonical)
 
 Source of truth for integrating and using **PyUnitWizard** in this library.

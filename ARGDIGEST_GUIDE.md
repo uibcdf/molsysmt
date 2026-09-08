@@ -1,3 +1,8 @@
+<!--
+SYNCHRONIZED MOLSYSSUITE GUIDE — DO NOT EDIT COMPONENT COPIES.
+Canonical source: https://github.com/uibcdf/argdigest/blob/main/standards/ARGDIGEST_GUIDE.md
+-->
+
 # ArgDigest Guide (Canonical)
 
 Source of truth for integrating and using **ArgDigest** in this library.
@@ -5,10 +10,10 @@ Source of truth for integrating and using **ArgDigest** in this library.
 Metadata
 - Source repository: `argdigest`
 - Source document: `standards/ARGDIGEST_GUIDE.md`
-- Source version: `argdigest@0.11.0` plus unreleased `main`
+- Source version: `argdigest@0.12.0`
 - Last synced: 2026-08-13
 
-Since `0.11.0` this guide changed in two ways that affect an integration: `*args` and
+`0.12.0` changed this guide in two ways that affect an integration: `*args` and
 positional-only parameters are supported and documented (§5), and the `ValidatedPayload`
 passport was **removed** rather than replaced, leaving `skip_digestion` as the single
 mechanism (§6).
@@ -46,12 +51,12 @@ Create a file named `_argdigest.py` in your package root. ArgDigest uses the mod
 # Axis 2 -- the value contract of each argument.
 DIGESTION_SOURCE = "MyLibrary._private.argdigest.argument"
 DIGESTION_STYLE = "package"
-STRICTNESS = "warn"            # missing digester for a declared parameter
+STRICTNESS = "warn"  # missing digester for a declared parameter
 
 # Axis 1 -- the argument contract of each function.
 FUNCTION_SOURCE = "MyLibrary._private.argdigest.function"
 DOMAIN_SOURCE = "MyLibrary._private.argdigest.domain"
-UNKNOWN_ARGUMENT = "error"     # keyword outside the function's contract
+UNKNOWN_ARGUMENT = "error"  # keyword outside the function's contract
 
 # Declared aliases, applied before both axes.
 NORMALIZATION_SOURCE = "MyLibrary._private.argdigest.normalization"
@@ -66,7 +71,8 @@ warnings are routinely filtered off exactly where users read output.
 You can also load configurations from external files:
 ```python
 from argdigest.config import load_from_file
-cfg = load_from_file("rules.yaml") # Supports .py, .yaml, .json
+
+cfg = load_from_file("rules.yaml")  # Supports .py, .yaml, .json
 ```
 
 ## 1.1 Runtime Dependency Contract
@@ -87,9 +93,9 @@ The primary entry point. It handles both argument-centric discovery and explicit
 ```python
 from argdigest import arg_digest
 
-@arg_digest(type_check=True) # Optional beartype integration
-def my_function(molecular_system, selection='all'):
-    ...
+
+@arg_digest(type_check=True)  # Optional beartype integration
+def my_function(molecular_system, selection="all"): ...
 ```
 
 ### 2.2 Explicit Mapping (`arg_digest.map`)
@@ -98,10 +104,9 @@ Use this when you need specific pipelines for specific arguments. Global `kind` 
 ```python
 @arg_digest.map(
     item={"kind": "topology", "rules": ["is_valid"]},
-    value={"kind": "std", "rules": ["to_bool"]}
+    value={"kind": "std", "rules": ["to_bool"]},
 )
-def process(item, value):
-    ...
+def process(item, value): ...
 ```
 
 ## 3. Mandatory Registration Pattern
@@ -110,6 +115,7 @@ Define reusable pipelines in your library to ensure consistency:
 
 ```python
 from argdigest import register_pipeline
+
 
 @register_pipeline(kind="feature", name="feature.base")
 def coerce_feature(obj, ctx):
@@ -126,8 +132,7 @@ Manage physical quantities by passing a `puw_context`:
 
 ```python
 @arg_digest(puw_context={"standard_units": ["nm", "ps"], "form": "pint"})
-def simulate(time):
-    ...
+def simulate(time): ...
 ```
 
 ### 4.2 Profiling
@@ -135,8 +140,8 @@ Enable performance tracking for your digestion pipelines:
 
 ```python
 @arg_digest(profiling=True)
-def heavy_func(data):
-    ...
+def heavy_func(data): ...
+
 
 # After execution, access the audit log:
 print(heavy_func.audit_log)
@@ -151,16 +156,21 @@ family of rules in `NORMALIZATION_SOURCE`:
 from argdigest import AliasTable
 
 # everywhere
-table = AliasTable(aliases={'residue_index': 'group_index'})
+table = AliasTable(aliases={"residue_index": "group_index"})
 
 # only in one function, or a family
-AliasTable(applies_to='mylib.basic.compare.compare',
-           aliases={'attributes_type': 'attribute_type'})
-AliasTable(applies_to='mylib.form.*', aliases={'idx': 'index'})
+AliasTable(
+    applies_to="mylib.basic.compare.compare",
+    aliases={"attributes_type": "attribute_type"},
+)
+AliasTable(applies_to="mylib.form.*", aliases={"idx": "index"})
 
 # guarded on another argument of the same call
-AliasTable(applies_to='mylib.basic.get.get', when={'element': 'atom'},
-           aliases={'name': 'atom_name', 'index': 'atom_index'})
+AliasTable(
+    applies_to="mylib.basic.get.get",
+    when={"element": "atom"},
+    aliases={"name": "atom_name", "index": "atom_index"},
+)
 ```
 
 Tables compose most-specific-first, renaming is a single pass, and argument order is
@@ -243,9 +253,12 @@ drift apart:
 from argdigest import Domain
 from MyLibrary.attribute import attributes, is_attribute
 
-domain = Domain(name='attribute', contains=is_attribute,
-                members=lambda: tuple(attributes),
-                description='canonical attribute names')
+domain = Domain(
+    name="attribute",
+    contains=is_attribute,
+    members=lambda: tuple(attributes),
+    description="canonical attribute names",
+)
 ```
 
 `contains` decides membership; `members` enumerates it when possible, which is what
@@ -258,11 +271,11 @@ output type, a mode. Declare the table and the argument it keys on:
 
 ```python
 Domain(
-    name='engine_options',
-    depends_on='engine',
+    name="engine_options",
+    depends_on="engine",
     by_value={
-        'MolSysMT': ('threshold', 'parallel'),
-        'OpenMM':   ('threshold', 'platform'),
+        "MolSysMT": ("threshold", "parallel"),
+        "OpenMM": ("threshold", "platform"),
     },
 )
 ```
@@ -289,8 +302,8 @@ permissive with the reason recorded.
 from argdigest import FunctionContract
 
 contract = FunctionContract(
-    caller='MyLibrary.basic.get.get',
-    admits='attribute',                 # signature + this domain
+    caller="MyLibrary.basic.get.get",
+    admits="attribute",  # signature + this domain
 )
 ```
 
@@ -301,8 +314,9 @@ A module may declare one `contract`, or several through a `CONTRACTS` list. Beyo
 Use `caller_pattern` instead of `caller` to cover a family, with `fnmatch` syntax:
 
 ```python
-contract = FunctionContract(caller_pattern='MyLibrary.form.*.to_file_h5msm',
-                            admits='signature')
+contract = FunctionContract(
+    caller_pattern="MyLibrary.form.*.to_file_h5msm", admits="signature"
+)
 ```
 
 Resolution is **most specific first**: exact caller, then the longest matching pattern,
