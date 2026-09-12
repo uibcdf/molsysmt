@@ -37,6 +37,21 @@ Consult the central repository before changing a shared dependency boundary, sup
 Python range, development baseline, issue vocabulary, reusable workflow, vendored guide,
 or behavior expected across components.
 
+## Cross-repository working state
+
+Before work spanning components, use the MolSysSuite checkout to refresh and inspect every
+registered component:
+
+```bash
+python devtools/scripts/suite_status.py
+```
+
+The command derives repository and cohort order from `suite.toml`, fetches remotes, and
+reports dirty, ahead, behind, missing, or upstream-less checkouts. It does not modify a
+component worktree, merge, rebase, stash, commit, or push. Resolve or explicitly preserve
+every reported item before a coordinated change. Use `--no-fetch` only for an explicitly
+offline snapshot and repeatable `--repository` selectors for a bounded inspection.
+
 ## Reporting bugs and proposals
 
 Decide ownership before filing:
