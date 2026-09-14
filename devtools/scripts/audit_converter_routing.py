@@ -28,12 +28,15 @@ converter is deliberate. Read each one before changing it.
 Usage:
     python devtools/scripts/audit_converter_routing.py
 """
+
 import ast
 import os
 import pathlib
 import sys
 
-REPO_ROOT = pathlib.Path(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+REPO_ROOT = pathlib.Path(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+)
 FORM_ROOT = REPO_ROOT / "molsysmt" / "form"
 
 
@@ -44,12 +47,12 @@ def imported_from(tree, plugin):
     for node in ast.walk(tree):
         if not isinstance(node, ast.ImportFrom) or not node.module:
             continue
-        if node.level == 0 and node.module.startswith('molsysmt.form.'):
-            parts = node.module.split('.')
+        if node.level == 0 and node.module.startswith("molsysmt.form."):
+            parts = node.module.split(".")
             if len(parts) >= 3:
                 for alias in node.names:
                     origin[alias.asname or alias.name] = parts[2]
-        elif node.level == 1:                       # from .to_x import to_x
+        elif node.level == 1:  # from .to_x import to_x
             for alias in node.names:
                 origin[alias.asname or alias.name] = plugin
     return origin
@@ -59,7 +62,7 @@ def audit():
     findings = []
     declared = {entry.name for entry in os.scandir(FORM_ROOT) if entry.is_dir()}
 
-    for path in sorted(FORM_ROOT.glob('*/to_*.py')):
+    for path in sorted(FORM_ROOT.glob("*/to_*.py")):
         plugin = path.parent.name
         tree = ast.parse(path.read_text())
         origin = imported_from(tree, plugin)
@@ -71,31 +74,37 @@ def audit():
             if source is None or source == plugin:
                 continue
             first = node.args[0] if node.args else None
-            if isinstance(first, ast.Name) and first.id == 'item':
-                findings.append({
-                    'path': str(path.relative_to(REPO_ROOT)),
-                    'line': node.lineno,
-                    'callee': node.func.id,
-                    'source': source,
-                    'plugin': plugin,
-                    'source_exists': source in declared,
-                })
+            if isinstance(first, ast.Name) and first.id == "item":
+                findings.append(
+                    {
+                        "path": str(path.relative_to(REPO_ROOT)),
+                        "line": node.lineno,
+                        "callee": node.func.id,
+                        "source": source,
+                        "plugin": plugin,
+                        "source_exists": source in declared,
+                    }
+                )
     return findings
 
 
 def main():
     findings = audit()
-    missing = [f for f in findings if not f['source_exists']]
+    missing = [f for f in findings if not f["source_exists"]]
 
     for finding in findings:
-        mark = '  [plugin does not exist]' if not finding['source_exists'] else ''
-        print(f"{finding['path']}:{finding['line']}: {finding['callee']} comes from "
-              f"{finding['source']}, but item is a {finding['plugin']} item{mark}")
+        mark = "  [plugin does not exist]" if not finding["source_exists"] else ""
+        print(
+            f"{finding['path']}:{finding['line']}: {finding['callee']} comes from "
+            f"{finding['source']}, but item is a {finding['plugin']} item{mark}"
+        )
 
     print(f"\nCandidates: {len(findings)}")
     if missing:
-        print(f"Of those, {len(missing)} import from a plugin directory that does not "
-              f"exist, so they would fail on the first call.")
+        print(
+            f"Of those, {len(missing)} import from a plugin directory that does not "
+            f"exist, so they would fail on the first call."
+        )
     return 0
 
 

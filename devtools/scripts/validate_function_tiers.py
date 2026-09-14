@@ -17,6 +17,7 @@ Explicit ``@support_tier(N)`` decorators override the derived tier. This validat
 
 Exit 0 on success, 1 on any contradiction. Imports nothing from MolSysMT.
 """
+
 from __future__ import annotations
 
 import ast
@@ -31,7 +32,7 @@ PACKAGE = REPO / "molsysmt"
 STABILITY_TO_TIER = {
     "stable": 1,
     "experimental": 3,
-    "outside-contract": None,   # outside the core support contract
+    "outside-contract": None,  # outside the core support contract
 }
 
 
@@ -56,9 +57,13 @@ def find_support_tier_decorators():
             if not isinstance(node, ast.FunctionDef):
                 continue
             for dec in node.decorator_list:
-                if (isinstance(dec, ast.Call) and isinstance(dec.func, ast.Name)
-                        and dec.func.id == "support_tier" and dec.args
-                        and isinstance(dec.args[0], ast.Constant)):
+                if (
+                    isinstance(dec, ast.Call)
+                    and isinstance(dec.func, ast.Name)
+                    and dec.func.id == "support_tier"
+                    and dec.args
+                    and isinstance(dec.args[0], ast.Constant)
+                ):
                     found.append((node.name, dec.args[0].value, module))
     return found
 
@@ -105,16 +110,20 @@ def main() -> int:
     for k, v in tiers.items():
         if v:
             print(f"  {k}: {v}")
-    print(f"  @support_tier decorators found: {len(decorated)} "
-          f"({', '.join(sorted({m for _, _, m in decorated})) or 'none'})")
+    print(
+        f"  @support_tier decorators found: {len(decorated)} "
+        f"({', '.join(sorted({m for _, _, m in decorated})) or 'none'})"
+    )
 
     if errors:
         print("\nFunction-tier validation FAILED:")
         for e in errors:
             print(f"  - {e}")
         return 1
-    print("Function-tier classification valid: every public function has a tier; "
-          "decorators are consistent.")
+    print(
+        "Function-tier classification valid: every public function has a tier; "
+        "decorators are consistent."
+    )
     return 0
 
 

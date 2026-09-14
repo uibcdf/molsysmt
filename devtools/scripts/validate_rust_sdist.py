@@ -4,9 +4,8 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path, PurePosixPath
 import tarfile
-
+from pathlib import Path, PurePosixPath
 
 REQUIRED_SUFFIXES = {
     "LICENSE",
@@ -114,11 +113,17 @@ def validate_sdist(path: Path) -> list[str]:
         preview = forbidden[:10]
         problems.append(
             f"cache, build, VCS, or binary artifacts are present: {preview}"
-            + (f" (+{len(forbidden) - len(preview)} more)" if len(forbidden) > 10 else "")
+            + (
+                f" (+{len(forbidden) - len(preview)} more)"
+                if len(forbidden) > 10
+                else ""
+            )
         )
 
     rust_sources = {
-        name for name in relative if name.startswith("rust/src/") and name.endswith(".rs")
+        name
+        for name in relative
+        if name.startswith("rust/src/") and name.endswith(".rs")
     }
     if not rust_sources:
         problems.append("no Rust source files are present")

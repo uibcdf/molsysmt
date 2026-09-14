@@ -7,7 +7,6 @@ from pathlib import Path
 
 import h5py
 
-
 REPOSITORY = Path(__file__).resolve().parents[2]
 DATA_DIR = REPOSITORY / "molsysmt" / "data"
 MANIFEST = DATA_DIR / "demo_manifest.json"
@@ -44,7 +43,9 @@ def validate() -> None:
             assert state.attrs["component_evidence"] == "unknown"
             assert "formal_charge" not in state["atom_attributes"]
             assert file["structures/coordinates"].shape == (
-                artifact["expected"][-1], artifact["expected"][0], 3
+                artifact["expected"][-1],
+                artifact["expected"][0],
+                3,
             )
 
     legacy = REPOSITORY / "tests/form/file_h5msm/data/alanine_dipeptide_v03.h5msm"

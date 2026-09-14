@@ -138,8 +138,8 @@ def get_addon():
         AddonContextActionSpec,
         AddonExportHelperSpec,
         AddonPanelSpec,
-        AddonSpec,
         AddonSectionSpec,
+        AddonSpec,
         AddonWorkspaceSpec,
     )
 

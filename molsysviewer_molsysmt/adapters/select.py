@@ -20,17 +20,23 @@ class SelectionResult:
         return len(self.indices)
 
 
-def select_indices(view: Any, selection: Any = "all", *, element: str = "atom") -> SelectionResult:
+def select_indices(
+    view: Any, selection: Any = "all", *, element: str = "atom"
+) -> SelectionResult:
     """Run ``msm.select`` on the active view and resolve atoms for the viewer."""
     if not has_system(view):
         raise ValueError("No molecular system attached.")
 
     import numpy as np
+
     import molsysmt as msm
 
-    indices = [int(item) for item in np.asarray(
-        msm.select(view, selection=selection, element=element)
-    ).reshape(-1)]
+    indices = [
+        int(item)
+        for item in np.asarray(
+            msm.select(view, selection=selection, element=element)
+        ).reshape(-1)
+    ]
 
     if element == "atom":
         atom_indices = list(indices)
@@ -45,7 +51,9 @@ def select_indices(view: Any, selection: Any = "all", *, element: str = "atom") 
     )
 
 
-def _atom_indices_for_element_indices(view: Any, element: str, indices: list[int]) -> list[int]:
+def _atom_indices_for_element_indices(
+    view: Any, element: str, indices: list[int]
+) -> list[int]:
     import molsysmt as msm
 
     element_to_atom_attribute = {

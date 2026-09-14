@@ -15,6 +15,7 @@ Enforces the contract established by the 2026-07-22 renumbering
 
 Exit code 0 on success, 1 on any violation. Imports nothing from MolSysMT.
 """
+
 from __future__ import annotations
 
 import json
@@ -32,6 +33,7 @@ SECTIONS = {
     "Path_Biophysics": ("biophysics", range(21, 55)),
 }
 
+
 def notebooks(d: Path):
     return [p for p in d.glob("*.ipynb") if ".ipynb_checkpoints" not in p.parts]
 
@@ -44,7 +46,11 @@ def label_of(nb_path: Path):
     nb = json.loads(nb_path.read_text())
     for cell in nb["cells"]:
         if cell["cell_type"] == "markdown":
-            src = "".join(cell["source"]) if isinstance(cell["source"], list) else cell["source"]
+            src = (
+                "".join(cell["source"])
+                if isinstance(cell["source"], list)
+                else cell["source"]
+            )
             m = re.search(r"\(([a-z0-9-]+)\)=", src)
             return m.group(1) if m else None
     return None
@@ -132,8 +138,10 @@ def main() -> int:
             print(f"  - {e}")
         return 1
     core = len(notebooks(COURSE / "Common_Core"))
-    print(f"Course structure valid: {total} notebooks "
-          f"({core} core + 4x34 paths), toctrees, manifest, and labels consistent.")
+    print(
+        f"Course structure valid: {total} notebooks "
+        f"({core} core + 4x34 paths), toctrees, manifest, and labels consistent."
+    )
     return 0
 
 

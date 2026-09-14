@@ -45,9 +45,7 @@ def _require_conda_install(
         record = json.loads(conda_records[0].read_text(encoding="utf-8"))
         build = str(record.get("build", ""))
         if not build.startswith("pyabi3h"):
-            raise RuntimeError(
-                f"MolSysMT resolved non-ABI3 Conda build {build!r}"
-            )
+            raise RuntimeError(f"MolSysMT resolved non-ABI3 Conda build {build!r}")
         requirements = record.get("depends", [])
         requirement_names = {
             requirement.split()[0]
@@ -83,9 +81,11 @@ def validate(molsysmt_version: str, molsysviewer_version: str) -> None:
     _require_version("molsysmt", molsysmt_version)
     _require_version("molsysviewer", molsysviewer_version)
 
-    import molsysmt
     import molsysmt._rust as rust
     import molsysviewer
+
+    import molsysmt
+
     importlib.import_module("molsysviewer.runtime_contract")
 
     if molsysmt.__version__ != molsysmt_version:
@@ -96,7 +96,9 @@ def validate(molsysmt_version: str, molsysviewer_version: str) -> None:
     prefix = pathlib.Path(sys.prefix).resolve()
     rust_path = pathlib.Path(rust.__file__).resolve()
     if prefix not in rust_path.parents:
-        raise RuntimeError(f"molsysmt._rust resolves outside the environment: {rust_path}")
+        raise RuntimeError(
+            f"molsysmt._rust resolves outside the environment: {rust_path}"
+        )
 
     viewer_root = pathlib.Path(molsysviewer.__file__).resolve().parent
     for resource_name in ("runtime_actions.json", "viewer.js"):

@@ -12,10 +12,7 @@ import types
 from importlib import metadata
 from pathlib import Path
 
-
-EXPORT_MANIFEST = (
-    Path(__file__).resolve().parents[1] / "data" / "rust_exports.json"
-)
+EXPORT_MANIFEST = Path(__file__).resolve().parents[1] / "data" / "rust_exports.json"
 
 
 def expected_rust_exports() -> set[str]:
@@ -38,9 +35,7 @@ def find_single_wheel(path: Path) -> Path:
     path = path.resolve()
     wheels = sorted(path.glob("*.whl")) if path.is_dir() else [path]
     if len(wheels) != 1 or not wheels[0].is_file():
-        raise RuntimeError(
-            f"expected exactly one wheel at {path}, found {len(wheels)}"
-        )
+        raise RuntimeError(f"expected exactly one wheel at {path}, found {len(wheels)}")
     return wheels[0]
 
 

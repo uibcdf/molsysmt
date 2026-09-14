@@ -11,7 +11,6 @@ from ..adapters.topology import bond_graph_links, dihedral_quartets
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
-
 _ESM = """
 export function render({ model, el }) {
   let state = { n_bonds: null, n_dihedrals: null, status: "idle", error: null };
@@ -104,14 +103,18 @@ class MolSysMTTopologyPanel(AddonPanelWidget):
     _css: str = _CSS
 
     def on_mount(self, view: Any) -> None:
-        self.set_state({"n_bonds": None, "n_dihedrals": None, "status": "idle", "error": None})
+        self.set_state(
+            {"n_bonds": None, "n_dihedrals": None, "status": "idle", "error": None}
+        )
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
         if action_id == "show_bonds":
             if not has_system(view):
-                self.set_state({"status": "error", "error": "No molecular system attached."})
+                self.set_state(
+                    {"status": "error", "error": "No molecular system attached."}
+                )
                 return
             self.set_state({"status": "running"})
             try:
@@ -119,26 +122,40 @@ class MolSysMTTopologyPanel(AddonPanelWidget):
                 runtime.bondgraph_result = result.graph
                 view.shapes.add_links(atom_pairs=result.atom_pairs, tag=_BONDS_TAG)
                 record_event(view, "panel_topology_bonds", n_bonds=result.n_bonds)
-                self.set_state({"n_bonds": result.n_bonds, "status": "done", "error": None})
+                self.set_state(
+                    {"n_bonds": result.n_bonds, "status": "done", "error": None}
+                )
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="topology", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="topology", action=action_id, exc=exc)
+                )
 
         elif action_id == "clear_bonds":
             try:
                 view.shapes.clear(tag=_BONDS_TAG)
                 self.set_state({"n_bonds": None, "status": "idle", "error": None})
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="topology", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="topology", action=action_id, exc=exc)
+                )
 
         elif action_id == "count_dihedrals":
             if not has_system(view):
-                self.set_state({"status": "error", "error": "No molecular system attached."})
+                self.set_state(
+                    {"status": "error", "error": "No molecular system attached."}
+                )
                 return
             self.set_state({"status": "running"})
             try:
                 result = dihedral_quartets(view)
                 runtime.dihedral_quartets_result = result.quartets
-                record_event(view, "panel_topology_dihedrals", n_dihedrals=result.n_dihedrals)
-                self.set_state({"n_dihedrals": result.n_dihedrals, "status": "done", "error": None})
+                record_event(
+                    view, "panel_topology_dihedrals", n_dihedrals=result.n_dihedrals
+                )
+                self.set_state(
+                    {"n_dihedrals": result.n_dihedrals, "status": "done", "error": None}
+                )
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="topology", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="topology", action=action_id, exc=exc)
+                )

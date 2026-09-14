@@ -21,7 +21,7 @@ CONTROLLED_HARD_DEPENDENCIES = (
 def test_ci_test_environment_pins_pytest_receptor():
     payload = yaml.safe_load(TEST_ENV.read_text(encoding="utf-8"))
     assert "pytest-receptor=0.6.0" in payload["dependencies"]
-    assert "ruff" in payload["dependencies"]
+    assert "ruff=0.16.5" in payload["dependencies"]
 
 
 def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions():
@@ -75,8 +75,7 @@ def test_ci_pytest_commands_use_the_ci_receptor():
 
     assert commands
     assert all(
-        command.startswith("python -m pytest --receptor=ci")
-        for command in commands
+        command.startswith("python -m pytest --receptor=ci") for command in commands
     )
 
 

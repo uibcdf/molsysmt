@@ -15,6 +15,7 @@ Usage:
 Exit 0 if every fast gate passes, 1 otherwise. The full pytest matrix is reported as a
 required, separate gate that this script does not execute.
 """
+
 from __future__ import annotations
 
 import subprocess
@@ -31,7 +32,10 @@ VALIDATORS = [
     ("validate_api_stability.py", "Public API stability registry"),
     ("validate_function_tiers.py", "Public function support tiers"),
     ("validate_form_adapters.py", "Form adapter delivery contracts"),
-    ("audit_conversion_fidelity.py", "Tier 1 conversion fidelity (accepted-debt baseline)"),
+    (
+        "audit_conversion_fidelity.py",
+        "Tier 1 conversion fidelity (accepted-debt baseline)",
+    ),
     ("validate_scientific_evidence.py", "Scientific evidence registry"),
     ("validate_dependencies.py", "No top-level soft-dependency imports"),
     ("validate_devguide.py", "Developer-guide integrity"),
@@ -59,7 +63,9 @@ print('public-API smoke OK')
 def run(cmd, label, timeout):
     t0 = time.time()
     try:
-        p = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=timeout)
+        p = subprocess.run(
+            cmd, cwd=REPO, capture_output=True, text=True, timeout=timeout
+        )
         ok = p.returncode == 0
         tail = (p.stdout.strip().splitlines() or [""])[-1]
         return ok, time.time() - t0, tail, p.stdout + p.stderr
@@ -73,8 +79,10 @@ def main() -> int:
         for script, label in VALIDATORS:
             print(f"  - {label}  ({script})")
         print("  - Public-API smoke (import + convert + get + select + get_center)")
-        print("\nHeavy gate (NOT run here): ci-full.yaml — full pytest matrix on "
-              "ubuntu+macos x {3.11,3.12,3.13}.")
+        print(
+            "\nHeavy gate (NOT run here): ci-full.yaml — full pytest matrix on "
+            "ubuntu+macos x {3.11,3.12,3.13}."
+        )
         return 0
 
     results = []
@@ -86,7 +94,9 @@ def main() -> int:
         ok, dt, tail, _ = run([sys.executable, str(path)], label, timeout=300)
         results.append((label, ok, dt, tail))
 
-    ok, dt, tail, _ = run([sys.executable, "-c", SMOKE], "Public-API smoke", timeout=300)
+    ok, dt, tail, _ = run(
+        [sys.executable, "-c", SMOKE], "Public-API smoke", timeout=300
+    )
     results.append(("Public-API smoke", ok, dt, tail if ok else "smoke FAILED"))
 
     width = max(len(r[0]) for r in results)
@@ -100,9 +110,11 @@ def main() -> int:
     total = len(results)
     print("=" * (width + 20))
     print(f"Fast gates: {passed}/{total} passed.")
-    print("Heavy gate still required before tagging: a green ci-full.yaml run "
-          "(full pytest matrix, ubuntu+macos x {3.11,3.12,3.13}) on the exact, "
-          "committed tag candidate. See devguide/release_gate.md.")
+    print(
+        "Heavy gate still required before tagging: a green ci-full.yaml run "
+        "(full pytest matrix, ubuntu+macos x {3.11,3.12,3.13}) on the exact, "
+        "committed tag candidate. See devguide/release_gate.md."
+    )
 
     if passed != total:
         print("\nRELEASE GATE: FAIL — fix the gates above before proceeding.")

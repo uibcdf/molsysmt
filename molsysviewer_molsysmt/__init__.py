@@ -9,18 +9,19 @@ from __future__ import annotations
 
 import importlib
 
+from .access import (
+    has_system,
+    materialize_system,
+    system_for_verbs,
+    system_object,
+)
+
 # Light imports only (runtime/access pull nothing heavy at import time).
 from .runtime import (
     MolSysMTAddonRuntime,
     create_molsysmt_state,
     ensure_runtime,
     record_event,
-)
-from .access import (
-    has_system,
-    materialize_system,
-    system_for_verbs,
-    system_object,
 )
 
 _ADDON_EXPORTS = (

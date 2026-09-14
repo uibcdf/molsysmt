@@ -92,7 +92,9 @@ def _entry(report: Report) -> str:
     name = report.path.name
     summary = report.summary or "*no summary*"
     blocked_by = report.get("blocked_by", [])
-    line = f"- [`{name}`]({name}) — {_issue_link(report)} — {summary}{_qualifiers(report)}"
+    line = (
+        f"- [`{name}`]({name}) — {_issue_link(report)} — {summary}{_qualifiers(report)}"
+    )
     if blocked_by:
         line += f"\n  Blocked by {', '.join(str(item) for item in blocked_by)}."
     return line

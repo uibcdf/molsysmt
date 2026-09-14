@@ -38,7 +38,9 @@ def has_system(view: Any) -> bool:
     return getattr(view, "molsys", None) is not None
 
 
-def materialize_system(view: Any, selection: Any = "all", structure_indices: Any = "all") -> Any:
+def materialize_system(
+    view: Any, selection: Any = "all", structure_indices: Any = "all"
+) -> Any:
     """Materialize an independent standalone ``molsysmt.MolSys`` from the view.
 
     Only needed when an operation must produce a new system without mutating the
@@ -52,4 +54,6 @@ def materialize_system(view: Any, selection: Any = "all", structure_indices: Any
     """
     import molsysmt as msm
 
-    return msm.extract(view.molsys, selection=selection, structure_indices=structure_indices)
+    return msm.extract(
+        view.molsys, selection=selection, structure_indices=structure_indices
+    )

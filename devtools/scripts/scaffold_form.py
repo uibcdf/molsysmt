@@ -5,9 +5,10 @@ scaffold_form.py
 Developer CLI utility to scaffold a pristine, fully conforming MolSysMT form
 adapter directory pre-populated with contract specifications.
 """
+
+import argparse
 import os
 import sys
-import argparse
 
 # Add repository root to python path to import molsysmt correctly
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -70,7 +71,7 @@ def main():
 
     # 2. Template content definitions
     # __init__.py template
-    init_content = f'''from .is_form import is_form
+    init_content = f"""from .is_form import is_form
 from .attributes import attributes
 from .has_attribute import has_attribute
 from .get_topological_attributes import *
@@ -87,7 +88,7 @@ bonds_are_explicit = False
 bonds_can_be_computed = False
 
 _convert_to = {{}}
-'''
+"""
 
     # is_form.py template
     target_class = args.class_name if args.class_name else "package.module.ClassName"
@@ -123,17 +124,17 @@ def is_form(item):
 '''
 
     # attributes.py template
-    attributes_content = f'''from molsysmt.attribute.attributes import attributes as _all_attributes
+    attributes_content = """from molsysmt.attribute.attributes import attributes as _all_attributes
 
 # Initialize all attributes as unsupported (False)
-attributes = {{ii: False for ii in _all_attributes}}
+attributes = {ii: False for ii in _all_attributes}
 
 # Enable specific attributes supported by this form here
 # Example:
 # attributes['n_atoms'] = True
 
 del(_all_attributes)
-'''
+"""
 
     # has_attribute.py template
     has_attribute_content = f'''from molsysmt._private.argdigest import arg_digest
@@ -176,7 +177,7 @@ class TopologyIterator(BaseTopologyIterator):
 '''
 
     # get_topological_attributes.py template
-    get_topological_content = f'''from molsysmt._private.argdigest import arg_digest
+    get_topological_content = f"""from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 import types
 
@@ -189,10 +190,10 @@ form = '{form_name}'
 #     return len(item.atoms)
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-'''
+"""
 
     # get_structural_attributes.py template
-    get_structural_content = f'''from molsysmt._private.argdigest import arg_digest
+    get_structural_content = f"""from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 import types
 
@@ -205,7 +206,7 @@ form = '{form_name}'
 #     return item.coordinates
 
 __all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-'''
+"""
 
     # 3. Write files to target directory
     files_to_write = {
@@ -230,9 +231,15 @@ __all__ = [name for name, obj in globals().items() if isinstance(obj, types.Func
     print("Next Steps for implementing the form adapter:")
     print("1. Define the class matching rules in is_form.py.")
     print("2. Set supported attributes in attributes.py.")
-    print("3. Implement any supported topological getters in get_topological_attributes.py.")
-    print("4. Implement any supported structural getters in get_structural_attributes.py.")
-    print("5. Create converters (e.g. to_molsysmt_MolSys.py) and register them in _convert_to in __init__.py.")
+    print(
+        "3. Implement any supported topological getters in get_topological_attributes.py."
+    )
+    print(
+        "4. Implement any supported structural getters in get_structural_attributes.py."
+    )
+    print(
+        "5. Create converters (e.g. to_molsysmt_MolSys.py) and register them in _convert_to in __init__.py."
+    )
     print("6. Run the QA conformance linter to verify your new form adapter:")
     print("   python devtools/scripts/validate_form_adapters.py")
     print("=" * 80)

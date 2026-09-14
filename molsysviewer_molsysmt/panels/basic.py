@@ -11,7 +11,6 @@ from ..adapters.system import system_counts
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
-
 _ESM = """
 export function render({ model, el }) {
   let state = {
@@ -166,7 +165,13 @@ class MolSysMTBasicPanel(AddonPanelWidget):
 
         if action_id == "inspect":
             if not has_system(view):
-                self.set_state({**self._build_state(runtime), "status": "error", "error": "No molecular system attached."})
+                self.set_state(
+                    {
+                        **self._build_state(runtime),
+                        "status": "error",
+                        "error": "No molecular system attached.",
+                    }
+                )
                 return
             self.set_state({**self._build_state(runtime), "status": "inspecting"})
             try:
@@ -178,32 +183,48 @@ class MolSysMTBasicPanel(AddonPanelWidget):
                 record_event(view, "panel_inspect", n_atoms=runtime.n_atoms)
                 self.set_state({**self._build_state(runtime), "status": "done"})
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="basic", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="basic", action=action_id, exc=exc)
+                )
 
         elif action_id == "run_selection":
             if not has_system(view):
-                self.set_state({**self._build_state(runtime), "status": "error", "error": "No molecular system attached."})
+                self.set_state(
+                    {
+                        **self._build_state(runtime),
+                        "status": "error",
+                        "error": "No molecular system attached.",
+                    }
+                )
                 return
             selection = payload.get("selection", "all")
             element = payload.get("element", "atom")
             self.set_state({**self._build_state(runtime), "status": "running"})
             try:
                 result = runtime.show.select(selection=selection, element=element)
-                self.set_state({
-                    **self._build_state(runtime),
-                    "n_selected": result.n_selected,
-                    "element": element,
-                    "status": "done",
-                })
+                self.set_state(
+                    {
+                        **self._build_state(runtime),
+                        "n_selected": result.n_selected,
+                        "element": element,
+                        "status": "done",
+                    }
+                )
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="basic", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="basic", action=action_id, exc=exc)
+                )
 
         elif action_id == "clear_selection":
             try:
                 runtime.show.clear_selection()
-                self.set_state({**self._build_state(runtime), "n_selected": None, "status": "idle"})
+                self.set_state(
+                    {**self._build_state(runtime), "n_selected": None, "status": "idle"}
+                )
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="basic", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="basic", action=action_id, exc=exc)
+                )
 
     @staticmethod
     def _build_state(runtime: Any) -> dict:

@@ -12,7 +12,6 @@ from ..adapters.pbc import transform_pbc
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
-
 _ESM = """
 export function render({ model, el }) {
   let state = {
@@ -140,32 +139,42 @@ class MolSysMTPBCPanel(AddonPanelWidget):
             except Exception:
                 pass
         runtime.pbc_status = pbc_status
-        self.set_state({
-            "pbc_status": pbc_status,
-            "last_op": None,
-            "update_mode": None,
-            "mutation_warning": None,
-            "status": "idle",
-            "error": None,
-        })
+        self.set_state(
+            {
+                "pbc_status": pbc_status,
+                "last_op": None,
+                "update_mode": None,
+                "mutation_warning": None,
+                "status": "idle",
+                "error": None,
+            }
+        )
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
         if action_id == "check_pbc":
             if not has_system(view):
-                self.set_state({"status": "error", "error": "No molecular system attached."})
+                self.set_state(
+                    {"status": "error", "error": "No molecular system attached."}
+                )
                 return
             try:
                 pbc_status = get_pbc_status(view).has_pbc
                 runtime.pbc_status = pbc_status
-                self.set_state({"pbc_status": pbc_status, "status": "done", "error": None})
+                self.set_state(
+                    {"pbc_status": pbc_status, "status": "done", "error": None}
+                )
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="pbc", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="pbc", action=action_id, exc=exc)
+                )
             return
 
         if not has_system(view):
-            self.set_state({"status": "error", "error": "No molecular system attached."})
+            self.set_state(
+                {"status": "error", "error": "No molecular system attached."}
+            )
             return
 
         self.set_state({"status": "running"})
@@ -174,37 +183,45 @@ class MolSysMTPBCPanel(AddonPanelWidget):
                 result = transform_pbc(view, "wrap_pbc")
                 view.set_coordinates(result.coordinates)
                 record_event(view, "panel_pbc", op="wrap_to_pbc")
-                self.set_state({
-                    "last_op": "wrap to PBC",
-                    "update_mode": "coordinates",
-                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
-                    "status": "done",
-                    "error": None,
-                })
+                self.set_state(
+                    {
+                        "last_op": "wrap to PBC",
+                        "update_mode": "coordinates",
+                        "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                        "status": "done",
+                        "error": None,
+                    }
+                )
 
             elif action_id == "wrap_mic":
                 result = transform_pbc(view, "wrap_mic")
                 view.set_coordinates(result.coordinates)
                 record_event(view, "panel_pbc", op="wrap_to_mic")
-                self.set_state({
-                    "last_op": "wrap to MIC",
-                    "update_mode": "coordinates",
-                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
-                    "status": "done",
-                    "error": None,
-                })
+                self.set_state(
+                    {
+                        "last_op": "wrap to MIC",
+                        "update_mode": "coordinates",
+                        "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                        "status": "done",
+                        "error": None,
+                    }
+                )
 
             elif action_id == "unwrap_pbc":
                 result = transform_pbc(view, "unwrap_pbc")
                 view.set_coordinates(result.coordinates)
                 record_event(view, "panel_pbc", op="unwrap")
-                self.set_state({
-                    "last_op": "unwrap",
-                    "update_mode": "coordinates",
-                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
-                    "status": "done",
-                    "error": None,
-                })
+                self.set_state(
+                    {
+                        "last_op": "unwrap",
+                        "update_mode": "coordinates",
+                        "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                        "status": "done",
+                        "error": None,
+                    }
+                )
 
         except Exception as exc:
-            self.set_state(panel_error_state(view, panel="pbc", action=action_id, exc=exc))
+            self.set_state(
+                panel_error_state(view, panel="pbc", action=action_id, exc=exc)
+            )

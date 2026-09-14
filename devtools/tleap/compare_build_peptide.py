@@ -3,9 +3,9 @@
 import argparse
 import json
 import os
-from pathlib import Path
 import shutil
 import sys
+from pathlib import Path
 
 import numpy as np
 
@@ -44,7 +44,9 @@ def _resolve_tleap_binary(explicit_tleap_bin=None, explicit_amberclassic_dir=Non
     return None
 
 
-def _configure_tleap_for_session(explicit_tleap_bin=None, explicit_amberclassic_dir=None):
+def _configure_tleap_for_session(
+    explicit_tleap_bin=None, explicit_amberclassic_dir=None
+):
     """Provision tleap in PATH for this process only (temporary, non-global)."""
 
     current = shutil.which("tleap")
@@ -65,8 +67,12 @@ def _configure_tleap_for_session(explicit_tleap_bin=None, explicit_amberclassic_
 
 
 def _compute_metrics(molsys):
-    coordinates = msm.pyunitwizard.get_value(molsys.structures.coordinates[0], to_unit="nm")
-    bonds = np.array(molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int))
+    coordinates = msm.pyunitwizard.get_value(
+        molsys.structures.coordinates[0], to_unit="nm"
+    )
+    bonds = np.array(
+        molsys.topology.bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=int)
+    )
     atom_types = np.array(molsys.topology.atoms["atom_type"].to_numpy(), dtype=object)
 
     metrics = {
@@ -76,7 +82,9 @@ def _compute_metrics(molsys):
     }
 
     if len(bonds) > 0:
-        bonded_distances = np.linalg.norm(coordinates[bonds[:, 0], :] - coordinates[bonds[:, 1], :], axis=1)
+        bonded_distances = np.linalg.norm(
+            coordinates[bonds[:, 0], :] - coordinates[bonds[:, 1], :], axis=1
+        )
         metrics["max_bond_nm"] = float(np.max(bonded_distances))
         metrics["min_bond_nm"] = float(np.min(bonded_distances))
     else:
@@ -92,7 +100,9 @@ def _compute_metrics(molsys):
             pair = tuple(sorted((int(atom_index_1), int(atom_index_2))))
             if pair in bonded_set:
                 continue
-            distance = np.linalg.norm(coordinates[atom_index_1, :] - coordinates[atom_index_2, :])
+            distance = np.linalg.norm(
+                coordinates[atom_index_1, :] - coordinates[atom_index_2, :]
+            )
             if distance < min_nonbonded_heavy_distance:
                 min_nonbonded_heavy_distance = distance
 
@@ -106,7 +116,9 @@ def _compute_metrics(molsys):
 
 def _try_build(sequence, engine):
     try:
-        molsys = msm.build.build_peptide(sequence, to_form="molsysmt.MolSys", engine=engine)
+        molsys = msm.build.build_peptide(
+            sequence, to_form="molsysmt.MolSys", engine=engine
+        )
         return {
             "ok": True,
             "metrics": _compute_metrics(molsys),
@@ -167,7 +179,9 @@ def main():
     if args.sequences_json is not None:
         with open(args.sequences_json, "r", encoding="utf-8") as file_handle:
             loaded = json.load(file_handle)
-        if not isinstance(loaded, list) or not all(isinstance(item, str) for item in loaded):
+        if not isinstance(loaded, list) or not all(
+            isinstance(item, str) for item in loaded
+        ):
             raise ValueError("--sequences-json must contain a JSON list of strings.")
         sequences.extend(loaded)
 
@@ -183,7 +197,10 @@ def main():
         explicit_amberclassic_dir=args.amberclassic_dir,
     )
     if resolved_tleap is None:
-        print("WARNING: tleap not found in PATH. LEaP comparisons will fail.", file=sys.stderr)
+        print(
+            "WARNING: tleap not found in PATH. LEaP comparisons will fail.",
+            file=sys.stderr,
+        )
     elif was_provisioned:
         print(
             f"INFO: Using provisional tleap binary for this run: {resolved_tleap}",
@@ -209,11 +226,18 @@ def main():
             entry["delta"] = {
                 "n_atoms": _delta(leap_metrics["n_atoms"], molsysmt_metrics["n_atoms"]),
                 "n_bonds": _delta(leap_metrics["n_bonds"], molsysmt_metrics["n_bonds"]),
-                "n_groups": _delta(leap_metrics["n_groups"], molsysmt_metrics["n_groups"]),
-                "max_bond_nm": _delta(leap_metrics["max_bond_nm"], molsysmt_metrics["max_bond_nm"]),
-                "min_bond_nm": _delta(leap_metrics["min_bond_nm"], molsysmt_metrics["min_bond_nm"]),
+                "n_groups": _delta(
+                    leap_metrics["n_groups"], molsysmt_metrics["n_groups"]
+                ),
+                "max_bond_nm": _delta(
+                    leap_metrics["max_bond_nm"], molsysmt_metrics["max_bond_nm"]
+                ),
+                "min_bond_nm": _delta(
+                    leap_metrics["min_bond_nm"], molsysmt_metrics["min_bond_nm"]
+                ),
                 "min_nonbonded_heavy_nm": _delta(
-                    leap_metrics["min_nonbonded_heavy_nm"], molsysmt_metrics["min_nonbonded_heavy_nm"]
+                    leap_metrics["min_nonbonded_heavy_nm"],
+                    molsysmt_metrics["min_nonbonded_heavy_nm"],
                 ),
             }
 
@@ -227,11 +251,15 @@ def main():
         if leap_result["ok"]:
             print(f"  LEaP      OK {leap_result['metrics']}")
         else:
-            print(f"  LEaP      ERROR {leap_result['error_type']}: {leap_result['error_message']}")
+            print(
+                f"  LEaP      ERROR {leap_result['error_type']}: {leap_result['error_message']}"
+            )
         if molsysmt_result["ok"]:
             print(f"  MolSysMT  OK {molsysmt_result['metrics']}")
         else:
-            print(f"  MolSysMT  ERROR {molsysmt_result['error_type']}: {molsysmt_result['error_message']}")
+            print(
+                f"  MolSysMT  ERROR {molsysmt_result['error_type']}: {molsysmt_result['error_message']}"
+            )
         if entry["delta"] is not None:
             print(f"  DELTA(MolSysMT-LEaP) {entry['delta']}")
         print("-")

@@ -44,13 +44,14 @@ def validate_extracted_artifact(root: Path, expected_subdir: str) -> list[str]:
     names = _requirement_names(requirements)
     for required in ("python", "cpython", "_python_abi3_support"):
         if required not in names:
-            problems.append(f"package is missing the {required} ABI3 runtime requirement")
+            problems.append(
+                f"package is missing the {required} ABI3 runtime requirement"
+            )
     if "python_abi" in names:
         problems.append("package retains an exact python_abi runtime requirement")
     python_specs = [item for item in requirements if item.split()[0] == "python"]
     if len(python_specs) != 1 or not all(
-        bound in python_specs[0].replace(" ", "")
-        for bound in (">=3.11", "<3.14")
+        bound in python_specs[0].replace(" ", "") for bound in (">=3.11", "<3.14")
     ):
         problems.append(
             "package does not declare exactly one Python >=3.11,<3.14 requirement"
@@ -66,18 +67,15 @@ def validate_extracted_artifact(root: Path, expected_subdir: str) -> list[str]:
     extensions = [path.as_posix() for path in extension_paths]
     if len(extension_paths) != 1:
         problems.append(
-            "expected exactly one molsysmt/_rust native extension, "
-            f"found {extensions}"
+            f"expected exactly one molsysmt/_rust native extension, found {extensions}"
         )
     elif expected_subdir == "win-64" and extension_paths[0].name != "_rust.pyd":
         problems.append(
-            "Windows ABI3 extension is not named _rust.pyd: "
-            f"{extensions[0]}"
+            f"Windows ABI3 extension is not named _rust.pyd: {extensions[0]}"
         )
     elif expected_subdir != "win-64" and ".abi3." not in extension_paths[0].name:
         problems.append(
-            "Unix ABI3 extension filename does not declare abi3: "
-            f"{extensions[0]}"
+            f"Unix ABI3 extension filename does not declare abi3: {extensions[0]}"
         )
     return problems
 

@@ -7,7 +7,6 @@ from typing import Any
 from .access import has_system
 from .runtime import ensure_runtime
 
-
 _PANEL_SECTION_TITLES = {
     "basic-inspect": "Inspect",
     "basic-select": "Select",
@@ -74,7 +73,9 @@ def mvp_overlays(view: Any) -> dict[str, Any]:
     return {
         "key": "molsysmt:mvp-overlays",
         "item_title": f"{len(active)} active MolSysMT flow(s)",
-        "item_subtitle": ", ".join(active) if active else "No active overlay or selection.",
+        "item_subtitle": ", ".join(active)
+        if active
+        else "No active overlay or selection.",
         "active": active,
         "last_color_property": runtime.last_color_property,
         "contacts_tag": runtime.contacts_tag,
@@ -85,6 +86,7 @@ def mvp_overlays(view: Any) -> dict[str, Any]:
 def __getattr__(name: str):
     section_id = name.replace("_", "-")
     if section_id in _PANEL_SECTION_TITLES:
+
         def _section(view: Any, _section_id: str = section_id) -> dict[str, Any]:
             return panel_section(view, _section_id)
 

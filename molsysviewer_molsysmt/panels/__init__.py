@@ -1,13 +1,13 @@
 """MolSysMT addon panels."""
 
-from .basic     import MolSysMTBasicPanel
-from .color     import MolSysMTColorPanel
-from .structure import MolSysMTStructurePanel
-from .hbonds    import MolSysMTHBondsPanel
-from .topology  import MolSysMTTopologyPanel
-from .pbc       import MolSysMTPBCPanel
+from .basic import MolSysMTBasicPanel
+from .build import MolSysMTBuildPanel
+from .color import MolSysMTColorPanel
+from .hbonds import MolSysMTHBondsPanel
 from .mechanics import MolSysMTMechanicsPanel
-from .build     import MolSysMTBuildPanel
+from .pbc import MolSysMTPBCPanel
+from .structure import MolSysMTStructurePanel
+from .topology import MolSysMTTopologyPanel
 
 __all__ = [
     "MolSysMTBasicPanel",

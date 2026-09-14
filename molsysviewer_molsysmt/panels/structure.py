@@ -7,12 +7,9 @@ from typing import Any
 from molsysviewer import AddonPanelWidget
 
 from ..access import has_system
-from ..adapters.structure import pca
-from ..adapters.structure import rmsd
-from ..adapters.structure import rmsf
+from ..adapters.structure import pca, rmsd, rmsf
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
-
 
 _ESM = """
 export function render({ model, el }) {
@@ -149,10 +146,16 @@ class MolSysMTStructurePanel(AddonPanelWidget):
     _css: str = _CSS
 
     def on_mount(self, view: Any) -> None:
-        self.set_state({
-            "contacts_n": None, "rmsd": None, "rmsf_mean": None,
-            "pca_variance": None, "status": "idle", "error": None,
-        })
+        self.set_state(
+            {
+                "contacts_n": None,
+                "rmsd": None,
+                "rmsf_mean": None,
+                "pca_variance": None,
+                "status": "idle",
+                "error": None,
+            }
+        )
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
@@ -162,11 +165,17 @@ class MolSysMTStructurePanel(AddonPanelWidget):
                 runtime.show.clear_contacts()
                 self.set_state({"contacts_n": None, "status": "idle", "error": None})
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="structure", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(
+                        view, panel="structure", action=action_id, exc=exc
+                    )
+                )
             return
 
         if not has_system(view):
-            self.set_state({"status": "error", "error": "No molecular system attached."})
+            self.set_state(
+                {"status": "error", "error": "No molecular system attached."}
+            )
             return
 
         self.set_state({"status": "running"})
@@ -174,11 +183,13 @@ class MolSysMTStructurePanel(AddonPanelWidget):
             if action_id == "compute_contacts":
                 threshold_ang = payload.get("threshold_angstroms", 12.0)
                 result = runtime.show.contacts(threshold=f"{threshold_ang} angstroms")
-                self.set_state({
-                    "contacts_n": result.n_contacts,
-                    "status": "done",
-                    "error": None,
-                })
+                self.set_state(
+                    {
+                        "contacts_n": result.n_contacts,
+                        "status": "done",
+                        "error": None,
+                    }
+                )
 
             elif action_id == "compute_rmsd":
                 result = rmsd(view)
@@ -190,7 +201,9 @@ class MolSysMTStructurePanel(AddonPanelWidget):
                 result = rmsf(view)
                 runtime.rmsf_result = result.values
                 record_event(view, "panel_rmsf", mean_rmsf=result.mean)
-                self.set_state({"rmsf_mean": result.mean, "status": "done", "error": None})
+                self.set_state(
+                    {"rmsf_mean": result.mean, "status": "done", "error": None}
+                )
 
             elif action_id == "compute_pca":
                 result = pca(view)
@@ -202,7 +215,15 @@ class MolSysMTStructurePanel(AddonPanelWidget):
                     tag="msmt-pca-pc1",
                 )
                 record_event(view, "panel_pca", pc1_variance=result.pc1_variance)
-                self.set_state({"pca_variance": result.pc1_variance, "status": "done", "error": None})
+                self.set_state(
+                    {
+                        "pca_variance": result.pc1_variance,
+                        "status": "done",
+                        "error": None,
+                    }
+                )
 
         except Exception as exc:
-            self.set_state(panel_error_state(view, panel="structure", action=action_id, exc=exc))
+            self.set_state(
+                panel_error_state(view, panel="structure", action=action_id, exc=exc)
+            )

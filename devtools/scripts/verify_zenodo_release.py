@@ -17,23 +17,35 @@ API = "https://zenodo.org/api/records"
 
 
 def _cff_scalar(path: Path, key: str) -> str:
-    match = re.search(rf"^{re.escape(key)}:\s*[\"']?([^\n\"']+)", path.read_text(encoding="utf-8"), re.MULTILINE)
+    match = re.search(
+        rf"^{re.escape(key)}:\s*[\"']?([^\n\"']+)",
+        path.read_text(encoding="utf-8"),
+        re.MULTILINE,
+    )
     if match is None:
         raise ValueError(f"CITATION.cff has no {key!r} field")
     return match.group(1).strip()
 
 
-def validate_record(record: dict, version: str, concept_doi: str, repository: str) -> list[str]:
+def validate_record(
+    record: dict, version: str, concept_doi: str, repository: str
+) -> list[str]:
     """Return violations for a Zenodo record expected to archive *version*."""
 
     errors: list[str] = []
     metadata = record.get("metadata", {})
     if metadata.get("version") != version:
-        errors.append(f"metadata.version is {metadata.get('version')!r}, expected {version!r}")
+        errors.append(
+            f"metadata.version is {metadata.get('version')!r}, expected {version!r}"
+        )
     if record.get("conceptdoi") != concept_doi:
-        errors.append(f"concept DOI is {record.get('conceptdoi')!r}, expected {concept_doi!r}")
+        errors.append(
+            f"concept DOI is {record.get('conceptdoi')!r}, expected {concept_doi!r}"
+        )
     if record.get("status") != "published":
-        errors.append(f"record status is {record.get('status')!r}, expected 'published'")
+        errors.append(
+            f"record status is {record.get('status')!r}, expected 'published'"
+        )
     if not record.get("files"):
         errors.append("record has no archived files")
     if record.get("doi") == concept_doi or not record.get("doi"):
@@ -49,7 +61,9 @@ def validate_record(record: dict, version: str, concept_doi: str, repository: st
     return errors
 
 
-def fetch_records(concept_record: str, version: str, timeout: float = 30.0) -> list[dict]:
+def fetch_records(
+    concept_record: str, version: str, timeout: float = 30.0
+) -> list[dict]:
     query = f'conceptrecid:{concept_record} AND metadata.version:"{version}"'
     url = f"{API}?{urlencode({'q': query, 'size': 10})}"
     request = Request(url, headers={"User-Agent": "molsysmt-release-verifier/1"})

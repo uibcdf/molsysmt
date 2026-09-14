@@ -6,10 +6,9 @@ a base Git reference (default: HEAD~1 or origin/main) to prevent silent signatur
 mutilation, dropped parameters, inserted parameters, reordered arguments, or unintended default shifts.
 """
 
-import ast
 import argparse
+import ast
 import json
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -128,7 +127,9 @@ def compare_signatures(old_sig: dict, new_sig: dict, func_name: str) -> list[str
         # Check dropped parameters
         for arg in old_pos:
             if arg not in new_pos and arg not in new_sig["kwonly_args"]:
-                violations.append(f"Dropped positional parameter '{arg}' in function '{func_name}'")
+                violations.append(
+                    f"Dropped positional parameter '{arg}' in function '{func_name}'"
+                )
 
         # Check parameter insertion or reordering
         if new_pos[: len(old_pos)] != old_pos:
@@ -146,16 +147,24 @@ def compare_signatures(old_sig: dict, new_sig: dict, func_name: str) -> list[str
     new_kwonly = new_sig["kwonly_args"]
     for arg in old_kwonly:
         if arg not in new_kwonly and arg not in new_pos:
-            violations.append(f"Dropped keyword-only parameter '{arg}' in function '{func_name}'")
+            violations.append(
+                f"Dropped keyword-only parameter '{arg}' in function '{func_name}'"
+            )
     for arg in new_kwonly:
         if arg not in old_kwonly and arg not in old_pos:
-            violations.append(f"Added keyword-only parameter '{arg}' in function '{func_name}'")
+            violations.append(
+                f"Added keyword-only parameter '{arg}' in function '{func_name}'"
+            )
 
     # 3. Varargs / kwargs checks
     if old_sig["vararg"] != new_sig["vararg"]:
-        violations.append(f"Vararg changed in '{func_name}': *{old_sig['vararg']} -> *{new_sig['vararg']}")
+        violations.append(
+            f"Vararg changed in '{func_name}': *{old_sig['vararg']} -> *{new_sig['vararg']}"
+        )
     if old_sig["kwarg"] != new_sig["kwarg"]:
-        violations.append(f"Kwarg changed in '{func_name}': **{old_sig['kwarg']} -> **{new_sig['kwarg']}")
+        violations.append(
+            f"Kwarg changed in '{func_name}': **{old_sig['kwarg']} -> **{new_sig['kwarg']}"
+        )
 
     # 4. Defaults checks (strictly preserving literal types e.g. list vs tuple)
     for arg, old_def in old_sig["pos_defaults"].items():
@@ -198,7 +207,9 @@ def load_signature_waivers(repo_root: Path) -> dict[str, str]:
     return {}
 
 
-def is_waiver_matched(rel_path: str, func_name: str, waivers: dict[str, str]) -> tuple[bool, str]:
+def is_waiver_matched(
+    rel_path: str, func_name: str, waivers: dict[str, str]
+) -> tuple[bool, str]:
     """Check if a file/function change has an explicit registered waiver."""
     candidates = [
         f"{rel_path}:{func_name}",
@@ -220,7 +231,9 @@ def validate_api_stability(
 
     changed_files = get_changed_python_files(base_ref, repo_root)
     if not changed_files:
-        return 0, [f"No modified Python files detected under molsysmt/ compared to {base_ref}."]
+        return 0, [
+            f"No modified Python files detected under molsysmt/ compared to {base_ref}."
+        ]
 
     waivers = load_signature_waivers(repo_root)
     all_violations = []
@@ -267,7 +280,9 @@ def validate_api_stability(
     status = 1 if all_violations else 0
     messages = all_violations
     if waived_count > 0:
-        messages.append(f"Note: {waived_count} intentional signature modification(s) approved via signature_waivers registry.")
+        messages.append(
+            f"Note: {waived_count} intentional signature modification(s) approved via signature_waivers registry."
+        )
 
     return status, messages
 
@@ -292,7 +307,9 @@ def main():
             print(f"  - {msg}")
         sys.exit(1)
     else:
-        print("✅ Public API Stability Guard: 0 unauthorized signature drifts detected.")
+        print(
+            "✅ Public API Stability Guard: 0 unauthorized signature drifts detected."
+        )
         for msg in messages:
             print(f"  {msg}")
         sys.exit(0)

@@ -66,4 +66,6 @@ def transform_pbc(view: Any, operation: PBCOperation) -> PBCTransform:
         raise ValueError(f"Unsupported PBC operation: {operation!r}")
 
     coordinates = msm.get(new_ms, coordinates=True)
-    return PBCTransform(operation=operation, molecular_system=new_ms, coordinates=coordinates)
+    return PBCTransform(
+        operation=operation, molecular_system=new_ms, coordinates=coordinates
+    )

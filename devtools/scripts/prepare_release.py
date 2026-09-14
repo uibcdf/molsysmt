@@ -39,26 +39,51 @@ def prepare_release(repo: Path, version: str, released: date) -> None:
     )
 
     index = repo / "docs/index.ipynb"
-    _replace(index, r"release-v\d+\.\d+\.\d+-white\.svg", f"release-v{version}-white.svg")
-    _replace(index, r"\(20\d{2}\)\. MolSysMT \(Version \d+\.\d+\.\d+\)",
-             f"({released.year}). MolSysMT (Version {version})")
+    _replace(
+        index, r"release-v\d+\.\d+\.\d+-white\.svg", f"release-v{version}-white.svg"
+    )
+    _replace(
+        index,
+        r"\(20\d{2}\)\. MolSysMT \(Version \d+\.\d+\.\d+\)",
+        f"({released.year}). MolSysMT (Version {version})",
+    )
 
     citation = repo / "docs/content/about/citation.md"
-    _replace(citation, r"\(20\d{2}\)\. MolSysMT \(Version\s*\n?\d+\.\d+\.\d+\)",
-             f"({released.year}). MolSysMT (Version\n{version})")
+    _replace(
+        citation,
+        r"\(20\d{2}\)\. MolSysMT \(Version\s*\n?\d+\.\d+\.\d+\)",
+        f"({released.year}). MolSysMT (Version\n{version})",
+    )
 
     bibtex = repo / "docs/_bibtex/software.bib"
     key_version = version.replace(".", "_")
-    _replace(bibtex, r"^@software\{[^,]+,", f"@software{{Prada-Gracia_MolSysMT_{key_version}_{released.year},",
-             flags=re.MULTILINE)
-    _replace(bibtex, r"^month = \w+,$", f"month = {calendar.month_abbr[released.month].lower()},",
-             flags=re.MULTILINE)
-    _replace(bibtex, r"^version = \{[^}]+\},$", f"version = {{{version}}},", flags=re.MULTILINE)
-    _replace(bibtex, r"^year = \{\d{4}\}$", f"year = {{{released.year}}}", flags=re.MULTILINE)
+    _replace(
+        bibtex,
+        r"^@software\{[^,]+,",
+        f"@software{{Prada-Gracia_MolSysMT_{key_version}_{released.year},",
+        flags=re.MULTILINE,
+    )
+    _replace(
+        bibtex,
+        r"^month = \w+,$",
+        f"month = {calendar.month_abbr[released.month].lower()},",
+        flags=re.MULTILINE,
+    )
+    _replace(
+        bibtex,
+        r"^version = \{[^}]+\},$",
+        f"version = {{{version}}},",
+        flags=re.MULTILINE,
+    )
+    _replace(
+        bibtex, r"^year = \{\d{4}\}$", f"year = {{{released.year}}}", flags=re.MULTILINE
+    )
 
     errors = validate_repository(repo, expected_version=version)
     if errors:
-        raise RuntimeError("prepared citation did not validate:\n  - " + "\n  - ".join(errors))
+        raise RuntimeError(
+            "prepared citation did not validate:\n  - " + "\n  - ".join(errors)
+        )
 
 
 def main() -> int:

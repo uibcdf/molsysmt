@@ -11,7 +11,6 @@ from ..adapters.build import run_build_operation
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
 
-
 _ESM = """
 export function render({ model, el }) {
   let state = {
@@ -129,21 +128,25 @@ class MolSysMTBuildPanel(AddonPanelWidget):
 
     def on_mount(self, view: Any) -> None:
         runtime = ensure_runtime(view)
-        self.set_state({
-            "last_op": runtime.last_build_op,
-            "log": list(runtime.build_log),
-            "update_mode": None,
-            "n_added": None,
-            "mutation_warning": None,
-            "status": "idle",
-            "error": None,
-        })
+        self.set_state(
+            {
+                "last_op": runtime.last_build_op,
+                "log": list(runtime.build_log),
+                "update_mode": None,
+                "n_added": None,
+                "mutation_warning": None,
+                "status": "idle",
+                "error": None,
+            }
+        )
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
 
         if not has_system(view):
-            self.set_state({"status": "error", "error": "No molecular system attached."})
+            self.set_state(
+                {"status": "error", "error": "No molecular system attached."}
+            )
             return
 
         self.set_state({"status": "running"})
@@ -165,15 +168,19 @@ class MolSysMTBuildPanel(AddonPanelWidget):
                     mutation_warning = "No structural changes detected."
                 # "noop": nothing changed, nothing to apply.
                 record_event(view, "panel_build", op=result.operation, mode=result.mode)
-                self.set_state({
-                    "last_op": result.label,
-                    "log": list(runtime.build_log),
-                    "update_mode": result.mode,
-                    "n_added": result.n_added,
-                    "mutation_warning": mutation_warning,
-                    "status": "done",
-                    "error": None,
-                })
+                self.set_state(
+                    {
+                        "last_op": result.label,
+                        "log": list(runtime.build_log),
+                        "update_mode": result.mode,
+                        "n_added": result.n_added,
+                        "mutation_warning": mutation_warning,
+                        "status": "done",
+                        "error": None,
+                    }
+                )
 
         except Exception as exc:
-            self.set_state(panel_error_state(view, panel="build", action=action_id, exc=exc))
+            self.set_state(
+                panel_error_state(view, panel="build", action=action_id, exc=exc)
+            )

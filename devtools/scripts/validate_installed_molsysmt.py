@@ -3,10 +3,10 @@
 
 from __future__ import annotations
 
-from importlib import metadata, resources
 import json
-from pathlib import Path
 import sys
+from importlib import metadata, resources
+from pathlib import Path
 
 
 def _is_editable(distribution: metadata.Distribution) -> bool:
@@ -26,9 +26,10 @@ def _require_installed_path(path: Path) -> None:
 def validate_public_runtime() -> dict[str, object]:
     """Running representative installed-wheel operations."""
 
-    import numpy as np
-    import molsysmt as msm
     import molsysmt._rust as rust
+    import numpy as np
+
+    import molsysmt as msm
 
     distribution = metadata.distribution("molsysmt")
     if _is_editable(distribution):

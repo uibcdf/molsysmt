@@ -21,7 +21,9 @@ def inspect_system(view: Any, payload: dict[str, Any] | None = None) -> dict[str
     return counts
 
 
-def select_and_highlight(view: Any, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+def select_and_highlight(
+    view: Any, payload: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Run a MolSysMT selection and activate it in the viewer."""
     payload = dict(payload or {})
     selection = payload.get("selection", "all")
@@ -35,7 +37,9 @@ def select_and_highlight(view: Any, payload: dict[str, Any] | None = None) -> di
     }
 
 
-def color_by_property(view: Any, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+def color_by_property(
+    view: Any, payload: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Color the active viewer system by a supported MolSysMT property."""
     payload = dict(payload or {})
     property_name = payload.get("property", "charge")
@@ -49,12 +53,16 @@ def color_by_property(view: Any, payload: dict[str, Any] | None = None) -> dict[
     }
 
 
-def compute_contacts(view: Any, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+def compute_contacts(
+    view: Any, payload: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Compute MolSysMT contacts and render them as viewer links."""
     payload = dict(payload or {})
     threshold = payload.get("threshold", "4 angstroms")
     selection = payload.get("selection", "all")
-    result = ensure_runtime(view).show.contacts(selection=selection, threshold=threshold)
+    result = ensure_runtime(view).show.contacts(
+        selection=selection, threshold=threshold
+    )
     return {
         "selection": selection,
         "threshold": result.threshold,
@@ -62,7 +70,9 @@ def compute_contacts(view: Any, payload: dict[str, Any] | None = None) -> dict[s
     }
 
 
-def remove_selected_atoms(view: Any, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+def remove_selected_atoms(
+    view: Any, payload: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Remove selected atoms through the MolSysMT addon facade."""
     payload = dict(payload or {})
     atom_indices = payload.get("atom_indices")
@@ -70,17 +80,23 @@ def remove_selected_atoms(view: Any, payload: dict[str, Any] | None = None) -> d
         atom_indices = (payload.get("addon_action_payload") or {}).get("atom_indices")
     if not atom_indices:
         active_selection = getattr(view, "active_selection", None)
-        atom_indices = [] if active_selection is None else list(active_selection.atom_indices)
+        atom_indices = (
+            [] if active_selection is None else list(active_selection.atom_indices)
+        )
     atom_indices = list(atom_indices or [])
     if not atom_indices:
-        raise ValueError("MolSysMT remove-selected-atoms requires a non-empty atom selection.")
+        raise ValueError(
+            "MolSysMT remove-selected-atoms requires a non-empty atom selection."
+        )
 
     ensure_runtime(view).basic.remove(selection=atom_indices)
     record_event(view, "context_remove_selected_atoms", n_atoms=len(atom_indices))
     return {"n_removed": len(atom_indices)}
 
 
-def expand_selection_to_residues(view: Any, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+def expand_selection_to_residues(
+    view: Any, payload: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Expand the selected atoms to their whole residues and highlight them.
 
     Drives the selection-driven context item produced by
@@ -98,9 +114,16 @@ def expand_selection_to_residues(view: Any, payload: dict[str, Any] | None = Non
     import molsysmt as msm
 
     groups = sorted(
-        {int(g) for g in msm.get(view, element="atom", selection=atom_indices, group_index=True)}
+        {
+            int(g)
+            for g in msm.get(
+                view, element="atom", selection=atom_indices, group_index=True
+            )
+        }
     )
     view.active_selection.set(f"group_index in {groups}")
     n_atoms = len(view.active_selection.atom_indices)
-    record_event(view, "context_expand_residues", n_atoms=n_atoms, n_residues=len(groups))
+    record_event(
+        view, "context_expand_residues", n_atoms=n_atoms, n_residues=len(groups)
+    )
     return {"n_atoms": n_atoms, "n_residues": len(groups)}

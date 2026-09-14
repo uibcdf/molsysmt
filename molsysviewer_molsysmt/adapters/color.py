@@ -41,6 +41,7 @@ def property_values(view: Any, property: str) -> ColorValues:
         raise ValueError(f"Unsupported color property: {property!r}")
 
     import numpy as np
+
     import molsysmt as msm
     from molsysmt import pyunitwizard as puw
 
@@ -55,7 +56,9 @@ def property_values(view: Any, property: str) -> ColorValues:
         raise ValueError(f"Unsupported color property: {property!r}")
 
     try:
-        values = puw.get_value(raw, to_unit=unit) if unit is not None else puw.get_value(raw)
+        values = (
+            puw.get_value(raw, to_unit=unit) if unit is not None else puw.get_value(raw)
+        )
     except Exception:
         values = raw
     values = np.asarray(values, dtype=float).reshape(-1).tolist()

@@ -11,10 +11,23 @@ from pathlib import Path
 import molsysmt as msm
 
 EXEMPT_RETURNS = {
-    'close', 'clear', 'info', 'show_gui', 'standardize_view', 'write_html', 'view',
-    'add_arrows', 'add_contacts', 'add_cylinders', 'add_hbonds',
-    'show_as_balls_and_sticks', 'show_as_cartoon', 'show_as_licorice', 'show_as_surface',
-    'set_color', 'set_color_by_value'
+    "close",
+    "clear",
+    "info",
+    "show_gui",
+    "standardize_view",
+    "write_html",
+    "view",
+    "add_arrows",
+    "add_contacts",
+    "add_cylinders",
+    "add_hbonds",
+    "show_as_balls_and_sticks",
+    "show_as_cartoon",
+    "show_as_licorice",
+    "show_as_surface",
+    "set_color",
+    "set_color_by_value",
 }
 
 API_STABILITY_REGISTRY = (
@@ -99,7 +112,9 @@ def parse_docstring_parameters(doc: str) -> dict[str, dict[str, str]]:
             current_name = name
         elif current_name is not None:
             description = parameters[current_name]["description"]
-            parameters[current_name]["description"] = f"{description} {stripped}".strip()
+            parameters[current_name]["description"] = (
+                f"{description} {stripped}".strip()
+            )
 
     return parameters
 
@@ -107,7 +122,9 @@ def parse_docstring_parameters(doc: str) -> dict[str, dict[str, str]]:
 def parse_docstring_params_and_defaults(doc: str) -> tuple[list[str], dict[str, str]]:
     """Extract parameter names and documented defaults from a NumPy docstring."""
     parameters = parse_docstring_parameters(doc)
-    return list(parameters), {name: entry["default"] for name, entry in parameters.items()}
+    return list(parameters), {
+        name: entry["default"] for name, entry in parameters.items()
+    }
 
 
 def _normalize_prose(text: str) -> str:
@@ -145,7 +162,9 @@ def find_vacuous_docstring_content(doc: str) -> list[str]:
         if not normalized_return_description:
             errors.append("The Returns section has an empty description.")
         elif normalized_return_description == "resulting object in object form.":
-            errors.append("The Returns section uses the generated placeholder description.")
+            errors.append(
+                "The Returns section uses the generated placeholder description."
+            )
 
     return errors
 
@@ -176,41 +195,41 @@ def stable_function_ids() -> set[int]:
 
 def validate() -> int:
     print("Running MolSysMT docstring fidelity and minimum-content validation...")
-    
+
     public_modules = {
-        'molsysmt': msm,
-        'molsysmt.basic': msm.basic,
-        'molsysmt.build': msm.build,
-        'molsysmt.structure': msm.structure,
-        'molsysmt.topology': msm.topology,
-        'molsysmt.pbc': msm.pbc,
-        'molsysmt.physchem': msm.physchem,
-        'molsysmt.hbonds': msm.hbonds,
-        'molsysmt.molecular_mechanics': msm.molecular_mechanics,
-        'molsysmt.element': msm.element,
-        'molsysmt.element.atom': msm.element.atom,
-        'molsysmt.element.group': msm.element.group,
-        'molsysmt.element.group.amino_acid': msm.element.group.amino_acid,
-        'molsysmt.element.group.ion': msm.element.group.ion,
-        'molsysmt.element.group.water': msm.element.group.water,
-        'molsysmt.element.group.small_molecule': msm.element.group.small_molecule,
-        'molsysmt.element.group.nucleotide': msm.element.group.nucleotide,
-        'molsysmt.element.group.lipid': msm.element.group.lipid,
-        'molsysmt.element.group.saccharide': msm.element.group.saccharide,
-        'molsysmt.element.group.terminal_capping': msm.element.group.terminal_capping,
-        'molsysmt.element.component': msm.element.component,
-        'molsysmt.element.molecule': msm.element.molecule,
-        'molsysmt.element.entity': msm.element.entity,
-        'molsysmt.element.chain': msm.element.chain,
-        'molsysmt.form': msm.form,
-        'molsysmt.third_party': msm.third_party,
-        'molsysmt.third_party.openmm': msm.third_party.openmm,
-        'molsysmt.third_party.openmm.forces': msm.third_party.openmm.forces,
-        'molsysmt.third_party.openmm.platforms': msm.third_party.openmm.platforms,
-        'molsysmt.third_party.openmm.reporters': msm.third_party.openmm.reporters,
-        'molsysmt.third_party.nglview': msm.third_party.nglview,
+        "molsysmt": msm,
+        "molsysmt.basic": msm.basic,
+        "molsysmt.build": msm.build,
+        "molsysmt.structure": msm.structure,
+        "molsysmt.topology": msm.topology,
+        "molsysmt.pbc": msm.pbc,
+        "molsysmt.physchem": msm.physchem,
+        "molsysmt.hbonds": msm.hbonds,
+        "molsysmt.molecular_mechanics": msm.molecular_mechanics,
+        "molsysmt.element": msm.element,
+        "molsysmt.element.atom": msm.element.atom,
+        "molsysmt.element.group": msm.element.group,
+        "molsysmt.element.group.amino_acid": msm.element.group.amino_acid,
+        "molsysmt.element.group.ion": msm.element.group.ion,
+        "molsysmt.element.group.water": msm.element.group.water,
+        "molsysmt.element.group.small_molecule": msm.element.group.small_molecule,
+        "molsysmt.element.group.nucleotide": msm.element.group.nucleotide,
+        "molsysmt.element.group.lipid": msm.element.group.lipid,
+        "molsysmt.element.group.saccharide": msm.element.group.saccharide,
+        "molsysmt.element.group.terminal_capping": msm.element.group.terminal_capping,
+        "molsysmt.element.component": msm.element.component,
+        "molsysmt.element.molecule": msm.element.molecule,
+        "molsysmt.element.entity": msm.element.entity,
+        "molsysmt.element.chain": msm.element.chain,
+        "molsysmt.form": msm.form,
+        "molsysmt.third_party": msm.third_party,
+        "molsysmt.third_party.openmm": msm.third_party.openmm,
+        "molsysmt.third_party.openmm.forces": msm.third_party.openmm.forces,
+        "molsysmt.third_party.openmm.platforms": msm.third_party.openmm.platforms,
+        "molsysmt.third_party.openmm.reporters": msm.third_party.openmm.reporters,
+        "molsysmt.third_party.nglview": msm.third_party.nglview,
     }
-    
+
     errors = []
     total_checked = 0
     visited = set()
@@ -225,7 +244,7 @@ def validate() -> int:
             visited.add(obj)
         except Exception:
             pass
-            
+
         total_checked += 1
         doc = inspect.getdoc(obj)
         if not doc or not doc.strip():
@@ -234,7 +253,11 @@ def validate() -> int:
 
         try:
             sig = inspect.signature(obj)
-            sig_params = [p for p in sig.parameters.values() if p.name not in ('self', 'cls', 'kwargs', 'args', 'kwargs_iterator')]
+            sig_params = [
+                p
+                for p in sig.parameters.values()
+                if p.name not in ("self", "cls", "kwargs", "args", "kwargs_iterator")
+            ]
             sig_param_names = [p.name for p in sig_params]
         except Exception:
             sig_params = []
@@ -242,39 +265,51 @@ def validate() -> int:
 
         doc_param_names, doc_param_defaults = parse_docstring_params_and_defaults(doc)
 
-        if sig_params and 'Parameters' not in doc:
+        if sig_params and "Parameters" not in doc:
             errors.append(f"{full_name}: Missing 'Parameters' section.")
         elif sig_params:
             # 1. Forward check: signature -> docstring
             for p in sig_params:
                 if p.name not in doc_param_names:
-                            errors.append(
-                                f"{full_name}: Parameter '{p.name}' from signature is not "
-                                "in docstring Parameters section."
-                            )
+                    errors.append(
+                        f"{full_name}: Parameter '{p.name}' from signature is not "
+                        "in docstring Parameters section."
+                    )
                 else:
                     # Validate default value fidelity (Item B.3)
                     if p.default is not inspect.Parameter.empty:
                         doc_def = doc_param_defaults.get(p.name, "<no_default>")
                         if doc_def == "<no_default>":
-                            errors.append(f"{full_name}: Parameter '{p.name}' has default in signature ({repr(p.default)}) but docstring specifies no default.")
+                            errors.append(
+                                f"{full_name}: Parameter '{p.name}' has default in signature ({repr(p.default)}) but docstring specifies no default."
+                            )
                         else:
                             norm_sig = normalize_default_repr(repr(p.default))
                             norm_doc = normalize_default_repr(doc_def)
                             if norm_sig != norm_doc:
-                                errors.append(f"{full_name}: Default mismatch for parameter '{p.name}': signature={repr(p.default)} vs docstring={doc_def}")
+                                errors.append(
+                                    f"{full_name}: Default mismatch for parameter '{p.name}': signature={repr(p.default)} vs docstring={doc_def}"
+                                )
                     else:
                         doc_def = doc_param_defaults.get(p.name, "<no_default>")
                         if doc_def != "<no_default>":
-                            errors.append(f"{full_name}: Parameter '{p.name}' has NO default in signature, but docstring documents default={doc_def}")
+                            errors.append(
+                                f"{full_name}: Parameter '{p.name}' has NO default in signature, but docstring documents default={doc_def}"
+                            )
 
             # 2. Reverse check: docstring -> signature
             for p_name in doc_param_names:
-                if p_name not in sig_param_names and p_name not in ('kwargs', 'args'):
-                    errors.append(f"{full_name}: Phantom parameter '{p_name}' documented in docstring is not in function signature.")
+                if p_name not in sig_param_names and p_name not in ("kwargs", "args"):
+                    errors.append(
+                        f"{full_name}: Phantom parameter '{p_name}' documented in docstring is not in function signature."
+                    )
 
-        fn_name = full_name.split('.')[-1]
-        if 'Returns' not in doc and not fn_name.startswith('set') and fn_name not in EXEMPT_RETURNS:
+        fn_name = full_name.split(".")[-1]
+        if (
+            "Returns" not in doc
+            and not fn_name.startswith("set")
+            and fn_name not in EXEMPT_RETURNS
+        ):
             errors.append(f"{full_name}: Missing 'Returns' section.")
 
         if id(obj) in stable_ids:
@@ -283,7 +318,7 @@ def validate() -> int:
 
     for mod_name, mod in public_modules.items():
         for attr in dir(mod):
-            if attr.startswith('_'):
+            if attr.startswith("_"):
                 continue
             try:
                 obj = getattr(mod, attr)
@@ -293,7 +328,9 @@ def validate() -> int:
                 check_fn(obj, f"{mod_name}.{attr}")
 
     if errors:
-        print(f"\nFAILED: Found {len(errors)} docstring issues across {total_checked} public functions:")
+        print(
+            f"\nFAILED: Found {len(errors)} docstring issues across {total_checked} public functions:"
+        )
         for err in errors:
             print(f"  - {err}")
         return 1
@@ -304,5 +341,6 @@ def validate() -> int:
         )
         return 0
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     sys.exit(validate())

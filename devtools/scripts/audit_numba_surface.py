@@ -15,7 +15,6 @@ import ast
 import json
 from pathlib import Path
 
-
 REPO = Path(__file__).resolve().parents[2]
 BASELINE = REPO / "devtools" / "data" / "numba_surface_baseline.json"
 SCHEMA = "molsysmt.numba-surface@1"

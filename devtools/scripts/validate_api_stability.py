@@ -9,7 +9,6 @@ import json
 import re
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = REPO_ROOT / "devtools/data/public_api_stability.json"
 GENERATED_DOC_PATH = REPO_ROOT / "devguide/api_stability_registry.md"
@@ -31,10 +30,14 @@ def _literal_assignment(tree: ast.Module, name: str, source: Path):
         if not isinstance(node, (ast.Assign, ast.AnnAssign)):
             continue
         targets = node.targets if isinstance(node, ast.Assign) else [node.target]
-        if any(isinstance(target, ast.Name) and target.id == name for target in targets):
+        if any(
+            isinstance(target, ast.Name) and target.id == name for target in targets
+        ):
             matches.append(node.value)
     if len(matches) != 1:
-        raise ValueError(f"{source}: expected one {name} assignment, found {len(matches)}")
+        raise ValueError(
+            f"{source}: expected one {name} assignment, found {len(matches)}"
+        )
     try:
         return ast.literal_eval(matches[0])
     except (ValueError, TypeError) as error:
@@ -46,8 +49,12 @@ def discover_exports(source: Path, discovery: str) -> set[str]:
     tree = ast.parse(source.read_text(encoding="utf-8"), filename=str(source))
     if discovery == "lazy-root":
         registry = _literal_assignment(tree, "_LAZY_ATTRIBUTES", source)
-        if not isinstance(registry, dict) or not all(isinstance(name, str) for name in registry):
-            raise ValueError(f"{source}: _LAZY_ATTRIBUTES must be a string-keyed dictionary")
+        if not isinstance(registry, dict) or not all(
+            isinstance(name, str) for name in registry
+        ):
+            raise ValueError(
+                f"{source}: _LAZY_ATTRIBUTES must be a string-keyed dictionary"
+            )
         return set(registry)
     if discovery != "package-init":
         raise ValueError(f"Unsupported discovery mode {discovery!r}")
@@ -65,7 +72,10 @@ def discover_exports(source: Path, discovery: str) -> set[str]:
                 exports.add(node.name)
         elif isinstance(node, (ast.Assign, ast.AnnAssign)):
             targets = node.targets if isinstance(node, ast.Assign) else [node.target]
-            if any(isinstance(target, ast.Name) and target.id == "__all__" for target in targets):
+            if any(
+                isinstance(target, ast.Name) and target.id == "__all__"
+                for target in targets
+            ):
                 explicit_all = set(ast.literal_eval(node.value))
     return explicit_all if explicit_all is not None else exports
 
@@ -126,7 +136,9 @@ def validate_registry(registry: dict, repo_root: Path = REPO_ROOT) -> list[str]:
             errors.append(f"{name}: invalid lifecycle {lifecycle!r}.")
         introduced = entry.get("introduced")
         if not isinstance(introduced, str) or not VERSION_PATTERN.fullmatch(introduced):
-            errors.append(f"{name}: introduced must be a semantic version or 'pre-1.0'.")
+            errors.append(
+                f"{name}: introduced must be a semantic version or 'pre-1.0'."
+            )
         owner = entry.get("owner")
         if not isinstance(owner, str) or not owner:
             errors.append(f"{name}: owner is required.")
@@ -139,13 +151,17 @@ def validate_registry(registry: dict, repo_root: Path = REPO_ROOT) -> list[str]:
         subtree_stability = entry.get("subtree_stability")
         if subtree_stability is not None:
             if name.count(".") != 1:
-                errors.append(f"{name}: subtree_stability is only valid for root namespaces.")
+                errors.append(
+                    f"{name}: subtree_stability is only valid for root namespaces."
+                )
             if subtree_stability not in {"experimental", "outside-contract"}:
                 errors.append(
                     f"{name}: subtree_stability must be experimental or outside-contract."
                 )
             if subtree_stability != stability:
-                errors.append(f"{name}: subtree_stability must match namespace stability.")
+                errors.append(
+                    f"{name}: subtree_stability must match namespace stability."
+                )
         if lifecycle == "deprecated":
             for field in ("deprecated_since", "replacement", "removal_not_before"):
                 if not entry.get(field):
@@ -157,8 +173,13 @@ def validate_registry(registry: dict, repo_root: Path = REPO_ROOT) -> list[str]:
             replacement = entry.get("replacement")
             if replacement and replacement not in symbols:
                 errors.append(f"{name}: replacement is not registered: {replacement}")
-        elif any(field in entry for field in ("deprecated_since", "replacement", "removal_not_before")):
-            errors.append(f"{name}: deprecation metadata requires lifecycle='deprecated'.")
+        elif any(
+            field in entry
+            for field in ("deprecated_since", "replacement", "removal_not_before")
+        ):
+            errors.append(
+                f"{name}: deprecation metadata requires lifecycle='deprecated'."
+            )
 
     for scope, metadata in scopes.items():
         if metadata["discovery"] != "lazy-root":
@@ -186,7 +207,10 @@ def validate_transition(previous: dict, current: dict) -> list[str]:
             if previous_entry.get("stability") == "stable":
                 errors.append(f"Stable symbol removed from registry: {name}")
             continue
-        if previous_entry.get("stability") == "stable" and current_entry.get("stability") != "stable":
+        if (
+            previous_entry.get("stability") == "stable"
+            and current_entry.get("stability") != "stable"
+        ):
             errors.append(
                 f"Stable symbol cannot be demoted to {current_entry.get('stability')}: {name}"
             )
@@ -269,14 +293,21 @@ def main(argv: list[str] | None = None) -> int:
     expected_document = render_document(registry)
     if args.write_doc:
         GENERATED_DOC_PATH.write_text(expected_document, encoding="utf-8")
-    elif not GENERATED_DOC_PATH.exists() or GENERATED_DOC_PATH.read_text(encoding="utf-8") != expected_document:
-        errors.append("Generated API stability document is missing or stale; run with --write-doc.")
+    elif (
+        not GENERATED_DOC_PATH.exists()
+        or GENERATED_DOC_PATH.read_text(encoding="utf-8") != expected_document
+    ):
+        errors.append(
+            "Generated API stability document is missing or stale; run with --write-doc."
+        )
     if errors:
         print("Public API stability registry violations:")
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"API stability registry valid: {len(registry['symbols'])} symbols classified.")
+    print(
+        f"API stability registry valid: {len(registry['symbols'])} symbols classified."
+    )
     return 0
 
 

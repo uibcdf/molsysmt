@@ -7,12 +7,13 @@ from typing import Any
 from molsysviewer import AddonPanelWidget
 
 from ..access import has_system
-from ..adapters.molecular_mechanics import compute_forces
-from ..adapters.molecular_mechanics import minimize_energy
-from ..adapters.molecular_mechanics import potential_energy
+from ..adapters.molecular_mechanics import (
+    compute_forces,
+    minimize_energy,
+    potential_energy,
+)
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime, record_event
-
 
 _ESM = """
 export function render({ model, el }) {
@@ -163,14 +164,16 @@ class MolSysMTMechanicsPanel(AddonPanelWidget):
     _css: str = _CSS
 
     def on_mount(self, view: Any) -> None:
-        self.set_state({
-            "energy": None,
-            "n_vectors": None,
-            "update_mode": None,
-            "mutation_warning": None,
-            "status": "idle",
-            "error": None,
-        })
+        self.set_state(
+            {
+                "energy": None,
+                "n_vectors": None,
+                "update_mode": None,
+                "mutation_warning": None,
+                "status": "idle",
+                "error": None,
+            }
+        )
 
     def handle_action(self, view: Any, action_id: str, payload: dict) -> None:
         runtime = ensure_runtime(view)
@@ -186,7 +189,9 @@ class MolSysMTMechanicsPanel(AddonPanelWidget):
             return
 
         if not has_system(view):
-            self.set_state({"status": "error", "error": "No molecular system attached."})
+            self.set_state(
+                {"status": "error", "error": "No molecular system attached."}
+            )
             return
 
         self.set_state({"status": "running"})
@@ -204,24 +209,34 @@ class MolSysMTMechanicsPanel(AddonPanelWidget):
                 )
                 runtime.forces_tag = _FORCES_TAG
                 record_event(view, "panel_forces", n_vectors=result.n_vectors)
-                self.set_state({"n_vectors": result.n_vectors, "status": "done", "error": None})
+                self.set_state(
+                    {"n_vectors": result.n_vectors, "status": "done", "error": None}
+                )
 
             elif action_id == "compute_energy":
                 result = potential_energy(view, platform=platform)
                 runtime.energy_result = result.energy
                 record_event(view, "panel_energy", energy=result.value)
-                self.set_state({"energy": result.value, "status": "done", "error": None})
+                self.set_state(
+                    {"energy": result.value, "status": "done", "error": None}
+                )
 
             elif action_id == "minimize_energy":
                 result = minimize_energy(view, platform=platform)
                 view.set_coordinates(result.coordinates)
                 record_event(view, "panel_minimize")
-                self.set_state({
-                    "update_mode": "coordinates",
-                    "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
-                    "status": "done",
-                    "error": None,
-                })
+                self.set_state(
+                    {
+                        "update_mode": "coordinates",
+                        "mutation_warning": "Coordinates updated in place; viewer overlays preserved.",
+                        "status": "done",
+                        "error": None,
+                    }
+                )
 
         except Exception as exc:
-            self.set_state(panel_error_state(view, panel="molecular_mechanics", action=action_id, exc=exc))
+            self.set_state(
+                panel_error_state(
+                    view, panel="molecular_mechanics", action=action_id, exc=exc
+                )
+            )

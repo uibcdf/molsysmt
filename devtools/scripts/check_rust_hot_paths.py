@@ -59,7 +59,8 @@ def production_lines(text: str) -> list[tuple[int, str]]:
             j = i + 1
             # Walk over any further attributes / doc comments.
             while j < len(lines) and (
-                lines[j].lstrip().startswith("#[") or lines[j].lstrip().startswith("///")
+                lines[j].lstrip().startswith("#[")
+                or lines[j].lstrip().startswith("///")
             ):
                 j += 1
             if j >= len(lines):

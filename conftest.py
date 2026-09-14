@@ -5,6 +5,7 @@ from pathlib import Path
 
 _ROOT = Path(__file__).parent
 
+
 def pytest_configure(config):
     """Pre-import first-party source packages collected for ``--doctest-modules``.
 

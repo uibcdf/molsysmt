@@ -18,7 +18,6 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 DEVGUIDE_ROOT = REPOSITORY_ROOT / "devguide"
 MIGRATION_BASELINE = REPOSITORY_ROOT / "devtools/data/devguide_migration_baseline.json"
@@ -87,7 +86,9 @@ def parse_front_matter(block: str) -> dict[str, object]:
             )
         match = SCALAR_LINE.match(line)
         if match is None:
-            raise FrontMatterError(f"line {number}: expected 'key: value', got {line!r}")
+            raise FrontMatterError(
+                f"line {number}: expected 'key: value', got {line!r}"
+            )
         key, raw = match.group(1), match.group(2).strip()
         if key in parsed:
             raise FrontMatterError(f"line {number}: {key!r} appears more than once")
@@ -161,7 +162,9 @@ class Report:
     @property
     def areas(self) -> list[str]:
         value = self.get("area", [])
-        return [str(item) for item in value] if isinstance(value, list) else [str(value)]
+        return (
+            [str(item) for item in value] if isinstance(value, list) else [str(value)]
+        )
 
     @property
     def labels(self) -> list[str]:
@@ -325,7 +328,9 @@ def _validate_lifecycle(report: Report) -> list[str]:
         )
 
     if status == "blocked" and not report.get("blocked_by", []):
-        errors.append(f"{where}: status 'blocked' needs blocked_by to name what blocks it")
+        errors.append(
+            f"{where}: status 'blocked' needs blocked_by to name what blocks it"
+        )
 
     if status == "resolved":
         guard = report.get("guard")
@@ -342,7 +347,9 @@ def _validate_lifecycle(report: Report) -> list[str]:
             if not target.exists():
                 target = REPOSITORY_ROOT / str(normative)
             if not target.exists():
-                errors.append(f"{where}: normative document {normative!r} does not exist")
+                errors.append(
+                    f"{where}: normative document {normative!r} does not exist"
+                )
 
     return errors
 

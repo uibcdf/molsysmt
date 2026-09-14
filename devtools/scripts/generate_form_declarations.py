@@ -22,6 +22,7 @@ Usage:
     python devtools/scripts/generate_form_declarations.py --write
     python devtools/scripts/generate_form_declarations.py --check
 """
+
 import argparse
 import json
 import os
@@ -48,22 +49,22 @@ def item_class_key(form_name):
     name is not a dotted class path.
     """
 
-    if form_name.startswith(('file:', 'string:')) or '.' not in form_name:
+    if form_name.startswith(("file:", "string:")) or "." not in form_name:
         return None
-    parts = form_name.split('.')
+    parts = form_name.split(".")
     return [parts[0], parts[-1]]
 
 
 def declaration(module, form_name):
     entry = {
-        'form_name': form_name,
-        'form_type': module.form_type,
+        "form_name": form_name,
+        "form_type": module.form_type,
     }
-    if module.form_type == 'file':
-        entry['extension'] = form_name.split(':', 1)[1]
+    if module.form_type == "file":
+        entry["extension"] = form_name.split(":", 1)[1]
     key = item_class_key(form_name)
     if key is not None:
-        entry['item_class_key'] = key
+        entry["item_class_key"] = key
     return entry
 
 
@@ -72,7 +73,7 @@ def collect():
 
     declarations = {}
     for form_name, module in _dict_modules.items():
-        directory = module.__name__.rsplit('.', 1)[-1]
+        directory = module.__name__.rsplit(".", 1)[-1]
         declarations[directory] = declaration(module, form_name)
     return declarations
 
@@ -102,7 +103,9 @@ def main():
                     handler.write(rendered)
 
     if args.write:
-        print(f"Declarations written: {len(drifted)} changed, {len(declarations)} total")
+        print(
+            f"Declarations written: {len(drifted)} changed, {len(declarations)} total"
+        )
         return 0
 
     if args.check and drifted:

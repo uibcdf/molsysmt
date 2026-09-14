@@ -20,6 +20,7 @@ Usage:
     python devtools/scripts/generate_converter_arguments.py --check   # fail if it drifted
     python devtools/scripts/generate_converter_arguments.py --show    # print it
 """
+
 import argparse
 import inspect
 import os
@@ -33,12 +34,16 @@ if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
 TABLE_PATH = os.path.join(
-    REPO_ROOT, "molsysmt", "_private", "argdigest", "domain", "converter_arguments.py")
+    REPO_ROOT, "molsysmt", "_private", "argdigest", "domain", "converter_arguments.py"
+)
 
 #: Accepted for every target: read by `convert` itself rather than by the converter.
 ALWAYS = (
-    'compression', 'compression_opts', 'float_precision', 'get_missing_bonds',
-    'int_precision',
+    "compression",
+    "compression_opts",
+    "float_precision",
+    "get_missing_bonds",
+    "int_precision",
 )
 
 HEADER = '''"""The extra keywords `convert` forwards to the converter it resolves.
@@ -72,7 +77,7 @@ from argdigest import Domain
 CONVERTER_ARGUMENTS = {
 '''
 
-FOOTER = '''}
+FOOTER = """}
 
 
 domain = Domain(
@@ -81,7 +86,7 @@ domain = Domain(
     by_value=CONVERTER_ARGUMENTS,
     description='keywords the converters into a given target form accept',
 )
-'''
+"""
 
 
 def derive():
@@ -97,7 +102,7 @@ def derive():
     targets = {
         target
         for module in _dict_modules.values()
-        for target in getattr(module, '_convert_to', {})
+        for target in getattr(module, "_convert_to", {})
     }
 
     table = {}
@@ -105,21 +110,26 @@ def derive():
     for to_form in sorted(targets):
         names = set(ALWAYS)
         for from_form, module in _dict_modules.items():
-            converter = getattr(module, '_convert_to', {}).get(to_form)
+            converter = getattr(module, "_convert_to", {}).get(to_form)
             if converter is None:
                 continue
             try:
                 if isinstance(converter, str):
                     converter = getattr(
-                        import_module(f'{module.__name__}.{converter}'), converter)
+                        import_module(f"{module.__name__}.{converter}"), converter
+                    )
                 names |= set(
                     inspect.signature(
-                        getattr(converter, '__wrapped__', converter)).parameters)
-            except Exception as error:                     # noqa: BLE001 - reported below
-                unreadable.append((from_form, to_form, type(error).__name__, str(error)))
+                        getattr(converter, "__wrapped__", converter)
+                    ).parameters
+                )
+            except Exception as error:  # noqa: BLE001 - reported below
+                unreadable.append(
+                    (from_form, to_form, type(error).__name__, str(error))
+                )
                 continue
-            names |= set(getattr(module, '_conversion_opt_kwargs', {}).get(to_form, ()))
-        table[to_form] = tuple(sorted(names - {'item'}))
+            names |= set(getattr(module, "_conversion_opt_kwargs", {}).get(to_form, ()))
+        table[to_form] = tuple(sorted(names - {"item"}))
 
     return table, unreadable
 
@@ -127,18 +137,21 @@ def derive():
 def render(table):
     lines = [HEADER]
     for to_form, names in table.items():
-        body = ', '.join(repr(name) for name in names)
+        body = ", ".join(repr(name) for name in names)
         wrapped = textwrap.fill(
-            body, width=92, initial_indent=' ' * 8, subsequent_indent=' ' * 8)
+            body, width=92, initial_indent=" " * 8, subsequent_indent=" " * 8
+        )
         lines.append(f"    {to_form!r}: (\n{wrapped}\n    ),\n")
     lines.append(FOOTER)
-    return ''.join(lines)
+    return "".join(lines)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--write", action="store_true", help="rewrite the table")
-    parser.add_argument("--check", action="store_true", help="fail if the table drifted")
+    parser.add_argument(
+        "--check", action="store_true", help="fail if the table drifted"
+    )
     parser.add_argument("--show", action="store_true", help="print the table")
     args = parser.parse_args()
 
@@ -146,7 +159,9 @@ def main():
     table, unreadable = derive()
 
     if unreadable:
-        print(f"FAILED: {len(unreadable)} conversion edges have an unreadable signature.")
+        print(
+            f"FAILED: {len(unreadable)} conversion edges have an unreadable signature."
+        )
         for from_form, to_form, kind, message in unreadable:
             print(f"  {from_form} -> {to_form}: {kind}: {message[:80]}")
         return 1
@@ -167,13 +182,17 @@ def main():
             current = handler.read()
         if current != rendered:
             print("FAILED: the committed table no longer matches the converters.")
-            print("Run: python devtools/scripts/generate_converter_arguments.py --write")
+            print(
+                "Run: python devtools/scripts/generate_converter_arguments.py --write"
+            )
             return 1
         print("OK: the committed table matches the converters.")
 
     sizes = [len(names) for names in table.values()]
-    print(f"Target forms: {len(table)} | keywords per target: min {min(sizes)}, "
-          f"max {max(sizes)}, mean {sum(sizes) / len(sizes):.1f}")
+    print(
+        f"Target forms: {len(table)} | keywords per target: min {min(sizes)}, "
+        f"max {max(sizes)}, mean {sum(sizes) / len(sizes):.1f}"
+    )
     return 0
 
 

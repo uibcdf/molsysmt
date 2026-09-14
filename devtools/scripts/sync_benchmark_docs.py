@@ -7,7 +7,6 @@ import argparse
 import shutil
 from pathlib import Path
 
-
 REPOSITORY = Path(__file__).resolve().parents[2]
 CANONICAL_DIRECTORY = REPOSITORY / "benchmarks" / "baselines"
 PUBLISHED_DIRECTORY = REPOSITORY / "docs" / "_static" / "benchmarks_data"
@@ -24,7 +23,9 @@ def synchronize(*, check: bool = False) -> bool:
     for filename in PUBLISHED_BASELINES:
         canonical = CANONICAL_DIRECTORY / filename
         published = PUBLISHED_DIRECTORY / filename
-        matches = published.exists() and published.read_bytes() == canonical.read_bytes()
+        matches = (
+            published.exists() and published.read_bytes() == canonical.read_bytes()
+        )
         synchronized &= matches
         if check:
             if not matches:

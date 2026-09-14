@@ -13,24 +13,20 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 BASELINE_PATH = (
-    REPOSITORY_ROOT
-    / "devtools"
-    / "data"
-    / "tier1_conversion_fidelity_baseline.json"
+    REPOSITORY_ROOT / "devtools" / "data" / "tier1_conversion_fidelity_baseline.json"
 )
 
 
 def _direct_tier1_edges() -> tuple[list[str], list[dict[str, Any]]]:
     """Returning the direct Tier 1-to-Tier 1 conversion graph."""
 
-    from molsysmt._private.form_tier import FORM_TIERS
     from molsysmt._private.conversion_report import (
         get_conversion_audit_scopes,
         is_conversion_audit_exhaustive,
     )
+    from molsysmt._private.form_tier import FORM_TIERS
     from molsysmt.form import _dict_modules
 
     forms = sorted(name for name, tier in FORM_TIERS.items() if tier == 1)
@@ -44,16 +40,16 @@ def _direct_tier1_edges() -> tuple[list[str], list[dict[str, Any]]]:
                 converter_reference = f"{source_module.__name__}.{converter}"
                 converter_registration = "lazy"
             elif callable(converter):
-                converter_reference = (
-                    f"{converter.__module__}.{converter.__name__}"
-                )
+                converter_reference = f"{converter.__module__}.{converter.__name__}"
                 converter_registration = "callable"
             else:
                 converter_reference = repr(converter)
                 converter_registration = "invalid"
 
             source_attributes = {
-                name for name, available in source_module.attributes.items() if available
+                name
+                for name, available in source_module.attributes.items()
+                if available
             }
             target_attributes = {
                 name
@@ -70,9 +66,7 @@ def _direct_tier1_edges() -> tuple[list[str], list[dict[str, Any]]]:
                     "converter": converter_reference,
                     "converter_registration": converter_registration,
                     "coverage": (
-                        "exhaustive_preflight"
-                        if is_exhaustive
-                        else "scoped_preflight"
+                        "exhaustive_preflight" if is_exhaustive else "scoped_preflight"
                     ),
                     "audited_scopes": list(audited_scopes),
                     "is_exhaustive": is_exhaustive,
@@ -91,15 +85,11 @@ def _edge_pairs(edges: list[dict[str, Any]]) -> set[tuple[str, str]]:
     """Returning source-target pairs for non-exhaustive edges."""
 
     return {
-        (edge["source"], edge["target"])
-        for edge in edges
-        if not edge["is_exhaustive"]
+        (edge["source"], edge["target"]) for edge in edges if not edge["is_exhaustive"]
     }
 
 
-def _encode_masks(
-    forms: list[str], edges: set[tuple[str, str]]
-) -> dict[str, str]:
+def _encode_masks(forms: list[str], edges: set[tuple[str, str]]) -> dict[str, str]:
     """Encoding an edge set as one target bit mask per source form."""
 
     target_indices = {name: index for index, name in enumerate(forms)}
@@ -129,9 +119,7 @@ def _decode_masks(payload: dict[str, Any]) -> set[tuple[str, str]]:
     return output
 
 
-def _baseline_payload(
-    forms: list[str], edges: list[dict[str, Any]]
-) -> dict[str, Any]:
+def _baseline_payload(forms: list[str], edges: list[dict[str, Any]]) -> dict[str, Any]:
     """Building the compact accepted-debt baseline payload."""
 
     return {
@@ -141,9 +129,7 @@ def _baseline_payload(
             "not exhaustive. Presence records debt, not verified fidelity."
         ),
         "form_order": forms,
-        "accepted_non_exhaustive_masks": _encode_masks(
-            forms, _edge_pairs(edges)
-        ),
+        "accepted_non_exhaustive_masks": _encode_masks(forms, _edge_pairs(edges)),
     }
 
 
@@ -197,23 +183,16 @@ def _print_human_report(report: dict[str, Any]) -> None:
     print("Tier 1 conversion fidelity audit")
     print(f"Tier 1 forms: {summary['tier1_forms']}")
     print(f"Direct Tier 1 edges: {summary['direct_edges']}")
-    print(
-        "Exhaustive preflight coverage: "
-        f"{summary['exhaustive_preflight_edges']}"
-    )
+    print(f"Exhaustive preflight coverage: {summary['exhaustive_preflight_edges']}")
     print(
         "Accepted non-exhaustive preflight debt: "
         f"{summary['non_exhaustive_preflight_edges']}"
     )
     print(
-        "Forms with registered identity edges: "
-        f"{summary['forms_with_identity_edges']}"
+        f"Forms with registered identity edges: {summary['forms_with_identity_edges']}"
     )
     print(f"New non-exhaustive debt: {summary['new_non_exhaustive_debt']}")
-    print(
-        "Resolved non-exhaustive debt: "
-        f"{summary['resolved_non_exhaustive_debt']}"
-    )
+    print(f"Resolved non-exhaustive debt: {summary['resolved_non_exhaustive_debt']}")
     violations = report["violations"]
     for name, entries in violations.items():
         if entries:

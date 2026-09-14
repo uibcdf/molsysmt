@@ -9,7 +9,9 @@ def compact_error_message(exc: Exception) -> str:
     """Return a short user-facing error message without traceback details."""
     if isinstance(exc, (ImportError, ModuleNotFoundError)):
         return "Missing optional dependency required for this operation."
-    message = str(exc).strip().splitlines()[0] if str(exc).strip() else exc.__class__.__name__
+    message = (
+        str(exc).strip().splitlines()[0] if str(exc).strip() else exc.__class__.__name__
+    )
     if len(message) > 160:
         message = f"{message[:157]}..."
     return message
@@ -52,12 +54,17 @@ def emit_panel_exception(
                 failure_class="addon-panel-action",
                 last_failure_reason=compact_error_message(exc),
                 causal_chain=[exc.__class__.__name__],
-                evidence={"expected": "calculation ok", "observed": exc.__class__.__name__},
+                evidence={
+                    "expected": "calculation ok",
+                    "observed": exc.__class__.__name__,
+                },
             ),
         )
     except (ImportError, ModuleNotFoundError):
         pass  # SMonitor not installed; expected on light deployments.
-    except Exception as err:  # SMonitor present but emission failed -> do not stay silent.
+    except (
+        Exception
+    ) as err:  # SMonitor present but emission failed -> do not stay silent.
         import warnings
 
         warnings.warn(

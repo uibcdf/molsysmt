@@ -10,20 +10,24 @@ from ..access import has_system
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime
 
-
 _PROPERTIES = [
-    ("charge",                  "group", "Charge"),
-    ("mass",                    "group", "Mass"),
-    ("atomic_radius",           "atom",  "Atomic radius"),
+    ("charge", "group", "Charge"),
+    ("mass", "group", "Mass"),
+    ("atomic_radius", "atom", "Atomic radius"),
 ]
 
 _PALETTES = ["viridis", "plasma", "inferno", "coolwarm", "RdYlBu", "spectral"]
 
 
-_ESM = """
+_ESM = (
+    """
 export function render({ model, el }) {
-  const props = """ + str([[p[0], p[2]] for p in _PROPERTIES]) + """;
-  const palettes = """ + str(_PALETTES) + """;
+  const props = """
+    + str([[p[0], p[2]] for p in _PROPERTIES])
+    + """;
+  const palettes = """
+    + str(_PALETTES)
+    + """;
 
   let state = { status: "idle", error: null, property: null };
 
@@ -107,6 +111,7 @@ export function render({ model, el }) {
   applyState(state);
 }
 """
+)
 
 _CSS = """
 .msmt-panel {
@@ -137,6 +142,7 @@ _CSS = """
 .msmt-status--busy  { opacity: 0.7; }
 """
 
+
 class MolSysMTColorPanel(AddonPanelWidget):
     _esm: str = _ESM
     _css: str = _CSS
@@ -149,25 +155,33 @@ class MolSysMTColorPanel(AddonPanelWidget):
 
         if action_id == "apply_color":
             if not has_system(view):
-                self.set_state({"status": "error", "error": "No molecular system attached."})
+                self.set_state(
+                    {"status": "error", "error": "No molecular system attached."}
+                )
                 return
             prop = payload.get("property", "charge")
             palette = payload.get("palette", "viridis")
             self.set_state({"status": "running"})
             try:
                 result = runtime.show.color_by(prop, palette=palette)
-                self.set_state({
-                    "status": "done",
-                    "property": result.property,
-                    "element": result.element,
-                    "error": None,
-                })
+                self.set_state(
+                    {
+                        "status": "done",
+                        "property": result.property,
+                        "element": result.element,
+                        "error": None,
+                    }
+                )
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="physchem", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="physchem", action=action_id, exc=exc)
+                )
 
         elif action_id == "reset_colors":
             try:
                 runtime.show.reset_colors()
                 self.set_state({"status": "idle", "property": None, "error": None})
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="physchem", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="physchem", action=action_id, exc=exc)
+                )

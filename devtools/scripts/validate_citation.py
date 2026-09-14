@@ -53,7 +53,9 @@ def _zenodo_creators(payload: dict) -> set[tuple[str, str]]:
     }
 
 
-def validate_repository(repo: Path = REPO, expected_version: str | None = None) -> list[str]:
+def validate_repository(
+    repo: Path = REPO, expected_version: str | None = None
+) -> list[str]:
     """Return every citation-policy violation found below *repo*."""
 
     errors: list[str] = []
@@ -71,7 +73,9 @@ def validate_repository(repo: Path = REPO, expected_version: str | None = None) 
 
     version = str(cff.get("version", ""))
     released = cff.get("date-released")
-    released_text = released.isoformat() if isinstance(released, date) else str(released)
+    released_text = (
+        released.isoformat() if isinstance(released, date) else str(released)
+    )
 
     if cff.get("title") != PROJECT_TITLE:
         errors.append(f"CITATION.cff title must be {PROJECT_TITLE!r}")
@@ -117,10 +121,14 @@ def validate_repository(repo: Path = REPO, expected_version: str | None = None) 
             errors.append(f"{relative} does not name the concept DOI {CONCEPT_DOI}")
         for forbidden in HISTORICAL_DOIS:
             if forbidden in text:
-                errors.append(f"{relative} freezes historical or invalid DOI {forbidden}")
+                errors.append(
+                    f"{relative} freezes historical or invalid DOI {forbidden}"
+                )
 
     index_text = (repo / "docs/index.ipynb").read_text(encoding="utf-8")
-    citation_text = (repo / "docs/content/about/citation.md").read_text(encoding="utf-8")
+    citation_text = (repo / "docs/content/about/citation.md").read_text(
+        encoding="utf-8"
+    )
     bibtex_text = (repo / "docs/_bibtex/software.bib").read_text(encoding="utf-8")
     if f"release-v{version}-white.svg" not in index_text:
         errors.append("docs/index.ipynb release badge does not match CITATION.cff")
@@ -129,12 +137,18 @@ def validate_repository(repo: Path = REPO, expected_version: str | None = None) 
         ("docs/content/about/citation.md", citation_text),
     ):
         if not re.search(rf"Version\s+(?:\\n)?{re.escape(version)}", text):
-            errors.append(f"{relative} software citation does not match version {version}")
+            errors.append(
+                f"{relative} software citation does not match version {version}"
+            )
         if f"({released_text[:4]})" not in text:
             errors.append(f"{relative} software citation does not match release year")
-    if not re.search(rf"^version = \{{{re.escape(version)}\}},$", bibtex_text, re.MULTILINE):
+    if not re.search(
+        rf"^version = \{{{re.escape(version)}\}},$", bibtex_text, re.MULTILINE
+    ):
         errors.append("docs/_bibtex/software.bib version does not match CITATION.cff")
-    if not re.search(rf"^year = \{{{re.escape(released_text[:4])}\}}$", bibtex_text, re.MULTILINE):
+    if not re.search(
+        rf"^year = \{{{re.escape(released_text[:4])}\}}$", bibtex_text, re.MULTILINE
+    ):
         errors.append("docs/_bibtex/software.bib year does not match CITATION.cff")
 
     return errors

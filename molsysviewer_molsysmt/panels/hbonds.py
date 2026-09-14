@@ -10,7 +10,6 @@ from ..access import has_system
 from ..diagnostics import panel_error_state
 from ..runtime import ensure_runtime
 
-
 _ESM = """
 export function render({ model, el }) {
   let state = { n_hbonds: null, status: "idle", error: null };
@@ -113,18 +112,26 @@ class MolSysMTHBondsPanel(AddonPanelWidget):
 
         if action_id == "compute_hbonds":
             if not has_system(view):
-                self.set_state({"status": "error", "error": "No molecular system attached."})
+                self.set_state(
+                    {"status": "error", "error": "No molecular system attached."}
+                )
                 return
             self.set_state({"status": "running"})
             try:
                 result = runtime.show.hbonds()
-                self.set_state({"n_hbonds": result.n_hbonds, "status": "done", "error": None})
+                self.set_state(
+                    {"n_hbonds": result.n_hbonds, "status": "done", "error": None}
+                )
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="hbonds", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="hbonds", action=action_id, exc=exc)
+                )
 
         elif action_id == "clear_hbonds":
             try:
                 runtime.show.clear_hbonds()
                 self.set_state({"n_hbonds": None, "status": "idle", "error": None})
             except Exception as exc:
-                self.set_state(panel_error_state(view, panel="hbonds", action=action_id, exc=exc))
+                self.set_state(
+                    panel_error_state(view, panel="hbonds", action=action_id, exc=exc)
+                )

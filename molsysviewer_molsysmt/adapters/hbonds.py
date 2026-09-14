@@ -26,6 +26,7 @@ def buch_hbond_links(view: Any) -> HBondLinks:
         raise ValueError("No molecular system attached.")
 
     import numpy as np
+
     import molsysmt as msm
 
     atoms_per_structure, _distances = msm.hbonds.get_buch_hbonds(view)

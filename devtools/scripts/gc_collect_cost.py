@@ -29,7 +29,9 @@ def main() -> None:
         "get_radius_of_gyration": lambda: msm.structure.get_radius_of_gyration(
             molecular_system
         ),
-        "get_principal_axes": lambda: msm.structure.get_principal_axes(molecular_system),
+        "get_principal_axes": lambda: msm.structure.get_principal_axes(
+            molecular_system
+        ),
         "get_contacts": lambda: msm.structure.get_contacts(
             molecular_system,
             selection="atom_name=='CA'",

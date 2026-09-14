@@ -115,8 +115,16 @@ class _BasicNamespace:
         visible_old = view.visible_atom_indices or []
         atom_index_map: dict[int, int] | None = None
         if selection is not None:
-            removed = set(msm.select(view.molsys, selection=selection, syntax=syntax, skip_digestion=True))
-            n_atoms = int(msm.get(view.molsys, element="system", n_atoms=True, skip_digestion=True))
+            removed = set(
+                msm.select(
+                    view.molsys, selection=selection, syntax=syntax, skip_digestion=True
+                )
+            )
+            n_atoms = int(
+                msm.get(
+                    view.molsys, element="system", n_atoms=True, skip_digestion=True
+                )
+            )
             kept = [index for index in range(n_atoms) if index not in removed]
             atom_index_map = {old: new for new, old in enumerate(kept)}
 
@@ -134,7 +142,12 @@ class _BasicNamespace:
             visible_atom_indices=visible_old,
             load_blocks="collapse",
         )
-        record_event(view, "facade_basic_remove", selection=selection, structure_indices=structure_indices)
+        record_event(
+            view,
+            "facade_basic_remove",
+            selection=selection,
+            structure_indices=structure_indices,
+        )
 
     @signal(tags=["molsysmt-addon", "basic", "mutation"])
     def set(
@@ -203,7 +216,12 @@ class _BasicNamespace:
             skip_digestion=True,
         )
         view.apply_system_edit(view.molsys, visible_atom_indices=visible)
-        record_event(view, "facade_basic_append_structures", selection=selection, structure_indices=structure_indices)
+        record_event(
+            view,
+            "facade_basic_append_structures",
+            selection=selection,
+            structure_indices=structure_indices,
+        )
 
 
 class _EmptyNamespace:
@@ -246,7 +264,9 @@ class _ShowNamespace:
         self._state.last_color_property = result.property
         self._state.last_color_element = result.element
         self._state.last_color_palette = palette
-        record_event(view, "facade_color", property=result.property, element=result.element)
+        record_event(
+            view, "facade_color", property=result.property, element=result.element
+        )
         return result
 
     @signal(tags=["molsysmt-addon", "show"])

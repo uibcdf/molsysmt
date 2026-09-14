@@ -7,7 +7,6 @@ import argparse
 from pathlib import Path, PurePosixPath
 from zipfile import ZipFile
 
-
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -27,9 +26,7 @@ def find_single_wheel(path: Path) -> Path:
     path = path.resolve()
     wheels = sorted(path.glob("*.whl")) if path.is_dir() else [path]
     if len(wheels) != 1 or not wheels[0].is_file():
-        raise RuntimeError(
-            f"expected exactly one wheel at {path}, found {len(wheels)}"
-        )
+        raise RuntimeError(f"expected exactly one wheel at {path}, found {len(wheels)}")
     return wheels[0]
 
 
@@ -56,8 +53,7 @@ def validate_wheel(wheel_path: Path) -> list[str]:
         legacy_names = [name for name in names if "msm_rust_kernels" in name]
         if legacy_names:
             problems.append(
-                "legacy msm_rust_kernels package entries remain: "
-                f"{legacy_names}"
+                f"legacy msm_rust_kernels package entries remain: {legacy_names}"
             )
 
         bytecode = [
@@ -66,9 +62,7 @@ def validate_wheel(wheel_path: Path) -> list[str]:
             if "__pycache__" in PurePosixPath(name).parts or name.endswith(".pyc")
         ]
         if bytecode:
-            problems.append(
-                f"wheel contains {len(bytecode)} bytecode/cache entries"
-            )
+            problems.append(f"wheel contains {len(bytecode)} bytecode/cache entries")
 
         unexpected_roots = sorted(
             {
@@ -96,13 +90,10 @@ def validate_wheel(wheel_path: Path) -> list[str]:
         missing_declarations = sorted(set(expected_form_declarations()) - set(names))
         if missing_declarations:
             problems.append(
-                "wheel is missing dynamic form declarations: "
-                f"{missing_declarations}"
+                f"wheel is missing dynamic form declarations: {missing_declarations}"
             )
 
-        wheel_metadata = [
-            name for name in names if name.endswith(".dist-info/WHEEL")
-        ]
+        wheel_metadata = [name for name in names if name.endswith(".dist-info/WHEEL")]
         if len(wheel_metadata) != 1:
             problems.append(
                 "expected exactly one .dist-info/WHEEL file, "
@@ -113,8 +104,7 @@ def validate_wheel(wheel_path: Path) -> list[str]:
             if "Root-Is-Purelib: false" not in content:
                 problems.append("wheel is not marked as a platform wheel")
             if not any(
-                line.startswith("Tag: cp311-abi3-")
-                for line in content.splitlines()
+                line.startswith("Tag: cp311-abi3-") for line in content.splitlines()
             ):
                 problems.append("wheel does not declare a cp311-abi3 tag")
 
@@ -123,8 +113,7 @@ def validate_wheel(wheel_path: Path) -> list[str]:
         ]
         if len(entry_points) != 1:
             problems.append(
-                "expected exactly one entry_points.txt file, "
-                f"found {len(entry_points)}"
+                f"expected exactly one entry_points.txt file, found {len(entry_points)}"
             )
         else:
             content = archive.read(entry_points[0]).decode("utf-8")

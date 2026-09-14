@@ -8,7 +8,6 @@ import ast
 import json
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parents[2]
 EVIDENCE_ROOT = REPO_ROOT / "tests/scientific_truth/evidence"
 REGISTRY_PATH = EVIDENCE_ROOT / "registry.json"
@@ -33,7 +32,9 @@ def _read_json(path: Path) -> dict:
         return json.load(file)
 
 
-def read_evidence_registry(evidence_root: Path = EVIDENCE_ROOT) -> tuple[dict, list[str]]:
+def read_evidence_registry(
+    evidence_root: Path = EVIDENCE_ROOT,
+) -> tuple[dict, list[str]]:
     """Assemble the domain-split evidence registry and report duplicate symbols."""
     registry = _read_json(evidence_root / "registry.json")
     registry["tolerances"] = _read_json(evidence_root / "tolerances.json")
@@ -49,7 +50,9 @@ def read_evidence_registry(evidence_root: Path = EVIDENCE_ROOT) -> tuple[dict, l
             continue
         for name, entry in domain_capabilities.items():
             if name in registry["capabilities"]:
-                errors.append(f"Duplicate scientific capability across domain files: {name}")
+                errors.append(
+                    f"Duplicate scientific capability across domain files: {name}"
+                )
                 continue
             if isinstance(entry, dict) and entry.get("domain") != path.stem:
                 errors.append(
@@ -102,15 +105,24 @@ def validate_registry(
     scopes = registry.get("stable_api_scopes")
     capabilities = registry.get("capabilities")
     tolerances = registry.get("tolerances")
-    if not isinstance(scopes, list) or not scopes or not all(isinstance(item, str) for item in scopes):
+    if (
+        not isinstance(scopes, list)
+        or not scopes
+        or not all(isinstance(item, str) for item in scopes)
+    ):
         return errors + ["stable_api_scopes must be a non-empty list of strings."]
     if not isinstance(capabilities, dict):
         return errors + ["capabilities must be an object keyed by public API symbol."]
     if not isinstance(tolerances, dict) or not tolerances:
         return errors + ["tolerances must be a non-empty object."]
     status_definitions = registry.get("status_definitions")
-    if not isinstance(status_definitions, dict) or set(status_definitions) != ALLOWED_STATUSES:
-        errors.append("status_definitions must define exactly validated, partial, and gap.")
+    if (
+        not isinstance(status_definitions, dict)
+        or set(status_definitions) != ALLOWED_STATUSES
+    ):
+        errors.append(
+            "status_definitions must define exactly validated, partial, and gap."
+        )
     elif not all(
         isinstance(description, str) and description.strip()
         for description in status_definitions.values()
@@ -120,9 +132,13 @@ def validate_registry(
     expected = stable_scientific_api(api_registry, scopes)
     registered = set(capabilities)
     for name in sorted(expected - registered):
-        errors.append(f"Stable scientific API is missing evidence classification: {name}")
+        errors.append(
+            f"Stable scientific API is missing evidence classification: {name}"
+        )
     for name in sorted(registered - expected):
-        errors.append(f"Evidence entry is not a Stable API in the governed scopes: {name}")
+        errors.append(
+            f"Evidence entry is not a Stable API in the governed scopes: {name}"
+        )
 
     for tolerance_name, tolerance in sorted(tolerances.items()):
         if not isinstance(tolerance, dict):
@@ -131,9 +147,14 @@ def validate_registry(
         for field in ("atol", "rtol"):
             value = tolerance.get(field)
             if not isinstance(value, (int, float)) or value < 0:
-                errors.append(f"Tolerance {tolerance_name}: {field} must be non-negative.")
+                errors.append(
+                    f"Tolerance {tolerance_name}: {field} must be non-negative."
+                )
         for field in ("applies_to", "rationale"):
-            if not isinstance(tolerance.get(field), str) or not tolerance[field].strip():
+            if (
+                not isinstance(tolerance.get(field), str)
+                or not tolerance[field].strip()
+            ):
                 errors.append(f"Tolerance {tolerance_name}: {field} is required.")
 
     for name, entry in sorted(capabilities.items()):
@@ -147,7 +168,11 @@ def validate_registry(
             if not isinstance(entry.get(field), str) or not entry[field].strip():
                 errors.append(f"{name}: {field} is required.")
         units = entry.get("units")
-        if not isinstance(units, list) or not units or not all(isinstance(unit, str) for unit in units):
+        if (
+            not isinstance(units, list)
+            or not units
+            or not all(isinstance(unit, str) for unit in units)
+        ):
             errors.append(f"{name}: units must be a non-empty list of strings.")
         contract_area = entry.get("contract_test_area")
         if isinstance(contract_area, str) and not (repo_root / contract_area).exists():
@@ -174,10 +199,14 @@ def validate_registry(
             comparison = item.get("comparison", "tolerance")
             if comparison == "exact":
                 if tolerance is not None:
-                    errors.append(f"{prefix} exact comparison cannot declare a tolerance.")
+                    errors.append(
+                        f"{prefix} exact comparison cannot declare a tolerance."
+                    )
             elif comparison == "tolerance":
                 if tolerance not in tolerances:
-                    errors.append(f"{prefix} references unknown tolerance {tolerance!r}.")
+                    errors.append(
+                        f"{prefix} references unknown tolerance {tolerance!r}."
+                    )
             else:
                 errors.append(f"{prefix} has invalid comparison {comparison!r}.")
             test_node = item.get("test")
@@ -195,17 +224,23 @@ def validate_registry(
         gap = entry.get("gap")
         if status == "validated":
             if not independent:
-                errors.append(f"{name}: validated status requires independent evidence.")
+                errors.append(
+                    f"{name}: validated status requires independent evidence."
+                )
             if gap is not None:
                 errors.append(f"{name}: validated status requires gap=null.")
         elif status == "partial":
             if not evidence:
                 errors.append(f"{name}: partial status requires some evidence.")
             if not isinstance(gap, str) or not gap.strip():
-                errors.append(f"{name}: partial status requires an explicit remaining gap.")
+                errors.append(
+                    f"{name}: partial status requires an explicit remaining gap."
+                )
         elif status == "gap":
             if evidence:
-                errors.append(f"{name}: gap status cannot register scientific evidence.")
+                errors.append(
+                    f"{name}: gap status cannot register scientific evidence."
+                )
             if not isinstance(gap, str) or not gap.strip():
                 errors.append(f"{name}: gap status requires an actionable explanation.")
     return errors
@@ -260,11 +295,14 @@ def render_document(registry: dict) -> str:
         for name, entry in sorted(capabilities.items()):
             if entry["domain"] != domain:
                 continue
-            evidence = "<br>".join(
-                f"{item['class']}: `{item['test']}` "
-                f"({item.get('tolerance') or item.get('comparison', 'tolerance')})"
-                for item in entry["scientific_evidence"]
-            ) or "—"
+            evidence = (
+                "<br>".join(
+                    f"{item['class']}: `{item['test']}` "
+                    f"({item.get('tolerance') or item.get('comparison', 'tolerance')})"
+                    for item in entry["scientific_evidence"]
+                )
+                or "—"
+            )
             gap = entry["gap"] or "—"
             lines.append(f"| `{name}` | {entry['status']} | {evidence} | {gap} |")
     return "\n".join(lines).rstrip() + "\n"
@@ -281,15 +319,22 @@ def main(argv: list[str] | None = None) -> int:
     expected_document = render_document(registry)
     if args.write_doc:
         GENERATED_DOC_PATH.write_text(expected_document, encoding="utf-8")
-    elif not GENERATED_DOC_PATH.exists() or GENERATED_DOC_PATH.read_text(encoding="utf-8") != expected_document:
-        errors.append("Generated scientific evidence matrix is missing or stale; run with --write-doc.")
+    elif (
+        not GENERATED_DOC_PATH.exists()
+        or GENERATED_DOC_PATH.read_text(encoding="utf-8") != expected_document
+    ):
+        errors.append(
+            "Generated scientific evidence matrix is missing or stale; run with --write-doc."
+        )
     if errors:
         print("Scientific evidence registry violations:")
         for error in errors:
             print(f"- {error}")
         return 1
     counts = {
-        status: sum(entry["status"] == status for entry in registry["capabilities"].values())
+        status: sum(
+            entry["status"] == status for entry in registry["capabilities"].values()
+        )
         for status in ("validated", "partial", "gap")
     }
     print(

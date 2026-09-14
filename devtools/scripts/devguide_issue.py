@@ -143,8 +143,10 @@ def command_open(arguments: argparse.Namespace) -> int:
     block, remainder = split_front_matter(template)
     assert block is not None
     filled = (
-        block.replace("summary: One line, present tense. Becomes the issue title.",
-                      f"summary: {arguments.title}")
+        block.replace(
+            "summary: One line, present tense. Becomes the issue title.",
+            f"summary: {arguments.title}",
+        )
         .replace("issue: uibcdf/molsysmt#000", f"issue: {repository}#{number}")
         .replace("opened: 2026-01-01", f"opened: {arguments.today}")
         .replace("area: []", f"area: [{', '.join(areas)}]")
@@ -153,7 +155,8 @@ def command_open(arguments: argparse.Namespace) -> int:
         filled = filled.replace("severity: medium", f"severity: {arguments.severity}")
     else:
         filled = "".join(
-            line for line in filled.splitlines(keepends=True)
+            line
+            for line in filled.splitlines(keepends=True)
             if not line.startswith("severity:")
         )
 
@@ -169,8 +172,14 @@ def command_open(arguments: argparse.Namespace) -> int:
 
 def _remote_state() -> dict[int, dict]:
     payload = _gh(
-        "issue", "list", "--state", "all", "--limit", "500",
-        "--json", "number,state,labels,title",
+        "issue",
+        "list",
+        "--state",
+        "all",
+        "--limit",
+        "500",
+        "--json",
+        "number,state,labels,title",
     )
     issues = json.loads(payload or "[]")
     return {issue["number"]: issue for issue in issues}
@@ -187,7 +196,9 @@ def _drift(report: Report, issue: dict | None) -> list[str]:
     if should_be_closed and not is_closed:
         problems.append(f"{where}: status {report.status!r} but {report.issue} is open")
     if not should_be_closed and is_closed:
-        problems.append(f"{where}: status {report.status!r} but {report.issue} is closed")
+        problems.append(
+            f"{where}: status {report.status!r} but {report.issue} is closed"
+        )
 
     present = {label["name"] for label in issue["labels"]}
     wanted = set(report.labels)
@@ -267,7 +278,11 @@ def command_sync(arguments: argparse.Namespace) -> int:
         )
 
     if arguments.check:
-        print(f"\n{drifted} entr(ies) drifted." if drifted else "\nBoard agrees with the queues.")
+        print(
+            f"\n{drifted} entr(ies) drifted."
+            if drifted
+            else "\nBoard agrees with the queues."
+        )
         return 1 if (drifted or errors or unknown_labels) else 0
 
     print(f"\n{drifted} entr(ies) needed synchronising.")
@@ -336,7 +351,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    opener = subparsers.add_parser("open", help="create an issue and scaffold its document")
+    opener = subparsers.add_parser(
+        "open", help="create an issue and scaffold its document"
+    )
     opener.add_argument("--kind", required=True, choices=KIND_LABELS)
     opener.add_argument("--title", required=True)
     opener.add_argument("--area", required=True, help="comma-separated area labels")
@@ -345,11 +362,17 @@ def main() -> int:
     opener.add_argument("--today", default=None, help="ISO date, defaults to today")
     opener.set_defaults(handler=command_open)
 
-    syncer = subparsers.add_parser("sync", help="push derived labels and state to the board")
-    syncer.add_argument("--check", action="store_true", help="report drift, change nothing")
+    syncer = subparsers.add_parser(
+        "sync", help="push derived labels and state to the board"
+    )
+    syncer.add_argument(
+        "--check", action="store_true", help="report drift, change nothing"
+    )
     syncer.set_defaults(handler=command_sync)
 
-    closer = subparsers.add_parser("close", help="close the issue behind an archived document")
+    closer = subparsers.add_parser(
+        "close", help="close the issue behind an archived document"
+    )
     closer.add_argument("document")
     closer.add_argument("--users", required=True, help="the 'For users' line")
     closer.add_argument("--commit", help="defaults to HEAD")
