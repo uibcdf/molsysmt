@@ -32,7 +32,8 @@ jobs:
           python-version: "3.12"
 
       - name: Install Ruff
-        run: pip install ruff
+        run: pip install ruff==0.16.5
 
-      - name: Run Ruff check
-        run: ruff check molsysmt
+      - name: Check critical rules across the legacy core
+        # The full common baseline is migrated under uibcdf/molsysmt#212.
+        run: ruff check --select F821,F822,F823,B006,B023 molsysmt

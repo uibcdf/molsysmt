@@ -3,7 +3,7 @@ channels:
 - conda-forge
 - ambermd
 dependencies:
-- python
+- python=3.13
 - pip
 - setuptools >=68.0
 - versioningit>=3.0
@@ -35,6 +35,7 @@ dependencies:
 - pytest-cov
 - codecov
 - pytest-xdist
+- ruff=0.16.5
 - pip:
   - pytraj
 - jupyterlab

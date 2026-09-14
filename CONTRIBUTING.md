@@ -106,18 +106,14 @@ For detailed guidance on how to write docstrings, follow our:
 
 We aim for consistent and clean code.
 
-- Python formatting: **Black**
-- Import sorting: **isort**
-- Linting: **(coming soon) Ruff**
+- Python formatting, import sorting, and linting: **Ruff**
 - Docstring format: **NumPy-style with Sphinx and MyST extensions**
 
-Before committing, you can run formatters:
+Before committing, run the shared checks:
 ```bash
-black molsysmt
-isort molsysmt
+ruff check .
+ruff format --check .
 ```
-
-And in the future, we plan to integrate `ruff` and `docstr-coverage`.
 
 ---
 

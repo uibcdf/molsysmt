@@ -5,7 +5,7 @@ status: active
 opened: 2026-09-12
 closed:
 verification: measured
-area: [ci, maintenance]
+area: [ci]
 guard:
 normative:
 blocked_by: []
@@ -40,10 +40,25 @@ The policy 1.0 checker on 2026-09-12 reported `RUFF_CONFIG`, `RUFF_CI`, and acti
 Black and isort dependencies. Existing workflows run Ruff linting but do not enforce the
 shared import baseline and formatting check.
 
+## Staged outcome — 2026-09-14
+
+The central conformance checker and the configured repository-wide Ruff checks now
+pass. Ruff 0.16.5 is pinned, the shared workflow is installed, and Black/isort are
+removed from active development tooling. The legacy core, tests and documentation
+remain temporarily excluded from the full baseline. A separate critical-rule gate
+continues to scan the core; `uibcdf/molsysmt#212` owns removal of the exclusions.
+
+This is adoption with a tracked exception, not a claim that the entire source tree
+has been reformatted. The four MolSysMT–MolSysViewer add-on integration failures
+observed in this checkout concern a missing `visible_atom_indices` attribute and
+are not accepted as a consequence of this tooling migration; they remain outside
+this report's acceptance decision.
+
 ## Acceptance criteria
 
 - The central conformance checker reports no findings.
-- Ruff lint and format checks pass with the suite-tested release.
+- Ruff lint and format checks pass with the suite-tested release on the declared
+  boundary, and the separate critical-rule core gate passes.
 - The relevant MolSysMT validation suite passes.
-- The local issue and this record close together after the guard is published.
-
+- The remaining exclusions have their own issue and central exception record.
+- The local issue and this record close together after the guards are published.

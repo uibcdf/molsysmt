@@ -40,6 +40,6 @@ dependencies:
 - pytest-cov
 - codecov
 - pytest-xdist
-- ruff
+- ruff=0.16.5
 - pip:
   - pytraj

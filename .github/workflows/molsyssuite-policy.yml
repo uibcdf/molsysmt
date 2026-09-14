@@ -1,0 +1,14 @@
+name: MolSysSuite policy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  policy:
+    uses: uibcdf/molsyssuite/.github/workflows/check-python-repository.yaml@policy-v1.1.5
