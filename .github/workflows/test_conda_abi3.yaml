@@ -89,7 +89,7 @@ jobs:
 
       - name: Build one platform-specific ABI3 artifact
         id: build
-        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.1.0
         env:
           CARGO_PROFILE_RELEASE_LTO: ${{ inputs.lto }}
           MOLSYSMT_CONDA_ABI3: "true"
@@ -97,10 +97,20 @@ jobs:
         with:
           meta_yaml_dir: devtools/conda-build
           upload: false
+          evidence_matrix_index: ${{ strategy.job-index }}
           conda_build_args: >-
             --package-format .conda
             --no-test
             --exclusive-config-file conda_build_config_abi3.yaml
+
+      - name: Upload structured producer evidence
+        if: ${{ always() && steps.build.outputs.evidence_path != '' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: ${{ steps.build.outputs.evidence_artifact_name }}
+          path: ${{ steps.build.outputs.evidence_path }}
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Inspect metadata and test the exact artifact on every Python
         shell: bash -el {0}

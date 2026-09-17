@@ -4,7 +4,6 @@ from pathlib import Path
 
 import yaml
 
-
 REPO = Path(__file__).resolve().parents[2]
 RECIPE = REPO / "devtools" / "conda-build" / "meta.yaml"
 PUBLISH_WORKFLOW = (
@@ -40,9 +39,7 @@ def _step(job: dict, name: str) -> dict:
 
 def test_recipe_builds_and_tests_the_native_extension():
     recipe = RECIPE.read_text(encoding="utf-8")
-    variant_config_path = (
-        REPO / "devtools" / "conda-build" / "conda_build_config.yaml"
-    )
+    variant_config_path = REPO / "devtools" / "conda-build" / "conda_build_config.yaml"
     variant_config = yaml.safe_load(variant_config_path.read_text(encoding="utf-8"))
 
     assert (
@@ -82,13 +79,11 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert build_and_publish["strategy"]["matrix"] == (
         "${{ fromJSON(needs.prepare.outputs.matrix) }}"
     )
-    assert prepare["outputs"]["matrix"] == (
-        "${{ steps.candidate.outputs.matrix }}"
-    )
+    assert prepare["outputs"]["matrix"] == ("${{ steps.candidate.outputs.matrix }}")
 
-    validate_identity = _step(
-        prepare, "Validate staging inputs or the release tag"
-    )["run"]
+    validate_identity = _step(prepare, "Validate staging inputs or the release tag")[
+        "run"
+    ]
     assert "^[0-9a-f]{40}$" in validate_identity
     assert validate_identity.count("^[0-9]+\\.[0-9]+\\.[0-9]+$") == 2
     assert "^[0-9]+$" in validate_identity
@@ -96,9 +91,7 @@ def test_publish_workflow_is_atomic_per_native_platform():
         assert f'"platform":"{platform}","runner":"{runner}"' in validate_identity
     assert 'echo "matrix=$matrix" >> "$GITHUB_OUTPUT"' in validate_identity
 
-    staging_build = _step(
-        build_and_publish, "Build and publish the staging platform"
-    )
+    staging_build = _step(build_and_publish, "Build and publish the staging platform")
     release_build = _step(
         build_and_publish, "Build, test, and publish the release platform"
     )
@@ -108,9 +101,13 @@ def test_publish_workflow_is_atomic_per_native_platform():
     )
     assert staging_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert staging_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.0.3"
+        "uibcdf/action-build-and-upload-conda-packages@v2.1.0"
     )
     assert staging_build["with"]["label"] == "staging"
+    assert staging_build["id"] == "conda_staging"
+    assert staging_build["with"]["evidence_matrix_index"] == (
+        "${{ strategy.job-index }}"
+    )
     assert "--no-test" in staging_build["with"]["conda_build_args"]
     assert (
         "--exclusive-config-file conda_build_config_abi3.yaml"
@@ -120,9 +117,13 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 3
     assert release_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert release_build["uses"] == (
-        "uibcdf/action-build-and-upload-conda-packages@v2.0.3"
+        "uibcdf/action-build-and-upload-conda-packages@v2.1.0"
     )
     assert release_build["with"]["label"] == "main"
+    assert release_build["id"] == "conda_release"
+    assert release_build["with"]["evidence_matrix_index"] == (
+        "${{ strategy.job-index }}"
+    )
     assert "--no-test" not in release_build["with"]["conda_build_args"]
     assert (
         "--exclusive-config-file conda_build_config_abi3.yaml"
@@ -131,7 +132,14 @@ def test_publish_workflow_is_atomic_per_native_platform():
 
     text = PUBLISH_WORKFLOW.read_text(encoding="utf-8")
     assert "anaconda/actions/upload-package" not in text
-    assert "actions/upload-artifact" not in text
+    assert (
+        text.count("actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f")
+        == 2
+    )
+    for source in ("conda_staging", "conda_release"):
+        assert f"always() && steps.{source}.outputs.evidence_path != ''" in text
+        assert f"steps.{source}.outputs.evidence_artifact_name" in text
+        assert f"steps.{source}.outputs.evidence_path" in text
     assert "platform_linux-64" not in text
 
 

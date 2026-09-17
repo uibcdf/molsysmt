@@ -4,7 +4,6 @@ from pathlib import Path
 
 import yaml
 
-
 REPO = Path(__file__).resolve().parents[2]
 WORKFLOW = REPO / ".github" / "workflows" / "test_conda_abi3.yaml"
 RECIPE = REPO / "devtools" / "conda-build" / "meta.yaml"
@@ -43,7 +42,7 @@ def test_experiment_builds_once_and_tests_one_artifact_three_times():
     workflow = _workflow()
     lto_input = workflow[True]["workflow_dispatch"]["inputs"]["lto"]
 
-    assert "action-build-and-upload-conda-packages@v2.0.3" in text
+    assert "action-build-and-upload-conda-packages@v2.1.0" in text
     assert lto_input["options"] == ["true", "thin", "false", "off"]
     assert "CARGO_PROFILE_RELEASE_LTO: ${{ inputs.lto }}" in text
     assert 'MOLSYSMT_CONDA_ABI3: "true"' in text
@@ -58,6 +57,11 @@ def test_experiment_builds_once_and_tests_one_artifact_three_times():
     assert "--installed-extension" in text
     assert "${{ runner.temp }}/molsysmt-conda-abi3/*" in text
     assert "upload: false" in text
+    assert "evidence_matrix_index: ${{ strategy.job-index }}" in text
+    assert "always() && steps.build.outputs.evidence_path != ''" in text
+    assert "steps.build.outputs.evidence_artifact_name" in text
+    assert "steps.build.outputs.evidence_path" in text
+    assert "actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f" in text
 
 
 def test_recipe_uses_the_cep20_abi3_contract_conditionally():

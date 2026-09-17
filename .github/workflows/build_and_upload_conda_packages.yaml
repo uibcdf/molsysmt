@@ -124,8 +124,9 @@ jobs:
           test "$(python -m versioningit)" = "$EXPECTED_VERSION"
 
       - name: Build and publish the staging platform
+        id: conda_staging
         if: github.event_name == 'workflow_dispatch'
-        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.1.0
         env:
           MOLSYSMT_CONDA_ABI3: "true"
           MOLSYSMT_CONDA_BUILD_NUMBER: ${{ inputs.build_number }}
@@ -134,14 +135,16 @@ jobs:
           user: uibcdf
           token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
           label: staging
+          evidence_matrix_index: ${{ strategy.job-index }}
           conda_build_args: >-
             --package-format .conda
             --no-test
             --exclusive-config-file conda_build_config_abi3.yaml
 
       - name: Build, test, and publish the release platform
+        id: conda_release
         if: github.event_name == 'release'
-        uses: uibcdf/action-build-and-upload-conda-packages@v2.0.3
+        uses: uibcdf/action-build-and-upload-conda-packages@v2.1.0
         env:
           MOLSYSMT_CONDA_ABI3: "true"
           MOLSYSMT_CONDA_BUILD_NUMBER: 3
@@ -150,6 +153,25 @@ jobs:
           user: uibcdf
           token: ${{ secrets.ANACONDA_UIBCDF_TOKEN }}
           label: main
+          evidence_matrix_index: ${{ strategy.job-index }}
           conda_build_args: >-
             --package-format .conda
             --exclusive-config-file conda_build_config_abi3.yaml
+
+      - name: Upload staging producer evidence
+        if: ${{ always() && steps.conda_staging.outputs.evidence_path != '' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: ${{ steps.conda_staging.outputs.evidence_artifact_name }}
+          path: ${{ steps.conda_staging.outputs.evidence_path }}
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload release producer evidence
+        if: ${{ always() && steps.conda_release.outputs.evidence_path != '' }}
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: ${{ steps.conda_release.outputs.evidence_artifact_name }}
+          path: ${{ steps.conda_release.outputs.evidence_path }}
+          if-no-files-found: error
+          retention-days: 7
