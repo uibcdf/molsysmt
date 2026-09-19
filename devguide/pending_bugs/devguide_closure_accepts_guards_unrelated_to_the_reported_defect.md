@@ -1,7 +1,7 @@
 ---
 summary: Devguide closure accepts guards unrelated to the reported defect
 issue: uibcdf/molsysmt#197
-status: open
+status: blocked
 opened: 2026-09-02
 closed:
 severity: medium
@@ -9,14 +9,15 @@ verification: inspected
 area: [docs, ci]
 guard:
 normative:
-blocked_by: []
+blocked_by: [uibcdf/molsyssuite#26]
 supersedes: []
 ---
 
 # Devguide closure accepts guards unrelated to the reported defect
 
 **Reported:** 2026-09-02, split from the gate audit in uibcdf/molsysmt#187.
-**Status:** open.
+**Status:** blocked by the shared guard-semantics decision in
+`uibcdf/molsyssuite#26`. This report now owns only the MolSysMT implementation.
 
 ## What
 
@@ -66,24 +67,31 @@ wording that the guard is the test that fails when the defect returns.
 
 ## Scope and exclusions
 
-Covers the schema and validation of `guard`, its normative description, and the closure
-workflow. Excludes re-evaluating every historical guard and excludes the docstring
-validator work in uibcdf/molsysmt#187.
+Covers MolSysMT's schema, `_validate_guard` implementation, validator tests, and closure
+workflow after the common contract is accepted. The suite-wide meaning of `guard`, the
+pytest profile, non-pytest extension rules, migration policy, and coordinated rollout are
+owned by `uibcdf/molsyssuite#26` and must not be decided independently here.
+
+Excludes re-evaluating every historical guard and excludes the docstring validator work
+in uibcdf/molsysmt#187.
 
 ## Acceptance criteria
 
-1. A guard that names a nonexistent test node is rejected when its test framework makes
-   node validation practical.
-2. The protocol distinguishes mechanically checked addressability from the reviewer-owned
-   claim that the test protects against the reported defect.
-3. Validator tests demonstrate rejection of a missing path and a missing node.
-4. The closing workflow records enough specificity for a maintainer to run the guard.
+1. MolSysMT implements the pytest and non-pytest selector semantics accepted in
+   `uibcdf/molsyssuite#26` without adding a competing local definition.
+2. A guard that names a nonexistent pytest node is rejected.
+3. MolSysMT's protocol distinguishes mechanically checked addressability from the
+   reviewer-owned claim that the test protects against the reported defect.
+4. Validator mutation tests reject a missing path and a missing node without accepting
+   a shape-only substitute.
+5. The closing workflow records enough specificity for a maintainer to run the guard.
 
 ## Dependencies and risks
 
-Rust tests and parametrized pytest nodes do not share one discovery format. Tightening
-the schema must preserve legitimate non-pytest guards or define an explicit form for
-them rather than pretending one parser covers every test tree.
+The central policy decision is tracked by `uibcdf/molsyssuite#26`. Rust tests and
+parametrized pytest nodes do not share one discovery format. Tightening the schema must
+preserve legitimate non-pytest guards or define an explicit form for them rather than
+pretending one parser covers every test tree.
 
 ## Provenance
 
