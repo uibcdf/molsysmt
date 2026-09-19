@@ -18,6 +18,19 @@ Form adapters live under `molsysmt/form/`. Each adapter module defines:
 Detailed file layout and dependency rules are defined in
 `form_adapter_implementation.md`.
 
+An adapter that exposes `extract` must accept the dispatcher contract:
+`item`, `atom_indices`, `structure_indices`, `copy_if_all`, and
+`skip_digestion`. A form that cannot represent one of the requested axes must
+raise a MolSysMT catalog error naming the form; it must not leak a Python
+signature error or silently ignore a non-`all` index. Sequence-only forms may
+map `atom_indices` to their positional residue tokens at this boundary and keep
+a `group_indices` alias for converters that operate explicitly at group level.
+
+Extraction must preserve system-level metadata while subsetting every field on
+the selected axis. Capability declarations, presence checks, getters, and form
+detection must agree on those fields: an adapter cannot advertise per-atom
+attributes while its detector rejects an object containing them.
+
 ## Discovery and dependencies
 
 Adapters are discovered lazily. Optional dependency ownership is defined by

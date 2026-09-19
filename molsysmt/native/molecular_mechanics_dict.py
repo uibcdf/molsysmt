@@ -1,5 +1,8 @@
 
 molecular_mechanics_parameters = {
+    'formal_charge',
+    'partial_charge',
+    'atom_ff_type',
     'forcefield',
     'non_bonded_method',
     'cutoff_distance',
@@ -19,4 +22,3 @@ molecular_mechanics_parameters = {
     'salt_concentration',
     'kappa',
 }
-

@@ -1,5 +1,6 @@
 from molsysmt._private.argdigest import arg_digest
 
+
 @arg_digest(form='molsysmt.MolecularMechanics')
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
     """
@@ -36,7 +37,10 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
         ### MECHANICAL ATTRIBUTES
         ###
 
-        if attribute=='formal_charge':
+        if attribute in ['atom_index', 'n_atoms']:
+            output = molecular_system.atoms_ff is not None
+
+        elif attribute=='formal_charge':
             if molecular_system.formal_charge is None:
                 output = False
 
@@ -113,4 +117,3 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
                 output = False
 
     return output
-
