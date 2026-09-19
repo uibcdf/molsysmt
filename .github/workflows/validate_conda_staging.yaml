@@ -11,7 +11,6 @@ on:
       molsysviewer_version:
         description: MolSysViewer version already present in the staging label
         required: true
-        default: 0.21.0
         type: string
 
 permissions:

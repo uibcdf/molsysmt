@@ -20,6 +20,32 @@ uibcdf/molsysmt#193 against the live Conda channels.
 **Status:** active. MolSysMT's native staging set is valid; MolSysViewer publication and
 the installed-pair matrix remain pending.
 
+## Coordination checkpoint — 2026-09-19
+
+The package cycle is now measured from both repositories rather than inferred from their
+recipes:
+
+- MolSysMT run `33849332945`, exact commit
+  `e5820d4794f8ce31a1f64e345c5edf9073ade975`, published build-2 ABI3 artefacts to
+  `uibcdf/label/staging` for `linux-64`, `linux-aarch64`, `osx-64`, `osx-arm64` and
+  `win-64`. Live channel queries find all five.
+- A Linux dry-run against staging resolves `molsysmt=0.22.0` on Python 3.12 but not
+  Python 3.13. The failing solver tree reaches MolSysMT's hard MolSysViewer dependency
+  and finds only the old interpreter-specific public packages. Publishing MolSysMT to
+  `main` first would hide the cycle rather than validate it.
+- MolSysViewer now has a manual exact-SHA staging path that builds its noarch package
+  against staged MolSysMT and keeps its recipe test enabled. Its hosted `CI`, `CI_e2e`
+  and notebook workflows can select staging only through an explicit manual input;
+  ordinary runs keep using the public channel.
+- The former MolSysViewer 0.21.0 candidate identity below is historical. MolSysViewer
+  has since tagged 0.22.0 and 0.23.0, and both tags predate packaging and hosted-CI fixes
+  made under uibcdf/molsysviewer#88 and #89. They must not be moved. A new candidate
+  version and commit must be frozen and recorded before its staging dispatch.
+
+For that reason, the exact-pair workflow no longer defaults the MolSysViewer version.
+The operator must name the newly frozen version already present in staging; an old
+default must not decide release identity by inertia.
+
 ## Implementation checkpoint — 2026-09-02
 
 The maintainers settled the dependency and release decisions that were still assumed in
@@ -150,13 +176,13 @@ tracked separately as uibcdf/molsysmt#193.
 
 ## Acceptance criteria
 
-1. The MolSysViewer 0.21.0 `noarch: python` package is available from the staging channel
-   and declares Python 3.11--3.13 support.
+1. A newly frozen MolSysViewer candidate is recorded here, available from the staging
+   channel as `noarch: python`, and declares Python 3.11--3.13 support.
 2. The MolSysMT runtime dependency set resolves in dry-run mode for Python 3.11, 3.12
    and 3.13.
-3. The staging evidence installs exact MolSysMT 0.22.0 and MolSysViewer 0.21.0 packages
-   on all five native platforms with Python 3.11, 3.12 and 3.13, and fails on a version,
-   provenance, native-extension or packaged-resource mismatch.
+3. The staging evidence installs exact MolSysMT 0.22.0 and the recorded MolSysViewer
+   candidate on all five native platforms with Python 3.11, 3.12 and 3.13, and fails on
+   a version, provenance, native-extension or packaged-resource mismatch.
 
 ## Dependencies and risks
 

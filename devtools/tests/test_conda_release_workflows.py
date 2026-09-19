@@ -147,8 +147,13 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     workflow = _workflow(STAGING_WORKFLOW)
     prepare = workflow["jobs"]["prepare"]
     validate = workflow["jobs"]["validate"]
+    viewer_input = workflow[True]["workflow_dispatch"]["inputs"][
+        "molsysviewer_version"
+    ]
 
     assert validate["needs"] == "prepare"
+    assert viewer_input["required"] is True
+    assert "default" not in viewer_input
     assert _targets(validate) == EXPECTED_TARGETS
     assert validate["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
 
