@@ -46,6 +46,11 @@ For that reason, the exact-pair workflow no longer defaults the MolSysViewer ver
 The operator must name the newly frozen version already present in staging; an old
 default must not decide release identity by inertia.
 
+The reusable release semantics exposed by this pilot are owned centrally by
+`uibcdf/molsyssuite#27`. This repository retains its native ABI3 implementation and
+evidence, and must converge on the accepted suite contract rather than letting the local
+workflow become a separate policy.
+
 ## Implementation checkpoint — 2026-09-02
 
 The maintainers settled the dependency and release decisions that were still assumed in
