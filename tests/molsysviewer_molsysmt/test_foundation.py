@@ -1,26 +1,19 @@
 """Tests for the molsysviewer_molsysmt addon."""
 
 import sys
-import tomllib
-from pathlib import Path
 from importlib import import_module
 
 import molsysviewer
 import pytest
 
 from molsysviewer_molsysmt import (
-    get_addon,
-    lifecycle,
-    on_enable,
-    on_disable,
-    on_context_action,
     create_molsysmt_state,
+    get_addon,
+    has_system,
     system_for_verbs,
     system_object,
-    has_system,
 )
 from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
-
 
 _EXPECTED_PANELS = [
     "basic", "topology", "structure", "hbonds",
@@ -120,6 +113,59 @@ def test_basic_facade_remove_uses_apply_system_edit_on_real_view():
     import molsysmt as msm
 
     molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.demo["dialanine"]
+    calls = []
+    original_apply = view.apply_system_edit
+
+    def recording_apply(new_molsys, **kwargs):
+        calls.append((new_molsys, kwargs))
+        return original_apply(new_molsys, **kwargs)
+
+    view.apply_system_edit = recording_apply
+
+    view.addons.molsysmt.basic.remove(selection=[0])
+
+    assert len(calls) == 1
+    assert calls[0][1] == {
+        "atom_index_map": {old: old - 1 for old in range(1, 22)},
+        "load_blocks": "collapse",
+    }
+    assert msm.get(calls[0][0], n_atoms=True) == 21
+    assert view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_remove"
+
+    molsysviewer.addons.clear()
+
+
+def test_basic_facade_add_uses_apply_system_edit_on_real_view():
+    pytest.importorskip("molsysmt")
+    import molsysmt as msm
+
+    molsysviewer.addons.clear()
+    molsysviewer.addons.register(get_addon())
+    view = molsysviewer.demo["dialanine"]
+    added_molsys = molsysviewer.demo["dialanine"]._molsys  # noqa: SLF001
+    calls = []
+    original_apply = view.apply_system_edit
+
+    def recording_apply(new_molsys, **kwargs):
+        calls.append((new_molsys, kwargs))
+        return original_apply(new_molsys, **kwargs)
+
+    view.apply_system_edit = recording_apply
+
+    view.addons.molsysmt.basic.add(added_molsys, label="second-copy")
+
+    assert len(calls) == 1
+    assert calls[0][1] == {
+        "label": "second-copy",
+        "load_blocks": "append",
+        "appended_n_atoms": 22,
+    }
+    assert msm.get(calls[0][0], n_atoms=True) == 44
+    assert view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_add"
+
+    molsysviewer.addons.clear()
 
 
 def test_basic_facade_set_uses_apply_system_edit_on_real_view():
@@ -141,7 +187,7 @@ def test_basic_facade_set_uses_apply_system_edit_on_real_view():
     view.addons.molsysmt.basic.set(element="group", selection=[0], group_name="ACE2")
 
     assert len(calls) == 1
-    assert calls[0][1]["visible_atom_indices"] == list(range(22))
+    assert calls[0][1] == {}
 
     # What the facade owes the viewer is an edited molecular system handed to
     # apply_system_edit. Asserting on the system it was called with tests that contract;
@@ -174,7 +220,7 @@ def test_basic_facade_append_structures_uses_apply_system_edit_on_real_view():
     view.addons.molsysmt.basic.append_structures(molsysviewer.demo["dialanine"]._molsys)  # noqa: SLF001
 
     assert len(calls) == 1
-    assert calls[0][1]["visible_atom_indices"] == list(range(22))
+    assert calls[0][1] == {}
 
     # Same reasoning as above: the observable contract is the system passed to
     # apply_system_edit, which after appending must carry the two structures.

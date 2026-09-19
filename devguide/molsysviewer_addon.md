@@ -37,9 +37,12 @@ code should use `view.addons.molsysmt`.
 and `view.addons.molsysmt.basic.append_structures(...)` are live-view MolSysMT
 operations, not aliases to the corresponding view mutators. They call MolSysMT
 to produce or mutate the molecular system, then ask MolSysViewer to reconcile
-the visual state through `view.apply_system_edit(...)`. A legacy fallback to the
-old view methods exists only for viewer objects that do not yet expose that
-primitive.
+the viewer-owned scene state through `view.apply_system_edit(...)`. Atom removal
+passes an old-to-new atom index map, and atom addition passes the append-block
+metadata. Attribute edits and structure appends need no extra reconciliation
+arguments. Visibility belongs to MolSysViewer's whole/region scene model and is
+not captured or passed by this addon. A legacy fallback to the old view methods
+exists only for viewer objects that do not yet expose that primitive.
 
 ## Context actions
 
@@ -84,12 +87,15 @@ facade calls create concrete MolSysViewer shapes directly.
 
 ## Current verification status
 
-As of 2026-07-06, the addon has passed the focused Python test battery
-(`tests/molsysviewer_molsysmt/`: 110 passed), a backend smoke test on real
-`MolSysView` demo systems (16 ok, 0 failed), simulated entry-point discovery,
-and a Playwright visual smoke of the standalone Add-ons workspace. The visual
-smoke confirmed that the MolSysMT workspace and all eight panel tabs render, and
-that the `Basic` panel mounts its subsections without JavaScript errors.
+As of 2026-09-19, the addon has passed the focused Python test battery
+(`tests/molsysviewer_molsysmt/`: 121 passed), including the four basic-facade
+mutations against a real current `MolSysView`. The full MolSysMT suite passed
+with 10,211 tests and 11 dependency-dependent skips. Earlier backend smoke
+testing on real demo systems (16 ok, 0 failed), simulated entry-point discovery,
+and a Playwright visual smoke of the standalone Add-ons workspace also passed.
+The visual smoke confirmed that the MolSysMT workspace and all eight panel tabs
+render, and that the `Basic` panel mounts its subsections without JavaScript
+errors.
 
 The remaining manual validation is a live Jupyter/Qt widget smoke test, because
 the static standalone HTML verifies frontend rendering/navigation but not

@@ -75,7 +75,6 @@ class _BasicNamespace:
             skip_digestion=True,
         )
         added_n_atoms = int(added_molsys.get_n_atoms())
-        visible = view.visible_atom_indices
         msm.add(
             view.molsys,
             added_molsys,
@@ -89,7 +88,6 @@ class _BasicNamespace:
         view.apply_system_edit(
             view.molsys,
             label=label,
-            visible_atom_indices=visible,
             load_blocks="append",
             appended_n_atoms=added_n_atoms,
         )
@@ -112,7 +110,6 @@ class _BasicNamespace:
         if getattr(view, "molsys", None) is None:
             raise ValueError("No molecular system attached.")
 
-        visible_old = view.visible_atom_indices or []
         atom_index_map: dict[int, int] | None = None
         if selection is not None:
             removed = set(
@@ -139,7 +136,6 @@ class _BasicNamespace:
         view.apply_system_edit(
             new_molsys,
             atom_index_map=atom_index_map,
-            visible_atom_indices=visible_old,
             load_blocks="collapse",
         )
         record_event(
@@ -168,7 +164,6 @@ class _BasicNamespace:
         if getattr(view, "molsys", None) is None:
             raise ValueError("No molecular system attached.")
 
-        visible = view.visible_atom_indices
         msm.set(
             view.molsys,
             element=element,
@@ -178,7 +173,7 @@ class _BasicNamespace:
             skip_digestion=True,
             **kwargs,
         )
-        view.apply_system_edit(view.molsys, visible_atom_indices=visible)
+        view.apply_system_edit(view.molsys)
         record_event(
             view,
             "facade_basic_set",
@@ -205,7 +200,6 @@ class _BasicNamespace:
         if getattr(view, "molsys", None) is None:
             raise ValueError("No molecular system attached.")
 
-        visible = view.visible_atom_indices
         msm.append_structures(
             view.molsys,
             from_molecular_system,
@@ -215,7 +209,7 @@ class _BasicNamespace:
             in_place=True,
             skip_digestion=True,
         )
-        view.apply_system_edit(view.molsys, visible_atom_indices=visible)
+        view.apply_system_edit(view.molsys)
         record_event(
             view,
             "facade_basic_append_structures",
