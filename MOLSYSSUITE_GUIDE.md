@@ -111,6 +111,21 @@ Report limitations to `uibcdf/gh-run-receptor` with the workflow, run ID, select
 expected and observed results, and only sanitized evidence. The complete contract and
 exception process live in the central dogfooding policy linked above.
 
+## Release archival and DOI claims
+
+MolSysSuite centrally governs Zenodo applicability, DOI meaning, evidence states and
+exceptions; each component still owns its metadata, release gates, artifacts and release
+decision. A successful GitHub Release, metadata file, reported account toggle or observed
+webhook is not proof of archival. Only an independently verified public Zenodo record and
+exact file inventory permit an archival claim.
+
+Use the concept DOI for stable project badges and general citation, and a version DOI for
+an exact release. When both `CITATION.cff` and `.zenodo.json` exist, validate their shared
+metadata; Zenodo gives `.zenodo.json` precedence during GitHub archiving. Never print or
+retain credential-bearing webhook configuration. Follow the complete
+[Zenodo archival and DOI policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/zenodo_policy.md)
+and its central inventory before publishing or changing a DOI claim.
+
 ## Stabilization order
 
 The first stabilization wave is SMonitor, ArgDigest, DepDigest, PyUnitWizard, MolSysMT,
