@@ -1,12 +1,12 @@
 ---
 summary: Adopt the shared Python and Ruff development baseline.
 issue: uibcdf/molsysmt#211
-status: active
+status: resolved
 opened: 2026-09-12
-closed:
+closed: 2026-09-19
 verification: measured
 area: [ci]
-guard:
+guard: devtools/tests/test_ruff_clean.py
 normative:
 blocked_by: []
 supersedes: []
@@ -62,3 +62,11 @@ this report's acceptance decision.
 - The relevant MolSysMT validation suite passes.
 - The remaining exclusions have their own issue and central exception record.
 - The local issue and this record close together after the guards are published.
+
+## Resolution
+
+MolSysMT adopts policy 1.1.6 with Ruff 0.16.5, the common configuration and
+workflow, and no active Black or standalone isort dependency. The maintenance
+suite passed with 157 tests and policy run `35468885292` passed. The deliberate
+legacy-tree boundary remains a central exception owned by `uibcdf/molsysmt#212`;
+the critical-rule core test stays active until that issue removes the exclusions.
