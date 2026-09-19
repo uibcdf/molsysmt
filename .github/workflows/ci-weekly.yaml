@@ -72,7 +72,19 @@ jobs:
         run: |
           python devtools/scripts/validate_scientific_evidence.py
           python -c "import MDAnalysis, mdtraj; print('MDAnalysis:', MDAnalysis.__version__); print('MDTraj:', mdtraj.__version__)"
-          python -m pytest --receptor=ci tests/scientific_truth
+          python devtools/scripts/execute_scientific_evidence.py \
+            --receptor=ci \
+            --require-clean \
+            --certificate=scientific-evidence-certificate.json
+
+      - name: Upload scientific evidence certificate
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: weekly-scientific-evidence-py${{ matrix.cfg.python-version }}
+          path: scientific-evidence-certificate.json
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Run full test suite with coverage
         shell: bash -l {0}

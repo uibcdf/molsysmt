@@ -36,7 +36,10 @@ VALIDATORS = [
         "audit_conversion_fidelity.py",
         "Tier 1 conversion fidelity (accepted-debt baseline)",
     ),
-    ("validate_scientific_evidence.py", "Scientific evidence registry"),
+    (
+        "validate_scientific_evidence.py",
+        "Scientific evidence registry structure",
+    ),
     ("validate_dependencies.py", "No top-level soft-dependency imports"),
     ("validate_devguide.py", "Developer-guide integrity"),
     ("validate_course.py", "Four Paths course structure"),
@@ -80,7 +83,8 @@ def main() -> int:
             print(f"  - {label}  ({script})")
         print("  - Public-API smoke (import + convert + get + select + get_center)")
         print(
-            "\nHeavy gate (NOT run here): ci-full.yaml — full pytest matrix on "
+            "\nHeavy gates (NOT run here): the zero-skip registered scientific "
+            "evidence execution and ci-full.yaml's full pytest matrix on "
             "ubuntu+macos x {3.11,3.12,3.13}."
         )
         return 0
@@ -111,8 +115,9 @@ def main() -> int:
     print("=" * (width + 20))
     print(f"Fast gates: {passed}/{total} passed.")
     print(
-        "Heavy gate still required before tagging: a green ci-full.yaml run "
-        "(full pytest matrix, ubuntu+macos x {3.11,3.12,3.13}) on the exact, "
+        "Heavy gates still required before tagging: zero-skip execution of every "
+        "registered scientific evidence node and a green ci-full.yaml run "
+        "(full pytest matrix, ubuntu+macos x {3.11,3.12,3.13}) on the exact "
         "committed tag candidate. See devguide/release_gate.md."
     )
 

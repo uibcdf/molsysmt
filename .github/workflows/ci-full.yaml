@@ -111,6 +111,23 @@ jobs:
         shell: bash -l {0}
         run: python devtools/scripts/release_gate.py
 
+      - name: Execute registered scientific evidence
+        shell: bash -l {0}
+        run: >-
+          python devtools/scripts/execute_scientific_evidence.py
+          --receptor=ci
+          --require-clean
+          --certificate=scientific-evidence-certificate.json
+
+      - name: Upload scientific evidence certificate
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: scientific-evidence-${{ matrix.cfg.os }}-py${{ matrix.cfg.python-version }}
+          path: scientific-evidence-certificate.json
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Run Ruff
         shell: bash -l {0}
         run: ruff check molsysmt

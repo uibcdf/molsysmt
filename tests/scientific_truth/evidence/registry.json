@@ -7,7 +7,7 @@
     "molsysmt.topology"
   ],
   "status_definitions": {
-    "validated": "At least one analytic, external, or versioned-reference oracle is executable.",
+    "validated": "At least one assertion-bearing analytic, external, or versioned-reference oracle is registered; execution is certified separately.",
     "partial": "Evidence exists but does not independently establish the complete declared claim.",
     "gap": "No governed independent scientific oracle is currently registered."
   }

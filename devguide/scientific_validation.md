@@ -11,6 +11,39 @@ status view is [`scientific_evidence_matrix.md`](scientific_evidence_matrix.md).
 A `gap` records absent governed independent evidence; it does not imply that an
 operation lacks ordinary tests or that its implementation is incorrect.
 
+## Structural classification and execution evidence
+
+Scientific validation has two separate gates, and neither substitutes for the
+other:
+
+1. `python devtools/scripts/validate_scientific_evidence.py` validates the Stable
+   API inventory, evidence classes, oracle provenance, tolerances, pytest node
+   addresses, and generated matrix. It is intentionally fast and does **not**
+   execute pytest. Its success message therefore says *registry structure valid*,
+   not that the scientific results passed.
+2. `python devtools/scripts/execute_scientific_evidence.py --receptor=llm`
+   validates the registry and then executes exactly its unique cited nodes. A
+   certificate passes only when every node collects and every collected case
+   passes with zero failures, errors, or skips. `--certificate PATH` writes the
+   exact commit, tracked-source state, Python version, platform, counts, and node
+   inventory as JSON. Release workflows add `--require-clean`, so a certificate
+   cannot describe modified tracked source as if it were the named commit;
+   untracked workflow artifacts do not invalidate it.
+
+The `validated` classification means that an independent, assertion-bearing
+oracle is registered for the declared claim. It becomes current release evidence
+only when the execution certificate passes on the exact candidate and controlled
+environment. A full-suite result is useful but cannot replace this certificate,
+because an ordinary pytest run may finish successfully while optional tests skip.
+
+Every registered node must contain an explicit outcome-bearing operation, and
+empty or assertion-free nodes are rejected structurally. This is only an
+anti-emptiness guard: an assertion's scientific adequacy still depends on review
+of its independent oracle, convention, units, tolerance, and expected value.
+Unconditional skips are forbidden. Environment-dependent oracle availability is
+handled by installing the controlled scientific dependencies; the execution gate
+then rejects any remaining skip.
+
 ## Evidence hierarchy
 
 Scientific validation requires at least one expected result that is independent

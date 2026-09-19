@@ -48,8 +48,24 @@ in this suite. They must not call a MolSysMT converter to construct the oracle.
    instead of weakening the governed tolerance.
 9. Distinguish temporal unwrapping from single-frame molecular reconstruction;
    test both contracts independently when periodic coordinates are involved.
+10. A node cited by the evidence registry must contain an explicit assertion or
+    assertion helper and must pass the registered-node execution gate without a
+    skip. `pytest.importorskip()` may describe an optional user environment, but
+    the controlled release environment must provide that oracle.
 
 The executable evidence registry is split by domain under `evidence/`, with
 governed numerical thresholds in `evidence/tolerances.json`. The validator
 generates `devguide/scientific_evidence_matrix.md`; conventions and rationale
 are maintained in `devguide/scientific_validation.md`.
+
+The registry validator checks structure only and never claims that pytest ran.
+Run the registered evidence explicitly with:
+
+```bash
+python devtools/scripts/execute_scientific_evidence.py --receptor=llm
+```
+
+The execution gate invokes exactly the unique nodes cited by the registry and
+fails on collection errors, test failures, or skips. Release workflows also
+write its JSON certificate so that the exact commit and environment remain
+auditable.

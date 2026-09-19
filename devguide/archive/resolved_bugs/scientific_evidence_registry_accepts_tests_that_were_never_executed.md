@@ -1,14 +1,14 @@
 ---
 summary: Scientific evidence registry accepts tests that were never executed
 issue: uibcdf/molsysmt#196
-status: open
+status: resolved
 opened: 2026-09-02
-closed:
+closed: 2026-09-19
 severity: high
-verification: inspected
+verification: measured
 area: [tests, ci]
-guard:
-normative:
+guard: devtools/tests/test_execute_scientific_evidence.py
+normative: devguide/scientific_validation.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,7 +16,8 @@ supersedes: []
 # Scientific evidence registry accepts tests that were never executed
 
 **Reported:** 2026-09-02, split from the gate audit in uibcdf/molsysmt#187.
-**Status:** open.
+**Status:** resolved. Registry structure and executed scientific evidence now have
+separate names, commands, guarantees, and release gates.
 
 ## What
 
@@ -66,6 +67,12 @@ without invoking pytest.
 Assumed: none. This report does not claim that any current scientific result is wrong or
 that the cited tests fail.
 
+Measured after the repair on 2026-09-19: all 47 unique registered nodes collected as
+54 parametrized cases and passed with zero failures, errors, or skips. The focused
+validator, executor, workflow-contract, and complete Scientific Truth battery passed
+119 tests. The complete MolSysMT suite passed 10,211 tests with 11 unrelated,
+dependency-dependent skips, and the fast release gate passed 13/13.
+
 ## What was refuted
 
 *The scientific suite is never executed in CI.* Refuted. The weekly workflow explicitly
@@ -97,14 +104,39 @@ docstring work in uibcdf/molsysmt#187.
    executable guard.
 4. The fast and heavy release instructions identify which step establishes each claim.
 
+All four criteria were met on 2026-09-19.
+
+## Resolution
+
+`validate_scientific_evidence.py` remains a cheap structural validator and now says
+explicitly that it did not execute tests. The generated matrix carries the same warning
+and the structural gate rejects cited functions without an assertion-bearing operation.
+This anti-emptiness check is not presented as proof that an assertion is scientifically
+adequate; independent-oracle metadata and review remain the authority for that claim.
+
+`execute_scientific_evidence.py` is the separate execution authority. It validates the
+registry, runs exactly its unique node IDs once and without xdist, parses pytest's JUnit
+result, and fails on collection failure, test failure, error, or any skip. Its optional
+JSON certificate records the commit, tracked-source state, Python, platform, aggregate
+outcomes, and complete node inventory. Release workflows use `--require-clean`, so a
+certificate cannot attribute modified tracked source to the named commit.
+
+`ci-full.yaml` and `ci-weekly.yaml` execute this zero-skip gate and retain one certificate
+per matrix cell. The fast gate and `ci-devguide.yaml` retain only structural validation.
+The release guide and Scientific Validation Contract now state which result establishes
+each claim.
+
 ## Dependencies and risks
 
-Executing 47 nodes inside every structural invocation may make a fast, dependency-light
-validator slow or unavailable. A better boundary may keep structural validation fast
-and add a separately named execution certificate to the release process. The chosen
-design must not hide skips as successes.
+The resolved boundary keeps the dependency-light structural validator fast and runs the
+47 registered nodes only in the heavy gate. The measured local execution takes about
+six seconds. A missing optional oracle now makes the release certificate fail rather
+than silently reducing its evidence.
 
 ## Provenance
 
 Inspected and counted on 2026-09-02 at repository commit `48ea5b91c`, Linux
 7.0.0-28-generic x86_64, Python 3.13.14.
+
+Reproduced and repaired on 2026-09-19 on Linux 7.0.0-28-generic x86_64, Python
+3.13.14, from a working tree based on `41d42449e`.

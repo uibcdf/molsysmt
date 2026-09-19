@@ -25,7 +25,10 @@ Run scripts from the repository root.
   Pass `--baseline <previous-registry.json>` to reject stable demotions or
   removals across a proposed change.
 - `validate_scientific_evidence.py` assembles the domain-split Scientific Truth
-  evidence registry, checks it against the Stable API registry and real pytest
-  nodes, validates tolerance governance, and verifies the generated evidence
-  matrix.
+  evidence registry, checks its structure against the Stable API registry and
+  assertion-bearing pytest nodes, validates tolerance governance, and verifies
+  the generated evidence matrix. It does not execute those nodes.
+- `execute_scientific_evidence.py` runs exactly the nodes cited by that registry,
+  rejects failures, errors and skips, and can write a JSON execution certificate
+  for the exact commit and environment.
 - `validate_resources.py` checks project resource metadata.

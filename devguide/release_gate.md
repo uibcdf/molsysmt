@@ -39,7 +39,7 @@ It aggregates every cheap, deterministic gate into one PASS/FAIL verdict:
 | Public function support tiers | `validate_function_tiers.py` |
 | Form adapter delivery contracts | `validate_form_adapters.py` |
 | Tier 1 conversion fidelity (accepted-debt baseline) | `audit_conversion_fidelity.py` |
-| Scientific evidence registry | `validate_scientific_evidence.py` |
+| Scientific evidence registry structure (does not execute tests) | `validate_scientific_evidence.py` |
 | No top-level soft-dependency imports | `validate_dependencies.py` |
 | Developer-guide integrity | `validate_devguide.py` |
 | Four Paths course structure | `validate_course.py` |
@@ -60,6 +60,10 @@ The former fidelity WIP gap is
 The executable baseline remains authoritative: accepted non-exhaustive routes
 are visible debt, while any new unclassified debt fails this gate.
 
+The fast scientific-evidence validator certifies registry structure only. Its
+`validated` counts are declarations backed by addressable, assertion-bearing
+nodes, not a record that those nodes passed in the current environment.
+
 ## 2. Heavy gate — the full test matrix (`ci-full.yaml`)
 
 The fast gates do not run the test suite. Before tagging, the **full pytest matrix must
@@ -67,8 +71,11 @@ be green on the exact committed candidate**:
 
 - `ci-full.yaml` (manual `workflow_dispatch`): ubuntu-latest + macos-latest ×
   {3.11, 3.12, 3.13} = 6 combinations. Each job runs the fast release gate,
-  Ruff, and the full pytest suite through pytest-receptor's CI mode (doctests
-  included via `pytest.ini`); pytest remains the result authority.
+  the registered scientific evidence through
+  `execute_scientific_evidence.py --receptor=ci`, Ruff, and the full pytest suite
+  through pytest-receptor's CI mode (doctests included via `pytest.ini`); pytest
+  remains the result authority. The scientific step must emit a certificate with
+  every registered node collected and zero failures, errors, or skips.
 - Equivalently, a green `ci-weekly.yaml` run pinned to the candidate commit.
 
 Do not substitute a partial or single-platform run.
@@ -110,6 +117,8 @@ Do not substitute a partial or single-platform run.
 
 - [ ] Working tree clean; tag commit does **not** carry `[skip ci]`.
 - [ ] `python devtools/scripts/release_gate.py` → all fast gates PASS.
+- [ ] Registered scientific evidence execution → every cited node passes with zero
+      skips and its JSON certificate identifies the tag candidate.
 - [ ] `ruff check molsysmt` → clean.
 - [ ] `ci-full.yaml` (or candidate-pinned `ci-weekly.yaml`) → green on all 6 combos.
 - [ ] `ci-rust-wheels.yaml` → supported Linux/macOS jobs green; Windows result recorded

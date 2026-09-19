@@ -38,7 +38,7 @@ jobs:
         run: python devtools/scripts/validate_devguide.py
       - name: Validate public API stability registry
         run: python devtools/scripts/validate_api_stability.py
-      - name: Validate scientific evidence registry
+      - name: Validate scientific evidence registry structure
         run: python devtools/scripts/validate_scientific_evidence.py
       - name: Reject forbidden API stability transitions
         env:

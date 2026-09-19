@@ -109,7 +109,22 @@ def test_registry_rejects_stale_test_nodes_and_unknown_tolerances(tmp_path):
     errors = validator.validate_registry(registry, api_registry, tmp_path)
 
     assert any("test function does not exist" in error for error in errors)
-    assert any("references unknown tolerance 'unregistered'" in error for error in errors)
+    assert any(
+        "references unknown tolerance 'unregistered'" in error for error in errors
+    )
+
+
+def test_registry_rejects_assertion_free_evidence_nodes(tmp_path):
+    registry, api_registry = _fixture(tmp_path)
+    test_file = tmp_path / "tests/scientific_truth/test_quantity.py"
+    test_file.write_text(
+        "def test_matches_closed_form():\n    pass\n",
+        encoding="utf-8",
+    )
+
+    errors = validator.validate_registry(registry, api_registry, tmp_path)
+
+    assert any("has no assertion-bearing operation" in error for error in errors)
 
 
 def test_exact_categorical_evidence_does_not_require_a_tolerance(tmp_path):
@@ -131,8 +146,14 @@ def test_gap_status_requires_no_evidence_and_an_explanation(tmp_path):
 
     errors = validator.validate_registry(registry, api_registry, tmp_path)
 
-    assert "molsysmt.domain.quantity: gap status cannot register scientific evidence." in errors
-    assert "molsysmt.domain.quantity: gap status requires an actionable explanation." in errors
+    assert (
+        "molsysmt.domain.quantity: gap status cannot register scientific evidence."
+        in errors
+    )
+    assert (
+        "molsysmt.domain.quantity: gap status requires an actionable explanation."
+        in errors
+    )
 
 
 def test_repository_scientific_evidence_registry_is_valid():
@@ -166,6 +187,5 @@ def test_split_registry_rejects_duplicate_capabilities(tmp_path):
     _, errors = validator.read_evidence_registry(evidence_root)
 
     assert errors == [
-        "Duplicate scientific capability across domain files: "
-        "molsysmt.domain.quantity"
+        "Duplicate scientific capability across domain files: molsysmt.domain.quantity"
     ]
