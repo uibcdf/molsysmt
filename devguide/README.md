@@ -106,6 +106,9 @@ Read these documents in order when first working on MolSysMT:
 - [competitive_landscape_and_vision.md](competitive_landscape_and_vision.md)
 - [roadmap.md](roadmap.md)
 - [benchmarking/README.md](benchmarking/README.md)
+- [stabilization_handoff_2026-09-19.md](stabilization_handoff_2026-09-19.md) — dated
+  operational ordering of the active installability, CI, form-contract and Ruff work;
+  the linked issues remain authoritative for state.
 
 ### Release operations
 
