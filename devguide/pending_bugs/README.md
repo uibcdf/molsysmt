@@ -24,11 +24,10 @@ that front matter -- edit the entries, not this list.
 
 - [`no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md`](no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md) — [#185](https://github.com/uibcdf/molsysmt/issues/185) — No test workflow runs on a push to main and the CI badge names a missing workflow. *(high, measured)*
 
-### In progress (3)
+### In progress (2)
 
 - [`clean_conda_install_omits_mmcif_runtime_dependency.md`](clean_conda_install_omits_mmcif_runtime_dependency.md) — [#200](https://github.com/uibcdf/molsysmt/issues/200) — Clean package installations omit the mmCIF runtime dependency. *(high, reproduced)*
 - [`conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md`](conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md) — [#195](https://github.com/uibcdf/molsysmt/issues/195) — Conda cannot resolve MolSysMT on supported Python 3.13 because MolSysViewer has no compatible build *(high, reproduced)*
-- [`conda_staging_fans_out_before_validating_the_candidate_commit_exists.md`](conda_staging_fans_out_before_validating_the_candidate_commit_exists.md) — [#213](https://github.com/uibcdf/molsysmt/issues/213) — Conda staging fans out before validating the candidate commit exists *(medium, reproduced)*
 
 ### Partially resolved (2)
 

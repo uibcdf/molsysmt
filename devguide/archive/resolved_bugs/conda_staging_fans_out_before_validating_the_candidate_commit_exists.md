@@ -1,13 +1,13 @@
 ---
 summary: Conda staging fans out before validating the candidate commit exists
 issue: uibcdf/molsysmt#213
-status: active
+status: resolved
 opened: 2026-09-20
-closed:
+closed: 2026-09-20
 severity: medium
 verification: reproduced
 area: [build, ci]
-guard:
+guard: devtools/tests/test_conda_release_workflows.py::test_publish_workflow_is_atomic_per_native_platform
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-09-20, during the corrective MolSysMT 0.22.0 build-3 staging
 dispatch.
-**Status:** active; the defect is reproduced and the pre-fan-out check is implemented
-locally.
+**Status:** resolved. The pre-fan-out checkout is locally guarded and accepted the valid
+candidate in hosted run `35498945251` before its five-platform matrix started.
 
 ## What
 
