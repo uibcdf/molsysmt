@@ -102,8 +102,9 @@ Do not substitute a partial or single-platform run.
 - `validate_conda_staging.yaml` must install the exact coordinated MolSysMT/MolSysViewer
   versions with normal CPython on all five native platforms crossed with Python
   3.11--3.13. All three runtime cells for a platform must resolve the same MolSysMT
-  artifact. The installed version, provenance, native extension and Viewer resources
-  must pass before the release artifacts are published to `main`.
+  artifact. The installed version, provenance, native extension, declared py-mmcif
+  runtime, offline bundled-BCIF conversion and Viewer resources must pass before the
+  release artifacts are published to `main`.
 - A corrective staging build must increment the build number instead of overwriting the
   defective coordinate. The final release uses a distinct later build number.
 

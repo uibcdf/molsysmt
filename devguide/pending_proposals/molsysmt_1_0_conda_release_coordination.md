@@ -339,6 +339,12 @@ published all five MolSysMT 0.22.0 build-2 artifacts to `uibcdf/label/staging` i
 an independent channel query confirmed their ABI3 requirements and absence of
 `python_abi` constraints.
 
+Those build-2 records are now historical because they predate the declared
+`py-mmcif>=1.1.1` runtime dependency. The non-overwriting corrective candidate is build
+3, while build 4 is reserved for the later release path. MolSysViewer 0.23.1 is already
+present in staging, and the coordinated 15-cell gate additionally performs an offline
+conversion of the bundled HP35 BCIF file before this pair can be accepted.
+
 **(b) Install a pre-built abi3 wheel in the recipe.** `build.sh` would
 `pip install --no-deps <wheel>` from a build artefact. This removes the Rust toolchain from
 the Conda build but makes the Conda package depend on an external artefact whose provenance

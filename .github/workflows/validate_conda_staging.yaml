@@ -68,7 +68,7 @@ jobs:
             molsysmt=${{ inputs.molsysmt_version }}
             molsysviewer=${{ inputs.molsysviewer_version }}
 
-      - name: Validate versions, provenance, native code, and viewer resources
+      - name: Validate versions, provenance, native code, BCIF, and viewer resources
         shell: bash -el {0}
         run: >-
           python devtools/scripts/validate_conda_staging.py

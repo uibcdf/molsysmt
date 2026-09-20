@@ -52,7 +52,12 @@ def _require_conda_install(
             for requirement in requirements
             if isinstance(requirement, str) and requirement.split()
         }
-        missing = {"python", "cpython", "_python_abi3_support"} - requirement_names
+        missing = {
+            "python",
+            "cpython",
+            "_python_abi3_support",
+            "py-mmcif",
+        } - requirement_names
         if missing:
             raise RuntimeError(
                 "MolSysMT ABI3 Conda record is missing runtime requirements: "
@@ -69,6 +74,22 @@ def _require_version(distribution_name: str, expected: str) -> None:
     if observed != expected:
         raise RuntimeError(
             f"{distribution_name} version is {observed}, expected {expected}"
+        )
+
+
+def _require_bundled_bcif_conversion(molsysmt) -> None:
+    """Exercise the packaged py-mmcif runtime without network access."""
+
+    source = molsysmt.systems["chicken villin HP35"]["1vii.bcif.gz"]
+    try:
+        item = molsysmt.convert(source, to_form="molsysmt.MolSys")
+    except Exception as exception:
+        raise RuntimeError("Bundled BCIF conversion failed") from exception
+
+    if item.topology.n_atoms != 596:
+        raise RuntimeError(
+            "Bundled BCIF conversion returned "
+            f"{item.topology.n_atoms} atoms, expected 596"
         )
 
 
@@ -92,6 +113,8 @@ def validate(molsysmt_version: str, molsysviewer_version: str) -> None:
         raise RuntimeError(
             f"molsysmt.__version__ is {molsysmt.__version__}, expected {molsysmt_version}"
         )
+
+    _require_bundled_bcif_conversion(molsysmt)
 
     prefix = pathlib.Path(sys.prefix).resolve()
     rust_path = pathlib.Path(rust.__file__).resolve()

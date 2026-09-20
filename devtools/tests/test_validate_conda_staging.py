@@ -49,6 +49,7 @@ def _write_conda_record(
             "python >=3.11,<3.14",
             "cpython >=3.11",
             "_python_abi3_support 1.*",
+            "py-mmcif >=1.1.1",
         ],
     }
     (conda_meta / f"molsysmt-0.22.0-{build}.json").write_text(
@@ -101,6 +102,7 @@ def test_abi3_build_with_exact_python_abi_is_rejected(monkeypatch, tmp_path):
             "python >=3.11,<3.14",
             "cpython >=3.11",
             "_python_abi3_support 1.*",
+            "py-mmcif >=1.1.1",
             "python_abi 3.11.* *_cp311",
         ],
     )
@@ -109,3 +111,65 @@ def test_abi3_build_with_exact_python_abi_is_rejected(monkeypatch, tmp_path):
         validate_conda_staging._require_conda_install(
             "molsysmt", "0.22.0", require_abi3=True
         )
+
+
+def test_abi3_build_without_py_mmcif_is_rejected(monkeypatch, tmp_path):
+    _set_distribution(monkeypatch, tmp_path, editable=False)
+    _write_conda_record(
+        tmp_path,
+        dependencies=[
+            "python >=3.11,<3.14",
+            "cpython >=3.11",
+            "_python_abi3_support 1.*",
+        ],
+    )
+
+    with pytest.raises(RuntimeError, match="py-mmcif"):
+        validate_conda_staging._require_conda_install(
+            "molsysmt", "0.22.0", require_abi3=True
+        )
+
+
+class _Topology:
+    n_atoms = 596
+
+
+class _MolSys:
+    topology = _Topology()
+
+
+class _Molsysmt:
+    systems = {"chicken villin HP35": {"1vii.bcif.gz": "bundled.bcif.gz"}}
+
+    @staticmethod
+    def convert(source, *, to_form):
+        assert source == "bundled.bcif.gz"
+        assert to_form == "molsysmt.MolSys"
+        return _MolSys()
+
+
+def test_bundled_bcif_conversion_is_required():
+    validate_conda_staging._require_bundled_bcif_conversion(_Molsysmt())
+
+
+def test_bundled_bcif_conversion_rejects_wrong_atom_count():
+    class WrongCountMolsysmt(_Molsysmt):
+        @staticmethod
+        def convert(source, *, to_form):
+            item = _MolSys()
+            item.topology = _Topology()
+            item.topology.n_atoms = 595
+            return item
+
+    with pytest.raises(RuntimeError, match="595 atoms, expected 596"):
+        validate_conda_staging._require_bundled_bcif_conversion(WrongCountMolsysmt())
+
+
+def test_bundled_bcif_conversion_wraps_reader_failure():
+    class BrokenMolsysmt(_Molsysmt):
+        @staticmethod
+        def convert(source, *, to_form):
+            raise ImportError("mmcif reader missing")
+
+    with pytest.raises(RuntimeError, match="Bundled BCIF conversion failed"):
+        validate_conda_staging._require_bundled_bcif_conversion(BrokenMolsysmt())

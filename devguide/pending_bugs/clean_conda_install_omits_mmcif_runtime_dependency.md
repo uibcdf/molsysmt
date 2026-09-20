@@ -19,8 +19,9 @@ supersedes: []
 through MolSysViewer in a clean Conda environment.
 **Status:** Active; the missing declaration and the provider's platform coverage are
 corrected. Local package and integration checks, the hosted cross-platform provider
-matrix, and independent installation from the public channel pass. The coordinated
-MolSysMT--MolSysViewer staging installation remains pending.
+matrix, and independent installation from the public channel pass. MolSysViewer 0.23.1
+is now staged; the coordinated installation still awaits corrective MolSysMT build 3
+because build 2 predates this dependency fix.
 
 ## What
 
@@ -125,6 +126,8 @@ parsers, nor does it include an MSVC port of the optional C++ acceleration.
 - Clean MolSysMT package tests exercise conversion through the declared dependency.
 - The coordinated staging matrix resolves and passes on every advertised platform and
   Python version before release promotion.
+- That matrix performs an offline conversion of the bundled HP35 BCIF file and verifies
+  its 596 atoms; package presence alone is not sufficient evidence.
 
 ## Dependencies and risks
 

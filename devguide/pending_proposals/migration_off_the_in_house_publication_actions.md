@@ -40,11 +40,12 @@ Route A is accepted. MolSysMT retains
   own three builds succeed; successful platforms do not wait for or depend on failed
   platforms;
 - manual candidates go only to the `staging` label; release events go to `main` only
-  after the normal recipe test succeeds. The bootstrap starts at build 0, build 1 is
-  available for non-overwriting staging repairs, and the tested release is build 2, so
-  publication never overwrites an existing coordinate; and
+  after the normal recipe test succeeds. Build numbers are monotonic: after historical
+  builds 0--2, the py-mmcif corrective staging coordinate is build 3 and the tested
+  release is build 4, so publication never overwrites an existing coordinate; and
 - a separate 15-cell workflow installs exact MolSysMT and MolSysViewer versions from
-  staging and verifies versions, provenance, native code and packaged Viewer resources.
+  staging and verifies versions, provenance, native code, an offline BCIF conversion,
+  and packaged Viewer resources.
 
 The source implementation is **Platform-tested**. Workflow run `33637476601` built all
 15 native combinations successfully, including Windows, before a common upload step

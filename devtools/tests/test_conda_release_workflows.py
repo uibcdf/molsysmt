@@ -71,7 +71,7 @@ def test_publish_workflow_is_atomic_per_native_platform():
 
     assert set(workflow["jobs"]) == {"prepare", "build-and-publish"}
     build_number = workflow[True]["workflow_dispatch"]["inputs"]["build_number"]
-    assert build_number["default"] == 2
+    assert build_number["default"] == 3
     assert build_and_publish["name"] == (
         "${{ matrix.target.platform }} · one ABI3 artifact"
     )
@@ -114,7 +114,7 @@ def test_publish_workflow_is_atomic_per_native_platform():
         in staging_build["with"]["conda_build_args"]
     )
     assert release_build["if"] == "github.event_name == 'release'"
-    assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 3
+    assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 4
     assert release_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert release_build["uses"] == (
         "uibcdf/action-build-and-upload-conda-packages@v2.1.0"
@@ -166,11 +166,18 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     assert "molsysviewer=${{ inputs.molsysviewer_version }}" in install["create-args"]
 
     validation = _step(
-        validate, "Validate versions, provenance, native code, and viewer resources"
+        validate,
+        "Validate versions, provenance, native code, BCIF, and viewer resources",
     )["run"]
     assert "validate_conda_staging.py" in validation
     assert "--molsysmt-version" in validation
     assert "--molsysviewer-version" in validation
+
+    validation_script = (
+        REPO / "devtools" / "scripts" / "validate_conda_staging.py"
+    ).read_text(encoding="utf-8")
+    assert "_require_bundled_bcif_conversion(molsysmt)" in validation_script
+    assert '"py-mmcif"' in validation_script
 
     environment_record = _step(validate, "Record the exact environment")["run"]
     assert environment_record.startswith("conda list --explicit")

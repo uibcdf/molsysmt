@@ -17,8 +17,32 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. MolSysMT's native staging set is valid; MolSysViewer publication and
-the installed-pair matrix remain pending.
+**Status:** active. MolSysViewer 0.23.1 is staged; a corrective MolSysMT build and the
+installed-pair matrix remain pending.
+
+## Coordination checkpoint — 2026-09-20
+
+The missing Viewer coordinate is no longer the immediate blocker:
+
+- MolSysViewer run `35491679182`, exact commit
+  `736e82740ad39072a5d055065e03b001bb4293c5`, published
+  `uibcdf/label/staging/noarch::molsysviewer-0.23.1-py_0`. Its runtime contract is
+  `molsysmt >=0.22.0` and `python >=3.11,<3.14`.
+- The existing five-platform MolSysMT 0.22.0 build-2 ABI3 set predates the fix for
+  uibcdf/molsysmt#200 and does not declare `py-mmcif`. It is historical evidence, not a
+  releasable candidate.
+- The next non-overwriting MolSysMT coordinate is build 3. The eventual release path is
+  reserved as build 4 so that it cannot overwrite or be confused with the corrective
+  staging set.
+- The exact-pair gate now rejects a MolSysMT Conda record without `py-mmcif` and performs
+  an offline conversion of the bundled HP35 BCIF file, checking its 596 atoms. This
+  turns the clean-install defect into behavior exercised in every one of the 15
+  platform/interpreter cells.
+
+The remaining sequence is therefore concrete: publish MolSysMT 0.22.0 build 3 from an
+exact commit to `staging`, audit its five channel records independently, and run the
+exact 0.22.0/0.23.1 pair across five platforms and Python 3.11--3.13. Nothing from this
+sequence is promoted to the main channel.
 
 ## Coordination checkpoint — 2026-09-19
 
@@ -157,9 +181,10 @@ Python 3.12 dry run succeeds; `conda search -c uibcdf --override-channels --json
 molsysviewer` reports no Python 3.13 build; MolSysViewer source and workflow declare
 Python 3.13.
 
-**Settled after the original measurement:** the coordinated release pair is MolSysMT
-0.22.0 and MolSysViewer 0.21.0. The Viewer candidate identity and its remaining blocked
-checks are recorded in the implementation checkpoint above.
+**Settled after the original measurement:** the first proposed coordinated pair was
+MolSysMT 0.22.0 and MolSysViewer 0.21.0. That candidate is historical. The currently
+frozen staged counterpart is MolSysViewer 0.23.1 at the commit recorded in the
+2026-09-20 checkpoint.
 
 ## What was refuted
 
@@ -191,10 +216,9 @@ tracked separately as uibcdf/molsysmt#193.
 
 ## Dependencies and risks
 
-Resolution depends on the separately owned MolSysViewer staging step. The agreed
-bootstrap publishes MolSysMT only from this repository and validates the exact staged
-pair after the Viewer team publishes its own artefact; neither repository publishes on
-behalf of the other.
+MolSysViewer's separately owned staging step is complete for 0.23.1. Resolution now
+depends on the corrective MolSysMT build-3 publication and the exact-pair validation.
+Each repository continues to publish only its own artefact.
 
 ## Provenance
 
