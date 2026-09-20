@@ -16,3 +16,4 @@ dependencies:
 - networkx
 - tqdm
 - matplotlib
+- py-mmcif >=1.1.1

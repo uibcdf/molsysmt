@@ -1,9 +1,11 @@
-import pytest
-from depdigest import is_installed, dep_digest, DepConfig, register_package_config
-from molsysmt.form import _dict_modules
-import molsysmt.configure as config
 from unittest.mock import patch
+
+import pytest
+from depdigest import DepConfig, dep_digest, register_package_config
+
 from molsysmt._private.smonitor import LibraryNotFoundError
+from molsysmt.form import _dict_modules
+
 
 def test_dependencies_architecture():
     """
@@ -28,7 +30,6 @@ def test_dependencies_architecture():
     ))
     _dict_modules.clear()
     _dict_modules._initialized = False
-    
     with patch('depdigest.core.loader.is_installed', side_effect=lambda x: False if x == 'mdtraj' else True):
         _dict_modules._ensure_initialized()
         assert 'mdtraj.Trajectory' not in _dict_modules
@@ -68,3 +69,17 @@ def test_dependencies_architecture():
     ))
     _dict_modules.clear()
     _dict_modules._initialized = False
+
+
+def test_mmcif_is_registered_as_a_hard_dependency():
+    from molsysmt import _depdigest
+
+    assert _depdigest.LIBRARIES['mmcif'] == {
+        'type': 'hard',
+        'pypi': 'mmcif',
+    }
+    assert _depdigest.MAPPING['mmcif_PdbxContainers_DataContainer'] == 'mmcif'
+    assert _depdigest.MAPPING['file_cif'] == 'mmcif'
+    assert _depdigest.MAPPING['file_cif_gz'] == 'mmcif'
+    assert _depdigest.MAPPING['file_bcif'] == 'mmcif'
+    assert _depdigest.MAPPING['file_bcif_gz'] == 'mmcif'

@@ -31,7 +31,7 @@ production:
     - biopython
     - ipywidgets
     - tqdm
-    - py-mmcif
+    - py-mmcif >=1.1.1
     - plotly
     - matplotlib
 

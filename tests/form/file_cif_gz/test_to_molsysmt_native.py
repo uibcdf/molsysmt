@@ -1,6 +1,9 @@
 """Regression tests for file:cif.gz conversions to native MolSysMT forms."""
 
+import sys
+
 import numpy as np
+
 import molsysmt as msm
 
 
@@ -23,3 +26,22 @@ def test_file_cif_gz_to_molsysmt_molsys_preserves_explicit_entity_ids(hp35_cif_g
     molsys = msm.convert(hp35_cif_gz_file, to_form='molsysmt.MolSys')
 
     assert molsys.topology.entities['entity_id'].to_list() == ['1']
+
+
+def test_file_cif_gz_conversion_uses_the_portable_public_adapter(
+    hp35_cif_gz_file, monkeypatch
+):
+    import mmcif.io
+    from mmcif.io.IoAdapterPy import IoAdapterPy
+
+    from molsysmt.form.file_cif_gz.to_mmcif_PdbxContainers_DataContainer import (
+        to_mmcif_PdbxContainers_DataContainer,
+    )
+
+    monkeypatch.setattr(mmcif.io, 'IoAdapter', IoAdapterPy)
+    monkeypatch.setitem(sys.modules, 'mmcif.io.IoAdapterCore', None)
+
+    container = to_mmcif_PdbxContainers_DataContainer(hp35_cif_gz_file)
+
+    assert container.getName() == '1VII'
+    assert container.getObj('atom_site').getRowCount() == 596

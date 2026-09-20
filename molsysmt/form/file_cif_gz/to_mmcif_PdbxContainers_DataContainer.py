@@ -1,5 +1,6 @@
 from molsysmt._private.argdigest import arg_digest
 
+
 @arg_digest(form='file:cif.gz')
 def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digestion=False):
     """
@@ -24,11 +25,12 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digesti
     .. versionadded:: 1.0.0
     """
 
-    from mmcif.io.IoAdapterCore import IoAdapterCore
+    from mmcif.io import IoAdapter
     from smonitor.integrations import context_extra, emit_from_catalog
+
     from molsysmt._private.smonitor import CATALOG
 
-    io = IoAdapterCore()
+    io = IoAdapter()
     containers = io.readFile(item)
 
     if len(containers)>1:

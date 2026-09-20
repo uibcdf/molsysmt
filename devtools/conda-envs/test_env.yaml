@@ -24,7 +24,7 @@ dependencies:
 - parmed
 - biopython
 - ipywidgets
-- py-mmcif
+- py-mmcif >=1.1.1
 - plotly
 - anywidget
 - beartype

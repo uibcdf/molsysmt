@@ -4,6 +4,7 @@ from molsysmt._private.smonitor import LibraryNotFoundError
 LIBRARIES = {
     "numpy": {"type": "hard", "pypi": "numpy"},
     "pandas": {"type": "hard", "pypi": "pandas"},
+    "mmcif": {"type": "hard", "pypi": "mmcif"},
     "mdtraj": {"type": "soft", "pypi": "mdtraj"},
     "openmm": {"type": "soft", "pypi": "openmm"},
     "openmmtools": {"type": "soft", "pypi": "openmmtools"},
@@ -23,6 +24,11 @@ LIBRARIES = {
 
 MAPPING = {
     "cupy_ndarray": "cupy",
+    "mmcif_PdbxContainers_DataContainer": "mmcif",
+    "file_cif": "mmcif",
+    "file_cif_gz": "mmcif",
+    "file_bcif": "mmcif",
+    "file_bcif_gz": "mmcif",
     "mdtraj_Trajectory": "mdtraj",
     "mdtraj_Topology": "mdtraj",
     "mdtraj_DCDTrajectoryFile": "mdtraj",

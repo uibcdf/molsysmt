@@ -94,6 +94,12 @@ Rules:
 - Never import soft dependencies at module top-level.
 - Use `@dep_digest(library)` to guard optional functionality.
 - Validate architecture with `devtools/scripts/validate_dependencies.py`.
+- Declare every hard dependency consistently in Python metadata, Conda metadata, and
+  production environments. A hard dependency may still be imported lazily to preserve
+  startup performance; lazy import does not make it optional.
+- The RCSB `mmcif` distribution is hard because the built-in CIF/BCIF forms and the
+  documented PDB-identifier conversion require its `DataContainer` API. Conda metadata
+  names the corresponding package `py-mmcif`.
 
 ### Package lazy loading
 MolSysMT uses lazy loading to reduce import work without promising a fixed

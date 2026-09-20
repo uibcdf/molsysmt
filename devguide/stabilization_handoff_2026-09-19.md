@@ -73,21 +73,22 @@ workflow owns common formatting and linting, not MolSysMT scientific or function
 
 `uibcdf/molsysmt#200` reports that both MolSysViewer's README entry path and MolSysMT's
 documented PDB-ID conversion fail in a fresh Python 3.13 Conda environment because the
-imported RCSB `mmcif` package is undeclared and was not found on conda-forge. Development
-environments can conceal this through an old pip installation.
+RCSB `mmcif` API is used but undeclared. Development and test environments concealed the
+omission by installing `py-mmcif` independently.
 
-This issue has no durable local report yet. Triage it before implementation:
+The durable analysis is now
+[`pending_bugs/clean_conda_install_omits_mmcif_runtime_dependency.md`](pending_bugs/clean_conda_install_omits_mmcif_runtime_dependency.md).
+Source history refuted the hypothesis that MolSysMT had incorporated a replacement
+parser. The selected resolution is to restore `mmcif` as a hard dependency, consume its
+portable public adapter instead of requiring `IoAdapterCore`, and publish a functionally
+tested noarch Conda provider. Provider-side Windows and packaging work was resolved by
+`uibcdf/py-mmcif#1`; `uibcdf/noarch::py-mmcif-1.1.1-py_0` is independently visible and
+passed a clean Python 3.14 CIF/BCIF installation probe.
 
-1. reproduce from current exact package coordinates in a fresh environment;
-2. identify every code path importing `mmcif` and whether it is hard, soft or replaceable;
-3. verify current channel availability rather than relying on the 2026-09-02 search;
-4. choose explicitly among packaging RCSB `mmcif`, adopting a supported parser,
-   declaring a pip-only extra, or making the capability optional with an actionable
-   dependency error;
-5. guard the chosen supported installation path in a clean environment.
-
-Do not substitute `mmcif_pdbx` merely because its name is similar; compatibility must be
-demonstrated at the imported API and conversion-contract level.
+Do not close `uibcdf/molsysmt#200` until a clean installation exercises both a CIF/BCIF
+conversion and the coordinated MolSysMT–MolSysViewer staging matrix. Do not substitute
+`mmcif_pdbx`: its namespace, API, and BCIF coverage are not compatible with the current
+adapter contract.
 
 ## 4. Public form-dispatch defect
 

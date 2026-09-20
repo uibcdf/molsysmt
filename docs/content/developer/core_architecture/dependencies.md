@@ -18,10 +18,16 @@ This file defines which libraries are `hard` (required) and `soft` (optional).
 ```python
 LIBRARIES = {
     'numpy': {'type': 'hard', 'pypi': 'numpy'},
+    'mmcif': {'type': 'hard', 'pypi': 'mmcif'},
     'mdtraj': {'type': 'soft', 'pypi': 'mdtraj'},
     # ...
 }
 ```
+
+Hard dependencies must also appear in every supported package manifest. They may be
+imported lazily for startup efficiency, but they are not optional. In particular,
+MolSysMT depends on the PyPI distribution `mmcif` (Conda package `py-mmcif`) for its
+CIF/BCIF forms and PDB-identifier conversion.
 
 ### Form Directory Mapping
 

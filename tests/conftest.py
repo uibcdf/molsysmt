@@ -427,15 +427,13 @@ def hp35_bcif_gz_file():
 
 @pytest.fixture(scope="session")
 def _base_hp35_cif_file(tmp_path_factory):
-    import gzip
-    import shutil
-    from mmcif.io.IoAdapterCore import IoAdapterCore
+    from mmcif.io import IoAdapter
 
     tmp_dir = tmp_path_factory.mktemp('hp35_cif_assets')
     cif_path = tmp_dir / '1vii.cif'
     if not cif_path.exists():
         container = msm.convert(systems['chicken villin HP35']['1vii.bcif.gz'], to_form='mmcif.PdbxContainers.DataContainer')
-        io = IoAdapterCore()
+        io = IoAdapter()
         io.writeFile(str(cif_path), [container])
 
     return str(cif_path)
