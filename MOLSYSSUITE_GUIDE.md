@@ -94,8 +94,11 @@ condition. Do not silently fork sibling functionality.
 
 ## Common development baseline
 
-Python libraries support Python `>=3.11,<3.14`; routine development uses Python 3.13 and
-CI covers 3.11, 3.12, and 3.13. Ruff is the common formatter and linter, replacing Black,
+Python libraries use the default Python `>=3.11,<3.14` contract; routine development uses
+Python 3.13 and CI covers 3.11, 3.12, and 3.13. During an accepted minor-version
+transition, `suite.toml` may authorize named components to adopt a wider target after
+component-specific evidence. Only components marked `admitted` may claim that wider
+support; all others retain the default. Ruff is the common formatter and linter, replacing Black,
 isort, and Flake8. The required shared lint core is `E4`, `E7`, `E9`, `F`, and `I`;
 repositories may add stricter rules. Pytest is the common test runner. Type checking and
 domain-specific scientific or UI gates remain repository-local.
