@@ -7,13 +7,15 @@
 **Build, prepare, query, transform, analyse and visualise molecular systems
 through one uniform API.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![MolSysSuite: Scientific Component](https://img.shields.io/badge/MolSysSuite-scientific%20component-0b7285?labelColor=24292f)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md#scientific-component)
+[![MolSysSuite policy](https://github.com/uibcdf/molsysmt/actions/workflows/molsyssuite-policy.yml/badge.svg?branch=main)](https://github.com/uibcdf/molsysmt/actions/workflows/molsyssuite-policy.yml)
+[![Python 3.11 | 3.12 | 3.13](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md)
+[![License](https://img.shields.io/github/license/uibcdf/molsysmt)](https://github.com/uibcdf/molsysmt/blob/main/LICENSE)
+[![Tests](https://github.com/uibcdf/molsysmt/actions/workflows/ci-smoke.yaml/badge.svg?branch=main)](https://github.com/uibcdf/molsysmt/actions/workflows/ci-smoke.yaml)
+[![Documentation](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://www.uibcdf.org/molsysmt/)
+[![GitHub release](https://img.shields.io/github/v/release/uibcdf/molsysmt)](https://github.com/uibcdf/molsysmt/releases/latest)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1298752.svg)](https://doi.org/10.5281/zenodo.1298752)
-[![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/downloads/)
-[![CI](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml/badge.svg)](https://github.com/uibcdf/molsysmt/actions/workflows/CI.yaml)
-[![codecov](https://codecov.io/github/uibcdf/molsysmt/graph/badge.svg?token=9ZMA4YZLOR)](https://codecov.io/github/uibcdf/molsysmt)
-[![Documentation](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://www.uibcdf.org/MolSysMT/)
-[![Install with conda](https://img.shields.io/badge/Install%20with-conda-brightgreen.svg)](https://conda.anaconda.org/uibcdf/molsysmt)
+[![Conda](https://img.shields.io/conda/vn/uibcdf/molsysmt)](https://anaconda.org/uibcdf/molsysmt)
 
 **[Why MolSysMT?](#why-molsysmt)** |
 **[Installation](#installation)** |
