@@ -16,7 +16,7 @@ from the canonical file above; changes belong in the MolSysSuite repository.
 Use [the MolSysSuite repository](https://github.com/uibcdf/molsyssuite) for policies,
 compatibility contracts, common tooling, cross-component proposals, coordinated
 rollouts, and decisions affecting two or more members. Its `suite.toml` is the
-machine-readable registry of members, profiles, stabilization cohorts, and accepted
+machine-readable registry of members, classification fields, initiatives, and accepted
 policies. Its `devguide/` contains the full normative texts and decision history.
 
 The component repository remains authoritative for its implementation, tests, product
@@ -46,7 +46,8 @@ registered component:
 python devtools/scripts/suite_status.py
 ```
 
-The command derives repository and cohort order from `suite.toml`, fetches remotes, and
+The command puts current initiative priorities first, then follows registry order from
+`suite.toml`, fetches remotes, and
 reports dirty, ahead, behind, missing, or upstream-less checkouts. It does not modify a
 component worktree, merge, rebase, stash, commit, or push. Resolve or explicitly preserve
 every reported item before a coordinated change. Use `--no-fetch` only for an explicitly
@@ -138,17 +139,22 @@ retain credential-bearing webhook configuration. Follow the complete
 [Zenodo archival and DOI policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/zenodo_policy.md)
 and its central inventory before publishing or changing a DOI claim.
 
-## Stabilization order
+## Member classification and planning
 
-The first stabilization wave is SMonitor, ArgDigest, DepDigest, PyUnitWizard, MolSysMT,
-and MolSysViewer. Pytest Receptor and GH Run Receptor are supporting infrastructure.
-TopoMT, PharmacophoreMT, and ElastNetMT are incubating: common policies still apply, but
-their missing adoption work does not block the first stabilization outcome.
-Lindelint is an auxiliary component developed for ElastNetMT and the wider suite: it is a
-full governed member, while its adoption work likewise does not block wave 1.
+MolSysSuite records independent fields for each member: `role` says what it provides,
+`membership` says whether it is primary or auxiliary, `maturity` records the strength of
+its public contracts, `development-mode` distinguishes active from maintenance-focused
+work, and `capabilities` activate concrete technical policies. These fields must not be
+collapsed into a single cohort. Both primary and auxiliary repositories are fully
+governed suite members.
 
-Priority affects scheduling, not whether contributors communicate valuable discoveries
-from any component.
+The active stabilization initiative currently prioritizes SMonitor, ArgDigest,
+DepDigest, PyUnitWizard, MolSysMT and MolSysViewer. TopoMT, PharmacophoreMT and ElastNetMT
+are incubating. Lindelint is an auxiliary developer tool created for ElastNetMT and the
+wider suite. Priority affects scheduling, not governance or whether contributors
+communicate valuable discoveries from any component. Consult the central
+`devguide/member_classification.md` and `suite.toml` for the complete vocabulary and
+current assignments.
 
 ## Before finishing component work
 
