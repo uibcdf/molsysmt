@@ -13,10 +13,11 @@ construction.
 
 from __future__ import annotations
 
+import ast
 import json
 import re
 from dataclasses import dataclass, field
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 DEVGUIDE_ROOT = REPOSITORY_ROOT / "devguide"
@@ -51,6 +52,9 @@ STATE_LABELS = {"active": "in-progress", "blocked": "blocked", "partial": "parti
 ISSUE_REFERENCE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+#[1-9][0-9]*$")
 ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SCALAR_LINE = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*):(.*)$")
+PYTHON_IDENTIFIER = re.compile(r"^[A-Za-z_]\w*$")
+GUARD_POLICY_EFFECTIVE_DATE = "2026-09-20"
+PYTEST_ROOTS = (PurePosixPath("tests"), PurePosixPath("devtools/tests"))
 
 FRONT_MATTER_FENCE = "---"
 
@@ -340,7 +344,7 @@ def _validate_lifecycle(report: Report) -> list[str]:
                 f"{where}: a resolved entry names the test that fails if it returns "
                 f"(guard) or the normative document that absorbed its rules (normative)"
             )
-        if guard:
+        if guard and str(closed) >= GUARD_POLICY_EFFECTIVE_DATE:
             errors.extend(_validate_guard(where, str(guard)))
         if normative:
             target = DEVGUIDE_ROOT / str(normative)
@@ -355,17 +359,87 @@ def _validate_lifecycle(report: Report) -> list[str]:
 
 
 def _validate_guard(where: Path, guard: str) -> list[str]:
-    """A guard names a test file, optionally with `::test_name`, and the file exists."""
+    """A new guard follows the shared static pytest selector profile."""
 
-    path_part = guard.split("::", maxsplit=1)[0]
-    if not path_part.startswith(("tests/", "devtools/tests/", "rust/")):
+    return [
+        f"{where}: {error}" for error in validate_pytest_guard(REPOSITORY_ROOT, guard)
+    ]
+
+
+def _is_test_class(node: ast.ClassDef) -> bool:
+    if node.name.startswith("Test"):
+        return True
+    return any(
+        (isinstance(base, ast.Name) and base.id.endswith("TestCase"))
+        or (isinstance(base, ast.Attribute) and base.attr.endswith("TestCase"))
+        for base in node.bases
+    )
+
+
+def _test_functions(nodes: list[ast.stmt]) -> dict[str, ast.AST]:
+    return {
+        node.name: node
+        for node in nodes
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+        and node.name.startswith("test_")
+    }
+
+
+def validate_pytest_guard(root: Path, selector: str) -> list[str]:
+    """Validate the safe static pytest selector subset used by MolSysSuite."""
+
+    if any(character.isspace() for character in selector) or any(
+        token in selector for token in (",", "(", ")", "*", "?")
+    ):
+        return [f"guard {selector!r} uses unsupported selector syntax"]
+    parts = selector.split("::")
+    if not 1 <= len(parts) <= 3 or any(not part for part in parts):
+        return [f"guard {selector!r} uses unsupported selector syntax"]
+    if any("[" in part or "]" in part for part in parts[1:]):
         return [
-            f"{where}: guard {guard!r} does not point into a test tree "
-            f"(tests/, devtools/tests/ or rust/)"
+            (
+                f"guard {selector!r}: parameterized selectors are not supported by "
+                "the static Python profile; name the unparameterized test or the module"
+            )
         ]
-    if not (REPOSITORY_ROOT / path_part).exists():
-        return [f"{where}: guard {guard!r} names a file that does not exist"]
-    return []
+
+    relative = PurePosixPath(parts[0])
+    if (
+        relative.is_absolute()
+        or ".." in relative.parts
+        or relative.suffix != ".py"
+        or not any(relative.is_relative_to(base) for base in PYTEST_ROOTS)
+    ):
+        return [
+            f"guard {selector!r} must name a safe Python file under tests/ or devtools/tests/"
+        ]
+    target = root.joinpath(*relative.parts)
+    if not target.is_file():
+        return [f"guard {selector!r} names a file that does not exist"]
+    try:
+        tree = ast.parse(target.read_text(encoding="utf-8"), filename=str(target))
+    except (OSError, SyntaxError) as error:
+        return [f"guard {selector!r} cannot be statically indexed: {error}"]
+
+    functions = _test_functions(tree.body)
+    classes = {
+        node.name: node
+        for node in tree.body
+        if isinstance(node, ast.ClassDef) and _is_test_class(node)
+    }
+    if len(parts) == 1:
+        if functions or any(_test_functions(node.body) for node in classes.values()):
+            return []
+        return [f"guard {selector!r} does not resolve to a collected test"]
+    if not all(PYTHON_IDENTIFIER.fullmatch(part) for part in parts[1:]):
+        return [f"guard {selector!r} uses unsupported selector syntax"]
+    if len(parts) == 2 and parts[1] in functions:
+        return []
+    if len(parts) == 3:
+        class_node = classes.get(parts[1])
+        if class_node is not None and parts[2] in _test_functions(class_node.body):
+            return []
+    return [f"guard {selector!r} does not resolve to a collected test"]
 
 
 def validate_all(include_archives: bool = True) -> list[str]:

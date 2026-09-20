@@ -1,23 +1,23 @@
 ---
 summary: Devguide closure accepts guards unrelated to the reported defect
 issue: uibcdf/molsysmt#197
-status: blocked
+status: resolved
 opened: 2026-09-02
-closed:
+closed: 2026-09-20
 severity: medium
-verification: inspected
+verification: reproduced
 area: [docs, ci]
-guard:
-normative:
-blocked_by: [uibcdf/molsyssuite#26]
+guard: devtools/tests/test_validate_devguide.py::test_a_guard_with_a_missing_node_is_refused
+normative: devguide/reporting_protocol.md
+blocked_by: []
 supersedes: []
 ---
 
 # Devguide closure accepts guards unrelated to the reported defect
 
 **Reported:** 2026-09-02, split from the gate audit in uibcdf/molsysmt#187.
-**Status:** blocked by the shared guard-semantics decision in
-`uibcdf/molsyssuite#26`. This report now owns only the MolSysMT implementation.
+**Status:** resolved on 2026-09-20 after adoption of the shared guard semantics in
+`uibcdf/molsyssuite#26`.
 
 ## What
 
@@ -96,3 +96,18 @@ pretending one parser covers every test tree.
 ## Provenance
 
 Source inspected on 2026-09-02 at repository commit `48ea5b91c`.
+
+## Resolution
+
+MolSysMT now applies the common static Python profile prospectively to reports resolved
+on or after 2026-09-20. The validator parses the named test module and requires the
+module, function, or class-method selector to resolve to a statically collected pytest
+test. It rejects nonexistent nodes, parameter IDs, unsafe paths, globs, comma-separated
+targets, and command text while preserving historical archive syntax.
+
+The guard above protects the actual failure mechanism: it constructs the former false
+positive, `tests/basic/test_get_form_battery.py::test_routes`, whose file exists but whose
+node does not, and asserts that closure validation refuses it. The protocol now states
+the separate reviewer responsibility for deciding whether an addressable test is
+relevant to the reported defect. A future non-pytest guard must first define the bounded
+local selector profile required by the central contract.

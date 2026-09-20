@@ -9,7 +9,6 @@ import pytest
 
 from devtools.scripts import devguide_index, devguide_reports
 
-
 VALID = {
     "summary": "A defect.",
     "issue": "uibcdf/molsysmt#137",
@@ -53,7 +52,9 @@ def test_scalars_lists_and_empty_values_are_parsed():
 
 
 def test_the_body_survives_the_split():
-    block, body = devguide_reports.split_front_matter("---\nsummary: x\n---\n\n# Title\n")
+    block, body = devguide_reports.split_front_matter(
+        "---\nsummary: x\n---\n\n# Title\n"
+    )
     assert block == "summary: x\n"
     assert body == "# Title\n"
 
@@ -67,10 +68,10 @@ def test_a_document_without_front_matter_is_reported_as_such():
 @pytest.mark.parametrize(
     "block",
     [
-        "summary: x\nnested:\n  key: value\n",   # indentation is not supported
-        "summary: x\narea: [form\n",             # list never closed
+        "summary: x\nnested:\n  key: value\n",  # indentation is not supported
+        "summary: x\narea: [form\n",  # list never closed
         "this line has no colon\n",
-        "summary: one\nsummary: two\n",          # duplicate key
+        "summary: one\nsummary: two\n",  # duplicate key
     ],
 )
 def test_headers_outside_the_subset_are_refused(block):
@@ -131,14 +132,14 @@ def test_blocked_by_holds_issue_references_not_prose():
 
 
 def test_a_closed_status_needs_a_closed_date():
-    errors = _errors(
-        queue="archive/resolved_bugs", status="withdrawn", closed=None
-    )
+    errors = _errors(queue="archive/resolved_bugs", status="withdrawn", closed=None)
     assert any("needs a closed date" in e for e in errors)
 
 
 def test_an_open_status_must_not_carry_a_closed_date():
-    assert any("must not carry a closed date" in e for e in _errors(closed="2026-08-09"))
+    assert any(
+        "must not carry a closed date" in e for e in _errors(closed="2026-08-09")
+    )
 
 
 def test_a_closed_entry_belongs_under_archive():
@@ -167,7 +168,7 @@ def test_a_guard_must_point_at_a_file_that_exists():
     errors = _errors(
         queue="archive/resolved_bugs",
         status="resolved",
-        closed="2026-08-09",
+        closed="2026-09-20",
         guard="tests/does_not_exist.py::test_nothing",
     )
     assert any("names a file that does not exist" in e for e in errors)
@@ -177,21 +178,56 @@ def test_a_guard_outside_the_test_tree_is_refused():
     errors = _errors(
         queue="archive/resolved_bugs",
         status="resolved",
-        closed="2026-08-09",
+        closed="2026-09-20",
         guard="molsysmt/basic/get_form.py",
     )
-    assert any("does not point into a test tree" in e for e in errors)
+    assert any("must name a safe Python file" in e for e in errors)
 
 
-def test_a_real_guard_is_accepted():
+def test_a_guard_with_a_missing_node_is_refused():
     guard = "tests/basic/test_get_form_battery.py"
     assert (devguide_reports.REPOSITORY_ROOT / guard).exists(), "fixture moved"
     errors = _errors(
         queue="archive/resolved_bugs",
         status="resolved",
-        closed="2026-08-09",
+        closed="2026-09-20",
         guard=f"{guard}::test_routes",
     )
+
+    assert any("does not resolve to a collected test" in error for error in errors)
+
+
+def test_a_real_guard_is_accepted():
+    guard = "tests/basic/test_get_form_battery.py"
+    errors = _errors(
+        queue="archive/resolved_bugs",
+        status="resolved",
+        closed="2026-09-20",
+        guard=f"{guard}::test_the_battery_covers_the_catalogue",
+    )
+
+    assert errors == []
+
+
+def test_parameterized_guard_ids_are_refused():
+    errors = _errors(
+        queue="archive/resolved_bugs",
+        status="resolved",
+        closed="2026-09-20",
+        guard="tests/basic/test_get_form_battery.py::test_the_form_of_an_item[param]",
+    )
+
+    assert any("parameterized selectors are not supported" in error for error in errors)
+
+
+def test_historical_guard_syntax_is_not_retroactively_invalidated():
+    errors = _errors(
+        queue="archive/resolved_bugs",
+        status="resolved",
+        closed="2026-09-19",
+        guard="tests/missing.py::test_missing[param]",
+    )
+
     assert errors == []
 
 
@@ -242,7 +278,9 @@ def test_a_pending_entry_without_front_matter_is_an_error(tmp_path, monkeypatch)
     assert any("no front matter" in error for error in errors)
 
 
-def test_archived_documents_predating_the_protocol_are_left_alone(tmp_path, monkeypatch):
+def test_archived_documents_predating_the_protocol_are_left_alone(
+    tmp_path, monkeypatch
+):
     _queue(tmp_path, monkeypatch, "archive/resolved_bugs", {"old.md": "# History\n"})
     reports, errors = devguide_reports.load_queue("archive/resolved_bugs")
     assert (reports, errors) == ([], [])
@@ -303,18 +341,22 @@ def test_an_empty_queue_says_so():
 
 
 def test_a_stale_index_is_reported_and_then_written(tmp_path, monkeypatch):
-    entry = "---\n" + "\n".join(
-        f"{key}: {'' if value is None else value}"
-        for key, value in [
-            ("summary", "A defect."),
-            ("issue", "uibcdf/molsysmt#137"),
-            ("status", "open"),
-            ("opened", "2026-08-09"),
-            ("severity", "high"),
-            ("verification", "reproduced"),
-            ("area", "[form]"),
-        ]
-    ) + "\n---\n\n# Body\n"
+    entry = (
+        "---\n"
+        + "\n".join(
+            f"{key}: {'' if value is None else value}"
+            for key, value in [
+                ("summary", "A defect."),
+                ("issue", "uibcdf/molsysmt#137"),
+                ("status", "open"),
+                ("opened", "2026-08-09"),
+                ("severity", "high"),
+                ("verification", "reproduced"),
+                ("area", "[form]"),
+            ]
+        )
+        + "\n---\n\n# Body\n"
+    )
     directory = _queue(
         tmp_path,
         monkeypatch,
@@ -345,13 +387,17 @@ def test_a_readme_without_markers_is_reported(tmp_path, monkeypatch):
     _queue(tmp_path, monkeypatch, "pending_bugs", {"README.md": "# Pending Bugs\n"})
     _, errors = devguide_index.process(check=True)
     assert any("add the generated block markers" in error for error in errors)
+
+
 # --- the migration baseline ---------------------------------------------------------
 
 
 def test_an_entry_awaiting_migration_is_exempt_from_the_header(tmp_path, monkeypatch):
     _queue(tmp_path, monkeypatch, "pending_proposals", {"old.md": "# Filed earlier\n"})
     monkeypatch.setattr(
-        devguide_reports, "awaiting_migration", lambda: {str(tmp_path / "pending_proposals" / "old.md")}
+        devguide_reports,
+        "awaiting_migration",
+        lambda: {str(tmp_path / "pending_proposals" / "old.md")},
     )
     _, errors = devguide_reports.load_queue("pending_proposals")
     assert errors == []
@@ -384,8 +430,12 @@ def test_the_repository_satisfies_the_protocol():
 def test_every_pending_entry_carries_an_issue():
     reports, errors = devguide_reports.load_all(include_archives=False)
     assert errors == []
-    missing = [str(report.relative) for report in reports if report.issue_number is None]
-    assert missing == [], "the asymmetry runs this way only: a document always has an issue"
+    missing = [
+        str(report.relative) for report in reports if report.issue_number is None
+    ]
+    assert missing == [], (
+        "the asymmetry runs this way only: a document always has an issue"
+    )
 
 
 def test_the_template_is_a_valid_starting_point():

@@ -209,6 +209,14 @@ fails if the defect returns.
    the document that absorbed the durable rules, as
    [DOCUMENT_POLICY.md](DOCUMENT_POLICY.md) requires. One of the two is mandatory for
    `resolved`; neither is for `withdrawn` or `superseded`.
+
+For reports resolved on or after 2026-09-20, the local validator applies the default
+Python guard profile defined by MolSysSuite: one addressable pytest module, function, or
+class-method selector under `tests/` or `devtools/tests/`. This mechanical check proves
+addressability, not relevance; the resolution must explain why the selected assertion
+protects the reported failure mechanism. See `MOLSYSSUITE_GUIDE.md` and the canonical
+`uibcdf/molsyssuite` reporting protocol for the complete contract. A non-pytest guard
+requires a bounded local selector profile before it can be used for a new closure.
 2. Move the document to `archive/resolved_bugs/` or `archive/resolved_proposals/`.
 3. Close the issue with the three-line comment.
 

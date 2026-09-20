@@ -28,11 +28,6 @@ that front matter -- edit the entries, not this list.
 
 - [`conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md`](conda_cannot_resolve_molsysmt_on_supported_python_3_13_because_molsysviewer_has_.md) — [#195](https://github.com/uibcdf/molsysmt/issues/195) — Conda cannot resolve MolSysMT on supported Python 3.13 because MolSysViewer has no compatible build *(high, reproduced)*
 
-### Blocked (1)
-
-- [`devguide_closure_accepts_guards_unrelated_to_the_reported_defect.md`](devguide_closure_accepts_guards_unrelated_to_the_reported_defect.md) — [#197](https://github.com/uibcdf/molsysmt/issues/197) — Devguide closure accepts guards unrelated to the reported defect *(medium, inspected)*
-  Blocked by uibcdf/molsyssuite#26.
-
 ### Partially resolved (2)
 
 - [`form_attributes_declared_without_getters.md`](form_attributes_declared_without_getters.md) — [#139](https://github.com/uibcdf/molsysmt/issues/139) — Forms declare attributes for which no getter or pipe can deliver a value. *(medium, measured)*

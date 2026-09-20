@@ -70,6 +70,15 @@ Use the common statuses `open`, `active`, `blocked`, `partial`, `resolved`, `wit
 and `superseded`. On closure, cite a durable test or normative rule, synchronize the
 issue, regenerate local indexes, and archive the document. Archive, never delete.
 
+For defects resolved on or after 2026-09-20, a `guard` must be mechanically addressable
+by the repository's documented runner. In the default Python profile use one safe pytest
+module, function, or class-method selector under `tests/` or `devtools/tests/`; nonexistent
+nodes, globs, parameter IDs, comma-separated targets, and shell commands are rejected.
+Automation proves addressability, not relevance: the resolution must explain why the
+selected assertion protects the reported failure mechanism. Non-pytest repositories or
+targets require a bounded local selector profile as defined by the central reporting
+protocol.
+
 ## Shared stewardship across components
 
 Every component is a UIBCDF team development. When developing one component reveals a
