@@ -91,6 +91,13 @@ def test_publish_workflow_is_atomic_per_native_platform():
         assert f'"platform":"{platform}","runner":"{runner}"' in validate_identity
     assert 'echo "matrix=$matrix" >> "$GITHUB_OUTPUT"' in validate_identity
 
+    resolve_candidate = _step(prepare, "Resolve the candidate before fan-out")
+    assert resolve_candidate["uses"] == "actions/checkout@v7"
+    assert resolve_candidate["with"]["ref"] == (
+        "${{ inputs.candidate_sha || github.event.release.tag_name }}"
+    )
+    assert resolve_candidate["with"]["persist-credentials"] is False
+
     staging_build = _step(build_and_publish, "Build and publish the staging platform")
     release_build = _step(
         build_and_publish, "Build, test, and publish the release platform"

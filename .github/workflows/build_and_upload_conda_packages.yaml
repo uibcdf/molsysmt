@@ -74,6 +74,13 @@ jobs:
           fi
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
+      - name: Resolve the candidate before fan-out
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          ref: ${{ inputs.candidate_sha || github.event.release.tag_name }}
+
   build-and-publish:
     name: ${{ matrix.target.platform }} · one ABI3 artifact
     needs: prepare
