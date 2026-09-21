@@ -109,6 +109,21 @@ read-only content. List its exact path in Ruff's `extend-exclude`; do not reform
 it in a component. Propose changes at the canonical source and resynchronize the exact
 copy. The suite checks both the exclusion and byte-level drift.
 
+## Repository badges
+
+Every member README carries the centrally generated MolSysSuite identity baseline in
+this order: role, live policy workflow, supported Python versions when applicable, and
+license. Generate or verify that row from the MolSysSuite checkout with
+`devtools/scripts/repository_badges.py`; do not copy another component's Markdown.
+
+Tests, coverage, documentation, releases, DOI records and package channels are
+conditional evidence badges. Include one only while its own authoritative surface is
+maintained and belongs to that repository. A failing live workflow badge is truthful
+and must not be hidden; a static green replacement is not. Omit stale or unverifiable
+capabilities and track concrete remediation in the component repository. The common
+repository policy gate enforces the offline identity baseline; service freshness still
+requires a separate networked audit under `devguide/repository_badges.md`.
+
 ## GitHub Actions inspection
 
 Use GH Run Receptor as the preferred first inspection path during development, following
