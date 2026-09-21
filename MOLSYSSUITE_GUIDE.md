@@ -180,12 +180,12 @@ collapsed into a single cohort. Both primary and auxiliary repositories are full
 governed suite members.
 
 The active stabilization initiative currently prioritizes SMonitor, ArgDigest,
-DepDigest, PyUnitWizard, MolSysMT and MolSysViewer. TopoMT, PharmacophoreMT and ElastNetMT
-are incubating. Lindelint is an auxiliary developer tool created for ElastNetMT and the
-wider suite. Priority affects scheduling, not governance or whether contributors
-communicate valuable discoveries from any component. Consult the central
-`devguide/member_classification.md` and `suite.toml` for the complete vocabulary and
-current assignments.
+DepDigest, PyUnitWizard, MolSysMT and MolSysViewer. TopoMT, PharmacophoreMT, ElastNetMT
+and the support library Ackredit are incubating. Lindelint is an auxiliary developer tool
+created for ElastNetMT and the wider suite. Priority affects scheduling, not governance
+or whether contributors communicate valuable discoveries from any component. Consult the
+central `devguide/member_classification.md` and `suite.toml` for the complete vocabulary
+and current assignments.
 
 ## Before finishing component work
 
