@@ -11,7 +11,7 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@1.1.0`
+- Source version: `gh-run-receptor@1.1.1`
 - Last synced: 2026-09-21
 
 ## What gh-run-receptor is
@@ -67,6 +67,9 @@ Version `1.0.0` is the stable read-only contract with:
   Ubuntu, macOS, and Windows with Python 3.11, 3.12, and 3.13.
 - release 1.1.0 extension and installed-wheel validation on Python 3.14, with the
   complete twelve-cell operating-system/interpreter compatibility matrix passing;
+- release 1.1.1 naming failed pytest tests in compact CI causes when bounded log evidence
+  permits, without changing GitHub's authoritative failure or executing a printed
+  `rerun:` suggestion;
 - a composite GitHub Action with bounded log, job summary, scalar outputs, canonical JSON
   artifact, and exact source provenance;
 - checkout-local and remote-source Action validation on Ubuntu, macOS, and Windows.
@@ -112,14 +115,14 @@ need GitHub CLI.
 Install the exact stable tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 1.1.0
+gh extension install uibcdf/gh-run-receptor --pin 1.1.1
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-1.1.0
+1.1.1
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -157,7 +160,7 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-      - uses: uibcdf/gh-run-receptor@1.1.0
+      - uses: uibcdf/gh-run-receptor@1.1.1
         with:
           run-id: ${{ github.event.workflow_run.id }}
           repository: ${{ github.repository }}
@@ -177,7 +180,7 @@ For a small dedicated reporter, the same complete configuration accepted by `con
 may be placed beside the Action call:
 
 ```yaml
-      - uses: uibcdf/gh-run-receptor@1.1.0
+      - uses: uibcdf/gh-run-receptor@1.1.1
         with:
           run-id: ${{ github.event.workflow_run.id }}
           repository: ${{ github.repository }}
@@ -229,7 +232,7 @@ For a smaller terminal reporter, delegate the complete job to the reusable workf
 ```yaml
 jobs:
   report:
-    uses: uibcdf/gh-run-receptor/.github/workflows/reusable-report.yml@1.1.0
+    uses: uibcdf/gh-run-receptor/.github/workflows/reusable-report.yml@1.1.1
     with:
       run-id: ${{ github.event.workflow_run.id }}
       repository: ${{ github.repository }}
@@ -241,7 +244,7 @@ ready state, and error category. It deliberately omits runner-local paths. Inter
 uses GitHub's `$/` same-repository reference, so the Action resolves from the exact commit
 selected for the reusable workflow without a checkout or moving internal reference. This
 path requires github.com runner 2.336.0 or newer; older GitHub Enterprise Server versions
-without `$/` are not claimed. Pin the full 1.1.0 commit instead of the tag when an
+without `$/` are not claimed. Pin the full 1.1.1 commit instead of the tag when an
 immutable reference is required.
 
 ## Minimum use from a client
