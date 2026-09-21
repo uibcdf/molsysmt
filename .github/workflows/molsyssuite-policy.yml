@@ -3,6 +3,7 @@ name: MolSysSuite policy
 on:
   push:
     branches: [main]
+    tags: ["*"]
   pull_request:
   workflow_dispatch:
 
@@ -11,4 +12,4 @@ permissions:
 
 jobs:
   policy:
-    uses: uibcdf/molsyssuite/.github/workflows/check-python-repository.yaml@policy-v1.3.0
+    uses: uibcdf/molsyssuite/.github/workflows/check-python-repository.yaml@policy-v1.4.0

@@ -30,7 +30,8 @@ Start with these central documents:
 - [issue and developer-guide reporting protocol](https://github.com/uibcdf/molsyssuite/blob/main/devguide/reporting_protocol.md);
 - [cross-component feedback policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md);
 - [Python support policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md);
-- [Python tooling policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md).
+- [Python tooling policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md);
+- [component release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md);
 - [GH Run Receptor dogfooding policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md).
 
 Consult the central repository before changing a shared dependency boundary, supported
@@ -108,6 +109,21 @@ Every root integration guide synchronized from another repository is generated,
 read-only content. List its exact path in Ruff's `extend-exclude`; do not reformat or edit
 it in a component. Propose changes at the canonical source and resynchronize the exact
 copy. The suite checks both the exclusion and byte-level drift.
+
+## Public release versions
+
+Every component release uses exactly `X.Y.Z`: three canonical non-negative integer
+components. The package or project version, Git tag and GitHub Release tag are the same
+string. Do not prefix the tag with `v` and do not publish `a`, `b`, `rc`, `.dev`, `.post`
+or `+local` suffixes. Candidate testing belongs in staging rather than a public
+prerelease.
+
+Development checkouts may carry truthful derived identities such as
+`1.2.3+4.gabc1234` or a `.dirty` suffix; those are development provenance, not public
+release versions. MolSysSuite policy tags (`policy-vX.Y.Z`), third-party Action refs,
+schema versions and Conda build numbers are separate namespaces. Follow the central
+release-version policy for the exact pattern, historical-tag treatment and exception
+process.
 
 ## Repository badges
 
