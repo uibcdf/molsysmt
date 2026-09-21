@@ -93,12 +93,15 @@ def test_zenodo_record_requires_the_exact_tag_and_distinct_version_doi():
             ],
         },
     }
-    assert verifier.validate_record(
-        record,
-        "1.0.0",
-        "10.5281/zenodo.1298752",
-        "https://github.com/uibcdf/molsysmt",
-    ) == []
+    assert (
+        verifier.validate_record(
+            record,
+            "1.0.0",
+            "10.5281/zenodo.1298752",
+            "https://github.com/uibcdf/molsysmt",
+        )
+        == []
+    )
 
     wrong = json.loads(json.dumps(record))
     wrong["metadata"]["version"] = "0.12.0"
@@ -116,8 +119,10 @@ def test_release_gate_and_workflow_enforce_the_two_citation_phases():
     assert '("validate_citation.py", "Citation and Zenodo metadata")' in release_gate
 
     workflow_path = REPO / ".github/workflows/verify-zenodo-release.yaml"
-    workflow = yaml.load(workflow_path.read_text(encoding="utf-8"), Loader=yaml.BaseLoader)
-    assert workflow["on"]["release"]["types"] == ["released", "prereleased"]
+    workflow = yaml.load(
+        workflow_path.read_text(encoding="utf-8"), Loader=yaml.BaseLoader
+    )
+    assert workflow["on"]["release"]["types"] == ["released"]
     step = workflow["jobs"]["verify"]["steps"][-1]
     assert "verify_zenodo_release.py" in step["run"]
     assert step["env"]["RELEASE_VERSION"]

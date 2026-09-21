@@ -27,8 +27,8 @@ jobs:
           MOLSYS_MT_VERSION: ${{ inputs.molsysmt_version }}
           MOLSYS_VIEWER_VERSION: ${{ inputs.molsysviewer_version }}
         run: |
-          [[ "$MOLSYS_MT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
-          [[ "$MOLSYS_VIEWER_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$MOLSYS_MT_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
+          [[ "$MOLSYS_VIEWER_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
 
   validate:
     name: ${{ matrix.target.platform }} · Python ${{ matrix.python }}

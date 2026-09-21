@@ -85,7 +85,8 @@ def test_publish_workflow_is_atomic_per_native_platform():
         "run"
     ]
     assert "^[0-9a-f]{40}$" in validate_identity
-    assert validate_identity.count("^[0-9]+\\.[0-9]+\\.[0-9]+$") == 2
+    exact_version = "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    assert validate_identity.count(exact_version) == 2
     assert "^[0-9]+$" in validate_identity
     for platform, runner in EXPECTED_TARGETS:
         assert f'"platform":"{platform}","runner":"{runner}"' in validate_identity
@@ -154,9 +155,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     workflow = _workflow(STAGING_WORKFLOW)
     prepare = workflow["jobs"]["prepare"]
     validate = workflow["jobs"]["validate"]
-    viewer_input = workflow[True]["workflow_dispatch"]["inputs"][
-        "molsysviewer_version"
-    ]
+    viewer_input = workflow[True]["workflow_dispatch"]["inputs"]["molsysviewer_version"]
 
     assert validate["needs"] == "prepare"
     assert viewer_input["required"] is True
@@ -165,7 +164,8 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     assert validate["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
 
     version_gate = _step(prepare, "Require stable package versions")["run"]
-    assert version_gate.count("^[0-9]+\\.[0-9]+\\.[0-9]+$") == 2
+    exact_version = "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    assert version_gate.count(exact_version) == 2
 
     install = _step(validate, "Install the staged package pair")["with"]
     assert "uibcdf/label/staging" in install["condarc"]

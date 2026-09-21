@@ -57,7 +57,7 @@ jobs:
 
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             [[ "$CANDIDATE_SHA" =~ ^[0-9a-f]{40}$ ]]
-            [[ "$INPUT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+            [[ "$INPUT_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
             [[ "$INPUT_BUILD_NUMBER" =~ ^[0-9]+$ ]]
             case "$INPUT_TARGET" in
               all) matrix="$all_targets" ;;
@@ -69,7 +69,7 @@ jobs:
               *) exit 1 ;;
             esac
           else
-            [[ "$RELEASE_TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+            [[ "$RELEASE_TAG" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
             matrix="$all_targets"
           fi
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
