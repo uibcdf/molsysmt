@@ -171,6 +171,7 @@ markers = [
 target-version = "py311"
 include = ["*.py", "*.pyi"]
 extend-exclude = [
+    "ACKREDIT_GUIDE.md",
     "ARGDIGEST_GUIDE.md",
     # Temporary migration boundary: the shared full Ruff gate starts with current
     # maintenance tooling and the add-on. The existing critical-rule workflow still
