@@ -1,12 +1,12 @@
 ---
 summary: Migrate legacy MolSysMT trees into the full Ruff gate.
 issue: uibcdf/molsysmt#212
-status: active
+status: resolved
 opened: 2026-09-12
-closed:
+closed: 2026-09-22
 verification: measured
 area: [ci]
-guard:
+guard: devtools/tests/test_ruff_clean.py
 normative:
 blocked_by: []
 supersedes: []
@@ -15,21 +15,20 @@ supersedes: []
 # Migrate legacy MolSysMT trees into the Ruff gate
 
 **Reported:** 2026-09-12, during the MolSysSuite policy rollout.
-**Status:** Active; the critical-rule gate remains active during migration.
+**Status:** Resolved; the full repository-wide Ruff gate is active.
 
 ## What
 
-Remove the temporary Ruff path exclusions for maintained MolSysMT code, tests and
-documentation. The shared baseline currently checks maintenance tooling and the
-MolSysViewer add-on, while the legacy core remains protected by the narrower
-`F821,F822,F823,B006,B023` gate.
+The temporary Ruff path exclusions for maintained MolSysMT code, tests and
+documentation have been removed. Before migration, the shared baseline checked
+only maintenance tooling and the MolSysViewer add-on, while the legacy core
+had a narrower `F821,F822,F823,B006,B023` gate.
 
 ## How
 
-Migrate one owned directory at a time. For each slice, run `ruff check --fix` and
-`ruff format`, review all changes for semantic effects, run its scientific tests,
-and remove its path exclusion only when lint and format checks pass. Keep the
-critical core gate until the shared baseline covers the entire core.
+Each owned directory was migrated separately. Ruff's suggested changes were
+reviewed for semantic effects, followed by relevant scientific tests. The
+critical core gate was retired once the shared baseline covered the full core.
 
 ## Why
 
@@ -53,9 +52,8 @@ because that would remove an existing protection.
 
 ## Scope and exclusions
 
-This proposal covers only the remaining Ruff migration. It does not change
-scientific APIs or decide whether historical/generated files should ever be
-formatted. Any permanent exclusion requires a separate justification.
+This proposal covers Ruff migration. Incidental defects found during cleanup
+received focused tests. No temporary Python path exclusion remains.
 
 ## Acceptance criteria
 
@@ -391,3 +389,29 @@ form adapters, and `devtools/tests`. Full `tests/` collection passed. The
 restored `181l.h5msm` fixture passed the demo-asset validator, allowing
 scientific suites that read it to be exercised again. The fixture's earlier
 zero-atom overwrite is tracked separately under issue #216.
+
+## Resolution
+
+The temporary Python directory exclusions are gone. The repository default
+`ruff check --no-cache .` passes with Ruff 0.16.5, and
+`ruff format --check .` reports 3,361 formatted files. The
+[Ruff CI run](https://github.com/uibcdf/molsysmt/actions/runs/35788061365)
+passed on the published migration commit. The per-file `F401` allowance for
+package initializers remains part of the shared baseline; no Python directory
+is outside the gate.
+
+The guard is `devtools/tests/test_ruff_clean.py`. Its first test compares Ruff's
+default file selection against every tracked `.py` and `.pyi` file; its second
+test runs lint and format on that selection. This guards against a clean result
+caused by excluding the files that need checking. It also catches the former
+`tests/lib` blind spot caused by `.gitignore`.
+
+With Pytest Receptor's `llm` profile and 12 workers, a broad run covering
+2,265 tests in `basic`, `build`, `structure`, `physchem`, `topology`,
+`third_party`, `lib`, `element`, `native`, `pbc`, `supported`, development
+tooling, and targeted form adapters finished with 2,262 passes and three
+skips. The full `tests/` collection also passed. This does not claim that
+every test in the repository was executed. The previously modified 181L
+fixture was restored and passed the demo-asset validator under separate issue
+`uibcdf/molsysmt#216`; the unsafe H5MSM extraction path remains tracked under
+`uibcdf/molsysmt#235`.
