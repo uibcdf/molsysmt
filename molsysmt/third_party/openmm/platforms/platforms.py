@@ -1,5 +1,4 @@
 def available_platforms(verbose=True):
-
     """
     Listing available OpenMM compute platform backend names on the host machine.
 
@@ -18,25 +17,24 @@ def available_platforms(verbose=True):
     .. versionadded:: 1.0.0
     """
 
-
     from openmm import Platform
 
     platforms_available = []
 
     for ii in range(Platform.getNumPlatforms()):
-        platform_name  = Platform.getPlatform(ii).getName()
-        platform       = Platform.getPlatformByName(platform_name)
+        platform_name = Platform.getPlatform(ii).getName()
+        platform = Platform.getPlatformByName(platform_name)
         platform_speed = platform.getSpeed()
         platforms_available.append(platform_name)
         if verbose:
-            print('Platform {} with speed {}'.format(platform_name,platform_speed))
-        del(platform_name, platform, platform_speed)
+            print("Platform {} with speed {}".format(platform_name, platform_speed))
+        del (platform_name, platform, platform_speed)
 
     if verbose is False:
         return platforms_available
 
-def loading_failures():
 
+def loading_failures():
     """
     Retrieving OpenMM platform plugin loading failure messages.
 
@@ -51,5 +49,5 @@ def loading_failures():
     """
 
     from openmm import Platform
-    print(Platform.getPluginLoadFailures())
 
+    print(Platform.getPluginLoadFailures())

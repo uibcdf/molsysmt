@@ -1,7 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
+import numpy as np
+
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
-import numpy as np
+from molsysmt._private.argdigest import arg_digest
+
 
 @arg_digest()
 def get_lengths_from_box(box, skip_digestion=False):
@@ -27,10 +29,12 @@ def get_lengths_from_box(box, skip_digestion=False):
 
     if isinstance(box, np.ndarray):
         box_value = box
-        box_unit = puw.unit('nm')
+        box_unit = puw.unit("nm")
     else:
-        box_value, box_unit  = puw.get_value_and_unit(box)
-    lengths_value = _kernels.get_lengths_from_box(np.asarray(box_value, dtype=np.float64))
+        box_value, box_unit = puw.get_value_and_unit(box)
+    lengths_value = _kernels.get_lengths_from_box(
+        np.asarray(box_value, dtype=np.float64)
+    )
     lengths = puw.quantity(lengths_value.round(6), box_unit)
     lengths = puw.standardize(lengths)
 

@@ -1,13 +1,22 @@
+import numpy as np
+from smonitor import signal
+
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import StructuralInconsistencyError
-from smonitor import signal
-import numpy as np
-from molsysmt import pyunitwizard as puw
 
-@signal(tags=['api', 'structure'])
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def translate(molecular_system, translation=None, selection='all', structure_indices='all',
-        syntax='MolSysMT', in_place=False, skip_digestion=False):
+def translate(
+    molecular_system,
+    translation=None,
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    in_place=False,
+    skip_digestion=False,
+):
     """
     Apply a translation vector to atomic coordinates of a selection.
 
@@ -56,36 +65,55 @@ def translate(molecular_system, translation=None, selection='all', structure_ind
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import get, set, select, copy
+    from molsysmt.basic import copy, get, set
 
-    coordinates = get(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
-                      syntax=syntax, coordinates=True, skip_digestion=True)
+    coordinates = get(
+        molecular_system,
+        element="atom",
+        selection=selection,
+        structure_indices=structure_indices,
+        syntax=syntax,
+        coordinates=True,
+        skip_digestion=True,
+    )
 
     coordinates, length_unit = puw.get_value_and_unit(coordinates)
     translation = puw.get_value(translation, to_unit=length_unit)
 
-    if translation.shape==(1,1,3):
-        coordinates += translation[0,0,:]
-    elif translation.shape==(coordinates.shape[0],1,3):
+    if translation.shape == (1, 1, 3):
+        coordinates += translation[0, 0, :]
+    elif translation.shape == (coordinates.shape[0], 1, 3):
         for ii in range(coordinates.shape[0]):
-            coordinates[ii,:,:] += translation[ii,0,:]
-    elif np.all(translation.shape[:]==coordinates.shape[:]):
+            coordinates[ii, :, :] += translation[ii, 0, :]
+    elif np.all(translation.shape[:] == coordinates.shape[:]):
         coordinates += translation
     else:
         raise StructuralInconsistencyError(
             reason=f"The shape of the translation vector {translation.shape} is not compatible with the coordinates shape {coordinates.shape}.",
-            caller="molsysmt.structure.translate"
+            caller="molsysmt.structure.translate",
         )
 
     coordinates = puw.quantity(coordinates, length_unit)
 
     if in_place:
-        set(molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates, skip_digestion=True)
-        del(coordinates, translation)
+        set(
+            molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+            skip_digestion=True,
+        )
+        del (coordinates, translation)
     else:
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates, skip_digestion=True)
-        del(coordinates, translation)
+        set(
+            tmp_molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+            skip_digestion=True,
+        )
+        del (coordinates, translation)
         return tmp_molecular_system

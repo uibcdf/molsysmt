@@ -1,4 +1,3 @@
-
 def is_c_terminal_capping(name):
     """
     Check whether a group name corresponds to a C-terminal capping residue.
@@ -28,5 +27,5 @@ def is_c_terminal_capping(name):
     .. versionadded:: 1.0.0
     """
     from . import c_terminal_capping_names
-    return (name in c_terminal_capping_names)
 
+    return name in c_terminal_capping_names

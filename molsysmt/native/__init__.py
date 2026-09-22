@@ -1,3 +1,5 @@
+# Preserve native class initialization order.
+# isort: off
 from .molsys import MolSys
 from .molsys_builder import MolSysBuilder
 from .molsys_dict import MolSysDict
@@ -5,7 +7,8 @@ from .topology_dict import TopologyDict
 from .topology import Topology
 from .structures import Structures
 from .molecular_mechanics import MolecularMechanics
-#from .trajectory_file import TrajectoryFile
+
+# from .trajectory_file import TrajectoryFile
 from .simulation import Simulation
 from .h5msm_file_handler import H5MSMFileHandler
 from .pdb_file_handler import PDBFileHandler
@@ -13,3 +16,4 @@ from .pdb_atomic_coordinate_entry import PDBAtomicCoordinateEntry
 from .gro_file_handler import GROFileHandler
 from .gro_file_handler import GROAtomicCoordinateEntry
 from .viewer_json import ViewerJSON
+# isort: on

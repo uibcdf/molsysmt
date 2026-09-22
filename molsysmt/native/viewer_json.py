@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Dict, List, Literal, Optional, TextIO, Union
-import json
 import gzip
+import json
 from copy import deepcopy
+from dataclasses import dataclass, field
+from typing import Any, Dict, Literal, Optional, TextIO, Union
 
 CompressionKind = Literal["none", "gzip"]
+
 
 def _empty_viewer_dict() -> Dict[str, Any]:
     """Minimal viewer_json schema.
@@ -15,28 +16,25 @@ def _empty_viewer_dict() -> Dict[str, Any]:
     """
     return {
         "version": "0.1",  # viewer_json schema version
-
         # Per-atom information (columnar, length = n_atoms)
         "atoms": {
             # Internal or external atom identifiers
-            "atom_id": [],          # List[str]
-            "atom_name": [],        # List[str]
-            "group_id": [],         # List[str]
-            "group_name": [],       # List[str]
-            "chain_id": [],         # List[str]
-            "entity_id": [],        # List[str]
-            "element_symbol": [],   # List[str] (e.g. "C", "N", "O")
-            "formal_charge": [],    # List[int]
+            "atom_id": [],  # List[str]
+            "atom_name": [],  # List[str]
+            "group_id": [],  # List[str]
+            "group_name": [],  # List[str]
+            "chain_id": [],  # List[str]
+            "entity_id": [],  # List[str]
+            "element_symbol": [],  # List[str] (e.g. "C", "N", "O")
+            "formal_charge": [],  # List[int]
         },
-
         # Bond information (optional)
         "bonds": {
             # Atom pairs (0-based) participating in each bond
-            "atom_pairs": [],       # List[List[int, int]]
+            "atom_pairs": [],  # List[List[int, int]]
             # Optional bond order (1, 2, 3, ...)
-            "order": [],            # List[int] (same length as atom_pairs) or []
+            "order": [],  # List[int] (same length as atom_pairs) or []
         },
-
         # List of coordinate structures
         "structures": [
             # Each structure is a dict with:
@@ -52,22 +50,21 @@ def _empty_viewer_dict() -> Dict[str, Any]:
         ],
     }
 
+
 def _empty_structure_viewer_dict() -> Dict[str, Any]:
     """Minimal structure_viewer_json schema.
 
     All values must be JSON-compatible: dict, list, str, int, float, bool, None.
     """
     return {
-
-        "time": 0.0,    # float or int (optional)
-        "coordinates": [], # List[List[float]], len = n_atoms
-        "box": {                               # optional
-                "v0": [0.0, 0.0, 0.0],         # box vector 0 (nm)
-                "v1": [0.0, 0.0, 0.0],         # box vector 1 (nm)
-                "v2": [0.0, 0.0, 0.0],         # box vector 2 (nm)
-               },
+        "time": 0.0,  # float or int (optional)
+        "coordinates": [],  # List[List[float]], len = n_atoms
+        "box": {  # optional
+            "v0": [0.0, 0.0, 0.0],  # box vector 0 (nm)
+            "v1": [0.0, 0.0, 0.0],  # box vector 1 (nm)
+            "v2": [0.0, 0.0, 0.0],  # box vector 2 (nm)
+        },
     }
-
 
 
 @dataclass
@@ -93,12 +90,14 @@ class ViewerJSON:
     compression: CompressionKind = "none"
 
     # Field descriptions (for documentation/introspection)
-    schema: Dict[str, str] = field(default_factory=lambda: {
-        "version": "Schema version for viewer_json.",
-        "atoms": "Dict with per-atom columns: ids, names, residue, chain, entity, element, charge.",
-        "bonds": "Dict with bonded atom indices and bond order.",
-        "structures": "List of structures with coordinates (nm), time (ps) and optional box.",
-    })
+    schema: Dict[str, str] = field(
+        default_factory=lambda: {
+            "version": "Schema version for viewer_json.",
+            "atoms": "Dict with per-atom columns: ids, names, residue, chain, entity, element, charge.",
+            "bonds": "Dict with bonded atom indices and bond order.",
+            "structures": "List of structures with coordinates (nm), time (ps) and optional box.",
+        }
+    )
 
     def to_dict(self, copy: bool = True) -> Dict[str, Any]:
         """Return the underlying JSON-compatible dict.
@@ -138,9 +137,10 @@ class ViewerJSON:
         else:
             if compression == "gzip":
                 from molsysmt._private.smonitor import ArgumentError
+
                 raise ArgumentError(
-                    argument='fp',
+                    argument="fp",
                     value=type(fp).__name__,
-                    message="For gzip output, pass a file path (str) or an open gzip binary file."
+                    message="For gzip output, pass a file path (str) or an open gzip binary file.",
                 )
             json.dump(self.data, fp, indent=indent)

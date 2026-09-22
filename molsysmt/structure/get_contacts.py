@@ -1,10 +1,11 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, warn
-from smonitor import signal
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_iterable_of_pairs
-from molsysmt import pyunitwizard as puw
-from molsysmt.configure import with_configure_overrides
 import numpy as np
+from smonitor import signal
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import warn
+from molsysmt._private.variables import is_iterable_of_pairs
+from molsysmt.configure import with_configure_overrides
 
 
 @signal(tags=["api", "structure"])
@@ -98,9 +99,9 @@ def get_contacts(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.structure.get_distances import get_distances
-    from molsysmt.basic import select, get
+    from molsysmt.basic import get, select
     from molsysmt.pbc import has_pbc
+    from molsysmt.structure.get_distances import get_distances
 
     if selection is None:
         selection = "all"
@@ -130,8 +131,8 @@ def get_contacts(
         center_of_atoms_2 = True
 
     # Check if GPU execution is requested and resolved
-    from molsysmt._private.gpu import resolve_use_gpu
     import molsysmt.configure as config
+    from molsysmt._private.gpu import resolve_use_gpu
     from molsysmt.lib.structure._kernel_inputs import (
         align_coordinates_values_and_unit,
         extract_coordinates_value_and_unit,
@@ -222,12 +223,11 @@ def get_contacts(
         # Check if we should use Taichi Lang backend
         if config.gpu_backend == "taichi":
             try:
-                import taichi
+                __import__("taichi")
 
                 taichi_available = True
             except ImportError:
                 taichi_available = False
-                import warnings
                 from molsysmt._private.smonitor import GpuNotAvailableWarning
 
                 warn(
@@ -432,11 +432,11 @@ def get_contacts(
         if pairs:
             if output_indices == "selection":
                 for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(contact_map[ii, :] == True)[0]
+                    aux_pairs = np.nonzero(contact_map[ii, :])[0]
                     output.append(aux_pairs.tolist())
             elif output_indices == "atom":
                 for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(contact_map[ii, :] == True)[0]
+                    aux_pairs = np.nonzero(contact_map[ii, :])[0]
                     output.append(
                         [[selection[ii], selection_2[ii]] for ii in aux_pairs]
                     )
@@ -444,7 +444,7 @@ def get_contacts(
         else:
             if selection_2 is None:
                 for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(np.triu(contact_map[ii], k=1) == True)
+                    aux_pairs = np.nonzero(np.triu(contact_map[ii], k=1))
                     aux_pairs = np.column_stack(aux_pairs).tolist()
                     output.append(aux_pairs)
             else:

@@ -3,10 +3,15 @@ MolSysMT
 This must be a short description of the project
 """
 
+# Preserve the root package bootstrap order.
+# isort: off
 import importlib
 
 # versioningit
-from importlib.metadata import version as _version_fn, PackageNotFoundError as _PackageNotFoundError
+from importlib.metadata import (
+    version as _version_fn,
+    PackageNotFoundError as _PackageNotFoundError,
+)
 
 try:
     __version__ = _version_fn("molsysmt")
@@ -21,90 +26,108 @@ from smonitor.integrations import ensure_configured as _ensure_smonitor_configur
 from molsysmt._private.smonitor import PACKAGE_ROOT as _SMONITOR_PACKAGE_ROOT
 
 _ensure_smonitor_configured(_SMONITOR_PACKAGE_ROOT)
+# isort: on
 
 
 # Central lazy-loading registry mapping public attribute/submodule names
 # to their respective internal import submodules.
 _LAZY_ATTRIBUTES = {
     # Submodules
-    'configure': '.configure',
-    'core': '.core',
-    'basic': '.basic',
-    'form': '.form',
-    'element': '.element',
-    'attribute': '.attribute',
-    'topology': '.topology',
-    'structure': '.structure',
-    'build': '.build',
-    'supported': '.supported',
-    'pbc': '.pbc',
-    'physchem': '.physchem',
-    'molecular_mechanics': '.molecular_mechanics',
-    'hbonds': '.hbonds',
-    'third_party': '.third_party',
-    'thirds': '.third_party',
-    'systems': ('.systems', 'systems'),
-
+    "configure": ".configure",
+    "core": ".core",
+    "basic": ".basic",
+    "form": ".form",
+    "element": ".element",
+    "attribute": ".attribute",
+    "topology": ".topology",
+    "structure": ".structure",
+    "build": ".build",
+    "supported": ".supported",
+    "pbc": ".pbc",
+    "physchem": ".physchem",
+    "molecular_mechanics": ".molecular_mechanics",
+    "hbonds": ".hbonds",
+    "third_party": ".third_party",
+    "thirds": ".third_party",
+    "systems": (".systems", "systems"),
     # pyunitwizard alias
-    'pyunitwizard': ('._pyunitwizard', 'puw'),
-
+    "pyunitwizard": ("._pyunitwizard", "puw"),
     # Native classes
-    'MolSysBuilder': ('.native', 'MolSysBuilder'),
-    'MolSysDict': ('.native', 'MolSysDict'),
-    'TopologyDict': ('.native', 'TopologyDict'),
-
+    "MolSysBuilder": (".native", "MolSysBuilder"),
+    "MolSysDict": (".native", "MolSysDict"),
+    "TopologyDict": (".native", "TopologyDict"),
     # Basic functions
-    'is_a_molecular_system': ('.basic', 'is_a_molecular_system'),
-    'are_multiple_molecular_systems': ('.basic', 'are_multiple_molecular_systems'),
-    'has_attribute': ('.basic', 'has_attribute'),
-    'where_is_attribute': ('.basic', 'where_is_attribute'),
-    'get_attributes': ('.basic', 'get_attributes'),
-    'get_label': ('.basic', 'get_label'),
-    'get_form': ('.basic', 'get_form'),
-    'select': ('.basic', 'select'),
-    'convert': ('.basic', 'convert'),
-    'ConversionIssue': ('.basic', 'ConversionIssue'),
-    'ConversionReport': ('.basic', 'ConversionReport'),
-    'copy': ('.basic', 'copy'),
-    'extract': ('.basic', 'extract'),
-    'get': ('.basic', 'get'),
-    'set': ('.basic', 'set'),
-    'info': ('.basic', 'info'),
-    'remove': ('.basic', 'remove'),
-    'merge': ('.basic', 'merge'),
-    'add': ('.basic', 'add'),
-    'concatenate_structures': ('.basic', 'concatenate_structures'),
-    'append_structures': ('.basic', 'append_structures'),
-    'is_composed_of': ('.basic', 'is_composed_of'),
-    'contains': ('.basic', 'contains'),
-    'compare': ('.basic', 'compare'),
-    'view': ('.basic', 'view'),
-    'Iterator': ('.basic', 'Iterator'),
-
+    "is_a_molecular_system": (".basic", "is_a_molecular_system"),
+    "are_multiple_molecular_systems": (".basic", "are_multiple_molecular_systems"),
+    "has_attribute": (".basic", "has_attribute"),
+    "where_is_attribute": (".basic", "where_is_attribute"),
+    "get_attributes": (".basic", "get_attributes"),
+    "get_label": (".basic", "get_label"),
+    "get_form": (".basic", "get_form"),
+    "select": (".basic", "select"),
+    "convert": (".basic", "convert"),
+    "ConversionIssue": (".basic", "ConversionIssue"),
+    "ConversionReport": (".basic", "ConversionReport"),
+    "copy": (".basic", "copy"),
+    "extract": (".basic", "extract"),
+    "get": (".basic", "get"),
+    "set": (".basic", "set"),
+    "info": (".basic", "info"),
+    "remove": (".basic", "remove"),
+    "merge": (".basic", "merge"),
+    "add": (".basic", "add"),
+    "concatenate_structures": (".basic", "concatenate_structures"),
+    "append_structures": (".basic", "append_structures"),
+    "is_composed_of": (".basic", "is_composed_of"),
+    "contains": (".basic", "contains"),
+    "compare": (".basic", "compare"),
+    "view": (".basic", "view"),
+    "Iterator": (".basic", "Iterator"),
     # SMonitor exceptions / helpers
-    'ArgumentError': ('._private.smonitor', 'ArgumentError'),
-    'ArgumentChoiceError': ('._private.smonitor', 'ArgumentChoiceError'),
-    'ArgumentLengthError': ('._private.smonitor', 'ArgumentLengthError'),
-    'ArgumentConflictError': ('._private.smonitor', 'ArgumentConflictError'),
-    'StructuralInconsistencyError': ('._private.smonitor', 'StructuralInconsistencyError'),
-    'InternalAlgorithmError': ('._private.smonitor', 'InternalAlgorithmError'),
-    'IteratorError': ('._private.smonitor', 'IteratorError'),
-    'LibraryNotFoundError': ('._private.smonitor', 'LibraryNotFoundError'),
-    'MolecularSystemNeededError': ('._private.smonitor', 'MolecularSystemNeededError'),
-    'MolecularSystemsNeededError': ('._private.smonitor', 'MolecularSystemsNeededError'),
-    'MultipleMolecularSystemsError': ('._private.smonitor', 'MultipleMolecularSystemsError'),
-    'MolecularSystemVerificationError': ('._private.smonitor', 'MolecularSystemVerificationError'),
-    'NotCompatibleConversionError': ('._private.smonitor', 'NotCompatibleConversionError'),
-    'NotImplementedConversionError': ('._private.smonitor', 'NotImplementedConversionError'),
-    'NotImplementedIteratorError': ('._private.smonitor', 'NotImplementedIteratorError'),
-    'NotImplementedMethodError': ('._private.smonitor', 'NotImplementedMethodError'),
-    'NotSupportedFormError': ('._private.smonitor', 'NotSupportedFormError'),
-    'NotSupportedSyntaxError': ('._private.smonitor', 'NotSupportedSyntaxError'),
-    'NotWithThisFormError': ('._private.smonitor', 'NotWithThisFormError'),
-    'FileAlreadyHandledError': ('._private.smonitor', 'FileAlreadyHandledError'),
-    'FileContentError': ('._private.smonitor', 'FileContentError'),
-    'warn': ('._private.smonitor', 'warn'),
-    'warn_once': ('._private.smonitor', 'warn_once'),
+    "ArgumentError": ("._private.smonitor", "ArgumentError"),
+    "ArgumentChoiceError": ("._private.smonitor", "ArgumentChoiceError"),
+    "ArgumentLengthError": ("._private.smonitor", "ArgumentLengthError"),
+    "ArgumentConflictError": ("._private.smonitor", "ArgumentConflictError"),
+    "StructuralInconsistencyError": (
+        "._private.smonitor",
+        "StructuralInconsistencyError",
+    ),
+    "InternalAlgorithmError": ("._private.smonitor", "InternalAlgorithmError"),
+    "IteratorError": ("._private.smonitor", "IteratorError"),
+    "LibraryNotFoundError": ("._private.smonitor", "LibraryNotFoundError"),
+    "MolecularSystemNeededError": ("._private.smonitor", "MolecularSystemNeededError"),
+    "MolecularSystemsNeededError": (
+        "._private.smonitor",
+        "MolecularSystemsNeededError",
+    ),
+    "MultipleMolecularSystemsError": (
+        "._private.smonitor",
+        "MultipleMolecularSystemsError",
+    ),
+    "MolecularSystemVerificationError": (
+        "._private.smonitor",
+        "MolecularSystemVerificationError",
+    ),
+    "NotCompatibleConversionError": (
+        "._private.smonitor",
+        "NotCompatibleConversionError",
+    ),
+    "NotImplementedConversionError": (
+        "._private.smonitor",
+        "NotImplementedConversionError",
+    ),
+    "NotImplementedIteratorError": (
+        "._private.smonitor",
+        "NotImplementedIteratorError",
+    ),
+    "NotImplementedMethodError": ("._private.smonitor", "NotImplementedMethodError"),
+    "NotSupportedFormError": ("._private.smonitor", "NotSupportedFormError"),
+    "NotSupportedSyntaxError": ("._private.smonitor", "NotSupportedSyntaxError"),
+    "NotWithThisFormError": ("._private.smonitor", "NotWithThisFormError"),
+    "FileAlreadyHandledError": ("._private.smonitor", "FileAlreadyHandledError"),
+    "FileContentError": ("._private.smonitor", "FileContentError"),
+    "warn": ("._private.smonitor", "warn"),
+    "warn_once": ("._private.smonitor", "warn_once"),
 }
 
 

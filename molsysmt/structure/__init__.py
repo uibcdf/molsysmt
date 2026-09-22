@@ -1,3 +1,5 @@
+# Preserve public initialization order.
+# isort: off
 from .get_distances import get_distances
 from .get_minimum_distances import get_minimum_distances
 from .get_maximum_distances import get_maximum_distances
@@ -23,3 +25,4 @@ from .least_rmsd_align import least_rmsd_align
 from .get_principal_axes import get_principal_axes
 from .principal_component_analysis import principal_component_analysis
 from .align_principal_axes import align_principal_axes
+# isort: on

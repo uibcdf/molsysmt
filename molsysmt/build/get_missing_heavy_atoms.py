@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
+
 @arg_digest()
-def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT'):
+def get_missing_heavy_atoms(
+    molecular_system, selection="all", syntax="MolSysMT", engine="MolSysMT"
+):
     """
     Identify heavy (non-hydrogen) atoms that are missing from residues in a molecular system.
 
@@ -52,28 +55,49 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
     output = {}
 
-    if engine == 'MolSysMT':
-
-        from molsysmt.basic import select, get
+    if engine == "MolSysMT":
+        from molsysmt.basic import get, select
         from molsysmt.element.group.amino_acid import (
-            group_names as aa_names, get_expected_heavy_atoms, get_standard_name
+            get_expected_heavy_atoms,
+            get_standard_name,
         )
-        from molsysmt.element.group.amino_acid.get_expected_heavy_atoms import _is_hydrogen
+        from molsysmt.element.group.amino_acid import group_names as aa_names
+        from molsysmt.element.group.amino_acid.get_expected_heavy_atoms import (
+            _is_hydrogen,
+        )
 
         # Terminal-only heavy atoms handled separately by get_missing_terminal_cappings
-        _TERMINAL_HEAVY_ATOMS = {'OXT'}
+        _TERMINAL_HEAVY_ATOMS = {"OXT"}
 
-        group_indices = select(molecular_system, element='group', selection=selection, syntax=syntax)
-        group_name_list = get(molecular_system, element='group', selection=group_indices,
-                              group_name=True, skip_digestion=True)
-        atom_indices_per_group = get(molecular_system, element='group', selection=group_indices,
-                                     atom_index=True, skip_digestion=True)
+        group_indices = select(
+            molecular_system, element="group", selection=selection, syntax=syntax
+        )
+        group_name_list = get(
+            molecular_system,
+            element="group",
+            selection=group_indices,
+            group_name=True,
+            skip_digestion=True,
+        )
+        atom_indices_per_group = get(
+            molecular_system,
+            element="group",
+            selection=group_indices,
+            atom_index=True,
+            skip_digestion=True,
+        )
         # Fetch all atom names in one call to avoid O(n_groups) digestion overhead
-        all_atom_names = get(molecular_system, element='atom', selection='all',
-                             atom_name=True, skip_digestion=True)
+        all_atom_names = get(
+            molecular_system,
+            element="atom",
+            selection="all",
+            atom_name=True,
+            skip_digestion=True,
+        )
 
-        for group_idx, group_name, atom_idx_list in zip(group_indices, group_name_list,
-                                                        atom_indices_per_group):
+        for group_idx, group_name, atom_idx_list in zip(
+            group_indices, group_name_list, atom_indices_per_group
+        ):
             # Determine the canonical look-up name
             canonical = get_standard_name(group_name)
             lookup_name = canonical if canonical is not None else group_name
@@ -92,28 +116,30 @@ def get_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
             if missing:
                 output[int(group_idx)] = sorted(missing)
 
-    elif engine=="PDBFixer":
+    elif engine == "PDBFixer":
+        from molsysmt.basic import convert, select
 
-        from molsysmt.basic import convert, get_form, select
+        group_indices_in_selection = select(
+            molecular_system, element="group", selection=selection
+        )
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection)
-
-        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
-                                        syntax=syntax)
+        temp_molecular_system = convert(
+            molecular_system,
+            to_form="pdbfixer.PDBFixer",
+            selection=selection,
+            syntax=syntax,
+        )
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
 
         for group, atoms in temp_molecular_system.missingAtoms.items():
             original_group_index = group_indices_in_selection[group.index]
-            output[original_group_index]=[]
+            output[original_group_index] = []
             for atom in atoms:
                 output[original_group_index].append(atom.name)
 
     else:
-
         raise NotImplementedError
 
-
     return output
-

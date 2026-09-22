@@ -5,7 +5,9 @@ import pandas as pd
 from smonitor import signal
 
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, ArgumentChoiceError
+from molsysmt._private.smonitor import ArgumentChoiceError, StructuralInconsistencyError
+
+
 class MolSysBuilder:
     """Building a native molecular system incrementally from declared elements.
 
@@ -36,7 +38,7 @@ class MolSysBuilder:
                 argument="molecular_system",
                 choices=["None", "molsysmt.MolSys"],
                 caller="molsysmt.native.MolSysBuilder.__init__",
-                message="MolSysBuilder can only be initialized from None or molsysmt.MolSys."
+                message="MolSysBuilder can only be initialized from None or molsysmt.MolSys.",
             )
 
     @property
@@ -103,17 +105,25 @@ class MolSysBuilder:
     @staticmethod
     def _indices_array(indices):
         from molsysmt._private.smonitor import StructuralInconsistencyError
+
         values = np.asarray(indices, dtype=int)
         if values.ndim != 1:
-            raise StructuralInconsistencyError("Indices must define a one-dimensional collection.")
+            raise StructuralInconsistencyError(
+                "Indices must define a one-dimensional collection."
+            )
         return values
 
     def _validate_existing_indices(self, indices, *, upper_bound, element_name):
         from molsysmt._private.smonitor import StructuralInconsistencyError
+
         if len(indices) == 0:
-            raise StructuralInconsistencyError(f"{element_name} membership cannot be empty.")
+            raise StructuralInconsistencyError(
+                f"{element_name} membership cannot be empty."
+            )
         if np.any(indices < 0) or np.any(indices >= upper_bound):
-            raise StructuralInconsistencyError(f"{element_name} membership references undefined lower-level indices.")
+            raise StructuralInconsistencyError(
+                f"{element_name} membership references undefined lower-level indices."
+            )
 
     @staticmethod
     def _fill_missing_string_ids(values):
@@ -125,20 +135,26 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def add_atom(self, atom_id=None, atom_name=None, atom_type=None, skip_digestion=False):
+    def add_atom(
+        self, atom_id=None, atom_name=None, atom_type=None, skip_digestion=False
+    ):
 
         from molsysmt.element.atom import get_atom_type_from_atom_name
 
         self._ensure_atom_editable()
 
         atom_index = self.topology.n_atoms
-        self.topology.atoms.loc[atom_index, "atom_id"] = self._normalize_optional_string(atom_id, default=str(atom_index))
+        self.topology.atoms.loc[atom_index, "atom_id"] = (
+            self._normalize_optional_string(atom_id, default=str(atom_index))
+        )
         atom_name = self._normalize_optional_string(atom_name, default="UNK")
         self.topology.atoms.loc[atom_index, "atom_name"] = atom_name
 
         if atom_type is None:
             atom_type = get_atom_type_from_atom_name(atom_name)
-        self.topology.atoms.loc[atom_index, "atom_type"] = self._normalize_optional_string(atom_type, default="UNK")
+        self.topology.atoms.loc[atom_index, "atom_type"] = (
+            self._normalize_optional_string(atom_type, default="UNK")
+        )
 
         self.topology.atoms.loc[atom_index, "group_index"] = pd.NA
         self.topology._set_component_indices(pd.NA, atom_indices=atom_index)
@@ -148,19 +164,35 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def add_group(self, atom_indices, group_id=None, group_name=None, group_type=None, skip_digestion=False):
+    def add_group(
+        self,
+        atom_indices,
+        group_id=None,
+        group_name=None,
+        group_type=None,
+        skip_digestion=False,
+    ):
 
         atom_indices = self._indices_array(atom_indices)
-        self._validate_existing_indices(atom_indices, upper_bound=self.topology.n_atoms, element_name="Group")
+        self._validate_existing_indices(
+            atom_indices, upper_bound=self.topology.n_atoms, element_name="Group"
+        )
 
         current_group_index = self.topology.atoms.loc[atom_indices, "group_index"]
         if current_group_index.notna().any():
             from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Atoms already assigned to a group cannot be reassigned.")
+
+            raise StructuralInconsistencyError(
+                "Atoms already assigned to a group cannot be reassigned."
+            )
 
         group_index = self.topology.n_groups
-        self.topology.groups.loc[group_index, "group_id"] = self._normalize_optional_string(group_id, default=str(group_index))
-        self.topology.groups.loc[group_index, "group_name"] = self._normalize_optional_string(group_name, default="UNK")
+        self.topology.groups.loc[group_index, "group_id"] = (
+            self._normalize_optional_string(group_id, default=str(group_index))
+        )
+        self.topology.groups.loc[group_index, "group_name"] = (
+            self._normalize_optional_string(group_name, default="UNK")
+        )
         if group_type is None:
             self.topology.groups.loc[group_index, "group_type"] = pd.NA
         else:
@@ -172,7 +204,14 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def add_bond(self, atom_index_1, atom_index_2, bond_order=None, bond_type=None, skip_digestion=False):
+    def add_bond(
+        self,
+        atom_index_1,
+        atom_index_2,
+        bond_order=None,
+        bond_type=None,
+        skip_digestion=False,
+    ):
         """Adding a bond between two declared atoms.
 
         Parameters
@@ -217,7 +256,9 @@ class MolSysBuilder:
         """
 
         atom_indices = np.asarray([atom_index_1, atom_index_2], dtype=int)
-        self._validate_existing_indices(atom_indices, upper_bound=self.topology.n_atoms, element_name="Bond")
+        self._validate_existing_indices(
+            atom_indices, upper_bound=self.topology.n_atoms, element_name="Bond"
+        )
 
         self.topology._append_chemical_state_bonds(
             [[int(atom_index_1), int(atom_index_2)]],
@@ -227,9 +268,8 @@ class MolSysBuilder:
 
         endpoint_pair = sorted((int(atom_index_1), int(atom_index_2)))
         bonds = self.topology._get_chemical_state_bonds()
-        matches = (
-            bonds['atom1_index'].eq(endpoint_pair[0])
-            & bonds['atom2_index'].eq(endpoint_pair[1])
+        matches = bonds["atom1_index"].eq(endpoint_pair[0]) & bonds["atom2_index"].eq(
+            endpoint_pair[1]
         )
         return int(np.flatnonzero(matches.to_numpy())[0])
 
@@ -252,7 +292,15 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def add_chain(self, group_indices, chain_id=None, chain_name=None, chain_type=None, allow_reassign=False, skip_digestion=False):
+    def add_chain(
+        self,
+        group_indices,
+        chain_id=None,
+        chain_name=None,
+        chain_type=None,
+        allow_reassign=False,
+        skip_digestion=False,
+    ):
         """Add a new chain and assign *group_indices* to it.
 
         Parameters
@@ -268,30 +316,50 @@ class MolSysBuilder:
             waters to a dedicated chain after loading).
         """
         group_indices = self._indices_array(group_indices)
-        self._validate_existing_indices(group_indices, upper_bound=self.topology.n_groups, element_name="Chain")
+        self._validate_existing_indices(
+            group_indices, upper_bound=self.topology.n_groups, element_name="Chain"
+        )
 
         if not allow_reassign and "chain_index" in self.topology.atoms.columns:
             group_mask = self.topology.atoms["group_index"].isin(group_indices.tolist())
             existing = self.topology.atoms.loc[group_mask, "chain_index"]
             if len(existing) and existing.notna().any():
                 from molsysmt._private.smonitor import StructuralInconsistencyError
-                raise StructuralInconsistencyError("Groups already assigned to a chain cannot be reassigned.")
+
+                raise StructuralInconsistencyError(
+                    "Groups already assigned to a chain cannot be reassigned."
+                )
 
         chain_index = self.topology.n_chains
-        self.topology.chains.loc[chain_index, "chain_id"] = self._normalize_optional_string(chain_id, default=str(chain_index))
-        self.topology.chains.loc[chain_index, "chain_name"] = self._normalize_optional_string(chain_name, default=pd.NA)
-        self.topology.chains.loc[chain_index, "chain_type"] = self._normalize_optional_string(chain_type, default=pd.NA)
+        self.topology.chains.loc[chain_index, "chain_id"] = (
+            self._normalize_optional_string(chain_id, default=str(chain_index))
+        )
+        self.topology.chains.loc[chain_index, "chain_name"] = (
+            self._normalize_optional_string(chain_name, default=pd.NA)
+        )
+        self.topology.chains.loc[chain_index, "chain_type"] = (
+            self._normalize_optional_string(chain_type, default=pd.NA)
+        )
 
         # chain_index lives on atoms only
         if "chain_index" not in self.topology.atoms.columns:
-            self.topology.atoms["chain_index"] = pd.Series(pd.array([pd.NA] * self.topology.n_atoms, dtype="Int64"))
+            self.topology.atoms["chain_index"] = pd.Series(
+                pd.array([pd.NA] * self.topology.n_atoms, dtype="Int64")
+            )
         for group_index in group_indices:
             atom_mask = self.topology.atoms["group_index"] == int(group_index)
             self.topology.atoms.loc[atom_mask, "chain_index"] = int(chain_index)
 
         return chain_index
 
-    def assign_groups_to_new_chain(self, group_indices, chain_id=None, chain_name=None, chain_type=None, skip_digestion=False):
+    def assign_groups_to_new_chain(
+        self,
+        group_indices,
+        chain_id=None,
+        chain_name=None,
+        chain_type=None,
+        skip_digestion=False,
+    ):
         """Alias for ``add_chain(..., allow_reassign=True)``; allows reassigning groups already in a chain."""
         return self.add_chain(
             group_indices,
@@ -304,20 +372,40 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def add_molecule(self, group_indices, molecule_id=None, molecule_name=None, molecule_type=None, skip_digestion=False):
+    def add_molecule(
+        self,
+        group_indices,
+        molecule_id=None,
+        molecule_name=None,
+        molecule_type=None,
+        skip_digestion=False,
+    ):
 
         group_indices = self._indices_array(group_indices)
-        self._validate_existing_indices(group_indices, upper_bound=self.topology.n_groups, element_name="Molecule")
+        self._validate_existing_indices(
+            group_indices, upper_bound=self.topology.n_groups, element_name="Molecule"
+        )
 
-        current_molecule_index = self.topology.groups.loc[group_indices, "molecule_index"]
+        current_molecule_index = self.topology.groups.loc[
+            group_indices, "molecule_index"
+        ]
         if current_molecule_index.notna().any():
             from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Groups already assigned to a molecule cannot be reassigned.")
+
+            raise StructuralInconsistencyError(
+                "Groups already assigned to a molecule cannot be reassigned."
+            )
 
         molecule_index = self.topology.n_molecules
-        self.topology.molecules.loc[molecule_index, "molecule_id"] = self._normalize_optional_string(molecule_id, default=str(molecule_index))
-        self.topology.molecules.loc[molecule_index, "molecule_name"] = self._normalize_optional_string(molecule_name, default=pd.NA)
-        self.topology.molecules.loc[molecule_index, "molecule_type"] = self._normalize_optional_string(molecule_type, default=pd.NA)
+        self.topology.molecules.loc[molecule_index, "molecule_id"] = (
+            self._normalize_optional_string(molecule_id, default=str(molecule_index))
+        )
+        self.topology.molecules.loc[molecule_index, "molecule_name"] = (
+            self._normalize_optional_string(molecule_name, default=pd.NA)
+        )
+        self.topology.molecules.loc[molecule_index, "molecule_type"] = (
+            self._normalize_optional_string(molecule_type, default=pd.NA)
+        )
         self.topology.molecules.loc[molecule_index, "entity_index"] = pd.NA
         self.topology.groups.loc[group_indices, "molecule_index"] = int(molecule_index)
 
@@ -325,21 +413,45 @@ class MolSysBuilder:
 
     @signal(tags=["native", "builder"])
     @arg_digest()
-    def add_entity(self, molecule_indices, entity_id=None, entity_name=None, entity_type=None, skip_digestion=False):
+    def add_entity(
+        self,
+        molecule_indices,
+        entity_id=None,
+        entity_name=None,
+        entity_type=None,
+        skip_digestion=False,
+    ):
 
         molecule_indices = self._indices_array(molecule_indices)
-        self._validate_existing_indices(molecule_indices, upper_bound=self.topology.n_molecules, element_name="Entity")
+        self._validate_existing_indices(
+            molecule_indices,
+            upper_bound=self.topology.n_molecules,
+            element_name="Entity",
+        )
 
-        current_entity_index = self.topology.molecules.loc[molecule_indices, "entity_index"]
+        current_entity_index = self.topology.molecules.loc[
+            molecule_indices, "entity_index"
+        ]
         if current_entity_index.notna().any():
             from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Molecules already assigned to an entity cannot be reassigned.")
+
+            raise StructuralInconsistencyError(
+                "Molecules already assigned to an entity cannot be reassigned."
+            )
 
         entity_index = self.topology.n_entities
-        self.topology.entities.loc[entity_index, "entity_id"] = self._normalize_optional_string(entity_id, default=str(entity_index))
-        self.topology.entities.loc[entity_index, "entity_name"] = self._normalize_optional_string(entity_name, default=pd.NA)
-        self.topology.entities.loc[entity_index, "entity_type"] = self._normalize_optional_string(entity_type, default=pd.NA)
-        self.topology.molecules.loc[molecule_indices, "entity_index"] = int(entity_index)
+        self.topology.entities.loc[entity_index, "entity_id"] = (
+            self._normalize_optional_string(entity_id, default=str(entity_index))
+        )
+        self.topology.entities.loc[entity_index, "entity_name"] = (
+            self._normalize_optional_string(entity_name, default=pd.NA)
+        )
+        self.topology.entities.loc[entity_index, "entity_type"] = (
+            self._normalize_optional_string(entity_type, default=pd.NA)
+        )
+        self.topology.molecules.loc[molecule_indices, "entity_index"] = int(
+            entity_index
+        )
 
         return entity_index
 
@@ -354,7 +466,10 @@ class MolSysBuilder:
             coordinates = puw.quantity(value, puw.get_unit(coordinates))
         if value.shape[1] != self.topology.n_atoms:
             from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Coordinates must match the current number of atoms.")
+
+            raise StructuralInconsistencyError(
+                "Coordinates must match the current number of atoms."
+            )
         self.structures.coordinates = coordinates
 
     @signal(tags=["native", "builder"])
@@ -368,7 +483,10 @@ class MolSysBuilder:
             box = puw.quantity(value, puw.get_unit(box))
         if self.n_structures not in (0, value.shape[0]):
             from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Box must match the current number of structures.")
+
+            raise StructuralInconsistencyError(
+                "Box must match the current number of structures."
+            )
         self.structures.box = box
 
     @signal(tags=["native", "builder"])
@@ -382,7 +500,10 @@ class MolSysBuilder:
             time = puw.quantity(value, puw.get_unit(time))
         if self.n_structures not in (0, len(value)):
             from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Time must match the current number of structures.")
+
+            raise StructuralInconsistencyError(
+                "Time must match the current number of structures."
+            )
         self.structures.time = time
 
     @signal(tags=["native", "builder"])
@@ -394,11 +515,16 @@ class MolSysBuilder:
             structure_id = structure_id.reshape((1,))
         if self.n_structures not in (0, len(structure_id)):
             from molsysmt._private.smonitor import StructuralInconsistencyError
-            raise StructuralInconsistencyError("Structure ids must match the current number of structures.")
+
+            raise StructuralInconsistencyError(
+                "Structure ids must match the current number of structures."
+            )
         self.structures.structure_id = structure_id.astype(int)
 
     def _ensure_group_membership(self, topology):
-        orphan_atom_indices = topology.atoms.index[topology.atoms["group_index"].isna()].to_numpy(dtype=int)
+        orphan_atom_indices = topology.atoms.index[
+            topology.atoms["group_index"].isna()
+        ].to_numpy(dtype=int)
         for atom_index in orphan_atom_indices:
             group_index = topology.n_groups
             topology.groups.loc[group_index, "group_id"] = str(group_index)
@@ -414,7 +540,9 @@ class MolSysBuilder:
 
         # Ensure the column exists
         if "chain_index" not in topology.atoms.columns:
-            topology.atoms["chain_index"] = pd.Series(pd.array([pd.NA] * topology.n_atoms, dtype="Int64"))
+            topology.atoms["chain_index"] = pd.Series(
+                pd.array([pd.NA] * topology.n_atoms, dtype="Int64")
+            )
 
         # Create chain entries for chain indices already assigned to atoms
         assigned = topology.atoms["chain_index"].dropna()
@@ -435,54 +563,91 @@ class MolSysBuilder:
             topology.atoms.loc[unassigned, "chain_index"] = int(chain_index)
 
     def _fill_molecule_fallbacks(self, topology):
-        from ._topology_infer import infer_component_indices_from_topology, infer_molecule_names_from_topology, infer_molecule_types_from_topology
+        from ._topology_infer import (
+            infer_component_indices_from_topology,
+            infer_molecule_names_from_topology,
+            infer_molecule_types_from_topology,
+        )
 
         if topology.n_groups == 0:
             return
         atom_component_index = infer_component_indices_from_topology(topology)
         topology._set_component_indices(atom_component_index)
-        n_components = int(np.max(atom_component_index)) + 1 if len(atom_component_index) > 0 else 0
+        n_components = (
+            int(np.max(atom_component_index)) + 1
+            if len(atom_component_index) > 0
+            else 0
+        )
         topology.reset_components(n_components=n_components)
-        topology.rebuild_components(redefine_indices=False, redefine_ids=True, redefine_types=True, redefine_names=True)
+        topology.rebuild_components(
+            redefine_indices=False,
+            redefine_ids=True,
+            redefine_types=True,
+            redefine_names=True,
+        )
 
         unassigned = topology.groups["molecule_index"].isna()
         if unassigned.any():
             # component_index is atom-level; derive per-group from atoms
             from ._topology_infer import _component_index_per_group
+
             group_component_index = _component_index_per_group(topology)
-            unassigned_components = sorted(set(
-                int(group_component_index[gi]) for gi in topology.groups.index[unassigned]
-                if group_component_index[gi] >= 0
-            ))
+            unassigned_components = sorted(
+                set(
+                    int(group_component_index[gi])
+                    for gi in topology.groups.index[unassigned]
+                    if group_component_index[gi] >= 0
+                )
+            )
             component_to_molecule = {}
             for component_index in unassigned_components:
                 molecule_index = topology.n_molecules
-                topology.molecules.loc[molecule_index, "molecule_id"] = str(molecule_index)
+                topology.molecules.loc[molecule_index, "molecule_id"] = str(
+                    molecule_index
+                )
                 topology.molecules.loc[molecule_index, "molecule_name"] = pd.NA
                 topology.molecules.loc[molecule_index, "molecule_type"] = pd.NA
                 topology.molecules.loc[molecule_index, "entity_index"] = pd.NA
                 component_to_molecule[component_index] = molecule_index
             for group_index in topology.groups.index[unassigned]:
                 ci = int(group_component_index[group_index])
-                topology.groups.loc[group_index, "molecule_index"] = int(component_to_molecule[ci])
+                topology.groups.loc[group_index, "molecule_index"] = int(
+                    component_to_molecule[ci]
+                )
 
-        topology.molecules["molecule_id"] = self._fill_missing_string_ids(topology.molecules["molecule_id"])
+        topology.molecules["molecule_id"] = self._fill_missing_string_ids(
+            topology.molecules["molecule_id"]
+        )
         inferred_names = infer_molecule_names_from_topology(topology)
         inferred_types = infer_molecule_types_from_topology(topology)
         for molecule_index in range(topology.n_molecules):
             if pd.isna(topology.molecules.loc[molecule_index, "molecule_name"]):
-                topology.molecules.loc[molecule_index, "molecule_name"] = inferred_names[molecule_index]
+                topology.molecules.loc[molecule_index, "molecule_name"] = (
+                    inferred_names[molecule_index]
+                )
             if pd.isna(topology.molecules.loc[molecule_index, "molecule_type"]):
-                topology.molecules.loc[molecule_index, "molecule_type"] = inferred_types[molecule_index]
+                topology.molecules.loc[molecule_index, "molecule_type"] = (
+                    inferred_types[molecule_index]
+                )
 
     def _fill_entity_fallbacks(self, topology):
-        from ._topology_infer import infer_entity_indices_from_topology, infer_entity_names_from_topology, infer_entity_types_from_topology
+        from ._topology_infer import (
+            infer_entity_names_from_topology,
+            infer_entity_types_from_topology,
+        )
 
         unassigned = topology.molecules["entity_index"].isna()
         if unassigned.any():
             temp_topology = topology.copy()
-            temp_topology.rebuild_entities(redefine_indices=True, redefine_ids=True, redefine_names=True, redefine_types=True)
-            fallback_entity_index = temp_topology.molecules.loc[unassigned, "entity_index"].to_numpy(dtype=int)
+            temp_topology.rebuild_entities(
+                redefine_indices=True,
+                redefine_ids=True,
+                redefine_names=True,
+                redefine_types=True,
+            )
+            fallback_entity_index = temp_topology.molecules.loc[
+                unassigned, "entity_index"
+            ].to_numpy(dtype=int)
             unique_fallback = sorted(set(fallback_entity_index.tolist()))
             fallback_to_declared = {}
             for fallback_index in unique_fallback:
@@ -491,17 +656,27 @@ class MolSysBuilder:
                 topology.entities.loc[entity_index, "entity_name"] = pd.NA
                 topology.entities.loc[entity_index, "entity_type"] = pd.NA
                 fallback_to_declared[fallback_index] = entity_index
-            for molecule_index, tmp_entity_index in zip(topology.molecules.index[unassigned], fallback_entity_index):
-                topology.molecules.loc[molecule_index, "entity_index"] = int(fallback_to_declared[int(tmp_entity_index)])
+            for molecule_index, tmp_entity_index in zip(
+                topology.molecules.index[unassigned], fallback_entity_index
+            ):
+                topology.molecules.loc[molecule_index, "entity_index"] = int(
+                    fallback_to_declared[int(tmp_entity_index)]
+                )
 
-        topology.entities["entity_id"] = self._fill_missing_string_ids(topology.entities["entity_id"])
+        topology.entities["entity_id"] = self._fill_missing_string_ids(
+            topology.entities["entity_id"]
+        )
         inferred_names = infer_entity_names_from_topology(topology)
         inferred_types = infer_entity_types_from_topology(topology)
         for entity_index in range(topology.n_entities):
             if pd.isna(topology.entities.loc[entity_index, "entity_name"]):
-                topology.entities.loc[entity_index, "entity_name"] = inferred_names[entity_index]
+                topology.entities.loc[entity_index, "entity_name"] = inferred_names[
+                    entity_index
+                ]
             if pd.isna(topology.entities.loc[entity_index, "entity_type"]):
-                topology.entities.loc[entity_index, "entity_type"] = inferred_types[entity_index]
+                topology.entities.loc[entity_index, "entity_type"] = inferred_types[
+                    entity_index
+                ]
 
     def _finalize_topology(self):
         topology = self.topology.copy()
@@ -512,12 +687,21 @@ class MolSysBuilder:
             bonds = topology._get_chemical_state_bonds()
         bonds._sort_bonds()
         self._ensure_group_membership(topology)
-        topology.groups["group_id"] = self._fill_missing_string_ids(topology.groups["group_id"])
+        topology.groups["group_id"] = self._fill_missing_string_ids(
+            topology.groups["group_id"]
+        )
         topology.rebuild_groups(redefine_ids=False, redefine_types=True)
         self._fill_molecule_fallbacks(topology)
         self._fill_chain_fallbacks(topology)
-        topology.chains["chain_id"] = self._fill_missing_string_ids(topology.chains["chain_id"])
-        topology.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_names=True, redefine_types=True)
+        topology.chains["chain_id"] = self._fill_missing_string_ids(
+            topology.chains["chain_id"]
+        )
+        topology.rebuild_chains(
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_names=True,
+            redefine_types=True,
+        )
         self._fill_entity_fallbacks(topology)
         topology._coerce_id_columns_to_string()
         return topology
@@ -527,7 +711,10 @@ class MolSysBuilder:
         if n_structures == 0:
             return
 
-        if self.structures.coordinates is not None and self.structures.coordinates.shape[1] != self.topology.n_atoms:
+        if (
+            self.structures.coordinates is not None
+            and self.structures.coordinates.shape[1] != self.topology.n_atoms
+        ):
             raise StructuralInconsistencyError(
                 caller="molsysmt.native.MolSysBuilder",
                 reason="Coordinates do not match the declared number of atoms.",
@@ -555,9 +742,18 @@ class MolSysBuilder:
 
         return output
 
-    def info(self, element="system", selection="all", syntax="MolSysMT", skip_digestion=False):
+    def info(
+        self, element="system", selection="all", syntax="MolSysMT", skip_digestion=False
+    ):
         from molsysmt.basic import info as _info
-        return _info(self, element=element, selection=selection, syntax=syntax, skip_digestion=True)
+
+        return _info(
+            self,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+        )
 
     def get(
         self,
@@ -572,6 +768,7 @@ class MolSysBuilder:
         **kwargs,
     ):
         from molsysmt.basic import get as _get
+
         return _get(
             self,
             element=element,

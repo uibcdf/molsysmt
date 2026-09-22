@@ -1,19 +1,29 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from smonitor import signal
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private import rust_backend as _kernels
-from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
-from molsysmt._private.variables import is_all, is_iterable_of_iterables
-from molsysmt import pyunitwizard as puw
 import numpy as np
-from molsysmt.configure import with_configure_overrides
+from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt.configure import with_configure_overrides
+from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
 @with_configure_overrides
-def principal_component_analysis(molecular_system, selection='all', structure_indices='all',
-        weights=None, syntax='MolSysMT', engine='MolSysMT', use_gpu=None,
-        parallel=None, num_threads=None, skip_digestion=False):
+def principal_component_analysis(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    weights=None,
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    use_gpu=None,
+    parallel=None,
+    num_threads=None,
+    skip_digestion=False,
+):
     """
     Computing covariance eigenvectors and eigenvalues for selected atoms.
 
@@ -101,26 +111,32 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import select, get
+    from molsysmt.basic import get, select
 
-    if engine=='MolSysMT':
-
+    if engine == "MolSysMT":
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
-        coordinates = get(molecular_system, element='atom', selection=atom_indices,
-                structure_indices=structure_indices, coordinates=True)
+        coordinates = get(
+            molecular_system,
+            element="atom",
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            coordinates=True,
+        )
         coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
         if weights is None:
             weights = np.ones((coordinates.shape[1]), dtype=np.float64)
 
         from molsysmt._private.gpu import resolve_use_gpu
+
         n_features = coordinates.shape[1] * 3
         payload = coordinates.shape[0] * n_features * n_features
         if resolve_use_gpu(use_gpu, payload):
             from molsysmt.lib.structure.principal_component_analysis_cuda import (
                 principal_component_analysis as _gpu_pca,
             )
+
             eigenvalues, eigenvectors = _gpu_pca(coordinates, weights)
         else:
             eigenvalues, eigenvectors = _kernels.principal_component_analysis(
@@ -132,13 +148,12 @@ def principal_component_analysis(molecular_system, selection='all', structure_in
         eigenvalues = puw.quantity(eigenvalues, length_unit**2)
         eigenvalues = puw.standardize(eigenvalues)
 
-        del(coordinates, atom_indices, weights)
-
+        del (coordinates, atom_indices, weights)
 
         return eigenvectors, eigenvalues
 
     else:
-
         raise NotImplementedMethodError()
+
 
 # https://manual.gromacs.org/documentation/2019-rc1/reference-manual/analysis/covariance-analysis.html

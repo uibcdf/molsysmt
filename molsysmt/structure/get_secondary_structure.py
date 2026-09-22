@@ -1,13 +1,20 @@
+import numpy as np
+from smonitor import signal
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import NotImplementedMethodError
-from smonitor import signal
-import numpy as np
 
 
-@signal(tags=['api', 'structure'])
+@signal(tags=["api", "structure"])
 @arg_digest()
-def get_secondary_structure(molecular_system, selection='all', structure_indices='all',
-                            simplified=True, syntax='MolSysMT', engine='MDTraj'):
+def get_secondary_structure(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    simplified=True,
+    syntax="MolSysMT",
+    engine="MDTraj",
+):
     """
     Secondary structure assignment per residue over one or more structures.
 
@@ -61,28 +68,35 @@ def get_secondary_structure(molecular_system, selection='all', structure_indices
     .. versionadded:: 1.0.0
     """
 
-    if engine == 'MDTraj':
-
+    if engine == "MDTraj":
         from mdtraj import compute_dssp
-        from molsysmt.basic import convert, select, get
 
-        tmp_item = convert(molecular_system, to_form='mdtraj.Trajectory',
-                           structure_indices=structure_indices)
+        from molsysmt.basic import convert, get
+
+        tmp_item = convert(
+            molecular_system,
+            to_form="mdtraj.Trajectory",
+            structure_indices=structure_indices,
+        )
         assignments = compute_dssp(tmp_item, simplified=simplified)
         # assignments shape: (n_frames, n_residues), dtype bytes or str
 
         # mdtraj returns bytes (b'H') — decode to str
-        if assignments.dtype.kind == 'S':
-            assignments = assignments.astype('U2')
+        if assignments.dtype.kind == "S":
+            assignments = assignments.astype("U2")
 
-        if selection != 'all':
-            group_indices = get(molecular_system, element='group', selection=selection,
-                                syntax=syntax, group_index=True)
+        if selection != "all":
+            group_indices = get(
+                molecular_system,
+                element="group",
+                selection=selection,
+                syntax=syntax,
+                group_index=True,
+            )
             flat = np.unique(np.ravel(group_indices))
             assignments = assignments[:, flat]
 
         return assignments
 
     else:
-
         raise NotImplementedMethodError()

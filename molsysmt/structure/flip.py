@@ -1,8 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
-from smonitor import signal
 import numpy as np
+from smonitor import signal
+
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
 
 
 @signal(tags=["api", "structure"])
@@ -51,8 +52,7 @@ def flip(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import get, set, select, copy
-    from molsysmt.structure import translate
+    from molsysmt.basic import copy, get, set
 
     coordinates = get(
         molecular_system,

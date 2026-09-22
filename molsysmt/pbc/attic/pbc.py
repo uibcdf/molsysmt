@@ -1,10 +1,4 @@
-from molsysmt._private.smonitor import *
-from molsysmt._private.argdigest import *
-from molsysmt.lib import box as libbox
-import numpy as np
-from molsysmt import pyunitwizard as puw
-
-#def minimum_image_convention(item, selection='all', reference_selection=None,
+# def minimum_image_convention(item, selection='all', reference_selection=None,
 #                             reference_coordinates=None, center_of_selection='geometrical_center',
 #                             center_of_reference_selection='geometrical_center', structure_indices='all',
 #                             syntax='MDTraj', engine='MolSysMT'):
@@ -74,7 +68,7 @@ from molsysmt import pyunitwizard as puw
 #
 #        raise NotImplementedError
 
-#def keep_compact_molecules_in_pbc(item, selection='all', structure_indices='all', syntax='MDTraj', engine='MolSysMT'):
+# def keep_compact_molecules_in_pbc(item, selection='all', structure_indices='all', syntax='MDTraj', engine='MolSysMT'):
 #
 #    from molsysmt import convert, select, get, duplicate
 #    from molsysmt import set as _set
@@ -133,5 +127,4 @@ from molsysmt import pyunitwizard as puw
 #    else:
 #
 #        raise NotImplementedError
-
 

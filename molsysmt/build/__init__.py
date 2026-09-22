@@ -1,3 +1,5 @@
+# Preserve public initialization order.
+# isort: off
 from .add_missing_hydrogens import add_missing_hydrogens
 from .add_missing_heavy_atoms import add_missing_heavy_atoms
 from .add_missing_terminal_cappings import add_missing_terminal_cappings
@@ -19,3 +21,4 @@ from .mutate import mutate
 from .make_water_box import make_water_box
 from .reconcile_protonation import reconcile_protonation
 from .remove_overlapping_molecules import remove_overlapping_molecules
+# isort: on

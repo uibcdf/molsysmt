@@ -37,13 +37,11 @@ JSON format
 
 from __future__ import annotations
 
-import json
-import os
-import pickle
 import gzip
+import json
+import pickle
 import sys
 from pathlib import Path
-
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -62,6 +60,7 @@ TERMINAL_DB_DIR = REPO_ROOT / "molsysmt" / "data" / "databases" / "terminal_capp
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _is_hydrogen(name: str) -> bool:
     if not name:
@@ -113,7 +112,9 @@ def get_aa_bonds_heavy(resname: str, heavy_atoms: list[str]) -> list[list[str]]:
     return bonds
 
 
-def get_terminal_bonds_heavy(resname: str, json_path: Path, heavy_atoms: list[str]) -> list[list[str]]:
+def get_terminal_bonds_heavy(
+    resname: str, json_path: Path, heavy_atoms: list[str]
+) -> list[list[str]]:
     """Return bonds between heavy atoms from a terminal_cappings JSON file."""
     with open(json_path) as fh:
         db = json.load(fh)
@@ -136,10 +137,26 @@ def get_terminal_bonds_heavy(resname: str, json_path: Path, heavy_atoms: list[st
 # ---------------------------------------------------------------------------
 
 AMINO_ACIDS_3L = {
-    "ALA", "ARG", "ASN", "ASP", "CYS",
-    "GLN", "GLU", "GLY", "HIS", "ILE",
-    "LEU", "LYS", "MET", "PHE", "PRO",
-    "SER", "THR", "TRP", "TYR", "VAL",
+    "ALA",
+    "ARG",
+    "ASN",
+    "ASP",
+    "CYS",
+    "GLN",
+    "GLU",
+    "GLY",
+    "HIS",
+    "ILE",
+    "LEU",
+    "LYS",
+    "MET",
+    "PHE",
+    "PRO",
+    "SER",
+    "THR",
+    "TRP",
+    "TYR",
+    "VAL",
 }
 
 NUCLEOTIDES = {"A", "C", "G", "U", "DA", "DC", "DG", "DT"}
@@ -192,7 +209,9 @@ def main() -> None:
         out_path = OUTPUT_DIR / f"{resname}.json"
         with open(out_path, "w") as fh:
             json.dump(template, fh, indent=2)
-        print(f"  {resname}: {len(atoms)} heavy atoms, {len(bonds)} bonds → {out_path.name}")
+        print(
+            f"  {resname}: {len(atoms)} heavy atoms, {len(bonds)} bonds → {out_path.name}"
+        )
 
     print(f"\nDone. {len(pdb_files)} templates written to {OUTPUT_DIR}")
 

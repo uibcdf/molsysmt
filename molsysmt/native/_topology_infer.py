@@ -7,7 +7,9 @@ def fallback_ids(n_items):
 
 
 def _group_atom_names(topology):
-    atom_group_indices = topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+    atom_group_indices = topology.atoms["group_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     atom_names = topology.atoms["atom_name"].to_numpy(dtype=object)
     names_by_group = {}
     for atom_name, group_index in zip(atom_names, atom_group_indices):
@@ -19,7 +21,9 @@ def _group_atom_names(topology):
 
 def infer_group_types_from_topology(topology):
     from molsysmt.element.group import get_group_type_from_group_name
-    from molsysmt.element.group.small_molecule.group_names import group_names as reserved_small_molecule_names
+    from molsysmt.element.group.small_molecule.group_names import (
+        group_names as reserved_small_molecule_names,
+    )
 
     group_names = topology.groups["group_name"].to_numpy(dtype=object)
     atom_names_by_group = _group_atom_names(topology)
@@ -27,7 +31,10 @@ def infer_group_types_from_topology(topology):
     output = []
     for group_index, group_name in enumerate(group_names):
         group_type = get_group_type_from_group_name(group_name)
-        if group_type == "small molecule" and group_name in reserved_small_molecule_names:
+        if (
+            group_type == "small molecule"
+            and group_name in reserved_small_molecule_names
+        ):
             atom_names = atom_names_by_group.get(group_index, set())
             if {"N", "CA", "C", "O", "CB"}.issubset(atom_names):
                 group_type = "amino acid"
@@ -36,7 +43,9 @@ def infer_group_types_from_topology(topology):
     return np.array(output, dtype=object)
 
 
-def project_group_type_from_topology(topology, *, element="group", redefine_types=False):
+def project_group_type_from_topology(
+    topology, *, element="group", redefine_types=False
+):
     if redefine_types or _needs_columns(topology.groups, ["group_type"]):
         tmp_topology = topology.copy()
         tmp_topology.rebuild_groups(redefine_ids=False, redefine_types=True)
@@ -49,7 +58,9 @@ def project_group_type_from_topology(topology, *, element="group", redefine_type
         return group_types.tolist()
 
     if element == "atom":
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
         return group_types[group_index_from_atom].tolist()
 
     raise NotImplementedError
@@ -67,12 +78,14 @@ def infer_component_indices_from_topology(topology):
     topology : object
         Argument topology.
     """
-    from molsysmt._private.rust_backend import get_component_index_from_bonded_atom_pairs
+    from molsysmt._private.rust_backend import (
+        get_component_index_from_bonded_atom_pairs,
+    )
 
     n_atoms = topology.n_atoms
     bonds = topology._get_chemical_state_bonds()
-    if 'joins_components' in bonds.columns:
-        participates = ~bonds['joins_components'].eq(False).fillna(False)
+    if "joins_components" in bonds.columns:
+        participates = ~bonds["joins_components"].eq(False).fillna(False)
         bonds = bonds.loc[participates]
     bonded_atom_pairs = bonds[["atom1_index", "atom2_index"]].to_numpy()
     bonded_atom_pairs = np.asarray(bonded_atom_pairs, dtype=np.int64)
@@ -103,7 +116,9 @@ def _component_index_per_group(topology):
 
 
 def infer_component_types_from_topology(topology):
-    from molsysmt.element.component.get_component_type import _get_component_type_from_group_names_and_types
+    from molsysmt.element.component.get_component_type import (
+        _get_component_type_from_group_names_and_types,
+    )
 
     component_index_of_groups = _component_index_per_group(topology)
     group_names = topology.groups["group_name"].to_numpy(dtype=object)
@@ -149,7 +164,11 @@ def infer_component_names_from_topology(topology):
             name = f"{component_type} {counters[component_type]}"
             counters[component_type] += 1
         elif component_type in ["ion", "lipid"]:
-            name = names_in_component[0] if names_in_component else f"unknown {counters['unknown']}"
+            name = (
+                names_in_component[0]
+                if names_in_component
+                else f"unknown {counters['unknown']}"
+            )
         elif component_type == "water":
             name = "water"
         else:
@@ -184,9 +203,16 @@ def infer_molecule_indices_from_topology(topology):
         Argument topology.
     """
     _CHAIN_POLYMER = frozenset(
-        {'amino acid', 'terminal capping', 'unknown', 'nucleotide', 'saccharide', 'lipid'}
+        {
+            "amino acid",
+            "terminal capping",
+            "unknown",
+            "nucleotide",
+            "saccharide",
+            "lipid",
+        }
     )
-    _STANDALONE = frozenset({'ion', 'water', 'small molecule'})
+    _STANDALONE = frozenset({"ion", "water", "small molecule"})
 
     n_groups = topology.n_groups
     if n_groups == 0:
@@ -203,7 +229,7 @@ def infer_molecule_indices_from_topology(topology):
 
     molecule_index_of_groups = np.empty(n_groups, dtype=np.int64)
     current_mol = 0
-    prev_chain = -2          # sentinel: guaranteed ≠ any real chain
+    prev_chain = -2  # sentinel: guaranteed ≠ any real chain
     prev_gtype = None
 
     for g in range(n_groups):
@@ -216,8 +242,8 @@ def infer_molecule_indices_from_topology(topology):
                 current_mol += 1
         else:
             # Chain-polymer (or completely unknown) type.
-            new_chain = (chain != prev_chain)
-            leaving_standalone = (prev_gtype in _STANDALONE)
+            new_chain = chain != prev_chain
+            leaving_standalone = prev_gtype in _STANDALONE
             if g == 0 or new_chain or leaving_standalone:
                 if g > 0:
                     current_mol += 1
@@ -245,7 +271,9 @@ def infer_molecule_types_from_topology(topology):
         _get_component_type_from_group_names_and_types,
     )
 
-    molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
+    molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     group_names = topology.groups["group_name"].to_numpy(dtype=object)
     group_types = topology.groups["group_type"].to_numpy(dtype=object)
 
@@ -270,7 +298,9 @@ def infer_molecule_names_from_topology(topology):
     topology : object
         Argument topology.
     """
-    molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
+    molecule_index_of_groups = topology.groups["molecule_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     molecule_types = topology.molecules["molecule_type"].to_numpy(dtype=object)
     group_names = topology.groups["group_name"].to_numpy(dtype=object)
 
@@ -331,7 +361,9 @@ def infer_entity_indices_from_topology(topology):
 
 
 def infer_entity_names_from_topology(topology):
-    entity_index_of_molecules = topology.molecules["entity_index"].to_numpy(dtype=np.int64, na_value=-1)
+    entity_index_of_molecules = topology.molecules["entity_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     molecule_names = topology.molecules["molecule_name"].to_numpy(dtype=object)
     molecule_types = topology.molecules["molecule_type"].to_numpy(dtype=object)
 
@@ -350,7 +382,9 @@ def infer_entity_names_from_topology(topology):
 
 
 def infer_entity_types_from_topology(topology):
-    entity_index_of_molecules = topology.molecules["entity_index"].to_numpy(dtype=np.int64, na_value=-1)
+    entity_index_of_molecules = topology.molecules["entity_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     molecule_types = topology.molecules["molecule_type"].to_numpy(dtype=object)
 
     output = np.empty(topology.n_entities, dtype=object)
@@ -380,7 +414,9 @@ def infer_chain_indices_from_topology(topology):
     if n_atoms == 0:
         return np.empty(0, dtype=np.int64)
 
-    atom_chain_index = topology.atoms["chain_index"].to_numpy(dtype=np.int64, na_value=-1)
+    atom_chain_index = topology.atoms["chain_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     if np.all(atom_chain_index < 0):
         atom_chain_index = np.zeros(n_atoms, dtype=np.int64)
     else:
@@ -405,8 +441,12 @@ def infer_chain_types_from_topology(topology):
     from molsysmt.element.molecule import _singular_molecule_type_to_plural
 
     atom_chain_index = infer_chain_indices_from_topology(topology)
-    molecule_index_from_group = topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
-    group_index_from_atom = topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+    molecule_index_from_group = topology.groups["molecule_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
+    group_index_from_atom = topology.atoms["group_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     molecule_types = topology.molecules["molecule_type"].to_numpy(dtype=object)
 
     if topology.n_chains == 1 and topology.n_molecules > 0:
@@ -424,7 +464,9 @@ def infer_chain_types_from_topology(topology):
         if len(chain_group_indices) == 0:
             output.append("unknown")
             continue
-        chain_molecule_indices = np.unique(molecule_index_from_group[chain_group_indices])
+        chain_molecule_indices = np.unique(
+            molecule_index_from_group[chain_group_indices]
+        )
         chain_molecule_indices = chain_molecule_indices[chain_molecule_indices >= 0]
         chain_molecule_types = molecule_types[chain_molecule_indices].tolist()
 
@@ -453,7 +495,6 @@ def infer_chain_types_from_topology(topology):
     return np.array(output, dtype=object)
 
 
-
 def _needs_columns(table, columns):
     for column in columns:
         if column not in table.columns:
@@ -463,9 +504,20 @@ def _needs_columns(table, columns):
     return False
 
 
-
-def prepare_topology_for_molecule_queries(topology, *, element="molecule", redefine_indices=False, redefine_names=False, redefine_types=False):
-    need_groups = redefine_indices or redefine_names or redefine_types or _needs_columns(topology.groups, ["molecule_index"])
+def prepare_topology_for_molecule_queries(
+    topology,
+    *,
+    element="molecule",
+    redefine_indices=False,
+    redefine_names=False,
+    redefine_types=False,
+):
+    need_groups = (
+        redefine_indices
+        or redefine_names
+        or redefine_types
+        or _needs_columns(topology.groups, ["molecule_index"])
+    )
     need_components = (
         redefine_indices
         or redefine_names
@@ -473,8 +525,11 @@ def prepare_topology_for_molecule_queries(topology, *, element="molecule", redef
         or topology._component_indices_are_missing()
         or _needs_columns(topology.components, ["component_type", "component_name"])
     )
-    need_molecules = redefine_indices or redefine_names or redefine_types or _needs_columns(
-        topology.molecules, ["molecule_name", "molecule_type"]
+    need_molecules = (
+        redefine_indices
+        or redefine_names
+        or redefine_types
+        or _needs_columns(topology.molecules, ["molecule_name", "molecule_type"])
     )
     need_chains = element == "chain" and (
         _needs_columns(topology.atoms, ["chain_index"])
@@ -485,7 +540,9 @@ def prepare_topology_for_molecule_queries(topology, *, element="molecule", redef
         or _needs_columns(topology.entities, ["entity_name", "entity_type"])
     )
 
-    if not any([need_groups, need_components, need_molecules, need_chains, need_entities]):
+    if not any(
+        [need_groups, need_components, need_molecules, need_chains, need_entities]
+    ):
         return topology
 
     tmp_topology = topology.copy()
@@ -527,20 +584,25 @@ def prepare_topology_for_molecule_queries(topology, *, element="molecule", redef
     return tmp_topology
 
 
-
-def project_molecule_index_from_topology(topology, *, element="molecule", redefine_indices=False):
+def project_molecule_index_from_topology(
+    topology, *, element="molecule", redefine_indices=False
+):
     tmp_topology = prepare_topology_for_molecule_queries(
         topology, element=element, redefine_indices=redefine_indices
     )
 
-    molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
+    molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
 
     if element == "group":
         return molecule_index_from_group.tolist()
     if element == "molecule":
         return list(range(tmp_topology.n_molecules))
     if element == "atom":
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
         return molecule_index_from_group[group_index_from_atom].tolist()
     if element == "component":
         component_index_from_group = _component_index_per_group(tmp_topology)
@@ -554,7 +616,9 @@ def project_molecule_index_from_topology(topology, *, element="molecule", redefi
         _adf = tmp_topology.atoms[["group_index", "chain_index"]].dropna()
         _gc = _adf.groupby("group_index", sort=False)["chain_index"].first()
         chain_index_from_group = np.full(tmp_topology.n_groups, -1, dtype=np.int64)
-        chain_index_from_group[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy(dtype=np.int64)
+        chain_index_from_group[_gc.index.to_numpy(dtype=np.int64)] = _gc.to_numpy(
+            dtype=np.int64
+        )
         output = []
         for chain_index in range(tmp_topology.n_chains):
             group_indices = np.where(chain_index_from_group == chain_index)[0]
@@ -563,14 +627,20 @@ def project_molecule_index_from_topology(topology, *, element="molecule", redefi
             output.append(chain_molecule_indices.tolist())
         return output
     if element == "entity":
-        entity_index_from_molecule = tmp_topology.molecules["entity_index"].to_numpy(dtype=np.int64, na_value=-1)
-        return [np.where(entity_index_from_molecule == entity_index)[0].tolist() for entity_index in range(tmp_topology.n_entities)]
+        entity_index_from_molecule = tmp_topology.molecules["entity_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
+        return [
+            np.where(entity_index_from_molecule == entity_index)[0].tolist()
+            for entity_index in range(tmp_topology.n_entities)
+        ]
 
     raise NotImplementedError
 
 
-
-def project_molecule_name_from_topology(topology, *, element="molecule", redefine_indices=False, redefine_names=False):
+def project_molecule_name_from_topology(
+    topology, *, element="molecule", redefine_indices=False, redefine_names=False
+):
     tmp_topology = prepare_topology_for_molecule_queries(
         topology,
         element=element,
@@ -580,14 +650,17 @@ def project_molecule_name_from_topology(topology, *, element="molecule", redefin
     molecule_names = tmp_topology.molecules["molecule_name"].to_numpy(dtype=object)
     if element == "molecule":
         return molecule_names.tolist()
-    molecule_index = project_molecule_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    molecule_index = project_molecule_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     if element in ["chain", "entity"]:
         return [[molecule_names[ii] for ii in aux] for aux in molecule_index]
     return molecule_names[np.asarray(molecule_index, dtype=np.int64)].tolist()
 
 
-
-def project_molecule_type_from_topology(topology, *, element="molecule", redefine_indices=False, redefine_types=False):
+def project_molecule_type_from_topology(
+    topology, *, element="molecule", redefine_indices=False, redefine_types=False
+):
     tmp_topology = prepare_topology_for_molecule_queries(
         topology,
         element=element,
@@ -597,14 +670,17 @@ def project_molecule_type_from_topology(topology, *, element="molecule", redefin
     molecule_types = tmp_topology.molecules["molecule_type"].to_numpy(dtype=object)
     if element == "molecule":
         return molecule_types.tolist()
-    molecule_index = project_molecule_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    molecule_index = project_molecule_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     if element in ["chain", "entity"]:
         return [[molecule_types[ii] for ii in aux] for aux in molecule_index]
     return molecule_types[np.asarray(molecule_index, dtype=np.int64)].tolist()
 
 
-
-def prepare_topology_for_entity_queries(topology, *, redefine_indices=False, redefine_names=False, redefine_types=False):
+def prepare_topology_for_entity_queries(
+    topology, *, redefine_indices=False, redefine_names=False, redefine_types=False
+):
     return prepare_topology_for_molecule_queries(
         topology,
         element="entity",
@@ -614,8 +690,9 @@ def prepare_topology_for_entity_queries(topology, *, redefine_indices=False, red
     )
 
 
-
-def project_entity_index_from_topology(topology, *, element="entity", redefine_indices=False):
+def project_entity_index_from_topology(
+    topology, *, element="entity", redefine_indices=False
+):
     tmp_topology = prepare_topology_for_entity_queries(
         topology,
         redefine_indices=redefine_indices,
@@ -623,23 +700,30 @@ def project_entity_index_from_topology(topology, *, element="entity", redefine_i
         redefine_types=False,
     )
 
-    entity_index_from_molecule = tmp_topology.molecules["entity_index"].to_numpy(dtype=np.int64, na_value=-1)
+    entity_index_from_molecule = tmp_topology.molecules["entity_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
 
     if element == "entity":
         return list(range(tmp_topology.n_entities))
     if element == "molecule":
         return entity_index_from_molecule.tolist()
     if element == "atom":
-        molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+        molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
+        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
         molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
         return entity_index_from_molecule[molecule_index_from_atom].tolist()
 
     raise NotImplementedError
 
 
-
-def project_entity_name_from_topology(topology, *, element="entity", redefine_indices=False, redefine_names=False):
+def project_entity_name_from_topology(
+    topology, *, element="entity", redefine_indices=False, redefine_names=False
+):
     tmp_topology = prepare_topology_for_entity_queries(
         topology,
         redefine_indices=redefine_indices,
@@ -652,12 +736,15 @@ def project_entity_name_from_topology(topology, *, element="entity", redefine_in
     if element == "entity":
         return entity_names.tolist()
 
-    entity_index = project_entity_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    entity_index = project_entity_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     return entity_names[np.asarray(entity_index, dtype=np.int64)].tolist()
 
 
-
-def project_entity_type_from_topology(topology, *, element="entity", redefine_indices=False, redefine_types=False):
+def project_entity_type_from_topology(
+    topology, *, element="entity", redefine_indices=False, redefine_types=False
+):
     tmp_topology = prepare_topology_for_entity_queries(
         topology,
         redefine_indices=redefine_indices,
@@ -670,13 +757,21 @@ def project_entity_type_from_topology(topology, *, element="entity", redefine_in
     if element == "entity":
         return entity_types.tolist()
 
-    entity_index = project_entity_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    entity_index = project_entity_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     return entity_types[np.asarray(entity_index, dtype=np.int64)].tolist()
 
 
-
-def prepare_topology_for_component_queries(topology, *, redefine_indices=False, redefine_names=False, redefine_types=False):
-    need_groups = redefine_indices or redefine_names or redefine_types or _needs_columns(topology.groups, ["group_type"])
+def prepare_topology_for_component_queries(
+    topology, *, redefine_indices=False, redefine_names=False, redefine_types=False
+):
+    need_groups = (
+        redefine_indices
+        or redefine_names
+        or redefine_types
+        or _needs_columns(topology.groups, ["group_type"])
+    )
     # Component membership is atom-aligned state data, never group storage.
     need_components = (
         redefine_indices
@@ -705,13 +800,16 @@ def prepare_topology_for_component_queries(topology, *, redefine_indices=False, 
     return tmp_topology
 
 
-
-def project_component_index_from_topology(topology, *, element="component", redefine_indices=False):
+def project_component_index_from_topology(
+    topology, *, element="component", redefine_indices=False
+):
     if element == "atom" and redefine_indices:
         atom_component_index = infer_component_indices_from_topology(topology)
         return atom_component_index.tolist()
 
-    tmp_topology = prepare_topology_for_component_queries(topology, redefine_indices=redefine_indices)
+    tmp_topology = prepare_topology_for_component_queries(
+        topology, redefine_indices=redefine_indices
+    )
 
     # Derive group membership from atom-aligned state data.
     component_index_from_group = _component_index_per_group(tmp_topology)
@@ -721,14 +819,17 @@ def project_component_index_from_topology(topology, *, element="component", rede
     if element == "group":
         return component_index_from_group.tolist()
     if element == "atom":
-        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(dtype=np.int64, na_value=-1)
+        group_index_from_atom = tmp_topology.atoms["group_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
         return component_index_from_group[group_index_from_atom].tolist()
 
     raise NotImplementedError
 
 
-
-def project_component_name_from_topology(topology, *, element="component", redefine_indices=False, redefine_names=False):
+def project_component_name_from_topology(
+    topology, *, element="component", redefine_indices=False, redefine_names=False
+):
     tmp_topology = prepare_topology_for_component_queries(
         topology,
         redefine_indices=redefine_indices,
@@ -741,12 +842,15 @@ def project_component_name_from_topology(topology, *, element="component", redef
     if element == "component":
         return component_names.tolist()
 
-    component_index = project_component_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    component_index = project_component_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     return component_names[np.asarray(component_index, dtype=np.int64)].tolist()
 
 
-
-def project_component_type_from_topology(topology, *, element="component", redefine_indices=False, redefine_types=False):
+def project_component_type_from_topology(
+    topology, *, element="component", redefine_indices=False, redefine_types=False
+):
     tmp_topology = prepare_topology_for_component_queries(
         topology,
         redefine_indices=redefine_indices,
@@ -759,24 +863,37 @@ def project_component_type_from_topology(topology, *, element="component", redef
     if element == "component":
         return component_types.tolist()
 
-    component_index = project_component_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    component_index = project_component_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     return component_types[np.asarray(component_index, dtype=np.int64)].tolist()
 
 
-
-def prepare_topology_for_chain_queries(topology, *, redefine_indices=False, redefine_names=False, redefine_types=False):
+def prepare_topology_for_chain_queries(
+    topology, *, redefine_indices=False, redefine_names=False, redefine_types=False
+):
     # chain_index is stable atom data; component_index is atom-aligned state data.
-    need_groups = redefine_indices or redefine_names or redefine_types or _needs_columns(topology.groups, ["molecule_index"])
+    need_groups = (
+        redefine_indices
+        or redefine_names
+        or redefine_types
+        or _needs_columns(topology.groups, ["molecule_index"])
+    )
     need_components = (
         redefine_types
         or topology._component_indices_are_missing()
         or _needs_columns(topology.components, ["component_type", "component_name"])
     )
-    need_molecules = redefine_types or _needs_columns(topology.molecules, ["molecule_name", "molecule_type"])
-    need_chains = redefine_indices or redefine_names or redefine_types or _needs_columns(
-        topology.chains, ["chain_name", "chain_type"]
-    ) or _needs_columns(topology.atoms, ["chain_index"])
-    need_entities = False
+    need_molecules = redefine_types or _needs_columns(
+        topology.molecules, ["molecule_name", "molecule_type"]
+    )
+    need_chains = (
+        redefine_indices
+        or redefine_names
+        or redefine_types
+        or _needs_columns(topology.chains, ["chain_name", "chain_type"])
+        or _needs_columns(topology.atoms, ["chain_index"])
+    )
 
     if not any([need_groups, need_components, need_molecules, need_chains]):
         return topology
@@ -812,11 +929,16 @@ def prepare_topology_for_chain_queries(topology, *, redefine_indices=False, rede
     return tmp_topology
 
 
+def project_chain_index_from_topology(
+    topology, *, element="atom", redefine_indices=False
+):
+    tmp_topology = prepare_topology_for_chain_queries(
+        topology, redefine_indices=redefine_indices
+    )
 
-def project_chain_index_from_topology(topology, *, element="atom", redefine_indices=False):
-    tmp_topology = prepare_topology_for_chain_queries(topology, redefine_indices=redefine_indices)
-
-    atom_chain_index = tmp_topology.atoms["chain_index"].to_numpy(dtype=np.int64, na_value=-1)
+    atom_chain_index = tmp_topology.atoms["chain_index"].to_numpy(
+        dtype=np.int64, na_value=-1
+    )
     # chain_index is atom-level; derive per-group from atoms (groups have no chain_index column)
     _adf = tmp_topology.atoms[["group_index", "chain_index"]].dropna()
     _gc = _adf.groupby("group_index", sort=False)["chain_index"].first()
@@ -837,27 +959,40 @@ def project_chain_index_from_topology(topology, *, element="atom", redefine_indi
                 output[component_index] = group_chain_index[group_index]
         return output.tolist()
     if element == "molecule":
-        molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(dtype=np.int64, na_value=-1)
+        molecule_index_from_group = tmp_topology.groups["molecule_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
         output = np.full(tmp_topology.n_molecules, -1, dtype=np.int64)
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             if molecule_index >= 0 and output[molecule_index] < 0:
                 output[molecule_index] = group_chain_index[group_index]
         return output.tolist()
     if element == "entity":
-        entity_index_from_molecule = tmp_topology.molecules["entity_index"].to_numpy(dtype=np.int64, na_value=-1)
-        molecule_chain_index = project_chain_index_from_topology(tmp_topology, element="molecule", redefine_indices=False)
+        entity_index_from_molecule = tmp_topology.molecules["entity_index"].to_numpy(
+            dtype=np.int64, na_value=-1
+        )
+        molecule_chain_index = project_chain_index_from_topology(
+            tmp_topology, element="molecule", redefine_indices=False
+        )
         output = []
         for entity_index in range(tmp_topology.n_entities):
             molecule_indices = np.where(entity_index_from_molecule == entity_index)[0]
-            chains = sorted(set(molecule_chain_index[ii] for ii in molecule_indices if molecule_chain_index[ii] >= 0))
+            chains = sorted(
+                set(
+                    molecule_chain_index[ii]
+                    for ii in molecule_indices
+                    if molecule_chain_index[ii] >= 0
+                )
+            )
             output.append(chains)
         return output
 
     raise NotImplementedError
 
 
-
-def project_chain_name_from_topology(topology, *, element="chain", redefine_indices=False, redefine_names=False):
+def project_chain_name_from_topology(
+    topology, *, element="chain", redefine_indices=False, redefine_names=False
+):
     tmp_topology = prepare_topology_for_chain_queries(
         topology,
         redefine_indices=redefine_indices,
@@ -867,14 +1002,17 @@ def project_chain_name_from_topology(topology, *, element="chain", redefine_indi
     chain_names = tmp_topology.chains["chain_name"].to_numpy(dtype=object)
     if element == "chain":
         return chain_names.tolist()
-    chain_index = project_chain_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    chain_index = project_chain_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     if element == "entity":
         return [[chain_names[ii] for ii in aux] for aux in chain_index]
     return chain_names[np.asarray(chain_index, dtype=np.int64)].tolist()
 
 
-
-def project_chain_type_from_topology(topology, *, element="chain", redefine_indices=False, redefine_types=False):
+def project_chain_type_from_topology(
+    topology, *, element="chain", redefine_indices=False, redefine_types=False
+):
     tmp_topology = prepare_topology_for_chain_queries(
         topology,
         redefine_indices=redefine_indices,
@@ -884,7 +1022,9 @@ def project_chain_type_from_topology(topology, *, element="chain", redefine_indi
     chain_types = tmp_topology.chains["chain_type"].to_numpy(dtype=object)
     if element == "chain":
         return chain_types.tolist()
-    chain_index = project_chain_index_from_topology(tmp_topology, element=element, redefine_indices=False)
+    chain_index = project_chain_index_from_topology(
+        tmp_topology, element=element, redefine_indices=False
+    )
     if element == "entity":
         return [[chain_types[ii] for ii in aux] for aux in chain_index]
     return chain_types[np.asarray(chain_index, dtype=np.int64)].tolist()

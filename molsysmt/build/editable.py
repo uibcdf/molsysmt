@@ -27,4 +27,6 @@ def editable(molecular_system=None, skip_digestion=False):
     if molecular_system is None:
         return MolSysBuilder(skip_digestion=True)
 
-    return convert(molecular_system, to_form="molsysmt.MolSysBuilder", skip_digestion=True)
+    return convert(
+        molecular_system, to_form="molsysmt.MolSysBuilder", skip_digestion=True
+    )

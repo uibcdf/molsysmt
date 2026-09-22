@@ -1,6 +1,5 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
-import numpy as np
+
 
 @arg_digest()
 def get_shape_from_box(box, skip_digestion=False):
@@ -30,6 +29,5 @@ def get_shape_from_box(box, skip_digestion=False):
     if box is None:
         return None
     else:
-
         angles = get_angles_from_box(box, skip_digestion=True)
         return get_shape_from_angles(angles, skip_digestion=True)

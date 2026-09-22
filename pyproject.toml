@@ -173,16 +173,13 @@ include = ["*.py", "*.pyi"]
 extend-exclude = [
     "ACKREDIT_GUIDE.md",
     "ARGDIGEST_GUIDE.md",
-    # Temporary migration boundary: the shared full Ruff gate starts with current
-    # maintenance tooling and the add-on. The existing critical-rule workflow still
-    # checks the core package explicitly. Remove these path-by-path under #212.
+    # Temporary migration boundary for paths still being cleaned under #212.
     "benchmarks",
     "DEPDIGEST_GUIDE.md",
     "devguide",
     "docs",
     "GH_RUN_RECEPTOR_GUIDE.md",
     "memory",
-    "molsysmt",
     "MOLSYSSUITE_GUIDE.md",
     "paper",
     "PYUNITWIZARD_GUIDE.md",

@@ -16,10 +16,11 @@ Public API (internal use only):
 """
 
 from __future__ import annotations
+
 import json
+
 import numpy as np
 import pandas as pd
-
 
 # ---------------------------------------------------------------------------
 # Template loader
@@ -41,7 +42,10 @@ def load_residue_template(group_name: str) -> dict | None:
         return _template_cache[group_name]
     try:
         from importlib.resources import files
-        data = files("molsysmt.data.databases.residue_templates").joinpath(f"{group_name}.json")
+
+        data = files("molsysmt.data.databases.residue_templates").joinpath(
+            f"{group_name}.json"
+        )
         template = json.loads(data.read_text())
     except Exception:
         template = None
@@ -53,12 +57,13 @@ def load_residue_template(group_name: str) -> dict | None:
 # Bonds sort utility (works on any DataFrame, not only Bonds_DataFrame)
 # ---------------------------------------------------------------------------
 
+
 def _sort_bonds_inplace(bonds_df):
     """Sort bond pairs so atom1_index <= atom2_index, then sort by (atom1, atom2)."""
     mask = bonds_df["atom1_index"] > bonds_df["atom2_index"]
-    bonds_df.loc[mask, ["atom1_index", "atom2_index"]] = (
-        bonds_df.loc[mask, ["atom2_index", "atom1_index"]].values
-    )
+    bonds_df.loc[mask, ["atom1_index", "atom2_index"]] = bonds_df.loc[
+        mask, ["atom2_index", "atom1_index"]
+    ].values
     bonds_df.sort_values(by=["atom1_index", "atom2_index"], inplace=True)
     bonds_df.reset_index(drop=True, inplace=True)
 
@@ -66,6 +71,7 @@ def _sort_bonds_inplace(bonds_df):
 # ---------------------------------------------------------------------------
 # Kabsch placement of missing atoms within an existing group
 # ---------------------------------------------------------------------------
+
 
 def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, template):
     """
@@ -112,9 +118,9 @@ def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, templa
     if not common:
         return {}
 
-    struct_idxs  = [c[0] for c in common]
-    tmpl_idxs    = [c[1] for c in common]
-    P_template   = template_coords[tmpl_idxs].astype(np.float64)   # (k, 3)
+    struct_idxs = [c[0] for c in common]
+    tmpl_idxs = [c[1] for c in common]
+    P_template = template_coords[tmpl_idxs].astype(np.float64)  # (k, 3)
 
     n_structures = all_coords_nm.shape[0]
     result = {}
@@ -122,17 +128,22 @@ def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, templa
     for missing_name in missing_names:
         if missing_name not in template_name_to_idx:
             continue
-        t_pos = template_coords[template_name_to_idx[missing_name]]   # (3,)
+        t_pos = template_coords[template_name_to_idx[missing_name]]  # (3,)
         atom_coords = np.empty((n_structures, 3), dtype=np.float64)
 
         for frame in range(n_structures):
-            P_struct = all_coords_nm[frame, struct_idxs, :].astype(np.float64)   # (k, 3)
+            P_struct = all_coords_nm[frame, struct_idxs, :].astype(np.float64)  # (k, 3)
             # kernel(coordinates=mobile, reference_coordinates=reference)
             # We want to map template → structure, so template=mobile, struct=reference
-            center_rot, rotation, translation = \
-                get_least_rmsd_rotation_and_translation_single_structure(P_template, P_struct)
+            center_rot, rotation, translation = (
+                get_least_rmsd_rotation_and_translation_single_structure(
+                    P_template, P_struct
+                )
+            )
             # new_pos = R @ (t_pos - c_mob) + c_mob + t = R @ (t_pos - c_tmpl) + c_struct
-            atom_coords[frame] = rotation @ (t_pos - center_rot) + center_rot + translation
+            atom_coords[frame] = (
+                rotation @ (t_pos - center_rot) + center_rot + translation
+            )
 
         result[missing_name] = atom_coords
 
@@ -142,6 +153,7 @@ def place_missing_in_group(topo, all_coords_nm, group_idx, missing_names, templa
 # ---------------------------------------------------------------------------
 # Append atoms to an existing native MolSys (no group-index changes)
 # ---------------------------------------------------------------------------
+
 
 def _remap_alternate_locations(series, old_to_new):
     """Re-key an alternate-location series after the atom order changed.
@@ -155,12 +167,15 @@ def _remap_alternate_locations(series, old_to_new):
         if not entry:
             remapped.append({})
             continue
-        remapped.append({old_to_new.get(int(key), int(key)): value
-                         for key, value in entry.items()})
+        remapped.append(
+            {old_to_new.get(int(key), int(key)): value for key, value in entry.items()}
+        )
     return remapped
 
 
-def carry_structures_through_atom_change(structs, new_coordinates_nm, old_to_new, caller):
+def carry_structures_through_atom_change(
+    structs, new_coordinates_nm, old_to_new, caller
+):
     """Return the structural block for a system whose atom axis has just changed.
 
     `coordinates` is the one atom-aligned series the placers can rebuild, because they
@@ -182,12 +197,12 @@ def carry_structures_through_atom_change(structs, new_coordinates_nm, old_to_new
 
     from warnings import warn
 
+    from molsysmt import pyunitwizard as puw
     from molsysmt._private.smonitor import StructuralAttributeDropWarning
     from molsysmt.native.structures import (
         _ATOM_ALIGNED_ATTRIBUTES,
         _SYSTEM_LEVEL_OBSERVABLES,
     )
-    from molsysmt import pyunitwizard as puw
 
     new_structs = structs.copy()
     new_structs.coordinates = puw.quantity(new_coordinates_nm, "nm")
@@ -209,11 +224,14 @@ def carry_structures_through_atom_change(structs, new_coordinates_nm, old_to_new
     # labels survive the operation and only the keys need to follow the reordering.
     if new_structs.alternate_location is not None and old_to_new:
         new_structs.alternate_location = _remap_alternate_locations(
-            new_structs.alternate_location, old_to_new)
+            new_structs.alternate_location, old_to_new
+        )
 
     if dropped:
-        warn(StructuralAttributeDropWarning(attributes=dropped, caller=caller),
-             stacklevel=3)
+        warn(
+            StructuralAttributeDropWarning(attributes=dropped, caller=caller),
+            stacklevel=3,
+        )
 
     return new_structs
 
@@ -236,38 +254,39 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     -------
     molsysmt.MolSys
     """
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.element.atom import get_atom_type_from_atom_name
     from molsysmt.native import MolSys, Topology
     from molsysmt.native.topology import Bonds_DataFrame
-    from molsysmt.element.atom import get_atom_type_from_atom_name
-    from molsysmt import pyunitwizard as puw
 
-    topo    = native_molsys.topology
+    topo = native_molsys.topology
     structs = native_molsys.structures
-    n_orig  = topo.n_atoms
+    n_orig = topo.n_atoms
     component_indices = topo._get_component_indices()
 
-    all_coords = puw.get_value(structs.coordinates, to_unit="nm")   # (n_s, n_a, 3)
-    n_structures = all_coords.shape[0]
+    all_coords = puw.get_value(structs.coordinates, to_unit="nm")  # (n_s, n_a, 3)
 
     # --- Build new atom rows ---
-    new_rows       = []
+    new_rows = []
     new_coords_list = []
 
     for group_idx, atom_name, atom_coords in new_atom_info:
         new_atom_idx = n_orig + len(new_rows)
         group_mask = topo.atoms["group_index"] == group_idx
-        first_row  = topo.atoms[group_mask].iloc[0]
-        comp_idx   = component_indices.loc[group_mask].iloc[0]
-        chain_idx  = first_row["chain_index"]
+        first_row = topo.atoms[group_mask].iloc[0]
+        comp_idx = component_indices.loc[group_mask].iloc[0]
+        chain_idx = first_row["chain_index"]
 
-        new_rows.append({
-            "atom_id":        str(new_atom_idx),
-            "atom_name":      atom_name,
-            "atom_type":      get_atom_type_from_atom_name(atom_name),
-            "group_index":    group_idx,
-            "component_index": comp_idx,
-            "chain_index":    chain_idx,
-        })
+        new_rows.append(
+            {
+                "atom_id": str(new_atom_idx),
+                "atom_name": atom_name,
+                "atom_type": get_atom_type_from_atom_name(atom_name),
+                "group_index": group_idx,
+                "component_index": comp_idx,
+                "chain_index": chain_idx,
+            }
+        )
         new_coords_list.append(atom_coords)
 
     # --- Build new topology ---
@@ -277,10 +296,10 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
         [base_atoms, pd.DataFrame(new_rows)],
         ignore_index=True,
     )
-    new_atoms["group_index"]     = new_atoms["group_index"].astype("Int64")
+    new_atoms["group_index"] = new_atoms["group_index"].astype("Int64")
     new_atoms["component_index"] = new_atoms["component_index"].astype("Int64")
-    new_atoms["chain_index"]     = new_atoms["chain_index"].astype("Int64")
-    new_atoms["atom_id"]         = new_atoms["atom_id"].astype("string")
+    new_atoms["chain_index"] = new_atoms["chain_index"].astype("Int64")
+    new_atoms["atom_id"] = new_atoms["atom_id"].astype("string")
 
     # Sort atoms by group_index so that atoms of each residue are contiguous.
     # This is required by OpenMM and is good practice in general.
@@ -291,7 +310,7 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
     new_atoms = new_atoms.iloc[new_order].reset_index(drop=True)
     # Also reorder coordinates accordingly
     if new_coords_list:
-        extra_coords = np.stack(new_coords_list, axis=1)        # (n_s, n_new, 3)
+        extra_coords = np.stack(new_coords_list, axis=1)  # (n_s, n_new, 3)
         all_coords_combined = np.concatenate([all_coords, extra_coords], axis=1)
     else:
         all_coords_combined = all_coords.copy()
@@ -299,13 +318,13 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
 
     new_component_indices = new_atoms["component_index"].copy()
     new_topo = Topology(n_atoms=len(new_atoms), skip_digestion=True)
-    new_topo.atoms     = new_atoms.drop(columns="component_index")
+    new_topo.atoms = new_atoms.drop(columns="component_index")
     new_topo._set_component_indices(new_component_indices)
-    new_topo.groups    = topo.groups.copy()
+    new_topo.groups = topo.groups.copy()
     new_topo.components = topo.components.copy()
-    new_topo.molecules  = topo.molecules.copy()
-    new_topo.entities   = topo.entities.copy()
-    new_topo.chains     = topo.chains.copy()
+    new_topo.molecules = topo.molecules.copy()
+    new_topo.entities = topo.entities.copy()
+    new_topo.chains = topo.chains.copy()
 
     # Build new bonds: first combine old bonds and new bonds, then remap indices.
     bonds_copy = topo._get_chemical_state_bonds().copy()
@@ -325,10 +344,13 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
 
     # --- Assemble new MolSys ---
     new_molsys = MolSys()
-    new_molsys.topology   = new_topo
+    new_molsys.topology = new_topo
     new_molsys.structures = carry_structures_through_atom_change(
-        structs, new_all_coords, old_to_new,
-        caller="molsysmt.build._native_placers.append_atoms_to_molsys")
+        structs,
+        new_all_coords,
+        old_to_new,
+        caller="molsysmt.build._native_placers.append_atoms_to_molsys",
+    )
 
     return new_molsys
 
@@ -336,6 +358,7 @@ def append_atoms_to_molsys(native_molsys, new_atom_info, new_bonds_info):
 # ---------------------------------------------------------------------------
 # Geometric placement helpers
 # ---------------------------------------------------------------------------
+
 
 def _normalize(v):
     n = np.linalg.norm(v)
@@ -373,19 +396,19 @@ def place_oxt_atom(C_pos, CA_pos, O_pos, n_structures):
     """
     coords = np.empty((n_structures, 3), dtype=np.float64)
     for s in range(n_structures):
-        C  = C_pos[s]
+        C = C_pos[s]
         CA = CA_pos[s]
-        O  = O_pos[s]
+        oxygen = O_pos[s]
         # Unit vector along C→CA
         v_CCA = CA - C
         norm = np.linalg.norm(v_CCA)
         if norm < 1e-12:
-            coords[s] = O.copy()
+            coords[s] = oxygen.copy()
             continue
         v_CCA = v_CCA / norm
         # Mirror O through the line through C in direction v_CCA
-        O_rel = O - C
-        proj = np.dot(O_rel, v_CCA) * v_CCA   # projection of O_rel onto C-CA axis
+        O_rel = oxygen - C
+        proj = np.dot(O_rel, v_CCA) * v_CCA  # projection of O_rel onto C-CA axis
         OXT_rel = 2.0 * proj - O_rel
         coords[s] = C + OXT_rel
     return coords
@@ -413,23 +436,29 @@ def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):
     -------
     dict  {atom_name: ndarray(n_structures, 3)}
     """
-    template_atoms  = template["atoms"]
+    template_atoms = template["atoms"]
     template_coords = np.asarray(template["coords_nm"], dtype=np.float64)
     tname2idx = {n: i for i, n in enumerate(template_atoms)}
 
     # Bond lengths from template
-    r_C_O   = float(np.linalg.norm(
-        template_coords[tname2idx["C"]] - template_coords[tname2idx["O"]]
-    ))
-    r_C_CH3 = float(np.linalg.norm(
-        template_coords[tname2idx["C"]] - template_coords[tname2idx["CH3"]]
-    ))
+    r_C_O = float(
+        np.linalg.norm(
+            template_coords[tname2idx["C"]] - template_coords[tname2idx["O"]]
+        )
+    )
+    r_C_CH3 = float(
+        np.linalg.norm(
+            template_coords[tname2idx["C"]] - template_coords[tname2idx["CH3"]]
+        )
+    )
 
-    result = {name: np.empty((n_structures, 3), dtype=np.float64) for name in template_atoms}
+    result = {
+        name: np.empty((n_structures, 3), dtype=np.float64) for name in template_atoms
+    }
 
     for frame in range(n_structures):
-        N    = N_pos[frame]
-        CA   = CA_pos[frame]
+        N = N_pos[frame]
+        CA = CA_pos[frame]
         C_res = C_pos[frame]
 
         v_NCA = _normalize(CA - N)
@@ -441,7 +470,11 @@ def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):
         # Perpendicular component of C_res relative to N-CA axis
         C_perp = _normalize(_perpendicular_component(C_res - N, v_NCA))
         if C_perp is None:
-            fallback = np.array([1.0, 0.0, 0.0]) if abs(v_NCA[0]) < 0.9 else np.array([0.0, 1.0, 0.0])
+            fallback = (
+                np.array([1.0, 0.0, 0.0])
+                if abs(v_NCA[0]) < 0.9
+                else np.array([0.0, 1.0, 0.0])
+            )
             C_perp = _normalize(_perpendicular_component(fallback, v_NCA))
 
         # Trans omega: C_ACE anti to C_res → use -C_perp
@@ -451,8 +484,8 @@ def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):
         C_ACE = N + 0.133 * v_N_to_CACE
 
         # Sp2 plane at C_ACE: defined by C_ACE, N_res0, CA_res0
-        v_CN      = _normalize(N - C_ACE)          # C_ACE → N direction
-        n_plane   = _normalize(np.cross(N - C_ACE, CA - C_ACE))
+        v_CN = _normalize(N - C_ACE)  # C_ACE → N direction
+        n_plane = _normalize(np.cross(N - C_ACE, CA - C_ACE))
         if n_plane is None or v_CN is None:
             for name in template_atoms:
                 result[name][frame] = C_ACE
@@ -467,15 +500,17 @@ def place_ace_group(N_pos, CA_pos, C_pos, template, n_structures):
         # CH3: 120° from N, trans to CA (anti v_perp)
         cos120 = np.cos(np.deg2rad(120.0))
         sin120 = np.sin(np.deg2rad(120.0))
-        v_O   = cos120 * v_CN + sin120 * v_perp
+        v_O = cos120 * v_CN + sin120 * v_perp
         v_CH3 = cos120 * v_CN - sin120 * v_perp
 
-        result["C"][frame]   = C_ACE
-        result["O"][frame]   = C_ACE + r_C_O   * v_O
+        result["C"][frame] = C_ACE
+        result["O"][frame] = C_ACE + r_C_O * v_O
         result["CH3"][frame] = C_ACE + r_C_CH3 * v_CH3
 
     # Add methyl H atoms: three H atoms around CH3, sp3, neighbour = C
-    h_arrays = place_hydrogens_on_parent(result["CH3"], [result["C"]], 3, 'sp3', h_bond_length('C'), n_structures)
+    h_arrays = place_hydrogens_on_parent(
+        result["CH3"], [result["C"]], 3, "sp3", h_bond_length("C"), n_structures
+    )
     result["HH31"] = h_arrays[0]
     result["HH32"] = h_arrays[1]
     result["HH33"] = h_arrays[2]
@@ -505,23 +540,27 @@ def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
     -------
     dict  {atom_name: ndarray(n_structures, 3)}
     """
-    template_atoms  = template["atoms"]
+    template_atoms = template["atoms"]
     template_coords = np.asarray(template["coords_nm"], dtype=np.float64)
     tname2idx = {n: i for i, n in enumerate(template_atoms)}
 
     # NME bond length N-C from template
-    r_NC = float(np.linalg.norm(
-        template_coords[tname2idx["N"]] - template_coords[tname2idx["C"]]
-    ))
+    r_NC = float(
+        np.linalg.norm(
+            template_coords[tname2idx["N"]] - template_coords[tname2idx["C"]]
+        )
+    )
 
-    result = {name: np.empty((n_structures, 3), dtype=np.float64) for name in template_atoms}
+    result = {
+        name: np.empty((n_structures, 3), dtype=np.float64) for name in template_atoms
+    }
 
     for frame in range(n_structures):
-        C     = C_pos[frame]
-        CA    = CA_pos[frame]
+        C = C_pos[frame]
+        CA = CA_pos[frame]
         N_last = N_pos_last[frame]
 
-        v_CAC = _normalize(C - CA)      # CA → C direction
+        v_CAC = _normalize(C - CA)  # CA → C direction
         if v_CAC is None:
             for name in template_atoms:
                 result[name][frame] = C
@@ -530,7 +569,11 @@ def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
         # N_last perpendicular to CA→C axis at C
         N_perp = _normalize(_perpendicular_component(N_last - C, v_CAC))
         if N_perp is None:
-            fallback = np.array([1.0, 0.0, 0.0]) if abs(v_CAC[0]) < 0.9 else np.array([0.0, 1.0, 0.0])
+            fallback = (
+                np.array([1.0, 0.0, 0.0])
+                if abs(v_CAC[0]) < 0.9
+                else np.array([0.0, 1.0, 0.0])
+            )
             N_perp = _normalize(_perpendicular_component(fallback, v_CAC))
 
         # Trans omega: N_NME anti to N_last → use -N_perp
@@ -542,7 +585,7 @@ def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
         N_NME = C + 0.133 * v_C_to_NNME
 
         # C_NME: bonded to N_NME, in the peptide plane, trans to CA
-        v_NC    = _normalize(C - N_NME)       # N_NME → C direction
+        v_NC = _normalize(C - N_NME)  # N_NME → C direction
         n_plane = _normalize(np.cross(C - N_NME, CA - N_NME))
         if n_plane is None or v_NC is None:
             result["N"][frame] = N_NME
@@ -557,16 +600,20 @@ def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
         cos120 = np.cos(np.deg2rad(120.0))
         sin120 = np.sin(np.deg2rad(120.0))
         v_CNME = cos120 * v_NC + sin120 * v_perp
-        C_NME  = N_NME + r_NC * v_CNME
+        C_NME = N_NME + r_NC * v_CNME
 
         result["N"][frame] = N_NME
         result["C"][frame] = C_NME
 
     # Add H on N: neighbours are C (methyl) and C_pos (last-residue C)
-    h_N = place_hydrogens_on_parent(result["N"], [result["C"], C_pos], 1, 'sp3', h_bond_length('N'), n_structures)
+    h_N = place_hydrogens_on_parent(
+        result["N"], [result["C"], C_pos], 1, "sp3", h_bond_length("N"), n_structures
+    )
     result["H"] = h_N[0]
     # Add methyl H atoms on C: neighbour is N
-    h_C = place_hydrogens_on_parent(result["C"], [result["N"]], 3, 'sp3', h_bond_length('C'), n_structures)
+    h_C = place_hydrogens_on_parent(
+        result["C"], [result["N"]], 3, "sp3", h_bond_length("C"), n_structures
+    )
     result["H1"] = h_C[0]
     result["H2"] = h_C[1]
     result["H3"] = h_C[2]
@@ -577,6 +624,7 @@ def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
 # ---------------------------------------------------------------------------
 # Full topology rebuild — used when new groups are inserted
 # ---------------------------------------------------------------------------
+
 
 def rebuild_molsys_with_new_groups(
     native_molsys,
@@ -603,55 +651,62 @@ def rebuild_molsys_with_new_groups(
     -------
     molsysmt.MolSys
     """
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.element.atom import get_atom_type_from_atom_name
     from molsysmt.native import MolSys, Topology
     from molsysmt.native.topology import Bonds_DataFrame
-    from molsysmt.element.atom import get_atom_type_from_atom_name
-    from molsysmt import pyunitwizard as puw
 
-    topo    = native_molsys.topology
+    topo = native_molsys.topology
     structs = native_molsys.structures
-    n_structures = structs.n_structures
     component_indices = topo._get_component_indices()
 
-    all_coords = puw.get_value(structs.coordinates, to_unit="nm")   # (n_s, n_orig, 3)
+    all_coords = puw.get_value(structs.coordinates, to_unit="nm")  # (n_s, n_orig, 3)
 
     # group_idx → molecule_idx (via group → molecule_index in groups DataFrame)
     group_to_mol = {}
     for g in range(topo.n_groups):
-        mol_idx = topo.groups.loc[g, "molecule_index"] if g < len(topo.groups) else pd.NA
+        mol_idx = (
+            topo.groups.loc[g, "molecule_index"] if g < len(topo.groups) else pd.NA
+        )
         group_to_mol[g] = mol_idx
 
     first_group_of_mol = {m: fg for m, (fg, _) in mol_group_ranges.items()}
-    last_group_of_mol  = {m: lg for m, (_, lg) in mol_group_ranges.items()}
+    last_group_of_mol = {m: lg for m, (_, lg) in mol_group_ranges.items()}
 
     # Running lists for the new topology
-    new_atom_rows   = []     # list of dicts
-    new_atom_coords = []     # list of ndarray(n_structures, 3)
-    old_to_new_atom = {}     # old_atom_idx → new_atom_idx
+    new_atom_rows = []  # list of dicts
+    new_atom_coords = []  # list of ndarray(n_structures, 3)
+    old_to_new_atom = {}  # old_atom_idx → new_atom_idx
 
-    new_group_rows         = []   # list of dicts
-    new_group_to_old_group = {}   # new_g → old_g (or None for inserted)
-    new_group_mol          = []   # new_g → mol_idx
+    new_group_rows = []  # list of dicts
+    new_group_to_old_group = {}  # new_g → old_g (or None for inserted)
+    new_group_mol = []  # new_g → mol_idx
 
-    def _add_group_from_dict(group_name, group_id, group_type, atoms_dict, comp_idx, chain_idx, mol_idx):
+    def _add_group_from_dict(
+        group_name, group_id, group_type, atoms_dict, comp_idx, chain_idx, mol_idx
+    ):
         """Append an entirely new group (ACE or NME) from a name→coords dict."""
         new_g = len(new_group_rows)
         for atom_name, atom_coords_arr in atoms_dict.items():
             new_idx = len(new_atom_rows)
-            new_atom_rows.append({
-                "atom_id":         str(new_idx),
-                "atom_name":       atom_name,
-                "atom_type":       get_atom_type_from_atom_name(atom_name),
-                "group_index":     new_g,
-                "component_index": comp_idx,
-                "chain_index":     chain_idx,
-            })
-            new_atom_coords.append(atom_coords_arr)   # (n_structures, 3)
-        new_group_rows.append({
-            "group_id":    str(group_id),
-            "group_name":  group_name,
-            "group_type":  group_type if group_type else pd.NA,
-        })
+            new_atom_rows.append(
+                {
+                    "atom_id": str(new_idx),
+                    "atom_name": atom_name,
+                    "atom_type": get_atom_type_from_atom_name(atom_name),
+                    "group_index": new_g,
+                    "component_index": comp_idx,
+                    "chain_index": chain_idx,
+                }
+            )
+            new_atom_coords.append(atom_coords_arr)  # (n_structures, 3)
+        new_group_rows.append(
+            {
+                "group_id": str(group_id),
+                "group_name": group_name,
+                "group_type": group_type if group_type else pd.NA,
+            }
+        )
         new_group_to_old_group[new_g] = None
         new_group_mol.append(mol_idx)
 
@@ -662,12 +717,19 @@ def rebuild_molsys_with_new_groups(
         if mol_idx is not pd.NA and mol_idx in extra_groups_before:
             if first_group_of_mol.get(mol_idx) == g:
                 cap_name, cap_atoms = extra_groups_before[mol_idx]
-                gmask     = topo.atoms["group_index"] == g
+                gmask = topo.atoms["group_index"] == g
                 first_row = topo.atoms[gmask].iloc[0]
                 chain_idx = first_row["chain_index"]
-                comp_idx  = component_indices.loc[gmask].iloc[0]
-                _add_group_from_dict(cap_name, str(len(new_group_rows)), "terminal capping",
-                                     cap_atoms, comp_idx, chain_idx, mol_idx)
+                comp_idx = component_indices.loc[gmask].iloc[0]
+                _add_group_from_dict(
+                    cap_name,
+                    str(len(new_group_rows)),
+                    "terminal capping",
+                    cap_atoms,
+                    comp_idx,
+                    chain_idx,
+                    mol_idx,
+                )
 
         # Add the original group
         orig_g_new = len(new_group_rows)
@@ -683,10 +745,10 @@ def rebuild_molsys_with_new_groups(
             row["group_index"] = orig_g_new
             row["component_index"] = component_indices.iloc[int(old_idx)]
             new_atom_rows.append(row)
-            new_atom_coords.append(all_coords[:, int(old_idx), :])   # (n_structures, 3)
+            new_atom_coords.append(all_coords[:, int(old_idx), :])  # (n_structures, 3)
 
         grow = topo.groups.iloc[g].to_dict()
-        grow.pop("molecule_index", None)   # will be re-added below
+        grow.pop("molecule_index", None)  # will be re-added below
         new_group_rows.append(grow)
         new_group_to_old_group[orig_g_new] = g
         new_group_mol.append(mol_idx)
@@ -695,22 +757,28 @@ def rebuild_molsys_with_new_groups(
         if mol_idx is not pd.NA and mol_idx in extra_groups_after:
             if last_group_of_mol.get(mol_idx) == g:
                 cap_name, cap_atoms = extra_groups_after[mol_idx]
-                gmask     = topo.atoms["group_index"] == g
-                last_row  = topo.atoms[gmask].iloc[-1]
+                gmask = topo.atoms["group_index"] == g
+                last_row = topo.atoms[gmask].iloc[-1]
                 chain_idx = last_row["chain_index"]
-                comp_idx  = component_indices.loc[gmask].iloc[-1]
-                _add_group_from_dict(cap_name, str(len(new_group_rows)), "terminal capping",
-                                     cap_atoms, comp_idx, chain_idx, mol_idx)
+                comp_idx = component_indices.loc[gmask].iloc[-1]
+                _add_group_from_dict(
+                    cap_name,
+                    str(len(new_group_rows)),
+                    "terminal capping",
+                    cap_atoms,
+                    comp_idx,
+                    chain_idx,
+                    mol_idx,
+                )
 
-    n_new_atoms  = len(new_atom_rows)
     n_new_groups = len(new_group_rows)
 
     # --- Atoms DataFrame ---
     atoms_df = pd.DataFrame(new_atom_rows)
-    atoms_df["group_index"]     = atoms_df["group_index"].astype("Int64")
+    atoms_df["group_index"] = atoms_df["group_index"].astype("Int64")
     atoms_df["component_index"] = atoms_df["component_index"].astype("Int64")
-    atoms_df["chain_index"]     = atoms_df["chain_index"].astype("Int64")
-    atoms_df["atom_id"]         = atoms_df["atom_id"].astype("string")
+    atoms_df["chain_index"] = atoms_df["chain_index"].astype("Int64")
+    atoms_df["atom_id"] = atoms_df["atom_id"].astype("string")
 
     # --- Groups DataFrame (re-attach molecule_index) ---
     old_group_mol = topo.groups["molecule_index"].to_dict()
@@ -725,7 +793,7 @@ def rebuild_molsys_with_new_groups(
             mol_col.append(m if m is not pd.NA else pd.NA)
     groups_df = pd.DataFrame(new_group_rows, index=range(n_new_groups))
     groups_df["molecule_index"] = pd.array(mol_col, dtype="Int64")
-    groups_df["group_id"]       = groups_df["group_id"].astype("string")
+    groups_df["group_id"] = groups_df["group_id"].astype("string")
 
     # --- Remap existing bonds ---
     new_bonds_rows = []
@@ -735,8 +803,12 @@ def rebuild_molsys_with_new_groups(
         if o1 in old_to_new_atom and o2 in old_to_new_atom:
             remapped_row = brow.to_dict()
             for column in (
-                "atom1_index", "atom2_index", "stereo_atom1_index",
-                "stereo_atom2_index", "donor_atom_index", "acceptor_atom_index",
+                "atom1_index",
+                "atom2_index",
+                "stereo_atom1_index",
+                "stereo_atom2_index",
+                "donor_atom_index",
+                "acceptor_atom_index",
             ):
                 value = remapped_row.get(column, pd.NA)
                 if pd.notna(value):
@@ -747,7 +819,9 @@ def rebuild_molsys_with_new_groups(
                 if column in remapped_row
             ):
                 for column in (
-                    "stereo_atom1_index", "stereo_atom2_index", "stereochemistry"
+                    "stereo_atom1_index",
+                    "stereo_atom2_index",
+                    "stereochemistry",
                 ):
                     if column in remapped_row:
                         remapped_row[column] = pd.NA
@@ -762,64 +836,75 @@ def rebuild_molsys_with_new_groups(
 
     for new_g in range(n_new_groups):
         if new_group_to_old_group.get(new_g) is not None:
-            continue   # original group
+            continue  # original group
         cap_name = new_group_rows[new_g]["group_name"]
-        cap_n2i  = _name_to_idx_for_group(new_g)
+        cap_n2i = _name_to_idx_for_group(new_g)
 
         # Intra-group bonds from template
         tmpl = load_residue_template(cap_name)
         if tmpl:
             for b1, b2 in tmpl["bonds"]:
                 if b1 in cap_n2i and b2 in cap_n2i:
-                    new_bonds_rows.append({
-                        "atom1_index": cap_n2i[b1],
-                        "atom2_index": cap_n2i[b2],
-                    })
+                    new_bonds_rows.append(
+                        {
+                            "atom1_index": cap_n2i[b1],
+                            "atom2_index": cap_n2i[b2],
+                        }
+                    )
 
         # Inter-group peptide bond
         if cap_name == "ACE" and new_g + 1 < n_new_groups:
             next_n2i = _name_to_idx_for_group(new_g + 1)
             if "C" in cap_n2i and "N" in next_n2i:
-                new_bonds_rows.append({
-                    "atom1_index": cap_n2i["C"],
-                    "atom2_index": next_n2i["N"],
-                })
+                new_bonds_rows.append(
+                    {
+                        "atom1_index": cap_n2i["C"],
+                        "atom2_index": next_n2i["N"],
+                    }
+                )
         elif cap_name == "NME" and new_g - 1 >= 0:
             prev_n2i = _name_to_idx_for_group(new_g - 1)
             if "C" in prev_n2i and "N" in cap_n2i:
-                new_bonds_rows.append({
-                    "atom1_index": prev_n2i["C"],
-                    "atom2_index": cap_n2i["N"],
-                })
+                new_bonds_rows.append(
+                    {
+                        "atom1_index": prev_n2i["C"],
+                        "atom2_index": cap_n2i["N"],
+                    }
+                )
 
     # Build bonds DataFrame
-    bonds_df = pd.DataFrame(new_bonds_rows) if new_bonds_rows else Bonds_DataFrame(n_bonds=0)
+    bonds_df = (
+        pd.DataFrame(new_bonds_rows) if new_bonds_rows else Bonds_DataFrame(n_bonds=0)
+    )
     if new_bonds_rows:
         bonds_df["atom1_index"] = bonds_df["atom1_index"].astype("Int64")
         bonds_df["atom2_index"] = bonds_df["atom2_index"].astype("Int64")
         _sort_bonds_inplace(bonds_df)
 
     # --- Coordinates ---
-    new_coords = np.stack(new_atom_coords, axis=1)   # (n_structures, n_new_atoms, 3)
+    new_coords = np.stack(new_atom_coords, axis=1)  # (n_structures, n_new_atoms, 3)
 
     # --- Assemble Topology ---
     new_topo = Topology(n_atoms=len(atoms_df), skip_digestion=True)
     new_component_indices = atoms_df["component_index"].copy()
-    new_topo.atoms      = atoms_df.drop(columns="component_index")
+    new_topo.atoms = atoms_df.drop(columns="component_index")
     new_topo._set_component_indices(new_component_indices)
-    new_topo.groups     = groups_df
+    new_topo.groups = groups_df
     new_topo.components = topo.components.copy()
-    new_topo.molecules  = topo.molecules.copy()
-    new_topo.entities   = topo.entities.copy()
-    new_topo.chains     = topo.chains.copy()
+    new_topo.molecules = topo.molecules.copy()
+    new_topo.entities = topo.entities.copy()
+    new_topo.chains = topo.chains.copy()
     new_topo._set_chemical_state_bonds(bonds_df)
 
     # --- Assemble MolSys ---
     new_molsys = MolSys()
-    new_molsys.topology   = new_topo
+    new_molsys.topology = new_topo
     new_molsys.structures = carry_structures_through_atom_change(
-        structs, new_coords, old_to_new_atom,
-        caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups")
+        structs,
+        new_coords,
+        old_to_new_atom,
+        caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
+    )
 
     return new_molsys
 
@@ -830,10 +915,10 @@ def rebuild_molsys_with_new_groups(
 
 # Standard covalent bond lengths (nm) for X-H bonds in proteins
 _H_BOND_LENGTHS = {
-    'C': 0.109,   # sp3 C-H
-    'N': 0.101,   # N-H
-    'O': 0.096,   # O-H
-    'S': 0.134,   # S-H
+    "C": 0.109,  # sp3 C-H
+    "N": 0.101,  # N-H
+    "O": 0.096,  # O-H
+    "S": 0.134,  # S-H
 }
 _H_BOND_LENGTH_DEFAULT = 0.109
 
@@ -868,8 +953,9 @@ def _rotate_around_axis(v, axis, angle):
     return v * c + np.cross(axis, v) * s + axis * np.dot(axis, v) * (1.0 - c)
 
 
-def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridization,
-                               bond_length, n_structures):
+def place_hydrogens_on_parent(
+    parent_pos, neighbor_positions, n_hs, hybridization, bond_length, n_structures
+):
     """
     Compute positions for *n_hs* hydrogen atoms bonded to *parent_pos*.
 
@@ -902,19 +988,21 @@ def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridizatio
         P = parent_pos[frame]
         neighs = [nb[frame] for nb in neighbor_positions]
 
-        if hybridization == 'sp' or (hybridization == 'sp2' and n_neigh == 1 and n_hs == 1):
+        if hybridization == "sp" or (
+            hybridization == "sp2" and n_neigh == 1 and n_hs == 1
+        ):
             # Linear / one neighbor: H points straight away from the neighbor
             A = neighs[0]
             v = _normalize(P - A)
             if v is None:
                 v = np.array([0.0, 0.0, 1.0])
-            if hybridization == 'sp':
+            if hybridization == "sp":
                 results[0][frame] = P + bond_length * v
             else:
                 # sp2, 1 neighbor, 1 H — same as sp for proteins (e.g. =C-H terminal)
                 results[0][frame] = P + bond_length * v
 
-        elif hybridization == 'sp2' and n_neigh == 2 and n_hs == 1:
+        elif hybridization == "sp2" and n_neigh == 2 and n_hs == 1:
             # In the plane of the two neighbors, bisecting the exterior angle
             A = neighs[0]
             B = neighs[1]
@@ -927,11 +1015,13 @@ def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridizatio
                 bisect = _normalize(vPA + vPB)
                 if bisect is None:
                     # A and B are collinear with P — use perpendicular
-                    bisect = _get_arbitrary_perpendicular(_normalize(A - B) or np.array([1., 0., 0.]))
+                    bisect = _get_arbitrary_perpendicular(
+                        _normalize(A - B) or np.array([1.0, 0.0, 0.0])
+                    )
                 v = -bisect  # outward (opposite of bisector toward neighbors)
             results[0][frame] = P + bond_length * v
 
-        elif hybridization == 'sp3' and n_neigh >= 3 and n_hs == 1:
+        elif hybridization == "sp3" and n_neigh >= 3 and n_hs == 1:
             # H completes tetrahedral: opposite to centroid of unit vectors to neighbors
             unit_sum = np.zeros(3, dtype=np.float64)
             for nb in neighs[:3]:
@@ -940,17 +1030,19 @@ def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridizatio
                     unit_sum += u
             v = _normalize(-unit_sum)
             if v is None:
-                v = _get_arbitrary_perpendicular(_normalize(neighs[0] - P) or np.array([1., 0., 0.]))
+                v = _get_arbitrary_perpendicular(
+                    _normalize(neighs[0] - P) or np.array([1.0, 0.0, 0.0])
+                )
             results[0][frame] = P + bond_length * v
 
-        elif hybridization == 'sp3' and n_neigh == 2 and n_hs == 1:
+        elif hybridization == "sp3" and n_neigh == 2 and n_hs == 1:
             # 3 bonds total (A-P-B + H): H bisects the exterior of A-P-B, displaced out of plane
             A = neighs[0]
             B = neighs[1]
             vPA = _normalize(A - P)
             vPB = _normalize(B - P)
             if vPA is None or vPB is None:
-                results[0][frame] = P + bond_length * np.array([0., 0., 1.])
+                results[0][frame] = P + bond_length * np.array([0.0, 0.0, 1.0])
                 continue
             mid = _normalize(vPA + vPB)
             if mid is None:
@@ -968,7 +1060,7 @@ def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridizatio
                 v = normal
             results[0][frame] = P + bond_length * v
 
-        elif hybridization == 'sp3' and n_neigh == 2 and n_hs == 2:
+        elif hybridization == "sp3" and n_neigh == 2 and n_hs == 2:
             # NH2 / CH2: two Hs symmetric around the bisector plane, tetrahedral
             A = neighs[0]
             B = neighs[1]
@@ -976,7 +1068,7 @@ def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridizatio
             vPB = _normalize(B - P)
             if vPA is None or vPB is None:
                 for k in range(2):
-                    results[k][frame] = P + bond_length * np.array([0., float(k), 1.])
+                    results[k][frame] = P + bond_length * np.array([0.0, float(k), 1.0])
                 continue
             mid = _normalize(vPA + vPB)
             if mid is None:
@@ -993,28 +1085,28 @@ def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridizatio
             results[0][frame] = P + bond_length * v0
             results[1][frame] = P + bond_length * v1
 
-        elif hybridization == 'sp3' and n_neigh == 1 and n_hs == 1:
+        elif hybridization == "sp3" and n_neigh == 1 and n_hs == 1:
             # 2 bonds: A-P-H at tetrahedral angle; arbitrary rotation around A-P axis
             A = neighs[0]
             vAP = _normalize(P - A)
             if vAP is None:
-                results[0][frame] = P + bond_length * np.array([0., 0., 1.])
+                results[0][frame] = P + bond_length * np.array([0.0, 0.0, 1.0])
                 continue
             perp = _get_arbitrary_perpendicular(vAP)
             # tetrahedral: 109.5° from A-P axis
-            theta = np.deg2rad(109.5 - 90.0)   # tilt from perpendicular
+            theta = np.deg2rad(109.5 - 90.0)  # tilt from perpendicular
             v = _normalize(np.cos(theta) * vAP + np.sin(theta) * perp)
             if v is None:
                 v = vAP
             results[0][frame] = P + bond_length * v
 
-        elif hybridization == 'sp3' and n_neigh == 1 and n_hs == 2:
+        elif hybridization == "sp3" and n_neigh == 1 and n_hs == 2:
             # A-P with 2 Hs: tetrahedral angles, symmetric around A-P axis
             A = neighs[0]
             vAP = _normalize(P - A)
             if vAP is None:
                 for k in range(2):
-                    results[k][frame] = P + bond_length * np.array([0., float(k), 1.])
+                    results[k][frame] = P + bond_length * np.array([0.0, float(k), 1.0])
                 continue
             perp = _get_arbitrary_perpendicular(vAP)
             theta = np.deg2rad(109.5 - 90.0)
@@ -1025,13 +1117,13 @@ def place_hydrogens_on_parent(parent_pos, neighbor_positions, n_hs, hybridizatio
                     v = vAP
                 results[k][frame] = P + bond_length * v
 
-        elif hybridization == 'sp3' and n_neigh == 1 and n_hs == 3:
+        elif hybridization == "sp3" and n_neigh == 1 and n_hs == 3:
             # Methyl / ammonium: three Hs at 109.5° from A-P axis, 120° apart
             A = neighs[0]
             vAP = _normalize(P - A)
             if vAP is None:
                 for k in range(3):
-                    results[k][frame] = P + bond_length * np.array([0., float(k), 1.])
+                    results[k][frame] = P + bond_length * np.array([0.0, float(k), 1.0])
                 continue
             perp = _get_arbitrary_perpendicular(vAP)
             theta = np.deg2rad(109.5 - 90.0)
@@ -1081,25 +1173,34 @@ def _infer_hybridization(atom_name, heavy_neighbor_names, group_name):
     n_heavy = len(heavy_neighbor_names)
 
     # Backbone carbonyl carbon: sp2 (C with O and CA and N)
-    if atom_name == 'C':
-        return 'sp2'
+    if atom_name == "C":
+        return "sp2"
     # Sp2 carbons by name pattern in aromatic/planar groups
     _sp2_atoms = {
-        'CG', 'CD', 'CE', 'CZ',      # guanidinium / aromatic
-        'CD1', 'CD2', 'CE1', 'CE2',  # ring carbons
-        'CG1', 'CG2',
-        'CZ2', 'CZ3', 'CH2',         # TRP
-        'NE2',                        # HIS (sp2 N in ring)
-        'ND1',
+        "CG",
+        "CD",
+        "CE",
+        "CZ",  # guanidinium / aromatic
+        "CD1",
+        "CD2",
+        "CE1",
+        "CE2",  # ring carbons
+        "CG1",
+        "CG2",
+        "CZ2",
+        "CZ3",
+        "CH2",  # TRP
+        "NE2",  # HIS (sp2 N in ring)
+        "ND1",
     }
     if atom_name in _sp2_atoms:
-        return 'sp2'
+        return "sp2"
 
     # Backbone N: sp2 (peptide bond) unless N-terminal (then sp3-ish with 3 Hs)
-    if atom_name == 'N':
+    if atom_name == "N":
         if n_heavy >= 2:
-            return 'sp2'
-        return 'sp3'   # N-terminal with only CA bond → sp3
+            return "sp2"
+        return "sp3"  # N-terminal with only CA bond → sp3
 
     # sp3 by default for everything else
-    return 'sp3'
+    return "sp3"

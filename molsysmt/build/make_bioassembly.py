@@ -1,10 +1,18 @@
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_iterable_of_iterables
-import numpy as np
-from molsysmt import pyunitwizard as puw
+
 
 @arg_digest()
-def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to_form=None, skip_digestion=False):
+def make_bioassembly(
+    molecular_system,
+    bioassembly=None,
+    structure_indices=0,
+    to_form=None,
+    skip_digestion=False,
+):
     """
     Construct the biological assembly of a molecular system from its asymmetric unit.
 
@@ -75,45 +83,48 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import extract, merge, get, copy
+    from molsysmt.basic import copy, extract, get, merge
     from molsysmt.structure import rotate, translate
 
     if bioassembly is None:
-
         aux_bioassemblies = get(molecular_system, bioassembly=True)
         bioassembly = list(aux_bioassemblies.keys())[0]
         bioassembly = aux_bioassemblies[bioassembly]
 
     elif isinstance(bioassembly, str):
-
         aux_bioassemblies = get(molecular_system, bioassembly=True)
         bioassembly = aux_bioassemblies[bioassembly]
 
     aux_rotations = []
-    for rotation in bioassembly['rotations']:
-        rotation = rotation[np.newaxis,np.newaxis,:,:]
+    for rotation in bioassembly["rotations"]:
+        rotation = rotation[np.newaxis, np.newaxis, :, :]
         aux_rotations.append(rotation)
 
     aux_translations = []
-    for translation in bioassembly['translations']:
+    for translation in bioassembly["translations"]:
         value, unit = puw.get_value_and_unit(translation)
-        translation = puw.quantity(value[np.newaxis, np.newaxis, :], unit, standardized=True)
+        translation = puw.quantity(
+            value[np.newaxis, np.newaxis, :], unit, standardized=True
+        )
         aux_translations.append(translation)
 
     units = []
 
     if _all_chains_equal(bioassembly):
-
-        chains = bioassembly['chain_indices'][0]
+        chains = bioassembly["chain_indices"][0]
 
         if isinstance(chains, int):
             chains = [chains]
 
-        subsystem = extract(molecular_system, structure_indices=[0], selection='chain_index in @chains',
-                            syntax='MolSysMT', skip_digestion=True)
+        subsystem = extract(
+            molecular_system,
+            structure_indices=[0],
+            selection="chain_index in @chains",
+            syntax="MolSysMT",
+            skip_digestion=True,
+        )
 
         for rotation, translation in zip(aux_rotations, aux_translations):
-
             unit = copy(subsystem, skip_digestion=True)
             unit = rotate(unit, rotation=rotation, skip_digestion=True)
             unit = translate(unit, translation=translation, skip_digestion=True)
@@ -121,27 +132,28 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
             units.append(unit)
 
     else:
-
-        if not is_iterable_of_iterables(bioassembly['chain_indices']):
-
-            chains = bioassembly['chain_indices']
+        if not is_iterable_of_iterables(bioassembly["chain_indices"]):
+            chains = bioassembly["chain_indices"]
 
             if isinstance(chains, int):
                 chains = [chains]
 
-            subsystem = extract(molecular_system, structure_indices=[0], selection='chain_index in @chains',
-                                syntax='MolSysMT', skip_digestion=True)
+            subsystem = extract(
+                molecular_system,
+                structure_indices=[0],
+                selection="chain_index in @chains",
+                syntax="MolSysMT",
+                skip_digestion=True,
+            )
 
             for rotation, translation in zip(aux_rotations, aux_translations):
-
                 unit = copy(subsystem, skip_digestion=True)
                 unit = rotate(unit, rotation=rotation, skip_digestion=True)
                 unit = translate(unit, translation=translation, skip_digestion=True)
-            
+
                 units.append(unit)
 
         else:
-
             raise NotImplementedError
 
     _make_chain_ids_unique(units)
@@ -150,15 +162,16 @@ def make_bioassembly(molecular_system, bioassembly=None, structure_indices=0, to
 
     return output
 
+
 def _all_chains_equal(bioassembly):
     """Check that all biological assemblies share the same chain index array."""
 
     output = True
 
-    first_chains = bioassembly['chain_indices'][0]
+    first_chains = bioassembly["chain_indices"][0]
 
-    for chains in bioassembly['chain_indices']:
-        if not np.all(chains==first_chains):
+    for chains in bioassembly["chain_indices"]:
+        if not np.all(chains == first_chains):
             output = False
             break
 
@@ -168,16 +181,20 @@ def _all_chains_equal(bioassembly):
 def _make_chain_ids_unique(units):
     """Preserve source chain IDs once and replace assembly-copy collisions."""
 
-    from molsysmt.basic import get, set as set_attribute
+    from molsysmt.basic import get
+    from molsysmt.basic import set as set_attribute
     from molsysmt.element.chain import all_chain_names
 
     chain_ids_by_unit = []
     reserved_chain_ids = set()
 
     for unit in units:
-        chain_ids = [str(chain_id) for chain_id in get(
-            unit, element='chain', chain_id=True, skip_digestion=True
-        )]
+        chain_ids = [
+            str(chain_id)
+            for chain_id in get(
+                unit, element="chain", chain_id=True, skip_digestion=True
+            )
+        ]
         chain_ids_by_unit.append(chain_ids)
         reserved_chain_ids.update(chain_ids)
 
@@ -200,7 +217,7 @@ def _make_chain_ids_unique(units):
 
         set_attribute(
             unit,
-            element='chain',
+            element="chain",
             chain_id=output_chain_ids,
             skip_digestion=True,
         )

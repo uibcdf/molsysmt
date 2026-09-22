@@ -7,7 +7,7 @@ def _build_nglview_adapter():
     class MolSysMTTrajectory(Trajectory, Structure):
         """Providing an NGLView adapter for molsysmt.MolSys objects."""
 
-        def __init__(self, molsys, selection='all', structure_indices='all'):
+        def __init__(self, molsys, selection="all", structure_indices="all"):
             import molsysmt as msm
             from molsysmt import pyunitwizard as puw
             from molsysmt.form.nglview_NGLWidget._topology_sidecar import (
@@ -23,18 +23,18 @@ def _build_nglview_adapter():
             setattr(self, SIDECAR_ATTRIBUTE, snapshot.topology.copy())
             self.pdb = msm.convert(
                 snapshot,
-                to_form='string:pdb_text',
+                to_form="string:pdb_text",
                 structure_indices=[0],
                 skip_digestion=True,
             )
             coordinates = msm.get(
                 snapshot,
-                element='system',
+                element="system",
                 coordinates=True,
                 skip_digestion=True,
             )
-            self.coordinates = puw.get_value(coordinates, to_unit='angstroms')
-            self.ext = 'pdb'
+            self.coordinates = puw.get_value(coordinates, to_unit="angstroms")
+            self.ext = "pdb"
             self.params = {}
             self.id = str(uuid.uuid4())
 
@@ -71,7 +71,7 @@ def get_molsysmt_trajectory():
     return _build_nglview_adapter()
 
 
-def show_molsysmt(molsys, selection='all', structure_indices='all', **kwargs):
+def show_molsysmt(molsys, selection="all", structure_indices="all", **kwargs):
     """
     Showing an NGLView widget from a molsysmt.MolSys object.
 

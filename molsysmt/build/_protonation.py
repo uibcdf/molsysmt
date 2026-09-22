@@ -13,16 +13,18 @@ disagreement would be silent.
 """
 
 from molsysmt.element.group.amino_acid import group_names
-from molsysmt.element.group.amino_acid.get_expected_hydrogens import get_expected_hydrogens
+from molsysmt.element.group.amino_acid.get_expected_hydrogens import (
+    get_expected_hydrogens,
+)
 from molsysmt.element.group.amino_acid.get_standard_name import get_standard_name
 
 
 def _is_hydrogen(atom_name):
     if not atom_name:
         return False
-    if atom_name[0] == 'H':
+    if atom_name[0] == "H":
         return True
-    return len(atom_name) >= 2 and atom_name[0].isdigit() and atom_name[1] == 'H'
+    return len(atom_name) >= 2 and atom_name[0].isdigit() and atom_name[1] == "H"
 
 
 def unexpected_hydrogens(native_molsys, pH):
@@ -49,8 +51,12 @@ def unexpected_hydrogens(native_molsys, pH):
 
     topology = native_molsys.topology
 
-    topology.rebuild_components(redefine_indices=True, redefine_ids=False,
-                                redefine_types=True, redefine_names=False)
+    topology.rebuild_components(
+        redefine_indices=True,
+        redefine_ids=False,
+        redefine_types=True,
+        redefine_names=False,
+    )
 
     n_groups = topology.n_groups
     component_indices = topology._get_component_indices()
@@ -58,7 +64,7 @@ def unexpected_hydrogens(native_molsys, pH):
     first_group_of_component = {}
     last_group_of_component = {}
     for group_index in range(n_groups):
-        group_atoms = topology.atoms[topology.atoms['group_index'] == group_index]
+        group_atoms = topology.atoms[topology.atoms["group_index"] == group_index]
         if group_atoms.empty:
             continue
         component_index = int(component_indices.loc[group_atoms.index[0]])
@@ -70,20 +76,20 @@ def unexpected_hydrogens(native_molsys, pH):
     bonds = topology._get_chemical_state_bonds()
     if bonds is not None and len(bonds) > 0:
         for _, bond in bonds.iterrows():
-            first = topology.atoms.loc[int(bond['atom1_index'])]
-            second = topology.atoms.loc[int(bond['atom2_index'])]
-            if first['atom_name'] == 'SG' and second['atom_name'] == 'SG':
-                disulfide_groups.add(int(first['group_index']))
-                disulfide_groups.add(int(second['group_index']))
+            first = topology.atoms.loc[int(bond["atom1_index"])]
+            second = topology.atoms.loc[int(bond["atom2_index"])]
+            if first["atom_name"] == "SG" and second["atom_name"] == "SG":
+                disulfide_groups.add(int(first["group_index"]))
+                disulfide_groups.add(int(second["group_index"]))
 
     unexpected = []
 
     for group_index in range(n_groups):
-        group_atoms = topology.atoms[topology.atoms['group_index'] == group_index]
+        group_atoms = topology.atoms[topology.atoms["group_index"] == group_index]
         if group_atoms.empty:
             continue
 
-        group_name = topology.groups.loc[group_index, 'group_name']
+        group_name = topology.groups.loc[group_index, "group_name"]
         canonical = get_standard_name(group_name)
         lookup = canonical if canonical is not None else group_name
         if lookup not in group_names:
@@ -91,12 +97,14 @@ def unexpected_hydrogens(native_molsys, pH):
 
         component_index = int(component_indices.loc[group_atoms.index[0]])
 
-        present_names = group_atoms['atom_name'].tolist()
+        present_names = group_atoms["atom_name"].tolist()
         expected = get_expected_hydrogens(
             group_name,
             present_atom_names=present_names,
             pH=pH,
-            is_n_terminal=(first_group_of_component.get(component_index) == group_index),
+            is_n_terminal=(
+                first_group_of_component.get(component_index) == group_index
+            ),
             is_c_terminal=(last_group_of_component.get(component_index) == group_index),
             is_disulfide=(group_index in disulfide_groups),
         )
@@ -106,8 +114,9 @@ def unexpected_hydrogens(native_molsys, pH):
         expected_set = set(expected)
         for atom_index, atom_name in zip(group_atoms.index.tolist(), present_names):
             if _is_hydrogen(atom_name) and atom_name not in expected_set:
-                unexpected.append((int(atom_index), str(atom_name),
-                                   int(group_index), str(group_name)))
+                unexpected.append(
+                    (int(atom_index), str(atom_name), int(group_index), str(group_name))
+                )
 
     unexpected.sort()
     return unexpected

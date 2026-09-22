@@ -1,8 +1,1 @@
-names = [
-    'DA',
-    'DG',
-    'DC',
-    'DT',
-    'DI'
-]
-
+names = ["DA", "DG", "DC", "DT", "DI"]

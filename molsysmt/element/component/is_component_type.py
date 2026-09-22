@@ -21,8 +21,10 @@ def is_component_type(component_type):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.element.component import _component_types
-    from molsysmt.element.component import _plural_component_types_to_singular
+    from molsysmt.element.component import (
+        _component_types,
+        _plural_component_types_to_singular,
+    )
 
     output = False
 
@@ -33,4 +35,3 @@ def is_component_type(component_type):
         output = True
 
     return output
-

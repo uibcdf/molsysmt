@@ -1,16 +1,14 @@
+import numpy as np
+from smonitor import signal
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import (
-    warn,
     NotImplementedMethodError,
     StructuralInconsistencyError,
+    warn,
 )
-from smonitor import signal
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-import numpy as np
-from molsysmt import lib as msmlib
-from molsysmt._private import rust_backend as _kernels
-from molsysmt import pyunitwizard as puw
-
 from molsysmt.configure import with_configure_overrides
 
 
@@ -139,14 +137,14 @@ def least_rmsd_fit(
     """
 
     if engine == "MolSysMT":
-        from molsysmt.basic import select, get, copy, convert, set
+        import molsysmt.configure as config
+        from molsysmt._private.gpu import resolve_use_gpu
+        from molsysmt.basic import convert, copy, get, set
         from molsysmt.lib.structure._kernel_inputs import (
             align_coordinates_values_and_unit,
-            extract_coordinates_value_and_unit,
         )
+
         from . import rotate, translate
-        from molsysmt._private.gpu import resolve_use_gpu
-        import molsysmt.configure as config
 
         # Obtain query fit coordinates
         coordinates = get(
@@ -234,12 +232,11 @@ def least_rmsd_fit(
             # Taichi Lang backend
             if config.gpu_backend == "taichi":
                 try:
-                    import taichi
+                    __import__("taichi")
 
                     taichi_available = True
                 except ImportError:
                     taichi_available = False
-                    import warnings
                     from molsysmt._private.smonitor import GpuNotAvailableWarning
 
                     warn(

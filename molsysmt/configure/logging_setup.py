@@ -38,11 +38,12 @@ def setup_logging(
     logger_name : object, default='molsysmt'
         Argument logger_name.
     """
-    from molsysmt._private.smonitor import warn, MolSysMTDeprecationWarning
+    from molsysmt._private.smonitor import MolSysMTDeprecationWarning, warn
+
     warn(
         "setup_logging() is deprecated and will be removed in a future version. "
         "Use smonitor.configure() instead.",
-        MolSysMTDeprecationWarning
+        MolSysMTDeprecationWarning,
     )
 
     lvl = _parse_level(level)
@@ -72,6 +73,7 @@ def setup_logging(
     if capture_warnings:
         # Simplify the warning text so it contains the category, origin file, and originating package hint
         if simplify_warning_format:
+
             def _simple_formatwarning(message, category, filename, lineno, line=None):
                 fname = Path(filename).name if filename else ""
                 location = f" ({fname}:{lineno})" if fname else ""
@@ -90,13 +92,14 @@ def setup_logging(
                         module_hint = Path(filename).stem
                     module_hint = f" [{module_hint}]" if module_hint else ""
                 return f"{category.__name__}{module_hint}{location}: {message}\n"
+
             warnings.formatwarning = _simple_formatwarning
 
         logging.captureWarnings(True)
 
         pyw = logging.getLogger("py.warnings")
         pyw.setLevel(lvl)
-        pyw.handlers.clear()       # avoid duplicate handlers
+        pyw.handlers.clear()  # avoid duplicate handlers
         pyw.addHandler(stream_handler)
         pyw.propagate = False
 

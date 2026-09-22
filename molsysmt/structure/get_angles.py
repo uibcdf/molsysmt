@@ -1,8 +1,9 @@
 import numpy as np
-from molsysmt import pyunitwizard as puw
 from smonitor import signal
-from molsysmt._private.argdigest import arg_digest
+
+from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
 from molsysmt.configure import with_configure_overrides
 
 
@@ -45,10 +46,10 @@ def get_angles(
         Angles in radians as a PyUnitWizard quantity.
     """
 
+    import molsysmt.configure as config
+    from molsysmt._private.gpu import resolve_use_gpu
     from molsysmt.basic import get
     from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
-    from molsysmt._private.gpu import resolve_use_gpu
-    import molsysmt.configure as config
 
     atom_indices = []
     n_triplets = triplets.shape[0]
@@ -103,12 +104,11 @@ def get_angles(
         # Taichi Lang backend
         if config.gpu_backend == "taichi":
             try:
-                import taichi
+                __import__("taichi")
 
                 taichi_available = True
             except ImportError:
                 taichi_available = False
-                import warnings
                 from molsysmt._private.smonitor import GpuNotAvailableWarning, warn
 
                 warn(
@@ -167,6 +167,5 @@ def get_angles(
 
     angles = puw.quantity(angles, "radians")
     angles = puw.standardize(angles)
-
 
     return angles

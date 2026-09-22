@@ -1,6 +1,7 @@
-from molsysmt._private.argdigest import arg_digest
 from molsysmt import pyunitwizard as puw
 from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+
 
 @arg_digest()
 def get_angles_from_box(box, skip_digestion=False):
@@ -24,10 +25,11 @@ def get_angles_from_box(box, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    box_value, box_unit  = puw.get_value_and_unit(box)
+    box_value, box_unit = puw.get_value_and_unit(box)
     import numpy as np
+
     angles = _kernels.get_angles_from_box(np.asarray(box_value, dtype=np.float64))
-    angles = puw.quantity(angles.round(6), 'radians')
+    angles = puw.quantity(angles.round(6), "radians")
     angles = puw.standardize(angles)
 
     return angles

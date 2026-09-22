@@ -1,10 +1,16 @@
 from molsysmt._private.argdigest import arg_digest
-import numpy as np
 
 
 @arg_digest()
-def get_molecule_name(molecular_system, element='molecule', selection='all', redefine_indices=False,
-                       redefine_names=False, syntax='MolSysMT', skip_digestion=False):
+def get_molecule_name(
+    molecular_system,
+    element="molecule",
+    selection="all",
+    redefine_indices=False,
+    redefine_names=False,
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Getting molecule names from a molecular system.
 
@@ -35,7 +41,7 @@ def get_molecule_name(molecular_system, element='molecule', selection='all', red
     .. versionadded:: 1.0.0
     """
 
-    if isinstance(selection, str) and selection == 'all':
+    if isinstance(selection, str) and selection == "all":
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._topology_infer import project_molecule_name_from_topology
 
@@ -55,61 +61,94 @@ def get_molecule_name(molecular_system, element='molecule', selection='all', red
             )
 
     if redefine_indices or redefine_names:
+        from ..component import get_component_index, get_component_name
 
-        from ..component import get_component_name, get_component_index
-
-        component_names_from_component = get_component_name(molecular_system, element='component',
-                            selection='all', redefine_names=True, syntax='MolSysMT')
+        component_names_from_component = get_component_name(
+            molecular_system,
+            element="component",
+            selection="all",
+            redefine_names=True,
+            syntax="MolSysMT",
+        )
 
         molecule_names_from_component = component_names_from_component
 
-        if element == 'atom':
+        if element == "atom":
+            component_indices_from_atom = get_component_index(
+                molecular_system,
+                element="atom",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
-            component_indices_from_atom = get_component_index(molecular_system, element='atom',
-                    selection=selection, redefine_indices=True, syntax=syntax)
+            output = [
+                molecule_names_from_component[ii] for ii in component_indices_from_atom
+            ]
 
-            output = [molecule_names_from_component[ii] for ii in component_indices_from_atom]
+        elif element == "group":
+            component_indices_from_group = get_component_index(
+                molecular_system,
+                element="group",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
-        elif element == 'group':
+            output = [
+                molecule_names_from_component[ii] for ii in component_indices_from_group
+            ]
 
-            component_indices_from_group = get_component_index(molecular_system, element='group',
-                    selection=selection, redefine_indices=True, syntax=syntax)
+        elif element == "component":
+            component_indices_from_component = get_component_index(
+                molecular_system,
+                element="component",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
-            output = [molecule_names_from_component[ii] for ii in component_indices_from_group]
+            output = [
+                molecule_names_from_component[ii]
+                for ii in component_indices_from_component
+            ]
 
-        elif element == 'component':
-
-            component_indices_from_component = get_component_index(molecular_system,
-                    element='component', selection=selection, redefine_indices=True,
-                    syntax=syntax)
-
-            output = [molecule_names_from_component[ii] for ii in component_indices_from_component]
-
-        elif element == 'molecule':
-
+        elif element == "molecule":
             from molsysmt.basic import get
-            n_molecules = get(molecular_system, element='system', n_molecules=True, skip_digestion=True)
+
+            n_molecules = get(
+                molecular_system,
+                element="system",
+                n_molecules=True,
+                skip_digestion=True,
+            )
             output = [molecule_names_from_component[ii] for ii in range(n_molecules)]
 
-        elif element == 'entity':
-
-            component_indices_from_entity = get_component_index(molecular_system,
-                    element='entity', selection=selection, redefine_indices=True,
-                    syntax=syntax)
+        elif element == "entity":
+            component_indices_from_entity = get_component_index(
+                molecular_system,
+                element="entity",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
             output = []
             for aux in component_indices_from_entity:
                 output.append([molecule_names_from_component[ii] for ii in aux])
 
         else:
-
             raise NotImplementedError
 
     else:
-
         from molsysmt.basic import get
 
-        output = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                     molecule_name=True)
+        output = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            molecule_name=True,
+        )
 
     return output

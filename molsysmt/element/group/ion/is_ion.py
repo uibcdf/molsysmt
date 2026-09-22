@@ -1,5 +1,6 @@
 from .group_names import group_names
 
+
 def is_ion(name):
     """
     Check whether a group name corresponds to an atomic ion.
@@ -26,5 +27,4 @@ def is_ion(name):
     .. versionadded:: 1.0.0
     """
 
-    return (name in group_names)
-
+    return name in group_names

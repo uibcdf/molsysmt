@@ -1,6 +1,8 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
 import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+
 
 @arg_digest()
 def get_volume_from_lengths_and_angles(box_lengths, box_angles):
@@ -60,13 +62,13 @@ def get_volume_from_lengths_and_angles(box_lengths, box_angles):
     """
 
     if isinstance(box_lengths, np.ndarray):
-        length_unit = puw.unit('nm')
+        length_unit = puw.unit("nm")
         lengths = np.asarray(box_lengths, dtype=np.float64)
     else:
         lengths, length_unit = puw.get_value_and_unit(box_lengths)
         lengths = np.asarray(lengths, dtype=np.float64)
 
-    angles = puw.get_value(box_angles, to_unit='radians')
+    angles = puw.get_value(box_angles, to_unit="radians")
     angles = np.asarray(angles, dtype=np.float64)
 
     cosines = np.cos(angles)

@@ -1,3 +1,5 @@
+# Preserve package initialization order.
+# isort: off
 from .show_gui import show_gui
 from .clear import clear
 
@@ -19,3 +21,4 @@ from .add_contacts import add_contacts
 from .add_hbonds import add_hbonds
 from .add_arrows import add_arrows
 from .molsysmt_trajectory import get_molsysmt_trajectory, show_molsysmt
+# isort: on

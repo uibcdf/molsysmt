@@ -1,12 +1,21 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
-from molsysmt._private import rust_backend as _kernels
 import numpy as np
 
+from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+
+
 @arg_digest()
-def unwrap(molecular_system, selection='all', structure_indices='all',
-        syntax='MolSysMT', engine='MolSysMT', in_place=False, skip_digestion=False):
+def unwrap(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    in_place=False,
+    skip_digestion=False,
+):
     """
     Unwrapping coordinates across periodic boundaries to produce continuous trajectories.
 
@@ -53,20 +62,25 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
     .. versionadded:: 1.0.0
     """
 
-    if engine=='MolSysMT':
-
-        from molsysmt.basic import get, set, copy
+    if engine == "MolSysMT":
+        from molsysmt.basic import copy, get, set
 
         coordinates = get(
             molecular_system,
-            element='atom',
+            element="atom",
             selection=selection,
             structure_indices=structure_indices,
             syntax=syntax,
             coordinates=True,
             skip_digestion=True,
         )
-        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True, skip_digestion=True)
+        box = get(
+            molecular_system,
+            element="system",
+            structure_indices=structure_indices,
+            box=True,
+            skip_digestion=True,
+        )
 
         coordinates, length_units = puw.get_value_and_unit(coordinates)
         from molsysmt._private.pbc_validation import validate_box_array
@@ -88,28 +102,35 @@ def unwrap(molecular_system, selection='all', structure_indices='all',
 
         _kernels.unwrap(coordinates, box)
 
-        coordinates=puw.quantity(coordinates, length_units)
+        coordinates = puw.quantity(coordinates, length_units)
 
     else:
-
         raise NotImplementedMethodError()
 
     if in_place:
+        set(
+            molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+            skip_digestion=True,
+        )
 
-        set(molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates, skip_digestion=True)
-
-        del(coordinates, box)
-
+        del (coordinates, box)
 
     else:
-
         tmp_molecular_system = copy(molecular_system, skip_digestion=True)
 
-        set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax='MolSysMT', coordinates=coordinates, skip_digestion=True)
+        set(
+            tmp_molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax="MolSysMT",
+            coordinates=coordinates,
+            skip_digestion=True,
+        )
 
-        del(coordinates, box)
-        
+        del (coordinates, box)
 
         return tmp_molecular_system

@@ -4,32 +4,42 @@ from molsysmt._private.atom_indices import complementary_atom_indices
 from molsysmt._private.smonitor import ArgumentConflictError, InternalAlgorithmError
 
 
-def assign_selection_to_new_chain(molecular_system, selection='all', chain_id=None, chain_name=None, syntax='MolSysMT'):
+def assign_selection_to_new_chain(
+    molecular_system, selection="all", chain_id=None, chain_name=None, syntax="MolSysMT"
+):
     """Assign selected atoms to a new chain in a native topology-backed system."""
 
+    from molsysmt._private.variables import is_all
     from molsysmt.basic import get, get_form, select, set
     from molsysmt.element.chain import all_chain_names
-    from molsysmt._private.variables import is_all
 
     chain_id = str(chain_id) if chain_id is not None else None
     chain_name = str(chain_name) if chain_name is not None else None
 
     if is_all(selection):
-        chain_id = 'A' if chain_id is None else chain_id
-        chain_name = 'A' if chain_name is None else chain_name
+        chain_id = "A" if chain_id is None else chain_id
+        chain_name = "A" if chain_name is None else chain_name
 
-        set(molecular_system, element='atom', selection='all', chain_index=0, skip_digestion=True)
         set(
             molecular_system,
-            element='chain',
-            selection='all',
+            element="atom",
+            selection="all",
+            chain_index=0,
+            skip_digestion=True,
+        )
+        set(
+            molecular_system,
+            element="chain",
+            selection="all",
             chain_id=[chain_id],
             chain_name=[chain_name],
             skip_digestion=True,
         )
         return
 
-    atom_indices = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
+    atom_indices = select(
+        molecular_system, selection=selection, syntax=syntax, skip_digestion=True
+    )
     rest_atom_indices = complementary_atom_indices(molecular_system, atom_indices)
 
     former_chain_ids, former_chain_names = get(
@@ -79,8 +89,12 @@ def assign_selection_to_new_chain(molecular_system, selection='all', chain_id=No
         )
 
     all_atom_indices = np.array(atom_indices + rest_atom_indices)
-    all_chain_ids = np.array([chain_id for _ in atom_indices] + former_chain_ids.tolist(), dtype=str)
-    all_chain_names = np.array([chain_name for _ in atom_indices] + former_chain_names.tolist(), dtype=str)
+    all_chain_ids = np.array(
+        [chain_id for _ in atom_indices] + former_chain_ids.tolist(), dtype=str
+    )
+    all_chain_names = np.array(
+        [chain_name for _ in atom_indices] + former_chain_names.tolist(), dtype=str
+    )
     sorted_indices = np.argsort(all_atom_indices)
     all_atom_indices = all_atom_indices[sorted_indices]
     all_chain_ids = all_chain_ids[sorted_indices]
@@ -92,7 +106,9 @@ def assign_selection_to_new_chain(molecular_system, selection='all', chain_id=No
     new_chain_ids = []
     new_chain_names = []
     chain_id_to_index = {}
-    for atom_index, current_chain_id, current_chain_name in zip(all_atom_indices, all_chain_ids, all_chain_names):
+    for atom_index, current_chain_id, current_chain_name in zip(
+        all_atom_indices, all_chain_ids, all_chain_names
+    ):
         if current_chain_id not in chain_ids_done:
             chain_index += 1
             chain_id_to_index[current_chain_id] = chain_index
@@ -103,26 +119,38 @@ def assign_selection_to_new_chain(molecular_system, selection='all', chain_id=No
 
     n_chains = chain_index + 1
     form_in = get_form(molecular_system)
-    if form_in == 'molsysmt.MolSys':
+    if form_in == "molsysmt.MolSys":
         molecular_system.topology.reset_chains(n_chains=n_chains)
-    elif form_in == 'molsysmt.Topology':
+    elif form_in == "molsysmt.Topology":
         molecular_system.reset_chains(n_chains=n_chains)
 
-    set(molecular_system, element='atom', selection='all', chain_index=new_chain_indices, skip_digestion=True)
     set(
         molecular_system,
-        element='chain',
-        selection='all',
+        element="atom",
+        selection="all",
+        chain_index=new_chain_indices,
+        skip_digestion=True,
+    )
+    set(
+        molecular_system,
+        element="chain",
+        selection="all",
         chain_id=new_chain_ids,
         chain_name=new_chain_names,
         skip_digestion=True,
     )
 
-    if form_in == 'molsysmt.MolSys':
+    if form_in == "molsysmt.MolSys":
         molecular_system.topology.rebuild_chains(
-            redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_types=True,
+            redefine_names=False,
         )
-    elif form_in == 'molsysmt.Topology':
+    elif form_in == "molsysmt.Topology":
         molecular_system.rebuild_chains(
-            redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_types=True,
+            redefine_names=False,
         )

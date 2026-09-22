@@ -2,8 +2,14 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest()
-def get_molecule_index(molecular_system, element='molecule', selection='all',
-                       redefine_indices=False, syntax='MolSysMT', skip_digestion=False):
+def get_molecule_index(
+    molecular_system,
+    element="molecule",
+    selection="all",
+    redefine_indices=False,
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Getting 0-based molecule indices from a molecular system.
 
@@ -32,7 +38,7 @@ def get_molecule_index(molecular_system, element='molecule', selection='all',
     .. versionadded:: 1.0.0
     """
 
-    if isinstance(selection, str) and selection == 'all':
+    if isinstance(selection, str) and selection == "all":
         from molsysmt.native import MolSys, Topology
         from molsysmt.native._topology_infer import project_molecule_index_from_topology
 
@@ -42,64 +48,89 @@ def get_molecule_index(molecular_system, element='molecule', selection='all',
             )
         if isinstance(molecular_system, MolSys):
             return project_molecule_index_from_topology(
-                molecular_system.topology, element=element, redefine_indices=redefine_indices
+                molecular_system.topology,
+                element=element,
+                redefine_indices=redefine_indices,
             )
 
     if redefine_indices:
-
         from ..component import get_component_index
 
-        component_indices_from_component = get_component_index(molecular_system, element='component',
-                            selection='all', redefine_indices=True, syntax='MolSysMT')
+        component_indices_from_component = get_component_index(
+            molecular_system,
+            element="component",
+            selection="all",
+            redefine_indices=True,
+            syntax="MolSysMT",
+        )
 
         molecule_indices_from_component = component_indices_from_component
 
         comp_to_mol = {ii: jj for ii, jj in enumerate(molecule_indices_from_component)}
 
-        if element == 'atom':
-
-            component_indices_from_atom = get_component_index(molecular_system, element='atom',
-                    selection=selection, redefine_indices=True, syntax=syntax)
+        if element == "atom":
+            component_indices_from_atom = get_component_index(
+                molecular_system,
+                element="atom",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
             output = [comp_to_mol.get(ii, None) for ii in component_indices_from_atom]
 
-        elif element == 'group':
-
-            component_indices_from_group = get_component_index(molecular_system, element='group',
-                    selection=selection, redefine_indices=True, syntax=syntax)
+        elif element == "group":
+            component_indices_from_group = get_component_index(
+                molecular_system,
+                element="group",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
             output = [comp_to_mol.get(ii, None) for ii in component_indices_from_group]
 
-        elif element == 'component':
+        elif element == "component":
+            component_indices_from_component = get_component_index(
+                molecular_system,
+                element="component",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
-            component_indices_from_component = get_component_index(molecular_system,
-                    element='component', selection=selection, redefine_indices=True,
-                    syntax=syntax)
+            output = [
+                comp_to_mol.get(ii, None) for ii in component_indices_from_component
+            ]
 
-            output = [comp_to_mol.get(ii, None) for ii in component_indices_from_component]
-
-        elif element == 'molecule':
-
+        elif element == "molecule":
             output = component_indices_from_component
 
-        elif element == 'entity':
-
-            component_indices_from_entity = get_component_index(molecular_system,
-                    element='entity', selection=selection, redefine_indices=True,
-                    syntax=syntax)
+        elif element == "entity":
+            component_indices_from_entity = get_component_index(
+                molecular_system,
+                element="entity",
+                selection=selection,
+                redefine_indices=True,
+                syntax=syntax,
+            )
 
             output = []
             for aux in component_indices_from_entity:
                 output.append([comp_to_mol.get(ii, None) for ii in aux])
 
         else:
-
             raise NotImplementedError
 
     else:
-
         from molsysmt import get
-        output = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                     molecule_index=True)
+
+        output = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            molecule_index=True,
+        )
 
     return output

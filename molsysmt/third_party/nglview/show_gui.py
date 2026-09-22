@@ -15,6 +15,6 @@ def show_gui(view):
     .. versionadded:: 1.0.0
     """
 
-    view.gui_style = 'ngl'
+    view.gui_style = "ngl"
 
     pass

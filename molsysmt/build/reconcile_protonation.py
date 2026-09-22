@@ -2,8 +2,9 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest()
-def reconcile_protonation(molecular_system, pH=7.4, engine='MolSysMT', in_place=False,
-                          skip_digestion=False):
+def reconcile_protonation(
+    molecular_system, pH=7.4, engine="MolSysMT", in_place=False, skip_digestion=False
+):
     """
     Removing the hydrogen atoms a molecular system carries that the pH does not call for.
 
@@ -70,9 +71,9 @@ def reconcile_protonation(molecular_system, pH=7.4, engine='MolSysMT', in_place=
 
     from molsysmt._private.smonitor import NotImplementedMethodError
 
-    if engine != 'MolSysMT':
+    if engine != "MolSysMT":
         raise NotImplementedMethodError(
-            caller='molsysmt.build.reconcile_protonation',
+            caller="molsysmt.build.reconcile_protonation",
             message=f"engine='{engine}' is not implemented; only 'MolSysMT' is available.",
         )
 
@@ -80,9 +81,11 @@ def reconcile_protonation(molecular_system, pH=7.4, engine='MolSysMT', in_place=
     from molsysmt.build._protonation import unexpected_hydrogens
 
     form_in = get_form(molecular_system)
-    native_molsys = (molecular_system if form_in == 'molsysmt.MolSys'
-                     else convert(molecular_system, to_form='molsysmt.MolSys',
-                                  skip_digestion=True))
+    native_molsys = (
+        molecular_system
+        if form_in == "molsysmt.MolSys"
+        else convert(molecular_system, to_form="molsysmt.MolSys", skip_digestion=True)
+    )
 
     unexpected = unexpected_hydrogens(native_molsys, pH=pH)
 
@@ -93,8 +96,9 @@ def reconcile_protonation(molecular_system, pH=7.4, engine='MolSysMT', in_place=
 
     atom_indices = [entry[0] for entry in unexpected]
 
-    output = remove(molecular_system, selection=atom_indices, in_place=in_place,
-                    skip_digestion=True)
+    output = remove(
+        molecular_system, selection=atom_indices, in_place=in_place, skip_digestion=True
+    )
 
     if in_place:
         return None

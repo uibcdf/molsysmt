@@ -20,28 +20,28 @@ def get_group_type_from_group_name(group_name, skip_digestion=False):
     """
     from molsysmt.element.group.amino_acid import is_amino_acid
     from molsysmt.element.group.ion import is_ion
-    from molsysmt.element.group.water import is_water
-    from molsysmt.element.group.terminal_capping import is_terminal_capping
-    from molsysmt.element.group.small_molecule import is_small_molecule
-    from molsysmt.element.group.nucleotide import is_nucleotide
     from molsysmt.element.group.lipid import is_lipid
+    from molsysmt.element.group.nucleotide import is_nucleotide
     from molsysmt.element.group.saccharide import is_saccharide
+    from molsysmt.element.group.small_molecule import is_small_molecule
+    from molsysmt.element.group.terminal_capping import is_terminal_capping
+    from molsysmt.element.group.water import is_water
 
     if is_amino_acid(group_name):
-        return 'amino_acid'
+        return "amino_acid"
     elif is_ion(group_name):
-        return 'ion'
+        return "ion"
     elif is_water(group_name):
-        return 'water'
+        return "water"
     elif is_terminal_capping(group_name):
-        return 'terminal_capping'
+        return "terminal_capping"
     elif is_small_molecule(group_name):
-        return 'small_molecule'
+        return "small_molecule"
     elif is_nucleotide(group_name):
-        return 'nucleotide'
+        return "nucleotide"
     elif is_lipid(group_name):
-        return 'lipid'
+        return "lipid"
     elif is_saccharide(group_name):
-        return 'saccharide'
+        return "saccharide"
     else:
         return None

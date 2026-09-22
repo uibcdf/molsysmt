@@ -1,5 +1,6 @@
-from molsysmt._private.argdigest import arg_digest
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+
 
 @arg_digest()
 def is_solvated(molecular_system, skip_digestion=False):
@@ -41,15 +42,18 @@ def is_solvated(molecular_system, skip_digestion=False):
 
     output = False
 
-    n_waters, volume = get(molecular_system, element='system', n_waters=True, box_volume=True, skip_digestion=True)
+    n_waters, volume = get(
+        molecular_system,
+        element="system",
+        n_waters=True,
+        box_volume=True,
+        skip_digestion=True,
+    )
 
-    if (n_waters>0) and (volume is not None):
+    if (n_waters > 0) and (volume is not None):
+        density_number = puw.get_value((n_waters / volume), to_unit="1/nm**3")
 
-        density_number = puw.get_value((n_waters/volume), to_unit='1/nm**3')
-
-        if (density_number)>15:
-
+        if (density_number) > 15:
             output = True
 
     return output
-

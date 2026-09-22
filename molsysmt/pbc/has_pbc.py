@@ -1,5 +1,6 @@
 from molsysmt._private.argdigest import arg_digest
 
+
 @arg_digest()
 def has_pbc(molecular_system, skip_digestion=False):
     """

@@ -1,13 +1,23 @@
-from molsysmt._private.smonitor import *
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import MolecularSystemNeededError
 
-class Simulation():
+
+class Simulation:
     """Container for simulation parameters used to build OpenMM objects."""
 
-    def __init__(self, molecular_system=None, remove_cm_motion=True,
-                 integrator=None, temperature=None, collisions_rate=None, integration_timestep=None,
-                 initial_velocities_to_temperature = True, constraint_tolerance=0.00001,
-                 platform='CUDA', cuda_precision='mixed'):
+    def __init__(
+        self,
+        molecular_system=None,
+        remove_cm_motion=True,
+        integrator=None,
+        temperature=None,
+        collisions_rate=None,
+        integration_timestep=None,
+        initial_velocities_to_temperature=True,
+        constraint_tolerance=0.00001,
+        platform="CUDA",
+        cuda_precision="mixed",
+    ):
         """Initialize a simulation configuration."""
 
         self._molecular_system = molecular_system
@@ -30,15 +40,15 @@ class Simulation():
         """Return a dictionary representation of the simulation parameters."""
 
         tmp_dict = {
-            'remove_cm_motion' : self.remove_cm_motion,
-            'integrator' : self.integrator,
-            'temperature' : self.temperature,
-            'collisions_rate' : self.collisions_rate,
-            'integration_timestep' : self.integration_timestep,
-            'initial_velocities_to_temperature' : self.initial_velocities_to_temperature,
-            'constraint_tolerance' : self.constraint_tolerance,
-            'platform' : self.platform,
-            'cuda_precision' : self.cuda_precision,
+            "remove_cm_motion": self.remove_cm_motion,
+            "integrator": self.integrator,
+            "temperature": self.temperature,
+            "collisions_rate": self.collisions_rate,
+            "integration_timestep": self.integration_timestep,
+            "initial_velocities_to_temperature": self.initial_velocities_to_temperature,
+            "constraint_tolerance": self.constraint_tolerance,
+            "platform": self.platform,
+            "cuda_precision": self.cuda_precision,
         }
 
         return tmp_dict
@@ -57,7 +67,9 @@ class Simulation():
         tmp_simulation.collisions_rate = self.collisions_rate
         tmp_simulation.integration_timestep = self.integration_timestep
 
-        tmp_simulation.initial_velocities_to_temperature = self.initial_velocities_to_temperature
+        tmp_simulation.initial_velocities_to_temperature = (
+            self.initial_velocities_to_temperature
+        )
 
         tmp_simulation.constraint_tolerance = self.constraint_tolerance
 
@@ -69,13 +81,15 @@ class Simulation():
     def set_parameters(self, return_non_processed=False, **kwargs):
         """Standardize and set allowed parameters from keyword arguments."""
 
+        remaining = dict(kwargs)
         for argument, value in kwargs.items():
-            if argument.lower() in self.__dict__.keys():
-                self.__dict__[argument]=puw.standardize(value)
-                del(kwargs[argment.lower()])
+            parameter = argument.lower()
+            if parameter in self.__dict__:
+                self.__dict__[parameter] = puw.standardize(value)
+                del remaining[argument]
 
         if return_non_processed:
-            return kwargs
+            return remaining
         else:
             pass
 
@@ -84,12 +98,18 @@ class Simulation():
 
         from openmm import LangevinIntegrator
 
-        temperature = puw.convert(self.temperature, to_unit='K', to_form='openmm.unit')
-        collisions_rate = puw.convert(self.collisions_rate, to_unit='1/ps', to_form='openmm.unit')
-        integration_timestep = puw.convert(self.integration_timestep, to_unit='fs', to_form='openmm.unit')
+        temperature = puw.convert(self.temperature, to_unit="K", to_form="openmm.unit")
+        collisions_rate = puw.convert(
+            self.collisions_rate, to_unit="1/ps", to_form="openmm.unit"
+        )
+        integration_timestep = puw.convert(
+            self.integration_timestep, to_unit="fs", to_form="openmm.unit"
+        )
 
-        if self.integrator=='Langevin':
-            integrator = LangevinIntegrator(temperature, collisions_rate, integration_timestep)
+        if self.integrator == "Langevin":
+            integrator = LangevinIntegrator(
+                temperature, collisions_rate, integration_timestep
+            )
             if self.constraint_tolerance is not None:
                 integrator.setConstraintTolerance(self.constraint_tolerance)
         else:
@@ -102,7 +122,7 @@ class Simulation():
 
         from openmm import Platform
 
-        if self.platform in ['CUDA', 'CPU']:
+        if self.platform in ["CUDA", "CPU"]:
             platform = Platform.getPlatformByName(self.platform)
         else:
             raise NotImplementedError()
@@ -114,14 +134,19 @@ class Simulation():
 
         parameters = {}
 
-        if self.platform=='CUDA':
-            parameters['CudaPrecision']=self.cuda_precision
+        if self.platform == "CUDA":
+            parameters["CudaPrecision"] = self.cuda_precision
 
         return parameters
 
-    def to_openmm_Context(self, molecular_system=None, selection='all', structure_indices='all'):
+    def to_openmm_Context(
+        self, molecular_system=None, selection="all", structure_indices="all"
+    ):
         """Create an OpenMM Context from the current settings."""
 
+        from molsysmt._private.argdigest.argument.molecular_system import (
+            digest_molecular_system,
+        )
         from molsysmt.basic import convert
 
         if molecular_system is None:
@@ -130,9 +155,14 @@ class Simulation():
             molecular_system = digest_molecular_system(molecular_system)
 
         if molecular_system is None:
-            raise NoMolecularSystemError()
+            raise MolecularSystemNeededError()
 
-        context = convert(molecular_system, to_form='openmm.Context', selection=selection, simulation=self)
+        context = convert(
+            molecular_system,
+            to_form="openmm.Context",
+            selection=selection,
+            simulation=self,
+        )
 
         return context
 
@@ -141,14 +171,19 @@ class Simulation():
 
         parameters = {}
 
-        if self.platform=='CUDA':
-            parameters['CudaPrecision']=self.cuda_precision
+        if self.platform == "CUDA":
+            parameters["CudaPrecision"] = self.cuda_precision
 
         return parameters
 
-    def to_openmm_Simulation(self, molecular_system=None, selection='all', structure_indices='all'):
+    def to_openmm_Simulation(
+        self, molecular_system=None, selection="all", structure_indices="all"
+    ):
         """Create an OpenMM Simulation from the current settings."""
 
+        from molsysmt._private.argdigest.argument.molecular_system import (
+            digest_molecular_system,
+        )
         from molsysmt.basic import convert
 
         if molecular_system is None:
@@ -157,14 +192,24 @@ class Simulation():
             molecular_system = digest_molecular_system(molecular_system)
 
         if molecular_system is None:
-            raise NoMolecularSystemError()
+            raise MolecularSystemNeededError()
 
-        simulation = convert(molecular_system, to_form='openmm.Simulation', selection=selection, simulation=self)
+        simulation = convert(
+            molecular_system,
+            to_form="openmm.Simulation",
+            selection=selection,
+            simulation=self,
+        )
 
         return simulation
 
-simulation_to_potential_energy_minimization = Simulation(integrator='Langevin', temperature='0 K',
-                                                         collisions_rate='1.0 1/ps', integration_timestep='2fs',
-                                                         initial_velocities_to_temperature = False,
-                                                         platform='CUDA', cuda_precision='mixed')
 
+simulation_to_potential_energy_minimization = Simulation(
+    integrator="Langevin",
+    temperature="0 K",
+    collisions_rate="1.0 1/ps",
+    integration_timestep="2fs",
+    initial_velocities_to_temperature=False,
+    platform="CUDA",
+    cuda_precision="mixed",
+)

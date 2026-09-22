@@ -1,11 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
-from molsysmt._private.execution import Reducer
-from molsysmt._private.variables import is_all
-from smonitor import signal
-from molsysmt import pyunitwizard as puw
 import numpy as np
+from smonitor import signal
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.execution import Reducer
+from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.variables import is_all
+from molsysmt.lib.structure._kernel_inputs import extract_coordinates_value_and_unit
 
 
 class _RMSFReducer(Reducer):
@@ -49,8 +50,14 @@ class _RMSFReducer(Reducer):
 
     def restore(self, state):
         self._count = state["count"]
-        self._mean = None if state["mean"] is None else np.asarray(state["mean"], dtype=np.float64)
-        self._m2 = None if state["m2"] is None else np.asarray(state["m2"], dtype=np.float64)
+        self._mean = (
+            None
+            if state["mean"] is None
+            else np.asarray(state["mean"], dtype=np.float64)
+        )
+        self._m2 = (
+            None if state["m2"] is None else np.asarray(state["m2"], dtype=np.float64)
+        )
 
     def merge(self, other):
         if other._count == 0:
@@ -69,15 +76,24 @@ class _RMSFReducer(Reducer):
         self._count = total
 
 
-from molsysmt.configure import with_configure_overrides
+# Keep this decorator import beside the public function below.
+from molsysmt.configure import with_configure_overrides  # noqa: E402
 
 
-@signal(tags=['api', 'structure'])
+@signal(tags=["api", "structure"])
 @arg_digest()
 @with_configure_overrides
-def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='all',
-             syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto',
-             parallel=None, num_threads=None, skip_digestion=False):
+def get_rmsf(
+    molecular_system,
+    selection='atom_type!="H"',
+    structure_indices="all",
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    heavy_mode="auto",
+    parallel=None,
+    num_threads=None,
+    skip_digestion=False,
+):
     r"""
     Computing root-mean-square fluctuations per atom over a set of structures.
 
@@ -153,10 +169,9 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
         caller="molsysmt.structure.get_rmsf",
     )
 
-    if engine == 'MolSysMT':
-
-        from molsysmt.basic import select, get
+    if engine == "MolSysMT":
         from molsysmt._private import rust_backend as _kernels
+        from molsysmt.basic import get, select
 
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
         n_atoms = len(np.atleast_1d(atom_indices))
@@ -169,33 +184,43 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
                 caller="molsysmt.structure.get_rmsf",
                 message="The atom selection must contain at least one atom.",
             )
-        n_structures = get(molecular_system, element='system', n_structures=True)
-        from molsysmt._private.execution.memory_policy import estimate_footprint, decide_mode
+        n_structures = get(molecular_system, element="system", n_structures=True)
+        from molsysmt._private.execution.memory_policy import (
+            decide_mode,
+            estimate_footprint,
+        )
         from molsysmt.basic import get_form
 
         form = get_form(molecular_system)
         mode = decide_mode(estimate_footprint(n_atoms, n_structures), heavy_mode)
 
-        if mode == 'heavy':
+        if mode == "heavy":
             from molsysmt._private.execution import ChunkedExecutor
 
             executor = ChunkedExecutor(
                 molecular_system=molecular_system,
                 form=form,
-                operation='get_rmsf',
+                operation="get_rmsf",
                 reducer=_RMSFReducer(),
                 atom_indices=atom_indices,
-                structure_indices=None if is_all(structure_indices) else structure_indices,
+                structure_indices=None
+                if is_all(structure_indices)
+                else structure_indices,
                 heavy_mode=heavy_mode,
-                attributes=['coordinates'],
+                attributes=["coordinates"],
             )
             rmsf_val = executor.execute()
-            length_unit = puw.get_standard_units(dimensionality={'[L]': 1})
+            length_unit = puw.get_standard_units(dimensionality={"[L]": 1})
             return puw.quantity(rmsf_val, length_unit)
 
-        coordinates = get(molecular_system, element='atom', selection=atom_indices,
-                          structure_indices=structure_indices, syntax=syntax,
-                          coordinates=True)
+        coordinates = get(
+            molecular_system,
+            element="atom",
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=True,
+        )
         coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
 
         rmsf_val = _kernels.get_rmsf(coordinates)
@@ -207,5 +232,4 @@ def get_rmsf(molecular_system, selection='atom_type!="H"', structure_indices='al
         return rmsf
 
     else:
-
         raise NotImplementedMethodError()

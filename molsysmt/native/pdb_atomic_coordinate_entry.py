@@ -1,10 +1,7 @@
 # This should be a native class of Sabueso
 
-from copy import deepcopy
 
-
-class TitleSection():
-
+class TitleSection:
     def __init__(self):
 
         self.header = None
@@ -25,8 +22,7 @@ class TitleSection():
         self.remarks = None
 
 
-class PrimaryStructureSection():
-
+class PrimaryStructureSection:
     def __init__(self):
 
         self.dbref = None
@@ -36,8 +32,7 @@ class PrimaryStructureSection():
         self.modres = None
 
 
-class HeterogenSection():
-
+class HeterogenSection:
     def __init__(self):
 
         self.het = None
@@ -46,16 +41,14 @@ class HeterogenSection():
         self.formul = None
 
 
-class SecondaryStructureSection():
-
+class SecondaryStructureSection:
     def __init__(self):
 
         self.helix = None
         self.sheet = None
 
 
-class ConnectivityAnnotationSection():
-
+class ConnectivityAnnotationSection:
     def __init__(self):
 
         self.ssbond = None
@@ -63,15 +56,13 @@ class ConnectivityAnnotationSection():
         self.cispep = None
 
 
-class MiscellaneousFeaturesSection():
-
+class MiscellaneousFeaturesSection:
     def __init__(self):
 
         self.site = None
 
 
-class CrystallographicAndCoordinateTransformationSection():
-
+class CrystallographicAndCoordinateTransformationSection:
     def __init__(self):
 
         self.cryst1 = None
@@ -80,30 +71,26 @@ class CrystallographicAndCoordinateTransformationSection():
         self.mtrix = None
 
 
-class CoordinateSection():
-
+class CoordinateSection:
     def __init__(self):
 
         self.model = None
 
 
-class ConnectivitySection():
-
+class ConnectivitySection:
     def __init__(self):
 
         self.conect = None
 
 
-class BookkeepingSection():
-
+class BookkeepingSection:
     def __init__(self):
 
         self.master = None
         self.end = None
 
 
-class HeaderRecord():
-
+class HeaderRecord:
     def __init__(self):
 
         self.classification = None
@@ -111,8 +98,7 @@ class HeaderRecord():
         self.idCode = None
 
 
-class ObslteRecord():
-
+class ObslteRecord:
     def __init__(self):
 
         self.classification = None
@@ -121,30 +107,26 @@ class ObslteRecord():
         self.rIdCode = []
 
 
-class TitleRecord():
-
+class TitleRecord:
     def __init__(self):
 
         self.title = None
 
 
-class SplitRecord():
-
+class SplitRecord:
     def __init__(self):
 
         self.idCode = []
 
 
-class CaveatRecord():
-
+class CaveatRecord:
     def __init__(self):
 
         self.idCode = None
-        self.comment = ''
+        self.comment = ""
 
 
-class CompndRecord():
-
+class CompndRecord:
     def __init__(self):
 
         self.mol_id = None
@@ -158,8 +140,7 @@ class CompndRecord():
         self.other_details = None
 
 
-class SourceRecord():
-
+class SourceRecord:
     def __init__(self):
 
         self.mol_id = None
@@ -199,43 +180,37 @@ class SourceRecord():
         self.other_details = None
 
 
-class KeywdsRecord():
-
+class KeywdsRecord:
     def __init__(self):
 
         self.keywds = None
 
 
-class ExpdtaRecord():
-
+class ExpdtaRecord:
     def __init__(self):
 
         self.technique = None
 
 
-class NummdlRecord():
-
+class NummdlRecord:
     def __init__(self):
 
         self.modelNumber = None
 
 
-class MdltypRecord():
-
+class MdltypRecord:
     def __init__(self):
 
         self.comment = None
 
 
-class AuthorRecord():
-
+class AuthorRecord:
     def __init__(self):
 
         self.authorList = None
 
 
-class RevdatRecord():
-
+class RevdatRecord:
     def __init__(self):
 
         self.modNum = None
@@ -245,8 +220,7 @@ class RevdatRecord():
         self.record = None
 
 
-class SprsdeRecord():
-
+class SprsdeRecord:
     def __init__(self):
 
         self.sprsdeDate = None
@@ -254,8 +228,7 @@ class SprsdeRecord():
         self.sIdCode = []
 
 
-class JrnlRecord():
-
+class JrnlRecord:
     def __init__(self):
 
         self.auth = None
@@ -268,16 +241,14 @@ class JrnlRecord():
         self.doi = None
 
 
-class RemarkRecord():
-
+class RemarkRecord:
     def __init__(self):
 
         self.remarkNum = None
         self.message = None
 
 
-class DbrefRecord():
-
+class DbrefRecord:
     def __init__(self):
 
         self.idCode = None
@@ -295,8 +266,7 @@ class DbrefRecord():
         self.dbInsEnd = None
 
 
-class Dbref1Dbref2Record():
-
+class Dbref1Dbref2Record:
     def __init__(self):
 
         self.idCode = None
@@ -312,8 +282,7 @@ class Dbref1Dbref2Record():
         self.dbSeqEnd = None
 
 
-class SeqadvRecord():
-
+class SeqadvRecord:
     def __init__(self):
 
         self.idCode = None
@@ -328,8 +297,7 @@ class SeqadvRecord():
         self.conflict = None
 
 
-class SeqresRecord():
-
+class SeqresRecord:
     def __init__(self):
 
         self.chainId = None
@@ -337,8 +305,7 @@ class SeqresRecord():
         self.resName = []
 
 
-class ModresRecord():
-
+class ModresRecord:
     def __init__(self):
 
         self.idCode = None
@@ -350,8 +317,7 @@ class ModresRecord():
         self.comment = None
 
 
-class HetRecord():
-
+class HetRecord:
     def __init__(self):
 
         self.hetId = None
@@ -362,34 +328,30 @@ class HetRecord():
         self.text = None
 
 
-class HetnamRecord():
-
+class HetnamRecord:
     def __init__(self):
 
         self.hetId = None
         self.text = None
 
 
-class HetsynRecord():
-
+class HetsynRecord:
     def __init__(self):
 
         self.hetId = None
         self.hetSynonyms = []
 
 
-class FormulRecord():
-
+class FormulRecord:
     def __init__(self):
 
         self.compNum = None
         self.hetId = None
         self.asterisk = False
-        self.text = ''
+        self.text = ""
 
 
-class HelixRecord():
-
+class HelixRecord:
     def __init__(self):
 
         self.serNum = None
@@ -407,8 +369,7 @@ class HelixRecord():
         self.length = None
 
 
-class SheetRecord():
-
+class SheetRecord:
     def __init__(self):
 
         self.strand = None
@@ -435,8 +396,7 @@ class SheetRecord():
         self.prevICode = None
 
 
-class SsbondRecord():
-
+class SsbondRecord:
     def __init__(self):
 
         self.serNum = None
@@ -453,8 +413,7 @@ class SsbondRecord():
         self.length = None
 
 
-class LinkRecord():
-
+class LinkRecord:
     def __init__(self):
 
         self.name1 = None
@@ -474,8 +433,7 @@ class LinkRecord():
         self.length = None
 
 
-class CispepRecord():
-
+class CispepRecord:
     def __init__(self):
 
         self.serNum = None
@@ -491,8 +449,7 @@ class CispepRecord():
         self.measure = None
 
 
-class SiteRecord():
-
+class SiteRecord:
     def __init__(self):
 
         self.seqNum = None
@@ -516,8 +473,7 @@ class SiteRecord():
         self.iCode4 = None
 
 
-class Cryst1Record():
-
+class Cryst1Record:
     def __init__(self):
 
         self.a = None
@@ -530,8 +486,7 @@ class Cryst1Record():
         self.z = None
 
 
-class OrigxRecord():
-
+class OrigxRecord:
     def __init__(self):
 
         self.o11 = None
@@ -548,8 +503,7 @@ class OrigxRecord():
         self.t3 = None
 
 
-class ScaleRecord():
-
+class ScaleRecord:
     def __init__(self):
 
         self.s11 = None
@@ -566,8 +520,7 @@ class ScaleRecord():
         self.u3 = None
 
 
-class MtrixRecord():
-
+class MtrixRecord:
     def __init__(self):
 
         self.serial = None
@@ -586,16 +539,14 @@ class MtrixRecord():
         self.iGiven = None
 
 
-class Model():
-
+class Model:
     def __init__(self):
 
         self.serial = None
         self.record = None
 
 
-class AtomRecord():
-
+class AtomRecord:
     def __init__(self):
 
         self.recordName = None
@@ -620,36 +571,41 @@ class AtomRecord():
         self.anisou13 = None
         self.anisou23 = None
 
-    def to_string(self, output='short_string'):
+    def to_string(self, output="short_string"):
 
-        if output=='short_string':
+        if output == "short_string":
+            string = self.name + "-" + str(self.serial)
 
-            string = self.name+'-'+str(self.serial)
-
-        elif output=='long_string':
-
-            string = self.name+'-'+str(self.serial)+'/'+self.resName+'-'+self.resSeq+'/'+self.chainId
+        elif output == "long_string":
+            string = (
+                self.name
+                + "-"
+                + str(self.serial)
+                + "/"
+                + self.resName
+                + "-"
+                + self.resSeq
+                + "/"
+                + self.chainId
+            )
 
         return string
 
 
 class HetatmRecord(AtomRecord):
-
     def __init__(self):
 
         super().__init__()
 
 
-class ConectRecord():
-
+class ConectRecord:
     def __init__(self):
 
         self.atomSerNum = None
         self.bondedAtomsSerNum = None
 
 
-class MasterRecord():
-
+class MasterRecord:
     def __init__(self):
 
         self.numRemark = None
@@ -665,7 +621,7 @@ class MasterRecord():
         self.numSeq = None
 
 
-class PDBAtomicCoordinateEntry():
+class PDBAtomicCoordinateEntry:
     """Aggregate of PDB record sections for atomic coordinate entries."""
 
     def __init__(self):
@@ -679,7 +635,9 @@ class PDBAtomicCoordinateEntry():
         self.secondary_structure = SecondaryStructureSection()
         self.connectivity_annotation = ConnectivityAnnotationSection()
         self.miscellaneous_features = MiscellaneousFeaturesSection()
-        self.crystallographic_and_coordinate_transformation = CrystallographicAndCoordinateTransformationSection()
+        self.crystallographic_and_coordinate_transformation = (
+            CrystallographicAndCoordinateTransformationSection()
+        )
         self.coordinate = CoordinateSection()
         self.connectivity = ConnectivitySection()
         self.bookkeeping = BookkeepingSection()

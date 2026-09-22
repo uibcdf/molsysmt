@@ -1,4 +1,3 @@
-
 def is_n_terminal_capping(name):
     """
     Check whether a group name corresponds to an N-terminal capping residue.
@@ -28,5 +27,5 @@ def is_n_terminal_capping(name):
     .. versionadded:: 1.0.0
     """
     from . import n_terminal_capping_names
-    return (name in n_terminal_capping_names)
 
+    return name in n_terminal_capping_names

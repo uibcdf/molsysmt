@@ -1,11 +1,18 @@
+import numpy as np
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-import numpy as np
 
 
 @arg_digest()
-def get_component_index(molecular_system, element='component', selection='all', redefine_indices=False,
-                        syntax='MolSysMT', skip_digestion=False):
+def get_component_index(
+    molecular_system,
+    element="component",
+    selection="all",
+    redefine_indices=False,
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Getting 0-based component indices from a molecular system.
 
@@ -34,9 +41,11 @@ def get_component_index(molecular_system, element='component', selection='all', 
     .. versionadded:: 1.0.0
     """
 
-    if isinstance(selection, str) and selection == 'all':
+    if isinstance(selection, str) and selection == "all":
         from molsysmt.native import MolSys, Topology
-        from molsysmt.native._topology_infer import project_component_index_from_topology
+        from molsysmt.native._topology_infer import (
+            project_component_index_from_topology,
+        )
 
         if isinstance(molecular_system, Topology):
             return project_component_index_from_topology(
@@ -44,29 +53,33 @@ def get_component_index(molecular_system, element='component', selection='all', 
             )
         if isinstance(molecular_system, MolSys):
             return project_component_index_from_topology(
-                molecular_system.topology, element=element, redefine_indices=redefine_indices
+                molecular_system.topology,
+                element=element,
+                redefine_indices=redefine_indices,
             )
 
     if redefine_indices:
-
-        from molsysmt._private.rust_backend import get_component_index_from_bonded_atom_pairs
+        from molsysmt._private.rust_backend import (
+            get_component_index_from_bonded_atom_pairs,
+        )
         from molsysmt.basic import get_form
 
         form = get_form(molecular_system)
 
-        if form == 'molsysmt.Topology':
+        if form == "molsysmt.Topology":
             n_atoms = molecular_system.n_atoms
             bonds = molecular_system._get_chemical_state_bonds()
-            if 'joins_components' in bonds.columns:
-                participates = ~bonds['joins_components'].eq(False).fillna(False)
+            if "joins_components" in bonds.columns:
+                participates = ~bonds["joins_components"].eq(False).fillna(False)
                 bonds = bonds.loc[participates]
-            bonded_atom_pairs = bonds[['atom1_index', 'atom2_index']].to_numpy()
+            bonded_atom_pairs = bonds[["atom1_index", "atom2_index"]].to_numpy()
         else:
             from molsysmt import get
+
             n_atoms, bonded_atom_pairs = get(
                 molecular_system,
-                element='atom',
-                selection='all',
+                element="atom",
+                selection="all",
                 syntax=syntax,
                 n_atoms=True,
                 bonded_atom_pairs=True,
@@ -84,54 +97,60 @@ def get_component_index(molecular_system, element='component', selection='all', 
         )
         aux_n_components = int(component_index_of_atoms[-1]) + 1 if n_atoms > 0 else 0
 
-        if element == 'atom':
-
+        if element == "atom":
             if is_all(selection):
                 output = component_index_of_atoms.tolist()
             else:
                 output = component_index_of_atoms[selection].tolist()
 
-        elif element == 'group':
-
-            if form == 'molsysmt.Topology':
-                group_index_of_atoms = molecular_system.atoms['group_index'].to_numpy()
+        elif element == "group":
+            if form == "molsysmt.Topology":
+                group_index_of_atoms = molecular_system.atoms["group_index"].to_numpy()
             else:
                 from molsysmt import get
-                group_index_of_atoms = get(molecular_system, element='atom', selection='all', syntax=syntax,
-                                           group_index=True, skip_digestion=True)
 
-            group_index, first_atom_indices = np.unique(group_index_of_atoms, return_index=True)
+                group_index_of_atoms = get(
+                    molecular_system,
+                    element="atom",
+                    selection="all",
+                    syntax=syntax,
+                    group_index=True,
+                    skip_digestion=True,
+                )
+
+            group_index, first_atom_indices = np.unique(
+                group_index_of_atoms, return_index=True
+            )
             output = component_index_of_atoms[first_atom_indices]
             del group_index, group_index_of_atoms
 
             if is_all(selection):
-
                 output = output.tolist()
 
             else:
-
                 output = output[selection].tolist()
 
-        elif element == 'component':
-
+        elif element == "component":
             if is_all(selection):
-
                 output = list(np.arange(aux_n_components, dtype=int))
                 del component_index_of_atoms
 
             else:
-
                 output = selection
 
         else:
-
             raise NotImplementedError
 
     else:
-
         from molsysmt import get
 
-        output = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                     component_index=True, skip_digestion=True)
+        output = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            component_index=True,
+            skip_digestion=True,
+        )
 
     return output

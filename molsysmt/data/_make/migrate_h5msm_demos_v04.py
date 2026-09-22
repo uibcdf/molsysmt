@@ -12,7 +12,6 @@ import numpy as np
 
 import molsysmt as msm
 
-
 DATA_DIR = Path(__file__).resolve().parents[1]
 MANIFEST = DATA_DIR / "demo_manifest.json"
 H5MSM_DIR = DATA_DIR / "h5msm"

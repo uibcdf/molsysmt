@@ -1,18 +1,18 @@
-import molsysmt as msm
-import numpy as np
-from pathlib import Path
 import os
 import shutil
+from pathlib import Path
 
-data_dir = Path('../.')
+import molsysmt as msm
+
+data_dir = Path("../.")
 
 # Purge
 
 files_to_be_purged = [
-    'pdb/1tcd.pdb',
-    'h5msm/1tcd.h5msm',
-    'bcif_gz/1tcd.bcif.gz',
-    ]
+    "pdb/1tcd.pdb",
+    "h5msm/1tcd.h5msm",
+    "bcif_gz/1tcd.bcif.gz",
+]
 
 for filename in files_to_be_purged:
     filepath = Path(data_dir, filename)
@@ -21,11 +21,10 @@ for filename in files_to_be_purged:
 
 # Make
 
-msm.convert('pdb_id:1tcd', to_form='1tcd.pdb')
-msm.convert('pdb_id:1tcd', to_form='1tcd.bcif.gz')
-msm.convert('pdb_id:1tcd', to_form='1tcd.h5msm')
+msm.convert("pdb_id:1tcd", to_form="1tcd.pdb")
+msm.convert("pdb_id:1tcd", to_form="1tcd.bcif.gz")
+msm.convert("pdb_id:1tcd", to_form="1tcd.h5msm")
 
-shutil.move('1tcd.pdb', Path(data_dir, 'pdb/1tcd.pdb'))
-shutil.move('1tcd.bcif.gz', Path(data_dir, 'bcif_gz/1tcd.bcif.gz'))
-shutil.move('1tcd.h5msm', Path(data_dir, 'h5msm/1tcd.h5msm'))
-
+shutil.move("1tcd.pdb", Path(data_dir, "pdb/1tcd.pdb"))
+shutil.move("1tcd.bcif.gz", Path(data_dir, "bcif_gz/1tcd.bcif.gz"))
+shutil.move("1tcd.h5msm", Path(data_dir, "h5msm/1tcd.h5msm"))

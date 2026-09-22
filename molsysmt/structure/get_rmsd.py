@@ -1,12 +1,15 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
-from smonitor import signal
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt._private.execution import Reducer
-from molsysmt import lib as msmlib
-from molsysmt._private import rust_backend as _kernels
-from molsysmt import pyunitwizard as puw
 import numpy as np
+from smonitor import signal
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.execution import Reducer
+from molsysmt._private.smonitor import (
+    NotImplementedMethodError,
+    StructuralInconsistencyError,
+)
+from molsysmt._private.variables import is_all
 
 
 class _RMSDReducer(Reducer):
@@ -26,8 +29,10 @@ class _RMSDReducer(Reducer):
         self._chunks = []
 
     def consume(self, chunk):
-        coords = np.array(chunk['coordinates'], dtype=np.float64)  # writable copy
-        rmsd_chunk = _kernels.get_rmsd_with_single_reference_structure(coords, self._ref)
+        coords = np.array(chunk["coordinates"], dtype=np.float64)  # writable copy
+        rmsd_chunk = _kernels.get_rmsd_with_single_reference_structure(
+            coords, self._ref
+        )
         self._chunks.append(rmsd_chunk)
 
     def finalize(self):
@@ -36,23 +41,36 @@ class _RMSDReducer(Reducer):
     # --- optional extensions ---
 
     def checkpoint(self):
-        return {'chunks': [c.tolist() for c in self._chunks]}
+        return {"chunks": [c.tolist() for c in self._chunks]}
 
     def restore(self, state):
-        self._chunks = [np.array(c, dtype=np.float64) for c in state['chunks']]
+        self._chunks = [np.array(c, dtype=np.float64) for c in state["chunks"]]
 
     def merge(self, other):
         self._chunks.extend(other._chunks)
 
 
-from molsysmt.configure import with_configure_overrides
+# Keep this decorator import beside the public function below.
+from molsysmt.configure import with_configure_overrides  # noqa: E402
 
-@signal(tags=['api', 'structure'])
+
+@signal(tags=["api", "structure"])
 @arg_digest()
 @with_configure_overrides
-def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='all',
-          reference_molecular_system=None, reference_selection=None, reference_structure_index=0,
-          syntax='MolSysMT', engine='MolSysMT', heavy_mode='auto', use_gpu=None, parallel=None, num_threads=None):
+def get_rmsd(
+    molecular_system,
+    selection='atom_type!="H"',
+    structure_indices="all",
+    reference_molecular_system=None,
+    reference_selection=None,
+    reference_structure_index=0,
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    heavy_mode="auto",
+    use_gpu=None,
+    parallel=None,
+    num_threads=None,
+):
     """
     Compute the RMSD between structures without prior superposition.
 
@@ -125,42 +143,53 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
     if reference_selection is None:
         reference_selection = selection
 
-    if engine == 'MolSysMT':
-
-        from molsysmt.basic import select, get
-        from molsysmt.lib.structure._kernel_inputs import align_coordinates_values_and_unit
+    if engine == "MolSysMT":
+        from molsysmt.basic import get, select
+        from molsysmt.lib.structure._kernel_inputs import (
+            align_coordinates_values_and_unit,
+        )
 
         # Always load reference eagerly — it is a single frame
-        reference_coordinates = get(reference_molecular_system, element='atom',
-                selection=reference_selection,
-                structure_indices=reference_structure_index, syntax=syntax,
-                coordinates=True)
+        reference_coordinates = get(
+            reference_molecular_system,
+            element="atom",
+            selection=reference_selection,
+            structure_indices=reference_structure_index,
+            syntax=syntax,
+            coordinates=True,
+        )
 
         # Validate atom counts before going heavy
-        from molsysmt.basic import get as msm_get
         n_atoms_sel = len(select(molecular_system, selection=selection, syntax=syntax))
-        n_atoms_ref = len(select(reference_molecular_system, selection=reference_selection, syntax=syntax))
+        n_atoms_ref = len(
+            select(
+                reference_molecular_system, selection=reference_selection, syntax=syntax
+            )
+        )
 
         if n_atoms_sel != n_atoms_ref:
             raise StructuralInconsistencyError(
                 reason=f"Selection ({n_atoms_sel} atoms) and reference ({n_atoms_ref} atoms) counts mismatch.",
-                caller="molsysmt.structure.get_rmsd"
+                caller="molsysmt.structure.get_rmsd",
             )
 
-        n_structures = get(molecular_system, element='system', n_structures=True)
+        n_structures = get(molecular_system, element="system", n_structures=True)
 
-        from molsysmt._private.execution.memory_policy import estimate_footprint, decide_mode
+        from molsysmt._private.execution.memory_policy import (
+            decide_mode,
+            estimate_footprint,
+        )
         from molsysmt.basic import get_form
 
         form = get_form(molecular_system)
         footprint = estimate_footprint(n_atoms_sel, n_structures)
         mode = decide_mode(footprint, heavy_mode)
 
-        if mode == 'heavy':
+        if mode == "heavy":
             # Extract reference as float64 numpy array in canonical length unit (nm)
-            ref_val, length_unit = puw.get_value_and_unit(reference_coordinates,
-                                                           value_type='numpy.ndarray',
-                                                           dtype=np.float64)
+            ref_val, length_unit = puw.get_value_and_unit(
+                reference_coordinates, value_type="numpy.ndarray", dtype=np.float64
+            )
             # ref_val shape may be (1, n_atoms, 3) — squeeze to (n_atoms, 3)
             ref_val = np.squeeze(ref_val, axis=0) if ref_val.ndim == 3 else ref_val
 
@@ -168,26 +197,34 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
             reducer = _RMSDReducer(reference_coordinates=ref_val)
 
             from molsysmt._private.execution import ChunkedExecutor
+
             executor = ChunkedExecutor(
                 molecular_system=molecular_system,
                 form=form,
-                operation='get_rmsd',
+                operation="get_rmsd",
                 reducer=reducer,
                 atom_indices=atom_indices,
-                structure_indices=None if is_all(structure_indices) else structure_indices,
+                structure_indices=None
+                if is_all(structure_indices)
+                else structure_indices,
                 heavy_mode=heavy_mode,
-                attributes=['coordinates'],
+                attributes=["coordinates"],
             )
             rmsd_val = executor.execute()  # (n_structures,), float64, nm
             return puw.quantity(rmsd_val, length_unit)
 
         else:
-            coordinates = get(molecular_system, element='atom', selection=selection,
-                    structure_indices=structure_indices, syntax=syntax,
-                    coordinates=True)
+            coordinates = get(
+                molecular_system,
+                element="atom",
+                selection=selection,
+                structure_indices=structure_indices,
+                syntax=syntax,
+                coordinates=True,
+            )
 
-            coordinates, reference_coordinates, length_unit = align_coordinates_values_and_unit(
-                coordinates, reference_coordinates
+            coordinates, reference_coordinates, length_unit = (
+                align_coordinates_values_and_unit(coordinates, reference_coordinates)
             )
 
             n_atoms = coordinates.shape[1]
@@ -196,18 +233,22 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
             if n_atoms != n_atoms_ref_check:
                 raise StructuralInconsistencyError(
                     reason=f"Selection ({n_atoms} atoms) and reference ({n_atoms_ref_check} atoms) counts mismatch.",
-                    caller="molsysmt.structure.get_rmsd"
+                    caller="molsysmt.structure.get_rmsd",
                 )
 
             from molsysmt._private.gpu import resolve_use_gpu
+
             payload = coordinates.shape[0] * coordinates.shape[1] * 3
             _use_gpu = resolve_use_gpu(use_gpu, payload)
 
             if _use_gpu:
                 from molsysmt.lib.structure.get_rmsd_cuda import (
                     get_rmsd as _gpu_rmsd,
+                )
+                from molsysmt.lib.structure.get_rmsd_cuda import (
                     get_rmsd_with_single_reference_structure as _gpu_rmsd_single,
                 )
+
                 if reference_coordinates.shape[0] == 1:
                     rmsd_val = _gpu_rmsd_single(coordinates, reference_coordinates[0])
                 elif coordinates.shape[0] == 1:
@@ -217,10 +258,12 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
             else:
                 if reference_coordinates.shape[0] == 1:
                     rmsd_val = _kernels.get_rmsd_with_single_reference_structure(
-                        coordinates, reference_coordinates[0])
+                        coordinates, reference_coordinates[0]
+                    )
                 elif coordinates.shape[0] == 1:
                     rmsd_val = _kernels.get_rmsd_with_single_reference_structure(
-                        reference_coordinates, coordinates[0])
+                        reference_coordinates, coordinates[0]
+                    )
                 else:
                     rmsd_val = _kernels.get_rmsd(coordinates, reference_coordinates)
 
@@ -231,5 +274,4 @@ def get_rmsd(molecular_system, selection='atom_type!="H"', structure_indices='al
             return rmsd_val
 
     else:
-
         raise NotImplementedMethodError()

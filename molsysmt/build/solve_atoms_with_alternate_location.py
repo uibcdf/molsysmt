@@ -96,11 +96,11 @@ def solve_atoms_with_alternate_location(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt import get, pyunitwizard as puw, select, set as msm_set
+    from molsysmt import get, select
+    from molsysmt import pyunitwizard as puw
+    from molsysmt import set as msm_set
 
-    alternates_by_structure = get(
-        molecular_system, alternate_location=True
-    )
+    alternates_by_structure = get(molecular_system, alternate_location=True)
     if alternates_by_structure is None:
         return None
 
@@ -113,9 +113,7 @@ def solve_atoms_with_alternate_location(
 
     selected_atoms = {
         int(index)
-        for index in select(
-            molecular_system, selection=selection, syntax=syntax
-        )
+        for index in select(molecular_system, selection=selection, syntax=syntax)
     }
     explicit_locations = None
     if not isinstance(location_id, str):
@@ -148,9 +146,7 @@ def solve_atoms_with_alternate_location(
             position = _location_position(alternates, requested)
             atom_indices.append(atom_index)
             coordinates.append(alternates["coordinates"][position])
-            atom_ids_to_set.setdefault(
-                atom_index, alternates["atom_id"][position]
-            )
+            atom_ids_to_set.setdefault(atom_index, alternates["atom_id"][position])
             if alternates.get("b_factor") is None:
                 has_b_factors = False
             else:
@@ -161,10 +157,7 @@ def solve_atoms_with_alternate_location(
         values = {
             "coordinates": puw.quantity(
                 np.asarray(
-                    [
-                        puw.get_value(value, to_unit="nm")
-                        for value in coordinates
-                    ],
+                    [puw.get_value(value, to_unit="nm") for value in coordinates],
                     dtype=float,
                 ),
                 "nm",
@@ -173,10 +166,7 @@ def solve_atoms_with_alternate_location(
         if has_b_factors:
             values["b_factor"] = puw.quantity(
                 np.asarray(
-                    [
-                        puw.get_value(value, to_unit="nm**2")
-                        for value in b_factors
-                    ],
+                    [puw.get_value(value, to_unit="nm**2") for value in b_factors],
                     dtype=float,
                 ),
                 "nm**2",

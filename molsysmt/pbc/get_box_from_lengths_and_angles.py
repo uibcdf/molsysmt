@@ -1,7 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private import rust_backend as _kernels
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+
 
 @arg_digest()
 def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion=False):
@@ -28,20 +30,23 @@ def get_box_from_lengths_and_angles(box_lengths, box_angles=None, skip_digestion
     """
 
     if box_angles is None:
-        box_angles = np.array([90.0, 90.0, 90.0]) * puw.unit('degree')
+        box_angles = np.array([90.0, 90.0, 90.0]) * puw.unit("degree")
 
     if isinstance(box_lengths, np.ndarray):
-        units = puw.unit('nm')
+        units = puw.unit("nm")
         lengths_value = box_lengths
     else:
         units = puw.get_unit(box_lengths)
         lengths_value = puw.get_value(box_lengths)
-    angles_value = puw.get_value(box_angles, to_unit='radians')
+    angles_value = puw.get_value(box_angles, to_unit="radians")
 
-    box = _kernels.get_box_from_lengths_and_angles(np.array(lengths_value, dtype=np.float64), np.array(angles_value, dtype=np.float64))
-    box = box.round(6)*units
+    box = _kernels.get_box_from_lengths_and_angles(
+        np.array(lengths_value, dtype=np.float64),
+        np.array(angles_value, dtype=np.float64),
+    )
+    box = box.round(6) * units
 
-    del(lengths_value, angles_value)
+    del (lengths_value, angles_value)
 
     box = puw.standardize(box)
 

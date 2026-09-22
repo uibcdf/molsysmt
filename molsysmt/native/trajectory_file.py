@@ -1,7 +1,7 @@
-class TrajectoryFile():
+class TrajectoryFile:
     """Unified interface to read various trajectory file formats."""
 
-    def __init__(self, filepath=None, mode='read'):
+    def __init__(self, filepath=None, mode="read"):
         """Open a trajectory file lazily for reading."""
 
         self.opened = False
@@ -12,41 +12,49 @@ class TrajectoryFile():
         self.n_atoms = 0
         self.atom_indices = None
 
-        if filepath is not None and mode=='read':
-
+        if filepath is not None and mode == "read":
+            from molsysmt import convert, get
             from molsysmt.basic import get_form
-            from molsysmt import get, convert
 
             self.path = filepath
             self.form = get_form(filepath)
 
-            if self.form == 'file:xtc':
-                self.mount_point = convert(filepath, to_form='mdtraj.XTCTrajectoryFile')
-            elif self.form == 'file:h5':
-                self.mount_point = convert(filepath, to_form='mdtraj.HDF5TrajectoryFile')
-            elif self.form == 'file:pdb':
+            if self.form == "file:xtc":
+                self.mount_point = convert(filepath, to_form="mdtraj.XTCTrajectoryFile")
+            elif self.form == "file:h5":
+                self.mount_point = convert(
+                    filepath, to_form="mdtraj.HDF5TrajectoryFile"
+                )
+            elif self.form == "file:pdb":
                 # Don't use mdtraj.PDBTrajectoryFile. It does not work well with alternate
                 # locations in a pdb
-                self.mount_point = convert(filepath, to_form='openmm.PDBFile')
-            elif self.form == 'file:inpcrd':
-                self.mount_point = convert(filepath, to_form='mdtraj.AmberRestartFile')
-            elif self.form == 'file:gro':
-                self.mount_point = convert(filepath, to_form='openmm.GromacsGroFile')
+                self.mount_point = convert(filepath, to_form="openmm.PDBFile")
+            elif self.form == "file:inpcrd":
+                self.mount_point = convert(filepath, to_form="mdtraj.AmberRestartFile")
+            elif self.form == "file:gro":
+                self.mount_point = convert(filepath, to_form="openmm.GromacsGroFile")
             else:
                 raise NotImplementedError
 
-            self.n_structures = get(self.mount_point, element='system', n_structures=True)
-            self.n_atoms = get(self.mount_point, element='system', n_atoms=True)
+            self.n_structures = get(
+                self.mount_point, element="system", n_structures=True
+            )
+            self.n_atoms = get(self.mount_point, element="system", n_atoms=True)
             self.opened = True
 
-    def read_frames(self, atom_indices='all', structure_indices='all'):
+    def read_frames(self, atom_indices="all", structure_indices="all"):
         """Read selected frames and return IDs, time, coordinates, and box."""
 
         from molsysmt import get
-        from molsysmt.basic import get_form
-        structure_id, time, coordinates, box = get(self.mount_point, element='atom', indices=atom_indices,
-                                           structure_indices=structure_indices, frame=True)
-        self.atom_indices=atom_indices
+
+        structure_id, time, coordinates, box = get(
+            self.mount_point,
+            element="atom",
+            indices=atom_indices,
+            structure_indices=structure_indices,
+            frame=True,
+        )
+        self.atom_indices = atom_indices
         return structure_id, time, coordinates, box
 
     def copy(self):

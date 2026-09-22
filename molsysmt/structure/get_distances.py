@@ -1,12 +1,16 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all, is_iterable_of_iterables
-from molsysmt._private.variables import is_iterable_of_pairs
-from molsysmt._private.execution import Reducer
-from molsysmt._private import rust_backend as _kernels
-from molsysmt import pyunitwizard as puw
 import numpy as np
 from smonitor import signal
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.execution import Reducer
+from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.variables import (
+    is_all,
+    is_iterable_of_iterables,
+    is_iterable_of_pairs,
+)
 
 
 class _DistancesReducer(Reducer):
@@ -28,8 +32,9 @@ class _DistancesReducer(Reducer):
     def estimate_output_shape(self, metadata):
         """Use disk-backing only when the output would exceed the RAM budget."""
         import molsysmt.configure as config
-        n_structures = metadata['n_structures']
-        n_atoms = metadata['n_atoms']
+
+        n_structures = metadata["n_structures"]
+        n_atoms = metadata["n_atoms"]
         output_bytes = n_structures * n_atoms * n_atoms * 8
         if output_bytes > config.max_ram_usage:
             return (n_structures, n_atoms, n_atoms)
@@ -38,19 +43,19 @@ class _DistancesReducer(Reducer):
     def initialize(self, metadata):
         self._chunks = []
         self._frame_offset = 0
-        self._output_handle = metadata.get('output_handle')
+        self._output_handle = metadata.get("output_handle")
 
     def consume(self, chunk):
-        coords = np.array(chunk['coordinates'], dtype=np.float64)  # writable
-        if self._pbc and chunk.get('box') is not None:
-            box = np.array(chunk['box'], dtype=np.float64)
+        coords = np.array(chunk["coordinates"], dtype=np.float64)  # writable
+        if self._pbc and chunk.get("box") is not None:
+            box = np.array(chunk["box"], dtype=np.float64)
             result = _kernels.get_mic_distances_single_system(coords, box)
         else:
             result = _kernels.get_distances_single_system(coords)
 
         if self._output_handle is not None:
             n = result.shape[0]
-            self._output_handle[self._frame_offset:self._frame_offset + n] = result
+            self._output_handle[self._frame_offset : self._frame_offset + n] = result
             self._frame_offset += n
         else:
             self._chunks.append(result)
@@ -66,18 +71,18 @@ class _DistancesReducer(Reducer):
     def checkpoint(self):
         if self._output_handle is not None:
             # Disk-backed: record frame offset only; the handle file persists on disk
-            return {'frame_offset': self._frame_offset, 'disk_backed': True}
-        return {'chunks': [c.tolist() for c in self._chunks], 'disk_backed': False}
+            return {"frame_offset": self._frame_offset, "disk_backed": True}
+        return {"chunks": [c.tolist() for c in self._chunks], "disk_backed": False}
 
     def restore(self, state):
-        if state.get('disk_backed'):
+        if state.get("disk_backed"):
             # Cannot reconnect to a PersistentResultHandle across process boundaries.
             # Resuming disk-backed reductions requires same-process continuation.
             raise NotImplementedError(
                 "_DistancesReducer cannot restore a disk-backed checkpoint "
                 "across separate process invocations."
             )
-        self._chunks = [np.array(c, dtype=np.float64) for c in state['chunks']]
+        self._chunks = [np.array(c, dtype=np.float64) for c in state["chunks"]]
         self._frame_offset = 0
         self._output_handle = None
 
@@ -89,15 +94,37 @@ class _DistancesReducer(Reducer):
         self._chunks.extend(other._chunks)
 
 
-from molsysmt.configure import with_configure_overrides
+# Keep this decorator import beside the public function below.
+from molsysmt.configure import with_configure_overrides  # noqa: E402
 
-@signal(tags=['api', 'structure'])
+
+@signal(tags=["api", "structure"])
 @arg_digest()
 @with_configure_overrides
-def get_distances(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
-        molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-        pairs=False, pbc=True, output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
-        engine='MolSysMT', syntax='MolSysMT', heavy_mode='auto', use_gpu=None, parallel=None, num_threads=None, skip_digestion=False):
+def get_distances(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    center_of_atoms=False,
+    weights=None,
+    molecular_system_2=None,
+    selection_2=None,
+    structure_indices_2=None,
+    center_of_atoms_2=False,
+    weights_2=None,
+    pairs=False,
+    pbc=True,
+    output_type="numpy.ndarray",
+    output_indices=None,
+    output_structure_indices=None,
+    engine="MolSysMT",
+    syntax="MolSysMT",
+    heavy_mode="auto",
+    use_gpu=None,
+    parallel=None,
+    num_threads=None,
+    skip_digestion=False,
+):
     """
     Computing distances between atoms or centers of selections.
 
@@ -177,15 +204,15 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
     from molsysmt.pbc import has_pbc
 
     if pbc:
-        pbc=has_pbc(molecular_system)
+        pbc = has_pbc(molecular_system)
 
     if pairs and (selection_2 is None):
         if is_iterable_of_pairs(selection):
             if not isinstance(selection, np.ndarray):
-                selection=np.array(selection)
-            selection_2 = selection[:,1]
-            selection = selection[:,0]
-        elif len(selection)==2:
+                selection = np.array(selection)
+            selection_2 = selection[:, 1]
+            selection = selection[:, 0]
+        elif len(selection) == 2:
             selection_2 = selection[1]
             selection = selection[0]
 
@@ -209,9 +236,8 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
     if is_iterable_of_iterables(atom_indices_2):
         center_of_atoms_2 = True
 
-    if engine=='MolSysMT':
-
-        from molsysmt.basic import get, get_form
+    if engine == "MolSysMT":
+        from molsysmt.basic import get_form
         from molsysmt.form import is_file as _is_file
 
         in_memory = True
@@ -224,14 +250,20 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                     in_memory = False
 
         # Decide eager vs heavy based on footprint
-        from molsysmt._private.execution.memory_policy import estimate_footprint, decide_mode
-        from molsysmt.basic import get_form, get as msm_get
+        from molsysmt._private.execution.memory_policy import (
+            decide_mode,
+            estimate_footprint,
+        )
+        from molsysmt.basic import get as msm_get
+        from molsysmt.basic import get_form
 
         if is_all(atom_indices):
-            _n_atoms_est = msm_get(molecular_system, element='system', n_atoms=True)
+            _n_atoms_est = msm_get(molecular_system, element="system", n_atoms=True)
         else:
             _n_atoms_est = len(atom_indices)
-        _n_structures_est = msm_get(molecular_system, element='system', n_structures=True)
+        _n_structures_est = msm_get(
+            molecular_system, element="system", n_structures=True
+        )
         footprint = estimate_footprint(_n_atoms_est, _n_structures_est)
         mode = decide_mode(footprint, heavy_mode)
 
@@ -242,127 +274,129 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
             and not is_iterable_of_iterables(atom_indices)
         )
 
-        if mode == 'heavy' and heavy_eligible:
+        if mode == "heavy" and heavy_eligible:
             from molsysmt.form import _dict_modules
+
             form = get_form(molecular_system)
             form_module = _dict_modules.get(form)
-            form_heavy = getattr(form_module, '_heavy_support', {})
-            attrs = ['coordinates']
-            if pbc and form_heavy.get('box', False):
-                attrs.append('box')
+            form_heavy = getattr(form_module, "_heavy_support", {})
+            attrs = ["coordinates"]
+            if pbc and form_heavy.get("box", False):
+                attrs.append("box")
 
             from molsysmt._private.execution import ChunkedExecutor
-            reducer = _DistancesReducer(pbc=pbc and 'box' in attrs)
+
+            reducer = _DistancesReducer(pbc=pbc and "box" in attrs)
             executor = ChunkedExecutor(
                 molecular_system=molecular_system,
                 form=form,
-                operation='get_distances',
+                operation="get_distances",
                 reducer=reducer,
                 atom_indices=atom_indices,
-                structure_indices=None if is_all(structure_indices) else structure_indices,
+                structure_indices=None
+                if is_all(structure_indices)
+                else structure_indices,
                 heavy_mode=heavy_mode,
                 attributes=attrs,
             )
-            dist_val = executor.execute()  # (n_structures, n_atoms, n_atoms), float64, nm
-            length_unit = puw.get_standard_units(dimensionality={'[L]': 1})
+            dist_val = (
+                executor.execute()
+            )  # (n_structures, n_atoms, n_atoms), float64, nm
+            length_unit = puw.get_standard_units(dimensionality={"[L]": 1})
             distances = puw.quantity(dist_val, length_unit)
 
         else:
-
-            distances = _get_distances_in_memory(molecular_system, selection=atom_indices,
-                    structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
-                    molecular_system_2=molecular_system_2, selection_2=atom_indices_2,
-                    structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2, weights_2=weights_2,
-                    pairs=pairs, pbc=pbc, syntax=syntax, use_gpu=use_gpu)
+            distances = _get_distances_in_memory(
+                molecular_system,
+                selection=atom_indices,
+                structure_indices=structure_indices,
+                center_of_atoms=center_of_atoms,
+                weights=weights,
+                molecular_system_2=molecular_system_2,
+                selection_2=atom_indices_2,
+                structure_indices_2=structure_indices_2,
+                center_of_atoms_2=center_of_atoms_2,
+                weights_2=weights_2,
+                pairs=pairs,
+                pbc=pbc,
+                syntax=syntax,
+                use_gpu=use_gpu,
+            )
 
     else:
-
         raise NotImplementedMethodError
 
-
-    if output_type=='numpy.ndarray':
-
+    if output_type == "numpy.ndarray":
         output_list = []
 
         if output_indices is not None:
-
             if pairs:
-
-                raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
+                raise NotImplementedMethodError(
+                    caller="molsysmt.structure.get_distances"
+                )
 
             else:
-
-                if output_indices == 'selection': # works also with center of atoms
-
+                if output_indices == "selection":  # works also with center of atoms
                     atom_indices = list(range(distances.shape[-2]))
-                    output_list.append( atom_indices )
+                    output_list.append(atom_indices)
 
                     if atom_indices_2 is not None:
-
                         atom_indices_2 = list(range(distances.shape[-1]))
-                        output_list.append( atom_indices_2 )
+                        output_list.append(atom_indices_2)
 
-                elif output_indices == 'atom':
-
-                    output_list.append( atom_indices )
+                elif output_indices == "atom":
+                    output_list.append(atom_indices)
 
                     if atom_indices_2 is not None:
+                        output_list.append(atom_indices_2)
 
-                        output_list.append( atom_indices_2 )
-
-                elif output_indices == 'group':
-
-                    raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
+                elif output_indices == "group":
+                    raise NotImplementedMethodError(
+                        caller="molsysmt.structure.get_distances"
+                    )
 
         if output_structure_indices is not None:
-
-            if output_structure_indices == 'selection':
-
+            if output_structure_indices == "selection":
                 structure_indices = list(range(distances.shape[0]))
-                output_list.append( structure_indices )
+                output_list.append(structure_indices)
 
                 if structure_indices_2 is not None:
-
                     structure_indices_2 = list(range(distances.shape[0]))
-                    output_list.append( structure_indices_2 )
+                    output_list.append(structure_indices_2)
 
-            elif output_structure_indices == 'structure':
-
+            elif output_structure_indices == "structure":
                 if is_all(structure_indices):
                     structure_indices = list(range(distances.shape[0]))
-                    output_list.append( structure_indices )
+                    output_list.append(structure_indices)
                 else:
-                    output_list.append( structure_indices.tolist() )
+                    output_list.append(structure_indices.tolist())
 
                 if structure_indices_2 is not None:
                     if is_all(structure_indices_2):
                         structure_indices_2 = list(range(distances.shape[0]))
-                        output_list.append( structure_indices_2 )
+                        output_list.append(structure_indices_2)
                     else:
-                        output_list.append( structure_indices_2.tolist() )
+                        output_list.append(structure_indices_2.tolist())
 
         output_list.append(distances)
 
-        if len(output_list)==1:
+        if len(output_list) == 1:
             output = output_list[0]
         else:
             output = tuple(output_list)
 
-    elif output_type=='dictionary':
-
+    elif output_type == "dictionary":
         output_dictionary = {}
 
         if pairs:
-
             if output_indices is None:
-                output_indices = 'atom'
-            
-            if output_indices is not None:
+                output_indices = "atom"
 
-                if output_indices == 'selection': # works also with center of atoms
+            if output_indices is not None:
+                if output_indices == "selection":  # works also with center of atoms
                     if output_structure_indices is None:
                         for ii in range(distances.shape[-1]):
-                            output_dictionary[ii] = distances[:,ii]
+                            output_dictionary[ii] = distances[:, ii]
                     else:
                         if is_all(structure_indices):
                             structure_indices = list(range(distances.shape[0]))
@@ -370,68 +404,70 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                             for ii in range(distances.shape[-1]):
                                 output_dictionary[ii] = {}
                                 aux_ii = output_dictionary[ii]
-                                for ll,kk in enumerate(structure_indices):
-                                    aux_ii[kk]=distances[ll,ii]
+                                for ll, kk in enumerate(structure_indices):
+                                    aux_ii[kk] = distances[ll, ii]
                         else:
                             if is_all(structure_indices_2):
                                 structure_indices_2 = list(range(distances.shape[1]))
                             for ii in range(distances.shape[-1]):
                                 output_dictionary[ii] = {}
                                 aux_ii = output_dictionary[ii]
-                                for ll,kk in enumerate(structure_indices):
-                                    aux_ii[kk]={}
+                                for ll, kk in enumerate(structure_indices):
+                                    aux_ii[kk] = {}
                                     aux_ii_kk = aux_ii[kk]
-                                    for mm,nn in enumerate(structure_indices_2):
-                                        aux_ii_kk[nn]=distances[ll,mm,ii]
+                                    for mm, nn in enumerate(structure_indices_2):
+                                        aux_ii_kk[nn] = distances[ll, mm, ii]
 
-                elif output_indices == 'atom':
+                elif output_indices == "atom":
                     if output_structure_indices is None:
-                        for aa,xx in enumerate(zip(atom_indices, atom_indices_2)):
+                        for aa, xx in enumerate(zip(atom_indices, atom_indices_2)):
                             if xx[0] not in output_dictionary:
                                 output_dictionary[xx[0]] = {}
-                            output_dictionary[xx[0]][xx[1]] = distances[:,aa]
+                            output_dictionary[xx[0]][xx[1]] = distances[:, aa]
                     else:
                         if is_all(structure_indices):
                             structure_indices = list(range(distances.shape[0]))
                         if structure_indices_2 is None:
-                            for aa,xx in enumerate(zip(atom_indices, atom_indices_2)):
+                            for aa, xx in enumerate(zip(atom_indices, atom_indices_2)):
                                 if xx[0] not in output_dictionary:
                                     output_dictionary[xx[0]] = {}
                                 if xx[1] not in output_dictionary[xx[0]]:
                                     output_dictionary[xx[0]][xx[1]] = {}
                                 aux_0_1 = output_dictionary[xx[0]][xx[1]]
-                                for ll,kk in enumerate(structure_indices):
-                                    aux_0_1[kk]=distances[ll,aa]
+                                for ll, kk in enumerate(structure_indices):
+                                    aux_0_1[kk] = distances[ll, aa]
                         else:
                             if is_all(structure_indices_2):
                                 structure_indices_2 = list(range(distances.shape[1]))
-                            for aa,xx in enumerate(zip(atom_indices, atom_indices_2)):
+                            for aa, xx in enumerate(zip(atom_indices, atom_indices_2)):
                                 if xx[0] not in output_dictionary:
                                     output_dictionary[xx[0]] = {}
                                 if xx[1] not in output_dictionary[xx[0]]:
                                     output_dictionary[xx[0]][xx[1]] = {}
                                 aux_0_1 = output_dictionary[xx[0]][xx[1]]
-                                for ll,kk in enumerate(structure_indices):
-                                    aux_0_1[kk]={}
-                                    aux_0_1_kk=aux_0_1[kk]
-                                    for mm,nn in enumerate(structure_indices_2):
-                                        aux_0_1_kk[nn]=distances[ll,mm,aa]
+                                for ll, kk in enumerate(structure_indices):
+                                    aux_0_1[kk] = {}
+                                    aux_0_1_kk = aux_0_1[kk]
+                                    for mm, nn in enumerate(structure_indices_2):
+                                        aux_0_1_kk[nn] = distances[ll, mm, aa]
 
-                elif output_indices == 'group':
-
-                    raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
+                elif output_indices == "group":
+                    raise NotImplementedMethodError(
+                        caller="molsysmt.structure.get_distances"
+                    )
 
         else:
-
             if output_indices is None:
-                output_indices = 'atom'
-            
-            if output_indices is not None:
+                output_indices = "atom"
 
-                if output_indices == 'selection': # works also with center of atoms
+            if output_indices is not None:
+                if output_indices == "selection":  # works also with center of atoms
                     if output_structure_indices is None:
                         for ii in range(distances.shape[-2]):
-                            output_dictionary[ii] = {jj:distances[:,ii,jj] for jj in range(distances.shape[-1])}
+                            output_dictionary[ii] = {
+                                jj: distances[:, ii, jj]
+                                for jj in range(distances.shape[-1])
+                            }
                     else:
                         if is_all(structure_indices):
                             structure_indices = list(range(distances.shape[0]))
@@ -442,9 +478,9 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                                 for jj in range(distances.shape[-1]):
                                     aux_ii[jj] = {}
                                     aux_ii_jj = aux_ii[jj]
-                                    for ll,kk in enumerate(structure_indices):
+                                    for ll, kk in enumerate(structure_indices):
                                         kk = ll
-                                        aux_ii_jj[kk]=distances[ll,ii,jj]
+                                        aux_ii_jj[kk] = distances[ll, ii, jj]
                         else:
                             if is_all(structure_indices_2):
                                 structure_indices_2 = list(range(distances.shape[0]))
@@ -454,173 +490,202 @@ def get_distances(molecular_system, selection="all", structure_indices="all", ce
                                 for jj in range(distances.shape[-1]):
                                     aux_ii[jj] = {}
                                     aux_ii_jj = aux_ii[jj]
-                                    for ll,kk in enumerate(structure_indices):
+                                    for ll, kk in enumerate(structure_indices):
                                         nn = ll
                                         kk = ll
-                                        aux_ii_jj[kk]={}
+                                        aux_ii_jj[kk] = {}
                                         aux_ii_jj_kk = aux_ii_jj[kk]
-                                        aux_ii_jj_kk[nn]=distances[ll,ii,jj]
+                                        aux_ii_jj_kk[nn] = distances[ll, ii, jj]
 
-                elif output_indices == 'atom':
+                elif output_indices == "atom":
                     if output_structure_indices is None:
-                        for aa,ii in enumerate(atom_indices):
+                        for aa, ii in enumerate(atom_indices):
                             output_dictionary[ii] = {}
                             aux_ii = output_dictionary[ii]
                             if atom_indices_2 is None:
-                                for bb,jj in enumerate(atom_indices):
-                                    aux_ii[jj] = distances[:,aa,bb]
+                                for bb, jj in enumerate(atom_indices):
+                                    aux_ii[jj] = distances[:, aa, bb]
                             else:
-                                for bb,jj in enumerate(atom_indices_2):
-                                    aux_ii[jj] = distances[:,aa,bb]
+                                for bb, jj in enumerate(atom_indices_2):
+                                    aux_ii[jj] = distances[:, aa, bb]
                     else:
                         if is_all(structure_indices):
                             structure_indices = list(range(distances.shape[0]))
                         if structure_indices_2 is None:
-                            for aa,ii in enumerate(atom_indices):
+                            for aa, ii in enumerate(atom_indices):
                                 output_dictionary[ii] = {}
                                 aux_ii = output_dictionary[ii]
                                 if atom_indices_2 is None:
-                                    for bb,jj in enumerate(atom_indices):
+                                    for bb, jj in enumerate(atom_indices):
                                         aux_ii[jj] = {}
                                         aux_ii_jj = aux_ii[jj]
-                                        for ll,kk in enumerate(structure_indices):
-                                            aux_ii_jj[kk]=distances[ll,aa,bb]
+                                        for ll, kk in enumerate(structure_indices):
+                                            aux_ii_jj[kk] = distances[ll, aa, bb]
                                 else:
-                                    for bb,jj in enumerate(atom_indices_2):
+                                    for bb, jj in enumerate(atom_indices_2):
                                         aux_ii[jj] = {}
                                         aux_ii_jj = aux_ii[jj]
-                                        for ll,kk in enumerate(structure_indices):
-                                            aux_ii_jj[kk]=distances[ll,aa,bb]
+                                        for ll, kk in enumerate(structure_indices):
+                                            aux_ii_jj[kk] = distances[ll, aa, bb]
                         else:
                             if is_all(structure_indices_2):
                                 structure_indices_2 = list(range(distances.shape[1]))
-                            for aa,ii in enumerate(atom_indices):
+                            for aa, ii in enumerate(atom_indices):
                                 output_dictionary[ii] = {}
                                 aux_ii = output_dictionary[ii]
                                 if atom_indices_2 is None:
-                                    for bb,jj in enumerate(atom_indices):
+                                    for bb, jj in enumerate(atom_indices):
                                         aux_ii[jj] = {}
                                         aux_ii_jj = aux_ii[jj]
-                                        for ll,kk in enumerate(structure_indices):
-                                            aux_ii_jj[kk]=distances[ll,aa,bb]
+                                        for ll, kk in enumerate(structure_indices):
+                                            aux_ii_jj[kk] = distances[ll, aa, bb]
                                 else:
-                                    for bb,jj in enumerate(atom_indices_2):
+                                    for bb, jj in enumerate(atom_indices_2):
                                         aux_ii[jj] = {}
                                         aux_ii_jj = aux_ii[jj]
-                                        for ll,kk in enumerate(structure_indices):
-                                            nn=structure_indices_2[ll]
+                                        for ll, kk in enumerate(structure_indices):
+                                            nn = structure_indices_2[ll]
                                             aux_ii_jj[kk] = {}
-                                            aux_ii_jj_kk=aux_ii_jj[kk]
-                                            aux_ii_jj_kk[nn]=distances[ll,aa,bb]
+                                            aux_ii_jj_kk = aux_ii_jj[kk]
+                                            aux_ii_jj_kk[nn] = distances[ll, aa, bb]
 
-                elif output_indices == 'group':
-
-                    raise NotImplementedMethodError(caller='molsysmt.structure.get_distances')
+                elif output_indices == "group":
+                    raise NotImplementedMethodError(
+                        caller="molsysmt.structure.get_distances"
+                    )
 
         output = output_dictionary
 
     return output
 
 
-def _get_distances_in_memory(molecular_system, selection="all", structure_indices="all",
-        center_of_atoms=False, weights=None,
-        molecular_system_2=None, selection_2=None, structure_indices_2=None,
-        center_of_atoms_2=False, weights_2=None,
-        pairs=False, pbc=True, syntax='MolSysMT', use_gpu=None):
+def _get_distances_in_memory(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    center_of_atoms=False,
+    weights=None,
+    molecular_system_2=None,
+    selection_2=None,
+    structure_indices_2=None,
+    center_of_atoms_2=False,
+    weights_2=None,
+    pairs=False,
+    pbc=True,
+    syntax="MolSysMT",
+    use_gpu=None,
+):
     """Internal helper to compute distances entirely in memory (no file-backed forms)."""
 
     from molsysmt.basic import get
-    from .get_center import get_center
     from molsysmt.lib.structure._kernel_inputs import (
         align_coordinates_values_and_unit,
         extract_coordinates_value_and_unit,
     )
 
-    if center_of_atoms:
+    from .get_center import get_center
 
-        coordinates = get_center(molecular_system, selection=selection,
-                structure_indices=structure_indices, weights=weights)
+    if center_of_atoms:
+        coordinates = get_center(
+            molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            weights=weights,
+        )
 
     else:
-
-        coordinates = get(molecular_system, element='atom', selection=selection,
-                          structure_indices=structure_indices, syntax=syntax,
-                          coordinates=True)
+        coordinates = get(
+            molecular_system,
+            element="atom",
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=True,
+        )
 
     if center_of_atoms_2:
-
         if molecular_system_2 is None:
-
             molecular_system_2 = molecular_system
 
         if structure_indices_2 is None:
-
             structure_indices_2 = structure_indices
 
-        coordinates_2 = get_center(molecular_system_2, selection=selection_2,
-            structure_indices=structure_indices_2, weights=weights_2)
+        coordinates_2 = get_center(
+            molecular_system_2,
+            selection=selection_2,
+            structure_indices=structure_indices_2,
+            weights=weights_2,
+        )
 
     else:
-
         if (selection_2 is None) and (structure_indices_2 is None):
-
             if molecular_system_2 is None:
-
                 coordinates_2 = None
 
             else:
-
                 structure_indices_2 = structure_indices
                 selection_2 = selection
 
-                coordinates_2 = get(molecular_system_2, element='atom', selection=selection_2,
-                                    structure_indices=structure_indices_2, syntax=syntax,
-                                    coordinates=True)
+                coordinates_2 = get(
+                    molecular_system_2,
+                    element="atom",
+                    selection=selection_2,
+                    structure_indices=structure_indices_2,
+                    syntax=syntax,
+                    coordinates=True,
+                )
 
         else:
-
             if structure_indices_2 is None:
-
                 structure_indices_2 = structure_indices
 
             if selection_2 is None:
-
                 selection_2 = selection
 
             if molecular_system_2 is None:
-
                 molecular_system_2 = molecular_system
 
-            coordinates_2 = get(molecular_system_2, element='atom', selection=selection_2,
-                                structure_indices=structure_indices_2, syntax=syntax,
-                                coordinates=True)
-
+            coordinates_2 = get(
+                molecular_system_2,
+                element="atom",
+                selection=selection_2,
+                structure_indices=structure_indices_2,
+                syntax=syntax,
+                coordinates=True,
+            )
 
     from molsysmt._private.gpu import resolve_use_gpu
 
     if not pairs:
-
         if coordinates_2 is None:
-
             coordinates, length_unit = extract_coordinates_value_and_unit(coordinates)
             payload = coordinates.shape[0] * coordinates.shape[1] * coordinates.shape[1]
             _use_gpu = resolve_use_gpu(use_gpu, payload)
 
             if pbc:
-                box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+                box = get(
+                    molecular_system,
+                    element="system",
+                    structure_indices=structure_indices,
+                    box=True,
+                )
                 if box is not None and box[0] is not None:
                     box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
                     if _use_gpu:
                         from molsysmt.lib.structure.get_mic_distances_cuda import (
                             get_mic_distances_single_system as _gpu_mic_dist,
                         )
+
                         distances = _gpu_mic_dist(coordinates, box)
                     else:
-                        distances = _kernels.get_mic_distances_single_system(coordinates, box)
+                        distances = _kernels.get_mic_distances_single_system(
+                            coordinates, box
+                        )
                 elif _use_gpu:
                     from molsysmt.lib.structure.get_distances_cuda import (
                         get_distances_single_system as _gpu_dist,
                     )
+
                     distances = _gpu_dist(coordinates)
                 else:
                     distances = _kernels.get_distances_single_system(coordinates)
@@ -629,33 +694,44 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
                     from molsysmt.lib.structure.get_distances_cuda import (
                         get_distances_single_system as _gpu_dist,
                     )
+
                     distances = _gpu_dist(coordinates)
                 else:
                     distances = _kernels.get_distances_single_system(coordinates)
 
         else:
-
             coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
                 coordinates, coordinates_2
             )
-            payload = coordinates.shape[0] * coordinates.shape[1] * coordinates_2.shape[1]
+            payload = (
+                coordinates.shape[0] * coordinates.shape[1] * coordinates_2.shape[1]
+            )
             _use_gpu = resolve_use_gpu(use_gpu, payload)
 
             if pbc:
-                box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+                box = get(
+                    molecular_system,
+                    element="system",
+                    structure_indices=structure_indices,
+                    box=True,
+                )
                 if box is not None and box[0] is not None:
                     box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
                     if _use_gpu:
                         from molsysmt.lib.structure.get_mic_distances_cuda import (
                             get_mic_distances as _gpu_mic_dist2,
                         )
+
                         distances = _gpu_mic_dist2(coordinates, coordinates_2, box)
                     else:
-                        distances = _kernels.get_mic_distances(coordinates, coordinates_2, box)
+                        distances = _kernels.get_mic_distances(
+                            coordinates, coordinates_2, box
+                        )
                 elif _use_gpu:
                     from molsysmt.lib.structure.get_distances_cuda import (
                         get_distances as _gpu_dist2,
                     )
+
                     distances = _gpu_dist2(coordinates, coordinates_2)
                 else:
                     distances = _kernels.get_distances(coordinates, coordinates_2)
@@ -664,30 +740,35 @@ def _get_distances_in_memory(molecular_system, selection="all", structure_indice
                     from molsysmt.lib.structure.get_distances_cuda import (
                         get_distances as _gpu_dist2,
                     )
+
                     distances = _gpu_dist2(coordinates, coordinates_2)
                 else:
                     distances = _kernels.get_distances(coordinates, coordinates_2)
 
-    else: # pairs=True
-
+    else:  # pairs=True
         coordinates, coordinates_2, length_unit = align_coordinates_values_and_unit(
             coordinates, coordinates_2
         )
 
         if pbc:
-            box = get(molecular_system, element="system", structure_indices=structure_indices, box=True)
+            box = get(
+                molecular_system,
+                element="system",
+                structure_indices=structure_indices,
+                box=True,
+            )
             if box is not None and box[0] is not None:
                 box = puw.get_value(box, to_unit=length_unit, dtype=np.float64)
-                distances = _kernels.get_mic_distances_pairs(coordinates, coordinates_2, box)
+                distances = _kernels.get_mic_distances_pairs(
+                    coordinates, coordinates_2, box
+                )
             else:
                 distances = _kernels.get_distances_pairs(coordinates, coordinates_2)
         else:
             distances = _kernels.get_distances_pairs(coordinates, coordinates_2)
 
     distances = puw.quantity(distances, length_unit)
-    # We do NOT force standardize here to save time. 
+    # We do NOT force standardize here to save time.
     # The result is already in a coherent physical unit.
-
-
 
     return distances

@@ -1,8 +1,15 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+
 
 @arg_digest()
-def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT', skip_digestion=False):
+def add_missing_heavy_atoms(
+    molecular_system,
+    selection="all",
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    skip_digestion=False,
+):
     """
     Adding missing non-hydrogen atoms to a molecular system.
 
@@ -92,37 +99,67 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import get_form, convert, select, get, set
+    from molsysmt.basic import convert, get, get_form, select, set
 
     output_molecular_system = None
     form_in = get_form(molecular_system)
     form_out = form_in
 
-    if engine=="PDBFixer":
+    if engine == "PDBFixer":
+        temp_molecular_system = convert(
+            molecular_system,
+            to_form="pdbfixer.PDBFixer",
+            pdb_chain_id="chain_id",
+            skip_digestion=True,
+        )
 
-        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer", pdb_chain_id='chain_id',
-                                        skip_digestion=True)
-        
-        atts_from_components = get(molecular_system, element='component', component_name=True,
-                                   output_type='dictionary', skip_digestion=True)
-        atts_from_molecules = get(molecular_system, element='molecule', molecule_name=True,
-                                  output_type='dictionary', skip_digestion=True)
-        atts_from_chains = get(molecular_system, element='chain', chain_id=True, chain_name=True,
-                               output_type='dictionary', skip_digestion=True)
-        atts_from_entities = get(molecular_system, element='entity', entity_name=True,
-                                 output_type='dictionary', skip_digestion=True)
+        atts_from_components = get(
+            molecular_system,
+            element="component",
+            component_name=True,
+            output_type="dictionary",
+            skip_digestion=True,
+        )
+        atts_from_molecules = get(
+            molecular_system,
+            element="molecule",
+            molecule_name=True,
+            output_type="dictionary",
+            skip_digestion=True,
+        )
+        atts_from_chains = get(
+            molecular_system,
+            element="chain",
+            chain_id=True,
+            chain_name=True,
+            output_type="dictionary",
+            skip_digestion=True,
+        )
+        atts_from_entities = get(
+            molecular_system,
+            element="entity",
+            entity_name=True,
+            output_type="dictionary",
+            skip_digestion=True,
+        )
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
         temp_molecular_system.missingTerminals = {}
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection, syntax=syntax, skip_digestion=True)
+        group_indices_in_selection = select(
+            molecular_system,
+            element="group",
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+        )
 
         aux_dict = {}
 
         for group, atoms in temp_molecular_system.missingAtoms.items():
             if group.index in group_indices_in_selection:
-                aux_dict[group]=[]
+                aux_dict[group] = []
                 for atom in atoms:
                     aux_dict[group].append(atom)
 
@@ -130,58 +167,112 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
 
         temp_molecular_system.addMissingAtoms()
 
-        output_molecular_system = convert(temp_molecular_system, to_form=form_out, skip_digestion=True)
+        output_molecular_system = convert(
+            temp_molecular_system, to_form=form_out, skip_digestion=True
+        )
 
         # Adding atoms can merge previously isolated fragments, changing n_components/n_molecules.
         # Only restore metadata at each level if the count is unchanged.
-        n_comp_out = get(output_molecular_system, element='component', n_components=True, skip_digestion=True)
+        n_comp_out = get(
+            output_molecular_system,
+            element="component",
+            n_components=True,
+            skip_digestion=True,
+        )
         if n_comp_out == len(next(iter(atts_from_components.values()))):
-            set(output_molecular_system, element='component', **atts_from_components, skip_digestion=True)
+            set(
+                output_molecular_system,
+                element="component",
+                **atts_from_components,
+                skip_digestion=True,
+            )
 
-        n_mol_out = get(output_molecular_system, element='molecule', n_molecules=True, skip_digestion=True)
+        n_mol_out = get(
+            output_molecular_system,
+            element="molecule",
+            n_molecules=True,
+            skip_digestion=True,
+        )
         if n_mol_out == len(next(iter(atts_from_molecules.values()))):
-            set(output_molecular_system, element='molecule', **atts_from_molecules, skip_digestion=True)
+            set(
+                output_molecular_system,
+                element="molecule",
+                **atts_from_molecules,
+                skip_digestion=True,
+            )
 
-        n_chain_out = get(output_molecular_system, element='chain', n_chains=True, skip_digestion=True)
+        n_chain_out = get(
+            output_molecular_system, element="chain", n_chains=True, skip_digestion=True
+        )
         if n_chain_out == len(next(iter(atts_from_chains.values()))):
-            set(output_molecular_system, element='chain', **atts_from_chains, skip_digestion=True)
+            set(
+                output_molecular_system,
+                element="chain",
+                **atts_from_chains,
+                skip_digestion=True,
+            )
 
-        n_ent_out = get(output_molecular_system, element='entity', n_entities=True, skip_digestion=True)
+        n_ent_out = get(
+            output_molecular_system,
+            element="entity",
+            n_entities=True,
+            skip_digestion=True,
+        )
         if n_ent_out == len(next(iter(atts_from_entities.values()))):
-            set(output_molecular_system, element='entity', **atts_from_entities, skip_digestion=True)
+            set(
+                output_molecular_system,
+                element="entity",
+                **atts_from_entities,
+                skip_digestion=True,
+            )
 
-        del(group_indices_in_selection, temp_molecular_system)
-        del(atts_from_components, atts_from_molecules, atts_from_chains, atts_from_entities)
-
-    elif engine == 'MolSysMT':
-
-        from molsysmt.basic import convert, get_form
-        from molsysmt import pyunitwizard as puw
-        from molsysmt.build.get_missing_heavy_atoms import get_missing_heavy_atoms
-        from molsysmt.build._native_placers import (
-            load_residue_template, place_missing_in_group, append_atoms_to_molsys,
+        del (group_indices_in_selection, temp_molecular_system)
+        del (
+            atts_from_components,
+            atts_from_molecules,
+            atts_from_chains,
+            atts_from_entities,
         )
 
+    elif engine == "MolSysMT":
+        from molsysmt import pyunitwizard as puw
+        from molsysmt.basic import convert, get_form
+        from molsysmt.build._native_placers import (
+            append_atoms_to_molsys,
+            load_residue_template,
+            place_missing_in_group,
+        )
+        from molsysmt.build.get_missing_heavy_atoms import get_missing_heavy_atoms
+
         # Work in native form
-        if form_in != 'molsysmt.MolSys':
-            native_ms = convert(molecular_system, to_form='molsysmt.MolSys', skip_digestion=True)
+        if form_in != "molsysmt.MolSys":
+            native_ms = convert(
+                molecular_system, to_form="molsysmt.MolSys", skip_digestion=True
+            )
         else:
             native_ms = molecular_system
 
         missing_atoms = get_missing_heavy_atoms(
-            native_ms, selection=selection, syntax=syntax, engine='MolSysMT',
+            native_ms,
+            selection=selection,
+            syntax=syntax,
+            engine="MolSysMT",
         )
 
         if not missing_atoms:
-            output_molecular_system = native_ms.copy() if form_in == 'molsysmt.MolSys' else molecular_system
-            return convert(output_molecular_system, to_form=form_out, skip_digestion=True) \
-                if form_in != form_out else output_molecular_system
+            output_molecular_system = (
+                native_ms.copy() if form_in == "molsysmt.MolSys" else molecular_system
+            )
+            return (
+                convert(output_molecular_system, to_form=form_out, skip_digestion=True)
+                if form_in != form_out
+                else output_molecular_system
+            )
 
         topo = native_ms.topology
-        all_coords = puw.get_value(native_ms.structures.coordinates, to_unit='nm')
-        n_structures = all_coords.shape[0]
+        all_coords = puw.get_value(native_ms.structures.coordinates, to_unit="nm")
 
-        new_atom_info = []   # list of (group_idx, atom_name, coords(n_structures, 3))
+        new_atom_info = []  # list of (group_idx, atom_name, coords(n_structures, 3))
         new_bonds_info = []  # list of (abs_idx1, abs_idx2) — resolved after atom list is built
 
         # Track new atom indices by (group_idx, atom_name) for bond resolution
@@ -189,12 +280,14 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
         n_orig = topo.n_atoms
 
         for group_idx, missing_names in missing_atoms.items():
-            group_name = topo.groups['group_name'].values[group_idx]
+            group_name = topo.groups["group_name"].values[group_idx]
             template = load_residue_template(group_name)
             if template is None:
                 continue
 
-            placed = place_missing_in_group(topo, all_coords, group_idx, missing_names, template)
+            placed = place_missing_in_group(
+                topo, all_coords, group_idx, missing_names, template
+            )
             if not placed:
                 continue
 
@@ -211,35 +304,35 @@ def add_missing_heavy_atoms(molecular_system, selection='all', syntax='MolSysMT'
             new_atom_name_by_group.setdefault(gidx, {})[aname] = nidx
 
         for group_idx, name_to_new_idx in new_atom_name_by_group.items():
-            group_name = topo.groups.loc[group_idx, 'group_name']
+            group_name = topo.groups.loc[group_idx, "group_name"]
             template = load_residue_template(group_name)
             if template is None:
                 continue
 
             # Build name → atom_idx for existing atoms of this group
-            gmask = topo.atoms['group_index'] == group_idx
+            gmask = topo.atoms["group_index"] == group_idx
             exist_rows = topo.atoms[gmask]
             existing_name_to_idx = dict(
-                zip(exist_rows['atom_name'], exist_rows.index.tolist())
+                zip(exist_rows["atom_name"], exist_rows.index.tolist())
             )
             # Merge with new atoms
             all_name_to_idx = {**existing_name_to_idx, **name_to_new_idx}
 
-            for b1, b2 in template['bonds']:
+            for b1, b2 in template["bonds"]:
                 if b1 not in name_to_new_idx and b2 not in name_to_new_idx:
-                    continue   # bond between two existing atoms (already in topology)
+                    continue  # bond between two existing atoms (already in topology)
                 if b1 not in all_name_to_idx or b2 not in all_name_to_idx:
                     continue
                 new_bonds_info.append((all_name_to_idx[b1], all_name_to_idx[b2]))
 
         native_out = append_atoms_to_molsys(native_ms, new_atom_info, new_bonds_info)
-        output_molecular_system = convert(native_out, to_form=form_out, skip_digestion=True) \
-            if form_in != 'molsysmt.MolSys' else native_out
+        output_molecular_system = (
+            convert(native_out, to_form=form_out, skip_digestion=True)
+            if form_in != "molsysmt.MolSys"
+            else native_out
+        )
 
     else:
-
         raise NotImplementedMethodError
 
-
     return output_molecular_system
-

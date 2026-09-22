@@ -1,16 +1,28 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_iterable_of_iterables
-from molsysmt import pyunitwizard as puw
-from molsysmt._private.lists import sorted_list_of_pairs
-from molsysmt._private.smonitor import ArgumentConflictError, InternalAlgorithmError, NotImplementedMethodError
 import numpy as np
 from smonitor import signal
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.lists import sorted_list_of_pairs
+from molsysmt._private.smonitor import (
+    ArgumentConflictError,
+    InternalAlgorithmError,
+    NotImplementedMethodError,
+)
+from molsysmt._private.variables import is_iterable_of_iterables
 from molsysmt.configure import with_configure_overrides
 
 
-def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
-                                       structure_indices, pbc, threshold, same_set,
-                                       output_type):
+def _threshold_neighbors_via_cell_list(
+    molecular_system,
+    selection,
+    selection_2,
+    structure_indices,
+    pbc,
+    threshold,
+    same_set,
+    output_type,
+):
     """Threshold-mode neighbour search via the shared multi-structure cell list.
 
     The heavy work (search, distances, per-atom sort) runs in a single parallel
@@ -20,11 +32,16 @@ def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
     ``None`` when the cell list cannot serve the request (non-positive cutoff), so
     the caller can fall back to the distance-matrix path.
     """
-    from molsysmt.basic import get
     from molsysmt._private.rust_backend import neighbor_list_csr_multi
+    from molsysmt.basic import get
 
-    q = get(molecular_system, element='atom', selection=selection,
-            structure_indices=structure_indices, coordinates=True)
+    q = get(
+        molecular_system,
+        element="atom",
+        selection=selection,
+        structure_indices=structure_indices,
+        coordinates=True,
+    )
     length_units = puw.get_unit(q)
     q_val = np.ascontiguousarray(puw.get_value(q), dtype=np.float64)
 
@@ -35,22 +52,38 @@ def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
     if same_set:
         r_val = None
     else:
-        r = get(molecular_system, element='atom', selection=selection_2,
-                structure_indices=structure_indices, coordinates=True)
+        r = get(
+            molecular_system,
+            element="atom",
+            selection=selection_2,
+            structure_indices=structure_indices,
+            coordinates=True,
+        )
         r_val = np.ascontiguousarray(puw.get_value(r), dtype=np.float64)
 
     box = None
     if pbc:
-        box_q = get(molecular_system, element='system',
-                    structure_indices=structure_indices, box=True)
+        box_q = get(
+            molecular_system,
+            element="system",
+            structure_indices=structure_indices,
+            box=True,
+        )
         if box_q is not None and box_q[0] is not None:
-            box = np.ascontiguousarray(puw.get_value(box_q, to_unit=length_units), dtype=np.float64)
+            box = np.ascontiguousarray(
+                puw.get_value(box_q, to_unit=length_units), dtype=np.float64
+            )
 
     offsets, indices, distances = neighbor_list_csr_multi(
-        q_val, r_val, box=box, cutoff=threshold_val,
-        exclude_self=same_set, sort_by_distance=True)
+        q_val,
+        r_val,
+        box=box,
+        cutoff=threshold_val,
+        exclude_self=same_set,
+        sort_by_distance=True,
+    )
 
-    if output_type == 'csr':
+    if output_type == "csr":
         return offsets, indices, distances * length_units
 
     nstructures = q_val.shape[0]
@@ -61,22 +94,43 @@ def _threshold_neighbors_via_cell_list(molecular_system, selection, selection_2,
         row = s * nelements_1
         for ii in range(nelements_1):
             w = row + ii
-            neighs[s, ii] = indices[offsets[w]:offsets[w + 1]]
-            dists[s, ii] = distances[offsets[w]:offsets[w + 1]]
+            neighs[s, ii] = indices[offsets[w] : offsets[w + 1]]
+            dists[s, ii] = distances[offsets[w] : offsets[w + 1]]
 
     dists = dists * length_units
     return neighs, dists
 
 
-@signal(tags=['api', 'structure'])
+@signal(tags=["api", "structure"])
 @arg_digest()
 @with_configure_overrides
-def get_neighbors(molecular_system, selection="all", structure_indices="all", center_of_atoms=False, weights=None,
-                  molecular_system_2=None, selection_2=None, structure_indices_2=None, center_of_atoms_2=False, weights_2=None,
-                  threshold=None, n_neighbors=None, pairs=False, unique_pairs=False, mutual_only=False, pbc=True,
-                  output_type='numpy.ndarray', output_indices=None, output_structure_indices=None,
-                  sorted=True, engine='MolSysMT', syntax='MolSysMT', parallel=None,
-                  num_threads=None, skip_digestion=False):
+def get_neighbors(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    center_of_atoms=False,
+    weights=None,
+    molecular_system_2=None,
+    selection_2=None,
+    structure_indices_2=None,
+    center_of_atoms_2=False,
+    weights_2=None,
+    threshold=None,
+    n_neighbors=None,
+    pairs=False,
+    unique_pairs=False,
+    mutual_only=False,
+    pbc=True,
+    output_type="numpy.ndarray",
+    output_indices=None,
+    output_structure_indices=None,
+    sorted=True,
+    engine="MolSysMT",
+    syntax="MolSysMT",
+    parallel=None,
+    num_threads=None,
+    skip_digestion=False,
+):
     """
     Find the neighbors of each atom (or group center) within a cutoff or by count.
 
@@ -175,12 +229,12 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
     .. versionadded:: 1.0.0
     """
 
-    from . import get_distances
-    from molsysmt.basic import select
     from molsysmt.pbc import has_pbc
 
+    from . import get_distances
+
     if pbc:
-        pbc=has_pbc(molecular_system)
+        pbc = has_pbc(molecular_system)
 
     same_set = False
 
@@ -193,36 +247,63 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
     if structure_indices_2 is None:
         same_structures = True
 
-    same_set= same_selections and same_structures
+    same_set = same_selections and same_structures
 
     # Fast path: threshold-mode atom neighbour search via the shared multi-structure
     # cell list (O(N) vs the full O(N*M) distance matrix). Restricted to the cases
     # whose contract it reproduces exactly; everything else falls back.
     _cell_list_eligible = (
-        engine == 'MolSysMT' and threshold is not None and n_neighbors is None
-        and output_type in ('numpy.ndarray', 'csr')
-        and output_indices is None and output_structure_indices is None
-        and not center_of_atoms and not center_of_atoms_2
-        and molecular_system_2 is None and structure_indices_2 is None
-        and not pairs and weights is None and weights_2 is None
+        engine == "MolSysMT"
+        and threshold is not None
+        and n_neighbors is None
+        and output_type in ("numpy.ndarray", "csr")
+        and output_indices is None
+        and output_structure_indices is None
+        and not center_of_atoms
+        and not center_of_atoms_2
+        and molecular_system_2 is None
+        and structure_indices_2 is None
+        and not pairs
+        and weights is None
+        and weights_2 is None
         and not is_iterable_of_iterables(selection)
-        and not is_iterable_of_iterables(selection_2))
+        and not is_iterable_of_iterables(selection_2)
+    )
     if _cell_list_eligible:
         _cell_list_result = _threshold_neighbors_via_cell_list(
-            molecular_system, selection, selection_2, structure_indices, pbc,
-            threshold, same_set, output_type)
+            molecular_system,
+            selection,
+            selection_2,
+            structure_indices,
+            pbc,
+            threshold,
+            same_set,
+            output_type,
+        )
         if _cell_list_result is not None:
             return _cell_list_result
 
-    if output_type == 'csr':
+    if output_type == "csr":
         # 'csr' output is only produced by the cell-list fast path.
-        raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
+        raise NotImplementedMethodError(caller="molsysmt.structure.get_neighbors")
 
-    output_get_distances = get_distances(molecular_system=molecular_system, selection=selection,
-               structure_indices=structure_indices, center_of_atoms=center_of_atoms, weights=weights,
-               selection_2=selection_2, structure_indices_2=structure_indices_2, center_of_atoms_2=center_of_atoms_2,
-               output_type='numpy.ndarray', output_indices=output_indices, output_structure_indices=output_structure_indices,
-               weights_2=weights_2, pbc=pbc, engine=engine, syntax=syntax)
+    output_get_distances = get_distances(
+        molecular_system=molecular_system,
+        selection=selection,
+        structure_indices=structure_indices,
+        center_of_atoms=center_of_atoms,
+        weights=weights,
+        selection_2=selection_2,
+        structure_indices_2=structure_indices_2,
+        center_of_atoms_2=center_of_atoms_2,
+        output_type="numpy.ndarray",
+        output_indices=output_indices,
+        output_structure_indices=output_structure_indices,
+        weights_2=weights_2,
+        pbc=pbc,
+        engine=engine,
+        syntax=syntax,
+    )
 
     if output_indices is None and output_structure_indices is None:
         all_dists = output_get_distances
@@ -234,9 +315,8 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
     all_dists = puw.get_value(all_dists)
 
     if n_neighbors is not None and threshold is None:
-
-        neighs=np.empty((nstructures, nelements_1, n_neighbors), dtype=int)
-        dists=np.empty((nstructures, nelements_1, n_neighbors), dtype=float)
+        neighs = np.empty((nstructures, nelements_1, n_neighbors), dtype=int)
+        dists = np.empty((nstructures, nelements_1, n_neighbors), dtype=float)
 
         offset = 0
         if same_set:
@@ -244,30 +324,31 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
 
         for indice_structure in range(nstructures):
             for ii in range(nelements_1):
-                neighs_aux = np.argpartition(all_dists[indice_structure,ii,:], n_neighbors-1+offset)[:n_neighbors+offset]
-                dists_aux = all_dists[indice_structure,ii,neighs_aux]
+                neighs_aux = np.argpartition(
+                    all_dists[indice_structure, ii, :], n_neighbors - 1 + offset
+                )[: n_neighbors + offset]
+                dists_aux = all_dists[indice_structure, ii, neighs_aux]
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                neighs[indice_structure,ii,:]=neighs_aux[offset:]
-                dists[indice_structure,ii,:]=dists_aux[offset:]
+                neighs[indice_structure, ii, :] = neighs_aux[offset:]
+                dists[indice_structure, ii, :] = dists_aux[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
                         raise InternalAlgorithmError(
                             reason="Sets are different in distance calculation for the same molecular system.",
-                            caller="molsysmt.structure.get_neighbors"
+                            caller="molsysmt.structure.get_neighbors",
                         )
 
-        del(all_dists)
+        del all_dists
 
-        dists=dists*length_units
+        dists = dists * length_units
 
     elif threshold is not None and n_neighbors is None:
-
         threshold = puw.get_value(threshold, to_unit=length_units)
 
-        neighs=np.empty((nstructures, nelements_1), dtype=object)
-        dists=np.empty((nstructures, nelements_1), dtype=object)
+        neighs = np.empty((nstructures, nelements_1), dtype=object)
+        dists = np.empty((nstructures, nelements_1), dtype=object)
 
         offset = 0
         if same_set:
@@ -275,50 +356,53 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
 
         for indice_structure in range(nstructures):
             for ii in range(nelements_1):
-                neighs_aux = np.argwhere(all_dists[indice_structure,ii,:]<=threshold)[:,0]
-                dists_aux = all_dists[indice_structure,ii,neighs_aux]
+                neighs_aux = np.argwhere(
+                    all_dists[indice_structure, ii, :] <= threshold
+                )[:, 0]
+                dists_aux = all_dists[indice_structure, ii, neighs_aux]
                 good_order = np.argsort(dists_aux)
                 neighs_aux = neighs_aux[good_order]
                 dists_aux = dists_aux[good_order]
-                neighs[indice_structure,ii]=neighs_aux[offset:]
-                dists[indice_structure,ii]=dists_aux[offset:]
+                neighs[indice_structure, ii] = neighs_aux[offset:]
+                dists[indice_structure, ii] = dists_aux[offset:]
                 if same_set:
                     if dists_aux[0] > 0.01:
                         raise InternalAlgorithmError(
                             reason="Sets are different in distance calculation for the same molecular system.",
-                            caller="molsysmt.structure.get_neighbors"
+                            caller="molsysmt.structure.get_neighbors",
                         )
 
-        del(all_dists)
+        del all_dists
 
-        dists=dists*length_units
+        dists = dists * length_units
 
     else:
-
         raise ArgumentConflictError(
             arg1="threshold",
             arg2="n_neighbors",
             reason="Either threshold or n_neighbors must be provided, but not both at the same time.",
-            caller="molsysmt.structure.get_neighbors"
+            caller="molsysmt.structure.get_neighbors",
         )
 
-    if output_type == 'numpy.ndarray':
+    if output_type == "numpy.ndarray":
         if output_indices is None and output_structure_indices is None:
             return neighs, dists
         else:
-            raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
-    elif output_type == 'pairs':
+            raise NotImplementedMethodError(caller="molsysmt.structure.get_neighbors")
+    elif output_type == "pairs":
         with_output_indices = False
         if output_indices is not None:
             with_output_indices = True
-            if len(output_get_distances)==2:
+            if len(output_get_distances) == 2:
                 aux_indices_1 = output_get_distances[0]
                 aux_indices_2 = aux_indices_1
-            elif len(output_get_distances)==3:
+            elif len(output_get_distances) == 3:
                 aux_indices_1 = output_get_distances[0]
                 aux_indices_2 = output_get_distances[1]
             else:
-                raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
+                raise NotImplementedMethodError(
+                    caller="molsysmt.structure.get_neighbors"
+                )
         if output_indices is not None:
             neighs_pairs = []
             dists_pairs = []
@@ -326,17 +410,19 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                 aux_pairs = []
                 aux_dists = []
                 for jj in range(nelements_1):
-                    for kk in range(len(neighs[ii,jj])):
-                        aux_dists.append(dists[ii,jj][kk])
+                    for kk in range(len(neighs[ii, jj])):
+                        aux_dists.append(dists[ii, jj][kk])
                         if with_output_indices:
-                            aux_pairs.append([aux_indices_1[jj], aux_indices_2[neighs[ii,jj][kk]]])
+                            aux_pairs.append(
+                                [aux_indices_1[jj], aux_indices_2[neighs[ii, jj][kk]]]
+                            )
                         else:
-                            aux_pairs.append([jj, neighs[ii,jj][kk]])
+                            aux_pairs.append([jj, neighs[ii, jj][kk]])
                 if mutual_only:
                     tmp_pairs = []
                     tmp_dists = []
                     for pair, dist in zip(aux_pairs, aux_dists):
-                        if ([pair[1], pair[0]] in aux_pairs) and (pair[0]<pair[1]):
+                        if ([pair[1], pair[0]] in aux_pairs) and (pair[0] < pair[1]):
                             tmp_pairs.append(pair)
                             tmp_dists.append(dist)
                     aux_pairs = tmp_pairs
@@ -345,22 +431,27 @@ def get_neighbors(molecular_system, selection="all", structure_indices="all", ce
                     tmp_pairs = []
                     tmp_dists = []
                     for pair, dist in zip(aux_pairs, aux_dists):
-                        if [pair[0],pair[1]] not in tmp_pairs and [pair[1],pair[0]] not in tmp_pairs:
+                        if [pair[0], pair[1]] not in tmp_pairs and [
+                            pair[1],
+                            pair[0],
+                        ] not in tmp_pairs:
                             tmp_pairs.append(pair)
                             tmp_dists.append(dist)
                     aux_pairs = tmp_pairs
                     aux_dists = tmp_dists
-                if len(aux_dists)>0:
-                    aux_dists = puw.utils.sequences.concatenate(aux_dists, value_type='list')
+                if len(aux_dists) > 0:
+                    aux_dists = puw.utils.sequences.concatenate(
+                        aux_dists, value_type="list"
+                    )
                 if sorted:
                     aux_pairs, aux_dists = sorted_list_of_pairs(aux_pairs, aux_dists)
                 neighs_pairs.append(aux_pairs)
                 dists_pairs.append(aux_dists)
             return neighs_pairs, dists_pairs
         else:
-            raise NotImplementedMethodError(caller='molsysmt.structure.get_neighbors')
+            raise NotImplementedMethodError(caller="molsysmt.structure.get_neighbors")
 
     raise InternalAlgorithmError(
         reason="The function reached an unreachable state.",
-        caller="molsysmt.structure.get_neighbors"
+        caller="molsysmt.structure.get_neighbors",
     )

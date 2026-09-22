@@ -1,22 +1,38 @@
-from molsysmt.native.molsys import MolSys
-import molsysmt as msm
-from molsysmt._private.variables import is_all
 import time
 
-class MolSysReporter():
+import molsysmt as msm
+from molsysmt._private.variables import is_all
+
+
+class MolSysReporter:
     """OpenMM reporter that writes trajectories as MolSysMT MolSys objects."""
 
-    def __init__(self, reportInterval, topology, selection='all', syntax='MolSysMT',
-                 id=True, time=True, coordinates=True, boxVectors=True,
-                 potentialEnergy=False, kineticEnergy=False, temperature=False,
-                 runningTime=False):
+    def __init__(
+        self,
+        reportInterval,
+        topology,
+        selection="all",
+        syntax="MolSysMT",
+        id=True,
+        time=True,
+        coordinates=True,
+        boxVectors=True,
+        potentialEnergy=False,
+        kineticEnergy=False,
+        temperature=False,
+        runningTime=False,
+    ):
 
         if not is_all(selection):
-            self._atom_indices = msm.selection(topology, selection=selection, syntax=syntax)
-            self.topology = msm.convert(topology, to_form='molsysmt.Topology', selection=self._atom_indices)
+            self._atom_indices = msm.selection(
+                topology, selection=selection, syntax=syntax
+            )
+            self.topology = msm.convert(
+                topology, to_form="molsysmt.Topology", selection=self._atom_indices
+            )
         else:
-            self._atom_indices = 'all'
-            self.topology = msm.convert(topology, to_form='molsysmt.Topology')
+            self._atom_indices = "all"
+            self.topology = msm.convert(topology, to_form="molsysmt.Topology")
 
         self._reportInterval = reportInterval
         self._id = id
@@ -38,7 +54,7 @@ class MolSysReporter():
         self.starting_time = None
         self.running_time = None
 
-        self._initialized=False
+        self._initialized = False
         self._dof = None
 
     def _initialize(self, simulation, state):
@@ -50,24 +66,28 @@ class MolSysReporter():
             system = simulation.system
             dof = 0
             for i in range(system.getNumParticles()):
-                if system.getParticleMass(i) > 0*unit.dalton:
+                if system.getParticleMass(i) > 0 * unit.dalton:
                     dof += 3
             for i in range(system.getNumConstraints()):
                 p1, p2, distance = system.getConstraintParameters(i)
-                if system.getParticleMass(p1) > 0*unit.dalton or system.getParticleMass(p2) > 0*unit.dalton:
+                if (
+                    system.getParticleMass(p1) > 0 * unit.dalton
+                    or system.getParticleMass(p2) > 0 * unit.dalton
+                ):
                     dof -= 1
-            if any(type(system.getForce(i)) == mm.CMMotionRemover for i in range(system.getNumForces())):
+            if any(
+                type(system.getForce(i)) is mm.CMMotionRemover
+                for i in range(system.getNumForces())
+            ):
                 dof -= 3
             self._dof = dof
 
         if self._runningTime:
-
             self.starting_time = time.time()
 
     def end(self):
 
         if self._runningTime:
-
             self.running_time = self.starting_time - time.time()
 
     def report(self, simulation, state):
@@ -83,20 +103,22 @@ class MolSysReporter():
             self.time.append(value)
 
         if self._coordinates:
-            value=state.getPositions(asNumpy=True)
+            value = state.getPositions(asNumpy=True)
             self.coordinates.append(value)
 
         if self._boxVectors:
-            value=state.getPeriodicBoxVectors(asNumpy=True)
+            value = state.getPeriodicBoxVectors(asNumpy=True)
             self.box.append(value)
 
         if self._potentialEnergy:
-            value=state.getPotentialEnergy().value_in_unit(unit.kilojoules_per_mole)
+            value = state.getPotentialEnergy().value_in_unit(unit.kilojoules_per_mole)
             self.potential_energy.append(value)
 
         if self._kineticEnergy:
-            value=state.getKineticEnergy().value_in_unit(unit.kilojoules_per_mole)
+            value = state.getKineticEnergy().value_in_unit(unit.kilojoules_per_mole)
             self.kinetic_energy.append(value)
 
         if self._temperature:
-            value=(2*state.getKineticEnergy()/(self._dof*unit.MOLAR_GAS_CONSTANT_R)).value_in_unit(unit.kelvin)
+            value = (
+                2 * state.getKineticEnergy() / (self._dof * unit.MOLAR_GAS_CONSTANT_R)
+            ).value_in_unit(unit.kelvin)

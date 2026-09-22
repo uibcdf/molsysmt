@@ -1,6 +1,8 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
 import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+
 
 @arg_digest()
 def get_volume_from_box(box):
@@ -24,12 +26,12 @@ def get_volume_from_box(box):
 
     if box is not None:
         if isinstance(box, np.ndarray):
-            units = puw.unit('nm')
+            units = puw.unit("nm")
             value = box
         else:
             units = puw.get_unit(box)
             value = puw.get_value(box)
-        volume = np.linalg.det(value)*units**3
+        volume = np.linalg.det(value) * units**3
     else:
         volume = None
 

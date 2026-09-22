@@ -8,7 +8,6 @@ on:
       - "molsysmt/**/*.py"
       - "pyproject.toml"
       - ".github/workflows/ruff.yaml"
-      - "devtools/ruff_migrated_paths.txt"
   pull_request:
     branches:
       - "main"
@@ -16,7 +15,6 @@ on:
       - "molsysmt/**/*.py"
       - "pyproject.toml"
       - ".github/workflows/ruff.yaml"
-      - "devtools/ruff_migrated_paths.txt"
   workflow_dispatch:
 
 jobs:
@@ -36,13 +34,7 @@ jobs:
       - name: Install Ruff
         run: pip install ruff==0.16.5
 
-      - name: Check critical rules across the legacy core
-        # The full common baseline is migrated under uibcdf/molsysmt#212.
-        run: ruff check --select F821,F822,F823,B006,B023 molsysmt
-
-      - name: Check migrated packages
+      - name: Check Python source
         run: |
-          mapfile -t migrated_paths < devtools/ruff_migrated_paths.txt
-          test "${#migrated_paths[@]}" -gt 0
-          ruff check "${migrated_paths[@]}"
-          ruff format --check "${migrated_paths[@]}"
+          ruff check .
+          ruff format --check .

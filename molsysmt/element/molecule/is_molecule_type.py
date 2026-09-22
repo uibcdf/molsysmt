@@ -21,8 +21,10 @@ def is_molecule_type(molecule_type):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.element.molecule import _molecule_types
-    from molsysmt.element.molecule import _plural_molecule_types_to_singular
+    from molsysmt.element.molecule import (
+        _molecule_types,
+        _plural_molecule_types_to_singular,
+    )
 
     output = False
 
@@ -33,4 +35,3 @@ def is_molecule_type(molecule_type):
         output = True
 
     return output
-

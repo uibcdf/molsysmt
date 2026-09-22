@@ -1,33 +1,33 @@
 syntax_capabilities = {
-    'MolSysMT': {
-        'select': True,
-        'to_syntax': False,
-        'scope': 'Any supported molecular-system form',
+    "MolSysMT": {
+        "select": True,
+        "to_syntax": False,
+        "scope": "Any supported molecular-system form",
     },
-    'MDTraj': {
-        'select': True,
-        'to_syntax': True,
-        'scope': 'Any input convertible to mdtraj.Topology',
+    "MDTraj": {
+        "select": True,
+        "to_syntax": True,
+        "scope": "Any input convertible to mdtraj.Topology",
     },
-    'MDAnalysis': {
-        'select': True,
-        'to_syntax': False,
-        'scope': 'Inputs convertible to MDAnalysis.Universe',
+    "MDAnalysis": {
+        "select": True,
+        "to_syntax": False,
+        "scope": "Inputs convertible to MDAnalysis.Universe",
     },
-    'NGLView': {
-        'select': False,
-        'to_syntax': True,
-        'scope': 'Atom, group, and chain translations',
+    "NGLView": {
+        "select": False,
+        "to_syntax": True,
+        "scope": "Atom, group, and chain translations",
     },
 }
 
 selection_syntaxes = tuple(
-    name for name, capabilities in syntax_capabilities.items()
-    if capabilities['select']
+    name for name, capabilities in syntax_capabilities.items() if capabilities["select"]
 )
 translation_syntaxes = tuple(
-    name for name, capabilities in syntax_capabilities.items()
-    if capabilities['to_syntax']
+    name
+    for name, capabilities in syntax_capabilities.items()
+    if capabilities["to_syntax"]
 )
 
 # Backward-compatible introspection union. Direction-specific validation uses the two

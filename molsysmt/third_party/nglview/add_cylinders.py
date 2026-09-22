@@ -1,17 +1,37 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all, is_iterable
-from molsysmt._private.colors import color_to_list_of_colors, get_list_of_colors_from_values
-from molsysmt import pyunitwizard as puw
 import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.colors import (
+    color_to_list_of_colors,
+    get_list_of_colors_from_values,
+)
+from molsysmt._private.variables import is_iterable
 
 
 @arg_digest()
-def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', color_2=None, radius='0.1 angstroms',
-        color_values=None, min_color_value=None, mid_color_value=None, max_color_value=None,
-        color_values_scale='linear', colormap='bwr', color_values_2=None, min_color_value_2=None,
-        mid_color_value_2=None, max_color_value_2=None, color_values_scale_2=None, colormap_2=None,
-                 skip_digestion=False):
-
+def add_cylinders(
+    view,
+    bottom=None,
+    top=None,
+    vectors=None,
+    color="#808080",
+    color_2=None,
+    radius="0.1 angstroms",
+    color_values=None,
+    min_color_value=None,
+    mid_color_value=None,
+    max_color_value=None,
+    color_values_scale="linear",
+    colormap="bwr",
+    color_values_2=None,
+    min_color_value_2=None,
+    mid_color_value_2=None,
+    max_color_value_2=None,
+    color_values_scale_2=None,
+    colormap_2=None,
+    skip_digestion=False,
+):
     """
     Adding 3D cylinders connecting coordinates or atom pairs in NGLWidget.
 
@@ -66,40 +86,42 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
     from molsysmt._private.input_arguments import can_be_selection
 
     if can_be_selection(bottom):
-        bottom = get(view, element='atom', selection=bottom, coordinates=True)
+        bottom = get(view, element="atom", selection=bottom, coordinates=True)
     if can_be_selection(top):
-        top = get(view, element='atom', selection=top, coordinates=True)
+        top = get(view, element="atom", selection=top, coordinates=True)
 
     if (bottom is not None) and (top is not None):
-        bottom = puw.get_value(bottom[0], to_unit='angstroms')
-        top = puw.get_value(top[0], to_unit='angstroms')
+        bottom = puw.get_value(bottom[0], to_unit="angstroms")
+        top = puw.get_value(top[0], to_unit="angstroms")
     elif (bottom is not None) and (vectors is not None):
-        bottom = puw.get_value(bottom[0], to_unit='angstroms')
-        vectors = puw.get_value(vectors[0], to_unit='angstroms')
-        if bottom.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
+        bottom = puw.get_value(bottom[0], to_unit="angstroms")
+        vectors = puw.get_value(vectors[0], to_unit="angstroms")
+        if bottom.shape[0] != vectors.shape[0] and vectors.shape[0] == 1:
             vectors = np.tile(vectors, (bottom.shape[0], 1))
         top = bottom + vectors
     elif (top is not None) and (vectors is not None):
-        top = puw.get_value(top[0], to_unit='angstroms')
-        vectors = puw.get_value(vectors[0], to_unit='angstroms')
-        if bottom.shape[0]!=vectors.shape[0] and vectors.shape[0]==1:
+        top = puw.get_value(top[0], to_unit="angstroms")
+        vectors = puw.get_value(vectors[0], to_unit="angstroms")
+        if bottom.shape[0] != vectors.shape[0] and vectors.shape[0] == 1:
             vectors = np.tile(vectors, (bottom.shape[0], 1))
         bottom = top - vectors
     else:
-        from molsysmt._private.smonitor import InternalAlgorithmError; raise InternalAlgorithmError(reason="NGLView helper reached an unexpected state.", caller=None)
+        from molsysmt._private.smonitor import InternalAlgorithmError
 
+        raise InternalAlgorithmError(
+            reason="NGLView helper reached an unexpected state.", caller=None
+        )
 
-    n_cylinders=bottom.shape[0]
+    n_cylinders = bottom.shape[0]
 
     ngl_start = bottom
     ngl_end = top
-    ngl_radius = puw.get_value(radius, to_unit='angstroms')
+    ngl_radius = puw.get_value(radius, to_unit="angstroms")
 
     if not is_iterable(ngl_radius):
         ngl_radius = [ngl_radius for ii in range(n_cylinders)]
 
     if color_values_2 is not None and color_values is not None:
-
         if min_color_value is None and min_color_value_2 is None:
             min_color_value = min(np.min(color_values), np.min(color_values_2))
             min_color_value_2 = min_color_value
@@ -109,34 +131,46 @@ def add_cylinders(view, bottom=None, top=None, vectors=None, color='#808080', co
             max_color_value_2 = max_color_value
 
     if color_values is not None:
-        ngl_color = get_list_of_colors_from_values(color_values, min_value=min_color_value,
-                mid_value=mid_color_value, max_value=max_color_value, scale=color_values_scale,
-                colormap=colormap, form='rgb')
+        ngl_color = get_list_of_colors_from_values(
+            color_values,
+            min_value=min_color_value,
+            mid_value=mid_color_value,
+            max_value=max_color_value,
+            scale=color_values_scale,
+            colormap=colormap,
+            form="rgb",
+        )
     else:
-        ngl_color = color_to_list_of_colors(color, n_cylinders, 'rgb')
+        ngl_color = color_to_list_of_colors(color, n_cylinders, "rgb")
 
     if color_values_2 is not None:
         if colormap_2 is None:
             colormap_2 = colormap
         if color_values_scale_2 is None:
             color_values_scale_2 = color_values_scale
-        ngl_color_2 = get_list_of_colors_from_values(color_values_2, min_value=min_color_value_2,
-                mid_value=mid_color_value_2, max_value=max_color_value_2, scale=color_values_scale_2,
-                colormap=colormap_2, form='rgb')
+        ngl_color_2 = get_list_of_colors_from_values(
+            color_values_2,
+            min_value=min_color_value_2,
+            mid_value=mid_color_value_2,
+            max_value=max_color_value_2,
+            scale=color_values_scale_2,
+            colormap=colormap_2,
+            form="rgb",
+        )
     else:
         if color_2 is None:
             ngl_color_2 = ngl_color
         else:
-            ngl_color_2 = color_to_list_of_colors(color_2, n_cylinders, 'rgb')
-
+            ngl_color_2 = color_to_list_of_colors(color_2, n_cylinders, "rgb")
 
     for ii in range(n_cylinders):
-
-        kwargs = {'position1':ngl_start[ii].tolist(),
-                  'position2':ngl_end[ii].tolist(),
-                  'color': ngl_color[ii],
-                  'color2': ngl_color_2[ii],
-                  'radius': [ngl_radius[ii]]}
+        kwargs = {
+            "position1": ngl_start[ii].tolist(),
+            "position2": ngl_end[ii].tolist(),
+            "color": ngl_color[ii],
+            "color2": ngl_color_2[ii],
+            "radius": [ngl_radius[ii]],
+        }
 
         # Delegate queuing logic to nglview's remote_call, which handles loaded vs not loaded states.
         view._remote_call(

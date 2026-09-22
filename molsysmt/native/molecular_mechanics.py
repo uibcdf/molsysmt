@@ -1,9 +1,14 @@
-import pandas as pd
-from molsysmt._private.smonitor import *
-from molsysmt import pyunitwizard as puw
 from copy import deepcopy
 
-class MolecularMechanics():
+import pandas as pd
+
+from molsysmt import pyunitwizard as puw
+
+# Preserve the legacy native mechanics module namespace.
+from molsysmt._private.smonitor import *  # noqa: F403
+
+
+class MolecularMechanics:
     """Container for molecular mechanics force-field settings.
 
     Per-atom force-field parameters (formal_charge, partial_charge,
@@ -12,14 +17,28 @@ class MolecularMechanics():
     FF data has been assigned.
     """
 
-    def __init__(self, forcefield=None, water_model=None, implicit_solvent=None,
-                 non_bonded_method=None, cutoff_distance=None, switch_distance=None,
-                 dispersion_correction=None, ewald_error_tolerance=None,
-                 constraints=None, flexible_constraints=None,
-                 rigid_water=None, hydrogen_mass=None,
-                 salt_concentration=None, kappa=None,
-                 solute_dielectric=None, solvent_dielectric=None,
-                 formal_charge=None, partial_charge=None, atom_ff_type=None):
+    def __init__(
+        self,
+        forcefield=None,
+        water_model=None,
+        implicit_solvent=None,
+        non_bonded_method=None,
+        cutoff_distance=None,
+        switch_distance=None,
+        dispersion_correction=None,
+        ewald_error_tolerance=None,
+        constraints=None,
+        flexible_constraints=None,
+        rigid_water=None,
+        hydrogen_mass=None,
+        salt_concentration=None,
+        kappa=None,
+        solute_dielectric=None,
+        solvent_dielectric=None,
+        formal_charge=None,
+        partial_charge=None,
+        atom_ff_type=None,
+    ):
         """Initialize molecular mechanics parameters."""
 
         # default values:
@@ -58,8 +77,8 @@ class MolecularMechanics():
 
         self.water_model = water_model
         self.rigid_water = rigid_water
-        #self.residue_templates = residue_templates
-        #self.ignore_external_bonds = ignore_external_bonds
+        # self.residue_templates = residue_templates
+        # self.ignore_external_bonds = ignore_external_bonds
 
         self.implicit_solvent = implicit_solvent
         self.solute_dielectric = solute_dielectric
@@ -70,8 +89,8 @@ class MolecularMechanics():
     def __setstate__(self, state):
         """Restore current storage or stage legacy charge arrays for MolSys."""
 
-        legacy_formal_charge = state.pop('formal_charge', None)
-        legacy_partial_charge = state.pop('partial_charge', None)
+        legacy_formal_charge = state.pop("formal_charge", None)
+        legacy_partial_charge = state.pop("partial_charge", None)
         restored = type(self)()
         self.__dict__.update(restored.__dict__)
         self.__dict__.update(state)
@@ -115,27 +134,27 @@ class MolecularMechanics():
 
     @property
     def formal_charge(self):
-        return self._get_atoms_ff_column('formal_charge')
+        return self._get_atoms_ff_column("formal_charge")
 
     @formal_charge.setter
     def formal_charge(self, value):
-        self._set_atoms_ff_column('formal_charge', value)
+        self._set_atoms_ff_column("formal_charge", value)
 
     @property
     def partial_charge(self):
-        return self._get_atoms_ff_column('partial_charge')
+        return self._get_atoms_ff_column("partial_charge")
 
     @partial_charge.setter
     def partial_charge(self, value):
-        self._set_atoms_ff_column('partial_charge', value)
+        self._set_atoms_ff_column("partial_charge", value)
 
     @property
     def atom_ff_type(self):
-        return self._get_atoms_ff_column('atom_ff_type')
+        return self._get_atoms_ff_column("atom_ff_type")
 
     @atom_ff_type.setter
     def atom_ff_type(self, value):
-        self._set_atoms_ff_column('atom_ff_type', value)
+        self._set_atoms_ff_column("atom_ff_type", value)
 
     # ------------------------------------------------------------------
 
@@ -143,26 +162,26 @@ class MolecularMechanics():
         """Return a dictionary representation of the parameters."""
 
         tmp_dict = {
-                'formal_charge': self.formal_charge,
-                'partial_charge': self.partial_charge,
-                'atom_ff_type': self.atom_ff_type,
-                'forcefield' : self.forcefield,
-                'non_bonded_method' : self.non_bonded_method,
-                'cutoff_distance' : self.cutoff_distance,
-                'switch_distance' : self.switch_distance,
-                'dispersion_correction' : self.dispersion_correction,
-                'ewald_error_tolerance' : self.ewald_error_tolerance,
-                'hydrogen_mass' : self.hydrogen_mass,
-                'constraints' : self.constraints,
-                'flexible_constraints' : self.flexible_constraints,
-                'water_model' : self.water_model,
-                'rigid_water' : self.rigid_water,
-                'implicit_solvent' : self.implicit_solvent,
-                'solute_dielectric' : self.solute_dielectric,
-                'solvent_dielectric' : self.solvent_dielectric,
-                'salt_concentration' : self.salt_concentration,
-                'kappa' : self.kappa,
-       }
+            "formal_charge": self.formal_charge,
+            "partial_charge": self.partial_charge,
+            "atom_ff_type": self.atom_ff_type,
+            "forcefield": self.forcefield,
+            "non_bonded_method": self.non_bonded_method,
+            "cutoff_distance": self.cutoff_distance,
+            "switch_distance": self.switch_distance,
+            "dispersion_correction": self.dispersion_correction,
+            "ewald_error_tolerance": self.ewald_error_tolerance,
+            "hydrogen_mass": self.hydrogen_mass,
+            "constraints": self.constraints,
+            "flexible_constraints": self.flexible_constraints,
+            "water_model": self.water_model,
+            "rigid_water": self.rigid_water,
+            "implicit_solvent": self.implicit_solvent,
+            "solute_dielectric": self.solute_dielectric,
+            "solvent_dielectric": self.solvent_dielectric,
+            "salt_concentration": self.salt_concentration,
+            "kappa": self.kappa,
+        }
 
         return tmp_dict
 
@@ -178,13 +197,19 @@ class MolecularMechanics():
         tmp_molecular_mechanics.non_bonded_method = deepcopy(self.non_bonded_method)
         tmp_molecular_mechanics.cutoff_distance = deepcopy(self.cutoff_distance)
         tmp_molecular_mechanics.switch_distance = deepcopy(self.switch_distance)
-        tmp_molecular_mechanics.dispersion_correction = deepcopy(self.dispersion_correction)
-        tmp_molecular_mechanics.ewald_error_tolerance = deepcopy(self.ewald_error_tolerance)
+        tmp_molecular_mechanics.dispersion_correction = deepcopy(
+            self.dispersion_correction
+        )
+        tmp_molecular_mechanics.ewald_error_tolerance = deepcopy(
+            self.ewald_error_tolerance
+        )
 
         tmp_molecular_mechanics.hydrogen_mass = deepcopy(self.hydrogen_mass)
 
         tmp_molecular_mechanics.constraints = deepcopy(self.constraints)
-        tmp_molecular_mechanics.flexible_constraints = deepcopy(self.flexible_constraints)
+        tmp_molecular_mechanics.flexible_constraints = deepcopy(
+            self.flexible_constraints
+        )
 
         tmp_molecular_mechanics.water_model = deepcopy(self.water_model)
         tmp_molecular_mechanics.rigid_water = deepcopy(self.rigid_water)
@@ -202,8 +227,8 @@ class MolecularMechanics():
 
         for argument, value in kwargs.items():
             if argument.lower() in self.__dict__.keys():
-                self.__dict__[argument]=puw.standardize(value)
-                del(kwargs[argument.lower()])
+                self.__dict__[argument] = puw.standardize(value)
+                del kwargs[argument.lower()]
 
         if return_non_processed:
             return kwargs
@@ -217,9 +242,14 @@ class MolecularMechanics():
 
         parameters = {}
 
-        parameters['forcefield'] = get_forcefield_names(self.forcefield, 'LEaP', water_model=self.water_model, implicit_solvent=self.implicit_solvent)
-        parameters['water_model'] = self.water_model
-        parameters['implicit_solvent'] = self.implicit_solvent
+        parameters["forcefield"] = get_forcefield_names(
+            self.forcefield,
+            "LEaP",
+            water_model=self.water_model,
+            implicit_solvent=self.implicit_solvent,
+        )
+        parameters["water_model"] = self.water_model
+        parameters["implicit_solvent"] = self.implicit_solvent
 
         return parameters
 
@@ -228,7 +258,12 @@ class MolecularMechanics():
 
         from molsysmt.molecular_mechanics.forcefields import get_forcefield_names
 
-        return  get_forcefield_names(self.forcefield, 'OpenMM', water_model=self.water_model, implicit_solvent=self.implicit_solvent)
+        return get_forcefield_names(
+            self.forcefield,
+            "OpenMM",
+            water_model=self.water_model,
+            implicit_solvent=self.implicit_solvent,
+        )
 
     def to_openmm_ForceField(self):
         """Instantiate an OpenMM ForceField object."""
@@ -247,69 +282,72 @@ class MolecularMechanics():
 
         parameters = {}
 
-        if self.non_bonded_method=='no_cutoff':
-            parameters['nonbondedMethod']=app.NoCutoff
-        elif self.non_bonded_method=='cutoff_non_periodic':
-            parameters['nonbondedMethod']=app.CutoffNonPeriodic
-        elif self.non_bonded_method=='cutoff_periodic':
-            parameters['nonbondedMethod']=app.CutoffPeriodic
-        elif self.non_bonded_method=='Ewald':
-            parameters['nonbondedMethod']=app.Ewald
-        elif self.non_bonded_method=='PME':
-            parameters['nonbondedMethod']=app.PME
-        elif self.non_bonded_method=='LJPME':
-            parameters['nonbondedMethod']=app.LJPME
+        if self.non_bonded_method == "no_cutoff":
+            parameters["nonbondedMethod"] = app.NoCutoff
+        elif self.non_bonded_method == "cutoff_non_periodic":
+            parameters["nonbondedMethod"] = app.CutoffNonPeriodic
+        elif self.non_bonded_method == "cutoff_periodic":
+            parameters["nonbondedMethod"] = app.CutoffPeriodic
+        elif self.non_bonded_method == "Ewald":
+            parameters["nonbondedMethod"] = app.Ewald
+        elif self.non_bonded_method == "PME":
+            parameters["nonbondedMethod"] = app.PME
+        elif self.non_bonded_method == "LJPME":
+            parameters["nonbondedMethod"] = app.LJPME
         else:
             raise NotImplementedError()
 
         if self.cutoff_distance is not None:
-            parameters['nonbondedCutoff']=puw.convert(self.cutoff_distance, to_form='openmm.unit',
-                                                      to_unit='nm')
+            parameters["nonbondedCutoff"] = puw.convert(
+                self.cutoff_distance, to_form="openmm.unit", to_unit="nm"
+            )
 
         if self.switch_distance is not None:
-            parameters['switchDistance']=puw.convert(self.switch_distance, to_form='openmm.unit',
-                                                       to_unit='nm')
+            parameters["switchDistance"] = puw.convert(
+                self.switch_distance, to_form="openmm.unit", to_unit="nm"
+            )
 
         if self.constraints is not None:
-            if self.constraints == 'h_bonds':
-                parameters['constraints']=app.HBonds
-            elif self.constraints == 'all_bonds':
-                parameters['constraints']=app.HBonds
-            elif self.constraints == 'h_angles':
-                parameters['constraints']=app.HAngles
+            if self.constraints == "h_bonds":
+                parameters["constraints"] = app.HBonds
+            elif self.constraints == "all_bonds":
+                parameters["constraints"] = app.HBonds
+            elif self.constraints == "h_angles":
+                parameters["constraints"] = app.HAngles
             else:
                 raise NotImplementedError()
         else:
-            parameters['constraints']=None
+            parameters["constraints"] = None
 
-        parameters['hydrogenMass']=self.hydrogen_mass
-        parameters['rigidWater']=self.rigid_water
-        #parameters['removeCMMotion']=self.remove_cm_motion
-        parameters['flexibleConstraints']=self.flexible_constraints
+        parameters["hydrogenMass"] = self.hydrogen_mass
+        parameters["rigidWater"] = self.rigid_water
+        # parameters['removeCMMotion']=self.remove_cm_motion
+        parameters["flexibleConstraints"] = self.flexible_constraints
 
         if self.implicit_solvent is not None:
-
-            if self.implicit_solvent == 'HCT':
-                parameters['implicitSolvent']=app.HCT
-            elif self.implicit_solvent == 'OBC1':
-                parameters['implicitSolvent']=app.OBC1
-            elif self.implicit_solvent == 'OBC2':
-                parameters['implicitSolvent']=app.OBC2
-            elif self.implicit_solvent == 'GBn':
-                parameters['implicitSolvent']=app.GBn
-            elif self.implicit_solvent == 'GBn2':
-                parameters['implicitSolvent']=app.GBn2
+            if self.implicit_solvent == "HCT":
+                parameters["implicitSolvent"] = app.HCT
+            elif self.implicit_solvent == "OBC1":
+                parameters["implicitSolvent"] = app.OBC1
+            elif self.implicit_solvent == "OBC2":
+                parameters["implicitSolvent"] = app.OBC2
+            elif self.implicit_solvent == "GBn":
+                parameters["implicitSolvent"] = app.GBn
+            elif self.implicit_solvent == "GBn2":
+                parameters["implicitSolvent"] = app.GBn2
             else:
                 raise NotImplementedError
 
-            parameters['implicitSolventSaltConc']=puw.convert(self.salt_concentration,
-                                                              to_unit='mole/liter', to_form='openmm.unit')
-            parameters['implicitSolventKappa']=puw.convert(self.kappa,
-                                                           to_unit='1/nm', to_form='openmm.unit')
-            parameters['soluteDielectric']=self.solute_dielectric
-            parameters['solventDielectric']=self.solvent_dielectric
+            parameters["implicitSolventSaltConc"] = puw.convert(
+                self.salt_concentration, to_unit="mole/liter", to_form="openmm.unit"
+            )
+            parameters["implicitSolventKappa"] = puw.convert(
+                self.kappa, to_unit="1/nm", to_form="openmm.unit"
+            )
+            parameters["soluteDielectric"] = self.solute_dielectric
+            parameters["solventDielectric"] = self.solvent_dielectric
 
         else:
-            parameters['implicitSolvent']=None
+            parameters["implicitSolvent"] = None
 
         return parameters

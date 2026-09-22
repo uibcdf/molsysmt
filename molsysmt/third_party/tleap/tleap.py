@@ -1,4 +1,3 @@
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, ArgumentError, ArgumentChoiceError
 import functools
 import os
 import re
@@ -7,6 +6,7 @@ import subprocess
 import tempfile
 
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentChoiceError, ArgumentError
 
 
 def _sanitize_tleap_unit_name(function):
@@ -89,9 +89,19 @@ class TLeap:
 
         for parameter, value in kwargs.items():
             if parameter not in accepted_values:
-                raise ArgumentChoiceError("parameter", parameter, choices="tLeap recognized parameters", caller="molsysmt.third_party.tleap.tleap")
+                raise ArgumentChoiceError(
+                    "parameter",
+                    parameter,
+                    choices="tLeap recognized parameters",
+                    caller="molsysmt.third_party.tleap.tleap",
+                )
             if value not in accepted_values[parameter]:
-                raise ArgumentChoiceError(parameter, value, choices="tLeap recognized values", caller="molsysmt.third_party.tleap.tleap")
+                raise ArgumentChoiceError(
+                    parameter,
+                    value,
+                    choices="tLeap recognized values",
+                    caller="molsysmt.third_party.tleap.tleap",
+                )
             self.add_commands(f"set default {parameter} {value}")
 
     @_sanitize_tleap_unit_name
@@ -106,7 +116,11 @@ class TLeap:
         elif extension == ".pdb":
             load_command = "loadPdb"
         else:
-            raise ArgumentError(argument='file_path', message=f"cannot load format {extension} in tLeap", caller="molsysmt.third_party.tleap.tleap")
+            raise ArgumentError(
+                argument="file_path",
+                message=f"cannot load format {extension} in tLeap",
+                caller="molsysmt.third_party.tleap.tleap",
+            )
 
         self.add_commands(f"{unit_name} = {load_command} {local_name}")
         self._input_file_paths[local_name] = file_path
@@ -155,12 +169,17 @@ class TLeap:
         elif box_geometry == "truncated octahedral":
             solvate_command = "solvateOct"
         else:
-            raise ArgumentChoiceError(argument='box_geometry', value=box_geometry,
-                                       choices=['cubic', 'truncated octahedral'],
-                                       caller='molsysmt.third_party.tleap.tleap.TLeap.solvate')
+            raise ArgumentChoiceError(
+                argument="box_geometry",
+                value=box_geometry,
+                choices=["cubic", "truncated octahedral"],
+                caller="molsysmt.third_party.tleap.tleap.TLeap.solvate",
+            )
 
         clearance = puw.get_value(clearance, to_unit="angstroms")
-        self.add_commands(f"{solvate_command} {unit_name} {solvent_model} {clearance} iso")
+        self.add_commands(
+            f"{solvate_command} {unit_name} {solvent_model} {clearance} iso"
+        )
 
     @_sanitize_tleap_unit_name
     def save_unit(self, unit_name, output_path):
@@ -176,7 +195,9 @@ class TLeap:
         if extension in {".prmtop", ".inpcrd"}:
             companion_extension = ".prmtop" if extension == ".inpcrd" else ".inpcrd"
             companion_local_name = stem + companion_extension
-            companion_output_path = os.path.join(os.path.dirname(output_path), companion_local_name)
+            companion_output_path = os.path.join(
+                os.path.dirname(output_path), companion_local_name
+            )
             self._output_file_paths[companion_local_name] = companion_output_path
 
             if extension == ".inpcrd":
@@ -192,7 +213,11 @@ class TLeap:
             self.add_commands(f"savePDB {unit_name} {local_name}")
 
         else:
-            raise ArgumentError(argument='extension', message=f"cannot export format {extension} from tLeap", caller="molsysmt.third_party.tleap.tleap")
+            raise ArgumentError(
+                argument="extension",
+                message=f"cannot export format {extension} from tLeap",
+                caller="molsysmt.third_party.tleap.tleap",
+            )
 
     @_sanitize_tleap_unit_name
     def transform(self, unit_name, transformation):
@@ -321,11 +346,15 @@ class TLeap:
                     if os.path.abspath(local_path) != os.path.abspath(target_path):
                         shutil.copy(local_path, target_path)
 
-            if self._output_file_paths and os.path.exists(os.path.join(working_directory, "leap.log")):
+            if self._output_file_paths and os.path.exists(
+                os.path.join(working_directory, "leap.log")
+            ):
                 first_output_path = next(iter(self._output_file_paths.values()))
                 first_output_name = os.path.basename(first_output_path).split(".")[0]
                 first_output_dir = os.path.dirname(first_output_path)
-                log_path = os.path.join(first_output_dir, first_output_name + ".leap.log")
+                log_path = os.path.join(
+                    first_output_dir, first_output_name + ".leap.log"
+                )
                 shutil.copy(os.path.join(working_directory, "leap.log"), log_path)
 
             known_errors = []
@@ -364,7 +393,8 @@ class TLeap:
             strict_issues = self._collect_strict_issues(leap_output) if strict else []
             if strict_issues:
                 known_errors.append(
-                    "Strict mode flagged critical LEaP diagnostics: " + ", ".join(sorted(set(strict_issues)))
+                    "Strict mode flagged critical LEaP diagnostics: "
+                    + ", ".join(sorted(set(strict_issues)))
                 )
 
             if known_errors:
@@ -374,9 +404,15 @@ class TLeap:
                     "Please see the LEaP log for more information:\n{}\n"
                     "============\n{}"
                 )
-                raise RuntimeError(message.format(log_path, "\n---------\n".join(known_errors)))
+                raise RuntimeError(
+                    message.format(log_path, "\n---------\n".join(known_errors))
+                )
 
-            warning_messages = [entry["message"] for entry in diagnostics if entry["severity"] == "warning"]
+            warning_messages = [
+                entry["message"]
+                for entry in diagnostics
+                if entry["severity"] == "warning"
+            ]
 
             if return_diagnostics:
                 return {
@@ -399,9 +435,11 @@ class TLeap:
         """Normalizing LEaP unit names to avoid unsupported leading digits."""
 
         if not isinstance(unit_name, str) or len(unit_name) == 0:
-            raise ArgumentError(argument='unit_name',
-                                 caller='molsysmt.third_party.tleap.tleap.TLeap._sanitize_unit_name',
-                                 message='unit_name must be a non-empty string.')
+            raise ArgumentError(
+                argument="unit_name",
+                caller="molsysmt.third_party.tleap.tleap.TLeap._sanitize_unit_name",
+                message="unit_name must be a non-empty string.",
+            )
         if unit_name[0].isdigit():
             unit_name = "M" + unit_name
         return unit_name

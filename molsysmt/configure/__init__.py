@@ -1,7 +1,13 @@
 # Configuration file for MolSysMT
 
+import os as _os
+from contextvars import ContextVar as _ContextVar
+
+# Preserve configuration setup before argument digestion.
+# isort: off
 from .logging_setup import setup_logging
 from molsysmt._private.argdigest import arg_digest
+# isort: on
 
 # Set this variable true while testing
 _testing = False
@@ -14,7 +20,6 @@ _debugging = False
 default_attribute = {
     "box": None,
     "structure_id": None,
-    "box": None,
     "coordinates": None,
     "time": None,
     "forcefield": "AMBER14",
@@ -74,8 +79,6 @@ show_all_capabilities = True
 silence_backend_stdout = True
 
 # Heavy trajectory processing
-import os as _os
-
 max_ram_usage = int(
     0.5 * _os.sysconf("SC_PAGE_SIZE") * _os.sysconf("SC_PHYS_PAGES")
 )  # 50% of total RAM in bytes
@@ -107,8 +110,6 @@ parallel_mode = "auto"  # 'auto' | True | False
 num_threads = -1  # -1 (all processors available to the process) | positive integer
 parallel_threshold = 500_000
 min_payload_per_thread = 250_000
-
-from contextvars import ContextVar as _ContextVar
 
 _parallel_override = _ContextVar(
     "molsysmt_parallel_override",
@@ -188,6 +189,7 @@ def get_num_threads():
 def _get_effective_num_threads(payload_size):
     """Resolve the active session and per-call policy to a Rayon pool size."""
     from math import ceil
+
     import molsysmt._rust as _rust
 
     call_parallel, call_num_threads = _parallel_override.get()
@@ -307,9 +309,7 @@ def with_configure_overrides(func):
             )
 
         inherited_parallel, inherited_num_threads = _parallel_override.get()
-        active_parallel = (
-            inherited_parallel if parallel is None else parallel
-        )
+        active_parallel = inherited_parallel if parallel is None else parallel
         active_num_threads = (
             inherited_num_threads if call_num_threads is None else call_num_threads
         )

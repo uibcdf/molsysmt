@@ -1,15 +1,25 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
-from molsysmt._private import rust_backend as _kernels
 import numpy as np
 
+from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+
+
 @arg_digest()
-def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
-                mic_origin='[0,0,0] nanometers',
-                center_of_selection=None, center_coordinates='[0,0,0] nanometers', weights=None,
-                compact='component', syntax='MolSysMT', engine='MolSysMT', in_place=False,
-                skip_digestion=False):
+def wrap_to_mic(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    mic_origin="[0,0,0] nanometers",
+    center_of_selection=None,
+    center_coordinates="[0,0,0] nanometers",
+    weights=None,
+    compact="component",
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    in_place=False,
+    skip_digestion=False,
+):
     """
     Wrap coordinates into the minimum image convention (MIC) box.
 
@@ -69,32 +79,46 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
     .. versionadded:: 1.0.0
     """
 
-    if engine=='MolSysMT':
-
-        from molsysmt.basic import select, get, set, copy
+    if engine == "MolSysMT":
+        from molsysmt.basic import copy, get, select, set
         from molsysmt.structure import center
 
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
+        atom_indices = select(
+            molecular_system, selection=selection, syntax=syntax, skip_digestion=True
+        )
 
         if center_of_selection is not None:
-
-            molecular_system = center(molecular_system, selection=atom_indices,
-                                      center_of_selection=center_of_selection, weights=weights,
-                                      center_coordinates=center_coordinates, syntax=syntax, in_place=False,
-                                      skip_digestion=True)
+            molecular_system = center(
+                molecular_system,
+                selection=atom_indices,
+                center_of_selection=center_of_selection,
+                weights=weights,
+                center_coordinates=center_coordinates,
+                syntax=syntax,
+                in_place=False,
+                skip_digestion=True,
+            )
 
         coordinates = get(
             molecular_system,
-            element='atom',
+            element="atom",
             selection=atom_indices,
             structure_indices=structure_indices,
             coordinates=True,
             skip_digestion=True,
         )
-        box = get(molecular_system, element='system', structure_indices=structure_indices, box=True, skip_digestion=True)
+        box = get(
+            molecular_system,
+            element="system",
+            structure_indices=structure_indices,
+            box=True,
+            skip_digestion=True,
+        )
 
         original_length_units = puw.get_unit(coordinates)
-        coordinates, length_units = puw.get_value_and_unit(coordinates, standardized=True)
+        coordinates, length_units = puw.get_value_and_unit(
+            coordinates, standardized=True
+        )
         coordinates = np.asarray(coordinates, dtype=np.float64)
         from molsysmt._private.pbc_validation import validate_box_array
 
@@ -134,7 +158,7 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
             try:
                 bonded_pairs = get(
                     molecular_system,
-                    element='atom',
+                    element="atom",
                     selection=atom_indices,
                     inner_bonded_atom_pairs=True,
                     skip_digestion=True,
@@ -156,43 +180,51 @@ def wrap_to_mic(molecular_system, selection='all', structure_indices='all',
             from molsysmt._private.pbc_reconstruction import (
                 reconstruct_and_wrap_covalent_blocks,
             )
+
             bonded_pairs = compact_pairs
             reconstruct_and_wrap_covalent_blocks(
                 coordinates,
                 box,
                 bonded_pairs,
                 origin=mic_origin,
-                mode='mic',
+                mode="mic",
             )
         else:
             _kernels.wrap_to_mic(coordinates, box, mic_origin)
 
-        coordinates=puw.quantity(coordinates, length_units)
-        coordinates=puw.convert(coordinates, to_unit=original_length_units)
+        coordinates = puw.quantity(coordinates, length_units)
+        coordinates = puw.convert(coordinates, to_unit=original_length_units)
 
-        del(box)
+        del box
 
     else:
-
         raise NotImplementedMethodError()
 
     if in_place:
+        set(
+            molecular_system,
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+            skip_digestion=True,
+        )
 
-        set(molecular_system, selection=atom_indices, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates, skip_digestion=True)
-
-        del(coordinates, atom_indices, structure_indices)
-
+        del (coordinates, atom_indices, structure_indices)
 
         pass
 
     else:
-
         tmp_molecular_system = copy(molecular_system, skip_digestion=True)
-        set(tmp_molecular_system, selection=atom_indices, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates, skip_digestion=True)
+        set(
+            tmp_molecular_system,
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+            skip_digestion=True,
+        )
 
-        del(coordinates, atom_indices, structure_indices)
-
+        del (coordinates, atom_indices, structure_indices)
 
         return tmp_molecular_system

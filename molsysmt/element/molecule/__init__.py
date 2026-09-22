@@ -1,3 +1,5 @@
+# Preserve package initialization order.
+# isort: off
 from . import water
 from . import ion
 from . import small_molecule
@@ -20,47 +22,47 @@ from .get_n_molecules import get_n_molecules
 from .is_molecule_type import is_molecule_type
 
 _molecule_types = [
-        'water',
-        'ion',
-        'small molecule',
-        'peptide',
-        'protein',
-        'dna',
-        'rna',
-        'lipid',
-        'monosaccharide', # 1 sugar unit
-        'disaccharide', # 2 sugar units
-        'oligosaccharide', # 3-10 sugar units
-        'polysaccharide' # >10 sugar units
-        ]
+    "water",
+    "ion",
+    "small molecule",
+    "peptide",
+    "protein",
+    "dna",
+    "rna",
+    "lipid",
+    "monosaccharide",  # 1 sugar unit
+    "disaccharide",  # 2 sugar units
+    "oligosaccharide",  # 3-10 sugar units
+    "polysaccharide",  # >10 sugar units
+]
 
 _singular_molecule_type_to_plural = {
-    'water': 'waters',
-    'ion': 'ions',
-    'small molecule': 'small molecules',
-    'peptide': 'peptides',
-    'protein': 'proteins',
-    'dna': 'dnas',
-    'rna': 'rnas',
-    'lipid': 'lipids',
-    'monosaccharide': 'monosaccharides',
-    'disaccharide': 'disaccharides',
-    'oligosaccharide': 'oligosaccharides',
-    'polysaccharide': 'polysaccharides'
+    "water": "waters",
+    "ion": "ions",
+    "small molecule": "small molecules",
+    "peptide": "peptides",
+    "protein": "proteins",
+    "dna": "dnas",
+    "rna": "rnas",
+    "lipid": "lipids",
+    "monosaccharide": "monosaccharides",
+    "disaccharide": "disaccharides",
+    "oligosaccharide": "oligosaccharides",
+    "polysaccharide": "polysaccharides",
 }
 
 _plural_molecule_types_to_singular = {
-    'waters': 'water',
-    'ions': 'ion',
-    'small molecules': 'small molecule',
-    'peptides': 'peptide',
-    'proteins': 'protein',
-    'dnas': 'dna',
-    'rnas': 'rna',
-    'lipids': 'lipid',
-    'monosaccharides': 'monosaccharide',
-    'disaccharides': 'disaccharide',
-    'oligosaccharides': 'oligosaccharide',
-    'polysaccharides': 'polysaccharide'
+    "waters": "water",
+    "ions": "ion",
+    "small molecules": "small molecule",
+    "peptides": "peptide",
+    "proteins": "protein",
+    "dnas": "dna",
+    "rnas": "rna",
+    "lipids": "lipid",
+    "monosaccharides": "monosaccharide",
+    "disaccharides": "disaccharide",
+    "oligosaccharides": "oligosaccharide",
+    "polysaccharides": "polysaccharide",
 }
-
+# isort: on

@@ -1,6 +1,4 @@
-
-patch_show =\
-"\n\
+patch_show = "\n\
 \n\
 ### From MolSysMT\n\
 \n\
@@ -28,8 +26,7 @@ def show_molsysmt(molsys, selection='all', structure_indices='all', **kwargs):\n
 "
 
 
-patch_adaptor=\
-"\n\
+patch_adaptor = "\n\
 \n\
 ### From MolSysMT\n\
 \n\
@@ -83,41 +80,38 @@ class MolSysMTTrajectory(Trajectory, Structure):\n\
 
 def add_molsysmt_to_nglview():
 
-    from pathlib import Path
-    import nglview as nv
     import importlib
+    from pathlib import Path
 
-    if not hasattr(nv, 'show_molsysmt'):
+    import nglview as nv
 
+    if not hasattr(nv, "show_molsysmt"):
         ## show.py
 
-        filepath = Path(nv.__file__).parent / 'show.py'
+        filepath = Path(nv.__file__).parent / "show.py"
 
         with open(filepath) as f:
             content = f.read()
 
-        if 'MolSysMT' not in content:
-
+        if "MolSysMT" not in content:
             content += patch_show
 
-            with open(filepath,'w') as f:
+            with open(filepath, "w") as f:
                 f.write(content)
 
         ## adaptor.py
 
-        filepath = Path(nv.__file__).parent / 'adaptor.py'
+        filepath = Path(nv.__file__).parent / "adaptor.py"
 
         with open(filepath) as f:
             content = f.read()
 
-        if 'MolSysMT' not in content:
-
+        if "MolSysMT" not in content:
             content += patch_adaptor
 
-            with open(filepath,'w') as f:
+            with open(filepath, "w") as f:
                 f.write(content)
 
-        print('NGLView patched. Restart the kernel to use it.')
+        print("NGLView patched. Restart the kernel to use it.")
 
         importlib.reload(nv)
-

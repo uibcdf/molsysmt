@@ -158,8 +158,15 @@ def _parse_atom(line, chain_segment, parse_serial):
     return atom, issue
 
 
-def _link_endpoint(line, atom_slice, alt_index, group_slice, chain_index,
-                   group_id_slice, insertion_index):
+def _link_endpoint(
+    line,
+    atom_slice,
+    alt_index,
+    group_slice,
+    chain_index,
+    group_id_slice,
+    insertion_index,
+):
     return (
         line[chain_index].strip() or " ",
         line[group_id_slice].strip(),
@@ -188,9 +195,8 @@ def _parse_bioassemblies(lines, issues):
             for assembly_id in assembly_ids:
                 assemblies.setdefault(assembly_id, {"operations": {}})
             continue
-        if (
-            payload.startswith("APPLY THE FOLLOWING TO CHAINS:")
-            or payload.startswith("AND CHAINS:")
+        if payload.startswith("APPLY THE FOLLOWING TO CHAINS:") or payload.startswith(
+            "AND CHAINS:"
         ):
             active_chain_ids = [
                 value.strip()
@@ -203,22 +209,26 @@ def _parse_bioassemblies(lines, issues):
 
         fields = payload.split()
         if len(fields) != 6 or not fields[0].startswith("BIOMT"):
-            issues.append(PDBContentIssue(
-                attribute="bioassembly",
-                kind="malformed_record",
-                reason="A REMARK 350 BIOMT record is incomplete.",
-            ))
+            issues.append(
+                PDBContentIssue(
+                    attribute="bioassembly",
+                    kind="malformed_record",
+                    reason="A REMARK 350 BIOMT record is incomplete.",
+                )
+            )
             continue
         try:
             row = int(fields[0][-1]) - 1
             operation_id = fields[1]
             values = [float(value) for value in fields[2:]]
         except (ValueError, IndexError):
-            issues.append(PDBContentIssue(
-                attribute="bioassembly",
-                kind="malformed_record",
-                reason="A REMARK 350 BIOMT record contains invalid numeric fields.",
-            ))
+            issues.append(
+                PDBContentIssue(
+                    attribute="bioassembly",
+                    kind="malformed_record",
+                    reason="A REMARK 350 BIOMT record contains invalid numeric fields.",
+                )
+            )
             continue
         if row not in {0, 1, 2}:
             continue
@@ -238,17 +248,18 @@ def _parse_bioassemblies(lines, issues):
     for assembly_id, assembly in assemblies.items():
         complete = []
         for operation in assembly["operations"].values():
-            if (
-                all(row is not None for row in operation["rotation"])
-                and all(value is not None for value in operation["translation"])
+            if all(row is not None for row in operation["rotation"]) and all(
+                value is not None for value in operation["translation"]
             ):
                 complete.append(operation)
             else:
-                issues.append(PDBContentIssue(
-                    attribute="bioassembly",
-                    kind="malformed_record",
-                    reason=f"Bioassembly {assembly_id!r} contains an incomplete BIOMT operation.",
-                ))
+                issues.append(
+                    PDBContentIssue(
+                        attribute="bioassembly",
+                        kind="malformed_record",
+                        reason=f"Bioassembly {assembly_id!r} contains an incomplete BIOMT operation.",
+                    )
+                )
         if complete:
             output[assembly_id] = complete
     return output
@@ -307,46 +318,62 @@ def parse_pdb_content(lines, parse_serial):
                 chain_segment += 1
             continue
         if record == "CRYST1":
-            values = tuple(_parse_float(line[start:stop]) for start, stop in (
-                (6, 15), (15, 24), (24, 33), (33, 40), (40, 47), (47, 54)
-            ))
+            values = tuple(
+                _parse_float(line[start:stop])
+                for start, stop in (
+                    (6, 15),
+                    (15, 24),
+                    (24, 33),
+                    (33, 40),
+                    (40, 47),
+                    (47, 54),
+                )
+            )
             if all(value is not None for value in values):
                 content.cryst1 = values
             else:
-                content.issues.append(PDBContentIssue(
-                    attribute="box",
-                    kind="malformed_record",
-                    reason="The PDB CRYST1 record contains invalid numeric fields.",
-                ))
+                content.issues.append(
+                    PDBContentIssue(
+                        attribute="box",
+                        kind="malformed_record",
+                        reason="The PDB CRYST1 record contains invalid numeric fields.",
+                    )
+                )
             continue
         if record == "LINK":
-            content.links.append(PDBLinkRecord(
-                endpoint1=_link_endpoint(line, slice(12, 16), 16, slice(17, 20),
-                                         21, slice(22, 26), 26),
-                endpoint2=_link_endpoint(line, slice(42, 46), 46, slice(47, 50),
-                                         51, slice(52, 56), 56),
-            ))
+            content.links.append(
+                PDBLinkRecord(
+                    endpoint1=_link_endpoint(
+                        line, slice(12, 16), 16, slice(17, 20), 21, slice(22, 26), 26
+                    ),
+                    endpoint2=_link_endpoint(
+                        line, slice(42, 46), 46, slice(47, 50), 51, slice(52, 56), 56
+                    ),
+                )
+            )
             continue
         if record == "SSBOND":
-            content.ssbonds.append(PDBSSBondRecord(
-                endpoint1=(
-                    line[15].strip() or " ",
-                    line[17:21].strip(),
-                    line[21].strip(),
-                ),
-                endpoint2=(
-                    line[29].strip() or " ",
-                    line[31:35].strip(),
-                    line[35].strip(),
-                ),
-            ))
+            content.ssbonds.append(
+                PDBSSBondRecord(
+                    endpoint1=(
+                        line[15].strip() or " ",
+                        line[17:21].strip(),
+                        line[21].strip(),
+                    ),
+                    endpoint2=(
+                        line[29].strip() or " ",
+                        line[31:35].strip(),
+                        line[35].strip(),
+                    ),
+                )
+            )
             continue
         if record == "CONECT":
             source = parse_serial(line[6:11])
             targets = tuple(
-                parse_serial(line[start:start + 5])
+                parse_serial(line[start : start + 5])
                 for start in (11, 16, 21, 26)
-                if line[start:start + 5].strip()
+                if line[start : start + 5].strip()
             )
             content.conect.append(PDBConectRecord(source, targets))
 

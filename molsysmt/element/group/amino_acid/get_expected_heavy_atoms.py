@@ -1,16 +1,16 @@
-from .group_names import group_names
 from .get_group_db import get_group_db
 from .get_standard_name import get_standard_name
+from .group_names import group_names
 
 
 def _is_hydrogen(atom_name):
     """Return True if atom_name follows PDB hydrogen naming conventions."""
     if not atom_name:
         return False
-    if atom_name[0] == 'H':
+    if atom_name[0] == "H":
         return True
     # Legacy PDB format: digit-first names like '1HB', '2HB', '3H'
-    if len(atom_name) >= 2 and atom_name[0].isdigit() and atom_name[1] == 'H':
+    if len(atom_name) >= 2 and atom_name[0].isdigit() and atom_name[1] == "H":
         return True
     return False
 
@@ -79,8 +79,8 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
         # missing for internal residues.
         best_heavy = None
         best_extra = None
-        for variant in db['topology']:
-            variant_heavy = {a for a in variant['atoms'] if not _is_hydrogen(a)}
+        for variant in db["topology"]:
+            variant_heavy = {a for a in variant["atoms"] if not _is_hydrogen(a)}
             if present_heavy <= variant_heavy:
                 extra = len(variant_heavy) - len(present_heavy)
                 if best_extra is None or extra < best_extra:
@@ -90,4 +90,4 @@ def get_expected_heavy_atoms(group_name, present_atom_names=None):
             return best_heavy
 
     # Fallback: first (CCD canonical) variant.
-    return {a for a in db['topology'][0]['atoms'] if not _is_hydrogen(a)}
+    return {a for a in db["topology"][0]["atoms"] if not _is_hydrogen(a)}

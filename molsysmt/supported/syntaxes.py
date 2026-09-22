@@ -21,7 +21,6 @@ from ._syntaxes import (
 
 
 class _SyntaxCompatibilityModule(ModuleType):
-
     def __call__(self):
         from .supported import syntaxes as syntax_report
 
@@ -31,11 +30,11 @@ class _SyntaxCompatibilityModule(ModuleType):
 sys.modules[__name__].__class__ = _SyntaxCompatibilityModule
 
 __all__ = [
-    'lowercase_selection_syntaxes',
-    'lowercase_syntaxes',
-    'lowercase_translation_syntaxes',
-    'selection_syntaxes',
-    'syntax_capabilities',
-    'syntaxes',
-    'translation_syntaxes',
+    "lowercase_selection_syntaxes",
+    "lowercase_syntaxes",
+    "lowercase_translation_syntaxes",
+    "selection_syntaxes",
+    "syntax_capabilities",
+    "syntaxes",
+    "translation_syntaxes",
 ]

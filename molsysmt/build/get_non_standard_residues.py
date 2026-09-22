@@ -1,8 +1,11 @@
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import *
+
 
 @arg_digest()
-def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT'):
+def get_non_standard_residues(
+    molecular_system, selection="all", syntax="MolSysMT", engine="MolSysMT"
+):
     """
     Identify non-standard residues in a molecular system and suggest standard replacements.
 
@@ -52,38 +55,45 @@ def get_non_standard_residues(molecular_system, selection='all', syntax='MolSysM
 
     output = {}
 
-    if engine == 'MolSysMT':
-
-        from molsysmt.basic import select, get
+    if engine == "MolSysMT":
+        from molsysmt.basic import get, select
         from molsysmt.element.group.amino_acid import get_standard_name
 
-        group_indices = select(molecular_system, element='group', selection=selection, syntax=syntax)
-        group_name_list = get(molecular_system, element='group', selection=group_indices,
-                              group_name=True)
+        group_indices = select(
+            molecular_system, element="group", selection=selection, syntax=syntax
+        )
+        group_name_list = get(
+            molecular_system, element="group", selection=group_indices, group_name=True
+        )
 
         for group_idx, group_name in zip(group_indices, group_name_list):
             standard = get_standard_name(group_name)
             if standard is not None:
                 output[int(group_idx)] = standard
 
-    elif engine=="PDBFixer":
+    elif engine == "PDBFixer":
+        from molsysmt.basic import convert, select
 
-        from molsysmt.basic import convert, get_form, select
+        group_indices_in_selection = select(
+            molecular_system, element="group", selection=selection
+        )
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection)
-
-        tmp_item = convert(molecular_system, to_form="pdbfixer.PDBFixer", selection=selection,
-                                        syntax=syntax)
+        tmp_item = convert(
+            molecular_system,
+            to_form="pdbfixer.PDBFixer",
+            selection=selection,
+            syntax=syntax,
+        )
 
         tmp_item.findNonstandardResidues()
 
         for group, substitution in tmp_item.nonstandardResidues:
             original_group_index = group_indices_in_selection[group.index]
-            output[original_group_index] = substitution if isinstance(substitution, str) else substitution.name
+            output[original_group_index] = (
+                substitution if isinstance(substitution, str) else substitution.name
+            )
 
     else:
-
         raise NotImplementedMethodError
 
     return output
-

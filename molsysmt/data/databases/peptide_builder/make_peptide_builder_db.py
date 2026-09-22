@@ -9,7 +9,6 @@ import re
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-
 ENTRY_RE = re.compile(r"!entry\.([A-Za-z0-9_]+)\.unit\.")
 
 
@@ -35,7 +34,9 @@ def _extract_block(text: str, marker: str) -> List[str]:
     return output
 
 
-def _parse_atoms(lines: List[str]) -> Tuple[List[str], List[str], List[int], List[float]]:
+def _parse_atoms(
+    lines: List[str],
+) -> Tuple[List[str], List[str], List[int], List[float]]:
     atom_names = []
     atom_types = []
     atom_elements = []
@@ -54,7 +55,9 @@ def _parse_positions(lines: List[str]) -> List[List[float]]:
     for line in lines:
         x_str, y_str, z_str = line.split()[:3]
         # LEaP libraries store coordinates in angstrom.
-        coordinates.append([float(x_str) / 10.0, float(y_str) / 10.0, float(z_str) / 10.0])
+        coordinates.append(
+            [float(x_str) / 10.0, float(y_str) / 10.0, float(z_str) / 10.0]
+        )
     return coordinates
 
 
@@ -87,8 +90,12 @@ def _parse_library(path: Path) -> Dict[str, dict]:
         atoms_lines = _extract_block(text, f"!entry.{name}.unit.atoms table")
         positions_lines = _extract_block(text, f"!entry.{name}.unit.positions table")
         connect_lines = _extract_block(text, f"!entry.{name}.unit.connect array")
-        connectivity_lines = _extract_block(text, f"!entry.{name}.unit.connectivity table")
-        residueconnect_lines = _extract_block(text, f"!entry.{name}.unit.residueconnect table")
+        connectivity_lines = _extract_block(
+            text, f"!entry.{name}.unit.connectivity table"
+        )
+        residueconnect_lines = _extract_block(
+            text, f"!entry.{name}.unit.residueconnect table"
+        )
 
         if not atoms_lines or not positions_lines or not connectivity_lines:
             continue
@@ -138,7 +145,9 @@ def build_database(amberclassic_root: Path) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate peptide_builder template database.")
+    parser = argparse.ArgumentParser(
+        description="Generate peptide_builder template database."
+    )
     parser.add_argument(
         "--amberclassic-root",
         default="../AmberClassic",

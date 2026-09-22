@@ -1,5 +1,6 @@
 from .lipid_names import lipid_names
 
+
 def is_lipid(name):
     """
     Check whether a group name corresponds to a lipid residue.
@@ -26,5 +27,4 @@ def is_lipid(name):
     .. versionadded:: 1.0.0
     """
 
-    return (name in lipid_names)
-
+    return name in lipid_names

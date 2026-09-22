@@ -21,8 +21,7 @@ def is_group_type(group_type):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.element.group import _group_types
-    from molsysmt.element.group import _plural_group_types_to_singular
+    from molsysmt.element.group import _group_types, _plural_group_types_to_singular
 
     output = False
 
@@ -33,4 +32,3 @@ def is_group_type(group_type):
         output = True
 
     return output
-

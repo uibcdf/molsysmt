@@ -1,13 +1,26 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError, StructuralInconsistencyError
-from smonitor import signal
 import numpy as np
-from molsysmt import pyunitwizard as puw
+from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import (
+    NotImplementedMethodError,
+    StructuralInconsistencyError,
+)
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def rotate(molecular_system, rotation=None, rotation_center=None, selection='all', structure_indices='all',
-        syntax='MolSysMT', in_place=False, skip_digestion=False):
+def rotate(
+    molecular_system,
+    rotation=None,
+    rotation_center=None,
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    in_place=False,
+    skip_digestion=False,
+):
     """
     Rotate atomic coordinates of a selection by a given rotation.
 
@@ -92,21 +105,25 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import get, set, select, copy
+    from molsysmt.basic import copy, get, set
     from molsysmt.structure import translate
 
-    coordinates = get(molecular_system, element='atom', selection=selection, structure_indices=structure_indices,
-                      syntax=syntax, coordinates=True)
+    coordinates = get(
+        molecular_system,
+        element="atom",
+        selection=selection,
+        structure_indices=structure_indices,
+        syntax=syntax,
+        coordinates=True,
+    )
 
     if rotation_center is not None:
-
         coordinates = translate(coordinates, translation=-rotation_center)
 
-    coordinates, length_unit =  puw.get_value_and_unit(coordinates)
+    coordinates, length_unit = puw.get_value_and_unit(coordinates)
 
     if isinstance(rotation, np.ndarray):
-
-        shape=rotation.shape
+        shape = rotation.shape
 
         if shape[0] not in (1, coordinates.shape[0]):
             raise StructuralInconsistencyError(
@@ -125,47 +142,51 @@ def rotate(molecular_system, rotation=None, rotation_center=None, selection='all
                 caller="molsysmt.structure.rotate",
             )
 
-        if shape[:2]==(1,1):
+        if shape[:2] == (1, 1):
             for ii in range(coordinates.shape[0]):
-                coordinates[ii,:,:] = coordinates[ii,:,:] @ rotation[0,0,:,:].T
-        elif shape[1]==1:
+                coordinates[ii, :, :] = coordinates[ii, :, :] @ rotation[0, 0, :, :].T
+        elif shape[1] == 1:
             for ii in range(coordinates.shape[0]):
-                coordinates[ii,:,:] = coordinates[ii,:,:] @ rotation[ii,0,:,:].T
+                coordinates[ii, :, :] = coordinates[ii, :, :] @ rotation[ii, 0, :, :].T
         else:
             for ii in range(coordinates.shape[0]):
                 rotation_frame = 0 if shape[0] == 1 else ii
                 for jj in range(coordinates.shape[1]):
-                    coordinates[ii,jj,:] = (
-                        coordinates[ii,jj,:] @ rotation[rotation_frame,jj,:,:].T
+                    coordinates[ii, jj, :] = (
+                        coordinates[ii, jj, :] @ rotation[rotation_frame, jj, :, :].T
                     )
 
     elif callable(getattr(rotation, "apply", None)):
-
         for ii in range(coordinates.shape[0]):
-            coordinates[ii,:,:] = rotation.apply(coordinates[ii,:,:])
+            coordinates[ii, :, :] = rotation.apply(coordinates[ii, :, :])
 
     else:
-
-        raise NotImplementedMethodError(caller='molsysmt.structure.rotate')
+        raise NotImplementedMethodError(caller="molsysmt.structure.rotate")
 
     coordinates = puw.quantity(coordinates, unit=length_unit)
 
     if rotation_center is not None:
-
         coordinates = translate(coordinates, translation=rotation_center)
 
-
     if in_place:
-
-        set(molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
-        del(coordinates, rotation_center)
+        set(
+            molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+        )
+        del (coordinates, rotation_center)
 
     else:
-
         tmp_molecular_system = copy(molecular_system)
-        set(tmp_molecular_system, selection=selection, structure_indices=structure_indices,
-            syntax=syntax, coordinates=coordinates)
-        del(coordinates, rotation_center)
+        set(
+            tmp_molecular_system,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            coordinates=coordinates,
+        )
+        del (coordinates, rotation_center)
 
         return tmp_molecular_system

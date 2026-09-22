@@ -49,6 +49,6 @@ def get_standard_name(group_name):
     """
 
     standard = name_to_type.get(group_name)
-    if standard is None or standard == 'XAA' or standard == group_name:
+    if standard is None or standard == "XAA" or standard == group_name:
         return None
     return standard

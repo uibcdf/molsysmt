@@ -340,3 +340,25 @@ and `physchem` suites have failures in tests built from the locally modified
 `/tmp` confirmed 1,441 atoms, `contains(molsys) is True`, and boolean-mask
 selection `[1, 3]`; the local fixture remains untouched. Those suites cannot
 be treated as fully passing on this checkout. The full-core Ruff count is 576.
+
+## Twelfth migrated slice: complete core package
+
+The remaining `element`, `structure`, `build`, `third_party`, `native`, `data`,
+`pbc`, `supported`, `configure`, and root modules now pass the full Ruff lint
+and format baseline. `ruff check --no-cache molsysmt` passes, and
+`ruff format --check molsysmt` reports 2,566 formatted files. The package is
+no longer excluded from default Ruff discovery. The CI workflow checks lint
+and format on every selected Python file, and its local selection test checks
+all tracked Python source in the core. The earlier migrated-path manifest and
+narrow critical-rule check are no longer needed.
+
+Ruff's proposed removals were reviewed for imports that are public exports,
+lazy imports, or variables referenced by dynamically evaluated selection
+strings. The latter retain narrowly scoped `F841` exceptions. Focused tests
+for corrected `Simulation.set_parameters` and unsupported-choice error paths
+pass. The complete `native` and `pbc` suites pass; the suites for `build`,
+`element`, `structure`, and `third_party` still have failures that read the
+locally modified `181l.h5msm` fixture. The dependency and form-adapter
+validators pass. Outside the core, an explicit Ruff scan found 1,219 lint
+findings and 577 unformatted files in the currently excluded trees, mostly in
+`tests`. The repository-wide gate remains an active task under this issue.

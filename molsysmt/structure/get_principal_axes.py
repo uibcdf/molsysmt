@@ -1,16 +1,26 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from smonitor import signal
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private import rust_backend as _kernels
-from molsysmt._private.weighted_geometry import prepare_weights
-from molsysmt import pyunitwizard as puw
 import numpy as np
+from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt import pyunitwizard as puw
+from molsysmt._private import rust_backend as _kernels
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.weighted_geometry import prepare_weights
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def get_principal_axes(molecular_system, selection='all', structure_indices='all',
-        weights=None, principal_axes_type='inertia', syntax='MolSysMT', engine='MolSysMT',
-        use_gpu=None, skip_digestion=False):
+def get_principal_axes(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    weights=None,
+    principal_axes_type="inertia",
+    syntax="MolSysMT",
+    engine="MolSysMT",
+    use_gpu=None,
+    skip_digestion=False,
+):
     """
     Computing principal axes for a selection of atoms.
 
@@ -91,20 +101,24 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import select, get
     from molsysmt._private.structure_indices import ensure_nonempty_structure_indices
+    from molsysmt.basic import get, select
 
     ensure_nonempty_structure_indices(
         structure_indices,
         caller="molsysmt.structure.get_principal_axes",
     )
 
-    if engine=='MolSysMT':
-
+    if engine == "MolSysMT":
         atom_indices = select(molecular_system, selection=selection, syntax=syntax)
 
-        coordinates = get(molecular_system, element='atom', selection=atom_indices,
-                structure_indices=structure_indices, coordinates=True)
+        coordinates = get(
+            molecular_system,
+            element="atom",
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            coordinates=True,
+        )
         coordinates, _ = puw.get_value_and_unit(coordinates)
         coordinates = np.asarray(coordinates, dtype=np.float64)
 
@@ -118,37 +132,42 @@ def get_principal_axes(molecular_system, selection='all', structure_indices='all
         )
 
         from molsysmt._private.gpu import resolve_use_gpu
+
         payload = coordinates.shape[0] * coordinates.shape[1] * 3
         _use_gpu = resolve_use_gpu(use_gpu, payload)
 
-        if principal_axes_type == 'geometric':
+        if principal_axes_type == "geometric":
             if _use_gpu:
                 from molsysmt.lib.structure.get_principal_axes_cuda import (
                     get_principal_geometric_axes as _gpu_geo,
                 )
+
                 variances, axes = _gpu_geo(coordinates, weights)
             else:
-                variances, axes = _kernels.get_principal_geometric_axes(coordinates, weights)
+                variances, axes = _kernels.get_principal_geometric_axes(
+                    coordinates, weights
+                )
             moments = variances
 
-        elif principal_axes_type == 'inertia':
+        elif principal_axes_type == "inertia":
             if _use_gpu:
                 from molsysmt.lib.structure.get_principal_axes_cuda import (
                     get_principal_inertia_axes as _gpu_inertia,
                 )
+
                 moments, axes = _gpu_inertia(coordinates, weights)
             else:
-                moments, axes = _kernels.get_principal_inertia_axes(coordinates, weights)
+                moments, axes = _kernels.get_principal_inertia_axes(
+                    coordinates, weights
+                )
 
         for structure_index in range(axes.shape[0]):
             if np.linalg.det(axes[structure_index]) < 0.0:
                 axes[structure_index, 2] *= -1.0
 
-        del(coordinates, atom_indices, weights)
-
+        del (coordinates, atom_indices, weights)
 
         return axes, moments
 
     else:
-
         raise NotImplementedMethodError()

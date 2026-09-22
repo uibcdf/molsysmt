@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
+
 @arg_digest()
-def get_missing_terminal_cappings(molecular_system, selection='all', syntax='MolSysMT', engine='MolSysMT'):
+def get_missing_terminal_cappings(
+    molecular_system, selection="all", syntax="MolSysMT", engine="MolSysMT"
+):
     """
     Identify terminal capping atoms that are missing from chain termini in a molecular system.
 
@@ -52,26 +55,45 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
 
     output = {}
 
-    if engine == 'MolSysMT':
-
-        from molsysmt.basic import select, get
+    if engine == "MolSysMT":
+        from molsysmt.basic import get, select
         from molsysmt.element.group.amino_acid import group_names as aa_names
 
         # All groups in the selection, keyed by chain
-        group_indices = select(molecular_system, element='group', selection=selection, syntax=syntax)
+        group_indices = select(
+            molecular_system, element="group", selection=selection, syntax=syntax
+        )
 
         # Per-group: chain index, group_id, group_name
-        chain_index_per_group = get(molecular_system, element='group', selection=group_indices,
-                                    chain_index=True, skip_digestion=True)
-        group_id_per_group = get(molecular_system, element='group', selection=group_indices,
-                                 group_id=True, skip_digestion=True)
-        group_name_per_group = get(molecular_system, element='group', selection=group_indices,
-                                   group_name=True, skip_digestion=True)
+        chain_index_per_group = get(
+            molecular_system,
+            element="group",
+            selection=group_indices,
+            chain_index=True,
+            skip_digestion=True,
+        )
+        group_id_per_group = get(
+            molecular_system,
+            element="group",
+            selection=group_indices,
+            group_id=True,
+            skip_digestion=True,
+        )
+        group_name_per_group = get(
+            molecular_system,
+            element="group",
+            selection=group_indices,
+            group_name=True,
+            skip_digestion=True,
+        )
 
         # Collect amino-acid groups per chain: {chain_idx: [(group_id_int, group_idx), ...]}
         chain_aa_groups: dict = {}
         for group_idx, chain_idx, group_id, group_name in zip(
-            group_indices, chain_index_per_group, group_id_per_group, group_name_per_group
+            group_indices,
+            chain_index_per_group,
+            group_id_per_group,
+            group_name_per_group,
         ):
             if group_name not in aa_names:
                 continue
@@ -79,7 +101,9 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
                 gid_int = int(group_id)
             except (ValueError, TypeError):
                 gid_int = 0
-            chain_aa_groups.setdefault(int(chain_idx), []).append((gid_int, int(group_idx)))
+            chain_aa_groups.setdefault(int(chain_idx), []).append(
+                (gid_int, int(group_idx))
+            )
 
         # Also collect ALL groups per chain (sorted by group_id) to detect
         # capping groups that follow the last amino acid.
@@ -91,7 +115,9 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
                 gid_int = int(group_id)
             except (ValueError, TypeError):
                 gid_int = 0
-            chain_all_groups.setdefault(int(chain_idx), []).append((gid_int, int(group_idx)))
+            chain_all_groups.setdefault(int(chain_idx), []).append(
+                (gid_int, int(group_idx))
+            )
 
         for chain_idx, aa_list in chain_aa_groups.items():
             # Sort by group sequence number; take the last (C-terminal) residue.
@@ -106,25 +132,38 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
             if last_any_gid != last_aa_gid:
                 continue  # chain is C-terminally capped
 
-            atom_names = get(molecular_system, element='atom',
-                             selection=list(
-                                 get(molecular_system, element='group',
-                                     selection=c_term_group_idx, atom_index=True,
-                                     skip_digestion=True)[0]
-                             ),
-                             atom_name=True, skip_digestion=True)
+            atom_names = get(
+                molecular_system,
+                element="atom",
+                selection=list(
+                    get(
+                        molecular_system,
+                        element="group",
+                        selection=c_term_group_idx,
+                        atom_index=True,
+                        skip_digestion=True,
+                    )[0]
+                ),
+                atom_name=True,
+                skip_digestion=True,
+            )
 
-            if 'OXT' not in atom_names:
-                output[c_term_group_idx] = ['OXT']
+            if "OXT" not in atom_names:
+                output[c_term_group_idx] = ["OXT"]
 
     elif engine == "PDBFixer":
+        from molsysmt.basic import convert, select
 
-        from molsysmt.basic import convert, get_form, select
+        group_indices_in_selection = select(
+            molecular_system, element="group", selection=selection
+        )
 
-        group_indices_in_selection = select(molecular_system, element='group', selection=selection)
-
-        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer",
-                                        selection=selection, syntax=syntax)
+        temp_molecular_system = convert(
+            molecular_system,
+            to_form="pdbfixer.PDBFixer",
+            selection=selection,
+            syntax=syntax,
+        )
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
@@ -134,7 +173,6 @@ def get_missing_terminal_cappings(molecular_system, selection='all', syntax='Mol
             output[original_group_index] = atoms
 
     else:
-
         raise NotImplementedError
 
     return output

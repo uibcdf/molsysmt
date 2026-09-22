@@ -1,5 +1,6 @@
 from .group_names import group_names
 
+
 def is_amino_acid(name):
     """
     Check whether a group name corresponds to an amino acid residue.
@@ -26,7 +27,4 @@ def is_amino_acid(name):
     .. versionadded:: 1.0.0
     """
 
-    output = (name in group_names)
-
-    return (name in group_names)
-
+    return name in group_names

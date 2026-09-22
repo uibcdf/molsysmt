@@ -1,5 +1,5 @@
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import *
 
 
 def _get_reference_sequence(molecular_system):
@@ -16,14 +16,15 @@ def _get_reference_sequence(molecular_system):
         ``{chain_id: [res_name_1, res_name_2, ...]}`` with 3-letter residue codes,
         or ``None`` if no sequence information could be found.
     """
-    from molsysmt.basic import get_form, convert
+    from molsysmt.basic import convert, get_form
 
     form = get_form(molecular_system)
 
     # ── PDB file ──────────────────────────────────────────────────────────────
-    if form == 'file:pdb':
-        pdb_handler = convert(molecular_system, to_form='molsysmt.PDBFileHandler',
-                              skip_digestion=True)
+    if form == "file:pdb":
+        pdb_handler = convert(
+            molecular_system, to_form="molsysmt.PDBFileHandler", skip_digestion=True
+        )
         seqres = pdb_handler.entry.primary_structure.seqres
         if not seqres:
             return None
@@ -33,11 +34,13 @@ def _get_reference_sequence(molecular_system):
         return result
 
     # ── BCIF / BCIF.GZ / PDB-ID → use mmcif DataContainer ───────────────────
-    if form in ('file:bcif', 'file:bcif_gz', 'string:pdb_id'):
-        if form == 'string:pdb_id':
+    if form in ("file:bcif", "file:bcif_gz", "string:pdb_id"):
+        if form == "string:pdb_id":
             # Convert PDB ID → bcif file in memory (temp), then read
-            import tempfile, os
-            tmp = tempfile.NamedTemporaryFile(suffix='.bcif', delete=False)
+            import os
+            import tempfile
+
+            tmp = tempfile.NamedTemporaryFile(suffix=".bcif", delete=False)
             tmp.close()
             try:
                 convert(molecular_system, to_form=tmp.name, skip_digestion=True)
@@ -46,39 +49,40 @@ def _get_reference_sequence(molecular_system):
                 os.unlink(tmp.name)
 
         from mmcif.io.BinaryCifReader import BinaryCifReader
+
         reader = BinaryCifReader()
         containers = reader.deserialize(molecular_system)
         if not containers:
             return None
         dc = containers[0]
 
-        poly_seq = dc.getObj('entity_poly_seq')
-        poly     = dc.getObj('entity_poly')
+        poly_seq = dc.getObj("entity_poly_seq")
+        poly = dc.getObj("entity_poly")
         if poly_seq is None or poly is None:
             return None
 
         # Build entity_id → chain_ids mapping from entity_poly
         entity_to_chains = {}
-        strand_col = poly.getAttributeList().index('pdbx_strand_id')
-        entity_col  = poly.getAttributeList().index('entity_id')
+        strand_col = poly.getAttributeList().index("pdbx_strand_id")
+        entity_col = poly.getAttributeList().index("entity_id")
         for i in range(poly.getRowCount()):
             row = poly.getRow(i)
-            eid    = row[entity_col]
+            eid = row[entity_col]
             strand = row[strand_col]
             # pdbx_strand_id may be comma-separated (e.g. "A,B")
-            for ch in strand.split(','):
+            for ch in strand.split(","):
                 entity_to_chains.setdefault(eid, []).append(ch.strip())
 
         # Build entity_id → ordered list of mon_id
-        e_col   = poly_seq.getAttributeList().index('entity_id')
-        mon_col = poly_seq.getAttributeList().index('mon_id')
-        num_col = poly_seq.getAttributeList().index('num')
+        e_col = poly_seq.getAttributeList().index("entity_id")
+        mon_col = poly_seq.getAttributeList().index("mon_id")
+        num_col = poly_seq.getAttributeList().index("num")
         entity_seqs = {}
         for i in range(poly_seq.getRowCount()):
             row = poly_seq.getRow(i)
-            eid     = row[e_col]
-            mon_id  = row[mon_col]
-            num     = int(row[num_col])
+            eid = row[e_col]
+            mon_id = row[mon_col]
+            num = int(row[num_col])
             entity_seqs.setdefault(eid, []).append((num, mon_id))
 
         # Sort by num (should already be sorted, but be safe)
@@ -106,17 +110,23 @@ def _compare_sequences(ref_seq, struct_seq):
     structural residue, ``insertion_pos`` equals ``len(struct_seq)``.
     """
     from difflib import SequenceMatcher
+
     sm = SequenceMatcher(None, ref_seq, struct_seq, autojunk=False)
     missing = []
     for tag, i1, i2, j1, _j2 in sm.get_opcodes():
-        if tag == 'delete':
+        if tag == "delete":
             missing.append((j1, list(ref_seq[i1:i2])))
     return missing
 
 
 @arg_digest()
-def get_missing_residues(molecular_system, sequence=None, selection='all',
-                         syntax='MolSysMT', engine='MolSysMT'):
+def get_missing_residues(
+    molecular_system,
+    sequence=None,
+    selection="all",
+    syntax="MolSysMT",
+    engine="MolSysMT",
+):
     """
     Identify residues that are missing from a molecular system relative to a reference sequence.
 
@@ -174,10 +184,10 @@ def get_missing_residues(molecular_system, sequence=None, selection='all',
 
     output = {}
 
-    if engine == 'MolSysMT':
-
+    if engine == "MolSysMT":
         import warnings
-        from molsysmt.basic import get, convert
+
+        from molsysmt.basic import convert, get
 
         # Step 1: extract reference sequence from the *original* form (before conversion)
         ref_sequence = sequence
@@ -196,20 +206,31 @@ def get_missing_residues(molecular_system, sequence=None, selection='all',
             return output
 
         # Step 2: work on a native MolSys so all get() queries are guaranteed to work
-        native = convert(molecular_system, to_form='molsysmt.MolSys',
-                         selection=selection, syntax=syntax, skip_digestion=True)
+        native = convert(
+            molecular_system,
+            to_form="molsysmt.MolSys",
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+        )
 
-        chain_indices = get(native, element='chain', chain_index=True, skip_digestion=True)
-        chain_ids     = get(native, element='chain', chain_id=True,    skip_digestion=True)
+        chain_indices = get(
+            native, element="chain", chain_index=True, skip_digestion=True
+        )
+        chain_ids = get(native, element="chain", chain_id=True, skip_digestion=True)
 
         for chain_idx, chain_id in zip(chain_indices, chain_ids):
             if chain_id not in ref_sequence:
                 continue
 
-            ref_seq    = ref_sequence[chain_id]
-            struct_seq = get(native, element='group',
-                             selection=f'chain_index=={chain_idx}',
-                             group_name=True, skip_digestion=True)
+            ref_seq = ref_sequence[chain_id]
+            struct_seq = get(
+                native,
+                element="group",
+                selection=f"chain_index=={chain_idx}",
+                group_name=True,
+                skip_digestion=True,
+            )
 
             if not struct_seq:
                 continue
@@ -217,20 +238,24 @@ def get_missing_residues(molecular_system, sequence=None, selection='all',
             for insertion_pos, missing_names in _compare_sequences(ref_seq, struct_seq):
                 output[(int(chain_idx), insertion_pos)] = missing_names
 
-    elif engine == 'PDBFixer':
+    elif engine == "PDBFixer":
+        from molsysmt.basic import convert
 
-        from molsysmt.basic import convert, select
-
-        temp_molecular_system = convert(molecular_system, to_form='pdbfixer.PDBFixer',
-                                        selection=selection, syntax=syntax)
+        temp_molecular_system = convert(
+            molecular_system,
+            to_form="pdbfixer.PDBFixer",
+            selection=selection,
+            syntax=syntax,
+        )
         temp_molecular_system.findMissingResidues()
 
-        for (chain_index, insertion_position), residue_names in \
-                temp_molecular_system.missingResidues.items():
+        for (
+            chain_index,
+            insertion_position,
+        ), residue_names in temp_molecular_system.missingResidues.items():
             output[(chain_index, insertion_position)] = residue_names
 
     else:
-
         raise NotImplementedMethodError
 
     return output

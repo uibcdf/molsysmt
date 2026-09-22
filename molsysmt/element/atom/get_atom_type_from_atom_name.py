@@ -1,5 +1,6 @@
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import UnknownAtomNameWarning, warn
+
 from .names import atom as atom_type_from_name
 
 

@@ -30,4 +30,6 @@ PROFILES = {
     },
 }
 
-from molsysmt._private.smonitor.catalog import CODES, SIGNALS
+# Keep catalog exports after the local configuration declarations.
+from molsysmt._private.smonitor.catalog import CODES as CODES  # noqa: E402
+from molsysmt._private.smonitor.catalog import SIGNALS as SIGNALS  # noqa: E402

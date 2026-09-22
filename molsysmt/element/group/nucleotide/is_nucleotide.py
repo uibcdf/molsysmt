@@ -1,5 +1,6 @@
 from .nucleotide_names import nucleotide_names
 
+
 def is_nucleotide(name):
     """
     Check whether a group name corresponds to a nucleotide residue.
@@ -27,5 +28,4 @@ def is_nucleotide(name):
     .. versionadded:: 1.0.0
     """
 
-    return (name in nucleotide_names)
-
+    return name in nucleotide_names

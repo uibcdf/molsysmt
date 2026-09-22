@@ -1,7 +1,1 @@
-lipid_names = [
-        'POPC',
-        'DOPC',
-        'DSPC',
-        'DMPC'
-]
-
+lipid_names = ["POPC", "DOPC", "DSPC", "DMPC"]
