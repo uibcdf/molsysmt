@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:pdb_text')
-def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="string:pdb_text")
+def to_openmm_System(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from string:pdb_text to openmm.System.
 
@@ -27,13 +30,20 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_dig
     """
 
     from molsysmt.form.openmm_Modeller.to_openmm_Modeller import to_openmm_Modeller
-    from molsysmt.tools.openmm_Modeller import to_openmm_System as openmm_Modeller_to_openmm_System
+    from molsysmt.tools.openmm_Modeller import (
+        to_openmm_System as openmm_Modeller_to_openmm_System,
+    )
 
-    tmp_item = to_openmm_Modeller(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                  skip_digestion=True)
+    tmp_item = to_openmm_Modeller(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
     tmp_item = openmm_Modeller_to_openmm_System(tmp_item, skip_digestion=True)
 
     return tmp_item
+
 
 #    tmp_item, tmp_molecular_system = openmm_Modeller_to_openmm_System(tmp_item, molecular_system=tmp_molecular_system, forcefield=forcefield,
 #                                                non_bonded_method=non_bonded_method,
@@ -43,5 +53,3 @@ def to_openmm_System(item, atom_indices='all', structure_indices='all', skip_dig
 #                                                hydrogen_mass=hydrogen_mass,
 #                                                switch_distance=switch_distance,
 #                                                flexible_constraints=flexible_constraints, **kwargs)
-
-

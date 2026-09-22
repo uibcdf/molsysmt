@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:pdb_text')
-def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="string:pdb_text")
+def to_openmm_Modeller(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from string:pdb_text to openmm.Modeller.
 
@@ -26,12 +29,17 @@ def to_openmm_Modeller(item, atom_indices='all', structure_indices='all', skip_d
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt.form.openmm_PDBFile.to_openmm_Modeller import (
+        to_openmm_Modeller as openmm_PDBFile_to_openmm_Modeller,
+    )
     from molsysmt.form.openmm_PDBFile.to_openmm_PDBFile import to_openmm_PDBFile
-    from molsysmt.form.openmm_PDBFile.to_openmm_Modeller import to_openmm_Modeller as openmm_PDBFile_to_openmm_Modeller
 
-    tmp_item = to_openmm_PDBFile(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                 skip_digestion=True)
+    tmp_item = to_openmm_PDBFile(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
     tmp_item = openmm_PDBFile_to_openmm_Modeller(tmp_item, skip_digestion=True)
 
     return tmp_item
-

@@ -139,3 +139,28 @@ files requiring formatting. After import sorting and formatting, full lint and
 format checks pass for the tree, and the same 45 tests still pass. The CI step
 and the parametrized file-selection test now cover `molsysmt/lib` alongside
 `molsysmt/attribute`. No core scientific behavior was intentionally changed.
+
+## Third migrated slice: string PDB text
+
+On 2026-09-22, the `molsysmt/form/string_pdb_text` adapter was migrated after its
+366 functional cases passed on the unedited baseline. Its 408 initial findings
+comprised 387 `I001`, 12 `E402`, six `F401`, and three `F403`. Reviewing Ruff's
+proposed diffs showed that `I001` sorts imports *inside* getters without hoisting
+them to module scope. The 386 getter and ordinary-module import-order findings
+and six unused imports were fixed. All lazy imports remain inside their getters.
+
+The adapter's `__init__.py` retains its metadata-first initialization and
+wildcard getter/setter exports. Its established import block has a bounded
+`isort: off` marker, with line-local exceptions for 12 `E402` and three `F403`
+findings. Changing this order or expanding the generated exports would be a
+separate behavioral change, not a mechanical
+lint fix. Before and after the migration, the package exposed the same 369
+public names and 15 conversion routes. An AST comparison that ignored only
+import statements found no other executable-statement differences across its
+Python files.
+
+The same 366 functional cases passed after the change. Full Ruff lint and format
+checks, the migrated-file selection test, dependency validation, and the form
+adapter structural audit also passed. The CI Ruff workflow now checks this adapter
+explicitly. The full-core Ruff count fell from 13,452 to 13,044 findings; the
+adapter contributes zero unsuppressed findings to that count.

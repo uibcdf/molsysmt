@@ -44,3 +44,5 @@ jobs:
           ruff format --check molsysmt/attribute
           ruff check molsysmt/lib
           ruff format --check molsysmt/lib
+          ruff check molsysmt/form/string_pdb_text
+          ruff format --check molsysmt/form/string_pdb_text

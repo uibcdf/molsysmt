@@ -1,7 +1,14 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:pdb_text')
-def to_string_pdb_text(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+
+@arg_digest(form="string:pdb_text")
+def to_string_pdb_text(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Converting from string:pdb_text to string:pdb_text.
 
@@ -38,9 +45,10 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', copy_i
     # `NotImplementedError: Widgets cannot be copied` from inside `copy()`.
     if not isinstance(item, str):
         from molsysmt._private.smonitor import NotSupportedFormError
+
         raise NotSupportedFormError(
             form=type(item).__name__,
-            caller='molsysmt.form.string_pdb_text.to_string_pdb_text',
+            caller="molsysmt.form.string_pdb_text.to_string_pdb_text",
             message=(
                 f"string:pdb_text's own converter received a {type(item).__name__}. "
                 "This usually means an adapter imported "
@@ -49,5 +57,10 @@ def to_string_pdb_text(item, atom_indices='all', structure_indices='all', copy_i
             ),
         )
 
-    return extract(item, atom_indices=atom_indices, structure_indices=structure_indices, copy_if_all=copy_if_all, skip_digestion=True)
-
+    return extract(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        copy_if_all=copy_if_all,
+        skip_digestion=True,
+    )

@@ -1,8 +1,11 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='string:pdb_text')
-def append_structures(item, structure_id=None, time=None, coordinates=None, box=None, skip_digestion=False):
+
+@arg_digest(form="string:pdb_text")
+def append_structures(
+    item, structure_id=None, time=None, coordinates=None, box=None, skip_digestion=False
+):
     """
     Appending coordinate structures to an item of form string:pdb_text.
 
@@ -31,7 +34,4 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     .. versionadded:: 1.0.0
     """
 
-
     raise NotImplementedMethodError()
-
-

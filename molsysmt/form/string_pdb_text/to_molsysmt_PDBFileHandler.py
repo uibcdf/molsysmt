@@ -1,7 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
 from io import StringIO
 
-@arg_digest(form='string:pdb_text')
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="string:pdb_text")
 def to_molsysmt_PDBFileHandler(item, skip_digestion=False):
     """
     Converting from string:pdb_text to molsysmt.PDBFileHandler.
@@ -27,5 +29,4 @@ def to_molsysmt_PDBFileHandler(item, skip_digestion=False):
 
     tmp_item = StringIO(item)
 
-    return PDBFileHandler(tmp_item, io_mode='r')
-
+    return PDBFileHandler(tmp_item, io_mode="r")
