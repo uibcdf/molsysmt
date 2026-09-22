@@ -1,13 +1,15 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
 
 functions_where_boolean = (
-    'molsysmt.basic.get.get',
-    'molsysmt.basic.compare.compare',
-    'molsysmt.basic.iterator.__init__',
-    '.iterators.__init__'
-    )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    ".iterators.__init__",
+)
+
 
 def digest_velocities(velocities, caller=None):
 
@@ -21,8 +23,8 @@ def digest_velocities(velocities, caller=None):
     value = puw.get_value(velocities)
     unit = puw.get_unit(velocities)
 
-    if not puw.check(unit, dimensionality={'[L]':1, '[T]':-1}):
-        raise ArgumentError('velocities', value=velocities, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[L]": 1, "[T]": -1}):
+        raise ArgumentError("velocities", value=velocities, caller=caller, message=None)
 
     if not isinstance(value, np.ndarray):
         value = np.array(value)
@@ -39,4 +41,4 @@ def digest_velocities(velocities, caller=None):
         if shape[2] == 3:
             return puw.standardize(puw.quantity(value, unit))
 
-    raise ArgumentError('velocities', value=velocities, caller=caller, message=None)
+    raise ArgumentError("velocities", value=velocities, caller=caller, message=None)

@@ -1,7 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 from argdigest.core.caller import caller_matches, caller_startswith
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_group_type(group_type, caller=None):
     """Checks if `group_type` has the expected type and value.
@@ -27,13 +28,17 @@ def digest_group_type(group_type, caller=None):
         If the given `group_type` has not of the correct type or value.
     """
 
-    if group_type is None and caller_matches(caller, 'add_group'):
+    if group_type is None and caller_matches(caller, "add_group"):
         return None
 
-    if caller=='molsysmt.basic.get.get':
+    if caller == "molsysmt.basic.get.get":
         if isinstance(group_type, bool):
             return group_type
-    elif isinstance(caller, str) and caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
+    elif (
+        isinstance(caller, str)
+        and caller_startswith(caller, "molsysmt.form.")
+        and caller.count(".to_") == 2
+    ):
         return group_type
 
     if isinstance(group_type, str):
@@ -48,4 +53,4 @@ def digest_group_type(group_type, caller=None):
     elif isinstance(group_type, np.ndarray):
         return group_type.tolist()
 
-    raise ArgumentError('group_type', value=group_type, caller=caller, message=None)
+    raise ArgumentError("group_type", value=group_type, caller=caller, message=None)

@@ -1,12 +1,10 @@
 from molsysmt._private.smonitor import ArgumentError
-import numpy as np
-from molsysmt import pyunitwizard as puw
+
 
 def digest_standard(standard, caller=None):
 
-    if caller=='molsysmt.basic.view.view':
+    if caller == "molsysmt.basic.view.view":
         if isinstance(standard, bool):
             return standard
 
-    raise ArgumentError('standard', value=standard, caller=caller, message=None)
-
+    raise ArgumentError("standard", value=standard, caller=caller, message=None)

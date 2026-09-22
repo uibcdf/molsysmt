@@ -1,23 +1,17 @@
-from molsysmt._private.smonitor import ArgumentError
-import numpy as np
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.input_arguments import can_be_selection
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import make_coordinates_like
 
-methods_where_bool = [
-]
+methods_where_bool = []
 
-methods_where_none = [
-    'molsysmt.third_party.nglview.add_cylinders.add_cylinders'
-]
+methods_where_none = ["molsysmt.third_party.nglview.add_cylinders.add_cylinders"]
 
-methods_where_xyz = [
-    'molsysmt.third_party.nglview.add_cylinders.add_cylinders'
-]
+methods_where_xyz = ["molsysmt.third_party.nglview.add_cylinders.add_cylinders"]
 
 methods_where_can_be_selection = [
-    'molsysmt.third_party.nglview.add_cylinders.add_cylinders'
+    "molsysmt.third_party.nglview.add_cylinders.add_cylinders"
 ]
+
 
 def digest_bottom(bottom, caller=None):
 
@@ -39,5 +33,4 @@ def digest_bottom(bottom, caller=None):
         if can_be_selection(bottom):
             return bottom
 
-    raise ArgumentError('bottom', value=bottom, caller=caller, message=None)
-
+    raise ArgumentError("bottom", value=bottom, caller=caller, message=None)

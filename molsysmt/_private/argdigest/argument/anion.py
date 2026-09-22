@@ -1,8 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 
-_anion_values = [
-    'Cl-', 'Br-', 'F-', 'I-'
-]
+_anion_values = ["Cl-", "Br-", "F-", "I-"]
+
 
 def digest_anion(anion, caller=None):
 
@@ -10,5 +9,4 @@ def digest_anion(anion, caller=None):
         if anion in _anion_values:
             return anion
 
-    raise ArgumentError('anion', value=anion, caller=caller, message=None)
-
+    raise ArgumentError("anion", value=anion, caller=caller, message=None)

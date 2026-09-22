@@ -1,14 +1,14 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 from argdigest.core.caller import caller_matches, caller_startswith
 
+from molsysmt._private.smonitor import ArgumentError
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
 
 
 def digest_chain_type(chain_type, caller=None):
@@ -35,13 +35,19 @@ def digest_chain_type(chain_type, caller=None):
         If the given `chain_type` has not of the correct type or value.
     """
 
-    if chain_type is None and caller_matches(caller, 'add_chain', 'assign_groups_to_new_chain'):
+    if chain_type is None and caller_matches(
+        caller, "add_chain", "assign_groups_to_new_chain"
+    ):
         return None
 
     if isinstance(caller, str) and caller.endswith(functions_with_boolean):
         if isinstance(chain_type, bool):
             return chain_type
-    elif isinstance(caller, str) and caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
+    elif (
+        isinstance(caller, str)
+        and caller_startswith(caller, "molsysmt.form.")
+        and caller.count(".to_") == 2
+    ):
         return chain_type
 
     if isinstance(chain_type, str):
@@ -56,4 +62,4 @@ def digest_chain_type(chain_type, caller=None):
     elif isinstance(chain_type, np.ndarray):
         return chain_type.tolist()
 
-    raise ArgumentError('chain_type', value=chain_type, caller=caller, message=None)
+    raise ArgumentError("chain_type", value=chain_type, caller=caller, message=None)

@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError
-import numpy as np
+
 
 def digest_weights_2(weights_2, syntax="MolSysMT", caller=None):
 
@@ -11,5 +11,4 @@ def digest_weights_2(weights_2, syntax="MolSysMT", caller=None):
     try:
         return digest_weights(weights_2, caller=caller)
     except Exception:
-        raise ArgumentError('weights_2', value=weights_2, caller=caller, message=None)
-
+        raise ArgumentError("weights_2", value=weights_2, caller=caller, message=None)

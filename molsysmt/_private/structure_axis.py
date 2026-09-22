@@ -31,12 +31,12 @@ def item_n_structures(item, form):
 
     from molsysmt.form import _dict_modules
 
-    getter = getattr(_dict_modules[form], 'get_n_structures_from_system', None)
+    getter = getattr(_dict_modules[form], "get_n_structures_from_system", None)
     if getter is None:
         return None
 
     try:
-        value = getter(item, structure_indices='all', skip_digestion=True)
+        value = getter(item, structure_indices="all", skip_digestion=True)
     except Exception:
         # An item whose count cannot be established does not define the axis. It is
         # still free to deliver attributes if no other item constrains the system.
@@ -56,23 +56,25 @@ def structure_axis(items, forms, caller=None):
 
     counts = [item_n_structures(item, form) for item, form in zip(items, forms)]
 
-    trajectory_counts = sorted({count for count in counts if count is not None and count > 1})
+    trajectory_counts = sorted(
+        {count for count in counts if count is not None and count > 1}
+    )
     if len(trajectory_counts) > 1:
         from molsysmt._private.smonitor import StructuralInconsistencyError
 
-        detail = ', '.join(
-            f'{form!r} spans {count} structures'
+        detail = ", ".join(
+            f"{form!r} spans {count} structures"
             for form, count in zip(forms, counts)
             if count is not None
         )
         raise StructuralInconsistencyError(
             reason=(
-                f'Items providing structural data cover different structure axes: {detail}. '
-                'A single structure beside a trajectory is a reference conformation and is '
-                'accepted, but two trajectories of different lengths give no basis for '
+                f"Items providing structural data cover different structure axes: {detail}. "
+                "A single structure beside a trajectory is a reference conformation and is "
+                "accepted, but two trajectories of different lengths give no basis for "
                 "choosing which one defines the system's structure axis. If the intention "
-                'is to join them along that axis, use molsysmt.concatenate_structures, '
-                'which takes exactly this list of molecular systems.'
+                "is to join them along that axis, use molsysmt.concatenate_structures, "
+                "which takes exactly this list of molecular systems."
             ),
             caller=caller,
         )

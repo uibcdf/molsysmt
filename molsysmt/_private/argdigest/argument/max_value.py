@@ -1,6 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_max_value(max_value, caller=None):
 
@@ -13,4 +15,4 @@ def digest_max_value(max_value, caller=None):
     if isinstance(max_value, (int, float, np.number)):
         return float(max_value)
 
-    raise ArgumentError('max_value', value=max_value, caller=caller, message=None)
+    raise ArgumentError("max_value", value=max_value, caller=caller, message=None)

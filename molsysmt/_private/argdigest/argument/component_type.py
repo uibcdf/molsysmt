@@ -1,6 +1,7 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_component_type(component_type, caller=None):
     """Checks if `component_type` has the expected type and value.
@@ -26,10 +27,14 @@ def digest_component_type(component_type, caller=None):
         If the given `component_type` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller == "molsysmt.basic.get.get":
         if isinstance(component_type, bool):
             return component_type
-    elif isinstance(caller, str) and caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+    elif (
+        isinstance(caller, str)
+        and caller.startswith("molsysmt.form.")
+        and caller.count(".to_") == 2
+    ):
         return component_type
 
     if isinstance(component_type, str):
@@ -44,5 +49,6 @@ def digest_component_type(component_type, caller=None):
     elif isinstance(component_type, np.ndarray):
         return component_type.tolist()
 
-    raise ArgumentError('component_type', value=component_type, caller=caller, message=None)
-
+    raise ArgumentError(
+        "component_type", value=component_type, caller=caller, message=None
+    )

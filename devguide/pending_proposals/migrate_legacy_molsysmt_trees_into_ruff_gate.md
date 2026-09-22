@@ -300,3 +300,24 @@ four H5MSM tests that read the locally modified `181l.h5msm` fixture. The
 expected getter shapes were separately verified against the committed fixture
 extracted to a temporary file. The working fixture was not changed or staged.
 The form-adapter, dependency, and developer-guide validators passed.
+
+## Tenth migrated slice: private infrastructure
+
+The complete `molsysmt/_private` tree now passes Ruff lint and format checks:
+452 Python files are formatted. Most of the 531 initial findings were import
+ordering and unused imports in argument digesters. Ruff's proposed removals
+were reviewed before application; the digesters' 387 targeted tests passed.
+The conversion-shortcut package now imports its five functions explicitly and
+retains its historical `arg_digest` name. The SMonitor package imports all
+exception and warning classes explicitly, preserving direct access to names
+beyond its narrower `__all__`. A duplicate catalog key was removed; its first
+value had always been overwritten by the second. The wider private test suite
+passes when SMonitor tests are excluded, and the dependency validator passes.
+
+The full private suite still has 15 failures in SMonitor warning reconstruction:
+round-tripping a rendered warning repeats its hint. These are not introduced
+by this slice: the warning classes' AST is unchanged from `HEAD`, the emitter
+changes only import order and formatting, and removing the earlier duplicate
+catalog entry leaves the effective value unchanged. The warning behavior needs
+its own repair before the full test gate can be claimed to pass. The full-core
+Ruff count is now 830 findings, all outside `form` and `_private`.

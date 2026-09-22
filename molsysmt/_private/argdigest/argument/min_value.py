@@ -1,6 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_min_value(min_value, caller=None):
 
@@ -13,4 +15,4 @@ def digest_min_value(min_value, caller=None):
     if isinstance(min_value, (int, float, np.number)):
         return float(min_value)
 
-    raise ArgumentError('min_value', value=min_value, caller=caller, message=None)
+    raise ArgumentError("min_value", value=min_value, caller=caller, message=None)

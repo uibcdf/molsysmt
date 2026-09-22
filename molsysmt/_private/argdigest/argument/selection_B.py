@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError
-import numpy as np
+
 
 def digest_selection_B(selection_B, syntax="MolSysMT", caller=None):
 
@@ -8,5 +8,4 @@ def digest_selection_B(selection_B, syntax="MolSysMT", caller=None):
     try:
         return digest_selection(selection_B, syntax=syntax, caller=caller)
     except Exception:
-        raise ArgumentError('selection_B', value=selection_B, caller=caller)
-
+        raise ArgumentError("selection_B", value=selection_B, caller=caller)

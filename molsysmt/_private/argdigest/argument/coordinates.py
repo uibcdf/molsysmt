@@ -1,7 +1,9 @@
 import numpy as np
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.smonitor import ArgumentError, FormatError, InternalAlgorithmError
+from molsysmt._private.smonitor import (
+    ArgumentError,
+)
 
 functions_where_boolean = (
     "molsysmt.basic.get.get",
@@ -44,17 +46,25 @@ def digest_coordinates(coordinates, caller=None):
             if shape[0] == 3:
                 value = value[np.newaxis, np.newaxis, :]
             else:
-                raise StructuralInconsistencyError("Wrong shape for coordinates", caller=caller)
+                raise StructuralInconsistencyError(
+                    "Wrong shape for coordinates", caller=caller
+                )
         elif len(shape) == 2:
             if shape[1] == 3:
                 value = value[np.newaxis, :, :]
             else:
-                raise StructuralInconsistencyError("Wrong shape for coordinates", caller=caller)
+                raise StructuralInconsistencyError(
+                    "Wrong shape for coordinates", caller=caller
+                )
         elif len(shape) == 3:
             if shape[2] != 3:
-                raise StructuralInconsistencyError("Wrong shape for coordinates", caller=caller)
+                raise StructuralInconsistencyError(
+                    "Wrong shape for coordinates", caller=caller
+                )
         else:
-            raise StructuralInconsistencyError("Wrong dimensions for coordinates", caller=caller)
+            raise StructuralInconsistencyError(
+                "Wrong dimensions for coordinates", caller=caller
+            )
 
         # Convert to nanometers if it has units
         if already_in_nanometers:

@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_exclusion_rules(exclusion_rules, caller=None):
 
     if exclusion_rules is None:
@@ -11,5 +12,6 @@ def digest_exclusion_rules(exclusion_rules, caller=None):
     elif isinstance(exclusion_rules, list):
         return exclusion_rules
 
-    raise ArgumentError('exclusion_rules', value=exclusion_rules, caller=caller, message=None)
-
+    raise ArgumentError(
+        "exclusion_rules", value=exclusion_rules, caller=caller, message=None
+    )

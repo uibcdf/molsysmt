@@ -1,11 +1,13 @@
-from molsysmt._private.smonitor import ArgumentError
-from molsysmt import pyunitwizard as puw
 import numpy as np
 
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
+
 
 def digest_time_step(time_step, caller=None):
 
@@ -18,11 +20,10 @@ def digest_time_step(time_step, caller=None):
 
     value, unit = puw.get_value_and_unit(time_step)
 
-    if not puw.check(unit, dimensionality={'[T]':1}):
-        raise ArgumentError('time_step', value=time_step, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[T]": 1}):
+        raise ArgumentError("time_step", value=time_step, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
         return puw.standardize(puw.quantity(value, unit))
 
-    raise ArgumentError('time_step', value=time_step, caller=caller, message=None)
-
+    raise ArgumentError("time_step", value=time_step, caller=caller, message=None)

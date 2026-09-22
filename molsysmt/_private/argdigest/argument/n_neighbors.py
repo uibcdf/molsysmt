@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_n_neighbors(n_neighbors, caller=None):
 
     if n_neighbors is None:
@@ -8,5 +9,4 @@ def digest_n_neighbors(n_neighbors, caller=None):
     if isinstance(n_neighbors, int):
         return n_neighbors
 
-    raise ArgumentError('n_neighbors', value=n_neighbors, caller=caller, message=None)
-
+    raise ArgumentError("n_neighbors", value=n_neighbors, caller=caller, message=None)

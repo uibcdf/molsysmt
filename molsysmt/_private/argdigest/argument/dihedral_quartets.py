@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError
-import numpy as np
+
 
 def digest_dihedral_quartets(dihedral_quartets, caller=None):
 
@@ -8,5 +8,6 @@ def digest_dihedral_quartets(dihedral_quartets, caller=None):
     try:
         return digest_quartets(dihedral_quartets, caller=caller)
     except Exception:
-        raise ArgumentError('dihedral_quartets', value=dihedral_quartets, caller=caller, message=None)
-
+        raise ArgumentError(
+            "dihedral_quartets", value=dihedral_quartets, caller=caller, message=None
+        )

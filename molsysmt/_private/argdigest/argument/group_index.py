@@ -1,13 +1,16 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_group_index(group_index, caller=None):
     """Checks if `group_index` has the expected type and value.
@@ -38,10 +41,12 @@ def digest_group_index(group_index, caller=None):
             if isinstance(group_index, bool):
                 return group_index
             else:
-                raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
+                raise ArgumentError(
+                    "group_index", value=group_index, caller=caller, message=None
+                )
 
     if is_all(group_index):
-        return 'all'
+        return "all"
 
     if isinstance(group_index, (int, np.int64)):
         return [group_index]
@@ -55,4 +60,4 @@ def digest_group_index(group_index, caller=None):
     if isinstance(group_index, np.ndarray):
         return group_index.tolist()
 
-    raise ArgumentError('group_index', value=group_index, caller=caller, message=None)
+    raise ArgumentError("group_index", value=group_index, caller=caller, message=None)

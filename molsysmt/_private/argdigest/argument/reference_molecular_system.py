@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_reference_molecular_system(reference_molecular_system, caller=None):
 
     if reference_molecular_system is None:
@@ -10,4 +11,9 @@ def digest_reference_molecular_system(reference_molecular_system, caller=None):
     try:
         return digest_molecular_system(reference_molecular_system, caller=caller)
     except Exception:
-        raise ArgumentError('reference_molecular_system', value=reference_molecular_system, caller=caller, message=None)
+        raise ArgumentError(
+            "reference_molecular_system",
+            value=reference_molecular_system,
+            caller=caller,
+            message=None,
+        )

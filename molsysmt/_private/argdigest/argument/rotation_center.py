@@ -1,6 +1,5 @@
-import numpy as np
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_rotation_center(rotation_center, caller=None):
 
@@ -9,5 +8,6 @@ def digest_rotation_center(rotation_center, caller=None):
     try:
         return digest_coordinates(rotation_center, caller=caller)
     except Exception:
-        raise ArgumentError('rotation_center', value=rotation_center, caller=caller, message=None)
-
+        raise ArgumentError(
+            "rotation_center", value=rotation_center, caller=caller, message=None
+        )

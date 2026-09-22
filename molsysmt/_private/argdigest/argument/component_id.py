@@ -1,11 +1,13 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
 
 
 def digest_component_id(component_id, caller=None):
@@ -32,17 +34,15 @@ def digest_component_id(component_id, caller=None):
         If the given `component_id` has not of the correct type or value.
     """
 
-
     if caller is not None:
-
         if caller.endswith(functions_with_boolean):
             if isinstance(component_id, bool):
                 return component_id
-        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        elif caller.startswith("molsysmt.form.") and caller.count(".to_") == 2:
             return component_id
 
     if is_all(component_id):
-        return 'all'
+        return "all"
 
     if isinstance(component_id, (int, np.int64)):
         return [component_id]
@@ -56,4 +56,4 @@ def digest_component_id(component_id, caller=None):
     elif isinstance(component_id, np.ndarray):
         return component_id.tolist()
 
-    raise ArgumentError('component_id', value=component_id, caller=caller, message=None)
+    raise ArgumentError("component_id", value=component_id, caller=caller, message=None)

@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_num_threads(num_threads, caller=None):
     if num_threads is None:
         return None
@@ -14,4 +15,9 @@ def digest_num_threads(num_threads, caller=None):
         except ValueError:
             pass
 
-    raise ArgumentError('num_threads', value=num_threads, caller=caller, message='num_threads must be -1, a positive integer, or None')
+    raise ArgumentError(
+        "num_threads",
+        value=num_threads,
+        caller=caller,
+        message="num_threads must be -1, a positive integer, or None",
+    )

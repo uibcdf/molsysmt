@@ -1,13 +1,16 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_entity_index(entity_index, caller=None):
     """Checks if `entity_index` has the expected type and value.
@@ -38,10 +41,12 @@ def digest_entity_index(entity_index, caller=None):
             if isinstance(entity_index, bool):
                 return entity_index
             else:
-                raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
+                raise ArgumentError(
+                    "entity_index", value=entity_index, caller=caller, message=None
+                )
 
     if is_all(entity_index):
-        return 'all'
+        return "all"
 
     if isinstance(entity_index, (int, np.int64)):
         return [entity_index]
@@ -55,4 +60,4 @@ def digest_entity_index(entity_index, caller=None):
     if isinstance(entity_index, np.ndarray):
         return entity_index.tolist()
 
-    raise ArgumentError('entity_index', value=entity_index, caller=caller, message=None)
+    raise ArgumentError("entity_index", value=entity_index, caller=caller, message=None)

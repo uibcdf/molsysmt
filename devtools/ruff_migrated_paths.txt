@@ -1,3 +1,4 @@
+molsysmt/_private
 molsysmt/attribute
-molsysmt/lib
 molsysmt/form
+molsysmt/lib

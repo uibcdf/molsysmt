@@ -1,9 +1,12 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
+
 def digest_molecule_indices(molecule_indices, caller):
-    """ Checks if molecule_indices has the expected type and value.
+    """Checks if molecule_indices has the expected type and value.
 
     Parameters
     ----------
@@ -28,10 +31,12 @@ def digest_molecule_indices(molecule_indices, caller):
     if molecule_indices is None:
         return None
     elif is_all(molecule_indices):
-        return 'all'
+        return "all"
     elif isinstance(molecule_indices, (int, np.int64, np.int32)):
-        return np.array([molecule_indices], dtype='int64')
+        return np.array([molecule_indices], dtype="int64")
     elif isinstance(molecule_indices, (np.ndarray, list, tuple, range)):
-        return np.array(molecule_indices, dtype='int64')
+        return np.array(molecule_indices, dtype="int64")
 
-    raise ArgumentError('molecule_indices', value=molecule_indices, caller=caller, message=None)
+    raise ArgumentError(
+        "molecule_indices", value=molecule_indices, caller=caller, message=None
+    )

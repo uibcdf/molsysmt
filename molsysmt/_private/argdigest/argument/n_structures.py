@@ -1,9 +1,10 @@
 from molsysmt._private.smonitor import ArgumentError
 
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
+
 
 def digest_n_structures(n_structures, caller=None):
 
@@ -12,13 +13,14 @@ def digest_n_structures(n_structures, caller=None):
             if isinstance(n_structures, bool):
                 return n_structures
             else:
-                raise ArgumentError('n_structures', value=n_structures, caller=caller, message=None)
-        elif caller=='molsysmt.basic.contains.contains':
+                raise ArgumentError(
+                    "n_structures", value=n_structures, caller=caller, message=None
+                )
+        elif caller == "molsysmt.basic.contains.contains":
             if isinstance(n_structures, (bool, int)):
                 return n_structures
-        elif caller.endswith('get_box_with_shape'):
+        elif caller.endswith("get_box_with_shape"):
             if isinstance(n_structures, int):
                 return n_structures
 
-    raise ArgumentError('n_structures', value=n_structures, caller=caller, message=None)
-
+    raise ArgumentError("n_structures", value=n_structures, caller=caller, message=None)

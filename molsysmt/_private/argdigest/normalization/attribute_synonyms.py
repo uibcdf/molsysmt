@@ -16,18 +16,18 @@ from molsysmt.attribute import get_argument_aliases
 
 #: The public functions whose keywords are attribute names.
 _ATTRIBUTE_TAKING_CALLERS = (
-    'molsysmt.basic.get.get',
-    'molsysmt.basic.contains.contains',
-    'molsysmt.basic.is_composed_of.is_composed_of',
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.contains.contains",
+    "molsysmt.basic.is_composed_of.is_composed_of",
 )
 
-_ALIASES = get_argument_aliases()['attribute_synonyms']
+_ALIASES = get_argument_aliases()["attribute_synonyms"]
 
 TABLES = [
     AliasTable(
         applies_to=caller,
         aliases=_ALIASES,
-        description='plural and anatomical synonyms of the canonical attribute names',
+        description="plural and anatomical synonyms of the canonical attribute names",
     )
     for caller in _ATTRIBUTE_TAKING_CALLERS
 ]

@@ -1,9 +1,12 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
+
 def digest_bond_indices(bond_indices, caller=None):
-    """ Checks if bond_indices has the expected type and value.
+    """Checks if bond_indices has the expected type and value.
 
     Parameters
     ----------
@@ -28,14 +31,13 @@ def digest_bond_indices(bond_indices, caller=None):
     if bond_indices is None:
         return None
     elif is_all(bond_indices):
-        return 'all'
+        return "all"
     elif isinstance(bond_indices, (int, np.int64, np.int32)):
-        return np.array([bond_indices], dtype='int64')
+        return np.array([bond_indices], dtype="int64")
     elif isinstance(bond_indices, (np.ndarray, list, tuple, range)):
         if all(isinstance(ii, (int, np.int64, np.int32)) for ii in bond_indices):
-            return np.array(bond_indices, dtype='int64')
+            return np.array(bond_indices, dtype="int64")
         else:
             return [digest_bond_indices(ii) for ii in bond_indices]
 
-    raise ArgumentError('bond_indices', caller=caller, message=None)
-
+    raise ArgumentError("bond_indices", caller=caller, message=None)

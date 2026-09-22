@@ -1,6 +1,7 @@
 """
 Disk-backed result handle for heavy trajectory outputs that exceed RAM.
 """
+
 from __future__ import annotations
 
 import tempfile
@@ -36,14 +37,16 @@ class PersistentResultHandle:
         self._owns_file = path is None  # only delete on cleanup if we created it
 
         if path is None:
-            tmp = tempfile.NamedTemporaryFile(suffix='.npy', delete=False)
+            tmp = tempfile.NamedTemporaryFile(suffix=".npy", delete=False)
             self._path = Path(tmp.name)
             tmp.close()
         else:
             self._path = Path(path)
             self._path.parent.mkdir(parents=True, exist_ok=True)
 
-        self._array = np.memmap(self._path, dtype=self.dtype, mode='w+', shape=self.shape)
+        self._array = np.memmap(
+            self._path, dtype=self.dtype, mode="w+", shape=self.shape
+        )
 
     # --- array-like interface ---
 

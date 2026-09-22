@@ -1,9 +1,12 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
+
 def digest_chain_indices(chain_indices, caller=None):
-    """ Checks if chain_indices has the expected type and value.
+    """Checks if chain_indices has the expected type and value.
 
     Parameters
     ----------
@@ -26,21 +29,20 @@ def digest_chain_indices(chain_indices, caller=None):
     """
 
     if caller is not None:
-        if caller.endswith('digest_bioassembly'):
-            if isinstance(chain_indices,(np.ndarray, list, tuple)):
+        if caller.endswith("digest_bioassembly"):
+            if isinstance(chain_indices, (np.ndarray, list, tuple)):
                 return [digest_chain_indices(ii) for ii in chain_indices]
 
     if chain_indices is None:
         return None
     elif is_all(chain_indices):
-        return 'all'
+        return "all"
     elif isinstance(chain_indices, (int, np.int64, np.int32)):
-        return np.array([chain_indices], dtype='int64')
+        return np.array([chain_indices], dtype="int64")
     elif isinstance(chain_indices, (np.ndarray, list, tuple, range)):
         if all(isinstance(ii, (int, np.int64, np.int32)) for ii in chain_indices):
-            return np.array(chain_indices, dtype='int64')
+            return np.array(chain_indices, dtype="int64")
         else:
             return [digest_chain_indices(ii) for ii in chain_indices]
 
-    raise ArgumentError('chain_indices', caller=caller, message=None)
-
+    raise ArgumentError("chain_indices", caller=caller, message=None)

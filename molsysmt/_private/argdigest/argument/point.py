@@ -1,6 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_point(point, caller=None):
 
@@ -9,12 +11,11 @@ def digest_point(point, caller=None):
 
     value, unit = puw.get_value_and_unit(point)
 
-    if not puw.check(unit, dimensionality={'[L]':1}):
-        raise ArgumentError('point', value=point, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[L]": 1}):
+        raise ArgumentError("point", value=point, caller=caller, message=None)
 
     if not isinstance(value, np.ndarray):
         value = np.array(value)
-
 
     value = value.astype(np.float64)
     shape = value.shape
@@ -26,5 +27,4 @@ def digest_point(point, caller=None):
         if shape[1] == 3:
             return puw.standardize(puw.quantity(value, unit))
 
-    raise ArgumentError('point', value=point, caller=caller, message=None)
-
+    raise ArgumentError("point", value=point, caller=caller, message=None)

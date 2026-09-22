@@ -1,7 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 from argdigest.core.caller import caller_matches, caller_startswith
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_molecule_type(molecule_type, caller=None):
     """Checks if `molecule_type` has the expected type and value.
@@ -27,13 +28,17 @@ def digest_molecule_type(molecule_type, caller=None):
         If the given `molecule_type` has not of the correct type or value.
     """
 
-    if molecule_type is None and caller_matches(caller, 'add_molecule'):
+    if molecule_type is None and caller_matches(caller, "add_molecule"):
         return None
 
-    if caller == 'molsysmt.basic.get.get':
+    if caller == "molsysmt.basic.get.get":
         if isinstance(molecule_type, bool):
             return molecule_type
-    elif caller is not None and caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
+    elif (
+        caller is not None
+        and caller_startswith(caller, "molsysmt.form.")
+        and caller.count(".to_") == 2
+    ):
         return molecule_type
 
     if isinstance(molecule_type, str):
@@ -48,4 +53,6 @@ def digest_molecule_type(molecule_type, caller=None):
     elif isinstance(molecule_type, np.ndarray):
         return molecule_type.tolist()
 
-    raise ArgumentError('molecule_type', value=molecule_type, caller=caller, message=None)
+    raise ArgumentError(
+        "molecule_type", value=molecule_type, caller=caller, message=None
+    )

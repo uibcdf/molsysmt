@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_remove_bonds(remove_bonds, caller=None):
 
     if remove_bonds is None:
@@ -10,5 +11,6 @@ def digest_remove_bonds(remove_bonds, caller=None):
     try:
         return digest_indices(remove_bonds, caller=caller)
     except Exception:
-        raise ArgumentError('remove_bonds', value=remove_bonds, caller=caller, message=None)
-
+        raise ArgumentError(
+            "remove_bonds", value=remove_bonds, caller=caller, message=None
+        )

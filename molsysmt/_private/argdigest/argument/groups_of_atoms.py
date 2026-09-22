@@ -1,6 +1,7 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_groups_of_atoms(groups_of_atoms, caller=None):
 
@@ -12,7 +13,10 @@ def digest_groups_of_atoms(groups_of_atoms, caller=None):
         try:
             return [digest_indices(ii, caller=caller) for ii in groups_of_atoms]
         except Exception:
-            raise ArgumentError('groups_of_atoms', value=groups_of_atoms, caller=caller, message=None)
+            raise ArgumentError(
+                "groups_of_atoms", value=groups_of_atoms, caller=caller, message=None
+            )
 
-    raise ArgumentError('groups_of_atoms', value=groups_of_atoms, caller=caller, message=None)
-
+    raise ArgumentError(
+        "groups_of_atoms", value=groups_of_atoms, caller=caller, message=None
+    )

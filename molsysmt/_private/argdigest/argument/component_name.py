@@ -1,11 +1,11 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
 
 
 def digest_component_name(component_name, caller=None):
@@ -33,11 +33,10 @@ def digest_component_name(component_name, caller=None):
     """
 
     if caller is not None:
-
         if caller.endswith(functions_with_boolean):
             if isinstance(component_name, bool):
                 return component_name
-        elif caller.startswith('molsysmt.form.') and caller.count('.to_')==2:
+        elif caller.startswith("molsysmt.form.") and caller.count(".to_") == 2:
             return component_name
 
     if isinstance(component_name, str):
@@ -52,5 +51,6 @@ def digest_component_name(component_name, caller=None):
     if isinstance(component_name, np.ndarray):
         return component_name.tolist()
 
-    raise ArgumentError('component_name', value=component_name, caller=caller, message=None)
-
+    raise ArgumentError(
+        "component_name", value=component_name, caller=caller, message=None
+    )

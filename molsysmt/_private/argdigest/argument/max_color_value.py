@@ -1,6 +1,6 @@
-from molsysmt._private.smonitor import ArgumentError
-import numpy as np
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_max_color_value(max_color_value, caller=None):
 
@@ -13,4 +13,6 @@ def digest_max_color_value(max_color_value, caller=None):
     if isinstance(max_color_value, (int, float)):
         return max_color_value
 
-    raise ArgumentError('max_color_value', value=max_color_value, caller=caller, message=None)
+    raise ArgumentError(
+        "max_color_value", value=max_color_value, caller=caller, message=None
+    )

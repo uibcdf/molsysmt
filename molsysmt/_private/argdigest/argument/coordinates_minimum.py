@@ -1,6 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_coordinates_minimum(coordinates_minimum, caller=None):
 
@@ -9,12 +11,16 @@ def digest_coordinates_minimum(coordinates_minimum, caller=None):
 
     value, unit = puw.get_value_and_unit(coordinates_minimum)
 
-    if not puw.check(unit, dimensionality={'[L]':1}):
-        raise ArgumentError('coordinates_minimum', value=coordinates_minimum, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[L]": 1}):
+        raise ArgumentError(
+            "coordinates_minimum",
+            value=coordinates_minimum,
+            caller=caller,
+            message=None,
+        )
 
     if not isinstance(value, np.ndarray):
         value = np.array(value)
-
 
     value = value.astype(np.float64)
     shape = value.shape
@@ -26,5 +32,6 @@ def digest_coordinates_minimum(coordinates_minimum, caller=None):
         if shape[1] == 3:
             return puw.standardize(puw.quantity(value, unit))
 
-    raise ArgumentError('coordinates_minimum', value=coordinates_minimum, caller=caller, message=None)
-
+    raise ArgumentError(
+        "coordinates_minimum", value=coordinates_minimum, caller=caller, message=None
+    )

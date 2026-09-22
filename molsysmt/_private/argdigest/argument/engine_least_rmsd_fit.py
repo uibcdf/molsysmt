@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_engine_least_rmsd_fit(engine_least_rmsd_fit, caller=None):
 
     from molsysmt.supported.engines import lowercase_engines
@@ -10,5 +11,9 @@ def digest_engine_least_rmsd_fit(engine_least_rmsd_fit, caller=None):
         except Exception:
             pass
 
-    raise ArgumentError('engine_least_rmsd_fit', value=engine_least_rmsd_fit, caller=caller, message=None)
-
+    raise ArgumentError(
+        "engine_least_rmsd_fit",
+        value=engine_least_rmsd_fit,
+        caller=caller,
+        message=None,
+    )

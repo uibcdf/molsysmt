@@ -1,6 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_color_values_2(color_values_2, caller=None):
 
@@ -13,5 +15,6 @@ def digest_color_values_2(color_values_2, caller=None):
     if puw.is_quantity(color_values_2):
         return puw.get_value(color_values_2)
 
-    raise ArgumentError('color_values_2', value=color_values_2, caller=caller, message=None)
-
+    raise ArgumentError(
+        "color_values_2", value=color_values_2, caller=caller, message=None
+    )

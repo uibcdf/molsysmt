@@ -1,12 +1,15 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 from argdigest.core.caller import caller_matches, caller_startswith
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
+
 
 def digest_entity_id(entity_id, caller=None):
     """Checks if `entity_id` has the expected type and value.
@@ -32,21 +35,20 @@ def digest_entity_id(entity_id, caller=None):
         If the given `entity_id` has not of the correct type or value.
     """
 
-    if entity_id is None and caller_matches(caller, 'add_entity'):
+    if entity_id is None and caller_matches(caller, "add_entity"):
         return None
-    if caller_matches(caller, 'add_entity'):
+    if caller_matches(caller, "add_entity"):
         if isinstance(entity_id, (int, np.int64, str)):
             return entity_id
 
     if is_all(entity_id):
-        return 'all'
+        return "all"
 
     if caller is not None:
-
         if caller.endswith(functions_with_boolean):
             if isinstance(entity_id, bool):
                 return entity_id
-        elif caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
+        elif caller_startswith(caller, "molsysmt.form.") and caller.count(".to_") == 2:
             return entity_id
 
     if isinstance(entity_id, (int, np.int64)):
@@ -61,4 +63,4 @@ def digest_entity_id(entity_id, caller=None):
     elif isinstance(entity_id, np.ndarray):
         return entity_id.tolist()
 
-    raise ArgumentError('entity_id', value=entity_id, caller=caller, message=None)
+    raise ArgumentError("entity_id", value=entity_id, caller=caller, message=None)

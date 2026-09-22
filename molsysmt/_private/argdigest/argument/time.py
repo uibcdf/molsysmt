@@ -1,19 +1,22 @@
-from molsysmt._private.smonitor import ArgumentError
-from molsysmt import pyunitwizard as puw
 import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 from ._quantity_parsing import parse_quantity_string
 
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__'
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_time(time, caller=None):
 
     if isinstance(time, str):
-        time = parse_quantity_string('time', time, caller=caller)
+        time = parse_quantity_string("time", time, caller=caller)
     """ Checks if time arguments has the correct type.
 
         Parameters
@@ -44,12 +47,12 @@ def digest_time(time, caller=None):
         return time
 
     if puw.is_quantity(time):
-        if puw.check(time, dimensionality={'[T]':1}):
+        if puw.check(time, dimensionality={"[T]": 1}):
             return puw.standardize(time)
     elif isinstance(time, (list, tuple, np.ndarray)):
         if puw.is_quantity(time[0]):
-            time = puw.utils.sequences.concatenate(time, value_type='numpy.ndarray')
-            if puw.check(time, dimensionality={'[T]':1}):
+            time = puw.utils.sequences.concatenate(time, value_type="numpy.ndarray")
+            if puw.check(time, dimensionality={"[T]": 1}):
                 return puw.standardize(time)
 
-    raise ArgumentError('time', value=time, caller=caller, message=None)
+    raise ArgumentError("time", value=time, caller=caller, message=None)

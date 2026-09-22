@@ -14,7 +14,6 @@ integrity failures; absence never implies Tier 1.
 
 from __future__ import annotations
 
-
 _TIER_1_FORMS = (
     "MDAnalysis.topology.PDBParser",
     "MDAnalysis.AtomGroup",

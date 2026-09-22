@@ -1,9 +1,10 @@
 from molsysmt._private.smonitor import ArgumentError
 
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
+
 
 def digest_integrator(integrator, caller=None):
 
@@ -13,8 +14,8 @@ def digest_integrator(integrator, caller=None):
 
     if isinstance(integrator, str):
         from molsysmt.attribute import attributes
-        if integrator in attributes['integrator']['values']:
+
+        if integrator in attributes["integrator"]["values"]:
             return integrator
 
-    raise ArgumentError('integrator', value=integrator, caller=caller, message=None)
-
+    raise ArgumentError("integrator", value=integrator, caller=caller, message=None)

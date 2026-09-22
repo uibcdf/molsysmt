@@ -1,6 +1,6 @@
-from molsysmt._private.smonitor import ArgumentError
-import numpy as np
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_mid_color_value_2(mid_color_value_2, caller=None):
 
@@ -13,4 +13,6 @@ def digest_mid_color_value_2(mid_color_value_2, caller=None):
     if isinstance(mid_color_value_2, (int, float)):
         return mid_color_value_2
 
-    raise ArgumentError('mid_color_value_2', value_2=mid_color_value_2, caller=caller, message=None)
+    raise ArgumentError(
+        "mid_color_value_2", value_2=mid_color_value_2, caller=caller, message=None
+    )

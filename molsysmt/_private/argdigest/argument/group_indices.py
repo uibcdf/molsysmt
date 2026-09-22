@@ -1,9 +1,12 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
+
 def digest_group_indices(group_indices, caller):
-    """ Checks if group_indices has the expected type and value.
+    """Checks if group_indices has the expected type and value.
 
     Parameters
     ----------
@@ -28,11 +31,10 @@ def digest_group_indices(group_indices, caller):
     if group_indices is None:
         return None
     elif is_all(group_indices):
-        return 'all'
+        return "all"
     elif isinstance(group_indices, (int, np.int64, np.int32)):
-        return np.array([group_indices], dtype='int64')
+        return np.array([group_indices], dtype="int64")
     elif isinstance(group_indices, (np.ndarray, list, tuple, range)):
-        return np.array(group_indices, dtype='int64')
+        return np.array(group_indices, dtype="int64")
 
-    raise ArgumentError('group_indices', caller=caller, message=None)
-
+    raise ArgumentError("group_indices", caller=caller, message=None)

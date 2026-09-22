@@ -27,12 +27,12 @@ def digest_bond_state_attribute(name, value, caller, kind, choices=None):
     # for a heavy library that most calls never need.
     import pandas as pd
 
-    if caller in {'molsysmt.basic.get.get', 'molsysmt.basic.compare.compare'}:
+    if caller in {"molsysmt.basic.get.get", "molsysmt.basic.compare.compare"}:
         if isinstance(value, (bool, np.bool_)):
             return bool(value)
         raise ArgumentError(name, value=value, caller=caller, message=None)
 
-    if caller != 'molsysmt.basic.set.set':
+    if caller != "molsysmt.basic.set.set":
         raise ArgumentError(name, value=value, caller=caller, message=None)
 
     values, scalar = _values(value)
@@ -43,19 +43,26 @@ def digest_bond_state_attribute(name, value, caller, kind, choices=None):
     for item in values:
         if item is None or item is pd.NA:
             normalized.append(item)
-        elif kind == 'string' and not isinstance(item, (list, tuple, dict, set)):
+        elif kind == "string" and not isinstance(item, (list, tuple, dict, set)):
             normalized.append(str(item))
-        elif kind == 'choice' and isinstance(item, str) and item in choices:
+        elif kind == "choice" and isinstance(item, str) and item in choices:
             normalized.append(item)
-        elif kind == 'integer' and isinstance(item, (int, np.integer)) and not isinstance(
-            item, (bool, np.bool_)
-        ) and int(item) >= 0:
+        elif (
+            kind == "integer"
+            and isinstance(item, (int, np.integer))
+            and not isinstance(item, (bool, np.bool_))
+            and int(item) >= 0
+        ):
             normalized.append(int(item))
-        elif kind == 'float' and isinstance(item, (int, float, np.integer, np.floating)) and not isinstance(
-            item, (bool, np.bool_)
-        ) and np.isfinite(item) and float(item) >= 0:
+        elif (
+            kind == "float"
+            and isinstance(item, (int, float, np.integer, np.floating))
+            and not isinstance(item, (bool, np.bool_))
+            and np.isfinite(item)
+            and float(item) >= 0
+        ):
             normalized.append(float(item))
-        elif kind == 'boolean' and isinstance(item, (bool, np.bool_)):
+        elif kind == "boolean" and isinstance(item, (bool, np.bool_)):
             normalized.append(bool(item))
         else:
             raise ArgumentError(name, value=value, caller=caller, message=None)
@@ -70,11 +77,11 @@ def digest_stereo_atom_indices(name, value, caller):
     # for a heavy library that most calls never need.
     import pandas as pd
 
-    if caller in {'molsysmt.basic.get.get', 'molsysmt.basic.compare.compare'}:
+    if caller in {"molsysmt.basic.get.get", "molsysmt.basic.compare.compare"}:
         if isinstance(value, (bool, np.bool_)):
             return bool(value)
         raise ArgumentError(name, value=value, caller=caller, message=None)
-    if caller != 'molsysmt.basic.set.set':
+    if caller != "molsysmt.basic.set.set":
         raise ArgumentError(name, value=value, caller=caller, message=None)
     if value is None or value is pd.NA:
         return value
@@ -86,6 +93,10 @@ def digest_stereo_atom_indices(name, value, caller):
     for item in array.ravel():
         if item is None or item is pd.NA:
             continue
-        if isinstance(item, (bool, np.bool_)) or not isinstance(item, (int, np.integer)) or item < 0:
+        if (
+            isinstance(item, (bool, np.bool_))
+            or not isinstance(item, (int, np.integer))
+            or item < 0
+        ):
             raise ArgumentError(name, value=value, caller=caller, message=None)
     return array.tolist()

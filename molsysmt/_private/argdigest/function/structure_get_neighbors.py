@@ -13,8 +13,8 @@ as far as the contract is concerned but carries no criterion.
 from argdigest import FunctionContract
 
 contract = FunctionContract(
-    caller='molsysmt.structure.get_neighbors.get_neighbors',
-    mutually_exclusive=[('threshold', 'n_neighbors')],
-    requires_any_of=['threshold', 'n_neighbors'],
-    description='Searches by distance or by count, never both and never neither.',
+    caller="molsysmt.structure.get_neighbors.get_neighbors",
+    mutually_exclusive=[("threshold", "n_neighbors")],
+    requires_any_of=["threshold", "n_neighbors"],
+    description="Searches by distance or by count, never both and never neither.",
 )

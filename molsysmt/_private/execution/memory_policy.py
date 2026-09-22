@@ -1,18 +1,20 @@
 """
 Pre-flight memory footprint estimation and eager/heavy decision policy.
 """
+
 from __future__ import annotations
 
 import shutil
 import tempfile
 
-
-_SAFETY_MARGIN = 1.20   # 20% overhead
+_SAFETY_MARGIN = 1.20  # 20% overhead
 _FLOAT64_BYTES = 8
 _COORDS_DIMS = 3
 
 
-def estimate_footprint(n_atoms: int, n_structures: int, dtype_bytes: int = _FLOAT64_BYTES) -> int:
+def estimate_footprint(
+    n_atoms: int, n_structures: int, dtype_bytes: int = _FLOAT64_BYTES
+) -> int:
     """
     Estimate the memory footprint for loading a trajectory eagerly.
 
@@ -22,7 +24,7 @@ def estimate_footprint(n_atoms: int, n_structures: int, dtype_bytes: int = _FLOA
     return int(raw * _SAFETY_MARGIN)
 
 
-def decide_mode(footprint_bytes: int, heavy_mode: str = 'auto') -> str:
+def decide_mode(footprint_bytes: int, heavy_mode: str = "auto") -> str:
     """
     Return 'eager' or 'heavy' based on footprint and config.
 
@@ -39,14 +41,14 @@ def decide_mode(footprint_bytes: int, heavy_mode: str = 'auto') -> str:
     """
     import molsysmt.configure as config
 
-    if heavy_mode == 'force':
-        return 'heavy'
-    if heavy_mode == 'off':
-        return 'eager'
+    if heavy_mode == "force":
+        return "heavy"
+    if heavy_mode == "off":
+        return "eager"
     # auto
     if footprint_bytes <= config.max_ram_usage:
-        return 'eager'
-    return 'heavy'
+        return "eager"
+    return "heavy"
 
 
 def check_disk_budget(predicted_output_bytes: int, safety: float = 0.10) -> None:
@@ -109,4 +111,3 @@ def optimize_chunk_size(
     new_chunk_size = max(1, new_chunk_size)
 
     return int(new_chunk_size)
-

@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
+
 
 def digest_inner_bonded_atoms(inner_bonded_atoms, caller=None):
     """Checks if `inner_bonded_atoms` has the expected type and value.
@@ -25,9 +25,10 @@ def digest_inner_bonded_atoms(inner_bonded_atoms, caller=None):
         If the given `inner_bonded_atoms` has not of the correct type or value.
     """
 
-    if caller=='molsysmt.basic.get.get':
+    if caller == "molsysmt.basic.get.get":
         if isinstance(inner_bonded_atoms, bool):
             return inner_bonded_atoms
 
-    raise ArgumentError('inner_bonded_atoms', value=inner_bonded_atoms, caller=caller, message=None)
-
+    raise ArgumentError(
+        "inner_bonded_atoms", value=inner_bonded_atoms, caller=caller, message=None
+    )

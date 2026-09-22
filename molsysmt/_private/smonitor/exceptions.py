@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from smonitor.integrations import CatalogException, FormatError as CoreFormatError, InconsistencyError
+from smonitor.integrations import CatalogException, InconsistencyError
+from smonitor.integrations import FormatError as CoreFormatError
+
 from ..functions import caller_name
 from . import CATALOG, META
 
@@ -20,11 +22,13 @@ class MolSysMTCatalogException(CatalogException):
 class ArgumentError(MolSysMTCatalogException):
     catalog_key = "ArgumentError"
 
-    def __init__(self, argument, value=None, caller=None, message=None, code=None, cause=None):
+    def __init__(
+        self, argument, value=None, caller=None, message=None, code=None, cause=None
+    ):
         extra = {"argument": argument, "value": value}
         if caller:
             extra["caller"] = caller
-        
+
         if cause is not None:
             extra["cause_exception_type"] = type(cause).__name__
             extra["cause_message"] = str(cause)
@@ -150,7 +154,9 @@ class MolecularSystemVerificationError(MolSysMTCatalogException):
 class NotCompatibleConversionError(MolSysMTCatalogException):
     catalog_key = "NotCompatibleConversionError"
 
-    def __init__(self, from_form, to_form, missing_arguments, caller=None, message=None):
+    def __init__(
+        self, from_form, to_form, missing_arguments, caller=None, message=None
+    ):
         extra = {
             "from_form": from_form,
             "to_form": to_form,
@@ -233,6 +239,8 @@ class FileAlreadyHandledError(MolSysMTCatalogException):
 
     def __init__(self, filename=None):
         super().__init__(extra={"filename": filename or "<unknown>"})
+
+
 class FileContentError(MolSysMTCatalogException):
     catalog_key = "FileContentError"
 
@@ -292,7 +300,14 @@ class UnsupportedHeavyOperationError(MolSysMTCatalogException):
 class HeavyOutputFailureError(MolSysMTCatalogException):
     catalog_key = "HeavyOutputFailureError"
 
-    def __init__(self, reason, predicted_bytes=None, available_bytes=None, caller=None, message=None):
+    def __init__(
+        self,
+        reason,
+        predicted_bytes=None,
+        available_bytes=None,
+        caller=None,
+        message=None,
+    ):
         extra = {"reason": reason}
         if predicted_bytes is not None:
             extra["predicted_bytes"] = predicted_bytes

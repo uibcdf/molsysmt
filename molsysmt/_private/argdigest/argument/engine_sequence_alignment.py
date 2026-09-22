@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_engine_sequence_alignment(engine_sequence_alignment, caller=None):
 
     from molsysmt.supported.engines import lowercase_engines
@@ -10,5 +11,9 @@ def digest_engine_sequence_alignment(engine_sequence_alignment, caller=None):
         except Exception:
             pass
 
-    raise ArgumentError('engine_sequence_alignment', value=engine_sequence_alignment, caller=caller, message=None)
-
+    raise ArgumentError(
+        "engine_sequence_alignment",
+        value=engine_sequence_alignment,
+        caller=caller,
+        message=None,
+    )

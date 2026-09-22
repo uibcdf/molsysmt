@@ -1,13 +1,14 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_structure_index(structure_index, caller=None):
     """Checks if `structure_index` has the expected type and value.
@@ -34,16 +35,20 @@ def digest_structure_index(structure_index, caller=None):
     """
 
     if caller is not None:
-
         if caller.endswith(functions_with_boolean):
             if isinstance(structure_index, bool):
                 return structure_index
             else:
-                raise ArgumentError('structure_index', value=structure_index, caller=caller, message=None)
+                raise ArgumentError(
+                    "structure_index",
+                    value=structure_index,
+                    caller=caller,
+                    message=None,
+                )
 
     if isinstance(structure_index, (int, np.int64)):
-        
         return structure_index
 
-    raise ArgumentError('structure_index', value=structure_index, caller=caller, message=None)
-
+    raise ArgumentError(
+        "structure_index", value=structure_index, caller=caller, message=None
+    )

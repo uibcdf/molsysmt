@@ -1,26 +1,28 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+
 def digest_structure_id(structure_id, caller=None):
-    """ Checks if structure_id arguments has the correct type.
+    """Checks if structure_id arguments has the correct type.
 
-        Parameters
-        ---------
-        structure_id: None, integer, list, tuple or ndarray
-            The structure_id argument.
+    Parameters
+    ---------
+    structure_id: None, integer, list, tuple or ndarray
+        The structure_id argument.
 
-        caller: str, optional
-            Name of the function or method that is being digested.
+    caller: str, optional
+        Name of the function or method that is being digested.
 
-        Returns
-        -------
-        ndarray
-            The structure_id with correct type
+    Returns
+    -------
+    ndarray
+        The structure_id with correct type
 
-        Raises
-        -------
-        WrongStepError
-            If structure_id is not a valid argument.
+    Raises
+    -------
+    WrongStepError
+        If structure_id is not a valid argument.
 
     """
     if structure_id is None:
@@ -34,5 +36,4 @@ def digest_structure_id(structure_id, caller=None):
 
     type(structure_id)
 
-    raise ArgumentError('structure_id', value=structure_id, caller=caller, message=None)
-
+    raise ArgumentError("structure_id", value=structure_id, caller=caller, message=None)

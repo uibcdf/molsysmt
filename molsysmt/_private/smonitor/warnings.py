@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from smonitor.integrations import CatalogWarning
+
 from .emitter import bundle
 
 warn = bundle.warn
@@ -21,6 +22,7 @@ class MolSysMTCatalogWarning(CatalogWarning):
 
     def __init__(self, message=None, **kwargs):
         from . import CATALOG, META
+
         super().__init__(message, catalog=CATALOG, meta=META, **kwargs)
 
 
@@ -30,6 +32,7 @@ class UserMolSysMTWarning(MolSysMTCatalogWarning):
 
 class SelectionWarning(UserMolSysMTWarning):
     """Warnings related to selection strings and resolved subsets."""
+
     catalog_key = "SelectionWarning"
 
 
@@ -42,8 +45,14 @@ class MolSysMTDeprecationWarning(DeprecationWarning):
 class CrossChainCovalentBondsWarning(MolSysMTCatalogWarning):
     catalog_key = "CrossChainCovalentBondsWarning"
 
-    def __init__(self, message=None, *, molecular_system=None, atom_pairs=None,
-                 caller='CrossChainCovalentBondsWarning'):
+    def __init__(
+        self,
+        message=None,
+        *,
+        molecular_system=None,
+        atom_pairs=None,
+        caller="CrossChainCovalentBondsWarning",
+    ):
         if message is not None:
             # Already rendered: this is a rebuild — `pickle`, `copy.deepcopy`,
             # pytest-xdist or `warnings.warn(text, category)` — or a caller
@@ -105,7 +114,9 @@ class NotDigestedArgumentWarning(MolSysMTCatalogWarning):
 class MolecularSystemMismatchWarning(UserMolSysMTWarning):
     catalog_key = "MolecularSystemMismatchWarning"
 
-    def __init__(self, message=None, *, caller='MolecularSystemMismatchWarning', n_models=None):
+    def __init__(
+        self, message=None, *, caller="MolecularSystemMismatchWarning", n_models=None
+    ):
         if message is not None:
             # Already rendered: this is a rebuild — `pickle`, `copy.deepcopy`,
             # pytest-xdist or `warnings.warn(text, category)` — or a caller
@@ -132,10 +143,13 @@ class StructuralAttributeOffAxisWarning(UserMolSysMTWarning):
             # fail on the absent ones or quietly render defaults.
             super().__init__(message)
             return
-        super().__init__(message, extra={
-            "attributes": ", ".join(attributes),
-            "caller": caller,
-        })
+        super().__init__(
+            message,
+            extra={
+                "attributes": ", ".join(attributes),
+                "caller": caller,
+            },
+        )
 
 
 class UnexpectedProtonationWarning(UserMolSysMTWarning):
@@ -149,7 +163,9 @@ class UnexpectedProtonationWarning(UserMolSysMTWarning):
 
     catalog_key = "UnexpectedProtonationWarning"
 
-    def __init__(self, message=None, *, count=None, pH=None, examples=None, caller=None):
+    def __init__(
+        self, message=None, *, count=None, pH=None, examples=None, caller=None
+    ):
         if message is not None:
             # Already rendered: this is a rebuild — `pickle`, `copy.deepcopy`,
             # pytest-xdist or `warnings.warn(text, category)` — or a caller
@@ -170,7 +186,9 @@ class StructuralAttributeDropWarning(UserMolSysMTWarning):
 
     catalog_key = "StructuralAttributeDropWarning"
 
-    def __init__(self, message=None, *, attributes=None, caller='molsysmt.append_structures'):
+    def __init__(
+        self, message=None, *, attributes=None, caller="molsysmt.append_structures"
+    ):
         if message is not None:
             # Already rendered: this is a rebuild — `pickle`, `copy.deepcopy`,
             # pytest-xdist or `warnings.warn(text, category)` — or a caller
@@ -178,10 +196,13 @@ class StructuralAttributeDropWarning(UserMolSysMTWarning):
             # fail on the absent ones or quietly render defaults.
             super().__init__(message)
             return
-        super().__init__(message, extra={
-            "attributes": ", ".join(attributes),
-            "caller": caller,
-        })
+        super().__init__(
+            message,
+            extra={
+                "attributes": ", ".join(attributes),
+                "caller": caller,
+            },
+        )
 
 
 class IncompatibleBoxWarning(UserMolSysMTWarning):
@@ -200,10 +221,13 @@ class IncompatibleBoxWarning(UserMolSysMTWarning):
         if not isinstance(reason, str):
             Warning.__init__(self, reason)
             return
-        super().__init__(message, extra={
-            "reason": reason,
-            "caller": caller,
-        })
+        super().__init__(
+            message,
+            extra={
+                "reason": reason,
+                "caller": caller,
+            },
+        )
 
 
 class BioassemblyIdentifierCollisionWarning(UserMolSysMTWarning):
@@ -222,10 +246,13 @@ class BioassemblyIdentifierCollisionWarning(UserMolSysMTWarning):
         if isinstance(renamed, str):
             Warning.__init__(self, renamed)
             return
-        super().__init__(message, extra={
-            "renamed": ", ".join(f'{old} -> {new}' for old, new in renamed),
-            "caller": caller,
-        })
+        super().__init__(
+            message,
+            extra={
+                "renamed": ", ".join(f"{old} -> {new}" for old, new in renamed),
+                "caller": caller,
+            },
+        )
 
 
 class SlowChunkIOWarning(MolSysMTCatalogWarning):
@@ -239,14 +266,23 @@ class SlowChunkIOWarning(MolSysMTCatalogWarning):
             # fail on the absent ones or quietly render defaults.
             super().__init__(message)
             return
-        super().__init__(message, extra={"chunk_index": chunk_index, "io_time_s": io_time_s})
+        super().__init__(
+            message, extra={"chunk_index": chunk_index, "io_time_s": io_time_s}
+        )
 
 
 class MemoryPressureWarning(MolSysMTCatalogWarning):
     catalog_key = "MemoryPressureWarning"
 
-    def __init__(self, message=None, *, chunk_index=None, rss_bytes=None,
-                 budget_bytes=None, pressure_pct=None):
+    def __init__(
+        self,
+        message=None,
+        *,
+        chunk_index=None,
+        rss_bytes=None,
+        budget_bytes=None,
+        pressure_pct=None,
+    ):
         if message is not None:
             # Already rendered: this is a rebuild — `pickle`, `copy.deepcopy`,
             # pytest-xdist or `warnings.warn(text, category)` — or a caller
@@ -254,12 +290,15 @@ class MemoryPressureWarning(MolSysMTCatalogWarning):
             # fail on the absent ones or quietly render defaults.
             super().__init__(message)
             return
-        super().__init__(message, extra={
-            "chunk_index": chunk_index,
-            "rss_bytes": rss_bytes,
-            "budget_bytes": budget_bytes,
-            "pressure_pct": pressure_pct,
-        })
+        super().__init__(
+            message,
+            extra={
+                "chunk_index": chunk_index,
+                "rss_bytes": rss_bytes,
+                "budget_bytes": budget_bytes,
+                "pressure_pct": pressure_pct,
+            },
+        )
 
 
 class UnknownAtomNameWarning(MolSysMTCatalogWarning):
@@ -278,6 +317,7 @@ class UnknownAtomNameWarning(MolSysMTCatalogWarning):
 
 class GpuNotAvailableWarning(MolSysMTCatalogWarning):
     """Emitted when the GPU is requested but is not accessible."""
+
     catalog_key = "GpuNotAvailableWarning"
 
     def __init__(self, message=None, *, reason="no CUDA GPU is accessible"):

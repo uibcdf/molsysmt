@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_molecular_system_2(molecular_system_2, caller=None):
 
     from .molecular_system import digest_molecular_system
@@ -10,4 +11,6 @@ def digest_molecular_system_2(molecular_system_2, caller=None):
     try:
         return digest_molecular_system(molecular_system_2, caller=caller)
     except Exception:
-        raise ArgumentError("molecular_system_2", value=molecular_system_2, caller=caller, message=None)
+        raise ArgumentError(
+            "molecular_system_2", value=molecular_system_2, caller=caller, message=None
+        )

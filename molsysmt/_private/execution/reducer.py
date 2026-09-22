@@ -4,7 +4,9 @@ Reducer protocol for chunked heavy trajectory processing.
 A Reducer accumulates partial results from chunks and produces
 a final result when all chunks have been consumed.
 """
+
 from __future__ import annotations
+
 from abc import ABC, abstractmethod
 
 
@@ -120,7 +122,7 @@ class Reducer(ABC):
             "Override checkpoint() and restore() to enable checkpoint/resume."
         )
 
-    def merge(self, other: 'Reducer') -> None:
+    def merge(self, other: "Reducer") -> None:
         """
         Merge another reducer's partial state into self.
 

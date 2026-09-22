@@ -21,4 +21,4 @@ def digest_cmap(cmap, caller=None):
     if isinstance(cmap, (LinearSegmentedColormap, ListedColormap)):
         return cmap
 
-    raise ArgumentError('cmap', value=cmap, caller=caller, message=None)
+    raise ArgumentError("cmap", value=cmap, caller=caller, message=None)

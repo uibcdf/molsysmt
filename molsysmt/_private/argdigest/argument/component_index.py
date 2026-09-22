@@ -1,13 +1,16 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_component_index(component_index, caller=None):
     """Checks if `component_index` has the expected type and value.
@@ -38,10 +41,15 @@ def digest_component_index(component_index, caller=None):
             if isinstance(component_index, bool):
                 return component_index
             else:
-                raise ArgumentError('component_index', value=component_index, caller=caller, message=None)
+                raise ArgumentError(
+                    "component_index",
+                    value=component_index,
+                    caller=caller,
+                    message=None,
+                )
 
     if is_all(component_index):
-        return 'all'
+        return "all"
 
     if isinstance(component_index, (int, np.int64)):
         return [component_index]
@@ -55,4 +63,6 @@ def digest_component_index(component_index, caller=None):
     if isinstance(component_index, np.ndarray):
         return component_index.tolist()
 
-    raise ArgumentError('component_index', value=component_index, caller=caller, message=None)
+    raise ArgumentError(
+        "component_index", value=component_index, caller=caller, message=None
+    )

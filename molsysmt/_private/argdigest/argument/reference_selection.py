@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_reference_selection(reference_selection, syntax="MolSysMT", caller=None):
 
     from .selection import digest_selection
@@ -7,5 +8,9 @@ def digest_reference_selection(reference_selection, syntax="MolSysMT", caller=No
     try:
         return digest_selection(reference_selection, syntax=syntax, caller=caller)
     except Exception:
-        raise ArgumentError('reference_selection', value=reference_selection, caller=caller, message=None)
-
+        raise ArgumentError(
+            "reference_selection",
+            value=reference_selection,
+            caller=caller,
+            message=None,
+        )

@@ -1,24 +1,26 @@
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.argdigest._scientific_arrays import normalize_box_to_nm_array
+from molsysmt._private.smonitor import ArgumentError
 
 functions_where_boolean = (
-    'molsysmt.basic.get.get',
-    'molsysmt.basic.compare.compare',
-    'molsysmt.basic.contains.contains',
-    'molsysmt.basic.iterator.__init__',
-    '.iterators.__init__'
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.contains.contains",
+    "molsysmt.basic.iterator.__init__",
+    ".iterators.__init__",
 )
 
 _RAW_NM_ARRAY_CALLERS = {
-    'molsysmt.pbc.get_lengths_from_box.get_lengths_from_box',
-    'molsysmt.pbc.get_lengths_and_angles_from_box.get_lengths_and_angles_from_box',
-    'molsysmt.pbc.get_volume_from_box.get_volume_from_box',
+    "molsysmt.pbc.get_lengths_from_box.get_lengths_from_box",
+    "molsysmt.pbc.get_lengths_and_angles_from_box.get_lengths_and_angles_from_box",
+    "molsysmt.pbc.get_volume_from_box.get_volume_from_box",
 }
 
+
 def digest_box(box, caller=None):
-    """ Checks if box has the correct shape.
+    """Checks if box has the correct shape.
 
     The array should have shape (n_structures, 3, 3) where n is any integer.
     However, if a list, tuple is passed it will be converted
@@ -42,22 +44,20 @@ def digest_box(box, caller=None):
     """
 
     if caller is not None and caller.endswith(functions_where_boolean):
-
         if isinstance(box, bool):
             return box
         else:
-            raise ArgumentError('box', value=box, caller=caller, message=None)
+            raise ArgumentError("box", value=box, caller=caller, message=None)
 
     else:
-
         if box is None:
             return box
 
         if caller in _RAW_NM_ARRAY_CALLERS:
-            return normalize_box_to_nm_array(box, 'box', caller=caller)
+            return normalize_box_to_nm_array(box, "box", caller=caller)
 
-        if not puw.check(box, dimensionality={'[L]':1}):
-            raise ArgumentError('box', caller=caller, message=None)
+        if not puw.check(box, dimensionality={"[L]": 1}):
+            raise ArgumentError("box", caller=caller, message=None)
 
         box_value = puw.get_value(box)
         box_unit = puw.get_unit(box)
@@ -69,13 +69,13 @@ def digest_box(box, caller=None):
 
         if len(shape) == 2:
             if shape[0] != 3 or shape[1] != 3:
-                raise ArgumentError('box', caller=caller, message=None)
+                raise ArgumentError("box", caller=caller, message=None)
             box_value = np.expand_dims(box_value, axis=0)
         elif len(shape) == 3:
             if shape[1] != 3 or shape[2] != 3:
-                raise ArgumentError('box', value=box, caller=caller, message=None)
+                raise ArgumentError("box", value=box, caller=caller, message=None)
         else:
-            raise ArgumentError('box', value=box, caller=caller, message=None)
+            raise ArgumentError("box", value=box, caller=caller, message=None)
 
         box = puw.quantity(box_value, box_unit)
 

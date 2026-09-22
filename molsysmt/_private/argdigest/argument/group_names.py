@@ -1,6 +1,7 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 from numpy import ndarray
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_group_names(group_names, caller=None):
 
@@ -22,4 +23,4 @@ def digest_group_names(group_names, caller=None):
     if output:
         return aux_group_names
 
-    raise ArgumentError('group_names', value=group_names, caller=caller, message=None)
+    raise ArgumentError("group_names", value=group_names, caller=caller, message=None)

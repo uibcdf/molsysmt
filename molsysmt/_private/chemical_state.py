@@ -50,23 +50,23 @@ def resolve_chemical_state(function):
     @wraps(function)
     def wrapped(*args, **kwargs):
         arguments = function_signature.bind_partial(*args, **kwargs)
-        chemical_state = arguments.arguments.get('chemical_state', 'reference')
-        if chemical_state == 'reference':
+        chemical_state = arguments.arguments.get("chemical_state", "reference")
+        if chemical_state == "reference":
             return function(*args, **kwargs)
 
-        molecular_system = arguments.arguments.get('molecular_system')
-        if chemical_state == 'structure':
+        molecular_system = arguments.arguments.get("molecular_system")
+        if chemical_state == "structure":
             molsystems = list(_native_molsystems(molecular_system))
             if len(molsystems) != 1:
                 from molsysmt._private.smonitor import ArgumentError
 
                 raise ArgumentError(
-                    argument='chemical_state',
+                    argument="chemical_state",
                     value=chemical_state,
-                    caller=function.__module__ + '.' + function.__name__,
+                    caller=function.__module__ + "." + function.__name__,
                 )
             chemical_state = molsystems[0]._resolve_structure_chemical_state_index(
-                arguments.arguments.get('structure_indices', 'all')
+                arguments.arguments.get("structure_indices", "all")
             )
 
         topologies = list(_native_topologies(molecular_system))
@@ -74,9 +74,9 @@ def resolve_chemical_state(function):
             from molsysmt._private.smonitor import ArgumentError
 
             raise ArgumentError(
-                argument='chemical_state',
+                argument="chemical_state",
                 value=chemical_state,
-                caller=function.__module__ + '.' + function.__name__,
+                caller=function.__module__ + "." + function.__name__,
             )
 
         with ExitStack() as stack:

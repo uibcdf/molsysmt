@@ -17,4 +17,6 @@ def digest_atom_is_aromatic(atom_is_aromatic, caller=None):
         for value in values
     ):
         return values.tolist()
-    raise ArgumentError('atom_is_aromatic', value=atom_is_aromatic, caller=caller, message=None)
+    raise ArgumentError(
+        "atom_is_aromatic", value=atom_is_aromatic, caller=caller, message=None
+    )

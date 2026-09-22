@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_id_step(id_step, caller=None):
 
     if id_step is None:
@@ -8,5 +9,4 @@ def digest_id_step(id_step, caller=None):
     if isinstance(id_step, int):
         return id_step
 
-    raise ArgumentError('id_step', value=id_step, caller=caller, message=None)
-
+    raise ArgumentError("id_step", value=id_step, caller=caller, message=None)

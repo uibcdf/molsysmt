@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_group_behavior_2(group_behavior_2, caller=None):
 
     if group_behavior_2 is None:
@@ -10,5 +11,6 @@ def digest_group_behavior_2(group_behavior_2, caller=None):
     try:
         return digest_group_behavior(group_behavior_2, caller=caller)
     except Exception:
-        raise ArgumentError('group_behavior_2', value=group_behavior_2, caller=caller, message=None)
-
+        raise ArgumentError(
+            "group_behavior_2", value=group_behavior_2, caller=caller, message=None
+        )

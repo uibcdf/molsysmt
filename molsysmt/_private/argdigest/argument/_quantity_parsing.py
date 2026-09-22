@@ -14,4 +14,6 @@ def parse_quantity_string(argument, value, caller=None):
     try:
         return puw.parse.parse(value)
     except Exception as error:
-        raise ArgumentError(argument, value=value, caller=caller, cause=error) from error
+        raise ArgumentError(
+            argument, value=value, caller=caller, cause=error
+        ) from error

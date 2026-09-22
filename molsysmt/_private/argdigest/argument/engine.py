@@ -1,21 +1,22 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_engine(engine, caller=None):
-    """ Check the name of the engine.
+    """Check the name of the engine.
 
-        Parameters
-        ---------
-        engine : str
-            The name of the engine
+    Parameters
+    ---------
+    engine : str
+        The name of the engine
 
-        caller: str, optional
-            Name of the function or method that is being digested.
-            For debugging purposes.
+    caller: str, optional
+        Name of the function or method that is being digested.
+        For debugging purposes.
 
-        Raises
-        ------
-        BadCallError
-            If the engine name is not valid.
+    Raises
+    ------
+    BadCallError
+        If the engine name is not valid.
     """
     """ Checks if an engine has the correct type and value
 
@@ -41,5 +42,4 @@ def digest_engine(engine, caller=None):
         except Exception:
             pass
 
-    raise ArgumentError('engine', value=engine, caller=caller, message=None)
-
+    raise ArgumentError("engine", value=engine, caller=caller, message=None)

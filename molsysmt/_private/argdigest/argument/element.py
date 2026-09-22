@@ -1,19 +1,20 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_element(element, caller=None):
-    """ Checks if a syntax has the correct type and value
+    """Checks if a syntax has the correct type and value
 
-        Parameters
-        ----------
-        element : str
-            The name of the element.
-        caller: str, optional
-            Name of the function or method that is being digested.
+    Parameters
+    ----------
+    element : str
+        The name of the element.
+    caller: str, optional
+        Name of the function or method that is being digested.
 
-        Raises
-        ------
-        ArgumentError
-            A ArgumentError is raised if the element is not a string or its name is not valid.
+    Raises
+    ------
+    ArgumentError
+        A ArgumentError is raised if the element is not a string or its name is not valid.
 
     """
 
@@ -26,8 +27,7 @@ def digest_element(element, caller=None):
         if element_name_lower in _elements:
             return element_name_lower
     elif element is None:
-        if caller=='molsysmt.basic.set.set':
+        if caller == "molsysmt.basic.set.set":
             return element
 
-    raise ArgumentError('element', value=element, caller=caller, message=None)
-
+    raise ArgumentError("element", value=element, caller=caller, message=None)

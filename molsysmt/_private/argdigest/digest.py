@@ -5,8 +5,8 @@ This module replaces the legacy digestion engine with the standardized ArgDigest
 
 from argdigest import arg_digest as _argdigest_digest
 
-def arg_digest(*args, **kwargs):
 
+def arg_digest(*args, **kwargs):
     """
 
     MolSysMT argument digestion decorator.

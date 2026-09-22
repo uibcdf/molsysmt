@@ -1,8 +1,7 @@
 from molsysmt._private.smonitor import ArgumentError
 
-functions_with_boolean = (
-        'get_missing_bonds',
-        )
+functions_with_boolean = ("get_missing_bonds",)
+
 
 def digest_disulfide_bonds(disulfide_bonds, caller=None):
 
@@ -11,6 +10,6 @@ def digest_disulfide_bonds(disulfide_bonds, caller=None):
             if isinstance(disulfide_bonds, bool):
                 return disulfide_bonds
 
-    raise ArgumentError('disulfide_bonds', value=disulfide_bonds, caller=caller, message=None)
-
-
+    raise ArgumentError(
+        "disulfide_bonds", value=disulfide_bonds, caller=caller, message=None
+    )

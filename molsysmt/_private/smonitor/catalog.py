@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .meta import DOC_URL, ISSUES_URL, API_URL
+from .meta import API_URL, DOC_URL, ISSUES_URL
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[2]
 
@@ -342,17 +342,6 @@ CODES = {
         "qa_hint": "Tier 3 items should not appear in production or Tier 1 test paths.",
         "agent_message": "Tier 3 {kind}: '{name}'. Experimental, outside support contract.",
         "agent_hint": "Do not rely on this item for validated workflows.",
-    },
-    "MSM-INFO-EXP-001": {
-        "title": "Experimental path",
-        "user_message": "This functionality is experimental and may change.",
-        "user_hint": "Use with caution. Docs: {doc_url}",
-        "dev_message": "Experimental path entered: '{function}' in '{module}'.",
-        "dev_hint": "This path is not part of the stable API surface.",
-        "qa_message": "Experimental path: '{function}' in '{module}'.",
-        "qa_hint": "Flag this path for API stability review.",
-        "agent_message": "Experimental function: '{function}' ({module}).",
-        "agent_hint": "Not part of the stable API. Use validated alternatives where available.",
     },
     "MSM-WARN-SEL-001": {
         "title": "Selection warning",

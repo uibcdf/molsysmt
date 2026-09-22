@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_groups_of_atoms_2(groups_of_atoms_2, caller=None):
 
     if groups_of_atoms_2 is None:
@@ -10,5 +11,6 @@ def digest_groups_of_atoms_2(groups_of_atoms_2, caller=None):
     try:
         return digest_groups_of_atoms(groups_of_atoms_2, caller=caller)
     except Exception:
-        raise ArgumentError('groups_of_atoms_2', value=groups_of_atoms_2, caller=caller, message=None)
-
+        raise ArgumentError(
+            "groups_of_atoms_2", value=groups_of_atoms_2, caller=caller, message=None
+        )

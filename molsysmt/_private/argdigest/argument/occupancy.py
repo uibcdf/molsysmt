@@ -1,22 +1,25 @@
 import numpy as np
+
 from molsysmt._private.smonitor import ArgumentError
 
 functions_where_boolean = (
-    'molsysmt.basic.get.get',
-    'molsysmt.basic.compare.compare',
-    'molsysmt.basic.iterator.__init__',
-    '.iterators.__init__',
-    )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    ".iterators.__init__",
+)
+
 
 def digest_occupancy(occupancy, caller=None):
 
     if caller is not None:
-
         if caller.endswith(functions_where_boolean):
             if isinstance(occupancy, bool):
                 return occupancy
             else:
-                raise ArgumentError('occupancy', value=occupancy, caller=caller, message=None)
+                raise ArgumentError(
+                    "occupancy", value=occupancy, caller=caller, message=None
+                )
 
     if occupancy is None:
         return None
@@ -30,5 +33,4 @@ def digest_occupancy(occupancy, caller=None):
         elif len(occupancy.shape) == 2:
             return occupancy
 
-
-    raise ArgumentError('occupancy', value=occupancy, caller=caller, message=None)
+    raise ArgumentError("occupancy", value=occupancy, caller=caller, message=None)

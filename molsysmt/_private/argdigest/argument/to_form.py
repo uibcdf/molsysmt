@@ -3,16 +3,17 @@ from molsysmt._private.smonitor import ArgumentError
 # Tolerance aliases for common user mistakes (singular/variant spellings).
 # These are NOT official form names — do not document or advertise them.
 _FORM_TOLERANCE_ALIASES = {
-    'molsysmt.structure':   'molsysmt.Structures',
-    'molsysmt.topology':    'molsysmt.Topology',
-    'molsysmt.molsys':      'molsysmt.MolSys',
-    'molsysmt.molsysdict':  'molsysmt.MolSysDict',
-    'molsysmt.topologydict':'molsysmt.TopologyDict',
-    'molsysmt.structuresdict':'molsysmt.StructuresDict',
+    "molsysmt.structure": "molsysmt.Structures",
+    "molsysmt.topology": "molsysmt.Topology",
+    "molsysmt.molsys": "molsysmt.MolSys",
+    "molsysmt.molsysdict": "molsysmt.MolSysDict",
+    "molsysmt.topologydict": "molsysmt.TopologyDict",
+    "molsysmt.structuresdict": "molsysmt.StructuresDict",
 }
 
+
 def digest_to_form(to_form, caller=None):
-    """ Checks if the to_form value is supported.
+    """Checks if the to_form value is supported.
 
     If the to_form value is a string correctly spelled but not capitalized, the method returns the right name.
 
@@ -38,7 +39,7 @@ def digest_to_form(to_form, caller=None):
     if to_form is None:
         return None
 
-    from molsysmt.form import is_file, _dict_forms_lowercase
+    from molsysmt.form import _dict_forms_lowercase, is_file
 
     if isinstance(to_form, (list, tuple)):
         return [digest_to_form(ii, caller=caller) for ii in to_form]
@@ -55,5 +56,4 @@ def digest_to_form(to_form, caller=None):
             except Exception:
                 pass
 
-    raise ArgumentError('to_form', value=to_form, caller=caller, message=None)
-
+    raise ArgumentError("to_form", value=to_form, caller=caller, message=None)

@@ -1,5 +1,7 @@
-from molsysmt._private.smonitor import ArgumentError
 import numpy as np
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_quartets(quartets, caller=None):
 
@@ -17,5 +19,4 @@ def digest_quartets(quartets, caller=None):
             if shape[1] == 4:
                 return quartets
 
-    raise ArgumentError('quartets', value=quartets, caller=caller, message=None)
-
+    raise ArgumentError("quartets", value=quartets, caller=caller, message=None)

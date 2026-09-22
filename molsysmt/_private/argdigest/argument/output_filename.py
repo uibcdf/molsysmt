@@ -1,6 +1,7 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 from pathlib import PosixPath
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_output_filename(output_filename, caller=None):
     """Checks if `group_type` has the expected type and value.
@@ -34,5 +35,6 @@ def digest_output_filename(output_filename, caller=None):
     elif isinstance(output_filename, str):
         return output_filename
 
-    raise ArgumentError('output_filename', value=output_filename, caller=caller, message=None)
-
+    raise ArgumentError(
+        "output_filename", value=output_filename, caller=caller, message=None
+    )

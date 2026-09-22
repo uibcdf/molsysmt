@@ -1,18 +1,19 @@
 import numpy as np
-from molsysmt._private.smonitor import ArgumentError
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
 
 functions_where_boolean = (
-    'molsysmt.basic.get.get',
-    'molsysmt.basic.compare.compare',
-    'molsysmt.basic.iterator.__init__',
-    '.iterators.__init__'
-    )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    ".iterators.__init__",
+)
+
 
 def digest_b_factor(b_factor, caller=None):
 
     if caller is not None:
-
         if caller.endswith(functions_where_boolean):
             if isinstance(b_factor, bool):
                 return b_factor
@@ -23,8 +24,8 @@ def digest_b_factor(b_factor, caller=None):
     value = puw.get_value(b_factor)
     unit = puw.get_unit(b_factor)
 
-    if not puw.check(unit, dimensionality={'[L]':2}):
-        raise ArgumentError('b_factor', value=b_factor, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[L]": 2}):
+        raise ArgumentError("b_factor", value=b_factor, caller=caller, message=None)
 
     if not isinstance(value, np.ndarray):
         value = np.array(value)
@@ -34,4 +35,4 @@ def digest_b_factor(b_factor, caller=None):
     elif len(value.shape) == 2:
         return puw.standardize(puw.quantity(value, unit))
 
-    raise ArgumentError('b_factor', value=b_factor, caller=caller, message=None)
+    raise ArgumentError("b_factor", value=b_factor, caller=caller, message=None)

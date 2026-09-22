@@ -1,7 +1,10 @@
 from molsysmt._private.smonitor import ArgumentError
 
-methods_bool_input = ["molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets",
-        "molsysmt.structure.get_dihedral_angles.get_dihedral_angles"]
+methods_bool_input = [
+    "molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets",
+    "molsysmt.structure.get_dihedral_angles.get_dihedral_angles",
+]
+
 
 def digest_omega(omega, caller=None):
 
@@ -9,5 +12,4 @@ def digest_omega(omega, caller=None):
         if isinstance(omega, bool):
             return omega
 
-    raise ArgumentError('omega', value=omega, caller=caller, message=None)
-
+    raise ArgumentError("omega", value=omega, caller=caller, message=None)

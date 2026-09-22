@@ -1,11 +1,10 @@
 from molsysmt._private.smonitor import ArgumentError
 
-methods_where_bool = [
-    'molsysmt.basic.compare.compare'
-]
+methods_where_bool = ["molsysmt.basic.compare.compare"]
+
 
 def digest_form(form, caller=None):
-    """ Checks if the name of the form is supported.
+    """Checks if the name of the form is supported.
 
     If the form name is correctly spelled but not capitalized, the method returns the right name.
 
@@ -28,11 +27,9 @@ def digest_form(form, caller=None):
         A WrongFormError is raised if the form name is not supported.
 
     """
-    from molsysmt.form import is_file
-    from molsysmt.form import _dict_forms_lowercase
+    from molsysmt.form import _dict_forms_lowercase, is_file
 
     if caller in methods_where_bool:
-
         if isinstance(form, bool):
             return form
 
@@ -47,5 +44,4 @@ def digest_form(form, caller=None):
             except Exception:
                 pass
 
-    raise ArgumentError('form', value=form, caller=caller, message=None)
-
+    raise ArgumentError("form", value=form, caller=caller, message=None)

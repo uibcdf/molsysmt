@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_structure_indices_A(structure_indices_A, caller=None):
 
     from .structure_indices import digest_structure_indices
@@ -7,5 +8,9 @@ def digest_structure_indices_A(structure_indices_A, caller=None):
     try:
         return digest_structure_indices(structure_indices_A, caller=caller)
     except Exception:
-        raise ArgumentError('structure_indices_A', value=structure_indices_A, caller=caller, message=None)
-
+        raise ArgumentError(
+            "structure_indices_A",
+            value=structure_indices_A,
+            caller=caller,
+            message=None,
+        )

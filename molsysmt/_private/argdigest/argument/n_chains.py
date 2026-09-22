@@ -1,9 +1,9 @@
 from molsysmt._private.smonitor import ArgumentError
 
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
 
 
 def digest_n_chains(n_chains, caller=None):
@@ -12,18 +12,18 @@ def digest_n_chains(n_chains, caller=None):
         if isinstance(n_chains, bool):
             return n_chains
         else:
-            raise ArgumentError('n_chains', value=n_chains, caller=caller, message=None)
-    elif caller=='molsysmt.basic.contains.contains':
+            raise ArgumentError("n_chains", value=n_chains, caller=caller, message=None)
+    elif caller == "molsysmt.basic.contains.contains":
         if isinstance(n_chains, (bool, int)):
             return n_chains
-    elif caller=='molsysmt.basic.is_composed_of.is_composed_of':
+    elif caller == "molsysmt.basic.is_composed_of.is_composed_of":
         if isinstance(n_chains, (bool, int)):
             return n_chains
-    elif caller=='molsysmt.native.topology.__init__':
+    elif caller == "molsysmt.native.topology.__init__":
         if isinstance(n_chains, int):
             return n_chains
-    elif caller=='molsysmt.native.molsys.__init__':
+    elif caller == "molsysmt.native.molsys.__init__":
         if isinstance(n_chains, int):
             return n_chains
 
-    raise ArgumentError('n_chains', value=n_chains, caller=caller, message=None)
+    raise ArgumentError("n_chains", value=n_chains, caller=caller, message=None)

@@ -1,13 +1,16 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_chain_index(chain_index, caller=None):
     """Checks if `chain_index` has the expected type and value.
@@ -38,10 +41,12 @@ def digest_chain_index(chain_index, caller=None):
             if isinstance(chain_index, bool):
                 return chain_index
             else:
-                raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
+                raise ArgumentError(
+                    "chain_index", value=chain_index, caller=caller, message=None
+                )
 
     if is_all(chain_index):
-        return 'all'
+        return "all"
 
     if isinstance(chain_index, (int, np.int64)):
         return [chain_index]
@@ -55,4 +60,4 @@ def digest_chain_index(chain_index, caller=None):
     if isinstance(chain_index, np.ndarray):
         return chain_index.tolist()
 
-    raise ArgumentError('chain_index', value=chain_index, caller=caller, message=None)
+    raise ArgumentError("chain_index", value=chain_index, caller=caller, message=None)

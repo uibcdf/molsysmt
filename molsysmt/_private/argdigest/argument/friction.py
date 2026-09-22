@@ -1,11 +1,13 @@
-from molsysmt._private.smonitor import ArgumentError
-from molsysmt import pyunitwizard as puw
 import numpy as np
 
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+)
+
 
 def digest_friction(friction, caller=None):
 
@@ -16,13 +18,12 @@ def digest_friction(friction, caller=None):
     try:
         value, unit = puw.get_value_and_unit(friction)
     except Exception:
-        raise ArgumentError('friction', value=friction, caller=caller, message=None)
+        raise ArgumentError("friction", value=friction, caller=caller, message=None)
 
-    if not puw.check(unit, dimensionality={'[T]':-1}):
-        raise ArgumentError('friction', value=friction, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[T]": -1}):
+        raise ArgumentError("friction", value=friction, caller=caller, message=None)
 
     if isinstance(value, (int, np.int64, float, np.float64)):
         return puw.standardize(puw.quantity(value, unit))
 
-    raise ArgumentError('friction', value=friction, caller=caller, message=None)
-
+    raise ArgumentError("friction", value=friction, caller=caller, message=None)

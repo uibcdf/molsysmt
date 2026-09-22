@@ -1,9 +1,12 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
+
 def digest_entity_indices(entity_indices, caller):
-    """ Checks if entity_indices has the expected type and value.
+    """Checks if entity_indices has the expected type and value.
 
     Parameters
     ----------
@@ -28,10 +31,12 @@ def digest_entity_indices(entity_indices, caller):
     if entity_indices is None:
         return None
     elif is_all(entity_indices):
-        return 'all'
+        return "all"
     elif isinstance(entity_indices, (int, np.int64, np.int32)):
-        return np.array([entity_indices], dtype='int64')
+        return np.array([entity_indices], dtype="int64")
     elif isinstance(entity_indices, (np.ndarray, list, tuple, range)):
-        return np.array(entity_indices, dtype='int64')
+        return np.array(entity_indices, dtype="int64")
 
-    raise ArgumentError('entity_indices', value=entity_indices, caller=caller, message=None)
+    raise ArgumentError(
+        "entity_indices", value=entity_indices, caller=caller, message=None
+    )

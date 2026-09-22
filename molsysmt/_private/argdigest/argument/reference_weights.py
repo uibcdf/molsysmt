@@ -1,5 +1,5 @@
-import numpy as np
 from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_reference_weights(reference_weights, caller=None):
 
@@ -8,5 +8,6 @@ def digest_reference_weights(reference_weights, caller=None):
     try:
         return digest_weights(reference_weights, caller=caller)
     except Exception:
-        raise ArgumentError('reference_weights', value=reference_weights, caller=caller, message=None)
-
+        raise ArgumentError(
+            "reference_weights", value=reference_weights, caller=caller, message=None
+        )

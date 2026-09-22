@@ -22,4 +22,4 @@ def digest_compact(compact, caller=None):
         if compact.lower() in _compact_values:
             return compact.lower()
 
-    raise ArgumentError('compact', value=compact, caller=caller, message=None)
+    raise ArgumentError("compact", value=compact, caller=caller, message=None)

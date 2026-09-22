@@ -7,8 +7,8 @@ from molsysmt.attribute import attributes, is_attribute
 # signature parameters. This domain points at the catalogue instead of copying it, so
 # the two cannot drift apart.
 domain = Domain(
-    name='attribute',
+    name="attribute",
     contains=is_attribute,
     members=lambda: tuple(attributes),
-    description='canonical MolSysMT attribute names',
+    description="canonical MolSysMT attribute names",
 )

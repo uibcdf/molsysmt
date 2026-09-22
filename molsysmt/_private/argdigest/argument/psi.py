@@ -1,7 +1,10 @@
 from molsysmt._private.smonitor import ArgumentError
 
-methods_bool_input = ["molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets",
-        "molsysmt.structure.get_dihedral_angles.get_dihedral_angles"]
+methods_bool_input = [
+    "molsysmt.topology.get_dihedral_quartets.get_dihedral_quartets",
+    "molsysmt.structure.get_dihedral_angles.get_dihedral_angles",
+]
+
 
 def digest_psi(psi, caller=None):
 
@@ -9,5 +12,4 @@ def digest_psi(psi, caller=None):
         if isinstance(psi, bool):
             return psi
 
-    raise ArgumentError('psi', value=psi, caller=caller, message=None)
-
+    raise ArgumentError("psi", value=psi, caller=caller, message=None)

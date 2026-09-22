@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError
-from molsysmt import pyunitwizard as puw
+
 
 def digest_center_coordinates(center_coordinates, caller=None):
 
@@ -11,6 +11,6 @@ def digest_center_coordinates(center_coordinates, caller=None):
     try:
         return digest_coordinates(center_coordinates, caller=caller)
     except Exception:
-        raise ArgumentError('center_coordinates', value=center_coordinates, caller=caller,
-                message=None)
-
+        raise ArgumentError(
+            "center_coordinates", value=center_coordinates, caller=caller, message=None
+        )

@@ -4,9 +4,13 @@ from __future__ import annotations
 
 import numpy as np
 
-
 _NEIGHBOR_SHIFTS = np.array(
-    [[i, j, k] for i in (-1.0, 0.0, 1.0) for j in (-1.0, 0.0, 1.0) for k in (-1.0, 0.0, 1.0)]
+    [
+        [i, j, k]
+        for i in (-1.0, 0.0, 1.0)
+        for j in (-1.0, 0.0, 1.0)
+        for k in (-1.0, 0.0, 1.0)
+    ]
 )
 
 
@@ -79,9 +83,7 @@ def reconstruct_and_wrap_covalent_blocks(
             center = np.mean(frame[block], axis=0)
             relative_center = center - origin
             if mode == "pbc":
-                wrapped_center = (
-                    (relative_center @ inverse_box) % 1.0
-                ) @ frame_box
+                wrapped_center = ((relative_center @ inverse_box) % 1.0) @ frame_box
             elif mode == "pbc_center":
                 fractional = relative_center @ inverse_box
                 wrapped_center = (fractional - np.floor(fractional + 0.5)) @ frame_box

@@ -1,9 +1,12 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
+
 def digest_atom_names(atom_names, caller=None):
-    """ Checks if atom_names has the expected type and value.
+    """Checks if atom_names has the expected type and value.
 
     Parameters
     ----------
@@ -28,7 +31,7 @@ def digest_atom_names(atom_names, caller=None):
     if atom_names is None:
         return None
     elif is_all(atom_names):
-        return 'all'
+        return "all"
     elif isinstance(atom_names, str):
         return [atom_names]
     elif isinstance(atom_names, (np.ndarray, list, tuple, range)):
@@ -42,5 +45,4 @@ def digest_atom_names(atom_names, caller=None):
         else:
             return [digest_atom_names(ii) for ii in atom_names]
 
-    raise ArgumentError('atom_names', caller=caller, message=None)
-
+    raise ArgumentError("atom_names", caller=caller, message=None)

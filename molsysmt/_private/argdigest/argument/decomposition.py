@@ -1,8 +1,9 @@
 from molsysmt._private.smonitor import ArgumentError
 
 functions_with_boolean = (
-        'molsysmt.molecular_mechanics.get_potential_energy.get_potential_energy',
-        )
+    "molsysmt.molecular_mechanics.get_potential_energy.get_potential_energy",
+)
+
 
 def digest_decomposition(decomposition, caller=None):
 
@@ -12,8 +13,13 @@ def digest_decomposition(decomposition, caller=None):
 
     if isinstance(decomposition, str):
         from molsysmt.attribute import attributes
-        if 'decomposition' in attributes and decomposition in attributes['decomposition']['values']:
+
+        if (
+            "decomposition" in attributes
+            and decomposition in attributes["decomposition"]["values"]
+        ):
             return decomposition
 
-    raise ArgumentError('decomposition', value=decomposition, caller=caller, message=None)
-
+    raise ArgumentError(
+        "decomposition", value=decomposition, caller=caller, message=None
+    )

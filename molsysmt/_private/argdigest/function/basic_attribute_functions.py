@@ -14,28 +14,28 @@ from argdigest import FunctionContract
 
 CONTRACTS = [
     FunctionContract(
-        caller='molsysmt.basic.get.get',
-        admits='attribute',
-        description='Attributes are requested as boolean keywords.',
+        caller="molsysmt.basic.get.get",
+        admits="attribute",
+        description="Attributes are requested as boolean keywords.",
     ),
     FunctionContract(
-        caller='molsysmt.basic.set.set',
-        admits='attribute',
-        description='Attributes are assigned as keywords.',
+        caller="molsysmt.basic.set.set",
+        admits="attribute",
+        description="Attributes are assigned as keywords.",
     ),
     FunctionContract(
-        caller='molsysmt.basic.contains.contains',
-        admits='attribute',
-        description='Attribute conditions as attribute=value pairs.',
+        caller="molsysmt.basic.contains.contains",
+        admits="attribute",
+        description="Attribute conditions as attribute=value pairs.",
     ),
     FunctionContract(
-        caller='molsysmt.basic.is_composed_of.is_composed_of',
-        admits='attribute',
-        description='Composition conditions as attribute=value pairs.',
+        caller="molsysmt.basic.is_composed_of.is_composed_of",
+        admits="attribute",
+        description="Composition conditions as attribute=value pairs.",
     ),
     FunctionContract(
-        caller='molsysmt.basic.compare.compare',
-        admits='attribute',
-        description='Attributes to compare, as keyword booleans.',
+        caller="molsysmt.basic.compare.compare",
+        admits="attribute",
+        description="Attributes to compare, as keyword booleans.",
     ),
 ]

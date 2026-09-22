@@ -1,16 +1,19 @@
-from molsysmt._private.smonitor import ArgumentError
-from molsysmt._private.variables import is_all
 from argdigest.core.caller import caller_matches
 
+from molsysmt._private.smonitor import ArgumentError
+from molsysmt._private.variables import is_all
 
-def digest_selections(selections, syntax="MolSysMT", molecular_systems=None, caller=None):
+
+def digest_selections(
+    selections, syntax="MolSysMT", molecular_systems=None, caller=None
+):
 
     from .selection import digest_selection
 
     if molecular_systems is not None and caller_matches(
         caller,
-        'merge',
-        'concatenate_structures',
+        "merge",
+        "concatenate_structures",
     ):
         from molsysmt._private.smonitor import ArgumentLengthError
 
@@ -18,7 +21,7 @@ def digest_selections(selections, syntax="MolSysMT", molecular_systems=None, cal
         if isinstance(selections, (list, tuple)):
             if len(selections) != n_molecular_systems:
                 raise ArgumentLengthError(
-                    argument='selections',
+                    argument="selections",
                     expected=n_molecular_systems,
                     actual=len(selections),
                     caller=caller,
@@ -38,4 +41,4 @@ def digest_selections(selections, syntax="MolSysMT", molecular_systems=None, cal
     elif is_all(selections):
         return selections
 
-    raise ArgumentError('selections', value=selections, caller=caller)
+    raise ArgumentError("selections", value=selections, caller=caller)

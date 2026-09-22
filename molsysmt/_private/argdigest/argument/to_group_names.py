@@ -1,6 +1,7 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_to_group_names(to_group_names, caller):
 
@@ -10,5 +11,4 @@ def digest_to_group_names(to_group_names, caller):
         if all([isinstance(ii, str) for ii in to_group_names]):
             return to_group_names
 
-    raise ArgumentError('group_indices', caller=caller, message=None)
-
+    raise ArgumentError("group_indices", caller=caller, message=None)

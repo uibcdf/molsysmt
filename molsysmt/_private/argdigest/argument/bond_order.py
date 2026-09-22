@@ -1,6 +1,8 @@
-from molsysmt._private.smonitor import ArgumentError
-from argdigest.core.caller import caller_matches
 import numpy as np
+from argdigest.core.caller import caller_matches
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_bond_order(bond_order, caller=None):
 
@@ -9,24 +11,25 @@ def digest_bond_order(bond_order, caller=None):
     # for a heavy library that most calls never need.
     import pandas as pd
 
-    if caller_matches(caller, 'add_bond'):
+    if caller_matches(caller, "add_bond"):
         if bond_order is None:
             return None
         if isinstance(bond_order, (str, int, float, np.integer, np.floating)):
             return str(bond_order)
 
-    if caller=='molsysmt.basic.get.get':
+    if caller == "molsysmt.basic.get.get":
         if isinstance(bond_order, bool):
             return bond_order
-    elif caller=='molsysmt.basic.compare.compare':
+    elif caller == "molsysmt.basic.compare.compare":
         if isinstance(bond_order, bool):
             return bond_order
-    elif caller == 'molsysmt.basic.set.set':
+    elif caller == "molsysmt.basic.set.set":
         if bond_order is None or bond_order is pd.NA:
             return bond_order
         values = [bond_order] if np.isscalar(bond_order) else list(bond_order)
         if all(
-            value is None or value is pd.NA
+            value is None
+            or value is pd.NA
             or (
                 isinstance(value, (int, np.integer))
                 and not isinstance(value, (bool, np.bool_))
@@ -40,4 +43,4 @@ def digest_bond_order(bond_order, caller=None):
             ]
             return normalized[0] if np.isscalar(bond_order) else normalized
 
-    raise ArgumentError('bond_order', value=bond_order, caller=caller, message=None)
+    raise ArgumentError("bond_order", value=bond_order, caller=caller, message=None)

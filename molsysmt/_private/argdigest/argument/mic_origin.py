@@ -1,6 +1,8 @@
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_mic_origin(mic_origin, caller=None):
 
@@ -10,10 +12,10 @@ def digest_mic_origin(mic_origin, caller=None):
     try:
         value, unit = puw.get_value_and_unit(mic_origin)
     except Exception:
-        raise ArgumentError('mic_origin', value=mic_origin, caller=caller, message=None)
+        raise ArgumentError("mic_origin", value=mic_origin, caller=caller, message=None)
 
-    if not puw.check(unit, dimensionality={'[L]':1}):
-        raise ArgumentError('mic_origin', value=mic_origin, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[L]": 1}):
+        raise ArgumentError("mic_origin", value=mic_origin, caller=caller, message=None)
 
     if not isinstance(value, np.ndarray):
         value = np.array(value)
@@ -29,7 +31,6 @@ def digest_mic_origin(mic_origin, caller=None):
             return puw.standardize(puw.quantity(value[0], unit))
     elif len(shape) == 3:
         if shape[2] == 3 and shape[0] == 1 and shape[1] == 1:
-            return puw.standardize(puw.quantity(value[0,0], unit))
+            return puw.standardize(puw.quantity(value[0, 0], unit))
 
-    raise ArgumentError('mic_origin', value=mic_origin, caller=caller, message=None)
-
+    raise ArgumentError("mic_origin", value=mic_origin, caller=caller, message=None)

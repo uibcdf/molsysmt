@@ -20,7 +20,7 @@ def complementary_structure_indices(molecular_system, structure_indices):
 
     from molsysmt.basic import get
 
-    n_structures = get(molecular_system, element='system', n_structures=True)
+    n_structures = get(molecular_system, element="system", n_structures=True)
 
     structure_indices = np.array(structure_indices)
     structure_indices = structure_indices[structure_indices < n_structures]

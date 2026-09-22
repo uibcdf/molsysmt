@@ -9,13 +9,13 @@ from argdigest import AliasTable
 
 TABLES = [
     AliasTable(
-        applies_to='molsysmt.build.mutate.mutate',
-        aliases={'mutation': 'mutations'},
-        description='a single mutation reads naturally in the singular',
+        applies_to="molsysmt.build.mutate.mutate",
+        aliases={"mutation": "mutations"},
+        description="a single mutation reads naturally in the singular",
     ),
     AliasTable(
-        applies_to='molsysmt.basic.compare.compare',
-        aliases={'attributes_type': 'attribute_type'},
-        description='backward-compatible alias kept in tests and user scripts',
+        applies_to="molsysmt.basic.compare.compare",
+        aliases={"attributes_type": "attribute_type"},
+        description="backward-compatible alias kept in tests and user scripts",
     ),
 ]

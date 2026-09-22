@@ -1,6 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError
-import numpy as np
-from molsysmt import pyunitwizard as puw
+
 
 def digest_opacity(opacity, caller=None):
 
@@ -10,5 +9,4 @@ def digest_opacity(opacity, caller=None):
     if isinstance(opacity, (int, float)):
         return opacity
 
-    raise ArgumentError('opacity', value=opacity, caller=caller, message=None)
-
+    raise ArgumentError("opacity", value=opacity, caller=caller, message=None)

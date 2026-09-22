@@ -3,10 +3,11 @@ import numpy as np
 
 def _puw():
     from molsysmt._pyunitwizard import puw
+
     return puw
 
-def is_all(variable):
 
+def is_all(variable):
     """Checks if the value of a variable is equal to 'all', 'All', or 'ALL'.
 
     The method returns True if the value of a variable is equal to 'all', 'All', or 'ALL'.
@@ -37,9 +38,10 @@ def is_all(variable):
     """
 
     if isinstance(variable, str):
-        return variable in ['all', 'All', 'ALL']
+        return variable in ["all", "All", "ALL"]
 
     return False
+
 
 def is_iterable(variable):
 
@@ -48,12 +50,14 @@ def is_iterable(variable):
 
     return False
 
+
 def is_iterable_of_iterables(variable):
 
     if isinstance(variable, (list, tuple, set, np.ndarray)):
         return all([is_iterable(ii) for ii in variable])
 
     return False
+
 
 def is_iterable_of_iterables_of_iterables(variable):
 
@@ -62,20 +66,22 @@ def is_iterable_of_iterables_of_iterables(variable):
 
     return False
 
+
 def is_next(variable):
 
     if isinstance(variable, str):
-        return variable in ['next', 'Next', 'NEXT']
+        return variable in ["next", "Next", "NEXT"]
 
     return False
+
 
 def is_iterable_of_pairs(variable):
 
     output = False
 
     if isinstance(variable, np.ndarray):
-        if len(variable.shape)==2:
-            if variable.shape[1]==2:
+        if len(variable.shape) == 2:
+            if variable.shape[1] == 2:
                 output = True
     elif isinstance(variable, (list, tuple, set)):
         for ii in variable:
@@ -83,17 +89,18 @@ def is_iterable_of_pairs(variable):
             if isinstance(ii, (list, tuple, set)):
                 if len(ii) == 2:
                     output = True
-            if output == False:
+            if not output:
                 break
 
     return output
+
 
 def is_iterable_of_integers(variable):
 
     output = False
 
     if isinstance(variable, np.ndarray):
-        if len(variable.shape)==1:
+        if len(variable.shape) == 1:
             if np.issubdtype(variable.dtype, np.integer):
                 output = True
     elif isinstance(variable, (list, tuple, set)):
@@ -101,6 +108,7 @@ def is_iterable_of_integers(variable):
             output = True
 
     return output
+
 
 def is_compatible_with_coordinates_value(variable):
 
@@ -113,11 +121,9 @@ def is_compatible_with_coordinates_value(variable):
         value = variable
 
     if isinstance(value, (list, tuple, set)):
-
         value = np.ndarray(value)
 
     if isinstance(value, np.ndarray):
-
         shape = value.shape
 
         if len(shape) == 1:
@@ -137,6 +143,7 @@ def is_compatible_with_coordinates_value(variable):
 
     return output
 
+
 def is_compatible_with_coordinates_unit(variable):
 
     output = False
@@ -144,20 +151,18 @@ def is_compatible_with_coordinates_unit(variable):
     puw = _puw()
     if puw.is_quantity(variable):
         unit = puw.get_unit(variable)
-        if puw.check(unit, dimensionality={'[L]':1}):
+        if puw.check(unit, dimensionality={"[L]": 1}):
             output = True
 
     return output
-        
+
+
 def is_compatible_with_coordinates(variable):
-
-    output = False
-
     if is_compatible_with_coordinates_unit(variable):
-        if is_compatible_with_coordinates_value(variable):
-            output = True
+        is_compatible_with_coordinates_value(variable)
 
     return True
+
 
 def make_coordinates_like(variable, standardized=True):
 
@@ -165,7 +170,6 @@ def make_coordinates_like(variable, standardized=True):
 
     if is_compatible_with_coordinates_unit(variable):
         if is_compatible_with_coordinates_value(variable):
-
             puw = _puw()
             value, unit = puw.get_value_and_unit(variable)
 
@@ -176,15 +180,24 @@ def make_coordinates_like(variable, standardized=True):
 
             if len(shape) == 1:
                 if shape[0] == 3:
-                    output = puw.quantity(value[np.newaxis, np.newaxis, :], unit, standardized=standardized)
+                    output = puw.quantity(
+                        value[np.newaxis, np.newaxis, :],
+                        unit,
+                        standardized=standardized,
+                    )
             elif len(shape) == 2:
                 if shape[1] == 3:
-                    output = puw.quantity(value[np.newaxis, :, :], unit, standardized=standardized)
+                    output = puw.quantity(
+                        value[np.newaxis, :, :], unit, standardized=standardized
+                    )
             elif len(shape) == 3:
                 if shape[2] == 3:
                     output = puw.quantity(value, unit, standardized=standardized)
 
     if output is None:
         from molsysmt._private.smonitor import InternalAlgorithmError
-        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt._private.variables")
+
+        raise InternalAlgorithmError(
+            "Unexpected empty state", caller="molsysmt._private.variables"
+        )
     return output

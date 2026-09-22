@@ -1,14 +1,17 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 from argdigest.core.caller import caller_matches, caller_startswith
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_group_id(group_id, caller=None):
     """Checks if `group_id` has the expected type and value.
@@ -34,22 +37,24 @@ def digest_group_id(group_id, caller=None):
         If the given `group_id` has not of the correct type or value.
     """
 
-    if group_id is None and caller_matches(caller, 'add_group'):
+    if group_id is None and caller_matches(caller, "add_group"):
         return None
-    if caller_matches(caller, 'add_group'):
+    if caller_matches(caller, "add_group"):
         if isinstance(group_id, (int, np.int64, str)):
             return group_id
 
     if is_all(group_id):
-        return 'all'
+        return "all"
 
     if caller is not None:
         if caller.endswith(functions_with_boolean):
             if isinstance(group_id, bool):
                 return group_id
-        elif caller_startswith(caller, 'molsysmt.form.') and caller.count('.to_')==2:
+        elif caller_startswith(caller, "molsysmt.form.") and caller.count(".to_") == 2:
             return group_id
-        elif caller.endswith(('set_group_id_to_atom', 'set_group_id_to_group')) and isinstance(group_id, str):
+        elif caller.endswith(
+            ("set_group_id_to_atom", "set_group_id_to_group")
+        ) and isinstance(group_id, str):
             return group_id
 
     if isinstance(group_id, (int, np.int64, str)):
@@ -64,4 +69,4 @@ def digest_group_id(group_id, caller=None):
     elif isinstance(group_id, np.ndarray):
         return group_id.tolist()
 
-    raise ArgumentError('group_id', value=group_id, caller=caller, message=None)
+    raise ArgumentError("group_id", value=group_id, caller=caller, message=None)

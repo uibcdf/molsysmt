@@ -1,5 +1,6 @@
 from molsysmt._private.smonitor import ArgumentError
 
+
 def digest_parallel(parallel, caller=None):
     if parallel is None:
         return None
@@ -7,11 +8,16 @@ def digest_parallel(parallel, caller=None):
         return parallel
     if isinstance(parallel, str):
         pl = parallel.lower()
-        if pl in {'true', 'yes', 'on'}:
+        if pl in {"true", "yes", "on"}:
             return True
-        if pl in {'false', 'no', 'off'}:
+        if pl in {"false", "no", "off"}:
             return False
-        if pl == 'auto':
-            return 'auto'
+        if pl == "auto":
+            return "auto"
 
-    raise ArgumentError('parallel', value=parallel, caller=caller, message='parallel must be True, False, "auto", or None')
+    raise ArgumentError(
+        "parallel",
+        value=parallel,
+        caller=caller,
+        message='parallel must be True, False, "auto", or None',
+    )

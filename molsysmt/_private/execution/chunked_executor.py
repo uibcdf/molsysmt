@@ -12,13 +12,14 @@ Responsibilities:
 - Checkpoint / resume
 - Does NOT own scientific logic
 """
+
 from __future__ import annotations
 
 import time
 
 import numpy as np
 
-from molsysmt._private.smonitor import ArgumentError, ArgumentConflictError, warn
+from molsysmt._private.smonitor import ArgumentConflictError, ArgumentError, warn
 
 
 class ChunkedExecutor:
@@ -71,10 +72,10 @@ class ChunkedExecutor:
         operation: str,
         reducer=None,
         reducers=None,
-        atom_indices='all',
+        atom_indices="all",
         structure_indices=None,
         chunk_size: int | None = None,
-        heavy_mode: str = 'auto',
+        heavy_mode: str = "auto",
         attributes: list | None = None,
         checkpoint_interval: int = 0,
         checkpoint_path=None,
@@ -87,20 +88,24 @@ class ChunkedExecutor:
         self.atom_indices = atom_indices
         self.structure_indices = structure_indices
         self.heavy_mode = heavy_mode
-        self.attributes = attributes if attributes is not None else ['coordinates']
+        self.attributes = attributes if attributes is not None else ["coordinates"]
         self.checkpoint_interval = checkpoint_interval
         self.checkpoint_path = checkpoint_path
         self.restore_from = restore_from
         self.output_path = output_path
 
         import molsysmt.configure as config
+
         self.chunk_size = chunk_size if chunk_size is not None else config.chunk_size
 
         # Normalize reducer(s) to an internal list
         if reducer is not None and reducers is not None:
-            raise ArgumentConflictError(arg1='reducer', arg2='reducers',
-                                         reason='Specify either reducer or reducers, not both.',
-                                         caller='molsysmt._private.execution.ChunkedExecutor.__init__')
+            raise ArgumentConflictError(
+                arg1="reducer",
+                arg2="reducers",
+                reason="Specify either reducer or reducers, not both.",
+                caller="molsysmt._private.execution.ChunkedExecutor.__init__",
+            )
         if reducer is not None:
             self._reducers = [reducer]
             self._single = True
@@ -108,9 +113,11 @@ class ChunkedExecutor:
             self._reducers = list(reducers)
             self._single = False
         else:
-            raise ArgumentError(argument='reducer / reducers',
-                                 caller='molsysmt._private.execution.ChunkedExecutor.__init__',
-                                 message="Must provide 'reducer' or 'reducers'.")
+            raise ArgumentError(
+                argument="reducer / reducers",
+                caller="molsysmt._private.execution.ChunkedExecutor.__init__",
+                message="Must provide 'reducer' or 'reducers'.",
+            )
 
         # Backward-compat alias for callers that access .reducer directly
         self.reducer = self._reducers[0] if self._single else None
@@ -129,9 +136,10 @@ class ChunkedExecutor:
         Chooses eager or heavy path based on footprint and heavy_mode.
         Raises UnsupportedHeavyOperationError if heavy path is needed but unavailable.
         """
-        from .memory_policy import estimate_footprint, decide_mode
-        from molsysmt._private.smonitor import info, UnsupportedHeavyOperationError
+        from molsysmt._private.smonitor import UnsupportedHeavyOperationError, info
         from molsysmt.form import _dict_modules
+
+        from .memory_policy import decide_mode, estimate_footprint
 
         n_atoms, n_structures = self._get_dimensions()
         footprint = estimate_footprint(n_atoms, n_structures)
@@ -139,10 +147,10 @@ class ChunkedExecutor:
 
         import molsysmt.configure as config
 
-        if mode == 'heavy':
+        if mode == "heavy":
             # Validate that the form supports heavy mode for all requested attributes
             form_module = _dict_modules.get(self.form)
-            heavy_support = getattr(form_module, '_heavy_support', {})
+            heavy_support = getattr(form_module, "_heavy_support", {})
             for attr in self.attributes:
                 if not heavy_support.get(attr, False):
                     raise UnsupportedHeavyOperationError(
@@ -152,8 +160,13 @@ class ChunkedExecutor:
                     )
 
             # --- Footprint-Aware Heuristic chunk size optimization ---
-            n_structures_selected = len(self.structure_indices) if self.structure_indices is not None else n_structures
+            n_structures_selected = (
+                len(self.structure_indices)
+                if self.structure_indices is not None
+                else n_structures
+            )
             from .memory_policy import optimize_chunk_size
+
             advisory_chunk_size = self.chunk_size
             self.chunk_size = optimize_chunk_size(
                 n_atoms=n_atoms,
@@ -163,20 +176,26 @@ class ChunkedExecutor:
                 chunk_memory_fraction=config.chunk_memory_fraction,
             )
 
-            info("HeavyPathSelected", extra={
-                "operation": self.operation,
-                "form": self.form,
-                "footprint_bytes": footprint,
-                "max_ram_usage": config.max_ram_usage,
-                "advisory_chunk_size": advisory_chunk_size,
-                "optimized_chunk_size": self.chunk_size,
-            })
+            info(
+                "HeavyPathSelected",
+                extra={
+                    "operation": self.operation,
+                    "form": self.form,
+                    "footprint_bytes": footprint,
+                    "max_ram_usage": config.max_ram_usage,
+                    "advisory_chunk_size": advisory_chunk_size,
+                    "optimized_chunk_size": self.chunk_size,
+                },
+            )
             return self._execute_heavy(n_atoms, n_structures)
         else:
-            info("EagerPathAccepted", extra={
-                "operation": self.operation,
-                "footprint_bytes": footprint,
-            })
+            info(
+                "EagerPathAccepted",
+                extra={
+                    "operation": self.operation,
+                    "footprint_bytes": footprint,
+                },
+            )
             return self._execute_eager(n_atoms, n_structures)
 
     # ------------------------------------------------------------------
@@ -186,8 +205,9 @@ class ChunkedExecutor:
     def _get_dimensions(self):
         """Return (n_atoms, n_structures) from the molecular system."""
         from molsysmt.basic import get
-        n_atoms = get(self.molecular_system, element='system', n_atoms=True)
-        n_structures = get(self.molecular_system, element='system', n_structures=True)
+
+        n_atoms = get(self.molecular_system, element="system", n_atoms=True)
+        n_structures = get(self.molecular_system, element="system", n_structures=True)
         return int(n_atoms), int(n_structures)
 
     def _get_form_iterator(self, structure_indices, chunk_size):
@@ -198,6 +218,7 @@ class ChunkedExecutor:
         and uses the form's StructuresIterator with already-resolved atom_indices.
         """
         from molsysmt.form import _dict_modules
+
         form_module = _dict_modules[self.form]
         attr_kwargs = {attr: True for attr in self.attributes}
         return form_module.StructuresIterator(
@@ -205,22 +226,25 @@ class ChunkedExecutor:
             atom_indices=self.atom_indices,
             structure_indices=structure_indices,
             chunk=chunk_size,
-            output_type='dictionary',
+            output_type="dictionary",
             skip_digestion=True,
             **attr_kwargs,
         )
 
     def _execute_heavy(self, n_atoms, n_structures):
         """Run the chunked processing loop using the form's StructuresIterator."""
+
+        import molsysmt.configure as config
+        from molsysmt._private.smonitor import (
+            MemoryPressureWarning,
+            SlowChunkIOWarning,
+            info,
+        )
+
         from .memory_policy import check_disk_budget
         from .persistent_result import PersistentResultHandle
-        from molsysmt._private.smonitor import (
-            SlowChunkIOWarning, MemoryPressureWarning, info,
-        )
-        import warnings
-        import molsysmt.configure as config
 
-        _EMA_ALPHA = 0.3   # exponential moving-average weight for ETA
+        _EMA_ALPHA = 0.3  # exponential moving-average weight for ETA
 
         n_chunks = max(1, int(np.ceil(n_structures / self.chunk_size)))
 
@@ -228,9 +252,9 @@ class ChunkedExecutor:
         start_chunk = 0
         if self.restore_from is not None:
             ckpt = self._load_checkpoint(self.restore_from)
-            start_chunk = ckpt['chunk_index'] + 1
+            start_chunk = ckpt["chunk_index"] + 1
             for i, reducer in enumerate(self._reducers):
-                reducer.restore(ckpt['reducer_states'][i])
+                reducer.restore(ckpt["reducer_states"][i])
 
         # Adjust structure_indices to skip already-processed frames
         structure_indices = self.structure_indices
@@ -240,7 +264,9 @@ class ChunkedExecutor:
                 structure_indices = list(range(frames_to_skip, n_structures))
             else:
                 structure_indices = list(structure_indices)[frames_to_skip:]
-            n_chunks_active = max(1, int(np.ceil(len(structure_indices) / self.chunk_size)))
+            n_chunks_active = max(
+                1, int(np.ceil(len(structure_indices) / self.chunk_size))
+            )
         else:
             n_chunks_active = n_chunks
 
@@ -252,14 +278,14 @@ class ChunkedExecutor:
 
         # --- Build shared base metadata ---
         base_metadata = {
-            'n_atoms': n_atoms,
-            'n_structures': n_structures_selected,
-            'n_structures_total': n_structures,
-            'n_chunks': n_chunks_active,
-            'operation': self.operation,
-            'form': self.form,
-            'atom_indices': self.atom_indices,
-            'structure_indices': structure_indices,
+            "n_atoms": n_atoms,
+            "n_structures": n_structures_selected,
+            "n_structures_total": n_structures,
+            "n_chunks": n_chunks_active,
+            "operation": self.operation,
+            "form": self.form,
+            "atom_indices": self.atom_indices,
+            "structure_indices": structure_indices,
         }
 
         # --- Initialize reducers; create PersistentResultHandle when requested ---
@@ -272,7 +298,7 @@ class ChunkedExecutor:
                 check_disk_budget(nbytes)
                 handle = PersistentResultHandle(shape, path=self.output_path)
                 handles.append(handle)
-                meta['output_handle'] = handle
+                meta["output_handle"] = handle
             else:
                 handles.append(None)
             if start_chunk == 0:
@@ -281,7 +307,7 @@ class ChunkedExecutor:
             # else: state already restored by reducer.restore(); skip initialize
 
         chunk_index = start_chunk
-        t_ema = None   # exponential moving average of per-chunk elapsed time
+        t_ema = None  # exponential moving average of per-chunk elapsed time
         memory_pressure_active = False
 
         with self._get_form_iterator(structure_indices, self.chunk_size) as it:
@@ -297,10 +323,12 @@ class ChunkedExecutor:
                 if config.emit_heavy_telemetry:
                     # Slow I/O warning
                     if elapsed > 5.0:
-                        warn(SlowChunkIOWarning(
-                            chunk_index=chunk_index,
-                            io_time_s=elapsed,
-                        ))
+                        warn(
+                            SlowChunkIOWarning(
+                                chunk_index=chunk_index,
+                                io_time_s=elapsed,
+                            )
+                        )
 
                     # Adaptive ETA via exponential moving average
                     if t_ema is None:
@@ -312,26 +340,35 @@ class ChunkedExecutor:
                     eta_s = t_ema * chunks_remaining
 
                     # Progress telemetry (MSM-INFO-HVY-003)
-                    info("ChunkProcessed", extra={
-                        "operation": self.operation,
-                        "chunk_index": chunk_index,
-                        "n_chunks": n_chunks,
-                        "elapsed_s": round(elapsed, 4),
-                        "eta_s": round(eta_s, 1),
-                    })
+                    info(
+                        "ChunkProcessed",
+                        extra={
+                            "operation": self.operation,
+                            "chunk_index": chunk_index,
+                            "n_chunks": n_chunks,
+                            "elapsed_s": round(elapsed, 4),
+                            "eta_s": round(eta_s, 1),
+                        },
+                    )
 
                     # Memory pressure telemetry (MSM-WARN-HVY-003)
                     try:
                         import psutil as _psutil
+
                         rss = _psutil.Process().memory_info().rss
                         pressure = rss / config.max_ram_usage
-                        if pressure > config.memory_pressure_threshold and not memory_pressure_active:
-                            warn(MemoryPressureWarning(
-                                chunk_index=chunk_index,
-                                rss_bytes=rss,
-                                budget_bytes=config.max_ram_usage,
-                                pressure_pct=round(pressure * 100, 1),
-                            ))
+                        if (
+                            pressure > config.memory_pressure_threshold
+                            and not memory_pressure_active
+                        ):
+                            warn(
+                                MemoryPressureWarning(
+                                    chunk_index=chunk_index,
+                                    rss_bytes=rss,
+                                    budget_bytes=config.max_ram_usage,
+                                    pressure_pct=round(pressure * 100, 1),
+                                )
+                            )
                             memory_pressure_active = True
                         elif pressure <= config.memory_pressure_threshold:
                             memory_pressure_active = False
@@ -339,9 +376,11 @@ class ChunkedExecutor:
                         pass  # psutil not installed; skip RSS check
 
                 # Checkpoint (after successful consume)
-                if (self.checkpoint_interval > 0
-                        and self.checkpoint_path is not None
-                        and (chunk_index + 1) % self.checkpoint_interval == 0):
+                if (
+                    self.checkpoint_interval > 0
+                    and self.checkpoint_path is not None
+                    and (chunk_index + 1) % self.checkpoint_interval == 0
+                ):
                     self._save_checkpoint(chunk_index)
 
                 chunk_index += 1
@@ -355,10 +394,10 @@ class ChunkedExecutor:
         Used when heavy_mode='off' or footprint is within RAM budget.
         """
         meta = {
-            'n_atoms': n_atoms,
-            'n_structures': n_structures,
-            'n_chunks': 1,
-            'operation': self.operation,
+            "n_atoms": n_atoms,
+            "n_structures": n_structures,
+            "n_chunks": 1,
+            "operation": self.operation,
         }
         for reducer in self._reducers:
             reducer.initialize(dict(meta))
@@ -378,19 +417,20 @@ class ChunkedExecutor:
         from pathlib import Path
 
         states = [reducer.checkpoint() for reducer in self._reducers]
-        ckpt = {'chunk_index': chunk_index, 'reducer_states': states}
+        ckpt = {"chunk_index": chunk_index, "reducer_states": states}
 
         path = Path(self.checkpoint_path)
         if path.is_dir():
-            path = path / f'checkpoint_{self.operation}_{chunk_index:06d}.pkl'
-        with open(path, 'wb') as f:
+            path = path / f"checkpoint_{self.operation}_{chunk_index:06d}.pkl"
+        with open(path, "wb") as f:
             pickle.dump(ckpt, f)
 
     @staticmethod
     def _load_checkpoint(path) -> dict:
         """Load a checkpoint file produced by _save_checkpoint."""
         import pickle
-        with open(path, 'rb') as f:
+
+        with open(path, "rb") as f:
             return pickle.load(f)
 
     @staticmethod
@@ -409,16 +449,18 @@ class ChunkedExecutor:
             val = puw.get_value(q)
             return np.asarray(val, dtype=np.float64)
 
-        coords = _to_float64(raw_chunk.get('coordinates'))
-        box = _to_float64(raw_chunk.get('box'))
-        time_ = _to_float64(raw_chunk.get('time'))
-        structure_id = raw_chunk.get('structure_id')
+        coords = _to_float64(raw_chunk.get("coordinates"))
+        box = _to_float64(raw_chunk.get("box"))
+        time_ = _to_float64(raw_chunk.get("time"))
+        structure_id = raw_chunk.get("structure_id")
 
         chunk = {
-            'coordinates': coords,
-            'box': box,
-            'time': time_,
-            'structure_indices': np.asarray(structure_id) if structure_id is not None else None,
+            "coordinates": coords,
+            "box": box,
+            "time": time_,
+            "structure_indices": np.asarray(structure_id)
+            if structure_id is not None
+            else None,
         }
         # Make arrays read-only
         for arr in chunk.values():

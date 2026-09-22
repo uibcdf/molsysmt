@@ -1,5 +1,5 @@
 from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
+
 
 def digest_sequence(sequence, caller=None):
 
@@ -12,4 +12,4 @@ def digest_sequence(sequence, caller=None):
     if isinstance(sequence, dict):
         return sequence
 
-    raise ArgumentError('sequence', value=sequence, caller=caller, message=None)
+    raise ArgumentError("sequence", value=sequence, caller=caller, message=None)

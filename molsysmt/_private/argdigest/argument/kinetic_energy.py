@@ -1,34 +1,36 @@
-from molsysmt._private.smonitor import ArgumentError
-from molsysmt import pyunitwizard as puw
 import numpy as np
 
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_kinetic_energy(kinetic_energy, caller=None):
-    """ Checks if kinetic_energy arguments has the correct type.
+    """Checks if kinetic_energy arguments has the correct type.
 
-        Parameters
-        ---------
-        kinetic_energy: None, integer, list, tuple or ndarray
-            The kinetic_energy argument.
+    Parameters
+    ---------
+    kinetic_energy: None, integer, list, tuple or ndarray
+        The kinetic_energy argument.
 
-        caller: str, optional
-            Name of the function or method that is being digested.
+    caller: str, optional
+        Name of the function or method that is being digested.
 
-        Returns
-        -------
-        ndarray
-            The kinetic_energy with correct type
+    Returns
+    -------
+    ndarray
+        The kinetic_energy with correct type
 
-        Raises
-        -------
-        WrongStepError
-            If kinetic_energy is not a valid argument.
+    Raises
+    -------
+    WrongStepError
+        If kinetic_energy is not a valid argument.
 
     """
 
@@ -41,10 +43,14 @@ def digest_kinetic_energy(kinetic_energy, caller=None):
 
     value, unit = puw.get_value_and_unit(kinetic_energy)
 
-    if not puw.check(unit, dimensionality={'[L]': 2, '[M]': 1, '[T]': -2, '[mol]': -1}):
-        raise ArgumentError('kinetic_energy', value=kinetic_energy, caller=caller, message=None)
+    if not puw.check(unit, dimensionality={"[L]": 2, "[M]": 1, "[T]": -2, "[mol]": -1}):
+        raise ArgumentError(
+            "kinetic_energy", value=kinetic_energy, caller=caller, message=None
+        )
 
     if isinstance(value, (int, np.int64, float, np.float64)):
         return puw.standardize(puw.quantity(value, unit))
 
-    raise ArgumentError('kinetic_energy', value=kinetic_energy, caller=caller, message=None)
+    raise ArgumentError(
+        "kinetic_energy", value=kinetic_energy, caller=caller, message=None
+    )

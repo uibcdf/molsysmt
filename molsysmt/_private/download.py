@@ -11,7 +11,16 @@ from smonitor.integrations import context_extra
 from molsysmt._private.smonitor import DownloadWarning, warn
 
 
-def download_with_retries(url, output_filename, resource, provider, caller, retries=5, timeout=30, backoff_base=2.0):
+def download_with_retries(
+    url,
+    output_filename,
+    resource,
+    provider,
+    caller,
+    retries=5,
+    timeout=30,
+    backoff_base=2.0,
+):
     """Downloading a remote resource with retry-aware diagnostics."""
 
     headers = {"User-Agent": "MolSysMT/1.0 (+https://uibcdf.org) Python-urllib"}
@@ -20,7 +29,10 @@ def download_with_retries(url, output_filename, resource, provider, caller, retr
     for attempt in range(retries):
         try:
             req = Request(url, headers=headers)
-            with urlopen(req, timeout=timeout) as resp, open(output_filename, "wb") as fh:
+            with (
+                urlopen(req, timeout=timeout) as resp,
+                open(output_filename, "wb") as fh,
+            ):
                 while True:
                     chunk = resp.read(1024 * 64)
                     if not chunk:
@@ -32,7 +44,7 @@ def download_with_retries(url, output_filename, resource, provider, caller, retr
             last_err = err
             if err.code == 429 or (500 <= err.code < 600):
                 _cleanup_partial(output_filename)
-                wait = (backoff_base ** attempt) + random.uniform(0, 0.5)
+                wait = (backoff_base**attempt) + random.uniform(0, 0.5)
                 _emit_retry_warning(
                     caller=caller,
                     resource=resource,
@@ -47,12 +59,14 @@ def download_with_retries(url, output_filename, resource, provider, caller, retr
                 continue
 
             _cleanup_partial(output_filename)
-            raise RuntimeError(f"Failed to download {resource} (HTTP {err.code}). URL: {url}") from err
+            raise RuntimeError(
+                f"Failed to download {resource} (HTTP {err.code}). URL: {url}"
+            ) from err
 
         except URLError as err:
             last_err = err
             _cleanup_partial(output_filename)
-            wait = (backoff_base ** attempt) + random.uniform(0, 0.5)
+            wait = (backoff_base**attempt) + random.uniform(0, 0.5)
             reason = str(getattr(err, "reason", err))
             _emit_retry_warning(
                 caller=caller,
@@ -69,14 +83,18 @@ def download_with_retries(url, output_filename, resource, provider, caller, retr
 
         except Exception as err:
             _cleanup_partial(output_filename)
-            raise RuntimeError(f"Unexpected error while downloading {resource}: {err}") from err
+            raise RuntimeError(
+                f"Unexpected error while downloading {resource}: {err}"
+            ) from err
 
     raise RuntimeError(
         f"Could not download {resource} after {retries} attempts. Last error: {last_err}"
     )
 
 
-def _emit_retry_warning(*, caller, resource, provider, attempt, retries, reason, url, wait):
+def _emit_retry_warning(
+    *, caller, resource, provider, attempt, retries, reason, url, wait
+):
     warn(
         f"Download of {resource} failed ({reason}). Retrying in {wait:.1f}s…",
         DownloadWarning,

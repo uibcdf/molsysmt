@@ -1,8 +1,13 @@
 from molsysmt._private.smonitor import ArgumentError
 
 _cation_values = [
-    'Cs+', 'K+', 'Li+', 'Na+', 'Rb+',
+    "Cs+",
+    "K+",
+    "Li+",
+    "Na+",
+    "Rb+",
 ]
+
 
 def digest_cation(cation, caller=None):
 
@@ -10,5 +15,4 @@ def digest_cation(cation, caller=None):
         if cation in _cation_values:
             return cation
 
-    raise ArgumentError('cation', value=cation, caller=caller, message=None)
-
+    raise ArgumentError("cation", value=cation, caller=caller, message=None)

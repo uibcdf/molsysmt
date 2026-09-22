@@ -219,7 +219,6 @@ def quaternion_to_rotation_matrix(q, backend=None):
 
 def rodrigues_rotation(vector, unit_vector, angle, backend=None):
     """Returns the rotated vector (never mutates the caller's array)."""
-    import numpy as np
 
     return _rust.rodrigues_rotation(vector, unit_vector, angle)
 

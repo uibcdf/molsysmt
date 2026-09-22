@@ -10,14 +10,15 @@ caller.
 """
 
 from argdigest import AliasTable
+
 from molsysmt.attribute import get_argument_aliases
 
-_ELEMENT_ALIASES = get_argument_aliases()['element_attribute_aliases']
+_ELEMENT_ALIASES = get_argument_aliases()["element_attribute_aliases"]
 
 TABLES = [
     AliasTable(
-        applies_to='molsysmt.basic.get.get',
-        when={'element': element},
+        applies_to="molsysmt.basic.get.get",
+        when={"element": element},
         aliases=aliases,
     )
     for element, aliases in _ELEMENT_ALIASES.items()

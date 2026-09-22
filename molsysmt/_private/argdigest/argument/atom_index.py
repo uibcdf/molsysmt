@@ -1,13 +1,16 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 import numpy as np
 
+from molsysmt._private.smonitor import ArgumentError
+
+from ...variables import is_all
+
 functions_with_boolean = (
-        'molsysmt.basic.get.get',
-        'molsysmt.basic.compare.compare',
-        'molsysmt.basic.iterator.__init__',
-        'iterators.__init__',
-        )
+    "molsysmt.basic.get.get",
+    "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
+)
+
 
 def digest_atom_index(atom_index, caller=None):
     """Checks if `atom_index` has the expected type and value.
@@ -38,10 +41,12 @@ def digest_atom_index(atom_index, caller=None):
             if isinstance(atom_index, bool):
                 return atom_index
             else:
-                raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
+                raise ArgumentError(
+                    "atom_index", value=atom_index, caller=caller, message=None
+                )
 
     if is_all(atom_index):
-        return 'all'
+        return "all"
 
     if isinstance(atom_index, (int, np.int64)):
         return [atom_index]
@@ -55,4 +60,4 @@ def digest_atom_index(atom_index, caller=None):
     if isinstance(atom_index, np.ndarray):
         return atom_index.tolist()
 
-    raise ArgumentError('atom_index', value=atom_index, caller=caller, message=None)
+    raise ArgumentError("atom_index", value=atom_index, caller=caller, message=None)

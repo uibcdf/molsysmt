@@ -10,7 +10,9 @@ def _integer_links(series):
 
 def _gather_series(source, links, valid, index):
     if len(source) == 0:
-        return pd.Series(pd.array([pd.NA] * len(index), dtype=source.dtype), index=index)
+        return pd.Series(
+            pd.array([pd.NA] * len(index), dtype=source.dtype), index=index
+        )
 
     safe_links = np.clip(links, 0, len(source) - 1)
     output = source.iloc[safe_links].reset_index(drop=True)
@@ -48,11 +50,13 @@ def expand_atom_dataframe(
     """
 
     requested_atom_columns = list(atom_columns)
-    needs_component_index = 'component_index' in requested_atom_columns
-    stable_atom_columns = [column for column in requested_atom_columns if column != 'component_index']
+    needs_component_index = "component_index" in requested_atom_columns
+    stable_atom_columns = [
+        column for column in requested_atom_columns if column != "component_index"
+    ]
     output = topology.atoms[stable_atom_columns].copy()
     if needs_component_index:
-        output['component_index'] = topology._get_component_indices().copy()
+        output["component_index"] = topology._get_component_indices().copy()
         output = output[requested_atom_columns]
     n_atoms = len(topology.atoms)
     required = np.ones(n_atoms, dtype=bool)
@@ -61,7 +65,7 @@ def expand_atom_dataframe(
     group_links = None
     group_valid = None
     if group_columns or molecule_columns or entity_columns:
-        group_links = _integer_links(topology.atoms['group_index'])
+        group_links = _integer_links(topology.atoms["group_index"])
         group_valid = (group_links >= 0) & (group_links < len(topology.groups))
         required &= group_valid
         if group_columns:
@@ -81,9 +85,13 @@ def expand_atom_dataframe(
         if len(topology.groups):
             safe_groups = np.clip(group_links, 0, len(topology.groups) - 1)
             molecule_links[group_valid] = _integer_links(
-                topology.groups['molecule_index'].iloc[safe_groups[group_valid]]
+                topology.groups["molecule_index"].iloc[safe_groups[group_valid]]
             )
-        molecule_valid = group_valid & (molecule_links >= 0) & (molecule_links < len(topology.molecules))
+        molecule_valid = (
+            group_valid
+            & (molecule_links >= 0)
+            & (molecule_links < len(topology.molecules))
+        )
         required &= molecule_valid
         if molecule_columns:
             _add_gathered_columns(
@@ -100,9 +108,13 @@ def expand_atom_dataframe(
         if len(topology.molecules):
             safe_molecules = np.clip(molecule_links, 0, len(topology.molecules) - 1)
             entity_links[molecule_valid] = _integer_links(
-                topology.molecules['entity_index'].iloc[safe_molecules[molecule_valid]]
+                topology.molecules["entity_index"].iloc[safe_molecules[molecule_valid]]
             )
-        entity_valid = molecule_valid & (entity_links >= 0) & (entity_links < len(topology.entities))
+        entity_valid = (
+            molecule_valid
+            & (entity_links >= 0)
+            & (entity_links < len(topology.entities))
+        )
         required &= entity_valid
         _add_gathered_columns(
             output,
@@ -115,7 +127,9 @@ def expand_atom_dataframe(
 
     if component_columns:
         component_links = _integer_links(topology._get_component_indices())
-        component_valid = (component_links >= 0) & (component_links < len(topology.components))
+        component_valid = (component_links >= 0) & (
+            component_links < len(topology.components)
+        )
         required &= component_valid
         _add_gathered_columns(
             output,
@@ -127,7 +141,7 @@ def expand_atom_dataframe(
         )
 
     if chain_columns:
-        chain_links = _integer_links(topology.atoms['chain_index'])
+        chain_links = _integer_links(topology.atoms["chain_index"])
         chain_valid = (chain_links >= 0) & (chain_links < len(topology.chains))
         required &= chain_valid
         _add_gathered_columns(

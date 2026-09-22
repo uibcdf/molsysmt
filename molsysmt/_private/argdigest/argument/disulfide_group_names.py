@@ -1,6 +1,7 @@
-from molsysmt._private.smonitor import ArgumentError
-from ...variables import is_all
 from numpy import ndarray
+
+from molsysmt._private.smonitor import ArgumentError
+
 
 def digest_disulfide_group_names(disulfide_group_names, caller=None):
 
@@ -22,4 +23,9 @@ def digest_disulfide_group_names(disulfide_group_names, caller=None):
     if output:
         return aux_disulfide_group_names
 
-    raise ArgumentError('disulfide_group_names', value=disulfide_group_names, caller=caller, message=None)
+    raise ArgumentError(
+        "disulfide_group_names",
+        value=disulfide_group_names,
+        caller=caller,
+        message=None,
+    )
