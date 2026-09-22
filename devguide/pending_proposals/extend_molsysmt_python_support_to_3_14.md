@@ -37,8 +37,9 @@ candidate and package evidence.
 2. Run the full MolSysMT source suite and scientific evidence on Python 3.14
    with representative optional backends. Keep Python 3.11–3.13 lanes.
 3. Coordinate MolSysViewer's source, CI, noarch metadata, resources, and
-   installed-pair tests on Python 3.14. Its interpreter ceiling is an actual
-   dependency boundary, not a MolSysMT-only metadata edit.
+   installed-pair tests on Python 3.14 under `uibcdf/molsysviewer#93`.
+   Its interpreter ceiling is an actual dependency boundary, not a
+   MolSysMT-only metadata edit.
 4. Update MolSysMT classifiers, `requires-python`, the ABI3 Conda runtime
    bound, CI matrices, controlled sibling revisions, package validators,
    documentation, and release notes together. Keep Ruff's target at Python
@@ -124,8 +125,9 @@ CI and clean-install release gates.
 
 ## Dependencies and risks
 
-MolSysViewer's interpreter contract and the coordinated Conda release
-under `uibcdf/molsysviewer#82` and `uibcdf/molsysmt#195` determine
+MolSysViewer's interpreter contract is tracked in
+`uibcdf/molsysviewer#93`; the coordinated Conda release under
+`uibcdf/molsysviewer#82` and `uibcdf/molsysmt#195` determines
 the publication order. Updating a source matrix before the package
 channels are ready is useful feasibility evidence but not admission.
 The current Conda package cycle requires an exact staged-pair test.
