@@ -70,3 +70,9 @@ jobs:
           ruff format --check molsysmt/form/string_alphafold_id
           ruff check molsysmt/form/mmcif_PdbxContainers_DataContainer
           ruff format --check molsysmt/form/mmcif_PdbxContainers_DataContainer
+          ruff check molsysmt/form/pdbfixer_PDBFixer
+          ruff format --check molsysmt/form/pdbfixer_PDBFixer
+          ruff check molsysmt/form/nglview_NGLWidget
+          ruff format --check molsysmt/form/nglview_NGLWidget
+          ruff check molsysmt/form/file_h5msm
+          ruff format --check molsysmt/form/file_h5msm

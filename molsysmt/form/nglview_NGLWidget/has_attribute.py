@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='nglview.NGLWidget')
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+
+@arg_digest(form="nglview.NGLWidget")
+def has_attribute(
+    molecular_system, attribute, include_none=False, skip_digestion=False
+):
     """
     Checking if form nglview.NGLWidget supports a specific attribute.
 
@@ -30,12 +33,12 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
 
     attribute_info = all_attributes[attribute]
 
-    if attribute_info['topological']:
+    if attribute_info["topological"]:
         from ._topology_sidecar import get_topology_sidecar
 
         topology = get_topology_sidecar(molecular_system)
         if topology is None:
-            if attribute in {'bond_id', 'bond_order', 'bond_type'}:
+            if attribute in {"bond_id", "bond_order", "bond_type"}:
                 return False
             try:
                 from .to_molsysmt_Topology import to_molsysmt_Topology
@@ -58,7 +61,7 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
             skip_digestion=True,
         )
 
-    if attribute_info['structural']:
+    if attribute_info["structural"]:
         try:
             from .to_molsysmt_Structures import to_molsysmt_Structures
 

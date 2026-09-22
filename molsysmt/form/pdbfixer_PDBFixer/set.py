@@ -1,9 +1,9 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='pdbfixer.PDBFixer')
-def set_group_name_to_group(item, indices='all', value=None, skip_digestion=False):
 
+@arg_digest(form="pdbfixer.PDBFixer")
+def set_group_name_to_group(item, indices="all", value=None, skip_digestion=False):
     """
     Setting group name to group on form pdbfixer.PDBFixer.
 
@@ -22,4 +22,3 @@ def set_group_name_to_group(item, indices='all', value=None, skip_digestion=Fals
     .. versionadded:: 1.0.0
     """
     raise NotImplementedMethodError()
-

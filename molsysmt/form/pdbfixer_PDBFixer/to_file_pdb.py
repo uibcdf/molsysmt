@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='pdbfixer.PDBFixer')
-def to_file_pdb(item, atom_indices='all', output_filename=None, skip_digestion=False):
+
+@arg_digest(form="pdbfixer.PDBFixer")
+def to_file_pdb(item, atom_indices="all", output_filename=None, skip_digestion=False):
     """
     Converting from pdbfixer.PDBFixer to file:pdb.
 
@@ -26,15 +27,24 @@ def to_file_pdb(item, atom_indices='all', output_filename=None, skip_digestion=F
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt.form.openmm_Topology.to_file_pdb import (
+        to_file_pdb as openmm_Topology_to_file_pdb,
+    )
     from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
-    from . import get_coordinates_from_atom, get_box_from_atom
-    from molsysmt.form.openmm_Topology.to_file_pdb import to_file_pdb as openmm_Topology_to_file_pdb
+
+    from . import get_box_from_atom, get_coordinates_from_atom
 
     tmp_item = to_openmm_Topology(item, atom_indices=atom_indices, skip_digestion=True)
-    coordinates = get_coordinates_from_atom(tmp_item, atom_indices=atom_indices, skip_digestion=True)
+    coordinates = get_coordinates_from_atom(
+        tmp_item, atom_indices=atom_indices, skip_digestion=True
+    )
     box = get_box_from_atom(tmp_item, skip_digestion=True)
-    tmp_item = openmm_Topology_to_file_pdb(tmp_item, coordinates=coordinates, box=box,
-                                           output_filename=output_filename, skip_digestion=True)
+    tmp_item = openmm_Topology_to_file_pdb(
+        tmp_item,
+        coordinates=coordinates,
+        box=box,
+        output_filename=output_filename,
+        skip_digestion=True,
+    )
 
     return tmp_item
-

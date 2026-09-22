@@ -77,6 +77,9 @@ def test_core_critical_ruff_rules():
         "form/openmm_Simulation",
         "form/string_alphafold_id",
         "form/mmcif_PdbxContainers_DataContainer",
+        "form/pdbfixer_PDBFixer",
+        "form/nglview_NGLWidget",
+        "form/file_h5msm",
     ],
 )
 def test_migrated_package_ruff_gate(package):

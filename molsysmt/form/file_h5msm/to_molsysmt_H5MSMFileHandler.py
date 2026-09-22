@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:h5msm')
+
+@arg_digest(form="file:h5msm")
 def to_molsysmt_H5MSMFileHandler(item, skip_digestion=False):
     """
     Converting from file:h5msm to molsysmt.H5MSMFileHandler.
@@ -24,4 +25,4 @@ def to_molsysmt_H5MSMFileHandler(item, skip_digestion=False):
 
     from molsysmt.native import H5MSMFileHandler
 
-    return H5MSMFileHandler(item, io_mode='r')
+    return H5MSMFileHandler(item, io_mode="r")

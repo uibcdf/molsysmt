@@ -2,21 +2,23 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
 import types
 
+import numpy as np
 
-form='nglview.NGLWidget'
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "nglview.NGLWidget"
 
 ## From atom
 
-@arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form nglview.NGLWidget.
 
@@ -44,37 +46,42 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
         n_structures = get_n_structures_from_system(item, skip_digestion=True)
         structure_indices = np.arange(n_structures)
 
-    if hasattr(item, 'component_0') and hasattr(item.component_0, 'coordinates'):
-        
+    if hasattr(item, "component_0") and hasattr(item.component_0, "coordinates"):
         coordinates = []
         for ii in structure_indices:
             if is_all(indices):
                 coordinates.append(item.component_0.coordinates[ii])
             else:
-                coordinates.append(item.component_0.coordinates[ii][indices,:])
+                coordinates.append(item.component_0.coordinates[ii][indices, :])
         coordinates = np.array(coordinates)
-        coordinates = puw.quantity(coordinates, unit='angstroms')
+        coordinates = puw.quantity(coordinates, unit="angstroms")
         coordinates = puw.standardize(coordinates)
 
-    elif hasattr(item, 'component_0') and hasattr(item.component_0, 'get_coordinates'):
-
+    elif hasattr(item, "component_0") and hasattr(item.component_0, "get_coordinates"):
         coordinates = []
         for ii in structure_indices:
             if is_all(indices):
                 coordinates.append(item.component_0.get_coordinates(ii))
             else:
-                coordinates.append(item.component_0.get_coordinates(ii)[indices,:])
+                coordinates.append(item.component_0.get_coordinates(ii)[indices, :])
         coordinates = np.array(coordinates)
-        coordinates = puw.quantity(coordinates, unit='angstroms')
+        coordinates = puw.quantity(coordinates, unit="angstroms")
         coordinates = puw.standardize(coordinates)
 
     else:
+        from molsysmt.form.molsysmt_Structures import (
+            get_coordinates_from_atom as aux_get,
+        )
 
         from .to_molsysmt_Structures import to_molsysmt_Structures
-        from molsysmt.form.molsysmt_Structures import get_coordinates_from_atom as aux_get
 
         tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
-        coordinates = aux_get(tmp_item, indices=indices, structure_indices=structure_indices, skip_digestion=True)
+        coordinates = aux_get(
+            tmp_item,
+            indices=indices,
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
 
     return coordinates
 
@@ -83,8 +90,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 
 @arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
-
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form nglview.NGLWidget.
 
@@ -113,9 +119,9 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
     return n_structures
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form nglview.NGLWidget.
 
@@ -137,17 +143,18 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from .to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.molsysmt_Structures import get_box_from_system as aux_get
+
+    from .to_molsysmt_Structures import to_molsysmt_Structures
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
 
     return output
 
-@arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form nglview.NGLWidget.
 
@@ -169,17 +176,18 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from .to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.molsysmt_Structures import get_time_from_system as aux_get
+
+    from .to_molsysmt_Structures import to_molsysmt_Structures
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
 
     return output
 
-@arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form nglview.NGLWidget.
 
@@ -201,17 +209,20 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
+    from molsysmt.form.molsysmt_Structures import (
+        get_structure_id_from_system as aux_get,
+    )
+
     from .to_molsysmt_Structures import to_molsysmt_Structures
-    from molsysmt.form.molsysmt_Structures import get_structure_id_from_system as aux_get
 
     tmp_item = to_molsysmt_Structures(item, skip_digestion=True)
     output = aux_get(tmp_item, structure_indices=structure_indices, skip_digestion=True)
 
     return output
 
-@arg_digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_coordinates_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting coordinates from system in form nglview.NGLWidget.
 
@@ -233,9 +244,15 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    return get_coordinates_from_atom(item, indices='all', structure_indices=structure_indices,
-                                     skip_digestion=True)
+    return get_coordinates_from_atom(
+        item, indices="all", structure_indices=structure_indices, skip_digestion=True
+    )
+
 
 # List of functions to be imported
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

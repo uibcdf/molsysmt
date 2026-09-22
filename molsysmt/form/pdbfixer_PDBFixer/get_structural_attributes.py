@@ -2,21 +2,24 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
-import numpy as np
-from molsysmt._private.variables import is_all
 import types
 
-form='pdbfixer.PDBFixer'
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "pdbfixer.PDBFixer"
 
 
 ## From atom
 
-@arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form pdbfixer.PDBFixer.
 
@@ -45,10 +48,10 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
     if not is_all(structure_indices):
-        coordinates = coordinates[structure_indices,:,:]
+        coordinates = coordinates[structure_indices, :, :]
 
     if not is_all(indices):
-        coordinates = coordinates[:,indices,:]
+        coordinates = coordinates[:, indices, :]
 
     coordinates = coordinates * unit
     coordinates = puw.standardize(coordinates)
@@ -60,8 +63,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 
 @arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
-
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form pdbfixer.PDBFixer.
 
@@ -85,9 +87,9 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     """
     return 1
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form pdbfixer.PDBFixer.
 
@@ -109,17 +111,19 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
     from molsysmt.form.openmm_Topology import get_box_from_system as aux_get
+    from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
 
-    tmp_item = to_openmm_Topology(item, structure_indices=structure_indices, skip_digestion=True)
+    tmp_item = to_openmm_Topology(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
     output = aux_get(tmp_item, skip_digestion=True)
 
     return output
 
-@arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form pdbfixer.PDBFixer.
 
@@ -143,9 +147,9 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     """
     return None
 
-@arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form pdbfixer.PDBFixer.
 
@@ -172,4 +176,8 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
 # List of functions to be imported
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

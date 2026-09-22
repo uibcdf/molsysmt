@@ -1,9 +1,11 @@
 from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='pdbfixer.PDBFixer')
-@dep_digest('mdtraj')
-def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="pdbfixer.PDBFixer")
+@dep_digest("mdtraj")
+def to_mdtraj_Trajectory(item, atom_indices="all", skip_digestion=False):
     """
     Converting from pdbfixer.PDBFixer to mdtraj.Trajectory.
 
@@ -30,11 +32,14 @@ def to_mdtraj_Trajectory(item, atom_indices='all', skip_digestion=False):
 
     from molsysmt import pyunitwizard as puw
     from molsysmt.form.mdtraj_Topology.to_mdtraj_Topology import to_mdtraj_Topology
+
     from . import get_coordinates_from_atom
 
     tmp_item = to_mdtraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)
-    coordinates = get_coordinates_from_atom(tmp_item, indices=atom_indices, skip_digestion=True)
-    coordinates = puw.convert(coordinates, to_unit='nanometer', to_form='openmm.unit')
+    coordinates = get_coordinates_from_atom(
+        tmp_item, indices=atom_indices, skip_digestion=True
+    )
+    coordinates = puw.convert(coordinates, to_unit="nanometer", to_form="openmm.unit")
     tmp_item = mdtraj_Trajectory(coordinates, tmp_item, skip_digestion=True)
 
     return tmp_item

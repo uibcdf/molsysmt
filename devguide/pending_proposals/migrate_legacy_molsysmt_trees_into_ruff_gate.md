@@ -237,3 +237,20 @@ explicit Ruff lint and format checks, and migrated-file selection test pass.
 An AST comparison across the 101 changed form Python files found no other
 non-import differences after normalizing the two reviewed AlphaFold
 assignments. The full-core count fell from 7,567 to 5,729 findings.
+
+## Seventh migrated slice: PDBFixer, NGLView, and H5MSM forms
+
+On 2026-09-22, `pdbfixer_PDBFixer`, `nglview_NGLWidget`, and `file_h5msm`
+were migrated. Ruff reported 1,341 findings across these adapters, mostly
+import ordering. The established package initializer order and wildcard
+exports were retained with bounded, line-local exceptions. A duplicated
+getter import in the H5MSM amino-acid converter was reduced to one copy.
+
+The relevant functional suites passed before and after editing, including
+the full `tests/form/file_h5msm` suite. All three packages retain their
+public export names, origin modules, and conversion maps. Their Ruff lint
+and format checks pass; the explicit CI gate and file-selection guard now
+include them. An AST comparison across 69 changed form Python files found
+no non-import differences. The local `181l.h5msm` modification remains
+untouched and outside the migration commits. The full-core count is now
+4,388 findings.

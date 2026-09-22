@@ -9,13 +9,29 @@ class StructuresIterator:
     The file is owned by this iterator and closed in __exit__.
     """
 
-    def __init__(self, molecular_system, atom_indices='all', start=0, step=1, stop=None, chunk=1,
-                 structure_indices=None, output_type='values', skip_digestion=True, **kwargs):
+    def __init__(
+        self,
+        molecular_system,
+        atom_indices="all",
+        start=0,
+        step=1,
+        stop=None,
+        chunk=1,
+        structure_indices=None,
+        output_type="values",
+        skip_digestion=True,
+        **kwargs,
+    ):
+
+        from molsysmt.form.molsysmt_H5MSMFileHandler.iterators import (
+            StructuresIterator as _Inner,
+        )
 
         from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler
-        from molsysmt.form.molsysmt_H5MSMFileHandler.iterators import StructuresIterator as _Inner
 
-        self._handler = to_molsysmt_H5MSMFileHandler(molecular_system, skip_digestion=True)
+        self._handler = to_molsysmt_H5MSMFileHandler(
+            molecular_system, skip_digestion=True
+        )
         self._inner = _Inner(
             self._handler,
             atom_indices=atom_indices,
@@ -45,7 +61,6 @@ class StructuresIterator:
 
 
 class TopologyIterator:
-
     def __init__(self, molecular_system):
         pass
 

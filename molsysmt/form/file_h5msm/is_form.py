@@ -1,6 +1,8 @@
-from pathlib import PosixPath
-import h5py
 import os
+from pathlib import PosixPath
+
+import h5py
+
 
 def is_form(item):
     """
@@ -27,18 +29,13 @@ def is_form(item):
         item = item.absolute().__str__()
 
     if isinstance(item, str):
-        if item.endswith('.h5msm'):
-
+        if item.endswith(".h5msm"):
             if os.path.isfile(item):
-
                 with h5py.File(item, "r") as file:
-                    if 'type' in file.attrs:
-                        output = (file.attrs['type']=='h5msm')
+                    if "type" in file.attrs:
+                        output = file.attrs["type"] == "h5msm"
 
             else:
-
                 output = True
 
     return output
-
-

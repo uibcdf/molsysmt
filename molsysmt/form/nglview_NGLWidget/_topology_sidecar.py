@@ -1,6 +1,5 @@
 """Private helpers for topology snapshots attached to MolSysMT NGL trajectories."""
 
-
 SIDECAR_ATTRIBUTE = "_molsysmt_topology"
 
 

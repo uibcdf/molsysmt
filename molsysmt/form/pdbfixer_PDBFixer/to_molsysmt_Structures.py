@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='pdbfixer.PDBFixer')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="pdbfixer.PDBFixer")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from pdbfixer.PDBFixer to molsysmt.Structures.
 
@@ -27,11 +30,16 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     """
 
     from molsysmt.native.structures import Structures
-    from . import get_coordinates_from_atom, get_box_from_system
+
+    from . import get_box_from_system, get_coordinates_from_atom
 
     tmp_item = Structures()
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                            skip_digestion=True)
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
     box = get_box_from_system(item, skip_digestion=True)
 
     tmp_item.append(coordinates=coordinates, box=box, skip_digestion=True)
