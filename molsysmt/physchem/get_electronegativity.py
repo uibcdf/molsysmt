@@ -1,12 +1,19 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
 import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 
 @arg_digest()
-def get_electronegativity(molecular_system, element='atom', selection='all',
-                          definition='pauling', syntax='MolSysMT', skip_digestion=False):
+def get_electronegativity(
+    molecular_system,
+    element="atom",
+    selection="all",
+    definition="pauling",
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Electronegativity for each selected atom.
 
@@ -56,12 +63,14 @@ def get_electronegativity(molecular_system, element='atom', selection='all',
     from molsysmt.basic import get
     from molsysmt.physchem.atoms.electronegativity import units
 
-    if definition == 'pauling':
+    if definition == "pauling":
         from molsysmt.physchem.atoms.electronegativity import pauling as values
     else:
         raise NotImplementedMethodError()
 
-    atom_types = get(molecular_system, element='atom', selection=selection, atom_type=True)
+    atom_types = get(
+        molecular_system, element="atom", selection=selection, atom_type=True
+    )
 
     output = []
     for ii in atom_types:

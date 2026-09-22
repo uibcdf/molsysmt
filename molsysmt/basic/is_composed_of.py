@@ -1,11 +1,14 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
 from smonitor import signal
 
+from molsysmt._private.argdigest import arg_digest
 
-@signal(tags=['api', 'get'])
+
+@signal(tags=["api", "get"])
 @arg_digest()
-def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs):
+def is_composed_of(
+    molecular_system, selection="all", syntax="MolSysMT", skip_digestion=False, **kwargs
+):
     """
     Checking whether a molecular system is composed exclusively of specific elements.
 
@@ -79,17 +82,38 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
     from . import get
 
     if len(kwargs):
-
         # molecules in kwargs
-        set_molecules = {'n_ions', 'n_waters', 'n_small_molecules', 'n_peptides', 'n_proteins',
-                'n_dnas', 'n_rnas', 'n_lipids', 'n_polysaccharides', 'n_saccharides'}
+        set_molecules = {
+            "n_ions",
+            "n_waters",
+            "n_small_molecules",
+            "n_peptides",
+            "n_proteins",
+            "n_dnas",
+            "n_rnas",
+            "n_lipids",
+            "n_polysaccharides",
+            "n_saccharides",
+        }
 
         if set_molecules & set(kwargs.keys()):
-
-            aux_dictionary = get(molecular_system, element="atom", selection=selection, syntax=syntax,
-                    output_type='dictionary',
-                    n_ions=True, n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True,
-                    n_dnas=True, n_rnas=True, n_lipids=True, n_polysaccharides=True, n_saccharides=True)
+            aux_dictionary = get(
+                molecular_system,
+                element="atom",
+                selection=selection,
+                syntax=syntax,
+                output_type="dictionary",
+                n_ions=True,
+                n_waters=True,
+                n_small_molecules=True,
+                n_peptides=True,
+                n_proteins=True,
+                n_dnas=True,
+                n_rnas=True,
+                n_lipids=True,
+                n_polysaccharides=True,
+                n_saccharides=True,
+            )
 
             for key, value in aux_dictionary.items():
                 if value:
@@ -98,45 +122,68 @@ def is_composed_of(molecular_system, selection='all', syntax='MolSysMT', skip_di
                             if not kwargs[key]:
                                 return False
                         elif isinstance(kwargs[key], (int, np.int64)):
-                            if not kwargs[key]==value:
+                            if not kwargs[key] == value:
                                 return False
                     else:
                         return False
 
         # n_elements in kwargs
 
-        set_n_elements = {'n_atoms', 'n_groups', 'n_components', 'n_molecules', 'n_chains',
-                          'n_entities'}
+        set_n_elements = {
+            "n_atoms",
+            "n_groups",
+            "n_components",
+            "n_molecules",
+            "n_chains",
+            "n_entities",
+        }
 
         if set_n_elements & set(kwargs.keys()):
-
-            aux_dictionary = get(molecular_system, element="atom", selection=selection, syntax=syntax,
-                    output_type='dictionary',
-                    n_atoms=True, n_groups=True, n_components=True, n_molecules=True, n_chains=True,
-                    n_entities=True)
+            aux_dictionary = get(
+                molecular_system,
+                element="atom",
+                selection=selection,
+                syntax=syntax,
+                output_type="dictionary",
+                n_atoms=True,
+                n_groups=True,
+                n_components=True,
+                n_molecules=True,
+                n_chains=True,
+                n_entities=True,
+            )
 
             for key, value in kwargs.items():
                 if key in set_n_elements:
                     if isinstance(value, bool):
                         if value:
-                            if aux_dictionary[key]==0:
+                            if aux_dictionary[key] == 0:
                                 return False
                         else:
-                            if aux_dictionary[key]>0:
+                            if aux_dictionary[key] > 0:
                                 return False
                     elif isinstance(value, (int, np.int64)):
-                        if value!=aux_dictionary[key]:
+                        if value != aux_dictionary[key]:
                             return False
 
     else:
+        n_atoms_selection = get(
+            molecular_system,
+            element="atom",
+            selection=selection,
+            syntax=syntax,
+            n_atoms=True,
+        )
 
-        n_atoms_selection = get(molecular_system, element='atom', selection=selection,
-                syntax=syntax, n_atoms=True)
+        n_atoms = get(
+            molecular_system,
+            element="atom",
+            selection=selection,
+            syntax=syntax,
+            n_atoms=True,
+        )
 
-        n_atoms = get(molecular_system, element='atom', selection=selection,
-                syntax=syntax, n_atoms=True)
-
-        if n_atoms!=n_atoms_selection:
+        if n_atoms != n_atoms_selection:
             return False
 
     return True

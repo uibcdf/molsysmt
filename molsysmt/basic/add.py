@@ -1,13 +1,24 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 import inspect
+
 from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def add(to_molecular_system, from_molecular_system, selection='all', structure_indices='all',
-        keep_ids=True, in_place=True, syntax='MolSysMT', attribute_policy='intersection',
-        skip_digestion=False):
+def add(
+    to_molecular_system,
+    from_molecular_system,
+    selection="all",
+    structure_indices="all",
+    keep_ids=True,
+    in_place=True,
+    syntax="MolSysMT",
+    attribute_policy="intersection",
+    skip_digestion=False,
+):
     """
     Adding elements from one molecular system into another.
 
@@ -109,9 +120,10 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     .. versionadded:: 1.0.0
     """
 
-    from . import get_form, convert, select, copy
     from molsysmt._private.smonitor import ArgumentError
     from molsysmt.form import _dict_modules
+
+    from . import convert, copy, get_form, select
 
     # A list is one molecular system split into complementary items, never a sequence of
     # systems to visit. Assembling it here is what keeps `add` reading a list the same
@@ -119,12 +131,14 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     if isinstance(to_molecular_system, (list, tuple)):
         if in_place:
             raise ArgumentError(
-                'to_molecular_system',
+                "to_molecular_system",
                 value=to_molecular_system,
-                caller='molsysmt.basic.add',
-                message=('A molecular system given as complementary items cannot be '
-                         'grown in place, because the result is a new assembled system. '
-                         'Call add with in_place=False.'),
+                caller="molsysmt.basic.add",
+                message=(
+                    "A molecular system given as complementary items cannot be "
+                    "grown in place, because the result is a new assembled system. "
+                    "Call add with in_place=False."
+                ),
             )
         to_molecular_system = convert(to_molecular_system)
     elif not in_place:
@@ -137,11 +151,18 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     else:
         atom_indices = select(from_molecular_system, selection=selection, syntax=syntax)
 
-    if isinstance(from_molecular_system, (list, tuple)) or get_form(from_molecular_system) != to_form:
-        from_item = convert(from_molecular_system, to_form=to_form, selection=atom_indices,
-                            structure_indices=structure_indices)
-        aux_atom_indices = 'all'
-        aux_structure_indices = 'all'
+    if (
+        isinstance(from_molecular_system, (list, tuple))
+        or get_form(from_molecular_system) != to_form
+    ):
+        from_item = convert(
+            from_molecular_system,
+            to_form=to_form,
+            selection=atom_indices,
+            structure_indices=structure_indices,
+        )
+        aux_atom_indices = "all"
+        aux_structure_indices = "all"
     else:
         from_item = from_molecular_system
         aux_atom_indices = atom_indices
@@ -151,14 +172,14 @@ def add(to_molecular_system, from_molecular_system, selection='all', structure_i
     input_arguments = set(inspect.signature(add_function).parameters)
 
     add_arguments = {}
-    if 'atom_indices' in input_arguments:
-        add_arguments['atom_indices'] = aux_atom_indices
-    if 'structure_indices' in input_arguments:
-        add_arguments['structure_indices'] = aux_structure_indices
-    if 'keep_ids' in input_arguments:
-        add_arguments['keep_ids'] = keep_ids
-    if 'attribute_policy' in input_arguments:
-        add_arguments['attribute_policy'] = attribute_policy
+    if "atom_indices" in input_arguments:
+        add_arguments["atom_indices"] = aux_atom_indices
+    if "structure_indices" in input_arguments:
+        add_arguments["structure_indices"] = aux_structure_indices
+    if "keep_ids" in input_arguments:
+        add_arguments["keep_ids"] = keep_ids
+    if "attribute_policy" in input_arguments:
+        add_arguments["attribute_policy"] = attribute_policy
 
     add_function(to_molecular_system, from_item, **add_arguments)
 

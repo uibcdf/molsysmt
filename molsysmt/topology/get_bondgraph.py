@@ -1,12 +1,19 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError
 from networkx import Graph
 from smonitor import signal
 
-@signal(tags=['api', 'topology'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+
+
+@signal(tags=["api", "topology"])
 @arg_digest()
-def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', syntax='MolSysMT',
-              to_form='networkx.Graph'):
+def get_bondgraph(
+    molecular_system,
+    nodes_name="atom_index",
+    selection="all",
+    syntax="MolSysMT",
+    to_form="networkx.Graph",
+):
     """
     Building a bond graph from a molecular system.
 
@@ -54,7 +61,6 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
     .. versionadded:: 1.0.0
     """
 
-
     # tengo que incluir la forma NetworkX para convertir.
     # en el caso de convert, lo que obtengo es una red con el nombre de los nodos dado por la
     # con el indice de atomo empezando por cero (todavía no lo he decidido)
@@ -66,26 +72,28 @@ def get_bondgraph(molecular_system, nodes_name='atom_index', selection='all', sy
 
     output = None
 
-    if to_form == 'networkx.Graph':
-
+    if to_form == "networkx.Graph":
         G = Graph()
 
-        if nodes_name == 'atom_index':
-
-            atom_indices, bonded_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax,
-                                             atom_index=True, inner_bonded_atom_pairs=True)
+        if nodes_name == "atom_index":
+            atom_indices, bonded_atoms = get(
+                molecular_system,
+                element="atom",
+                selection=selection,
+                syntax=syntax,
+                atom_index=True,
+                inner_bonded_atom_pairs=True,
+            )
 
             G.add_nodes_from(atom_indices)
             G.add_edges_from(bonded_atoms)
 
         else:
-
-            raise NotImplementedMethodError(caller='molsysmt.topology.get_bondgraph')
+            raise NotImplementedMethodError(caller="molsysmt.topology.get_bondgraph")
 
         output = G
 
     else:
-
-        raise NotImplementedMethodError(caller='molsysmt.topology.get_bondgraph')
+        raise NotImplementedMethodError(caller="molsysmt.topology.get_bondgraph")
 
     return output

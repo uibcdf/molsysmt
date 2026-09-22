@@ -1,16 +1,20 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
 from smonitor import signal
 
-@signal(tags=['api', 'get'])
+from molsysmt._private.argdigest import arg_digest
+
+
+@signal(tags=["api", "get"])
 @arg_digest()
-def get_label(molecular_system,
-              element='atom',
-              selection='all',
-              string='{name}-{id}@{index}',
-              syntax='MolSysMT',
-              skip_digestion=False,
-              **kwargs):
+def get_label(
+    molecular_system,
+    element="atom",
+    selection="all",
+    string="{name}-{id}@{index}",
+    syntax="MolSysMT",
+    skip_digestion=False,
+    **kwargs,
+):
     """
     Generating label strings for selected elements of a molecular system.
 
@@ -84,41 +88,47 @@ def get_label(molecular_system,
     .. versionadded:: 1.0.0
     """
 
-    if '{name}' in string:
-        string = string.replace('{name}','{'+element+'_name}')
-    if '{index}' in string:
-        string = string.replace('{index}','{'+element+'_index}')
-    if '{id}' in string:
-        string = string.replace('{id}','{'+element+'_id}')
+    if "{name}" in string:
+        string = string.replace("{name}", "{" + element + "_name}")
+    if "{index}" in string:
+        string = string.replace("{index}", "{" + element + "_index}")
+    if "{id}" in string:
+        string = string.replace("{id}", "{" + element + "_id}")
+
+    from molsysmt.attribute import attributes as _attributes
 
     from . import get
-    from molsysmt.attribute import attributes as _attributes
 
     get_attributes = {}
     for attribute in _attributes.keys():
         if attribute in string:
             get_attributes[attribute] = True
 
-    get_dict = get(molecular_system, element=element, selection=selection, syntax=syntax,
-                       output_type='dictionary', skip_digestion=True, **get_attributes)
+    get_dict = get(
+        molecular_system,
+        element=element,
+        selection=selection,
+        syntax=syntax,
+        output_type="dictionary",
+        skip_digestion=True,
+        **get_attributes,
+    )
 
     n_elements = []
     for value in get_dict.values():
         n_elements.append(len(value))
 
-
     output = []
 
-    if np.all(np.array(n_elements)==n_elements[0]):
-
-        aux_dict = {key:'' for key in get_dict.keys()}
+    if np.all(np.array(n_elements) == n_elements[0]):
+        aux_dict = {key: "" for key in get_dict.keys()}
 
         for ii in range(n_elements[0]):
             for key in get_dict.keys():
-                aux_dict[key]=get_dict[key][ii]
+                aux_dict[key] = get_dict[key][ii]
             output.append(string.format(**aux_dict))
 
-    if len(output)==1:
+    if len(output) == 1:
         return output[0]
     else:
         return output

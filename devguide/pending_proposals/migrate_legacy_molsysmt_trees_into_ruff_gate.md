@@ -321,3 +321,22 @@ changes only import order and formatting, and removing the earlier duplicate
 catalog entry leaves the effective value unchanged. The warning behavior needs
 its own repair before the full test gate can be claimed to pass. The full-core
 Ruff count is now 830 findings, all outside `form` and `_private`.
+
+## Eleventh migrated slice: basic operations and small scientific modules
+
+The `basic`, `hbonds`, `molecular_dynamics`, `molecular_mechanics`, `physchem`,
+and `topology` trees now pass Ruff lint and format checks, covering 99 Python
+files. The 77 one-line conditionals in `basic/info.py` were expanded without
+changing their conditions or assignments. The `basic` selector retains a local
+variable used by its string expression evaluator; a line-level Ruff exception
+documents that dynamic use. The Taichi availability check in `get_sasa` still
+performs the import, now without binding an unused local name. Unused local
+assignments and duplicate imports were removed after reviewing Ruff's diffs.
+
+The `hbonds` and `molecular_mechanics` suites pass, and both molecular-dynamics
+public run functions import successfully. The available `basic`, `topology`,
+and `physchem` suites have failures in tests built from the locally modified
+`181l.h5msm` fixture. A direct check using the committed fixture extracted to
+`/tmp` confirmed 1,441 atoms, `contains(molsys) is True`, and boolean-mask
+selection `[1, 3]`; the local fixture remains untouched. Those suites cannot
+be treated as fully passing on this checkout. The full-core Ruff count is 576.

@@ -1,13 +1,20 @@
-from molsysmt._private.argdigest import arg_digest
 from smonitor import signal
+
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.chemical_state import resolve_chemical_state
 
-@signal(tags=['api', 'get'])
+
+@signal(tags=["api", "get"])
 @arg_digest()
 @resolve_chemical_state
-def has_attribute(molecular_system, attribute, include_none=False,
-                  structure_indices='all', chemical_state='reference',
-                  skip_digestion=False):
+def has_attribute(
+    molecular_system,
+    attribute,
+    include_none=False,
+    structure_indices="all",
+    chemical_state="reference",
+    skip_digestion=False,
+):
     """
     Checking whether a molecular system has a specific attribute.
 
@@ -95,8 +102,10 @@ def has_attribute(molecular_system, attribute, include_none=False,
     output = False
 
     for form_in, item in zip(forms_in, molecular_system):
-        if _dict_modules[form_in].has_attribute(item, attribute, include_none=include_none):
-            output=True
+        if _dict_modules[form_in].has_attribute(
+            item, attribute, include_none=include_none
+        ):
+            output = True
             break
 
     return output

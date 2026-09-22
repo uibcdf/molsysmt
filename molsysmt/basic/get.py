@@ -1,24 +1,27 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all, is_iterable_of_iterables
 import numpy as np
-
 from smonitor import signal
-from molsysmt._private.chemical_state import resolve_chemical_state
 
-@signal(tags=['api', 'get'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.chemical_state import resolve_chemical_state
+from molsysmt._private.variables import is_all, is_iterable_of_iterables
+
+
+@signal(tags=["api", "get"])
 @arg_digest()
 @resolve_chemical_state
-def get(molecular_system,
-        element='system',
-        selection='all',
-        structure_indices='all',
-        mask=None,
-        syntax='MolSysMT',
-        get_missing_bonds=True,
-        output_type='values',
-        chemical_state='reference',
-        skip_digestion=False,
-        **kwargs):
+def get(
+    molecular_system,
+    element="system",
+    selection="all",
+    structure_indices="all",
+    mask=None,
+    syntax="MolSysMT",
+    get_missing_bonds=True,
+    output_type="values",
+    chemical_state="reference",
+    skip_digestion=False,
+    **kwargs,
+):
     """
     Retrieving attribute values from a molecular system.
 
@@ -157,10 +160,12 @@ def get(molecular_system,
     .. versionadded:: 1.0.0
     """
 
-    from .. import select, where_is_attribute, get_form, convert
+    from molsysmt.attribute import (
+        attributes,
+    )
     from molsysmt.form import _dict_modules
-    from molsysmt.attribute import attributes, bonds_are_required_to_get_attribute
-    from molsysmt.attribute import is_topological_attribute, is_structural_attribute
+
+    from .. import get_form, select, where_is_attribute
 
     form = get_form(molecular_system)
 
@@ -169,7 +174,7 @@ def get(molecular_system,
         for aux_form in form[1:]:
             for aux_attribute, aux_bool in _dict_modules[aux_form].attributes.items():
                 if aux_bool:
-                    attributes_filter[aux_attribute]=True
+                    attributes_filter[aux_attribute] = True
     else:
         attributes_filter = _dict_modules[form].attributes
 
@@ -185,26 +190,28 @@ def get(molecular_system,
         form = [form]
 
     if not in_attributes:
-        return {} if output_type == 'dictionary' else []
+        return {} if output_type == "dictionary" else []
 
-    if any(attributes[attribute]['runs_on_structures'] for attribute in in_attributes):
+    if any(attributes[attribute]["runs_on_structures"] for attribute in in_attributes):
         from ._index_validation import validate_structure_indices
 
         structure_indices = validate_structure_indices(
-            molecular_system, structure_indices, 'molsysmt.get'
+            molecular_system, structure_indices, "molsysmt.get"
         )
 
     attribute_groups = _group_attributes_by_element(element, selection, in_attributes)
 
-    if attribute_groups and (len(attribute_groups) > 1 or element not in attribute_groups):
+    if attribute_groups and (
+        len(attribute_groups) > 1 or element not in attribute_groups
+    ):
         output_dictionary = {}
 
         for target_element, target_attributes in attribute_groups.items():
-            if element == 'system' and not is_all(selection):
-                use_requested_selection = target_element == 'atom'
+            if element == "system" and not is_all(selection):
+                use_requested_selection = target_element == "atom"
             else:
                 use_requested_selection = target_element == element
-            target_selection = selection if use_requested_selection else 'all'
+            target_selection = selection if use_requested_selection else "all"
             target_mask = mask if use_requested_selection else None
             output_dictionary.update(
                 get(
@@ -216,53 +223,67 @@ def get(molecular_system,
                     mask=target_mask,
                     syntax=syntax,
                     get_missing_bonds=get_missing_bonds,
-                    output_type='dictionary',
+                    output_type="dictionary",
                     skip_digestion=True,
                     **{attribute: True for attribute in target_attributes},
                 )
             )
 
-        if output_type == 'dictionary':
-            return {attribute: output_dictionary[attribute] for attribute in in_attributes}
+        if output_type == "dictionary":
+            return {
+                attribute: output_dictionary[attribute] for attribute in in_attributes
+            }
 
         output = [output_dictionary[attribute] for attribute in in_attributes]
         return output[0] if len(output) == 1 else output
 
     if not is_all(selection):
-        indices = select(molecular_system, element=element, selection=selection,
-                         chemical_state=chemical_state, mask=mask, syntax=syntax,
-                         skip_digestion=True)
+        indices = select(
+            molecular_system,
+            element=element,
+            selection=selection,
+            chemical_state=chemical_state,
+            mask=mask,
+            syntax=syntax,
+            skip_digestion=True,
+        )
     else:
         if (mask is None) or (is_all(mask)):
-            indices = 'all'
+            indices = "all"
         else:
-            indices = select(molecular_system, element=element, selection=mask,
-                             chemical_state=chemical_state, syntax=syntax,
-                             skip_digestion=True)
+            indices = select(
+                molecular_system,
+                element=element,
+                selection=mask,
+                chemical_state=chemical_state,
+                syntax=syntax,
+                skip_digestion=True,
+            )
 
-    piped_molecular_systems, piped_attributes = _piped_molecular_system(molecular_system, element, in_attributes)
+    piped_molecular_systems, piped_attributes = _piped_molecular_system(
+        molecular_system, element, in_attributes
+    )
 
     if piped_molecular_systems is None:
-
         output = []
 
         for in_attribute in in_attributes:
-
             if attributes_filter[in_attribute]:
-
                 dict_indices = {}
-                if element != 'system':
-                    if attributes[in_attribute]['runs_on_elements']:
-                        dict_indices['indices'] = indices
-                if attributes[in_attribute]['runs_on_structures']:
-                    dict_indices['structure_indices'] = structure_indices
+                if element != "system":
+                    if attributes[in_attribute]["runs_on_elements"]:
+                        dict_indices["indices"] = indices
+                if attributes[in_attribute]["runs_on_structures"]:
+                    dict_indices["structure_indices"] = structure_indices
 
-                aux_item, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
+                aux_item, aux_form = where_is_attribute(
+                    molecular_system, in_attribute, skip_digestion=True
+                )
 
                 if aux_item is None:
                     result = None
                 else:
-                    getter_name = f'get_{in_attribute}_from_{element}'
+                    getter_name = f"get_{in_attribute}_from_{element}"
                     aux_get = getattr(_dict_modules[aux_form], getter_name, None)
                     if aux_get is None:
                         from molsysmt._private.attribute_derivation import (
@@ -275,13 +296,15 @@ def get(molecular_system,
                             aux_item,
                             in_attribute,
                             element,
-                            structure_indices=dict_indices.get('structure_indices', 'all'),
+                            structure_indices=dict_indices.get(
+                                "structure_indices", "all"
+                            ),
                         )
                         if result is NOT_DERIVABLE:
                             from molsysmt._private.smonitor import NotWithThisFormError
 
                             raise NotWithThisFormError(
-                                caller='molsysmt.get',
+                                caller="molsysmt.get",
                                 form=aux_form,
                                 requested_attribute=in_attribute,
                                 message=(
@@ -293,56 +316,62 @@ def get(molecular_system,
                     else:
                         result = aux_get(aux_item, **dict_indices)
 
-                if (result is not None) and in_attribute.endswith('_id'):
+                if (result is not None) and in_attribute.endswith("_id"):
                     result = _coerce_ids_to_string(result)
-                if in_attribute == 'alternate_location' and result is not None:
+                if in_attribute == "alternate_location" and result is not None:
                     result = _coerce_alternate_location_ids(result)
 
             else:
-
                 result = None
 
             output.append(result)
 
     else:
-
         output_dictionary = {}
 
-        for aux_molecular_system, aux_attributes in zip(piped_molecular_systems, piped_attributes):
-
+        for aux_molecular_system, aux_attributes in zip(
+            piped_molecular_systems, piped_attributes
+        ):
             if aux_molecular_system is None:
                 aux_molecular_system = molecular_system
 
-            aux_dict = get(aux_molecular_system, element=element, selection=indices,
-                           structure_indices=structure_indices, chemical_state=chemical_state,
-                           mask=mask, syntax=syntax,
-                           get_missing_bonds=get_missing_bonds, output_type='dictionary', skip_digestion=False,
-                           **{ii:True for ii in aux_attributes})
+            aux_dict = get(
+                aux_molecular_system,
+                element=element,
+                selection=indices,
+                structure_indices=structure_indices,
+                chemical_state=chemical_state,
+                mask=mask,
+                syntax=syntax,
+                get_missing_bonds=get_missing_bonds,
+                output_type="dictionary",
+                skip_digestion=False,
+                **{ii: True for ii in aux_attributes},
+            )
 
             output_dictionary.update(aux_dict)
 
         output = []
 
         for in_attribute in in_attributes:
-
             output.append(output_dictionary[in_attribute])
 
     import pyunitwizard as puw
 
     _CANONICAL_UNITS = {
-        'coordinates': 'nm',
-        'box': 'nm',
-        'box_lengths': 'nm',
-        'box_angles': 'radians',
-        'box_volume': 'nm**3',
-        'velocities': 'nm/ps',
-        'time': 'ps',
-        'time_step': 'ps',
-        'potential_energy': 'kJ/mol',
-        'kinetic_energy': 'kJ/mol',
-        'total_energy': 'kJ/mol',
-        'temperature': 'K',
-        'b_factor': 'nm**2',
+        "coordinates": "nm",
+        "box": "nm",
+        "box_lengths": "nm",
+        "box_angles": "radians",
+        "box_volume": "nm**3",
+        "velocities": "nm/ps",
+        "time": "ps",
+        "time_step": "ps",
+        "potential_energy": "kJ/mol",
+        "kinetic_energy": "kJ/mol",
+        "total_energy": "kJ/mol",
+        "temperature": "K",
+        "b_factor": "nm**2",
     }
 
     def _standardize(value, attribute):
@@ -356,14 +385,15 @@ def get(molecular_system,
             return _coerce_native_scalars(value)
         return value
 
-    if output_type=='values':
+    if output_type == "values":
         if len(output) == 1:
             return _standardize(output[0], in_attributes[0])
         else:
             return [_standardize(val, attr) for val, attr in zip(output, in_attributes)]
-    elif output_type=='dictionary':
+    elif output_type == "dictionary":
         return {ii: _standardize(jj, ii) for ii, jj in zip(in_attributes, output)}
-        
+
+
 # Attributes whose getters assemble Python containers by iterating NumPy arrays, so
 # the scalars inside them arrive as `np.int64` or `np.str_` instead of native types.
 # `devguide/INTERFACES.md`, *Scalar types in returned values*, requires native scalars
@@ -378,14 +408,33 @@ def get(molecular_system,
 # `tests/basic/get/test_native_scalar_delivery.py` sweeps the whole attribute
 # catalogue and fails if an attribute outside this set delivers NumPy scalars, so a
 # new one cannot be forgotten silently.
-_ATTRIBUTES_WITH_NUMPY_SCALARS = frozenset({
-    'bonded_atoms', 'bonded_atom_pairs', 'inner_bonded_atoms', 'inner_bonded_atom_pairs',
-    'chain_index', 'chain_name', 'chain_type',
-    'component_index', 'entity_index', 'group_index', 'molecule_index',
-    'n_amino_acids', 'n_dnas', 'n_ions', 'n_lipids', 'n_nucleotides', 'n_peptides',
-    'n_polysaccharides', 'n_proteins', 'n_rnas', 'n_saccharides', 'n_small_molecules',
-    'n_waters',
-})
+_ATTRIBUTES_WITH_NUMPY_SCALARS = frozenset(
+    {
+        "bonded_atoms",
+        "bonded_atom_pairs",
+        "inner_bonded_atoms",
+        "inner_bonded_atom_pairs",
+        "chain_index",
+        "chain_name",
+        "chain_type",
+        "component_index",
+        "entity_index",
+        "group_index",
+        "molecule_index",
+        "n_amino_acids",
+        "n_dnas",
+        "n_ions",
+        "n_lipids",
+        "n_nucleotides",
+        "n_peptides",
+        "n_polysaccharides",
+        "n_proteins",
+        "n_rnas",
+        "n_saccharides",
+        "n_small_molecules",
+        "n_waters",
+    }
+)
 
 
 def _coerce_native_scalars(value):
@@ -405,7 +454,10 @@ def _coerce_native_scalars(value):
     if isinstance(value, set):
         return {_coerce_native_scalars(item) for item in value}
     if isinstance(value, dict):
-        return {_coerce_native_scalars(k): _coerce_native_scalars(v) for k, v in value.items()}
+        return {
+            _coerce_native_scalars(k): _coerce_native_scalars(v)
+            for k, v in value.items()
+        }
     return value
 
 
@@ -420,6 +472,7 @@ def _coerce_ids_to_string(value):
         else:
             return arr.astype(str).tolist()
 
+
 def _coerce_alternate_location_ids(value):
     """Ensure alternate_location entries carry string atom_id keys/values."""
     output = []
@@ -430,8 +483,8 @@ def _coerce_alternate_location_ids(value):
         new_struct = {}
         for key, entry in structure_dict.items():
             new_entry = dict(entry)
-            if 'atom_id' in new_entry:
-                new_entry['atom_id'] = _coerce_ids_to_string(new_entry['atom_id'])
+            if "atom_id" in new_entry:
+                new_entry["atom_id"] = _coerce_ids_to_string(new_entry["atom_id"])
             new_struct[str(key)] = new_entry
         output.append(new_struct)
     return output
@@ -442,14 +495,14 @@ def _group_attributes_by_element(element, selection, in_attributes):
     from molsysmt.attribute import attributes
 
     output = {}
-    atom_selection_from_system = element == 'system' and not is_all(selection)
+    atom_selection_from_system = element == "system" and not is_all(selection)
 
     for attribute in in_attributes:
-        supported_elements = attributes[attribute]['get_from']
+        supported_elements = attributes[attribute]["get_from"]
         target_element = element
 
-        if atom_selection_from_system and 'atom' in supported_elements:
-            target_element = 'atom'
+        if atom_selection_from_system and "atom" in supported_elements:
+            target_element = "atom"
         elif supported_elements and element not in supported_elements:
             if len(supported_elements) == 1:
                 target_element = supported_elements[0]
@@ -458,14 +511,18 @@ def _group_attributes_by_element(element, selection, in_attributes):
 
     return output
 
+
 def _piped_molecular_system(molecular_system, element, in_attributes):
     """Resolve piped attributes across items for get(); returns tuple (item, attribute list) or (None, None)."""
 
-
-    from .. import select, where_is_attribute, get_form, convert
+    from molsysmt.attribute import (
+        bonds_are_required_to_get_attribute,
+        is_structural_attribute,
+        is_topological_attribute,
+    )
     from molsysmt.form import _dict_modules
-    from molsysmt.attribute import attributes, bonds_are_required_to_get_attribute
-    from molsysmt.attribute import is_topological_attribute, is_structural_attribute
+
+    from .. import convert, get_form, where_is_attribute
 
     topological_pipes = {}
     structural_pipes = {}
@@ -478,20 +535,28 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
         form = [form]
 
     for aux_form in form:
-        topological_pipes[aux_form] = getattr(_dict_modules[aux_form], f'piped_topological_attribute')
-        structural_pipes[aux_form] = getattr(_dict_modules[aux_form], f'piped_structural_attribute')
-        any_pipes[aux_form] = getattr(_dict_modules[aux_form], f'piped_any_attribute')
+        topological_pipes[aux_form] = getattr(
+            _dict_modules[aux_form], "piped_topological_attribute"
+        )
+        structural_pipes[aux_form] = getattr(
+            _dict_modules[aux_form], "piped_structural_attribute"
+        )
+        any_pipes[aux_form] = getattr(_dict_modules[aux_form], "piped_any_attribute")
 
-    not_piped = all([ii is None for ii in topological_pipes.values()]) & \
-                all([ii is None for ii in structural_pipes.values()]) & \
-                all([ii is None for ii in any_pipes.values()])  
+    not_piped = (
+        all([ii is None for ii in topological_pipes.values()])
+        & all([ii is None for ii in structural_pipes.values()])
+        & all([ii is None for ii in any_pipes.values()])
+    )
 
     single_attribute_has_direct_getter = False
     if len(in_attributes) == 1:
         in_attribute = next(iter(in_attributes))
-        _, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
+        _, aux_form = where_is_attribute(
+            molecular_system, in_attribute, skip_digestion=True
+        )
         if aux_form is not None:
-            getter_name = f'get_{in_attribute}_from_{element}'
+            getter_name = f"get_{in_attribute}_from_{element}"
             single_attribute_has_direct_getter = (
                 getattr(_dict_modules[aux_form], getter_name, None) is not None
             )
@@ -505,11 +570,9 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
                 )
 
     if not_piped or single_attribute_has_direct_getter:
-
         return None, None
 
     else:
-
         aux_topological_attributes = []
         aux_topological_pipes = []
         aux_structural_attributes = []
@@ -519,11 +582,14 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
         bonds_required_by_attributes = False
 
         for in_attribute in in_attributes:
-            bonds_required_by_attributes += bonds_are_required_to_get_attribute(in_attribute, element,
-                                                                                skip_digestion=True)
+            bonds_required_by_attributes += bonds_are_required_to_get_attribute(
+                in_attribute, element, skip_digestion=True
+            )
             if is_topological_attribute(in_attribute, skip_digestion=True):
                 aux_topological_attributes.append(in_attribute)
-                _, aux_form = where_is_attribute(molecular_system, in_attribute, skip_digestion=True)
+                _, aux_form = where_is_attribute(
+                    molecular_system, in_attribute, skip_digestion=True
+                )
                 if aux_form is not None:
                     if topological_pipes[aux_form] is not None:
                         if topological_pipes[aux_form] not in aux_topological_pipes:
@@ -552,88 +618,111 @@ def _piped_molecular_system(molecular_system, element, in_attributes):
         output_systems = []
         output_attributes = []
 
-        if n_top_pipes==0 and n_str_pipes==0 and n_any_pipes==0:
-
+        if n_top_pipes == 0 and n_str_pipes == 0 and n_any_pipes == 0:
             output_systems = None
             output_attributes = None
 
-        elif n_top_atts>0 and n_str_atts==0:
-
-            if n_top_pipes==1:
-
-                aux_molecular_system = convert(molecular_system, to_form=aux_topological_pipes[0],
-                                               get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+        elif n_top_atts > 0 and n_str_atts == 0:
+            if n_top_pipes == 1:
+                aux_molecular_system = convert(
+                    molecular_system,
+                    to_form=aux_topological_pipes[0],
+                    get_missing_bonds=bonds_required_by_attributes,
+                    skip_digestion=True,
+                )
 
             else:
-
-                aux_molecular_system = convert(molecular_system, to_form='molsysmt.Topology',
-                                               get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+                aux_molecular_system = convert(
+                    molecular_system,
+                    to_form="molsysmt.Topology",
+                    get_missing_bonds=bonds_required_by_attributes,
+                    skip_digestion=True,
+                )
 
             output_systems.append(aux_molecular_system)
             output_attributes.append(aux_topological_attributes)
 
-        elif n_top_atts==0 and n_str_atts>0:
-
+        elif n_top_atts == 0 and n_str_atts > 0:
             if n_str_pipes == 1:
-
-                aux_molecular_system = convert(molecular_system, to_form=aux_structural_pipes[0],
-                                               skip_digestion=True)
+                aux_molecular_system = convert(
+                    molecular_system,
+                    to_form=aux_structural_pipes[0],
+                    skip_digestion=True,
+                )
 
             else:
-
-                aux_molecular_system = convert(molecular_system, to_form='molsysmt.Structures', skip_digestion=True)
+                aux_molecular_system = convert(
+                    molecular_system, to_form="molsysmt.Structures", skip_digestion=True
+                )
 
             output_systems.append(aux_molecular_system)
             output_attributes.append(aux_structural_attributes)
 
         else:
-
             if n_any_pipes == 1:
-
-                aux_molecular_system = convert(molecular_system, to_form=aux_any_pipes[0],
-                                               get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+                aux_molecular_system = convert(
+                    molecular_system,
+                    to_form=aux_any_pipes[0],
+                    get_missing_bonds=bonds_required_by_attributes,
+                    skip_digestion=True,
+                )
 
                 output_systems.append(aux_molecular_system)
-                output_attributes.append(aux_topological_attributes+aux_structural_attributes)
+                output_attributes.append(
+                    aux_topological_attributes + aux_structural_attributes
+                )
 
             elif n_any_pipes > 1:
-
-                aux_molecular_system = convert(molecular_system, to_form='molsysmt.MolSys',
-                                               get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+                aux_molecular_system = convert(
+                    molecular_system,
+                    to_form="molsysmt.MolSys",
+                    get_missing_bonds=bonds_required_by_attributes,
+                    skip_digestion=True,
+                )
 
                 output_systems.append(aux_molecular_system)
-                output_attributes.append(aux_topological_attributes+aux_structural_attributes)
+                output_attributes.append(
+                    aux_topological_attributes + aux_structural_attributes
+                )
 
             elif n_any_pipes == 0:
-
                 if n_top_pipes == 1:
-
-                    aux_molecular_system = convert(molecular_system, to_form=aux_topological_pipes[0],
-                                                   get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+                    aux_molecular_system = convert(
+                        molecular_system,
+                        to_form=aux_topological_pipes[0],
+                        get_missing_bonds=bonds_required_by_attributes,
+                        skip_digestion=True,
+                    )
 
                 elif n_top_pipes > 1:
-
-                    aux_molecular_system = convert(molecular_system, to_form='molsysmt.Topology',
-                                                   get_missing_bonds=bonds_required_by_attributes, skip_digestion=True)
+                    aux_molecular_system = convert(
+                        molecular_system,
+                        to_form="molsysmt.Topology",
+                        get_missing_bonds=bonds_required_by_attributes,
+                        skip_digestion=True,
+                    )
 
                 else:
-
                     aux_molecular_system = None
 
                 output_systems.append(aux_molecular_system)
                 output_attributes.append(aux_topological_attributes)
 
                 if n_str_pipes == 1:
-
-                    aux_molecular_system = convert(molecular_system, to_form=aux_structural_pipes[0],
-                                                   skip_digestion=True)
+                    aux_molecular_system = convert(
+                        molecular_system,
+                        to_form=aux_structural_pipes[0],
+                        skip_digestion=True,
+                    )
 
                 elif n_str_pipes > 1:
-
-                    aux_molecular_system = convert(molecular_system, to_form='molsysmt.Structures', skip_digestion=True)
+                    aux_molecular_system = convert(
+                        molecular_system,
+                        to_form="molsysmt.Structures",
+                        skip_digestion=True,
+                    )
 
                 else:
-
                     aux_molecular_system = None
 
                 output_systems.append(aux_molecular_system)

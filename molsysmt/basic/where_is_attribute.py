@@ -1,9 +1,13 @@
-from molsysmt._private.argdigest import arg_digest
 from smonitor import signal
 
-@signal(tags=['api', 'get'])
+from molsysmt._private.argdigest import arg_digest
+
+
+@signal(tags=["api", "get"])
 @arg_digest()
-def where_is_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+def where_is_attribute(
+    molecular_system, attribute, include_none=False, skip_digestion=False
+):
     """
     Locating the item where a specific attribute is found.
 
@@ -83,9 +87,9 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt.form import _dict_modules
 
     from . import get_form
-    from molsysmt.form import _dict_modules
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
@@ -96,32 +100,34 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
     # the system. Without this, the tie-break below would choose between items that are
     # not interchangeable -- a single reference conformation and a whole trajectory --
     # and the answer would depend on the order the items were listed in.
-    spans_axis = [True]*len(forms_in)
-    if len(forms_in)>1:
+    spans_axis = [True] * len(forms_in)
+    if len(forms_in) > 1:
         from molsysmt.attribute import is_structural_attribute
 
         if is_structural_attribute(attribute):
             from molsysmt._private.structure_axis import structure_axis
 
-            axis, counts = structure_axis(molecular_system, forms_in,
-                                          caller='molsysmt.where_is_attribute')
+            axis, counts = structure_axis(
+                molecular_system, forms_in, caller="molsysmt.where_is_attribute"
+            )
             if axis is not None:
-                spans_axis = [count==axis for count in counts]
+                spans_axis = [count == axis for count in counts]
 
-    where_form=[]
-    where_item=[]
-    dropped_forms=[]
+    where_form = []
+    where_item = []
+    dropped_forms = []
 
     for spans, form_in, item in zip(spans_axis, forms_in, molecular_system):
-        if _dict_modules[form_in].has_attribute(item, attribute, include_none=include_none,
-                                                skip_digestion=True):
+        if _dict_modules[form_in].has_attribute(
+            item, attribute, include_none=include_none, skip_digestion=True
+        ):
             if spans:
                 where_form.append(form_in)
                 where_item.append(item)
             else:
                 dropped_forms.append(form_in)
 
-    if len(where_form)>=1:
+    if len(where_form) >= 1:
         output_item = where_item[-1]
         output_form = where_form[-1]
     elif not include_none:
@@ -129,11 +135,12 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
         for spans, form_in, item in zip(spans_axis, forms_in, molecular_system):
             if not spans:
                 continue
-            if _dict_modules[form_in].has_attribute(item, attribute, include_none=True,
-                                                     skip_digestion=True):
+            if _dict_modules[form_in].has_attribute(
+                item, attribute, include_none=True, skip_digestion=True
+            ):
                 where_form.append(form_in)
                 where_item.append(item)
-        if len(where_form)>=1:
+        if len(where_form) >= 1:
             output_item = where_item[-1]
             output_form = where_form[-1]
         else:
@@ -147,13 +154,13 @@ def where_is_attribute(molecular_system, attribute, include_none=False, skip_dig
         # The system does carry the attribute, but only on an item that does not span the
         # structure axis -- a reference conformation beside a trajectory. Saying so is the
         # difference between an attribute that is absent and one that was truncated.
-        import warnings
 
         from molsysmt._private.smonitor import StructuralAttributeOffAxisWarning, warn
 
         warn(
-            StructuralAttributeOffAxisWarning(attributes=[attribute],
-                                              caller='molsysmt.where_is_attribute'),
+            StructuralAttributeOffAxisWarning(
+                attributes=[attribute], caller="molsysmt.where_is_attribute"
+            ),
             stacklevel=2,
         )
 

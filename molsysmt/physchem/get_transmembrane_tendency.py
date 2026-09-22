@@ -1,10 +1,17 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt.physchem.groups._lookup import group_table_value
 from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt.physchem.groups._lookup import group_table_value
+
 
 @arg_digest()
-def get_transmembrane_tendency(molecular_system, element='group', selection='all', syntax='MolSysMT',
-                               definition='zhao', skip_digestion=False):
+def get_transmembrane_tendency(
+    molecular_system,
+    element="group",
+    selection="all",
+    syntax="MolSysMT",
+    definition="zhao",
+    skip_digestion=False,
+):
     """
     Transmembrane tendency index per residue group.
 
@@ -56,19 +63,31 @@ def get_transmembrane_tendency(molecular_system, element='group', selection='all
 
     from molsysmt.basic import get
 
-    if definition == 'zhao':
+    if definition == "zhao":
         from .groups.transmembrane_tendency import zhao as values
-    elif definition == 'senes':
+    elif definition == "senes":
         from .groups.transmembrane_tendency import senes as values
     else:
         raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, syntax=syntax, group_name=True)
+    group_types = get(
+        molecular_system,
+        element="group",
+        selection=selection,
+        syntax=syntax,
+        group_name=True,
+    )
 
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii, table='transmembrane tendency', caller='molsysmt.physchem.get_transmembrane_tendency'))
+        output.append(
+            group_table_value(
+                values,
+                ii,
+                table="transmembrane tendency",
+                caller="molsysmt.physchem.get_transmembrane_tendency",
+            )
+        )
 
     return output
-

@@ -1,18 +1,25 @@
+import os
 from inspect import stack
 from pathlib import Path
-import os
 
 
-def view(molecular_system=None, selection='all', structure_indices='all', syntax='MolSysMT',
-         skip_digestion=False):
+def view(
+    molecular_system=None,
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
 
     if os.environ.get("MSM_VIEWS_FROM_HTML_FILES", "").lower() == "true":
         htmlfile = None
         f_locals = None
         for frame_info in stack():
             f_locals = frame_info.frame.f_locals
-            if 'molsysviewer_htmlfile' in f_locals or 'nglview_htmlfile' in f_locals:
-                htmlfile = f_locals.pop('molsysviewer_htmlfile', None) or f_locals.pop('nglview_htmlfile', None)
+            if "molsysviewer_htmlfile" in f_locals or "nglview_htmlfile" in f_locals:
+                htmlfile = f_locals.pop("molsysviewer_htmlfile", None) or f_locals.pop(
+                    "nglview_htmlfile", None
+                )
                 break
 
         resolved_path = None
@@ -35,7 +42,10 @@ def view(molecular_system=None, selection='all', structure_indices='all', syntax
 
         if resolved_path is not None:
             import molsysviewer as msv
-            nb_path = os.environ.get("MSM_DOCS_NOTEBOOK") or f_locals.get('__file__', 'index.ipynb')
+
+            nb_path = os.environ.get("MSM_DOCS_NOTEBOOK") or f_locals.get(
+                "__file__", "index.ipynb"
+            )
             return msv.tools.embed_iframe(str(resolved_path), path=str(nb_path))
         else:
             raise RuntimeError(

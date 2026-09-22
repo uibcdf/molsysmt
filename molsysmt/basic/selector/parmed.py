@@ -1,26 +1,28 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 
-def select(molecular_system, selection='all', structure_indices='all'):
 
-    #from . import convert, get_form
-    #from parmed.amber import AmberMask as _AmberMask
+def select(molecular_system, selection="all", structure_indices="all"):
 
-    #form_in = get_form(molecular_system)
+    # from . import convert, get_form
+    # from parmed.amber import AmberMask as _AmberMask
 
-    #if form_in == 'parmed.Structure':
+    # form_in = get_form(molecular_system)
+
+    # if form_in == 'parmed.Structure':
     #    tmp_item = molecular_system
-    #else:
+    # else:
     #    tmp_item = convert(molecular_system, to_form='parmed.Structure')
 
-    #atom_indices = list(_AmberMask(item, selection).Selected())
-    #del(_AmberMask)
+    # atom_indices = list(_AmberMask(item, selection).Selected())
+    # del(_AmberMask)
 
-    #return tmp_atom_indices
+    # return tmp_atom_indices
 
-    raise NotImplementedMethodError(caller='molsysmt.basic.selector.parmed.select')
-
-def indices_to_selection(molecular_system, indices, element='atom'):
-
-    raise NotImplementedMethodError(caller='molsysmt.basic.selector.parmed.indices_to_selection')
+    raise NotImplementedMethodError(caller="molsysmt.basic.selector.parmed.select")
 
 
+def indices_to_selection(molecular_system, indices, element="atom"):
+
+    raise NotImplementedMethodError(
+        caller="molsysmt.basic.selector.parmed.indices_to_selection"
+    )

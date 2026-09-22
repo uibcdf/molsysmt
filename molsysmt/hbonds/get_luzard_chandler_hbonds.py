@@ -1,12 +1,26 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from copy import copy
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
 @arg_digest()
-def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None, donors=None, structure_indices='all',
-        molecular_system_2=None, selection_2=None, acceptors_2=None, donors_2=None, structure_indices_2=None,
-        distance_threshold='3.5 angstroms', angle_threshold='30 degrees', pbc=True, syntax='MolSysMT'):
+def get_luzard_chandler_hbonds(
+    molecular_system,
+    selection="all",
+    acceptors=None,
+    donors=None,
+    structure_indices="all",
+    molecular_system_2=None,
+    selection_2=None,
+    acceptors_2=None,
+    donors_2=None,
+    structure_indices_2=None,
+    distance_threshold="3.5 angstroms",
+    angle_threshold="30 degrees",
+    pbc=True,
+    syntax="MolSysMT",
+):
     """
     Calculating hydrogen bonds using the Luzard–Chandler geometric criteria.
 
@@ -48,163 +62,214 @@ def get_luzard_chandler_hbonds(molecular_system, selection='all', acceptors=None
         `(atoms, distances, angles)` arrays per structure for the detected H-bonds.
     """
 
-    from molsysmt.basic import select, get
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.basic import get, select
+    from molsysmt.structure import get_angles, get_neighbors
+
     from .get_acceptor_atoms import get_acceptor_atoms
     from .get_donor_atoms import get_donor_atoms
-    from molsysmt.structure import get_neighbors, get_angles
-    from molsysmt import pyunitwizard as puw
 
     angle_threshold = puw.standardize(angle_threshold)
 
     if is_all(structure_indices):
-        n_structures=get(molecular_system, n_structures=True)
-        structure_indices=np.arange(n_structures)
-    elif isinstance(structure_indices,(int,np.int64)):
-        structure_indices=[structure_indices]
+        n_structures = get(molecular_system, n_structures=True)
+        structure_indices = np.arange(n_structures)
+    elif isinstance(structure_indices, (int, np.int64)):
+        structure_indices = [structure_indices]
 
-    if (molecular_system_2 is None):
-
+    if molecular_system_2 is None:
         if acceptors is None:
-            acceptors = get_acceptor_atoms(molecular_system, selection=selection, syntax=syntax)
+            acceptors = get_acceptor_atoms(
+                molecular_system, selection=selection, syntax=syntax
+            )
         else:
-            acceptors = select(molecular_system, selection=selection, mask=acceptors, syntax=syntax)
+            acceptors = select(
+                molecular_system, selection=selection, mask=acceptors, syntax=syntax
+            )
 
         if donors is None:
-            donors = get_donor_atoms(molecular_system, selection=selection, syntax=syntax)
+            donors = get_donor_atoms(
+                molecular_system, selection=selection, syntax=syntax
+            )
         else:
-            donors = select(molecular_system, selection=selection, mask=donors, syntax=syntax)
+            donors = select(
+                molecular_system, selection=selection, mask=donors, syntax=syntax
+            )
 
-        n_acceptors = acceptors.shape[0]
         n_donors = donors.shape[0]
-        unique_donors, donor_restore = np.unique(
-            donors[:, 0], return_inverse=True
-        )
+        unique_donors, donor_restore = np.unique(donors[:, 0], return_inverse=True)
 
         if (selection_2 is None) and (acceptors_2 is None) and (donors_2 is None):
-
-            output_atoms=[]
-            output_distances=[]
-            output_angles=[]
+            output_atoms = []
+            output_distances = []
+            output_angles = []
 
             n_unique = len(unique_donors)
-            offsets, indices, distances = get_neighbors(molecular_system, selection=unique_donors,
-                selection_2=acceptors, structure_indices=structure_indices,
-                structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
-                output_type='csr')
+            offsets, indices, distances = get_neighbors(
+                molecular_system,
+                selection=unique_donors,
+                selection_2=acceptors,
+                structure_indices=structure_indices,
+                structure_indices_2=structure_indices_2,
+                threshold=distance_threshold,
+                pbc=pbc,
+                output_type="csr",
+            )
 
-            for ll,mm in enumerate(structure_indices):
-
-                tmp_atoms=[]
-                tmp_distances=[]
-                tmp_angles=[]
+            for ll, mm in enumerate(structure_indices):
+                tmp_atoms = []
+                tmp_distances = []
+                tmp_angles = []
 
                 for ii in range(n_donors):
-                    atom_d = donors[ii,0]
-                    atom_h = donors[ii,1]
+                    atom_d = donors[ii, 0]
+                    atom_h = donors[ii, 1]
                     donor_row = donor_restore[ii]
                     w = ll * n_unique + donor_row
-                    for p in range(offsets[w], offsets[w+1]):
+                    for p in range(offsets[w], offsets[w + 1]):
                         jj = indices[p]
-                        if atom_d!=acceptors[jj]:
+                        if atom_d != acceptors[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors[jj]])
                             tmp_distances.append(distances[p])
 
                 tmp_atoms = np.array(tmp_atoms)
-                tmp_distances = puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray')
+                tmp_distances = puw.utils.sequences.concatenate(
+                    tmp_distances, value_type="numpy.ndarray"
+                )
 
-                tmp_angles = get_angles(molecular_system, tmp_atoms[:,[1,0,2]], pbc=pbc,
-                        structure_indices=mm)[0]
-                mask = tmp_angles<angle_threshold
+                tmp_angles = get_angles(
+                    molecular_system,
+                    tmp_atoms[:, [1, 0, 2]],
+                    pbc=pbc,
+                    structure_indices=mm,
+                )[0]
+                mask = tmp_angles < angle_threshold
 
-                output_atoms.append(tmp_atoms[mask,:])
+                output_atoms.append(tmp_atoms[mask, :])
                 output_distances.append(tmp_distances[mask])
                 output_angles.append(tmp_angles[mask])
 
-            output_atoms=np.array(output_atoms)
-            output_distances=puw.utils.sequences.concatenate(output_distances, value_type='numpy.ndarray')
-            output_angles=puw.utils.sequences.concatenate(output_angles, value_type='numpy.ndarray')
-
+            output_atoms = np.array(output_atoms)
+            output_distances = puw.utils.sequences.concatenate(
+                output_distances, value_type="numpy.ndarray"
+            )
+            output_angles = puw.utils.sequences.concatenate(
+                output_angles, value_type="numpy.ndarray"
+            )
 
             return output_atoms, output_distances, output_angles
 
         else:
-
             if selection_2 is None:
                 selection_2 = selection
 
             if acceptors_2 is None:
-                acceptors_2 = get_acceptor_atoms(molecular_system, selection=selection_2, syntax=syntax)
+                acceptors_2 = get_acceptor_atoms(
+                    molecular_system, selection=selection_2, syntax=syntax
+                )
             else:
-                acceptors_2 = select(molecular_system, selection=selection_2, mask=acceptors_2, syntax=syntax)
+                acceptors_2 = select(
+                    molecular_system,
+                    selection=selection_2,
+                    mask=acceptors_2,
+                    syntax=syntax,
+                )
 
             if donors_2 is None:
-                donors_2 = get_donor_atoms(molecular_system, selection=selection_2, syntax=syntax)
+                donors_2 = get_donor_atoms(
+                    molecular_system, selection=selection_2, syntax=syntax
+                )
             else:
-                donors_2 = select(molecular_system, selection=selection_2, mask=donors_2, syntax=syntax)
+                donors_2 = select(
+                    molecular_system,
+                    selection=selection_2,
+                    mask=donors_2,
+                    syntax=syntax,
+                )
 
-            n_acceptors_2 = acceptors_2.shape[0]
             n_donors_2 = donors_2.shape[0]
             unique_donors_2, donor_restore_2 = np.unique(
                 donors_2[:, 0], return_inverse=True
             )
 
-            output_atoms=[]
-            output_distances=[]
-            output_angles=[]
+            output_atoms = []
+            output_distances = []
+            output_angles = []
 
             n_unique = len(unique_donors)
             n_unique_2 = len(unique_donors_2)
-            offsets, indices, distances = get_neighbors(molecular_system, selection=unique_donors,
-                    selection_2=acceptors_2, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
-                    output_type='csr')
+            offsets, indices, distances = get_neighbors(
+                molecular_system,
+                selection=unique_donors,
+                selection_2=acceptors_2,
+                structure_indices=structure_indices,
+                structure_indices_2=structure_indices_2,
+                threshold=distance_threshold,
+                pbc=pbc,
+                output_type="csr",
+            )
 
-            offsets_2, indices_2, distances_2 = get_neighbors(molecular_system, selection=unique_donors_2,
-                    selection_2=acceptors, structure_indices=structure_indices,
-                    structure_indices_2=structure_indices_2, threshold=distance_threshold, pbc=pbc,
-                    output_type='csr')
+            offsets_2, indices_2, distances_2 = get_neighbors(
+                molecular_system,
+                selection=unique_donors_2,
+                selection_2=acceptors,
+                structure_indices=structure_indices,
+                structure_indices_2=structure_indices_2,
+                threshold=distance_threshold,
+                pbc=pbc,
+                output_type="csr",
+            )
 
-            for ll,mm in enumerate(structure_indices):
-
-                tmp_atoms=[]
-                tmp_distances=[]
+            for ll, mm in enumerate(structure_indices):
+                tmp_atoms = []
+                tmp_distances = []
 
                 for ii in range(n_donors):
-                    atom_d = donors[ii,0]
-                    atom_h = donors[ii,1]
+                    atom_d = donors[ii, 0]
+                    atom_h = donors[ii, 1]
                     donor_row = donor_restore[ii]
                     w = ll * n_unique + donor_row
-                    for p in range(offsets[w], offsets[w+1]):
+                    for p in range(offsets[w], offsets[w + 1]):
                         jj = indices[p]
-                        if atom_d!=acceptors_2[jj]:
+                        if atom_d != acceptors_2[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors_2[jj]])
                             tmp_distances.append(distances[p])
 
                 for ii in range(n_donors_2):
-                    atom_d = donors_2[ii,0]
-                    atom_h = donors_2[ii,1]
+                    atom_d = donors_2[ii, 0]
+                    atom_h = donors_2[ii, 1]
                     donor_row = donor_restore_2[ii]
                     w = ll * n_unique_2 + donor_row
-                    for p in range(offsets_2[w], offsets_2[w+1]):
+                    for p in range(offsets_2[w], offsets_2[w + 1]):
                         jj = indices_2[p]
-                        if atom_d!=acceptors[jj]:
+                        if atom_d != acceptors[jj]:
                             tmp_atoms.append([atom_d, atom_h, acceptors[jj]])
                             tmp_distances.append(distances_2[p])
 
                 tmp_atoms = np.array(tmp_atoms)
-                tmp_distances = puw.utils.sequences.concatenate(tmp_distances, value_type='numpy.ndarray')
+                tmp_distances = puw.utils.sequences.concatenate(
+                    tmp_distances, value_type="numpy.ndarray"
+                )
 
-                tmp_angles = get_angles(molecular_system, tmp_atoms[:,[1,0,2]], pbc=pbc,
-                        structure_indices=mm)[0]
-                mask = tmp_angles<angle_threshold
+                tmp_angles = get_angles(
+                    molecular_system,
+                    tmp_atoms[:, [1, 0, 2]],
+                    pbc=pbc,
+                    structure_indices=mm,
+                )[0]
+                mask = tmp_angles < angle_threshold
 
-                output_atoms.append(tmp_atoms[mask,:])
+                output_atoms.append(tmp_atoms[mask, :])
                 output_distances.append(tmp_distances[mask])
                 output_angles.append(tmp_angles[mask])
 
-            output_atoms=np.array(output_atoms)
-            output_distances=puw.utils.sequences.concatenate(output_distances, value_type='numpy.ndarray')
-            output_angles=puw.utils.sequences.concatenate(output_angles, value_type='numpy.ndarray')
+            output_atoms = np.array(output_atoms)
+            output_distances = puw.utils.sequences.concatenate(
+                output_distances, value_type="numpy.ndarray"
+            )
+            output_angles = puw.utils.sequences.concatenate(
+                output_angles, value_type="numpy.ndarray"
+            )
 
             return output_atoms, output_distances, output_angles
 

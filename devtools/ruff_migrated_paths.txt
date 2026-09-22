@@ -1,4 +1,10 @@
 molsysmt/_private
 molsysmt/attribute
+molsysmt/basic
 molsysmt/form
+molsysmt/hbonds
 molsysmt/lib
+molsysmt/molecular_dynamics
+molsysmt/molecular_mechanics
+molsysmt/physchem
+molsysmt/topology

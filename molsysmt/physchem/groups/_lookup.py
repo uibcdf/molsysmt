@@ -11,12 +11,11 @@ while genuine unknown residues still raise so real gaps are not masked.
 
 from molsysmt._private.smonitor import UnknownGroupInTableError
 
-
 # Placeholder / dummy residue names treated as chemically neutral.
-NEUTRAL_GROUP_NAMES = {'DUM', 'X'}
+NEUTRAL_GROUP_NAMES = {"DUM", "X"}
 
 
-def group_table_value(values, group_name, neutral=0.0, table='property', caller=None):
+def group_table_value(values, group_name, neutral=0.0, table="property", caller=None):
     """
     Return the property value for ``group_name`` from a residue table.
 
@@ -58,4 +57,5 @@ def group_table_value(values, group_name, neutral=0.0, table='property', caller=
         # named only the residue, so it read as an internal defect rather than as a
         # system the caller has to decide about (uibcdf/molsysmt#179).
         raise UnknownGroupInTableError(
-            group_name=group_name, table=table, caller=caller) from None
+            group_name=group_name, table=table, caller=caller
+        ) from None

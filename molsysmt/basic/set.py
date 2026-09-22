@@ -1,21 +1,23 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-import numpy as np
 from smonitor import signal
+
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.chemical_state import resolve_chemical_state
+from molsysmt._private.variables import is_all
 
 
-@signal(tags=['api', 'set'])
+@signal(tags=["api", "set"])
 @arg_digest()
 @resolve_chemical_state
-def set(molecular_system,
-        element=None,
-        selection='all',
-        structure_indices='all',
-        syntax='MolSysMT',
-        chemical_state='reference',
-        skip_digestion=False,
-        **kwargs):
+def set(
+    molecular_system,
+    element=None,
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    chemical_state="reference",
+    skip_digestion=False,
+    **kwargs,
+):
     """
     Setting attribute values in a molecular system.
 
@@ -113,9 +115,10 @@ def set(molecular_system,
     .. versionadded:: 1.0.0
     """
 
-    from . import select, where_is_attribute
     from molsysmt.attribute import attributes
     from molsysmt.form import _dict_modules
+
+    from . import select, where_is_attribute
 
     value_of_in_attribute = {}
     for key in kwargs.keys():
@@ -125,65 +128,81 @@ def set(molecular_system,
 
     in_attributes = value_of_in_attribute.keys()
 
-    if any(attributes[in_attribute]['runs_on_structures'] for in_attribute in in_attributes):
+    if any(
+        attributes[in_attribute]["runs_on_structures"] for in_attribute in in_attributes
+    ):
         from ._index_validation import validate_structure_indices
 
         structure_indices = validate_structure_indices(
-            molecular_system, structure_indices, 'molsysmt.set'
+            molecular_system, structure_indices, "molsysmt.set"
         )
 
     element_indices = {}
 
     if element is None:
-
         for in_attribute in in_attributes:
-            if attributes[in_attribute]['runs_on_elements']:
-                element = attributes[in_attribute]['set_to']
+            if attributes[in_attribute]["runs_on_elements"]:
+                element = attributes[in_attribute]["set_to"]
                 if element not in element_indices:
                     if is_all(selection):
-                        element_indices[element] = 'all'
+                        element_indices[element] = "all"
                     else:
-                        element_indices[element] = select(molecular_system, element=element, selection=selection,
-                                                          chemical_state=chemical_state, syntax=syntax)
+                        element_indices[element] = select(
+                            molecular_system,
+                            element=element,
+                            selection=selection,
+                            chemical_state=chemical_state,
+                            syntax=syntax,
+                        )
 
         for in_attribute in in_attributes:
-
-            element = attributes[in_attribute]['set_to']
+            element = attributes[in_attribute]["set_to"]
 
             dict_indices = {}
-            if element != 'system':
-                if attributes[in_attribute]['runs_on_elements']:
-                    dict_indices['indices'] = element_indices[element]
-            if attributes[in_attribute]['runs_on_structures']:
-                dict_indices['structure_indices'] = structure_indices
+            if element != "system":
+                if attributes[in_attribute]["runs_on_elements"]:
+                    dict_indices["indices"] = element_indices[element]
+            if attributes[in_attribute]["runs_on_structures"]:
+                dict_indices["structure_indices"] = structure_indices
 
-            item, form = where_is_attribute(molecular_system, in_attribute, include_none=False)
+            item, form = where_is_attribute(
+                molecular_system, in_attribute, include_none=False
+            )
             in_value = value_of_in_attribute[in_attribute]
-            set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
+            set_function = getattr(
+                _dict_modules[form], f"set_{in_attribute}_to_{element}"
+            )
             set_function(item, **dict_indices, value=in_value)
 
     else:
-
         indices = None
-        if element!='system':
+        if element != "system":
             if is_all(selection):
-                indices = 'all'
+                indices = "all"
             else:
-                indices = select(molecular_system, element=element, selection=selection,
-                                 chemical_state=chemical_state, syntax=syntax)
+                indices = select(
+                    molecular_system,
+                    element=element,
+                    selection=selection,
+                    chemical_state=chemical_state,
+                    syntax=syntax,
+                )
 
         # doing the work here
         for in_attribute in in_attributes:
-
             dict_indices = {}
-            if element != 'system':
-                dict_indices['indices'] = indices
-            if attributes[in_attribute]['runs_on_structures']:
-                dict_indices['structure_indices'] = structure_indices
+            if element != "system":
+                dict_indices["indices"] = indices
+            if attributes[in_attribute]["runs_on_structures"]:
+                dict_indices["structure_indices"] = structure_indices
 
-            item, form = where_is_attribute(molecular_system, in_attribute, include_none=False)
+            item, form = where_is_attribute(
+                molecular_system, in_attribute, include_none=False
+            )
             in_value = value_of_in_attribute[in_attribute]
-            set_function = getattr(_dict_modules[form], f'set_{in_attribute}_to_{element}')
+            set_function = getattr(
+                _dict_modules[form], f"set_{in_attribute}_to_{element}"
+            )
             set_function(item, **dict_indices, value=in_value)
 
     pass

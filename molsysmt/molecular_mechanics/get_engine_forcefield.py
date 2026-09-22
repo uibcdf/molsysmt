@@ -1,4 +1,10 @@
-def get_engine_forcefield(forcefield, implicit_solvent=None, water_model=None, engine='OpenMM', skip_digestion=False):
+def get_engine_forcefield(
+    forcefield,
+    implicit_solvent=None,
+    water_model=None,
+    engine="OpenMM",
+    skip_digestion=False,
+):
     """
     Getting the engine-specific force field or simulation object from a molecular system.
 
@@ -38,7 +44,6 @@ def get_engine_forcefield(forcefield, implicit_solvent=None, water_model=None, e
     elif water_model is not None:
         forcefield_out = switcher[engine][forcefield][water_model]
     else:
-        forcefield_out = switcher[engine][forcefield]['vacuum']
+        forcefield_out = switcher[engine][forcefield]["vacuum"]
 
     return forcefield_out
-

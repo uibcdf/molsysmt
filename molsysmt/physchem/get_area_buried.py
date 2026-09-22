@@ -1,10 +1,18 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt.physchem.groups._lookup import group_table_value
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt.physchem.groups._lookup import group_table_value
+
+
 @arg_digest()
-def get_area_buried(molecular_system, element='group', selection='all', definition='rose', skip_digestion=False):
+def get_area_buried(
+    molecular_system,
+    element="group",
+    selection="all",
+    definition="rose",
+    skip_digestion=False,
+):
     """
     Average area buried per residue group upon protein folding.
 
@@ -54,19 +62,25 @@ def get_area_buried(molecular_system, element='group', selection='all', definiti
 
     from molsysmt.basic import get
 
-    if definition == 'rose':
+    if definition == "rose":
         from .groups.area_buried import rose as values
     else:
         raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, name=True)
+    group_types = get(molecular_system, element="group", selection=selection, name=True)
 
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii, table='area buried', caller='molsysmt.physchem.get_area_buried'))
+        output.append(
+            group_table_value(
+                values,
+                ii,
+                table="area buried",
+                caller="molsysmt.physchem.get_area_buried",
+            )
+        )
 
     output = np.array(output)
 
     return output
-

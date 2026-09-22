@@ -1,6 +1,7 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
 from smonitor import signal
+
+from molsysmt._private.argdigest import arg_digest
 
 
 def _evaluation(condition, value):
@@ -13,28 +14,31 @@ def _evaluation(condition, value):
 
     if condition is not None:
         if isinstance(condition, bool):
-            if condition==True:
+            if condition:
                 if value is None:
                     output = False
                 elif isinstance(value, (int, np.int64)):
-                    if value==0:
+                    if value == 0:
                         output = False
             else:
                 if isinstance(value, (int, np.int64)):
-                    if value>0:
+                    if value > 0:
                         output = False
                 elif isinstance(value, (np.ndarray, list, tuple)):
-                        output = False
+                    output = False
         elif isinstance(condition, int):
             if isinstance(value, int):
-                if condition>value:
+                if condition > value:
                     output = False
 
     return output
 
-@signal(tags=['api', 'get'])
+
+@signal(tags=["api", "get"])
 @arg_digest()
-def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False, **kwargs):
+def contains(
+    molecular_system, selection="all", syntax="MolSysMT", skip_digestion=False, **kwargs
+):
     """
     Checking whether a molecular system contains specific elements or satisfies conditions.
 
@@ -116,10 +120,11 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
     n_atts_required = len(atts_required)
 
     if n_atts_required:
+        atts_values = get(
+            molecular_system, selection=selection, syntax=syntax, **aux_atts
+        )
 
-        atts_values = get(molecular_system, selection=selection, syntax=syntax, **aux_atts)
-
-        if n_atts_required==1:
+        if n_atts_required == 1:
             atts_values = [atts_values]
 
         for att, att_value in zip(aux_atts.keys(), atts_values):
@@ -127,8 +132,13 @@ def contains(molecular_system, selection='all', syntax='MolSysMT', skip_digestio
                 return False
 
     else:
-
-        n_atoms = get(molecular_system, element='atom', selection=selection, syntax=syntax, n_atoms=True)
+        n_atoms = get(
+            molecular_system,
+            element="atom",
+            selection=selection,
+            syntax=syntax,
+            n_atoms=True,
+        )
 
         if not n_atoms:
             return False

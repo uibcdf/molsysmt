@@ -1,12 +1,21 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError
 from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import StructuralInconsistencyError
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def append_structures(to_molecular_system, from_molecular_system, selection='all',
-                      structure_indices='all', syntax='MolSysMT', in_place=True,
-                      attribute_policy='intersection', skip_digestion=False):
+def append_structures(
+    to_molecular_system,
+    from_molecular_system,
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    in_place=True,
+    attribute_policy="intersection",
+    skip_digestion=False,
+):
     """
     Appending structures from one molecular system into another.
 
@@ -107,8 +116,9 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     .. versionadded:: 1.0.0
     """
 
-    from . import get_form, extract, get, copy
     from molsysmt.form import _dict_modules
+
+    from . import copy, extract, get, get_form
 
     if not in_place:
         to_molecular_system = copy(to_molecular_system)
@@ -123,7 +133,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
 
     coordinates, velocities, b_factor, occupancy, alternate_location = get(
         from_molecular_system,
-        element='atom',
+        element="atom",
         selection=selection,
         syntax=syntax,
         structure_indices=structure_indices,
@@ -144,7 +154,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         kinetic_energy,
     ) = get(
         from_molecular_system,
-        element='system',
+        element="system",
         structure_indices=structure_indices,
         syntax=syntax,
         structure_id=True,
@@ -163,7 +173,7 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
     else:
         atom_indices = get(
             from_molecular_system,
-            element='atom',
+            element="atom",
             selection=selection,
             syntax=syntax,
             atom_index=True,
@@ -172,10 +182,9 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
         n_source_atoms = len(atom_indices)
 
     for aux_to_item, aux_to_form in zip(to_molecular_system, to_forms):
-
         n_target_atoms = get(
             aux_to_item,
-            element='system',
+            element="system",
             n_atoms=True,
             skip_digestion=True,
         )
@@ -186,16 +195,16 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
                     f"n_atoms ({n_target_atoms}). Adjust `selection` or ensure the "
                     "source structures use the target atom ordering."
                 ),
-                caller='molsysmt.basic.append_structures',
+                caller="molsysmt.basic.append_structures",
             )
 
-        if aux_to_form == 'molsysmt.MolSys' and from_form == 'molsysmt.MolSys':
+        if aux_to_form == "molsysmt.MolSys" and from_form == "molsysmt.MolSys":
             source = extract(
                 from_molecular_system,
                 selection=selection,
                 structure_indices=structure_indices,
                 syntax=syntax,
-                to_form='molsysmt.MolSys',
+                to_form="molsysmt.MolSys",
                 skip_digestion=True,
             )
             aux_to_item.append_structures(
@@ -206,26 +215,28 @@ def append_structures(to_molecular_system, from_molecular_system, selection='all
             continue
 
         kwargs = {
-            'structure_id': structure_id,
-            'time': time,
-            'coordinates': coordinates,
-            'box': box,
-            'velocities': velocities,
+            "structure_id": structure_id,
+            "time": time,
+            "coordinates": coordinates,
+            "box": box,
+            "velocities": velocities,
         }
         if aux_to_form in {
-            'molsysmt.MolSys',
-            'molsysmt.Structures',
-            'molsysmt.StructuresDict',
+            "molsysmt.MolSys",
+            "molsysmt.Structures",
+            "molsysmt.StructuresDict",
         }:
-            kwargs.update({
-                'temperature': temperature,
-                'potential_energy': potential_energy,
-                'kinetic_energy': kinetic_energy,
-                'b_factor': b_factor,
-                'alternate_location': alternate_location,
-                'occupancy': occupancy,
-                'attribute_policy': attribute_policy,
-            })
+            kwargs.update(
+                {
+                    "temperature": temperature,
+                    "potential_energy": potential_energy,
+                    "kinetic_energy": kinetic_energy,
+                    "b_factor": b_factor,
+                    "alternate_location": alternate_location,
+                    "occupancy": occupancy,
+                    "attribute_policy": attribute_policy,
+                }
+            )
         _dict_modules[aux_to_form].append_structures(aux_to_item, **kwargs)
 
     if not in_place:

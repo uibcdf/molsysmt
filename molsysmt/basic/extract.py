@@ -1,11 +1,21 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 from smonitor import signal
 
-@signal(tags=['api', 'extract'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
+@signal(tags=["api", "extract"])
 @arg_digest()
-def extract(molecular_system, selection='all', structure_indices='all', to_form=None, output_filename=None,
-            copy_if_all=True, syntax='MolSysMT', skip_digestion=False):
+def extract(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    to_form=None,
+    output_filename=None,
+    copy_if_all=True,
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Extracting a subset of atoms and/or structures from a molecular system.
 
@@ -89,16 +99,17 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     .. versionadded:: 1.0.0
     """
 
-    from . import get_form, select, convert
     from molsysmt.form import _dict_modules
 
+    from . import convert, get_form, select
+
     if output_filename is not None:
-        to_form=output_filename
+        to_form = output_filename
 
     from ._index_validation import validate_structure_indices
 
     structure_indices = validate_structure_indices(
-        molecular_system, structure_indices, 'molsysmt.extract'
+        molecular_system, structure_indices, "molsysmt.extract"
     )
 
     forms_in = get_form(molecular_system)
@@ -106,7 +117,7 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     if isinstance(forms_in, (list, tuple)):
         native_system = convert(
             molecular_system,
-            to_form='molsysmt.MolSys',
+            to_form="molsysmt.MolSys",
             skip_digestion=True,
         )
         return extract(
@@ -120,14 +131,21 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
         )
 
     if to_form is not None:
-
-        return convert(molecular_system, to_form=to_form, selection=selection, structure_indices=structure_indices,
-                       syntax=syntax, skip_digestion=True)
+        return convert(
+            molecular_system,
+            to_form=to_form,
+            selection=selection,
+            structure_indices=structure_indices,
+            syntax=syntax,
+            skip_digestion=True,
+        )
 
     if not is_all(selection):
-        atom_indices = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
+        atom_indices = select(
+            molecular_system, selection=selection, syntax=syntax, skip_digestion=True
+        )
     else:
-        atom_indices = 'all'
+        atom_indices = "all"
 
     if not isinstance(forms_in, (list, tuple)):
         forms_in = [forms_in]
@@ -136,12 +154,16 @@ def extract(molecular_system, selection='all', structure_indices='all', to_form=
     output = []
 
     for form_in, item in zip(forms_in, molecular_system):
-        output_item = _dict_modules[form_in].extract(item, atom_indices=atom_indices,
-                                                     structure_indices=structure_indices, copy_if_all=copy_if_all,
-                                                     skip_digestion=True)
+        output_item = _dict_modules[form_in].extract(
+            item,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            copy_if_all=copy_if_all,
+            skip_digestion=True,
+        )
         output.append(output_item)
 
-    if len(output)==1:
-        output=output[0]
+    if len(output) == 1:
+        output = output[0]
 
     return output

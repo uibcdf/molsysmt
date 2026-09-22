@@ -1,13 +1,20 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentError
 import numpy as np
 from networkx import connected_components
 from smonitor import signal
 
-@signal(tags=['api', 'topology'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError
+
+
+@signal(tags=["api", "topology"])
 @arg_digest()
-def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, output_type='sets',
-        syntax='MolSysMT'):
+def get_covalent_blocks(
+    molecular_system,
+    selection="all",
+    remove_bonds=None,
+    output_type="sets",
+    syntax="MolSysMT",
+):
     """
     Identifying the sets of atoms that remain covalently connected when bonds are removed.
 
@@ -67,48 +74,62 @@ def get_covalent_blocks(molecular_system, selection='all', remove_bonds=None, ou
     """
 
     from molsysmt.basic import get
+
     from . import get_bondgraph
 
-    G = get_bondgraph(molecular_system, nodes_name='atom_index', selection=selection, syntax=syntax)
+    G = get_bondgraph(
+        molecular_system, nodes_name="atom_index", selection=selection, syntax=syntax
+    )
 
     if remove_bonds is not None:
-
-        if type(remove_bonds) in [list,tuple]:
+        if type(remove_bonds) in [list, tuple]:
             remove_bonds = np.array(remove_bonds)
 
-        if len(remove_bonds.shape)==1:
-            if remove_bonds.shape[0]==2:
-                remove_bonds=remove_bonds.reshape([1,2])
+        if len(remove_bonds.shape) == 1:
+            if remove_bonds.shape[0] == 2:
+                remove_bonds = remove_bonds.reshape([1, 2])
             else:
-                raise ArgumentError('remove_bonds', value=remove_bonds, caller='molsysmt.topology.get_covalent_blocks', message="Input argument bonded_atoms with wrong shape")
-        elif len(remove_bonds.shape)==2:
-            if remove_bonds.shape[1]!=2:
-                raise ArgumentError('remove_bonds', value=remove_bonds, caller='molsysmt.topology.get_covalent_blocks', message="Input argument bonded_atoms with wrong shape")
+                raise ArgumentError(
+                    "remove_bonds",
+                    value=remove_bonds,
+                    caller="molsysmt.topology.get_covalent_blocks",
+                    message="Input argument bonded_atoms with wrong shape",
+                )
+        elif len(remove_bonds.shape) == 2:
+            if remove_bonds.shape[1] != 2:
+                raise ArgumentError(
+                    "remove_bonds",
+                    value=remove_bonds,
+                    caller="molsysmt.topology.get_covalent_blocks",
+                    message="Input argument bonded_atoms with wrong shape",
+                )
         else:
-            raise ArgumentError('remove_bonds', value=remove_bonds, caller='molsysmt.topology.get_covalent_blocks', message="Input argument bonded_atoms with wrong shape")
+            raise ArgumentError(
+                "remove_bonds",
+                value=remove_bonds,
+                caller="molsysmt.topology.get_covalent_blocks",
+                message="Input argument bonded_atoms with wrong shape",
+            )
 
         for atom_pair in remove_bonds:
             G.remove_edge(atom_pair[0], atom_pair[1])
 
     components = connected_components(G)
 
-    del(G)
+    del G
 
-    if output_type=='sets':
-
+    if output_type == "sets":
         blocks = list(components)
 
-    elif output_type=='numpy.ndarray':
-
-        n_atoms = get(molecular_system, element='system', n_atoms=True)
+    elif output_type == "numpy.ndarray":
+        n_atoms = get(molecular_system, element="system", n_atoms=True)
         blocks = -np.ones([n_atoms], dtype=int)
         component_index = 0
         for component in components:
-            blocks[list(component)]=component_index
+            blocks[list(component)] = component_index
             component_index += 1
 
     else:
-
-        raise NotImplementedMethodError(caller='molsysmt.topology.get_covalent_blocks')
+        raise NotImplementedMethodError(caller="molsysmt.topology.get_covalent_blocks")
 
     return np.array(blocks)

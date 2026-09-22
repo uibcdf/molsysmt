@@ -69,8 +69,14 @@ def test_migrated_paths_manifest():
     assert {
         "molsysmt/_private",
         "molsysmt/attribute",
+        "molsysmt/basic",
         "molsysmt/form",
+        "molsysmt/hbonds",
         "molsysmt/lib",
+        "molsysmt/molecular_dynamics",
+        "molsysmt/molecular_mechanics",
+        "molsysmt/physchem",
+        "molsysmt/topology",
     } <= set(MIGRATED_PATHS)
     assert len(MIGRATED_PATHS) == len(set(MIGRATED_PATHS))
     assert all(path.startswith("molsysmt/") for path in MIGRATED_PATHS)

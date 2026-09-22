@@ -1,12 +1,14 @@
-from molsysmt._private.argdigest import arg_digest
-from smonitor import signal
-from molsysmt._private.variables import is_all
 import numpy as np
+from smonitor import signal
+
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
 from molsysmt.basic import select
 
-@signal(tags=['api', 'topology'])
+
+@signal(tags=["api", "topology"])
 @arg_digest()
-def get_covalent_paths(molecular_system, path=None, selection='all', syntax='MolSysMT'):
+def get_covalent_paths(molecular_system, path=None, selection="all", syntax="MolSysMT"):
     """
     Finding paths of covalently bonded atoms matching an ordered pattern.
 
@@ -67,7 +69,9 @@ def get_covalent_paths(molecular_system, path=None, selection='all', syntax='Mol
 
     atom_indices = np.sort(np.unique(np.concatenate(path_atom_indices)))
 
-    graph = get_bondgraph(molecular_system, selection=atom_indices, nodes_name='atom_index')
+    graph = get_bondgraph(
+        molecular_system, selection=atom_indices, nodes_name="atom_index"
+    )
 
     n_positions = len(path_atom_indices)
 
@@ -76,15 +80,15 @@ def get_covalent_paths(molecular_system, path=None, selection='all', syntax='Mol
         path_atom_indices[position] = set(path_atom_indices[position])
 
     for position in range(1, n_positions):
-        previous_position = position-1
-        tmp_output=output.copy()
-        output=[]
+        previous_position = position - 1
+        tmp_output = output.copy()
+        output = []
         for walk in tmp_output:
             for ii in graph.neighbors(walk[previous_position]):
                 if ii in path_atom_indices[position]:
                     new_walk = walk.copy()
                     new_walk.append(ii)
                     output.append(new_walk)
-    del(graph)
+    del graph
 
     return np.array(output, dtype=int)

@@ -1,3 +1,5 @@
+# Preserve the import order of public functions during package initialization.
+# isort: off
 from .is_a_molecular_system import is_a_molecular_system
 from .are_multiple_molecular_systems import are_multiple_molecular_systems
 from .has_attribute import has_attribute
@@ -23,3 +25,4 @@ from .contains import contains
 from .compare import compare
 from .view import view
 from .iterator import Iterator
+# isort: on

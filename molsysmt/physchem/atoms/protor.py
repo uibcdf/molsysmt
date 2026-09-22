@@ -1,138 +1,326 @@
 import numpy as np
-from molsysmt._private.argdigest import arg_digest
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
 
 # Fallback radii in Angstroms
 _PROTOR_FALLBACK_RADII = {
-    'C': 1.88,
-    'N': 1.64,
-    'O': 1.42,
-    'S': 1.77,
+    "C": 1.88,
+    "N": 1.64,
+    "O": 1.42,
+    "S": 1.77,
     # Neutral dummy / placeholder elements (atoms named DUM or X); no excluded volume.
-    'Du': 0.0,
-    'X': 0.0,
+    "Du": 0.0,
+    "X": 0.0,
 }
 
 # Radii mapped by type in Angstroms
 _PROTOR_RADII_BY_TYPE = {
-    'C3H0': 1.61,
-    'C3H1': 1.76,
-    'C4H1': 1.88,
-    'C4H2': 1.88,
-    'C4H3': 1.88,
-    'N3H0': 1.64,
-    'N3H1': 1.64,
-    'N3H2': 1.64,
-    'N4H3': 1.64,
-    'O1H0': 1.42,
-    'O2H1': 1.46,
-    'S2H0': 1.77,
-    'S2H1': 1.77,
+    "C3H0": 1.61,
+    "C3H1": 1.76,
+    "C4H1": 1.88,
+    "C4H2": 1.88,
+    "C4H3": 1.88,
+    "N3H0": 1.64,
+    "N3H1": 1.64,
+    "N3H2": 1.64,
+    "N4H3": 1.64,
+    "O1H0": 1.42,
+    "O2H1": 1.46,
+    "S2H0": 1.77,
+    "S2H1": 1.77,
 }
 
 # Backbone atom types map
 _PROTOR_PROTEIN_BACKBONE_TYPES = {
-    'N': 'N3H1',
-    'CA': 'C4H1',
-    'C': 'C3H0',
-    'O': 'O1H0',
-    'OXT': 'O2H1',
+    "N": "N3H1",
+    "CA": "C4H1",
+    "C": "C3H0",
+    "O": "O1H0",
+    "OXT": "O2H1",
 }
 
 # Residue name aliases (for variant protonation states)
 _PROTOR_RESIDUE_NAME_ALIASES = {
-    'HSD': 'HID',
-    'HSE': 'HIE',
-    'HSP': 'HIP',
+    "HSD": "HID",
+    "HSE": "HIE",
+    "HSP": "HIP",
 }
 
 # Standard and variant residue specific heavy atom ProtOr types
 _PROTOR_PROTEIN_HEAVY_ATOM_TYPES = {
-    'ALA': {'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0', 'CB': 'C4H3'},
-    'ARG': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H2', 'CD': 'C4H2', 'NE': 'N3H1', 'CZ': 'C3H0', 'NH1': 'N3H2', 'NH2': 'N3H2',
+    "ALA": {"N": "N3H1", "CA": "C4H1", "C": "C3H0", "O": "O1H0", "CB": "C4H3"},
+    "ARG": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "CD": "C4H2",
+        "NE": "N3H1",
+        "CZ": "C3H0",
+        "NH1": "N3H2",
+        "NH2": "N3H2",
     },
-    'ASN': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'OD1': 'O1H0', 'ND2': 'N3H2',
+    "ASN": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "OD1": "O1H0",
+        "ND2": "N3H2",
     },
-    'ASP': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'OD1': 'O1H0', 'OD2': 'O1H0',
+    "ASP": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "OD1": "O1H0",
+        "OD2": "O1H0",
     },
-    'ASH': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'OD1': 'O1H0', 'OD2': 'O2H1',
+    "ASH": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "OD1": "O1H0",
+        "OD2": "O2H1",
     },
-    'CYS': {'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0', 'CB': 'C4H2', 'SG': 'S2H1'},
-    'CYX': {'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0', 'CB': 'C4H2', 'SG': 'S2H0'},
-    'GLN': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H2', 'CD': 'C3H0', 'OE1': 'O1H0', 'NE2': 'N3H2',
+    "CYS": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "SG": "S2H1",
     },
-    'GLU': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H2', 'CD': 'C3H0', 'OE1': 'O1H0', 'OE2': 'O1H0',
+    "CYX": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "SG": "S2H0",
     },
-    'GLH': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H2', 'CD': 'C3H0', 'OE1': 'O1H0', 'OE2': 'O2H1',
+    "GLN": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "CD": "C3H0",
+        "OE1": "O1H0",
+        "NE2": "N3H2",
     },
-    'GLY': {'N': 'N3H1', 'CA': 'C4H2', 'C': 'C3H0', 'O': 'O1H0'},
-    'HIS': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'ND1': 'N3H0', 'CD2': 'C3H1', 'CE1': 'C3H1', 'NE2': 'N3H0',
+    "GLU": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "CD": "C3H0",
+        "OE1": "O1H0",
+        "OE2": "O1H0",
     },
-    'HID': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'ND1': 'N3H1', 'CD2': 'C3H1', 'CE1': 'C3H1', 'NE2': 'N3H0',
+    "GLH": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "CD": "C3H0",
+        "OE1": "O1H0",
+        "OE2": "O2H1",
     },
-    'HIE': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'ND1': 'N3H0', 'CD2': 'C3H1', 'CE1': 'C3H1', 'NE2': 'N3H1',
+    "GLY": {"N": "N3H1", "CA": "C4H2", "C": "C3H0", "O": "O1H0"},
+    "HIS": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "ND1": "N3H0",
+        "CD2": "C3H1",
+        "CE1": "C3H1",
+        "NE2": "N3H0",
     },
-    'HIP': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'ND1': 'N3H1', 'CD2': 'C3H1', 'CE1': 'C3H1', 'NE2': 'N3H1',
+    "HID": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "ND1": "N3H1",
+        "CD2": "C3H1",
+        "CE1": "C3H1",
+        "NE2": "N3H0",
     },
-    'ILE': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H1', 'CG1': 'C4H2', 'CG2': 'C4H3', 'CD1': 'C4H3',
+    "HIE": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "ND1": "N3H0",
+        "CD2": "C3H1",
+        "CE1": "C3H1",
+        "NE2": "N3H1",
     },
-    'LEU': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H1', 'CD1': 'C4H3', 'CD2': 'C4H3',
+    "HIP": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "ND1": "N3H1",
+        "CD2": "C3H1",
+        "CE1": "C3H1",
+        "NE2": "N3H1",
     },
-    'LYS': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H2', 'CD': 'C4H2', 'CE': 'C4H2', 'NZ': 'N4H3',
+    "ILE": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H1",
+        "CG1": "C4H2",
+        "CG2": "C4H3",
+        "CD1": "C4H3",
     },
-    'LYN': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H2', 'CD': 'C4H2', 'CE': 'C4H2', 'NZ': 'N3H2',
+    "LEU": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H1",
+        "CD1": "C4H3",
+        "CD2": "C4H3",
     },
-    'MET': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C4H2', 'SD': 'S2H0', 'CE': 'C4H3',
+    "LYS": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "CD": "C4H2",
+        "CE": "C4H2",
+        "NZ": "N4H3",
     },
-    'PHE': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'CD1': 'C3H1', 'CD2': 'C3H1', 'CE1': 'C3H1', 'CE2': 'C3H1', 'CZ': 'C3H1',
+    "LYN": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "CD": "C4H2",
+        "CE": "C4H2",
+        "NZ": "N3H2",
     },
-    'PRO': {'N': 'N3H0', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0', 'CB': 'C4H2', 'CG': 'C4H2', 'CD': 'C4H2'},
-    'SER': {'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0', 'CB': 'C4H2', 'OG': 'O2H1'},
-    'THR': {'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0', 'CB': 'C4H1', 'OG1': 'O2H1', 'CG2': 'C4H3'},
-    'TRP': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'CD1': 'C3H1', 'CD2': 'C3H0', 'NE1': 'N3H1', 'CE2': 'C3H0',
-        'CE3': 'C3H1', 'CZ2': 'C3H1', 'CZ3': 'C3H1', 'CH2': 'C3H1',
+    "MET": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "SD": "S2H0",
+        "CE": "C4H3",
     },
-    'TYR': {
-        'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0',
-        'CB': 'C4H2', 'CG': 'C3H0', 'CD1': 'C3H1', 'CD2': 'C3H1', 'CE1': 'C3H1', 'CE2': 'C3H1', 'CZ': 'C3H0', 'OH': 'O2H1',
+    "PHE": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "CD1": "C3H1",
+        "CD2": "C3H1",
+        "CE1": "C3H1",
+        "CE2": "C3H1",
+        "CZ": "C3H1",
     },
-    'VAL': {'N': 'N3H1', 'CA': 'C4H1', 'C': 'C3H0', 'O': 'O1H0', 'CB': 'C4H1', 'CG1': 'C4H3', 'CG2': 'C4H3'},
+    "PRO": {
+        "N": "N3H0",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C4H2",
+        "CD": "C4H2",
+    },
+    "SER": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "OG": "O2H1",
+    },
+    "THR": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H1",
+        "OG1": "O2H1",
+        "CG2": "C4H3",
+    },
+    "TRP": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "CD1": "C3H1",
+        "CD2": "C3H0",
+        "NE1": "N3H1",
+        "CE2": "C3H0",
+        "CE3": "C3H1",
+        "CZ2": "C3H1",
+        "CZ3": "C3H1",
+        "CH2": "C3H1",
+    },
+    "TYR": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H2",
+        "CG": "C3H0",
+        "CD1": "C3H1",
+        "CD2": "C3H1",
+        "CE1": "C3H1",
+        "CE2": "C3H1",
+        "CZ": "C3H0",
+        "OH": "O2H1",
+    },
+    "VAL": {
+        "N": "N3H1",
+        "CA": "C4H1",
+        "C": "C3H0",
+        "O": "O1H0",
+        "CB": "C4H1",
+        "CG1": "C4H3",
+        "CG2": "C4H3",
+    },
 }
 
 
@@ -161,27 +349,31 @@ def _infer_protor_type_for_atom(residue_name, atom_name, atom_type, n_bonds):
     atom_type = str(atom_type).strip().upper()
     n_bonds = int(n_bonds)
 
-    normalized_residue_name = _PROTOR_RESIDUE_NAME_ALIASES.get(residue_name, residue_name)
+    normalized_residue_name = _PROTOR_RESIDUE_NAME_ALIASES.get(
+        residue_name, residue_name
+    )
     residue_map = _PROTOR_PROTEIN_HEAVY_ATOM_TYPES.get(normalized_residue_name)
 
     if residue_map is not None and atom_name in residue_map:
         return residue_map[atom_name]
 
     if atom_name in _PROTOR_PROTEIN_BACKBONE_TYPES:
-        if atom_name == 'N':
-            return 'N3H0' if normalized_residue_name == 'PRO' else 'N3H1'
-        if atom_name == 'CA':
-            return 'C4H2' if normalized_residue_name == 'GLY' else 'C4H1'
+        if atom_name == "N":
+            return "N3H0" if normalized_residue_name == "PRO" else "N3H1"
+        if atom_name == "CA":
+            return "C4H2" if normalized_residue_name == "GLY" else "C4H1"
         return _PROTOR_PROTEIN_BACKBONE_TYPES[atom_name]
 
-    if atom_type == 'S':
-        return 'S2H1' if n_bonds <= 1 else 'S2H0'
+    if atom_type == "S":
+        return "S2H1" if n_bonds <= 1 else "S2H0"
 
     return None
 
 
 @arg_digest()
-def get_protor_atom_type(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False):
+def get_protor_atom_type(
+    molecular_system, selection="all", syntax="MolSysMT", skip_digestion=False
+):
     """
     Determining the ProtOr atom type for selected atoms.
 
@@ -222,12 +414,12 @@ def get_protor_atom_type(molecular_system, selection='all', syntax='MolSysMT', s
     # Extract required attributes
     group_names, atom_names, atom_types, bonded_atoms = get(
         molecular_system,
-        element='atom',
+        element="atom",
         selection=selection,
         group_name=True,
         atom_name=True,
         atom_type=True,
-        bonded_atoms=True
+        bonded_atoms=True,
     )
 
     # Convert results to arrays to facilitate vectorized or indexed access
@@ -237,8 +429,8 @@ def get_protor_atom_type(molecular_system, selection='all', syntax='MolSysMT', s
 
     # Get atom types for ALL atoms in the system to check neighbor elements
     all_atom_types = np.asarray(
-        get(molecular_system, element='atom', selection='all', atom_type=True),
-        dtype=object
+        get(molecular_system, element="atom", selection="all", atom_type=True),
+        dtype=object,
     )
 
     n_atoms = len(group_names)
@@ -247,14 +439,16 @@ def get_protor_atom_type(molecular_system, selection='all', syntax='MolSysMT', s
 
     for ii in range(n_atoms):
         element = str(atom_types[ii]).strip().upper()
-        if element == 'H':
+        if element == "H":
             protor_types[ii] = None
-            provenance[ii] = 'ignored'
+            provenance[ii] = "ignored"
             continue
 
         # Count only bonds with heavy atoms (not 'H')
         neighbors = bonded_atoms[ii]
-        n_heavy_bonds = sum(1 for neighbor_idx in neighbors if all_atom_types[neighbor_idx] != 'H')
+        n_heavy_bonds = sum(
+            1 for neighbor_idx in neighbors if all_atom_types[neighbor_idx] != "H"
+        )
 
         res_name = str(group_names[ii]).strip().upper()
         at_name = str(atom_names[ii]).strip().upper()
@@ -264,18 +458,20 @@ def get_protor_atom_type(molecular_system, selection='all', syntax='MolSysMT', s
         if ptype is not None:
             protor_types[ii] = ptype
             if at_name in _PROTOR_PROTEIN_BACKBONE_TYPES:
-                provenance[ii] = 'protein_backbone'
+                provenance[ii] = "protein_backbone"
             else:
-                provenance[ii] = 'protein_heavy'
+                provenance[ii] = "protein_heavy"
         else:
             protor_types[ii] = None
-            provenance[ii] = 'element_fallback'
+            provenance[ii] = "element_fallback"
 
     return protor_types, provenance
 
 
 @arg_digest()
-def get_protor_vdw_radius(molecular_system, selection='all', syntax='MolSysMT', skip_digestion=False):
+def get_protor_vdw_radius(
+    molecular_system, selection="all", syntax="MolSysMT", skip_digestion=False
+):
     """
     Calculating the ProtOr atomic van der Waals radius for selected atoms.
 
@@ -313,14 +509,14 @@ def get_protor_vdw_radius(molecular_system, selection='all', syntax='MolSysMT', 
     from molsysmt.physchem.atoms.radius import vdw as standard_vdw
 
     protor_types, provenance = get_protor_atom_type(
-        molecular_system,
-        selection=selection,
-        syntax=syntax,
-        skip_digestion=True
+        molecular_system, selection=selection, syntax=syntax, skip_digestion=True
     )
 
     from molsysmt.basic import get
-    atom_types = get(molecular_system, element='atom', selection=selection, atom_type=True)
+
+    atom_types = get(
+        molecular_system, element="atom", selection=selection, atom_type=True
+    )
     atom_types = np.asarray(atom_types, dtype=object)
 
     radii = np.empty(len(protor_types), dtype=float)
@@ -339,8 +535,8 @@ def get_protor_vdw_radius(molecular_system, selection='all', syntax='MolSysMT', 
                 val = standard_vdw.get(element)
                 if val is None:
                     # Global default heavy-atom fallback is 0.18 nm (1.8 Angstroms)
-                    radii[ii] = 0.12 if element == 'H' else 0.18
+                    radii[ii] = 0.12 if element == "H" else 0.18
                 else:
                     radii[ii] = float(val)
 
-    return puw.quantity(radii, 'nm')
+    return puw.quantity(radii, "nm")

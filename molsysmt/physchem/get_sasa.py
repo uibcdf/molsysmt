@@ -1,11 +1,11 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, warn
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from smonitor import signal
-from molsysmt import pyunitwizard as puw
-from molsysmt.configure import with_configure_overrides
 import numpy as np
+from smonitor import signal
 
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError, warn
+from molsysmt._private.variables import is_all
+from molsysmt.configure import with_configure_overrides
 
 # Atom-count threshold above which ``use_cell_list='auto'`` enables the
 # cell-list occlusion search on the native CPU path. Below it the brute-force
@@ -92,7 +92,7 @@ def get_sasa(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import convert, select, get
+    from molsysmt.basic import convert, get, select
 
     if engine == "MDTraj":
         tmp_item = convert(
@@ -141,12 +141,12 @@ def get_sasa(
         sasa_array = puw.standardize(sasa_array)
 
     elif engine == "MolSysMT":
-        from molsysmt.physchem import get_atomic_radius
+        import molsysmt.configure as config
+        from molsysmt._private.gpu import resolve_use_gpu
         from molsysmt.lib.structure._kernel_inputs import (
             extract_coordinates_value_and_unit,
         )
-        from molsysmt._private.gpu import resolve_use_gpu
-        import molsysmt.configure as config
+        from molsysmt.physchem import get_atomic_radius
 
         # Shrake-Rupley requires the full system to calculate occlusion correctly
         coordinates = get(
@@ -194,12 +194,11 @@ def get_sasa(
             # Taichi backend
             if config.gpu_backend == "taichi":
                 try:
-                    import taichi
+                    __import__("taichi")
 
                     taichi_available = True
                 except ImportError:
                     taichi_available = False
-                    import warnings
                     from molsysmt._private.smonitor import GpuNotAvailableWarning
 
                     warn(
@@ -273,7 +272,6 @@ def get_sasa(
                 else:
                     box = None
 
-            from molsysmt import lib as msmlib
             from molsysmt._private import rust_backend as _kernels
             from molsysmt.lib.structure.sphere_points import (
                 get_fibonacci_sphere_points,

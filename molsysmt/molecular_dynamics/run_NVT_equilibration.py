@@ -1,7 +1,15 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 
-def run_NVT_equilibration (item, protocol=0, forcefield=('AMBER99SB-ILDN','TIP3P'),
-                       contraint_HBonds=True, engine='OpenMM', verbose=True, *kwargs):
+
+def run_NVT_equilibration(
+    item,
+    protocol=0,
+    forcefield=("AMBER99SB-ILDN", "TIP3P"),
+    contraint_HBonds=True,
+    engine="OpenMM",
+    verbose=True,
+    *kwargs,
+):
     """
     To be written soon...
 
@@ -21,4 +29,6 @@ def run_NVT_equilibration (item, protocol=0, forcefield=('AMBER99SB-ILDN','TIP3P
         Argument verbose.
     """
 
-    raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.run_NVT_equilibration')
+    raise NotImplementedMethodError(
+        caller="molsysmt.molecular_dynamics.run_NVT_equilibration"
+    )

@@ -1,12 +1,11 @@
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import NotImplementedMethodError
+
 # =======================
 # Potential Energy
 # =======================
-
 from .utils.engines import arg_digest_engines as _digest_engines
 from .utils.forcefields import switcher as _digest_forcefields
-from molsysmt import pyunitwizard as puw
-from smonitor import signal
 
 """
 Potential Energy
@@ -16,13 +15,31 @@ Methods related with the potential energy of the system.
 From energy minimization to potential energy contribution of specific set of atoms or interactions.
 """
 
-def equilibration_NVT (item, protocol=0, forcefield=('AMBER99SB-ILDN','TIP3P'),
-                       contraint_HBonds=True, engine='OpenMM', verbose=True, **kwargs):
-    raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.md_protocols')
 
-def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
-                       time='1.0 ns', protocol=0, forcefield=('AMBER99SB-ILDN','TIP3P'),
-                       engine='OpenMM', verbose=True, form_out=None, *kwargs):
+def equilibration_NVT(
+    item,
+    protocol=0,
+    forcefield=("AMBER99SB-ILDN", "TIP3P"),
+    contraint_HBonds=True,
+    engine="OpenMM",
+    verbose=True,
+    **kwargs,
+):
+    raise NotImplementedMethodError(caller="molsysmt.molecular_dynamics.md_protocols")
+
+
+def equilibration_NPT(
+    item,
+    temperature="300 K",
+    pressure="1.0 atm",
+    time="1.0 ns",
+    protocol=0,
+    forcefield=("AMBER99SB-ILDN", "TIP3P"),
+    engine="OpenMM",
+    verbose=True,
+    form_out=None,
+    *kwargs,
+):
     """equilibration_NPT (item, protocol, forcefield, constraint_HBonds, engine, verbose)
 
     Description
@@ -52,78 +69,92 @@ def equilibration_NPT (item, temperature='300 K', pressure='1.0 atm',
     >>> minimized_equilibrated = m3t.equilibration_NPT(system)
     """
 
-    from molsysmt.basic import get_form, get, convert, reformat
+    from molsysmt.basic import convert, get, get_form, reformat
 
     engine = _digest_engines(engine)
 
-    if engine=='OpenMM':
-
+    if engine == "OpenMM":
         in_form = get_form(item)
 
         forcefield = _digest_forcefields(forcefield, engine)
 
         in_form = get_form(item)
 
-        #_convert is not defined here, assuming it meant convert or internal _convert
-        topology = convert(item, 'openmm.Topology') 
+        # _convert is not defined here, assuming it meant convert or internal _convert
+        topology = convert(item, "openmm.Topology")
         positions = get(item, coordinates=True)
-        positions = reformat(attribute='coordinates', value=positions,
-                             is_format=in_form, to_format='openmm')
+        positions = reformat(
+            attribute="coordinates",
+            value=positions,
+            is_format=in_form,
+            to_format="openmm",
+        )
 
-        if protocol==0:
-
-            new_positions, new_velocities, equil_data = _equil_NPT_OpenMM_protocol_0(topology,
-                                                                                     positions,
-                                                                                     temperature=temperature,
-                                                                                     pressure=pressure,
-                                                                                     time=time,
-                                                                                     forcefield=forcefield,
-                                                                                     verbose=verbose,
-                                                                                     progress_bar=kwargs.get('progress_bar', True)) # fixed undefined var
+        if protocol == 0:
+            new_positions, new_velocities, equil_data = _equil_NPT_OpenMM_protocol_0(
+                topology,
+                positions,
+                temperature=temperature,
+                pressure=pressure,
+                time=time,
+                forcefield=forcefield,
+                verbose=verbose,
+                progress_bar=kwargs.get("progress_bar", True),
+            )  # fixed undefined var
     else:
+        raise NotImplementedMethodError(
+            caller="molsysmt.molecular_dynamics.md_protocols"
+        )
 
-        raise NotImplementedMethodError(caller='molsysmt.molecular_dynamics.md_protocols')
 
-def _equil_NPT_OpenMM_protocol_0(topology, positions,
-                                 temperature='300 K', pressure='1.0 atm',
-                                 time='1.0 ns', forcefield=None, verbose=True,
-                                 progress_bar=True):
+def _equil_NPT_OpenMM_protocol_0(
+    topology,
+    positions,
+    temperature="300 K",
+    pressure="1.0 atm",
+    time="1.0 ns",
+    forcefield=None,
+    verbose=True,
+    progress_bar=True,
+):
 
     from depdigest import check_dependency
-    
-    check_dependency('openmm')
-    check_dependency('openmmtools') # LangevinIntegrator used below
+
+    check_dependency("openmm")
+    check_dependency("openmmtools")  # LangevinIntegrator used below
 
     import numpy as np
-    import openmm.app as app
     import openmm as mm
+    import openmm.app as app
     import openmm.unit as _unit
-    from openmmtools.integrators import LangevinIntegrator, GeodesicBAOABIntegrator
-    
+    from openmmtools.integrators import LangevinIntegrator
+
     # Convert input units to openmm units
-    temperature = puw.convert(temperature, to_unit='kelvin', to_form='openmm.unit')
-    pressure = puw.convert(pressure, to_unit='atm', to_form='openmm.unit')
-    time = puw.convert(time, to_unit='ns', to_form='openmm.unit')
+    temperature = puw.convert(temperature, to_unit="kelvin", to_form="openmm.unit")
+    pressure = puw.convert(pressure, to_unit="atm", to_form="openmm.unit")
+    time = puw.convert(time, to_unit="ns", to_form="openmm.unit")
 
     if progress_bar:
         from tqdm import tqdm
     else:
+
         def tqdm(arg):
             return arg
 
-    #item needs to be openmm.modeller
+    # item needs to be openmm.modeller
 
-    forcefield = app.ForceField("amber99sbildn.xml","tip3p.xml")
+    forcefield = app.ForceField("amber99sbildn.xml", "tip3p.xml")
     # topology = item.topology # item is not defined, using argument topology
     # positions = item.positions # item is not defined, using argument positions
 
-    system = forcefield.createSystem(topology, # forcefield_generator was undefined, assuming forcefield object
-                                               constraints=app.HBonds, # typos: contraints -> constraints
-                                               nonbondedMethod=app.PME,
-                                               nonbondedCutoff=1.0*_unit.nanometers,
-                                               rigidWater=True,
-                                               ewaldErrorTolerance=0.0005
-                                              )
+    system = forcefield.createSystem(
+        topology,  # forcefield_generator was undefined, assuming forcefield object
+        constraints=app.HBonds,  # typos: contraints -> constraints
+        nonbondedMethod=app.PME,
+        nonbondedCutoff=1.0 * _unit.nanometers,
+        rigidWater=True,
+        ewaldErrorTolerance=0.0005,
+    )
 
     ## Thermodynamic State
     kB = _unit.BOLTZMANN_CONSTANT_kB * _unit.AVOGADRO_CONSTANT_NA
@@ -131,19 +162,19 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
     # pressure = pressure # redundant
 
     ## Barostat
-    barostat_frequency = 25 # steps
+    barostat_frequency = 25  # steps
     barostat = mm.MonteCarloBarostat(pressure, temperature, barostat_frequency)
     system.addForce(barostat)
 
     ## Integrator
-    friction   = 1.0/_unit.picosecond
-    step_size  = 2.0*_unit.femtoseconds
+    friction = 1.0 / _unit.picosecond
+    step_size = 2.0 * _unit.femtoseconds
     integrator = LangevinIntegrator(temperature, friction, step_size)
     integrator.setConstraintTolerance(0.00001)
 
     ## Platform
-    platform = mm.Platform.getPlatformByName('CUDA')
-    properties = {'CudaPrecision': 'mixed'}
+    platform = mm.Platform.getPlatformByName("CUDA")
+    properties = {"CudaPrecision": "mixed"}
 
     ## Simulation
     simulation = app.Simulation(topology, system, integrator, platform, properties)
@@ -152,24 +183,33 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
 
     time_equilibration = time
     time_iteration = 0.2 * _unit.picoseconds
-    number_iterations = int(time_equilibration/time_iteration)
-    steps_iteration = int(time_iteration/step_size)
-    steps_equilibration = number_iterations*steps_iteration
+    number_iterations = int(time_equilibration / time_iteration)
+    steps_iteration = int(time_iteration / step_size)
 
     ## Reporters
 
     # m3t is not defined, assume import
-    import molsysmt as m3t 
-    
-    net_mass, n_degrees_of_freedom = m3t.get(topology, net_mass=True, n_degrees_of_freedom=True) # system doesn't have these getters usually applied to molsysmt item
+    import molsysmt as m3t
+
+    net_mass, n_degrees_of_freedom = m3t.get(
+        topology, net_mass=True, n_degrees_of_freedom=True
+    )  # system doesn't have these getters usually applied to molsysmt item
     niters = number_iterations
     data = dict()
-    data['time'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.picoseconds)
-    data['potential'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.kilocalories_per_mole)
-    data['kinetic'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.kilocalories_per_mole)
-    data['volume'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.angstroms**3)
-    data['density'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.gram / _unit.centimeters**3)
-    data['kinetic_temperature'] = _unit.Quantity(np.zeros([niters], np.float64), _unit.kelvin) # unit -> _unit
+    data["time"] = _unit.Quantity(np.zeros([niters], np.float64), _unit.picoseconds)
+    data["potential"] = _unit.Quantity(
+        np.zeros([niters], np.float64), _unit.kilocalories_per_mole
+    )
+    data["kinetic"] = _unit.Quantity(
+        np.zeros([niters], np.float64), _unit.kilocalories_per_mole
+    )
+    data["volume"] = _unit.Quantity(np.zeros([niters], np.float64), _unit.angstroms**3)
+    data["density"] = _unit.Quantity(
+        np.zeros([niters], np.float64), _unit.gram / _unit.centimeters**3
+    )
+    data["kinetic_temperature"] = _unit.Quantity(
+        np.zeros([niters], np.float64), _unit.kelvin
+    )  # unit -> _unit
 
     for iteration in tqdm(range(number_iterations)):
         integrator.step(steps_iteration)
@@ -178,18 +218,21 @@ def _equil_NPT_OpenMM_protocol_0(topology, positions,
         potential_energy = state.getPotentialEnergy()
         kinetic_energy = state.getKineticEnergy()
         volume = state.getPeriodicBoxVolume()
-        density = (net_mass / volume).in_units_of(_unit.gram / _unit.centimeter**3) # unit -> _unit
-        kinetic_temperature = (2.0 * kinetic_energy / kB / n_degrees_of_freedom).in_units_of(_unit.kelvin) # (1/2) ndof * kB * T = KE
-        data['time'][iteration]=time
-        data['potential'] = potential_energy
-        data['kinetic'] = kinetic_energy
-        data['volume'] = volume
-        data['density'] = density
-        data['kinetic_temperature'] = kinetic_temperature
+        density = (net_mass / volume).in_units_of(
+            _unit.gram / _unit.centimeter**3
+        )  # unit -> _unit
+        kinetic_temperature = (
+            2.0 * kinetic_energy / kB / n_degrees_of_freedom
+        ).in_units_of(_unit.kelvin)  # (1/2) ndof * kB * T = KE
+        data["time"][iteration] = time
+        data["potential"] = potential_energy
+        data["kinetic"] = kinetic_energy
+        data["volume"] = volume
+        data["density"] = density
+        data["kinetic_temperature"] = kinetic_temperature
 
     final_state = simulation.context.getState(getPositions=True, getVelocities=True)
     final_positions = final_state.getPositions()
     final_velocities = final_state.getVelocities()
 
     return final_positions, final_velocities, data
-

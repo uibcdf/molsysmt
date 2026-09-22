@@ -1,18 +1,22 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 import inspect
+
 from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def merge(molecular_systems,
-          selections='all',
-          structure_indices='all',
-          keep_ids = True,
-          syntax='MolSysMT',
-          to_form=None,
-          skip_digestion=False
-          ):
+def merge(
+    molecular_systems,
+    selections="all",
+    structure_indices="all",
+    keep_ids=True,
+    syntax="MolSysMT",
+    to_form=None,
+    skip_digestion=False,
+):
     """
     Merging elements from multiple molecular systems into a new one.
 
@@ -99,9 +103,10 @@ def merge(molecular_systems,
     .. versionadded:: 1.0.0
     """
 
-    from . import convert, get_form, select
-    from molsysmt.form import _dict_modules
     from molsysmt._private.smonitor import ArgumentLengthError
+    from molsysmt.form import _dict_modules
+
+    from . import convert, get_form, select
 
     n_molecular_systems = len(molecular_systems)
 
@@ -130,36 +135,49 @@ def merge(molecular_systems,
     aux_structure_indices = []
     if to_form is None:
         to_form = get_form(molecular_systems[0])
-    for tmp_molecular_system, tmp_selection, tmp_structure_indices in zip(molecular_systems,
-            selections, structure_indices):
+    for tmp_molecular_system, tmp_selection, tmp_structure_indices in zip(
+        molecular_systems, selections, structure_indices
+    ):
         tmp_form = get_form(tmp_molecular_system)
         if tmp_form == to_form:
             aux_molecular_systems.append(tmp_molecular_system)
             if is_all(tmp_selection):
                 aux_atom_indices.append(tmp_selection)
             else:
-                aux_atom_indices.append(select(tmp_molecular_system, selection=tmp_selection, syntax=syntax, skip_digestion=True))
+                aux_atom_indices.append(
+                    select(
+                        tmp_molecular_system,
+                        selection=tmp_selection,
+                        syntax=syntax,
+                        skip_digestion=True,
+                    )
+                )
             aux_structure_indices.append(tmp_structure_indices)
         else:
-            aux = convert(tmp_molecular_system, to_form=to_form, selection=tmp_selection,
-                    structure_indices=tmp_structure_indices, skip_digestion=True)
+            aux = convert(
+                tmp_molecular_system,
+                to_form=to_form,
+                selection=tmp_selection,
+                structure_indices=tmp_structure_indices,
+                skip_digestion=True,
+            )
             aux_molecular_systems.append(aux)
-            aux_atom_indices.append('all')
-            aux_structure_indices.append('all')
+            aux_atom_indices.append("all")
+            aux_structure_indices.append("all")
 
     merge_arguments = {}
     merge_function = _dict_modules[to_form].merge
     input_arguments = set(inspect.signature(merge_function).parameters)
 
-    if 'atom_indices' in input_arguments:
-        merge_arguments['atom_indices']=aux_atom_indices
+    if "atom_indices" in input_arguments:
+        merge_arguments["atom_indices"] = aux_atom_indices
 
-    if 'structure_indices' in input_arguments:
-        merge_arguments['structure_indices']=aux_structure_indices
+    if "structure_indices" in input_arguments:
+        merge_arguments["structure_indices"] = aux_structure_indices
 
-    merge_arguments['skip_digestion']=True
-    if 'keep_ids' in input_arguments:
-        merge_arguments['keep_ids']=keep_ids
+    merge_arguments["skip_digestion"] = True
+    if "keep_ids" in input_arguments:
+        merge_arguments["keep_ids"] = keep_ids
 
     output = merge_function(aux_molecular_systems, **merge_arguments)
 

@@ -1,12 +1,22 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, ArgumentChoiceError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt.physchem.groups._lookup import group_table_value
 import numpy as np
+
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentChoiceError, NotImplementedMethodError
+from molsysmt.physchem.groups._lookup import group_table_value
+
 
 @arg_digest()
-def get_charge(molecular_system, element='group', selection='all', definition='physical_pH7',
-               forcefield='AMBER14', water_model=None, syntax='MolSysMT', skip_digestion=False):
+def get_charge(
+    molecular_system,
+    element="group",
+    selection="all",
+    definition="physical_pH7",
+    forcefield="AMBER14",
+    water_model=None,
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Electric charge for the selected elements.
 
@@ -66,61 +76,99 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
 
     .. versionadded:: 1.0.0
     """
-    
+
     from molsysmt.basic import get
 
-    if definition in ['physical_pH7', 'collantes']:
-
-
-        if definition=='physical_pH7':
-            from molsysmt.physchem.groups.charge import physical_pH7 as values, units
-        elif definition=='collantes':
-            from molsysmt.physchem.groups.charge import collantes as values, units
+    if definition in ["physical_pH7", "collantes"]:
+        if definition == "physical_pH7":
+            from molsysmt.physchem.groups.charge import physical_pH7 as values
+            from molsysmt.physchem.groups.charge import units
+        elif definition == "collantes":
+            from molsysmt.physchem.groups.charge import collantes as values
+            from molsysmt.physchem.groups.charge import units
         else:
             raise NotImplementedMethodError()
 
         output = []
 
-        if element=='atom':
+        if element == "atom":
             raise ArgumentChoiceError(
                 argument="element",
                 value=element,
-                choices=['group', 'component', 'molecule', 'chain', 'entity', 'system'],
+                choices=["group", "component", "molecule", "chain", "entity", "system"],
                 caller="molsysmt.physchem.get_charge",
-                message='Only elements bigger than, or equal to, groups are allowed when definition is "physical_pH7" or "collantes"'
+                message='Only elements bigger than, or equal to, groups are allowed when definition is "physical_pH7" or "collantes"',
             )
 
-        elif element=='group':
-
-            group_names = get(molecular_system, element=element, selection=selection, group_name=True)
+        elif element == "group":
+            group_names = get(
+                molecular_system, element=element, selection=selection, group_name=True
+            )
             for ii in group_names:
-                output.append(group_table_value(values, ii, table='charge', caller='molsysmt.physchem.get_charge'))
+                output.append(
+                    group_table_value(
+                        values,
+                        ii,
+                        table="charge",
+                        caller="molsysmt.physchem.get_charge",
+                    )
+                )
             output = puw.quantity(np.array(output), units)
 
-        elif element in ['component', 'molecule', 'chain', 'entity']:
-
-            group_names = get(molecular_system, element=element, selection=selection, group_name=True)
+        elif element in ["component", "molecule", "chain", "entity"]:
+            group_names = get(
+                molecular_system, element=element, selection=selection, group_name=True
+            )
             for aux in group_names:
-                output.append(np.sum([group_table_value(values, ii, table='charge', caller='molsysmt.physchem.get_charge') for ii in aux]))
+                output.append(
+                    np.sum(
+                        [
+                            group_table_value(
+                                values,
+                                ii,
+                                table="charge",
+                                caller="molsysmt.physchem.get_charge",
+                            )
+                            for ii in aux
+                        ]
+                    )
+                )
             output = puw.quantity(np.array(output), units)
 
-        elif element=='system':
+        elif element == "system":
+            group_names = get(
+                molecular_system, element="group", selection="all", group_names=True
+            )
+            output = puw.quantity(
+                np.sum(
+                    [
+                        group_table_value(
+                            values,
+                            ii,
+                            table="charge",
+                            caller="molsysmt.physchem.get_charge",
+                        )
+                        for ii in group_names
+                    ]
+                ),
+                units,
+            )
 
-            group_names = get(molecular_system, element='group', selection='all', group_names=True)
-            output = puw.quantity(np.sum([group_table_value(values, ii, table='charge', caller='molsysmt.physchem.get_charge') for ii in group_names]), units)
-
-    elif definition == 'OpenMM':
+    elif definition == "OpenMM":
+        from openmm import NonbondedForce
 
         from molsysmt.basic import convert, get_form
-        from openmm import NonbondedForce
 
         form_in = get_form(molecular_system)
 
-        if form_in == 'openmm.System':
-
-            if element=='atom':
-
-                atom_indices = get(molecular_system, element=element, selection=selection, atom_index=True)
+        if form_in == "openmm.System":
+            if element == "atom":
+                atom_indices = get(
+                    molecular_system,
+                    element=element,
+                    selection=selection,
+                    atom_index=True,
+                )
 
                 output = []
 
@@ -128,36 +176,39 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
                     force = molecular_system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in atom_indices:
-                            output.append(force.getParticleParameters(int(index))[0]._value)
+                            output.append(
+                                force.getParticleParameters(int(index))[0]._value
+                            )
 
-                output = np.array(output, dtype=float).round(4)*puw.unit('e')
+                output = np.array(output, dtype=float).round(4) * puw.unit("e")
 
-            elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
-
+            elif element in ["group", "component", "chain", "molecule", "entity"]:
                 raise ArgumentChoiceError(
                     argument="element",
                     value=element,
                     choices=["atom", "system"],
                     caller="molsysmt.physchem.get_charge",
-                    message='openmm.System only allows element in ["atom", "system"]'
+                    message='openmm.System only allows element in ["atom", "system"]',
                 )
 
-            elif element=='system':
-
+            elif element == "system":
                 var_aux = 0.0
                 for force_index in range(molecular_system.getNumForces()):
                     force = molecular_system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in range(molecular_system.getNumParticles()):
-                            var_aux+=force.getParticleParameters(int(index))[0]._value
+                            var_aux += force.getParticleParameters(int(index))[0]._value
 
-                output = np.round(var_aux,4)*puw.unit('e')
+                output = np.round(var_aux, 4) * puw.unit("e")
 
-        elif form_in == 'openmm.Simulation':
-
-            if element=='atom':
-
-                atom_indices = get(molecular_system, element=element, selection=selection, atom_index=True)
+        elif form_in == "openmm.Simulation":
+            if element == "atom":
+                atom_indices = get(
+                    molecular_system,
+                    element=element,
+                    selection=selection,
+                    atom_index=True,
+                )
 
                 output = []
 
@@ -165,13 +216,19 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
                     force = molecular_system.system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in atom_indices:
-                            output.append(force.getParticleParameters(int(index))[0]._value)
+                            output.append(
+                                force.getParticleParameters(int(index))[0]._value
+                            )
 
-                output = np.array(output, dtype=float).round(4)*puw.unit('e')
+                output = np.array(output, dtype=float).round(4) * puw.unit("e")
 
-            elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
-
-                atom_indices = get(molecular_system, element=element, selection=selection, atom_index=True)
+            elif element in ["group", "component", "chain", "molecule", "entity"]:
+                atom_indices = get(
+                    molecular_system,
+                    element=element,
+                    selection=selection,
+                    atom_index=True,
+                )
 
                 output = []
 
@@ -181,31 +238,39 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
                         for atom_list in atom_indices:
                             var_aux = 0.0
                             for index in atom_list:
-                                var_aux+=force.getParticleParameters(int(index))[0]._value
+                                var_aux += force.getParticleParameters(int(index))[
+                                    0
+                                ]._value
                             output.append(var_aux)
 
-                output = np.array(output, dtype=float).round(4)*puw.unit('e')
+                output = np.array(output, dtype=float).round(4) * puw.unit("e")
 
-            elif element=='system':
-
-                atom_indices = get(molecular_system, element='atom', selection='all', index=True)
+            elif element == "system":
+                atom_indices = get(
+                    molecular_system, element="atom", selection="all", index=True
+                )
 
                 var_aux = 0.0
                 for force_index in range(molecular_system.system.getNumForces()):
                     force = molecular_system.system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in atom_indices:
-                            var_aux+=force.getParticleParameters(int(index))[0]._value
+                            var_aux += force.getParticleParameters(int(index))[0]._value
 
-                output = np.round(var_aux,4)*puw.unit('e')
+                output = np.round(var_aux, 4) * puw.unit("e")
 
         else:
+            openmm_system = convert(
+                molecular_system, to_form="openmm.System", forcefield=forcefield
+            )
 
-            openmm_system = convert(molecular_system, to_form='openmm.System', forcefield=forcefield)
-
-            if element=='atom':
-
-                atom_indices = get(molecular_system, element=element, selection=selection, atom_index=True)
+            if element == "atom":
+                atom_indices = get(
+                    molecular_system,
+                    element=element,
+                    selection=selection,
+                    atom_index=True,
+                )
 
                 output = []
 
@@ -213,13 +278,19 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
                     force = openmm_system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in atom_indices:
-                            output.append(force.getParticleParameters(int(index))[0]._value)
+                            output.append(
+                                force.getParticleParameters(int(index))[0]._value
+                            )
 
-                output = np.array(output, dtype=float).round(4)*puw.unit('e')
+                output = np.array(output, dtype=float).round(4) * puw.unit("e")
 
-            elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
-
-                atom_indices = get(molecular_system, element=element, selection=selection, atom_index=True)
+            elif element in ["group", "component", "chain", "molecule", "entity"]:
+                atom_indices = get(
+                    molecular_system,
+                    element=element,
+                    selection=selection,
+                    atom_index=True,
+                )
 
                 output = []
 
@@ -229,24 +300,24 @@ def get_charge(molecular_system, element='group', selection='all', definition='p
                         for atom_list in atom_indices:
                             var_aux = 0.0
                             for index in atom_list:
-                                var_aux+=force.getParticleParameters(int(index))[0]._value
+                                var_aux += force.getParticleParameters(int(index))[
+                                    0
+                                ]._value
                             output.append(var_aux)
 
-                output = np.array(output, dtype=float).round(4)*puw.unit('e')
+                output = np.array(output, dtype=float).round(4) * puw.unit("e")
 
-            elif element=='system':
-
+            elif element == "system":
                 var_aux = 0.0
                 for force_index in range(openmm_system.getNumForces()):
                     force = openmm_system.getForce(force_index)
                     if isinstance(force, NonbondedForce):
                         for index in range(openmm_system.getNumParticles()):
-                            var_aux+=force.getParticleParameters(int(index))[0]._value
+                            var_aux += force.getParticleParameters(int(index))[0]._value
 
-                output = np.round(var_aux,4)*puw.unit('e')
+                output = np.round(var_aux, 4) * puw.unit("e")
 
     else:
-
         raise NotImplementedMethodError
 
     output = puw.standardize(output)

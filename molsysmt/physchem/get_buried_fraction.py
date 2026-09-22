@@ -1,10 +1,17 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt.physchem.groups._lookup import group_table_value
 
+
 @arg_digest()
-def get_buried_fraction(molecular_system, element='group', selection='all', definition='janin', syntax='MolSysMT',
-                        skip_digestion=False):
+def get_buried_fraction(
+    molecular_system,
+    element="group",
+    selection="all",
+    definition="janin",
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Fraction of residues observed in a buried environment.
 
@@ -55,17 +62,25 @@ def get_buried_fraction(molecular_system, element='group', selection='all', defi
 
     from molsysmt.basic import get
 
-    if definition == 'janin':
+    if definition == "janin":
         from .groups.buried_fraction import janin as values
     else:
         raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, group_name=True)
+    group_types = get(
+        molecular_system, element="group", selection=selection, group_name=True
+    )
 
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii, table='buried fraction', caller='molsysmt.physchem.get_buried_fraction'))
+        output.append(
+            group_table_value(
+                values,
+                ii,
+                table="buried fraction",
+                caller="molsysmt.physchem.get_buried_fraction",
+            )
+        )
 
     return output
-

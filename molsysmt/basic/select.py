@@ -1,21 +1,38 @@
-from molsysmt._private.smonitor import ArgumentError, NotImplementedMethodError, NotSupportedSyntaxError
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
-from molsysmt._private.variables import is_all, is_iterable_of_iterables
-from molsysmt.element import _singular_element_to_plural
-from .selector import _dict_select, _dict_indices_to_selection
-from ._index_validation import normalize_mask, validate_element_indices, validate_structure_indices
-from molsysmt._private.chemical_state import resolve_chemical_state
-
-
 from smonitor import signal
 
-@signal(tags=['api', 'selection'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.chemical_state import resolve_chemical_state
+from molsysmt._private.smonitor import (
+    ArgumentError,
+    NotImplementedMethodError,
+    NotSupportedSyntaxError,
+)
+from molsysmt._private.variables import is_all, is_iterable_of_iterables
+from molsysmt.element import _singular_element_to_plural
+
+from ._index_validation import (
+    normalize_mask,
+    validate_element_indices,
+    validate_structure_indices,
+)
+from .selector import _dict_indices_to_selection, _dict_select
+
+
+@signal(tags=["api", "selection"])
 @arg_digest()
 @resolve_chemical_state
-def select(molecular_system, selection='all', structure_indices='all', element='atom',
-           mask=None, syntax='MolSysMT', to_syntax=None, chemical_state='reference',
-           skip_digestion=False):
+def select(
+    molecular_system,
+    selection="all",
+    structure_indices="all",
+    element="atom",
+    mask=None,
+    syntax="MolSysMT",
+    to_syntax=None,
+    chemical_state="reference",
+    skip_digestion=False,
+):
     """
     Selecting elements from a molecular system.
 
@@ -130,61 +147,66 @@ def select(molecular_system, selection='all', structure_indices='all', element='
     from molsysmt.basic import where_is_attribute
     from molsysmt.form import _dict_modules
 
-    if chemical_state != 'reference' and syntax != 'MolSysMT' and isinstance(selection, str):
+    if (
+        chemical_state != "reference"
+        and syntax != "MolSysMT"
+        and isinstance(selection, str)
+    ):
         raise ArgumentError(
-            argument='syntax',
+            argument="syntax",
             value=syntax,
-            caller='molsysmt.select',
+            caller="molsysmt.select",
         )
 
     if is_all(selection):
+        attribute = "n_" + _singular_element_to_plural[element]
+        aux_item, aux_form = where_is_attribute(
+            molecular_system, attribute, skip_digestion=True
+        )
+        n_elements = getattr(_dict_modules[aux_form], f"get_{attribute}_from_system")(
+            aux_item
+        )
 
-        attribute = 'n_'+_singular_element_to_plural[element]
-        aux_item, aux_form = where_is_attribute(molecular_system, attribute, skip_digestion=True)
-        n_elements = getattr(_dict_modules[aux_form], f'get_{attribute}_from_system')(aux_item)
-
-        output_indices = np.arange(n_elements, dtype='int64').tolist()
+        output_indices = np.arange(n_elements, dtype="int64").tolist()
 
     elif isinstance(selection, (int, np.int64, np.int32)):
-
         output_indices = validate_element_indices(
-            molecular_system, [selection], element, 'selection', 'molsysmt.select'
+            molecular_system, [selection], element, "selection", "molsysmt.select"
         )
 
     elif selection is None:
-
         output_indices = None
 
     elif isinstance(selection, (list, tuple, np.ndarray)):
-
         if all([isinstance(ii, (int, np.int32, np.int64)) for ii in selection]):
-
             output_indices = validate_element_indices(
-                molecular_system, selection, element, 'selection', 'molsysmt.select'
+                molecular_system, selection, element, "selection", "molsysmt.select"
             )
 
         else:
-
             output_indices = []
 
             for tmp_selection in selection:
-
-                tmp_indices = select(molecular_system, selection=tmp_selection,
-                                     structure_indices=structure_indices, element=element,
-                                     chemical_state=chemical_state, syntax=syntax,
-                                     skip_digestion=True)
+                tmp_indices = select(
+                    molecular_system,
+                    selection=tmp_selection,
+                    structure_indices=structure_indices,
+                    element=element,
+                    chemical_state=chemical_state,
+                    syntax=syntax,
+                    skip_digestion=True,
+                )
 
                 output_indices.append(tmp_indices)
 
     else:
-
         if syntax in _dict_select:
             try:
                 structure_indices = validate_structure_indices(
-                    molecular_system, structure_indices, 'molsysmt.select'
+                    molecular_system, structure_indices, "molsysmt.select"
                 )
                 direct_bond_selection = False
-                if syntax == 'MolSysMT' and element == 'bond':
+                if syntax == "MolSysMT" and element == "bond":
                     from .selector.molsysmt import (
                         select_bonds_standard,
                         selection_uses_bond_attributes,
@@ -194,7 +216,9 @@ def select(molecular_system, selection='all', structure_indices='all', element='
                 if direct_bond_selection:
                     output_indices = select_bonds_standard(molecular_system, selection)
                 else:
-                    atom_indices = _dict_select[syntax](molecular_system, selection, structure_indices)
+                    atom_indices = _dict_select[syntax](
+                        molecular_system, selection, structure_indices
+                    )
             except ArgumentError:
                 raise
             except Exception as exc:
@@ -203,74 +227,84 @@ def select(molecular_system, selection='all', structure_indices='all', element='
                 if isinstance(exc, CatalogException):
                     raise
                 raise ArgumentError(
-                    argument='selection',
+                    argument="selection",
                     value=selection,
-                    caller='molsysmt.select',
+                    caller="molsysmt.select",
                     cause=exc,
                     message=(
                         f"The selection could not be parsed with the {syntax!r} syntax: {exc}"
                     ),
                 ) from exc
         else:
-
             raise NotSupportedSyntaxError(syntax=syntax)
 
         if direct_bond_selection:
-
             pass
 
-        elif element == 'atom':
-
+        elif element == "atom":
             output_indices = atom_indices
 
-        elif element in ['group', 'component', 'chain', 'molecule', 'entity']:
-
+        elif element in ["group", "component", "chain", "molecule", "entity"]:
             if is_iterable_of_iterables(atom_indices):
-
                 output_indices = []
 
-                aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', skip_digestion=True)
+                aux_item, aux_form = where_is_attribute(
+                    molecular_system, element + "_index", skip_digestion=True
+                )
                 for aux_atom_indices in atom_indices:
-                    temp_output_indices = getattr(_dict_modules[aux_form],
-                                                  f'get_{element}_index_from_atom')(aux_item, indices=aux_atom_indices)
+                    temp_output_indices = getattr(
+                        _dict_modules[aux_form], f"get_{element}_index_from_atom"
+                    )(aux_item, indices=aux_atom_indices)
                     output_indices.append(np.unique(temp_output_indices).tolist())
 
             else:
-
-                aux_item, aux_form = where_is_attribute(molecular_system, element+'_index', skip_digestion=True)
-                output_indices = getattr(_dict_modules[aux_form], f'get_{element}_index_from_atom')(aux_item,
-                                                                                                    indices=atom_indices)
+                aux_item, aux_form = where_is_attribute(
+                    molecular_system, element + "_index", skip_digestion=True
+                )
+                output_indices = getattr(
+                    _dict_modules[aux_form], f"get_{element}_index_from_atom"
+                )(aux_item, indices=atom_indices)
                 output_indices = np.unique(output_indices).tolist()
 
-        elif element == 'bond':
-
-            aux_item, aux_form = where_is_attribute(molecular_system, 'inner_bond_index', skip_digestion=True)
-            output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(aux_item, indices=atom_indices)
+        elif element == "bond":
+            aux_item, aux_form = where_is_attribute(
+                molecular_system, "inner_bond_index", skip_digestion=True
+            )
+            output_indices = _dict_modules[aux_form].get_inner_bond_index_from_atom(
+                aux_item, indices=atom_indices
+            )
             output_indices = np.unique(np.concatenate(output_indices)).tolist()
 
         else:
-
-            raise NotImplementedMethodError(caller='molsysmt.basic.select')
+            raise NotImplementedMethodError(caller="molsysmt.basic.select")
 
     if is_all(mask):
         mask = None
 
     if (mask is not None) and (output_indices is not None):
         if isinstance(mask, str):
-            mask = select(molecular_system, selection=mask, element=element,
-                          chemical_state=chemical_state, syntax=syntax, skip_digestion=True)
+            mask = select(
+                molecular_system,
+                selection=mask,
+                element=element,
+                chemical_state=chemical_state,
+                syntax=syntax,
+                skip_digestion=True,
+            )
         else:
-            mask = normalize_mask(molecular_system, mask, element, 'molsysmt.select')
-        output_indices = np.intersect1d(output_indices, mask, assume_unique=True).tolist()
+            mask = normalize_mask(molecular_system, mask, element, "molsysmt.select")
+        output_indices = np.intersect1d(
+            output_indices, mask, assume_unique=True
+        ).tolist()
 
     if to_syntax is None:
-
         output = output_indices
 
     else:
-
         if to_syntax in _dict_indices_to_selection:
-            output = _dict_indices_to_selection[to_syntax](molecular_system, output_indices, element)
+            output = _dict_indices_to_selection[to_syntax](
+                molecular_system, output_indices, element
+            )
         else:
             raise NotSupportedSyntaxError(syntax=to_syntax)
 

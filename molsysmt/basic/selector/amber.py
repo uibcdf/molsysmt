@@ -1,17 +1,20 @@
 from molsysmt._private.smonitor import NotImplementedMethodError
 
-def select(molecular_system, selection='all', structure_indices='all'):
 
-    #from . import convert, get_form
+def select(molecular_system, selection="all", structure_indices="all"):
 
-    #if form_in == 'pytraj.Topology':
+    # from . import convert, get_form
+
+    # if form_in == 'pytraj.Topology':
     #    tmp_item = item
-    #else:
+    # else:
     #    tmp_item = convert(item, to_form='pytraj.Topology')
 
-    raise NotImplementedMethodError(caller='molsysmt.basic.selector.amber.select')
+    raise NotImplementedMethodError(caller="molsysmt.basic.selector.amber.select")
 
-def indices_to_selection(molecular_system, indices, element='atom'):
 
-    raise NotImplementedMethodError(caller='molsysmt.basic.selector.amber.indices_to_selection')
+def indices_to_selection(molecular_system, indices, element="atom"):
 
+    raise NotImplementedMethodError(
+        caller="molsysmt.basic.selector.amber.indices_to_selection"
+    )

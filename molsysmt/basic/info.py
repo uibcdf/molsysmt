@@ -1,7 +1,8 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
 from pandas import DataFrame as df
 from smonitor import signal
+
+from molsysmt._private.argdigest import arg_digest
 
 
 def _to_python(val):
@@ -10,21 +11,22 @@ def _to_python(val):
         return None
     if isinstance(val, (list, tuple, np.ndarray)):
         return [_to_python(v) for v in val]
-    if hasattr(val, 'item'):
+    if hasattr(val, "item"):
         return val.item()
     return val
 
 
-@signal(tags=['api', 'get'])
+@signal(tags=["api", "get"])
 @arg_digest()
-def info(molecular_system,
-         element='system',
-         selection='all',
-         structure_indices='all',
-         syntax='MolSysMT',
-         output_type='styler',
-         skip_digestion=False
-         ):
+def info(
+    molecular_system,
+    element="system",
+    selection="all",
+    structure_indices="all",
+    syntax="MolSysMT",
+    output_type="styler",
+    skip_digestion=False,
+):
     """
     Display a summary table of a molecular system or selected elements.
 
@@ -117,12 +119,13 @@ def info(molecular_system,
     .. versionadded:: 1.0.0
     """
 
-    from . import get_form, get, convert, select
-    from ._index_validation import validate_structure_indices
     from molsysmt.form import _dict_modules
 
+    from . import get, get_form, select
+    from ._index_validation import validate_structure_indices
+
     structure_indices = validate_structure_indices(
-        molecular_system, structure_indices, 'molsysmt.info'
+        molecular_system, structure_indices, "molsysmt.info"
     )
 
     form = get_form(molecular_system)
@@ -132,305 +135,639 @@ def info(molecular_system,
         for aux_form in form[1:]:
             for aux_attribute, aux_bool in _dict_modules[aux_form].attributes.items():
                 if aux_bool:
-                    attributes_filter[aux_attribute]=True
+                    attributes_filter[aux_attribute] = True
     else:
         attributes_filter = _dict_modules[form].attributes
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
-    if element == 'atom':
+    if element == "atom":
+        (
+            atom_index,
+            atom_id,
+            atom_name,
+            atom_type,
+            group_index,
+            group_id,
+            group_name,
+            group_type,
+            component_index,
+            chain_index,
+            molecule_index,
+            molecule_type,
+            entity_index,
+            entity_name,
+        ) = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+            atom_index=True,
+            atom_id=True,
+            atom_name=True,
+            atom_type=True,
+            group_index=True,
+            group_id=True,
+            group_name=True,
+            group_type=True,
+            component_index=True,
+            chain_index=True,
+            molecule_index=True,
+            molecule_type=True,
+            entity_index=True,
+            entity_name=True,
+        )
 
-        atom_index, atom_id, atom_name, atom_type, \
-        group_index, group_id, group_name, group_type, \
-        component_index, \
-        chain_index, \
-        molecule_index, molecule_type, \
-        entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, skip_digestion=True, atom_index=True, atom_id=True,
-                                        atom_name=True, atom_type=True, group_index=True, group_id=True,
-                                        group_name=True, group_type=True, component_index=True,
-                                        chain_index=True, molecule_index=True, molecule_type=True,
-                                        entity_index=True, entity_name=True,
-                                        )
+        if not attributes_filter["atom_index"]:
+            atom_index = None
+        if not attributes_filter["atom_id"]:
+            atom_id = None
+        if not attributes_filter["atom_name"]:
+            atom_name = None
+        if not attributes_filter["atom_type"]:
+            atom_type = None
+        if not attributes_filter["group_index"]:
+            group_index = None
+        if not attributes_filter["group_id"]:
+            group_id = None
+        if not attributes_filter["group_name"]:
+            group_name = None
+        if not attributes_filter["group_type"]:
+            group_type = None
+        if not attributes_filter["component_index"]:
+            component_index = None
+        if not attributes_filter["chain_index"]:
+            chain_index = None
+        if not attributes_filter["molecule_index"]:
+            molecule_index = None
+        if not attributes_filter["molecule_type"]:
+            molecule_type = None
+        if not attributes_filter["entity_index"]:
+            entity_index = None
+        if not attributes_filter["entity_name"]:
+            entity_name = None
 
-        if not attributes_filter['atom_index']: atom_index=None
-        if not attributes_filter['atom_id']: atom_id=None
-        if not attributes_filter['atom_name']: atom_name=None
-        if not attributes_filter['atom_type']: atom_type=None
-        if not attributes_filter['group_index']: group_index=None
-        if not attributes_filter['group_id']: group_id=None
-        if not attributes_filter['group_name']: group_name=None
-        if not attributes_filter['group_type']: group_type=None
-        if not attributes_filter['component_index']: component_index=None
-        if not attributes_filter['chain_index']: chain_index=None
-        if not attributes_filter['molecule_index']: molecule_index=None
-        if not attributes_filter['molecule_type']: molecule_type=None
-        if not attributes_filter['entity_index']: entity_index=None
-        if not attributes_filter['entity_name']: entity_name=None
+        tmp_df = df(
+            {
+                "index": _to_python(atom_index),
+                "id": _to_python(atom_id),
+                "name": _to_python(atom_name),
+                "type": _to_python(atom_type),
+                "group index": _to_python(group_index),
+                "group id": _to_python(group_id),
+                "group name": _to_python(group_name),
+                "group type": _to_python(group_type),
+                "component index": _to_python(component_index),
+                "chain index": _to_python(chain_index),
+                "molecule index": _to_python(molecule_index),
+                "molecule type": _to_python(molecule_type),
+                "entity index": _to_python(entity_index),
+                "entity name": _to_python(entity_name),
+            }
+        )
 
-        tmp_df = df({'index': _to_python(atom_index), 'id': _to_python(atom_id),
-                      'name': _to_python(atom_name), 'type': _to_python(atom_type),
-                      'group index': _to_python(group_index), 'group id': _to_python(group_id),
-                      'group name': _to_python(group_name), 'group type': _to_python(group_type),
-                      'component index': _to_python(component_index),
-                      'chain index': _to_python(chain_index),
-                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
-                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
+    elif element == "group":
+        (
+            group_index,
+            group_id,
+            group_name,
+            group_type,
+            n_atoms,
+            component_index,
+            chain_index,
+            molecule_index,
+            molecule_type,
+            entity_index,
+            entity_name,
+        ) = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+            group_index=True,
+            group_id=True,
+            group_name=True,
+            group_type=True,
+            n_atoms=True,
+            component_index=True,
+            chain_index=True,
+            molecule_index=True,
+            molecule_type=True,
+            entity_index=True,
+            entity_name=True,
+        )
 
-    elif element == 'group':
+        if not attributes_filter["group_index"]:
+            group_index = None
+        if not attributes_filter["group_id"]:
+            group_id = None
+        if not attributes_filter["group_name"]:
+            group_name = None
+        if not attributes_filter["group_type"]:
+            group_type = None
+        if not attributes_filter["n_atoms"]:
+            n_atoms = None
+        if not attributes_filter["component_index"]:
+            component_index = None
+        if not attributes_filter["chain_index"]:
+            chain_index = None
+        if not attributes_filter["molecule_index"]:
+            molecule_index = None
+        if not attributes_filter["molecule_type"]:
+            molecule_type = None
+        if not attributes_filter["entity_index"]:
+            entity_index = None
+        if not attributes_filter["entity_name"]:
+            entity_name = None
 
-        group_index, group_id, group_name, group_type, \
-        n_atoms, component_index, \
-        chain_index, \
-        molecule_index, molecule_type, \
-        entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, skip_digestion=True, group_index=True, group_id=True,
-                                        group_name=True, group_type=True, n_atoms=True, component_index=True,
-                                        chain_index=True, molecule_index=True, molecule_type=True, entity_index=True,
-                                        entity_name=True)
+        tmp_df = df(
+            {
+                "index": _to_python(group_index),
+                "id": _to_python(group_id),
+                "name": _to_python(group_name),
+                "type": _to_python(group_type),
+                "n atoms": _to_python(n_atoms),
+                "component index": _to_python(component_index),
+                "chain index": _to_python(chain_index),
+                "molecule index": _to_python(molecule_index),
+                "molecule type": _to_python(molecule_type),
+                "entity index": _to_python(entity_index),
+                "entity name": _to_python(entity_name),
+            }
+        )
 
-        if not attributes_filter['group_index']: group_index=None
-        if not attributes_filter['group_id']: group_id=None
-        if not attributes_filter['group_name']: group_name=None
-        if not attributes_filter['group_type']: group_type=None
-        if not attributes_filter['n_atoms']: n_atoms=None
-        if not attributes_filter['component_index']: component_index=None
-        if not attributes_filter['chain_index']: chain_index=None
-        if not attributes_filter['molecule_index']: molecule_index=None
-        if not attributes_filter['molecule_type']: molecule_type=None
-        if not attributes_filter['entity_index']: entity_index=None
-        if not attributes_filter['entity_name']: entity_name=None
+    elif element == "component":
+        (
+            component_index,
+            n_atoms,
+            n_groups,
+            chain_index,
+            molecule_index,
+            molecule_type,
+            entity_index,
+            entity_name,
+        ) = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+            component_index=True,
+            n_atoms=True,
+            n_groups=True,
+            chain_index=True,
+            molecule_index=True,
+            molecule_type=True,
+            entity_index=True,
+            entity_name=True,
+        )
 
-        tmp_df = df({'index': _to_python(group_index), 'id': _to_python(group_id),
-                      'name': _to_python(group_name), 'type': _to_python(group_type),
-                      'n atoms': _to_python(n_atoms),
-                      'component index': _to_python(component_index),
-                      'chain index': _to_python(chain_index),
-                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
-                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
+        if not attributes_filter["component_index"]:
+            component_index = None
+        if not attributes_filter["n_atoms"]:
+            n_atoms = None
+        if not attributes_filter["n_groups"]:
+            n_groups = None
+        if not attributes_filter["chain_index"]:
+            chain_index = None
+        if not attributes_filter["molecule_index"]:
+            molecule_index = None
+        if not attributes_filter["molecule_type"]:
+            molecule_type = None
+        if not attributes_filter["entity_index"]:
+            entity_index = None
+        if not attributes_filter["entity_name"]:
+            entity_name = None
 
-    elif element == 'component':
+        tmp_df = df(
+            {
+                "index": _to_python(component_index),
+                "n atoms": _to_python(n_atoms),
+                "n groups": _to_python(n_groups),
+                "chain index": _to_python(chain_index),
+                "molecule index": _to_python(molecule_index),
+                "molecule type": _to_python(molecule_type),
+                "entity index": _to_python(entity_index),
+                "entity name": _to_python(entity_name),
+            }
+        )
 
-        component_index, n_atoms, n_groups, \
-        chain_index, \
-        molecule_index, molecule_type, \
-        entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, skip_digestion=True, component_index=True,
-                                        n_atoms=True, n_groups=True, chain_index=True, molecule_index=True,
-                                        molecule_type=True, entity_index=True, entity_name=True)
+    elif element == "chain":
+        (
+            chain_index,
+            chain_id,
+            chain_name,
+            n_atoms,
+            n_groups,
+            n_components,
+            molecule_index,
+            molecule_type,
+            entity_index,
+            entity_name,
+        ) = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+            chain_index=True,
+            chain_id=True,
+            chain_name=True,
+            n_atoms=True,
+            n_groups=True,
+            n_components=True,
+            molecule_index=True,
+            molecule_type=True,
+            entity_index=True,
+            entity_name=True,
+        )
 
-        if not attributes_filter['component_index']: component_index=None
-        if not attributes_filter['n_atoms']: n_atoms=None
-        if not attributes_filter['n_groups']: n_groups=None
-        if not attributes_filter['chain_index']: chain_index=None
-        if not attributes_filter['molecule_index']: molecule_index=None
-        if not attributes_filter['molecule_type']: molecule_type=None
-        if not attributes_filter['entity_index']: entity_index=None
-        if not attributes_filter['entity_name']: entity_name=None
+        if not attributes_filter["chain_index"]:
+            chain_index = None
+        if not attributes_filter["chain_id"]:
+            chain_id = None
+        if not attributes_filter["chain_name"]:
+            chain_name = None
+        if not attributes_filter["n_atoms"]:
+            n_atoms = None
+        if not attributes_filter["n_groups"]:
+            n_groups = None
+        if not attributes_filter["n_components"]:
+            n_components = None
+        if not attributes_filter["molecule_index"]:
+            molecule_index = None
+        if not attributes_filter["molecule_type"]:
+            molecule_type = None
+        if not attributes_filter["entity_index"]:
+            entity_index = None
+        if not attributes_filter["entity_name"]:
+            entity_name = None
 
-        tmp_df = df({'index': _to_python(component_index),
-                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
-                      'chain index': _to_python(chain_index),
-                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
-                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
+        tmp_df = df(
+            {
+                "index": _to_python(chain_index),
+                "id": _to_python(chain_id),
+                "name": _to_python(chain_name),
+                "n atoms": _to_python(n_atoms),
+                "n groups": _to_python(n_groups),
+                "n components": _to_python(n_components),
+                "molecule index": _to_python(molecule_index),
+                "molecule type": _to_python(molecule_type),
+                "entity index": _to_python(entity_index),
+                "entity name": _to_python(entity_name),
+            }
+        )
 
-    elif element == 'chain':
+    elif element == "molecule":
+        (
+            molecule_index,
+            molecule_name,
+            molecule_type,
+            n_atoms,
+            n_groups,
+            n_components,
+            chain_index,
+            entity_index,
+            entity_name,
+        ) = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+            molecule_index=True,
+            molecule_name=True,
+            molecule_type=True,
+            n_atoms=True,
+            n_groups=True,
+            n_components=True,
+            chain_index=True,
+            entity_index=True,
+            entity_name=True,
+        )
 
-        chain_index, chain_id, chain_name, \
-        n_atoms, n_groups, n_components, \
-        molecule_index, molecule_type, \
-        entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, skip_digestion=True, chain_index=True, chain_id=True,
-                                        chain_name=True, n_atoms=True, n_groups=True, n_components=True,
-                                        molecule_index=True, molecule_type=True, entity_index=True, entity_name=True)
+        if not attributes_filter["molecule_index"]:
+            molecule_index = None
+        if not attributes_filter["molecule_name"]:
+            molecule_name = None
+        if not attributes_filter["molecule_type"]:
+            molecule_type = None
+        if not attributes_filter["n_atoms"]:
+            n_atoms = None
+        if not attributes_filter["n_groups"]:
+            n_groups = None
+        if not attributes_filter["n_components"]:
+            n_components = None
+        if not attributes_filter["chain_index"]:
+            chain_index = None
+        if not attributes_filter["entity_index"]:
+            entity_index = None
+        if not attributes_filter["entity_name"]:
+            entity_name = None
 
-        if not attributes_filter['chain_index']: chain_index=None
-        if not attributes_filter['chain_id']: chain_id=None
-        if not attributes_filter['chain_name']: chain_name=None
-        if not attributes_filter['n_atoms']: n_atoms=None
-        if not attributes_filter['n_groups']: n_groups=None
-        if not attributes_filter['n_components']: n_components=None
-        if not attributes_filter['molecule_index']: molecule_index=None
-        if not attributes_filter['molecule_type']: molecule_type=None
-        if not attributes_filter['entity_index']: entity_index=None
-        if not attributes_filter['entity_name']: entity_name=None
+        tmp_df = df(
+            {
+                "index": _to_python(molecule_index),
+                "name": _to_python(molecule_name),
+                "type": _to_python(molecule_type),
+                "n atoms": _to_python(n_atoms),
+                "n groups": _to_python(n_groups),
+                "n components": _to_python(n_components),
+                "chain index": _to_python(chain_index),
+                "entity index": _to_python(entity_index),
+                "entity name": _to_python(entity_name),
+            }
+        )
 
-        tmp_df = df({'index': _to_python(chain_index), 'id': _to_python(chain_id),
-                      'name': _to_python(chain_name),
-                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
-                      'n components': _to_python(n_components),
-                      'molecule index': _to_python(molecule_index), 'molecule type': _to_python(molecule_type),
-                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
+    elif element == "entity":
+        (
+            entity_index,
+            entity_name,
+            entity_type,
+            n_atoms,
+            n_groups,
+            n_components,
+            n_chains,
+            n_molecules,
+        ) = get(
+            molecular_system,
+            element=element,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=True,
+            entity_index=True,
+            entity_name=True,
+            entity_type=True,
+            n_atoms=True,
+            n_groups=True,
+            n_components=True,
+            n_chains=True,
+            n_molecules=True,
+        )
 
-    elif element == 'molecule':
+        if not attributes_filter["entity_index"]:
+            entity_index = None
+        if not attributes_filter["entity_name"]:
+            entity_name = None
+        if not attributes_filter["entity_type"]:
+            entity_type = None
+        if not attributes_filter["n_atoms"]:
+            n_atoms = None
+        if not attributes_filter["n_groups"]:
+            n_groups = None
+        if not attributes_filter["n_components"]:
+            n_components = None
+        if not attributes_filter["chain_index"]:
+            chain_index = None
+        if not attributes_filter["n_molecules"]:
+            n_molecules = None
 
-        molecule_index, molecule_name, molecule_type, \
-        n_atoms, n_groups, n_components, chain_index, \
-        entity_index, entity_name = get(molecular_system, element=element, selection=selection,
-                                        syntax=syntax, skip_digestion=True, molecule_index=True, molecule_name=True,
-                                        molecule_type=True, n_atoms=True, n_groups=True, n_components=True,
-                                        chain_index=True, entity_index=True, entity_name=True)
+        tmp_df = df(
+            {
+                "index": _to_python(entity_index),
+                "name": _to_python(entity_name),
+                "type": _to_python(entity_type),
+                "n atoms": _to_python(n_atoms),
+                "n groups": _to_python(n_groups),
+                "n components": _to_python(n_components),
+                "n chains": _to_python(n_chains),
+                "n molecules": _to_python(n_molecules),
+            }
+        )
 
-        if not attributes_filter['molecule_index']: molecule_index=None
-        if not attributes_filter['molecule_name']: molecule_name=None
-        if not attributes_filter['molecule_type']: molecule_type=None
-        if not attributes_filter['n_atoms']: n_atoms=None
-        if not attributes_filter['n_groups']: n_groups=None
-        if not attributes_filter['n_components']: n_components=None
-        if not attributes_filter['chain_index']: chain_index=None
-        if not attributes_filter['entity_index']: entity_index=None
-        if not attributes_filter['entity_name']: entity_name=None
-
-        tmp_df = df({'index': _to_python(molecule_index), 'name': _to_python(molecule_name),
-                      'type': _to_python(molecule_type),
-                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
-                      'n components': _to_python(n_components),
-                      'chain index': _to_python(chain_index),
-                      'entity index': _to_python(entity_index), 'entity name': _to_python(entity_name)})
-
-    elif element == 'entity':
-
-        entity_index, entity_name, entity_type, \
-        n_atoms, n_groups, n_components, n_chains, \
-        n_molecules = get(molecular_system, element=element, selection=selection,
-                          syntax=syntax, skip_digestion=True, entity_index=True, entity_name=True,
-                          entity_type=True, n_atoms=True, n_groups=True, n_components=True, n_chains=True,
-                          n_molecules=True)
-
-        if not attributes_filter['entity_index']: entity_index=None
-        if not attributes_filter['entity_name']: entity_name=None
-        if not attributes_filter['entity_type']: entity_type=None
-        if not attributes_filter['n_atoms']: n_atoms=None
-        if not attributes_filter['n_groups']: n_groups=None
-        if not attributes_filter['n_components']: n_components=None
-        if not attributes_filter['chain_index']: chain_index=None
-        if not attributes_filter['n_molecules']: n_molecules=None
-
-        tmp_df = df({'index': _to_python(entity_index), 'name': _to_python(entity_name),
-                      'type': _to_python(entity_type),
-                      'n atoms': _to_python(n_atoms), 'n groups': _to_python(n_groups),
-                      'n components': _to_python(n_components),
-                      'n chains': _to_python(n_chains), 'n molecules': _to_python(n_molecules)
-                      })
-
-    elif element == 'system':
-
-        if selection == 'all':
-            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, n_structures, \
-            n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
-            n_rnas, n_lipids, n_polysaccharides, n_saccharides = get(molecular_system, element=element, skip_digestion=True,
-                    n_atoms=True, n_groups=True,
-                    n_components=True, n_chains=True, n_molecules=True, n_entities=True, n_structures=True, n_ions=True,
-                    n_waters=True, n_small_molecules=True, n_peptides=True, n_proteins=True, n_dnas=True,
-                    n_rnas=True, n_lipids=True, n_polysaccharides=True, n_saccharides=True)
+    elif element == "system":
+        if selection == "all":
+            (
+                n_atoms,
+                n_groups,
+                n_components,
+                n_chains,
+                n_molecules,
+                n_entities,
+                n_structures,
+                n_ions,
+                n_waters,
+                n_small_molecules,
+                n_peptides,
+                n_proteins,
+                n_dnas,
+                n_rnas,
+                n_lipids,
+                n_polysaccharides,
+                n_saccharides,
+            ) = get(
+                molecular_system,
+                element=element,
+                skip_digestion=True,
+                n_atoms=True,
+                n_groups=True,
+                n_components=True,
+                n_chains=True,
+                n_molecules=True,
+                n_entities=True,
+                n_structures=True,
+                n_ions=True,
+                n_waters=True,
+                n_small_molecules=True,
+                n_peptides=True,
+                n_proteins=True,
+                n_dnas=True,
+                n_rnas=True,
+                n_lipids=True,
+                n_polysaccharides=True,
+                n_saccharides=True,
+            )
         else:
-            atom_indices_resolved = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
-            n_atoms, n_groups, n_components, n_chains, n_molecules, n_entities, \
-            n_ions, n_waters, n_small_molecules, n_peptides, n_proteins, n_dnas, \
-            n_rnas, n_lipids, n_polysaccharides, n_saccharides = get(molecular_system, element='atom',
-                    selection=atom_indices_resolved, skip_digestion=True,
-                    n_atoms=True, n_groups=True, n_components=True, n_chains=True,
-                    n_molecules=True, n_entities=True,
-                    n_ions=True, n_waters=True, n_small_molecules=True, n_peptides=True,
-                    n_proteins=True, n_dnas=True, n_rnas=True, n_lipids=True,
-                    n_polysaccharides=True, n_saccharides=True)
-            n_structures = get(molecular_system, element='system', n_structures=True, skip_digestion=True)
+            atom_indices_resolved = select(
+                molecular_system,
+                selection=selection,
+                syntax=syntax,
+                skip_digestion=True,
+            )
+            (
+                n_atoms,
+                n_groups,
+                n_components,
+                n_chains,
+                n_molecules,
+                n_entities,
+                n_ions,
+                n_waters,
+                n_small_molecules,
+                n_peptides,
+                n_proteins,
+                n_dnas,
+                n_rnas,
+                n_lipids,
+                n_polysaccharides,
+                n_saccharides,
+            ) = get(
+                molecular_system,
+                element="atom",
+                selection=atom_indices_resolved,
+                skip_digestion=True,
+                n_atoms=True,
+                n_groups=True,
+                n_components=True,
+                n_chains=True,
+                n_molecules=True,
+                n_entities=True,
+                n_ions=True,
+                n_waters=True,
+                n_small_molecules=True,
+                n_peptides=True,
+                n_proteins=True,
+                n_dnas=True,
+                n_rnas=True,
+                n_lipids=True,
+                n_polysaccharides=True,
+                n_saccharides=True,
+            )
+            n_structures = get(
+                molecular_system,
+                element="system",
+                n_structures=True,
+                skip_digestion=True,
+            )
 
-        if structure_indices != 'all' and structure_indices is not None:
+        if structure_indices != "all" and structure_indices is not None:
             n_structures = len(structure_indices)
 
-        if not attributes_filter['n_atoms']: n_atoms=None
-        if not attributes_filter['n_groups']: n_groups=None
-        if not attributes_filter['n_components']: n_components=None
-        if not attributes_filter['n_chains']: n_chains=None
-        if not attributes_filter['n_molecules']: n_molecules=None
-        if not attributes_filter['n_entities']: n_entities=None
-        if not attributes_filter['n_structures']: n_structures=None
-        if not attributes_filter['n_ions']: n_ions=None
-        if not attributes_filter['n_waters']: n_waters=None
-        if not attributes_filter['n_small_molecules']: n_small_molecules=None
-        if not attributes_filter['n_peptides']: n_peptides=None
-        if not attributes_filter['n_proteins']: n_proteins=None
-        if not attributes_filter['n_dnas']: n_dnas=None
-        if not attributes_filter['n_rnas']: n_rnas=None
-        if not attributes_filter['n_lipids']: n_lipids=None
-        if not attributes_filter['n_polysaccharides']: n_polysaccharides=None
-        if not attributes_filter['n_saccharides']: n_saccharides=None
+        if not attributes_filter["n_atoms"]:
+            n_atoms = None
+        if not attributes_filter["n_groups"]:
+            n_groups = None
+        if not attributes_filter["n_components"]:
+            n_components = None
+        if not attributes_filter["n_chains"]:
+            n_chains = None
+        if not attributes_filter["n_molecules"]:
+            n_molecules = None
+        if not attributes_filter["n_entities"]:
+            n_entities = None
+        if not attributes_filter["n_structures"]:
+            n_structures = None
+        if not attributes_filter["n_ions"]:
+            n_ions = None
+        if not attributes_filter["n_waters"]:
+            n_waters = None
+        if not attributes_filter["n_small_molecules"]:
+            n_small_molecules = None
+        if not attributes_filter["n_peptides"]:
+            n_peptides = None
+        if not attributes_filter["n_proteins"]:
+            n_proteins = None
+        if not attributes_filter["n_dnas"]:
+            n_dnas = None
+        if not attributes_filter["n_rnas"]:
+            n_rnas = None
+        if not attributes_filter["n_lipids"]:
+            n_lipids = None
+        if not attributes_filter["n_polysaccharides"]:
+            n_polysaccharides = None
+        if not attributes_filter["n_saccharides"]:
+            n_saccharides = None
 
-        tmp_df = df([{'form': form, 'n_atoms': _to_python(n_atoms), 'n_groups': _to_python(n_groups), 
-                      'n_components': _to_python(n_components),
-                      'n_chains': _to_python(n_chains), 'n_molecules': _to_python(n_molecules), 
-                      'n_entities': _to_python(n_entities),
-                      'n_waters': _to_python(n_waters), 'n_ions': _to_python(n_ions),
-                      'n_small_molecules': _to_python(n_small_molecules),
-                      'n_peptides': _to_python(n_peptides), 'n_proteins': _to_python(n_proteins), 
-                      'n_dnas': _to_python(n_dnas), 'n_rnas': _to_python(n_rnas),
-                      'n_lipids': _to_python(n_lipids), 'n_polysaccharides': _to_python(n_polysaccharides), 
-                      'n_saccharides': _to_python(n_saccharides),
-                      'n_structures': _to_python(n_structures)}], index=[0])
+        tmp_df = df(
+            [
+                {
+                    "form": form,
+                    "n_atoms": _to_python(n_atoms),
+                    "n_groups": _to_python(n_groups),
+                    "n_components": _to_python(n_components),
+                    "n_chains": _to_python(n_chains),
+                    "n_molecules": _to_python(n_molecules),
+                    "n_entities": _to_python(n_entities),
+                    "n_waters": _to_python(n_waters),
+                    "n_ions": _to_python(n_ions),
+                    "n_small_molecules": _to_python(n_small_molecules),
+                    "n_peptides": _to_python(n_peptides),
+                    "n_proteins": _to_python(n_proteins),
+                    "n_dnas": _to_python(n_dnas),
+                    "n_rnas": _to_python(n_rnas),
+                    "n_lipids": _to_python(n_lipids),
+                    "n_polysaccharides": _to_python(n_polysaccharides),
+                    "n_saccharides": _to_python(n_saccharides),
+                    "n_structures": _to_python(n_structures),
+                }
+            ],
+            index=[0],
+        )
 
         if n_ions == 0 or n_ions is None:
-            if 'n_ions' in tmp_df.columns:
-                tmp_df.drop(columns=['n_ions'], inplace=True)
+            if "n_ions" in tmp_df.columns:
+                tmp_df.drop(columns=["n_ions"], inplace=True)
 
         if n_waters == 0 or n_waters is None:
-            if 'n_waters' in tmp_df.columns:
-                tmp_df.drop(columns=['n_waters'], inplace=True)
+            if "n_waters" in tmp_df.columns:
+                tmp_df.drop(columns=["n_waters"], inplace=True)
 
         if n_small_molecules == 0 or n_small_molecules is None:
-            if 'n_small_molecules' in tmp_df.columns:
-                tmp_df.drop(columns=['n_small_molecules'], inplace=True)
+            if "n_small_molecules" in tmp_df.columns:
+                tmp_df.drop(columns=["n_small_molecules"], inplace=True)
 
         if n_peptides == 0 or n_peptides is None:
-            if 'n_peptides' in tmp_df.columns:
-                tmp_df.drop(columns=['n_peptides'], inplace=True)
+            if "n_peptides" in tmp_df.columns:
+                tmp_df.drop(columns=["n_peptides"], inplace=True)
 
         if n_proteins == 0 or n_proteins is None:
-            if 'n_proteins' in tmp_df.columns:
-                tmp_df.drop(columns=['n_proteins'], inplace=True)
+            if "n_proteins" in tmp_df.columns:
+                tmp_df.drop(columns=["n_proteins"], inplace=True)
 
         if n_dnas == 0 or n_dnas is None:
-            if 'n_dnas' in tmp_df.columns:
-                tmp_df.drop(columns=['n_dnas'], inplace=True)
+            if "n_dnas" in tmp_df.columns:
+                tmp_df.drop(columns=["n_dnas"], inplace=True)
 
         if n_rnas == 0 or n_rnas is None:
-            if 'n_rnas' in tmp_df.columns:
-                tmp_df.drop(columns=['n_rnas'], inplace=True)
+            if "n_rnas" in tmp_df.columns:
+                tmp_df.drop(columns=["n_rnas"], inplace=True)
 
         if n_lipids == 0 or n_lipids is None:
-            if 'n_lipids' in tmp_df.columns:
-                tmp_df.drop(columns=['n_lipids'], inplace=True)
+            if "n_lipids" in tmp_df.columns:
+                tmp_df.drop(columns=["n_lipids"], inplace=True)
 
         if n_polysaccharides == 0 or n_polysaccharides is None:
-            if 'n_polysaccharides' in tmp_df.columns:
-                tmp_df.drop(columns=['n_polysaccharides'], inplace=True)
+            if "n_polysaccharides" in tmp_df.columns:
+                tmp_df.drop(columns=["n_polysaccharides"], inplace=True)
 
         if n_saccharides == 0 or n_saccharides is None:
-            if 'n_saccharides' in tmp_df.columns:
-                tmp_df.drop(columns=['n_saccharides'], inplace=True)
+            if "n_saccharides" in tmp_df.columns:
+                tmp_df.drop(columns=["n_saccharides"], inplace=True)
 
     else:
         from molsysmt._private.smonitor import ArgumentChoiceError
+
         raise ArgumentChoiceError(
             argument="element",
             value=element,
-            choices=["atom", "group", "component", "chain", "molecule", "entity", "system"],
+            choices=[
+                "atom",
+                "group",
+                "component",
+                "chain",
+                "molecule",
+                "entity",
+                "system",
+            ],
             caller="molsysmt.basic.info",
         )
 
-    if output_type == 'styler':
+    if output_type == "styler":
         # `DataFrame.to_html()` emits `class="dataframe"`, but a Styler emits no class at
         # all. That class is the hook documentation themes use to style pandas tables
         # (zebra striping, dark mode), so it has to be set explicitly here for a rendered
         # summary to look like any other pandas table instead of falling through unstyled.
-        return tmp_df.style.hide(axis='index').set_table_attributes('class="dataframe"')
-    elif output_type == 'dataframe':
+        return tmp_df.style.hide(axis="index").set_table_attributes('class="dataframe"')
+    elif output_type == "dataframe":
         return tmp_df
-    elif output_type == 'dictionary':
-        return tmp_df.to_dict(orient='records')
+    elif output_type == "dictionary":
+        return tmp_df.to_dict(orient="records")
     else:
         from molsysmt._private.smonitor import ArgumentChoiceError
+
         raise ArgumentChoiceError(
             argument="output_type",
             value=output_type,

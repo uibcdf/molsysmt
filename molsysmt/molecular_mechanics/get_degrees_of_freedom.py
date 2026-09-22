@@ -1,8 +1,15 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+
 
 @arg_digest()
-def get_degrees_of_freedom(molecular_system, forcefield='AMBER14', water_model=None, implicit_solvent=None, skip_digestion=False):
+def get_degrees_of_freedom(
+    molecular_system,
+    forcefield="AMBER14",
+    water_model=None,
+    implicit_solvent=None,
+    skip_digestion=False,
+):
     """
     Calculating the mechanical degrees of freedom for a molecular system.
 
@@ -28,23 +35,28 @@ def get_degrees_of_freedom(molecular_system, forcefield='AMBER14', water_model=N
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt import get_form, convert
+    from molsysmt import convert, get_form
 
     form_in = get_form(molecular_system)
 
     if form_in == "openmm.System":
-        return 3 * molecular_system.getNumParticles() - molecular_system.getNumConstraints()
+        return (
+            3 * molecular_system.getNumParticles()
+            - molecular_system.getNumConstraints()
+        )
     else:
         try:
             kwargs = {}
             if forcefield is not None:
-                kwargs['forcefield'] = forcefield
+                kwargs["forcefield"] = forcefield
             if water_model is not None:
-                kwargs['water_model'] = water_model
+                kwargs["water_model"] = water_model
             if implicit_solvent is not None:
-                kwargs['implicit_solvent'] = implicit_solvent
+                kwargs["implicit_solvent"] = implicit_solvent
 
-            system = convert(molecular_system, to_form='openmm.System', **kwargs)
+            system = convert(molecular_system, to_form="openmm.System", **kwargs)
             return 3 * system.getNumParticles() - system.getNumConstraints()
         except Exception:
-            raise NotImplementedMethodError(caller="molsysmt.molecular_mechanics.get_degrees_of_freedom")
+            raise NotImplementedMethodError(
+                caller="molsysmt.molecular_mechanics.get_degrees_of_freedom"
+            )

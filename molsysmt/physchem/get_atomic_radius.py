@@ -1,11 +1,18 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
 import numpy as np
 
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+
+
 @arg_digest()
-def get_atomic_radius(molecular_system, element='atom', selection='all', definition='vdw', syntax='MolSysMT',
-                      skip_digestion=False):
+def get_atomic_radius(
+    molecular_system,
+    element="atom",
+    selection="all",
+    definition="vdw",
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Atomic radius for each selected atom.
 
@@ -56,18 +63,24 @@ def get_atomic_radius(molecular_system, element='atom', selection='all', definit
     from molsysmt.basic import get
     from molsysmt.physchem.atoms.radius import units
 
-    if definition == 'protor':
+    if definition == "protor":
         from molsysmt.physchem.atoms.protor import get_protor_vdw_radius
-        return get_protor_vdw_radius(molecular_system, selection=selection, syntax=syntax,
-                                     skip_digestion=skip_digestion)
 
-    if definition=='vdw':
+        return get_protor_vdw_radius(
+            molecular_system,
+            selection=selection,
+            syntax=syntax,
+            skip_digestion=skip_digestion,
+        )
+
+    if definition == "vdw":
         from molsysmt.physchem.atoms.radius import vdw as values
     else:
         raise NotImplementedError()
 
-
-    atom_types = get(molecular_system, element='atom', selection=selection, atom_type=True)
+    atom_types = get(
+        molecular_system, element="atom", selection=selection, atom_type=True
+    )
 
     output = []
 

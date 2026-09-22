@@ -1,10 +1,14 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt.physchem.groups._lookup import group_table_value
-from molsysmt._private.smonitor import NotImplementedMethodError
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt.physchem.groups._lookup import group_table_value
+
+
 @arg_digest()
-def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition='grantham'):
+def get_volume(
+    molecular_system, selection="all", syntax="MolSysMT", definition="grantham"
+):
     """
     Side-chain volume per residue group from a reference scale.
 
@@ -52,19 +56,28 @@ def get_volume(molecular_system, selection='all', syntax='MolSysMT', definition=
 
     from molsysmt.basic import get
 
-    if definition == 'grantham':
+    if definition == "grantham":
         from .groups.volume import grantham as values
     else:
         raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, syntax='MolSysMT', name=True)
+    group_types = get(
+        molecular_system,
+        element="group",
+        selection=selection,
+        syntax="MolSysMT",
+        name=True,
+    )
 
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii, table='volume', caller='molsysmt.physchem.get_volume'))
+        output.append(
+            group_table_value(
+                values, ii, table="volume", caller="molsysmt.physchem.get_volume"
+            )
+        )
 
     output = np.array(output)
 
     return output
-

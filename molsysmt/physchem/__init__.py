@@ -1,3 +1,5 @@
+# Keep public helper imports in their established initialization order.
+# isort: off
 from .get_mass import get_mass
 from .get_charge import get_charge
 from .get_atomic_radius import get_atomic_radius
@@ -12,3 +14,4 @@ from .get_surface_area import get_surface_area
 from .get_volume import get_volume
 
 from molsysmt.physchem.atoms.protor import get_protor_atom_type, get_protor_vdw_radius
+# isort: on

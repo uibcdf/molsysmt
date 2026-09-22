@@ -1,9 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotImplementedIteratorError, NotWithThisFormError
 from smonitor import signal
 
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotWithThisFormError
 
-class Iterator():
+
+class Iterator:
     """
     Iterating over topological or structural attributes of a molecular system.
 
@@ -76,23 +77,24 @@ class Iterator():
     .. versionadded:: 1.0.0
     """
 
-    @signal(tags=['api', 'iterator'])
+    @signal(tags=["api", "iterator"])
     @arg_digest()
-    def __init__(self,
-                 molecular_system,
-                 element = 'atom',
-                 selection = 'all',
-                 structure_indices = None,
-                 start = 0,
-                 stop = None,
-                 step = 1,
-                 chunk = 1,
-                 syntax = 'MolSysMT',
-                 output_type = 'values',
-                 output_form = 'molsysmt.MolSys',
-                 skip_digestion = False,
-                 **kwargs,
-                 ):
+    def __init__(
+        self,
+        molecular_system,
+        element="atom",
+        selection="all",
+        structure_indices=None,
+        start=0,
+        stop=None,
+        step=1,
+        chunk=1,
+        syntax="MolSysMT",
+        output_type="values",
+        output_form="molsysmt.MolSys",
+        skip_digestion=False,
+        **kwargs,
+    ):
         """
         Initializing an iterator over attributes of a molecular system.
 
@@ -133,17 +135,20 @@ class Iterator():
             out-of-range structure index.
         """
 
-        from . import select, get_form, where_is_attribute, convert
         from molsysmt.attribute import is_structural_attribute
         from molsysmt.form import _dict_modules
 
+        from . import convert, get_form, select, where_is_attribute
+
         self.molecular_system = molecular_system
         self.element = element
-        self.indices = select(molecular_system, element=element, selection=selection, syntax=syntax)
+        self.indices = select(
+            molecular_system, element=element, selection=selection, syntax=syntax
+        )
         from ._index_validation import validate_structure_indices
 
         self.structure_indices = validate_structure_indices(
-            molecular_system, structure_indices, 'molsysmt.Iterator'
+            molecular_system, structure_indices, "molsysmt.Iterator"
         )
         self.start = start
         self.stop = stop
@@ -156,23 +161,27 @@ class Iterator():
         self._iterators = []
         self._output_dictionary = {}
         self._output_type = output_type
-        self._output_form= output_form
+        self._output_form = output_form
         self._output_molecular_system = None
 
         for ii, key in enumerate(kwargs.keys()):
             if kwargs[key]:
                 self.arguments.append(key)
 
-        explicitly_requested = len(self.arguments)>0
+        explicitly_requested = len(self.arguments) > 0
 
         if not explicitly_requested:
-            self.arguments = ['structure_id', 'time', 'coordinates', 'box']
+            self.arguments = ["structure_id", "time", "coordinates", "box"]
             # A single structure is enough here: the yielded system is a reusable container
             # whose structural attributes are overwritten on every iteration. Converting the
             # whole structure axis would materialize the very trajectory that iterating in
             # chunks exists to avoid.
-            self._output_molecular_system = convert(self.molecular_system, selection=selection,
-                    structure_indices=[0], to_form=self._output_form)
+            self._output_molecular_system = convert(
+                self.molecular_system,
+                selection=selection,
+                structure_indices=[0],
+                to_form=self._output_form,
+            )
 
         aux_items_forms = {}
         aux_items_arguments = {}
@@ -186,49 +195,59 @@ class Iterator():
             elif item in aux_items_forms:
                 aux_items_arguments[item].append(argument)
             else:
-                aux_items_forms[item]=form
-                aux_items_arguments[item]=[argument]
+                aux_items_forms[item] = form
+                aux_items_arguments[item] = [argument]
 
         if unavailable_arguments:
             if explicitly_requested:
                 # The user named these attributes, so silently dropping them would return
                 # fewer values than requested, or none at all.
                 raise NotWithThisFormError(
-                    caller='molsysmt.Iterator',
+                    caller="molsysmt.Iterator",
                     form=get_form(self.molecular_system),
                     requested_attribute=unavailable_arguments[0],
-                    message=("The molecular system has no item providing "
-                             f"{unavailable_arguments}. Request only attributes the system "
-                             "carries, or add an item that provides them."),
+                    message=(
+                        "The molecular system has no item providing "
+                        f"{unavailable_arguments}. Request only attributes the system "
+                        "carries, or add an item that provides them."
+                    ),
                 )
             # The four structural series are defaults rather than a user request: iterate
             # over the ones the system actually has.
             for argument in unavailable_arguments:
                 self.arguments.remove(argument)
 
-        if len(self.arguments)==0:
+        if len(self.arguments) == 0:
             raise NotWithThisFormError(
-                caller='molsysmt.Iterator',
+                caller="molsysmt.Iterator",
                 form=get_form(self.molecular_system),
-                requested_attribute='coordinates',
-                message=("The molecular system carries none of the structural attributes "
-                         "'structure_id', 'time', 'coordinates' or 'box', so there is "
-                         "nothing to iterate over."),
+                requested_attribute="coordinates",
+                message=(
+                    "The molecular system carries none of the structural attributes "
+                    "'structure_id', 'time', 'coordinates' or 'box', so there is "
+                    "nothing to iterate over."
+                ),
             )
 
-        self._output_dictionary = {ii:None for ii in self.arguments}
+        self._output_dictionary = {ii: None for ii in self.arguments}
 
         if self._output_molecular_system is not None:
             # The placeholder conversion may have produced structural series the system
             # cannot iterate over -- a converted coordinate-only form still gets a generated
             # 'structure_id'. Left in place they would keep the structure axis pinned to the
             # placeholder's single structure while the iterated series carry a whole chunk.
-            absent = [name for name in ('structure_id', 'time', 'coordinates', 'box')
-                      if name not in self.arguments]
+            absent = [
+                name
+                for name in ("structure_id", "time", "coordinates", "box")
+                if name not in self.arguments
+            ]
             if absent:
                 # Imported under another name: `set` is also a builtin used below.
                 from . import set as set_attributes
-                set_attributes(self._output_molecular_system, **{name: None for name in absent})
+
+                set_attributes(
+                    self._output_molecular_system, **{name: None for name in absent}
+                )
 
         runs_in_structures = False
         if all([is_structural_attribute(ii) for ii in self.arguments]):
@@ -240,21 +259,36 @@ class Iterator():
         # correct by construction.
 
         for item in aux_items_forms:
-
-            tmp_arguments = {ii:True for ii in aux_items_arguments[item]}
+            tmp_arguments = {ii: True for ii in aux_items_arguments[item]}
 
             if runs_in_structures:
-                tmp_iterator = _dict_modules[aux_items_forms[item]].StructuresIterator(item, atom_indices=self.indices, start=self.start,
-                   stop=self.stop, step=self.step, chunk=self.chunk, structure_indices=self.structure_indices, output_type='dictionary',
-                   **tmp_arguments)
+                tmp_iterator = _dict_modules[aux_items_forms[item]].StructuresIterator(
+                    item,
+                    atom_indices=self.indices,
+                    start=self.start,
+                    stop=self.stop,
+                    step=self.step,
+                    chunk=self.chunk,
+                    structure_indices=self.structure_indices,
+                    output_type="dictionary",
+                    **tmp_arguments,
+                )
             else:
-                tmp_iterator = _dict_modules[aux_items_forms[item]].TopologyIterator(item, element=self.element, indices=self.indices, start=self.start,
-                       stop=self.stop, step=self.step, chunk=self.chunk, output_type='dictionary',
-                       **tmp_arguments)
+                tmp_iterator = _dict_modules[aux_items_forms[item]].TopologyIterator(
+                    item,
+                    element=self.element,
+                    indices=self.indices,
+                    start=self.start,
+                    stop=self.stop,
+                    step=self.step,
+                    chunk=self.chunk,
+                    output_type="dictionary",
+                    **tmp_arguments,
+                )
 
             self._iterators.append(tmp_iterator)
 
-        del(aux_items_forms, aux_items_arguments)
+        del (aux_items_forms, aux_items_arguments)
 
     def __iter__(self):
         """
@@ -297,15 +331,16 @@ class Iterator():
             self._output_dictionary.update(iterator.__next__())
 
         if self._output_molecular_system is None:
-            if self._output_type=='values':
+            if self._output_type == "values":
                 output = list(self._output_dictionary.values())
                 if len(output) == 1:
                     output = output[0]
-            elif self._output_type=='dictionary':
+            elif self._output_type == "dictionary":
                 output = self._output_dictionary
-            return  output
+            return output
         else:
             from . import set
+
             # Every structural series is replaced in a single call, with the element level
             # inferred per attribute. Setting them one level at a time would compare a chunk
             # of n structures against the series still holding the previous chunk, and the

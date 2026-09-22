@@ -1,10 +1,17 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt.physchem.groups._lookup import group_table_value
 from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt.physchem.groups._lookup import group_table_value
+
 
 @arg_digest()
-def get_polarity(molecular_system, element='group', selection = 'all', syntax='MolSysMT', definition='grantham',
-                 skip_digestion=False):
+def get_polarity(
+    molecular_system,
+    element="group",
+    selection="all",
+    syntax="MolSysMT",
+    definition="grantham",
+    skip_digestion=False,
+):
     """
     Polarity index per residue group from a reference scale.
 
@@ -56,19 +63,28 @@ def get_polarity(molecular_system, element='group', selection = 'all', syntax='M
 
     from molsysmt.basic import get
 
-    if definition == 'grantham':
+    if definition == "grantham":
         from molsysmt.physchem.groups.polarity import grantham as values
-    elif definition == 'zimmerman':
+    elif definition == "zimmerman":
         from molsysmt.physchem.groups.polarity import zimmerman as values
     else:
         raise NotImplementedMethodError()
 
-    group_names = get(molecular_system, element='group', selection=selection, syntax=syntax, group_name=True)
+    group_names = get(
+        molecular_system,
+        element="group",
+        selection=selection,
+        syntax=syntax,
+        group_name=True,
+    )
 
     output = []
 
     for ii in group_names:
-        output.append(group_table_value(values, ii, table='polarity', caller='molsysmt.physchem.get_polarity'))
+        output.append(
+            group_table_value(
+                values, ii, table="polarity", caller="molsysmt.physchem.get_polarity"
+            )
+        )
 
     return output
-

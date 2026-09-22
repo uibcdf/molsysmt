@@ -1,12 +1,19 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt.physchem.groups._lookup import group_table_value
-from molsysmt._private.smonitor import InternalAlgorithmError
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import InternalAlgorithmError, NotImplementedMethodError
+from molsysmt.physchem.groups._lookup import group_table_value
+
+
 @arg_digest()
-def get_hydrophobicity(molecular_system, element='group', selection='all', definition='eisenberg', syntax='MolSysMT',
-                      skip_digestion=False):
+def get_hydrophobicity(
+    molecular_system,
+    element="group",
+    selection="all",
+    definition="eisenberg",
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Hydrophobicity index per residue group from a reference scale.
 
@@ -61,50 +68,58 @@ def get_hydrophobicity(molecular_system, element='group', selection='all', defin
 
     from molsysmt.basic import get
 
-    if element != 'group':
-        raise InternalAlgorithmError("Unexpected empty state", caller="molsysmt.physchem.get_hydrophobicity")
-    if definition == 'eisenberg':
+    if element != "group":
+        raise InternalAlgorithmError(
+            "Unexpected empty state", caller="molsysmt.physchem.get_hydrophobicity"
+        )
+    if definition == "eisenberg":
         from .groups.hydrophobicity import eisenberg as values
-    elif definition == 'rao':
+    elif definition == "rao":
         from .groups.hydrophobicity import rao as values
-    elif definition == 'sweet':
+    elif definition == "sweet":
         from .groups.hydrophobicity import sweet as values
-    elif definition == 'kyte':
+    elif definition == "kyte":
         from .groups.hydrophobicity import kyte as values
-    elif definition == 'abraham':
+    elif definition == "abraham":
         from .groups.hydrophobicity import abraham as values
-    elif definition == 'bull':
+    elif definition == "bull":
         from .groups.hydrophobicity import bull as values
-    elif definition == 'guy':
+    elif definition == "guy":
         from .groups.hydrophobicity import guy as values
-    elif definition == 'miyazawa':
+    elif definition == "miyazawa":
         from .groups.hydrophobicity import miyazawa as values
-    elif definition == 'roseman':
+    elif definition == "roseman":
         from .groups.hydrophobicity import roseman as values
-    elif definition == 'wolfenden':
+    elif definition == "wolfenden":
         from .groups.hydrophobicity import wolfenden as values
-    elif definition == 'chothia':
+    elif definition == "chothia":
         from .groups.hydrophobicity import chothia as values
-    elif definition == 'hopp':
+    elif definition == "hopp":
         from .groups.hydrophobicity import hopp as values
-    elif definition == 'manavalan':
+    elif definition == "manavalan":
         from .groups.hydrophobicity import manavalan as values
-    elif definition == 'black':
+    elif definition == "black":
         from .groups.hydrophobicity import black as values
-    elif definition == 'fauchere':
+    elif definition == "fauchere":
         from .groups.hydrophobicity import fauchere as values
     else:
         print(definition)
         raise NotImplementedMethodError()
 
-    group_types = get(molecular_system, element='group', selection=selection, name=True)
+    group_types = get(molecular_system, element="group", selection=selection, name=True)
 
     output = []
 
     for ii in group_types:
-        output.append(group_table_value(values, ii, table='hydrophobicity', caller='molsysmt.physchem.get_hydrophobicity'))
+        output.append(
+            group_table_value(
+                values,
+                ii,
+                table="hydrophobicity",
+                caller="molsysmt.physchem.get_hydrophobicity",
+            )
+        )
 
     output = np.array(output)
 
     return output
-

@@ -1,11 +1,17 @@
-from molsysmt._private.argdigest import arg_digest
 from smonitor import signal
 
+from molsysmt._private.argdigest import arg_digest
 
-@signal(tags=['api', 'get'])
+
+@signal(tags=["api", "get"])
 @arg_digest()
-def get_attributes(molecular_system, include_none=False, attribute_type='all', output_type='list',
-                   skip_digestion=False):
+def get_attributes(
+    molecular_system,
+    include_none=False,
+    attribute_type="all",
+    output_type="list",
+    skip_digestion=False,
+):
     """
     Retrieving available attributes from a molecular system.
 
@@ -87,27 +93,32 @@ def get_attributes(molecular_system, include_none=False, attribute_type='all', o
     .. versionadded:: 1.0.0
     """
 
-    from . import get_form
-    from molsysmt.form import _dict_modules
     from molsysmt.attribute.attributes import attributes as _all_attributes
+    from molsysmt.form import _dict_modules
+
+    from . import get_form
 
     if not isinstance(molecular_system, (list, tuple)):
         molecular_system = [molecular_system]
 
     forms_in = get_form(molecular_system)
 
-    if attribute_type=='all':
-        output = {ii:False for ii in _all_attributes}
+    if attribute_type == "all":
+        output = {ii: False for ii in _all_attributes}
     else:
-        output = {ii:False for ii in _all_attributes if _all_attributes[ii][attribute_type]}
+        output = {
+            ii: False for ii in _all_attributes if _all_attributes[ii][attribute_type]
+        }
 
     for form_in, item in zip(forms_in, molecular_system):
-        for key, value in  _dict_modules[form_in].attributes.items():
+        for key, value in _dict_modules[form_in].attributes.items():
             if value and key in output:
-                if _dict_modules[form_in].has_attribute(item, key, include_none=include_none, skip_digestion=True):
-                    output[key]=value
+                if _dict_modules[form_in].has_attribute(
+                    item, key, include_none=include_none, skip_digestion=True
+                ):
+                    output[key] = value
 
-    if output_type=='dictionary':
+    if output_type == "dictionary":
         return output
-    elif output_type=='list':
+    elif output_type == "list":
         return [att for att in output if output[att]]

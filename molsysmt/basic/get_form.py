@@ -1,8 +1,9 @@
-from molsysmt._private.smonitor import NotSupportedFormError
-from molsysmt._private.form_tier import check_form_tier
-import depdigest
 from pathlib import PosixPath
 
+import depdigest
+
+from molsysmt._private.form_tier import check_form_tier
+from molsysmt._private.smonitor import NotSupportedFormError
 
 #: Resolved once. `get_form` asks `_is_detector_available` for every form module on every
 #: call, so the `import` statements that used to sit inside it ran ~73 times per call.
@@ -16,6 +17,7 @@ def _is_detector_available(module):
 
     if _dependency_tables is None:
         from molsysmt._depdigest import LIBRARIES, MAPPING
+
         _dependency_tables = (LIBRARIES, MAPPING)
     LIBRARIES, MAPPING = _dependency_tables
 
@@ -23,17 +25,16 @@ def _is_detector_available(module):
     # simulates an absent soft dependency by patching `depdigest.is_installed` is obeyed.
     is_installed = depdigest.is_installed
 
-    plugin_name = module.__name__.rsplit('.', maxsplit=1)[-1]
+    plugin_name = module.__name__.rsplit(".", maxsplit=1)[-1]
     library = MAPPING.get(plugin_name)
     if library is None:
         return True
 
     library_info = LIBRARIES.get(library, {})
-    if library_info.get('type') != 'soft':
+    if library_info.get("type") != "soft":
         return True
 
     return is_installed(library)
-
 
 
 def _asks(form, molecular_system):
@@ -82,11 +83,11 @@ def _detect(molecular_system):
         if candidate is not None and _asks(candidate, molecular_system):
             return candidate
         # A string is a file path or content. It is never an instance of a class form.
-        return _sweep(molecular_system, 'string', 'file')
+        return _sweep(molecular_system, "string", "file")
 
     # Anything else can only be an instance: a file form is named by a path and a string
     # form carries its content in a string, and both were handled above.
-    return _sweep(molecular_system, 'class')
+    return _sweep(molecular_system, "class")
 
 
 def catalogue_form_of_class(molecular_system):
@@ -195,8 +196,7 @@ def get_form(molecular_system):
 
     if output is None:
         raise NotSupportedFormError(
-            form=type(molecular_system),
-            caller='molsysmt.basic.get_form'
+            form=type(molecular_system), caller="molsysmt.basic.get_form"
         )
 
     check_form_tier(output)

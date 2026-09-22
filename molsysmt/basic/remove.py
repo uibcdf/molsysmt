@@ -1,13 +1,22 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.structure_indices import complementary_structure_indices
-from molsysmt._private.atom_indices import complementary_atom_indices
-from molsysmt._private.variables import is_all
 from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.atom_indices import complementary_atom_indices
+from molsysmt._private.structure_indices import complementary_structure_indices
+from molsysmt._private.variables import is_all
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def remove(molecular_system, selection=None, structure_indices=None, to_form=None, syntax='MolSysMT',
-           in_place=True, skip_digestion=False):
+def remove(
+    molecular_system,
+    selection=None,
+    structure_indices=None,
+    to_form=None,
+    syntax="MolSysMT",
+    in_place=True,
+    skip_digestion=False,
+):
     """
     Removing atoms or structures from a molecular system.
 
@@ -87,31 +96,47 @@ def remove(molecular_system, selection=None, structure_indices=None, to_form=Non
     .. versionadded:: 1.0.0
     """
 
-    from . import select, extract, get
+    from . import extract, get, select
 
-    atom_indices_to_be_kept = 'all'
-    structure_indices_to_be_kept = 'all'
+    atom_indices_to_be_kept = "all"
+    structure_indices_to_be_kept = "all"
 
     if structure_indices is not None:
         from ._index_validation import validate_structure_indices
 
         structure_indices = validate_structure_indices(
-            molecular_system, structure_indices, 'molsysmt.remove'
+            molecular_system, structure_indices, "molsysmt.remove"
         )
 
     if selection is not None:
-        atom_indices_to_be_removed = select(molecular_system, selection=selection, syntax=syntax, skip_digestion=True)
-        atom_indices_to_be_kept = complementary_atom_indices(molecular_system, atom_indices_to_be_removed)
+        atom_indices_to_be_removed = select(
+            molecular_system, selection=selection, syntax=syntax, skip_digestion=True
+        )
+        atom_indices_to_be_kept = complementary_atom_indices(
+            molecular_system, atom_indices_to_be_removed
+        )
 
     if structure_indices is not None:
         if is_all(structure_indices):
-            n_structures = get(molecular_system, element='system', n_structures=True, skip_digestion=True)
-            structure_indices= list(range(n_structures))
-        structure_indices_to_be_kept = complementary_structure_indices(molecular_system, structure_indices)
+            n_structures = get(
+                molecular_system,
+                element="system",
+                n_structures=True,
+                skip_digestion=True,
+            )
+            structure_indices = list(range(n_structures))
+        structure_indices_to_be_kept = complementary_structure_indices(
+            molecular_system, structure_indices
+        )
 
-    tmp_item = extract(molecular_system, selection=atom_indices_to_be_kept,
-                       structure_indices=structure_indices_to_be_kept, to_form=to_form, copy_if_all=False,
-                       skip_digestion=True)
+    tmp_item = extract(
+        molecular_system,
+        selection=atom_indices_to_be_kept,
+        structure_indices=structure_indices_to_be_kept,
+        to_form=to_form,
+        copy_if_all=False,
+        skip_digestion=True,
+    )
 
     if isinstance(tmp_item, (list, tuple)):
         if len(tmp_item) == 1:

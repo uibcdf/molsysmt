@@ -1,6 +1,6 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
 
 donor_inclusion_rules = [
     "(atom_type=='O') bonded to (atom_type=='H')",
@@ -12,10 +12,17 @@ donor_exclusion_rules = [
     "(atom_name=='ND1') not bonded to (atom_type=='H')",
 ]
 
+
 @arg_digest()
-def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=None, exclusion_rules=None,
-                    default_inclusion_rules=True, default_exclusion_rules=True,
-                    syntax='MolSysMT'):
+def get_donor_atoms(
+    molecular_system,
+    selection="all",
+    inclusion_rules=None,
+    exclusion_rules=None,
+    default_inclusion_rules=True,
+    default_exclusion_rules=True,
+    syntax="MolSysMT",
+):
     """
     Identify donor atoms (and their hydrogens) for hydrogen-bond detection.
 
@@ -61,7 +68,9 @@ def get_donor_atoms(molecular_system, selection='all',  inclusion_rules=None, ex
         output.update(tmp_donors)
 
     for rule in exclusion_rules:
-        tmp_not_donors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
+        tmp_not_donors = select(
+            molecular_system, selection=rule, mask=mask, syntax=syntax
+        )
         output.difference_update(tmp_not_donors)
 
     output = get_covalent_paths(molecular_system, [list(output), 'atom_type=="H"'])

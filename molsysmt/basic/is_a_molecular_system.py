@@ -1,5 +1,6 @@
 # Digestion can not be done in this method since it is redundant.
 
+
 def is_a_molecular_system(molecular_system):
     """
     Verifying whether the input is a single valid molecular system.

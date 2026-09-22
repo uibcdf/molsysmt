@@ -25,8 +25,8 @@ class ConversionIssue:
 
     attribute: str
     reason: str
-    kind: str = 'unsupported'
-    scope: str = 'chemical_state'
+    kind: str = "unsupported"
+    scope: str = "chemical_state"
 
 
 @dataclass(frozen=True)
@@ -75,7 +75,7 @@ class ConversionReport:
     from_form: str | tuple[str, ...]
     to_form: str
     outcome: str
-    audited_scopes: tuple[str, ...] = ('chemical_state',)
+    audited_scopes: tuple[str, ...] = ("chemical_state",)
     is_exhaustive: bool = False
     issues: tuple[ConversionIssue, ...] = ()
 
@@ -83,4 +83,4 @@ class ConversionReport:
     def is_lossy(self):
         """Returning whether supplied semantics would be discarded."""
 
-        return self.outcome == 'lossy'
+        return self.outcome == "lossy"

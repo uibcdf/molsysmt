@@ -1,12 +1,8 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
 
+from molsysmt._private.argdigest import arg_digest
 
-acceptor_inclusion_rules = [
-    "atom_type=='O'",
-    "atom_type=='N'",
-    "atom_type=='S'"
-]
+acceptor_inclusion_rules = ["atom_type=='O'", "atom_type=='N'", "atom_type=='S'"]
 
 acceptor_exclusion_rules = [
     "atom_name=='NE2' and group_name=='GLN'",
@@ -14,10 +10,17 @@ acceptor_exclusion_rules = [
     "(atom_name=='ND1' and group_name=='HIS') bonded to (atom_type=='H')",
 ]
 
+
 @arg_digest()
-def get_acceptor_atoms(molecular_system, selection='all', inclusion_rules=None,
-        exclusion_rules=None, default_inclusion_rules=True, default_exclusion_rules=True,
-        syntax='MolSysMT'):
+def get_acceptor_atoms(
+    molecular_system,
+    selection="all",
+    inclusion_rules=None,
+    exclusion_rules=None,
+    default_inclusion_rules=True,
+    default_exclusion_rules=True,
+    syntax="MolSysMT",
+):
     """
     Identify acceptor atoms within a molecular system for hydrogen-bond detection.
 
@@ -58,11 +61,15 @@ def get_acceptor_atoms(molecular_system, selection='all', inclusion_rules=None,
         exclusion_rules += acceptor_exclusion_rules
 
     for rule in inclusion_rules:
-        tmp_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
+        tmp_acceptors = select(
+            molecular_system, selection=rule, mask=mask, syntax=syntax
+        )
         output.update(tmp_acceptors)
 
     for rule in exclusion_rules:
-        tmp_not_acceptors = select(molecular_system, selection=rule, mask=mask, syntax=syntax)
+        tmp_not_acceptors = select(
+            molecular_system, selection=rule, mask=mask, syntax=syntax
+        )
         output.difference_update(tmp_not_acceptors)
 
     output = np.sort(list(output))

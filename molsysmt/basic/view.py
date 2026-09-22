@@ -1,12 +1,18 @@
+from smonitor import signal
+
 from molsysmt._private.argdigest import arg_digest
 
 
-from smonitor import signal
-
-@signal(tags=['api', 'view'])
+@signal(tags=["api", "view"])
 @arg_digest()
-def view(molecular_system=None, selection='all', structure_indices='all',
-         viewer='MolSysViewer', syntax='MolSysMT', skip_digestion=False):
+def view(
+    molecular_system=None,
+    selection="all",
+    structure_indices="all",
+    viewer="MolSysViewer",
+    syntax="MolSysMT",
+    skip_digestion=False,
+):
     """
     Visualizing a molecular system.
 
@@ -84,14 +90,11 @@ def view(molecular_system=None, selection='all', structure_indices='all',
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic.viewer import _dict_view
     from molsysmt._private.smonitor import LibraryNotFoundError
+    from molsysmt.basic.viewer import _dict_view
 
     if viewer not in _dict_view:
-        raise LibraryNotFoundError(
-            library=viewer,
-            caller='molsysmt.basic.view'
-        )
+        raise LibraryNotFoundError(library=viewer, caller="molsysmt.basic.view")
 
     if molecular_system is not None:
         from . import select
@@ -104,7 +107,7 @@ def view(molecular_system=None, selection='all', structure_indices='all',
             skip_digestion=True,
         )
         structure_indices = validate_structure_indices(
-            molecular_system, structure_indices, 'molsysmt.view'
+            molecular_system, structure_indices, "molsysmt.view"
         )
 
     return _dict_view[viewer](

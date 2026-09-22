@@ -1,11 +1,19 @@
-from molsysmt._private.argdigest import arg_digest
 from smonitor import signal
 
-@signal(tags=['api', 'structure'])
+from molsysmt._private.argdigest import arg_digest
+
+
+@signal(tags=["api", "structure"])
 @arg_digest()
-def concatenate_structures(molecular_systems, selections='all', structure_indices='all', to_form=None,
-                           syntax='MolSysMT', attribute_policy='intersection',
-                           skip_digestion=False):
+def concatenate_structures(
+    molecular_systems,
+    selections="all",
+    structure_indices="all",
+    to_form=None,
+    syntax="MolSysMT",
+    attribute_policy="intersection",
+    skip_digestion=False,
+):
     """
     Concatenate structures from a list of molecular systems into a single molecular system.
 
@@ -95,8 +103,9 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
     .. versionadded:: 1.0.0
     """
 
-    from . import append_structures, convert, extract, get_form
     from molsysmt._private.smonitor import ArgumentLengthError
+
+    from . import append_structures, convert, extract, get_form
 
     n_molecular_systems = len(molecular_systems)
 
@@ -121,14 +130,23 @@ def concatenate_structures(molecular_systems, selections='all', structure_indice
         )
 
     if to_form is None:
-        to_molecular_system = extract(molecular_systems[0], selection=selections[0],
-                                      structure_indices=structure_indices[0])
+        to_molecular_system = extract(
+            molecular_systems[0],
+            selection=selections[0],
+            structure_indices=structure_indices[0],
+        )
         to_form = get_form(to_molecular_system)
     else:
-        to_molecular_system = convert(molecular_systems[0], to_form=to_form, selection=selections[0],
-                                      structure_indices=structure_indices[0])
+        to_molecular_system = convert(
+            molecular_systems[0],
+            to_form=to_form,
+            selection=selections[0],
+            structure_indices=structure_indices[0],
+        )
 
-    for aux_molecular_system, aux_selection, aux_structure_indices in zip(molecular_systems[1:], selections[1:], structure_indices[1:]):
+    for aux_molecular_system, aux_selection, aux_structure_indices in zip(
+        molecular_systems[1:], selections[1:], structure_indices[1:]
+    ):
         append_structures(
             to_molecular_system,
             aux_molecular_system,
