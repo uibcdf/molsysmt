@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='openff.Molecule')
+
+@arg_digest(form="openff.Molecule")
 def to_string_smiles(item, skip_digestion=False):
     """
     Converting from openff.Molecule to string:smiles.
@@ -22,4 +23,4 @@ def to_string_smiles(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    return 'smiles:' + item.to_smiles()
+    return "smiles:" + item.to_smiles()

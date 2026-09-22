@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='openff.Topology')
+
+@arg_digest(form="openff.Topology")
 def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form openff.Topology.
@@ -23,4 +24,5 @@ def copy(item, skip_digestion=False):
     """
 
     from copy import deepcopy
+
     return deepcopy(item)

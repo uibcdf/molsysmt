@@ -1,12 +1,13 @@
 """Converting an OpenFF molecule into normalized native chemical-state storage."""
 
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-from depdigest import dep_digest
 
 
 def _formal_charge_value(atom):
-    charge = getattr(atom, 'formal_charge', None)
+    charge = getattr(atom, "formal_charge", None)
     try:
         return int(charge.m)
     except Exception:
@@ -17,7 +18,7 @@ def _formal_charge_value(atom):
 
 
 def _fractional_order_value(bond):
-    value = getattr(bond, 'fractional_bond_order', None)
+    value = getattr(bond, "fractional_bond_order", None)
     if value is None:
         return None
     try:
@@ -26,7 +27,7 @@ def _fractional_order_value(bond):
         return None
 
 
-@dep_digest('rdkit')
+@dep_digest("rdkit")
 def _bond_stereo_metadata(item):
     """Return OpenFF E/Z labels with the reference atoms chosen by RDKit."""
 
@@ -34,7 +35,7 @@ def _bond_stereo_metadata(item):
     metadata = {}
     for bond in molecule.GetBonds():
         stereo = str(bond.GetStereo())
-        if stereo not in {'STEREOE', 'STEREOZ'}:
+        if stereo not in {"STEREOE", "STEREOZ"}:
             continue
         references = list(bond.GetStereoAtoms())
         if len(references) != 2:
@@ -44,8 +45,8 @@ def _bond_stereo_metadata(item):
     return metadata
 
 
-@arg_digest(form='openff.Molecule')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+@arg_digest(form="openff.Molecule")
+def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from openff.Molecule to molsysmt.Topology.
 
@@ -69,21 +70,22 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     """
 
     import pandas as pd
+
     from molsysmt.native import Topology
 
     tmp_item = Topology(n_atoms=item.n_atoms)
     atoms = list(item.atoms)
-    tmp_item.atoms['atom_id'] = [str(atom.molecule_atom_index) for atom in atoms]
-    tmp_item.atoms['atom_name'] = [
-        atom.name if atom.name else f'{atom.symbol}{atom.molecule_atom_index}'
+    tmp_item.atoms["atom_id"] = [str(atom.molecule_atom_index) for atom in atoms]
+    tmp_item.atoms["atom_name"] = [
+        atom.name if atom.name else f"{atom.symbol}{atom.molecule_atom_index}"
         for atom in atoms
     ]
-    tmp_item.atoms['atom_type'] = [atom.symbol for atom in atoms]
+    tmp_item.atoms["atom_type"] = [atom.symbol for atom in atoms]
 
     atom_attributes = {
-        'formal_charge': [_formal_charge_value(atom) for atom in atoms],
-        'is_aromatic': [bool(atom.is_aromatic) for atom in atoms],
-        'stereochemistry': [
+        "formal_charge": [_formal_charge_value(atom) for atom in atoms],
+        "is_aromatic": [bool(atom.is_aromatic) for atom in atoms],
+        "stereochemistry": [
             atom.stereochemistry if atom.stereochemistry is not None else pd.NA
             for atom in atoms
         ],
@@ -111,14 +113,14 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
                 for bond in bonds
             ],
             fractional_bond_order=[_fractional_order_value(bond) for bond in bonds],
-            bond_type=['covalent'] * len(bonds),
+            bond_type=["covalent"] * len(bonds),
             is_aromatic=[bool(bond.is_aromatic) for bond in bonds],
             stereochemistry=[row[0] for row in stereo_rows],
             stereo_atom1_index=[row[1] for row in stereo_rows],
             stereo_atom2_index=[row[2] for row in stereo_rows],
-            evidence=['explicit'] * len(bonds),
+            evidence=["explicit"] * len(bonds),
         )
-    tmp_item._chemical_states[0].connectivity_completeness = 'complete'
+    tmp_item._chemical_states[0].connectivity_completeness = "complete"
 
     tmp_item.rebuild_components()
     tmp_item.rebuild_molecules()

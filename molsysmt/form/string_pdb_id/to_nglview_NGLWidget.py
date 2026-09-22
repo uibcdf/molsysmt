@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:pdb_id')
-def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="string:pdb_id")
+def to_nglview_NGLWidget(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from string:pdb_id to nglview.NGLWidget.
 
@@ -26,12 +29,18 @@ def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip
     .. versionadded:: 1.0.0
     """
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
-    from molsysmt.form.molsysmt_MolSys.to_nglview_NGLWidget import to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget
+    from molsysmt.form.molsysmt_MolSys.to_nglview_NGLWidget import (
+        to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget,
+    )
 
-    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                  skip_digestion=True)
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
+
+    tmp_item = to_molsysmt_MolSys(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
     tmp_item = molsysmt_MolSys_to_nglview_NGLWidget(tmp_item, skip_digestion=True)
 
     return tmp_item
-

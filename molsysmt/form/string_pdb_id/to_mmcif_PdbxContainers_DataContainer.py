@@ -1,10 +1,14 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.files_and_directories import temp_filename
 from os import remove
 from os.path import exists
 
-@arg_digest(form='string:pdb_id')
-def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.files_and_directories import temp_filename
+
+
+@arg_digest(form="string:pdb_id")
+def to_mmcif_PdbxContainers_DataContainer(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from string:pdb_id to mmcif.PdbxContainers.DataContainer.
 
@@ -29,19 +33,38 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     .. versionadded:: 1.0.0
     """
 
-    from .to_file_bcif_gz import to_file_bcif_gz
+    from molsysmt.form.file_bcif.to_mmcif_PdbxContainers_DataContainer import (
+        to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer,
+    )
+    from molsysmt.form.file_bcif_gz.to_mmcif_PdbxContainers_DataContainer import (
+        to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer,
+    )
+    from molsysmt.form.file_cif.to_mmcif_PdbxContainers_DataContainer import (
+        to_mmcif_PdbxContainers_DataContainer as file_cif_to_mmcif_PdbxContainers_DataContainer,
+    )
+    from molsysmt.form.file_cif_gz.to_mmcif_PdbxContainers_DataContainer import (
+        to_mmcif_PdbxContainers_DataContainer as file_cif_gz_to_mmcif_PdbxContainers_DataContainer,
+    )
+
     from .to_file_bcif import to_file_bcif
-    from .to_file_cif_gz import to_file_cif_gz
+    from .to_file_bcif_gz import to_file_bcif_gz
     from .to_file_cif import to_file_cif
-    from molsysmt.form.file_bcif_gz.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_bcif_gz_to_mmcif_PdbxContainers_DataContainer
-    from molsysmt.form.file_bcif.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_bcif_to_mmcif_PdbxContainers_DataContainer
-    from molsysmt.form.file_cif_gz.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_cif_gz_to_mmcif_PdbxContainers_DataContainer
-    from molsysmt.form.file_cif.to_mmcif_PdbxContainers_DataContainer import to_mmcif_PdbxContainers_DataContainer as file_cif_to_mmcif_PdbxContainers_DataContainer
+    from .to_file_cif_gz import to_file_cif_gz
 
     strategies = [
-        ("bcif.gz", "bcif.gz", to_file_bcif_gz, file_bcif_gz_to_mmcif_PdbxContainers_DataContainer),
+        (
+            "bcif.gz",
+            "bcif.gz",
+            to_file_bcif_gz,
+            file_bcif_gz_to_mmcif_PdbxContainers_DataContainer,
+        ),
         ("bcif", "bcif", to_file_bcif, file_bcif_to_mmcif_PdbxContainers_DataContainer),
-        ("cif.gz", "cif.gz", to_file_cif_gz, file_cif_gz_to_mmcif_PdbxContainers_DataContainer),
+        (
+            "cif.gz",
+            "cif.gz",
+            to_file_cif_gz,
+            file_cif_gz_to_mmcif_PdbxContainers_DataContainer,
+        ),
         ("cif", "cif", to_file_cif, file_cif_to_mmcif_PdbxContainers_DataContainer),
     ]
 
@@ -50,7 +73,9 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     for format_name, extension, downloader, converter in strategies:
         output_filename = temp_filename(extension=extension)
         try:
-            tmp_item = downloader(item, output_filename=output_filename, skip_digestion=True)
+            tmp_item = downloader(
+                item, output_filename=output_filename, skip_digestion=True
+            )
             return converter(tmp_item, skip_digestion=True)
         except Exception as exc:
             errors.append((format_name, exc))

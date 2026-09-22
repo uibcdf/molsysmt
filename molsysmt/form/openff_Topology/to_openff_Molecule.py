@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='openff.Topology')
+
+@arg_digest(form="openff.Topology")
 def to_openff_Molecule(item, skip_digestion=False):
     """
     Converting from openff.Topology to openff.Molecule.

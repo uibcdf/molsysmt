@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:bcif')
-def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:bcif")
+def to_mmcif_PdbxContainers_DataContainer(
+    item, atom_indices="all", skip_digestion=False
+):
     """
     Converting from file:bcif to mmcif.PdbxContainers.DataContainer.
 
@@ -26,18 +29,19 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', skip_digesti
 
     from mmcif.io.BinaryCifReader import BinaryCifReader
     from smonitor.integrations import context_extra, emit_from_catalog
+
     from molsysmt._private.smonitor import CATALOG
 
     binary_cif_reader = BinaryCifReader()
     containers = binary_cif_reader.deserialize(item)
 
-    if len(containers)>1:
+    if len(containers) > 1:
         emit_from_catalog(
-            CATALOG['warnings']['MultiContainerWarning'],
+            CATALOG["warnings"]["MultiContainerWarning"],
             extra=context_extra(
-                caller='molsysmt.form.file_bcif.to_mmcif_PdbxContainers_DataContainer',
-                operation='parse',
-                extra={'format': 'BCIF'},
+                caller="molsysmt.form.file_bcif.to_mmcif_PdbxContainers_DataContainer",
+                operation="parse",
+                extra={"format": "BCIF"},
             ),
         )
 

@@ -192,3 +192,28 @@ The same 384 functional cases passed after editing. Ruff lint and format checks
 are clean for the adapter; the CI workflow and the migrated-file selection test
 now include it. The full-core count fell from 13,044 to 12,834 findings, with
 zero unsuppressed findings in this adapter.
+
+## Fifth migrated slice: repeated getter assignments and seven adapters
+
+On 2026-09-22, Ruff identified 2,878 `F841` findings in the generated
+topological getters of `file_smi`, `openff_Molecule`, `openff_Topology`,
+`string_smiles`, `file_bcif`, `file_bcif_gz`, and `string_pdb_id`. Every finding
+was the same unused assignment of the result of
+`bonds_are_required_to_get_attribute`. Ruff's unsafe fix was reviewed before
+application: it retains the function call and removes only the assignment to
+`bonds_required`. The combined baseline functional suites for all seven
+adapters passed after this change. The full-core count fell to 9,956.
+
+The seven adapters were then linted and formatted individually. Their lazy
+imports remain inside the getters. The metadata-first package initialization
+and wildcard getter/setter exports were retained with bounded `isort: off`
+blocks and line-local `E402`/`F403` exceptions. Two duplicate `download`
+imports in the BCIF package initializers were reduced to one each. The
+original and migrated package export names, origin modules, and conversion
+maps match for all seven adapters. Their functional suites, Ruff lint and
+format checks, the form-adapter audit, and the dependency validator passed.
+An AST comparison across the 141 changed form Python files found no
+non-import differences after normalizing the reviewed `bonds_required`
+assignments. The explicit CI checks and file-selection guard now cover all
+seven adapters. The remaining full-core count is 7,567 findings; this is
+progress on issue #212, not completion of the repository-wide gate.

@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:smiles')
+
+@arg_digest(form="string:smiles")
 def to_string_smiles(item, skip_digestion=False):
     """
     Converting from string:smiles to string:smiles.
@@ -23,4 +24,5 @@ def to_string_smiles(item, skip_digestion=False):
     """
 
     from copy import copy
+
     return copy(item)

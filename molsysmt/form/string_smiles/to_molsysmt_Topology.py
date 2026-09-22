@@ -1,9 +1,11 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='string:smiles')
-@dep_digest('rdkit')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="string:smiles")
+@dep_digest("rdkit")
+def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from string:smiles to molsysmt.Topology.
 
@@ -26,8 +28,11 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt.form.rdkit_Mol.to_molsysmt_Topology import (
+        to_molsysmt_Topology as rdkit_to_topology,
+    )
+
     from .to_rdkit_Mol import to_rdkit_Mol
-    from molsysmt.form.rdkit_Mol.to_molsysmt_Topology import to_molsysmt_Topology as rdkit_to_topology
 
     tmp_item = to_rdkit_Mol(item, skip_digestion=True)
 

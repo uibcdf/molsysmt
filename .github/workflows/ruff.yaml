@@ -48,3 +48,17 @@ jobs:
           ruff format --check molsysmt/form/string_pdb_text
           ruff check molsysmt/form/molsysmt_MolSys
           ruff format --check molsysmt/form/molsysmt_MolSys
+          ruff check molsysmt/form/openff_Molecule
+          ruff format --check molsysmt/form/openff_Molecule
+          ruff check molsysmt/form/openff_Topology
+          ruff format --check molsysmt/form/openff_Topology
+          ruff check molsysmt/form/string_smiles
+          ruff format --check molsysmt/form/string_smiles
+          ruff check molsysmt/form/file_smi
+          ruff format --check molsysmt/form/file_smi
+          ruff check molsysmt/form/string_pdb_id
+          ruff format --check molsysmt/form/string_pdb_id
+          ruff check molsysmt/form/file_bcif
+          ruff format --check molsysmt/form/file_bcif
+          ruff check molsysmt/form/file_bcif_gz
+          ruff format --check molsysmt/form/file_bcif_gz

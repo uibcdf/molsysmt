@@ -9,22 +9,15 @@ from molsysmt._private.variables import is_all
 
 def _partial_charges(item):
     molecules = list(item.molecules)
-    if not molecules or any(
-        molecule.partial_charges is None for molecule in molecules
-    ):
+    if not molecules or any(molecule.partial_charges is None for molecule in molecules):
         return None
     return np.concatenate(
-        [
-            molecule.partial_charges.m_as('elementary_charge')
-            for molecule in molecules
-        ]
+        [molecule.partial_charges.m_as("elementary_charge") for molecule in molecules]
     ).astype(np.float64, copy=False)
 
 
-@arg_digest(form='openff.Topology')
-def get_partial_charge_from_atom(
-    item, indices='all', skip_digestion=False
-):
+@arg_digest(form="openff.Topology")
+def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting partial charge from atom in form openff.Topology.
 
@@ -52,10 +45,10 @@ def get_partial_charge_from_atom(
         return None
     if not is_all(indices):
         values = values[indices]
-    return puw.quantity(values, 'elementary_charge', standardized=True)
+    return puw.quantity(values, "elementary_charge", standardized=True)
 
 
-@arg_digest(form='openff.Topology')
+@arg_digest(form="openff.Topology")
 def get_partial_charge_from_system(item, skip_digestion=False):
     """
     Getting partial charge from system in form openff.Topology.

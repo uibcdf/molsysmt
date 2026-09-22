@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:smi')
+
+@arg_digest(form="file:smi")
 def to_string_smiles(item, skip_digestion=False):
     """
     Converting from file:smi to string:smiles.
@@ -23,13 +24,13 @@ def to_string_smiles(item, skip_digestion=False):
     """
 
     results = []
-    with open(item, 'r') as fff:
+    with open(item, "r") as fff:
         for line in fff:
             line = line.strip()
-            if not line or line.startswith('#'):
+            if not line or line.startswith("#"):
                 continue
             smiles = line.split()[0]
-            results.append('smiles:' + smiles)
+            results.append("smiles:" + smiles)
 
     if len(results) == 1:
         return results[0]

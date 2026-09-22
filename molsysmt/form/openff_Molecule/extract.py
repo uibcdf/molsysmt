@@ -1,10 +1,17 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='openff.Molecule')
-@dep_digest('rdkit')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
-            skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="openff.Molecule")
+@dep_digest("rdkit")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form openff.Molecule.
 
@@ -32,6 +39,7 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     """
 
     from openff.toolkit import Molecule
+
     from .to_rdkit_Mol import to_rdkit_Mol
 
     rdkit_molecule = to_rdkit_Mol(

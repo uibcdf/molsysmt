@@ -1,10 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='openff.Molecule')
-@dep_digest('rdkit')
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="openff.Molecule")
+@dep_digest("rdkit")
 def to_rdkit_Mol(
-    item, atom_indices='all', structure_indices='all', skip_digestion=False
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
 ):
     """
     Converting from openff.Molecule to rdkit.Mol.

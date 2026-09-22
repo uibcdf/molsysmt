@@ -1,8 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
 
-@arg_digest(form='openff.Molecule')
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+@arg_digest(form="openff.Molecule")
+def to_molsysmt_MolSys(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from openff.Molecule to molsysmt.MolSys.
 
@@ -27,15 +29,22 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import MolSys, MolecularMechanics
     from molsysmt._private.variables import is_all
-    from .to_molsysmt_Topology import to_molsysmt_Topology
+    from molsysmt.native import MolecularMechanics, MolSys
+
     from .to_molsysmt_Structures import to_molsysmt_Structures
+    from .to_molsysmt_Topology import to_molsysmt_Topology
 
     tmp_item = MolSys()
-    tmp_item.topology = to_molsysmt_Topology(item, atom_indices=atom_indices, skip_digestion=True)
-    tmp_item.structures = to_molsysmt_Structures(item, atom_indices=atom_indices,
-                                                 structure_indices=structure_indices, skip_digestion=True)
+    tmp_item.topology = to_molsysmt_Topology(
+        item, atom_indices=atom_indices, skip_digestion=True
+    )
+    tmp_item.structures = to_molsysmt_Structures(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
 
     import numpy as np
 
@@ -44,7 +53,7 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     if charges is not None:
         try:
             partial_charge = np.asarray(
-                charges.m_as('elementary_charge'), dtype=np.float64
+                charges.m_as("elementary_charge"), dtype=np.float64
             )
         except Exception:
             try:
@@ -55,8 +64,6 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     if partial_charge is not None and not is_all(atom_indices):
         partial_charge = partial_charge[atom_indices]
 
-    tmp_item.molecular_mechanics = MolecularMechanics(
-        partial_charge=partial_charge
-    )
+    tmp_item.molecular_mechanics = MolecularMechanics(partial_charge=partial_charge)
 
     return tmp_item

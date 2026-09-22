@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='openff.Molecule')
+
+@arg_digest(form="openff.Molecule")
 def to_openff_Topology(item, skip_digestion=False):
     """
     Converting from openff.Molecule to openff.Topology.

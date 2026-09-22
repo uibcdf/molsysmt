@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:bcif')
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+
+@arg_digest(form="file:bcif")
+def has_attribute(
+    molecular_system, attribute, include_none=False, skip_digestion=False
+):
     """
     Checking if form file:bcif supports a specific attribute.
 
@@ -34,4 +37,3 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
         pass
 
     return output
-

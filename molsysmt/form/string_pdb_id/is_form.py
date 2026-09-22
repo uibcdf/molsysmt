@@ -3,6 +3,7 @@ import re
 pattern = re.compile(r"[0-9][A-Za-z0-9_]{3}")
 pattern_extended = re.compile(r"0{4}[0-9][A-Za-z0-9_]{3}")
 
+
 def is_form(item):
     """
     Checking whether an item is an instance of form string:pdb_id.
@@ -33,7 +34,9 @@ def is_form(item):
 
     if lowered.startswith("pdb_"):
         candidate = lowered.split("pdb_", 1)[1]
-        return bool(pattern.fullmatch(candidate) or pattern_extended.fullmatch(candidate))
+        return bool(
+            pattern.fullmatch(candidate) or pattern_extended.fullmatch(candidate)
+        )
 
     # Tolerance alias: 'pdb:XXXX' is NOT official syntax — accepted silently
     # to avoid frustrating users who type it by mistake.

@@ -3,10 +3,10 @@ from molsysmt.attribute import attributes as _all_attributes
 attributes = {ii: False for ii in _all_attributes.keys()}
 
 for ii, jj in _all_attributes.items():
-    if jj['topological']:
+    if jj["topological"]:
         attributes[ii] = True
 
-attributes['isotope'] = False
-attributes['partial_charge'] = True
+attributes["isotope"] = False
+attributes["partial_charge"] = True
 
 del _all_attributes

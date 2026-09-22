@@ -60,7 +60,20 @@ def test_core_critical_ruff_rules():
 
 
 @pytest.mark.parametrize(
-    "package", ["attribute", "lib", "form/string_pdb_text", "form/molsysmt_MolSys"]
+    "package",
+    [
+        "attribute",
+        "lib",
+        "form/string_pdb_text",
+        "form/molsysmt_MolSys",
+        "form/openff_Molecule",
+        "form/openff_Topology",
+        "form/string_smiles",
+        "form/file_smi",
+        "form/string_pdb_id",
+        "form/file_bcif",
+        "form/file_bcif_gz",
+    ],
 )
 def test_migrated_package_ruff_gate(package):
     """Keep every Python file in each migrated package under Ruff."""
