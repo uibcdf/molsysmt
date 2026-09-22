@@ -15,7 +15,7 @@ supersedes: []
 # Add SDF file form with MolSys conversion
 
 **Reported:** 2026-09-22, from the DockingMT ligand-interchange discussion and inspection of the form registry.
-**Status:** Open proposal; no SDF file form is implemented in MolSysMT.
+**Status:** Open, post-1.0 proposal; no SDF file form is implemented in MolSysMT.
 
 ## What
 
@@ -80,7 +80,10 @@ This issue covers the first file:sdf form and single-record conversions.
 Arbitrary property-block preservation, multi-molecule files, and a general
 record-to-MolSys schema remain in the existing broader proposal. DockingMT's
 ligand preparation and Vina protocol are outside this adapter. A string:sdf
-form may be proposed separately if a consumer needs it.
+form may be proposed separately if a consumer needs it. This is new form
+coverage, not a prerequisite for the currently defined MolSysMT 1.0 contract;
+schedule it after the 1.0 release unless a separate correctness defect changes
+that assessment.
 
 ## Acceptance criteria
 

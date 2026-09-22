@@ -15,7 +15,7 @@ supersedes: []
 # Add PDBQT file and string forms with MolSys conversion
 
 **Reported:** 2026-09-22, from the DockingMT Vina integration discussion and inspection of the form registry.
-**Status:** Open proposal; no PDBQT form is implemented in MolSysMT.
+**Status:** Open, post-1.0 proposal; no PDBQT form is implemented in MolSysMT.
 
 ## What
 
@@ -75,7 +75,10 @@ This issue owns PDBQT recognition, parsing, writing, capability metadata,
 conversion semantics, and fidelity tests. It does not own general charge
 assignment, hydrogen placement, atom typing, or rotatable-bond perception;
 those are separate preparation capabilities to specify later. It does not
-own DockingMT protocol decisions or Vina execution.
+own DockingMT protocol decisions or Vina execution. This is new form coverage,
+not a prerequisite for the currently defined MolSysMT 1.0 contract; schedule
+it after the 1.0 release unless a separate correctness defect changes that
+assessment.
 
 ## Acceptance criteria
 

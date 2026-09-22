@@ -20,9 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
 - [`no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md`](no_test_workflow_runs_on_a_push_to_main_and_the_ci_badge_names_a_missing_workflo.md) — [#185](https://github.com/uibcdf/molsysmt/issues/185) — No test workflow runs on a push to main and the CI badge names a missing workflow. *(high, measured)*
+- [`investigate_the_zero_atom_rewrite_of_local_181l_h5msm_before_1_0.md`](investigate_the_zero_atom_rewrite_of_local_181l_h5msm_before_1_0.md) — [#216](https://github.com/uibcdf/molsysmt/issues/216) — Investigate the zero-atom rewrite of local 181l.h5msm before 1.0 *(medium, reproduced)*
 
 ### In progress (2)
 
