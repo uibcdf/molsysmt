@@ -26,6 +26,7 @@ tracked exception with its reason and expiration condition.
 
 Start with these central documents:
 
+- [MolSysSuite Architecture 1.0](https://github.com/uibcdf/molsyssuite/blob/main/devguide/architecture/README.md);
 - [repository ownership contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_contract.md);
 - [issue and developer-guide reporting protocol](https://github.com/uibcdf/molsyssuite/blob/main/devguide/reporting_protocol.md);
 - [cross-component feedback policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md);
@@ -33,6 +34,13 @@ Start with these central documents:
 - [Python tooling policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md);
 - [component release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md);
 - [GH Run Receptor dogfooding policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md).
+
+Architecture 1.0 defines Knowledge, Modeling, Capabilities, and Discovery as conceptual
+scientific layers. MolSys-AI/MOLI is optional intelligence across them, not a required
+top level. Praxis and Nextia belong to this frozen architecture but are not registered
+members or implied repositories. `suite.toml` alone records admitted, governed
+components; its `role`, `membership`, `maturity`, `development-mode`, and `capabilities`
+fields classify real repositories rather than conceptual layers.
 
 Consult the central repository before changing a shared dependency boundary, supported
 Python range, development baseline, issue vocabulary, reusable workflow, vendored guide,

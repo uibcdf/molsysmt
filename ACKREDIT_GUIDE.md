@@ -172,13 +172,25 @@ These call the module directly, which is why the template imports `ackredit` as 
 
 ### Auto-Discovery of Dependencies
 
-If your library uses external packages (like `numpy` or `mdtraj`) and you want Ackredit to track them automatically, add this to your initialization:
+If your library uses external packages (like `mdtraj`) and you want Ackredit to track them automatically, enable the hooks early in your initialization — before your `__init__` imports the submodules that import those packages:
 
 ```python
 from ._ackredit import ACKREDIT_INSTALLED, ackredit
 
 if ACKREDIT_INSTALLED:
     ackredit.enable_import_hooks()
+```
+
+Discovery sees imports that happen after it is enabled; a package already loaded is not
+discovered. Ackredit loads **numpy** itself through ArgDigest (until
+`uibcdf/argdigest#15`), so discovery never sees numpy. For a package that may already be
+loaded, register its citation and declare an injection: an injection is credited whether
+its package was imported before the hooks or after.
+
+```python
+if ACKREDIT_INSTALLED:
+    # "numpy:paper:2020" registered from the work's own record, as in Static Registration.
+    ackredit.add_injection("numpy", ["numpy:paper:2020"])
 ```
 
 ### Session Persistence
