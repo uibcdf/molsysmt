@@ -19,25 +19,29 @@ Return-type notes
 """
 
 import pytest
+
 import molsysmt as msm
 from molsysmt.form.molsysmt_Topology import get_topological_attributes as aux
 
-N_CHAINS     = 1
-N_MOLECULES  = 1
-N_ENTITIES   = 1
+N_CHAINS = 1
+N_MOLECULES = 1
+N_ENTITIES = 1
 N_COMPONENTS = 1
-N_BONDS      = 602
+N_BONDS = 602
 
 
 @pytest.fixture(scope="module")
 def topo():
-    molsys = msm.convert(msm.systems['chicken villin HP35']['1vii.pdb'], to_form='molsysmt.MolSys')
-    return msm.convert(molsys, to_form='molsysmt.Topology')
+    molsys = msm.convert(
+        msm.systems["chicken villin HP35"]["1vii.pdb"], to_form="molsysmt.MolSys"
+    )
+    return msm.convert(molsys, to_form="molsysmt.Topology")
 
 
 # ---------------------------------------------------------------------------
 # get_inner_bond_index_from_system
 # ---------------------------------------------------------------------------
+
 
 def test_inner_bond_index_from_system_is_list(topo):
     result = aux.get_inner_bond_index_from_system(topo)
@@ -53,13 +57,17 @@ def test_inner_bond_index_from_system_length(topo):
 # get_n_*_from_component  (return a scalar int for indices='all')
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_peptides_from_component",       1),
-    ("get_n_proteins_from_component",       0),
-    ("get_n_dnas_from_component",           0),
-    ("get_n_rnas_from_component",           0),
-    ("get_n_polysaccharides_from_component", 0),
-])
+
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_peptides_from_component", 1),
+        ("get_n_proteins_from_component", 0),
+        ("get_n_dnas_from_component", 0),
+        ("get_n_rnas_from_component", 0),
+        ("get_n_polysaccharides_from_component", 0),
+    ],
+)
 def test_n_biomolecule_type_from_component_scalar(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, int)
@@ -70,13 +78,17 @@ def test_n_biomolecule_type_from_component_scalar(topo, func_name, expected):
 # get_total_n_*_from_component  (scalar int for indices='all')
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_total_n_peptides_from_component",        1),
-    ("get_total_n_proteins_from_component",        0),
-    ("get_total_n_dnas_from_component",            0),
-    ("get_total_n_rnas_from_component",            0),
-    ("get_total_n_polysaccharides_from_component", 0),
-])
+
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_total_n_peptides_from_component", 1),
+        ("get_total_n_proteins_from_component", 0),
+        ("get_total_n_dnas_from_component", 0),
+        ("get_total_n_rnas_from_component", 0),
+        ("get_total_n_polysaccharides_from_component", 0),
+    ],
+)
 def test_total_n_biomolecule_type_from_component_scalar(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, int)
@@ -87,12 +99,16 @@ def test_total_n_biomolecule_type_from_component_scalar(topo, func_name, expecte
 # get_n_small_molecules_from_* (return a list, one entry per element)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name, n_elements", [
-    ("get_n_small_molecules_from_component", N_COMPONENTS),
-    ("get_n_small_molecules_from_chain",     N_CHAINS),
-    ("get_n_small_molecules_from_entity",    N_ENTITIES),
-    ("get_n_small_molecules_from_molecule",  N_MOLECULES),
-])
+
+@pytest.mark.parametrize(
+    "func_name, n_elements",
+    [
+        ("get_n_small_molecules_from_component", N_COMPONENTS),
+        ("get_n_small_molecules_from_chain", N_CHAINS),
+        ("get_n_small_molecules_from_entity", N_ENTITIES),
+        ("get_n_small_molecules_from_molecule", N_MOLECULES),
+    ],
+)
 def test_n_small_molecules_returns_list(topo, func_name, n_elements):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
@@ -104,12 +120,16 @@ def test_n_small_molecules_returns_list(topo, func_name, n_elements):
 # get_total_n_small_molecules_from_* (scalar int for indices='all')
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_total_n_small_molecules_from_component",
-    "get_total_n_small_molecules_from_chain",
-    "get_total_n_small_molecules_from_entity",
-    "get_total_n_small_molecules_from_molecule",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_total_n_small_molecules_from_component",
+        "get_total_n_small_molecules_from_chain",
+        "get_total_n_small_molecules_from_entity",
+        "get_total_n_small_molecules_from_molecule",
+    ],
+)
 def test_total_n_small_molecules_scalar(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, int)
@@ -121,10 +141,14 @@ def test_total_n_small_molecules_scalar(topo, func_name):
 # (scalar int for indices='all')
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_total_n_peptides_from_chain", 1),
-    ("get_total_n_proteins_from_chain", 0),
-])
+
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_total_n_peptides_from_chain", 1),
+        ("get_total_n_proteins_from_chain", 0),
+    ],
+)
 def test_total_n_biomolecule_type_from_chain_scalar(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, int)

@@ -13,6 +13,7 @@ Files used:
 
 import numpy as np
 import pytest
+
 import molsysmt as msm
 from molsysmt.form.molsysmt_H5MSMFileHandler import get_structural_attributes as aux
 
@@ -23,23 +24,23 @@ puw = msm.pyunitwizard
 # ---------------------------------------------------------------------------
 
 handler_traj = msm.convert(
-    msm.systems['pentalanine']['traj_pentalanine.h5msm'],
-    to_form='molsysmt.H5MSMFileHandler',
+    msm.systems["pentalanine"]["traj_pentalanine.h5msm"],
+    to_form="molsysmt.H5MSMFileHandler",
 )
 
 handler_bb = msm.convert(
-    msm.systems['Barnase-Barstar']['barnase_barstar.h5msm'],
-    to_form='molsysmt.H5MSMFileHandler',
+    msm.systems["Barnase-Barstar"]["barnase_barstar.h5msm"],
+    to_form="molsysmt.H5MSMFileHandler",
 )
 
 handler_hp35 = msm.convert(
-    msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5msm'],
-    to_form='molsysmt.H5MSMFileHandler',
+    msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.h5msm"],
+    to_form="molsysmt.H5MSMFileHandler",
 )
 
 handler_tctim = msm.convert(
-    msm.systems['TcTIM']['1tcd.h5msm'],
-    to_form='molsysmt.H5MSMFileHandler',
+    msm.systems["TcTIM"]["1tcd.h5msm"],
+    to_form="molsysmt.H5MSMFileHandler",
 )
 
 
@@ -49,12 +50,11 @@ handler_tctim = msm.convert(
 
 
 class TestGetCoordinatesFromAtom:
-
     def test_all_structures_all_atoms(self):
         coords = aux.get_coordinates_from_atom(handler_traj, skip_digestion=True)
         assert coords is not None
-        assert puw.check(coords, dimensionality={'[L]': 1})
-        val = puw.get_value(coords, to_unit='nm')
+        assert puw.check(coords, dimensionality={"[L]": 1})
+        val = puw.get_value(coords, to_unit="nm")
         assert val.shape == (5000, 62, 3)
         assert val.dtype == np.float64
 
@@ -62,32 +62,32 @@ class TestGetCoordinatesFromAtom:
         coords = aux.get_coordinates_from_atom(
             handler_traj, indices=[0, 1, 2], skip_digestion=True
         )
-        val = puw.get_value(coords, to_unit='nm')
+        val = puw.get_value(coords, to_unit="nm")
         assert val.shape == (5000, 3, 3)
 
     def test_subset_structure_indices(self):
         coords = aux.get_coordinates_from_atom(
             handler_traj, structure_indices=[0, 1, 2], skip_digestion=True
         )
-        val = puw.get_value(coords, to_unit='nm')
+        val = puw.get_value(coords, to_unit="nm")
         assert val.shape == (3, 62, 3)
 
     def test_subset_both(self):
         coords = aux.get_coordinates_from_atom(
             handler_traj, indices=[0, 5], structure_indices=[0, 10], skip_digestion=True
         )
-        val = puw.get_value(coords, to_unit='nm')
+        val = puw.get_value(coords, to_unit="nm")
         assert val.shape == (2, 2, 3)
 
     def test_single_frame(self):
         coords = aux.get_coordinates_from_atom(handler_bb, skip_digestion=True)
-        val = puw.get_value(coords, to_unit='nm')
+        val = puw.get_value(coords, to_unit="nm")
         assert val.shape == (1, 3159, 3)
 
     def test_units_are_nm(self):
         coords = aux.get_coordinates_from_atom(handler_bb, skip_digestion=True)
         # standardized unit for length is nm
-        val = puw.get_value(coords, to_unit='nm')
+        val = puw.get_value(coords, to_unit="nm")
         assert val is not None
 
 
@@ -117,7 +117,6 @@ class TestGetVelocitiesFromAtom:
 
 
 class TestGetBFactorFromAtom:
-
     def test_empty_b_factor_returns_none(self):
         # pentalanine has b_factor of shape (0, 0)
         result = aux.get_b_factor_from_atom(handler_traj, skip_digestion=True)
@@ -135,7 +134,6 @@ class TestGetBFactorFromAtom:
 
 
 class TestGetNStructuresFromSystem:
-
     def test_traj(self):
         n = aux.get_n_structures_from_system(handler_traj, skip_digestion=True)
         assert n == 5000
@@ -153,25 +151,26 @@ class TestGetNStructuresFromSystem:
 
 
 class TestGetBoxFromSystem:
-
     def test_non_constant_box_all_structures(self):
         # barnase_barstar: box stored per-structure, 1 frame
         box = aux.get_box_from_system(handler_bb, skip_digestion=True)
         assert box is not None
-        assert puw.check(box, dimensionality={'[L]': 1})
-        val = puw.get_value(box, to_unit='nm')
+        assert puw.check(box, dimensionality={"[L]": 1})
+        val = puw.get_value(box, to_unit="nm")
         assert val.shape == (1, 3, 3)
 
     def test_non_constant_box_subset(self):
-        box = aux.get_box_from_system(handler_bb, structure_indices=[0], skip_digestion=True)
-        val = puw.get_value(box, to_unit='nm')
+        box = aux.get_box_from_system(
+            handler_bb, structure_indices=[0], skip_digestion=True
+        )
+        val = puw.get_value(box, to_unit="nm")
         assert val.shape == (1, 3, 3)
 
     def test_constant_box_all_structures(self):
         # hp35_solvated: constant_box=True — box is repeated for all structures
         box = aux.get_box_from_system(handler_hp35, skip_digestion=True)
         assert box is not None
-        val = puw.get_value(box, to_unit='nm')
+        val = puw.get_value(box, to_unit="nm")
         # 1 structure total; shape (1, 3, 3)
         assert val.shape == (1, 3, 3)
 
@@ -179,22 +178,21 @@ class TestGetBoxFromSystem:
         box = aux.get_box_from_system(
             handler_hp35, structure_indices=[0], skip_digestion=True
         )
-        val = puw.get_value(box, to_unit='nm')
+        val = puw.get_value(box, to_unit="nm")
         assert val.shape == (1, 3, 3)
 
     def test_units(self):
         box = aux.get_box_from_system(handler_bb, skip_digestion=True)
-        assert puw.check(box, dimensionality={'[L]': 1})
+        assert puw.check(box, dimensionality={"[L]": 1})
 
 
 class TestGetTimeFromSystem:
-
     def test_non_constant_time_all_structures(self):
         # pentalanine: time stored per-frame, values [10, 20, 30, ..., 50000] ps
         result = aux.get_time_from_system(handler_traj, skip_digestion=True)
         assert result is not None
-        assert puw.check(result, dimensionality={'[T]': 1})
-        val = puw.get_value(result, to_unit='ps')
+        assert puw.check(result, dimensionality={"[T]": 1})
+        val = puw.get_value(result, to_unit="ps")
         assert val.shape == (5000,)
         assert val[0] == pytest.approx(10.0)
         assert val[1] == pytest.approx(20.0)
@@ -203,7 +201,7 @@ class TestGetTimeFromSystem:
         result = aux.get_time_from_system(
             handler_traj, structure_indices=[0, 1, 4], skip_digestion=True
         )
-        val = puw.get_value(result, to_unit='ps')
+        val = puw.get_value(result, to_unit="ps")
         assert val.shape == (3,)
         assert val[0] == pytest.approx(10.0)
         assert val[1] == pytest.approx(20.0)
@@ -219,12 +217,11 @@ class TestGetTimeFromSystem:
         result = aux.get_time_from_system(handler_hp35, skip_digestion=True)
         # 1 structure total; should return a single-element array
         if result is not None:
-            val = puw.get_value(result, to_unit='ps')
+            val = puw.get_value(result, to_unit="ps")
             assert val.shape == (1,)
 
 
 class TestGetStructureIdFromSystem:
-
     def test_constant_id_step(self):
         # hp35_solvated: constant_id_step=True, id_step=10000000, id[0]=0
         result = aux.get_structure_id_from_system(handler_hp35, skip_digestion=True)
@@ -257,7 +254,9 @@ class TestGetKineticEnergyFromSystem:
 
     def test_all_structures_does_not_raise(self):
         try:
-            result = aux.get_kinetic_energy_from_system(handler_traj, skip_digestion=True)
+            result = aux.get_kinetic_energy_from_system(
+                handler_traj, skip_digestion=True
+            )
             if result is not None:
                 val = puw.get_value(result)
                 assert val.shape[0] == 0
@@ -266,7 +265,7 @@ class TestGetKineticEnergyFromSystem:
 
     def test_subset_does_not_raise(self):
         try:
-            result = aux.get_kinetic_energy_from_system(
+            aux.get_kinetic_energy_from_system(
                 handler_traj, structure_indices=[0], skip_digestion=True
             )
         except Exception:
@@ -274,10 +273,11 @@ class TestGetKineticEnergyFromSystem:
 
 
 class TestGetPotentialEnergyFromSystem:
-
     def test_all_structures_does_not_raise(self):
         try:
-            result = aux.get_potential_energy_from_system(handler_traj, skip_digestion=True)
+            result = aux.get_potential_energy_from_system(
+                handler_traj, skip_digestion=True
+            )
             if result is not None:
                 val = puw.get_value(result)
                 assert val.shape[0] == 0
@@ -286,7 +286,7 @@ class TestGetPotentialEnergyFromSystem:
 
     def test_subset_does_not_raise(self):
         try:
-            result = aux.get_potential_energy_from_system(
+            aux.get_potential_energy_from_system(
                 handler_traj, structure_indices=[0], skip_digestion=True
             )
         except Exception:
@@ -294,7 +294,6 @@ class TestGetPotentialEnergyFromSystem:
 
 
 class TestGetTemperatureFromSystem:
-
     def test_from_stored_temperature_empty(self):
         # pentalanine: temperature_from_kinetic_energy=False, temperature shape (0,)
         try:
@@ -307,7 +306,7 @@ class TestGetTemperatureFromSystem:
 
     def test_subset_does_not_raise(self):
         try:
-            result = aux.get_temperature_from_system(
+            aux.get_temperature_from_system(
                 handler_traj, structure_indices=[0], skip_digestion=True
             )
         except Exception:
@@ -315,7 +314,6 @@ class TestGetTemperatureFromSystem:
 
 
 class TestGetBFactorFromSystem:
-
     def test_empty_b_factor_returns_none(self):
         # pentalanine: b_factor shape (0, 0) — delegates to get_b_factor_from_atom
         result = aux.get_b_factor_from_system(handler_traj, skip_digestion=True)

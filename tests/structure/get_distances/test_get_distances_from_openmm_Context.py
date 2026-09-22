@@ -3,22 +3,17 @@ Unit and regression test for the get_distances function over an openmm.Context o
 """
 
 # Import package, test suite, and other packages as needed
-import molsysmt as msm
-from molsysmt import pyunitwizard as puw
-import openmm as mm
-from openmm import unit
 from openmm import app
-import numpy as np
 
 topology = app.Topology()
-chain = topology.addChain('A')
-residue = topology.addResidue('Ar', chain)
-atom = topology.addAtom(name='Ar', element= app.element.argon, residue=residue)
-chain = topology.addChain('B')
-residue = topology.addResidue('Ar', chain)
-atom = topology.addAtom(name='Ar', element= app.element.argon, residue=residue)
+chain = topology.addChain("A")
+residue = topology.addResidue("Ar", chain)
+atom = topology.addAtom(name="Ar", element=app.element.argon, residue=residue)
+chain = topology.addChain("B")
+residue = topology.addResidue("Ar", chain)
+atom = topology.addAtom(name="Ar", element=app.element.argon, residue=residue)
 
-#def test_get_distances_from_openmm_Context_1():
+# def test_get_distances_from_openmm_Context_1():
 #
 #    system = mm.System()
 #    system.addParticle(atom.element.mass) # masa del átomo de argón
@@ -47,5 +42,3 @@ atom = topology.addAtom(name='Ar', element= app.element.argon, residue=residue)
 #
 #
 #    assert
-
-

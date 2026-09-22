@@ -1,19 +1,21 @@
 """
 Tests for ChunkedExecutor footprint-aware memory heuristics.
 """
+
 import pytest
-import numpy as np
+
 import molsysmt as msm
-from molsysmt._private.execution.memory_policy import optimize_chunk_size
 from molsysmt._private.execution import ChunkedExecutor, Reducer
-from .conftest import N_ATOMS, N_STRUCTURES
+from molsysmt._private.execution.memory_policy import optimize_chunk_size
 
 
 class DummyReducer(Reducer):
     def initialize(self, metadata):
         pass
+
     def consume(self, chunk):
         pass
+
     def finalize(self):
         return True
 
@@ -75,13 +77,13 @@ def test_chunked_executor_heuristics_integration(pentalanine_h5msm):
     """Verify that ChunkedExecutor dynamically optimizes its chunk size at runtime."""
     import molsysmt.configure as config
 
-    molsys = msm.convert(pentalanine_h5msm, to_form='molsysmt.H5MSMFileHandler')
+    molsys = msm.convert(pentalanine_h5msm, to_form="molsysmt.H5MSMFileHandler")
     try:
         # Configure small RAM usage for testing (e.g. 5 MB)
         # So we can see a precise, calculated optimal chunk size.
         old_max_ram = config.max_ram_usage
         old_fraction = config.chunk_memory_fraction
-        
+
         # 1 frame for 62 atoms footprint: 62 * 3 * 8 * 1.20 = 1785.6 bytes
         # Let's set max_ram_usage to 1,000,000 bytes (1 MB)
         # With a 10% chunk budget = 100,000 bytes.
@@ -93,12 +95,12 @@ def test_chunked_executor_heuristics_integration(pentalanine_h5msm):
             reducer = DummyReducer()
             executor = ChunkedExecutor(
                 molecular_system=molsys,
-                form='molsysmt.H5MSMFileHandler',
-                operation='test_heuristics',
+                form="molsysmt.H5MSMFileHandler",
+                operation="test_heuristics",
                 reducer=reducer,
                 chunk_size=10,  # Advisory size
-                heavy_mode='force',
-                attributes=['coordinates'],
+                heavy_mode="force",
+                attributes=["coordinates"],
             )
 
             # Prior to execute, the executor has the advisory chunk size
@@ -122,7 +124,7 @@ def test_chunked_executor_heuristics_disabled(pentalanine_h5msm):
     """Verify that setting chunk_memory_fraction = 0.0 disables optimization."""
     import molsysmt.configure as config
 
-    molsys = msm.convert(pentalanine_h5msm, to_form='molsysmt.H5MSMFileHandler')
+    molsys = msm.convert(pentalanine_h5msm, to_form="molsysmt.H5MSMFileHandler")
     try:
         old_fraction = config.chunk_memory_fraction
         config.chunk_memory_fraction = 0.0
@@ -131,12 +133,12 @@ def test_chunked_executor_heuristics_disabled(pentalanine_h5msm):
             reducer = DummyReducer()
             executor = ChunkedExecutor(
                 molecular_system=molsys,
-                form='molsysmt.H5MSMFileHandler',
-                operation='test_heuristics_disabled',
+                form="molsysmt.H5MSMFileHandler",
+                operation="test_heuristics_disabled",
                 reducer=reducer,
                 chunk_size=15,  # Advisory size
-                heavy_mode='force',
-                attributes=['coordinates'],
+                heavy_mode="force",
+                attributes=["coordinates"],
             )
 
             executor.execute()

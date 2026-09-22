@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt import systems
 
-
 md = pytest.importorskip("mdtraj")
 
 

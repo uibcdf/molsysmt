@@ -1,7 +1,11 @@
 from __future__ import annotations
-import argparse, os
+
+import argparse
+import os
 from datetime import datetime, timezone
-from coverage_utils import load_json, dump_json
+
+from coverage_utils import dump_json, load_json
+
 
 def append_record(summary_json: str, history_path: str):
     summary = load_json(summary_json)
@@ -18,12 +22,19 @@ def append_record(summary_json: str, history_path: str):
         "files": summary["overall"]["files"],
         "statements": summary["overall"]["statements"],
         "missing": summary["overall"]["missing"],
-        "top_level_packages": [{"package": r["package"], "percent": r["percent"]} for r in summary.get("top_level_packages", [])],
-        "packages": [{"package": r["package"], "percent": r["percent"]} for r in summary.get("packages", [])],
+        "top_level_packages": [
+            {"package": r["package"], "percent": r["percent"]}
+            for r in summary.get("top_level_packages", [])
+        ],
+        "packages": [
+            {"package": r["package"], "percent": r["percent"]}
+            for r in summary.get("packages", [])
+        ],
     }
     history.setdefault("records", []).append(record)
     dump_json(history_path, history)
     print(f"Appended record to {history_path}")
+
 
 def report(history_path: str, last: int = 10):
     if not os.path.exists(history_path):
@@ -35,10 +46,15 @@ def report(history_path: str, last: int = 10):
         return
     records = records[-last:]
     print("\nCoverage history\n")
-    print(f"{'Recorded at':<28}  {'Overall':>8}  {'Files':>7}  {'Statements':>10}  {'Missing':>8}")
+    print(
+        f"{'Recorded at':<28}  {'Overall':>8}  {'Files':>7}  {'Statements':>10}  {'Missing':>8}"
+    )
     print("-" * 88)
     for rec in records:
-        print(f"{rec['recorded_at_utc']:<28}  {rec['overall_percent']:7.1f}%  {rec['files']:7d}  {rec['statements']:10d}  {rec['missing']:8d}")
+        print(
+            f"{rec['recorded_at_utc']:<28}  {rec['overall_percent']:7.1f}%  {rec['files']:7d}  {rec['statements']:10d}  {rec['missing']:8d}"
+        )
+
 
 parser = argparse.ArgumentParser(description="Maintain coverage history.")
 sub = parser.add_subparsers(dest="command", required=True)

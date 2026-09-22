@@ -62,14 +62,18 @@ def _cross_chain_system():
     from molsysmt import pyunitwizard as puw
 
     builder = msm.build.editable()
-    builder.add_atom(atom_name='CA', atom_type='C', atom_id=1)
-    builder.add_atom(atom_name='CB', atom_type='C', atom_id=2)
-    builder.add_group(atom_indices=[0], group_name='ALA', group_type='amino acid', group_id=1)
-    builder.add_group(atom_indices=[1], group_name='GLY', group_type='amino acid', group_id=2)
-    builder.add_chain(group_indices=[0], chain_id='A', chain_name='A')
-    builder.add_chain(group_indices=[1], chain_id='B', chain_name='B')
+    builder.add_atom(atom_name="CA", atom_type="C", atom_id=1)
+    builder.add_atom(atom_name="CB", atom_type="C", atom_id=2)
+    builder.add_group(
+        atom_indices=[0], group_name="ALA", group_type="amino acid", group_id=1
+    )
+    builder.add_group(
+        atom_indices=[1], group_name="GLY", group_type="amino acid", group_id=2
+    )
+    builder.add_chain(group_indices=[0], chain_id="A", chain_name="A")
+    builder.add_chain(group_indices=[1], chain_id="B", chain_name="B")
     builder.add_bond(0, 1)
-    builder.set_coordinates(puw.quantity(np.zeros((1, 2, 3)), 'nm'))
+    builder.set_coordinates(puw.quantity(np.zeros((1, 2, 3)), "nm"))
 
     return builder.build()
 
@@ -90,46 +94,69 @@ def _cross_chain_system():
 # no fields of their own. They are here because they would regress if the base ever
 # transformed its message again, which is the other half of #158.
 SAMPLES = {
-    'MolSysMTCatalogWarning': ({'message': 'a base catalog warning'}, 'a base catalog warning'),
-    'MolSysMTDeprecationWarning': ({'message': 'setup_logging() is deprecated'}, 'deprecated'),
-    'UserMolSysMTWarning': ({'message': 'a plain user warning'}, 'a plain user warning'),
-    'SelectionWarning': ({'message': 'the selection is ambiguous'}, 'ambiguous'),
-    'DownloadWarning': ({'message': 'the download fell back to a mirror'}, 'mirror'),
-    'CrossChainCovalentBondsWarning': (
-        {'molecular_system': _cross_chain_system, 'atom_pairs': [(0, 1)]},
-        'Cross-chain covalent bonds',
+    "MolSysMTCatalogWarning": (
+        {"message": "a base catalog warning"},
+        "a base catalog warning",
     ),
-    'NotDigestedArgumentWarning': ({'argument': 'selection'}, 'selection'),
-    'MolecularSystemMismatchWarning': (
-        {'caller': 'molsysmt.basic.compare', 'n_models': 3}, 'molsysmt.basic.compare',
+    "MolSysMTDeprecationWarning": (
+        {"message": "setup_logging() is deprecated"},
+        "deprecated",
     ),
-    'StructuralAttributeOffAxisWarning': (
-        {'attributes': ['time', 'b_factor'], 'caller': 'molsysmt.basic.convert'}, 'time',
+    "UserMolSysMTWarning": (
+        {"message": "a plain user warning"},
+        "a plain user warning",
     ),
-    'StructuralAttributeDropWarning': (
-        {'attributes': ['occupancy'], 'caller': 'molsysmt.append_structures'}, 'occupancy',
+    "SelectionWarning": ({"message": "the selection is ambiguous"}, "ambiguous"),
+    "DownloadWarning": ({"message": "the download fell back to a mirror"}, "mirror"),
+    "CrossChainCovalentBondsWarning": (
+        {"molecular_system": _cross_chain_system, "atom_pairs": [(0, 1)]},
+        "Cross-chain covalent bonds",
     ),
-    'IncompatibleBoxWarning': (
-        {'reason': 'the boxes differ', 'caller': 'molsysmt.basic.add'}, 'the boxes differ',
+    "NotDigestedArgumentWarning": ({"argument": "selection"}, "selection"),
+    "MolecularSystemMismatchWarning": (
+        {"caller": "molsysmt.basic.compare", "n_models": 3},
+        "molsysmt.basic.compare",
     ),
-    'BioassemblyIdentifierCollisionWarning': (
-        {'renamed': [('A', 'A-1'), ('B', 'B-1')],
-         'caller': 'molsysmt.build.make_bioassembly'},
-        'A -> A-1',
+    "StructuralAttributeOffAxisWarning": (
+        {"attributes": ["time", "b_factor"], "caller": "molsysmt.basic.convert"},
+        "time",
     ),
-    'SlowChunkIOWarning': ({'chunk_index': 7, 'io_time_s': 12.5}, '7'),
-    'MemoryPressureWarning': (
-        {'chunk_index': 3, 'rss_bytes': 1383370752, 'budget_bytes': 1000000,
-         'pressure_pct': 138337.0},
-        '1383370752',
+    "StructuralAttributeDropWarning": (
+        {"attributes": ["occupancy"], "caller": "molsysmt.append_structures"},
+        "occupancy",
     ),
-    'UnknownAtomNameWarning': ({'atom_name': 'Ar'}, "'Ar'"),
-    'UnexpectedProtonationWarning': (
-        {'count': 4, 'pH': 7.4, 'examples': 'HD2 in ASP 12',
-         'caller': 'molsysmt.build.add_missing_hydrogens'},
-        'HD2 in ASP 12',
+    "IncompatibleBoxWarning": (
+        {"reason": "the boxes differ", "caller": "molsysmt.basic.add"},
+        "the boxes differ",
     ),
-    'GpuNotAvailableWarning': ({'reason': 'no CUDA GPU is accessible'}, 'CUDA'),
+    "BioassemblyIdentifierCollisionWarning": (
+        {
+            "renamed": [("A", "A-1"), ("B", "B-1")],
+            "caller": "molsysmt.build.make_bioassembly",
+        },
+        "A -> A-1",
+    ),
+    "SlowChunkIOWarning": ({"chunk_index": 7, "io_time_s": 12.5}, "7"),
+    "MemoryPressureWarning": (
+        {
+            "chunk_index": 3,
+            "rss_bytes": 1383370752,
+            "budget_bytes": 1000000,
+            "pressure_pct": 138337.0,
+        },
+        "1383370752",
+    ),
+    "UnknownAtomNameWarning": ({"atom_name": "Ar"}, "'Ar'"),
+    "UnexpectedProtonationWarning": (
+        {
+            "count": 4,
+            "pH": 7.4,
+            "examples": "HD2 in ASP 12",
+            "caller": "molsysmt.build.add_missing_hydrogens",
+        },
+        "HD2 in ASP 12",
+    ),
+    "GpuNotAvailableWarning": ({"reason": "no CUDA GPU is accessible"}, "CUDA"),
 }
 
 
@@ -144,7 +171,11 @@ def _warning_classes():
     found = set()
     for name in dir(warnings_module):
         obj = getattr(warnings_module, name)
-        if isinstance(obj, type) and issubclass(obj, Warning) and obj.__module__ == warnings_module.__name__:
+        if (
+            isinstance(obj, type)
+            and issubclass(obj, Warning)
+            and obj.__module__ == warnings_module.__name__
+        ):
             found.add(obj)
     return found
 
@@ -163,11 +194,13 @@ def _round_trip(instance):
 
 def _build(cls):
     fields, fragment = SAMPLES[cls.__name__]
-    resolved = {key: value() if callable(value) else value for key, value in fields.items()}
-    if set(resolved) == {'message'}:
+    resolved = {
+        key: value() if callable(value) else value for key, value in fields.items()
+    }
+    if set(resolved) == {"message"}:
         # Passed positionally because that is how every `Warning` accepts it, including
         # the ones that never went through `CatalogWarning` and take no keywords at all.
-        return cls(resolved['message']), fragment
+        return cls(resolved["message"]), fragment
     return cls(**resolved), fragment
 
 
@@ -175,9 +208,9 @@ def test_every_catalog_warning_class_has_a_sample():
     """Discovery is only useful if a new class cannot slip through unexercised."""
     missing = sorted(cls.__name__ for cls in DISCOVERED if cls.__name__ not in SAMPLES)
     assert not missing, (
-        f'catalog warning classes with no sample values: {missing}. Add an entry to '
-        'SAMPLES with field values that render a recognisable sentence, so the round '
-        'trip is exercised rather than skipped.'
+        f"catalog warning classes with no sample values: {missing}. Add an entry to "
+        "SAMPLES with field values that render a recognisable sentence, so the round "
+        "trip is exercised rather than skipped."
     )
 
 
@@ -185,10 +218,10 @@ def test_the_sample_registry_has_no_stale_entries():
     """A sample for a class that no longer exists is a test that stopped testing."""
     discovered = {cls.__name__ for cls in DISCOVERED}
     stale = sorted(name for name in SAMPLES if name not in discovered)
-    assert not stale, f'samples for classes that no longer exist: {stale}'
+    assert not stale, f"samples for classes that no longer exist: {stale}"
 
 
-@pytest.mark.parametrize('cls', DISCOVERED, ids=lambda cls: cls.__name__)
+@pytest.mark.parametrize("cls", DISCOVERED, ids=lambda cls: cls.__name__)
 def test_catalog_warnings_are_not_re_rendered(cls):
     """A catalog warning crossing to the controller must not render twice.
 
@@ -200,12 +233,11 @@ def test_catalog_warnings_are_not_re_rendered(cls):
     """
     probe, fragment = _build(cls)
     original = str(probe)
-    rendered = original + str(getattr(probe, 'extra', ''))
-
+    rendered = original + str(getattr(probe, "extra", ""))
 
     assert fragment in rendered, (
-        f'the sample for {cls.__name__} produced {rendered!r}, which does not contain '
-        f'{fragment!r}. Either the template changed or the sample never exercised it.'
+        f"the sample for {cls.__name__} produced {rendered!r}, which does not contain "
+        f"{fragment!r}. Either the template changed or the sample never exercised it."
     )
 
     rebuilt = _round_trip(probe)
@@ -222,10 +254,10 @@ def test_every_declared_catalog_key_exists_in_the_catalog():
     the warning still raises — with whatever text the caller happened to pass, or
     none. Checked here because this is the file that already knows every class.
     """
-    catalog_keys = set(CATALOG.get('warnings', {}))
+    catalog_keys = set(CATALOG.get("warnings", {}))
     dangling = sorted(
-        f'{cls.__name__} -> {cls.catalog_key!r}'
+        f"{cls.__name__} -> {cls.catalog_key!r}"
         for cls in DISCOVERED
-        if getattr(cls, 'catalog_key', None) and cls.catalog_key not in catalog_keys
+        if getattr(cls, "catalog_key", None) and cls.catalog_key not in catalog_keys
     )
-    assert not dangling, f'catalog_key values with no catalog entry: {dangling}'
+    assert not dangling, f"catalog_key values with no catalog entry: {dangling}"

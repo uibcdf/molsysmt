@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 
-
 mdtraj = pytest.importorskip("mdtraj")
 
 

@@ -6,11 +6,14 @@ import pytest
 import molsysmt as msm
 from molsysmt import systems
 
-
 md = pytest.importorskip("mdtraj")
 pytest.importorskip("MDAnalysis")
-import MDAnalysis as mda
-from MDAnalysis.lib.distances import calc_angles, calc_bonds, calc_dihedrals
+import MDAnalysis as mda  # noqa: E402
+from MDAnalysis.lib.distances import (  # noqa: E402
+    calc_angles,
+    calc_bonds,
+    calc_dihedrals,
+)
 
 
 def _values(quantity, unit):
@@ -45,7 +48,13 @@ def test_met_enkephalin_backbone_geometry_agrees_with_both_oracles(
         "N",
         "CA",
     ]
-    assert universe.atoms[[0, 2, 19, 21, 23]].names.tolist() == ["N", "CA", "C", "N", "CA"]
+    assert universe.atoms[[0, 2, 19, 21, 23]].names.tolist() == [
+        "N",
+        "CA",
+        "C",
+        "N",
+        "CA",
+    ]
 
     expected_distances_mdtraj = md.compute_distances(
         trajectory,
@@ -65,10 +74,13 @@ def test_met_enkephalin_backbone_geometry_agrees_with_both_oracles(
         periodic=False,
         opt=False,
     )
-    expected_distances_mda = calc_bonds(
-        coordinates_angstrom[pairs[:, 0]],
-        coordinates_angstrom[pairs[:, 1]],
-    )[None, :] / 10.0
+    expected_distances_mda = (
+        calc_bonds(
+            coordinates_angstrom[pairs[:, 0]],
+            coordinates_angstrom[pairs[:, 1]],
+        )[None, :]
+        / 10.0
+    )
     expected_angles_mda = calc_angles(
         coordinates_angstrom[triplets[:, 0]],
         coordinates_angstrom[triplets[:, 1]],

@@ -7,16 +7,16 @@ on any machine without a GPU regardless of the use_gpu argument.
 """
 
 import pytest
+
 import molsysmt.configure as config
 from molsysmt._private.gpu import gpu_available, resolve_use_gpu
-
 
 # ---------------------------------------------------------------------------
 # gpu_available — must return bool, never raise
 # ---------------------------------------------------------------------------
 
-class TestGpuAvailable:
 
+class TestGpuAvailable:
     def test_returns_bool(self):
         result = gpu_available()
         assert isinstance(result, bool)
@@ -38,8 +38,8 @@ class TestGpuAvailable:
 # resolve_use_gpu — all branches
 # ---------------------------------------------------------------------------
 
-class TestResolveUseGpu:
 
+class TestResolveUseGpu:
     # --- use_gpu=False (force CPU) ---
 
     def test_false_always_returns_false(self):
@@ -67,7 +67,7 @@ class TestResolveUseGpu:
         """When config='auto' and no GPU is available, resolve returns False."""
         original = config.use_gpu
         try:
-            config.use_gpu = 'auto'
+            config.use_gpu = "auto"
             result = resolve_use_gpu(None, payload_size=10_000_000)
             # On a CPU machine gpu_available() is False → result must be False
             if not gpu_available():
@@ -82,7 +82,7 @@ class TestResolveUseGpu:
         original_threshold = config.gpu_threshold
         try:
             config.gpu_threshold = 1_000_000
-            result = resolve_use_gpu('auto', payload_size=100)
+            result = resolve_use_gpu("auto", payload_size=100)
             assert result is False  # below threshold regardless of GPU
         finally:
             config.gpu_threshold = original_threshold
@@ -91,7 +91,7 @@ class TestResolveUseGpu:
         """Payload above threshold but no GPU → False."""
         if gpu_available():
             pytest.skip("GPU present — can't test CPU fallback branch")
-        result = resolve_use_gpu('auto', payload_size=10_000_000)
+        result = resolve_use_gpu("auto", payload_size=10_000_000)
         assert result is False
 
     # --- use_gpu=True (force GPU) ---
@@ -101,6 +101,7 @@ class TestResolveUseGpu:
         if gpu_available():
             pytest.skip("GPU present — not testing the no-GPU branch")
         import warnings
+
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
             result = resolve_use_gpu(True, payload_size=1)
@@ -111,5 +112,5 @@ class TestResolveUseGpu:
 
     def test_unknown_value_returns_false(self):
         """An unrecognised use_gpu value silently falls back to CPU."""
-        result = resolve_use_gpu('unknown_value', payload_size=0)
+        result = resolve_use_gpu("unknown_value", payload_size=0)
         assert result is False

@@ -3,21 +3,21 @@ import pytest
 from matplotlib.colors import Colormap
 
 import molsysmt as msm
-from molsysmt._private.smonitor import ArgumentError
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest.argument.color import digest_color
 from molsysmt._private.argdigest.argument.color_values import digest_color_values
 from molsysmt._private.argdigest.argument.colormap import digest_colormap
 from molsysmt._private.argdigest.argument.file import digest_file
 from molsysmt._private.argdigest.argument.form import digest_form
-from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
 
-WRITE_H5_CALLER = 'molsysmt.form.molsysmt_Topology.write_topology_in_h5msm'
-COMPARE_CALLER = 'molsysmt.basic.compare.compare'
+WRITE_H5_CALLER = "molsysmt.form.molsysmt_Topology.write_topology_in_h5msm"
+COMPARE_CALLER = "molsysmt.basic.compare.compare"
 
 
 def test_digest_color_accepts_hex_named_and_rgb_triplets():
-    assert digest_color('#aabbcc') == '#aabbcc'
-    assert digest_color('red') == 'red'
+    assert digest_color("#aabbcc") == "#aabbcc"
+    assert digest_color("red") == "red"
     rgb = [0.1, 0.2, 0.3]
     assert digest_color(rgb) == rgb
 
@@ -34,53 +34,61 @@ def test_digest_color_values_accept_iterables_and_quantities():
     values = [1.0, 2.0, 3.0]
     assert digest_color_values(values) == values
 
-    quantity = puw.quantity(np.array([1.0, 2.0]), 'kilocalorie/mole')
+    quantity = puw.quantity(np.array([1.0, 2.0]), "kilocalorie/mole")
     digested = digest_color_values(quantity)
     np.testing.assert_allclose(digested, np.array([1.0, 2.0]))
 
 
 def test_digest_colormap_accepts_name_and_instance():
-    cmap = digest_colormap('viridis')
+    cmap = digest_colormap("viridis")
     assert isinstance(cmap, Colormap)
     assert digest_colormap(cmap) is cmap
     assert digest_colormap(None) is None
 
     with pytest.raises(ArgumentError):
-        digest_colormap('not-a-colormap')
+        digest_colormap("not-a-colormap")
 
 
 def test_digest_form_accepts_bool_for_compare_and_resolves_names():
     assert digest_form(True, caller=COMPARE_CALLER) is True
-    assert digest_form('molsysmt.molsys', caller=COMPARE_CALLER) == 'molsysmt.MolSys'
-    assert digest_form(['molsysmt.molsys', 'molsysmt.topology'], caller=COMPARE_CALLER) == [
-        'molsysmt.MolSys',
-        'molsysmt.Topology',
+    assert digest_form("molsysmt.molsys", caller=COMPARE_CALLER) == "molsysmt.MolSys"
+    assert digest_form(
+        ["molsysmt.molsys", "molsysmt.topology"], caller=COMPARE_CALLER
+    ) == [
+        "molsysmt.MolSys",
+        "molsysmt.Topology",
     ]
-    assert digest_form(msm.systems['T4 lysozyme L99A']['181l.h5msm'], caller=COMPARE_CALLER) == msm.systems['T4 lysozyme L99A']['181l.h5msm']
+    assert (
+        digest_form(
+            msm.systems["T4 lysozyme L99A"]["181l.h5msm"], caller=COMPARE_CALLER
+        )
+        == msm.systems["T4 lysozyme L99A"]["181l.h5msm"]
+    )
 
     with pytest.raises(ArgumentError):
-        digest_form('definitely-not-a-form', caller=COMPARE_CALLER)
+        digest_form("definitely-not-a-form", caller=COMPARE_CALLER)
 
 
 def test_digest_to_form_singular_aliases():
     from molsysmt._private.argdigest.argument.to_form import digest_to_form
+
     # Tolerance aliases: singular/variant spellings resolve to canonical form names
-    assert digest_to_form('molsysmt.Structure') == 'molsysmt.Structures'
-    assert digest_to_form('molsysmt.structure') == 'molsysmt.Structures'
-    assert digest_to_form('MOLSYSMT.STRUCTURE') == 'molsysmt.Structures'
-    assert digest_to_form('molsysmt.MolSys') == 'molsysmt.MolSys'
-    assert digest_to_form('molsysmt.molsys') == 'molsysmt.MolSys'
+    assert digest_to_form("molsysmt.Structure") == "molsysmt.Structures"
+    assert digest_to_form("molsysmt.structure") == "molsysmt.Structures"
+    assert digest_to_form("MOLSYSMT.STRUCTURE") == "molsysmt.Structures"
+    assert digest_to_form("molsysmt.MolSys") == "molsysmt.MolSys"
+    assert digest_to_form("molsysmt.molsys") == "molsysmt.MolSys"
 
 
 def test_digest_file_accepts_h5msm_path_and_handler_for_h5_writer(tmp_path):
-    source = msm.systems['T4 lysozyme L99A']['181l.h5msm']
+    source = msm.systems["T4 lysozyme L99A"]["181l.h5msm"]
     assert digest_file(source, caller=WRITE_H5_CALLER) == source
 
-    handler = msm.convert(source, to_form='molsysmt.H5MSMFileHandler')
+    handler = msm.convert(source, to_form="molsysmt.H5MSMFileHandler")
     try:
         assert digest_file(handler, caller=WRITE_H5_CALLER) is handler
     finally:
         handler.file.close()
 
     with pytest.raises(ArgumentError):
-        digest_file(tmp_path / 'not_h5msm.txt', caller=WRITE_H5_CALLER)
+        digest_file(tmp_path / "not_h5msm.txt", caller=WRITE_H5_CALLER)

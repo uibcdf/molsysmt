@@ -4,7 +4,6 @@ from pathlib import Path
 
 import yaml
 
-
 REPO = Path(__file__).resolve().parents[2]
 WORKFLOW = REPO / ".github" / "workflows" / "test_conda_rattler.yaml"
 RECIPE = REPO / "devtools" / "rattler-build" / "recipe.yaml"

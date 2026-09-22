@@ -17,9 +17,9 @@ import re
 
 import molsysmt as msm
 
-FORM_ROOT = pathlib.Path(msm.__file__).parent / 'form'
+FORM_ROOT = pathlib.Path(msm.__file__).parent / "form"
 
-RELATIVE_IMPORT = re.compile(r'^\s*from\s+\.(\w+)\s+import', re.MULTILINE)
+RELATIVE_IMPORT = re.compile(r"^\s*from\s+\.(\w+)\s+import", re.MULTILINE)
 
 # Advertised operations known to import a missing sibling module. The empty baseline is
 # intentional: any new occurrence fails immediately, and a future temporary exception
@@ -29,10 +29,10 @@ KNOWN_BROKEN = set()
 
 def _unresolved_relative_imports():
     unresolved = set()
-    for path in FORM_ROOT.rglob('*.py'):
+    for path in FORM_ROOT.rglob("*.py"):
         for match in RELATIVE_IMPORT.finditer(path.read_text()):
             name = match.group(1)
-            if (path.parent / f'{name}.py').exists() or (path.parent / name).is_dir():
+            if (path.parent / f"{name}.py").exists() or (path.parent / name).is_dir():
                 continue
             unresolved.add((path.relative_to(FORM_ROOT).as_posix(), name))
     return unresolved
@@ -41,8 +41,9 @@ def _unresolved_relative_imports():
 def test_no_new_relative_import_names_a_missing_module():
     new = _unresolved_relative_imports() - KNOWN_BROKEN
     assert not new, (
-        'these modules import a sibling that does not exist, so the conversions '
-        f'reaching them raise ModuleNotFoundError when called: {sorted(new)}')
+        "these modules import a sibling that does not exist, so the conversions "
+        f"reaching them raise ModuleNotFoundError when called: {sorted(new)}"
+    )
 
 
 def test_the_known_broken_baseline_has_not_been_fixed_silently():
@@ -50,5 +51,6 @@ def test_the_known_broken_baseline_has_not_been_fixed_silently():
     # must be removed here, or the sweep stops guarding that file.
     fixed = KNOWN_BROKEN - _unresolved_relative_imports()
     assert not fixed, (
-        'these entries of KNOWN_BROKEN now resolve and must be removed from the '
-        f'baseline: {sorted(fixed)}')
+        "these entries of KNOWN_BROKEN now resolve and must be removed from the "
+        f"baseline: {sorted(fixed)}"
+    )

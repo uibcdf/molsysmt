@@ -49,9 +49,7 @@ def test_inventory_finds_stable_runtime_identities_and_broad_surfaces(tmp_path):
         "molsysmt/_private/jit.py::numba",
         "molsysmt/lib/distance_cuda.py::numba",
     ]
-    assert inventory["guarded"]["cuda_modules"] == [
-        "molsysmt/lib/distance_cuda.py"
-    ]
+    assert inventory["guarded"]["cuda_modules"] == ["molsysmt/lib/distance_cuda.py"]
     assert inventory["guarded"]["direct_lib_consumers"] == [
         "molsysmt/consumer.py::molsysmt.lib.kernel"
     ]
@@ -62,26 +60,14 @@ def test_inventory_finds_stable_runtime_identities_and_broad_surfaces(tmp_path):
         "molsysmt/lib/kernel.py",
     ]
     assert inventory["surfaces"]["test_files"] == ["tests/test_kernel.py"]
-    assert inventory["surfaces"]["active_documentation_files"] == [
-        "docs/guide.md"
-    ]
-    assert inventory["surfaces"]["active_devguide_files"] == [
-        "devguide/current.md"
-    ]
+    assert inventory["surfaces"]["active_documentation_files"] == ["docs/guide.md"]
+    assert inventory["surfaces"]["active_devguide_files"] == ["devguide/current.md"]
 
 
 def test_guarded_comparison_allows_removal_and_rejects_addition():
-    baseline = {
-        "guarded": {
-            category: [] for category in audit.GUARDED_CATEGORIES
-        }
-    }
+    baseline = {"guarded": {category: [] for category in audit.GUARDED_CATEGORIES}}
     baseline["guarded"]["cpu_jit_sites"] = ["old.py::old::lazy_njit"]
-    current = {
-        "guarded": {
-            category: [] for category in audit.GUARDED_CATEGORIES
-        }
-    }
+    current = {"guarded": {category: [] for category in audit.GUARDED_CATEGORIES}}
     current["guarded"]["cpu_jit_sites"] = ["new.py::new::lazy_njit"]
 
     added, resolved = audit.compare_guarded(current, baseline)

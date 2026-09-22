@@ -6,11 +6,10 @@ import pytest
 import molsysmt as msm
 from molsysmt import systems
 
-
 md = pytest.importorskip("mdtraj")
 pytest.importorskip("MDAnalysis")
-import MDAnalysis as mda
-from MDAnalysis.lib.distances import calc_bonds
+import MDAnalysis as mda  # noqa: E402
+from MDAnalysis.lib.distances import calc_bonds  # noqa: E402
 
 
 def test_multiframe_mic_distances_agree_with_both_oracles(external_float32_atol):

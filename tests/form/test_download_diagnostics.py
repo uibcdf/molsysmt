@@ -45,6 +45,7 @@ def test_download_paths_emit_structured_retry_context(
 ):
     """Download helpers should emit structured retry diagnostics for transient failures."""
     import importlib
+
     import molsysmt._private.download as private_download
 
     module = importlib.import_module(module_name)
@@ -54,7 +55,11 @@ def test_download_paths_emit_structured_retry_context(
         events.append({"message": message, "warning_cls": warning_cls, "extra": extra})
 
     monkeypatch.setattr(private_download, "warn", fake_warn)
-    monkeypatch.setattr(private_download, "urlopen", lambda *args, **kwargs: (_ for _ in ()).throw(URLError("timed out")))
+    monkeypatch.setattr(
+        private_download,
+        "urlopen",
+        lambda *args, **kwargs: (_ for _ in ()).throw(URLError("timed out")),
+    )
     monkeypatch.setattr(private_download.random, "uniform", lambda a, b: 0.0)
     monkeypatch.setattr(private_download.time, "sleep", lambda wait: None)
 

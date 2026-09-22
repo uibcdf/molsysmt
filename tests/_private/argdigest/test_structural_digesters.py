@@ -2,17 +2,16 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.argdigest.argument.b_factor import digest_b_factor
 from molsysmt._private.argdigest.argument.box import digest_box
-from molsysmt._private.argdigest.argument.box_lengths import digest_box_lengths
 from molsysmt._private.argdigest.argument.box_angles import digest_box_angles
 from molsysmt._private.argdigest.argument.box_center import digest_box_center
+from molsysmt._private.argdigest.argument.box_lengths import digest_box_lengths
 from molsysmt._private.argdigest.argument.box_origin import digest_box_origin
 from molsysmt._private.argdigest.argument.coordinates import digest_coordinates
-from molsysmt._private.argdigest.argument.time import digest_time
 from molsysmt._private.argdigest.argument.structure_id import digest_structure_id
-
+from molsysmt._private.argdigest.argument.time import digest_time
+from molsysmt._private.smonitor import ArgumentError
 
 GET_CALLER = "molsysmt.basic.get.get"
 
@@ -25,7 +24,9 @@ def test_b_factor_supports_boolean_none_and_valid_shapes():
     digested_1d = digest_b_factor(quantity_1d)
     assert digested_1d.shape == (1, 2)
 
-    quantity_2d = msm.pyunitwizard.quantity(np.array([[1.0, 2.0], [3.0, 4.0]]), "angstroms**2")
+    quantity_2d = msm.pyunitwizard.quantity(
+        np.array([[1.0, 2.0], [3.0, 4.0]]), "angstroms**2"
+    )
     digested_2d = digest_b_factor(quantity_2d)
     assert digested_2d.shape == (2, 2)
 
@@ -38,16 +39,24 @@ def test_box_digesters_normalize_valid_shapes_and_units():
     digested_box = digest_box(box)
     assert digested_box.shape == (1, 3, 3)
 
-    box_lengths = digest_box_lengths(msm.pyunitwizard.quantity([1.0, 2.0, 3.0], "nanometers"))
+    box_lengths = digest_box_lengths(
+        msm.pyunitwizard.quantity([1.0, 2.0, 3.0], "nanometers")
+    )
     assert box_lengths.shape == (1, 3)
 
-    box_angles = digest_box_angles(msm.pyunitwizard.quantity([90.0, 90.0, 120.0], "degrees"))
+    box_angles = digest_box_angles(
+        msm.pyunitwizard.quantity([90.0, 90.0, 120.0], "degrees")
+    )
     assert box_angles.shape == (1, 3)
 
-    box_center = digest_box_center(msm.pyunitwizard.quantity([0.0, 0.0, 0.0], "nanometers"))
+    box_center = digest_box_center(
+        msm.pyunitwizard.quantity([0.0, 0.0, 0.0], "nanometers")
+    )
     assert box_center.shape == (3,)
 
-    box_origin = digest_box_origin(msm.pyunitwizard.quantity([[1.0, 2.0, 3.0]], "nanometers"))
+    box_origin = digest_box_origin(
+        msm.pyunitwizard.quantity([[1.0, 2.0, 3.0]], "nanometers")
+    )
     assert box_origin.shape == (3,)
 
 
@@ -75,7 +84,9 @@ def test_coordinates_digesters_normalize_supported_shapes():
     c1 = digest_coordinates(msm.pyunitwizard.quantity([1.0, 2.0, 3.0], "nanometers"))
     assert c1.shape == (1, 1, 3)
 
-    c2 = digest_coordinates(msm.pyunitwizard.quantity([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "nanometers"))
+    c2 = digest_coordinates(
+        msm.pyunitwizard.quantity([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "nanometers")
+    )
     assert c2.shape == (1, 2, 3)
 
     c3 = digest_coordinates(

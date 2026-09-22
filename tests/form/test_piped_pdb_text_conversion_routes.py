@@ -20,54 +20,57 @@ import pytest
 import molsysmt as msm
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def enkephalin():
-    return msm.convert(msm.systems['Met-enkephalin']['met_enkephalin.h5msm'])
+    return msm.convert(msm.systems["Met-enkephalin"]["met_enkephalin.h5msm"])
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def topology(enkephalin):
-    return msm.convert(enkephalin, to_form='openmm.Topology')
+    return msm.convert(enkephalin, to_form="openmm.Topology")
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def coordinates(enkephalin):
-    return msm.get(enkephalin, element='atom', coordinates=True)
+    return msm.get(enkephalin, element="atom", coordinates=True)
 
 
 def test_nglwidget_to_openmm_topology(enkephalin):
     """The route in the report: it failed inside `copy()`, far from the cause."""
-    pytest.importorskip('nglview')
-    widget = msm.view(enkephalin, viewer='nglview')
+    pytest.importorskip("nglview")
+    widget = msm.view(enkephalin, viewer="nglview")
 
-    result = msm.convert(widget, to_form='openmm.Topology')
+    result = msm.convert(widget, to_form="openmm.Topology")
 
-    assert result.getNumAtoms() == int(msm.get(enkephalin, element='system', n_atoms=True))
+    assert result.getNumAtoms() == int(
+        msm.get(enkephalin, element="system", n_atoms=True)
+    )
 
 
 def test_openmm_topology_to_file_pdb(topology, coordinates, tmp_path):
-    output = str(tmp_path / 'probe.pdb')
-    result = msm.convert(topology, to_form='file:pdb', coordinates=coordinates,
-                         output_filename=output)
+    output = str(tmp_path / "probe.pdb")
+    result = msm.convert(
+        topology, to_form="file:pdb", coordinates=coordinates, output_filename=output
+    )
     assert result == output
     with open(output) as handle:
-        assert any(line.startswith('ATOM') for line in handle)
+        assert any(line.startswith("ATOM") for line in handle)
 
 
 def test_openmm_topology_to_openmm_pdbfile(topology, coordinates):
-    result = msm.convert(topology, to_form='openmm.PDBFile', coordinates=coordinates)
+    result = msm.convert(topology, to_form="openmm.PDBFile", coordinates=coordinates)
     assert result.topology.getNumAtoms() == topology.getNumAtoms()
 
 
 def test_openmm_topology_to_pdbfixer(topology, coordinates):
-    pytest.importorskip('pdbfixer')
-    result = msm.convert(topology, to_form='pdbfixer.PDBFixer', coordinates=coordinates)
+    pytest.importorskip("pdbfixer")
+    result = msm.convert(topology, to_form="pdbfixer.PDBFixer", coordinates=coordinates)
     assert result.topology.getNumAtoms() == topology.getNumAtoms()
 
 
 def test_openmm_topology_to_nglwidget(topology, coordinates):
-    pytest.importorskip('nglview')
-    result = msm.convert(topology, to_form='nglview.NGLWidget', coordinates=coordinates)
+    pytest.importorskip("nglview")
+    result = msm.convert(topology, to_form="nglview.NGLWidget", coordinates=coordinates)
     assert result is not None
 
 
@@ -86,22 +89,23 @@ def test_the_identity_converter_refuses_a_foreign_item():
     with pytest.raises(NotSupportedFormError) as failure:
         to_string_pdb_text(object(), skip_digestion=True)
 
-    assert 'to_string_pdb_text' in str(failure.value)
+    assert "to_string_pdb_text" in str(failure.value)
 
 
 def test_no_adapter_imports_the_identity_converter():
     """The seven that did are the defect; a new one would be the same defect again."""
     import pathlib
 
-    form_directory = pathlib.Path(msm.__file__).parent / 'form'
+    form_directory = pathlib.Path(msm.__file__).parent / "form"
     offending = [
-        f'{path.parent.name}/{path.name}'
-        for path in sorted(form_directory.glob('*/to_*.py'))
-        if path.parent.name != 'string_pdb_text'
-        and 'from molsysmt.form.string_pdb_text.to_string_pdb_text import' in path.read_text()
+        f"{path.parent.name}/{path.name}"
+        for path in sorted(form_directory.glob("*/to_*.py"))
+        if path.parent.name != "string_pdb_text"
+        and "from molsysmt.form.string_pdb_text.to_string_pdb_text import"
+        in path.read_text()
     ]
 
     assert offending == [], (
-        f'{len(offending)} adapter(s) import the identity converter instead of their '
-        f'own: {offending}'
+        f"{len(offending)} adapter(s) import the identity converter instead of their "
+        f"own: {offending}"
     )

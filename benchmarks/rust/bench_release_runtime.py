@@ -9,22 +9,21 @@ timing.
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
 import hashlib
 import importlib.util
-from importlib import metadata
 import json
 import os
-from pathlib import Path
 import platform
 import statistics
 import subprocess
 import sys
 import tempfile
-from time import perf_counter
 import types
-
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
+from importlib import metadata
+from pathlib import Path
+from time import perf_counter
 
 REPOSITORY = Path(__file__).resolve().parents[2]
 INSTALLED_EXTENSION_ENV = "MOLSYSMT_BENCHMARK_INSTALLED_EXTENSION"
@@ -117,6 +116,7 @@ def _minimum_time(function, repeats: int = 5) -> tuple[float, list[float]]:
 def _startup_worker() -> dict:
     import_started = perf_counter()
     import numpy as np
+
     rust = _rust_module()
 
     import_seconds = perf_counter() - import_started
@@ -133,9 +133,7 @@ def _startup_worker() -> dict:
     expected = coordinates.mean(axis=1, keepdims=True)
     np.testing.assert_allclose(first, expected, rtol=1e-14, atol=1e-14)
     cache_files = [
-        str(path)
-        for suffix in ("*.nbi", "*.nbc")
-        for path in Path.cwd().rglob(suffix)
+        str(path) for suffix in ("*.nbi", "*.nbc") for path in Path.cwd().rglob(suffix)
     ]
     if cache_files:
         raise AssertionError(f"JIT cache files were created: {cache_files}")
@@ -154,6 +152,7 @@ def _startup_worker() -> dict:
 
 def _memory_worker() -> dict:
     import numpy as np
+
     rust = _rust_module()
 
     baseline_mb = _peak_rss_mb()
@@ -182,6 +181,7 @@ def _memory_worker() -> dict:
 
 def _thread_worker() -> dict:
     import numpy as np
+
     rust = _rust_module()
 
     rng = np.random.default_rng(20260728)
@@ -192,10 +192,9 @@ def _thread_worker() -> dict:
     reference = None
 
     for num_threads in (1, 2, 4):
+
         def call(selected_threads=num_threads):
-            return np.asarray(
-                rust.get_center(coordinates, weights, selected_threads)
-            )
+            return np.asarray(rust.get_center(coordinates, weights, selected_threads))
 
         output = call()
         np.testing.assert_allclose(output, expected, rtol=1e-13, atol=1e-13)
@@ -224,6 +223,7 @@ def _thread_worker() -> dict:
 
 def _oversubscription_worker() -> dict:
     import numpy as np
+
     rust = _rust_module()
 
     rng = np.random.default_rng(20260728)
@@ -308,6 +308,7 @@ def _git_metadata() -> dict:
 
 def _environment() -> dict:
     import numpy as np
+
     rust = _rust_module()
 
     extension_path = Path(rust.__file__).resolve()

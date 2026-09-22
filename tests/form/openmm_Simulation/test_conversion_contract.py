@@ -5,7 +5,6 @@ import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt import systems
 
-
 openmm = pytest.importorskip("openmm")
 
 

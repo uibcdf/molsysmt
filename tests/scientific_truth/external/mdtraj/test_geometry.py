@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt.native import Structures
 
-
 md = pytest.importorskip("mdtraj")
 
 

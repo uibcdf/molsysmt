@@ -1,11 +1,11 @@
 import numpy as np
 
 from molsysmt.lib.series import (
-    serie_to_chunks,
     chunks_to_serie,
-    serialized_lists,
     occurrence_order,
     occurrence_order_sorted_serie,
+    serialized_lists,
+    serie_to_chunks,
 )
 
 

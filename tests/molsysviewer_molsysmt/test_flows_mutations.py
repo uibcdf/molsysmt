@@ -1,9 +1,5 @@
 """Tests for the molsysviewer_molsysmt addon."""
 
-import sys
-import tomllib
-from pathlib import Path
-from importlib import import_module
 from types import SimpleNamespace
 
 import molsysviewer
@@ -11,24 +7,23 @@ import pytest
 
 from molsysviewer_molsysmt import (
     get_addon,
-    lifecycle,
-    on_enable,
-    on_disable,
-    on_context_action,
-    create_molsysmt_state,
-    system_for_verbs,
-    system_object,
-    has_system,
 )
-from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
-
+from molsysviewer_molsysmt.runtime import ensure_runtime
 
 _EXPECTED_PANELS = [
-    "basic", "topology", "structure", "hbonds",
-    "pbc", "physchem", "molecular_mechanics", "build",
+    "basic",
+    "topology",
+    "structure",
+    "hbonds",
+    "pbc",
+    "physchem",
+    "molecular_mechanics",
+    "build",
 ]
 _EXPECTED_CONTEXT_ACTIONS = [
-    "inspect-system", "select-and-highlight", "color-by-property",
+    "inspect-system",
+    "select-and-highlight",
+    "color-by-property",
     "compute-contacts",
 ]
 
@@ -36,6 +31,7 @@ _EXPECTED_CONTEXT_ACTIONS = [
 # ---------------------------------------------------------------------------
 # PBC adapter/panel — status reads from the active view
 # ---------------------------------------------------------------------------
+
 
 def test_pbc_status_adapter_reads_from_view():
     pytest.importorskip("molsysmt")
@@ -63,10 +59,13 @@ def test_pbc_adapters_raise_without_system():
 # Molecular mechanics adapter/panel — no-system contract and payload hygiene
 # ---------------------------------------------------------------------------
 
+
 def test_molecular_mechanics_adapters_raise_without_system():
-    from molsysviewer_molsysmt.adapters.molecular_mechanics import compute_forces
-    from molsysviewer_molsysmt.adapters.molecular_mechanics import minimize_energy
-    from molsysviewer_molsysmt.adapters.molecular_mechanics import potential_energy
+    from molsysviewer_molsysmt.adapters.molecular_mechanics import (
+        compute_forces,
+        minimize_energy,
+        potential_energy,
+    )
 
     view = molsysviewer.MolSysView()
 
@@ -91,6 +90,7 @@ def test_molecular_mechanics_panel_accepts_only_real_platform_payload():
 # Build adapter/panel — materialized operations from the active view
 # ---------------------------------------------------------------------------
 
+
 def test_build_adapter_raises_without_system():
     from molsysviewer_molsysmt.adapters.build import run_build_operation
 
@@ -102,11 +102,11 @@ def test_build_adapter_raises_without_system():
 
 def test_build_add_bonds_adapter_replaces_topology_when_bonds_are_added():
     pytest.importorskip("molsysmt")
-    from molsysviewer_molsysmt.adapters.build import run_build_operation
     import molsysmt as msm
+    from molsysviewer_molsysmt.adapters.build import run_build_operation
 
-    molsys = msm.convert(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'])
-    molsys.topology.remove_bonds('all', skip_digestion=True)
+    molsys = msm.convert(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"])
+    molsys.topology.remove_bonds("all", skip_digestion=True)
     view = molsysviewer.MolSysView()
     view.load(molsys)
 
@@ -121,10 +121,14 @@ def test_build_add_bonds_adapter_replaces_topology_when_bonds_are_added():
 # Shape cleanup actions — use the real ShapesManager.clear(tag=...) API
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("panel_id,action_id,runtime_field", [
-    ("hbonds", "clear_hbonds", "hbonds_tag"),
-    ("molecular_mechanics", "clear_forces", "forces_tag"),
-])
+
+@pytest.mark.parametrize(
+    "panel_id,action_id,runtime_field",
+    [
+        ("hbonds", "clear_hbonds", "hbonds_tag"),
+        ("molecular_mechanics", "clear_forces", "forces_tag"),
+    ],
+)
 def test_shape_cleanup_panel_actions_use_clear_api(panel_id, action_id, runtime_field):
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
@@ -160,6 +164,7 @@ def test_topology_clear_bonds_uses_clear_api():
 # PBC panel — check_pbc with no-system error
 # ---------------------------------------------------------------------------
 
+
 def test_pbc_panel_check_with_no_molsys_pushes_error():
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
@@ -178,6 +183,7 @@ def test_pbc_panel_check_with_no_molsys_pushes_error():
 # Build panel — no-system error
 # ---------------------------------------------------------------------------
 
+
 def test_build_panel_action_with_no_molsys_pushes_error():
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
@@ -195,6 +201,7 @@ def test_build_panel_action_with_no_molsys_pushes_error():
 # ---------------------------------------------------------------------------
 # Atom-appending mutations (build) reconcile via view.add and preserve overlays
 # ---------------------------------------------------------------------------
+
 
 def test_build_solvate_appends_and_preserves_overlays():
     """Solvate adds atoms at the end, so the panel applies it with ``view.add``

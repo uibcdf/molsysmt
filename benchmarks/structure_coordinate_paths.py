@@ -23,7 +23,9 @@ def _time_block(func: Callable[[], None], iterations: int) -> float:
     return (t1 - t0) / iterations
 
 
-def _benchmark(func: Callable[[], None], iterations: int, repeats: int) -> dict[str, float]:
+def _benchmark(
+    func: Callable[[], None], iterations: int, repeats: int
+) -> dict[str, float]:
     func()
     samples = [_time_block(func, iterations) for _ in range(repeats)]
     return {

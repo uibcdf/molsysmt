@@ -1,18 +1,24 @@
 import numpy as np
 import pytest
 
-from molsysmt._private.smonitor import ArgumentError, ArgumentLengthError
+from molsysmt._private.argdigest.argument.atom_indices import digest_atom_indices
+from molsysmt._private.argdigest.argument.chain_indices import digest_chain_indices
+from molsysmt._private.argdigest.argument.component_indices import (
+    digest_component_indices,
+)
+from molsysmt._private.argdigest.argument.entity_indices import digest_entity_indices
+from molsysmt._private.argdigest.argument.group_indices import digest_group_indices
+from molsysmt._private.argdigest.argument.mask import digest_mask
+from molsysmt._private.argdigest.argument.molecule_indices import (
+    digest_molecule_indices,
+)
 from molsysmt._private.argdigest.argument.selection import digest_selection
 from molsysmt._private.argdigest.argument.selection_2 import digest_selection_2
-from molsysmt._private.argdigest.argument.mask import digest_mask
-from molsysmt._private.argdigest.argument.atom_indices import digest_atom_indices
-from molsysmt._private.argdigest.argument.group_indices import digest_group_indices
-from molsysmt._private.argdigest.argument.chain_indices import digest_chain_indices
-from molsysmt._private.argdigest.argument.molecule_indices import digest_molecule_indices
-from molsysmt._private.argdigest.argument.entity_indices import digest_entity_indices
-from molsysmt._private.argdigest.argument.component_indices import digest_component_indices
-from molsysmt._private.argdigest.argument.structure_indices import digest_structure_indices
 from molsysmt._private.argdigest.argument.selections import digest_selections
+from molsysmt._private.argdigest.argument.structure_indices import (
+    digest_structure_indices,
+)
+from molsysmt._private.smonitor import ArgumentError, ArgumentLengthError
 
 
 def test_selection_digesters_support_molsysmt_and_alternative_syntaxes():
@@ -49,7 +55,10 @@ def test_mask_digester_supports_selection_and_all_semantics():
     assert digest_mask("all") == "all"
     assert digest_mask(np.array([True, False])).tolist() == [True, False]
     assert digest_mask([0, 2], caller="molsysmt.basic.select.select") == [0, 2]
-    assert digest_mask("atom_name=='CA'", caller="molsysmt.basic.get.get") == "atom_name=='CA'"
+    assert (
+        digest_mask("atom_name=='CA'", caller="molsysmt.basic.get.get")
+        == "atom_name=='CA'"
+    )
 
     with pytest.raises(ArgumentError):
         digest_mask(3.14)
@@ -68,7 +77,11 @@ def test_mask_digester_supports_selection_and_all_semantics():
     ],
 )
 def test_indices_digesters_support_none_all_scalars_and_arrays(digester):
-    kwargs = {} if digester in {atom_indices, chain_indices, structure_indices} else {"caller": None}
+    kwargs = (
+        {}
+        if digester in {atom_indices, chain_indices, structure_indices}
+        else {"caller": None}
+    )
     assert digester(None, **kwargs) is None
     assert digester("all", **kwargs) == "all"
 
@@ -94,7 +107,7 @@ def test_recursive_indices_digesters_support_nested_inputs_when_declared():
 
 def test_merge_digesters_preserve_per_system_intent():
     molecular_systems = [object(), object()]
-    caller = 'molsysmt.basic.merge.merge'
+    caller = "molsysmt.basic.merge.merge"
 
     selections = digest_selections(
         [0, [1, 2]],
@@ -113,7 +126,7 @@ def test_merge_digesters_preserve_per_system_intent():
 
 def test_merge_digesters_broadcast_non_list_collections():
     molecular_systems = [object(), object()]
-    caller = 'molsysmt.basic.merge.merge'
+    caller = "molsysmt.basic.merge.merge"
 
     selections = digest_selections(
         np.array([0, 1]),
@@ -132,13 +145,15 @@ def test_merge_digesters_broadcast_non_list_collections():
 
 def test_merge_digesters_reject_per_system_length_mismatch():
     molecular_systems = [object(), object()]
-    caller = 'molsysmt.basic.merge.merge'
+    caller = "molsysmt.basic.merge.merge"
 
     with pytest.raises(ArgumentLengthError):
-        digest_selections(['all'], molecular_systems=molecular_systems, caller=caller)
+        digest_selections(["all"], molecular_systems=molecular_systems, caller=caller)
 
     with pytest.raises(ArgumentLengthError):
-        digest_structure_indices([0], molecular_systems=molecular_systems, caller=caller)
+        digest_structure_indices(
+            [0], molecular_systems=molecular_systems, caller=caller
+        )
 
 
 @pytest.mark.parametrize(

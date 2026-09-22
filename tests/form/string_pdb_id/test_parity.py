@@ -10,27 +10,29 @@ All tests require network access and are marked @pytest.mark.network.
 """
 
 import pytest
+
 import molsysmt as msm
 
-PDB_ID = 'pdb_id:1vii'
-N_ATOMS  = 596
+PDB_ID = "pdb_id:1vii"
+N_ATOMS = 596
 N_GROUPS = 36
 N_CHAINS = 1
 
 
 @pytest.fixture()
 def pdb_id_topology():
-    return msm.convert(PDB_ID, to_form='molsysmt.Topology')
+    return msm.convert(PDB_ID, to_form="molsysmt.Topology")
 
 
 @pytest.fixture()
 def local_topology(hp35_bcif_gz_file):
-    return msm.convert(str(hp35_bcif_gz_file), to_form='molsysmt.Topology')
+    return msm.convert(str(hp35_bcif_gz_file), to_form="molsysmt.Topology")
 
 
 # ---------------------------------------------------------------------------
 # Parity: pdb_id download ↔ local bcif.gz
 # ---------------------------------------------------------------------------
+
 
 @pytest.mark.network
 @pytest.mark.xdist_group("network")
@@ -53,10 +55,16 @@ def test_parity_chain_count_matches_local(pdb_id_topology, local_topology):
 @pytest.mark.network
 @pytest.mark.xdist_group("network")
 def test_parity_atom_names_match_local(pdb_id_topology, local_topology):
-    assert pdb_id_topology.atoms['atom_name'].tolist() == local_topology.atoms['atom_name'].tolist()
+    assert (
+        pdb_id_topology.atoms["atom_name"].tolist()
+        == local_topology.atoms["atom_name"].tolist()
+    )
 
 
 @pytest.mark.network
 @pytest.mark.xdist_group("network")
 def test_parity_group_names_match_local(pdb_id_topology, local_topology):
-    assert pdb_id_topology.groups['group_name'].tolist() == local_topology.groups['group_name'].tolist()
+    assert (
+        pdb_id_topology.groups["group_name"].tolist()
+        == local_topology.groups["group_name"].tolist()
+    )

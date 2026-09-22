@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt.native import Structures
 
-
 md = pytest.importorskip("mdtraj")
 
 
@@ -55,9 +54,15 @@ def test_pentalanine_artifacts_agree_on_coordinates_box_and_time(
     assert trajectory.n_frames == len(FRAME_INDICES)
     assert trajectory.n_atoms == 62
     assert trajectory.n_residues == 7
-    np.testing.assert_allclose(coordinates, trajectory.xyz, rtol=0.0, atol=external_float32_atol)
-    np.testing.assert_allclose(box, trajectory.unitcell_vectors, rtol=0.0, atol=external_float32_atol)
-    np.testing.assert_allclose(time, trajectory.time, rtol=0.0, atol=external_float32_atol)
+    np.testing.assert_allclose(
+        coordinates, trajectory.xyz, rtol=0.0, atol=external_float32_atol
+    )
+    np.testing.assert_allclose(
+        box, trajectory.unitcell_vectors, rtol=0.0, atol=external_float32_atol
+    )
+    np.testing.assert_allclose(
+        time, trajectory.time, rtol=0.0, atol=external_float32_atol
+    )
 
 
 def test_pentalanine_periodic_distances_agree_with_mdtraj(

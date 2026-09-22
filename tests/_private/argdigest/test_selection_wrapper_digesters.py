@@ -7,12 +7,12 @@ from molsysmt._private.smonitor import ArgumentError
 
 
 def test_selection_wrapper_digesters():
-    assert digest_selection('atom_index<4') == 'atom_index<4'
+    assert digest_selection("atom_index<4") == "atom_index<4"
     assert digest_selection([0, 1, 2]) == [0, 1, 2]
-    assert digest_selection_2('atom_index==0') == 'atom_index==0'
-    assert digest_syntax('MolSysMT') == 'MolSysMT'
+    assert digest_selection_2("atom_index==0") == "atom_index==0"
+    assert digest_syntax("MolSysMT") == "MolSysMT"
 
     with pytest.raises(ArgumentError):
         digest_selection_2(object())
     with pytest.raises(ArgumentError):
-        digest_syntax('bad-syntax')
+        digest_syntax("bad-syntax")

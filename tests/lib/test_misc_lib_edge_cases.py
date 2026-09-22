@@ -1,12 +1,12 @@
 import numpy as np
 
 from molsysmt.lib.pbc.get_box_from_lengths_and_angles import (
-    get_box_from_lengths_and_angles_single_structure,
     get_box_from_lengths_and_angles,
+    get_box_from_lengths_and_angles_single_structure,
 )
 from molsysmt.lib.pbc.get_lengths_and_angles_from_box import (
-    get_lengths_and_angles_from_box_single_structure,
     get_lengths_and_angles_from_box,
+    get_lengths_and_angles_from_box_single_structure,
 )
 from molsysmt.lib.pbc.wrap_to_pbc import wrap_to_pbc_center
 from molsysmt.lib.series import serialized_lists

@@ -47,7 +47,9 @@ def test_geometric_and_weighted_centers_match_closed_form(float64_kernel_atol):
     )
 
 
-def test_radius_of_gyration_matches_closed_form_and_rigid_invariance(float64_kernel_atol):
+def test_radius_of_gyration_matches_closed_form_and_rigid_invariance(
+    float64_kernel_atol,
+):
     """Validate Rg for three collinear points and a rigidly transformed copy."""
 
     reference = np.array([[-1.0, 0.0, 0.0], [0.0, 0.0, 0.0], [1.0, 0.0, 0.0]])

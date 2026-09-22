@@ -2,10 +2,10 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.argdigest.argument.box import digest_box
 from molsysmt._private.argdigest.argument.box_lengths import digest_box_lengths
 from molsysmt._private.argdigest.argument.coordinates import digest_coordinates
+from molsysmt._private.smonitor import ArgumentError
 
 
 def test_digest_box_lengths_returns_nm_float64_array_for_pbc_callers():
@@ -23,7 +23,9 @@ def test_digest_box_lengths_returns_nm_float64_array_for_pbc_callers():
 
 
 def test_digest_box_returns_nm_float64_array_for_pbc_callers():
-    value = [[[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]]] * msm.pyunitwizard.unit("angstrom")
+    value = [
+        [[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]]
+    ] * msm.pyunitwizard.unit("angstrom")
 
     output = digest_box(
         value,
@@ -50,9 +52,7 @@ def test_canonical_scientific_arrays_skip_general_dimensionality_check(monkeypat
         msm.pyunitwizard.quantity(np.eye(3), "nm"),
         caller="molsysmt.pbc.get_volume_from_box.get_volume_from_box",
     )
-    coordinates = digest_coordinates(
-        msm.pyunitwizard.quantity(np.ones((4, 3)), "nm")
-    )
+    coordinates = digest_coordinates(msm.pyunitwizard.quantity(np.ones((4, 3)), "nm"))
 
     assert lengths.shape == (1, 3)
     assert box.shape == (1, 3, 3)

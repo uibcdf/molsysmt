@@ -10,15 +10,12 @@ import pytest
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def _python_runtime_requirements(pyproject_text: str) -> dict[str, Requirement]:
     pyproject = tomllib.loads(pyproject_text)
-    requirements = (
-        Requirement(item) for item in pyproject["project"]["dependencies"]
-    )
+    requirements = (Requirement(item) for item in pyproject["project"]["dependencies"])
     return {canonicalize_name(item.name): item for item in requirements}
 
 
@@ -76,7 +73,7 @@ def test_manifest_guard_detects_a_removed_constraint(dependency):
     )
     mutated_recipe = re.sub(
         rf"(?m)^(  - {re.escape(dependency)})\s+[^\n]+$",
-        rf"\1",
+        r"\1",
         recipe_text,
         count=1,
     )

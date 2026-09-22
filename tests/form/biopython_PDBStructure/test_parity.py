@@ -14,30 +14,33 @@ names, and group names.
 """
 
 import pytest
+
 import molsysmt as msm
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def source_topology(_base_builder_pdb_molsys):
     return _base_builder_pdb_molsys.topology
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def bio_structure(_base_builder_pdb_molsys):
-    return msm.convert(_base_builder_pdb_molsys, to_form='biopython.PDBStructure')
+    return msm.convert(_base_builder_pdb_molsys, to_form="biopython.PDBStructure")
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def roundtrip_topology(bio_structure):
-    return msm.convert(bio_structure, to_form='molsysmt.Topology')
+    return msm.convert(bio_structure, to_form="molsysmt.Topology")
 
 
 # ---------------------------------------------------------------------------
 # Contract: MolSys → biopython.PDBStructure is created
 # ---------------------------------------------------------------------------
 
+
 def test_bio_structure_is_created(bio_structure):
     from Bio.PDB.Structure import Structure
+
     assert isinstance(bio_structure, Structure)
 
 
@@ -53,6 +56,7 @@ def test_bio_structure_chain_count(bio_structure):
 # Parity: biopython.PDBStructure → molsysmt.Topology preserves topology
 # ---------------------------------------------------------------------------
 
+
 def test_parity_atom_count(roundtrip_topology, source_topology):
     assert roundtrip_topology.n_atoms == source_topology.n_atoms
 
@@ -66,8 +70,14 @@ def test_parity_chain_count(roundtrip_topology, source_topology):
 
 
 def test_parity_atom_names(roundtrip_topology, source_topology):
-    assert roundtrip_topology.atoms['atom_name'].tolist() == source_topology.atoms['atom_name'].tolist()
+    assert (
+        roundtrip_topology.atoms["atom_name"].tolist()
+        == source_topology.atoms["atom_name"].tolist()
+    )
 
 
 def test_parity_group_names(roundtrip_topology, source_topology):
-    assert roundtrip_topology.groups['group_name'].tolist() == source_topology.groups['group_name'].tolist()
+    assert (
+        roundtrip_topology.groups["group_name"].tolist()
+        == source_topology.groups["group_name"].tolist()
+    )

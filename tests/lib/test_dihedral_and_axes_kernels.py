@@ -5,6 +5,17 @@ from molsysmt.lib.structure.get_dihedral_angles import (
     get_dihedral_angles_single_structure,
 )
 from molsysmt.lib.structure.get_mic_dihedral_angles import get_mic_dihedral_angles
+from molsysmt.lib.structure.get_principal_geometric_axes import (
+    get_principal_geometric_axes,
+    get_principal_geometric_axes_single_structure,
+)
+from molsysmt.lib.structure.get_principal_inertia_axes import (
+    get_principal_inertia_axes,
+    get_principal_inertia_axes_single_structure,
+)
+from molsysmt.lib.structure.principal_component_analysis import (
+    principal_component_analysis,
+)
 from molsysmt.lib.structure.set_dihedral_angles import (
     set_dihedral_angles,
     set_dihedral_angles_single_structure,
@@ -13,15 +24,6 @@ from molsysmt.lib.structure.set_mic_dihedral_angles import set_mic_dihedral_angl
 from molsysmt.lib.structure.shift_dihedral_angles import (
     shift_dihedral_angles,
     shift_dihedral_angles_single_structure,
-)
-from molsysmt.lib.structure.principal_component_analysis import principal_component_analysis
-from molsysmt.lib.structure.get_principal_geometric_axes import (
-    get_principal_geometric_axes,
-    get_principal_geometric_axes_single_structure,
-)
-from molsysmt.lib.structure.get_principal_inertia_axes import (
-    get_principal_inertia_axes,
-    get_principal_inertia_axes_single_structure,
 )
 
 
@@ -143,21 +145,33 @@ def test_principal_axes_kernels_return_orthonormal_axes_for_single_and_batch_pat
     )
     weights = np.array([1.0, 1.0, 2.0, 2.0], dtype=np.float64)
 
-    geo_values, geo_vectors = get_principal_geometric_axes_single_structure(coordinates, weights)
-    inertia_values, inertia_vectors = get_principal_inertia_axes_single_structure(coordinates, weights)
+    geo_values, geo_vectors = get_principal_geometric_axes_single_structure(
+        coordinates, weights
+    )
+    inertia_values, inertia_vectors = get_principal_inertia_axes_single_structure(
+        coordinates, weights
+    )
 
     assert geo_values.shape == (3,)
     assert inertia_values.shape == (3,)
     np.testing.assert_allclose(geo_vectors.T @ geo_vectors, np.eye(3), atol=1e-10)
-    np.testing.assert_allclose(inertia_vectors @ inertia_vectors.T, np.eye(3), atol=1e-10)
+    np.testing.assert_allclose(
+        inertia_vectors @ inertia_vectors.T, np.eye(3), atol=1e-10
+    )
 
     batch = np.stack([coordinates, coordinates * 1.5], axis=0)
     geo_values_batch, geo_vectors_batch = get_principal_geometric_axes(batch, weights)
-    inertia_values_batch, inertia_vectors_batch = get_principal_inertia_axes(batch, weights)
+    inertia_values_batch, inertia_vectors_batch = get_principal_inertia_axes(
+        batch, weights
+    )
 
     assert geo_values_batch.shape == (2, 3)
     assert geo_vectors_batch.shape == (2, 3, 3)
     assert inertia_values_batch.shape == (2, 3)
     assert inertia_vectors_batch.shape == (2, 3, 3)
-    np.testing.assert_allclose(geo_vectors_batch[0].T @ geo_vectors_batch[0], np.eye(3), atol=1e-10)
-    np.testing.assert_allclose(inertia_vectors_batch[0] @ inertia_vectors_batch[0].T, np.eye(3), atol=1e-10)
+    np.testing.assert_allclose(
+        geo_vectors_batch[0].T @ geo_vectors_batch[0], np.eye(3), atol=1e-10
+    )
+    np.testing.assert_allclose(
+        inertia_vectors_batch[0] @ inertia_vectors_batch[0].T, np.eye(3), atol=1e-10
+    )

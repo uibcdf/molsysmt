@@ -1,63 +1,67 @@
 import math
+
 import numpy as np
 
 from molsysmt.lib.pbc.box_is_orthogonal import (
-    box_is_orthogonal_single_structure,
     box_is_orthogonal,
+    box_is_orthogonal_single_structure,
 )
 from molsysmt.lib.pbc.get_box_from_lengths_and_angles import (
-    get_box_from_lengths_and_angles_single_structure,
     get_box_from_lengths_and_angles,
+    get_box_from_lengths_and_angles_single_structure,
 )
 from molsysmt.lib.pbc.get_lengths_and_angles_from_box import (
-    get_lengths_and_angles_from_box_single_structure,
     get_lengths_and_angles_from_box,
+    get_lengths_and_angles_from_box_single_structure,
 )
-from molsysmt.lib.pbc.wrap_to_mic import wrap_to_mic_vector_single_structure, wrap_to_mic
+from molsysmt.lib.pbc.wrap_to_mic import (
+    wrap_to_mic,
+    wrap_to_mic_vector_single_structure,
+)
 from molsysmt.lib.pbc.wrap_to_pbc import (
-    wrap_to_pbc_vector_single_structure,
-    wrap_to_pbc_center_vector_single_structure,
     wrap_to_pbc,
     wrap_to_pbc_center,
+    wrap_to_pbc_center_vector_single_structure,
+    wrap_to_pbc_vector_single_structure,
+)
+from molsysmt.lib.structure.flip import flip, flip_single_structure
+from molsysmt.lib.structure.get_angles import get_angles, get_angles_single_structure
+from molsysmt.lib.structure.get_center import (
+    get_center,
+    get_center_groups_of_atoms,
+    get_center_groups_of_atoms_single_structure,
+    get_center_single_structure,
+)
+from molsysmt.lib.structure.get_dihedral_angles import (
+    get_dihedral_angles,
+    get_dihedral_angles_single_structure,
 )
 from molsysmt.lib.structure.get_distances import (
     get_distance_two_points_single_structure,
-    get_distances_single_system,
     get_distances,
     get_distances_pairs,
-    get_distances_single_system_single_structure,
-    get_distances_single_structure,
     get_distances_pairs_single_structure,
-)
-from molsysmt.lib.structure.get_angles import get_angles_single_structure, get_angles
-from molsysmt.lib.structure.get_dihedral_angles import (
-    get_dihedral_angles_single_structure,
-    get_dihedral_angles,
-)
-from molsysmt.lib.structure.get_center import (
-    get_center_single_structure,
-    get_center,
-    get_center_groups_of_atoms_single_structure,
-    get_center_groups_of_atoms,
-)
-from molsysmt.lib.structure.flip import flip_single_structure, flip
-from molsysmt.lib.structure.get_rmsd import (
-    get_rmsd_single_structure,
-    get_rmsd,
-    get_rmsd_with_single_reference_structure,
+    get_distances_single_structure,
+    get_distances_single_system,
+    get_distances_single_system_single_structure,
 )
 from molsysmt.lib.structure.get_least_rmsd import (
-    get_least_rmsd_single_structure,
     get_least_rmsd,
+    get_least_rmsd_single_structure,
     get_least_rmsd_with_single_reference_structure,
 )
+from molsysmt.lib.structure.get_rmsd import (
+    get_rmsd,
+    get_rmsd_single_structure,
+    get_rmsd_with_single_reference_structure,
+)
 from molsysmt.lib.structure.set_dihedral_angles import (
-    set_dihedral_angles_single_structure,
     set_dihedral_angles,
+    set_dihedral_angles_single_structure,
 )
 from molsysmt.lib.structure.shift_dihedral_angles import (
-    shift_dihedral_angles_single_structure,
     shift_dihedral_angles,
+    shift_dihedral_angles_single_structure,
 )
 
 
@@ -65,7 +69,9 @@ def test_box_and_wrap_kernels():
     ortho_box = np.diag([2.0, 3.0, 4.0]).astype(np.float64)
     triclinic_lengths = np.array([2.0, 3.0, 4.0], dtype=np.float64)
     triclinic_angles = np.array([1.3, 1.4, 1.2], dtype=np.float64)
-    triclinic_box = get_box_from_lengths_and_angles_single_structure(triclinic_lengths, triclinic_angles)
+    triclinic_box = get_box_from_lengths_and_angles_single_structure(
+        triclinic_lengths, triclinic_angles
+    )
 
     assert box_is_orthogonal_single_structure(ortho_box)
     assert not box_is_orthogonal_single_structure(triclinic_box)
@@ -78,10 +84,14 @@ def test_box_and_wrap_kernels():
     )
     assert batch_boxes.shape == (2, 3, 3)
 
-    lengths_back, angles_back = get_lengths_and_angles_from_box_single_structure(triclinic_box)
+    lengths_back, angles_back = get_lengths_and_angles_from_box_single_structure(
+        triclinic_box
+    )
     assert np.allclose(lengths_back, triclinic_lengths)
     assert np.allclose(angles_back, triclinic_angles)
-    lengths_batch, angles_batch = get_lengths_and_angles_from_box(np.stack([triclinic_box, triclinic_box]))
+    lengths_batch, angles_batch = get_lengths_and_angles_from_box(
+        np.stack([triclinic_box, triclinic_box])
+    )
     assert np.allclose(lengths_batch[0], triclinic_lengths)
     assert np.allclose(angles_batch[1], triclinic_angles)
 
@@ -102,7 +112,9 @@ def test_box_and_wrap_kernels():
     assert np.allclose(coordinates[0, 0], np.array([0.6, 1.4, 0.4]))
 
     coordinates = np.array([[[1.6, 2.1, 2.6], [0.2, 0.2, 0.2]]], dtype=np.float64)
-    wrap_to_pbc_center(coordinates, np.array([ortho_box]), np.array([1.0, 1.5, 2.0], dtype=np.float64))
+    wrap_to_pbc_center(
+        coordinates, np.array([ortho_box]), np.array([1.0, 1.5, 2.0], dtype=np.float64)
+    )
     assert np.all(coordinates[0, 0] <= np.array([2.0, 3.0, 4.0]))
 
 
@@ -113,7 +125,10 @@ def test_distance_angle_dihedral_center_and_flip_kernels():
     )
     coords = np.array([coords_single, coords_single + 1.0], dtype=np.float64)
 
-    assert math.isclose(get_distance_two_points_single_structure(coords_single[0], coords_single[1]), 1.0)
+    assert math.isclose(
+        get_distance_two_points_single_structure(coords_single[0], coords_single[1]),
+        1.0,
+    )
     dmat_single = get_distances_single_system_single_structure(coords_single[:3])
     assert dmat_single.shape == (3, 3)
     assert np.allclose(dmat_single, dmat_single.T)
@@ -130,7 +145,9 @@ def test_distance_angle_dihedral_center_and_flip_kernels():
     cross_single = get_distances_single_structure(coords_single[:2], coords_single[2:])
     assert cross_single.shape == (2, 2)
 
-    pairs_single = get_distances_pairs_single_structure(coords_single[:2], coords_single[2:])
+    pairs_single = get_distances_pairs_single_structure(
+        coords_single[:2], coords_single[2:]
+    )
     assert pairs_single.shape == (2,)
 
     triplets = np.array([[0, 1, 2]], dtype=np.int64)
@@ -152,12 +169,16 @@ def test_distance_angle_dihedral_center_and_flip_kernels():
     assert center_batch.shape == (2, 1, 3)
 
     atoms_per_group = np.array([2, 2], dtype=np.int64)
-    center_groups_single = get_center_groups_of_atoms_single_structure(coords_single, atoms_per_group, weights)
+    center_groups_single = get_center_groups_of_atoms_single_structure(
+        coords_single, atoms_per_group, weights
+    )
     assert center_groups_single.shape == (2, 3)
     center_groups = get_center_groups_of_atoms(coords, atoms_per_group, weights)
     assert center_groups.shape == (2, 2, 3)
 
-    flipped_single = flip_single_structure(coords_single, np.array([1.0, 0.0, 0.0]), np.zeros(3))
+    flipped_single = flip_single_structure(
+        coords_single, np.array([1.0, 0.0, 0.0]), np.zeros(3)
+    )
     assert np.allclose(flipped_single[:, 0], -coords_single[:, 0])
     flipped = flip(coords, np.array([0.0, 1.0, 0.0]), np.zeros(3))
     assert np.allclose(flipped[:, :, 1], -coords[:, :, 1])
@@ -192,18 +213,31 @@ def test_rmsd_and_dihedral_mutation_kernels():
     blocks = np.array([[False, False, False, True]], dtype=np.bool_)
 
     coords_for_set = np.array(ref_single.copy(), dtype=np.float64)
-    set_dihedral_angles_single_structure(coords_for_set, np.array([0.0], dtype=np.float64), quartets, blocks)
+    set_dihedral_angles_single_structure(
+        coords_for_set, np.array([0.0], dtype=np.float64), quartets, blocks
+    )
     assert not np.allclose(coords_for_set[3], ref_single[3])
 
-    coords_for_set_batch = np.array([ref_single.copy(), ref_single.copy()], dtype=np.float64)
-    set_dihedral_angles(coords_for_set_batch, np.array([[0.0], [0.0]], dtype=np.float64), quartets, blocks)
+    coords_for_set_batch = np.array(
+        [ref_single.copy(), ref_single.copy()], dtype=np.float64
+    )
+    set_dihedral_angles(
+        coords_for_set_batch,
+        np.array([[0.0], [0.0]], dtype=np.float64),
+        quartets,
+        blocks,
+    )
     assert coords_for_set_batch.shape == (2, 4, 3)
 
     coords_for_shift = np.array(ref_single.copy(), dtype=np.float64)
-    shift_dihedral_angles_single_structure(coords_for_shift, np.array([0.1], dtype=np.float64), quartets, blocks)
+    shift_dihedral_angles_single_structure(
+        coords_for_shift, np.array([0.1], dtype=np.float64), quartets, blocks
+    )
     assert not np.allclose(coords_for_shift[3], ref_single[3])
 
-    coords_for_shift_batch = np.array([ref_single.copy(), ref_single.copy()], dtype=np.float64)
+    coords_for_shift_batch = np.array(
+        [ref_single.copy(), ref_single.copy()], dtype=np.float64
+    )
     shift_dihedral_angles(
         coords_for_shift_batch,
         np.array([[0.1], [0.1]], dtype=np.float64),

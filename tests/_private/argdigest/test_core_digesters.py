@@ -2,13 +2,18 @@ import numpy as np
 import pytest
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.argdigest.argument.atom_id import digest_atom_id
 from molsysmt._private.argdigest.argument.atom_index import digest_atom_index
 from molsysmt._private.argdigest.argument.atom_indices import digest_atom_indices
 from molsysmt._private.argdigest.argument.atom_name import digest_atom_name
 from molsysmt._private.argdigest.argument.atom_names import digest_atom_names
 from molsysmt._private.argdigest.argument.atom_type import digest_atom_type
+from molsysmt._private.argdigest.argument.b_factor import digest_b_factor
+from molsysmt._private.argdigest.argument.box import digest_box
+from molsysmt._private.argdigest.argument.box_angles import digest_box_angles
+from molsysmt._private.argdigest.argument.box_center import digest_box_center
+from molsysmt._private.argdigest.argument.box_lengths import digest_box_lengths
+from molsysmt._private.argdigest.argument.box_origin import digest_box_origin
 from molsysmt._private.argdigest.argument.chain_id import digest_chain_id
 from molsysmt._private.argdigest.argument.chain_index import digest_chain_index
 from molsysmt._private.argdigest.argument.chain_name import digest_chain_name
@@ -18,12 +23,6 @@ from molsysmt._private.argdigest.argument.component_index import digest_componen
 from molsysmt._private.argdigest.argument.component_name import digest_component_name
 from molsysmt._private.argdigest.argument.component_type import digest_component_type
 from molsysmt._private.argdigest.argument.coordinates import digest_coordinates
-from molsysmt._private.argdigest.argument.box import digest_box
-from molsysmt._private.argdigest.argument.box_angles import digest_box_angles
-from molsysmt._private.argdigest.argument.box_center import digest_box_center
-from molsysmt._private.argdigest.argument.box_lengths import digest_box_lengths
-from molsysmt._private.argdigest.argument.box_origin import digest_box_origin
-from molsysmt._private.argdigest.argument.b_factor import digest_b_factor
 from molsysmt._private.argdigest.argument.engine import digest_engine
 from molsysmt._private.argdigest.argument.entity_id import digest_entity_id
 from molsysmt._private.argdigest.argument.entity_index import digest_entity_index
@@ -41,7 +40,7 @@ from molsysmt._private.argdigest.argument.n_chains import digest_n_chains
 from molsysmt._private.argdigest.argument.n_components import digest_n_components
 from molsysmt._private.argdigest.argument.n_entities import digest_n_entities
 from molsysmt._private.argdigest.argument.n_molecules import digest_n_molecules
-
+from molsysmt._private.smonitor import ArgumentError
 
 BOOL_CALLER = "molsysmt.basic.get.get"
 FORM_CONVERTER_CALLER = "molsysmt.form.file_pdb.to_molsysmt_MolSys.to_molsysmt_MolSys"
@@ -63,7 +62,9 @@ CHAIN_BUILDER_CALLER = "molsysmt.native.molsys_builder.MolSysBuilder.add_chain"
         (digest_chain_index, 3, (3, 4), np.array([3, 4])),
     ],
 )
-def test_index_like_digesters_normalize_iterables(digester, scalar, tuple_value, array_value):
+def test_index_like_digesters_normalize_iterables(
+    digester, scalar, tuple_value, array_value
+):
     assert digester(scalar) == [scalar]
     assert digester(list(tuple_value)) == list(tuple_value)
     assert digester(tuple_value) == list(tuple_value)
@@ -97,7 +98,9 @@ def test_index_like_digesters_normalize_iterables(digester, scalar, tuple_value,
         (digest_chain_type, True),
     ],
 )
-def test_boolean_query_digesters_accept_bool_only_when_caller_requests_it(digester, valid_value):
+def test_boolean_query_digesters_accept_bool_only_when_caller_requests_it(
+    digester, valid_value
+):
     assert digester(valid_value, caller=BOOL_CALLER) is True
 
 
@@ -155,7 +158,9 @@ def test_atom_indices_handles_all_scalar_arrays_and_nested_values():
     assert digest_atom_indices(None) is None
     assert digest_atom_indices("all") == "all"
     np.testing.assert_array_equal(digest_atom_indices(3), np.array([3], dtype=np.int64))
-    np.testing.assert_array_equal(digest_atom_indices([1, 2]), np.array([1, 2], dtype=np.int64))
+    np.testing.assert_array_equal(
+        digest_atom_indices([1, 2]), np.array([1, 2], dtype=np.int64)
+    )
     nested = digest_atom_indices([[1, 2], [3]])
     assert len(nested) == 2
     np.testing.assert_array_equal(nested[0], np.array([1, 2], dtype=np.int64))
@@ -184,7 +189,9 @@ def test_atom_names_normalize_supported_inputs():
         (digest_entity_type, ("protein", "water"), ["protein", "water"]),
     ],
 )
-def test_name_and_type_digesters_normalize_without_form_caller(digester, value, expected):
+def test_name_and_type_digesters_normalize_without_form_caller(
+    digester, value, expected
+):
     assert digester(value) == expected
 
 
@@ -199,7 +206,9 @@ def test_name_and_type_digesters_normalize_without_form_caller(digester, value, 
         (digest_n_chains, "molsysmt.basic.contains.contains", 1),
     ],
 )
-def test_n_digesters_accept_native_and_composition_contexts(digester, caller, good_value):
+def test_n_digesters_accept_native_and_composition_contexts(
+    digester, caller, good_value
+):
     assert digester(good_value, caller=caller) == good_value
 
 
@@ -219,7 +228,10 @@ def test_n_digesters_accept_boolean_query_contract(digester):
 
 def test_form_digester_normalizes_case_and_accepts_lists_and_files():
     assert digest_form("MOLSYSMT.MOLSYS") == "molsysmt.MolSys"
-    assert digest_form(["molsysmt.molsys", "STRING:PDB_ID"]) == ["molsysmt.MolSys", "string:pdb_id"]
+    assert digest_form(["molsysmt.molsys", "STRING:PDB_ID"]) == [
+        "molsysmt.MolSys",
+        "string:pdb_id",
+    ]
     assert digest_form("trajectory.xtc") == "trajectory.xtc"
     assert digest_form(True, caller="molsysmt.basic.compare.compare") is True
     with pytest.raises(ArgumentError):

@@ -19,20 +19,37 @@ def rich_molsys():
             ("103", "O", "O"),
         ]
     ]
-    group_0 = builder.add_group(atom_indices[:2], group_id="10", group_name="ALA", group_type="amino acid")
-    group_1 = builder.add_group(atom_indices[2:], group_id="11", group_name="GLY", group_type="amino acid")
+    group_0 = builder.add_group(
+        atom_indices[:2], group_id="10", group_name="ALA", group_type="amino acid"
+    )
+    group_1 = builder.add_group(
+        atom_indices[2:], group_id="11", group_name="GLY", group_type="amino acid"
+    )
     builder.add_bond(0, 1, bond_order=1)
     builder.add_bond(0, 2)
     builder.add_bond(2, 3, bond_type="covalent")
     builder.add_chain([group_0, group_1], chain_id="A", chain_name="peptide")
-    molecule_0 = builder.add_molecule([group_0], molecule_id="20", molecule_name="alanine", molecule_type="peptide")
-    molecule_1 = builder.add_molecule([group_1], molecule_id="21", molecule_name="glycine", molecule_type="peptide")
-    builder.add_entity([molecule_0], entity_id="30", entity_name="alanine", entity_type="peptide")
-    builder.add_entity([molecule_1], entity_id="31", entity_name="glycine", entity_type="peptide")
+    molecule_0 = builder.add_molecule(
+        [group_0], molecule_id="20", molecule_name="alanine", molecule_type="peptide"
+    )
+    molecule_1 = builder.add_molecule(
+        [group_1], molecule_id="21", molecule_name="glycine", molecule_type="peptide"
+    )
+    builder.add_entity(
+        [molecule_0], entity_id="30", entity_name="alanine", entity_type="peptide"
+    )
+    builder.add_entity(
+        [molecule_1], entity_id="31", entity_name="glycine", entity_type="peptide"
+    )
 
     coordinates = np.array(
         [
-            [[0.012345678, 0.0, 0.0], [0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9]],
+            [
+                [0.012345678, 0.0, 0.0],
+                [0.1, 0.2, 0.3],
+                [0.4, 0.5, 0.6],
+                [0.7, 0.8, 0.9],
+            ],
             [[1.0, 1.1, 1.2], [1.3, 1.4, 1.5], [1.6, 1.7, 1.8], [1.9, 2.0, 2.1]],
             [[2.2, 2.3, 2.4], [2.5, 2.6, 2.7], [2.8, 2.9, 3.0], [3.1, 3.2, 3.3]],
         ]

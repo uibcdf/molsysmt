@@ -12,6 +12,7 @@ for the RCSB BCIF download path — tracked separately.
 """
 
 import pytest
+
 from molsysmt.form.string_pdb_id import get_topological_attributes as aux
 
 N_ATOMS = 1079
@@ -21,5 +22,5 @@ N_ATOMS = 1079
 @pytest.mark.xdist_group("network")
 def test_download_and_basic_count():
     """Download 1aki from RCSB and verify atom count through the full pipeline."""
-    n = aux.get_n_atoms_from_system('pdb_id:1aki')
+    n = aux.get_n_atoms_from_system("pdb_id:1aki")
     assert n == N_ATOMS

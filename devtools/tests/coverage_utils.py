@@ -16,7 +16,9 @@ def dump_json(path: str, data: dict) -> None:
         json.dump(data, f, indent=2, sort_keys=False)
 
 
-def file_rows(data: dict, package_root: str = "molsysmt", subpackage: Optional[str] = None) -> list[dict]:
+def file_rows(
+    data: dict, package_root: str = "molsysmt", subpackage: Optional[str] = None
+) -> list[dict]:
     rows = []
     subpackage_parts = tuple(subpackage.split(".")) if subpackage else None
 
@@ -38,19 +40,24 @@ def file_rows(data: dict, package_root: str = "molsysmt", subpackage: Optional[s
         package_dot = ".".join(dot_parts)
 
         if subpackage_parts:
-            if tuple(package_dot.split(".")[:len(subpackage_parts)]) != subpackage_parts:
+            if (
+                tuple(package_dot.split(".")[: len(subpackage_parts)])
+                != subpackage_parts
+            ):
                 continue
 
         summary = info.get("summary", {})
-        rows.append({
-            "path": path,
-            "parts": parts,
-            "package_dot": package_dot,
-            "percent": float(summary.get("percent_covered", 0.0)),
-            "statements": int(summary.get("num_statements", 0)),
-            "missing": int(summary.get("missing_lines", 0)),
-            "covered": int(summary.get("covered_lines", 0)),
-        })
+        rows.append(
+            {
+                "path": path,
+                "parts": parts,
+                "package_dot": package_dot,
+                "percent": float(summary.get("percent_covered", 0.0)),
+                "statements": int(summary.get("num_statements", 0)),
+                "missing": int(summary.get("missing_lines", 0)),
+                "covered": int(summary.get("covered_lines", 0)),
+            }
+        )
     return rows
 
 
@@ -61,7 +68,7 @@ def package_key(path_str: str, root: str = "molsysmt", depth: int = 1) -> str | 
     # Use the last occurrence so that repo-name == package-name layouts
     # (e.g. molsysmt/molsysmt/…) anchor to the inner package directory.
     idx = len(parts) - 1 - parts[::-1].index(root)
-    subparts = list(parts[idx: idx + 1 + max(depth, 0)])
+    subparts = list(parts[idx : idx + 1 + max(depth, 0)])
     if subparts and subparts[-1].endswith(".py"):
         subparts = subparts[:-1]
     if not subparts:
@@ -69,8 +76,12 @@ def package_key(path_str: str, root: str = "molsysmt", depth: int = 1) -> str | 
     return ".".join(subparts)
 
 
-def aggregate_by_package(rows: list[dict], root: str = "molsysmt", depth: int = 1) -> list[dict]:
-    stats: Dict[str, Dict[str, int]] = defaultdict(lambda: {"statements": 0, "missing": 0, "covered": 0, "files": 0})
+def aggregate_by_package(
+    rows: list[dict], root: str = "molsysmt", depth: int = 1
+) -> list[dict]:
+    stats: Dict[str, Dict[str, int]] = defaultdict(
+        lambda: {"statements": 0, "missing": 0, "covered": 0, "files": 0}
+    )
     for row in rows:
         key = package_key(row["path"], root=root, depth=depth)
         if key is None:
@@ -87,14 +98,16 @@ def aggregate_by_package(rows: list[dict], root: str = "molsysmt", depth: int = 
         covered = values["covered"]
         files = values["files"]
         percent = 100.0 * (stmts - miss) / stmts if stmts else 0.0
-        out.append({
-            "package": key,
-            "percent": percent,
-            "statements": stmts,
-            "missing": miss,
-            "covered": covered,
-            "files": files,
-        })
+        out.append(
+            {
+                "package": key,
+                "percent": percent,
+                "statements": stmts,
+                "missing": miss,
+                "covered": covered,
+                "files": files,
+            }
+        )
     return out
 
 

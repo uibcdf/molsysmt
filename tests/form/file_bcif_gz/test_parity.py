@@ -7,22 +7,24 @@ Both encodings carry identical content; parity means identical topology
 """
 
 import pytest
+
 import molsysmt as msm
 
 
 @pytest.fixture()
 def bcif_topology(hp35_bcif_file):
-    return msm.convert(str(hp35_bcif_file), to_form='molsysmt.Topology')
+    return msm.convert(str(hp35_bcif_file), to_form="molsysmt.Topology")
 
 
 @pytest.fixture()
 def bcif_gz_topology(hp35_bcif_gz_file):
-    return msm.convert(str(hp35_bcif_gz_file), to_form='molsysmt.Topology')
+    return msm.convert(str(hp35_bcif_gz_file), to_form="molsysmt.Topology")
 
 
 # ---------------------------------------------------------------------------
 # Parity: file:bcif_gz ↔ file:bcif (same structure, different compression)
 # ---------------------------------------------------------------------------
+
 
 def test_parity_atom_count(bcif_gz_topology, bcif_topology):
     assert bcif_gz_topology.n_atoms == bcif_topology.n_atoms
@@ -37,8 +39,14 @@ def test_parity_chain_count(bcif_gz_topology, bcif_topology):
 
 
 def test_parity_atom_names(bcif_gz_topology, bcif_topology):
-    assert bcif_gz_topology.atoms['atom_name'].tolist() == bcif_topology.atoms['atom_name'].tolist()
+    assert (
+        bcif_gz_topology.atoms["atom_name"].tolist()
+        == bcif_topology.atoms["atom_name"].tolist()
+    )
 
 
 def test_parity_group_names(bcif_gz_topology, bcif_topology):
-    assert bcif_gz_topology.groups['group_name'].tolist() == bcif_topology.groups['group_name'].tolist()
+    assert (
+        bcif_gz_topology.groups["group_name"].tolist()
+        == bcif_topology.groups["group_name"].tolist()
+    )

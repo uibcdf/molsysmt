@@ -27,37 +27,44 @@ Covers all getter functions:
 import numpy as np
 import pytest
 
-from molsysmt.native import Structures
-from molsysmt import pyunitwizard as puw
 import molsysmt.form.molsysmt_Structures.get_structural_attributes as aux
+from molsysmt import pyunitwizard as puw
 from molsysmt.form.molsysmt_Structures.get_topological_attributes import (
     get_atom_index_from_atom,
 )
 from molsysmt.form.molsysmt_Structures.set import (
-    set_occupancy_to_atom,
     set_b_factor_to_atom,
+    set_occupancy_to_atom,
 )
-
+from molsysmt.native import Structures
 
 # ---------------------------------------------------------------------------
 # Helpers / shared fixtures
 # ---------------------------------------------------------------------------
 
-def _make_structures(n_structs=3, n_atoms=4, with_box=True, with_time=True,
-                     with_velocities=False, with_structure_id=True):
+
+def _make_structures(
+    n_structs=3,
+    n_atoms=4,
+    with_box=True,
+    with_time=True,
+    with_velocities=False,
+    with_structure_id=True,
+):
     """Return a Structures object populated with minimal test data."""
     coords = puw.quantity(
-        np.arange(n_structs * n_atoms * 3, dtype=float).reshape(n_structs, n_atoms, 3) * 0.01,
-        'nanometer',
+        np.arange(n_structs * n_atoms * 3, dtype=float).reshape(n_structs, n_atoms, 3)
+        * 0.01,
+        "nanometer",
     )
     box = None
     if with_box:
         box_vals = np.stack([np.eye(3) * (1.0 + 0.1 * i) for i in range(n_structs)])
-        box = puw.quantity(box_vals, 'nanometer')
+        box = puw.quantity(box_vals, "nanometer")
 
     time = None
     if with_time:
-        time = puw.quantity(np.arange(n_structs, dtype=float), 'picosecond')
+        time = puw.quantity(np.arange(n_structs, dtype=float), "picosecond")
 
     structure_id = None
     if with_structure_id:
@@ -67,7 +74,7 @@ def _make_structures(n_structs=3, n_atoms=4, with_box=True, with_time=True,
     if with_velocities:
         velocities = puw.quantity(
             np.ones((n_structs, n_atoms, 3), dtype=float) * 0.5,
-            'nanometer/picosecond',
+            "nanometer/picosecond",
         )
 
     return Structures(
@@ -82,21 +89,21 @@ def _make_structures(n_structs=3, n_atoms=4, with_box=True, with_time=True,
 def _make_alt_loc_entry():
     """Return a single alternate-location dict entry (for one atom, two locations)."""
     return {
-        'location_id': np.array(['A', 'B']),
-        'occupancy': np.array([0.5, 0.5]),
-        'b_factor': puw.quantity(np.array([10.0, 10.0]), 'angstrom**2'),
-        'atom_id': np.array([1, 1]),
-        'coordinates': puw.quantity(
-            np.array([[0.0, 0.0, 0.0], [0.1, 0.0, 0.0]]), 'nanometer'
+        "location_id": np.array(["A", "B"]),
+        "occupancy": np.array([0.5, 0.5]),
+        "b_factor": puw.quantity(np.array([10.0, 10.0]), "angstrom**2"),
+        "atom_id": np.array([1, 1]),
+        "coordinates": puw.quantity(
+            np.array([[0.0, 0.0, 0.0], [0.1, 0.0, 0.0]]), "nanometer"
         ),
     }
 
 
 def test_structure_thermodynamic_series_and_total_energy():
     structures = _make_structures(n_structs=3, n_atoms=2)
-    structures.temperature = puw.quantity([300.0, 301.0, 302.0], 'K')
-    structures.potential_energy = puw.quantity([-10.0, -8.0, -6.0], 'kJ/mol')
-    structures.kinetic_energy = puw.quantity([3.0, 4.0, 5.0], 'kJ/mol')
+    structures.temperature = puw.quantity([300.0, 301.0, 302.0], "K")
+    structures.potential_energy = puw.quantity([-10.0, -8.0, -6.0], "kJ/mol")
+    structures.kinetic_energy = puw.quantity([3.0, 4.0, 5.0], "kJ/mol")
 
     temperature = aux.get_temperature_from_system(
         structures,
@@ -109,8 +116,10 @@ def test_structure_thermodynamic_series_and_total_energy():
         skip_digestion=True,
     )
 
-    np.testing.assert_allclose(puw.get_value(temperature, to_unit='K'), [300.0, 302.0])
-    np.testing.assert_allclose(puw.get_value(total_energy, to_unit='kJ/mol'), [-7.0, -1.0])
+    np.testing.assert_allclose(puw.get_value(temperature, to_unit="K"), [300.0, 302.0])
+    np.testing.assert_allclose(
+        puw.get_value(total_energy, to_unit="kJ/mol"), [-7.0, -1.0]
+    )
 
 
 def test_missing_occupancy_returns_none():
@@ -122,6 +131,7 @@ def test_missing_occupancy_returns_none():
 # ===========================================================================
 # get_n_atoms_from_system
 # ===========================================================================
+
 
 def test_get_atom_index_from_atom():
     structures = _make_structures(n_structs=2, n_atoms=4)
@@ -135,7 +145,6 @@ def test_get_atom_index_from_atom():
 
 
 class TestGetNAtomsFromSystem:
-
     def test_returns_correct_count(self):
         s = _make_structures(n_structs=2, n_atoms=5)
         assert aux.get_n_atoms_from_system(s, skip_digestion=True) == 5
@@ -153,8 +162,8 @@ class TestGetNAtomsFromSystem:
 # get_n_structures_from_system
 # ===========================================================================
 
-class TestGetNStructuresFromSystem:
 
+class TestGetNStructuresFromSystem:
     def test_all_structures(self):
         s = _make_structures(n_structs=3, n_atoms=2)
         assert aux.get_n_structures_from_system(s, skip_digestion=True) == 3
@@ -178,8 +187,8 @@ class TestGetNStructuresFromSystem:
 # get_coordinates_from_atom
 # ===========================================================================
 
-class TestGetCoordinatesFromAtom:
 
+class TestGetCoordinatesFromAtom:
     def test_all_returns_full_array(self):
         s = _make_structures(n_structs=3, n_atoms=4)
         result = aux.get_coordinates_from_atom(s, skip_digestion=True)
@@ -224,17 +233,20 @@ class TestGetCoordinatesFromAtom:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=3)
         result = aux.get_coordinates_from_atom(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('nanometer')
+        assert puw.get_unit(result) == puw.unit("nanometer")
 
     def test_values_are_correct(self):
-        n_structs, n_atoms = 2, 2
-        raw = np.array([[[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]],
-                        [[7.0, 8.0, 9.0], [10.0, 11.0, 12.0]]])
-        coords = puw.quantity(raw, 'nanometer')
+        _n_structs, _n_atoms = 2, 2
+        raw = np.array(
+            [[[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], [[7.0, 8.0, 9.0], [10.0, 11.0, 12.0]]]
+        )
+        coords = puw.quantity(raw, "nanometer")
         s = Structures(coordinates=coords)
         result = aux.get_coordinates_from_atom(
-            s, indices=np.array([1]), structure_indices=np.array([0]),
-            skip_digestion=True
+            s,
+            indices=np.array([1]),
+            structure_indices=np.array([0]),
+            skip_digestion=True,
         )
         np.testing.assert_allclose(puw.get_value(result), [[[4.0, 5.0, 6.0]]])
 
@@ -243,8 +255,8 @@ class TestGetCoordinatesFromAtom:
 # get_velocities_from_atom
 # ===========================================================================
 
-class TestGetVelocitiesFromAtom:
 
+class TestGetVelocitiesFromAtom:
     def test_missing_velocities_with_subsets_returns_none(self):
         s = _make_structures(n_structs=2, n_atoms=3, with_velocities=False)
         result = aux.get_velocities_from_atom(
@@ -299,18 +311,20 @@ class TestGetVelocitiesFromAtom:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_velocities=True)
         result = aux.get_velocities_from_atom(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('nanometer/picosecond')
+        assert puw.get_unit(result) == puw.unit("nanometer/picosecond")
 
 
 # ===========================================================================
 # get_occupancy_from_atom
 # ===========================================================================
 
-class TestGetOccupancyFromAtom:
 
+class TestGetOccupancyFromAtom:
     def _make_with_occupancy(self, n_structs=2, n_atoms=3):
         s = _make_structures(n_structs=n_structs, n_atoms=n_atoms)
-        occupancy = np.linspace(0.5, 1.0, n_structs * n_atoms).reshape(n_structs, n_atoms)
+        occupancy = np.linspace(0.5, 1.0, n_structs * n_atoms).reshape(
+            n_structs, n_atoms
+        )
         set_occupancy_to_atom(s, value=occupancy, skip_digestion=True)
         return s, occupancy
 
@@ -355,13 +369,11 @@ class TestGetOccupancyFromAtom:
 # get_b_factor_from_atom
 # ===========================================================================
 
-class TestGetBFactorFromAtom:
 
+class TestGetBFactorFromAtom:
     def _make_with_b_factor(self, n_structs=2, n_atoms=3):
         s = _make_structures(n_structs=n_structs, n_atoms=n_atoms)
-        b_factor = puw.quantity(
-            np.ones((n_structs, n_atoms)) * 20.0, 'angstrom**2'
-        )
+        b_factor = puw.quantity(np.ones((n_structs, n_atoms)) * 20.0, "angstrom**2")
         set_b_factor_to_atom(s, value=b_factor, skip_digestion=True)
         return s
 
@@ -407,10 +419,10 @@ class TestGetBFactorFromAtom:
 # get_alternate_location_from_atom
 # ===========================================================================
 
-class TestGetAlternateLocationFromAtom:
 
+class TestGetAlternateLocationFromAtom:
     def _make_with_alt_loc(self, n_structs=2, n_atoms=2):
-        coords = puw.quantity(np.ones((n_structs, n_atoms, 3)), 'nanometer')
+        coords = puw.quantity(np.ones((n_structs, n_atoms, 3)), "nanometer")
         entry = _make_alt_loc_entry()
         # Only atom 0 has alternate locations
         alt_loc = [{0: entry} for _ in range(n_structs)]
@@ -478,8 +490,8 @@ class TestGetAlternateLocationFromAtom:
 # get_coordinates_from_system
 # ===========================================================================
 
-class TestGetCoordinatesFromSystem:
 
+class TestGetCoordinatesFromSystem:
     def test_all_returns_full_array(self):
         s = _make_structures(n_structs=3, n_atoms=4)
         result = aux.get_coordinates_from_system(s, skip_digestion=True)
@@ -502,15 +514,15 @@ class TestGetCoordinatesFromSystem:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=3)
         result = aux.get_coordinates_from_system(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('nanometer')
+        assert puw.get_unit(result) == puw.unit("nanometer")
 
 
 # ===========================================================================
 # get_velocities_from_system
 # ===========================================================================
 
-class TestGetVelocitiesFromSystem:
 
+class TestGetVelocitiesFromSystem:
     def test_missing_velocities_with_subset_returns_none(self):
         s = _make_structures(n_structs=2, n_atoms=3, with_velocities=False)
         result = aux.get_velocities_from_system(
@@ -542,15 +554,15 @@ class TestGetVelocitiesFromSystem:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=3, with_velocities=True)
         result = aux.get_velocities_from_system(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('nanometer/picosecond')
+        assert puw.get_unit(result) == puw.unit("nanometer/picosecond")
 
 
 # ===========================================================================
 # get_box_from_system
 # ===========================================================================
 
-class TestGetBoxFromSystem:
 
+class TestGetBoxFromSystem:
     def test_all_returns_full_array(self):
         s = _make_structures(n_structs=3, n_atoms=2, with_box=True)
         result = aux.get_box_from_system(s, skip_digestion=True)
@@ -565,9 +577,7 @@ class TestGetBoxFromSystem:
 
     def test_none_structure_indices_returns_none(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_box=True)
-        result = aux.get_box_from_system(
-            s, structure_indices=None, skip_digestion=True
-        )
+        result = aux.get_box_from_system(s, structure_indices=None, skip_digestion=True)
         assert result is None
 
     def test_no_box_returns_none(self):
@@ -578,19 +588,19 @@ class TestGetBoxFromSystem:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_box=True)
         result = aux.get_box_from_system(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('nanometer')
+        assert puw.get_unit(result) == puw.unit("nanometer")
 
 
 # ===========================================================================
 # get_box_shape_from_system
 # ===========================================================================
 
-class TestGetBoxShapeFromSystem:
 
+class TestGetBoxShapeFromSystem:
     def test_cubic_box(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_box=True)
         result = aux.get_box_shape_from_system(s, skip_digestion=True)
-        assert result == 'cubic'
+        assert result == "cubic"
 
     def test_no_box_returns_none(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_box=False)
@@ -609,15 +619,15 @@ class TestGetBoxShapeFromSystem:
         result = aux.get_box_shape_from_system(
             s, structure_indices=np.array([0]), skip_digestion=True
         )
-        assert result == 'cubic'
+        assert result == "cubic"
 
 
 # ===========================================================================
 # get_box_lengths_from_system
 # ===========================================================================
 
-class TestGetBoxLengthsFromSystem:
 
+class TestGetBoxLengthsFromSystem:
     def test_all_returns_correct_shape(self):
         s = _make_structures(n_structs=3, n_atoms=2, with_box=True)
         result = aux.get_box_lengths_from_system(s, skip_digestion=True)
@@ -645,13 +655,13 @@ class TestGetBoxLengthsFromSystem:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_box=True)
         result = aux.get_box_lengths_from_system(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('nanometer')
+        assert puw.get_unit(result) == puw.unit("nanometer")
 
     def test_values_match_diagonal(self):
         # Box is diagonal: lengths should equal the diagonal elements
         box_vals = np.array([[[2.0, 0.0, 0.0], [0.0, 3.0, 0.0], [0.0, 0.0, 4.0]]])
-        coords = puw.quantity(np.ones((1, 2, 3)), 'nanometer')
-        box = puw.quantity(box_vals, 'nanometer')
+        coords = puw.quantity(np.ones((1, 2, 3)), "nanometer")
+        box = puw.quantity(box_vals, "nanometer")
         s = Structures(coordinates=coords, box=box)
         result = aux.get_box_lengths_from_system(s, skip_digestion=True)
         values = puw.get_value(result)
@@ -662,8 +672,8 @@ class TestGetBoxLengthsFromSystem:
 # get_box_angles_from_system
 # ===========================================================================
 
-class TestGetBoxAnglesFromSystem:
 
+class TestGetBoxAnglesFromSystem:
     def test_all_returns_correct_shape(self):
         s = _make_structures(n_structs=3, n_atoms=2, with_box=True)
         result = aux.get_box_angles_from_system(s, skip_digestion=True)
@@ -691,21 +701,23 @@ class TestGetBoxAnglesFromSystem:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_box=True)
         result = aux.get_box_angles_from_system(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('radian')
+        assert puw.get_unit(result) == puw.unit("radian")
 
     def test_cubic_box_angles_are_90_degrees(self):
         s = _make_structures(n_structs=1, n_atoms=2, with_box=True)
         result = aux.get_box_angles_from_system(s, skip_digestion=True)
         values = puw.get_value(result)
-        np.testing.assert_allclose(values, [[np.pi / 2, np.pi / 2, np.pi / 2]], rtol=1e-5)
+        np.testing.assert_allclose(
+            values, [[np.pi / 2, np.pi / 2, np.pi / 2]], rtol=1e-5
+        )
 
 
 # ===========================================================================
 # get_box_volume_from_system
 # ===========================================================================
 
-class TestGetBoxVolumeFromSystem:
 
+class TestGetBoxVolumeFromSystem:
     def test_all_returns_correct_shape(self):
         s = _make_structures(n_structs=3, n_atoms=2, with_box=True)
         result = aux.get_box_volume_from_system(s, skip_digestion=True)
@@ -726,13 +738,13 @@ class TestGetBoxVolumeFromSystem:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_box=True)
         result = aux.get_box_volume_from_system(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('nanometer**3')
+        assert puw.get_unit(result) == puw.unit("nanometer**3")
 
     def test_cubic_box_volume(self):
         # 2 nm cubic box: volume = 8 nm^3
         box_vals = np.array([[[2.0, 0.0, 0.0], [0.0, 2.0, 0.0], [0.0, 0.0, 2.0]]])
-        coords = puw.quantity(np.ones((1, 2, 3)), 'nanometer')
-        box = puw.quantity(box_vals, 'nanometer')
+        coords = puw.quantity(np.ones((1, 2, 3)), "nanometer")
+        box = puw.quantity(box_vals, "nanometer")
         s = Structures(coordinates=coords, box=box)
         result = aux.get_box_volume_from_system(s, skip_digestion=True)
         np.testing.assert_allclose(puw.get_value(result), [8.0], rtol=1e-5)
@@ -749,8 +761,8 @@ class TestGetBoxVolumeFromSystem:
 # get_time_from_system
 # ===========================================================================
 
-class TestGetTimeFromSystem:
 
+class TestGetTimeFromSystem:
     def test_all_returns_full_array(self):
         s = _make_structures(n_structs=3, n_atoms=2, with_time=True)
         result = aux.get_time_from_system(s, skip_digestion=True)
@@ -778,7 +790,7 @@ class TestGetTimeFromSystem:
     def test_correct_unit(self):
         s = _make_structures(n_structs=2, n_atoms=2, with_time=True)
         result = aux.get_time_from_system(s, skip_digestion=True)
-        assert puw.get_unit(result) == puw.unit('picosecond')
+        assert puw.get_unit(result) == puw.unit("picosecond")
 
     def test_values_are_correct(self):
         s = _make_structures(n_structs=3, n_atoms=2, with_time=True)
@@ -791,8 +803,8 @@ class TestGetTimeFromSystem:
 # get_structure_id_from_system
 # ===========================================================================
 
-class TestGetStructureIdFromSystem:
 
+class TestGetStructureIdFromSystem:
     def test_all_returns_full_array(self):
         s = _make_structures(n_structs=3, n_atoms=2, with_structure_id=True)
         result = aux.get_structure_id_from_system(s, skip_digestion=True)
@@ -840,8 +852,8 @@ class TestGetStructureIdFromSystem:
 # get_occupancy_from_system (delegates to get_occupancy_from_atom)
 # ===========================================================================
 
-class TestGetOccupancyFromSystem:
 
+class TestGetOccupancyFromSystem:
     def test_returns_none_when_no_occupancy_attribute(self):
         s = _make_structures(n_structs=2, n_atoms=3)
         assert aux.get_occupancy_from_system(s, skip_digestion=True) is None
@@ -867,8 +879,8 @@ class TestGetOccupancyFromSystem:
 # get_b_factor_from_system (delegates to get_b_factor_from_atom)
 # ===========================================================================
 
-class TestGetBFactorFromSystem:
 
+class TestGetBFactorFromSystem:
     def test_returns_none_when_no_b_factor(self):
         s = _make_structures(n_structs=2, n_atoms=3)
         result = aux.get_b_factor_from_system(s, skip_digestion=True)
@@ -876,7 +888,7 @@ class TestGetBFactorFromSystem:
 
     def test_returns_full_array_when_set(self):
         s = _make_structures(n_structs=2, n_atoms=3)
-        b_factor = puw.quantity(np.ones((2, 3)) * 15.0, 'angstrom**2')
+        b_factor = puw.quantity(np.ones((2, 3)) * 15.0, "angstrom**2")
         set_b_factor_to_atom(s, value=b_factor, skip_digestion=True)
         result = aux.get_b_factor_from_system(s, skip_digestion=True)
         assert result is not None
@@ -884,7 +896,7 @@ class TestGetBFactorFromSystem:
 
     def test_structure_subset(self):
         s = _make_structures(n_structs=3, n_atoms=3)
-        b_factor = puw.quantity(np.ones((3, 3)) * 12.0, 'angstrom**2')
+        b_factor = puw.quantity(np.ones((3, 3)) * 12.0, "angstrom**2")
         set_b_factor_to_atom(s, value=b_factor, skip_digestion=True)
         result = aux.get_b_factor_from_system(
             s, structure_indices=np.array([1]), skip_digestion=True
@@ -896,10 +908,10 @@ class TestGetBFactorFromSystem:
 # get_alternate_location_from_system (delegates to get_alternate_location_from_atom)
 # ===========================================================================
 
-class TestGetAlternateLocationFromSystem:
 
+class TestGetAlternateLocationFromSystem:
     def _make_with_alt_loc(self, n_structs=2, n_atoms=2):
-        coords = puw.quantity(np.ones((n_structs, n_atoms, 3)), 'nanometer')
+        coords = puw.quantity(np.ones((n_structs, n_atoms, 3)), "nanometer")
         entry = _make_alt_loc_entry()
         alt_loc = [{0: entry} for _ in range(n_structs)]
         return Structures(coordinates=coords, alternate_location=alt_loc)
@@ -927,15 +939,15 @@ class TestGetAlternateLocationFromSystem:
 # get_bioassembly_from_system / get_n_bioassemblies_from_system
 # ===========================================================================
 
-class TestGetBioassemblyFromSystem:
 
+class TestGetBioassemblyFromSystem:
     def _make_with_bioassembly(self, n_assemblies=2):
-        coords = puw.quantity(np.ones((1, 2, 3)), 'nanometer')
+        coords = puw.quantity(np.ones((1, 2, 3)), "nanometer")
         bioassembly = {
-            f'BA{i}': {
-                'chain_indices': np.array([0]),
-                'rotations': [np.eye(3)],
-                'translations': [puw.quantity(np.array([0.0, 0.0, 0.0]), 'nm')],
+            f"BA{i}": {
+                "chain_indices": np.array([0]),
+                "rotations": [np.eye(3)],
+                "translations": [puw.quantity(np.array([0.0, 0.0, 0.0]), "nm")],
             }
             for i in range(n_assemblies)
         }
@@ -956,7 +968,7 @@ class TestGetBioassemblyFromSystem:
         s = self._make_with_bioassembly(n_assemblies=3)
         result = aux.get_bioassembly_from_system(s, skip_digestion=True)
         for i in range(3):
-            assert f'BA{i}' in result
+            assert f"BA{i}" in result
 
     def test_n_bioassemblies_when_set(self):
         s = self._make_with_bioassembly(n_assemblies=3)
@@ -974,7 +986,9 @@ class TestGetBioassemblyFromSystem:
             assert result == 0
         except TypeError:
             # bioassembly is None and len(None) raises — document expected gap
-            pytest.skip("get_n_bioassemblies_from_system raises TypeError when bioassembly is None")
+            pytest.skip(
+                "get_n_bioassemblies_from_system raises TypeError when bioassembly is None"
+            )
 
     def test_n_bioassemblies_single(self):
         s = self._make_with_bioassembly(n_assemblies=1)

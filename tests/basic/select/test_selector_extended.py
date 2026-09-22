@@ -19,20 +19,20 @@ Branches targeted:
 - nested 'in groups of ... in molecules of' (two-level in_elements_of)
 """
 
-import molsysmt as msm
 import numpy as np
-import pytest
 
+import molsysmt as msm
 
 # ---------------------------------------------------------------------------
 # Basic standard-select branches not in existing test file
 # ---------------------------------------------------------------------------
 
+
 def test_select_chain_index_list(tctim_h5msm_molsys):
     """Selection by chain_index exercises the chain column join path."""
     molsys = tctim_h5msm_molsys
     # TcTIM has 4 chains (0,1 protein; 2,3 water).  Chains 0+1 → 3818 atoms.
-    output = msm.select(molsys, 'chain_index==[0,1]')
+    output = msm.select(molsys, "chain_index==[0,1]")
     assert len(output) == 3818
     assert output[0] == 0
 
@@ -40,14 +40,14 @@ def test_select_chain_index_list(tctim_h5msm_molsys):
 def test_select_component_index(tctim_h5msm_molsys):
     """Selection by component_index exercises the component column join path."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, 'component_index==0')
+    output = msm.select(molsys, "component_index==0")
     assert len(output) == 1906
 
 
 def test_select_entity_index(tctim_h5msm_molsys):
     """Selection by entity_index exercises the entity column join path."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, 'entity_index==0')
+    output = msm.select(molsys, "entity_index==0")
     assert len(output) == 3818
 
 
@@ -80,7 +80,7 @@ def test_select_group_id_numeric_coercion(tctim_h5msm_molsys):
     # TcTIM group ids are stored as numeric strings; group_id < 5 → first 4
     # sequential groups across all chains → 24 atoms (groups 1-4 have 6 atoms
     # each in the PDB numbering that starts at 1).
-    output = msm.select(molsys, 'group_id < 5')
+    output = msm.select(molsys, "group_id < 5")
     assert len(output) == 24
     assert output[:5] == [0, 1, 2, 3, 4]
 
@@ -96,7 +96,7 @@ def test_select_group_id_numeric_with_chain(tctim_h5msm_molsys):
 def test_select_group_index_range(tctim_h5msm_molsys):
     """group_index with >= and <= exercises both comparison operators together."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, 'group_index >= 10 and group_index <= 20')
+    output = msm.select(molsys, "group_index >= 10 and group_index <= 20")
     assert len(output) == 78
     assert output[0] == 77
 
@@ -104,7 +104,7 @@ def test_select_group_index_range(tctim_h5msm_molsys):
 def test_select_boolean_or_atom_index(tctim_h5msm_molsys):
     """Boolean OR on atom_index covers the or-branch in query evaluation."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, 'atom_index < 50 or atom_index > 3800')
+    output = msm.select(molsys, "atom_index < 50 or atom_index > 3800")
     assert len(output) == 232
     assert output[0] == 0
     assert output[-1] == 3982
@@ -120,6 +120,7 @@ def test_select_empty_selection(tctim_h5msm_molsys):
 # ---------------------------------------------------------------------------
 # select_in_elements_of branches
 # ---------------------------------------------------------------------------
+
 
 def test_select_in_groups_of_all(tctim_h5msm_molsys):
     """'in groups of all' hits the is_all(after) branch and returns per-group
@@ -216,11 +217,12 @@ def test_select_nested_in_groups_of_molecules(tctim_h5msm_molsys):
 # Shortcut / syntax sugar paths
 # ---------------------------------------------------------------------------
 
+
 def test_select_all_mask_returns_subset(tctim_h5msm_molsys):
     """msm.select with selection='all' and a mask returns the mask as a list
     (regression for the is_all fast path)."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, selection='all', mask=[10, 20, 30])
+    output = msm.select(molsys, selection="all", mask=[10, 20, 30])
     assert isinstance(output, list)
     assert output == [10, 20, 30]
 
@@ -229,7 +231,7 @@ def test_select_group_element_with_string_selection(tctim_h5msm_molsys):
     """Selecting at element='group' level with a string selection exercises
     the group-level output path."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, 'molecule_type=="water"', element='group')
+    output = msm.select(molsys, 'molecule_type=="water"', element="group")
     assert len(output) == 165
     assert output[0] == 497
 
@@ -237,7 +239,7 @@ def test_select_group_element_with_string_selection(tctim_h5msm_molsys):
 def test_select_chain_element_with_string_selection(tctim_h5msm_molsys):
     """Selecting at element='chain' level with a string selection."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, 'molecule_type=="water"', element='chain')
+    output = msm.select(molsys, 'molecule_type=="water"', element="chain")
     assert len(output) == 2
     true_output = np.array([2, 3])
     assert np.all(np.array(output) == true_output)
@@ -246,6 +248,6 @@ def test_select_chain_element_with_string_selection(tctim_h5msm_molsys):
 def test_select_molecule_element_with_string_selection(tctim_h5msm_molsys):
     """Selecting at element='molecule' level with a string selection."""
     molsys = tctim_h5msm_molsys
-    output = msm.select(molsys, 'molecule_type=="water"', element='molecule')
+    output = msm.select(molsys, 'molecule_type=="water"', element="molecule")
     assert len(output) == 165
     assert output[0] == 2

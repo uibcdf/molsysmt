@@ -1,8 +1,9 @@
-import pytest
 import numpy as np
+import pytest
+
 import molsysmt as msm
-from molsysmt.native import Structures
 from molsysmt import pyunitwizard as puw
+from molsysmt.native import Structures
 
 
 def test_parallel_default_config():
@@ -15,8 +16,7 @@ def test_parallel_default_config():
 
 def test_session_policy_and_function_override_are_composable():
     """Resolve per-call values without mutating the surrounding session."""
-    from molsysmt.configure import _get_effective_num_threads
-    from molsysmt.configure import with_configure_overrides
+    from molsysmt.configure import _get_effective_num_threads, with_configure_overrides
 
     @with_configure_overrides
     def resolve(payload_size, parallel=None, num_threads=None):
@@ -46,8 +46,7 @@ def test_set_parallelization_updates_the_session_policy():
 
 def test_nested_public_calls_inherit_the_outer_function_override():
     """Keep a local policy active through decorated internal public calls."""
-    from molsysmt.configure import _get_effective_num_threads
-    from molsysmt.configure import with_configure_overrides
+    from molsysmt.configure import _get_effective_num_threads, with_configure_overrides
 
     @with_configure_overrides
     def inner(parallel=None, num_threads=None):
@@ -115,8 +114,7 @@ def test_python_kernel_seam_passes_the_resolved_pool_size(monkeypatch):
 
 def test_parallel_false_rejects_a_conflicting_local_thread_count():
     """Reject contradictory per-function controls."""
-    from molsysmt.configure import _get_effective_num_threads
-    from molsysmt.configure import with_configure_overrides
+    from molsysmt.configure import _get_effective_num_threads, with_configure_overrides
 
     @with_configure_overrides
     def resolve(parallel=None, num_threads=None):
@@ -125,41 +123,45 @@ def test_parallel_false_rejects_a_conflicting_local_thread_count():
     with pytest.raises(msm.ArgumentConflictError):
         resolve(parallel=False, num_threads=4)
 
+
 def test_zero_copy_read_only_views():
     """Verify that native Structures returns read-only zero-copy views for coordinates and box."""
     # Create a small native structures instance
-    coors = np.random.rand(10, 5, 3) # n_structures=10, n_atoms=5
-    box = np.eye(3).reshape(1, 3, 3).repeat(10, axis=0) # [10, 3, 3]
-    
+    coors = np.random.rand(10, 5, 3)  # n_structures=10, n_atoms=5
+    box = np.eye(3).reshape(1, 3, 3).repeat(10, axis=0)  # [10, 3, 3]
+
     structs = Structures(
-        coordinates=puw.quantity(coors, 'nm'),
-        box=puw.quantity(box, 'nm')
+        coordinates=puw.quantity(coors, "nm"), box=puw.quantity(box, "nm")
     )
-    
+
     # Internal arrays should be float64 numpy arrays and read-only
     assert structs._coordinates is not None
     assert structs._coordinates.flags.writeable is False
     assert structs._box is not None
     assert structs._box.flags.writeable is False
-    
+
     # Coordinates retrieved via getter property should be wrapped in quantity
     coords_q = structs.coordinates
     assert puw.is_quantity(coords_q)
-    
+
     # Underlying array should still be read-only
     underlying = puw.get_value(coords_q)
     assert underlying.flags.writeable is False
-    
+
     # Trying to mutate should raise ValueError
     with pytest.raises(ValueError):
         underlying[0, 0, 0] = 999.0
+
 
 def test_native_parallel_kernel_surface():
     """Verify that the public operations backed by native kernels execute."""
     # Load pentalanine molecular system
     from molsysmt import systems
-    molsys = msm.convert(systems['pentalanine']['traj_pentalanine.h5'], to_form='molsysmt.MolSys')
-    
+
+    molsys = msm.convert(
+        systems["pentalanine"]["traj_pentalanine.h5"], to_form="molsysmt.MolSys"
+    )
+
     center_serial = msm.structure.get_center(
         molsys,
         selection="backbone",
@@ -172,21 +174,21 @@ def test_native_parallel_kernel_surface():
         num_threads=2,
     )
     assert np.allclose(puw.get_value(center_serial), puw.get_value(center_parallel))
-    
+
     # Test get_distances
     distances = msm.structure.get_distances(
         molsys,
-        selection='backbone',
+        selection="backbone",
         structure_indices=range(5),
         parallel=True,
         num_threads=2,
     )
     assert distances is not None
-    
+
     # Test get_rmsd
     rmsd = msm.structure.get_rmsd(
         molsys,
-        selection='backbone',
+        selection="backbone",
         reference_structure_index=0,
         parallel=False,
     )
@@ -195,7 +197,7 @@ def test_native_parallel_kernel_surface():
     # Test get_least_rmsd
     least_rmsd = msm.structure.get_least_rmsd(
         molsys,
-        selection='backbone',
+        selection="backbone",
         reference_structure_index=0,
         parallel=True,
         num_threads=2,
@@ -203,15 +205,16 @@ def test_native_parallel_kernel_surface():
     assert least_rmsd is not None
 
     # Test get_least_rmsd on GPU (will execute on GPU if CUDA is available, or fallback to CPU safely)
-    lr_gpu = msm.structure.get_least_rmsd(molsys, selection='backbone', reference_structure_index=0, use_gpu=True)
+    lr_gpu = msm.structure.get_least_rmsd(
+        molsys, selection="backbone", reference_structure_index=0, use_gpu=True
+    )
     assert lr_gpu is not None
-
 
     # Test least_rmsd_fit
     fit = msm.structure.least_rmsd_fit(
         molsys,
-        selection='backbone',
-        selection_fit='backbone',
+        selection="backbone",
+        selection_fit="backbone",
         reference_structure_index=0,
         parallel=True,
         num_threads=2,
@@ -222,8 +225,8 @@ def test_native_parallel_kernel_surface():
 def test_gpu_mode_configuration():
     """Verify that default, context manager overrides, and resolution of gpu_mode function correctly."""
     # Verify default config values
-    assert msm.configure.gpu_mode == 'auto'
-    assert msm.configure.use_gpu == 'auto'
+    assert msm.configure.gpu_mode == "auto"
+    assert msm.configure.use_gpu == "auto"
     assert msm.configure.gpu_threshold == 3_000_000
 
     # Test context manager temporary overrides
@@ -237,9 +240,9 @@ def test_gpu_mode_configuration():
 
     # Test resolve_use_gpu utility
     from molsysmt._private.gpu import resolve_use_gpu
-    
+
     with msm.configure.context(gpu_mode=False):
         # Even if per-call is auto, if global is False, resolve_use_gpu returns False
-        assert resolve_use_gpu('auto', payload_size=5_000_000) is False
+        assert resolve_use_gpu("auto", payload_size=5_000_000) is False
         # If per-call is False, it returns False
         assert resolve_use_gpu(False, payload_size=5_000_000) is False

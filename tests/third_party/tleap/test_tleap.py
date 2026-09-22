@@ -1,6 +1,7 @@
 import os
 import shutil
 from pathlib import Path
+
 import pytest
 
 from molsysmt.third_party.tleap import TLeap
@@ -111,7 +112,9 @@ def test_run_strict_mode_flags_critical_patterns(monkeypatch, tmp_path):
 
     monkeypatch.setattr("subprocess.run", fake_run)
 
-    with pytest.raises(RuntimeError, match="Strict mode flagged critical LEaP diagnostics"):
+    with pytest.raises(
+        RuntimeError, match="Strict mode flagged critical LEaP diagnostics"
+    ):
         tleap.run(working_directory=str(workdir), strict=True, verbose=False)
 
 
@@ -126,6 +129,7 @@ def test_run_reports_missing_tleap_binary(tmp_path):
 
 def test_sanitize_unit_name_rejects_empty():
     from molsysmt import ArgumentError
+
     with pytest.raises(ArgumentError):
         TLeap._sanitize_unit_name("")
 

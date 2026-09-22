@@ -1,7 +1,7 @@
 """Tests for fail-fast heavy-execution behavior."""
 
-from types import SimpleNamespace
 import warnings
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -54,7 +54,9 @@ def _executor(reducers, n_chunks=1):
         "time": None,
         "structure_indices": np.array([0]),
     }
-    executor._get_form_iterator = lambda structure_indices, chunk_size: _Iterator([chunk] * n_chunks)
+    executor._get_form_iterator = lambda structure_indices, chunk_size: _Iterator(
+        [chunk] * n_chunks
+    )
     executor._build_chunk = lambda raw_chunk: raw_chunk
     return executor
 
@@ -89,8 +91,9 @@ def test_heavy_executor_propagates_chunk_normalization_exception():
 
 
 def test_memory_pressure_warning_rearms_after_pressure_recovers(monkeypatch):
-    import molsysmt.configure as config
     import psutil
+
+    import molsysmt.configure as config
 
     reducer = _RecordingReducer()
     executor = _executor([reducer], n_chunks=4)
@@ -118,7 +121,8 @@ def test_memory_pressure_warning_rearms_after_pressure_recovers(monkeypatch):
         config.memory_pressure_threshold = old_threshold
 
     pressure_warnings = [
-        warning for warning in caught
+        warning
+        for warning in caught
         if issubclass(warning.category, MemoryPressureWarning)
     ]
     assert len(pressure_warnings) == 2

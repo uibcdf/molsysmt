@@ -8,10 +8,10 @@ def test_conversion_returns_requested_subsequence():
     from Bio.SeqRecord import SeqRecord
 
     record = msm.convert(
-        'YGGFM',
-        to_form='biopython.SeqRecord',
+        "YGGFM",
+        to_form="biopython.SeqRecord",
         selection=[0, 2, 4],
     )
 
     assert isinstance(record, SeqRecord)
-    assert str(record.seq) == 'YGM'
+    assert str(record.seq) == "YGM"

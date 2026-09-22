@@ -13,19 +13,29 @@ from molsysmt._private.smonitor import ArgumentError
 
 
 def test_viewer_and_misc_digesters():
-    view = msm.view(msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm'], viewer='NGLView')
+    view = msm.view(
+        msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"], viewer="NGLView"
+    )
     assert digest_view(view) is view
-    assert digest_viewer('nglview') == 'NGLView'
-    assert digest_representation('cartoon', caller='molsysmt.third_party.nglview.add_representation.add_representation') == 'cartoon'
+    assert digest_viewer("nglview") == "NGLView"
+    assert (
+        digest_representation(
+            "cartoon",
+            caller="molsysmt.third_party.nglview.add_representation.add_representation",
+        )
+        == "cartoon"
+    )
     assert digest_pairs(True) is True
-    assert digest_filename('output.dat') == 'output.dat'
+    assert digest_filename("output.dat") == "output.dat"
     assert digest_as_entity(True) is True
     assert digest_as_entity_2(False) is False
-    assert digest_keys('group_name', caller='molsysmt.build.mutate.mutate') == 'group_name'
+    assert (
+        digest_keys("group_name", caller="molsysmt.build.mutate.mutate") == "group_name"
+    )
 
     with pytest.raises(ArgumentError):
-        digest_viewer('bad-viewer')
+        digest_viewer("bad-viewer")
     with pytest.raises(ArgumentError):
-        digest_pairs('yes')
+        digest_pairs("yes")
     with pytest.raises(ArgumentError):
         digest_filename(5)

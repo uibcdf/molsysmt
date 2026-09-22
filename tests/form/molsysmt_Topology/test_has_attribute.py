@@ -7,18 +7,18 @@ from molsysmt.native import Topology
 
 
 @pytest.mark.parametrize(
-    'attribute',
+    "attribute",
     [
-        'isotope',
-        'formal_charge',
-        'chemical_state_id',
-        'component_index',
-        'component_id',
-        'component_name',
-        'component_type',
-        'bond_id',
-        'fractional_bond_order',
-        'bond_is_aromatic',
+        "isotope",
+        "formal_charge",
+        "chemical_state_id",
+        "component_index",
+        "component_id",
+        "component_name",
+        "component_type",
+        "bond_id",
+        "fractional_bond_order",
+        "bond_is_aromatic",
     ],
 )
 def test_unmaterialized_topology_attributes_are_not_present(attribute):
@@ -29,18 +29,18 @@ def test_unmaterialized_topology_attributes_are_not_present(attribute):
 
 
 @pytest.mark.parametrize(
-    'attribute',
+    "attribute",
     [
-        'n_atoms',
-        'n_groups',
-        'n_components',
-        'n_bonds',
-        'n_chemical_states',
-        'chemical_state_index',
-        'reference_chemical_state_index',
-        'connectivity_completeness',
-        'component_completeness',
-        'component_evidence',
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_bonds",
+        "n_chemical_states",
+        "chemical_state_index",
+        "reference_chemical_state_index",
+        "connectivity_completeness",
+        "component_completeness",
+        "component_evidence",
     ],
 )
 def test_derived_and_explicit_state_metadata_are_available(attribute):
@@ -51,15 +51,15 @@ def test_derived_and_explicit_state_metadata_are_available(attribute):
 
 def test_materialized_state_id_and_component_are_present():
     topology = Topology(n_atoms=2, skip_digestion=True)
-    topology._reference_chemical_state.state_id = 'reactant'
+    topology._reference_chemical_state.state_id = "reactant"
     topology._set_component_indices([0, 0])
     topology.reset_components(n_components=1)
 
     for attribute in (
-        'chemical_state_id',
-        'component_index',
-        'component_id',
-        'component_name',
-        'component_type',
+        "chemical_state_id",
+        "component_index",
+        "component_id",
+        "component_name",
+        "component_type",
     ):
         assert msm.has_attribute(topology, attribute)

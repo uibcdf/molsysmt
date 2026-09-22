@@ -8,9 +8,10 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 
-
 mdtraj = pytest.importorskip("mdtraj")
-DCD_PATH = Path(msm.__file__).parent / "data" / "dcd" / "traj_chicken_villin_HP35_solvated.dcd"
+DCD_PATH = (
+    Path(msm.__file__).parent / "data" / "dcd" / "traj_chicken_villin_HP35_solvated.dcd"
+)
 
 
 def test_dcd_getters_preserve_cursor_and_support_subsets():

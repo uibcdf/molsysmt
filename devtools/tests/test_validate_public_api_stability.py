@@ -1,7 +1,4 @@
-import pytest
-from pathlib import Path
 from devtools.scripts.validate_public_api_stability import (
-    validate_api_stability,
     compare_signatures,
 )
 

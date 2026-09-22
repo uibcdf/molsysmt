@@ -11,6 +11,7 @@ Oracle: AF-P62258-F1 (human 14-3-3 protein epsilon, YWHAE), 255 residues.
 """
 
 import pytest
+
 from molsysmt.form.string_alphafold_id import get_topological_attributes as aux
 
 N_GROUPS = 255
@@ -20,5 +21,5 @@ N_GROUPS = 255
 @pytest.mark.xdist_group("network")
 def test_download_and_basic_count():
     """Download AF-P62258-F1 from AlphaFold DB and verify group count."""
-    n = aux.get_n_groups_from_system('alphafold_id:AF-P62258-F1')
+    n = aux.get_n_groups_from_system("alphafold_id:AF-P62258-F1")
     assert n == N_GROUPS

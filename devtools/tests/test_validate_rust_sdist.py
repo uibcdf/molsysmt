@@ -1,15 +1,10 @@
 """Regression tests for the MolSysMT Rust source-distribution validator."""
 
+import tarfile
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
-import tarfile
 
-
-SCRIPT = (
-    Path(__file__).resolve().parents[1]
-    / "scripts"
-    / "validate_rust_sdist.py"
-)
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_rust_sdist.py"
 SPEC = spec_from_file_location("validate_rust_sdist", SCRIPT)
 MODULE = module_from_spec(SPEC)
 assert SPEC.loader is not None

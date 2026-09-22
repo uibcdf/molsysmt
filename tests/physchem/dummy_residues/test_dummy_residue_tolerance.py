@@ -67,14 +67,14 @@ def _x_molsys():
 
 def test_group_table_value_neutral_for_dummy_and_raises_for_unknown():
     table = {"ALA": 0.0, "ARG": 1.0}
-    assert group_table_value(table, "arg") == 1.0   # real residue, case-insensitive
-    assert group_table_value(table, "DUM") == 0.0   # DUM dummy residue -> neutral
-    assert group_table_value(table, "X") == 0.0     # X dummy residue -> neutral
+    assert group_table_value(table, "arg") == 1.0  # real residue, case-insensitive
+    assert group_table_value(table, "DUM") == 0.0  # DUM dummy residue -> neutral
+    assert group_table_value(table, "X") == 0.0  # X dummy residue -> neutral
     assert group_table_value(table, "DUM", neutral=np.nan) != group_table_value(
         table, "DUM", neutral=np.nan
     )  # neutral override propagates (NaN != NaN)
     with pytest.raises(KeyError):
-        group_table_value(table, "XYZ")             # genuine unknown still raises
+        group_table_value(table, "XYZ")  # genuine unknown still raises
 
 
 def test_x_dummy_atom_and_group_are_neutral():

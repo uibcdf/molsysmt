@@ -1,26 +1,30 @@
-import pytest
 import numpy as np
-from molsysmt import pyunitwizard as puw
+import pytest
+
 import molsysmt as msm
-from molsysmt.configure import context
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import GpuNotAvailableWarning
+from molsysmt.configure import context
 
 
 def test_least_rmsd_fit_gpu_vacuum():
     """Verify that GPU-accelerated least_rmsd_fit matches CPU references exactly."""
     # Create 10 synthetic coordinate points
-    ref_coords_val = np.array([
-        [0.0, 0.0, 0.0],
-        [1.0, 0.0, 0.0],
-        [0.0, 1.0, 0.0],
-        [0.0, 0.0, 1.0],
-        [1.0, 1.0, 1.0],
-        [2.0, 3.0, 4.0],
-        [-1.0, 2.5, 0.0],
-        [0.5, -0.5, 2.0],
-        [1.2, 0.8, -0.4],
-        [-0.5, -0.5, -0.5]
-    ], dtype=np.float64)
+    ref_coords_val = np.array(
+        [
+            [0.0, 0.0, 0.0],
+            [1.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0],
+            [0.0, 0.0, 1.0],
+            [1.0, 1.0, 1.0],
+            [2.0, 3.0, 4.0],
+            [-1.0, 2.5, 0.0],
+            [0.5, -0.5, 2.0],
+            [1.2, 0.8, -0.4],
+            [-0.5, -0.5, -0.5],
+        ],
+        dtype=np.float64,
+    )
 
     # Let's define a translation and a rotation matrix
     translation = np.array([1.5, -2.0, 0.5])
@@ -29,27 +33,30 @@ def test_least_rmsd_fit_gpu_vacuum():
     query_coords_val = rotated_coords_val + translation
 
     # Add frame and unit dimensions
-    ref_coords = puw.quantity(ref_coords_val[np.newaxis, :, :], 'nm')
-    query_coords = puw.quantity(query_coords_val[np.newaxis, :, :], 'nm')
+    ref_coords = puw.quantity(ref_coords_val[np.newaxis, :, :], "nm")
+    query_coords = puw.quantity(query_coords_val[np.newaxis, :, :], "nm")
 
     # Perform alignment on CPU
     fitted_cpu = msm.structure.least_rmsd_fit(
         query_coords,
-        selection='all',
-        selection_fit='all',
+        selection="all",
+        selection_fit="all",
         reference_molecular_system=ref_coords,
-        use_gpu=False
+        use_gpu=False,
     )
 
     # Perform alignment on GPU (converts to CPU fallback gracefully or runs CUDA)
-    with pytest.warns(GpuNotAvailableWarning, match="GPU acceleration was requested but is not available"):
+    with pytest.warns(
+        GpuNotAvailableWarning,
+        match="GPU acceleration was requested but is not available",
+    ):
         fitted_gpu = msm.structure.least_rmsd_fit(
             query_coords,
-            selection='all',
-            selection_fit='all',
+            selection="all",
+            selection_fit="all",
             reference_molecular_system=ref_coords,
             use_gpu=True,
-            gpu_backend='cuda'
+            gpu_backend="cuda",
         )
 
     # Assert match within precision bounds
@@ -61,33 +68,34 @@ def test_least_rmsd_fit_gpu_vacuum():
 
 def test_least_rmsd_fit_precision_policies():
     """Verify that the mixed-precision policy ('single' vs 'double') casts coordinates correctly."""
-    ref_coords_val = np.array([
-        [0.0, 0.0, 0.0],
-        [1.0, 1.0, 1.0],
-        [2.0, -1.0, 3.0]
-    ], dtype=np.float64)
-    ref_coords = puw.quantity(ref_coords_val[np.newaxis, :, :], 'nm')
+    ref_coords_val = np.array(
+        [[0.0, 0.0, 0.0], [1.0, 1.0, 1.0], [2.0, -1.0, 3.0]], dtype=np.float64
+    )
+    ref_coords = puw.quantity(ref_coords_val[np.newaxis, :, :], "nm")
 
     # Double precision (float64)
-    with context(precision='double'):
+    with context(precision="double"):
         fitted_double = msm.structure.least_rmsd_fit(
             ref_coords,
-            selection='all',
-            selection_fit='all',
+            selection="all",
+            selection_fit="all",
             reference_molecular_system=ref_coords,
-            use_gpu=False
+            use_gpu=False,
         )
         assert puw.get_value(fitted_double).dtype == np.float64
 
     # Single precision (float32)
-    with context(precision='single'):
-        with pytest.warns(GpuNotAvailableWarning, match="GPU acceleration was requested but is not available"):
+    with context(precision="single"):
+        with pytest.warns(
+            GpuNotAvailableWarning,
+            match="GPU acceleration was requested but is not available",
+        ):
             fitted_single = msm.structure.least_rmsd_fit(
                 ref_coords,
-                selection='all',
-                selection_fit='all',
+                selection="all",
+                selection_fit="all",
                 reference_molecular_system=ref_coords,
                 use_gpu=True,
-                precision='single'
+                precision="single",
             )
         assert puw.get_value(fitted_single).dtype == np.float32

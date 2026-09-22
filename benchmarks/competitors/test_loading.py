@@ -15,11 +15,13 @@ repo_root = str(Path(__file__).resolve().parents[2])
 if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
-import molsysmt as msm
-from benchmarks.harness import BenchmarkHarness
+import molsysmt as msm  # noqa: E402
+from benchmarks.harness import BenchmarkHarness  # noqa: E402
 
 
-def run_loading_benchmarks(pdb_path: str, output_results: list | None = None) -> list[dict]:
+def run_loading_benchmarks(
+    pdb_path: str, output_results: list | None = None
+) -> list[dict]:
     """Execute trajectory loading benchmarks comparing MolSysMT, MDTraj, and MDAnalysis.
 
     Parameters
@@ -34,19 +36,28 @@ def run_loading_benchmarks(pdb_path: str, output_results: list | None = None) ->
     list[dict]
         Benchmark timing results.
     """
-    dcd_path = str(msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd'])
-    h5_path = str(msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5'])
+    dcd_path = str(
+        msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.dcd"]
+    )
+    h5_path = str(
+        msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.h5"]
+    )
 
     # 1. MolSysMT Eager Trajectory Loading
-    harness_msm = BenchmarkHarness("competitor_loading_molsysmt", iterations=10, repeats=5)
+    harness_msm = BenchmarkHarness(
+        "competitor_loading_molsysmt", iterations=10, repeats=5
+    )
 
     def load_msm():
-        coords = msm.get(dcd_path, element='atom', coordinates=True)
+        coords = msm.get(dcd_path, element="atom", coordinates=True)
         return coords
 
     # 2. MDTraj Loading
     import mdtraj
-    harness_mdtraj = BenchmarkHarness("competitor_loading_mdtraj", iterations=10, repeats=5)
+
+    harness_mdtraj = BenchmarkHarness(
+        "competitor_loading_mdtraj", iterations=10, repeats=5
+    )
 
     def load_mdtraj():
         t = mdtraj.load(dcd_path, top=h5_path)
@@ -54,12 +65,17 @@ def run_loading_benchmarks(pdb_path: str, output_results: list | None = None) ->
 
     # 3. MDAnalysis Loading
     import MDAnalysis
-    harness_mda = BenchmarkHarness("competitor_loading_mdanalysis", iterations=10, repeats=5)
+
+    harness_mda = BenchmarkHarness(
+        "competitor_loading_mdanalysis", iterations=10, repeats=5
+    )
 
     def load_mda():
         # Eager load coordinates in MDAnalysis by iterating or accessing coordinates to trigger disk load
         u = MDAnalysis.Universe(pdb_path, dcd_path)
-        coords = u.trajectory.timeseries()  # This triggers actual load of all coordinates
+        coords = (
+            u.trajectory.timeseries()
+        )  # This triggers actual load of all coordinates
         return coords
 
     results = []
@@ -87,7 +103,7 @@ if __name__ == "__main__":
     pdb_file = os.path.join(repo_root, "solvated_villin.pdb")
     if not os.path.exists(pdb_file):
         print(f"Generating temporary PDB file: {pdb_file}")
-        h5 = msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5']
-        msm.convert(h5, to_form='file:pdb', output_filename=pdb_file)
+        h5 = msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.h5"]
+        msm.convert(h5, to_form="file:pdb", output_filename=pdb_file)
 
     run_loading_benchmarks(pdb_file)

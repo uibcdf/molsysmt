@@ -15,9 +15,8 @@ repo_root = str(Path(__file__).resolve().parents[2])
 if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
-import molsysmt as msm
-from molsysmt import pyunitwizard as puw
-from benchmarks.harness import BenchmarkHarness, save_session_results
+from benchmarks.harness import BenchmarkHarness, save_session_results  # noqa: E402
+from molsysmt import pyunitwizard as puw  # noqa: E402
 
 
 def run_unit_benchmarks(output_path: str | None = None) -> list[dict]:
@@ -112,11 +111,21 @@ def run_unit_benchmarks(output_path: str | None = None) -> list[dict]:
     print("======================================================================")
     print(" MOLSYSMT PYUNITWIZARD MICRO-BENCHMARK PROFILE")
     print("======================================================================")
-    print(f" Fast-track to nanometers:     {res_ft_parse['median_seconds'] * 1e6:.2f} μs")
-    print(f" Standard nanometer parsing:   {res_std_parse['median_seconds'] * 1e6:.2f} μs")
-    print(f" Strip value (no conversion):  {res_get_value['median_seconds'] * 1e6:.2f} μs")
-    print(f" Convert & Strip value (m->nm): {res_get_value_convert['median_seconds'] * 1e6:.2f} μs")
-    print(f" Dimensionality check [L]^1:  {res_check_dim['median_seconds'] * 1e6:.2f} μs")
+    print(
+        f" Fast-track to nanometers:     {res_ft_parse['median_seconds'] * 1e6:.2f} μs"
+    )
+    print(
+        f" Standard nanometer parsing:   {res_std_parse['median_seconds'] * 1e6:.2f} μs"
+    )
+    print(
+        f" Strip value (no conversion):  {res_get_value['median_seconds'] * 1e6:.2f} μs"
+    )
+    print(
+        f" Convert & Strip value (m->nm): {res_get_value_convert['median_seconds'] * 1e6:.2f} μs"
+    )
+    print(
+        f" Dimensionality check [L]^1:  {res_check_dim['median_seconds'] * 1e6:.2f} μs"
+    )
     print("======================================================================")
 
     # Export if path is supplied

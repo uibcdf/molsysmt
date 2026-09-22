@@ -173,20 +173,12 @@ include = ["*.py", "*.pyi"]
 extend-exclude = [
     "ACKREDIT_GUIDE.md",
     "ARGDIGEST_GUIDE.md",
-    # Temporary migration boundary for paths still being cleaned under #212.
-    "benchmarks",
     "DEPDIGEST_GUIDE.md",
-    "devguide",
-    "docs",
     "GH_RUN_RECEPTOR_GUIDE.md",
-    "memory",
     "MOLSYSSUITE_GUIDE.md",
-    "paper",
     "PYTEST_RECEPTOR_GUIDE.md",
     "PYUNITWIZARD_GUIDE.md",
-    "sandbox",
     "SMONITOR_GUIDE.md",
-    "tests",
 ]
 
 [tool.ruff.lint.per-file-ignores]

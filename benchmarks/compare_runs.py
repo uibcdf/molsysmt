@@ -11,7 +11,9 @@ import json
 import sys
 
 
-def compare_baselines(baseline_path: str, current_path: str, threshold: float = 0.15) -> int:
+def compare_baselines(
+    baseline_path: str, current_path: str, threshold: float = 0.15
+) -> int:
     """Compare a current run against a reference baseline and audit for regressions.
 
     Parameters
@@ -63,7 +65,9 @@ def compare_baselines(baseline_path: str, current_path: str, threshold: float = 
 
     for name, curr_entry in curr_results.items():
         if name not in base_results:
-            print(f"ℹ️ New benchmark '{name}': median = {curr_entry['median_seconds'] * 1e6:.2f} μs (No baseline reference)")
+            print(
+                f"ℹ️ New benchmark '{name}': median = {curr_entry['median_seconds'] * 1e6:.2f} μs (No baseline reference)"
+            )
             continue
 
         base_entry = base_results[name]
@@ -115,10 +119,21 @@ def compare_baselines(baseline_path: str, current_path: str, threshold: float = 
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Enforce benchmarking regression limits.")
-    parser.add_argument("--baseline", required=True, help="Path to reference baseline JSON")
-    parser.add_argument("--current", required=True, help="Path to current benchmark session JSON")
-    parser.add_argument("--threshold", type=float, default=0.15, help="Regression ratio threshold (e.g. 0.15)")
+    parser = argparse.ArgumentParser(
+        description="Enforce benchmarking regression limits."
+    )
+    parser.add_argument(
+        "--baseline", required=True, help="Path to reference baseline JSON"
+    )
+    parser.add_argument(
+        "--current", required=True, help="Path to current benchmark session JSON"
+    )
+    parser.add_argument(
+        "--threshold",
+        type=float,
+        default=0.15,
+        help="Regression ratio threshold (e.g. 0.15)",
+    )
     args = parser.parse_args()
 
     sys.exit(compare_baselines(args.baseline, args.current, args.threshold))

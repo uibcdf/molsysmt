@@ -24,11 +24,27 @@ def molsys_builder_complete():
     group_index_0 = builder.add_group(atom_indices[:2], group_name="ALA")
     group_index_1 = builder.add_group(atom_indices[2:], group_name="HOH")
     builder.add_bond(atom_indices[0], atom_indices[1])
-    builder.add_chain([group_index_0, group_index_1], chain_id="A", chain_name="A", chain_type="mixed")
-    molecule_index_0 = builder.add_molecule([group_index_0], molecule_id="10", molecule_name="protein 0", molecule_type="protein")
-    molecule_index_1 = builder.add_molecule([group_index_1], molecule_id="11", molecule_name="water", molecule_type="water")
-    builder.add_entity([molecule_index_0], entity_id="20", entity_name="protein 0", entity_type="protein")
-    builder.add_entity([molecule_index_1], entity_id="21", entity_name="water", entity_type="water")
+    builder.add_chain(
+        [group_index_0, group_index_1], chain_id="A", chain_name="A", chain_type="mixed"
+    )
+    molecule_index_0 = builder.add_molecule(
+        [group_index_0],
+        molecule_id="10",
+        molecule_name="protein 0",
+        molecule_type="protein",
+    )
+    molecule_index_1 = builder.add_molecule(
+        [group_index_1], molecule_id="11", molecule_name="water", molecule_type="water"
+    )
+    builder.add_entity(
+        [molecule_index_0],
+        entity_id="20",
+        entity_name="protein 0",
+        entity_type="protein",
+    )
+    builder.add_entity(
+        [molecule_index_1], entity_id="21", entity_name="water", entity_type="water"
+    )
     builder.set_coordinates(
         puw.quantity(
             np.array(

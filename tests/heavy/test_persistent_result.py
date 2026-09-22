@@ -1,8 +1,9 @@
 """
 Tests for PersistentResultHandle disk-backed output.
 """
-import pytest
+
 import numpy as np
+
 from molsysmt._private.execution import PersistentResultHandle
 
 
@@ -65,5 +66,5 @@ def test_persistent_result_user_path_data_survives_cleanup(tmp_path):
     handle.cleanup()
 
     # Re-open via memmap (raw binary file, not .npy)
-    reloaded = np.memmap(str(user_file), dtype=np.float64, mode='r', shape=shape)
+    reloaded = np.memmap(str(user_file), dtype=np.float64, mode="r", shape=shape)
     np.testing.assert_allclose(reloaded, data)

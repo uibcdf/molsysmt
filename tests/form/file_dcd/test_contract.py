@@ -8,8 +8,9 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 
-
-DCD_PATH = Path(msm.__file__).parent / "data" / "dcd" / "traj_chicken_villin_HP35_solvated.dcd"
+DCD_PATH = (
+    Path(msm.__file__).parent / "data" / "dcd" / "traj_chicken_villin_HP35_solvated.dcd"
+)
 
 
 def _read_mdtraj_frames(structure_indices, atom_indices):

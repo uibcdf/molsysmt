@@ -4,9 +4,9 @@ Notebook Execution Runner for MolSysMT Master Course.
 Executes course notebooks to ensure all code cells run cleanly without errors.
 """
 
-import sys
-import subprocess
 import argparse
+import subprocess
+import sys
 from pathlib import Path
 
 COURSE_DIR = Path(__file__).resolve().parent.parent
@@ -66,6 +66,11 @@ def main(quiet: bool = False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Execute Master Course Notebooks")
-    parser.add_argument("-q", "--quiet", action="store_true", help="Quiet mode: suppress successful execution logs, show errors and summary only.")
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="Quiet mode: suppress successful execution logs, show errors and summary only.",
+    )
     args = parser.parse_args()
     main(quiet=args.quiet)

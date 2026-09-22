@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt import systems
 
-
 md = pytest.importorskip("mdtraj")
 
 
@@ -77,7 +76,8 @@ def test_frame_metadata_matches_mdtraj_hdf5_fields():
     )
     np.testing.assert_allclose(
         _values(observed["total_energy"], "kJ/mol"),
-        frames.kineticEnergy[structure_indices] + frames.potentialEnergy[structure_indices],
+        frames.kineticEnergy[structure_indices]
+        + frames.potentialEnergy[structure_indices],
         rtol=0.0,
         atol=1.0e-5,
     )

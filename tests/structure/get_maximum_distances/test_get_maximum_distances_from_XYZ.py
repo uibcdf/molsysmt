@@ -3,15 +3,17 @@ Unit and regression tests for get_maximum_distances on XYZ molecular systems.
 Covers as_entity=False, as_entity_2=False, and pairs=True branches.
 """
 
-import molsysmt as msm
-from molsysmt import systems, pyunitwizard as puw
-from molsysmt._private.smonitor import ArgumentConflictError
 import numpy as np
 import pytest
 
+import molsysmt as msm
+from molsysmt import pyunitwizard as puw
+from molsysmt import systems
+from molsysmt._private.smonitor import ArgumentConflictError
+
 
 def _get_molsys():
-    return msm.convert(systems['particles 4']['traj_particles_4.xyznpy'], to_form='XYZ')
+    return msm.convert(systems["particles 4"]["traj_particles_4.xyznpy"], to_form="XYZ")
 
 
 def test_as_entity_false_as_entity_2_true():
@@ -25,7 +27,7 @@ def test_as_entity_false_as_entity_2_true():
         as_entity_2=True,
         structure_indices=[1],
     )
-    dists_nm = puw.get_value(dists, to_unit='nm')
+    dists_nm = puw.get_value(dists, to_unit="nm")
     assert pairs.shape == (1, 3)
     assert dists_nm.shape == (1, 3)
     assert np.array_equal(pairs[0], [2, 0, 0])
@@ -43,11 +45,13 @@ def test_as_entity_true_as_entity_2_false():
         as_entity_2=False,
         structure_indices=[1],
     )
-    dists_nm = puw.get_value(dists, to_unit='nm')
+    dists_nm = puw.get_value(dists, to_unit="nm")
     assert pairs.shape == (1, 4)
     assert dists_nm.shape == (1, 4)
     assert np.array_equal(pairs[0], [2, 0, 0, 0])
-    assert np.allclose(dists_nm[0], [3.74165739, 3.46410162, 3.74165739, 2.44948974], atol=1e-5)
+    assert np.allclose(
+        dists_nm[0], [3.74165739, 3.46410162, 3.74165739, 2.44948974], atol=1e-5
+    )
 
 
 def test_as_entity_false_as_entity_2_false_raises():
@@ -74,7 +78,7 @@ def test_pairs_true_as_entity_true():
         pairs=True,
         structure_indices=[1],
     )
-    dists_nm = puw.get_value(dists, to_unit='nm')
+    dists_nm = puw.get_value(dists, to_unit="nm")
     assert np.array_equal(pairs, [1])
     assert np.allclose(dists_nm, [3.74165739], atol=1e-5)
 

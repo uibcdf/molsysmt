@@ -11,12 +11,11 @@ import json
 import os
 import platform
 import subprocess
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import median, stdev
 from time import perf_counter
-from typing import Callable, Any
+from typing import Any, Callable
 
 
 def _get_git_metadata() -> dict[str, str | bool | None]:
@@ -25,22 +24,22 @@ def _get_git_metadata() -> dict[str, str | bool | None]:
     repository = Path(__file__).resolve().parents[1]
     try:
         commit = subprocess.run(
-            ['git', 'rev-parse', 'HEAD'],
+            ["git", "rev-parse", "HEAD"],
             cwd=repository,
             check=True,
             capture_output=True,
             text=True,
         ).stdout.strip()
         status = subprocess.run(
-            ['git', 'status', '--porcelain'],
+            ["git", "status", "--porcelain"],
             cwd=repository,
             check=True,
             capture_output=True,
             text=True,
         ).stdout
     except (OSError, subprocess.CalledProcessError):
-        return {'git_commit': None, 'git_dirty': None}
-    return {'git_commit': commit, 'git_dirty': bool(status.strip())}
+        return {"git_commit": None, "git_dirty": None}
+    return {"git_commit": commit, "git_dirty": bool(status.strip())}
 
 
 def _get_peak_rss_mb() -> float:
@@ -56,14 +55,13 @@ def _get_peak_rss_mb() -> float:
         pass
     try:
         import resource
+
         return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0
     except Exception:
         return 0.0
 
 
 def _subprocess_worker(warmup_func, timed_func, iterations, repeats, queue):
-    import gc
-    from time import perf_counter
     # 1. Capture base memory before workload preparation.
     base_rss = _get_peak_rss_mb()
 
@@ -109,7 +107,9 @@ class BenchmarkHarness:
         self.iterations = iterations
         self.repeats = repeats
 
-    def run(self, warmup_func: Callable[[], Any], timed_func: Callable[[], Any]) -> dict[str, Any]:
+    def run(
+        self, warmup_func: Callable[[], Any], timed_func: Callable[[], Any]
+    ) -> dict[str, Any]:
         """Execute the benchmark inside an isolated subprocess to prevent peak RAM contamination.
 
         Parameters
@@ -126,18 +126,20 @@ class BenchmarkHarness:
         """
         import multiprocessing
 
-        ctx = multiprocessing.get_context('fork')
+        ctx = multiprocessing.get_context("fork")
         queue = ctx.Queue()
 
         p = ctx.Process(
             target=_subprocess_worker,
-            args=(warmup_func, timed_func, self.iterations, self.repeats, queue)
+            args=(warmup_func, timed_func, self.iterations, self.repeats, queue),
         )
         p.start()
         p.join()
 
         if p.exitcode != 0:
-            raise RuntimeError(f"Benchmark worker process for {self.name} failed with exit code {p.exitcode}")
+            raise RuntimeError(
+                f"Benchmark worker process for {self.name} failed with exit code {p.exitcode}"
+            )
 
         samples, base_rss, peak_rss = queue.get()
 
@@ -171,8 +173,9 @@ class BenchmarkHarness:
         }
 
 
-
-def save_session_results(session_name: str, results: list[dict[str, Any]], output_path: str) -> None:
+def save_session_results(
+    session_name: str, results: list[dict[str, Any]], output_path: str
+) -> None:
     """Save a list of benchmark results to a structured JSON file.
 
     Parameters

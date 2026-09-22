@@ -11,39 +11,42 @@ Parity: Universe topology == source PDB topology (atom count, group count,
 chain count, atom names, group names).
 """
 
-import pytest
 import warnings
 from pathlib import Path
+
+import pytest
+
 import molsysmt as msm
 
-
-PDB_PATH = str(Path(msm.__file__).parent / 'data' / 'pdb' / '1l2y.pdb')
-N_ATOMS  = 304
+PDB_PATH = str(Path(msm.__file__).parent / "data" / "pdb" / "1l2y.pdb")
+N_ATOMS = 304
 N_GROUPS = 20
 N_CHAINS = 1
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def universe():
-    return msm.convert(PDB_PATH, to_form='MDAnalysis.Universe')
+    return msm.convert(PDB_PATH, to_form="MDAnalysis.Universe")
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def universe_topology(universe):
-    return msm.convert(universe, to_form='molsysmt.Topology')
+    return msm.convert(universe, to_form="molsysmt.Topology")
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def source_topology():
-    return msm.convert(PDB_PATH, to_form='molsysmt.Topology')
+    return msm.convert(PDB_PATH, to_form="molsysmt.Topology")
 
 
 # ---------------------------------------------------------------------------
 # Contract: MDAnalysis.Universe can be created and converted to Topology
 # ---------------------------------------------------------------------------
 
+
 def test_universe_is_created(universe):
     import MDAnalysis as mda
+
     assert isinstance(universe, mda.Universe)
 
 
@@ -63,6 +66,7 @@ def test_universe_topology_chain_count(universe_topology):
 # Parity: MDAnalysis.Universe topology == source PDB topology
 # ---------------------------------------------------------------------------
 
+
 def test_parity_atom_count(universe_topology, source_topology):
     assert universe_topology.n_atoms == source_topology.n_atoms
 
@@ -76,14 +80,20 @@ def test_parity_chain_count(universe_topology, source_topology):
 
 
 def test_parity_atom_names(universe_topology, source_topology):
-    assert universe_topology.atoms['atom_name'].tolist() == source_topology.atoms['atom_name'].tolist()
+    assert (
+        universe_topology.atoms["atom_name"].tolist()
+        == source_topology.atoms["atom_name"].tolist()
+    )
 
 
 def test_parity_group_names(universe_topology, source_topology):
-    assert universe_topology.groups['group_name'].tolist() == source_topology.groups['group_name'].tolist()
+    assert (
+        universe_topology.groups["group_name"].tolist()
+        == source_topology.groups["group_name"].tolist()
+    )
 
 
 def test_pdb_universe_does_not_invent_time(universe):
     with warnings.catch_warnings():
-        warnings.simplefilter('error', UserWarning)
-        assert msm.get(universe, element='system', time=True) is None
+        warnings.simplefilter("error", UserWarning)
+        assert msm.get(universe, element="system", time=True) is None

@@ -1,30 +1,31 @@
 import molsysmt as msm
-
-from molsysmt.native import ViewerJSON
 from molsysmt.form.molsysmt_ViewerJSON.to_molsysmt_MolSys import to_molsysmt_MolSys
+from molsysmt.native import ViewerJSON
 
 
 def test_viewerjson_to_molsys_preserves_bond_type_and_charges():
-    viewer_json = ViewerJSON(data={
-        "version": "0.1",
-        "atoms": {
-            "atom_id": ["0", "1"],
-            "atom_name": ["N", "O"],
-            "group_id": ["1", "1"],
-            "group_name": ["LIG", "LIG"],
-            "chain_id": ["1", "1"],
-            "entity_id": ["1", "1"],
-            "element_symbol": ["N", "O"],
-            "formal_charge": [1, -1],
-            "partial_charge": [0.25, -0.25],
-        },
-        "bonds": {
-            "atom_pairs": [[0, 1]],
-            "order": ["2"],
-            "type": ["double"],
-        },
-        "structures": [],
-    })
+    viewer_json = ViewerJSON(
+        data={
+            "version": "0.1",
+            "atoms": {
+                "atom_id": ["0", "1"],
+                "atom_name": ["N", "O"],
+                "group_id": ["1", "1"],
+                "group_name": ["LIG", "LIG"],
+                "chain_id": ["1", "1"],
+                "entity_id": ["1", "1"],
+                "element_symbol": ["N", "O"],
+                "formal_charge": [1, -1],
+                "partial_charge": [0.25, -0.25],
+            },
+            "bonds": {
+                "atom_pairs": [[0, 1]],
+                "order": ["2"],
+                "type": ["double"],
+            },
+            "structures": [],
+        }
+    )
 
     molsys = to_molsysmt_MolSys(viewer_json)
 

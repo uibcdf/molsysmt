@@ -19,8 +19,8 @@ def _restore_smonitor_profile():
 
 def test_pyunitwizard_parser_error_has_message():
     """Parser exceptions should resolve to non-empty catalog-backed messages."""
-    from pyunitwizard.parse import parse
     from pyunitwizard._private.exceptions import LibraryWithoutParserError
+    from pyunitwizard.parse import parse
 
     with pytest.raises(LibraryWithoutParserError) as excinfo:
         parse("1 nm", parser="openmm.unit")
@@ -47,6 +47,7 @@ def test_depdigest_missing_dependency_raises_readable_error():
 def test_molsysmt_download_warning_resolves_with_context():
     """MolSysMT download warnings should expose actionable QA/developer context."""
     import smonitor
+
     from molsysmt._private.smonitor import CODES, message_from_catalog
 
     smonitor.configure(profile="qa", codes=CODES)
@@ -72,6 +73,7 @@ def test_molsysmt_download_warning_resolves_with_context():
 def test_molsysmt_ambiguous_structure_warning_exposes_count_and_caller():
     """Ambiguous structure warnings should expose caller and structure count."""
     import smonitor
+
     from molsysmt._private.smonitor import CODES, message_from_catalog
 
     smonitor.configure(profile="qa", codes=CODES)
@@ -91,6 +93,7 @@ def test_molsysmt_ambiguous_structure_warning_exposes_count_and_caller():
 def test_molsysmt_model_mismatch_warning_exposes_model_count():
     """Model mismatch warnings should expose the number of incompatible models."""
     import smonitor
+
     from molsysmt._private.smonitor import CODES, message_from_catalog
 
     smonitor.configure(profile="qa", codes=CODES)
@@ -110,6 +113,7 @@ def test_molsysmt_model_mismatch_warning_exposes_model_count():
 def test_molsysmt_cross_chain_bond_warning_exposes_pair_count():
     """Cross-chain bond warnings should expose caller and pair count."""
     import smonitor
+
     from molsysmt._private.smonitor import CODES, message_from_catalog
 
     smonitor.configure(profile="qa", codes=CODES)
@@ -132,6 +136,7 @@ def test_molsysmt_cross_chain_bond_warning_exposes_pair_count():
 def test_not_implemented_method_error_resolves_with_method_context():
     """Method-not-implemented diagnostics should expose method and arguments."""
     import smonitor
+
     from molsysmt._private.smonitor import NotImplementedMethodError
 
     smonitor.configure(profile="qa")
@@ -165,6 +170,7 @@ def test_not_with_this_form_error_resolves_with_form_and_attribute_context():
 def test_file_content_error_resolves_with_record_context():
     """File content diagnostics should expose parser record context when available."""
     import smonitor
+
     from molsysmt._private.smonitor import CODES, message_from_catalog
 
     smonitor.configure(profile="qa", codes=CODES)

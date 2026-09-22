@@ -10,27 +10,27 @@ from molsysmt._private.conversion_report import (
 
 
 @pytest.mark.parametrize(
-    ('source_form', 'target_form'),
+    ("source_form", "target_form"),
     [
-        ('molsysmt.MolSys', 'molsysmt.Topology'),
-        ('molsysmt.MolSys', 'molsysmt.Structures'),
-        ('molsysmt.StructuresDict', 'molsysmt.MolSys'),
-        ('molsysmt.StructuresDict', 'molsysmt.Topology'),
+        ("molsysmt.MolSys", "molsysmt.Topology"),
+        ("molsysmt.MolSys", "molsysmt.Structures"),
+        ("molsysmt.StructuresDict", "molsysmt.MolSys"),
+        ("molsysmt.StructuresDict", "molsysmt.Topology"),
     ],
 )
 def test_direct_native_projection_profiles_are_statically_exhaustive(
     source_form,
     target_form,
 ):
-    assert get_conversion_audit_scopes(source_form, target_form) == ('all',)
+    assert get_conversion_audit_scopes(source_form, target_form) == ("all",)
     assert is_conversion_audit_exhaustive(source_form, target_form)
 
 
 @pytest.mark.parametrize(
-    ('target_form', 'lost_attribute', 'scope'),
+    ("target_form", "lost_attribute", "scope"),
     [
-        ('molsysmt.Topology', 'coordinates', 'structures'),
-        ('molsysmt.Structures', 'atom_name', 'topology'),
+        ("molsysmt.Topology", "coordinates", "structures"),
+        ("molsysmt.Structures", "atom_name", "topology"),
     ],
 )
 def test_molsys_projection_reports_present_unsupported_domains(
@@ -45,9 +45,9 @@ def test_molsys_projection_reports_present_unsupported_domains(
         return_report=True,
     )
 
-    assert report.audited_scopes == ('all',)
+    assert report.audited_scopes == ("all",)
     assert report.is_exhaustive
-    assert report.outcome == 'lossy'
+    assert report.outcome == "lossy"
     issues = {issue.attribute: issue for issue in report.issues}
     assert issues[lost_attribute].scope == scope
 
@@ -63,20 +63,20 @@ def test_structuresdict_to_molsys_reports_equivalent_exhaustive_projection(
 ):
     source = msm.convert(
         rich_molsys.structures,
-        to_form='molsysmt.StructuresDict',
+        to_form="molsysmt.StructuresDict",
     )
 
     target, report = msm.convert(
         source,
-        to_form='molsysmt.MolSys',
+        to_form="molsysmt.MolSys",
         selection=[2, 0],
         structure_indices=[2, 0],
         return_report=True,
     )
 
-    assert report.audited_scopes == ('all',)
+    assert report.audited_scopes == ("all",)
     assert report.is_exhaustive
-    assert report.outcome == 'equivalent'
+    assert report.outcome == "equivalent"
     assert target.topology.n_atoms == target.structures.n_atoms == 2
     assert target.structures.n_structures == 2
 
@@ -84,20 +84,20 @@ def test_structuresdict_to_molsys_reports_equivalent_exhaustive_projection(
 def test_structuresdict_to_topology_reports_structural_loss(rich_molsys):
     source = msm.convert(
         rich_molsys.structures,
-        to_form='molsysmt.StructuresDict',
+        to_form="molsysmt.StructuresDict",
     )
 
     _, report = msm.convert(
         source,
-        to_form='molsysmt.Topology',
+        to_form="molsysmt.Topology",
         return_report=True,
     )
 
-    assert report.audited_scopes == ('all',)
+    assert report.audited_scopes == ("all",)
     assert report.is_exhaustive
-    assert report.outcome == 'lossy'
+    assert report.outcome == "lossy"
     issues = {issue.attribute: issue for issue in report.issues}
-    assert issues['coordinates'].scope == 'structures'
+    assert issues["coordinates"].scope == "structures"
 
-    with pytest.raises(msm.NotCompatibleConversionError, match='coordinates'):
-        msm.convert(source, to_form='molsysmt.Topology', strict=True)
+    with pytest.raises(msm.NotCompatibleConversionError, match="coordinates"):
+        msm.convert(source, to_form="molsysmt.Topology", strict=True)

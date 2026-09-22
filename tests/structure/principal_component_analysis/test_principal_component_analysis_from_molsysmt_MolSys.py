@@ -4,27 +4,28 @@ systems.
 """
 
 # Import package, test suite, and other packages as needed
-import molsysmt as msm
-from molsysmt import systems
-from molsysmt import pyunitwizard as puw
 import numpy as np
+
+import molsysmt as msm
+from molsysmt import pyunitwizard as puw
 
 # Distance between atoms in space and time
 
+
 def test_principal_component_analysis_from_molsysmt_MolSys_1():
 
-    molecular_system = msm.systems['pentalanine']['traj_pentalanine.h5']
-    molecular_system = msm.convert(molecular_system, to_form='molsysmt.MolSys')
+    molecular_system = msm.systems["pentalanine"]["traj_pentalanine.h5"]
+    molecular_system = msm.convert(molecular_system, to_form="molsysmt.MolSys")
 
     eigenvectors, eigenvalues = msm.structure.principal_component_analysis(
         molecular_system, selection='atom_name=="CA"'
     )
-    eigenvalues = puw.get_value(eigenvalues, to_unit='nm**2')
+    eigenvalues = puw.get_value(eigenvalues, to_unit="nm**2")
 
     # Canonical PCA reference implementation with full covariance.
     coordinates = msm.get(
         molecular_system,
-        element='atom',
+        element="atom",
         selection='atom_name=="CA"',
         coordinates=True,
     )

@@ -3,7 +3,9 @@ from types import SimpleNamespace
 from devtools.scripts import validate_form_adapters as validator
 
 
-def _module(*, getters=(), topological_pipe=None, structural_pipe=None, converters=None):
+def _module(
+    *, getters=(), topological_pipe=None, structural_pipe=None, converters=None
+):
     module = SimpleNamespace(
         piped_topological_attribute=topological_pipe,
         piped_structural_attribute=structural_pipe,
@@ -92,20 +94,20 @@ def test_attribute_delivery_rejects_a_pipe_without_a_converter():
 
 def test_attribute_delivery_accepts_a_registered_derivation():
     module = _module()
-    module.attributes.update({'box': True, 'box_lengths': True})
+    module.attributes.update({"box": True, "box_lengths": True})
     module.get_box_from_system = lambda item: item
-    modules = {'source': module}
+    modules = {"source": module}
     catalog = {
-        'box_lengths': {
-            'get_from': ['system'],
-            'topological': False,
-            'structural': True,
+        "box_lengths": {
+            "get_from": ["system"],
+            "topological": False,
+            "structural": True,
         }
     }
 
     assert validator._attribute_is_deliverable(
-        'source',
-        'box_lengths',
+        "source",
+        "box_lengths",
         modules,
         catalog,
     )

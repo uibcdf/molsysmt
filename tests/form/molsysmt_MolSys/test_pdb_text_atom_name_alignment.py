@@ -23,16 +23,16 @@ from molsysmt.form.molsysmt_MolSys.to_string_pdb_text import _atom_name_field
 
 
 def _atom_records(text):
-    return [line for line in text.splitlines() if line.startswith(('ATOM', 'HETATM'))]
+    return [line for line in text.splitlines() if line.startswith(("ATOM", "HETATM"))]
 
 
 @pytest.mark.parametrize(
-    ('system', 'filename'),
+    ("system", "filename"),
     [
-        ('T4 lysozyme L99A', '181l.pdb'),   # protein, waters, chloride ions
-        ('TcTIM', '1tcd.pdb'),              # two chains
-        ('1ATP', '1atp.pdb'),               # TPO and SEP, magnesium, ATP
-        ('1YCR', '1ycr.pdb'),
+        ("T4 lysozyme L99A", "181l.pdb"),  # protein, waters, chloride ions
+        ("TcTIM", "1tcd.pdb"),  # two chains
+        ("1ATP", "1atp.pdb"),  # TPO and SEP, magnesium, ATP
+        ("1YCR", "1ycr.pdb"),
     ],
 )
 def test_atom_name_columns_match_the_rcsb_file(system, filename):
@@ -42,9 +42,9 @@ def test_atom_name_columns_match_the_rcsb_file(system, filename):
         original = _atom_records(handle.read())
 
     with warnings.catch_warnings():
-        warnings.simplefilter('ignore')
-        molsys = msm.convert(source, to_form='molsysmt.MolSys')
-        produced = _atom_records(msm.convert(molsys, to_form='string:pdb_text'))
+        warnings.simplefilter("ignore")
+        molsys = msm.convert(source, to_form="molsysmt.MolSys")
+        produced = _atom_records(msm.convert(molsys, to_form="string:pdb_text"))
 
     assert len(produced) == len(original)
 
@@ -54,25 +54,25 @@ def test_atom_name_columns_match_the_rcsb_file(system, filename):
         if line_in[12:16] != line_out[12:16]
     ]
     assert not mismatched, (
-        f'{len(mismatched)} atom names are aligned differently from the RCSB file. '
-        f'First: index {mismatched[0][0]}, RCSB {mismatched[0][1]!r}, '
-        f'produced {mismatched[0][2]!r}, element {mismatched[0][3]!r}.'
+        f"{len(mismatched)} atom names are aligned differently from the RCSB file. "
+        f"First: index {mismatched[0][0]}, RCSB {mismatched[0][1]!r}, "
+        f"produced {mismatched[0][2]!r}, element {mismatched[0][3]!r}."
     )
 
 
 @pytest.mark.parametrize(
-    ('atom_name', 'element_symbol', 'expected'),
+    ("atom_name", "element_symbol", "expected"),
     [
-        ('N', 'N', ' N  '),          # one-letter element: starts at column 14
-        ('C', 'C', ' C  '),
-        ('CA', 'C', ' CA '),         # alpha carbon — element is C, not CA
-        ('CB', 'C', ' CB '),
-        ('CL', 'CL', 'CL  '),        # chloride — two-letter element, column 13
-        ('FE', 'FE', 'FE  '),        # the example the specification itself gives
-        ('MG', 'MG', 'MG  '),
-        ('HG11', 'H', 'HG11'),       # four characters fill the field
-        ('1HB', 'H', ' 1HB'),
-        ('O', '', ' O  '),           # no element declared: assume one letter
+        ("N", "N", " N  "),  # one-letter element: starts at column 14
+        ("C", "C", " C  "),
+        ("CA", "C", " CA "),  # alpha carbon — element is C, not CA
+        ("CB", "C", " CB "),
+        ("CL", "CL", "CL  "),  # chloride — two-letter element, column 13
+        ("FE", "FE", "FE  "),  # the example the specification itself gives
+        ("MG", "MG", "MG  "),
+        ("HG11", "H", "HG11"),  # four characters fill the field
+        ("1HB", "H", " 1HB"),
+        ("O", "", " O  "),  # no element declared: assume one letter
     ],
 )
 def test_the_alignment_rule_case_by_case(atom_name, element_symbol, expected):

@@ -4,7 +4,6 @@ import numpy as np
 
 import molsysmt as msm
 
-
 _QUARTET = np.array([[0, 1, 2, 3]], dtype=int)
 
 
@@ -17,8 +16,13 @@ def _bonded_chain():
     for atom_1, atom_2 in zip(atoms[:-1], atoms[1:]):
         builder.add_bond(atom_1, atom_2)
     coordinates = np.array(
-        [[0.0, 1.0, 0.0], [0.0, 0.0, 0.0], [1.0, 0.0, 0.0],
-         [1.0, 1.0, 1.0], [2.0, 1.0, 1.0]],
+        [
+            [0.0, 1.0, 0.0],
+            [0.0, 0.0, 0.0],
+            [1.0, 0.0, 0.0],
+            [1.0, 1.0, 1.0],
+            [2.0, 1.0, 1.0],
+        ],
         dtype=np.float64,
     )
     builder.set_coordinates(coordinates * msm.pyunitwizard.unit("nm"))

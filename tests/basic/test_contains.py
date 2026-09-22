@@ -2,9 +2,10 @@
 Tests for molsysmt.basic.contains covering all branches of the function
 and the _evaluation internal helper.
 """
-import molsysmt as msm
-from molsysmt import systems
+
 import pytest
+
+import molsysmt as msm
 
 
 @pytest.fixture()
@@ -20,6 +21,7 @@ def hp35_sol(hp35_solvated_molsys):
 # ---------------------------------------------------------------------------
 # No kwargs (n_atoms branch)
 # ---------------------------------------------------------------------------
+
 
 def test_contains_no_kwargs_whole_system(t4_molsys):
     """No kwargs on non-empty system returns True."""
@@ -42,6 +44,7 @@ def test_contains_no_kwargs_empty_selection(t4_molsys):
 # ---------------------------------------------------------------------------
 # Single boolean kwarg
 # ---------------------------------------------------------------------------
+
 
 def test_contains_single_kwarg_true_present(t4_molsys):
     """n_waters=True when waters are present returns True."""
@@ -71,6 +74,7 @@ def test_contains_single_kwarg_false_present(t4_molsys):
 # Integer threshold kwarg
 # ---------------------------------------------------------------------------
 
+
 def test_contains_int_threshold_satisfied(t4_molsys):
     """n_waters=1 when system has >0 waters returns True."""
     result = msm.contains(t4_molsys, n_waters=1)
@@ -86,6 +90,7 @@ def test_contains_int_threshold_not_satisfied(t4_molsys):
 # ---------------------------------------------------------------------------
 # Multiple kwargs
 # ---------------------------------------------------------------------------
+
 
 def test_contains_multi_kwargs_all_true(t4_molsys):
     """n_waters=True and n_ions=True when both present returns True."""
@@ -103,21 +108,27 @@ def test_contains_multi_kwargs_one_fails(t4_molsys):
 # Selection restricts the check
 # ---------------------------------------------------------------------------
 
+
 def test_contains_selection_restricts_waters(t4_molsys):
     """selection='molecule_type=="protein"' → n_waters=True fails (no waters in protein subset)."""
-    result = msm.contains(t4_molsys, selection='molecule_type=="protein"', n_waters=True)
+    result = msm.contains(
+        t4_molsys, selection='molecule_type=="protein"', n_waters=True
+    )
     assert result is False
 
 
 def test_contains_selection_restricts_proteins(t4_molsys):
     """selection='molecule_type=="protein"' → n_proteins=True succeeds."""
-    result = msm.contains(t4_molsys, selection='molecule_type=="protein"', n_proteins=True)
+    result = msm.contains(
+        t4_molsys, selection='molecule_type=="protein"', n_proteins=True
+    )
     assert result is True
 
 
 # ---------------------------------------------------------------------------
 # Solvated system
 # ---------------------------------------------------------------------------
+
 
 def test_contains_solvated_peptides(hp35_sol):
     """HP35 solvated has peptides, ions, and waters."""

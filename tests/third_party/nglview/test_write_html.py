@@ -3,17 +3,19 @@ Unit and regression test for the copy module of the molsysmt package.
 """
 
 # Import package, test suite, and other packages as needed
-import molsysmt as msm
-from molsysmt import systems
-from molsysmt import pyunitwizard as puw
-import numpy as np
 import os
+
+import molsysmt as msm
+
 
 def test_write_html_1():
 
-    molsys = msm.basic.convert(msm.systems['T4 lysozyme L99A']['181l.h5msm'], selection='molecule_type=="protein"')
-    nglview_htmlfile = 'test.html'
-    view = msm.basic.view(molsys, viewer='NGLView')
+    molsys = msm.basic.convert(
+        msm.systems["T4 lysozyme L99A"]["181l.h5msm"],
+        selection='molecule_type=="protein"',
+    )
+    nglview_htmlfile = "test.html"
+    view = msm.basic.view(molsys, viewer="NGLView")
     view.show()
     msm.thirds.nglview.write_html(view, nglview_htmlfile)
 

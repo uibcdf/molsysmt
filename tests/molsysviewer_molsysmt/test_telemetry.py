@@ -15,6 +15,7 @@ from molsysviewer_molsysmt.runtime import _get_n_atoms_safe, ensure_runtime
 
 # --- extra_factory helpers -------------------------------------------------
 
+
 def test_get_n_atoms_safe_reads_attached_view():
     view = molsysviewer.demo["dialanine"]
     ns = SimpleNamespace(_state=SimpleNamespace(_view=view))
@@ -38,6 +39,7 @@ def test_adapter_n_atoms_reads_view_from_first_arg_or_kwarg():
 
 # --- Part 3: emit_panel_exception -----------------------------------------
 
+
 def test_emit_panel_exception_uses_context_extra_schema(monkeypatch):
     import smonitor.integrations as si
 
@@ -52,7 +54,9 @@ def test_emit_panel_exception_uses_context_extra_schema(monkeypatch):
     molsysviewer.addons.register(get_addon())
     try:
         view = molsysviewer.demo["dialanine"]
-        emit_panel_exception(view, panel="mechanics", action="minimize", exc=ValueError("boom"))
+        emit_panel_exception(
+            view, panel="mechanics", action="minimize", exc=ValueError("boom")
+        )
 
         extra = captured["extra"]
         assert extra["caller"] == "molsysviewer_molsysmt.panels.mechanics.minimize"
@@ -79,7 +83,9 @@ def test_emit_panel_exception_warns_on_real_emission_failure(monkeypatch):
     try:
         view = molsysviewer.demo["dialanine"]
         with pytest.warns(RuntimeWarning, match="failed to emit panel diagnostics"):
-            emit_panel_exception(view, panel="build", action="solvate", exc=ValueError("x"))
+            emit_panel_exception(
+                view, panel="build", action="solvate", exc=ValueError("x")
+            )
 
         # Even when SMonitor emission fails, the local event log still records it.
         assert any(e["event"] == "panel_error" for e in ensure_runtime(view).event_log)

@@ -12,18 +12,19 @@ from __future__ import annotations
 
 import os
 import sys
-import numpy as np
 from pathlib import Path
+
+import numpy as np
 
 # Add repository root to python path to ensure robust imports
 repo_root = str(Path(__file__).resolve().parents[2])
 if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
-import molsysmt as msm
-from molsysmt import pyunitwizard as puw
-from molsysmt._private.execution import ChunkedExecutor, Reducer
-from benchmarks.harness import BenchmarkHarness, save_session_results
+import molsysmt as msm  # noqa: E402
+from benchmarks.harness import BenchmarkHarness, save_session_results  # noqa: E402
+from molsysmt import pyunitwizard as puw  # noqa: E402
+from molsysmt._private.execution import ChunkedExecutor, Reducer  # noqa: E402
 
 
 class CoordinatesCollector(Reducer):
@@ -34,7 +35,7 @@ class CoordinatesCollector(Reducer):
 
     def consume(self, chunk):
         # We make a copy of coordinates to keep them safe
-        self.all_coords.append(chunk['coordinates'].copy())
+        self.all_coords.append(chunk["coordinates"].copy())
 
     def finalize(self):
         return np.concatenate(self.all_coords, axis=0)
@@ -54,36 +55,44 @@ def run_trajectory_benchmarks(output_path: str | None = None) -> list[dict]:
         List of results dictionaries.
     """
     print("Locating chicken villin HP35 solvated trajectory (DCD)...")
-    dcd_path = msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.dcd']
+    dcd_path = msm.systems["chicken villin HP35"][
+        "traj_chicken_villin_HP35_solvated.dcd"
+    ]
     print(f"Path: {dcd_path}")
 
     # 1. Instantiate Benchmark Harnesses
-    harness_eager = BenchmarkHarness("macro_trajectory_eager_load", iterations=10, repeats=5)
-    harness_iterator = BenchmarkHarness("macro_trajectory_iterator", iterations=10, repeats=5)
-    harness_executor = BenchmarkHarness("macro_trajectory_chunked_executor", iterations=10, repeats=5)
+    harness_eager = BenchmarkHarness(
+        "macro_trajectory_eager_load", iterations=10, repeats=5
+    )
+    harness_iterator = BenchmarkHarness(
+        "macro_trajectory_iterator", iterations=10, repeats=5
+    )
+    harness_executor = BenchmarkHarness(
+        "macro_trajectory_chunked_executor", iterations=10, repeats=5
+    )
 
     # 2. Run Functions definition
     def run_eager():
-        coords = msm.get(dcd_path, element='atom', coordinates=True)
-        return puw.get_value(coords, to_unit='nm')
+        coords = msm.get(dcd_path, element="atom", coordinates=True)
+        return puw.get_value(coords, to_unit="nm")
 
     def run_iterator():
         iterator = msm.Iterator(dcd_path, coordinates=True)
         all_coords = []
         for chunk in iterator:
-            all_coords.append(puw.get_value(chunk[0], to_unit='nm'))
+            all_coords.append(puw.get_value(chunk[0], to_unit="nm"))
         return np.concatenate(all_coords, axis=0)
 
     def run_executor():
         reducer = CoordinatesCollector()
         executor = ChunkedExecutor(
             molecular_system=dcd_path,
-            form='file:dcd',
-            operation='benchmark_collect_coordinates',
+            form="file:dcd",
+            operation="benchmark_collect_coordinates",
             reducer=reducer,
             chunk_size=5,
-            heavy_mode='force',
-            attributes=['coordinates'],
+            heavy_mode="force",
+            attributes=["coordinates"],
         )
         return executor.execute()
 
@@ -91,23 +100,18 @@ def run_trajectory_benchmarks(output_path: str | None = None) -> list[dict]:
     results = []
 
     print("Benchmarking eager trajectory load...")
-    res_eager = harness_eager.run(
-        warmup_func=run_eager,
-        timed_func=run_eager
-    )
+    res_eager = harness_eager.run(warmup_func=run_eager, timed_func=run_eager)
     results.append(res_eager)
 
     print("Benchmarking out-of-core frame iterator...")
     res_iterator = harness_iterator.run(
-        warmup_func=run_iterator,
-        timed_func=run_iterator
+        warmup_func=run_iterator, timed_func=run_iterator
     )
     results.append(res_iterator)
 
     print("Benchmarking heavy chunked executor...")
     res_executor = harness_executor.run(
-        warmup_func=run_executor,
-        timed_func=run_executor
+        warmup_func=run_executor, timed_func=run_executor
     )
     results.append(res_executor)
 
@@ -115,7 +119,9 @@ def run_trajectory_benchmarks(output_path: str | None = None) -> list[dict]:
     eager_shape = run_eager().shape
     executor_shape = run_executor().shape
     print(f"\nEager shape: {eager_shape}, Executor shape: {executor_shape}")
-    assert eager_shape == executor_shape, "Mismatch between eager and chunked coordinates shapes!"
+    assert eager_shape == executor_shape, (
+        "Mismatch between eager and chunked coordinates shapes!"
+    )
     print("Verification passed: eager and chunked coordinates shapes match exactly.")
 
     # 4. Display Summary Table
@@ -125,7 +131,9 @@ def run_trajectory_benchmarks(output_path: str | None = None) -> list[dict]:
     print(f" {'Benchmark Name':<42} | {'Median Time':<15} | {'Min Time':<12}")
     print("-" * 78)
     for r in results:
-        print(f" {r['name']:<42} | {r['median_seconds'] * 1000:11.3f} ms | {r['min_seconds'] * 1000:8.3f} ms")
+        print(
+            f" {r['name']:<42} | {r['median_seconds'] * 1000:11.3f} ms | {r['min_seconds'] * 1000:8.3f} ms"
+        )
     print("=" * 78 + "\n")
 
     # Export if requested

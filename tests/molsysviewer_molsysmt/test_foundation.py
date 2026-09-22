@@ -16,11 +16,19 @@ from molsysviewer_molsysmt import (
 from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
 
 _EXPECTED_PANELS = [
-    "basic", "topology", "structure", "hbonds",
-    "pbc", "physchem", "molecular_mechanics", "build",
+    "basic",
+    "topology",
+    "structure",
+    "hbonds",
+    "pbc",
+    "physchem",
+    "molecular_mechanics",
+    "build",
 ]
 _EXPECTED_CONTEXT_ACTIONS = [
-    "inspect-system", "select-and-highlight", "color-by-property",
+    "inspect-system",
+    "select-and-highlight",
+    "color-by-property",
     "compute-contacts",
 ]
 
@@ -29,6 +37,7 @@ _EXPECTED_CONTEXT_ACTIONS = [
 # Phase 1 foundation — public namespace, state_factory, dual ensure_runtime,
 # access helpers, and lazy import
 # ---------------------------------------------------------------------------
+
 
 def test_state_factory_exposes_public_view_namespace():
     molsysviewer.addons.clear()
@@ -226,7 +235,9 @@ def test_basic_facade_append_structures_uses_apply_system_edit_on_real_view():
     # apply_system_edit, which after appending must carry the two structures.
     edited_molsys = calls[0][0]
     assert msm.get(edited_molsys, n_structures=True) == 2
-    assert view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_append_structures"
+    assert (
+        view.addons.molsysmt.event_log[-1]["event"] == "facade_basic_append_structures"
+    )
 
     molsysviewer.addons.clear()
 
@@ -244,15 +255,17 @@ def test_importing_addon_does_not_import_molsysviewer():
     from pathlib import Path
 
     extra_paths = []
-    for pkg_name in ['smonitor', 'argdigest', 'depdigest', 'molsysmt', 'molsysviewer']:
+    for pkg_name in ["smonitor", "argdigest", "depdigest", "molsysmt", "molsysviewer"]:
         try:
             pkg = import_module(pkg_name)
-            if hasattr(pkg, '__file__') and pkg.__file__:
+            if hasattr(pkg, "__file__") and pkg.__file__:
                 extra_paths.append(str(Path(pkg.__file__).parent.parent))
         except ImportError:
             pass
 
-    code = "import sys; import molsysviewer_molsysmt; print('molsysviewer' in sys.modules)"
+    code = (
+        "import sys; import molsysviewer_molsysmt; print('molsysviewer' in sys.modules)"
+    )
     env = dict(os.environ)
     all_paths = extra_paths + sys.path
     env["PYTHONPATH"] = os.pathsep.join(all_paths)
@@ -269,6 +282,7 @@ def test_importing_addon_does_not_import_molsysviewer():
 # ---------------------------------------------------------------------------
 # Coordinate-only mutations reconcile via set_coordinates and preserve overlays
 # ---------------------------------------------------------------------------
+
 
 def test_pbc_wrap_preserves_viewer_overlays():
     """A coordinate-only mutation (PBC wrap) must NOT reset viewer overlays.

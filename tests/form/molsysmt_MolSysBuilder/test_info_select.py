@@ -13,9 +13,15 @@ def test_info_reports_declared_builder_state(molsys_builder_complete):
     assert output.loc[0, "n_structures"] == 1
 
 
-def test_select_operates_on_declared_builder_state(molsys_builder_complete, molsys_builder_partial):
+def test_select_operates_on_declared_builder_state(
+    molsys_builder_complete, molsys_builder_partial
+):
 
     assert msm.select(molsys_builder_complete, selection='group_name=="ALA"') == [0, 1]
-    assert msm.select(molsys_builder_complete, element="group", selection='group_name=="ALA"') == [0]
-    assert msm.select(molsys_builder_complete, element="molecule", selection='molecule_type=="water"') == [1]
-    assert msm.select(molsys_builder_partial, selection='group_index==0') == [0, 1]
+    assert msm.select(
+        molsys_builder_complete, element="group", selection='group_name=="ALA"'
+    ) == [0]
+    assert msm.select(
+        molsys_builder_complete, element="molecule", selection='molecule_type=="water"'
+    ) == [1]
+    assert msm.select(molsys_builder_partial, selection="group_index==0") == [0, 1]

@@ -10,7 +10,6 @@ because both defects they guard against were single modules that broke a rule th
 import ast
 from pathlib import Path
 
-
 PACKAGE_ROOT = Path(__file__).resolve().parents[3] / "molsysmt"
 DIGESTION_ROOT = PACKAGE_ROOT / "_private" / "argdigest"
 
@@ -60,11 +59,11 @@ def test_every_attribute_has_a_digester():
     missing = []
     for attribute in sorted(attributes):
         try:
-            module = import_module(f'molsysmt._private.argdigest.argument.{attribute}')
+            module = import_module(f"molsysmt._private.argdigest.argument.{attribute}")
         except ModuleNotFoundError:
             missing.append(attribute)
             continue
-        if not callable(getattr(module, f'digest_{attribute}', None)):
+        if not callable(getattr(module, f"digest_{attribute}", None)):
             missing.append(attribute)
 
     assert missing == []
@@ -90,15 +89,19 @@ def test_a_string_that_is_not_a_quantity_is_refused_as_an_argument():
         path.stem
         for path in sorted(argument_root.glob("*.py"))
         if path.stem != "_quantity_parsing"
-        and ("parse_quantity_string(" in path.read_text(encoding="utf-8")
-             or "puw.parse.parse(" in path.read_text(encoding="utf-8"))
+        and (
+            "parse_quantity_string(" in path.read_text(encoding="utf-8")
+            or "puw.parse.parse(" in path.read_text(encoding="utf-8")
+        )
     ]
     assert parsers, "no quantity-parsing digester was discovered"
 
     escapes = {}
     for name in parsers:
-        digester = getattr(import_module(f"molsysmt._private.argdigest.argument.{name}"),
-                           f"digest_{name}")
+        digester = getattr(
+            import_module(f"molsysmt._private.argdigest.argument.{name}"),
+            f"digest_{name}",
+        )
         try:
             digester("definitely-not-a-unit", caller=None)
         except ArgumentError:

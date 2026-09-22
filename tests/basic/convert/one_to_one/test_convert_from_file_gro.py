@@ -3,14 +3,11 @@ Unit and regression test for the convert module of the molsysmt package.
 """
 
 # Import package, test suite, and other packages as needed
-import molsysmt as msm
-from molsysmt import systems
-import numpy as np
-import os
+
 
 # Whole systems (selection='all' and structure_indices='all')
 
-#def test_file_gro_to_mdtraj_Trajectory():
+# def test_file_gro_to_mdtraj_Trajectory():
 #    import warnings
 #    warnings.filterwarnings('ignore')
 #    molsys = tests_systems['nglview']['1u19.gro']
@@ -22,5 +19,3 @@ import os
 # Selection
 
 ## Multiple outputs
-
-

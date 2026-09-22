@@ -1,6 +1,15 @@
 from __future__ import annotations
+
 import argparse
-from coverage_utils import load_json, file_rows, aggregate_by_package, sort_packages, bar, grade
+
+from coverage_utils import (
+    aggregate_by_package,
+    bar,
+    file_rows,
+    grade,
+    load_json,
+    sort_packages,
+)
 
 parser = argparse.ArgumentParser(description="Print a hierarchical coverage map.")
 parser.add_argument("--root", default="molsysmt")
@@ -22,5 +31,7 @@ for depth in range(1, args.max_depth + 1):
     print("-" * 96)
     for row in packages:
         indent = "  " * max(0, row["package"].count(".") - 1)
-        print(f"{indent}{row['package']:<46}  {bar(row['percent'], 18)}  {row['percent']:6.1f}%  [{grade(row['percent'])}]")
+        print(
+            f"{indent}{row['package']:<46}  {bar(row['percent'], 18)}  {row['percent']:6.1f}%  [{grade(row['percent'])}]"
+        )
     print()

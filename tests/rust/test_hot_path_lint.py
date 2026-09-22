@@ -54,7 +54,9 @@ def test_the_lint_detects_a_reintroduced_libm_call(tmp_path):
     target = fake_repo / "rust" / "src" / "mic.rs"
     text = target.read_text()
     needle = "fast_floor(v[0] / cell[0][0] + 0.5)"
-    assert needle in text, "the orthogonal wrap no longer looks as expected; update this test"
+    assert needle in text, (
+        "the orthogonal wrap no longer looks as expected; update this test"
+    )
     target.write_text(text.replace(needle, "(v[0] / cell[0][0] + 0.5).floor()"))
 
     result = run_lint(planted_script)

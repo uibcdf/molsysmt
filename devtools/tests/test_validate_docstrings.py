@@ -1,11 +1,11 @@
-import inspect
 import pytest
+
 from devtools.scripts.validate_docstrings import (
     find_vacuous_docstring_content,
-    parse_docstring_parameters,
-    validate,
-    parse_docstring_params_and_defaults,
     normalize_default_repr,
+    parse_docstring_parameters,
+    parse_docstring_params_and_defaults,
+    validate,
 )
 
 
@@ -61,7 +61,9 @@ def test_parse_docstring_parameters_includes_type_and_description():
         ("The item argument.", "only restates its name"),
     ],
 )
-def test_vacuity_check_rejects_mutated_parameter_descriptions(replacement, expected_error):
+def test_vacuity_check_rejects_mutated_parameter_descriptions(
+    replacement, expected_error
+):
     doc = f"""
     Example function summary.
 

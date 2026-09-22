@@ -1,10 +1,9 @@
 """Regression tests for the multiplatform Rust-wheel CI contract."""
 
+import tomllib
 from pathlib import Path
 
-import tomllib
 import yaml
-
 
 REPO = Path(__file__).resolve().parents[2]
 WORKFLOW = REPO / ".github" / "workflows" / "ci-rust-wheels.yaml"
@@ -24,8 +23,7 @@ def test_workflow_builds_every_declared_platform_architecture():
     full = workflow["jobs"]["build-full"]
     targets = full["strategy"]["matrix"]["target"]
     observed = {
-        (target["name"], target["runner"], target["arch"])
-        for target in targets
+        (target["name"], target["runner"], target["arch"]) for target in targets
     }
     observed.add(("linux-x86_64", linux["runs-on"], "x86_64"))
     expected = {
@@ -160,13 +158,8 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert cibw["linux"]["manylinux-x86_64-image"] == "manylinux_2_28"
     assert cibw["linux"]["manylinux-aarch64-image"] == "manylinux_2_28"
     assert cibw["linux"]["environment"]["RUSTUP_TOOLCHAIN"] == "1.97.1"
-    assert (
-        cibw["macos"]["environment"]["MACOSX_DEPLOYMENT_TARGET"]
-        == "11.0"
-    )
-    assert config["tool"]["distutils"]["bdist_wheel"]["py-limited-api"] == (
-        "cp311"
-    )
+    assert cibw["macos"]["environment"]["MACOSX_DEPLOYMENT_TARGET"] == "11.0"
+    assert config["tool"]["distutils"]["bdist_wheel"]["py-limited-api"] == ("cp311")
     assert "numpy>=1.26,<3" in config["project"]["dependencies"]
     assert "pyunitwizard>=0.24.0" in config["project"]["dependencies"]
     assert "argdigest>=0.12.1" in config["project"]["dependencies"]

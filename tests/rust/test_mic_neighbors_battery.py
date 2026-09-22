@@ -19,14 +19,14 @@ Coverage
   MIC angles/dihedrals, all against the same ground truth.
 """
 
+import molsysmt._rust  # noqa: F401, E402
 import numpy as np
 import pytest
 
-import molsysmt._rust  # noqa: F401, E402
-
 from molsysmt._private import rust_backend as rb  # noqa: E402
-from molsysmt.lib.structure.sphere_points import get_fibonacci_sphere_points  # noqa: E402
-
+from molsysmt.lib.structure.sphere_points import (
+    get_fibonacci_sphere_points,  # noqa: E402
+)
 
 # --------------------------------------------------------------------------- boxes
 

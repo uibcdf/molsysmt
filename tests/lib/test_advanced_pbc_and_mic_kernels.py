@@ -1,10 +1,21 @@
 import numpy as np
 
-from molsysmt.lib.pbc.get_angles_from_box import get_angles_from_box, get_angles_from_box_single_structure
-from molsysmt.lib.pbc.get_box_from_lengths_and_angles import get_box_from_lengths_and_angles_single_structure
-from molsysmt.lib.pbc.get_lengths_from_box import get_lengths_from_box, get_lengths_from_box_single_structure
+from molsysmt.lib.pbc.get_angles_from_box import (
+    get_angles_from_box,
+    get_angles_from_box_single_structure,
+)
+from molsysmt.lib.pbc.get_box_from_lengths_and_angles import (
+    get_box_from_lengths_and_angles_single_structure,
+)
+from molsysmt.lib.pbc.get_lengths_from_box import (
+    get_lengths_from_box,
+    get_lengths_from_box_single_structure,
+)
 from molsysmt.lib.pbc.unwrap import unwrap
-from molsysmt.lib.structure.get_mic_angles import get_mic_angles, get_mic_angles_single_structure
+from molsysmt.lib.structure.get_mic_angles import (
+    get_mic_angles,
+    get_mic_angles_single_structure,
+)
 from molsysmt.lib.structure.get_mic_dihedral_angles import (
     get_mic_dihedral_angles,
     get_mic_dihedral_angles_single_structure,
@@ -38,7 +49,9 @@ def test_lengths_and_angles_helpers_and_unwrap_cover_triclinic_paths():
     lengths = get_lengths_from_box_single_structure(box)
     angles = get_angles_from_box_single_structure(box)
     np.testing.assert_allclose(lengths, np.array([2.0, 3.0, 4.0]), atol=1e-12)
-    np.testing.assert_allclose(angles, np.array([np.pi / 2, np.pi / 2, 2.0 * np.pi / 3]), atol=1e-12)
+    np.testing.assert_allclose(
+        angles, np.array([np.pi / 2, np.pi / 2, 2.0 * np.pi / 3]), atol=1e-12
+    )
 
     batch = box[np.newaxis, :, :]
     np.testing.assert_allclose(get_lengths_from_box(batch)[0], lengths)
@@ -68,21 +81,38 @@ def test_mic_distance_angle_and_dihedral_kernels_cover_single_and_batch_paths():
     assert single_system.shape == (4, 4)
     assert np.allclose(single_system, single_system.T)
 
-    point_distance = get_mic_distance_two_points_single_structure(coordinates[0], coordinates[1], box, None, None)
+    point_distance = get_mic_distance_two_points_single_structure(
+        coordinates[0], coordinates[1], box, None, None
+    )
     assert np.isfinite(point_distance)
 
     batch_coordinates = coordinates[np.newaxis, :, :]
     batch_box = box[np.newaxis, :, :]
-    assert get_mic_distances_single_system(batch_coordinates, batch_box).shape == (1, 4, 4)
-    assert get_mic_distances(batch_coordinates, batch_coordinates, batch_box).shape == (1, 4, 4)
-    assert get_mic_distances_pairs(batch_coordinates, batch_coordinates, batch_box).shape == (1, 4)
+    assert get_mic_distances_single_system(batch_coordinates, batch_box).shape == (
+        1,
+        4,
+        4,
+    )
+    assert get_mic_distances(batch_coordinates, batch_coordinates, batch_box).shape == (
+        1,
+        4,
+        4,
+    )
+    assert get_mic_distances_pairs(
+        batch_coordinates, batch_coordinates, batch_box
+    ).shape == (1, 4)
 
     triplets = np.array([[0, 1, 2]], dtype=np.int64)
     quartets = np.array([[0, 1, 2, 3]], dtype=np.int64)
     assert get_mic_angles_single_structure(coordinates, box, triplets).shape == (1,)
     assert get_mic_angles(batch_coordinates, batch_box, triplets).shape == (1, 1)
-    assert get_mic_dihedral_angles_single_structure(coordinates, box, quartets).shape == (1,)
-    assert get_mic_dihedral_angles(batch_coordinates, batch_box, quartets).shape == (1, 1)
+    assert get_mic_dihedral_angles_single_structure(
+        coordinates, box, quartets
+    ).shape == (1,)
+    assert get_mic_dihedral_angles(batch_coordinates, batch_box, quartets).shape == (
+        1,
+        1,
+    )
 
 
 def test_mic_dihedral_set_and_shift_kernels_cover_single_and_batch_paths():
@@ -96,7 +126,9 @@ def test_mic_dihedral_set_and_shift_kernels_cover_single_and_batch_paths():
 
     target = np.array([np.pi / 2], dtype=np.float64)
     coords_single = coordinates.copy()
-    set_mic_dihedral_angles_single_structure(coords_single, box, target, quartets, blocks)
+    set_mic_dihedral_angles_single_structure(
+        coords_single, box, target, quartets, blocks
+    )
     np.testing.assert_allclose(
         get_mic_dihedral_angles_single_structure(coords_single, box, quartets),
         target,
@@ -119,7 +151,9 @@ def test_mic_dihedral_set_and_shift_kernels_cover_single_and_batch_paths():
 
     batch_coordinates = coordinates[np.newaxis, :, :].copy()
     batch_box = box[np.newaxis, :, :]
-    set_mic_dihedral_angles(batch_coordinates, batch_box, target[np.newaxis, :], quartets, blocks)
+    set_mic_dihedral_angles(
+        batch_coordinates, batch_box, target[np.newaxis, :], quartets, blocks
+    )
     np.testing.assert_allclose(
         get_mic_dihedral_angles_single_structure(batch_coordinates[0], box, quartets),
         target,

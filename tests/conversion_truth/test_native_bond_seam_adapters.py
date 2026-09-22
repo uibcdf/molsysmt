@@ -47,7 +47,9 @@ def test_first_party_serializers_normalize_legacy_bond_metadata(tmp_path):
         assert bonds["bond_type"].tolist() == ["dative"]
 
 
-def test_first_party_single_state_consumers_fail_closed_but_h5msm_preserves_inventory(tmp_path):
+def test_first_party_single_state_consumers_fail_closed_but_h5msm_preserves_inventory(
+    tmp_path,
+):
     topology = Topology(n_atoms=2)
     topology._append_chemical_state_bonds([[0, 1]], orders="1")
     topology._append_chemical_state(state_id="product")
@@ -143,15 +145,17 @@ def test_pdbfixer_subset_uses_output_atom_indices(rich_molsys):
     } == {(0, 1)}
 
 
-@pytest.mark.parametrize('target_form', ['string:pdb_text', 'file:pdb', 'pdbfixer.PDBFixer'])
+@pytest.mark.parametrize(
+    "target_form", ["string:pdb_text", "file:pdb", "pdbfixer.PDBFixer"]
+)
 def test_pdb_targets_report_unrepresentable_rich_bond_metadata(
     rich_molsys, target_form, tmp_path
 ):
     target = target_form
-    if target_form == 'file:pdb':
-        target = str(tmp_path / 'rich.pdb')
+    if target_form == "file:pdb":
+        target = str(tmp_path / "rich.pdb")
 
-    with pytest.raises(msm.NotCompatibleConversionError, match='Strict conversion'):
+    with pytest.raises(msm.NotCompatibleConversionError, match="Strict conversion"):
         msm.convert(rich_molsys, to_form=target, strict=True)
 
     _, report = msm.convert(
@@ -160,8 +164,8 @@ def test_pdb_targets_report_unrepresentable_rich_bond_metadata(
         return_report=True,
     )
     affected = {issue.attribute for issue in report.issues}
-    assert {'bond_order', 'bond_type'} <= affected
-    assert report.outcome == 'lossy'
+    assert {"bond_order", "bond_type"} <= affected
+    assert report.outcome == "lossy"
 
 
 def test_conversion_report_exposes_its_audit_boundary(rich_molsys):
@@ -185,16 +189,16 @@ def test_conversion_report_exposes_its_audit_boundary(rich_molsys):
 def test_pdbfixer_reports_known_empty_connectivity_inference(rich_molsys):
     rich_molsys.topology._reset_chemical_state_bonds(n_bonds=0)
 
-    with pytest.raises(msm.NotCompatibleConversionError, match='Strict conversion'):
-        msm.convert(rich_molsys, to_form='pdbfixer.PDBFixer', strict=True)
+    with pytest.raises(msm.NotCompatibleConversionError, match="Strict conversion"):
+        msm.convert(rich_molsys, to_form="pdbfixer.PDBFixer", strict=True)
 
     _, report = msm.convert(
         rich_molsys,
-        to_form='pdbfixer.PDBFixer',
+        to_form="pdbfixer.PDBFixer",
         return_report=True,
     )
     assert any(
-        issue.attribute == 'bonded_atoms' and issue.kind == 'target_inference'
+        issue.attribute == "bonded_atoms" and issue.kind == "target_inference"
         for issue in report.issues
     )
 
@@ -211,9 +215,7 @@ def test_first_party_serializers_omit_unavailable_bond_metadata():
     molsys_dict = msm.convert(molsys, to_form="molsysmt.MolSysDict")
     viewer_json = msm.convert(molsys, to_form="molsysmt.ViewerJSON")
 
-    assert topology_dict.data["bonds"] == [
-        {"atom_index_1": 0, "atom_index_2": 1}
-    ]
+    assert topology_dict.data["bonds"] == [{"atom_index_1": 0, "atom_index_2": 1}]
     assert molsys_dict.data["topology"]["bonds"] == [
         {"atom_index_1": 0, "atom_index_2": 1}
     ]

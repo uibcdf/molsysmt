@@ -3,7 +3,10 @@ import molsysmt as msm
 
 def test_editable_returns_a_builder_from_existing_molsys():
 
-    molsys = msm.convert(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"], to_form="molsysmt.MolSys")
+    molsys = msm.convert(
+        msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"],
+        to_form="molsysmt.MolSys",
+    )
 
     builder = msm.build.editable(molsys)
 
@@ -15,7 +18,9 @@ def test_editable_returns_a_builder_from_existing_molsys():
 
 def test_editable_accepts_non_native_forms_via_conversion():
 
-    builder = msm.build.editable(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"])
+    builder = msm.build.editable(
+        msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"]
+    )
     rebuilt = builder.build()
 
     assert isinstance(builder, msm.MolSysBuilder)
@@ -45,7 +50,9 @@ def test_editable_supports_declared_topology_edits_before_build():
         selection='group_type=="water"',
         syntax="MolSysMT",
     )
-    builder.assign_groups_to_new_chain(water_group_indices, chain_id="W", chain_name="waters", chain_type="water")
+    builder.assign_groups_to_new_chain(
+        water_group_indices, chain_id="W", chain_name="waters", chain_type="water"
+    )
     rebuilt = builder.build()
 
     assert builder.n_bonds == original_n_bonds - 1

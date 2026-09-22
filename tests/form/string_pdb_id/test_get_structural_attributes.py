@@ -10,6 +10,7 @@ Oracle: 1AKI (chicken egg-white lysozyme), 1 structure, 1079 heavy atoms.
 """
 
 import pytest
+
 from molsysmt.form.string_pdb_id import get_structural_attributes as aux
 
 N_ATOMS = 1079
@@ -19,6 +20,6 @@ N_ATOMS = 1079
 @pytest.mark.xdist_group("network")
 def test_download_and_coordinates():
     """Download 1aki from RCSB and verify coordinates shape through the full pipeline."""
-    coords = aux.get_coordinates_from_atom('pdb_id:1aki')
+    coords = aux.get_coordinates_from_atom("pdb_id:1aki")
     assert coords is not None
     assert coords.shape == (1, N_ATOMS, 3)

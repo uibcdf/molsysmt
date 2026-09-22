@@ -18,45 +18,59 @@ def test_basic_operations_reject_out_of_range_structure_indices(
     molecular_system = t4_h5msm_molsys
 
     if operation == "convert":
-        call = lambda: msm.convert(
-            molecular_system,
-            to_form="molsysmt.MolSys",
-            structure_indices=structure_indices,
-        )
+
+        def call():
+            return msm.convert(
+                molecular_system,
+                to_form="molsysmt.MolSys",
+                structure_indices=structure_indices,
+            )
     elif operation == "extract":
-        call = lambda: msm.extract(
-            molecular_system,
-            structure_indices=structure_indices,
-        )
+
+        def call():
+            return msm.extract(
+                molecular_system,
+                structure_indices=structure_indices,
+            )
     elif operation == "remove":
-        call = lambda: msm.remove(
-            molecular_system,
-            structure_indices=structure_indices,
-        )
+
+        def call():
+            return msm.remove(
+                molecular_system,
+                structure_indices=structure_indices,
+            )
     elif operation == "set":
         coordinates = msm.get(molecular_system, coordinates=True)
-        call = lambda: msm.set(
-            molecular_system.copy(),
-            structure_indices=structure_indices,
-            coordinates=coordinates,
-        )
+
+        def call():
+            return msm.set(
+                molecular_system.copy(),
+                structure_indices=structure_indices,
+                coordinates=coordinates,
+            )
     elif operation == "view":
-        call = lambda: msm.view(
-            molecular_system,
-            structure_indices=structure_indices,
-        )
+
+        def call():
+            return msm.view(
+                molecular_system,
+                structure_indices=structure_indices,
+            )
     elif operation == "info":
-        call = lambda: msm.info(
-            molecular_system,
-            structure_indices=structure_indices,
-            output_type="dictionary",
-        )
+
+        def call():
+            return msm.info(
+                molecular_system,
+                structure_indices=structure_indices,
+                output_type="dictionary",
+            )
     else:
-        call = lambda: msm.Iterator(
-            molecular_system,
-            structure_indices=structure_indices,
-            coordinates=True,
-        )
+
+        def call():
+            return msm.Iterator(
+                molecular_system,
+                structure_indices=structure_indices,
+                coordinates=True,
+            )
 
     with pytest.raises(msm.ArgumentError, match="out-of-range structure indices"):
         call()

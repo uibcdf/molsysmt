@@ -1,33 +1,27 @@
 """Tests for the molsysviewer_molsysmt addon."""
 
-import sys
-import tomllib
-from pathlib import Path
-from importlib import import_module
-
 import molsysviewer
 import pytest
 
 from molsysviewer_molsysmt import (
     get_addon,
-    lifecycle,
-    on_enable,
-    on_disable,
-    on_context_action,
-    create_molsysmt_state,
-    system_for_verbs,
-    system_object,
-    has_system,
 )
-from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
-
+from molsysviewer_molsysmt.runtime import ensure_runtime
 
 _EXPECTED_PANELS = [
-    "basic", "topology", "structure", "hbonds",
-    "pbc", "physchem", "molecular_mechanics", "build",
+    "basic",
+    "topology",
+    "structure",
+    "hbonds",
+    "pbc",
+    "physchem",
+    "molecular_mechanics",
+    "build",
 ]
 _EXPECTED_CONTEXT_ACTIONS = [
-    "inspect-system", "select-and-highlight", "color-by-property",
+    "inspect-system",
+    "select-and-highlight",
+    "color-by-property",
     "compute-contacts",
 ]
 
@@ -35,6 +29,7 @@ _EXPECTED_CONTEXT_ACTIONS = [
 # ---------------------------------------------------------------------------
 # Contacts adapter/facade/panel — computes pairs and renders links
 # ---------------------------------------------------------------------------
+
 
 def test_contact_pairs_adapter_reads_from_view():
     pytest.importorskip("molsysmt")
@@ -76,7 +71,9 @@ def test_pca_adapter_maps_flat_pc1_to_selected_atom_vectors():
 
     view = molsysviewer.demo["dialanine"]
     result = pca(view, selection='atom_name=="CA"')
-    expected_atom_indices = msm.select(view, element="atom", selection='atom_name=="CA"')
+    expected_atom_indices = msm.select(
+        view, element="atom", selection='atom_name=="CA"'
+    )
 
     assert result.pc1_vectors.shape == (len(result.atom_indices), 3)
     assert result.atom_indices == list(expected_atom_indices)
@@ -153,6 +150,7 @@ def test_structure_panel_clear_contacts_removes_viewer_links():
 # ---------------------------------------------------------------------------
 # H-Bonds panel — no-system error
 # ---------------------------------------------------------------------------
+
 
 def test_hbond_links_adapter_reads_from_view():
     pytest.importorskip("molsysmt")
@@ -260,6 +258,7 @@ def test_hbonds_panel_clear_removes_viewer_links():
 # Topology adapter/panel — bond graph and standard dihedrals from the view
 # ---------------------------------------------------------------------------
 
+
 def test_topology_bond_graph_adapter_reads_from_view():
     pytest.importorskip("molsysmt")
     from molsysviewer_molsysmt.adapters.topology import bond_graph_links
@@ -287,7 +286,10 @@ def test_topology_dihedral_quartets_adapter_reads_from_view():
 
 
 def test_topology_adapters_raise_without_system():
-    from molsysviewer_molsysmt.adapters.topology import bond_graph_links, dihedral_quartets
+    from molsysviewer_molsysmt.adapters.topology import (
+        bond_graph_links,
+        dihedral_quartets,
+    )
 
     view = molsysviewer.MolSysView()
 

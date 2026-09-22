@@ -5,7 +5,6 @@ import pytest
 
 import molsysmt as msm
 
-
 md = pytest.importorskip("mdtraj")
 
 
@@ -14,25 +13,25 @@ def test_covalent_wrapping_reconstructs_real_solvent_molecules(
 ):
     """Recover oracle bond lengths after deliberate periodic image shifts."""
 
-    trajectory_file = msm.systems['chicken villin HP35'][
-        'traj_chicken_villin_HP35_solvated.h5'
+    trajectory_file = msm.systems["chicken villin HP35"][
+        "traj_chicken_villin_HP35_solvated.h5"
     ]
     structure_indices = [0, 10, 19]
     molecular_system = msm.convert(
         trajectory_file,
         structure_indices=structure_indices,
-        to_form='molsysmt.MolSys',
+        to_form="molsysmt.MolSys",
     )
     bonded_pairs = np.asarray(
         msm.get(
             molecular_system,
-            element='atom',
+            element="atom",
             inner_bonded_atom_pairs=True,
         ),
         dtype=np.int64,
     )
     molecule_indices = np.asarray(
-        msm.get(molecular_system, element='atom', molecule_index=True),
+        msm.get(molecular_system, element="atom", molecule_index=True),
         dtype=np.int64,
     )
     assert np.unique(molecule_indices).size == 1257
@@ -47,11 +46,11 @@ def test_covalent_wrapping_reconstructs_real_solvent_molecules(
 
     coordinates = msm.pyunitwizard.get_value(
         msm.get(molecular_system, coordinates=True),
-        to_unit='nm',
+        to_unit="nm",
     ).copy()
     box = msm.pyunitwizard.get_value(
         msm.get(molecular_system, box=True),
-        to_unit='nm',
+        to_unit="nm",
     )
     solvent_molecules = np.unique(molecule_indices)[-3:]
     shifted_atoms = [
@@ -63,7 +62,7 @@ def test_covalent_wrapping_reconstructs_real_solvent_molecules(
 
     msm.set(
         molecular_system,
-        coordinates=msm.pyunitwizard.quantity(coordinates, 'nm'),
+        coordinates=msm.pyunitwizard.quantity(coordinates, "nm"),
     )
     broken_lengths = np.linalg.norm(
         coordinates[:, bonded_pairs[:, 1]] - coordinates[:, bonded_pairs[:, 0]],
@@ -73,12 +72,12 @@ def test_covalent_wrapping_reconstructs_real_solvent_molecules(
 
     wrapped = msm.pbc.wrap_to_pbc(
         molecular_system,
-        compact='component',
+        compact="component",
         in_place=False,
     )
     wrapped_coordinates = msm.pyunitwizard.get_value(
         msm.get(wrapped, coordinates=True),
-        to_unit='nm',
+        to_unit="nm",
     )
     observed_lengths = np.linalg.norm(
         wrapped_coordinates[:, bonded_pairs[:, 1]]

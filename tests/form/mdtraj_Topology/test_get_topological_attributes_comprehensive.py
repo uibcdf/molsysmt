@@ -37,28 +37,29 @@ mdtraj.Topology adapter notes (inherited from builder tests):
     NotImplementedMethodError (not tested here)
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 import molsysmt as msm
 from molsysmt.form.mdtraj_Topology import get_topological_attributes as aux
 
-PDB_PATH = str(Path(msm.__file__).parent / 'data' / 'pdb' / '1vii.pdb')
+PDB_PATH = str(Path(msm.__file__).parent / "data" / "pdb" / "1vii.pdb")
 
-N_ATOMS        = 596
-N_GROUPS       = 36
-N_CHAINS       = 1
-N_BONDS        = 602
-N_COMPONENTS   = 1
-N_MOLECULES    = 1
-N_ENTITIES     = 1
-N_AMINO_ACIDS  = 36
+N_ATOMS = 596
+N_GROUPS = 36
+N_CHAINS = 1
+N_BONDS = 602
+N_COMPONENTS = 1
+N_MOLECULES = 1
+N_ENTITIES = 1
+N_AMINO_ACIDS = 36
 N_BONDED_ATOMS = 596
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def topo():
-    t = msm.convert(PDB_PATH, to_form='mdtraj.Topology')
+    t = msm.convert(PDB_PATH, to_form="mdtraj.Topology")
     assert t is not None
     return t
 
@@ -67,19 +68,23 @@ def topo():
 # System-level type-counting — protein-only zeroes and non-zeroes
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_nucleotides_from_system",    0),
-    ("get_n_ions_from_system",           0),
-    ("get_n_waters_from_system",         0),
-    ("get_n_small_molecules_from_system", 0),
-    ("get_n_lipids_from_system",         0),
-    ("get_n_saccharides_from_system",    0),
-    ("get_n_polysaccharides_from_system", 0),
-    ("get_n_peptides_from_system",       1),
-    ("get_n_proteins_from_system",       0),
-    ("get_n_dnas_from_system",           0),
-    ("get_n_rnas_from_system",           0),
-])
+
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_nucleotides_from_system", 0),
+        ("get_n_ions_from_system", 0),
+        ("get_n_waters_from_system", 0),
+        ("get_n_small_molecules_from_system", 0),
+        ("get_n_lipids_from_system", 0),
+        ("get_n_saccharides_from_system", 0),
+        ("get_n_polysaccharides_from_system", 0),
+        ("get_n_peptides_from_system", 1),
+        ("get_n_proteins_from_system", 0),
+        ("get_n_dnas_from_system", 0),
+        ("get_n_rnas_from_system", 0),
+    ],
+)
 def test_system_type_count(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert result == expected
@@ -89,21 +94,28 @@ def test_system_type_count(topo, func_name, expected):
 # System-level bond functions
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_bond_index_from_system",
-    "get_bonded_atom_pairs_from_system",
-    "get_inner_bonded_atom_pairs_from_system",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_bond_index_from_system",
+        "get_bonded_atom_pairs_from_system",
+        "get_inner_bonded_atom_pairs_from_system",
+    ],
+)
 def test_system_bond_pairs_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_BONDS
 
 
-@pytest.mark.parametrize("func_name", [
-    "get_bonded_atoms_from_system",
-    "get_inner_bonded_atoms_from_system",
-])
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_bonded_atoms_from_system",
+        "get_inner_bonded_atoms_from_system",
+    ],
+)
 def test_system_bonded_atoms_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
@@ -120,36 +132,43 @@ def test_inner_bond_index_from_system_length(topo):
 # Atom-level — per-atom list functions (not covered in from_pdb test)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_component_index_from_atom",
-    "get_component_id_from_atom",
-    "get_component_name_from_atom",
-    "get_component_type_from_atom",
-    "get_molecule_index_from_atom",
-    "get_molecule_id_from_atom",
-    "get_molecule_name_from_atom",
-    "get_molecule_type_from_atom",
-    "get_entity_index_from_atom",
-    "get_entity_id_from_atom",
-    "get_entity_name_from_atom",
-    "get_entity_type_from_atom",
-    "get_bond_index_from_atom",
-    "get_bonded_atoms_from_atom",
-    "get_inner_bond_index_from_atom",
-    # In mdtraj.Topology these return per-atom lists (unlike openmm.Topology scalars)
-    "get_n_bonds_from_atom",
-    "get_n_inner_bonds_from_atom",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_component_index_from_atom",
+        "get_component_id_from_atom",
+        "get_component_name_from_atom",
+        "get_component_type_from_atom",
+        "get_molecule_index_from_atom",
+        "get_molecule_id_from_atom",
+        "get_molecule_name_from_atom",
+        "get_molecule_type_from_atom",
+        "get_entity_index_from_atom",
+        "get_entity_id_from_atom",
+        "get_entity_name_from_atom",
+        "get_entity_type_from_atom",
+        "get_bond_index_from_atom",
+        "get_bonded_atoms_from_atom",
+        "get_inner_bond_index_from_atom",
+        # In mdtraj.Topology these return per-atom lists (unlike openmm.Topology scalars)
+        "get_n_bonds_from_atom",
+        "get_n_inner_bonds_from_atom",
+    ],
+)
 def test_atom_array_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_ATOMS
 
 
-@pytest.mark.parametrize("func_name", [
-    "get_bonded_atom_pairs_from_atom",
-    "get_inner_bonded_atom_pairs_from_atom",
-])
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_bonded_atom_pairs_from_atom",
+        "get_inner_bonded_atom_pairs_from_atom",
+    ],
+)
 def test_atom_bond_pairs_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
@@ -163,46 +182,49 @@ def test_inner_bonded_atoms_from_atom_length(topo):
 
 
 # Scalar counts from atom (type counting — protein-only)
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_atoms_from_atom",                 N_ATOMS),
-    ("get_total_n_atoms_from_atom",           N_ATOMS),
-    ("get_n_groups_from_atom",                N_GROUPS),
-    ("get_total_n_groups_from_atom",          N_GROUPS),
-    ("get_n_components_from_atom",            N_COMPONENTS),
-    ("get_total_n_components_from_atom",      N_COMPONENTS),
-    ("get_n_molecules_from_atom",             N_MOLECULES),
-    ("get_total_n_molecules_from_atom",       N_MOLECULES),
-    ("get_n_entities_from_atom",              N_ENTITIES),
-    ("get_total_n_entities_from_atom",        N_ENTITIES),
-    ("get_n_chains_from_atom",                N_CHAINS),
-    ("get_total_n_chains_from_atom",          N_CHAINS),
-    ("get_n_amino_acids_from_atom",           N_AMINO_ACIDS),
-    ("get_total_n_amino_acids_from_atom",     N_AMINO_ACIDS),
-    ("get_n_nucleotides_from_atom",           0),
-    ("get_total_n_nucleotides_from_atom",     0),
-    ("get_n_ions_from_atom",                  0),
-    ("get_total_n_ions_from_atom",            0),
-    ("get_n_waters_from_atom",                0),
-    ("get_total_n_waters_from_atom",          0),
-    ("get_n_small_molecules_from_atom",       0),
-    ("get_total_n_small_molecules_from_atom", 0),
-    ("get_n_lipids_from_atom",                0),
-    ("get_total_n_lipids_from_atom",          0),
-    ("get_n_saccharides_from_atom",           0),
-    ("get_total_n_saccharides_from_atom",     0),
-    ("get_n_peptides_from_atom",              1),
-    ("get_total_n_peptides_from_atom",        1),
-    ("get_n_proteins_from_atom",              0),
-    ("get_total_n_proteins_from_atom",        0),
-    ("get_n_polysaccharides_from_atom",       0),
-    ("get_total_n_polysaccharides_from_atom", 0),
-    ("get_n_dnas_from_atom",                  0),
-    ("get_total_n_dnas_from_atom",            0),
-    ("get_n_rnas_from_atom",                  0),
-    ("get_total_n_rnas_from_atom",            0),
-    ("get_total_n_bonds_from_atom",           N_BONDS),
-    ("get_total_n_inner_bonds_from_atom",     N_BONDS),
-])
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_atoms_from_atom", N_ATOMS),
+        ("get_total_n_atoms_from_atom", N_ATOMS),
+        ("get_n_groups_from_atom", N_GROUPS),
+        ("get_total_n_groups_from_atom", N_GROUPS),
+        ("get_n_components_from_atom", N_COMPONENTS),
+        ("get_total_n_components_from_atom", N_COMPONENTS),
+        ("get_n_molecules_from_atom", N_MOLECULES),
+        ("get_total_n_molecules_from_atom", N_MOLECULES),
+        ("get_n_entities_from_atom", N_ENTITIES),
+        ("get_total_n_entities_from_atom", N_ENTITIES),
+        ("get_n_chains_from_atom", N_CHAINS),
+        ("get_total_n_chains_from_atom", N_CHAINS),
+        ("get_n_amino_acids_from_atom", N_AMINO_ACIDS),
+        ("get_total_n_amino_acids_from_atom", N_AMINO_ACIDS),
+        ("get_n_nucleotides_from_atom", 0),
+        ("get_total_n_nucleotides_from_atom", 0),
+        ("get_n_ions_from_atom", 0),
+        ("get_total_n_ions_from_atom", 0),
+        ("get_n_waters_from_atom", 0),
+        ("get_total_n_waters_from_atom", 0),
+        ("get_n_small_molecules_from_atom", 0),
+        ("get_total_n_small_molecules_from_atom", 0),
+        ("get_n_lipids_from_atom", 0),
+        ("get_total_n_lipids_from_atom", 0),
+        ("get_n_saccharides_from_atom", 0),
+        ("get_total_n_saccharides_from_atom", 0),
+        ("get_n_peptides_from_atom", 1),
+        ("get_total_n_peptides_from_atom", 1),
+        ("get_n_proteins_from_atom", 0),
+        ("get_total_n_proteins_from_atom", 0),
+        ("get_n_polysaccharides_from_atom", 0),
+        ("get_total_n_polysaccharides_from_atom", 0),
+        ("get_n_dnas_from_atom", 0),
+        ("get_total_n_dnas_from_atom", 0),
+        ("get_n_rnas_from_atom", 0),
+        ("get_total_n_rnas_from_atom", 0),
+        ("get_total_n_bonds_from_atom", N_BONDS),
+        ("get_total_n_inner_bonds_from_atom", N_BONDS),
+    ],
+)
 def test_atom_scalar_count(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert result == expected
@@ -212,35 +234,39 @@ def test_atom_scalar_count(topo, func_name, expected):
 # Group-level — per-group list functions
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_atom_index_from_group",
-    "get_atom_id_from_group",
-    "get_atom_name_from_group",
-    "get_atom_type_from_group",
-    "get_group_index_from_group",
-    "get_group_id_from_group",
-    "get_group_name_from_group",
-    "get_group_type_from_group",
-    "get_component_index_from_group",
-    "get_component_id_from_group",
-    "get_component_name_from_group",
-    "get_component_type_from_group",
-    "get_molecule_index_from_group",
-    "get_molecule_id_from_group",
-    "get_molecule_name_from_group",
-    "get_molecule_type_from_group",
-    "get_entity_index_from_group",
-    "get_entity_id_from_group",
-    "get_entity_name_from_group",
-    "get_entity_type_from_group",
-    "get_chain_index_from_group",
-    "get_chain_id_from_group",
-    "get_chain_type_from_group",
-    "get_n_atoms_from_group",
-    # In mdtraj.Topology these return per-group lists (unlike openmm.Topology scalars)
-    "get_n_components_from_group",
-    "get_n_chains_from_group",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_atom_index_from_group",
+        "get_atom_id_from_group",
+        "get_atom_name_from_group",
+        "get_atom_type_from_group",
+        "get_group_index_from_group",
+        "get_group_id_from_group",
+        "get_group_name_from_group",
+        "get_group_type_from_group",
+        "get_component_index_from_group",
+        "get_component_id_from_group",
+        "get_component_name_from_group",
+        "get_component_type_from_group",
+        "get_molecule_index_from_group",
+        "get_molecule_id_from_group",
+        "get_molecule_name_from_group",
+        "get_molecule_type_from_group",
+        "get_entity_index_from_group",
+        "get_entity_id_from_group",
+        "get_entity_name_from_group",
+        "get_entity_type_from_group",
+        "get_chain_index_from_group",
+        "get_chain_id_from_group",
+        "get_chain_type_from_group",
+        "get_n_atoms_from_group",
+        # In mdtraj.Topology these return per-group lists (unlike openmm.Topology scalars)
+        "get_n_components_from_group",
+        "get_n_chains_from_group",
+    ],
+)
 def test_group_array_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
@@ -248,41 +274,44 @@ def test_group_array_length(topo, func_name):
 
 
 # Group-level scalar counts
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_groups_from_group",              N_GROUPS),
-    ("get_total_n_groups_from_group",        N_GROUPS),
-    ("get_total_n_atoms_from_group",         N_ATOMS),
-    ("get_n_molecules_from_group",           N_MOLECULES),
-    ("get_total_n_molecules_from_group",     N_MOLECULES),
-    ("get_n_entities_from_group",            N_ENTITIES),
-    ("get_total_n_entities_from_group",      N_ENTITIES),
-    ("get_total_n_components_from_group",    N_COMPONENTS),
-    ("get_total_n_chains_from_group",        N_CHAINS),
-    ("get_n_amino_acids_from_group",         N_AMINO_ACIDS),
-    ("get_total_n_amino_acids_from_group",   N_AMINO_ACIDS),
-    ("get_n_nucleotides_from_group",         0),
-    ("get_total_n_nucleotides_from_group",   0),
-    ("get_n_ions_from_group",                0),
-    ("get_total_n_ions_from_group",          0),
-    ("get_n_waters_from_group",              0),
-    ("get_total_n_waters_from_group",        0),
-    ("get_n_small_molecules_from_group",     0),
-    ("get_total_n_small_molecules_from_group", 0),
-    ("get_n_lipids_from_group",              0),
-    ("get_total_n_lipids_from_group",        0),
-    ("get_n_saccharides_from_group",         0),
-    ("get_total_n_saccharides_from_group",   0),
-    ("get_n_peptides_from_group",            1),
-    ("get_total_n_peptides_from_group",      1),
-    ("get_n_proteins_from_group",            0),
-    ("get_total_n_proteins_from_group",      0),
-    ("get_n_polysaccharides_from_group",     0),
-    ("get_total_n_polysaccharides_from_group", 0),
-    ("get_n_dnas_from_group",                0),
-    ("get_total_n_dnas_from_group",          0),
-    ("get_n_rnas_from_group",                0),
-    ("get_total_n_rnas_from_group",          0),
-])
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_groups_from_group", N_GROUPS),
+        ("get_total_n_groups_from_group", N_GROUPS),
+        ("get_total_n_atoms_from_group", N_ATOMS),
+        ("get_n_molecules_from_group", N_MOLECULES),
+        ("get_total_n_molecules_from_group", N_MOLECULES),
+        ("get_n_entities_from_group", N_ENTITIES),
+        ("get_total_n_entities_from_group", N_ENTITIES),
+        ("get_total_n_components_from_group", N_COMPONENTS),
+        ("get_total_n_chains_from_group", N_CHAINS),
+        ("get_n_amino_acids_from_group", N_AMINO_ACIDS),
+        ("get_total_n_amino_acids_from_group", N_AMINO_ACIDS),
+        ("get_n_nucleotides_from_group", 0),
+        ("get_total_n_nucleotides_from_group", 0),
+        ("get_n_ions_from_group", 0),
+        ("get_total_n_ions_from_group", 0),
+        ("get_n_waters_from_group", 0),
+        ("get_total_n_waters_from_group", 0),
+        ("get_n_small_molecules_from_group", 0),
+        ("get_total_n_small_molecules_from_group", 0),
+        ("get_n_lipids_from_group", 0),
+        ("get_total_n_lipids_from_group", 0),
+        ("get_n_saccharides_from_group", 0),
+        ("get_total_n_saccharides_from_group", 0),
+        ("get_n_peptides_from_group", 1),
+        ("get_total_n_peptides_from_group", 1),
+        ("get_n_proteins_from_group", 0),
+        ("get_total_n_proteins_from_group", 0),
+        ("get_n_polysaccharides_from_group", 0),
+        ("get_total_n_polysaccharides_from_group", 0),
+        ("get_n_dnas_from_group", 0),
+        ("get_total_n_dnas_from_group", 0),
+        ("get_n_rnas_from_group", 0),
+        ("get_total_n_rnas_from_group", 0),
+    ],
+)
 def test_group_scalar_count(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert result == expected
@@ -296,7 +325,7 @@ def test_group_name_from_group_is_list_of_strings(topo):
 
 def test_group_type_from_group_all_amino_acid(topo):
     types = aux.get_group_type_from_group(topo)
-    assert all(t == 'amino acid' for t in types)
+    assert all(t == "amino acid" for t in types)
 
 
 def test_chain_name_from_group_is_none(topo):
@@ -313,64 +342,71 @@ def test_n_atoms_from_group_sums_to_total(topo):
 # Component-level — per-component list functions (N_COMPONENTS=1)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_atom_index_from_component",
-    "get_atom_id_from_component",
-    "get_atom_name_from_component",
-    "get_atom_type_from_component",
-    "get_group_index_from_component",
-    "get_group_id_from_component",
-    "get_group_name_from_component",
-    "get_group_type_from_component",
-    "get_component_index_from_component",
-    "get_component_id_from_component",
-    "get_component_name_from_component",
-    "get_component_type_from_component",
-    "get_molecule_index_from_component",
-    "get_molecule_id_from_component",
-    "get_molecule_name_from_component",
-    "get_molecule_type_from_component",
-    "get_entity_index_from_component",
-    "get_entity_id_from_component",
-    "get_entity_name_from_component",
-    "get_entity_type_from_component",
-    "get_chain_index_from_component",
-    "get_chain_id_from_component",
-    "get_chain_type_from_component",
-    "get_n_atoms_from_component",
-    "get_n_groups_from_component",
-    # In mdtraj.Topology these return per-component lists
-    "get_n_chains_from_component",
-    "get_n_amino_acids_from_component",
-    "get_n_nucleotides_from_component",
-    "get_n_ions_from_component",
-    "get_n_waters_from_component",
-    "get_n_lipids_from_component",
-    "get_n_saccharides_from_component",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_atom_index_from_component",
+        "get_atom_id_from_component",
+        "get_atom_name_from_component",
+        "get_atom_type_from_component",
+        "get_group_index_from_component",
+        "get_group_id_from_component",
+        "get_group_name_from_component",
+        "get_group_type_from_component",
+        "get_component_index_from_component",
+        "get_component_id_from_component",
+        "get_component_name_from_component",
+        "get_component_type_from_component",
+        "get_molecule_index_from_component",
+        "get_molecule_id_from_component",
+        "get_molecule_name_from_component",
+        "get_molecule_type_from_component",
+        "get_entity_index_from_component",
+        "get_entity_id_from_component",
+        "get_entity_name_from_component",
+        "get_entity_type_from_component",
+        "get_chain_index_from_component",
+        "get_chain_id_from_component",
+        "get_chain_type_from_component",
+        "get_n_atoms_from_component",
+        "get_n_groups_from_component",
+        # In mdtraj.Topology these return per-component lists
+        "get_n_chains_from_component",
+        "get_n_amino_acids_from_component",
+        "get_n_nucleotides_from_component",
+        "get_n_ions_from_component",
+        "get_n_waters_from_component",
+        "get_n_lipids_from_component",
+        "get_n_saccharides_from_component",
+    ],
+)
 def test_component_array_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_COMPONENTS
 
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_components_from_component",          N_COMPONENTS),
-    ("get_total_n_components_from_component",    N_COMPONENTS),
-    ("get_total_n_atoms_from_component",         N_ATOMS),
-    ("get_total_n_groups_from_component",        N_GROUPS),
-    ("get_n_molecules_from_component",           N_MOLECULES),
-    ("get_total_n_molecules_from_component",     N_MOLECULES),
-    ("get_n_entities_from_component",            N_ENTITIES),
-    ("get_total_n_entities_from_component",      N_ENTITIES),
-    ("get_total_n_chains_from_component",        N_CHAINS),
-    ("get_total_n_amino_acids_from_component",   N_AMINO_ACIDS),
-    ("get_total_n_nucleotides_from_component",   0),
-    ("get_total_n_ions_from_component",          0),
-    ("get_total_n_waters_from_component",        0),
-    ("get_total_n_lipids_from_component",        0),
-    ("get_total_n_saccharides_from_component",   0),
-])
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_components_from_component", N_COMPONENTS),
+        ("get_total_n_components_from_component", N_COMPONENTS),
+        ("get_total_n_atoms_from_component", N_ATOMS),
+        ("get_total_n_groups_from_component", N_GROUPS),
+        ("get_n_molecules_from_component", N_MOLECULES),
+        ("get_total_n_molecules_from_component", N_MOLECULES),
+        ("get_n_entities_from_component", N_ENTITIES),
+        ("get_total_n_entities_from_component", N_ENTITIES),
+        ("get_total_n_chains_from_component", N_CHAINS),
+        ("get_total_n_amino_acids_from_component", N_AMINO_ACIDS),
+        ("get_total_n_nucleotides_from_component", 0),
+        ("get_total_n_ions_from_component", 0),
+        ("get_total_n_waters_from_component", 0),
+        ("get_total_n_lipids_from_component", 0),
+        ("get_total_n_saccharides_from_component", 0),
+    ],
+)
 def test_component_scalar_count(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert result == expected
@@ -385,74 +421,81 @@ def test_chain_name_from_component_is_none(topo):
 # Molecule-level — per-molecule list functions (N_MOLECULES=1)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_atom_index_from_molecule",
-    "get_atom_id_from_molecule",
-    "get_atom_name_from_molecule",
-    "get_atom_type_from_molecule",
-    "get_group_index_from_molecule",
-    "get_group_id_from_molecule",
-    "get_group_name_from_molecule",
-    "get_group_type_from_molecule",
-    "get_molecule_index_from_molecule",
-    "get_molecule_id_from_molecule",
-    "get_molecule_name_from_molecule",
-    "get_molecule_type_from_molecule",
-    "get_entity_index_from_molecule",
-    "get_entity_id_from_molecule",
-    "get_entity_name_from_molecule",
-    "get_entity_type_from_molecule",
-    "get_component_index_from_molecule",
-    "get_component_id_from_molecule",
-    "get_component_name_from_molecule",
-    "get_component_type_from_molecule",
-    "get_chain_index_from_molecule",
-    "get_chain_id_from_molecule",
-    "get_chain_type_from_molecule",
-    "get_n_atoms_from_molecule",
-    "get_n_groups_from_molecule",
-    "get_n_components_from_molecule",
-    # In mdtraj.Topology these return per-molecule lists
-    "get_n_chains_from_molecule",
-    "get_n_amino_acids_from_molecule",
-    "get_n_nucleotides_from_molecule",
-    "get_n_ions_from_molecule",
-    "get_n_waters_from_molecule",
-    "get_n_lipids_from_molecule",
-    "get_n_saccharides_from_molecule",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_atom_index_from_molecule",
+        "get_atom_id_from_molecule",
+        "get_atom_name_from_molecule",
+        "get_atom_type_from_molecule",
+        "get_group_index_from_molecule",
+        "get_group_id_from_molecule",
+        "get_group_name_from_molecule",
+        "get_group_type_from_molecule",
+        "get_molecule_index_from_molecule",
+        "get_molecule_id_from_molecule",
+        "get_molecule_name_from_molecule",
+        "get_molecule_type_from_molecule",
+        "get_entity_index_from_molecule",
+        "get_entity_id_from_molecule",
+        "get_entity_name_from_molecule",
+        "get_entity_type_from_molecule",
+        "get_component_index_from_molecule",
+        "get_component_id_from_molecule",
+        "get_component_name_from_molecule",
+        "get_component_type_from_molecule",
+        "get_chain_index_from_molecule",
+        "get_chain_id_from_molecule",
+        "get_chain_type_from_molecule",
+        "get_n_atoms_from_molecule",
+        "get_n_groups_from_molecule",
+        "get_n_components_from_molecule",
+        # In mdtraj.Topology these return per-molecule lists
+        "get_n_chains_from_molecule",
+        "get_n_amino_acids_from_molecule",
+        "get_n_nucleotides_from_molecule",
+        "get_n_ions_from_molecule",
+        "get_n_waters_from_molecule",
+        "get_n_lipids_from_molecule",
+        "get_n_saccharides_from_molecule",
+    ],
+)
 def test_molecule_array_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_MOLECULES
 
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_molecules_from_molecule",           N_MOLECULES),
-    ("get_total_n_molecules_from_molecule",     N_MOLECULES),
-    ("get_total_n_atoms_from_molecule",         N_ATOMS),
-    ("get_total_n_groups_from_molecule",        N_GROUPS),
-    ("get_total_n_components_from_molecule",    N_COMPONENTS),
-    ("get_n_entities_from_molecule",            N_ENTITIES),
-    ("get_total_n_entities_from_molecule",      N_ENTITIES),
-    ("get_total_n_chains_from_molecule",        N_CHAINS),
-    ("get_total_n_amino_acids_from_molecule",   N_AMINO_ACIDS),
-    ("get_total_n_nucleotides_from_molecule",   0),
-    ("get_total_n_ions_from_molecule",          0),
-    ("get_total_n_waters_from_molecule",        0),
-    ("get_total_n_lipids_from_molecule",        0),
-    ("get_total_n_saccharides_from_molecule",   0),
-    ("get_n_polysaccharides_from_molecule",     0),
-    ("get_total_n_polysaccharides_from_molecule", 0),
-    ("get_n_peptides_from_molecule",            1),
-    ("get_total_n_peptides_from_molecule",      1),
-    ("get_n_proteins_from_molecule",            0),
-    ("get_total_n_proteins_from_molecule",      0),
-    ("get_n_dnas_from_molecule",                0),
-    ("get_total_n_dnas_from_molecule",          0),
-    ("get_n_rnas_from_molecule",                0),
-    ("get_total_n_rnas_from_molecule",          0),
-])
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_molecules_from_molecule", N_MOLECULES),
+        ("get_total_n_molecules_from_molecule", N_MOLECULES),
+        ("get_total_n_atoms_from_molecule", N_ATOMS),
+        ("get_total_n_groups_from_molecule", N_GROUPS),
+        ("get_total_n_components_from_molecule", N_COMPONENTS),
+        ("get_n_entities_from_molecule", N_ENTITIES),
+        ("get_total_n_entities_from_molecule", N_ENTITIES),
+        ("get_total_n_chains_from_molecule", N_CHAINS),
+        ("get_total_n_amino_acids_from_molecule", N_AMINO_ACIDS),
+        ("get_total_n_nucleotides_from_molecule", 0),
+        ("get_total_n_ions_from_molecule", 0),
+        ("get_total_n_waters_from_molecule", 0),
+        ("get_total_n_lipids_from_molecule", 0),
+        ("get_total_n_saccharides_from_molecule", 0),
+        ("get_n_polysaccharides_from_molecule", 0),
+        ("get_total_n_polysaccharides_from_molecule", 0),
+        ("get_n_peptides_from_molecule", 1),
+        ("get_total_n_peptides_from_molecule", 1),
+        ("get_n_proteins_from_molecule", 0),
+        ("get_total_n_proteins_from_molecule", 0),
+        ("get_n_dnas_from_molecule", 0),
+        ("get_total_n_dnas_from_molecule", 0),
+        ("get_n_rnas_from_molecule", 0),
+        ("get_total_n_rnas_from_molecule", 0),
+    ],
+)
 def test_molecule_scalar_count(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert result == expected
@@ -461,7 +504,7 @@ def test_molecule_scalar_count(topo, func_name, expected):
 def test_molecule_type_is_peptide(topo):
     types = aux.get_molecule_type_from_molecule(topo)
     assert isinstance(types, list)
-    assert types == ['peptide']
+    assert types == ["peptide"]
 
 
 def test_chain_name_from_molecule_is_none(topo):
@@ -473,74 +516,81 @@ def test_chain_name_from_molecule_is_none(topo):
 # Entity-level — per-entity list functions (N_ENTITIES=1)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_atom_index_from_entity",
-    "get_atom_id_from_entity",
-    "get_atom_name_from_entity",
-    "get_atom_type_from_entity",
-    "get_group_index_from_entity",
-    "get_group_id_from_entity",
-    "get_group_name_from_entity",
-    "get_group_type_from_entity",
-    "get_molecule_index_from_entity",
-    "get_molecule_id_from_entity",
-    "get_molecule_name_from_entity",
-    "get_molecule_type_from_entity",
-    "get_entity_index_from_entity",
-    "get_entity_id_from_entity",
-    "get_entity_name_from_entity",
-    "get_entity_type_from_entity",
-    "get_component_index_from_entity",
-    "get_component_id_from_entity",
-    "get_component_name_from_entity",
-    "get_component_type_from_entity",
-    "get_chain_index_from_entity",
-    "get_chain_id_from_entity",
-    "get_chain_type_from_entity",
-    "get_n_atoms_from_entity",
-    "get_n_groups_from_entity",
-    "get_n_molecules_from_entity",
-    "get_n_components_from_entity",
-    # In mdtraj.Topology these return per-entity lists
-    "get_n_chains_from_entity",
-    "get_n_amino_acids_from_entity",
-    "get_n_nucleotides_from_entity",
-    "get_n_ions_from_entity",
-    "get_n_waters_from_entity",
-    "get_n_lipids_from_entity",
-    "get_n_saccharides_from_entity",
-    "get_n_peptides_from_entity",
-    "get_n_proteins_from_entity",
-    "get_n_polysaccharides_from_entity",
-    "get_n_dnas_from_entity",
-    "get_n_rnas_from_entity",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_atom_index_from_entity",
+        "get_atom_id_from_entity",
+        "get_atom_name_from_entity",
+        "get_atom_type_from_entity",
+        "get_group_index_from_entity",
+        "get_group_id_from_entity",
+        "get_group_name_from_entity",
+        "get_group_type_from_entity",
+        "get_molecule_index_from_entity",
+        "get_molecule_id_from_entity",
+        "get_molecule_name_from_entity",
+        "get_molecule_type_from_entity",
+        "get_entity_index_from_entity",
+        "get_entity_id_from_entity",
+        "get_entity_name_from_entity",
+        "get_entity_type_from_entity",
+        "get_component_index_from_entity",
+        "get_component_id_from_entity",
+        "get_component_name_from_entity",
+        "get_component_type_from_entity",
+        "get_chain_index_from_entity",
+        "get_chain_id_from_entity",
+        "get_chain_type_from_entity",
+        "get_n_atoms_from_entity",
+        "get_n_groups_from_entity",
+        "get_n_molecules_from_entity",
+        "get_n_components_from_entity",
+        # In mdtraj.Topology these return per-entity lists
+        "get_n_chains_from_entity",
+        "get_n_amino_acids_from_entity",
+        "get_n_nucleotides_from_entity",
+        "get_n_ions_from_entity",
+        "get_n_waters_from_entity",
+        "get_n_lipids_from_entity",
+        "get_n_saccharides_from_entity",
+        "get_n_peptides_from_entity",
+        "get_n_proteins_from_entity",
+        "get_n_polysaccharides_from_entity",
+        "get_n_dnas_from_entity",
+        "get_n_rnas_from_entity",
+    ],
+)
 def test_entity_array_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_ENTITIES
 
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_entities_from_entity",              N_ENTITIES),
-    ("get_total_n_entities_from_entity",        N_ENTITIES),
-    ("get_total_n_atoms_from_entity",           N_ATOMS),
-    ("get_total_n_groups_from_entity",          N_GROUPS),
-    ("get_total_n_molecules_from_entity",       N_MOLECULES),
-    ("get_total_n_components_from_entity",      N_COMPONENTS),
-    ("get_total_n_chains_from_entity",          N_CHAINS),
-    ("get_total_n_amino_acids_from_entity",     N_AMINO_ACIDS),
-    ("get_total_n_nucleotides_from_entity",     0),
-    ("get_total_n_ions_from_entity",            0),
-    ("get_total_n_waters_from_entity",          0),
-    ("get_total_n_lipids_from_entity",          0),
-    ("get_total_n_saccharides_from_entity",     0),
-    ("get_total_n_peptides_from_entity",        1),
-    ("get_total_n_proteins_from_entity",        0),
-    ("get_total_n_polysaccharides_from_entity", 0),
-    ("get_total_n_dnas_from_entity",            0),
-    ("get_total_n_rnas_from_entity",            0),
-])
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_entities_from_entity", N_ENTITIES),
+        ("get_total_n_entities_from_entity", N_ENTITIES),
+        ("get_total_n_atoms_from_entity", N_ATOMS),
+        ("get_total_n_groups_from_entity", N_GROUPS),
+        ("get_total_n_molecules_from_entity", N_MOLECULES),
+        ("get_total_n_components_from_entity", N_COMPONENTS),
+        ("get_total_n_chains_from_entity", N_CHAINS),
+        ("get_total_n_amino_acids_from_entity", N_AMINO_ACIDS),
+        ("get_total_n_nucleotides_from_entity", 0),
+        ("get_total_n_ions_from_entity", 0),
+        ("get_total_n_waters_from_entity", 0),
+        ("get_total_n_lipids_from_entity", 0),
+        ("get_total_n_saccharides_from_entity", 0),
+        ("get_total_n_peptides_from_entity", 1),
+        ("get_total_n_proteins_from_entity", 0),
+        ("get_total_n_polysaccharides_from_entity", 0),
+        ("get_total_n_dnas_from_entity", 0),
+        ("get_total_n_rnas_from_entity", 0),
+    ],
+)
 def test_entity_scalar_count(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert result == expected
@@ -549,7 +599,7 @@ def test_entity_scalar_count(topo, func_name, expected):
 def test_entity_type_is_peptide(topo):
     types = aux.get_entity_type_from_entity(topo)
     assert isinstance(types, list)
-    assert types == ['peptide']
+    assert types == ["peptide"]
 
 
 def test_chain_name_from_entity_is_none(topo):
@@ -561,72 +611,79 @@ def test_chain_name_from_entity_is_none(topo):
 # Chain-level — per-chain list functions (N_CHAINS=1)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_atom_index_from_chain",
-    "get_atom_id_from_chain",
-    "get_atom_name_from_chain",
-    "get_atom_type_from_chain",
-    "get_group_index_from_chain",
-    "get_group_id_from_chain",
-    "get_group_name_from_chain",
-    "get_group_type_from_chain",
-    "get_molecule_index_from_chain",
-    "get_molecule_id_from_chain",
-    "get_molecule_name_from_chain",
-    "get_molecule_type_from_chain",
-    "get_entity_index_from_chain",
-    "get_entity_id_from_chain",
-    "get_entity_name_from_chain",
-    "get_entity_type_from_chain",
-    "get_component_index_from_chain",
-    "get_component_id_from_chain",
-    "get_component_name_from_chain",
-    "get_component_type_from_chain",
-    "get_chain_index_from_chain",
-    "get_chain_id_from_chain",
-    "get_chain_type_from_chain",
-    "get_n_atoms_from_chain",
-    "get_n_groups_from_chain",
-    "get_n_molecules_from_chain",
-    "get_n_entities_from_chain",
-    "get_n_components_from_chain",
-    # In mdtraj.Topology these return per-chain lists
-    "get_n_amino_acids_from_chain",
-    "get_n_nucleotides_from_chain",
-    "get_n_ions_from_chain",
-    "get_n_waters_from_chain",
-    "get_n_lipids_from_chain",
-    "get_n_saccharides_from_chain",
-    "get_n_peptides_from_chain",
-    "get_n_proteins_from_chain",
-    "get_n_polysaccharides_from_chain",
-    "get_n_dnas_from_chain",
-    "get_n_rnas_from_chain",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_atom_index_from_chain",
+        "get_atom_id_from_chain",
+        "get_atom_name_from_chain",
+        "get_atom_type_from_chain",
+        "get_group_index_from_chain",
+        "get_group_id_from_chain",
+        "get_group_name_from_chain",
+        "get_group_type_from_chain",
+        "get_molecule_index_from_chain",
+        "get_molecule_id_from_chain",
+        "get_molecule_name_from_chain",
+        "get_molecule_type_from_chain",
+        "get_entity_index_from_chain",
+        "get_entity_id_from_chain",
+        "get_entity_name_from_chain",
+        "get_entity_type_from_chain",
+        "get_component_index_from_chain",
+        "get_component_id_from_chain",
+        "get_component_name_from_chain",
+        "get_component_type_from_chain",
+        "get_chain_index_from_chain",
+        "get_chain_id_from_chain",
+        "get_chain_type_from_chain",
+        "get_n_atoms_from_chain",
+        "get_n_groups_from_chain",
+        "get_n_molecules_from_chain",
+        "get_n_entities_from_chain",
+        "get_n_components_from_chain",
+        # In mdtraj.Topology these return per-chain lists
+        "get_n_amino_acids_from_chain",
+        "get_n_nucleotides_from_chain",
+        "get_n_ions_from_chain",
+        "get_n_waters_from_chain",
+        "get_n_lipids_from_chain",
+        "get_n_saccharides_from_chain",
+        "get_n_peptides_from_chain",
+        "get_n_proteins_from_chain",
+        "get_n_polysaccharides_from_chain",
+        "get_n_dnas_from_chain",
+        "get_n_rnas_from_chain",
+    ],
+)
 def test_chain_array_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     assert isinstance(result, list)
     assert len(result) == N_CHAINS
 
 
-@pytest.mark.parametrize("func_name, expected", [
-    ("get_n_chains_from_chain",              N_CHAINS),
-    ("get_total_n_chains_from_chain",        N_CHAINS),
-    ("get_total_n_atoms_from_chain",         N_ATOMS),
-    ("get_total_n_groups_from_chain",        N_GROUPS),
-    ("get_total_n_molecules_from_chain",     N_MOLECULES),
-    ("get_total_n_entities_from_chain",      N_ENTITIES),
-    ("get_total_n_components_from_chain",    N_COMPONENTS),
-    ("get_total_n_amino_acids_from_chain",   N_AMINO_ACIDS),
-    ("get_total_n_nucleotides_from_chain",   0),
-    ("get_total_n_ions_from_chain",          0),
-    ("get_total_n_waters_from_chain",        0),
-    ("get_total_n_lipids_from_chain",        0),
-    ("get_total_n_saccharides_from_chain",   0),
-    ("get_total_n_polysaccharides_from_chain", 0),
-    ("get_total_n_dnas_from_chain",          0),
-    ("get_total_n_rnas_from_chain",          0),
-])
+@pytest.mark.parametrize(
+    "func_name, expected",
+    [
+        ("get_n_chains_from_chain", N_CHAINS),
+        ("get_total_n_chains_from_chain", N_CHAINS),
+        ("get_total_n_atoms_from_chain", N_ATOMS),
+        ("get_total_n_groups_from_chain", N_GROUPS),
+        ("get_total_n_molecules_from_chain", N_MOLECULES),
+        ("get_total_n_entities_from_chain", N_ENTITIES),
+        ("get_total_n_components_from_chain", N_COMPONENTS),
+        ("get_total_n_amino_acids_from_chain", N_AMINO_ACIDS),
+        ("get_total_n_nucleotides_from_chain", 0),
+        ("get_total_n_ions_from_chain", 0),
+        ("get_total_n_waters_from_chain", 0),
+        ("get_total_n_lipids_from_chain", 0),
+        ("get_total_n_saccharides_from_chain", 0),
+        ("get_total_n_polysaccharides_from_chain", 0),
+        ("get_total_n_dnas_from_chain", 0),
+        ("get_total_n_rnas_from_chain", 0),
+    ],
+)
 def test_chain_scalar_count(topo, func_name, expected):
     result = getattr(aux, func_name)(topo)
     assert result == expected
@@ -649,11 +706,15 @@ def test_chain_type_from_chain(topo):
 # Bond-level — per-bond list functions
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("func_name", [
-    "get_bond_index_from_bond",
-    "get_bonded_atom_pairs_from_bond",
-    "get_n_bonds_from_bond",
-])
+
+@pytest.mark.parametrize(
+    "func_name",
+    [
+        "get_bond_index_from_bond",
+        "get_bonded_atom_pairs_from_bond",
+        "get_n_bonds_from_bond",
+    ],
+)
 def test_bond_list_length(topo, func_name):
     result = getattr(aux, func_name)(topo)
     if isinstance(result, list):
@@ -671,6 +732,7 @@ def test_bonded_atoms_from_bond_length(topo):
 # ---------------------------------------------------------------------------
 # Cross-consistency checks
 # ---------------------------------------------------------------------------
+
 
 def test_atom_index_from_group_spans_all_atoms(topo):
     per_group = aux.get_atom_index_from_group(topo)

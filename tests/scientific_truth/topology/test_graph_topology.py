@@ -12,10 +12,7 @@ def branched_truth_system():
 
     builder = msm.MolSysBuilder()
     names = ["C", "N", "CA", "C", "N", "CA", "C", "O"]
-    atoms = [
-        builder.add_atom(atom_name=name, atom_type=name)
-        for name in names
-    ]
+    atoms = [builder.add_atom(atom_name=name, atom_type=name) for name in names]
     builder.add_group([atoms[0]], group_name="CAP")
     builder.add_group(atoms[1:4], group_name="ALA")
     builder.add_group(atoms[4:7], group_name="GLY")

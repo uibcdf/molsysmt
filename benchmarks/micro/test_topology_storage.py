@@ -12,8 +12,8 @@ repo_root = str(Path(__file__).resolve().parents[2])
 if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
-from benchmarks.harness import BenchmarkHarness, save_session_results
-from benchmarks.micro.test_topology_expansion import _build_topology
+from benchmarks.harness import BenchmarkHarness, save_session_results  # noqa: E402
+from benchmarks.micro.test_topology_expansion import _build_topology  # noqa: E402
 
 
 def _dataframe_bytes(dataframe) -> int:

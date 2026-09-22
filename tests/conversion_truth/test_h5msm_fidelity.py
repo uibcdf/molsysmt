@@ -28,25 +28,27 @@ def test_h5msm_preserves_missing_bond_metadata_as_missing(rich_molsys, tmp_path)
     assert msm.get(str(filename), element="system", n_polysaccharides=True) == 0
 
 
-def test_h5msm_04_preserves_normalized_bond_fields(
-    rich_molsys, tmp_path
-):
+def test_h5msm_04_preserves_normalized_bond_fields(rich_molsys, tmp_path):
     molsys = rich_molsys.copy()
     bonds = molsys.topology._get_chemical_state_bonds().copy()
-    bonds['is_conjugated'] = pd.array([True, pd.NA, pd.NA], dtype='boolean')
+    bonds["is_conjugated"] = pd.array([True, pd.NA, pd.NA], dtype="boolean")
     molsys.topology._set_chemical_state_bonds(bonds)
 
-    filename = tmp_path / 'rich-bond.h5msm'
-    msm.convert(molsys, to_form='file:h5msm', output_filename=str(filename))
-    restored = msm.convert(filename, to_form='molsysmt.Topology')
+    filename = tmp_path / "rich-bond.h5msm"
+    msm.convert(molsys, to_form="file:h5msm", output_filename=str(filename))
+    restored = msm.convert(filename, to_form="molsysmt.Topology")
 
-    assert restored.bonds['is_conjugated'].tolist() == [True, pd.NA, pd.NA]
+    assert restored.bonds["is_conjugated"].tolist() == [True, pd.NA, pd.NA]
 
 
-def test_h5msm_single_and_double_precision_have_explicit_numeric_contracts(rich_molsys, tmp_path):
+def test_h5msm_single_and_double_precision_have_explicit_numeric_contracts(
+    rich_molsys, tmp_path
+):
     single = _roundtrip_h5msm(rich_molsys, tmp_path / "single.h5msm", "single")
     double = _roundtrip_h5msm(rich_molsys, tmp_path / "double.h5msm", "double")
-    expected_coordinates = puw.get_value(rich_molsys.structures.coordinates, to_unit="nm")
+    expected_coordinates = puw.get_value(
+        rich_molsys.structures.coordinates, to_unit="nm"
+    )
     expected_box = puw.get_value(rich_molsys.structures.box, to_unit="nm")
 
     np.testing.assert_allclose(

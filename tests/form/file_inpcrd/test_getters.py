@@ -18,24 +18,23 @@ from molsysmt import pyunitwizard as puw
 from molsysmt import systems
 from molsysmt.form import _dict_modules
 
-
 N_ATOMS = 5207
 
 
 @pytest.fixture()
 def inpcrd():
-    return systems['pentalanine']['pentalanine.inpcrd']
+    return systems["pentalanine"]["pentalanine.inpcrd"]
 
 
 @pytest.fixture()
 def prmtop():
-    return systems['pentalanine']['pentalanine.prmtop']
+    return systems["pentalanine"]["pentalanine.prmtop"]
 
 
 @pytest.fixture()
 def tiny_inpcrd(tmp_path):
     """A well-formed inpcrd holding a different number of atoms (3)."""
-    path = tmp_path / 'tiny.inpcrd'
+    path = tmp_path / "tiny.inpcrd"
     path.write_text(
         "TINY\n"
         "    3\n"
@@ -49,27 +48,32 @@ def tiny_inpcrd(tmp_path):
 # Contract: every attribute declared as available has a working getter
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize('getter', [
-    'get_n_atoms_from_system',
-    'get_n_structures_from_system',
-    'get_coordinates_from_system',
-    'get_velocities_from_system',
-    'get_box_from_system',
-    'get_box_shape_from_system',
-    'get_box_lengths_from_system',
-    'get_box_angles_from_system',
-    'get_box_volume_from_system',
-    'get_structure_id_from_system',
-    'get_coordinates_from_atom',
-    'get_velocities_from_atom',
-])
+
+@pytest.mark.parametrize(
+    "getter",
+    [
+        "get_n_atoms_from_system",
+        "get_n_structures_from_system",
+        "get_coordinates_from_system",
+        "get_velocities_from_system",
+        "get_box_from_system",
+        "get_box_shape_from_system",
+        "get_box_lengths_from_system",
+        "get_box_angles_from_system",
+        "get_box_volume_from_system",
+        "get_structure_id_from_system",
+        "get_coordinates_from_atom",
+        "get_velocities_from_atom",
+    ],
+)
 def test_getter_is_implemented(getter):
-    assert hasattr(_dict_modules['file:inpcrd'], getter)
+    assert hasattr(_dict_modules["file:inpcrd"], getter)
 
 
 # ---------------------------------------------------------------------------
 # Regression: msm.get on an inpcrd used to raise a raw AttributeError
 # ---------------------------------------------------------------------------
+
 
 def test_get_n_atoms(inpcrd):
     assert msm.get(inpcrd, n_atoms=True) == N_ATOMS
@@ -96,16 +100,21 @@ def test_get_velocities_is_none_when_file_has_none(inpcrd):
 # Parity: coordinates against openmm.AmberInpcrdFile
 # ---------------------------------------------------------------------------
 
+
 def test_parity_coordinates_with_openmm(inpcrd):
     from openmm.app import AmberInpcrdFile
-    reference = np.array(puw.get_value(AmberInpcrdFile(inpcrd).getPositions(), to_unit='nm'))
-    coordinates = puw.get_value(msm.get(inpcrd, coordinates=True)[0], to_unit='nm')
+
+    reference = np.array(
+        puw.get_value(AmberInpcrdFile(inpcrd).getPositions(), to_unit="nm")
+    )
+    coordinates = puw.get_value(msm.get(inpcrd, coordinates=True)[0], to_unit="nm")
     assert np.allclose(coordinates, reference)
 
 
 # ---------------------------------------------------------------------------
 # The n_atoms getter is what lets a topology+coordinates pair be validated
 # ---------------------------------------------------------------------------
+
 
 def test_n_atoms_agrees_with_matching_prmtop(inpcrd, prmtop):
     assert msm.get(inpcrd, n_atoms=True) == msm.get(prmtop, n_atoms=True)

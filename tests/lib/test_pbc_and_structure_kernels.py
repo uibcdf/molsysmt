@@ -32,7 +32,6 @@ from molsysmt.lib.structure.get_distances import (
     get_distances,
     get_distances_pairs,
     get_distances_pairs_single_structure,
-    get_distances_single_structure,
     get_distances_single_system,
     get_distances_single_system_single_structure,
 )
@@ -61,7 +60,9 @@ def test_box_roundtrip_and_orthogonality_kernels():
     np.testing.assert_allclose(out_lengths, lengths)
     np.testing.assert_allclose(out_angles, angles)
 
-    batch_box = get_box_from_lengths_and_angles(lengths[np.newaxis, :], angles[np.newaxis, :])
+    batch_box = get_box_from_lengths_and_angles(
+        lengths[np.newaxis, :], angles[np.newaxis, :]
+    )
     batch_lengths, batch_angles = get_lengths_and_angles_from_box(batch_box)
     np.testing.assert_allclose(batch_lengths[0], lengths)
     np.testing.assert_allclose(batch_angles[0], angles)
@@ -87,7 +88,9 @@ def test_wrap_kernels_for_orthogonal_box():
     np.testing.assert_allclose(coordinates[0, 1], np.array([9.0, 0.1, 0.0]))
 
     coordinates = np.array([[[11.2, -0.1, 5.5], [-1.0, 10.1, 10.0]]], dtype=np.float64)
-    wrap_to_pbc_center(coordinates, box[np.newaxis, :, :], np.zeros(3, dtype=np.float64))
+    wrap_to_pbc_center(
+        coordinates, box[np.newaxis, :, :], np.zeros(3, dtype=np.float64)
+    )
     np.testing.assert_allclose(coordinates[0, 0], np.array([1.2, -0.1, -4.5]))
 
     coordinates = np.array([[[11.2, -0.1, 5.5], [-1.0, 10.1, 10.0]]], dtype=np.float64)
@@ -103,12 +106,18 @@ def test_distance_kernels_cover_single_and_batched_paths():
     coords = np.array([[[0.0, 0.0, 0.0], [3.0, 4.0, 0.0]]], dtype=np.float64)
     distances = get_distances_single_system(coords)
     np.testing.assert_allclose(distances[0, 0, 1], 5.0)
-    np.testing.assert_allclose(get_distances_single_system_single_structure(coords[0]), np.array([[0.0, 5.0], [5.0, 0.0]]))
+    np.testing.assert_allclose(
+        get_distances_single_system_single_structure(coords[0]),
+        np.array([[0.0, 5.0], [5.0, 0.0]]),
+    )
 
     coords2 = np.array([[[0.0, 0.0, 0.0], [0.0, 0.0, 12.0]]], dtype=np.float64)
     pair = get_distances_pairs(coords, coords2)
     np.testing.assert_allclose(pair[0], np.array([0.0, 13.0]))
-    np.testing.assert_allclose(get_distances_pairs_single_structure(coords[0], coords2[0]), np.array([0.0, 13.0]))
+    np.testing.assert_allclose(
+        get_distances_pairs_single_structure(coords[0], coords2[0]),
+        np.array([0.0, 13.0]),
+    )
 
     mixed = get_distances(coords, coords2)
     assert mixed.shape == (1, 2, 2)
@@ -129,11 +138,16 @@ def test_angle_and_dihedral_kernels():
 
     angle = get_angles_single_structure(coordinates, triplets)
     np.testing.assert_allclose(angle, np.array([np.pi / 2]))
-    np.testing.assert_allclose(get_angles(coordinates[np.newaxis, :, :], triplets), np.array([[np.pi / 2]]))
+    np.testing.assert_allclose(
+        get_angles(coordinates[np.newaxis, :, :], triplets), np.array([[np.pi / 2]])
+    )
 
     dihedral = get_dihedral_angles_single_structure(coordinates, quartets)
     np.testing.assert_allclose(dihedral, np.array([-np.pi / 2]))
-    np.testing.assert_allclose(get_dihedral_angles(coordinates[np.newaxis, :, :], quartets), np.array([[-np.pi / 2]]))
+    np.testing.assert_allclose(
+        get_dihedral_angles(coordinates[np.newaxis, :, :], quartets),
+        np.array([[-np.pi / 2]]),
+    )
 
 
 def test_rmsd_and_least_rmsd_kernels():
@@ -148,10 +162,20 @@ def test_rmsd_and_least_rmsd_kernels():
 
     batch_reference = reference[np.newaxis, :, :]
     batch_shifted = shifted[np.newaxis, :, :]
-    np.testing.assert_allclose(get_rmsd(batch_reference, batch_reference), np.array([0.0]))
-    np.testing.assert_allclose(get_rmsd_with_single_reference_structure(batch_shifted, reference), np.array([np.sqrt(14.0)]))
-    np.testing.assert_allclose(get_least_rmsd(batch_shifted, batch_reference), np.array([0.0]))
-    np.testing.assert_allclose(get_least_rmsd_with_single_reference_structure(batch_shifted, reference), np.array([0.0]))
+    np.testing.assert_allclose(
+        get_rmsd(batch_reference, batch_reference), np.array([0.0])
+    )
+    np.testing.assert_allclose(
+        get_rmsd_with_single_reference_structure(batch_shifted, reference),
+        np.array([np.sqrt(14.0)]),
+    )
+    np.testing.assert_allclose(
+        get_least_rmsd(batch_shifted, batch_reference), np.array([0.0])
+    )
+    np.testing.assert_allclose(
+        get_least_rmsd_with_single_reference_structure(batch_shifted, reference),
+        np.array([0.0]),
+    )
 
 
 def test_component_index_kernel_handles_disconnected_and_empty_cases():
@@ -159,5 +183,7 @@ def test_component_index_kernel_handles_disconnected_and_empty_cases():
     out = get_component_index_from_bonded_atom_pairs(bonded, 6)
     np.testing.assert_array_equal(out, np.array([0, 0, 0, 1, 2, 2], dtype=np.int64))
 
-    empty = get_component_index_from_bonded_atom_pairs(np.empty((0, 2), dtype=np.int64), 0)
+    empty = get_component_index_from_bonded_atom_pairs(
+        np.empty((0, 2), dtype=np.int64), 0
+    )
     assert empty.shape == (0,)

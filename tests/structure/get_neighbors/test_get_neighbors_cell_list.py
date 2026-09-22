@@ -3,16 +3,19 @@ Parity tests for the cell-list fast path of get_neighbors threshold mode against
 an independent full distance-matrix reference (the pre-migration algorithm).
 """
 
+import numpy as np
+
 import molsysmt as msm
 from molsysmt import systems
-import numpy as np
 
 puw = msm.pyunitwizard
 
 
 def _reference(ms, selection, selection_2, threshold, pbc):
     """Threshold neighbours (indices + distances) via the full distance matrix."""
-    all_dists = msm.structure.get_distances(ms, selection=selection, selection_2=selection_2, pbc=pbc)
+    all_dists = msm.structure.get_distances(
+        ms, selection=selection, selection_2=selection_2, pbc=pbc
+    )
     units = puw.get_unit(all_dists)
     dmat = puw.get_value(all_dists)
     thr = puw.get_value(puw.quantity(threshold), to_unit=units)
@@ -35,10 +38,11 @@ def _reference(ms, selection, selection_2, threshold, pbc):
 
 
 def _assert_parity(ms, selection, selection_2, threshold, pbc):
-    neighs, dists = msm.structure.get_neighbors(ms, selection=selection, selection_2=selection_2,
-                                                threshold=threshold, pbc=pbc)
+    neighs, dists = msm.structure.get_neighbors(
+        ms, selection=selection, selection_2=selection_2, threshold=threshold, pbc=pbc
+    )
     ref_neighs, ref_dists = _reference(ms, selection, selection_2, threshold, pbc)
-    units = puw.get_unit(dists)
+    assert puw.get_unit(dists) == puw.unit("nm")
     dists_val = puw.get_value(dists)
     ns, n1 = neighs.shape
     for s in range(ns):
@@ -56,34 +60,45 @@ def _assert_parity(ms, selection, selection_2, threshold, pbc):
 
 
 def test_get_neighbors_cell_list_self_vacuum():
-    ms = msm.convert(systems['Trp-Cage']['1l2y.h5msm'], to_form='molsysmt.MolSys')
+    ms = msm.convert(systems["Trp-Cage"]["1l2y.h5msm"], to_form="molsysmt.MolSys")
     ms = msm.extract(ms, structure_indices=[0, 1])
-    _assert_parity(ms, 'all', None, '5 angstroms', pbc=False)
+    _assert_parity(ms, "all", None, "5 angstroms", pbc=False)
 
 
 def test_get_neighbors_cell_list_disjoint_vacuum():
-    ms = msm.convert(systems['Trp-Cage']['1l2y.h5msm'], to_form='molsysmt.MolSys')
+    ms = msm.convert(systems["Trp-Cage"]["1l2y.h5msm"], to_form="molsysmt.MolSys")
     ms = msm.extract(ms, structure_indices=[0])
-    _assert_parity(ms, 'atom_index < 100', 'atom_index >= 100', '6 angstroms', pbc=False)
+    _assert_parity(
+        ms, "atom_index < 100", "atom_index >= 100", "6 angstroms", pbc=False
+    )
 
 
 def test_get_neighbors_cell_list_self_pbc():
-    ms = msm.convert(systems['pentalanine']['traj_pentalanine.h5msm'], to_form='molsysmt.MolSys')
+    ms = msm.convert(
+        systems["pentalanine"]["traj_pentalanine.h5msm"], to_form="molsysmt.MolSys"
+    )
     ms = msm.extract(ms, structure_indices=[0, 1, 2])
-    _assert_parity(ms, 'all', None, '5 angstroms', pbc=True)
+    _assert_parity(ms, "all", None, "5 angstroms", pbc=True)
 
 
 def test_get_neighbors_csr_matches_numpy_output():
-    ms = msm.convert(systems['Trp-Cage']['1l2y.h5msm'], to_form='molsysmt.MolSys')
+    ms = msm.convert(systems["Trp-Cage"]["1l2y.h5msm"], to_form="molsysmt.MolSys")
     ms = msm.extract(ms, structure_indices=[0, 1])
-    neighs, dists = msm.structure.get_neighbors(ms, threshold='5 angstroms', pbc=False)
+    neighs, dists = msm.structure.get_neighbors(ms, threshold="5 angstroms", pbc=False)
     offsets, indices, distances = msm.structure.get_neighbors(
-        ms, threshold='5 angstroms', pbc=False, output_type='csr')
-    dvals = puw.get_value(distances, to_unit='nm')
+        ms, threshold="5 angstroms", pbc=False, output_type="csr"
+    )
+    dvals = puw.get_value(distances, to_unit="nm")
     ns, nq = neighs.shape
     for s in range(ns):
         for ii in range(nq):
             w = s * nq + ii
-            assert np.array_equal(np.asarray(neighs[s, ii]), indices[offsets[w]:offsets[w + 1]])
-            expected = puw.get_value(dists[s, ii], to_unit='nm') if len(neighs[s, ii]) else np.array([])
-            assert np.allclose(expected, dvals[offsets[w]:offsets[w + 1]], atol=1e-9)
+            assert np.array_equal(
+                np.asarray(neighs[s, ii]), indices[offsets[w] : offsets[w + 1]]
+            )
+            expected = (
+                puw.get_value(dists[s, ii], to_unit="nm")
+                if len(neighs[s, ii])
+                else np.array([])
+            )
+            assert np.allclose(expected, dvals[offsets[w] : offsets[w + 1]], atol=1e-9)

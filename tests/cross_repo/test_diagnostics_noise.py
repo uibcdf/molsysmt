@@ -2,7 +2,9 @@
 
 These tests track interactions between molsysmt, pyunitwizard, and smonitor.
 """
+
 import importlib
+
 
 def _contains_unit_registry_noise(text):
     return "is not defined in the unit registry" in text
@@ -50,7 +52,9 @@ def test_string_pdb_id_is_form_local_patterns():
 
 def test_string_alphafold_id_is_form_local_patterns():
     """AlphaFold id detection should rely on local patterns only."""
-    af_is_form = importlib.import_module("molsysmt.form.string_alphafold_id.is_form").is_form
+    af_is_form = importlib.import_module(
+        "molsysmt.form.string_alphafold_id.is_form"
+    ).is_form
 
     assert af_is_form("AF-P05067-F1") is True
     assert af_is_form("alphafold_id:AF-P05067-F1") is True

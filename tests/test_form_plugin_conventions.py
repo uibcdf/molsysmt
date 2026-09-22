@@ -4,11 +4,12 @@ import pathlib
 import re
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
-FORM_ROOT = REPO_ROOT / 'molsysmt' / 'form'
+FORM_ROOT = REPO_ROOT / "molsysmt" / "form"
 
 _PACKAGE_ATTRIBUTE_IMPORT = re.compile(
-    r'^\s*from (?:molsysmt\.form\.[A-Za-z0-9_]+|\.\.[A-Za-z0-9_]+) import to_[A-Za-z0-9_]+',
-    re.M)
+    r"^\s*from (?:molsysmt\.form\.[A-Za-z0-9_]+|\.\.[A-Za-z0-9_]+) import to_[A-Za-z0-9_]+",
+    re.M,
+)
 
 
 def test_converters_are_imported_from_their_own_submodule():
@@ -25,16 +26,18 @@ def test_converters_are_imported_from_their_own_submodule():
     """
 
     offenders = {}
-    searched = [p for root in ('molsysmt', 'tests')
-                for p in (REPO_ROOT / root).rglob('*.py')]
+    searched = [
+        p for root in ("molsysmt", "tests") for p in (REPO_ROOT / root).rglob("*.py")
+    ]
     for path in searched:
         found = _PACKAGE_ATTRIBUTE_IMPORT.findall(path.read_text())
         if found:
             offenders[str(path.relative_to(REPO_ROOT))] = found
 
     assert not offenders, (
-        'these import a converter as a package attribute, which may hand back the '
-        f'submodule instead of the function: {offenders}')
+        "these import a converter as a package attribute, which may hand back the "
+        f"submodule instead of the function: {offenders}"
+    )
 
 
 def test_no_plugin_imports_its_converters_eagerly():
@@ -45,15 +48,15 @@ def test_no_plugin_imports_its_converters_eagerly():
     `molsysmt.form.load_converter` when a conversion actually happens.
     """
 
-    eager = re.compile(r'^from \.(to_[A-Za-z0-9_]+) import \1\s*$', re.M)
+    eager = re.compile(r"^from \.(to_[A-Za-z0-9_]+) import \1\s*$", re.M)
 
     offenders = {}
-    for path in sorted(FORM_ROOT.glob('*/__init__.py')):
+    for path in sorted(FORM_ROOT.glob("*/__init__.py")):
         found = eager.findall(path.read_text())
         if found:
             offenders[path.parent.name] = found
 
-    assert not offenders, f'form plugins importing converters eagerly: {offenders}'
+    assert not offenders, f"form plugins importing converters eagerly: {offenders}"
 
 
 def test_declared_converters_can_be_resolved():
@@ -63,16 +66,18 @@ def test_declared_converters_can_be_resolved():
 
     broken = []
     for form, module in _dict_modules.items():
-        for target, converter in getattr(module, '_convert_to', {}).items():
+        for target, converter in getattr(module, "_convert_to", {}).items():
             try:
                 resolved = load_converter(module, converter)
-            except Exception as error:                     # noqa: BLE001 - reported below
-                broken.append(f'{form} -> {target}: {type(error).__name__}: {error}')
+            except Exception as error:  # noqa: BLE001 - reported below
+                broken.append(f"{form} -> {target}: {type(error).__name__}: {error}")
                 continue
             if not callable(resolved):
-                broken.append(f'{form} -> {target}: resolved to {type(resolved).__name__}')
+                broken.append(
+                    f"{form} -> {target}: resolved to {type(resolved).__name__}"
+                )
 
-    assert not broken, 'unresolvable conversions:\n' + '\n'.join(broken)
+    assert not broken, "unresolvable conversions:\n" + "\n".join(broken)
 
 
 EXTRACT_CONTRACT_DEBT = set()
@@ -91,15 +96,21 @@ def test_every_form_extract_accepts_the_dispatch_contract():
 
     import ast
 
-    required = {'item', 'atom_indices', 'structure_indices', 'copy_if_all', 'skip_digestion'}
+    required = {
+        "item",
+        "atom_indices",
+        "structure_indices",
+        "copy_if_all",
+        "skip_digestion",
+    }
 
     offenders = {}
-    for path in sorted(FORM_ROOT.glob('*/extract.py')):
+    for path in sorted(FORM_ROOT.glob("*/extract.py")):
         form = path.parent.name
         if form in EXTRACT_CONTRACT_DEBT:
             continue
         for node in ast.parse(path.read_text()).body:
-            if isinstance(node, ast.FunctionDef) and node.name == 'extract':
+            if isinstance(node, ast.FunctionDef) and node.name == "extract":
                 missing = required - {argument.arg for argument in node.args.args}
                 if missing:
                     offenders[form] = sorted(missing)

@@ -1,10 +1,12 @@
 """
 Extended tests for molsysmt.native.Structures covering uncovered properties and methods.
 """
+
 import warnings
 
 import numpy as np
 import pytest
+
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import (
     ArgumentLengthError,
@@ -15,37 +17,40 @@ from molsysmt.native import Structures
 
 def _coords(n_structures=1, n_atoms=5):
     val = np.random.rand(n_structures, n_atoms, 3).astype(np.float64)
-    return puw.quantity(val, 'nm')
+    return puw.quantity(val, "nm")
 
 
 def _velocity(n_structures=1, n_atoms=5):
     val = np.random.rand(n_structures, n_atoms, 3).astype(np.float64)
-    return puw.quantity(val, 'nm/ps')
+    return puw.quantity(val, "nm/ps")
 
 
 def _box(n_structures=1):
     val = np.eye(3)[np.newaxis, :, :].repeat(n_structures, axis=0) * 3.0
-    return puw.quantity(val, 'nm')
+    return puw.quantity(val, "nm")
 
 
 def _time(n_structures=1):
     val = np.arange(n_structures, dtype=np.float64)
-    return puw.quantity(val, 'ps')
+    return puw.quantity(val, "ps")
 
 
 def _b_factor(n_structures=1, n_atoms=5):
-    val = np.arange(n_structures * n_atoms, dtype=np.float64).reshape(n_structures, n_atoms)
-    return puw.quantity(val, 'nm**2')
+    val = np.arange(n_structures * n_atoms, dtype=np.float64).reshape(
+        n_structures, n_atoms
+    )
+    return puw.quantity(val, "nm**2")
 
 
 def _energy(n_structures=1):
     val = np.arange(n_structures, dtype=np.float64)
-    return puw.quantity(val, 'kcal/mol')
+    return puw.quantity(val, "kcal/mol")
 
 
 # ---------------------------------------------------------------------------
 # n_structures property
 # ---------------------------------------------------------------------------
+
 
 def test_n_structures_from_velocities():
     """n_structures falls back to velocities when coordinates is None."""
@@ -71,6 +76,7 @@ def test_n_structures_empty():
 # n_atoms property
 # ---------------------------------------------------------------------------
 
+
 def test_n_atoms_from_velocities():
     """n_atoms falls back to velocities when coordinates is None."""
     s = Structures()
@@ -87,6 +93,7 @@ def test_n_atoms_empty():
 # ---------------------------------------------------------------------------
 # append — argument length errors
 # ---------------------------------------------------------------------------
+
 
 def test_append_time_length_mismatch():
     """Mismatched time length raises ArgumentLengthError."""
@@ -127,6 +134,7 @@ def test_append_box_frame_mismatch():
 # ---------------------------------------------------------------------------
 # append — accumulation (already-existing attributes)
 # ---------------------------------------------------------------------------
+
 
 def test_append_accumulates_time():
     """Appending time+coordinates when they already exist concatenates correctly."""
@@ -195,6 +203,7 @@ def test_append_structures_accepts_missing_optional_occupancy():
 # extract with specific indices
 # ---------------------------------------------------------------------------
 
+
 def test_extract_specific_structure_indices():
     """extract with specific structure_indices returns subset."""
     s = Structures()
@@ -239,58 +248,58 @@ def test_extract_preserves_b_factor_with_structure_subset():
 
     assert sub.b_factor is not None
     np.testing.assert_allclose(
-        puw.get_value(sub.b_factor, to_unit='nm**2'),
-        puw.get_value(s.b_factor[[1], :], to_unit='nm**2'),
+        puw.get_value(sub.b_factor, to_unit="nm**2"),
+        puw.get_value(s.b_factor[[1], :], to_unit="nm**2"),
     )
 
 
 def test_extract_preserves_atomwise_and_structurewise_metadata():
     """extract preserves velocities, b_factor, and per-structure metadata."""
     s = Structures()
-    s.structure_id = np.array(['a', 'b', 'c'], dtype=object)
+    s.structure_id = np.array(["a", "b", "c"], dtype=object)
     s.time = _time(n_structures=3)
     s.coordinates = _coords(n_structures=3, n_atoms=5)
     s.velocities = _velocity(n_structures=3, n_atoms=5)
     s.box = _box(n_structures=3)
     s.b_factor = _b_factor(n_structures=3, n_atoms=5)
-    s.alternate_location = np.array(['A', 'B', 'C'], dtype=object)
-    s.temperature = puw.quantity(np.array([300.0, 301.0, 302.0]), 'K')
+    s.alternate_location = np.array(["A", "B", "C"], dtype=object)
+    s.temperature = puw.quantity(np.array([300.0, 301.0, 302.0]), "K")
     s.potential_energy = _energy(n_structures=3)
     s.kinetic_energy = _energy(n_structures=3) + _energy(n_structures=3)
-    s.bioassembly = {'assembly': 1}
+    s.bioassembly = {"assembly": 1}
 
     sub = s.extract(structure_indices=[0, 2], atom_indices=[1, 3])
 
-    assert sub.structure_id.tolist() == ['a', 'c']
-    assert sub.alternate_location.tolist() == ['A', 'C']
+    assert sub.structure_id.tolist() == ["a", "c"]
+    assert sub.alternate_location.tolist() == ["A", "C"]
     assert sub.bioassembly == s.bioassembly
-    assert puw.get_value(sub.time, to_unit='ps').tolist() == [0.0, 2.0]
+    assert puw.get_value(sub.time, to_unit="ps").tolist() == [0.0, 2.0]
     np.testing.assert_allclose(
-        puw.get_value(sub.coordinates, to_unit='nm'),
-        puw.get_value(s.coordinates[np.ix_([0, 2], [1, 3], [0, 1, 2])], to_unit='nm'),
+        puw.get_value(sub.coordinates, to_unit="nm"),
+        puw.get_value(s.coordinates[np.ix_([0, 2], [1, 3], [0, 1, 2])], to_unit="nm"),
     )
     np.testing.assert_allclose(
-        puw.get_value(sub.velocities, to_unit='nm/ps'),
-        puw.get_value(s.velocities[np.ix_([0, 2], [1, 3], [0, 1, 2])], to_unit='nm/ps'),
+        puw.get_value(sub.velocities, to_unit="nm/ps"),
+        puw.get_value(s.velocities[np.ix_([0, 2], [1, 3], [0, 1, 2])], to_unit="nm/ps"),
     )
     np.testing.assert_allclose(
-        puw.get_value(sub.box, to_unit='nm'),
-        puw.get_value(s.box[[0, 2], :, :], to_unit='nm'),
+        puw.get_value(sub.box, to_unit="nm"),
+        puw.get_value(s.box[[0, 2], :, :], to_unit="nm"),
     )
     np.testing.assert_allclose(
-        puw.get_value(sub.b_factor, to_unit='nm**2'),
-        puw.get_value(s.b_factor[np.ix_([0, 2], [1, 3])], to_unit='nm**2'),
+        puw.get_value(sub.b_factor, to_unit="nm**2"),
+        puw.get_value(s.b_factor[np.ix_([0, 2], [1, 3])], to_unit="nm**2"),
     )
     np.testing.assert_allclose(
-        puw.get_value(sub.temperature, to_unit='K'),
+        puw.get_value(sub.temperature, to_unit="K"),
         [300.0, 302.0],
     )
     np.testing.assert_allclose(
-        puw.get_value(sub.potential_energy, to_unit='kcal/mol'),
+        puw.get_value(sub.potential_energy, to_unit="kcal/mol"),
         [0.0, 2.0],
     )
     np.testing.assert_allclose(
-        puw.get_value(sub.kinetic_energy, to_unit='kcal/mol'),
+        puw.get_value(sub.kinetic_energy, to_unit="kcal/mol"),
         [0.0, 4.0],
     )
 
@@ -299,22 +308,23 @@ def test_extract_preserves_atomwise_and_structurewise_metadata():
 # add — atom-axis alignment
 # ---------------------------------------------------------------------------
 
+
 def test_add_concatenates_every_shared_atom_aligned_attribute():
     """Adding atoms concatenates every shared atom-aligned attribute."""
     target = Structures(
-        time=puw.quantity([1.0], 'ps'),
-        coordinates=puw.quantity(np.arange(6).reshape(1, 2, 3), 'nm'),
-        velocities=puw.quantity(np.arange(6).reshape(1, 2, 3), 'nm/ps'),
-        box=puw.quantity(np.eye(3)[None, :, :], 'nm'),
-        b_factor=puw.quantity([[0.1, 0.2]], 'nm**2'),
+        time=puw.quantity([1.0], "ps"),
+        coordinates=puw.quantity(np.arange(6).reshape(1, 2, 3), "nm"),
+        velocities=puw.quantity(np.arange(6).reshape(1, 2, 3), "nm/ps"),
+        box=puw.quantity(np.eye(3)[None, :, :], "nm"),
+        b_factor=puw.quantity([[0.1, 0.2]], "nm**2"),
         occupancy=[[0.4, 0.5]],
     )
     source = Structures(
-        time=puw.quantity([9.0], 'ps'),
-        coordinates=puw.quantity(np.arange(3).reshape(1, 1, 3) + 10, 'nm'),
-        velocities=puw.quantity(np.arange(3).reshape(1, 1, 3) + 20, 'nm/ps'),
-        box=puw.quantity((np.eye(3) * 2.0)[None, :, :], 'nm'),
-        b_factor=puw.quantity([[0.3]], 'nm**2'),
+        time=puw.quantity([9.0], "ps"),
+        coordinates=puw.quantity(np.arange(3).reshape(1, 1, 3) + 10, "nm"),
+        velocities=puw.quantity(np.arange(3).reshape(1, 1, 3) + 20, "nm/ps"),
+        box=puw.quantity((np.eye(3) * 2.0)[None, :, :], "nm"),
+        b_factor=puw.quantity([[0.3]], "nm**2"),
         occupancy=[[0.6]],
     )
 
@@ -325,13 +335,13 @@ def test_add_concatenates_every_shared_atom_aligned_attribute():
     assert target.b_factor.shape == (1, 3)
     assert target.occupancy.shape == (1, 3)
     np.testing.assert_allclose(
-        puw.get_value(target.b_factor, to_unit='nm**2'),
+        puw.get_value(target.b_factor, to_unit="nm**2"),
         [[0.1, 0.2, 0.3]],
     )
     np.testing.assert_allclose(target.occupancy, [[0.4, 0.5, 0.6]])
-    np.testing.assert_allclose(puw.get_value(target.time, to_unit='ps'), [1.0])
+    np.testing.assert_allclose(puw.get_value(target.time, to_unit="ps"), [1.0])
     np.testing.assert_allclose(
-        puw.get_value(target.box, to_unit='nm'),
+        puw.get_value(target.box, to_unit="nm"),
         np.eye(3)[None, :, :],
     )
 
@@ -339,10 +349,10 @@ def test_add_concatenates_every_shared_atom_aligned_attribute():
 def test_add_selects_source_atoms_and_structures_before_concatenating():
     """Selecting source axes produces an aligned atom-axis addition."""
     target = Structures(
-        coordinates=puw.quantity(np.zeros((2, 1, 3)), 'nm'),
+        coordinates=puw.quantity(np.zeros((2, 1, 3)), "nm"),
     )
     source_values = np.arange(27, dtype=float).reshape(3, 3, 3)
-    source = Structures(coordinates=puw.quantity(source_values, 'nm'))
+    source = Structures(coordinates=puw.quantity(source_values, "nm"))
 
     target.add(
         source,
@@ -359,7 +369,7 @@ def test_add_selects_source_atoms_and_structures_before_concatenating():
         axis=1,
     )
     np.testing.assert_allclose(
-        puw.get_value(target.coordinates, to_unit='nm'),
+        puw.get_value(target.coordinates, to_unit="nm"),
         expected,
     )
 
@@ -367,14 +377,14 @@ def test_add_selects_source_atoms_and_structures_before_concatenating():
 def test_add_drops_one_sided_atom_aligned_attribute():
     """Adding atoms drops a one-sided atom-aligned attribute with a warning."""
     target = Structures(
-        coordinates=puw.quantity(np.zeros((1, 2, 3)), 'nm'),
-        b_factor=puw.quantity([[0.1, 0.2]], 'nm**2'),
+        coordinates=puw.quantity(np.zeros((1, 2, 3)), "nm"),
+        b_factor=puw.quantity([[0.1, 0.2]], "nm**2"),
     )
     source = Structures(
-        coordinates=puw.quantity(np.ones((1, 1, 3)), 'nm'),
+        coordinates=puw.quantity(np.ones((1, 1, 3)), "nm"),
     )
 
-    with pytest.warns(StructuralAttributeDropWarning, match='b_factor'):
+    with pytest.warns(StructuralAttributeDropWarning, match="b_factor"):
         target.add(source, skip_digestion=True)
 
     assert target.coordinates.shape == (1, 3, 3)
@@ -384,23 +394,23 @@ def test_add_drops_one_sided_atom_aligned_attribute():
 def test_add_is_atomic_when_a_warning_is_an_error():
     """Treating the drop warning as an error leaves the target unchanged."""
     target = Structures(
-        coordinates=puw.quantity(np.zeros((1, 2, 3)), 'nm'),
-        b_factor=puw.quantity([[0.1, 0.2]], 'nm**2'),
+        coordinates=puw.quantity(np.zeros((1, 2, 3)), "nm"),
+        b_factor=puw.quantity([[0.1, 0.2]], "nm**2"),
     )
-    source = Structures(coordinates=puw.quantity(np.ones((1, 1, 3)), 'nm'))
+    source = Structures(coordinates=puw.quantity(np.ones((1, 1, 3)), "nm"))
     original_coordinates = target.coordinates.copy()
     original_b_factor = target.b_factor.copy()
 
     with warnings.catch_warnings():
-        warnings.simplefilter('error', StructuralAttributeDropWarning)
+        warnings.simplefilter("error", StructuralAttributeDropWarning)
         with pytest.raises(StructuralAttributeDropWarning):
             target.add(source, skip_digestion=True)
 
     np.testing.assert_allclose(
-        puw.get_value(target.coordinates, to_unit='nm'),
-        puw.get_value(original_coordinates, to_unit='nm'),
+        puw.get_value(target.coordinates, to_unit="nm"),
+        puw.get_value(original_coordinates, to_unit="nm"),
     )
     np.testing.assert_allclose(
-        puw.get_value(target.b_factor, to_unit='nm**2'),
-        puw.get_value(original_b_factor, to_unit='nm**2'),
+        puw.get_value(target.b_factor, to_unit="nm**2"),
+        puw.get_value(original_b_factor, to_unit="nm**2"),
     )

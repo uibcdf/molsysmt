@@ -35,7 +35,9 @@ print("=" * 60)
 for script_name in scripts:
     script_path = script_dir / script_name
     print(f"\n>>> Running {script_name}...")
-    res = subprocess.run([sys.executable, str(script_path)], capture_output=True, text=True)
+    res = subprocess.run(
+        [sys.executable, str(script_path)], capture_output=True, text=True
+    )
     if res.returncode != 0:
         print(f"✘ Error running {script_name}:")
         print(res.stderr)

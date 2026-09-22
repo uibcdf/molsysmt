@@ -20,7 +20,8 @@ def _system(coordinates, box):
 def _bonded_system(coordinates, box):
     builder = msm.MolSysBuilder()
     atom_indices = [
-        builder.add_atom(atom_name="C", atom_type="C") for _ in range(coordinates.shape[1])
+        builder.add_atom(atom_name="C", atom_type="C")
+        for _ in range(coordinates.shape[1])
     ]
     builder.add_group(atom_indices, group_name="MOL")
     for atom_1, atom_2 in zip(atom_indices[:-1], atom_indices[1:]):
@@ -94,9 +95,7 @@ def test_temporal_unwrap_changes_only_requested_frames(float64_kernel_atol):
 def test_temporal_unwrap_recovers_continuous_triclinic_motion(float64_kernel_atol):
     """Recover continuous fractional motion across a triclinic cell boundary."""
 
-    box_matrix = np.array(
-        [[2.0, 0.0, 0.0], [1.0, np.sqrt(3.0), 0.0], [0.0, 0.0, 3.0]]
-    )
+    box_matrix = np.array([[2.0, 0.0, 0.0], [1.0, np.sqrt(3.0), 0.0], [0.0, 0.0, 3.0]])
     wrapped_fractional = np.array([[0.9, 0.9, 0.0], [0.1, 0.1, 0.0]])
     expected_fractional = np.array([[0.9, 0.9, 0.0], [1.1, 1.1, 0.0]])
     coordinates = (wrapped_fractional @ box_matrix)[:, None, :]
@@ -110,14 +109,16 @@ def test_temporal_unwrap_recovers_continuous_triclinic_motion(float64_kernel_ato
     )
 
 
-def test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block(float64_kernel_atol):
+def test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block(
+    float64_kernel_atol,
+):
     """Preserve analytic bond lengths while wrapping a molecule as one unit."""
 
     coordinates = np.array([[[1.8, 0.0, 0.0], [0.1, 0.0, 0.0], [0.3, 0.0, 0.0]]])
     box = (2.0 * np.eye(3))[None, :, :]
     wrapped = msm.pbc.wrap_to_pbc(
         _bonded_system(coordinates, box),
-        compact='component',
+        compact="component",
         in_place=False,
     )
     observed = msm.pyunitwizard.get_value(wrapped.structures.coordinates, to_unit="nm")
@@ -137,14 +138,12 @@ def test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block(float64_ker
 def test_wrap_to_mic_reconstructs_a_triclinic_covalent_block(float64_kernel_atol):
     """Preserve a bonded displacement across a triclinic boundary."""
 
-    box_matrix = np.array(
-        [[2.0, 0.0, 0.0], [1.0, np.sqrt(3.0), 0.0], [0.0, 0.0, 3.0]]
-    )
+    box_matrix = np.array([[2.0, 0.0, 0.0], [1.0, np.sqrt(3.0), 0.0], [0.0, 0.0, 3.0]])
     fractional = np.array([[0.9, 0.9, 0.0], [0.1, 0.1, 0.0]])
     coordinates = (fractional @ box_matrix)[None, :, :]
     wrapped = msm.pbc.wrap_to_mic(
         _bonded_system(coordinates, box_matrix[None, :, :]),
-        compact='component',
+        compact="component",
         in_place=False,
     )
     observed = msm.pyunitwizard.get_value(wrapped.structures.coordinates, to_unit="nm")

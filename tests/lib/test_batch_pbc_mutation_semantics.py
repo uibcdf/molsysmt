@@ -1,12 +1,14 @@
 import numpy as np
 
+from molsysmt.lib.pbc.unwrap import unwrap
 from molsysmt.lib.pbc.wrap_to_mic import wrap_to_mic
 from molsysmt.lib.pbc.wrap_to_pbc import wrap_to_pbc, wrap_to_pbc_center
-from molsysmt.lib.pbc.unwrap import unwrap
 
 
 def test_batch_wrap_helpers_modify_coordinates_in_place_consistently():
-    box = np.stack([np.diag([2.0, 2.0, 2.0]), np.diag([2.0, 2.0, 2.0])]).astype(np.float64)
+    box = np.stack([np.diag([2.0, 2.0, 2.0]), np.diag([2.0, 2.0, 2.0])]).astype(
+        np.float64
+    )
     coords = np.array(
         [
             [[2.1, -0.1, 0.2], [1.9, 2.2, -0.3]],
@@ -26,7 +28,9 @@ def test_batch_wrap_helpers_modify_coordinates_in_place_consistently():
     assert np.all(pbc_coords < 2.0 + 1e-8)
 
     centered_coords = coords.copy()
-    wrap_to_pbc_center(centered_coords, box, np.array([1.0, 1.0, 1.0], dtype=np.float64))
+    wrap_to_pbc_center(
+        centered_coords, box, np.array([1.0, 1.0, 1.0], dtype=np.float64)
+    )
     assert centered_coords.shape == coords.shape
 
 

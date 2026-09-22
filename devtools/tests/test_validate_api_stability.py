@@ -69,6 +69,7 @@ def test_untracked_public_namespace_requires_an_inherited_policy(tmp_path):
         in validator.validate_registry(registry, tmp_path)
     )
 
+
 def test_registry_rejects_removed_exports_and_private_entries(tmp_path):
     registry = _fixture(tmp_path)
     registry["symbols"]["example._private.helper"] = {

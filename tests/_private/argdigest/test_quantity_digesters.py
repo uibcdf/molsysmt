@@ -2,19 +2,20 @@ import numpy as np
 import pytest
 
 from molsysmt import pyunitwizard as puw
-from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.argdigest.argument.formal_charge import digest_formal_charge
 from molsysmt._private.argdigest.argument.kinetic_energy import digest_kinetic_energy
 from molsysmt._private.argdigest.argument.n_structures import digest_n_structures
 from molsysmt._private.argdigest.argument.occupancy import digest_occupancy
 from molsysmt._private.argdigest.argument.partial_charge import digest_partial_charge
-from molsysmt._private.argdigest.argument.potential_energy import digest_potential_energy
+from molsysmt._private.argdigest.argument.potential_energy import (
+    digest_potential_energy,
+)
 from molsysmt._private.argdigest.argument.structure_index import digest_structure_index
 from molsysmt._private.argdigest.argument.temperature import digest_temperature
 from molsysmt._private.argdigest.argument.time import digest_time
 from molsysmt._private.argdigest.argument.total_energy import digest_total_energy
 from molsysmt._private.argdigest.argument.velocities import digest_velocities
-
+from molsysmt._private.smonitor import ArgumentError
 
 BOOL_CALLER = "molsysmt.basic.get.get"
 FORM_CONVERTER_CALLER = "molsysmt.form.file_pdb.to_molsysmt_MolSys.to_molsysmt_MolSys"
@@ -68,11 +69,15 @@ def test_velocities_digester_normalizes_all_supported_ranks():
     out = digest_velocities(one_vector)
     assert puw.get_value(out).shape == (1, 1, 3)
 
-    many_atoms = puw.quantity([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "nanometers/picosecond")
+    many_atoms = puw.quantity(
+        [[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], "nanometers/picosecond"
+    )
     out = digest_velocities(many_atoms)
     assert puw.get_value(out).shape == (1, 2, 3)
 
-    trajectory = puw.quantity(np.ones((2, 3, 3), dtype=np.float32), "nanometers/picosecond")
+    trajectory = puw.quantity(
+        np.ones((2, 3, 3), dtype=np.float32), "nanometers/picosecond"
+    )
     out = digest_velocities(trajectory)
     assert puw.get_value(out).shape == (2, 3, 3)
 

@@ -1,7 +1,5 @@
-import numpy as np
-
-from molsysmt.native import ViewerJSON
 from molsysmt import convert, get
+from molsysmt.native import ViewerJSON
 
 
 def _viewer_json():
@@ -35,12 +33,12 @@ def test_get_uses_native_attribute_pipes():
 
     atom_indices, atom_ids, group_names = get(
         vjson,
-        element='atom',
+        element="atom",
         atom_index=True,
         atom_id=True,
         group_name=True,
     )
 
     assert atom_indices == [0, 1]
-    assert atom_ids == ['0', '1']
-    assert group_names == ['GRP', 'GRP']
+    assert atom_ids == ["0", "1"]
+    assert group_names == ["GRP", "GRP"]

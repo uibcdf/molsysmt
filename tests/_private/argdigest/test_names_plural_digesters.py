@@ -1,11 +1,13 @@
 import numpy as np
 import pytest
 
-from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.argdigest.argument.atom_names import digest_atom_names
+from molsysmt._private.argdigest.argument.disulfide_group_names import (
+    digest_disulfide_group_names,
+)
 from molsysmt._private.argdigest.argument.group_names import digest_group_names
-from molsysmt._private.argdigest.argument.disulfide_group_names import digest_disulfide_group_names
 from molsysmt._private.argdigest.argument.to_group_names import digest_to_group_names
+from molsysmt._private.smonitor import ArgumentError
 
 CALLER = "molsysmt.build.mutate.mutate"
 
@@ -34,11 +36,13 @@ def test_group_name_digesters_accept_strings_and_sequences(digester):
         digester(["CYS", 3], caller=CALLER)
 
 
-
 def test_to_group_names_accepts_string_and_string_iterables():
     assert digest_to_group_names("ACE", caller=CALLER) == ["ACE"]
     assert list(digest_to_group_names(("ACE", "NME"), caller=CALLER)) == ["ACE", "NME"]
-    assert list(digest_to_group_names(np.array(["ACE", "NME"]), caller=CALLER)) == ["ACE", "NME"]
+    assert list(digest_to_group_names(np.array(["ACE", "NME"]), caller=CALLER)) == [
+        "ACE",
+        "NME",
+    ]
 
     with pytest.raises(ArgumentError):
         digest_to_group_names(["ACE", 5], caller=CALLER)

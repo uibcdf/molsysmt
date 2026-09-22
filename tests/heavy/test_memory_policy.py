@@ -1,8 +1,8 @@
 """
 Tests for pre-flight memory footprint estimation and eager/heavy decision policy.
 """
-import pytest
-from molsysmt._private.execution import estimate_footprint, decide_mode
+
+from molsysmt._private.execution import decide_mode, estimate_footprint
 
 
 def test_estimate_footprint_basic():
@@ -21,21 +21,21 @@ def test_estimate_footprint_scaling():
 
 def test_decide_mode_force():
     # 'force' always returns heavy regardless of footprint
-    assert decide_mode(0, heavy_mode='force') == 'heavy'
-    assert decide_mode(10**15, heavy_mode='force') == 'heavy'
+    assert decide_mode(0, heavy_mode="force") == "heavy"
+    assert decide_mode(10**15, heavy_mode="force") == "heavy"
 
 
 def test_decide_mode_off():
     # 'off' always returns eager regardless of footprint
-    assert decide_mode(0, heavy_mode='off') == 'eager'
-    assert decide_mode(10**15, heavy_mode='off') == 'eager'
+    assert decide_mode(0, heavy_mode="off") == "eager"
+    assert decide_mode(10**15, heavy_mode="off") == "eager"
 
 
 def test_decide_mode_auto_small():
     # Small footprint → eager
-    assert decide_mode(1000, heavy_mode='auto') == 'eager'
+    assert decide_mode(1000, heavy_mode="auto") == "eager"
 
 
 def test_decide_mode_auto_large():
     # Footprint larger than any machine → heavy
-    assert decide_mode(10**18, heavy_mode='auto') == 'heavy'
+    assert decide_mode(10**18, heavy_mode="auto") == "heavy"

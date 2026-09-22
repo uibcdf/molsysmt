@@ -68,9 +68,7 @@ def test_molsys_to_builder_reports_mechanics_loss_and_rejects_strict(
     rich_molsys,
 ):
     source = rich_molsys.copy()
-    source.molecular_mechanics.partial_charge = np.array(
-        [0.1, 0.2, -0.2, -0.1]
-    )
+    source.molecular_mechanics.partial_charge = np.array([0.1, 0.2, -0.2, -0.1])
     source.molecular_mechanics.forcefield = "test-forcefield"
 
     _, report = msm.convert(
@@ -120,10 +118,7 @@ def test_molsys_to_builder_distinguishes_implicit_and_explicit_associations(
     assert (
         "structure_chemical_state_index",
         "state_association_loss",
-    ) in {
-        (issue.attribute, issue.kind)
-        for issue in explicit_report.issues
-    }
+    ) in {(issue.attribute, issue.kind) for issue in explicit_report.issues}
     assert msm.get(builder, n_chemical_states=True) == 2
 
     with pytest.raises(
@@ -183,9 +178,7 @@ def test_molsysdict_to_builder_is_exhaustive_and_materializes_components(
     assert report.is_exhaustive
     assert report.outcome == "lossy"
     payload = selected_dict.to_dict(copy=False)
-    assert [
-        atom["atom_id"] for atom in payload["topology"]["atoms"]
-    ] == ["100", "102"]
+    assert [atom["atom_id"] for atom in payload["topology"]["atoms"]] == ["100", "102"]
     assert payload["structures"]["structure_id"] == [50, 10]
 
     rebuilt, rebuilt_report = msm.convert(

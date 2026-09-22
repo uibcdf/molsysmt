@@ -3,32 +3,31 @@ Unit and regression test for the get_shape_from_box_angles module of the molsysm
 """
 
 # Import package, test suite, and other packages as needed
+
 import molsysmt as msm
-import numpy as np
 
 # Distance between atoms in space and time
 
+
 def test_get_shape_from_angles_1():
-    angles = [[90.0, 90.0, 90.0]] * msm.pyunitwizard.unit('degrees')
-    lengths = [[1.0, 1.0, 1.0]] * msm.pyunitwizard.unit('nm')
+    angles = [[90.0, 90.0, 90.0]] * msm.pyunitwizard.unit("degrees")
     shape = msm.pbc.get_shape_from_angles(angles)
-    assert (shape == 'cubic')
+    assert shape == "cubic"
+
 
 def test_get_shape_from_angles_2():
-    angles = [[70.52878, 109.471221, 70.52878]] * msm.pyunitwizard.unit('degrees')
-    lengths = [[1.0, 1.0, 1.0]] * msm.pyunitwizard.unit('nm')
+    angles = [[70.52878, 109.471221, 70.52878]] * msm.pyunitwizard.unit("degrees")
     shape = msm.pbc.get_shape_from_angles(angles)
-    assert (shape == 'truncated octahedral')
+    assert shape == "truncated octahedral"
+
 
 def test_get_shape_from_angles_3():
-    angles = [[60.0, 60.0, 90.0]] * msm.pyunitwizard.unit('degrees')
-    lengths = [[1.0, 1.0, 1.0]] * msm.pyunitwizard.unit('nm')
+    angles = [[60.0, 60.0, 90.0]] * msm.pyunitwizard.unit("degrees")
     shape = msm.pbc.get_shape_from_angles(angles)
-    assert (shape == 'rhombic dodecahedral')
+    assert shape == "rhombic dodecahedral"
+
 
 def test_get_shape_from_angles_4():
-    angles = [[70.0, 80.0, 90.0]] * msm.pyunitwizard.unit('degrees')
-    lengths = [[1.0, 1.0, 1.0]] * msm.pyunitwizard.unit('nm')
+    angles = [[70.0, 80.0, 90.0]] * msm.pyunitwizard.unit("degrees")
     shape = msm.pbc.get_shape_from_angles(angles)
-    assert (shape == 'triclinic')
-
+    assert shape == "triclinic"

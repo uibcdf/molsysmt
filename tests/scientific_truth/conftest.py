@@ -6,7 +6,6 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-
 with (Path(__file__).with_name("evidence") / "tolerances.json").open(
     encoding="utf-8"
 ) as file:

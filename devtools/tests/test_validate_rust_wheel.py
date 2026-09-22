@@ -6,21 +6,14 @@ from zipfile import ZipFile
 
 import pytest
 
-
-SCRIPT = (
-    Path(__file__).resolve().parents[1]
-    / "scripts"
-    / "validate_rust_wheel.py"
-)
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "validate_rust_wheel.py"
 SPEC = spec_from_file_location("validate_rust_wheel", SCRIPT)
 MODULE = module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
 INSTALLED_SCRIPT = (
-    Path(__file__).resolve().parents[1]
-    / "scripts"
-    / "validate_installed_rust_wheel.py"
+    Path(__file__).resolve().parents[1] / "scripts" / "validate_installed_rust_wheel.py"
 )
 INSTALLED_SPEC = spec_from_file_location(
     "validate_installed_rust_wheel",
@@ -50,8 +43,7 @@ def _write_wheel(
             b"Tag: cp311-abi3-linux_x86_64\n"
         ),
         "molsysmt-1.0.0.dist-info/entry_points.txt": (
-            b"[molsysviewer.addons]\n"
-            b"molsysmt = molsysviewer_molsysmt\n"
+            b"[molsysviewer.addons]\nmolsysmt = molsysviewer_molsysmt\n"
         ),
     }
     for declaration in MODULE.expected_form_declarations():
@@ -103,9 +95,7 @@ def test_static_validator_rejects_an_ambiguous_directory(tmp_path):
         ({"missing_form_declaration": True}, "dynamic form declarations"),
     ],
 )
-def test_invalid_wheel_fails_with_actionable_reason(
-    tmp_path, kwargs, expected
-):
+def test_invalid_wheel_fails_with_actionable_reason(tmp_path, kwargs, expected):
     wheel = tmp_path / "molsysmt-1.0.0-cp311-abi3-linux_x86_64.whl"
     _write_wheel(wheel, **kwargs)
     problems = MODULE.validate_wheel(wheel)
@@ -142,8 +132,7 @@ def test_rust_export_manifest_is_exact_and_includes_parallel_controls():
         (None, False),
         ('{"url": "file:///tmp/wheel.whl"}', False),
         (
-            '{"url": "file:///tmp/repo", '
-            '"dir_info": {"editable": true}}',
+            '{"url": "file:///tmp/repo", "dir_info": {"editable": true}}',
             True,
         ),
     ],

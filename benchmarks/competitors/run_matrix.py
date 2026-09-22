@@ -15,11 +15,13 @@ repo_root = str(Path(__file__).resolve().parents[2])
 if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
-import molsysmt as msm
-from benchmarks.harness import save_session_results
-from benchmarks.competitors.test_loading import run_loading_benchmarks
-from benchmarks.competitors.test_selections import run_selection_benchmarks
-from benchmarks.competitors.test_geometry import run_geometry_benchmarks
+import molsysmt as msm  # noqa: E402
+from benchmarks.competitors.test_geometry import run_geometry_benchmarks  # noqa: E402
+from benchmarks.competitors.test_loading import run_loading_benchmarks  # noqa: E402
+from benchmarks.competitors.test_selections import (  # noqa: E402
+    run_selection_benchmarks,
+)
+from benchmarks.harness import save_session_results  # noqa: E402
 
 
 def main():
@@ -31,8 +33,8 @@ def main():
     pdb_path = os.path.join(repo_root, "solvated_villin.pdb")
     if not os.path.exists(pdb_path):
         print(f"Generating temporary reference PDB: {pdb_path}")
-        h5 = msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5']
-        msm.convert(h5, to_form='file:pdb', output_filename=pdb_path)
+        h5 = msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.h5"]
+        msm.convert(h5, to_form="file:pdb", output_filename=pdb_path)
 
     # 2. Run all benchmark suites
     results = []
@@ -53,7 +55,7 @@ def main():
     save_session_results(
         session_name="competitive-performance-matrix",
         results=results,
-        output_path=out_file
+        output_path=out_file,
     )
 
     # 4. Generate & Display Gorgeous ASCII Comparison Table
@@ -62,62 +64,170 @@ def main():
     res_ram = {r["name"]: r["peak_rss_mb"] for r in results}
 
     print("\n" + "=" * 86)
-    print(f" {'MOLSYSMT COMPETITIVE BENCHMARK TIMING MATRIX SUMMARY (MEDIAN TIMINGS IN MS)':^84}")
+    print(
+        f" {'MOLSYSMT COMPETITIVE BENCHMARK TIMING MATRIX SUMMARY (MEDIAN TIMINGS IN MS)':^84}"
+    )
     print("=" * 86)
-    print(f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT JIT':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}")
+    print(
+        f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT JIT':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}"
+    )
     print("-" * 86)
 
     # Helper function to print a matrix line safely
-    def print_line(label: str, msm_pub_key: str, msm_jit_key: str | None, mdt_key: str, mda_key: str):
-        val_msm_pub = f"{res_dict[msm_pub_key]:11.3f} ms" if msm_pub_key in res_dict else "N/A"
-        val_msm_jit = f"{res_dict[msm_jit_key]:9.3f} ms" if msm_jit_key and msm_jit_key in res_dict else "N/A"
+    def print_line(
+        label: str,
+        msm_pub_key: str,
+        msm_jit_key: str | None,
+        mdt_key: str,
+        mda_key: str,
+    ):
+        val_msm_pub = (
+            f"{res_dict[msm_pub_key]:11.3f} ms" if msm_pub_key in res_dict else "N/A"
+        )
+        val_msm_jit = (
+            f"{res_dict[msm_jit_key]:9.3f} ms"
+            if msm_jit_key and msm_jit_key in res_dict
+            else "N/A"
+        )
         val_mdt = f"{res_dict[mdt_key]:7.3f} ms" if mdt_key in res_dict else "N/A"
         val_mda = f"{res_dict[mda_key]:7.3f} ms" if mda_key in res_dict else "N/A"
-        print(f" {label:<28} | {val_msm_pub:<15} | {val_msm_jit:<12} | {val_mdt:<10} | {val_mda:<10}")
+        print(
+            f" {label:<28} | {val_msm_pub:<15} | {val_msm_jit:<12} | {val_mdt:<10} | {val_mda:<10}"
+        )
 
     # Section: File Loading
-    print_line("Trajectory Load (DCD)", "competitor_loading_molsysmt", None, "competitor_loading_mdtraj", "competitor_loading_mdanalysis")
+    print_line(
+        "Trajectory Load (DCD)",
+        "competitor_loading_molsysmt",
+        None,
+        "competitor_loading_mdtraj",
+        "competitor_loading_mdanalysis",
+    )
     print("-" * 86)
 
     # Section: Atom Selections
-    print_line("Selection Simple (CA)", "competitor_selection_molsysmt_simple", None, "competitor_selection_mdtraj_simple", "competitor_selection_mdanalysis_simple")
-    print_line("Selection Complex", "competitor_selection_molsysmt_complex", None, "competitor_selection_mdtraj_complex", "competitor_selection_mdanalysis_complex")
+    print_line(
+        "Selection Simple (CA)",
+        "competitor_selection_molsysmt_simple",
+        None,
+        "competitor_selection_mdtraj_simple",
+        "competitor_selection_mdanalysis_simple",
+    )
+    print_line(
+        "Selection Complex",
+        "competitor_selection_molsysmt_complex",
+        None,
+        "competitor_selection_mdtraj_complex",
+        "competitor_selection_mdanalysis_complex",
+    )
     print("-" * 86)
 
     # Section: Geometric calculations
-    print_line("Center of Geometry", "competitor_center_molsysmt_public", "competitor_center_molsysmt_jit", "competitor_center_mdtraj", "competitor_center_mdanalysis")
-    print_line("RMSD Calculation", "competitor_rmsd_molsysmt_public", "competitor_rmsd_molsysmt_jit", "competitor_rmsd_mdtraj", "competitor_rmsd_mdanalysis")
-    print_line("Pairwise Distances", "competitor_distances_molsysmt_public", "competitor_distances_molsysmt_jit", "competitor_distances_mdtraj", "competitor_distances_mdanalysis")
+    print_line(
+        "Center of Geometry",
+        "competitor_center_molsysmt_public",
+        "competitor_center_molsysmt_jit",
+        "competitor_center_mdtraj",
+        "competitor_center_mdanalysis",
+    )
+    print_line(
+        "RMSD Calculation",
+        "competitor_rmsd_molsysmt_public",
+        "competitor_rmsd_molsysmt_jit",
+        "competitor_rmsd_mdtraj",
+        "competitor_rmsd_mdanalysis",
+    )
+    print_line(
+        "Pairwise Distances",
+        "competitor_distances_molsysmt_public",
+        "competitor_distances_molsysmt_jit",
+        "competitor_distances_mdtraj",
+        "competitor_distances_mdanalysis",
+    )
 
     print("=" * 86 + "\n")
 
     print("=" * 86)
-    print(f" {'MOLSYSMT COMPETITIVE BENCHMARK MEMORY MATRIX SUMMARY (PEAK RAM IN MB)':^84}")
+    print(
+        f" {'MOLSYSMT COMPETITIVE BENCHMARK MEMORY MATRIX SUMMARY (PEAK RAM IN MB)':^84}"
+    )
     print("=" * 86)
-    print(f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT JIT':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}")
+    print(
+        f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT JIT':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}"
+    )
     print("-" * 86)
 
     # Helper function to print a memory line safely
-    def print_mem_line(label: str, msm_pub_key: str, msm_jit_key: str | None, mdt_key: str, mda_key: str):
-        val_msm_pub = f"{res_ram[msm_pub_key]:11.2f} MB" if msm_pub_key in res_ram else "N/A"
-        val_msm_jit = f"{res_ram[msm_jit_key]:9.2f} MB" if msm_jit_key and msm_jit_key in res_ram else "N/A"
+    def print_mem_line(
+        label: str,
+        msm_pub_key: str,
+        msm_jit_key: str | None,
+        mdt_key: str,
+        mda_key: str,
+    ):
+        val_msm_pub = (
+            f"{res_ram[msm_pub_key]:11.2f} MB" if msm_pub_key in res_ram else "N/A"
+        )
+        val_msm_jit = (
+            f"{res_ram[msm_jit_key]:9.2f} MB"
+            if msm_jit_key and msm_jit_key in res_ram
+            else "N/A"
+        )
         val_mdt = f"{res_ram[mdt_key]:7.2f} MB" if mdt_key in res_ram else "N/A"
         val_mda = f"{res_ram[mda_key]:7.2f} MB" if mda_key in res_ram else "N/A"
-        print(f" {label:<28} | {val_msm_pub:<15} | {val_msm_jit:<12} | {val_mdt:<10} | {val_mda:<10}")
+        print(
+            f" {label:<28} | {val_msm_pub:<15} | {val_msm_jit:<12} | {val_mdt:<10} | {val_mda:<10}"
+        )
 
     # Section: File Loading
-    print_mem_line("Trajectory Load (DCD)", "competitor_loading_molsysmt", None, "competitor_loading_mdtraj", "competitor_loading_mdanalysis")
+    print_mem_line(
+        "Trajectory Load (DCD)",
+        "competitor_loading_molsysmt",
+        None,
+        "competitor_loading_mdtraj",
+        "competitor_loading_mdanalysis",
+    )
     print("-" * 86)
 
     # Section: Atom Selections
-    print_mem_line("Selection Simple (CA)", "competitor_selection_molsysmt_simple", None, "competitor_selection_mdtraj_simple", "competitor_selection_mdanalysis_simple")
-    print_mem_line("Selection Complex", "competitor_selection_molsysmt_complex", None, "competitor_selection_mdtraj_complex", "competitor_selection_mdanalysis_complex")
+    print_mem_line(
+        "Selection Simple (CA)",
+        "competitor_selection_molsysmt_simple",
+        None,
+        "competitor_selection_mdtraj_simple",
+        "competitor_selection_mdanalysis_simple",
+    )
+    print_mem_line(
+        "Selection Complex",
+        "competitor_selection_molsysmt_complex",
+        None,
+        "competitor_selection_mdtraj_complex",
+        "competitor_selection_mdanalysis_complex",
+    )
     print("-" * 86)
 
     # Section: Geometric calculations
-    print_mem_line("Center of Geometry", "competitor_center_molsysmt_public", "competitor_center_molsysmt_jit", "competitor_center_mdtraj", "competitor_center_mdanalysis")
-    print_mem_line("RMSD Calculation", "competitor_rmsd_molsysmt_public", "competitor_rmsd_molsysmt_jit", "competitor_rmsd_mdtraj", "competitor_rmsd_mdanalysis")
-    print_mem_line("Pairwise Distances", "competitor_distances_molsysmt_public", "competitor_distances_molsysmt_jit", "competitor_distances_mdtraj", "competitor_distances_mdanalysis")
+    print_mem_line(
+        "Center of Geometry",
+        "competitor_center_molsysmt_public",
+        "competitor_center_molsysmt_jit",
+        "competitor_center_mdtraj",
+        "competitor_center_mdanalysis",
+    )
+    print_mem_line(
+        "RMSD Calculation",
+        "competitor_rmsd_molsysmt_public",
+        "competitor_rmsd_molsysmt_jit",
+        "competitor_rmsd_mdtraj",
+        "competitor_rmsd_mdanalysis",
+    )
+    print_mem_line(
+        "Pairwise Distances",
+        "competitor_distances_molsysmt_public",
+        "competitor_distances_molsysmt_jit",
+        "competitor_distances_mdtraj",
+        "competitor_distances_mdanalysis",
+    )
 
     print("=" * 86 + "\n")
 

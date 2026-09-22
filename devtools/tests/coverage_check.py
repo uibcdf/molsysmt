@@ -1,5 +1,8 @@
 from __future__ import annotations
-import argparse, os
+
+import argparse
+import os
+
 from coverage_utils import load_json
 
 parser = argparse.ArgumentParser(description="Validate coverage thresholds.")
@@ -19,16 +22,22 @@ overall = float(summary["overall"]["percent"])
 failures = []
 
 if overall < overall_min:
-    failures.append(f"Overall coverage {overall:.1f}% is below threshold {overall_min:.1f}%")
+    failures.append(
+        f"Overall coverage {overall:.1f}% is below threshold {overall_min:.1f}%"
+    )
 
 packages = {row["package"]: row for row in summary.get("packages", [])}
 for package_name, min_percent in thresholds.get("packages", {}).items():
     if package_name not in packages:
-        failures.append(f"Threshold declared for {package_name}, but package was not found in summary output")
+        failures.append(
+            f"Threshold declared for {package_name}, but package was not found in summary output"
+        )
         continue
     percent = float(packages[package_name]["percent"])
     if percent < float(min_percent):
-        failures.append(f"{package_name} coverage {percent:.1f}% is below threshold {float(min_percent):.1f}%")
+        failures.append(
+            f"{package_name} coverage {percent:.1f}% is below threshold {float(min_percent):.1f}%"
+        )
 
 print("\nCoverage threshold check\n")
 print(f"Overall coverage: {overall:.1f}%")
@@ -38,7 +47,9 @@ if thresholds.get("packages", {}):
     for package_name, min_percent in thresholds["packages"].items():
         current = packages.get(package_name, {}).get("percent")
         current_s = "N/A" if current is None else f"{float(current):.1f}%"
-        print(f"- {package_name}: current {current_s}, required {float(min_percent):.1f}%")
+        print(
+            f"- {package_name}: current {current_s}, required {float(min_percent):.1f}%"
+        )
 
 if failures:
     print("\nFAILED")

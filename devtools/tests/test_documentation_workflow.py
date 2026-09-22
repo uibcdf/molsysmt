@@ -4,7 +4,6 @@ from pathlib import Path
 
 import yaml
 
-
 REPO = Path(__file__).resolve().parents[2]
 WORKFLOW = REPO / ".github" / "workflows" / "sphinx_docs_to_gh_pages.yaml"
 

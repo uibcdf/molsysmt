@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 
-from coverage_utils import load_json, file_rows, aggregate_by_package, sort_packages
+from coverage_utils import aggregate_by_package, file_rows, load_json, sort_packages
 
 
 def main(argv=None):

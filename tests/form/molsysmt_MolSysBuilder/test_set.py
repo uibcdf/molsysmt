@@ -32,11 +32,21 @@ def test_set_declared_topological_and_structural_attributes(molsys_builder_compl
     )
 
     assert output["atom_name"] == ["X", "CA", "O"]
-    assert msm.get(molsys_builder_complete, element="group", group_name=True) == ["GLY", "HOH"]
+    assert msm.get(molsys_builder_complete, element="group", group_name=True) == [
+        "GLY",
+        "HOH",
+    ]
     assert msm.get(molsys_builder_complete, element="chain", chain_name=True) == ["B"]
     assert np.allclose(
-        puw.get_value(msm.get(molsys_builder_complete, element="system", coordinates=True), to_unit="nm"),
+        puw.get_value(
+            msm.get(molsys_builder_complete, element="system", coordinates=True),
+            to_unit="nm",
+        ),
         np.array([[[1.0, 0.0, 0.0], [1.1, 0.0, 0.0], [1.2, 0.0, 0.0]]]),
     )
-    assert puw.get_value(msm.get(molsys_builder_complete, element="system", time=True), to_unit="ps").tolist() == [2.0]
-    assert msm.get(molsys_builder_complete, element="system", structure_id=True) == ["7"]
+    assert puw.get_value(
+        msm.get(molsys_builder_complete, element="system", time=True), to_unit="ps"
+    ).tolist() == [2.0]
+    assert msm.get(molsys_builder_complete, element="system", structure_id=True) == [
+        "7"
+    ]

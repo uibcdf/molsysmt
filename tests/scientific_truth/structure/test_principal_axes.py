@@ -33,9 +33,7 @@ def test_geometric_axes_match_closed_form_and_rotate_covariantly(float64_kernel_
     """Validate covariance eigenpairs and their rigid-rotation covariance."""
 
     reference = _anisotropic_points()
-    rotation = np.array(
-        [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
-    )
+    rotation = np.array([[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]])
     transformed = reference @ rotation.T + np.array([4.0, -3.0, 2.0])
     axes, variances = msm.structure.get_principal_axes(
         _structures(np.stack([reference, transformed])),
@@ -57,7 +55,9 @@ def test_geometric_axes_match_closed_form_and_rotate_covariantly(float64_kernel_
     )
     np.testing.assert_allclose(
         _axis_projectors(axes),
-        _axis_projectors(np.stack([expected_reference_axes, expected_transformed_axes])),
+        _axis_projectors(
+            np.stack([expected_reference_axes, expected_transformed_axes])
+        ),
         rtol=0.0,
         atol=float64_kernel_atol,
     )
@@ -98,12 +98,12 @@ def test_inertia_axes_and_moments_match_closed_form(float64_kernel_atol):
 def test_mass_keyword_matches_explicit_atomic_masses(float64_kernel_atol):
     """Validate the physical-mass shortcut against explicitly retrieved masses."""
 
-    molecular_system = msm.systems['alanine dipeptide']['alanine_dipeptide.h5msm']
-    masses = msm.physchem.get_mass(molecular_system, element='atom')
+    molecular_system = msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"]
+    masses = msm.physchem.get_mass(molecular_system, element="atom")
     axes_keyword, moments_keyword = msm.structure.get_principal_axes(
         molecular_system,
         structure_indices=0,
-        weights='masses',
+        weights="masses",
         use_gpu=False,
     )
     axes_explicit, moments_explicit = msm.structure.get_principal_axes(

@@ -7,7 +7,6 @@ import hashlib
 import re
 from pathlib import Path
 
-
 REPOSITORY = Path(__file__).resolve().parents[3]
 PROVENANCE = Path(__file__).with_name("PROVENANCE.md")
 SYSTEMS_MODULE = REPOSITORY / "molsysmt" / "systems.py"
@@ -18,9 +17,7 @@ def _nested_catalog_key(node: ast.Subscript) -> tuple[str, str] | None:
     if not isinstance(node.value, ast.Subscript):
         return None
     root = node.value.value
-    is_catalog = (
-        isinstance(root, ast.Name) and root.id == "systems"
-    ) or (
+    is_catalog = (isinstance(root, ast.Name) and root.id == "systems") or (
         isinstance(root, ast.Attribute) and root.attr == "systems"
     )
     if not is_catalog:
@@ -54,7 +51,9 @@ def _catalog_paths() -> dict[tuple[str, str], Path]:
 def _curated_catalog_paths() -> set[Path]:
     sources = [Path(__file__).parents[1] / "conftest.py"]
     sources.extend(
-        path for path in Path(__file__).parent.rglob("test_*.py") if path != Path(__file__)
+        path
+        for path in Path(__file__).parent.rglob("test_*.py")
+        if path != Path(__file__)
     )
     keys = set()
     for source in sources:
@@ -67,7 +66,9 @@ def _curated_catalog_paths() -> set[Path]:
 
     catalog = _catalog_paths()
     missing = keys - catalog.keys()
-    assert not missing, f"Curated tests reference unknown catalog entries: {sorted(missing)}"
+    assert not missing, (
+        f"Curated tests reference unknown catalog entries: {sorted(missing)}"
+    )
     return {catalog[key] for key in keys}
 
 

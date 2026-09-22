@@ -5,8 +5,13 @@ reference that uses the same minimum-image convention as the codebase.
 """
 
 import numpy as np
+
 from molsysmt.lib.structure.neighbor_list import (
-    neighbor_list_csr, neighbor_pairs, neighbor_list_csr_multi, _mic_wrap_vector)
+    _mic_wrap_vector,
+    neighbor_list_csr,
+    neighbor_list_csr_multi,
+    neighbor_pairs,
+)
 
 
 def _brute(query, ref, cutoff, box=None, exclude_self=True, half=False):
@@ -31,8 +36,10 @@ def _brute(query, ref, cutoff, box=None, exclude_self=True, half=False):
 
 
 def _csr_to_dict(offsets, indices):
-    return {i: sorted(indices[offsets[i]:offsets[i + 1]].tolist())
-            for i in range(len(offsets) - 1)}
+    return {
+        i: sorted(indices[offsets[i] : offsets[i + 1]].tolist())
+        for i in range(len(offsets) - 1)
+    }
 
 
 def test_neighbor_list_vacuum_self():
@@ -67,9 +74,9 @@ def test_neighbor_list_pbc_orthogonal():
 
 def test_neighbor_list_pbc_triclinic():
     rng = np.random.default_rng(4)
-    box = np.array([[3.0, 0.0, 0.0],
-                    [0.4, 3.0, 0.0],
-                    [0.3, 0.2, 3.0]], dtype=np.float64)
+    box = np.array(
+        [[3.0, 0.0, 0.0], [0.4, 3.0, 0.0], [0.3, 0.2, 3.0]], dtype=np.float64
+    )
     x = rng.uniform(0, 3, size=(200, 3))
     off, idx = neighbor_list_csr(x, box=box, cutoff=0.6)
     assert _csr_to_dict(off, idx) == _brute(x, x, 0.6, box=box)
@@ -78,15 +85,15 @@ def test_neighbor_list_pbc_triclinic():
 def test_neighbor_list_return_distances_matches_brute():
     rng = np.random.default_rng(6)
     x = rng.uniform(0, 3, size=(200, 3))
-    box = np.array([[3.0, 0.0, 0.0],
-                    [0.3, 3.0, 0.0],
-                    [0.2, 0.1, 3.0]], dtype=np.float64)
-    for kw in ({}, {'box': box}):
+    box = np.array(
+        [[3.0, 0.0, 0.0], [0.3, 3.0, 0.0], [0.2, 0.1, 3.0]], dtype=np.float64
+    )
+    for kw in ({}, {"box": box}):
         off, idx, dist = neighbor_list_csr(x, cutoff=0.6, return_distances=True, **kw)
         for i in range(len(x)):
             for p in range(off[i], off[i + 1]):
                 dv = x[idx[p]] - x[i]
-                if 'box' in kw:
+                if "box" in kw:
                     dv = np.array(_mic_wrap_vector(dv[0], dv[1], dv[2], box))
                 assert np.isclose(np.linalg.norm(dv), dist[p], atol=1e-9)
     # Default call stays a 2-tuple (backward compatible).
@@ -94,8 +101,10 @@ def test_neighbor_list_return_distances_matches_brute():
 
 
 def _multi_sets(offsets, indices, n_query):
-    return {(w // n_query, w % n_query): set(indices[offsets[w]:offsets[w + 1]].tolist())
-            for w in range(len(offsets) - 1)}
+    return {
+        (w // n_query, w % n_query): set(indices[offsets[w] : offsets[w + 1]].tolist())
+        for w in range(len(offsets) - 1)
+    }
 
 
 def test_neighbor_list_csr_multi_matches_brute():
@@ -125,10 +134,12 @@ def test_neighbor_list_csr_multi_matches_brute():
     assert _multi_sets(off, idx, nq) == brute(q, q, 0.6)
     for w in range(len(off) - 1):
         s, i = w // nq, w % nq
-        dd = dist[off[w]:off[w + 1]]
+        dd = dist[off[w] : off[w + 1]]
         assert np.all(np.diff(dd) >= -1e-9)
         for p in range(off[w], off[w + 1]):
-            assert np.isclose(np.linalg.norm(q[s, idx[p]] - q[s, i]), dist[p], atol=1e-9)
+            assert np.isclose(
+                np.linalg.norm(q[s, idx[p]] - q[s, i]), dist[p], atol=1e-9
+            )
 
     # disjoint sets, vacuum
     r = rng.uniform(0, 3, size=(ns, 90, 3))

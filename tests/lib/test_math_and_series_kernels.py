@@ -19,13 +19,15 @@ from molsysmt.lib.series import (
     chunks_to_serie,
     occurrence_order,
     occurrence_order_sorted_serie,
-    serie_to_chunks,
     serialized_lists,
+    serie_to_chunks,
 )
 
 
 def test_math_primitives_cover_vector_and_matrix_helpers():
-    lower = np.array([[2.0, 0.0, 0.0], [3.0, 4.0, 0.0], [5.0, 6.0, 8.0]], dtype=np.float64)
+    lower = np.array(
+        [[2.0, 0.0, 0.0], [3.0, 4.0, 0.0], [5.0, 6.0, 8.0]], dtype=np.float64
+    )
     inv = inverse_matrix_3x3(lower)
     np.testing.assert_allclose(inv @ lower, np.eye(3), atol=1e-12)
 
@@ -37,7 +39,9 @@ def test_math_primitives_cover_vector_and_matrix_helpers():
     assert np.isclose(dot_product(vector, other), np.dot(vector, other))
     np.testing.assert_allclose(cross_product(vector, other), np.cross(vector, other))
     assert np.isclose(norm_vector(vector), np.linalg.norm(vector))
-    np.testing.assert_allclose(normalize_vector(vector), vector / np.linalg.norm(vector))
+    np.testing.assert_allclose(
+        normalize_vector(vector), vector / np.linalg.norm(vector)
+    )
 
 
 def test_angle_dihedral_rotation_and_quaternion_helpers():
@@ -54,7 +58,9 @@ def test_angle_dihedral_rotation_and_quaternion_helpers():
 
     q = np.array([np.cos(np.pi / 4), 0.0, 0.0, np.sin(np.pi / 4)], dtype=np.float64)
     rotation = quaternion_to_rotation_matrix(q)
-    np.testing.assert_allclose(rotation @ np.array([1.0, 0.0, 0.0]), np.array([0.0, 1.0, 0.0]), atol=1e-12)
+    np.testing.assert_allclose(
+        rotation @ np.array([1.0, 0.0, 0.0]), np.array([0.0, 1.0, 0.0]), atol=1e-12
+    )
 
 
 def test_minimum_distance_helpers_cover_masked_and_candidate_paths():
@@ -64,7 +70,10 @@ def test_minimum_distance_helpers_cover_masked_and_candidate_paths():
     include_mask = np.array([1, 1, 1], dtype=np.uint8)
     bonded_matrix = np.zeros((3, 3), dtype=np.uint8)
     bonded_matrix[0, 1] = bonded_matrix[1, 0] = 1
-    assert np.isclose(minimum_distance_masked_not_bonded(coordinates, include_mask, bonded_matrix), 4.0)
+    assert np.isclose(
+        minimum_distance_masked_not_bonded(coordinates, include_mask, bonded_matrix),
+        4.0,
+    )
 
     existing = np.array([[0.0, 0.0, 0.0], [4.0, 0.0, 0.0]], dtype=np.float64)
     candidate = np.array([[0.0, 3.0, 0.0], [10.0, 0.0, 0.0]], dtype=np.float64)
@@ -101,9 +110,17 @@ def test_series_helpers_cover_chunk_and_occurrence_paths():
     )
 
     serialized_from_list = serialized_lists([[3, 4, 5], [1, 10], [8]])
-    np.testing.assert_array_equal(serialized_from_list.indices, np.array([0, 1, 2], dtype=np.int64))
-    np.testing.assert_array_equal(serialized_from_list.starts, np.array([0, 3, 5, 6], dtype=np.int64))
+    np.testing.assert_array_equal(
+        serialized_from_list.indices, np.array([0, 1, 2], dtype=np.int64)
+    )
+    np.testing.assert_array_equal(
+        serialized_from_list.starts, np.array([0, 3, 5, 6], dtype=np.int64)
+    )
 
     serialized_from_dict = serialized_lists({7: [1, 10], 2: [3, 4, 5], 8: [8]})
-    np.testing.assert_array_equal(serialized_from_dict.indices, np.array([2, 7, 8], dtype=np.int64))
-    np.testing.assert_array_equal(serialized_from_dict.starts, np.array([0, 3, 5, 6], dtype=np.int64))
+    np.testing.assert_array_equal(
+        serialized_from_dict.indices, np.array([2, 7, 8], dtype=np.int64)
+    )
+    np.testing.assert_array_equal(
+        serialized_from_dict.starts, np.array([0, 3, 5, 6], dtype=np.int64)
+    )

@@ -6,7 +6,6 @@ from pathlib import Path
 
 import pytest
 
-
 REPOSITORY = Path(__file__).resolve().parents[2]
 CANONICAL_DIRECTORY = REPOSITORY / "benchmarks" / "baselines"
 PUBLISHED_DIRECTORY = REPOSITORY / "docs" / "_static" / "benchmarks_data"
@@ -24,7 +23,9 @@ def test_published_benchmark_data_matches_canonical_baseline(filename):
 
 
 def test_dashboard_competitor_keys_are_delivered_by_the_baseline():
-    dashboard = (REPOSITORY / "docs" / "_static" / "benchmarks_dashboard.html").read_text()
+    dashboard = (
+        REPOSITORY / "docs" / "_static" / "benchmarks_dashboard.html"
+    ).read_text()
     baseline = json.loads(
         (CANONICAL_DIRECTORY / "competitor_matrix_session.json").read_text()
     )

@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt.native import Structures
 
-
 pytest.importorskip("MDAnalysis")
 from MDAnalysis.analysis.rms import rmsd
 from MDAnalysis.lib.distances import calc_angles, calc_bonds, calc_dihedrals
@@ -30,7 +29,10 @@ def test_distances_agree_with_mdanalysis(
 
     pairs = np.array([[0, 1], [0, 2]], dtype=np.int64)
     expected = np.stack(
-        [calc_bonds(frame[pairs[:, 0]], frame[pairs[:, 1]]) for frame in rigid_geometry_coordinates_nm]
+        [
+            calc_bonds(frame[pairs[:, 0]], frame[pairs[:, 1]])
+            for frame in rigid_geometry_coordinates_nm
+        ]
     )
 
     observed = msm.structure.get_distances(
@@ -125,10 +127,16 @@ def test_raw_and_least_rmsd_agree_with_mdanalysis(
 
     reference = rigid_geometry_coordinates_nm[0]
     expected_raw = np.array(
-        [rmsd(frame, reference, center=False, superposition=False) for frame in rigid_geometry_coordinates_nm]
+        [
+            rmsd(frame, reference, center=False, superposition=False)
+            for frame in rigid_geometry_coordinates_nm
+        ]
     )
     expected_least = np.array(
-        [rmsd(frame, reference, center=True, superposition=True) for frame in rigid_geometry_coordinates_nm]
+        [
+            rmsd(frame, reference, center=True, superposition=True)
+            for frame in rigid_geometry_coordinates_nm
+        ]
     )
     structures = _structures(rigid_geometry_coordinates_nm)
 

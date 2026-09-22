@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 
-
 pytest.importorskip("MDAnalysis")
 
 
@@ -85,7 +84,9 @@ def test_universe_self_conversion_materializes_requested_subset(rich_universe):
 
     assert output.atoms.ids.tolist() == [13, 11]
     assert len(output.trajectory) == 2
-    np.testing.assert_allclose([output.trajectory[index].time for index in range(2)], [9.0, 5.0])
+    np.testing.assert_allclose(
+        [output.trajectory[index].time for index in range(2)], [9.0, 5.0]
+    )
     np.testing.assert_allclose(
         output.trajectory.timeseries(order="fac"),
         rich_universe.trajectory.timeseries(order="fac")[[2, 0]][:, [3, 1]],

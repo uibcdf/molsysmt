@@ -6,7 +6,6 @@ All previously missing getter implementations have been added to H5MSMFileHandle
 so these tests now run without xfail markers.
 """
 
-import pytest
 import molsysmt as msm
 from molsysmt.form.file_h5msm import get_structural_attributes as aux
 
@@ -16,9 +15,11 @@ puw = msm.pyunitwizard
 # Files
 # ---------------------------------------------------------------------------
 
-file_traj = msm.systems['pentalanine']['traj_pentalanine.h5msm']
-file_bb = msm.systems['Barnase-Barstar']['barnase_barstar.h5msm']
-file_hp35 = msm.systems['chicken villin HP35']['traj_chicken_villin_HP35_solvated.h5msm']
+file_traj = msm.systems["pentalanine"]["traj_pentalanine.h5msm"]
+file_bb = msm.systems["Barnase-Barstar"]["barnase_barstar.h5msm"]
+file_hp35 = msm.systems["chicken villin HP35"][
+    "traj_chicken_villin_HP35_solvated.h5msm"
+]
 
 
 # ===========================================================================

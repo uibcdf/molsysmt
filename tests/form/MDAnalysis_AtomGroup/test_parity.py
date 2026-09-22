@@ -11,39 +11,42 @@ Parity: AtomGroup topology == parent Universe topology (same counts and
 names).
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
+
 import molsysmt as msm
 
-
-PDB_PATH = str(Path(msm.__file__).parent / 'data' / 'pdb' / '1l2y.pdb')
-N_ATOMS  = 304
+PDB_PATH = str(Path(msm.__file__).parent / "data" / "pdb" / "1l2y.pdb")
+N_ATOMS = 304
 N_GROUPS = 20
 N_CHAINS = 1
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def atom_group():
-    universe = msm.convert(PDB_PATH, to_form='MDAnalysis.Universe')
-    return universe.select_atoms('all')
+    universe = msm.convert(PDB_PATH, to_form="MDAnalysis.Universe")
+    return universe.select_atoms("all")
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def atomgroup_topology(atom_group):
-    return msm.convert(atom_group, to_form='molsysmt.Topology')
+    return msm.convert(atom_group, to_form="molsysmt.Topology")
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def source_topology():
-    return msm.convert(PDB_PATH, to_form='molsysmt.Topology')
+    return msm.convert(PDB_PATH, to_form="molsysmt.Topology")
 
 
 # ---------------------------------------------------------------------------
 # Contract: AtomGroup can be converted to molsysmt.Topology
 # ---------------------------------------------------------------------------
 
+
 def test_atomgroup_is_created(atom_group):
     import MDAnalysis as mda
+
     assert isinstance(atom_group, mda.core.groups.AtomGroup)
 
 
@@ -63,6 +66,7 @@ def test_atomgroup_topology_chain_count(atomgroup_topology):
 # Parity: AtomGroup topology == source PDB topology
 # ---------------------------------------------------------------------------
 
+
 def test_parity_atom_count(atomgroup_topology, source_topology):
     assert atomgroup_topology.n_atoms == source_topology.n_atoms
 
@@ -76,8 +80,14 @@ def test_parity_chain_count(atomgroup_topology, source_topology):
 
 
 def test_parity_atom_names(atomgroup_topology, source_topology):
-    assert atomgroup_topology.atoms['atom_name'].tolist() == source_topology.atoms['atom_name'].tolist()
+    assert (
+        atomgroup_topology.atoms["atom_name"].tolist()
+        == source_topology.atoms["atom_name"].tolist()
+    )
 
 
 def test_parity_group_names(atomgroup_topology, source_topology):
-    assert atomgroup_topology.groups['group_name'].tolist() == source_topology.groups['group_name'].tolist()
+    assert (
+        atomgroup_topology.groups["group_name"].tolist()
+        == source_topology.groups["group_name"].tolist()
+    )

@@ -1,7 +1,7 @@
 import numpy as np
 
-from molsysmt.native import ViewerJSON, MolSys
 from molsysmt.form.molsysmt_ViewerJSON.to_molsysmt_MolSys import to_molsysmt_MolSys
+from molsysmt.native import MolSys, ViewerJSON
 
 
 def _viewer_json():
@@ -25,7 +25,11 @@ def _viewer_json():
             {
                 "coordinates": [[0.0, 0.0, 0.0], [1.0, 0.0, 0.0]],
                 "time": 0.0,
-                "box": {"v0": [1.0, 0.0, 0.0], "v1": [0.0, 1.0, 0.0], "v2": [0.0, 0.0, 1.0]},
+                "box": {
+                    "v0": [1.0, 0.0, 0.0],
+                    "v1": [0.0, 1.0, 0.0],
+                    "v2": [0.0, 0.0, 1.0],
+                },
             },
         ],
     }

@@ -39,9 +39,7 @@ def test_rotate_applies_distinct_matrices_per_frame(float64_kernel_atol):
 def test_rotation_and_inverse_preserve_coordinates_and_distances(float64_kernel_atol):
     """Validate rigid invariance and an exact matrix-inverse round trip."""
 
-    coordinates = np.array(
-        [[[0.2, 0.3, 0.4], [1.1, -0.2, 0.7], [-0.3, 0.8, 1.4]]]
-    )
+    coordinates = np.array([[[0.2, 0.3, 0.4], [1.1, -0.2, 0.7], [-0.3, 0.8, 1.4]]])
     angle = np.deg2rad(31.0)
     rotation = np.array(
         [

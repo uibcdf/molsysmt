@@ -13,7 +13,7 @@ from molsysmt.form.mdtraj_XTCTrajectoryFile import (
 
 
 def test_structural_getters_preserve_cursor_and_can_be_composed():
-    xtc = msm.systems['nglview']['md_1u19.xtc']
+    xtc = msm.systems["nglview"]["md_1u19.xtc"]
 
     with md.open(str(xtc)) as reader:
         reader.seek(7)
@@ -44,13 +44,13 @@ def test_structural_getters_preserve_cursor_and_can_be_composed():
 
 
 def test_xtc_conversion_reads_coordinates_time_and_box_together():
-    gro = msm.systems['nglview']['md_1u19.gro']
-    xtc = msm.systems['nglview']['md_1u19.xtc']
+    gro = msm.systems["nglview"]["md_1u19.gro"]
+    xtc = msm.systems["nglview"]["md_1u19.xtc"]
 
     molecular_system = msm.convert(
         [gro, xtc],
         structure_indices=[0, 25, 50],
-        to_form='molsysmt.MolSys',
+        to_form="molsysmt.MolSys",
     )
 
     assert molecular_system.structures.coordinates.shape == (3, 5547, 3)

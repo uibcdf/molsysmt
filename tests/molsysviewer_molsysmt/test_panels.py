@@ -1,33 +1,26 @@
 """Tests for the molsysviewer_molsysmt addon."""
 
-import sys
-import tomllib
-from pathlib import Path
-from importlib import import_module
-
 import molsysviewer
 import pytest
 
 from molsysviewer_molsysmt import (
     get_addon,
-    lifecycle,
-    on_enable,
-    on_disable,
-    on_context_action,
-    create_molsysmt_state,
-    system_for_verbs,
-    system_object,
-    has_system,
 )
-from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
-
 
 _EXPECTED_PANELS = [
-    "basic", "topology", "structure", "hbonds",
-    "pbc", "physchem", "molecular_mechanics", "build",
+    "basic",
+    "topology",
+    "structure",
+    "hbonds",
+    "pbc",
+    "physchem",
+    "molecular_mechanics",
+    "build",
 ]
 _EXPECTED_CONTEXT_ACTIONS = [
-    "inspect-system", "select-and-highlight", "color-by-property",
+    "inspect-system",
+    "select-and-highlight",
+    "color-by-property",
     "compute-contacts",
 ]
 _EXPECTED_PANEL_SECTION_IDS = {
@@ -37,7 +30,11 @@ _EXPECTED_PANEL_SECTION_IDS = {
     "hbonds": ("hbonds-buch",),
     "pbc": ("pbc-status", "pbc-wrapping"),
     "physchem": ("physchem-color",),
-    "molecular_mechanics": ("mechanics-forces", "mechanics-energy", "mechanics-minimization"),
+    "molecular_mechanics": (
+        "mechanics-forces",
+        "mechanics-energy",
+        "mechanics-minimization",
+    ),
     "build": ("build-preparation", "build-solvation"),
 }
 
@@ -46,16 +43,20 @@ _EXPECTED_PANEL_SECTION_IDS = {
 # Panel widget classes — public MolSysMT namespace panels must be resolvable
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("panel_id,cls_name", [
-    ("basic", "MolSysMTBasicPanel"),
-    ("topology", "MolSysMTTopologyPanel"),
-    ("structure", "MolSysMTStructurePanel"),
-    ("hbonds", "MolSysMTHBondsPanel"),
-    ("pbc", "MolSysMTPBCPanel"),
-    ("physchem", "MolSysMTColorPanel"),
-    ("molecular_mechanics", "MolSysMTMechanicsPanel"),
-    ("build", "MolSysMTBuildPanel"),
-])
+
+@pytest.mark.parametrize(
+    "panel_id,cls_name",
+    [
+        ("basic", "MolSysMTBasicPanel"),
+        ("topology", "MolSysMTTopologyPanel"),
+        ("structure", "MolSysMTStructurePanel"),
+        ("hbonds", "MolSysMTHBondsPanel"),
+        ("pbc", "MolSysMTPBCPanel"),
+        ("physchem", "MolSysMTColorPanel"),
+        ("molecular_mechanics", "MolSysMTMechanicsPanel"),
+        ("build", "MolSysMTBuildPanel"),
+    ],
+)
 def test_panel_widget_class_is_resolvable(panel_id, cls_name):
     molsysviewer.addons.clear()
     molsysviewer.addons.register(get_addon())
@@ -72,6 +73,7 @@ def test_panel_widget_class_is_resolvable(panel_id, cls_name):
 # ---------------------------------------------------------------------------
 # Panel on_mount — each must write an initial addon_states snapshot
 # ---------------------------------------------------------------------------
+
 
 @pytest.mark.parametrize("panel_id", _EXPECTED_PANELS)
 def test_panel_on_mount_sets_addon_state(panel_id):
@@ -114,12 +116,13 @@ def test_panel_esm_uses_addon_states_sync(panel_id):
     molsysviewer.addons.clear()
     assert "model.get(" in esm
     assert "change:${key}" in esm
-    assert 'msg:custom' not in esm
+    assert "msg:custom" not in esm
 
 
 # ---------------------------------------------------------------------------
 # Basic panel — system inspection state and action
 # ---------------------------------------------------------------------------
+
 
 def test_basic_panel_on_mount_sets_initial_addon_state():
     molsysviewer.addons.clear()

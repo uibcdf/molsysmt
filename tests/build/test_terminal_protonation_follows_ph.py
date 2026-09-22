@@ -19,59 +19,72 @@ what is covered rather than quietly leaving the N-terminus untested.
 import pytest
 
 import molsysmt as msm
-from molsysmt.element.group.amino_acid.get_expected_hydrogens import get_expected_hydrogens
+from molsysmt.element.group.amino_acid.get_expected_hydrogens import (
+    get_expected_hydrogens,
+)
 
 C_TERMINAL_THRESHOLD = 3.2
 N_TERMINAL_THRESHOLD = 9.6
 
-METHIONINE_HEAVY = ['N', 'CA', 'C', 'O', 'CB', 'CG', 'SD', 'CE']
+METHIONINE_HEAVY = ["N", "CA", "C", "O", "CB", "CG", "SD", "CE"]
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def villin():
     """1VII carries no OXT, so the C-terminal proton seen afterwards is one we placed."""
     molecular_system = msm.extract(
-        msm.convert(msm.systems['chicken villin HP35']['1vii.pdb'], to_form='molsysmt.MolSys'),
+        msm.convert(
+            msm.systems["chicken villin HP35"]["1vii.pdb"], to_form="molsysmt.MolSys"
+        ),
         structure_indices=[0],
     )
     assert len(msm.select(molecular_system, selection="atom_name=='HXT'")) == 0
     return molecular_system
 
 
-@pytest.mark.parametrize('pH', [1.0, 2.0, 3.0])
+@pytest.mark.parametrize("pH", [1.0, 2.0, 3.0])
 def test_c_terminus_is_protonated_below_its_pka(villin, pH):
-    prepared = msm.build.add_missing_terminal_cappings(villin, pH=pH, engine='MolSysMT')
-    prepared = msm.build.add_missing_hydrogens(prepared, pH=pH, engine='MolSysMT')
+    prepared = msm.build.add_missing_terminal_cappings(villin, pH=pH, engine="MolSysMT")
+    prepared = msm.build.add_missing_hydrogens(prepared, pH=pH, engine="MolSysMT")
     assert len(msm.select(prepared, selection="atom_name=='HXT'")) == 1
 
 
-@pytest.mark.parametrize('pH', [4.0, 7.4, 9.0, 12.0])
+@pytest.mark.parametrize("pH", [4.0, 7.4, 9.0, 12.0])
 def test_c_terminus_is_a_carboxylate_above_its_pka(villin, pH):
-    prepared = msm.build.add_missing_terminal_cappings(villin, pH=pH, engine='MolSysMT')
-    prepared = msm.build.add_missing_hydrogens(prepared, pH=pH, engine='MolSysMT')
+    prepared = msm.build.add_missing_terminal_cappings(villin, pH=pH, engine="MolSysMT")
+    prepared = msm.build.add_missing_hydrogens(prepared, pH=pH, engine="MolSysMT")
     assert len(msm.select(prepared, selection="atom_name=='HXT'")) == 0, (
-        f'the C-terminal carboxylate is protonated at pH {pH}; no standard force field '
-        f'has a template for a COOH terminus'
+        f"the C-terminal carboxylate is protonated at pH {pH}; no standard force field "
+        f"has a template for a COOH terminus"
     )
 
 
 def test_a_natively_prepared_protein_reaches_a_force_field(villin):
     """The failure this defect produced, asserted as the behaviour it blocked."""
-    openmm = pytest.importorskip('openmm')
+    openmm = pytest.importorskip("openmm")
     assert openmm is not None
 
-    prepared = msm.build.add_missing_terminal_cappings(villin, pH=7.4, engine='MolSysMT')
-    prepared = msm.build.add_missing_hydrogens(prepared, pH=7.4, engine='MolSysMT')
+    prepared = msm.build.add_missing_terminal_cappings(
+        villin, pH=7.4, engine="MolSysMT"
+    )
+    prepared = msm.build.add_missing_hydrogens(prepared, pH=7.4, engine="MolSysMT")
     prepared = msm.build.solvate(
-        prepared, box_shape='cubic', clearance='12 angstroms',
-        water_model='TIP3P', ionic_strength='0.15 molar', engine='MolSysMT')
+        prepared,
+        box_shape="cubic",
+        clearance="12 angstroms",
+        water_model="TIP3P",
+        ionic_strength="0.15 molar",
+        engine="MolSysMT",
+    )
 
-    simulation = msm.convert(prepared, to_form='openmm.Simulation', forcefield='AMBER14')
+    simulation = msm.convert(
+        prepared, to_form="openmm.Simulation", forcefield="AMBER14"
+    )
     assert simulation is not None
 
 
 @pytest.mark.parametrize(
-    ('pH', 'expects_third_proton'),
+    ("pH", "expects_third_proton"),
     [(1.0, True), (7.4, True), (9.0, True), (10.0, False), (12.0, False)],
 )
 def test_n_terminal_amine_titrates(pH, expects_third_proton):
@@ -82,10 +95,13 @@ def test_n_terminal_amine_titrates(pH, expects_third_proton):
     test that only ran a force field would report success either way.
     """
     expected = get_expected_hydrogens(
-        'MET', present_atom_names=METHIONINE_HEAVY + ['H1', 'H2'],
-        pH=pH, is_n_terminal=True)
+        "MET",
+        present_atom_names=METHIONINE_HEAVY + ["H1", "H2"],
+        pH=pH,
+        is_n_terminal=True,
+    )
 
-    assert ('H3' in expected) is expects_third_proton
+    assert ("H3" in expected) is expects_third_proton
 
 
 def test_the_side_chain_rules_still_hold():
@@ -96,6 +112,8 @@ def test_the_side_chain_rules_still_hold():
     pH rule then has nothing to act on and the assertion would pass without ever
     exercising it.
     """
-    aspartate = ['N', 'CA', 'C', 'O', 'CB', 'CG', 'OD1', 'OD2', 'HB2', 'HB3']
-    assert 'HD2' in get_expected_hydrogens('ASP', present_atom_names=aspartate, pH=3.0)
-    assert 'HD2' not in get_expected_hydrogens('ASP', present_atom_names=aspartate, pH=7.4)
+    aspartate = ["N", "CA", "C", "O", "CB", "CG", "OD1", "OD2", "HB2", "HB3"]
+    assert "HD2" in get_expected_hydrogens("ASP", present_atom_names=aspartate, pH=3.0)
+    assert "HD2" not in get_expected_hydrogens(
+        "ASP", present_atom_names=aspartate, pH=7.4
+    )

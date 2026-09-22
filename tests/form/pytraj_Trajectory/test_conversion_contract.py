@@ -12,7 +12,6 @@ from molsysmt.form.pytraj_Trajectory._runtime import (
     has_unsafe_frame_finalizer,
 )
 
-
 pytraj = pytest.importorskip("pytraj")
 
 

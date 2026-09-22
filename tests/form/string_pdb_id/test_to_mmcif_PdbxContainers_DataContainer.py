@@ -8,7 +8,9 @@ import pytest
 import molsysmt as msm
 
 
-def test_to_mmcif_pdbxcontainers_datacontainer_reports_aggregated_offline_error(monkeypatch):
+def test_to_mmcif_pdbxcontainers_datacontainer_reports_aggregated_offline_error(
+    monkeypatch,
+):
     module_under_test = importlib.import_module(
         "molsysmt.form.string_pdb_id.to_mmcif_PdbxContainers_DataContainer"
     )
@@ -47,7 +49,9 @@ def test_to_mmcif_pdbxcontainers_datacontainer_reports_aggregated_offline_error(
     )
 
     with pytest.raises(RuntimeError) as exc:
-        module_under_test.to_mmcif_PdbxContainers_DataContainer("pdb_id:181l", skip_digestion=True)
+        module_under_test.to_mmcif_PdbxContainers_DataContainer(
+            "pdb_id:181l", skip_digestion=True
+        )
 
     text = str(exc.value)
     assert "Attempted formats: bcif.gz, bcif, cif.gz, cif" in text

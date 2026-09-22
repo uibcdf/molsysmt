@@ -6,26 +6,26 @@ failures point directly to the function at fault, independently of the
 higher-level add_missing_heavy_atoms / add_missing_terminal_cappings tests.
 """
 
-import pytest
 import numpy as np
 import pandas as pd
+import pytest
 
 from molsysmt.build._native_placers import (
-    load_residue_template,
-    _sort_bonds_inplace,
-    place_missing_in_group,
-    append_atoms_to_molsys,
-    place_ace_group,
-    place_nme_group,
-    rebuild_molsys_with_new_groups,
     _normalize,
     _perpendicular_component,
+    _sort_bonds_inplace,
+    append_atoms_to_molsys,
+    load_residue_template,
+    place_ace_group,
+    place_missing_in_group,
+    place_nme_group,
+    rebuild_molsys_with_new_groups,
 )
-
 
 # ---------------------------------------------------------------------------
 # Shared fixtures
 # ---------------------------------------------------------------------------
+
 
 @pytest.fixture(scope="module")
 def ala_template():
@@ -45,6 +45,7 @@ def nme_template():
 @pytest.fixture(scope="module")
 def aaa_molsys():
     import molsysmt as msm
+
     return msm.build.build_peptide("AAA", engine="MolSysMT", to_form="molsysmt.MolSys")
 
 
@@ -52,8 +53,8 @@ def aaa_molsys():
 # load_residue_template
 # ---------------------------------------------------------------------------
 
-class TestLoadResidueTemplate:
 
+class TestLoadResidueTemplate:
     def test_known_residue_returns_dict(self, ala_template):
         assert isinstance(ala_template, dict)
 
@@ -81,15 +82,15 @@ class TestLoadResidueTemplate:
 
     def test_result_is_cached(self, ala_template):
         second = load_residue_template("ALA")
-        assert second is ala_template   # same object — cache hit
+        assert second is ala_template  # same object — cache hit
 
 
 # ---------------------------------------------------------------------------
 # _sort_bonds_inplace
 # ---------------------------------------------------------------------------
 
-class TestSortBondsInplace:
 
+class TestSortBondsInplace:
     def _make_bonds_df(self, pairs):
         df = pd.DataFrame(pairs, columns=["atom1_index", "atom2_index"])
         df["atom1_index"] = df["atom1_index"].astype("Int64")
@@ -107,7 +108,7 @@ class TestSortBondsInplace:
         _sort_bonds_inplace(df)
         a1 = df["atom1_index"].tolist()
         a2 = df["atom2_index"].tolist()
-        assert a1 == sorted(a1)   # primary sort
+        assert a1 == sorted(a1)  # primary sort
         # within same a1, a2 must be sorted too
         for i in range(len(a1) - 1):
             if a1[i] == a1[i + 1]:
@@ -123,8 +124,8 @@ class TestSortBondsInplace:
 # _normalize and _perpendicular_component (private geometry helpers)
 # ---------------------------------------------------------------------------
 
-class TestGeometryHelpers:
 
+class TestGeometryHelpers:
     def test_normalize_unit_length(self):
         v = np.array([3.0, 4.0, 0.0])
         n = _normalize(v)
@@ -134,13 +135,13 @@ class TestGeometryHelpers:
         assert _normalize(np.zeros(3)) is None
 
     def test_perpendicular_component_is_orthogonal(self):
-        vec  = np.array([1.0, 1.0, 0.0])
+        vec = np.array([1.0, 1.0, 0.0])
         axis = np.array([1.0, 0.0, 0.0])
         perp = _perpendicular_component(vec, axis)
         assert abs(np.dot(perp, axis)) < 1e-12
 
     def test_perpendicular_component_parallel_is_zero(self):
-        vec  = np.array([2.0, 0.0, 0.0])
+        vec = np.array([2.0, 0.0, 0.0])
         axis = np.array([1.0, 0.0, 0.0])
         perp = _perpendicular_component(vec, axis)
         assert np.linalg.norm(perp) < 1e-12
@@ -150,57 +151,68 @@ class TestGeometryHelpers:
 # place_missing_in_group
 # ---------------------------------------------------------------------------
 
-class TestPlaceMissingInGroup:
 
+class TestPlaceMissingInGroup:
     def test_returns_dict_with_placed_atom(self, aaa_molsys, ala_template):
         import molsysmt as msm
         from molsysmt import pyunitwizard as puw
+
         # Remove CB from the system
         molsys_no_cb = msm.remove(aaa_molsys, selection='atom_name=="CB"')
         topo = molsys_no_cb.topology
         coords = puw.get_value(molsys_no_cb.structures.coordinates, to_unit="nm")
-        result = place_missing_in_group(topo, coords, group_idx=0,
-                                        missing_names=["CB"], template=ala_template)
+        result = place_missing_in_group(
+            topo, coords, group_idx=0, missing_names=["CB"], template=ala_template
+        )
         assert "CB" in result
 
     def test_coords_shape_is_n_structures_3(self, aaa_molsys, ala_template):
         import molsysmt as msm
         from molsysmt import pyunitwizard as puw
+
         molsys_no_cb = msm.remove(aaa_molsys, selection='atom_name=="CB"')
         topo = molsys_no_cb.topology
         coords = puw.get_value(molsys_no_cb.structures.coordinates, to_unit="nm")
         n_structures = coords.shape[0]
-        result = place_missing_in_group(topo, coords, group_idx=0,
-                                        missing_names=["CB"], template=ala_template)
+        result = place_missing_in_group(
+            topo, coords, group_idx=0, missing_names=["CB"], template=ala_template
+        )
         assert result["CB"].shape == (n_structures, 3)
 
     def test_no_common_atoms_returns_empty(self, ala_template):
         """If no atoms in the group match the template, nothing can be placed."""
         from molsysmt.native.topology import Atoms_DataFrame
+
         atoms = Atoms_DataFrame(n_atoms=1)
         atoms.loc[0, "atom_name"] = "UNKNOWN"
         atoms.loc[0, "group_index"] = 0
+
         # Build a minimal topology-like object
         class MinTopo:
             pass
+
         topo = MinTopo()
         topo.atoms = atoms
         coords = np.zeros((1, 1, 3), dtype=np.float64)
-        result = place_missing_in_group(topo, coords, group_idx=0,
-                                        missing_names=["CB"], template=ala_template)
+        result = place_missing_in_group(
+            topo, coords, group_idx=0, missing_names=["CB"], template=ala_template
+        )
         assert result == {}
 
     def test_placed_cb_is_near_ca(self, aaa_molsys, ala_template):
         """Placed CB should be within a reasonable bond distance of CA (~0.15 nm)."""
         import molsysmt as msm
         from molsysmt import pyunitwizard as puw
+
         molsys_no_cb = msm.remove(aaa_molsys, selection='atom_name=="CB"')
         topo = molsys_no_cb.topology
         coords = puw.get_value(molsys_no_cb.structures.coordinates, to_unit="nm")
-        result = place_missing_in_group(topo, coords, group_idx=0,
-                                        missing_names=["CB"], template=ala_template)
-        ca_idx = topo.atoms[(topo.atoms["group_index"] == 0) &
-                            (topo.atoms["atom_name"] == "CA")].index[0]
+        result = place_missing_in_group(
+            topo, coords, group_idx=0, missing_names=["CB"], template=ala_template
+        )
+        ca_idx = topo.atoms[
+            (topo.atoms["group_index"] == 0) & (topo.atoms["atom_name"] == "CA")
+        ].index[0]
         ca_pos = coords[0, ca_idx, :]
         cb_pos = result["CB"][0]
         dist = np.linalg.norm(cb_pos - ca_pos)
@@ -211,20 +223,19 @@ class TestPlaceMissingInGroup:
 # append_atoms_to_molsys
 # ---------------------------------------------------------------------------
 
-class TestAppendAtomsToMolsys:
 
+class TestAppendAtomsToMolsys:
     def test_atom_count_increases(self, aaa_molsys):
-        import molsysmt as msm
-        from molsysmt import pyunitwizard as puw
+
         n_orig = aaa_molsys.topology.n_atoms
         coords_dummy = np.zeros((1, 3), dtype=np.float64)
-        new_atom_info = [(0, "XX", coords_dummy)]   # group 0, fake atom
+        new_atom_info = [(0, "XX", coords_dummy)]  # group 0, fake atom
         result = append_atoms_to_molsys(aaa_molsys, new_atom_info, [])
         assert result.topology.n_atoms == n_orig + 1
 
     def test_new_atom_has_correct_group_index(self, aaa_molsys):
         coords_dummy = np.zeros((1, 3), dtype=np.float64)
-        new_atom_info = [(1, "XX", coords_dummy)]   # group 1
+        new_atom_info = [(1, "XX", coords_dummy)]  # group 1
         result = append_atoms_to_molsys(aaa_molsys, new_atom_info, [])
         xx_rows = result.topology.atoms[result.topology.atoms["atom_name"] == "XX"]
         assert len(xx_rows) == 1
@@ -235,12 +246,13 @@ class TestAppendAtomsToMolsys:
         n_orig = aaa_molsys.topology.n_atoms
         coords_dummy = np.zeros((1, 3), dtype=np.float64)
         new_atom_info = [(0, "XX", coords_dummy)]
-        new_bonds_info = [(0, n_orig)]   # bond from atom 0 to new atom
+        new_bonds_info = [(0, n_orig)]  # bond from atom 0 to new atom
         result = append_atoms_to_molsys(aaa_molsys, new_atom_info, new_bonds_info)
         assert result.topology.bonds.shape[0] == n_bonds_orig + 1
 
     def test_coordinates_shape_is_correct(self, aaa_molsys):
         from molsysmt import pyunitwizard as puw
+
         n_structures = aaa_molsys.structures.n_structures
         coords_dummy = np.zeros((n_structures, 3), dtype=np.float64)
         new_atom_info = [(0, "XX", coords_dummy)]
@@ -257,13 +269,13 @@ class TestAppendAtomsToMolsys:
 # place_ace_group
 # ---------------------------------------------------------------------------
 
-class TestPlaceAceGroup:
 
+class TestPlaceAceGroup:
     def _make_positions(self):
         """Simple backbone N, CA, C positions for one structure."""
-        N  = np.array([[0.000, 0.000, 0.000]])
+        N = np.array([[0.000, 0.000, 0.000]])
         CA = np.array([[0.146, 0.000, 0.000]])
-        C  = np.array([[0.146, 0.146, 0.000]])
+        C = np.array([[0.146, 0.146, 0.000]])
         return N, CA, C
 
     def test_returns_all_ace_atoms(self, ace_template):
@@ -287,9 +299,9 @@ class TestPlaceAceGroup:
 
     def test_multiple_structures(self, ace_template):
         n = 5
-        N  = np.tile([0.000, 0.000, 0.000], (n, 1))
+        N = np.tile([0.000, 0.000, 0.000], (n, 1))
         CA = np.tile([0.146, 0.000, 0.000], (n, 1))
-        C  = np.tile([0.146, 0.146, 0.000], (n, 1))
+        C = np.tile([0.146, 0.146, 0.000], (n, 1))
         result = place_ace_group(N, CA, C, ace_template, n_structures=n)
         for atom, coords in result.items():
             assert coords.shape == (n, 3)
@@ -299,13 +311,13 @@ class TestPlaceAceGroup:
 # place_nme_group
 # ---------------------------------------------------------------------------
 
-class TestPlaceNmeGroup:
 
+class TestPlaceNmeGroup:
     def _make_positions(self):
         """Simple backbone C, CA, N positions for one structure."""
-        C  = np.array([[0.000, 0.000, 0.000]])
+        C = np.array([[0.000, 0.000, 0.000]])
         CA = np.array([[-0.146, 0.000, 0.000]])
-        N  = np.array([[0.000, 0.146, 0.000]])
+        N = np.array([[0.000, 0.146, 0.000]])
         return C, CA, N
 
     def test_returns_all_nme_atoms(self, nme_template):
@@ -329,9 +341,9 @@ class TestPlaceNmeGroup:
 
     def test_multiple_structures(self, nme_template):
         n = 5
-        C  = np.tile([0.000, 0.000, 0.000], (n, 1))
+        C = np.tile([0.000, 0.000, 0.000], (n, 1))
         CA = np.tile([-0.146, 0.000, 0.000], (n, 1))
-        N  = np.tile([0.000, 0.146, 0.000], (n, 1))
+        N = np.tile([0.000, 0.146, 0.000], (n, 1))
         result = place_nme_group(C, CA, N, nme_template, n_structures=n)
         for atom, coords in result.items():
             assert coords.shape == (n, 3)
@@ -341,12 +353,12 @@ class TestPlaceNmeGroup:
 # rebuild_molsys_with_new_groups
 # ---------------------------------------------------------------------------
 
-class TestRebuildMolsysWithNewGroups:
 
+class TestRebuildMolsysWithNewGroups:
     def test_ace_inserted_as_first_group(self, aaa_molsys, ace_template):
         import molsysmt as msm
         from molsysmt import pyunitwizard as puw
-        topo = aaa_molsys.topology
+
         coords = puw.get_value(aaa_molsys.structures.coordinates, to_unit="nm")
         n_structures = coords.shape[0]
 
@@ -365,6 +377,7 @@ class TestRebuildMolsysWithNewGroups:
     def test_nme_appended_as_last_group(self, aaa_molsys, nme_template):
         import molsysmt as msm
         from molsysmt import pyunitwizard as puw
+
         coords = puw.get_value(aaa_molsys.structures.coordinates, to_unit="nm")
         n_structures = coords.shape[0]
 
@@ -381,13 +394,14 @@ class TestRebuildMolsysWithNewGroups:
 
     def test_no_insertions_preserves_system(self, aaa_molsys):
         import molsysmt as msm
+
         n_atoms_before = msm.get(aaa_molsys, n_atoms=True)
         result = rebuild_molsys_with_new_groups(aaa_molsys, {}, {}, {})
         assert msm.get(result, n_atoms=True) == n_atoms_before
 
     def test_existing_bonds_are_remapped(self, aaa_molsys, ace_template):
-        import molsysmt as msm
         from molsysmt import pyunitwizard as puw
+
         coords = puw.get_value(aaa_molsys.structures.coordinates, to_unit="nm")
         n_structures = coords.shape[0]
         n_bonds_orig = aaa_molsys.topology.bonds.shape[0]

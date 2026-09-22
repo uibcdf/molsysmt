@@ -5,12 +5,16 @@ Covers both the smiles: prefix path and the regex/rdkit fallback.
 The rdkit-dependent getter tests are skipped when rdkit is not installed.
 """
 
+import importlib
+
 import pytest
-from molsysmt.form.string_smiles.is_form import is_form
+
 import molsysmt as msm
+from molsysmt.form.string_smiles.is_form import is_form
 
 try:
-    import rdkit
+    importlib.import_module("rdkit")
+
     HAS_RDKIT = True
 except ImportError:
     HAS_RDKIT = False
@@ -22,22 +26,29 @@ needs_rdkit = pytest.mark.skipif(not HAS_RDKIT, reason="rdkit not installed")
 # is_form — prefix path (always works, no rdkit needed)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("smiles", [
-    "smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C",   # caffeine
-    "smiles:CCO",                               # ethanol (simple, forced prefix)
-    "smiles:CC(N)C(=O)O",                       # alanine
-    "smiles:c1ccccc1",                           # benzene (aromatic)
-])
+
+@pytest.mark.parametrize(
+    "smiles",
+    [
+        "smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C",  # caffeine
+        "smiles:CCO",  # ethanol (simple, forced prefix)
+        "smiles:CC(N)C(=O)O",  # alanine
+        "smiles:c1ccccc1",  # benzene (aromatic)
+    ],
+)
 def test_is_form_with_prefix(smiles):
     assert is_form(smiles) is True
 
 
-@pytest.mark.parametrize("bad", [
-    "smiles:",       # empty after prefix
-    "",              # empty string
-    42,              # not a string
-    None,
-])
+@pytest.mark.parametrize(
+    "bad",
+    [
+        "smiles:",  # empty after prefix
+        "",  # empty string
+        42,  # not a string
+        None,
+    ],
+)
 def test_is_form_prefix_rejects_bad(bad):
     assert is_form(bad) is False
 
@@ -46,11 +57,15 @@ def test_is_form_prefix_rejects_bad(bad):
 # is_form — no prefix, structural SMILES (work with regex OR rdkit)
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("smiles", [
-    "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",   # caffeine — has =, (, digits
-    "c1ccccc1",                          # benzene — lowercase atoms
-    "CC(N)C(=O)O",                       # alanine — has (, =
-])
+
+@pytest.mark.parametrize(
+    "smiles",
+    [
+        "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",  # caffeine — has =, (, digits
+        "c1ccccc1",  # benzene — lowercase atoms
+        "CC(N)C(=O)O",  # alanine — has (, =
+    ],
+)
 def test_is_form_no_prefix_structural(smiles):
     """Strings with structural markers are detected with or without rdkit."""
     assert is_form(smiles) is True
@@ -60,11 +75,15 @@ def test_is_form_no_prefix_structural(smiles):
 # is_form — strings that are never SMILES
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("not_smiles", [
-    "ACDEFGHIKL",    # amino-acid sequence — uppercase only, no structural marker
-    "1aki",          # PDB id
-    "hello world",   # garbage with space
-])
+
+@pytest.mark.parametrize(
+    "not_smiles",
+    [
+        "ACDEFGHIKL",  # amino-acid sequence — uppercase only, no structural marker
+        "1aki",  # PDB id
+        "hello world",  # garbage with space
+    ],
+)
 def test_is_form_rejects_non_smiles(not_smiles):
     assert is_form(not_smiles) is False
 
@@ -72,6 +91,7 @@ def test_is_form_rejects_non_smiles(not_smiles):
 # ---------------------------------------------------------------------------
 # CCO (ethanol) — ambiguous without rdkit, valid with rdkit
 # ---------------------------------------------------------------------------
+
 
 @pytest.mark.skipif(HAS_RDKIT, reason="with rdkit CCO is recognized as valid SMILES")
 def test_is_form_cco_without_rdkit():
@@ -88,6 +108,7 @@ def test_is_form_cco_with_rdkit():
 # ---------------------------------------------------------------------------
 # get_form dispatch
 # ---------------------------------------------------------------------------
+
 
 def test_get_form_with_prefix():
     assert msm.get_form("smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C") == "string:smiles"
@@ -108,40 +129,40 @@ CAFFEINE = "smiles:CN1C=NC2=C1C(=O)N(C(=O)N2C)C"
 @needs_rdkit
 @pytest.mark.redundant
 def test_n_atoms_caffeine():
-    assert msm.get(CAFFEINE, element='system', n_atoms=True) == 14
+    assert msm.get(CAFFEINE, element="system", n_atoms=True) == 14
 
 
 @needs_rdkit
 @pytest.mark.redundant
 def test_n_bonds_caffeine():
-    assert msm.get(CAFFEINE, element='system', n_bonds=True) == 15
+    assert msm.get(CAFFEINE, element="system", n_bonds=True) == 15
 
 
 @needs_rdkit
 def test_roundtrip_rdkit_mol():
-    mol = msm.convert(CAFFEINE, to_form='rdkit.Mol')
-    back = msm.convert(mol, to_form='string:smiles')
-    assert back.startswith('smiles:')
-    assert msm.get(back, element='system', n_atoms=True) == 14
+    mol = msm.convert(CAFFEINE, to_form="rdkit.Mol")
+    back = msm.convert(mol, to_form="string:smiles")
+    assert back.startswith("smiles:")
+    assert msm.get(back, element="system", n_atoms=True) == 14
 
 
 @needs_rdkit
 def test_smiles_selection_preserves_an_intact_aromatic_component():
     from rdkit import Chem
 
-    source = 'smiles:c1ccccc1.CCO'
+    source = "smiles:c1ccccc1.CCO"
 
     topology = msm.convert(
         source,
-        to_form='molsysmt.Topology',
+        to_form="molsysmt.Topology",
         selection=list(range(6)),
     )
     molecule = msm.convert(
         source,
-        to_form='rdkit.Mol',
+        to_form="rdkit.Mol",
         selection=list(range(6)),
     )
 
     assert topology.n_atoms == 6
-    assert all(msm.get(topology, element='bond', bond_is_aromatic=True))
-    assert Chem.MolToSmiles(molecule) == 'c1ccccc1'
+    assert all(msm.get(topology, element="bond", bond_is_aromatic=True))
+    assert Chem.MolToSmiles(molecule) == "c1ccccc1"

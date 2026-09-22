@@ -8,15 +8,34 @@ import pytest
 import molsysmt as msm
 from molsysmt.native import Structures
 
-
 md = pytest.importorskip("mdtraj")
 mda = pytest.importorskip("MDAnalysis")
-from MDAnalysis.analysis.rms import rmsd
-from MDAnalysis.lib.distances import calc_bonds, calc_dihedrals
-
+from MDAnalysis.analysis.rms import rmsd  # noqa: E402
+from MDAnalysis.lib.distances import calc_bonds, calc_dihedrals  # noqa: E402
 
 CA_INDICES = np.array(
-    [1, 17, 36, 57, 76, 93, 117, 136, 158, 170, 177, 184, 198, 209, 220, 227, 251, 265, 279, 293],
+    [
+        1,
+        17,
+        36,
+        57,
+        76,
+        93,
+        117,
+        136,
+        158,
+        170,
+        177,
+        184,
+        198,
+        209,
+        220,
+        227,
+        251,
+        265,
+        279,
+        293,
+    ],
     dtype=np.int64,
 )
 FRAME_INDICES = np.array([0, 9, 19, 28, 37], dtype=np.int64)
@@ -51,7 +70,12 @@ def trp_cage_readers(trp_cage_pdb_path):
         to_unit="nm",
     )
 
-    return mdtraj_trajectory, mdanalysis_universe, mdanalysis_coordinates, molsysmt_coordinates
+    return (
+        mdtraj_trajectory,
+        mdanalysis_universe,
+        mdanalysis_coordinates,
+        molsysmt_coordinates,
+    )
 
 
 def test_trp_cage_reader_identity_and_ca_mapping(trp_cage_readers):
@@ -125,8 +149,12 @@ def test_trp_cage_ca_distances_agree_with_both_oracles(
     )
     observed = msm.pyunitwizard.get_value(observed, to_unit="nm")
 
-    np.testing.assert_allclose(observed, expected_mdtraj, rtol=0.0, atol=external_float32_atol)
-    np.testing.assert_allclose(observed, expected_mdanalysis, rtol=0.0, atol=external_float32_atol)
+    np.testing.assert_allclose(
+        observed, expected_mdtraj, rtol=0.0, atol=external_float32_atol
+    )
+    np.testing.assert_allclose(
+        observed, expected_mdanalysis, rtol=0.0, atol=external_float32_atol
+    )
 
 
 def test_trp_cage_phi_dihedrals_agree_with_both_oracles(
@@ -164,8 +192,12 @@ def test_trp_cage_phi_dihedrals_agree_with_both_oracles(
     )
     observed = msm.pyunitwizard.get_value(observed, to_unit="radians")
 
-    np.testing.assert_allclose(observed, expected_mdtraj, rtol=0.0, atol=external_float32_atol)
-    np.testing.assert_allclose(observed, expected_mdanalysis, rtol=0.0, atol=external_float32_atol)
+    np.testing.assert_allclose(
+        observed, expected_mdtraj, rtol=0.0, atol=external_float32_atol
+    )
+    np.testing.assert_allclose(
+        observed, expected_mdanalysis, rtol=0.0, atol=external_float32_atol
+    )
 
 
 def test_trp_cage_ca_least_rmsd_agrees_with_both_oracles(
@@ -199,5 +231,9 @@ def test_trp_cage_ca_least_rmsd_agrees_with_both_oracles(
     )
     observed = msm.pyunitwizard.get_value(observed, to_unit="nm")
 
-    np.testing.assert_allclose(observed, expected_mdtraj, rtol=0.0, atol=external_float32_atol)
-    np.testing.assert_allclose(observed, expected_mdanalysis, rtol=0.0, atol=external_float32_atol)
+    np.testing.assert_allclose(
+        observed, expected_mdtraj, rtol=0.0, atol=external_float32_atol
+    )
+    np.testing.assert_allclose(
+        observed, expected_mdanalysis, rtol=0.0, atol=external_float32_atol
+    )

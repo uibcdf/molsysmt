@@ -18,19 +18,20 @@ frame 1: [[1,2,-1],[-1,0,1],[-2,0,0],[0,0,0]]
 frame 2: [[0,2,-1],[0,0,1],[-1,1,0],[2,2,2]]
 """
 
+import numpy as np
+
 import molsysmt as msm
 from molsysmt import systems
-from molsysmt import pyunitwizard as puw
-import numpy as np
 
 
 def _make_molsys():
-    return msm.convert(systems['particles 4']['traj_particles_4.xyznpy'], to_form='XYZ')
+    return msm.convert(systems["particles 4"]["traj_particles_4.xyznpy"], to_form="XYZ")
 
 
 # ---------------------------------------------------------------------------
 # pairs=True with an iterable-of-pairs selection (lines 95-99)
 # ---------------------------------------------------------------------------
+
 
 def test_get_contacts_from_XYZ_pairs_iterable_of_pairs_shape():
     """pairs=True + list-of-pairs: result shape is (n_structures, n_pairs)."""
@@ -38,7 +39,7 @@ def test_get_contacts_from_XYZ_pairs_iterable_of_pairs_shape():
     contact_map = msm.structure.get_contacts(
         molsys,
         selection=[[0, 2], [1, 3]],
-        threshold='3 nm',
+        threshold="3 nm",
         pairs=True,
     )
     assert contact_map.shape == (3, 2)
@@ -50,7 +51,7 @@ def test_get_contacts_from_XYZ_pairs_iterable_of_pairs_values():
     contact_map = msm.structure.get_contacts(
         molsys,
         selection=[[0, 2], [1, 3]],
-        threshold='3 nm',
+        threshold="3 nm",
         pairs=True,
     )
     # frame 0: d(0,2)=sqrt(12)~3.46>3 → False; d(1,3)=sqrt(19)~4.36>3 → False
@@ -65,16 +66,17 @@ def test_get_contacts_from_XYZ_pairs_iterable_of_pairs_values():
 # output_type='pairs', pairs=True, output_indices='selection' (lines 144-147)
 # ---------------------------------------------------------------------------
 
+
 def test_get_contacts_from_XYZ_output_pairs_pairs_selection_indices():
     """output_type='pairs' + pairs=True + output_indices='selection': list of pair-position indices."""
     molsys = _make_molsys()
     output = msm.structure.get_contacts(
         molsys,
         selection=[[0, 2], [1, 3]],
-        threshold='3 nm',
+        threshold="3 nm",
         pairs=True,
-        output_type='pairs',
-        output_indices='selection',
+        output_type="pairs",
+        output_indices="selection",
     )
     # 3 frames; each entry is the list of pair-positions (0-based) that are in contact
     assert len(output) == 3
@@ -90,16 +92,17 @@ def test_get_contacts_from_XYZ_output_pairs_pairs_selection_indices():
 # output_type='pairs', pairs=True, output_indices='atom' (lines 148-151)
 # ---------------------------------------------------------------------------
 
+
 def test_get_contacts_from_XYZ_output_pairs_pairs_atom_indices():
     """output_type='pairs' + pairs=True + output_indices='atom': list of [atom_i, atom_j] pairs."""
     molsys = _make_molsys()
     output = msm.structure.get_contacts(
         molsys,
         selection=[[0, 2], [1, 3]],
-        threshold='3 nm',
+        threshold="3 nm",
         pairs=True,
-        output_type='pairs',
-        output_indices='atom',
+        output_type="pairs",
+        output_indices="atom",
     )
     assert len(output) == 3
     # frame 0: no contacts
@@ -114,6 +117,7 @@ def test_get_contacts_from_XYZ_output_pairs_pairs_atom_indices():
 # output_type='pairs', pairs=False, selection_2 provided (lines 161-164)
 # ---------------------------------------------------------------------------
 
+
 def test_get_contacts_from_XYZ_output_pairs_two_selections_selection_indices():
     """output_type='pairs' + selection_2 provided: default (None) positional indices."""
     molsys = _make_molsys()
@@ -121,8 +125,8 @@ def test_get_contacts_from_XYZ_output_pairs_two_selections_selection_indices():
         molsys,
         selection=[0, 1],
         selection_2=[2, 3],
-        threshold='2 nm',
-        output_type='pairs',
+        threshold="2 nm",
+        output_type="pairs",
         structure_indices=[1],
     )
     # frame 1 only: contact matrix is (2,2); d(0,2)~3.74, d(0,3)~2.45 → False;
@@ -139,9 +143,9 @@ def test_get_contacts_from_XYZ_output_pairs_two_selections_atom_indices():
         molsys,
         selection=[0, 1],
         selection_2=[2, 3],
-        threshold='2 nm',
-        output_type='pairs',
-        output_indices='atom',
+        threshold="2 nm",
+        output_type="pairs",
+        output_indices="atom",
         structure_indices=[1],
     )
     # row=1 maps to atom_indices[1]=1; col=0 maps to atom_indices_2[0]=2
@@ -155,15 +159,16 @@ def test_get_contacts_from_XYZ_output_pairs_two_selections_atom_indices():
 # partially covered by existing tests; here we exercise output_indices='atom')
 # ---------------------------------------------------------------------------
 
+
 def test_get_contacts_from_XYZ_output_pairs_no_sel2_atom_indices():
     """output_type='pairs' + no selection_2 + output_indices='atom': atom indices in upper triangle."""
     molsys = _make_molsys()
     output = msm.structure.get_contacts(
         molsys,
-        selection='all',
-        threshold='2 nm',
-        output_type='pairs',
-        output_indices='atom',
+        selection="all",
+        threshold="2 nm",
+        output_type="pairs",
+        output_indices="atom",
         structure_indices=[1],
     )
     # frame 1 upper-triangle contacts (threshold 2 nm):
@@ -177,14 +182,15 @@ def test_get_contacts_from_XYZ_output_pairs_no_sel2_atom_indices():
 # output_type='pairs', no output_indices (raw positional), no selection_2
 # ---------------------------------------------------------------------------
 
+
 def test_get_contacts_from_XYZ_output_pairs_no_sel2_raw():
     """output_type='pairs', no selection_2, no output_indices: positional upper-triangle pairs."""
     molsys = _make_molsys()
     output = msm.structure.get_contacts(
         molsys,
-        selection='all',
-        threshold='2 nm',
-        output_type='pairs',
+        selection="all",
+        threshold="2 nm",
+        output_type="pairs",
         structure_indices=[1],
     )
     assert len(output) == 1
@@ -195,14 +201,15 @@ def test_get_contacts_from_XYZ_output_pairs_no_sel2_raw():
 # output_type='sorted pairs' (lines 181-182)
 # ---------------------------------------------------------------------------
 
+
 def test_get_contacts_from_XYZ_output_sorted_pairs():
     """output_type='sorted pairs': same as 'pairs' but each frame's list is sorted."""
     molsys = _make_molsys()
     output = msm.structure.get_contacts(
         molsys,
-        selection='all',
-        threshold='2 nm',
-        output_type='sorted pairs',
+        selection="all",
+        threshold="2 nm",
+        output_type="sorted pairs",
         structure_indices=[1],
     )
     assert len(output) == 1
@@ -215,9 +222,9 @@ def test_get_contacts_from_XYZ_output_sorted_pairs_multiple_frames():
     molsys = _make_molsys()
     output = msm.structure.get_contacts(
         molsys,
-        selection='all',
-        threshold='2 nm',
-        output_type='sorted pairs',
+        selection="all",
+        threshold="2 nm",
+        output_type="sorted pairs",
     )
     assert len(output) == 3
     for frame_pairs in output:

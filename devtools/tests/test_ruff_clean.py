@@ -1,12 +1,11 @@
 import subprocess
 from pathlib import Path
 
-
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 
-def test_ruff_selects_complete_core():
-    """Keep every Python source file under the default Ruff gate."""
+def test_ruff_selects_all_tracked_python_files():
+    """Keep every tracked Python file under the default Ruff gate."""
     selected = subprocess.run(
         ["ruff", "check", "--show-files", "."],
         cwd=REPO_ROOT,
@@ -20,7 +19,7 @@ def test_ruff_selects_complete_core():
         if filename
     }
     tracked = subprocess.run(
-        ["git", "ls-files", "--cached", "--", "molsysmt"],
+        ["git", "ls-files", "--cached"],
         cwd=REPO_ROOT,
         capture_output=True,
         text=True,
@@ -29,10 +28,8 @@ def test_ruff_selects_complete_core():
     expected = {
         REPO_ROOT / filename
         for filename in tracked.stdout.splitlines()
-        if filename.endswith(".py")
+        if filename.endswith((".py", ".pyi"))
     }
-    expected.add(REPO_ROOT / "devtools/scripts/validate_devguide.py")
-    expected.add(REPO_ROOT / "molsysviewer_molsysmt/addon.py")
     assert expected <= checked_files, sorted(
         str(path) for path in expected - checked_files
     )

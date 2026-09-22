@@ -34,13 +34,13 @@ def test_orthorhombic_minimum_image_distance_is_point_two_nm(float64_kernel_atol
     )
 
 
-def test_triclinic_minimum_image_matches_fractional_coordinate_truth(float64_kernel_atol):
+def test_triclinic_minimum_image_matches_fractional_coordinate_truth(
+    float64_kernel_atol,
+):
     """Validate a fractional displacement of (-0.1, -0.1, 0) in a 60-degree cell."""
 
     unit = msm.pyunitwizard.unit("nm")
-    box = np.array(
-        [[2.0, 0.0, 0.0], [1.0, np.sqrt(3.0), 0.0], [0.0, 0.0, 3.0]]
-    )
+    box = np.array([[2.0, 0.0, 0.0], [1.0, np.sqrt(3.0), 0.0], [0.0, 0.0, 3.0]])
     fractional = np.array([[0.05, 0.05, 0.0], [0.95, 0.95, 0.0]])
     coordinates = fractional @ box
     structures = Structures(

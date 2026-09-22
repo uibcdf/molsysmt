@@ -3,7 +3,6 @@
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
-
 SCRIPT_PATH = (
     Path(__file__).resolve().parents[2]
     / "devtools"
@@ -63,9 +62,9 @@ def test_evidence_backed_native_declarative_routes_are_exhaustive():
         for edge in _load_audit_module().build_audit()["edges"]
     }
     routes = {
-        ('molsysmt.MolSys', 'molsysmt.MolSysDict'),
-        ('molsysmt.Structures', 'molsysmt.StructuresDict'),
-        ('molsysmt.Topology', 'molsysmt.TopologyDict'),
+        ("molsysmt.MolSys", "molsysmt.MolSysDict"),
+        ("molsysmt.Structures", "molsysmt.StructuresDict"),
+        ("molsysmt.Topology", "molsysmt.TopologyDict"),
     }
 
     for route in routes:

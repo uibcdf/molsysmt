@@ -43,9 +43,7 @@ def test_least_rmsd_align_recovers_homologous_rigid_transform(float64_kernel_ato
         msm.systems["Met-enkephalin"]["met_enkephalin.h5msm"],
         to_form="molsysmt.MolSys",
     )
-    rotation = np.array(
-        [[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]]
-    )
+    rotation = np.array([[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]])
     transformed = msm.structure.rotate(reference, rotation=rotation, in_place=False)
     transformed = msm.structure.translate(
         transformed,
@@ -68,6 +66,4 @@ def test_least_rmsd_align_recovers_homologous_rigid_transform(float64_kernel_ato
         msm.get(reference, coordinates=True), to_unit="nm"
     )
 
-    np.testing.assert_allclose(
-        observed, expected, rtol=0.0, atol=float64_kernel_atol
-    )
+    np.testing.assert_allclose(observed, expected, rtol=0.0, atol=float64_kernel_atol)

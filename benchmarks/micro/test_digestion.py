@@ -15,8 +15,7 @@ repo_root = str(Path(__file__).resolve().parents[2])
 if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
-import molsysmt as msm
-from benchmarks.harness import BenchmarkHarness, save_session_results
+from benchmarks.harness import BenchmarkHarness, save_session_results  # noqa: E402
 
 
 def run_digestion_benchmarks(output_path: str | None = None) -> dict[str, float]:
@@ -66,23 +65,37 @@ def run_digestion_benchmarks(output_path: str | None = None) -> dict[str, float]
 
     # Mechanical Attribute enabled/skipped
     res_digested_mech = harness_digested_mech.run(
-        warmup_func=lambda: is_mechanical_attribute(attribute_name, skip_digestion=False),
-        timed_func=lambda: is_mechanical_attribute(attribute_name, skip_digestion=False),
+        warmup_func=lambda: is_mechanical_attribute(
+            attribute_name, skip_digestion=False
+        ),
+        timed_func=lambda: is_mechanical_attribute(
+            attribute_name, skip_digestion=False
+        ),
     )
     res_skipped_mech = harness_skipped_mech.run(
-        warmup_func=lambda: is_mechanical_attribute(attribute_name, skip_digestion=True),
+        warmup_func=lambda: is_mechanical_attribute(
+            attribute_name, skip_digestion=True
+        ),
         timed_func=lambda: is_mechanical_attribute(attribute_name, skip_digestion=True),
     )
     results.extend([res_digested_mech, res_skipped_mech])
 
     # Topological Attribute enabled/skipped
     res_digested_topo = harness_digested_topo.run(
-        warmup_func=lambda: is_topological_attribute(attribute_name, skip_digestion=False),
-        timed_func=lambda: is_topological_attribute(attribute_name, skip_digestion=False),
+        warmup_func=lambda: is_topological_attribute(
+            attribute_name, skip_digestion=False
+        ),
+        timed_func=lambda: is_topological_attribute(
+            attribute_name, skip_digestion=False
+        ),
     )
     res_skipped_topo = harness_skipped_topo.run(
-        warmup_func=lambda: is_topological_attribute(attribute_name, skip_digestion=True),
-        timed_func=lambda: is_topological_attribute(attribute_name, skip_digestion=True),
+        warmup_func=lambda: is_topological_attribute(
+            attribute_name, skip_digestion=True
+        ),
+        timed_func=lambda: is_topological_attribute(
+            attribute_name, skip_digestion=True
+        ),
     )
     results.extend([res_digested_topo, res_skipped_topo])
 
@@ -93,12 +106,20 @@ def run_digestion_benchmarks(output_path: str | None = None) -> dict[str, float]
     print("======================================================================")
     print(" MOLSYSMT DIGESTION SAFETY TAX AUDIT")
     print("======================================================================")
-    print(f" Mechanical Inquire digested: {res_digested_mech['median_seconds'] * 1e6:.2f} μs")
-    print(f" Mechanical Inquire skipped:  {res_skipped_mech['median_seconds'] * 1e6:.2f} μs")
+    print(
+        f" Mechanical Inquire digested: {res_digested_mech['median_seconds'] * 1e6:.2f} μs"
+    )
+    print(
+        f" Mechanical Inquire skipped:  {res_skipped_mech['median_seconds'] * 1e6:.2f} μs"
+    )
     print(f" Isolate Digestion Safety Tax: {mech_tax * 1e6:.2f} μs")
     print("----------------------------------------------------------------------")
-    print(f" Topological Inquire digested: {res_digested_topo['median_seconds'] * 1e6:.2f} μs")
-    print(f" Topological Inquire skipped:  {res_skipped_topo['median_seconds'] * 1e6:.2f} μs")
+    print(
+        f" Topological Inquire digested: {res_digested_topo['median_seconds'] * 1e6:.2f} μs"
+    )
+    print(
+        f" Topological Inquire skipped:  {res_skipped_topo['median_seconds'] * 1e6:.2f} μs"
+    )
     print(f" Isolate Digestion Safety Tax: {topo_tax * 1e6:.2f} μs")
     print("======================================================================")
 

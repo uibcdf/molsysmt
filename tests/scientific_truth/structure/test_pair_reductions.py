@@ -18,7 +18,9 @@ def _values(quantity):
 def test_minimum_distance_selects_the_closed_form_pair(float64_kernel_atol):
     """Select distance 1 from an explicit two-by-two Cartesian matrix."""
 
-    system = _structures([[[0.0, 0.0, 0.0], [4.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 3.0, 0.0]]])
+    system = _structures(
+        [[[0.0, 0.0, 0.0], [4.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 3.0, 0.0]]]
+    )
     pairs, distances = msm.structure.get_minimum_distances(
         system,
         selection=[0, 1],
@@ -35,7 +37,9 @@ def test_minimum_distance_selects_the_closed_form_pair(float64_kernel_atol):
 def test_maximum_distance_selects_the_closed_form_pair(float64_kernel_atol):
     """Select distance 5 from an explicit two-by-two Cartesian matrix."""
 
-    system = _structures([[[0.0, 0.0, 0.0], [4.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 3.0, 0.0]]])
+    system = _structures(
+        [[[0.0, 0.0, 0.0], [4.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 3.0, 0.0]]]
+    )
     pairs, distances = msm.structure.get_maximum_distances(
         system,
         selection=[0, 1],
@@ -52,7 +56,9 @@ def test_maximum_distance_selects_the_closed_form_pair(float64_kernel_atol):
 def test_contacts_apply_an_inclusive_exact_cutoff():
     """Classify a two-by-two distance matrix at an inclusive 3 nm threshold."""
 
-    system = _structures([[[0.0, 0.0, 0.0], [4.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 3.0, 0.0]]])
+    system = _structures(
+        [[[0.0, 0.0, 0.0], [4.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 3.0, 0.0]]]
+    )
     observed = msm.structure.get_contacts(
         system,
         selection=[0, 1],

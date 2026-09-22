@@ -362,3 +362,32 @@ locally modified `181l.h5msm` fixture. The dependency and form-adapter
 validators pass. Outside the core, an explicit Ruff scan found 1,219 lint
 findings and 577 unformatted files in the currently excluded trees, mostly in
 `tests`. The repository-wide gate remains an active task under this issue.
+
+## Thirteenth migrated slice: repository-wide Python gate
+
+The remaining Python files in `tests`, `devtools/tests`, `docs`, `benchmarks`,
+and the archived Rust pilot scripts were migrated. Ruff's import and unused
+name suggestions were reviewed before applying them. The tests keep local
+names resolved by selection strings, and optional-dependency probes retain
+their import behavior. Two distinct tests that had the same Python name now
+both collect; two pairs of identical duplicated H5MSM tests were reduced to
+one copy per module. The hydrophobicity smoke test now verifies every computed
+definition, and the neighbor-list test checks the distance unit it previously
+retrieved without asserting. Delayed imports required by path setup and
+optional-dependency skips carry line-level `E402` exceptions.
+
+The old `.gitignore` pattern `lib/` also hid 18 tracked `tests/lib` Python
+files from default Ruff discovery. An explicit exception now exposes that
+directory. The Ruff selection test compares default discovery against all
+tracked `.py` and `.pyi` files in the repository, so this coverage gap fails
+the gate if it recurs. No Python tree remains in Ruff's temporary exclusion
+list. `ruff check --no-cache .` passes, and `ruff format --check .` reports
+3,361 formatted files. The GitHub workflow runs both commands whenever any
+Python file or Ruff configuration changes.
+
+Targeted functional tests passed across `tests/lib`, `tests/element`, PBC,
+hydrophobicity, neighbors, OpenMM pinning, structure-index boundaries,
+form adapters, and `devtools/tests`. Full `tests/` collection passed. The
+restored `181l.h5msm` fixture passed the demo-asset validator, allowing
+scientific suites that read it to be exercised again. The fixture's earlier
+zero-atom overwrite is tracked separately under issue #216.

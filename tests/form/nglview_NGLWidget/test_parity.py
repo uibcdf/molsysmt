@@ -13,51 +13,55 @@ Builder system:
 """
 
 import pytest
+
 import molsysmt as msm
 
-N_ATOMS  = 4
+N_ATOMS = 4
 N_GROUPS = 2
-N_BONDS  = 2
+N_BONDS = 2
 N_CHAINS = 1
 
 
 @pytest.fixture()
 def ngl_widget(builder_pdb_molsys):
-    return msm.convert(builder_pdb_molsys, to_form='nglview.NGLWidget')
+    return msm.convert(builder_pdb_molsys, to_form="nglview.NGLWidget")
 
 
 @pytest.fixture()
 def roundtrip_molsys(ngl_widget):
-    return msm.convert(ngl_widget, to_form='molsysmt.MolSys')
+    return msm.convert(ngl_widget, to_form="molsysmt.MolSys")
 
 
 @pytest.fixture()
 def roundtrip_topology(ngl_widget):
-    return msm.convert(ngl_widget, to_form='molsysmt.Topology')
+    return msm.convert(ngl_widget, to_form="molsysmt.Topology")
 
 
 # ---------------------------------------------------------------------------
 # Contract: NGLWidget can be created from a MolSys
 # ---------------------------------------------------------------------------
 
+
 def test_nglwidget_is_created(ngl_widget):
     import nglview
+
     assert isinstance(ngl_widget, nglview.NGLWidget)
 
 
 def test_nglwidget_does_not_claim_metadata_it_cannot_preserve(ngl_widget):
     available = msm.get_attributes(ngl_widget)
 
-    assert 'occupancy' not in available
-    assert 'temperature' not in available
-    assert 'potential_energy' not in available
-    assert 'kinetic_energy' not in available
-    assert 'total_energy' not in available
+    assert "occupancy" not in available
+    assert "temperature" not in available
+    assert "potential_energy" not in available
+    assert "kinetic_energy" not in available
+    assert "total_energy" not in available
 
 
 # ---------------------------------------------------------------------------
 # Parity: MolSys → NGLWidget → MolSys preserves topology
 # ---------------------------------------------------------------------------
+
 
 def test_roundtrip_atom_count(roundtrip_molsys):
     assert roundtrip_molsys.topology.n_atoms == N_ATOMS
@@ -72,14 +76,14 @@ def test_roundtrip_chain_count(roundtrip_molsys):
 
 
 def test_roundtrip_atom_names(roundtrip_molsys, builder_pdb_molsys):
-    original = builder_pdb_molsys.topology.atoms['atom_name'].tolist()
-    roundtrip = roundtrip_molsys.topology.atoms['atom_name'].tolist()
+    original = builder_pdb_molsys.topology.atoms["atom_name"].tolist()
+    roundtrip = roundtrip_molsys.topology.atoms["atom_name"].tolist()
     assert roundtrip == original
 
 
 def test_roundtrip_group_names(roundtrip_molsys, builder_pdb_molsys):
-    original = builder_pdb_molsys.topology.groups['group_name'].tolist()
-    roundtrip = roundtrip_molsys.topology.groups['group_name'].tolist()
+    original = builder_pdb_molsys.topology.groups["group_name"].tolist()
+    roundtrip = roundtrip_molsys.topology.groups["group_name"].tolist()
     assert roundtrip == original
 
 

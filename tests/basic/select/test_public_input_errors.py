@@ -35,7 +35,9 @@ def test_malformed_mdanalysis_selection_raises_catalog_argument_error(t4_pdb_fil
     pytest.importorskip("MDAnalysis")
 
     with pytest.raises(msm.ArgumentError) as exc_info:
-        msm.select(t4_pdb_file, selection="this_is_not_a_selection", syntax="MDAnalysis")
+        msm.select(
+            t4_pdb_file, selection="this_is_not_a_selection", syntax="MDAnalysis"
+        )
 
     assert exc_info.value.__cause__ is not None
 

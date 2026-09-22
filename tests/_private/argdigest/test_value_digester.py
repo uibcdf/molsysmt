@@ -15,12 +15,9 @@ All seven element levels are covered:
 """
 
 import numpy as np
-import pytest
 
-import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest.argument.value import digest_value
-
 
 # Prefix used for realistic caller strings (matches the branch condition logic
 # but the dispatcher only cares about the suffix of the caller string).
@@ -77,15 +74,22 @@ class TestAtomBranches:
         assert result == [0]
 
     def test_group_name_to_atom_list(self):
-        result = digest_value(["ALA", "ALA", "HOH"], caller=_caller("set_group_name_to_atom"))
+        result = digest_value(
+            ["ALA", "ALA", "HOH"], caller=_caller("set_group_name_to_atom")
+        )
         assert result == ["ALA", "ALA", "HOH"]
 
     def test_group_id_to_atom_list(self):
-        result = digest_value(["10", "10", "11"], caller=_caller("set_group_id_to_atom"))
+        result = digest_value(
+            ["10", "10", "11"], caller=_caller("set_group_id_to_atom")
+        )
         assert result == ["10", "10", "11"]
 
     def test_group_type_to_atom_list(self):
-        result = digest_value(["amino acid", "amino acid", "water"], caller=_caller("set_group_type_to_atom"))
+        result = digest_value(
+            ["amino acid", "amino acid", "water"],
+            caller=_caller("set_group_type_to_atom"),
+        )
         assert result == ["amino acid", "amino acid", "water"]
 
     def test_component_index_to_atom_list(self):
@@ -93,7 +97,9 @@ class TestAtomBranches:
         assert result == [0, 0, 1]
 
     def test_component_name_to_atom_list(self):
-        result = digest_value(["prot", "prot", "wat"], caller=_caller("set_component_name_to_atom"))
+        result = digest_value(
+            ["prot", "prot", "wat"], caller=_caller("set_component_name_to_atom")
+        )
         assert result == ["prot", "prot", "wat"]
 
     def test_component_id_to_atom_list(self):
@@ -101,7 +107,10 @@ class TestAtomBranches:
         assert result == [0, 0, 1]
 
     def test_component_type_to_atom_list(self):
-        result = digest_value(["protein", "protein", "water"], caller=_caller("set_component_type_to_atom"))
+        result = digest_value(
+            ["protein", "protein", "water"],
+            caller=_caller("set_component_type_to_atom"),
+        )
         assert result == ["protein", "protein", "water"]
 
     def test_molecule_index_to_atom_list(self):
@@ -109,7 +118,9 @@ class TestAtomBranches:
         assert result == [0, 0, 1]
 
     def test_molecule_name_to_atom_list(self):
-        result = digest_value(["hp35", "hp35", "water"], caller=_caller("set_molecule_name_to_atom"))
+        result = digest_value(
+            ["hp35", "hp35", "water"], caller=_caller("set_molecule_name_to_atom")
+        )
         assert result == ["hp35", "hp35", "water"]
 
     def test_molecule_id_to_atom_list(self):
@@ -117,7 +128,9 @@ class TestAtomBranches:
         assert result == [0, 0, 1]
 
     def test_molecule_type_to_atom_list(self):
-        result = digest_value(["protein", "protein", "water"], caller=_caller("set_molecule_type_to_atom"))
+        result = digest_value(
+            ["protein", "protein", "water"], caller=_caller("set_molecule_type_to_atom")
+        )
         assert result == ["protein", "protein", "water"]
 
     def test_chain_index_to_atom_list(self):
@@ -133,7 +146,9 @@ class TestAtomBranches:
         assert result == ["A", "A", "A"]
 
     def test_chain_type_to_atom_list(self):
-        result = digest_value(["protein", "protein", "water"], caller=_caller("set_chain_type_to_atom"))
+        result = digest_value(
+            ["protein", "protein", "water"], caller=_caller("set_chain_type_to_atom")
+        )
         assert result == ["protein", "protein", "water"]
 
     def test_entity_index_to_atom_list(self):
@@ -141,7 +156,9 @@ class TestAtomBranches:
         assert result == [0, 0, 1]
 
     def test_entity_name_to_atom_list(self):
-        result = digest_value(["hp35", "hp35", "water"], caller=_caller("set_entity_name_to_atom"))
+        result = digest_value(
+            ["hp35", "hp35", "water"], caller=_caller("set_entity_name_to_atom")
+        )
         assert result == ["hp35", "hp35", "water"]
 
     def test_entity_id_to_atom_list(self):
@@ -149,7 +166,9 @@ class TestAtomBranches:
         assert result == [0, 0, 1]
 
     def test_entity_type_to_atom_list(self):
-        result = digest_value(["protein", "protein", "water"], caller=_caller("set_entity_type_to_atom"))
+        result = digest_value(
+            ["protein", "protein", "water"], caller=_caller("set_entity_type_to_atom")
+        )
         assert result == ["protein", "protein", "water"]
 
     def test_coordinates_to_atom(self):
@@ -179,7 +198,9 @@ class TestGroupBranches:
         assert result == ["10", "11"]
 
     def test_group_type_to_group_list(self):
-        result = digest_value(["amino acid", "water"], caller=_caller("set_group_type_to_group"))
+        result = digest_value(
+            ["amino acid", "water"], caller=_caller("set_group_type_to_group")
+        )
         assert result == ["amino acid", "water"]
 
     def test_component_index_to_group_list(self):
@@ -187,7 +208,9 @@ class TestGroupBranches:
         assert result == [0, 1]
 
     def test_component_name_to_group_list(self):
-        result = digest_value(["prot", "wat"], caller=_caller("set_component_name_to_group"))
+        result = digest_value(
+            ["prot", "wat"], caller=_caller("set_component_name_to_group")
+        )
         assert result == ["prot", "wat"]
 
     def test_component_id_to_group_list(self):
@@ -195,7 +218,9 @@ class TestGroupBranches:
         assert result == [0, 1]
 
     def test_component_type_to_group_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_component_type_to_group"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_component_type_to_group")
+        )
         assert result == ["protein", "water"]
 
     def test_molecule_index_to_group_list(self):
@@ -203,7 +228,9 @@ class TestGroupBranches:
         assert result == [0, 1]
 
     def test_molecule_name_to_group_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_molecule_name_to_group"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_molecule_name_to_group")
+        )
         assert result == ["hp35", "water"]
 
     def test_molecule_id_to_group_list(self):
@@ -211,7 +238,9 @@ class TestGroupBranches:
         assert result == [0, 1]
 
     def test_molecule_type_to_group_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_molecule_type_to_group"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_molecule_type_to_group")
+        )
         assert result == ["protein", "water"]
 
     def test_chain_index_to_group_list(self):
@@ -227,7 +256,9 @@ class TestGroupBranches:
         assert result == ["A", "A"]
 
     def test_chain_type_to_group_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_chain_type_to_group"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_chain_type_to_group")
+        )
         assert result == ["protein", "water"]
 
     def test_entity_index_to_group_list(self):
@@ -235,7 +266,9 @@ class TestGroupBranches:
         assert result == [0, 1]
 
     def test_entity_name_to_group_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_entity_name_to_group"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_entity_name_to_group")
+        )
         assert result == ["hp35", "water"]
 
     def test_entity_id_to_group_list(self):
@@ -243,7 +276,9 @@ class TestGroupBranches:
         assert result == [0, 1]
 
     def test_entity_type_to_group_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_entity_type_to_group"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_entity_type_to_group")
+        )
         assert result == ["protein", "water"]
 
 
@@ -256,11 +291,15 @@ class TestComponentBranches:
     """digest_value with callers ending in _to_component."""
 
     def test_component_index_to_component_list(self):
-        result = digest_value([0, 1], caller=_caller("set_component_index_to_component"))
+        result = digest_value(
+            [0, 1], caller=_caller("set_component_index_to_component")
+        )
         assert result == [0, 1]
 
     def test_component_name_to_component_list(self):
-        result = digest_value(["prot", "wat"], caller=_caller("set_component_name_to_component"))
+        result = digest_value(
+            ["prot", "wat"], caller=_caller("set_component_name_to_component")
+        )
         assert result == ["prot", "wat"]
 
     def test_component_id_to_component_list(self):
@@ -268,7 +307,9 @@ class TestComponentBranches:
         assert result == [0, 1]
 
     def test_component_type_to_component_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_component_type_to_component"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_component_type_to_component")
+        )
         assert result == ["protein", "water"]
 
     def test_molecule_index_to_component_list(self):
@@ -276,7 +317,9 @@ class TestComponentBranches:
         assert result == [0, 1]
 
     def test_molecule_name_to_component_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_molecule_name_to_component"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_molecule_name_to_component")
+        )
         assert result == ["hp35", "water"]
 
     def test_molecule_id_to_component_list(self):
@@ -284,7 +327,9 @@ class TestComponentBranches:
         assert result == [0, 1]
 
     def test_molecule_type_to_component_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_molecule_type_to_component"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_molecule_type_to_component")
+        )
         assert result == ["protein", "water"]
 
     def test_chain_index_to_component_list(self):
@@ -300,7 +345,9 @@ class TestComponentBranches:
         assert result == ["A", "A"]
 
     def test_chain_type_to_component_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_chain_type_to_component"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_chain_type_to_component")
+        )
         assert result == ["protein", "water"]
 
     def test_entity_index_to_component_list(self):
@@ -308,7 +355,9 @@ class TestComponentBranches:
         assert result == [0, 1]
 
     def test_entity_name_to_component_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_entity_name_to_component"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_entity_name_to_component")
+        )
         assert result == ["hp35", "water"]
 
     def test_entity_id_to_component_list(self):
@@ -316,7 +365,9 @@ class TestComponentBranches:
         assert result == [0, 1]
 
     def test_entity_type_to_component_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_entity_type_to_component"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_entity_type_to_component")
+        )
         assert result == ["protein", "water"]
 
 
@@ -333,7 +384,9 @@ class TestMoleculeBranches:
         assert result == [0, 1]
 
     def test_molecule_name_to_molecule_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_molecule_name_to_molecule"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_molecule_name_to_molecule")
+        )
         assert result == ["hp35", "water"]
 
     def test_molecule_id_to_molecule_list(self):
@@ -341,7 +394,9 @@ class TestMoleculeBranches:
         assert result == [0, 1]
 
     def test_molecule_type_to_molecule_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_molecule_type_to_molecule"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_molecule_type_to_molecule")
+        )
         assert result == ["protein", "water"]
 
     def test_chain_index_to_molecule_list(self):
@@ -357,7 +412,9 @@ class TestMoleculeBranches:
         assert result == ["A", "A"]
 
     def test_chain_type_to_molecule_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_chain_type_to_molecule"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_chain_type_to_molecule")
+        )
         assert result == ["protein", "water"]
 
     def test_entity_index_to_molecule_list(self):
@@ -365,7 +422,9 @@ class TestMoleculeBranches:
         assert result == [0, 1]
 
     def test_entity_name_to_molecule_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_entity_name_to_molecule"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_entity_name_to_molecule")
+        )
         assert result == ["hp35", "water"]
 
     def test_entity_id_to_molecule_list(self):
@@ -373,7 +432,9 @@ class TestMoleculeBranches:
         assert result == [0, 1]
 
     def test_entity_type_to_molecule_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_entity_type_to_molecule"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_entity_type_to_molecule")
+        )
         assert result == ["protein", "water"]
 
 
@@ -398,7 +459,9 @@ class TestChainBranches:
         assert result == ["A", "B"]
 
     def test_chain_type_to_chain_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_chain_type_to_chain"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_chain_type_to_chain")
+        )
         assert result == ["protein", "water"]
 
     def test_entity_index_to_chain_list(self):
@@ -406,7 +469,9 @@ class TestChainBranches:
         assert result == [0, 1]
 
     def test_entity_name_to_chain_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_entity_name_to_chain"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_entity_name_to_chain")
+        )
         assert result == ["hp35", "water"]
 
     def test_entity_id_to_chain_list(self):
@@ -414,7 +479,9 @@ class TestChainBranches:
         assert result == [0, 1]
 
     def test_entity_type_to_chain_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_entity_type_to_chain"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_entity_type_to_chain")
+        )
         assert result == ["protein", "water"]
 
 
@@ -431,7 +498,9 @@ class TestEntityBranches:
         assert result == [0, 1]
 
     def test_entity_name_to_entity_list(self):
-        result = digest_value(["hp35", "water"], caller=_caller("set_entity_name_to_entity"))
+        result = digest_value(
+            ["hp35", "water"], caller=_caller("set_entity_name_to_entity")
+        )
         assert result == ["hp35", "water"]
 
     def test_entity_name_to_entity_str(self):
@@ -443,7 +512,9 @@ class TestEntityBranches:
         assert result == [0, 1]
 
     def test_entity_type_to_entity_list(self):
-        result = digest_value(["protein", "water"], caller=_caller("set_entity_type_to_entity"))
+        result = digest_value(
+            ["protein", "water"], caller=_caller("set_entity_type_to_entity")
+        )
         assert result == ["protein", "water"]
 
 

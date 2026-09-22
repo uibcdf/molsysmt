@@ -1,23 +1,28 @@
 import numpy as np
 import pytest
 
-from molsysmt._private.smonitor import ArgumentError
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest.argument.atom_pair import digest_atom_pair
 from molsysmt._private.argdigest.argument.atom_pairs import digest_atom_pairs
 from molsysmt._private.argdigest.argument.bond_length import digest_bond_length
 from molsysmt._private.argdigest.argument.chain_indices import digest_chain_indices
-from molsysmt._private.argdigest.argument.dihedral_quartets import digest_dihedral_quartets
+from molsysmt._private.argdigest.argument.dihedral_quartets import (
+    digest_dihedral_quartets,
+)
 from molsysmt._private.argdigest.argument.direction import digest_direction
 from molsysmt._private.argdigest.argument.force_constant import digest_force_constant
 from molsysmt._private.argdigest.argument.location_id import digest_location_id
 from molsysmt._private.argdigest.argument.output_indices import digest_output_indices
-from molsysmt._private.argdigest.argument.output_structure_indices import digest_output_structure_indices
+from molsysmt._private.argdigest.argument.output_structure_indices import (
+    digest_output_structure_indices,
+)
 from molsysmt._private.argdigest.argument.output_type import digest_output_type
 from molsysmt._private.argdigest.argument.shape import digest_shape
-from molsysmt import pyunitwizard as puw
+from molsysmt._private.smonitor import ArgumentError
 
-
-HBOND_CALLER = "molsysmt.molecular_mechanics.add_harmonic_bond_force.add_harmonic_bond_force"
+HBOND_CALLER = (
+    "molsysmt.molecular_mechanics.add_harmonic_bond_force.add_harmonic_bond_force"
+)
 ADD_CONTACTS_CALLER = "molsysmt.third_party.nglview.add_contacts.add_contacts"
 CONTACTS_CALLER = "molsysmt.structure.get_contacts.get_contacts"
 DISTANCES_CALLER = "molsysmt.structure.get_distances.get_distances"
@@ -42,10 +47,14 @@ def test_bond_length_and_force_constant_digesters_normalize_scalar_and_iterable_
     length = digest_bond_length(puw.quantity(0.12, "nanometers"), caller=HBOND_CALLER)
     assert puw.is_quantity(length)
 
-    lengths = digest_bond_length(puw.quantity([0.12, 0.13], "nanometers"), caller=HBOND_CALLER)
+    lengths = digest_bond_length(
+        puw.quantity([0.12, 0.13], "nanometers"), caller=HBOND_CALLER
+    )
     assert len(lengths) == 2
 
-    constant = digest_force_constant(puw.quantity(300.0, "kilojoule/(nanometer**2*mole)"), caller=HBOND_CALLER)
+    constant = digest_force_constant(
+        puw.quantity(300.0, "kilojoule/(nanometer**2*mole)"), caller=HBOND_CALLER
+    )
     assert len(constant) == 1
 
     constants = digest_force_constant(
@@ -56,10 +65,14 @@ def test_bond_length_and_force_constant_digesters_normalize_scalar_and_iterable_
 
 
 def test_chain_indices_and_location_id_digesters_cover_special_cases():
-    np.testing.assert_array_equal(digest_chain_indices(3), np.array([3], dtype=np.int64))
+    np.testing.assert_array_equal(
+        digest_chain_indices(3), np.array([3], dtype=np.int64)
+    )
     assert digest_chain_indices("all") == "all"
 
-    nested = digest_chain_indices([np.array([0, 1]), np.array([2])], caller="digest_bioassembly")
+    nested = digest_chain_indices(
+        [np.array([0, 1]), np.array([2])], caller="digest_bioassembly"
+    )
     assert len(nested) == 2
 
     assert digest_location_id("occupancy", caller=ALTLOC_CALLER) == "occupancy"
@@ -69,13 +82,23 @@ def test_chain_indices_and_location_id_digesters_cover_special_cases():
 def test_output_helpers_and_shape_digesters_validate_caller_specific_contracts():
     assert digest_output_indices("selection", caller=CONTACTS_CALLER) == "selection"
     assert digest_output_indices("atom", caller=DISTANCES_CALLER) == "atom"
-    assert digest_output_structure_indices("structure", caller=NEIGHBORS_CALLER) == "structure"
+    assert (
+        digest_output_structure_indices("structure", caller=NEIGHBORS_CALLER)
+        == "structure"
+    )
 
-    assert digest_output_type("dictionary", caller="molsysmt.basic.get.get") == "dictionary"
+    assert (
+        digest_output_type("dictionary", caller="molsysmt.basic.get.get")
+        == "dictionary"
+    )
     assert digest_output_type("pairs", caller=CONTACTS_CALLER) == "pairs"
-    assert digest_output_type("numpy.ndarray", caller=DISTANCES_CALLER) == "numpy.ndarray"
+    assert (
+        digest_output_type("numpy.ndarray", caller=DISTANCES_CALLER) == "numpy.ndarray"
+    )
 
-    assert digest_shape("cubic", caller="molsysmt.structure.get_box_with_shape") == "cubic"
+    assert (
+        digest_shape("cubic", caller="molsysmt.structure.get_box_with_shape") == "cubic"
+    )
 
 
 def test_direction_digester_normalizes_vectors_and_allows_none_for_move_away():

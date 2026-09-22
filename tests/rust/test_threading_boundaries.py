@@ -1,13 +1,12 @@
 """Testing native threading, GIL release, and panic containment."""
 
-from concurrent.futures import ThreadPoolExecutor
 import subprocess
 import sys
 import threading
-
-import numpy as np
+from concurrent.futures import ThreadPoolExecutor
 
 import molsysmt._rust as rust
+import numpy as np
 
 
 def test_long_native_kernel_releases_the_gil():

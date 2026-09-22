@@ -1,9 +1,8 @@
 """Tests for the molsysviewer_molsysmt addon."""
 
-import sys
 import tomllib
-from pathlib import Path
 from importlib import import_module
+from pathlib import Path
 
 import molsysviewer
 import pytest
@@ -11,24 +10,28 @@ import pytest
 from molsysviewer_molsysmt import (
     get_addon,
     lifecycle,
-    on_enable,
-    on_disable,
     on_context_action,
-    create_molsysmt_state,
-    system_for_verbs,
-    system_object,
-    has_system,
+    on_disable,
+    on_enable,
 )
 from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
 
-
 _EXPECTED_PANELS = [
-    "basic", "topology", "structure", "hbonds",
-    "pbc", "physchem", "molecular_mechanics", "build",
+    "basic",
+    "topology",
+    "structure",
+    "hbonds",
+    "pbc",
+    "physchem",
+    "molecular_mechanics",
+    "build",
 ]
 _EXPECTED_CONTEXT_ACTIONS = [
-    "inspect-system", "select-and-highlight", "remove-selected-atoms",
-    "color-by-property", "compute-contacts",
+    "inspect-system",
+    "select-and-highlight",
+    "remove-selected-atoms",
+    "color-by-property",
+    "compute-contacts",
 ]
 _EXPECTED_PANEL_SECTIONS = {
     "basic-inspect": "basic",
@@ -54,6 +57,7 @@ _EXPECTED_PANEL_SECTIONS = {
 # Addon spec contract
 # ---------------------------------------------------------------------------
 
+
 def test_addon_spec_matches_molsysviewer_contract():
     addon = get_addon()
 
@@ -62,7 +66,10 @@ def test_addon_spec_matches_molsysviewer_contract():
     assert addon.workspaces[0].id == "molsysmt"
     assert addon.workspaces[0].entry_panel == "basic"
     assert [p.id for p in addon.panels] == _EXPECTED_PANELS
-    assert addon.panels[0].widget_class == "molsysviewer_molsysmt.panels.basic.MolSysMTBasicPanel"
+    assert (
+        addon.panels[0].widget_class
+        == "molsysviewer_molsysmt.panels.basic.MolSysMTBasicPanel"
+    )
     assert [a.id for a in addon.context_actions] == _EXPECTED_CONTEXT_ACTIONS
     assert addon.shape_providers == ()
     assert addon.workbench_sections[0].id == "system-info"
@@ -119,7 +126,9 @@ def test_discovery_from_module_entry_point_preserves_lifecycle(monkeypatch):
         def load(self):
             return import_module("molsysviewer_molsysmt")
 
-    monkeypatch.setattr(addons_module, "_addon_entry_points", lambda: [FakeEntryPoint()])
+    monkeypatch.setattr(
+        addons_module, "_addon_entry_points", lambda: [FakeEntryPoint()]
+    )
 
     molsysviewer.addons.clear()
     discovered = molsysviewer.addons.discover(include_known_modules=False)
@@ -135,6 +144,7 @@ def test_discovery_from_module_entry_point_preserves_lifecycle(monkeypatch):
 # ---------------------------------------------------------------------------
 # Lifecycle / runtime
 # ---------------------------------------------------------------------------
+
 
 def test_lifecycle_records_runtime_on_view():
     view = molsysviewer.MolSysView()
@@ -200,8 +210,12 @@ def test_context_action_remove_selected_atoms_uses_basic_facade():
 
     assert handled is True
     assert int(msm.get(view, n_atoms=True)) == n0 - 1
-    assert view.addons.molsysmt.last_context_action["action_id"] == "remove-selected-atoms"
-    assert view.addons.molsysmt.event_log[-1]["event"] == "context_remove_selected_atoms"
+    assert (
+        view.addons.molsysmt.last_context_action["action_id"] == "remove-selected-atoms"
+    )
+    assert (
+        view.addons.molsysmt.event_log[-1]["event"] == "context_remove_selected_atoms"
+    )
 
     molsysviewer.addons.clear()
 
@@ -209,6 +223,7 @@ def test_context_action_remove_selected_atoms_uses_basic_facade():
 # ---------------------------------------------------------------------------
 # Runtime dataclass
 # ---------------------------------------------------------------------------
+
 
 def test_ensure_runtime_creates_and_reuses_instance():
     view = molsysviewer.MolSysView()
@@ -229,15 +244,32 @@ def test_runtime_does_not_store_a_molecular_system():
 def test_runtime_has_all_panel_fields():
     runtime = MolSysMTAddonRuntime()
     for field in [
-        "n_atoms", "n_residues", "n_chains", "n_frames",
-        "last_selection", "last_selection_element", "last_selection_indices", "last_selection_tag",
-        "last_color_property", "last_color_element", "last_color_palette",
-        "contacts_result", "contacts_tag", "rmsd_result", "rmsf_result", "pca_result",
-        "hbonds_result", "hbonds_tag",
-        "bondgraph_result", "dihedral_quartets_result",
+        "n_atoms",
+        "n_residues",
+        "n_chains",
+        "n_frames",
+        "last_selection",
+        "last_selection_element",
+        "last_selection_indices",
+        "last_selection_tag",
+        "last_color_property",
+        "last_color_element",
+        "last_color_palette",
+        "contacts_result",
+        "contacts_tag",
+        "rmsd_result",
+        "rmsf_result",
+        "pca_result",
+        "hbonds_result",
+        "hbonds_tag",
+        "bondgraph_result",
+        "dihedral_quartets_result",
         "pbc_status",
-        "forces_result", "energy_result", "forces_tag",
-        "last_build_op", "build_log",
+        "forces_result",
+        "energy_result",
+        "forces_tag",
+        "last_build_op",
+        "build_log",
     ]:
         assert hasattr(runtime, field), f"Runtime missing field: {field!r}"
 
@@ -246,13 +278,16 @@ def test_runtime_has_all_panel_fields():
 # Diagnostics policy — compact panel errors, SMonitor best effort
 # ---------------------------------------------------------------------------
 
+
 def test_diagnostics_compact_error_message_for_optional_dependency():
     from molsysviewer_molsysmt.diagnostics import compact_error_message
 
-    assert compact_error_message(ModuleNotFoundError("No module named 'fake_backend'")) == (
-        "Missing optional dependency required for this operation."
+    assert compact_error_message(
+        ModuleNotFoundError("No module named 'fake_backend'")
+    ) == ("Missing optional dependency required for this operation.")
+    assert (
+        compact_error_message(RuntimeError("first line\nsecond line")) == "first line"
     )
-    assert compact_error_message(RuntimeError("first line\nsecond line")) == "first line"
 
 
 def test_color_panel_optional_dependency_error_is_compact_and_logged(monkeypatch):

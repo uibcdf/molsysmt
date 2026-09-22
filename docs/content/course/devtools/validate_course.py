@@ -4,10 +4,11 @@ Course Compliance Linter for MolSysMT Master Course.
 Validates notebook structure, micro-AGENTS presence, and course manifest synchronization.
 """
 
-import sys
-import yaml
 import json
+import sys
 from pathlib import Path
+
+import yaml
 
 COURSE_DIR = Path(__file__).resolve().parent.parent
 MANIFEST_PATH = COURSE_DIR / "course_manifest.yml"
@@ -32,7 +33,7 @@ def load_manifest():
 
 def validate_notebook(nb_path: Path):
     errors = []
-    
+
     # Check if paired micro-AGENTS file exists
     agents_file = nb_path.with_name(f"{nb_path.stem}.AGENTS.md")
     if not agents_file.exists():
@@ -58,7 +59,7 @@ def validate_notebook(nb_path: Path):
             # Check if exception is declared in micro-AGENTS file
             if agents_file.exists():
                 agents_content = agents_file.read_text(encoding="utf-8")
-                if f"omits {section}" in agents_content or f"OMITTED" in agents_content:
+                if f"omits {section}" in agents_content or "OMITTED" in agents_content:
                     continue
             errors.append(f"Missing section: '{section}'")
 
@@ -75,15 +76,19 @@ def main():
     for item in manifest:
         rel_path = item.get("path")
         nb_path = COURSE_DIR / rel_path
-        
+
         if not nb_path.exists():
-            print(f"❌ [{item.get('display_number')}] {item.get('title')}: File missing at {rel_path}")
+            print(
+                f"❌ [{item.get('display_number')}] {item.get('title')}: File missing at {rel_path}"
+            )
             failed += 1
             continue
 
         errors = validate_notebook(nb_path)
         if errors:
-            print(f"⚠️ [{item.get('display_number')}] {item.get('title')} ({nb_path.name}):")
+            print(
+                f"⚠️ [{item.get('display_number')}] {item.get('title')} ({nb_path.name}):"
+            )
             for err in errors:
                 print(f"   - {err}")
             failed += 1

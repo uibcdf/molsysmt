@@ -33,9 +33,15 @@ def test_physical_masses_match_standard_atomic_weights_and_aggregation(
     system = _element_system()
     expected_atoms = np.array([1.008, 12.011, 14.007, 15.999, 35.45])
 
-    observed_atoms = msm.physchem.get_mass(system, element="atom", definition="physical")
-    observed_groups = msm.physchem.get_mass(system, element="group", definition="physical")
-    observed_system = msm.physchem.get_mass(system, element="system", definition="physical")
+    observed_atoms = msm.physchem.get_mass(
+        system, element="atom", definition="physical"
+    )
+    observed_groups = msm.physchem.get_mass(
+        system, element="group", definition="physical"
+    )
+    observed_system = msm.physchem.get_mass(
+        system, element="system", definition="physical"
+    )
 
     np.testing.assert_allclose(
         _values(observed_atoms, "Da"),
@@ -67,7 +73,9 @@ def test_openmm_masses_preserve_explicit_particle_values(float64_kernel_atol):
         system.addParticle(mass * openmm.unit.dalton)
 
     observed_atoms = msm.physchem.get_mass(system, element="atom", definition="OpenMM")
-    observed_system = msm.physchem.get_mass(system, element="system", definition="OpenMM")
+    observed_system = msm.physchem.get_mass(
+        system, element="system", definition="OpenMM"
+    )
 
     np.testing.assert_allclose(
         _values(observed_atoms, "Da"), expected, rtol=0.0, atol=float64_kernel_atol
@@ -101,7 +109,12 @@ def test_protor_radii_match_typed_alanine_heavy_atoms(float64_kernel_atol):
         for atom_name, element in atom_specs
     ]
     builder.add_group(atoms, group_name="ALA")
-    for atom_1, atom_2 in ((atoms[0], atoms[1]), (atoms[1], atoms[2]), (atoms[2], atoms[3]), (atoms[1], atoms[4])):
+    for atom_1, atom_2 in (
+        (atoms[0], atoms[1]),
+        (atoms[1], atoms[2]),
+        (atoms[2], atoms[3]),
+        (atoms[1], atoms[4]),
+    ):
         builder.add_bond(atom_1, atom_2)
 
     observed = msm.physchem.get_atomic_radius(builder.build(), definition="protor")
@@ -190,8 +203,12 @@ def test_openmm_charges_preserve_explicit_nonbonded_parameters(float64_kernel_at
         )
     system.addForce(force)
 
-    observed_atoms = msm.physchem.get_charge(system, element="atom", definition="OpenMM")
-    observed_system = msm.physchem.get_charge(system, element="system", definition="OpenMM")
+    observed_atoms = msm.physchem.get_charge(
+        system, element="atom", definition="OpenMM"
+    )
+    observed_system = msm.physchem.get_charge(
+        system, element="system", definition="OpenMM"
+    )
 
     np.testing.assert_allclose(
         _values(observed_atoms, "elementary_charge"),

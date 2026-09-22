@@ -23,7 +23,6 @@ import sys
 
 import pytest
 
-
 SUITE_LIBRARIES = ["molsysmt", "molsysviewer", "topomt", "pharmacophoremt"]
 
 
@@ -76,7 +75,9 @@ def test_any_import_order_yields_the_shared_policy(first):
     ordering = [first] + others
 
     results = _run(
-        PROBE.format(imports="\n".join(f"import {lib}._pyunitwizard" for lib in ordering))
+        PROBE.format(
+            imports="\n".join(f"import {lib}._pyunitwizard" for lib in ordering)
+        )
     ).splitlines()
 
     assert results == SHARED_POLICY_RESULTS, (

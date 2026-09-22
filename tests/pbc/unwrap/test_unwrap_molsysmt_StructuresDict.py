@@ -3,14 +3,11 @@ Unit and regression test for the unwrap method of the molsysmt package.
 """
 
 # Import package, test suite, and other packages as needed
-import molsysmt as msm
-from molsysmt import systems
-import numpy as np
-import math
+
 
 # Distance between atoms in space and time
 
-#def test_unwrap_molsysmt_StructuresDict_1():
+# def test_unwrap_molsysmt_StructuresDict_1():
 #    molsys = msm.convert(systems['two LJ particles']['traj_two_lj_particles.trjpk'], to_form='molsysmt.StructuresDict')
 #    molsys_wrapped = msm.pbc.wrap_to_pbc(molsys)
 #    molsys_unwrapped = msm.pbc.unwrap(molsys_wrapped)
@@ -23,5 +20,3 @@ import math
 #    assert check_limits_unwrapped
 #    assert check_limits_wrapped
 #    assert check
-
-

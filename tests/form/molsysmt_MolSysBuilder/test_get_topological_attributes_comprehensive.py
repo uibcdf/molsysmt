@@ -18,10 +18,7 @@ Covers functions not exercised by test_get_attributes_molsysmt_MolSysBuilder.py:
 - partial-index slicing on all multi-element getters
 """
 
-import pytest
-import molsysmt as msm
 from molsysmt.form.molsysmt_MolSysBuilder import get_topological_attributes as aux
-
 
 # ---------------------------------------------------------------------------
 # Atom-level getters
@@ -212,7 +209,9 @@ class TestMoleculeGetters:
         assert result == [0, 1]
 
     def test_get_molecule_index_from_molecule_slice(self, molsys_builder_complete):
-        result = aux.get_molecule_index_from_molecule(molsys_builder_complete, indices=[0])
+        result = aux.get_molecule_index_from_molecule(
+            molsys_builder_complete, indices=[0]
+        )
         assert result == [0]
 
     def test_get_molecule_id_from_molecule(self, molsys_builder_complete):
@@ -224,7 +223,9 @@ class TestMoleculeGetters:
         assert result == ["protein 0", "water"]
 
     def test_get_molecule_name_slice(self, molsys_builder_complete):
-        result = aux.get_molecule_name_from_molecule(molsys_builder_complete, indices=[1])
+        result = aux.get_molecule_name_from_molecule(
+            molsys_builder_complete, indices=[1]
+        )
         assert result == ["water"]
 
     def test_get_molecule_type_from_molecule(self, molsys_builder_complete):
@@ -245,7 +246,9 @@ class TestEntityGetters:
         assert result == [0, 1]
 
     def test_get_entity_index_from_molecule_slice(self, molsys_builder_complete):
-        result = aux.get_entity_index_from_molecule(molsys_builder_complete, indices=[0])
+        result = aux.get_entity_index_from_molecule(
+            molsys_builder_complete, indices=[0]
+        )
         assert result == [0]
 
     def test_get_entity_index_from_atom_complete(self, molsys_builder_complete):
@@ -313,6 +316,7 @@ class TestSystemCountGetters:
 
     def test_get_bonded_atom_pairs_empty_when_no_bonds(self):
         import molsysmt as msm
+
         builder = msm.MolSysBuilder()
         builder.add_atom(atom_name="X")
         result = aux.get_bonded_atom_pairs_from_system(builder)

@@ -6,7 +6,6 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 
-
 GRO_TEXT = """Two-atom triclinic GRO fixture
     2
     7LIG     C1   41   0.100   0.200   0.300  0.0100  0.0200  0.0300

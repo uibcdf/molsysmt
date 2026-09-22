@@ -17,7 +17,10 @@ def _discovered_form_names():
         for node in tree.body:
             if not isinstance(node, ast.Assign):
                 continue
-            if any(isinstance(target, ast.Name) and target.id == "form_name" for target in node.targets):
+            if any(
+                isinstance(target, ast.Name) and target.id == "form_name"
+                for target in node.targets
+            ):
                 if isinstance(node.value, ast.Constant):
                     names.add(node.value.value)
                 break

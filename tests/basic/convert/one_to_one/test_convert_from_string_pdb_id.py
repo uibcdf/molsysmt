@@ -3,63 +3,68 @@ Unit and regression test for the convert module of the molsysmt package.
 """
 
 # Import package, test suite, and other packages as needed
-import molsysmt as msm
-from molsysmt import systems
-import numpy as np
 import os
+
+import molsysmt as msm
 
 # Whole systems (selection='all' and structure_indices='all')
 
-def test_string_pdb_id_to_molsysmt_MolSys_1():
-    molsys = msm.convert('pdb_id:181l', to_form='molsysmt.MolSys')
+
+def test_prefixed_string_pdb_id_to_molsysmt_MolSys():
+    molsys = msm.convert("pdb_id:181l", to_form="molsysmt.MolSys")
     form = msm.get_form(molsys)
-    assert 'molsysmt.MolSys'==form
+    assert "molsysmt.MolSys" == form
+
 
 def test_string_pdb_id_to_molsysmt_MolSys_2():
-    molsys = msm.convert('181l', selection='molecule_type=="protein"')
+    molsys = msm.convert("181l", selection='molecule_type=="protein"')
     form = msm.get_form(molsys)
     is_only_protein = msm.is_composed_of(molsys, n_proteins=1)
-    assert 'molsysmt.MolSys'==form and is_only_protein==True
+    assert "molsysmt.MolSys" == form and is_only_protein
+
 
 def test_string_pdb_id_to_molsysmt_MolSys_3():
-    molsys = msm.convert('1vii')
+    molsys = msm.convert("1vii")
     form = msm.get_form(molsys)
     box = msm.get(molsys, box=True)
-    assert 'molsysmt.MolSys'==form
+    assert "molsysmt.MolSys" == form
     assert box is None
 
+
 def test_string_pdb_id_to_molsysmt_MolSys_1():
-    molsys = msm.convert('pdb_0000181l', to_form='molsysmt.MolSys')
+    molsys = msm.convert("pdb_0000181l", to_form="molsysmt.MolSys")
     form = msm.get_form(molsys)
-    assert 'molsysmt.MolSys'==form
+    assert "molsysmt.MolSys" == form
+
 
 def test_string_pdb_id_to_file_pdb():
-    molsys = msm.convert('pdb_id:181l', to_form='181l.pdb')
+    molsys = msm.convert("pdb_id:181l", to_form="181l.pdb")
     form = msm.get_form(molsys)
     os.remove(molsys)
-    assert 'file:pdb'==form
+    assert "file:pdb" == form
+
 
 def test_string_pdb_id_to_file_bcif():
-    molsys = msm.convert('pdb_id:181l', to_form='181l.bcif')
+    molsys = msm.convert("pdb_id:181l", to_form="181l.bcif")
     form = msm.get_form(molsys)
     os.remove(molsys)
-    assert 'file:bcif'==form
+    assert "file:bcif" == form
+
 
 def test_string_pdb_id_to_file_bcif_gz():
-    molsys = msm.convert('pdb_id:181l', to_form='181l.bcif.gz')
+    molsys = msm.convert("pdb_id:181l", to_form="181l.bcif.gz")
     form = msm.get_form(molsys)
     os.remove(molsys)
-    assert 'file:bcif.gz'==form
+    assert "file:bcif.gz" == form
+
 
 def test_string_pdb_id_to_mdtraj_Trajectory():
-    molsys = msm.convert('pdb_id:181l', to_form='mdtraj.Trajectory')
+    molsys = msm.convert("pdb_id:181l", to_form="mdtraj.Trajectory")
     form = msm.get_form(molsys)
-    assert 'mdtraj.Trajectory'==form
+    assert "mdtraj.Trajectory" == form
+
 
 # Selection
 
 
 ## Multiple outputs
-
-
-

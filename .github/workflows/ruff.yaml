@@ -5,14 +5,16 @@ on:
     branches:
       - "main"
     paths:
-      - "molsysmt/**/*.py"
+      - "**/*.py"
+      - "**/*.pyi"
       - "pyproject.toml"
       - ".github/workflows/ruff.yaml"
   pull_request:
     branches:
       - "main"
     paths:
-      - "molsysmt/**/*.py"
+      - "**/*.py"
+      - "**/*.pyi"
       - "pyproject.toml"
       - ".github/workflows/ruff.yaml"
   workflow_dispatch:

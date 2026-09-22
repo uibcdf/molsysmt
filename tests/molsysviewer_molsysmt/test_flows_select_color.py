@@ -1,33 +1,28 @@
 """Tests for the molsysviewer_molsysmt addon."""
 
-import sys
-import tomllib
-from pathlib import Path
-from importlib import import_module
-
 import molsysviewer
 import pytest
 
 from molsysviewer_molsysmt import (
     get_addon,
     lifecycle,
-    on_enable,
-    on_disable,
-    on_context_action,
-    create_molsysmt_state,
-    system_for_verbs,
-    system_object,
-    has_system,
 )
-from molsysviewer_molsysmt.runtime import MolSysMTAddonRuntime, ensure_runtime
-
+from molsysviewer_molsysmt.runtime import ensure_runtime
 
 _EXPECTED_PANELS = [
-    "basic", "topology", "structure", "hbonds",
-    "pbc", "physchem", "molecular_mechanics", "build",
+    "basic",
+    "topology",
+    "structure",
+    "hbonds",
+    "pbc",
+    "physchem",
+    "molecular_mechanics",
+    "build",
 ]
 _EXPECTED_CONTEXT_ACTIONS = [
-    "inspect-system", "select-and-highlight", "color-by-property",
+    "inspect-system",
+    "select-and-highlight",
+    "color-by-property",
     "compute-contacts",
 ]
 
@@ -35,6 +30,7 @@ _EXPECTED_CONTEXT_ACTIONS = [
 # ---------------------------------------------------------------------------
 # System adapter — public Python equivalent, reads from the view-as-form
 # ---------------------------------------------------------------------------
+
 
 def test_system_counts_adapter_reads_from_view():
     pytest.importorskip("molsysmt")
@@ -58,6 +54,7 @@ def test_system_counts_adapter_raises_without_system():
 # ---------------------------------------------------------------------------
 # Select adapter/facade/panel — creates active viewer selections
 # ---------------------------------------------------------------------------
+
 
 def test_select_indices_adapter_reads_from_view_and_resolves_atoms():
     pytest.importorskip("molsysmt")
@@ -118,7 +115,9 @@ def test_select_panel_run_with_no_molsys_pushes_error():
     sent = []
     widget.send = lambda msg: sent.append(msg)
 
-    widget.handle_action(view, "run_selection", {"selection": "backbone", "element": "atom"})
+    widget.handle_action(
+        view, "run_selection", {"selection": "backbone", "element": "atom"}
+    )
     molsysviewer.addons.clear()
     assert widget.state["status"] == "error"
     assert "No molecular system" in widget.state["error"]
@@ -138,10 +137,14 @@ def test_select_panel_uses_loaded_view_not_runtime_seed():
     widget.send = lambda msg: sent.append(msg)
     runtime = ensure_runtime(view)
 
-    widget.handle_action(view, "run_selection", {
-        "selection": 'atom_name=="CA"',
-        "element": "atom",
-    })
+    widget.handle_action(
+        view,
+        "run_selection",
+        {
+            "selection": 'atom_name=="CA"',
+            "element": "atom",
+        },
+    )
     final = widget.state
     assert final["status"] == "done"
     assert final["n_selected"] == 1
@@ -182,9 +185,13 @@ def test_select_panel_clear_selection_removes_viewer_selection():
 # Color adapter/facade/panel — reads from view and applies viewer colors
 # ---------------------------------------------------------------------------
 
+
 def test_color_property_values_adapter_reads_from_view():
     pytest.importorskip("molsysmt")
-    from molsysviewer_molsysmt.adapters.color import property_values, supported_properties
+    from molsysviewer_molsysmt.adapters.color import (
+        property_values,
+        supported_properties,
+    )
 
     view = molsysviewer.demo["dialanine"]
 
@@ -236,7 +243,9 @@ def test_color_panel_apply_with_no_molsys_pushes_error():
     sent = []
     widget.send = lambda msg: sent.append(msg)
 
-    widget.handle_action(view, "apply_color", {"property": "charge", "palette": "viridis"})
+    widget.handle_action(
+        view, "apply_color", {"property": "charge", "palette": "viridis"}
+    )
     molsysviewer.addons.clear()
     assert widget.state["status"] == "error"
 
@@ -254,10 +263,14 @@ def test_color_panel_apply_uses_loaded_view_not_runtime_seed():
 
     runtime = ensure_runtime(view)
 
-    widget.handle_action(view, "apply_color", {
-        "property": "mass",
-        "palette": ["#111111", "#eeeeee"],
-    })
+    widget.handle_action(
+        view,
+        "apply_color",
+        {
+            "property": "mass",
+            "palette": ["#111111", "#eeeeee"],
+        },
+    )
     final = widget.state
     assert final["status"] == "done"
     assert final["property"] == "mass"
@@ -295,6 +308,7 @@ def test_color_panel_reset_colors_clears_viewer_color_map():
 # Selection-driven context items (on_active_selection_changed) + expand handler
 # ---------------------------------------------------------------------------
 
+
 def test_active_selection_hook_returns_items_for_selection():
     from molsysviewer_molsysmt.addon import on_active_selection_changed
 
@@ -303,7 +317,10 @@ def test_active_selection_hook_returns_items_for_selection():
     view = molsysviewer.demo["dialanine"]
 
     items = on_active_selection_changed(view, {"atom_indices": [5]})
-    assert [item["id"] for item in items] == ["remove-selected-atoms", "molsysmt-expand-residues"]
+    assert [item["id"] for item in items] == [
+        "remove-selected-atoms",
+        "molsysmt-expand-residues",
+    ]
     assert items[0]["payload"]["atom_indices"] == [5]
     assert items[1]["payload"]["atom_indices"] == [5]
     # nothing selected -> no items
@@ -333,4 +350,3 @@ def test_context_expand_residues_sets_whole_residue_active_selection():
     assert sorted(view.active_selection.atom_indices) == expected
 
     molsysviewer.addons.clear()
-

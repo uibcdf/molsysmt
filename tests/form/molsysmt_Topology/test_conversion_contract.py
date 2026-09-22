@@ -4,7 +4,6 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 
-
 nglview = pytest.importorskip("nglview")
 
 

@@ -4,7 +4,6 @@ from pathlib import Path
 
 import yaml
 
-
 REPO = Path(__file__).resolve().parents[2]
 TEST_ENV = REPO / "devtools" / "conda-envs" / "test_env.yaml"
 PYTEST_INI = REPO / "pytest.ini"
