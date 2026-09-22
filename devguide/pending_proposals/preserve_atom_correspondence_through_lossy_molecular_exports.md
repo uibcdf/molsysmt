@@ -23,7 +23,7 @@ Return an explicit mapping between source and exported atoms when a molecular fo
 
 ## How
 
-Define a post-conversion mapping artifact with retained, omitted, and merged source atoms, reasons, charge aggregation, and source state identity; keep the source MolSys unchanged.
+Define a post-conversion mapping artifact with retained, omitted, and merged source atoms, reasons, charge aggregation, and source state identity; keep the source MolSys unchanged. For the PDBQT example, the selected atom-typing policy, rather than atom names, determines which hydrogens are retained or merged.
 
 ## Why
 
@@ -46,6 +46,7 @@ Reusable mapping contract and PDBQT exemplar; no universal atom matching between
 
 - A loss-aware export yields a stable source-to-output and output-to-source mapping with reasons for omitted or merged atoms.
 - Tests cover retained polar hydrogens, merged nonpolar hydrogens, charge aggregation, and unchanged source identity.
+- Tests reject a name-based hydrogen projection when atom names and chemical types disagree.
 
 ## Dependencies and risks
 

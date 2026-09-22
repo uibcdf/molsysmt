@@ -40,6 +40,11 @@ downstream use in uibcdf/dockingmt#3.
   typing, charges, geometry, and ligand torsion data. Missing or inconsistent
   input must fail clearly; serialization must not silently perform chemical
   preparation. Use conversion reports and strict mode for representational loss.
+- Define the selected PDBQT hydrogen policy explicitly. If a profile merges
+  nonpolar hydrogen atoms, classify them by the declared chemical typing scheme,
+  transfer their partial charges to the bonded parent, retain required polar
+  hydrogens, and return the atom projection described in uibcdf/molsysmt#223.
+  Atom names alone must never decide which hydrogens disappear.
 - Declare attributes only where public getters actually deliver them, with
   instance-aware presence. Any parser/writer backend remains optional and
   lazy. This proposal does not require Meeko.
@@ -91,6 +96,9 @@ assessment.
 - Missing writer inputs and unsupported layouts fail with actionable errors.
   Lost attributes are not claimed as preserved by capability declarations or
   reports; strict mode rejects known loss.
+- Tests exercise the declared hydrogen policy on ligand and rigid-receptor
+  fixtures, including polar H retention, charge aggregation for merged H,
+  source-to-PDBQT atom mapping, and an unchanged source MolSys.
 - Tests cover selection and structure-index behavior where meaningful,
   optional dependency behavior, and public API routes. Docstrings, User Guide,
   Cookbook, and applicable course material describe the supported subset.
@@ -101,6 +109,9 @@ assessment.
 
 The ligand writer needs a specified torsion-tree input contract. If MolSys
 cannot carry it, resolve that general representation separately before
-claiming flexible-ligand output. PDBQT atom types are not necessarily general
-force-field atom types; their mapping must be explicit. The downstream
+claiming flexible-ligand output (uibcdf/molsysmt#224). PDBQT atom types are
+not necessarily general force-field atom types; their mapping must be explicit
+(uibcdf/molsysmt#222). Hydrogen projection and mapping are tracked in
+uibcdf/molsysmt#223. Flexible receptors and multi-model pose output remain
+separate in uibcdf/molsysmt#225 and uibcdf/molsysmt#226. The downstream
 consumer is tracked in uibcdf/dockingmt#3.

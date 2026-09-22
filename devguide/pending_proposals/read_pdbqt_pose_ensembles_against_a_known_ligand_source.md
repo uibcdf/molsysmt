@@ -23,7 +23,7 @@ Read multi-model docking PDBQT poses and place their coordinates on a known liga
 
 ## How
 
-Parse pose boundaries and atom records, require a source ligand plus explicit atom mapping or equivalent carried metadata, and reconstruct supported structures without guessing absent bond orders or hydrogens.
+Parse pose boundaries and atom records, require a source ligand plus explicit atom mapping or equivalent carried metadata, and reconstruct supported structures without guessing absent bond orders. Define how omitted hydrogen coordinates are represented: they remain explicitly unavailable, or a separate named reconstruction method generates them with provenance. Original input H coordinates must not be presented as if Vina returned them.
 
 ## Why
 
@@ -46,6 +46,7 @@ Pose ensemble parsing and reconstruction against a known source; score/rank inte
 
 - Representative multi-model outputs reconstruct atom-aligned ligand structures and preserve available pose coordinates.
 - A missing or inconsistent source map produces a clear error; no unsupported chemistry is claimed as recovered.
+- A pose with omitted hydrogens has an explicit, tested missing-coordinate or named-reconstruction outcome; no stale or invented H positions are silently reported as docked coordinates.
 
 ## Dependencies and risks
 

@@ -23,7 +23,7 @@ Assign per-atom partial charges to a selected chemical state using an explicit m
 
 ## How
 
-Use an optional lazy backend; preserve atom order and IDs, record method and version, and validate finite values, coverage, and an explained total-charge tolerance.
+Use an optional lazy backend; preserve atom order and IDs, record method and version for each selected state, and validate finite values, coverage, and an explained total-charge tolerance. Specify which schemes support small molecules and which support conventional protein receptors; do not treat ligand Gasteiger coverage as receptor coverage without testing it.
 
 ## Why
 
@@ -46,6 +46,7 @@ Named charge assignment and diagnostics, not AutoDock atom typing or selection o
 
 - A named method assigns charges with atom-aligned values and recorded provenance for supported inputs.
 - Missing prerequisites, nonfinite values, partial coverage, and total-charge discrepancies have explicit tested behavior.
+- A conventional protein-receptor fixture has a named, tested charge-assignment route, with its method and coverage visible to the PDBQT writer; unsupported receptor chemistry fails clearly instead of receiving zero charges.
 
 ## Dependencies and risks
 

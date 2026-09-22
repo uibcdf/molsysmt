@@ -23,7 +23,7 @@ Expose which receptor residues have been assessed against a chemical template an
 
 ## How
 
-Report template match, missing or unexpected heavy atoms and hydrogens, bond and protonation coverage, and an explicit unassessed status for unsupported residues.
+Report template match, missing or unexpected heavy atoms and hydrogens, bond and protonation coverage, and an explicit unassessed status for unsupported residues. A parent-residue alias used for sequence normalization is not evidence that the modified residue has the parent's atom inventory.
 
 ## Why
 
@@ -46,9 +46,10 @@ Assessment and diagnostics first; repair algorithms for specific nonstandard res
 
 - Every selected residue reports assessed, incomplete, or unassessed with a reason and supported template identity.
 - Tests distinguish complete standard residues, incomplete residues, and unsupported nonstandard residues.
+- The MSE fixture is assessed against selenium chemistry or marked unassessed; it is never reported as requiring MET sulfur. The same rule applies to modifications with additional atoms, such as SEP.
 
 ## Dependencies and risks
 
-Related tracked work: uibcdf/molsysmt#177
+Related tracked work: uibcdf/molsysmt#177, uibcdf/molsysmt#227, uibcdf/molsysmt#228.
 Cross-component implementation links: uibcdf/dockingmt#4.
 New functionality requires tests of scientific semantics and documentation appropriate to its public surface.

@@ -45,6 +45,7 @@ Atom typing and scheme provenance; no partial-charge calculation or DockingMT sc
 ## Acceptance criteria
 
 - Representative aromatic, donor, acceptor, halogen, and unsupported cases have explicit tested assignments or errors.
+- Tests distinguish polar hydrogens that remain in the selected PDBQT profile from mergeable nonpolar hydrogens using chemical context rather than atom names.
 - The selected scheme and its version are inspectable; PDBQT export can require compatible typing.
 
 ## Dependencies and risks

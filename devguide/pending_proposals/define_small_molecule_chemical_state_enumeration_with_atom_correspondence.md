@@ -23,7 +23,7 @@ Specify a reusable contract for enumerating ligand tautomers, protomers, and ste
 
 ## How
 
-Define separate selectable operations and provenance for each transformation, including how atoms and bonds correspond when hydrogen counts or bond orders change; validate the contract on representative ligands before implementation breadth is promised.
+Define separate selectable operations and provenance for each transformation, including how atoms and bonds correspond when hydrogen counts or bond orders change. Specify whether states with different atom inventories can share one MolSys or must be separate MolSys objects linked by an explicit map. Validate the contract on representative ligands before implementation breadth is promised.
 
 ## Why
 
@@ -46,9 +46,10 @@ Contract and representative operations; no exhaustive microstate prediction, pKa
 
 - The public contract distinguishes each state dimension and records parent-to-child atom correspondence or an explicit failure to map.
 - Representative examples define duplicate handling, stereochemical ambiguity, and state provenance; follow-on implementation scope is explicit.
+- The representation of added, removed, or relocated hydrogen atoms is defined without inventing stable atom IDs where no one-to-one correspondence exists.
 
 ## Dependencies and risks
 
-Related tracked work: None established.
+Related implementation work: uibcdf/molsysmt#229 for tautomer and stereoisomer enumeration, and uibcdf/molsysmt#230 for protomer enumeration. Conformer generation remains separate in uibcdf/molsysmt#219.
 Cross-component implementation links: uibcdf/dockingmt#4.
 New functionality requires tests of scientific semantics and documentation appropriate to its public surface.

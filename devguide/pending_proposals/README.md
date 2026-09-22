@@ -68,6 +68,15 @@ Entries carrying front matter under
 
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 
+### Blocked (3)
+
+- [`enumerate_ligand_protomers_under_explicit_protonation_site_rules.md`](enumerate_ligand_protomers_under_explicit_protonation_site_rules.md) — [#230](https://github.com/uibcdf/molsysmt/issues/230) — Enumerate ligand protomers under explicit protonation-site rules *(inspected)*
+  Blocked by uibcdf/molsysmt#220.
+- [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
+  Blocked by uibcdf/molsysmt#220.
+- [`repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md`](repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md) — [#228](https://github.com/uibcdf/molsysmt/issues/228) — Repair selected nonstandard receptor residues with residue-specific templates *(inspected)*
+  Blocked by uibcdf/molsysmt#227.
+
 <!-- /generated -->
 
 ## Triage map
