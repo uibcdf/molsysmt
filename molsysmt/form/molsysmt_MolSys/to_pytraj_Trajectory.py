@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.MolSys')
-def to_pytraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="molsysmt.MolSys")
+def to_pytraj_Trajectory(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from molsysmt.MolSys to pytraj.Trajectory.
 
@@ -26,14 +29,26 @@ def to_pytraj_Trajectory(item, atom_indices='all', structure_indices='all', skip
     .. versionadded:: 1.0.0
     """
 
-    from .to_pytraj_Topology import to_pytraj_Topology
-    from molsysmt.form.pytraj_Topology.to_pytraj_Trajectory import to_pytraj_Trajectory as pytraj_Topology_to_pytraj_Trajectory
-    from . import get_coordinates_from_atom, get_box_from_system
+    from molsysmt.form.pytraj_Topology.to_pytraj_Trajectory import (
+        to_pytraj_Trajectory as pytraj_Topology_to_pytraj_Trajectory,
+    )
 
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    from . import get_box_from_system, get_coordinates_from_atom
+    from .to_pytraj_Topology import to_pytraj_Topology
+
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
 
     tmp_item = to_pytraj_Topology(item, atom_indices=atom_indices, skip_digestion=True)
-    tmp_item = pytraj_Topology_to_pytraj_Trajectory(tmp_item, coordinates=coordinates, box=box, skip_digestion=True)
+    tmp_item = pytraj_Topology_to_pytraj_Trajectory(
+        tmp_item, coordinates=coordinates, box=box, skip_digestion=True
+    )
 
     return tmp_item

@@ -2,7 +2,9 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="molsysmt.MolSys")
-def to_molsysmt_MolSysBuilder(item, atom_indices="all", structure_indices="all", skip_digestion=False):
+def to_molsysmt_MolSysBuilder(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from molsysmt.MolSys to molsysmt.MolSysBuilder.
 

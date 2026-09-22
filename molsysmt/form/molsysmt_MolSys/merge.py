@@ -1,10 +1,16 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 
-@arg_digest(form='molsysmt.MolSys')
-def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, skip_digestion=False):
+
+@arg_digest(form="molsysmt.MolSys")
+def merge(
+    items,
+    atom_indices="all",
+    structure_indices="all",
+    keep_ids=True,
+    skip_digestion=False,
+):
     """
     Merging multiple items into a single item of form molsysmt.MolSys.
 
@@ -32,31 +38,52 @@ def merge(items, atom_indices='all', structure_indices='all', keep_ids=True, ski
     """
 
     from molsysmt.native import MolSys
-    from ..molsysmt_Topology.merge import merge as merge_molsysmt_Topology
+
+    from ..molsysmt_MolecularMechanics.merge import (
+        merge as merge_molsysmt_MolecularMechanics,
+    )
     from ..molsysmt_Structures.merge import merge as merge_molsysmt_Structures
-    from ..molsysmt_MolecularMechanics.merge import merge as merge_molsysmt_MolecularMechanics
+    from ..molsysmt_Topology.merge import merge as merge_molsysmt_Topology
 
     n_items = len(items)
 
     if is_all(atom_indices):
-        atom_indices = ['all' for ii in range(n_items)]
+        atom_indices = ["all" for ii in range(n_items)]
 
     if is_all(structure_indices):
-        structure_indices = ['all' for ii in range(n_items)]
+        structure_indices = ["all" for ii in range(n_items)]
 
-    if len(atom_indices)!=n_items:
-        raise ArgumentError("atom_indices", value=atom_indices, caller="molsysmt.form.molsysmt_MolSys.merge.py")
+    if len(atom_indices) != n_items:
+        raise ArgumentError(
+            "atom_indices",
+            value=atom_indices,
+            caller="molsysmt.form.molsysmt_MolSys.merge.py",
+        )
 
-    if len(structure_indices)!=n_items:
-        raise ArgumentError("structure_indices", value=structure_indices, caller="molsysmt.form.molsysmt_MolSys.merge.py")
+    if len(structure_indices) != n_items:
+        raise ArgumentError(
+            "structure_indices",
+            value=structure_indices,
+            caller="molsysmt.form.molsysmt_MolSys.merge.py",
+        )
 
     output = MolSys()
-    output.topology = merge_molsysmt_Topology([ii.topology for ii in items], atom_indices=atom_indices,
-                                              keep_ids=keep_ids, skip_digestion=True)
-    output.structures = merge_molsysmt_Structures([ii.structures for ii in items],
-            atom_indices=atom_indices, structure_indices=structure_indices, skip_digestion=True)
-    output.molecular_mechanics = merge_molsysmt_MolecularMechanics([ii.molecular_mechanics for ii in items],
-            atom_indices=atom_indices, skip_digestion=True)
+    output.topology = merge_molsysmt_Topology(
+        [ii.topology for ii in items],
+        atom_indices=atom_indices,
+        keep_ids=keep_ids,
+        skip_digestion=True,
+    )
+    output.structures = merge_molsysmt_Structures(
+        [ii.structures for ii in items],
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    output.molecular_mechanics = merge_molsysmt_MolecularMechanics(
+        [ii.molecular_mechanics for ii in items],
+        atom_indices=atom_indices,
+        skip_digestion=True,
+    )
 
     return output
-

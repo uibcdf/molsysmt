@@ -164,3 +164,31 @@ checks, the migrated-file selection test, dependency validation, and the form
 adapter structural audit also passed. The CI Ruff workflow now checks this adapter
 explicitly. The full-core Ruff count fell from 13,452 to 13,044 findings; the
 adapter contributes zero unsuppressed findings to that count.
+
+## Fourth migrated slice: native MolSys form
+
+On 2026-09-22, the `molsysmt/form/molsysmt_MolSys` adapter was migrated after
+all 384 of its functional cases passed on the unedited baseline. Its 210 Ruff
+findings included import ordering, unused imports, late imports in the form
+initializer, intentional wildcard getter/setter exports, two duplicate imports,
+and two wildcard imports of MolSysMT's private ArgDigest wrapper.
+
+Ruff's proposed changes were reviewed by category before editing. Lazy imports
+inside functions remain inside those functions. The two private-wrapper wildcard
+imports were replaced with explicit `arg_digest` imports. The initializer kept
+its metadata-first and export order, with a bounded `isort: off` block and
+line-local `E402` and `F403` exceptions. Its duplicate `add_bonds` and
+`remove_bonds` imports were reduced to one copy each.
+
+A before/after export comparison caught a real compatibility effect that the
+functional suite alone did not: removing unused imports from `set.py` dropped
+the historical package-level `ArgumentError` and `np` names because the package
+uses `from .set import *`. The initializer now preserves both names explicitly.
+It exposes the same 525 public names, 34 conversion routes, and conversion-option
+map as before. An AST comparison that ignored only imports found no other
+executable-statement differences.
+
+The same 384 functional cases passed after editing. Ruff lint and format checks
+are clean for the adapter; the CI workflow and the migrated-file selection test
+now include it. The full-core count fell from 13,044 to 12,834 findings, with
+zero unsuppressed findings in this adapter.

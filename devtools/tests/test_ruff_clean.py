@@ -59,7 +59,9 @@ def test_core_critical_ruff_rules():
     )
 
 
-@pytest.mark.parametrize("package", ["attribute", "lib", "form/string_pdb_text"])
+@pytest.mark.parametrize(
+    "package", ["attribute", "lib", "form/string_pdb_text", "form/molsysmt_MolSys"]
+)
 def test_migrated_package_ruff_gate(package):
     """Keep every Python file in each migrated package under Ruff."""
     repo_root = Path(__file__).resolve().parent.parent.parent

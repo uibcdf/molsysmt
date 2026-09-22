@@ -24,9 +24,8 @@ def _model_ids(structure_ids, n_structures):
     if structure_ids is None:
         return [str(index) for index in range(1, n_structures + 1)]
     output = [str(value) for value in structure_ids]
-    valid = (
-        len(set(output)) == len(output)
-        and all(value.isdigit() and 1 <= int(value) <= 9999 for value in output)
+    valid = len(set(output)) == len(output) and all(
+        value.isdigit() and 1 <= int(value) <= 9999 for value in output
     )
     if not valid:
         return [str(index) for index in range(1, n_structures + 1)]
@@ -47,9 +46,7 @@ def _charge_field(value):
 
 def _validate_coordinates(coordinates):
     if not np.isfinite(coordinates).all():
-        _raise_capacity_error(
-            "coordinates", "PDB coordinates must be finite."
-        )
+        _raise_capacity_error("coordinates", "PDB coordinates must be finite.")
     if np.any(coordinates < -999.999) or np.any(coordinates > 9999.999):
         _raise_capacity_error(
             "coordinates",
@@ -84,9 +81,7 @@ def _bioassembly_lines(item):
             zip(chain_indices, assembly["rotations"], translations), start=1
         ):
             names = ", ".join(chain_ids[int(index)] for index in operation_chains)
-            lines.append(
-                f"REMARK 350 APPLY THE FOLLOWING TO CHAINS: {names}\n"
-            )
+            lines.append(f"REMARK 350 APPLY THE FOLLOWING TO CHAINS: {names}\n")
             for row in range(3):
                 values = rotation[row]
                 lines.append(
@@ -170,9 +165,7 @@ def to_string_pdb_text(
     else:
         source_atom_indices = np.sort(np.asarray(atom_indices, dtype=int))
     if is_all(structure_indices):
-        selected_structures = np.arange(
-            item.structures.n_structures, dtype=int
-        )
+        selected_structures = np.arange(item.structures.n_structures, dtype=int)
     else:
         selected_structures = np.asarray(structure_indices, dtype=int)
 
@@ -212,9 +205,7 @@ def to_string_pdb_text(
         first_serial[int(atom_index)] = next_serial
         next_serial += count
 
-    formal_charge = item.topology._get_chemical_state_atom_attribute(
-        "formal_charge"
-    )
+    formal_charge = item.topology._get_chemical_state_atom_attribute("formal_charge")
     lines = []
     now = datetime.now()
     lines.append(
@@ -236,8 +227,7 @@ def to_string_pdb_text(
         a, b, c = puw.get_value(lengths[0], to_unit="angstrom")
         alpha, beta, gamma = puw.get_value(angles[0], to_unit="degrees")
         lines.append(
-            f"CRYST1{a:>9.3f}{b:>9.3f}{c:>9.3f}"
-            f"{alpha:>7.2f}{beta:>7.2f}{gamma:>7.2f}\n"
+            f"CRYST1{a:>9.3f}{b:>9.3f}{c:>9.3f}{alpha:>7.2f}{beta:>7.2f}{gamma:>7.2f}\n"
         )
 
     for local_structure_index, structure_index in enumerate(selected_structures):
@@ -246,9 +236,7 @@ def to_string_pdb_text(
             lines.append(f"MODEL     {model_ids[local_structure_index]:>4}\n")
         previous_chain_index = None
         serial = 1
-        for source_atom_index, atom in zip(
-            source_atom_indices, atoms.itertuples()
-        ):
+        for source_atom_index, atom in zip(source_atom_indices, atoms.itertuples()):
             source_atom_index = int(source_atom_index)
             if (
                 previous_chain_index is not None
@@ -259,31 +247,25 @@ def to_string_pdb_text(
 
             alternate = None
             if item.structures.alternate_location is not None:
-                alternate = item.structures.alternate_location[
-                    structure_index
-                ].get(source_atom_index)
+                alternate = item.structures.alternate_location[structure_index].get(
+                    source_atom_index
+                )
             if alternate is None:
                 coordinates = puw.get_value(
-                    item.structures.coordinates[
-                        structure_index, source_atom_index
-                    ],
+                    item.structures.coordinates[structure_index, source_atom_index],
                     to_unit="angstrom",
                 )[np.newaxis, :]
                 location_ids = [""]
                 occupancies = [
                     0.0
                     if item.structures.occupancy is None
-                    else item.structures.occupancy[
-                        structure_index, source_atom_index
-                    ]
+                    else item.structures.occupancy[structure_index, source_atom_index]
                 ]
                 b_factors = [
                     0.0
                     if item.structures.b_factor is None
                     else puw.get_value(
-                        item.structures.b_factor[
-                            structure_index, source_atom_index
-                        ],
+                        item.structures.b_factor[structure_index, source_atom_index],
                         to_unit="angstrom**2",
                     )
                 ]
@@ -293,9 +275,7 @@ def to_string_pdb_text(
                 )
                 location_ids = alternate["location_id"]
                 occupancies = alternate["occupancy"]
-                b_factors = puw.get_value(
-                    alternate["b_factor"], to_unit="angstrom**2"
-                )
+                b_factors = puw.get_value(alternate["b_factor"], to_unit="angstrom**2")
             _validate_coordinates(coordinates)
 
             group = groups.iloc[int(atom.group_index)]
@@ -303,9 +283,7 @@ def to_string_pdb_text(
             chain_id = "A" if pd.isna(raw_chain_id) else str(raw_chain_id)
             element_symbol = "" if pd.isna(atom.atom_type) else str(atom.atom_type)
             charge = (
-                None
-                if formal_charge is None
-                else formal_charge.iloc[source_atom_index]
+                None if formal_charge is None else formal_charge.iloc[source_atom_index]
             )
             for variant_index, coordinates_value in enumerate(coordinates):
                 x, y, z = coordinates_value

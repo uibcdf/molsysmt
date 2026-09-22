@@ -4,8 +4,8 @@ import re
 
 import numpy as np
 import pandas as pd
-
 from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 
 
@@ -16,8 +16,8 @@ def _element_symbol(atom_type, atom_name, periodic_table):
     for value in (atom_type, atom_name):
         if value is None or pd.isna(value):
             continue
-        token = str(value).strip().split('.', maxsplit=1)[0]
-        match = re.match(r'([A-Za-z]{1,2})', token)
+        token = str(value).strip().split(".", maxsplit=1)[0]
+        match = re.match(r"([A-Za-z]{1,2})", token)
         if match:
             text = match.group(1)
             candidates.extend((text.capitalize(), text[0].upper()))
@@ -46,12 +46,12 @@ def _matches(value, expected):
     return _has_value(value) and bool(value == expected)
 
 
-@arg_digest(form='molsysmt.MolSys')
-@dep_digest('rdkit')
+@arg_digest(form="molsysmt.MolSys")
+@dep_digest("rdkit")
 def to_rdkit_Mol(
     item,
-    atom_indices='all',
-    structure_indices='all',
+    atom_indices="all",
+    structure_indices="all",
     skip_digestion=False,
 ):
     """
@@ -79,6 +79,7 @@ def to_rdkit_Mol(
     """
 
     from rdkit import Chem
+
     from molsysmt._private.smonitor import NotCompatibleConversionError
     from molsysmt.form.molsysmt_MolSys.extract import extract
 
@@ -91,38 +92,40 @@ def to_rdkit_Mol(
     topology = source.topology
     periodic_table = Chem.GetPeriodicTable()
 
-    formal_charge = _optional_atom_values(topology, 'formal_charge')
-    aromatic = _optional_atom_values(topology, 'is_aromatic')
-    radicals = _optional_atom_values(topology, 'n_unpaired_electrons')
-    allows_implicit = _optional_atom_values(topology, 'allows_implicit_hydrogens')
-    stereochemistry = _optional_atom_values(topology, 'stereochemistry')
+    formal_charge = _optional_atom_values(topology, "formal_charge")
+    aromatic = _optional_atom_values(topology, "is_aromatic")
+    radicals = _optional_atom_values(topology, "n_unpaired_electrons")
+    allows_implicit = _optional_atom_values(topology, "allows_implicit_hydrogens")
+    stereochemistry = _optional_atom_values(topology, "stereochemistry")
 
     editable = Chem.RWMol()
     for atom_index, row in topology.atoms.iterrows():
-        symbol = _element_symbol(row['atom_type'], row['atom_name'], periodic_table)
+        symbol = _element_symbol(row["atom_type"], row["atom_name"], periodic_table)
         if symbol is None:
             raise NotCompatibleConversionError(
-                'molsysmt.MolSys',
-                'rdkit.Mol',
-                {'atom_type'},
-                caller='molsysmt.form.molsysmt_MolSys.to_rdkit_Mol',
+                "molsysmt.MolSys",
+                "rdkit.Mol",
+                {"atom_type"},
+                caller="molsysmt.form.molsysmt_MolSys.to_rdkit_Mol",
                 message=(
-                    f'Atom {atom_index} has no atom_type or atom_name from which '
-                    'an element can be resolved safely.'
+                    f"Atom {atom_index} has no atom_type or atom_name from which "
+                    "an element can be resolved safely."
                 ),
             )
         atom = Chem.Atom(symbol)
-        atom.SetProp('_MolSysMTAtomID', str(row['atom_id']))
-        if not pd.isna(row['atom_name']):
-            atom.SetProp('_MolSysMTAtomName', str(row['atom_name']))
-        isotope = row.get('isotope', pd.NA)
+        atom.SetProp("_MolSysMTAtomID", str(row["atom_id"]))
+        if not pd.isna(row["atom_name"]):
+            atom.SetProp("_MolSysMTAtomName", str(row["atom_name"]))
+        isotope = row.get("isotope", pd.NA)
         if not pd.isna(isotope):
             atom.SetIsotope(int(isotope))
         if formal_charge is not None and not pd.isna(formal_charge.iloc[atom_index]):
             atom.SetFormalCharge(int(formal_charge.iloc[atom_index]))
         if radicals is not None and not pd.isna(radicals.iloc[atom_index]):
             atom.SetNumRadicalElectrons(int(radicals.iloc[atom_index]))
-        if allows_implicit is not None and not pd.isna(allows_implicit.iloc[atom_index]):
+        if allows_implicit is not None and not pd.isna(
+            allows_implicit.iloc[atom_index]
+        ):
             atom.SetNoImplicit(not bool(allows_implicit.iloc[atom_index]))
         if aromatic is not None and not pd.isna(aromatic.iloc[atom_index]):
             atom.SetIsAromatic(bool(aromatic.iloc[atom_index]))
@@ -146,24 +149,24 @@ def to_rdkit_Mol(
     }
     bond_rows = []
     for _, row in topology._get_chemical_state_bonds().iterrows():
-        atom1 = int(row['atom1_index'])
-        atom2 = int(row['atom2_index'])
-        relationship = row.get('bond_type', pd.NA)
-        if _matches(relationship, 'dative'):
-            donor = row.get('donor_atom_index', pd.NA)
-            acceptor = row.get('acceptor_atom_index', pd.NA)
+        atom1 = int(row["atom1_index"])
+        atom2 = int(row["atom2_index"])
+        relationship = row.get("bond_type", pd.NA)
+        if _matches(relationship, "dative"):
+            donor = row.get("donor_atom_index", pd.NA)
+            acceptor = row.get("acceptor_atom_index", pd.NA)
             if not pd.isna(donor) and not pd.isna(acceptor):
                 atom1, atom2 = int(donor), int(acceptor)
             rdkit_bond_type = Chem.BondType.DATIVE
-        elif _matches(row.get('is_aromatic', pd.NA), True):
+        elif _matches(row.get("is_aromatic", pd.NA), True):
             rdkit_bond_type = Chem.BondType.AROMATIC
-        elif not pd.isna(row.get('bond_order', pd.NA)):
+        elif not pd.isna(row.get("bond_order", pd.NA)):
             rdkit_bond_type = bond_type_by_order.get(
-                int(row['bond_order']), Chem.BondType.UNSPECIFIED
+                int(row["bond_order"]), Chem.BondType.UNSPECIFIED
             )
-        elif not pd.isna(row.get('fractional_bond_order', pd.NA)):
+        elif not pd.isna(row.get("fractional_bond_order", pd.NA)):
             rdkit_bond_type = fractional_bond_type.get(
-                float(row['fractional_bond_order']), Chem.BondType.UNSPECIFIED
+                float(row["fractional_bond_order"]), Chem.BondType.UNSPECIFIED
             )
         else:
             rdkit_bond_type = Chem.BondType.UNSPECIFIED
@@ -175,17 +178,17 @@ def to_rdkit_Mol(
         Chem.SanitizeMol(molecule)
     except Exception as error:
         raise NotCompatibleConversionError(
-            'molsysmt.MolSys',
-            'rdkit.Mol',
-            {'chemical_state'},
-            caller='molsysmt.form.molsysmt_MolSys.to_rdkit_Mol',
-            message=f'RDKit could not sanitize the converted chemical graph: {error}',
+            "molsysmt.MolSys",
+            "rdkit.Mol",
+            {"chemical_state"},
+            caller="molsysmt.form.molsysmt_MolSys.to_rdkit_Mol",
+            message=f"RDKit could not sanitize the converted chemical graph: {error}",
         ) from error
 
     if stereochemistry is not None:
         desired_stereochemistry = {}
         for atom_index, desired in enumerate(stereochemistry):
-            if not _has_value(desired) or desired not in {'R', 'S'}:
+            if not _has_value(desired) or desired not in {"R", "S"}:
                 continue
             desired_stereochemistry[atom_index] = desired
             molecule.GetAtomWithIdx(atom_index).SetChiralTag(
@@ -196,7 +199,7 @@ def to_rdkit_Mol(
             for atom_index, desired in desired_stereochemistry.items():
                 atom = molecule.GetAtomWithIdx(atom_index)
                 observed = (
-                    atom.GetProp('_CIPCode') if atom.HasProp('_CIPCode') else None
+                    atom.GetProp("_CIPCode") if atom.HasProp("_CIPCode") else None
                 )
                 if observed != desired:
                     atom.SetChiralTag(Chem.ChiralType.CHI_TETRAHEDRAL_CCW)
@@ -206,17 +209,17 @@ def to_rdkit_Mol(
         bond = molecule.GetBondBetweenAtoms(atom1, atom2)
         if bond is None:
             continue
-        is_conjugated = row.get('is_conjugated', pd.NA)
+        is_conjugated = row.get("is_conjugated", pd.NA)
         if not pd.isna(is_conjugated):
             bond.SetIsConjugated(bool(is_conjugated))
-        stereo = row.get('stereochemistry', pd.NA)
-        stereo_atom1 = row.get('stereo_atom1_index', pd.NA)
-        stereo_atom2 = row.get('stereo_atom2_index', pd.NA)
+        stereo = row.get("stereochemistry", pd.NA)
+        stereo_atom1 = row.get("stereo_atom1_index", pd.NA)
+        stereo_atom2 = row.get("stereo_atom2_index", pd.NA)
         stereo_map = {
-            'E': Chem.BondStereo.STEREOE,
-            'Z': Chem.BondStereo.STEREOZ,
-            'cis': Chem.BondStereo.STEREOCIS,
-            'trans': Chem.BondStereo.STEREOTRANS,
+            "E": Chem.BondStereo.STEREOE,
+            "Z": Chem.BondStereo.STEREOZ,
+            "cis": Chem.BondStereo.STEREOCIS,
+            "trans": Chem.BondStereo.STEREOTRANS,
         }
         if (
             _has_value(stereo)
@@ -234,13 +237,13 @@ def to_rdkit_Mol(
     if partial_charge is not None:
         for atom, charge in zip(molecule.GetAtoms(), partial_charge):
             if not pd.isna(charge):
-                atom.SetDoubleProp('_MolSysMTPartialCharge', float(charge))
+                atom.SetDoubleProp("_MolSysMTPartialCharge", float(charge))
 
     if source.structures is not None and source.structures.coordinates is not None:
         from molsysmt import pyunitwizard as puw
 
         coordinates = np.asarray(
-            puw.get_value(source.structures.coordinates, to_unit='angstrom'),
+            puw.get_value(source.structures.coordinates, to_unit="angstrom"),
             dtype=np.float64,
         )
         structure_ids = source.structures.structure_id
@@ -252,7 +255,7 @@ def to_rdkit_Mol(
                     conformer.SetId(int(structure_ids[structure_index]))
                 except (TypeError, ValueError):
                     conformer.SetProp(
-                        '_MolSysMTStructureID', str(structure_ids[structure_index])
+                        "_MolSysMTStructureID", str(structure_ids[structure_index])
                     )
             molecule.AddConformer(conformer, assignId=False)
 

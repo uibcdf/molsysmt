@@ -1,7 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
 
-@arg_digest(form='molsysmt.MolSys')
+@arg_digest(form="molsysmt.MolSys")
 def has_attribute(
     molecular_system,
     attribute,
@@ -37,16 +37,15 @@ def has_attribute(
         molsysmt_Structures,
         molsysmt_Topology,
     )
+
     from . import attributes
 
     if not attributes[attribute]:
         return False
-    if attribute == 'structure_chemical_state_index':
+    if attribute == "structure_chemical_state_index":
         if include_none:
             return True
-        values = molecular_system._get_structure_chemical_state_indices(
-            resolved=True
-        )
+        values = molecular_system._get_structure_chemical_state_indices(resolved=True)
         return len(values) > 0 and not values.isna().any()
     if molsysmt_Topology.attributes[attribute]:
         return molsysmt_Topology.has_attribute(
