@@ -1,8 +1,13 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError
+from molsysmt._private.smonitor import (
+    FormatError,
+)
 
-@arg_digest(form='string:alphafold_id')
-def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="string:alphafold_id")
+def to_mmcif_PdbxContainers_DataContainer(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from string:alphafold_id to mmcif.PdbxContainers.DataContainer.
 
@@ -27,18 +32,20 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
     .. versionadded:: 1.0.0
     """
 
-    from mmcif.io.BinaryCifReader import BinaryCifReader
-    import urllib.request
-    from urllib.request import urlretrieve
     import json
     import time
+    import urllib.request
     from os import remove
     from os.path import exists
-    from molsysmt._private.files_and_directories import temp_filename
+    from urllib.request import urlretrieve
+
+    from mmcif.io.BinaryCifReader import BinaryCifReader
     from smonitor.integrations import context_extra, emit_from_catalog
+
+    from molsysmt._private.files_and_directories import temp_filename
     from molsysmt._private.smonitor import CATALOG
 
-    uniprot_id = item.split('-')[-2]
+    uniprot_id = item.split("-")[-2]
 
     api_url = f"https://alphafold.ebi.ac.uk/api/prediction/{uniprot_id}"
     request = urllib.request.Request(api_url, headers={"accept": "application/json"})
@@ -59,7 +66,7 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
                 raise
 
     aux_json = json.loads(response_data)
-    fullbcifurl = aux_json[0]['bcifUrl']
+    fullbcifurl = aux_json[0]["bcifUrl"]
 
     binary_cif_reader = BinaryCifReader()
     tmp_filename = temp_filename(extension="bcif")
@@ -70,18 +77,21 @@ def to_mmcif_PdbxContainers_DataContainer(item, atom_indices='all', structure_in
         if exists(tmp_filename):
             remove(tmp_filename)
 
-    if len(containers)>1:
+    if len(containers) > 1:
         emit_from_catalog(
-            CATALOG['warnings']['MultiContainerWarning'],
+            CATALOG["warnings"]["MultiContainerWarning"],
             extra=context_extra(
-                caller='molsysmt.form.string_alphafold_id.to_mmcif_PdbxContainers_DataContainer',
-                operation='download',
-                provider='AlphaFold DB',
-                extra={'format': 'BCIF'},
+                caller="molsysmt.form.string_alphafold_id.to_mmcif_PdbxContainers_DataContainer",
+                operation="download",
+                provider="AlphaFold DB",
+                extra={"format": "BCIF"},
             ),
         )
-    if len(containers)==0:
-        raise FormatError("AlphaFold ID has no DataContainer", caller="molsysmt.form.string_alphafold_id.to_mmcif_PdbxContainers_DataContainer")
+    if len(containers) == 0:
+        raise FormatError(
+            "AlphaFold ID has no DataContainer",
+            caller="molsysmt.form.string_alphafold_id.to_mmcif_PdbxContainers_DataContainer",
+        )
 
     tmp_item = containers[0]
 

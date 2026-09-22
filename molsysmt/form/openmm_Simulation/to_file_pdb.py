@@ -1,7 +1,14 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='openmm.Simulation')
-def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+
+@arg_digest(form="openmm.Simulation")
+def to_file_pdb(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    output_filename=None,
+    skip_digestion=False,
+):
     """
     Converting from openmm.Simulation to file:pdb.
 
@@ -28,20 +35,37 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology as openmm_Simulation_to_openmm_Topology
-    from molsysmt.form.openmm_Topology.to_file_pdb import to_file_pdb as openmm_Topology_to_file_pdb
-    from . import get_coordinates_from_atom
-    from . import get_box_from_system
+    from molsysmt.form.openmm_Topology.to_file_pdb import (
+        to_file_pdb as openmm_Topology_to_file_pdb,
+    )
+    from molsysmt.form.openmm_Topology.to_openmm_Topology import (
+        to_openmm_Topology as openmm_Simulation_to_openmm_Topology,
+    )
 
-    topology = openmm_Simulation_to_openmm_Topology(item, atom_indices=atom_indices,
-                                                    structure_indices=structure_indices, skip_digestion=True)
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                            skip_digestion=True)
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    from . import get_box_from_system, get_coordinates_from_atom
+
+    topology = openmm_Simulation_to_openmm_Topology(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
     topology.setPeriodicBoxVectors(box)
 
-    tmp_item = openmm_Topology_to_file_pdb(topology, coordinates=coordinates, output_filename=output_filename,
-                                           skip_digestion=True)
+    tmp_item = openmm_Topology_to_file_pdb(
+        topology,
+        coordinates=coordinates,
+        output_filename=output_filename,
+        skip_digestion=True,
+    )
 
     return tmp_item
-

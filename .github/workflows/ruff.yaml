@@ -62,3 +62,11 @@ jobs:
           ruff format --check molsysmt/form/file_bcif
           ruff check molsysmt/form/file_bcif_gz
           ruff format --check molsysmt/form/file_bcif_gz
+          ruff check molsysmt/form/openmm_Modeller
+          ruff format --check molsysmt/form/openmm_Modeller
+          ruff check molsysmt/form/openmm_Simulation
+          ruff format --check molsysmt/form/openmm_Simulation
+          ruff check molsysmt/form/string_alphafold_id
+          ruff format --check molsysmt/form/string_alphafold_id
+          ruff check molsysmt/form/mmcif_PdbxContainers_DataContainer
+          ruff format --check molsysmt/form/mmcif_PdbxContainers_DataContainer

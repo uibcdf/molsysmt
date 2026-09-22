@@ -1,5 +1,6 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
+
+from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="openmm.Modeller")
@@ -73,11 +74,12 @@ def to_openmm_Simulation(
     .. versionadded:: 1.0.0
     """
 
-    from .to_openmm_Topology import to_openmm_Topology
-    from . import get_coordinates_from_atom
     from molsysmt.form.openmm_Topology.to_openmm_Simulation import (
         to_openmm_Simulation as openmm_Topology_to_openmm_Simulation,
     )
+
+    from . import get_coordinates_from_atom
+    from .to_openmm_Topology import to_openmm_Topology
 
     topology = to_openmm_Topology(
         item,

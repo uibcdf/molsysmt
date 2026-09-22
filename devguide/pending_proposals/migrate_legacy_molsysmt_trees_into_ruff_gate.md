@@ -217,3 +217,23 @@ non-import differences after normalizing the reviewed `bonds_required`
 assignments. The explicit CI checks and file-selection guard now cover all
 seven adapters. The remaining full-core count is 7,567 findings; this is
 progress on issue #212, not completion of the repository-wide gate.
+
+## Sixth migrated slice: OpenMM, AlphaFold ID, and mmCIF containers
+
+On 2026-09-22, `openmm_Modeller`, `openmm_Simulation`,
+`string_alphafold_id`, and `mmcif_PdbxContainers_DataContainer` were
+migrated. Their 1,838 initial findings were concentrated in import ordering,
+unused imports, and metadata-first package initializers. Ruff's specific
+findings were reviewed for each adapter. The one private ArgDigest wildcard
+import in the Modeller converter and two getter wildcard imports in the mmCIF
+converter were replaced with the exact names used. AlphaFold's two unused
+local assignments were removed after inspecting Ruff's proposed diff; the
+response read and decode call remains.
+
+All four adapters pass their relevant functional suites before and after
+editing. Their package export names, origin modules, conversion maps, and
+Modeller's conversion-option map match the originals. The form-adapter audit,
+explicit Ruff lint and format checks, and migrated-file selection test pass.
+An AST comparison across the 101 changed form Python files found no other
+non-import differences after normalizing the two reviewed AlphaFold
+assignments. The full-core count fell from 7,567 to 5,729 findings.

@@ -73,6 +73,10 @@ def test_core_critical_ruff_rules():
         "form/string_pdb_id",
         "form/file_bcif",
         "form/file_bcif_gz",
+        "form/openmm_Modeller",
+        "form/openmm_Simulation",
+        "form/string_alphafold_id",
+        "form/mmcif_PdbxContainers_DataContainer",
     ],
 )
 def test_migrated_package_ruff_gate(package):

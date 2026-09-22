@@ -1,9 +1,18 @@
 from molsysmt._private.smonitor import NotImplementedIteratorError
 
-class StructuresIterator():
 
-    def __init__(self, molecular_system, atom_indices='all', start=0, interval=1, stop=None, chunk=1,
-                 structure_indices=None, skip_digestion=True):
+class StructuresIterator:
+    def __init__(
+        self,
+        molecular_system,
+        atom_indices="all",
+        start=0,
+        interval=1,
+        stop=None,
+        chunk=1,
+        structure_indices=None,
+        skip_digestion=True,
+    ):
         pass
 
     def __iter__(self):
@@ -12,8 +21,8 @@ class StructuresIterator():
     def __next__(self):
         raise NotImplementedIteratorError
 
-class TopologyIterator():
 
+class TopologyIterator:
     def __init__(self, molecular_system):
         pass
 
@@ -22,5 +31,3 @@ class TopologyIterator():
 
     def __next__(self):
         raise NotImplementedIteratorError
-
-

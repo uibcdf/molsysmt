@@ -1,7 +1,14 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='mmcif.PdbxContainers.DataContainer')
-def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+
+@arg_digest(form="mmcif.PdbxContainers.DataContainer")
+def to_mdtraj_Trajectory(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    output_filename=None,
+    skip_digestion=False,
+):
     """
     Converting from mmcif.PdbxContainers.DataContainer to mdtraj.Trajectory.
 
@@ -28,12 +35,18 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', outp
     .. versionadded:: 1.0.0
     """
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
-    from molsysmt.form.molsysmt_MolSys.to_mdtraj_Trajectory import to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory
+    from molsysmt.form.molsysmt_MolSys.to_mdtraj_Trajectory import (
+        to_mdtraj_Trajectory as molsysmt_MolSys_to_mdtraj_Trajectory,
+    )
 
-    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                                  skip_digestion=True)
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
+
+    tmp_item = to_molsysmt_MolSys(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
     tmp_item = molsysmt_MolSys_to_mdtraj_Trajectory(tmp_item, skip_digestion=True)
 
     return tmp_item
-

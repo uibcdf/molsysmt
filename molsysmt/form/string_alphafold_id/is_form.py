@@ -2,6 +2,7 @@ import re
 
 _pattern = re.compile(r"AF-[A-Za-z0-9]+-F[0-9]+(?:-model_v[0-9]+)?")
 
+
 def is_form(item):
     """
     Checking whether an item is an instance of form string:alphafold_id.

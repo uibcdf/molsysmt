@@ -4,22 +4,21 @@ from __future__ import annotations
 
 import pandas as pd
 
-
 _ORDER_CODES = {
-    'SING': {'bond_order': 1},
-    'DOUB': {'bond_order': 2},
-    'TRIP': {'bond_order': 3},
-    'QUAD': {'bond_order': 4},
-    'AROM': {'is_aromatic': True},
-    'DELO': {'is_conjugated': True},
+    "SING": {"bond_order": 1},
+    "DOUB": {"bond_order": 2},
+    "TRIP": {"bond_order": 3},
+    "QUAD": {"bond_order": 4},
+    "AROM": {"is_aromatic": True},
+    "DELO": {"is_conjugated": True},
 }
 _MERGED_FIELDS = (
-    'bond_order',
-    'fractional_bond_order',
-    'bond_type',
-    'is_aromatic',
-    'is_conjugated',
-    'evidence',
+    "bond_order",
+    "fractional_bond_order",
+    "bond_type",
+    "is_aromatic",
+    "is_conjugated",
+    "evidence",
 )
 
 
@@ -44,14 +43,14 @@ def metadata_from_chem_comp_bond(record, attributes):
     .. versionadded:: 1.0.0
     """
 
-    metadata = {'bond_type': 'covalent', 'evidence': 'explicit'}
-    if 'value_order' in attributes:
-        value = str(record[attributes['value_order']]).strip().upper()
+    metadata = {"bond_type": "covalent", "evidence": "explicit"}
+    if "value_order" in attributes:
+        value = str(record[attributes["value_order"]]).strip().upper()
         metadata.update(_ORDER_CODES.get(value, {}))
-    if 'pdbx_aromatic_flag' in attributes:
-        value = str(record[attributes['pdbx_aromatic_flag']]).strip().upper()
-        if value == 'Y':
-            metadata['is_aromatic'] = True
+    if "pdbx_aromatic_flag" in attributes:
+        value = str(record[attributes["pdbx_aromatic_flag"]]).strip().upper()
+        if value == "Y":
+            metadata["is_aromatic"] = True
     return metadata
 
 
@@ -74,18 +73,16 @@ def has_unknown_chem_comp_bond_orders(container):
     .. versionadded:: 1.0.0
     """
 
-    if not container.exists('chem_comp_bond'):
+    if not container.exists("chem_comp_bond"):
         return False
-    category = container.getObj('chem_comp_bond')
-    attributes = {
-        name: index for index, name in enumerate(category.getAttributeList())
-    }
-    if 'value_order' not in attributes:
+    category = container.getObj("chem_comp_bond")
+    attributes = {name: index for index, name in enumerate(category.getAttributeList())}
+    if "value_order" not in attributes:
         return False
-    order_index = attributes['value_order']
+    order_index = attributes["value_order"]
     for record in category:
         value = str(record[order_index]).strip().upper()
-        if value not in _ORDER_CODES and value not in {'', '.', '?'}:
+        if value not in _ORDER_CODES and value not in {"", ".", "?"}:
             return True
     return False
 
@@ -124,14 +121,14 @@ class BondAccumulator:
         """
 
         key = self._key(endpoints)
-        evidence = metadata.get('evidence', 'inferred')
-        if evidence == 'inferred':
+        evidence = metadata.get("evidence", "inferred")
+        if evidence == "inferred":
             self.has_inference = True
         incoming = {
-            'atom1_index': key[0],
-            'atom2_index': key[1],
-            'bond_type': 'covalent',
-            'evidence': evidence,
+            "atom1_index": key[0],
+            "atom2_index": key[1],
+            "bond_type": "covalent",
+            "evidence": evidence,
         }
         incoming.update(metadata)
 
@@ -140,8 +137,8 @@ class BondAccumulator:
             self._rows[key] = incoming
             return
 
-        current_explicit = current.get('evidence') == 'explicit'
-        incoming_explicit = incoming.get('evidence') == 'explicit'
+        current_explicit = current.get("evidence") == "explicit"
+        incoming_explicit = incoming.get("evidence") == "explicit"
         for field in _MERGED_FIELDS:
             old = current.get(field, pd.NA)
             new = incoming.get(field, pd.NA)
@@ -156,7 +153,7 @@ class BondAccumulator:
                 self.has_conflict = True
 
         if current_explicit or incoming_explicit:
-            current['evidence'] = 'explicit'
+            current["evidence"] = "explicit"
 
     def extend(self, endpoints, **metadata):
         """
@@ -203,14 +200,14 @@ class BondAccumulator:
         remapped.has_inference = self.has_inference
         remapped.has_conflict = self.has_conflict
         for row in self._rows.values():
-            atom1 = replacements.get(row['atom1_index'], row['atom1_index'])
-            atom2 = replacements.get(row['atom2_index'], row['atom2_index'])
+            atom1 = replacements.get(row["atom1_index"], row["atom1_index"])
+            atom2 = replacements.get(row["atom2_index"], row["atom2_index"])
             if atom1 not in index_map or atom2 not in index_map or atom1 == atom2:
                 continue
             metadata = {
                 key: value
                 for key, value in row.items()
-                if key not in {'atom1_index', 'atom2_index'}
+                if key not in {"atom1_index", "atom2_index"}
             }
             remapped.add((index_map[atom1], index_map[atom2]), **metadata)
         remapped.has_inference |= self.has_inference
@@ -246,5 +243,5 @@ class BondAccumulator:
 
         rows = [self._rows[key] for key in sorted(self._rows)]
         if not rows:
-            return pd.DataFrame(columns=['atom1_index', 'atom2_index'])
+            return pd.DataFrame(columns=["atom1_index", "atom2_index"])
         return pd.DataFrame(rows)

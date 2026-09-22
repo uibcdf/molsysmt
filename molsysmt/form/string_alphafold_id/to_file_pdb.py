@@ -1,7 +1,14 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:alphafold_id')
-def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+
+@arg_digest(form="string:alphafold_id")
+def to_file_pdb(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    output_filename=None,
+    skip_digestion=False,
+):
     """
     Converting from string:alphafold_id to file:pdb.
 
@@ -28,12 +35,13 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     .. versionadded:: 1.0.0
     """
 
+    import json
     import urllib.request
     from urllib.request import urlretrieve
-    import json
+
     from ..file_pdb.extract import extract
 
-    uniprot_id = item.split('-')[-2]
+    uniprot_id = item.split("-")[-2]
 
     api_url = f"https://alphafold.ebi.ac.uk/api/prediction/{uniprot_id}"
 
@@ -46,9 +54,7 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
         response_data = response.read()
 
     aux_json = json.loads(response_data)
-    fullpdburl = aux_json[0]['pdbUrl']
-
-    output = None
+    fullpdburl = aux_json[0]["pdbUrl"]
 
     if output_filename is None:
         output_filename = fullpdburl.split("/")[-1]
@@ -56,8 +62,13 @@ def to_file_pdb(item, atom_indices='all', structure_indices='all', output_filena
     urlretrieve(fullpdburl, output_filename)
 
     tmp_item = output_filename
-    tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices,
-            output_filename=tmp_item, copy_if_all=False, skip_digestion=True)
+    tmp_item = extract(
+        tmp_item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        output_filename=tmp_item,
+        copy_if_all=False,
+        skip_digestion=True,
+    )
 
     return tmp_item
-

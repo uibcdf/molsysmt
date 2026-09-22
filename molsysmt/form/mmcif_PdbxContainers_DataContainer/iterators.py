@@ -1,13 +1,24 @@
-from molsysmt._private.smonitor import NotImplementedIteratorError
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.indices import indices_iterator
+from molsysmt._private.smonitor import NotImplementedIteratorError
 from molsysmt._private.variables import is_all
 
-class StructuresIterator():
 
-    @arg_digest(form='mmcif.PdbxContainers.DataContainer')
-    def __init__(self, molecular_system, atom_indices='all', start=0, stop=None, step=1, chunk=1,
-            structure_indices=None, output_type = 'values', skip_digestion=False, **kwargs):
+class StructuresIterator:
+    @arg_digest(form="mmcif.PdbxContainers.DataContainer")
+    def __init__(
+        self,
+        molecular_system,
+        atom_indices="all",
+        start=0,
+        stop=None,
+        step=1,
+        chunk=1,
+        structure_indices=None,
+        output_type="values",
+        skip_digestion=False,
+        **kwargs,
+    ):
 
         self.molecular_system = molecular_system
         self.atom_indices = atom_indices
@@ -29,6 +40,7 @@ class StructuresIterator():
 
         if self.stop is None:
             from .get_structural_attributes import get_n_structures_from_system
+
             self.stop = get_n_structures_from_system(molecular_system)
 
     def __iter__(self):
@@ -37,12 +49,23 @@ class StructuresIterator():
     def __next__(self):
         raise NotImplementedIteratorError
 
-class TopologyIterator():
 
-    @arg_digest(form='mmcif.PdbxContainers.DataContainer')
-    def __init__(self, molecular_system, element='atom', indices='all', start=0, stop=None, step=1, chunk=1,
-            output_type='values', skip_digestion=False, **kwargs):
- 
+class TopologyIterator:
+    @arg_digest(form="mmcif.PdbxContainers.DataContainer")
+    def __init__(
+        self,
+        molecular_system,
+        element="atom",
+        indices="all",
+        start=0,
+        stop=None,
+        step=1,
+        chunk=1,
+        output_type="values",
+        skip_digestion=False,
+        **kwargs,
+    ):
+
         self.molecular_system = molecular_system
         self.element = element
         self.indices = indices
@@ -65,17 +88,27 @@ class TopologyIterator():
         if self.stop is None:
             if is_all(indices):
                 from .get_structural_attributes import get_n_atoms_from_system
-                self.stop = get_n_atoms_from_system(molecular_system, skip_digestion=True)
+
+                self.stop = get_n_atoms_from_system(
+                    molecular_system, skip_digestion=True
+                )
             else:
                 self.stop = len(indices)
 
         from molsysmt import get
 
-        self._get_result = get(self.molecular_system, element=self.element, selection=self.indices, output_type='dictionary',
-                               skip_digestion=True, **kwargs)
+        self._get_result = get(
+            self.molecular_system,
+            element=self.element,
+            selection=self.indices,
+            output_type="dictionary",
+            skip_digestion=True,
+            **kwargs,
+        )
 
-        self._indices_iterator = indices_iterator(start=self.start, stop=self.stop, step=self.step, chunk=self.chunk)
-
+        self._indices_iterator = indices_iterator(
+            start=self.start, stop=self.stop, step=self.step, chunk=self.chunk
+        )
 
     def __iter__(self):
 
@@ -86,20 +119,17 @@ class TopologyIterator():
         indices = self._indices_iterator.__next__()
 
         if indices is not None:
-
             for key in self.arguments:
-                self._output_dictionary[key]=self._get_result[key][indices]
+                self._output_dictionary[key] = self._get_result[key][indices]
 
-            if self._output_type=='values':
+            if self._output_type == "values":
                 output = list(self._output_dictionary.values())
                 if len(output) == 1:
                     output = output[0]
-            elif self._output_type=='dictionary':
+            elif self._output_type == "dictionary":
                 output = self._output_dictionary
 
-            return  output
+            return output
 
         else:
-
             raise StopIteration
-

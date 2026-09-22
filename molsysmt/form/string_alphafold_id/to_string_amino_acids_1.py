@@ -1,7 +1,14 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:alphafold_id')
-def to_string_amino_acids_1(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+
+@arg_digest(form="string:alphafold_id")
+def to_string_amino_acids_1(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    output_filename=None,
+    skip_digestion=False,
+):
     """
     Converting from string:alphafold_id to string:amino_acids_1.
 
@@ -28,13 +35,10 @@ def to_string_amino_acids_1(item, atom_indices='all', structure_indices='all', o
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt._private.files_and_directories import temp_filename
-    import urllib.request
-    from urllib.request import urlretrieve
     import json
-    from ..file_pdb.extract import extract
+    import urllib.request
 
-    uniprot_id = item.split('-')[-2]
+    uniprot_id = item.split("-")[-2]
 
     api_url = f"https://alphafold.ebi.ac.uk/api/prediction/{uniprot_id}"
 
@@ -47,7 +51,6 @@ def to_string_amino_acids_1(item, atom_indices='all', structure_indices='all', o
         response_data = response.read()
 
     aux_json = json.loads(response_data)
-    tmp_item = aux_json[0]['uniprotSequence']
+    tmp_item = aux_json[0]["uniprotSequence"]
 
     return tmp_item
-
