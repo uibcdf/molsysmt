@@ -185,6 +185,7 @@ extend-exclude = [
     "molsysmt",
     "MOLSYSSUITE_GUIDE.md",
     "paper",
+    "PYTEST_RECEPTOR_GUIDE.md",
     "PYUNITWIZARD_GUIDE.md",
     "sandbox",
     "SMONITOR_GUIDE.md",

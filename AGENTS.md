@@ -153,3 +153,5 @@ These guides are required reading for anyone developing this library. They descr
   reporting.
 - `GH_RUN_RECEPTOR_GUIDE.md` — Required guide for compact, truth-preserving inspection of
   GitHub Actions runs and the native-command fallback.
+- `PYTEST_RECEPTOR_GUIDE.md` — Required guide for compact, truth-preserving pytest output
+  in local and hosted development.
