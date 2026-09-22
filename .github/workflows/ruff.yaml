@@ -38,7 +38,9 @@ jobs:
         # The full common baseline is migrated under uibcdf/molsysmt#212.
         run: ruff check --select F821,F822,F823,B006,B023 molsysmt
 
-      - name: Check migrated attribute package
+      - name: Check migrated packages
         run: |
           ruff check molsysmt/attribute
           ruff format --check molsysmt/attribute
+          ruff check molsysmt/lib
+          ruff format --check molsysmt/lib

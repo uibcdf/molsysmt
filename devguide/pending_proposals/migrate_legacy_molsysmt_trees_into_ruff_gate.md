@@ -123,10 +123,19 @@ function. The original dependency order was restored with a documented local
 needs behavioral review in this repository.
 
 An explicit CI step now runs both `ruff check molsysmt/attribute` and
-`ruff format --check molsysmt/attribute`. The test
-`devtools/tests/test_ruff_clean.py::test_migrated_attribute_ruff_gate` compares
-Ruff's selected files with every Python file under the package and runs both
-checks, so a zero-file or partial selection cannot pass unnoticed. The 11
+`ruff format --check molsysmt/attribute`. The parametrized test
+`devtools/tests/test_ruff_clean.py::test_migrated_package_ruff_gate` compares
+Ruff's selected files with every Python file under each migrated package and runs
+both checks, so a zero-file or partial selection cannot pass unnoticed. The 11
 `tests/attribute` cases, the three Ruff gate tests, and dependency validation
 passed after the import-order correction. The general `molsysmt` exclusion remains
 until more of the legacy package is migrated.
+
+## Second migrated slice: lib
+
+The baseline `tests/lib` suite passed all 45 cases before editing on 2026-09-22.
+The `molsysmt/lib` tree had 29 `I001` findings across 29 files, with only five
+files requiring formatting. After import sorting and formatting, full lint and
+format checks pass for the tree, and the same 45 tests still pass. The CI step
+and the parametrized file-selection test now cover `molsysmt/lib` alongside
+`molsysmt/attribute`. No core scientific behavior was intentionally changed.

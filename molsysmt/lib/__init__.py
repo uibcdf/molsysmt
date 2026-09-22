@@ -1,11 +1,11 @@
 import importlib
 
 _LAZY_ATTRIBUTES = {
-    'math': '.math',
-    'series': '.series',
-    'pbc': '.pbc',
-    'structure': '.structure',
-    'topology': '.topology',
+    "math": ".math",
+    "series": ".series",
+    "pbc": ".pbc",
+    "structure": ".structure",
+    "topology": ".topology",
 }
 
 

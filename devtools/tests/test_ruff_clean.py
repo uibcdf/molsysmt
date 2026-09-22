@@ -1,6 +1,8 @@
 import subprocess
 from pathlib import Path
 
+import pytest
+
 
 def test_ruff_clean_across_repo():
     """Run the configured Ruff boundary; legacy paths are tracked by #212."""
@@ -57,13 +59,15 @@ def test_core_critical_ruff_rules():
     )
 
 
-def test_migrated_attribute_ruff_gate():
-    """Keep every Python file in the migrated attribute package under Ruff."""
+@pytest.mark.parametrize("package", ["attribute", "lib"])
+def test_migrated_package_ruff_gate(package):
+    """Keep every Python file in each migrated package under Ruff."""
     repo_root = Path(__file__).resolve().parent.parent.parent
-    attribute_dir = repo_root / "molsysmt" / "attribute"
-    expected = {path.resolve() for path in attribute_dir.rglob("*.py")}
+    package_dir = repo_root / "molsysmt" / package
+    package_path = f"molsysmt/{package}"
+    expected = {path.resolve() for path in package_dir.rglob("*.py")}
     selected = subprocess.run(
-        ["ruff", "check", "--show-files", "molsysmt/attribute"],
+        ["ruff", "check", "--show-files", package_path],
         cwd=repo_root,
         capture_output=True,
         text=True,
@@ -76,8 +80,8 @@ def test_migrated_attribute_ruff_gate():
     )
 
     for command in (
-        ["ruff", "check", "--no-cache", "molsysmt/attribute"],
-        ["ruff", "format", "--check", "molsysmt/attribute"],
+        ["ruff", "check", "--no-cache", package_path],
+        ["ruff", "format", "--check", package_path],
     ):
         result = subprocess.run(command, cwd=repo_root, capture_output=True, text=True)
         assert result.returncode == 0, (

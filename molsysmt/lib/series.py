@@ -4,10 +4,12 @@ import numpy as np
 
 from molsysmt._private.rust_backend import (
     chunks_to_serie,
-    jit_serialize as _jit_serialize,
     occurrence_order,
     occurrence_order_sorted_serie,
     serie_to_chunks,
+)
+from molsysmt._private.rust_backend import (
+    jit_serialize as _jit_serialize,
 )
 
 

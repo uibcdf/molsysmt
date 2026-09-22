@@ -8,8 +8,10 @@ from molsysmt._private.rust_backend import (
     minimum_distance_masked_not_bonded,
     normalize_vector,
     quaternion_to_rotation_matrix,
-    rodrigues_rotation as _rodrigues_rotation,
     transpmatmul,
+)
+from molsysmt._private.rust_backend import (
+    rodrigues_rotation as _rodrigues_rotation,
 )
 
 angle = _rust.angle
