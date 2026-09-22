@@ -5,8 +5,28 @@ from pathlib import Path
 def test_ruff_clean_across_repo():
     """Run the configured Ruff boundary; legacy paths are tracked by #212."""
     repo_root = Path(__file__).resolve().parent.parent.parent
+    selected = subprocess.run(
+        ["ruff", "check", "--show-files", "."],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    )
+    assert selected.returncode == 0, selected.stderr
+    checked_files = {
+        Path(filename).resolve().relative_to(repo_root).as_posix()
+        for filename in selected.stdout.splitlines()
+        if filename.strip()
+    }
+    expected = {
+        "devtools/scripts/validate_devguide.py",
+        "molsysviewer_molsysmt/addon.py",
+    }
+    assert expected <= checked_files, (
+        f"Ruff must inspect the maintained tooling and add-on; "
+        f"missing {sorted(expected - checked_files)}"
+    )
     res = subprocess.run(
-        ["ruff", "check", "--no-cache", "--force-exclude", "."],
+        ["ruff", "check", "--no-cache", "."],
         cwd=repo_root,
         capture_output=True,
         text=True,
