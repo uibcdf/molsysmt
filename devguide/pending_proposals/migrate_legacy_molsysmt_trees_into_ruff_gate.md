@@ -73,3 +73,40 @@ fixes can affect registration side effects, so each slice needs behavioral revie
 ## Provenance
 
 Local checkout, Python 3.13, Ruff 0.16.5, 2026-09-12 to 2026-09-14.
+
+## Audit update: 2026-09-22
+
+With Ruff 0.16.5, `ruff check --no-cache --output-format json molsysmt`
+reported 13,487 findings in 2,095 files. Of these, 12,091 findings in 1,421 files
+are under `molsysmt/form`. The largest rule counts are `I001` (8,050), `F841`
+(2,929), `E402` (1,115), and `F401` (910). `ruff format --check molsysmt`
+reported 2,377 files needing formatting and 189 already formatted. The narrow
+critical-rule check still passed.
+
+The root `extend-exclude = ["molsysmt", ...]` is one exclusion for the whole
+package, not one entry per child directory. Therefore, cleaning one directory and
+removing its individual exclusion is not currently possible. A staged rollout can
+first add explicit Ruff lint and format gates for each cleaned directory while
+the root exclusion remains; the broad exclusion can be removed after coverage is
+complete, or replaced with a reviewed set of narrower temporary exclusions.
+Each gate must prove that Ruff selected the intended files, following the
+zero-file test failure resolved in `uibcdf/molsysmt#232`.
+
+The first bounded candidate is `molsysmt/attribute`: explicit lint reports six
+`I001` findings across six files, and format check reports eight of nine Python
+files needing formatting. Its 11 existing `tests/attribute` tests pass on this
+checkout. This is a candidate, not a claim that import reordering is semantically
+safe; review `__init__.py` exports and alias behavior after the change, and run
+the dependency validator. Then add explicit CI checks for this path so that its
+clean state cannot regress while the root exclusion remains.
+
+The large `form` group needs smaller adapter-level batches, especially the getter
+modules where hundreds of repeated `I001` and `F841` findings occur in a single
+file. Import-order changes, wildcard exports, and apparently unused assignments
+need behavioral review rather than a package-wide automatic fix.
+
+The historical broad tooling request `uibcdf/molsysmt#113` says post-1.0, while
+the current `devguide/release_gate.md` says `ruff check molsysmt` must pass and the
+manual full-CI workflow runs that command. The release scheduling of this full
+migration should be reconciled explicitly; it does not prevent a small, reviewed
+slice from starting.
