@@ -6,7 +6,7 @@ opened: 2026-09-02
 closed:
 severity: high
 verification: reproduced
-area: [dependencies, packaging, form]
+area: [deps, packaging, form]
 guard:
 normative:
 blocked_by: []

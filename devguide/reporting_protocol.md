@@ -269,7 +269,7 @@ This is the habit that has paid best. Keep it.
 |---|---|---|
 | kind, exactly one | `bug`, `proposal`, `enhancement`, `documentation` | by hand, at open |
 | state, zero or one | `in-progress`, `blocked`, `partial` | derived from `status` |
-| area, zero or more | `api`, `argdigest`, `attribute`, `basic`, `build`, `ci`, `convert`, `deps`, `diagnostics`, `digestion`, `docs`, `form`, `performance`, `selection`, `structure`, `tests`, `units` | derived from `area` |
+| area, zero or more | `api`, `argdigest`, `attribute`, `basic`, `build`, `ci`, `convert`, `data`, `deps`, `diagnostics`, `digestion`, `docs`, `extract`, `form`, `packaging`, `performance`, `selection`, `structure`, `tests`, `units` | derived from `area` |
 | triage | `needs-triage` | by hand, on arrival from outside |
 | severity | `scientific-integrity` | by hand, bugs only |
 
