@@ -78,6 +78,13 @@ Use the common statuses `open`, `active`, `blocked`, `partial`, `resolved`, `wit
 and `superseded`. On closure, cite a durable test or normative rule, synchronize the
 issue, regenerate local indexes, and archive the document. Archive, never delete.
 
+When an issue owned by one repository has a concrete relationship with another registered
+component, add `component:<name>` for every related component and explain the relationship
+in the issue body. For example, MolSysMT work requested by DockingMT uses
+`component:dockingmt`. These labels are created on demand through the central
+`component_issue_labels.py` tool; do not invent unregistered suffixes or use a component's
+own label in its repository. The central reporting protocol defines the full procedure.
+
 For defects resolved on or after 2026-09-20, a `guard` must be mechanically addressable
 by the repository's documented runner. In the default Python profile use one safe pytest
 module, function, or class-method selector under `tests/` or `devtools/tests/`; nonexistent
