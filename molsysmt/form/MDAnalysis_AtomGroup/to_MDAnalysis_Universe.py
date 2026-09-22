@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='MDAnalysis.AtomGroup')
-def to_MDAnalysis_Universe(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="MDAnalysis.AtomGroup")
+def to_MDAnalysis_Universe(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from MDAnalysis.AtomGroup to MDAnalysis.Universe.
 

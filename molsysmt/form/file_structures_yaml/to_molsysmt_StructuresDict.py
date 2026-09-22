@@ -1,7 +1,8 @@
-from depdigest import dep_digest
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
 import numpy as np
+from depdigest import dep_digest
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
 
 
 def _load_quantity(value, unit):
@@ -10,8 +11,8 @@ def _load_quantity(value, unit):
     return puw.quantity(value, unit)
 
 
-@dep_digest('yaml')
-@arg_digest(form='file:structures_yaml')
+@dep_digest("yaml")
+@arg_digest(form="file:structures_yaml")
 def to_molsysmt_StructuresDict(item, skip_digestion=False):
     """
     Converting from file:structures_yaml to molsysmt.StructuresDict.
@@ -35,22 +36,28 @@ def to_molsysmt_StructuresDict(item, skip_digestion=False):
 
     import yaml
 
-    with open(item, 'r', encoding='utf-8') as file_handle:
+    with open(item, "r", encoding="utf-8") as file_handle:
         data = yaml.safe_load(file_handle)
 
-    payload = data.get('structures', {})
+    payload = data.get("structures", {})
     output = {}
 
-    if payload.get('structure_id', None) is not None:
-        output['structure_id'] = payload['structure_id']
-    if payload.get('alternate_location', None) is not None:
-        output['alternate_location'] = payload['alternate_location']
+    if payload.get("structure_id", None) is not None:
+        output["structure_id"] = payload["structure_id"]
+    if payload.get("alternate_location", None) is not None:
+        output["alternate_location"] = payload["alternate_location"]
 
-    for key, unit in [('time', 'ps'), ('box', 'nm'), ('coordinates', 'nm'), ('velocities', 'nm/ps'), ('b_factor', 'nm**2')]:
+    for key, unit in [
+        ("time", "ps"),
+        ("box", "nm"),
+        ("coordinates", "nm"),
+        ("velocities", "nm/ps"),
+        ("b_factor", "nm**2"),
+    ]:
         if payload.get(key, None) is not None:
             output[key] = _load_quantity(payload[key], unit)
 
-    if payload.get('occupancy', None) is not None:
-        output['occupancy'] = np.asarray(payload['occupancy'])
+    if payload.get("occupancy", None) is not None:
+        output["occupancy"] = np.asarray(payload["occupancy"])
 
     return output

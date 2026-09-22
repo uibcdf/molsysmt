@@ -1,1 +1,1 @@
-from molsysmt.form.XYZ.extract import extract
+from molsysmt.form.XYZ.extract import extract as extract

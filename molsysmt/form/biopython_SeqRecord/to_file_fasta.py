@@ -1,9 +1,11 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError
 from depdigest import dep_digest
 
-@arg_digest(form='biopython.SeqRecord')
-@dep_digest('Bio')
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentError
+
+
+@arg_digest(form="biopython.SeqRecord")
+@dep_digest("Bio")
 def to_file_fasta(item, output_filename=None, skip_digestion=False):
     """
     Converting from biopython.SeqRecord to file:fasta.
@@ -28,14 +30,17 @@ def to_file_fasta(item, output_filename=None, skip_digestion=False):
     """
 
     if output_filename is None:
-        raise ArgumentError(argument='output_filename', caller='molsysmt.form.biopython_SeqRecord.to_file_fasta',
-                            message='output_filename is required to write a file:fasta.')
+        raise ArgumentError(
+            argument="output_filename",
+            caller="molsysmt.form.biopython_SeqRecord.to_file_fasta",
+            message="output_filename is required to write a file:fasta.",
+        )
 
     from Bio import SeqIO
 
     records = item if isinstance(item, list) else [item]
 
-    with open(output_filename, 'w') as fff:
-        SeqIO.write(records, fff, 'fasta')
+    with open(output_filename, "w") as fff:
+        SeqIO.write(records, fff, "fasta")
 
     return output_filename

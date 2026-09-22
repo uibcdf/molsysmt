@@ -1,7 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
 
-@arg_digest(form='molsysmt.StructuresDict')
+@arg_digest(form="molsysmt.StructuresDict")
 def append_structures(
     to_item,
     item=None,
@@ -16,7 +16,7 @@ def append_structures(
     b_factor=None,
     alternate_location=None,
     occupancy=None,
-    attribute_policy='intersection',
+    attribute_policy="intersection",
     skip_digestion=False,
 ):
     """
@@ -65,11 +65,12 @@ def append_structures(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import Structures
-    from .to_molsysmt_Structures import to_molsysmt_Structures
     from molsysmt.form.molsysmt_Structures.to_molsysmt_StructuresDict import (
         to_molsysmt_StructuresDict,
     )
+    from molsysmt.native import Structures
+
+    from .to_molsysmt_Structures import to_molsysmt_Structures
 
     target = to_molsysmt_Structures(to_item, skip_digestion=True)
     if item is None:

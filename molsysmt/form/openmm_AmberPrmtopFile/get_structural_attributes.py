@@ -1,10 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
 import types
 
-form='openmm.AmberPrmtopFile'
+from molsysmt._private.argdigest import arg_digest
+
+form = "openmm.AmberPrmtopFile"
+
 
 @arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form openmm.AmberPrmtopFile.
 
@@ -28,8 +30,9 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     """
     return 0
 
+
 @arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form openmm.AmberPrmtopFile.
 
@@ -59,5 +62,10 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
         skip_digestion=True,
     )
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

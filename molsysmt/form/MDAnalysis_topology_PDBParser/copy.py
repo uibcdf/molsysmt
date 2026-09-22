@@ -1,8 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='MDAnalysis.topology.PDBParser')
-@dep_digest('MDAnalysis')
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="MDAnalysis.topology.PDBParser")
+@dep_digest("MDAnalysis")
 def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form MDAnalysis.topology.PDBParser.

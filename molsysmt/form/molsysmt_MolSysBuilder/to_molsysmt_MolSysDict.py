@@ -73,7 +73,9 @@ def to_molsysmt_MolSysDict(
         row = topology.atoms.iloc[atom_index]
         atoms.append(
             {
-                "atom_id": None if _normalize_scalar(row["atom_id"]) is None else str(_normalize_scalar(row["atom_id"])),
+                "atom_id": None
+                if _normalize_scalar(row["atom_id"]) is None
+                else str(_normalize_scalar(row["atom_id"])),
                 "atom_name": _normalize_scalar(row["atom_name"]),
                 "atom_type": _normalize_scalar(row["atom_type"]),
                 "isotope": _normalize_scalar(row["isotope"]),
@@ -86,10 +88,16 @@ def to_molsysmt_MolSysDict(
         row = topology.groups.iloc[group_index]
         groups.append(
             {
-                "group_id": None if _normalize_scalar(row["group_id"]) is None else str(_normalize_scalar(row["group_id"])),
+                "group_id": None
+                if _normalize_scalar(row["group_id"]) is None
+                else str(_normalize_scalar(row["group_id"])),
                 "group_name": _normalize_scalar(row["group_name"]),
                 "group_type": _normalize_scalar(row["group_type"]),
-                "atom_indices": [int(ii) for ii in range(topology.n_atoms) if _matches_index(atom_group_index[ii], group_index)],
+                "atom_indices": [
+                    int(ii)
+                    for ii in range(topology.n_atoms)
+                    if _matches_index(atom_group_index[ii], group_index)
+                ],
             }
         )
 
@@ -101,7 +109,10 @@ def to_molsysmt_MolSysDict(
             "atom_index_1": int(row["atom1_index"]),
             "atom_index_2": int(row["atom2_index"]),
         }
-        if "bond_order" in bonds_df.columns and _normalize_scalar(row.get("bond_order", None)) is not None:
+        if (
+            "bond_order" in bonds_df.columns
+            and _normalize_scalar(row.get("bond_order", None)) is not None
+        ):
             bond["bond_order"] = _normalize_scalar(row["bond_order"])
         elif (
             "is_aromatic" in bonds_df.columns
@@ -109,7 +120,10 @@ def to_molsysmt_MolSysDict(
             and bool(row["is_aromatic"])
         ):
             bond["bond_order"] = "aromatic"
-        if "bond_type" in bonds_df.columns and _normalize_scalar(row.get("bond_type", None)) is not None:
+        if (
+            "bond_type" in bonds_df.columns
+            and _normalize_scalar(row.get("bond_type", None)) is not None
+        ):
             bond["bond_type"] = _normalize_scalar(row["bond_type"])
         bonds.append(bond)
 
@@ -127,10 +141,16 @@ def to_molsysmt_MolSysDict(
             row = topology.chains.iloc[chain_index]
             chains.append(
                 {
-                    "chain_id": None if _normalize_scalar(row["chain_id"]) is None else str(_normalize_scalar(row["chain_id"])),
+                    "chain_id": None
+                    if _normalize_scalar(row["chain_id"]) is None
+                    else str(_normalize_scalar(row["chain_id"])),
                     "chain_name": _normalize_scalar(row["chain_name"]),
                     "chain_type": _normalize_scalar(row["chain_type"]),
-                    "group_indices": [int(ii) for ii in range(topology.n_groups) if _matches_index(group_chain_index[ii], chain_index)],
+                    "group_indices": [
+                        int(ii)
+                        for ii in range(topology.n_groups)
+                        if _matches_index(group_chain_index[ii], chain_index)
+                    ],
                 }
             )
 
@@ -141,24 +161,38 @@ def to_molsysmt_MolSysDict(
             row = topology.molecules.iloc[molecule_index]
             molecules.append(
                 {
-                    "molecule_id": None if _normalize_scalar(row["molecule_id"]) is None else str(_normalize_scalar(row["molecule_id"])),
+                    "molecule_id": None
+                    if _normalize_scalar(row["molecule_id"]) is None
+                    else str(_normalize_scalar(row["molecule_id"])),
                     "molecule_name": _normalize_scalar(row["molecule_name"]),
                     "molecule_type": _normalize_scalar(row["molecule_type"]),
-                    "group_indices": [int(ii) for ii in range(topology.n_groups) if _matches_index(group_molecule_index[ii], molecule_index)],
+                    "group_indices": [
+                        int(ii)
+                        for ii in range(topology.n_groups)
+                        if _matches_index(group_molecule_index[ii], molecule_index)
+                    ],
                 }
             )
 
     entities = []
     if topology.n_entities > 0:
-        molecule_entity_index = topology.molecules["entity_index"].to_numpy(dtype=object)
+        molecule_entity_index = topology.molecules["entity_index"].to_numpy(
+            dtype=object
+        )
         for entity_index in range(topology.n_entities):
             row = topology.entities.iloc[entity_index]
             entities.append(
                 {
-                    "entity_id": None if _normalize_scalar(row["entity_id"]) is None else str(_normalize_scalar(row["entity_id"])),
+                    "entity_id": None
+                    if _normalize_scalar(row["entity_id"]) is None
+                    else str(_normalize_scalar(row["entity_id"])),
                     "entity_name": _normalize_scalar(row["entity_name"]),
                     "entity_type": _normalize_scalar(row["entity_type"]),
-                    "molecule_indices": [int(ii) for ii in range(topology.n_molecules) if _matches_index(molecule_entity_index[ii], entity_index)],
+                    "molecule_indices": [
+                        int(ii)
+                        for ii in range(topology.n_molecules)
+                        if _matches_index(molecule_entity_index[ii], entity_index)
+                    ],
                 }
             )
 
@@ -171,11 +205,15 @@ def to_molsysmt_MolSysDict(
     if structures.structure_id is not None:
         structures_payload["structure_id"] = structures.structure_id.tolist()
     if structures.time is not None:
-        structures_payload["time"] = puw.get_value(structures.time, to_unit="ps").tolist()
+        structures_payload["time"] = puw.get_value(
+            structures.time, to_unit="ps"
+        ).tolist()
     if structures.box is not None:
         structures_payload["box"] = puw.get_value(structures.box, to_unit="nm").tolist()
     if structures.coordinates is not None:
-        structures_payload["coordinates"] = puw.get_value(structures.coordinates, to_unit="nm").tolist()
+        structures_payload["coordinates"] = puw.get_value(
+            structures.coordinates, to_unit="nm"
+        ).tolist()
 
     return MolSysDict(
         data={

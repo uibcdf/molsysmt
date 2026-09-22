@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:gro')
+
+@arg_digest(form="file:gro")
 def to_molsysmt_GROFileHandler(item, skip_digestion=False):
     """
     Converting from file:gro to molsysmt.GROFileHandler.
@@ -24,5 +25,4 @@ def to_molsysmt_GROFileHandler(item, skip_digestion=False):
 
     from molsysmt.native import GROFileHandler
 
-    return GROFileHandler(item, io_mode='r')
-
+    return GROFileHandler(item, io_mode="r")

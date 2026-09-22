@@ -2,21 +2,24 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
 import types
 
-form='openmm.Context'
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "openmm.Context"
 
 
 ## From atom
 
-@arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form openmm.Context.
 
@@ -46,19 +49,21 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
     if not is_all(structure_indices):
-        coordinates = coordinates[structure_indices,:,:]
+        coordinates = coordinates[structure_indices, :, :]
 
     if not is_all(indices):
-        coordinates = coordinates[:,indices,:]
+        coordinates = coordinates[:, indices, :]
 
     coordinates = coordinates * unit
     coordinates = puw.standardize(coordinates)
 
     return coordinates
 
-@arg_digest(form=form)
-def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_velocities_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting velocities from atom in form openmm.Context.
 
@@ -88,15 +93,16 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     velocities = velocities.reshape(1, velocities.shape[0], velocities.shape[1])
 
     if not is_all(structure_indices):
-        velocities = velocities[structure_indices,:,:]
+        velocities = velocities[structure_indices, :, :]
 
     if not is_all(indices):
-        velocities = velocities[:,indices,:]
+        velocities = velocities[:, indices, :]
 
     velocities = velocities * unit
     velocities = puw.standardize(velocities)
 
     return velocities
+
 
 ## From group
 
@@ -110,9 +116,9 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
 ## From system
 
-@arg_digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_coordinates_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting coordinates from system in form openmm.Context.
 
@@ -140,16 +146,16 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
     coordinates = coordinates.reshape(1, coordinates.shape[0], coordinates.shape[1])
 
     if not is_all(structure_indices):
-        coordinates = coordinates[structure_indices,:,:]
+        coordinates = coordinates[structure_indices, :, :]
 
     coordinates = coordinates * unit
     coordinates = puw.standardize(coordinates)
 
     return coordinates
 
-@arg_digest(form=form)
-def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_velocities_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting velocities from system in form openmm.Context.
 
@@ -177,16 +183,16 @@ def get_velocities_from_system(item, structure_indices='all', skip_digestion=Fal
     velocities = velocities.reshape(1, velocities.shape[0], velocities.shape[1])
 
     if not is_all(structure_indices):
-        velocities = velocities[structure_indices,:,:]
+        velocities = velocities[structure_indices, :, :]
 
     velocities = velocities * unit
     velocities = puw.standardize(velocities)
 
     return velocities
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form openmm.Context.
 
@@ -208,7 +214,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    box=item.getState().getPeriodicBoxVectors(asNumpy=True)
+    box = item.getState().getPeriodicBoxVectors(asNumpy=True)
 
     if box is not None:
         box_unit = box.unit
@@ -216,19 +222,19 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
         box = box.reshape(1, box.shape[0], box.shape[1])
         box = box * box_unit
 
-    output=None
+    output = None
 
     if box is not None:
         if is_all(structure_indices):
-            output=box
+            output = box
         else:
-            output=box[structure_indices,:,:]
+            output = box[structure_indices, :, :]
 
     return output
 
-@arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form openmm.Context.
 
@@ -253,14 +259,14 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     output = item.getState().getTime()
     value = puw.get_value(output)
     unit = puw.get_unit(output)
-    output = np.array([value])*unit
+    output = np.array([value]) * unit
     output = puw.standardize(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+def get_temperature_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting temperature from system in form openmm.Context.
 
@@ -286,19 +292,21 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
         return None
 
     integrator = item.getIntegrator()
-    getter = getattr(integrator, 'getTemperature', None)
+    getter = getattr(integrator, "getTemperature", None)
     if getter is None:
         return None
 
     temperature = getter()
-    output = puw.standardize(np.asarray([puw.get_value(temperature)]) * puw.get_unit(temperature))
+    output = puw.standardize(
+        np.asarray([puw.get_value(temperature)]) * puw.get_unit(temperature)
+    )
     if not is_all(structure_indices):
         output = output[structure_indices]
     return output
 
-@arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form openmm.Context.
 
@@ -322,9 +330,9 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     """
     return None
 
-@arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form openmm.Context.
 
@@ -351,8 +359,13 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     else:
         len(structure_indices)
 
+
 ## From bond
 
 # List of functions to be imported
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

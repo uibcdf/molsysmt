@@ -1,16 +1,19 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
+import types
+
 import numpy as np
 
-form='pytraj.Trajectory'
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "pytraj.Trajectory"
 
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(
     item,
-    indices='all',
-    structure_indices='all',
+    indices="all",
+    structure_indices="all",
     skip_digestion=False,
 ):
     """
@@ -43,14 +46,14 @@ def get_coordinates_from_atom(
     if not is_all(indices):
         coordinates = coordinates[:, indices, :]
 
-    coordinates = puw.quantity(coordinates, 'angstrom')
+    coordinates = puw.quantity(coordinates, "angstrom")
     return puw.standardize(coordinates)
 
 
 @arg_digest(form=form)
 def get_n_structures_from_system(
     item,
-    structure_indices='all',
+    structure_indices="all",
     skip_digestion=False,
 ):
     """
@@ -83,7 +86,7 @@ def get_n_structures_from_system(
 @arg_digest(form=form)
 def get_box_from_system(
     item,
-    structure_indices='all',
+    structure_indices="all",
     skip_digestion=False,
 ):
     """
@@ -116,8 +119,8 @@ def get_box_from_system(
 
     from molsysmt.pbc import get_box_from_lengths_and_angles
 
-    box_lengths = puw.quantity(np.asarray(unitcells[:, :3]), 'angstrom')
-    box_angles = puw.quantity(np.asarray(unitcells[:, 3:]), 'degree')
+    box_lengths = puw.quantity(np.asarray(unitcells[:, :3]), "angstrom")
+    box_angles = puw.quantity(np.asarray(unitcells[:, 3:]), "degree")
     return get_box_from_lengths_and_angles(
         box_lengths,
         box_angles,
@@ -128,7 +131,7 @@ def get_box_from_system(
 @arg_digest(form=form)
 def get_time_from_system(
     item,
-    structure_indices='all',
+    structure_indices="all",
     skip_digestion=False,
 ):
     """
@@ -158,13 +161,13 @@ def get_time_from_system(
     time = item.time
     if not is_all(structure_indices):
         time = time[structure_indices]
-    return puw.standardize(puw.quantity(time, 'picosecond'))
+    return puw.standardize(puw.quantity(time, "picosecond"))
 
 
 @arg_digest(form=form)
 def get_structure_id_from_system(
     item,
-    structure_indices='all',
+    structure_indices="all",
     skip_digestion=False,
 ):
     """
@@ -193,5 +196,8 @@ def get_structure_id_from_system(
 
 
 # List of functions to be imported
-import types
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

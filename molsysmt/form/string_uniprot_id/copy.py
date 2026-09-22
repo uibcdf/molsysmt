@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='string:uniprot_id')
+
+@arg_digest(form="string:uniprot_id")
 def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form string:uniprot_id.

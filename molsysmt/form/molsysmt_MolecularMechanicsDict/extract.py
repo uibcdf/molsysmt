@@ -15,9 +15,14 @@ def _take(value, indices):
     return value[indices]
 
 
-@arg_digest(form='molsysmt.MolecularMechanicsDict')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
-            skip_digestion=False):
+@arg_digest(form="molsysmt.MolecularMechanicsDict")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form molsysmt.MolecularMechanicsDict.
 
@@ -44,25 +49,25 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     .. versionadded:: 1.0.0
     """
 
-    form = 'molsysmt.MolecularMechanicsDict'
+    form = "molsysmt.MolecularMechanicsDict"
 
     if not is_all(structure_indices):
         raise NotWithThisFormError(
-            caller='molsysmt.extract',
+            caller="molsysmt.extract",
             form=form,
-            requested_attribute='structure_indices',
+            requested_attribute="structure_indices",
             message=f"Form {form!r} does not contain structures to extract.",
         )
 
     if is_all(atom_indices):
         return deepcopy(item) if copy_if_all else item
 
-    per_atom_attributes = ('formal_charge', 'partial_charge', 'atom_ff_type')
+    per_atom_attributes = ("formal_charge", "partial_charge", "atom_ff_type")
     if not any(item.get(attribute) is not None for attribute in per_atom_attributes):
         raise NotWithThisFormError(
-            caller='molsysmt.extract',
+            caller="molsysmt.extract",
             form=form,
-            requested_attribute='atom_indices',
+            requested_attribute="atom_indices",
             message=f"Form {form!r} has no per-atom parameters to extract.",
         )
 

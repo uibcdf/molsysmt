@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='mdtraj.AmberRestartFile')
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="mdtraj.AmberRestartFile")
+def to_molsysmt_MolSys(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from mdtraj.AmberRestartFile to molsysmt.MolSys.
 
@@ -26,12 +29,17 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import Topology, MolSys
+    from molsysmt.native import MolSys, Topology
+
     from .to_molsysmt_Structures import to_molsysmt_Structures
 
     tmp_item = MolSys()
-    tmp_item.structures = to_molsysmt_Structures(item, atom_indices=atom_indices,
-                                                 structure_indices=structure_indices, skip_digestion=True)
+    tmp_item.structures = to_molsysmt_Structures(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
     tmp_item.topology = Topology(n_atoms=item._n_atoms)
 
     return tmp_item

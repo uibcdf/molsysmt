@@ -1,11 +1,14 @@
-from molsysmt._private.argdigest import arg_digest
 import types
 
-form = 'MDAnalysis.AtomGroup'
+from molsysmt._private.argdigest import arg_digest
+
+form = "MDAnalysis.AtomGroup"
 
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form MDAnalysis.AtomGroup.
 
@@ -29,11 +32,22 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
     .. versionadded:: 1.0.0
     """
+    from molsysmt.form.molsysmt_MolSys.get_structural_attributes import (
+        get_coordinates_from_atom as aux_get,
+    )
+
     from .to_molsysmt_MolSys import to_molsysmt_MolSys
-    from molsysmt.form.molsysmt_MolSys.get_structural_attributes import get_coordinates_from_atom as aux_get
 
-    tmp_item = to_molsysmt_MolSys(item, structure_indices=structure_indices, skip_digestion=True)
-    return aux_get(tmp_item, indices=indices, structure_indices='all', skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    return aux_get(
+        tmp_item, indices=indices, structure_indices="all", skip_digestion=True
+    )
 
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

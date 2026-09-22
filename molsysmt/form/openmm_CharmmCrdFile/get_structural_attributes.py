@@ -2,12 +2,15 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
+import types
+
 import numpy as np
 
-form='openmm.CharmmCrdFile'
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "openmm.CharmmCrdFile"
 
 
 def _coordinates(item):
@@ -17,7 +20,9 @@ def _coordinates(item):
 
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form openmm.CharmmCrdFile.
 
@@ -52,7 +57,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 
 @arg_digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+def get_coordinates_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting coordinates from system in form openmm.CharmmCrdFile.
 
@@ -80,6 +85,10 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
         skip_digestion=True,
     )
 
+
 # List of functions to be imported
-import types
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

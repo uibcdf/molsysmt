@@ -1,9 +1,12 @@
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
 
-@arg_digest(form='mdtraj.XTCTrajectoryFile')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="mdtraj.XTCTrajectoryFile")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from mdtraj.XTCTrajectoryFile to molsysmt.Structures.
 
@@ -29,6 +32,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     """
 
     from molsysmt.native import Structures
+
     tmp_item = Structures()
 
     position = item.tell()
@@ -53,9 +57,9 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         if box is not None:
             box = box[structure_indices]
 
-    coordinates = coordinates * puw.unit('nanometer')
-    time = None if time is None else time * puw.unit('picosecond')
-    box = None if box is None or len(box) == 0 else box * puw.unit('nanometer')
+    coordinates = coordinates * puw.unit("nanometer")
+    time = None if time is None else time * puw.unit("picosecond")
+    box = None if box is None or len(box) == 0 else box * puw.unit("nanometer")
 
     tmp_item.append(
         structure_id=structure_id,

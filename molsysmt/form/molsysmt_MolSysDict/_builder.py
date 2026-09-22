@@ -10,11 +10,7 @@ def _materialize_derived_components(builder):
     topology = builder.topology
     component_indices = infer_component_indices_from_topology(topology)
     topology._set_component_indices(component_indices)
-    n_components = (
-        int(max(component_indices)) + 1
-        if len(component_indices) > 0
-        else 0
-    )
+    n_components = int(max(component_indices)) + 1 if len(component_indices) > 0 else 0
     topology.reset_components(n_components=n_components)
     topology.rebuild_components(
         redefine_indices=False,
@@ -109,7 +105,9 @@ def build_molsys_builder_from_molsys_dict(item):
         ]
 
     if structures.get("coordinates", None) is not None:
-        builder.set_coordinates(puw.quantity(structures["coordinates"], "nm"), skip_digestion=True)
+        builder.set_coordinates(
+            puw.quantity(structures["coordinates"], "nm"), skip_digestion=True
+        )
     if structures.get("box", None) is not None:
         builder.set_box(puw.quantity(structures["box"], "nm"), skip_digestion=True)
     if structures.get("time", None) is not None:

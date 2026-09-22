@@ -1,6 +1,6 @@
 from molsysmt._private.argdigest import arg_digest
 
-form = 'molsysviewer.MolSysView'
+form = "molsysviewer.MolSysView"
 
 
 @arg_digest(form=form)
@@ -25,7 +25,8 @@ def copy(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import copy as molsys_copy, convert
+    from molsysmt.basic import convert
+    from molsysmt.basic import copy as molsys_copy
     from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
@@ -33,4 +34,4 @@ def copy(item, skip_digestion=False):
         return None
 
     tmp_item = molsys_copy(tmp_item, skip_digestion=True)
-    return convert(tmp_item, to_form='molsysviewer.MolSysView', skip_digestion=True)
+    return convert(tmp_item, to_form="molsysviewer.MolSysView", skip_digestion=True)

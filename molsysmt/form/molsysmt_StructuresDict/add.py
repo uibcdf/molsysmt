@@ -1,8 +1,9 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='molsysmt.StructuresDict', to_form='molsysmt.StructuresDict')
-def add(to_item, item, atom_indices='all', structure_indices='all'):
+
+@arg_digest(form="molsysmt.StructuresDict", to_form="molsysmt.StructuresDict")
+def add(to_item, item, atom_indices="all", structure_indices="all"):
     """
     Adding elements from another item into an item of form molsysmt.StructuresDict.
 
@@ -28,4 +29,3 @@ def add(to_item, item, atom_indices='all', structure_indices='all'):
     """
 
     raise NotImplementedMethodError()
-

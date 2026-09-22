@@ -1,10 +1,12 @@
 from molsysmt._private.argdigest import arg_digest
 
-form = 'molsysviewer.MolSysView'
+form = "molsysviewer.MolSysView"
 
 
 @arg_digest(form=form)
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+def has_attribute(
+    molecular_system, attribute, include_none=False, skip_digestion=False
+):
     """
     Checking if form molsysviewer.MolSysView supports a specific attribute.
 
@@ -29,11 +31,13 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     .. versionadded:: 1.0.0
     """
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from ..molsysmt_MolSys.has_attribute import has_attribute as molsys_has_attribute
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     tmp_item = to_molsysmt_MolSys(molecular_system, skip_digestion=True)
     if tmp_item is None:
         return False
 
-    return molsys_has_attribute(tmp_item, attribute, include_none=include_none, skip_digestion=True)
+    return molsys_has_attribute(
+        tmp_item, attribute, include_none=include_none, skip_digestion=True
+    )

@@ -1,9 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
 from copy import copy
 
-@arg_digest(form='string:amino_acids_1')
-def extract(item, skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
 
+
+@arg_digest(form="string:amino_acids_1")
+def extract(item, skip_digestion=False):
     """
     Extracting a subset of elements or structures from form string:amino_acids_1.
 
@@ -24,4 +25,3 @@ def extract(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     return copy(item)
-

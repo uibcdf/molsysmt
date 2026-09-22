@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.StructuresDict')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="molsysmt.StructuresDict")
+def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from molsysmt.StructuresDict to molsysmt.Topology.
 
@@ -24,8 +25,9 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native.topology import Topology
     from molsysmt._private.variables import is_all
+    from molsysmt.native.topology import Topology
+
     from . import get_n_atoms_from_system
 
     if is_all(atom_indices):

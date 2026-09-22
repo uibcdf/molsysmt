@@ -1,5 +1,6 @@
 from pathlib import PosixPath
 
+
 def is_form(item):
     """
     Checking whether an item is an instance of form file:xtc.
@@ -25,7 +26,6 @@ def is_form(item):
         item = item.absolute().__str__()
 
     if isinstance(item, str):
-        output = item.endswith('.xtc')
+        output = item.endswith(".xtc")
 
     return output
-

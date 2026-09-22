@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:prmtop')
-def to_openmm_AmberPrmtopFile(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:prmtop")
+def to_openmm_AmberPrmtopFile(item, atom_indices="all", skip_digestion=False):
     """
     Converting from file:prmtop to openmm.AmberPrmtopFile.
 
@@ -29,4 +30,3 @@ def to_openmm_AmberPrmtopFile(item, atom_indices='all', skip_digestion=False):
     tmp_item = AmberPrmtopFile(item)
 
     return tmp_item
-

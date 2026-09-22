@@ -1,10 +1,11 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.StructuresDict')
+
+@arg_digest(form="molsysmt.StructuresDict")
 def to_molsysmt_MolecularMechanics(
     item,
-    atom_indices='all',
-    structure_indices='all',
+    atom_indices="all",
+    structure_indices="all",
     skip_digestion=False,
 ):
     """

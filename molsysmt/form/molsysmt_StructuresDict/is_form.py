@@ -1,4 +1,3 @@
-
 def is_form(item):
     """
     Checking whether an item is an instance of form molsysmt.StructuresDict.
@@ -21,11 +20,9 @@ def is_form(item):
     output = False
 
     if type(item) is dict:
-
         from molsysmt.native.structures_dict import structures_parameters
 
         keys = set(item.keys())
-        output = (keys <= structures_parameters)
+        output = keys <= structures_parameters
 
     return output
-

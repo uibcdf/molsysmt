@@ -1,10 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@arg_digest(form='file:xyz')
-def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
+@arg_digest(form="file:xyz")
+def to_XYZ(item, atom_indices="all", structure_indices="all", skip_digestion=False):
     """
     Converting from file:xyz to XYZ.
 
@@ -40,7 +42,7 @@ def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=Fal
     if not is_all(structure_indices):
         tmp_item = tmp_item[structure_indices, :, :]
 
-    tmp_item = tmp_item * puw.unit('nm')
+    tmp_item = tmp_item * puw.unit("nm")
     tmp_item = puw.standardize(tmp_item)
 
     return tmp_item

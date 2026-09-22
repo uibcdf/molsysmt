@@ -1,7 +1,6 @@
+from molsysmt import pyunitwizard as puw  # noqa: F401
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
 
 ###### Set
 
@@ -11,9 +10,11 @@ import numpy as np
 
 # Mechanical
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_formal_charge_to_atom(item, atom_indices='all', value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_formal_charge_to_atom(
+    item, atom_indices="all", value=None, skip_digestion=False
+):
     """
     Setting formal charge to atom on form molsysmt.MolecularMechanics.
 
@@ -33,14 +34,18 @@ def set_formal_charge_to_atom(item, atom_indices='all', value=None, skip_digesti
     if is_all(atom_indices):
         item.formal_charge = value
     else:
-        item._ensure_atoms_ff(len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices))
-        item.atoms_ff.loc[atom_indices, 'formal_charge'] = value
+        item._ensure_atoms_ff(
+            len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices)
+        )
+        item.atoms_ff.loc[atom_indices, "formal_charge"] = value
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_partial_charge_to_atom(item, atom_indices='all', value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_partial_charge_to_atom(
+    item, atom_indices="all", value=None, skip_digestion=False
+):
     """
     Setting partial charge to atom on form molsysmt.MolecularMechanics.
 
@@ -60,14 +65,18 @@ def set_partial_charge_to_atom(item, atom_indices='all', value=None, skip_digest
     if is_all(atom_indices):
         item.partial_charge = value
     else:
-        item._ensure_atoms_ff(len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices))
-        item.atoms_ff.loc[atom_indices, 'partial_charge'] = value
+        item._ensure_atoms_ff(
+            len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices)
+        )
+        item.atoms_ff.loc[atom_indices, "partial_charge"] = value
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_atom_ff_type_to_atom(item, atom_indices='all', value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_atom_ff_type_to_atom(
+    item, atom_indices="all", value=None, skip_digestion=False
+):
     """
     Setting atom ff type to atom on form molsysmt.MolecularMechanics.
 
@@ -87,10 +96,13 @@ def set_atom_ff_type_to_atom(item, atom_indices='all', value=None, skip_digestio
     if is_all(atom_indices):
         item.atom_ff_type = value
     else:
-        item._ensure_atoms_ff(len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices))
-        item.atoms_ff.loc[atom_indices, 'atom_ff_type'] = value
+        item._ensure_atoms_ff(
+            len(item.atoms_ff) if item.atoms_ff is not None else len(atom_indices)
+        )
+        item.atoms_ff.loc[atom_indices, "atom_ff_type"] = value
 
     pass
+
 
 ###
 ### System
@@ -98,9 +110,9 @@ def set_atom_ff_type_to_atom(item, atom_indices='all', value=None, skip_digestio
 
 # Mechanical
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_forcefield_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_forcefield_to_system(item, value=None, skip_digestion=False):
     """
     Setting forcefield to system on form molsysmt.MolecularMechanics.
 
@@ -119,9 +131,9 @@ def set_forcefield_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_non_bonded_method_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_non_bonded_method_to_system(item, value=None, skip_digestion=False):
     """
     Setting non bonded method to system on form molsysmt.MolecularMechanics.
 
@@ -140,9 +152,9 @@ def set_non_bonded_method_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_cutoff_distance_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_cutoff_distance_to_system(item, value=None, skip_digestion=False):
     """
     Setting cutoff distance to system on form molsysmt.MolecularMechanics.
 
@@ -161,9 +173,9 @@ def set_cutoff_distance_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_switch_distance_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_switch_distance_to_system(item, value=None, skip_digestion=False):
     """
     Setting switch distance to system on form molsysmt.MolecularMechanics.
 
@@ -182,9 +194,9 @@ def set_switch_distance_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_dispersion_correction_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_dispersion_correction_to_system(item, value=None, skip_digestion=False):
     """
     Setting dispersion correction to system on form molsysmt.MolecularMechanics.
 
@@ -203,9 +215,9 @@ def set_dispersion_correction_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_ewald_error_tolerance_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_ewald_error_tolerance_to_system(item, value=None, skip_digestion=False):
     """
     Setting ewald error tolerance to system on form molsysmt.MolecularMechanics.
 
@@ -224,9 +236,9 @@ def set_ewald_error_tolerance_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_hydrogen_mass_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_hydrogen_mass_to_system(item, value=None, skip_digestion=False):
     """
     Setting hydrogen mass to system on form molsysmt.MolecularMechanics.
 
@@ -246,9 +258,8 @@ def set_hydrogen_mass_to_system(item, value=None, skip_digestion=False):
     pass
 
 
-@arg_digest(form='molsysmt.MolecularMechanics')
+@arg_digest(form="molsysmt.MolecularMechanics")
 def set_constraints_to_system(item, value=None, skip_digestion=False):
-
     """
     Setting constraints to system on form molsysmt.MolecularMechanics.
 
@@ -267,9 +278,9 @@ def set_constraints_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_flexible_constraints_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_flexible_constraints_to_system(item, value=None, skip_digestion=False):
     """
     Setting flexible constraints to system on form molsysmt.MolecularMechanics.
 
@@ -288,9 +299,9 @@ def set_flexible_constraints_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_water_model_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_water_model_to_system(item, value=None, skip_digestion=False):
     """
     Setting water model to system on form molsysmt.MolecularMechanics.
 
@@ -309,9 +320,9 @@ def set_water_model_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_rigid_water_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_rigid_water_to_system(item, value=None, skip_digestion=False):
     """
     Setting rigid water to system on form molsysmt.MolecularMechanics.
 
@@ -330,9 +341,9 @@ def set_rigid_water_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_implicit_solvent_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_implicit_solvent_to_system(item, value=None, skip_digestion=False):
     """
     Setting implicit solvent to system on form molsysmt.MolecularMechanics.
 
@@ -351,9 +362,9 @@ def set_implicit_solvent_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_solute_dielectric_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_solute_dielectric_to_system(item, value=None, skip_digestion=False):
     """
     Setting solute dielectric to system on form molsysmt.MolecularMechanics.
 
@@ -372,9 +383,9 @@ def set_solute_dielectric_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_solvent_dielectric_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_solvent_dielectric_to_system(item, value=None, skip_digestion=False):
     """
     Setting solvent dielectric to system on form molsysmt.MolecularMechanics.
 
@@ -393,9 +404,9 @@ def set_solvent_dielectric_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_salt_concentration_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_salt_concentration_to_system(item, value=None, skip_digestion=False):
     """
     Setting salt concentration to system on form molsysmt.MolecularMechanics.
 
@@ -414,9 +425,9 @@ def set_salt_concentration_to_system(item, value=None, skip_digestion=False):
 
     pass
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def set_kappa_to_system(item, value=None, skip_digestion=False):
 
+@arg_digest(form="molsysmt.MolecularMechanics")
+def set_kappa_to_system(item, value=None, skip_digestion=False):
     """
     Setting kappa to system on form molsysmt.MolecularMechanics.
 
@@ -434,20 +445,3 @@ def set_kappa_to_system(item, value=None, skip_digestion=False):
     item.kappa = value
 
     pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

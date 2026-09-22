@@ -1,8 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+@arg_digest(form="molsysmt.MolecularMechanics")
+def has_attribute(
+    molecular_system, attribute, include_none=False, skip_digestion=False
+):
     """
     Checking if form molsysmt.MolecularMechanics supports a specific attribute.
 
@@ -32,87 +34,86 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     output = attributes[attribute]
 
     if not include_none:
-
         ###
         ### MECHANICAL ATTRIBUTES
         ###
 
-        if attribute in ['atom_index', 'n_atoms']:
+        if attribute in ["atom_index", "n_atoms"]:
             output = molecular_system.atoms_ff is not None
 
-        elif attribute=='formal_charge':
+        elif attribute == "formal_charge":
             if molecular_system.formal_charge is None:
                 output = False
 
-        elif attribute=='partial_charge':
+        elif attribute == "partial_charge":
             if molecular_system.partial_charge is None:
                 output = False
 
-        elif attribute=='atom_ff_type':
+        elif attribute == "atom_ff_type":
             if molecular_system.atom_ff_type is None:
                 output = False
 
-        elif attribute=='forcefield':
+        elif attribute == "forcefield":
             if molecular_system.forcefield is None:
                 output = False
 
-        elif attribute=='non_bonded_method':
+        elif attribute == "non_bonded_method":
             if molecular_system.non_bonded_method is None:
                 output = False
 
-        elif attribute=='cutoff_distance':
+        elif attribute == "cutoff_distance":
             if molecular_system.cutoff_distance is None:
                 output = False
 
-        elif attribute=='switch_distance':
+        elif attribute == "switch_distance":
             if molecular_system.switch_distance is None:
                 output = False
 
-        elif attribute=='dispersion_correction':
+        elif attribute == "dispersion_correction":
             if molecular_system.dispersion_correction is None:
                 output = False
 
-        elif attribute=='ewald_error_tolerance':
+        elif attribute == "ewald_error_tolerance":
             if molecular_system.ewald_error_tolerance is None:
                 output = False
 
-        elif attribute=='hydrogen_mass':
+        elif attribute == "hydrogen_mass":
             if molecular_system.hydrogen_mass is None:
                 output = False
 
-        elif attribute=='constraints':
+        elif attribute == "constraints":
             if molecular_system.constraints is None:
                 output = False
 
-        elif attribute=='flexible_constraints':
+        elif attribute == "flexible_constraints":
             if molecular_system.flexible_constraints is None:
                 output = False
 
-        elif attribute=='water_model':
+        elif attribute == "water_model":
             if molecular_system.water_model is None:
                 output = False
 
-        elif attribute=='rigid_water':
+        elif attribute == "rigid_water":
             if molecular_system.rigid_water is None:
                 output = False
 
-        elif attribute=='implicit_solvent':
+        elif attribute == "implicit_solvent":
             if molecular_system.implicit_solvent is None:
                 output = False
 
-        elif attribute=='solute_dielectric':
+        elif attribute == "solute_dielectric":
             if molecular_system.solute_dielectric is None:
                 output = False
 
-        elif attribute=='solvent_dielectric':
+        elif attribute == "solvent_dielectric":
             if molecular_system.solvent_dielectric is None:
                 output = False
 
-        elif attribute=='salt_concentration':
+        elif attribute == "salt_concentration":
             if molecular_system.salt_concentration is None:
                 output = False
 
-        elif attribute=='kappa':
+        elif attribute == "kappa":
             if molecular_system.kappa is None:
                 output = False
 

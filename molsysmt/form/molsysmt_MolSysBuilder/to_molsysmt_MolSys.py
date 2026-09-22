@@ -2,7 +2,13 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="molsysmt.MolSysBuilder")
-def to_molsysmt_MolSys(item, atom_indices="all", structure_indices="all", copy_if_all=True, skip_digestion=False):
+def to_molsysmt_MolSys(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Converting from molsysmt.MolSysBuilder to molsysmt.MolSys.
 

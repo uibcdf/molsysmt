@@ -1,9 +1,10 @@
 from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 
 
-@dep_digest('yaml')
-@arg_digest(form='file:structures_yaml')
+@dep_digest("yaml")
+@arg_digest(form="file:structures_yaml")
 def to_file_structures_yaml(item, output_filename, skip_digestion=False):
     """
     Converting from file:structures_yaml to file:structures_yaml.

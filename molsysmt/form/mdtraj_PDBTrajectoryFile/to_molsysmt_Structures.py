@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='mdtraj.PDBTrajectoryFile')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="mdtraj.PDBTrajectoryFile")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from mdtraj.PDBTrajectoryFile to molsysmt.Structures.
 
@@ -27,15 +30,30 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     """
 
     from molsysmt.native import Structures
-    from . import get_coordinates_from_atom, get_structure_id_from_system, get_box_from_system
+
+    from . import (
+        get_box_from_system,
+        get_coordinates_from_atom,
+        get_structure_id_from_system,
+    )
 
     tmp_item = Structures()
 
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                            skip_digestion=False)
-    structure_id = get_structure_id_from_system(item, structure_indices=structure_indices, skip_digestion=False)
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=False)
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=False,
+    )
+    structure_id = get_structure_id_from_system(
+        item, structure_indices=structure_indices, skip_digestion=False
+    )
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=False
+    )
 
-    tmp_item.append(structure_id=structure_id, time=None, box=box, coordinates=coordinates)
+    tmp_item.append(
+        structure_id=structure_id, time=None, box=box, coordinates=coordinates
+    )
 
     return tmp_item

@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='pytraj.Trajectory')
-def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="pytraj.Trajectory")
+def to_pytraj_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from pytraj.Trajectory to pytraj.Topology.
 

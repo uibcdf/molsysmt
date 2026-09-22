@@ -1,9 +1,11 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='file:psf')
-@dep_digest('openmm')
-def to_openmm_CharmmPsfFile(item, atom_indices='all', skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="file:psf")
+@dep_digest("openmm")
+def to_openmm_CharmmPsfFile(item, atom_indices="all", skip_digestion=False):
     """
     Converting from file:psf to openmm.CharmmPsfFile.
 
@@ -26,15 +28,20 @@ def to_openmm_CharmmPsfFile(item, atom_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from openmm.app import CharmmPsfFile
-    from molsysmt.form.openmm_CharmmPsfFile.extract import extract as extract_openmm_CharmmPsfFile
     import os
+
+    from openmm.app import CharmmPsfFile
+
+    from molsysmt.form.openmm_CharmmPsfFile.extract import (
+        extract as extract_openmm_CharmmPsfFile,
+    )
 
     if isinstance(item, os.PathLike):
         item = str(item)
 
     tmp_item = CharmmPsfFile(item)
-    tmp_item = extract_openmm_CharmmPsfFile(tmp_item, atom_indices=atom_indices, copy_if_all=False,
-                                            skip_digestion=True)
+    tmp_item = extract_openmm_CharmmPsfFile(
+        tmp_item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
+    )
 
     return tmp_item

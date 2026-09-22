@@ -3,6 +3,11 @@ from pathlib import Path
 
 import pytest
 
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+MIGRATED_PATHS = (
+    (REPO_ROOT / "devtools/ruff_migrated_paths.txt").read_text().splitlines()
+)
+
 
 def test_ruff_clean_across_repo():
     """Run the configured Ruff boundary; legacy paths are tracked by #212."""
@@ -59,34 +64,19 @@ def test_core_critical_ruff_rules():
     )
 
 
-@pytest.mark.parametrize(
-    "package",
-    [
-        "attribute",
-        "lib",
-        "form/string_pdb_text",
-        "form/molsysmt_MolSys",
-        "form/openff_Molecule",
-        "form/openff_Topology",
-        "form/string_smiles",
-        "form/file_smi",
-        "form/string_pdb_id",
-        "form/file_bcif",
-        "form/file_bcif_gz",
-        "form/openmm_Modeller",
-        "form/openmm_Simulation",
-        "form/string_alphafold_id",
-        "form/mmcif_PdbxContainers_DataContainer",
-        "form/pdbfixer_PDBFixer",
-        "form/nglview_NGLWidget",
-        "form/file_h5msm",
-    ],
-)
-def test_migrated_package_ruff_gate(package):
+def test_migrated_paths_manifest():
+    """Keep the migrated boundary explicit and monotonic during issue #212."""
+    assert len(MIGRATED_PATHS) >= 70
+    assert len(MIGRATED_PATHS) == len(set(MIGRATED_PATHS))
+    assert all(path.startswith("molsysmt/") for path in MIGRATED_PATHS)
+    assert all((REPO_ROOT / path).is_dir() for path in MIGRATED_PATHS)
+
+
+@pytest.mark.parametrize("package_path", MIGRATED_PATHS)
+def test_migrated_package_ruff_gate(package_path):
     """Keep every Python file in each migrated package under Ruff."""
     repo_root = Path(__file__).resolve().parent.parent.parent
-    package_dir = repo_root / "molsysmt" / package
-    package_path = f"molsysmt/{package}"
+    package_dir = repo_root / package_path
     expected = {path.resolve() for path in package_dir.rglob("*.py")}
     selected = subprocess.run(
         ["ruff", "check", "--show-files", package_path],

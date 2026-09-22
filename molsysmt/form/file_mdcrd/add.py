@@ -1,8 +1,11 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='file:mdcrd', to_form='file:mdcrd')
-def add(to_item, item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:mdcrd", to_form="file:mdcrd")
+def add(
+    to_item, item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Adding elements from another item into an item of form file:mdcrd.
 

@@ -1,12 +1,23 @@
 from molsysmt._private.argdigest import arg_digest
 
-form = 'molsysviewer.MolSysView'
+form = "molsysviewer.MolSysView"
 
 
 @arg_digest(form=form)
-def append_structures(item, structure_id=None, time=None, coordinates=None, velocities=None,
-                      box=None, temperature=None, potential_energy=None, kinetic_energy=None,
-                      atom_indices='all', structure_indices='all', skip_digestion=False):
+def append_structures(
+    item,
+    structure_id=None,
+    time=None,
+    coordinates=None,
+    velocities=None,
+    box=None,
+    temperature=None,
+    potential_energy=None,
+    kinetic_energy=None,
+    atom_indices="all",
+    structure_indices="all",
+    skip_digestion=False,
+):
     """
     Appending coordinate structures to an item of form molsysviewer.MolSysView.
 
@@ -48,7 +59,10 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, velo
     """
 
     from molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys import to_molsysmt_MolSys
-    from ..molsysmt_MolSys.append_structures import append_structures as molsys_append_structures
+
+    from ..molsysmt_MolSys.append_structures import (
+        append_structures as molsys_append_structures,
+    )
 
     tmp_item = to_molsysmt_MolSys(item, skip_digestion=True)
     if tmp_item is None:

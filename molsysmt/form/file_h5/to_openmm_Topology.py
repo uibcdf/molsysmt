@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:h5')
-def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:h5")
+def to_openmm_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from file:h5 to openmm.Topology.
 
@@ -24,11 +25,15 @@ def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt.form.mdtraj_HDF5TrajectoryFile.to_openmm_Topology import (
+        to_openmm_Topology as mdtraj_HDF5TrajectoryFile_to_openmm_Topology,
+    )
+
     from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
-    from molsysmt.form.mdtraj_HDF5TrajectoryFile.to_openmm_Topology import to_openmm_Topology as mdtraj_HDF5TrajectoryFile_to_openmm_Topology
 
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item, skip_digestion=True)
-    tmp_item = mdtraj_HDF5TrajectoryFile_to_openmm_Topology(tmp_item, atom_indices=atom_indices, skip_digestion=True)
+    tmp_item = mdtraj_HDF5TrajectoryFile_to_openmm_Topology(
+        tmp_item, atom_indices=atom_indices, skip_digestion=True
+    )
 
     return tmp_item
-

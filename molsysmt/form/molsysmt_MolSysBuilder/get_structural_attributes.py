@@ -1,7 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
 import importlib
-import numpy as np
 import types
+
+import numpy as np
+
+from molsysmt._private.argdigest import arg_digest
 
 from ._delegated_getter import make_delegated_getter
 
@@ -196,6 +198,10 @@ for _name in _target_module.__all__:
             "structures",
         )
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith("get_")]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]
 
 del _name, _target_module

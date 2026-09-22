@@ -1,9 +1,13 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@arg_digest(form='mdtraj.DCDTrajectoryFile')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="mdtraj.DCDTrajectoryFile")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from mdtraj.DCDTrajectoryFile to molsysmt.Structures.
 
@@ -28,11 +32,19 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     .. versionadded:: 1.0.0
     """
 
-    from .iterators import StructuresIterator
     from molsysmt.native import Structures
 
-    iterator = StructuresIterator(item, atom_indices=atom_indices, structure_indices=structure_indices,
-            coordinates=True, box=True, structure_id=True, skip_digestion=True)
+    from .iterators import StructuresIterator
+
+    iterator = StructuresIterator(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        coordinates=True,
+        box=True,
+        structure_id=True,
+        skip_digestion=True,
+    )
 
     coordinates = []
     box = []
@@ -51,9 +63,11 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     finally:
         item.seek(position)
 
-    coordinates = puw.utils.sequences.concatenate(coordinates, value_type='numpy.ndarray')
+    coordinates = puw.utils.sequences.concatenate(
+        coordinates, value_type="numpy.ndarray"
+    )
     if box_is_available:
-        box = puw.utils.sequences.concatenate(box, value_type='numpy.ndarray')
+        box = puw.utils.sequences.concatenate(box, value_type="numpy.ndarray")
     else:
         box = None
     structure_id = np.array(structure_id)

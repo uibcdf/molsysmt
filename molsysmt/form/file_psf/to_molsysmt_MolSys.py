@@ -1,12 +1,14 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='file:psf')
-@dep_digest('openmm')
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="file:psf")
+@dep_digest("openmm")
 def to_molsysmt_MolSys(
     item,
-    atom_indices='all',
-    structure_indices='all',
+    atom_indices="all",
+    structure_indices="all",
     coordinates=None,
     structure_id=None,
     box=None,
@@ -52,7 +54,7 @@ def to_molsysmt_MolSys(
     from molsysmt.form.openmm_Topology.to_molsysmt_Topology import (
         to_molsysmt_Topology,
     )
-    from molsysmt.native import MolSys, MolecularMechanics, Structures
+    from molsysmt.native import MolecularMechanics, MolSys, Structures
 
     source = CharmmPsfFile(str(item))
     output = MolSys()

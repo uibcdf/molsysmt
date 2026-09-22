@@ -254,3 +254,28 @@ include them. An AST comparison across 69 changed form Python files found
 no non-import differences. The local `181l.h5msm` modification remains
 untouched and outside the migration commits. The full-core count is now
 4,388 findings.
+
+## Eighth migrated slice: 52 smaller form adapters
+
+The remaining forms were grouped by their actual Ruff findings. Fifty-two
+adapters had only `I001`, `E402`, `F401`, and `F403` findings, totaling 1,976
+findings. A ten-adapter pilot first verified the treatment of metadata-first
+initializers and late imports. The other 42 then used the same reviewed
+pattern. Standard-library `types` imports could move above `form` metadata;
+imports used after wrapper definitions kept line-local `E402` exceptions.
+
+Comparing package exports exposed several unsafe automatic `F401` removals.
+Some single-import files intentionally re-exported `attributes`, `add`, or
+other adapter functions. Nine wrappers assembled callable bodies with `exec`
+and passed converters through `locals()`, which Ruff cannot see as usage.
+Those imports were restored explicitly, with local explanations where needed.
+Historical package-level names re-exported through wildcard imports were
+also preserved. All 52 adapters retain their original public names, origin
+modules, conversion maps, and conversion-option maps.
+
+The 52 adapters now pass Ruff lint and format checks. An AST comparison over
+813 changed Python files found no non-import executable changes. The test
+directories available for 30 of these adapters passed (with existing skips).
+The explicit CI checks and file-selection test now read one manifest,
+`devtools/ruff_migrated_paths.txt`, covering 70 migrated paths including
+earlier slices. The full-core count is 2,412 findings.

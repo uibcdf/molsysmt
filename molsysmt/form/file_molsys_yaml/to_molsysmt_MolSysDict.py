@@ -1,10 +1,11 @@
 from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt.native import MolSysDict
 
 
-@dep_digest('yaml')
-@arg_digest(form='file:molsys_yaml')
+@dep_digest("yaml")
+@arg_digest(form="file:molsys_yaml")
 def to_molsysmt_MolSysDict(item, skip_digestion=False):
     """
     Converting from file:molsys_yaml to molsysmt.MolSysDict.
@@ -28,7 +29,7 @@ def to_molsysmt_MolSysDict(item, skip_digestion=False):
 
     import yaml
 
-    with open(item, 'r', encoding='utf-8') as file_handle:
+    with open(item, "r", encoding="utf-8") as file_handle:
         data = yaml.safe_load(file_handle)
 
     return MolSysDict(data=data)

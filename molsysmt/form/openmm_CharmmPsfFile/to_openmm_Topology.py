@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='openmm.CharmmPsfFile')
-def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="openmm.CharmmPsfFile")
+def to_openmm_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from openmm.CharmmPsfFile to openmm.Topology.
 
@@ -27,5 +28,3 @@ def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
     tmp_item = item.topology
 
     return tmp_item
-
-

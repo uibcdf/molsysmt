@@ -1,11 +1,13 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotWithThisFormError
 import types
 
-form = 'mdtraj.Topology'
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotWithThisFormError
+
+form = "mdtraj.Topology"
+
 
 @arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form mdtraj.Topology.
 
@@ -29,8 +31,11 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     """
     raise NotWithThisFormError()
 
+
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form mdtraj.Topology.
 
@@ -56,8 +61,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     """
     raise NotWithThisFormError()
 
+
 @arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form mdtraj.Topology.
 
@@ -81,5 +87,10 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     """
     raise NotWithThisFormError()
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

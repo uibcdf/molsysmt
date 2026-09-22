@@ -3,7 +3,7 @@ from molsysmt._private.argdigest import arg_digest
 from ._builder import build_molsys_builder_from_molsys_dict
 
 
-@arg_digest(form='molsysmt.MolSysDict')
+@arg_digest(form="molsysmt.MolSysDict")
 def to_molsysmt_MolSys(item, skip_digestion=False):
     """
     Converting from molsysmt.MolSysDict to molsysmt.MolSys.

@@ -1,9 +1,16 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='molsysmt.GROFileHandler')
-def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True, skip_digestion=False):
+
+@arg_digest(form="molsysmt.GROFileHandler")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    output_filename=None,
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form molsysmt.GROFileHandler.
 
@@ -33,4 +40,3 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
     """
 
     raise NotImplementedMethodError()
-

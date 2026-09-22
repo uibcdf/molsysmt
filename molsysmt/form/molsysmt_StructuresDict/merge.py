@@ -1,8 +1,9 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(forms='molsysmt.StructuresDict')
-def merge(items, atom_indices='all', structure_indices='all'):
+
+@arg_digest(forms="molsysmt.StructuresDict")
+def merge(items, atom_indices="all", structure_indices="all"):
     """
     Merging multiple items into a single item of form molsysmt.StructuresDict.
 
@@ -26,4 +27,3 @@ def merge(items, atom_indices='all', structure_indices='all'):
     """
 
     raise NotImplementedMethodError()
-

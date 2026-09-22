@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:inpcrd')
-def to_openmm_AmberInpcrdFile(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:inpcrd")
+def to_openmm_AmberInpcrdFile(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from file:inpcrd to openmm.AmberInpcrdFile.
 
@@ -31,4 +34,3 @@ def to_openmm_AmberInpcrdFile(item, atom_indices='all', structure_indices='all',
     tmp_item = AmberInpcrdFile(item)
 
     return tmp_item
-

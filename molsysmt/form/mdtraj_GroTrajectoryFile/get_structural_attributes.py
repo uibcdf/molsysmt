@@ -1,14 +1,16 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
 import types
 
-form = 'mdtraj.GroTrajectoryFile'
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "mdtraj.GroTrajectoryFile"
+
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
-
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form mdtraj.GroTrajectoryFile.
 
@@ -39,12 +41,12 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     if not is_all(structure_indices):
         output = output[structure_indices, :, :]
 
-    output = output * puw.unit('nanometer')
+    output = output * puw.unit("nanometer")
     return output
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form mdtraj.GroTrajectoryFile.
 
@@ -71,15 +73,15 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     unitcell_vectors = tmp_item[2]  # shape (n_frames, 3, 3), nanometers
 
     if unitcell_vectors is not None and len(unitcell_vectors) > 0:
-        output = unitcell_vectors * puw.unit('nanometer')
+        output = unitcell_vectors * puw.unit("nanometer")
         if not is_all(structure_indices):
             output = output[structure_indices, :, :]
         return output
     return None
 
-@arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form mdtraj.GroTrajectoryFile.
 
@@ -108,9 +110,9 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     else:
         return len(structure_indices)
 
-@arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form mdtraj.GroTrajectoryFile.
 
@@ -135,15 +137,15 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     item._file.seek(0)
     tmp_item = item.read()
     if tmp_item[1] is not None:
-        output = tmp_item[1] * puw.unit('picosecond')
+        output = tmp_item[1] * puw.unit("picosecond")
         if not is_all(structure_indices):
             output = output[structure_indices]
         return output
     return None
 
-@arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form mdtraj.GroTrajectoryFile.
 
@@ -167,5 +169,10 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     """
     return None
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

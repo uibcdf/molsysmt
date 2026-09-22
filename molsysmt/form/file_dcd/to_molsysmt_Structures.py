@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:dcd')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:dcd")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from file:dcd to molsysmt.Structures.
 
@@ -26,11 +29,13 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     .. versionadded:: 1.0.0
     """
 
-    from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
-    from molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_Structures import to_molsysmt_Structures as mdtraj_DCDTrajectoryFile_to_molsysmt_Structures
     import molsysmt as msm
-
     from molsysmt._private.backend_output import silence_backend_stdout
+    from molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_Structures import (
+        to_molsysmt_Structures as mdtraj_DCDTrajectoryFile_to_molsysmt_Structures,
+    )
+
+    from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
 
     # MDTraj's DCD reader announces the detected format on stdout, on every open and
     # on every read, with no verbosity switch of its own.

@@ -1,7 +1,15 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='biopython.Seq')
-def to_biopython_SeqRecord(item, group_indices='all', id=None, name=None, description=None, skip_digestion=False):
+
+@arg_digest(form="biopython.Seq")
+def to_biopython_SeqRecord(
+    item,
+    group_indices="all",
+    id=None,
+    name=None,
+    description=None,
+    skip_digestion=False,
+):
     """
     Converting from biopython.Seq to biopython.SeqRecord.
 
@@ -31,14 +39,15 @@ def to_biopython_SeqRecord(item, group_indices='all', id=None, name=None, descri
     """
 
     from Bio.SeqRecord import SeqRecord as Bio_SeqRecord
+
     from .extract import extract
 
     if id is None:
-        id = 'None'
+        id = "None"
     if name is None:
-        name = 'None'
+        name = "None"
     if description is None:
-        description = 'None'
+        description = "None"
 
     tmp_item = extract(
         item,

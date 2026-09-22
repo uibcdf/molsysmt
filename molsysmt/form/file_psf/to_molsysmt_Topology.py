@@ -1,6 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
-@arg_digest(form='file:psf')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+
+
+@arg_digest(form="file:psf")
+def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from file:psf to molsysmt.Topology.
 

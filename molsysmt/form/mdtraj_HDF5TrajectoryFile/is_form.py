@@ -1,4 +1,3 @@
-
 def is_form(item):
     """
     Checking whether an item is an instance of form mdtraj.HDF5TrajectoryFile.
@@ -18,8 +17,7 @@ def is_form(item):
     .. versionadded:: 1.0.0
     """
 
-    item_fullname = item.__class__.__module__+'.'+item.__class__.__name__
-    output = (item_fullname == 'mdtraj.formats.hdf5.HDF5TrajectoryFile')
+    item_fullname = item.__class__.__module__ + "." + item.__class__.__name__
+    output = item_fullname == "mdtraj.formats.hdf5.HDF5TrajectoryFile"
 
     return output
-

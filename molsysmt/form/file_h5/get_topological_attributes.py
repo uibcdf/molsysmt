@@ -1,8 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotWithThisFormError
 import types
 
-form='file:h5'
+from molsysmt._private.argdigest import arg_digest
+
+form = "file:h5"
+
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
@@ -26,6 +27,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     import mdtraj as md
+
     with md.open(item) as tmp_item:
         # mdtraj HDF5TrajectoryFile has no n_atoms, we check the first frame
         try:
@@ -36,5 +38,10 @@ def get_n_atoms_from_system(item, skip_digestion=False):
             output = coords.shape[1]
     return output
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

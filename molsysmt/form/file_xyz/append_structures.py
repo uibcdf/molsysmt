@@ -1,8 +1,9 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='file:xyz')
-def append_structures(to_item, item, structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:xyz")
+def append_structures(to_item, item, structure_indices="all", skip_digestion=False):
     """
     Appending coordinate structures to an item of form file:xyz.
 

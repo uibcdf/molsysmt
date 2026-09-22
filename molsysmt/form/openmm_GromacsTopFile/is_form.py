@@ -1,4 +1,3 @@
-
 def is_form(item):
     """
     Checking whether an item is an instance of form openmm.GromacsTopFile.

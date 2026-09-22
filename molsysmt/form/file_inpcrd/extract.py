@@ -1,11 +1,19 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 from depdigest import dep_digest
 
-@arg_digest(form='file:inpcrd')
-@dep_digest('openmm')
-def extract(item, atom_indices='all', structure_indices='all', output_filename=None, copy_if_all=True, skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
+@arg_digest(form="file:inpcrd")
+@dep_digest("openmm")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    output_filename=None,
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form file:inpcrd.
 
@@ -38,19 +46,15 @@ def extract(item, atom_indices='all', structure_indices='all', output_filename=N
         output_filename = item
 
     if is_all(atom_indices) and is_all(structure_indices):
-
         if copy_if_all:
-
             from shutil import copy as copy_file
+
             copy_file(item, output_filename)
             tmp_item = output_filename
 
         else:
-
             tmp_item = item
     else:
-
         raise NotImplementedError()
 
     return tmp_item
-

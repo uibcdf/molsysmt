@@ -1,10 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
 import types
 
-form = 'mdtraj.DCDTrajectoryFile'
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "mdtraj.DCDTrajectoryFile"
 
 
 def _read_from_start(item, atom_indices=None):
@@ -19,8 +19,9 @@ def _read_from_start(item, atom_indices=None):
 
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
-
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form mdtraj.DCDTrajectoryFile.
 
@@ -49,16 +50,16 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
         atom_indices=indices if not is_all(indices) else None,
     )
     if is_all(structure_indices):
-        output = tmp_item[0] # coordinates
+        output = tmp_item[0]  # coordinates
     else:
         output = tmp_item[0][structure_indices, :, :]
 
-    output = output * puw.unit('angstrom')
+    output = output * puw.unit("angstrom")
     return output
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form mdtraj.DCDTrajectoryFile.
 
@@ -81,19 +82,20 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     tmp_item = _read_from_start(item)
-    if tmp_item[1] is not None: # cell_lengths
+    if tmp_item[1] is not None:  # cell_lengths
         from molsysmt.pbc import get_box_from_lengths_and_angles
-        lengths = tmp_item[1] * puw.unit('angstrom')
-        angles = tmp_item[2] * puw.unit('degree')
+
+        lengths = tmp_item[1] * puw.unit("angstrom")
+        angles = tmp_item[2] * puw.unit("degree")
         output = get_box_from_lengths_and_angles(lengths, angles)
         if not is_all(structure_indices):
             output = output[structure_indices, :, :]
         return output
     return None
 
-@arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form mdtraj.DCDTrajectoryFile.
 
@@ -120,5 +122,10 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     else:
         return len(structure_indices)
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

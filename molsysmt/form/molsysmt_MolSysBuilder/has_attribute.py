@@ -2,7 +2,9 @@ from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="molsysmt.MolSysBuilder")
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+def has_attribute(
+    molecular_system, attribute, include_none=False, skip_digestion=False
+):
     """
     Checking if form molsysmt.MolSysBuilder supports a specific attribute.
 
@@ -27,7 +29,6 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     .. versionadded:: 1.0.0
     """
 
-    from .attributes import attributes
     from molsysmt.form.molsysmt_Structures.attributes import (
         attributes as structural_attributes,
     )
@@ -40,6 +41,8 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     from molsysmt.form.molsysmt_Topology.has_attribute import (
         has_attribute as topology_has_attribute,
     )
+
+    from .attributes import attributes
 
     if not attributes[attribute]:
         return False

@@ -7,6 +7,7 @@ _pattern = re.compile(
     r"|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}"
 )
 
+
 def is_form(item):
     """
     Checking whether an item is an instance of form string:uniprot_id.

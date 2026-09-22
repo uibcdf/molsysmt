@@ -1,8 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='file:pir')
-@dep_digest('Bio')
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="file:pir")
+@dep_digest("Bio")
 def to_biopython_Seq(item, skip_digestion=False):
     """
     Converting from file:pir to biopython.Seq.

@@ -1,1 +1,1 @@
-from molsysmt.form.molsysmt_TopologyDict.attributes import attributes
+from molsysmt.form.molsysmt_TopologyDict.attributes import attributes as attributes

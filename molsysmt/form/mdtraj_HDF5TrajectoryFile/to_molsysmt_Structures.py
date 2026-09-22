@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='mdtraj.HDF5TrajectoryFile')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="mdtraj.HDF5TrajectoryFile")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from mdtraj.HDF5TrajectoryFile to molsysmt.Structures.
 
@@ -27,6 +30,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     """
 
     from molsysmt.native import Structures
+
     from . import (
         get_box_from_system,
         get_coordinates_from_atom,
@@ -39,10 +43,18 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     tmp_item = Structures()
 
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                            skip_digestion=True)
-    time = get_time_from_system(item, structure_indices=structure_indices, skip_digestion=True)
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    time = get_time_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
     velocities = get_velocities_from_atom(
         item,
         indices=atom_indices,

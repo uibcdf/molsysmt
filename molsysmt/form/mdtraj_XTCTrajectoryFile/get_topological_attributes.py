@@ -1,8 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotWithThisFormError
 import types
 
-form = 'mdtraj.XTCTrajectoryFile'
+from molsysmt._private.argdigest import arg_digest
+
+form = "mdtraj.XTCTrajectoryFile"
+
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
@@ -33,5 +34,10 @@ def get_n_atoms_from_system(item, skip_digestion=False):
         item.seek(position)
     return coordinates.shape[1]
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:h5')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:h5")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from file:h5 to molsysmt.Structures.
 
@@ -26,9 +29,12 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     .. versionadded:: 1.0.0
     """
 
-    from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
-    from molsysmt.form.mdtraj_HDF5TrajectoryFile.to_molsysmt_Structures import to_molsysmt_Structures as mdtraj_HDF5TrajectoryFile_to_molsysmt_Structures
     import molsysmt as msm
+    from molsysmt.form.mdtraj_HDF5TrajectoryFile.to_molsysmt_Structures import (
+        to_molsysmt_Structures as mdtraj_HDF5TrajectoryFile_to_molsysmt_Structures,
+    )
+
+    from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
 
     tmp_item = to_mdtraj_HDF5TrajectoryFile(item, skip_digestion=True)
     try:

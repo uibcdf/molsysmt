@@ -3,9 +3,14 @@ from molsysmt._private.smonitor import NotWithThisFormError
 from molsysmt._private.variables import is_all
 
 
-@arg_digest(form='molsysmt.MolecularMechanics')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
-            skip_digestion=False):
+@arg_digest(form="molsysmt.MolecularMechanics")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form molsysmt.MolecularMechanics.
 
@@ -30,13 +35,13 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     .. versionadded:: 1.0.0
     """
 
-    form = 'molsysmt.MolecularMechanics'
+    form = "molsysmt.MolecularMechanics"
 
     if not is_all(structure_indices):
         raise NotWithThisFormError(
-            caller='molsysmt.extract',
+            caller="molsysmt.extract",
             form=form,
-            requested_attribute='structure_indices',
+            requested_attribute="structure_indices",
             message=f"Form {form!r} does not contain structures to extract.",
         )
 
@@ -45,9 +50,9 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
 
     if item.atoms_ff is None:
         raise NotWithThisFormError(
-            caller='molsysmt.extract',
+            caller="molsysmt.extract",
             form=form,
-            requested_attribute='atom_indices',
+            requested_attribute="atom_indices",
             message=f"Form {form!r} has no per-atom parameters to extract.",
         )
 

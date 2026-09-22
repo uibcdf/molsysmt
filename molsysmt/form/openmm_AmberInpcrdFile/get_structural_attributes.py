@@ -1,14 +1,18 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
 import types
 
-form='openmm.AmberInpcrdFile'
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "openmm.AmberInpcrdFile"
+
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
-
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form openmm.AmberInpcrdFile.
 
@@ -38,24 +42,26 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     # OpenMM returns positions as a list of Vec3 with units
     tmp_positions = item.getPositions()
     # Convert to pure numpy array in nanometers
-    tmp_positions = puw.get_value(tmp_positions, to_unit='nanometers')
+    tmp_positions = puw.get_value(tmp_positions, to_unit="nanometers")
     tmp_positions = np.array(tmp_positions)
-    
+
     if not is_all(indices):
-        tmp_positions = tmp_positions[indices,:]
+        tmp_positions = tmp_positions[indices, :]
 
     output = np.zeros([1, tmp_positions.shape[0], 3])
-    output[0,:,:] = tmp_positions
-    output = output * puw.unit('nanometers')
+    output[0, :, :] = tmp_positions
+    output = output * puw.unit("nanometers")
 
     if not is_all(structure_indices):
         output = output[structure_indices, :, :]
 
     return output
 
-@arg_digest(form=form)
-def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_velocities_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting velocities from atom in form openmm.AmberInpcrdFile.
 
@@ -91,24 +97,24 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
     if tmp_velocities is None:
         return None
 
-    tmp_velocities = puw.get_value(tmp_velocities, to_unit='nanometers/picosecond')
+    tmp_velocities = puw.get_value(tmp_velocities, to_unit="nanometers/picosecond")
     tmp_velocities = np.array(tmp_velocities)
 
     if not is_all(indices):
-        tmp_velocities = tmp_velocities[indices,:]
+        tmp_velocities = tmp_velocities[indices, :]
 
     output = np.zeros([1, tmp_velocities.shape[0], 3])
-    output[0,:,:] = tmp_velocities
-    output = output * puw.unit('nanometers/picosecond')
+    output[0, :, :] = tmp_velocities
+    output = output * puw.unit("nanometers/picosecond")
 
     if not is_all(structure_indices):
         output = output[structure_indices, :, :]
 
     return output
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form openmm.AmberInpcrdFile.
 
@@ -139,18 +145,19 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
         return None
 
     if tmp_box is not None:
-        tmp_box = puw.get_value(tmp_box, to_unit='nanometers')
+        tmp_box = puw.get_value(tmp_box, to_unit="nanometers")
         tmp_box = np.array(tmp_box)
         output = np.zeros([1, 3, 3])
-        output[0,:,:] = tmp_box
-        output = output * puw.unit('nanometers')
+        output[0, :, :] = tmp_box
+        output = output * puw.unit("nanometers")
         if not is_all(structure_indices):
             output = output[structure_indices, :, :]
         return output
     return None
 
+
 @arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form openmm.AmberInpcrdFile.
 
@@ -180,7 +187,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form openmm.AmberInpcrdFile.
 
@@ -204,5 +211,10 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     """
     return None
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

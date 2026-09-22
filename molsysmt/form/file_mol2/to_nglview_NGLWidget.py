@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:mol2')
-def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:mol2")
+def to_nglview_NGLWidget(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from file:mol2 to nglview.NGLWidget.
 
@@ -31,4 +34,3 @@ def to_nglview_NGLWidget(item, atom_indices='all', structure_indices='all', skip
     tmp_item = nglview_show_file(item)
 
     return tmp_item
-

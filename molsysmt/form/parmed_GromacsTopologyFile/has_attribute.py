@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='parmed.GromacsTopologyFile')
-def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=False):
+
+@arg_digest(form="parmed.GromacsTopologyFile")
+def has_attribute(
+    molecular_system, attribute, include_none=False, skip_digestion=False
+):
     """
     Checking if form parmed.GromacsTopologyFile supports a specific attribute.
 

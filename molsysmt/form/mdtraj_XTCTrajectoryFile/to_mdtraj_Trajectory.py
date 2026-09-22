@@ -1,14 +1,14 @@
 import numpy as np
 
-from molsysmt._private.argdigest import arg_digest
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
 
 
-@arg_digest(form='mdtraj.XTCTrajectoryFile')
+@arg_digest(form="mdtraj.XTCTrajectoryFile")
 def to_mdtraj_Trajectory(
     item,
-    atom_indices='all',
-    structure_indices='all',
+    atom_indices="all",
+    structure_indices="all",
     skip_digestion=False,
 ):
     """
@@ -45,11 +45,11 @@ def to_mdtraj_Trajectory(
         structure_indices=structure_indices,
         skip_digestion=True,
     )
-    coordinates = puw.get_value(structures.coordinates, to_unit='nm')
+    coordinates = puw.get_value(structures.coordinates, to_unit="nm")
     time = (
         None
         if structures.time is None
-        else puw.get_value(structures.time, to_unit='ps')
+        else puw.get_value(structures.time, to_unit="ps")
     )
     lengths = None
     angles = None
@@ -59,8 +59,8 @@ def to_mdtraj_Trajectory(
         lengths_quantity, angles_quantity = get_lengths_and_angles_from_box(
             structures.box
         )
-        lengths = puw.get_value(lengths_quantity, to_unit='nm')
-        angles = puw.get_value(angles_quantity, to_unit='degree')
+        lengths = puw.get_value(lengths_quantity, to_unit="nm")
+        angles = puw.get_value(angles_quantity, to_unit="degree")
 
     return md.Trajectory(
         xyz=np.asarray(coordinates),

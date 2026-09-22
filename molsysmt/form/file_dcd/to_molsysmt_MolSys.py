@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:dcd')
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:dcd")
+def to_molsysmt_MolSys(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from file:dcd to molsysmt.MolSys.
 
@@ -26,11 +29,13 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', skip_d
     .. versionadded:: 1.0.0
     """
 
-    from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
-    from molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_MolSys import to_molsysmt_MolSys as mdtraj_DCDTrajectoryFile_to_molsysmt_MolSys
     import molsysmt as msm
-
     from molsysmt._private.backend_output import silence_backend_stdout
+    from molsysmt.form.mdtraj_DCDTrajectoryFile.to_molsysmt_MolSys import (
+        to_molsysmt_MolSys as mdtraj_DCDTrajectoryFile_to_molsysmt_MolSys,
+    )
+
+    from .to_mdtraj_DCDTrajectoryFile import to_mdtraj_DCDTrajectoryFile
 
     # MDTraj's DCD reader prints the detected format on stdout, on open and on read.
     with silence_backend_stdout():

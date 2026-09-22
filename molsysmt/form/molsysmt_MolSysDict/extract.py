@@ -10,18 +10,18 @@ from molsysmt.native import MolSysDict, TopologyDict
 def _structure_count(structures):
     """Returning the represented frame count without inventing structures."""
 
-    for key in ('structure_id', 'time', 'box', 'coordinates'):
+    for key in ("structure_id", "time", "box", "coordinates"):
         value = structures.get(key)
         if value is not None:
             return len(value)
     return 0
 
 
-@arg_digest(form='molsysmt.MolSysDict')
+@arg_digest(form="molsysmt.MolSysDict")
 def extract(
     item,
-    atom_indices='all',
-    structure_indices='all',
+    atom_indices="all",
+    structure_indices="all",
     copy_if_all=True,
     skip_digestion=False,
 ):
@@ -55,17 +55,17 @@ def extract(
         return item.copy() if copy_if_all else item
 
     data = item.to_dict(copy=True)
-    source_topology = data.get('topology', {}) or {}
+    source_topology = data.get("topology", {}) or {}
     if is_all(atom_indices):
-        selected_atoms = list(range(len(source_topology.get('atoms', []) or [])))
+        selected_atoms = list(range(len(source_topology.get("atoms", []) or [])))
     else:
         selected_atoms = sorted(int(index) for index in atom_indices)
 
     topology_payload = {
-        'format': 'molsysmt',
-        'kind': 'topology',
-        'version': data.get('version', '0.1'),
-        'metadata': data.get('metadata', {}),
+        "format": "molsysmt",
+        "kind": "topology",
+        "version": data.get("version", "0.1"),
+        "metadata": data.get("metadata", {}),
         **source_topology,
     }
     from molsysmt.form.molsysmt_TopologyDict.extract import extract as extract_topology
@@ -76,28 +76,28 @@ def extract(
         copy_if_all=True,
         skip_digestion=True,
     ).to_dict(copy=False)
-    data['topology'] = {
+    data["topology"] = {
         key: extracted_topology.get(key, [])
-        for key in ('atoms', 'groups', 'bonds', 'chains', 'molecules', 'entities')
+        for key in ("atoms", "groups", "bonds", "chains", "molecules", "entities")
     }
 
-    structures = data.get('structures', {}) or {}
+    structures = data.get("structures", {}) or {}
     if is_all(structure_indices):
         selected_structures = list(range(_structure_count(structures)))
     else:
         selected_structures = [int(index) for index in structure_indices]
 
-    for key in ('structure_id', 'time', 'box'):
+    for key in ("structure_id", "time", "box"):
         value = structures.get(key)
         if value is not None:
             array = np.asarray(value)
             structures[key] = array[selected_structures].tolist()
-    coordinates = structures.get('coordinates')
+    coordinates = structures.get("coordinates")
     if coordinates is not None:
         array = np.asarray(coordinates)
-        structures['coordinates'] = array[
+        structures["coordinates"] = array[
             np.ix_(selected_structures, selected_atoms, np.arange(3))
         ].tolist()
-    data['structures'] = structures
+    data["structures"] = structures
 
     return MolSysDict(data=data)

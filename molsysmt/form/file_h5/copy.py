@@ -1,7 +1,7 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:h5')
+
+@arg_digest(form="file:h5")
 def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
     """
     Creating a copy of an item of form file:h5.
@@ -31,8 +31,8 @@ def copy(item, output_filename=None, progress_bar=False, skip_digestion=False):
         output_filename = item
 
     from shutil import copy as copy_file
+
     copy_file(item, output_filename)
     tmp_item = output_filename
 
     return tmp_item
-

@@ -1,9 +1,17 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='mdtraj.GroTrajectoryFile')
-@dep_digest('mdtraj')
-def to_mdtraj_GroTrajectoryFile(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="mdtraj.GroTrajectoryFile")
+@dep_digest("mdtraj")
+def to_mdtraj_GroTrajectoryFile(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Converting from mdtraj.GroTrajectoryFile to mdtraj.GroTrajectoryFile.
 
@@ -32,5 +40,10 @@ def to_mdtraj_GroTrajectoryFile(item, atom_indices='all', structure_indices='all
 
     from .extract import extract
 
-    return extract(item, atom_indices=atom_indices, structure_indices=structure_indices,
-                   copy_if_all=copy_if_all, skip_digestion=True)
+    return extract(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        copy_if_all=copy_if_all,
+        skip_digestion=True,
+    )

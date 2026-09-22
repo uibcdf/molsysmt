@@ -1,7 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
-import numpy as np
-import types
 import importlib
+import types
+
+import numpy as np
+
+from molsysmt._private.argdigest import arg_digest
 
 from ._delegated_getter import make_delegated_getter
 
@@ -510,7 +512,9 @@ def get_molecule_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_values = item.topology.groups["molecule_index"].to_numpy(dtype=object)
     return _normalize_sequence(_project(group_indices, molecule_values))
 
@@ -674,7 +678,9 @@ def get_entity_index_from_atom(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     entity_values = item.topology.molecules["entity_index"].to_numpy(dtype=object)
     return _normalize_sequence(_project(molecule_indices, entity_values))
 
@@ -983,6 +989,7 @@ def get_n_atoms_from_group(item, indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     import pandas as pd
+
     group_index_from_atom = item.topology.atoms["group_index"].to_numpy(dtype=object)
     valid_mask = pd.notna(group_index_from_atom)
     valid_indices = group_index_from_atom[valid_mask]
@@ -1017,7 +1024,9 @@ def get_n_groups_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_chain_index = get_chain_index_from_group(item, indices="all", skip_digestion=True)
+    group_chain_index = get_chain_index_from_group(
+        item, indices="all", skip_digestion=True
+    )
     if indices == "all":
         indices = list(range(item.topology.n_chains))
     output = []
@@ -1049,7 +1058,9 @@ def get_n_groups_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_molecule_index = get_molecule_index_from_group(item, indices="all", skip_digestion=True)
+    group_molecule_index = get_molecule_index_from_group(
+        item, indices="all", skip_digestion=True
+    )
     if indices == "all":
         indices = list(range(item.topology.n_molecules))
     output = []
@@ -1081,7 +1092,9 @@ def get_n_molecules_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_entity_index = get_entity_index_from_molecule(item, indices="all", skip_digestion=True)
+    molecule_entity_index = get_entity_index_from_molecule(
+        item, indices="all", skip_digestion=True
+    )
     if indices == "all":
         indices = list(range(item.topology.n_entities))
     output = []
@@ -1113,7 +1126,9 @@ def get_n_atoms_from_chain(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_chain_index = get_chain_index_from_atom(item, indices="all", skip_digestion=True)
+    atom_chain_index = get_chain_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
     if indices == "all":
         indices = list(range(item.topology.n_chains))
     output = []
@@ -1145,13 +1160,23 @@ def get_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_molecule_index = get_molecule_index_from_group(item, indices="all", skip_digestion=True)
-    atom_group_index = get_group_index_from_atom(item, indices="all", skip_digestion=True)
+    group_molecule_index = get_molecule_index_from_group(
+        item, indices="all", skip_digestion=True
+    )
+    atom_group_index = get_group_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
     if indices == "all":
         indices = list(range(item.topology.n_molecules))
     output = []
     for molecule_index in indices:
-        output.append(sum(group_molecule_index[group_index] == molecule_index for group_index in atom_group_index if group_index is not None))
+        output.append(
+            sum(
+                group_molecule_index[group_index] == molecule_index
+                for group_index in atom_group_index
+                if group_index is not None
+            )
+        )
     return output
 
 
@@ -1178,9 +1203,15 @@ def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_entity_index = get_entity_index_from_molecule(item, indices="all", skip_digestion=True)
-    group_molecule_index = get_molecule_index_from_group(item, indices="all", skip_digestion=True)
-    atom_group_index = get_group_index_from_atom(item, indices="all", skip_digestion=True)
+    molecule_entity_index = get_entity_index_from_molecule(
+        item, indices="all", skip_digestion=True
+    )
+    group_molecule_index = get_molecule_index_from_group(
+        item, indices="all", skip_digestion=True
+    )
+    atom_group_index = get_group_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
     if indices == "all":
         indices = list(range(item.topology.n_entities))
     output = []
@@ -1190,7 +1221,10 @@ def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
             if group_index is None:
                 continue
             molecule_index = group_molecule_index[group_index]
-            if molecule_index is not None and molecule_entity_index[molecule_index] == entity_index:
+            if (
+                molecule_index is not None
+                and molecule_entity_index[molecule_index] == entity_index
+            ):
                 count += 1
         output.append(count)
     return output
@@ -1207,6 +1241,10 @@ for _name in _target_module.__all__:
             "topology",
         )
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith("get_")]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]
 
 del _name, _target_module

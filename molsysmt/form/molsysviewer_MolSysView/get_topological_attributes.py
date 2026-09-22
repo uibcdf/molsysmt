@@ -4,12 +4,12 @@ import inspect
 from molsysmt._private.argdigest import arg_digest
 from molsysmt.form.molsysmt_MolSys import get_topological_attributes as _molsys_get
 
-form = 'molsysviewer.MolSysView'
+form = "molsysviewer.MolSysView"
 
 
 def _wrap_getter(func):
     signature = inspect.signature(func)
-    has_skip = 'skip_digestion' in signature.parameters
+    has_skip = "skip_digestion" in signature.parameters
 
     @arg_digest(form=form)
     @functools.wraps(func)
@@ -35,7 +35,7 @@ def _wrap_getter(func):
         if tmp_item is None:
             return None
         if has_skip:
-            kwargs['skip_digestion'] = True
+            kwargs["skip_digestion"] = True
         return func(tmp_item, *args, **kwargs)
 
     wrapper.__signature__ = signature
@@ -43,7 +43,7 @@ def _wrap_getter(func):
 
 
 for _name, _func in _molsys_get.__dict__.items():
-    if _name.startswith('get_') and '_from_' in _name and callable(_func):
+    if _name.startswith("get_") and "_from_" in _name and callable(_func):
         globals()[_name] = _wrap_getter(_func)
 
-del(_name, _func)
+del (_name, _func)

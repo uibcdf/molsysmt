@@ -1,8 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import NotWithThisFormError
 import types
 
-form = 'mdtraj.DCDTrajectoryFile'
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotWithThisFormError
+
+form = "mdtraj.DCDTrajectoryFile"
+
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
@@ -33,6 +35,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
         item.seek(position)
     return coordinates.shape[1]
 
+
 @arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
     """
@@ -54,7 +57,17 @@ def get_n_groups_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    raise NotWithThisFormError(caller='molsysmt.form.mdtraj_DCDTrajectoryFile.get_n_groups_from_system', form=form, requested_attribute='n_groups', message='This form does not store topology information directly. Please convert to a topology-enabled form first.')
+    raise NotWithThisFormError(
+        caller="molsysmt.form.mdtraj_DCDTrajectoryFile.get_n_groups_from_system",
+        form=form,
+        requested_attribute="n_groups",
+        message="This form does not store topology information directly. Please convert to a topology-enabled form first.",
+    )
+
 
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

@@ -1,13 +1,15 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-from depdigest import dep_digest
 import types
 
-form = 'file:h5'
+from depdigest import dep_digest
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "file:h5"
 
 
-@dep_digest('mdtraj')
+@dep_digest("mdtraj")
 def _read_frames(item):
     """Reading all frame fields from an MDTraj HDF5 file."""
 
@@ -28,7 +30,9 @@ def _slice_structures(value, structure_indices):
 
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form file:h5.
 
@@ -56,11 +60,13 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     output = _slice_structures(frames.coordinates, structure_indices)
     if not is_all(indices):
         output = output[:, indices, :]
-    return output * puw.unit('nanometer')
+    return output * puw.unit("nanometer")
 
 
 @arg_digest(form=form)
-def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_velocities_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting velocities from atom in form file:h5.
 
@@ -90,11 +96,11 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
         output = output[:, indices, :]
     if output is None:
         return None
-    return output * puw.unit('nanometer/picosecond')
+    return output * puw.unit("nanometer/picosecond")
 
 
 @arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form file:h5.
 
@@ -125,14 +131,14 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     from molsysmt.pbc import get_box_from_lengths_and_angles
 
     return get_box_from_lengths_and_angles(
-        lengths * puw.unit('nanometer'),
-        angles * puw.unit('degree'),
+        lengths * puw.unit("nanometer"),
+        angles * puw.unit("degree"),
         skip_digestion=True,
     )
 
 
 @arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form file:h5.
 
@@ -157,11 +163,11 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
     output = _slice_structures(_read_frames(item).time, structure_indices)
     if output is None:
         return None
-    return output * puw.unit('picosecond')
+    return output * puw.unit("picosecond")
 
 
 @arg_digest(form=form)
-def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+def get_temperature_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting temperature from system in form file:h5.
 
@@ -186,11 +192,13 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
     output = _slice_structures(_read_frames(item).temperature, structure_indices)
     if output is None:
         return None
-    return output * puw.unit('kelvin')
+    return output * puw.unit("kelvin")
 
 
 @arg_digest(form=form)
-def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+def get_potential_energy_from_system(
+    item, structure_indices="all", skip_digestion=False
+):
     """
     Getting potential energy from system in form file:h5.
 
@@ -215,11 +223,11 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
     output = _slice_structures(_read_frames(item).potentialEnergy, structure_indices)
     if output is None:
         return None
-    return output * puw.unit('kilojoule/mole')
+    return output * puw.unit("kilojoule/mole")
 
 
 @arg_digest(form=form)
-def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+def get_kinetic_energy_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting kinetic energy from system in form file:h5.
 
@@ -244,11 +252,11 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
     output = _slice_structures(_read_frames(item).kineticEnergy, structure_indices)
     if output is None:
         return None
-    return output * puw.unit('kilojoule/mole')
+    return output * puw.unit("kilojoule/mole")
 
 
 @arg_digest(form=form)
-def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+def get_total_energy_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting total energy from system in form file:h5.
 
@@ -286,7 +294,7 @@ def get_total_energy_from_system(item, structure_indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form file:h5.
 
@@ -310,9 +318,10 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
     """
     return None
 
+
 @arg_digest(form=form)
-@dep_digest('mdtraj')
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+@dep_digest("mdtraj")
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form file:h5.
 
@@ -335,6 +344,7 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     .. versionadded:: 1.0.0
     """
     import mdtraj as md
+
     with md.open(item) as tmp_item:
         # mdtraj HDF5TrajectoryFile uses __len__ for n_frames
         try:
@@ -346,5 +356,10 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
         output = len(structure_indices)
     return output
 
+
 # List of functions to be imported
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

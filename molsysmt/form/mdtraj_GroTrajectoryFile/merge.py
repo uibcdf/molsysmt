@@ -1,8 +1,9 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='mdtraj.GroTrajectoryFile')
-def merge(items, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="mdtraj.GroTrajectoryFile")
+def merge(items, atom_indices="all", structure_indices="all", skip_digestion=False):
     """
     Merging multiple items into a single item of form mdtraj.GroTrajectoryFile.
 

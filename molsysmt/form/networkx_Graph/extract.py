@@ -1,8 +1,15 @@
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
-@arg_digest(form='networkx.Graph')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+
+@arg_digest(form="networkx.Graph")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form networkx.Graph.
 
@@ -30,13 +37,11 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     """
 
     if is_all(atom_indices) and is_all(structure_indices):
-
         if copy_if_all:
-         tmp_item = item.copy()
+            tmp_item = item.copy()
         else:
             tmp_item = item.subgraph(atom_indices).copy()
     else:
-
         tmp_item = item
         if not is_all(atom_indices):
             tmp_item = tmp_item.atom_slice(atom_indices)
@@ -44,4 +49,3 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
             tmp_item = tmp_item.slice(structure_indices)
 
     return tmp_item
-

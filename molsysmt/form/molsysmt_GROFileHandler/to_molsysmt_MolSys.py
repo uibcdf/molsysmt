@@ -1,10 +1,16 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
 import numpy as np
 
-@arg_digest(form='molsysmt.GROFileHandler')
-def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_missing_bonds=True,
-                       skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="molsysmt.GROFileHandler")
+def to_molsysmt_MolSys(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    get_missing_bonds=True,
+    skip_digestion=False,
+):
     """
     Converting from molsysmt.GROFileHandler to molsysmt.MolSys.
 
@@ -31,9 +37,8 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import MolSys
     from molsysmt.build import get_missing_bonds as _get_missing_bonds
-    from molsysmt.pbc import get_box_from_lengths_and_angles
+    from molsysmt.native import MolSys
 
     tmp_item = MolSys()
 
@@ -44,7 +49,9 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
     tmp_item.topology.atoms.atom_id = item.entry.atom_ids
     tmp_item.topology.atoms.atom_name = item.entry.atom_names
     tmp_item.topology.atoms.group_index = item.entry.atom_group_index
-    tmp_item.topology.atoms.chain_index = np.zeros(shape=[item.entry.n_atoms], dtype=int)
+    tmp_item.topology.atoms.chain_index = np.zeros(
+        shape=[item.entry.n_atoms], dtype=int
+    )
 
     tmp_item.topology.rebuild_atoms(redefine_ids=False, redefine_types=True)
 
@@ -53,25 +60,31 @@ def to_molsysmt_MolSys(item, atom_indices='all', structure_indices='all', get_mi
 
     tmp_item.topology.rebuild_groups(redefine_ids=False, redefine_types=True)
 
-    tmp_item.topology.chains.iloc[0,0] = '0'
-    tmp_item.topology.chains.iloc[0,1] = 'A'
+    tmp_item.topology.chains.iloc[0, 0] = "0"
+    tmp_item.topology.chains.iloc[0, 1] = "A"
 
-    tmp_item.structures.append(coordinates=item.entry.coordinates, box=item.entry.box,
-                               velocities=item.entry.velocities)
+    tmp_item.structures.append(
+        coordinates=item.entry.coordinates,
+        box=item.entry.box,
+        velocities=item.entry.velocities,
+    )
 
     if get_missing_bonds:
-
         bonds = _get_missing_bonds(tmp_item)
         bonds = np.array(bonds)
         tmp_item.topology._reset_chemical_state_bonds(n_bonds=0)
         tmp_item.topology._append_chemical_state_bonds(bonds, sort=False)
 
-        del(bonds)
+        del bonds
 
         tmp_item.topology.rebuild_components()
         tmp_item.topology.rebuild_molecules()
-        tmp_item.topology.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True,
-                                         redefine_names=False)
+        tmp_item.topology.rebuild_chains(
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_types=True,
+            redefine_names=False,
+        )
         tmp_item.topology.rebuild_entities()
 
     tmp_item = tmp_item.extract(

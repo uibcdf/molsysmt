@@ -1,10 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt.element.group import get_group_type_from_group_name
 import numpy as np
 import pandas as pd
 
-@arg_digest(form='mdtraj.Topology')
-def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+from molsysmt.element.group import get_group_type_from_group_name
+
+
+@arg_digest(form="mdtraj.Topology")
+def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from mdtraj.Topology to molsysmt.Topology.
 
@@ -27,10 +29,10 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import Topology
     from molsysmt._private.variables import is_all
+    from molsysmt.native import Topology
 
-    if hasattr(item, 'topology'):
+    if hasattr(item, "topology"):
         item = item.topology
 
     n_atoms = item.n_atoms
@@ -55,7 +57,9 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         group_index_of_atoms.append(atom.residue.index)
 
     formal_charge = [
-        pd.NA if getattr(atom, 'formal_charge', None) is None else int(atom.formal_charge)
+        pd.NA
+        if getattr(atom, "formal_charge", None) is None
+        else int(atom.formal_charge)
         for atom in item.atoms
     ]
 
@@ -64,31 +68,31 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
         group_name.append(residue.name)
         group_type.append(get_group_type_from_group_name(residue.name))
 
-    tmp_item.atoms['atom_id'] = atom_id
-    tmp_item.atoms['atom_name'] = atom_name
-    tmp_item.atoms['atom_type'] = atom_type
-    tmp_item.atoms['group_index'] = group_index_of_atoms
-    tmp_item._set_chemical_state_atom_attribute('formal_charge', formal_charge)
+    tmp_item.atoms["atom_id"] = atom_id
+    tmp_item.atoms["atom_name"] = atom_name
+    tmp_item.atoms["atom_type"] = atom_type
+    tmp_item.atoms["group_index"] = group_index_of_atoms
+    tmp_item._set_chemical_state_atom_attribute("formal_charge", formal_charge)
 
-    tmp_item.groups['group_id'] = group_id
-    tmp_item.groups['group_name'] = group_name
-    tmp_item.groups['group_type'] = group_type
+    tmp_item.groups["group_id"] = group_id
+    tmp_item.groups["group_name"] = group_name
+    tmp_item.groups["group_type"] = group_type
 
     # Bonds
     bonds = list(item.bonds)
     if bonds:
-        type_names = [str(getattr(bond, 'type', '')).lower() for bond in bonds]
+        type_names = [str(getattr(bond, "type", "")).lower() for bond in bonds]
         tmp_item._append_chemical_state_bonds(
             [[bond.atom1.index, bond.atom2.index] for bond in bonds],
             bond_order=[
-                pd.NA if getattr(bond, 'order', None) is None else int(bond.order)
+                pd.NA if getattr(bond, "order", None) is None else int(bond.order)
                 for bond in bonds
             ],
-            bond_type=['covalent'] * len(bonds),
-            is_aromatic=['aromatic' in value for value in type_names],
-            evidence=['explicit'] * len(bonds),
+            bond_type=["covalent"] * len(bonds),
+            is_aromatic=["aromatic" in value for value in type_names],
+            evidence=["explicit"] * len(bonds),
         )
-    tmp_item._chemical_states[0].connectivity_completeness = 'complete'
+    tmp_item._chemical_states[0].connectivity_completeness = "complete"
 
     # Chains
     chain_id = []
@@ -96,20 +100,22 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
     group_index_of_chains = [[] for _ in range(n_chains)]
     for residue in item.residues:
         group_index_of_chains[residue.chain.index].append(residue.index)
-    
+
     for chain in item.chains:
-        chain_id.append(str(chain.chain_id if hasattr(chain, 'chain_id') else chain.index))
+        chain_id.append(
+            str(chain.chain_id if hasattr(chain, "chain_id") else chain.index)
+        )
         chain_name.append(str(chain.index))
 
-    tmp_item.chains['chain_id'] = chain_id
-    tmp_item.chains['chain_name'] = chain_name
+    tmp_item.chains["chain_id"] = chain_id
+    tmp_item.chains["chain_name"] = chain_name
     # chain_index lives on atoms only
     chain_index_of_groups = np.zeros(n_groups, dtype=int)
     for ii in range(n_chains):
         for jj in group_index_of_chains[ii]:
             chain_index_of_groups[jj] = ii
     atom_group_arr = np.array(group_index_of_atoms, dtype=int)
-    tmp_item.atoms['chain_index'] = chain_index_of_groups[atom_group_arr]
+    tmp_item.atoms["chain_index"] = chain_index_of_groups[atom_group_arr]
 
     # Rebuild metadata
     tmp_item.rebuild_components()
@@ -118,6 +124,7 @@ def to_molsysmt_Topology(item, atom_indices='all', skip_digestion=False):
 
     if not is_all(atom_indices):
         from molsysmt.form.molsysmt_Topology.extract import extract
+
         tmp_item = extract(tmp_item, atom_indices=atom_indices, skip_digestion=True)
 
     return tmp_item

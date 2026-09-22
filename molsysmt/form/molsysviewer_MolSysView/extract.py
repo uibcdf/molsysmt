@@ -1,11 +1,17 @@
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
-form = 'molsysviewer.MolSysView'
+form = "molsysviewer.MolSysView"
 
 
 @arg_digest(form=form)
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form molsysviewer.MolSysView.
 
@@ -34,18 +40,22 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     """
 
     if is_all(atom_indices) and is_all(structure_indices):
-
         if copy_if_all:
             from .copy import copy as copy_molsysviewer_MolSysView
+
             return copy_molsysviewer_MolSysView(item, skip_digestion=True)
 
         return item
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from ..molsysmt_MolSys.to_molsysviewer_MolSysView import to_molsysviewer_MolSysView
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
-    tmp_item = to_molsysmt_MolSys(item, atom_indices=atom_indices,
-                                  structure_indices=structure_indices, skip_digestion=True)
+    tmp_item = to_molsysmt_MolSys(
+        item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
     if tmp_item is None:
         return None
 

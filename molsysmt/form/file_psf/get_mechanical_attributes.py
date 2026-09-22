@@ -11,8 +11,8 @@ def _get_native(item):
     return to_molsysmt_MolSys(item, skip_digestion=True)
 
 
-@arg_digest(form='file:psf')
-def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
+@arg_digest(form="file:psf")
+def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting partial charge from atom in form file:psf.
 
@@ -42,7 +42,7 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     )
 
 
-@arg_digest(form='file:psf')
+@arg_digest(form="file:psf")
 def get_partial_charge_from_system(item, skip_digestion=False):
     """
     Getting partial charge from system in form file:psf.
@@ -67,8 +67,8 @@ def get_partial_charge_from_system(item, skip_digestion=False):
     return get_partial_charge_from_atom(item, skip_digestion=True)
 
 
-@arg_digest(form='file:psf')
-def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
+@arg_digest(form="file:psf")
+def get_atom_ff_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom ff type from atom in form file:psf.
 
@@ -98,7 +98,7 @@ def get_atom_ff_type_from_atom(item, indices='all', skip_digestion=False):
     )
 
 
-@arg_digest(form='file:psf')
+@arg_digest(form="file:psf")
 def get_atom_ff_type_from_system(item, skip_digestion=False):
     """
     Getting atom ff type from system in form file:psf.

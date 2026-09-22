@@ -9,17 +9,17 @@ from molsysmt.form.molsysmt_Topology.iterators import (
 class TopologyIterator(NativeTopologyIterator):
     """Iterating through the canonical native topology seam."""
 
-    @arg_digest(form='MDAnalysis.Topology')
+    @arg_digest(form="MDAnalysis.Topology")
     def __init__(
         self,
         molecular_system,
-        element='atom',
-        indices='all',
+        element="atom",
+        indices="all",
         start=0,
         step=1,
         stop=None,
         chunk=1,
-        output_type='values',
+        output_type="values",
         skip_digestion=False,
         **kwargs,
     ):
