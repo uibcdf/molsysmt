@@ -38,6 +38,12 @@ Consult the central repository before changing a shared dependency boundary, sup
 Python range, development baseline, issue vocabulary, reusable workflow, vendored guide,
 or behavior expected across components.
 
+Canonical-guide publication and versioned policy adoption are independent. A guide-only
+change does not require a policy caller bump, and a caller bump does not prove that guide
+copies were synchronized. Use the central `devtools/scripts/adoption_status.py` inventory
+and `devguide/adoption_lifecycle.md` procedure to find the responsible consumer, observed
+state and next action for each relationship.
+
 ## Cross-repository working state
 
 Before work spanning components, use the MolSysSuite checkout to refresh and inspect every
@@ -180,12 +186,12 @@ collapsed into a single cohort. Both primary and auxiliary repositories are full
 governed suite members.
 
 The active stabilization initiative currently prioritizes SMonitor, ArgDigest,
-DepDigest, PyUnitWizard, MolSysMT and MolSysViewer. TopoMT, PharmacophoreMT, ElastNetMT
-and the support library Ackredit are incubating. Lindelint is an auxiliary developer tool
-created for ElastNetMT and the wider suite. Priority affects scheduling, not governance
-or whether contributors communicate valuable discoveries from any component. Consult the
-central `devguide/member_classification.md` and `suite.toml` for the complete vocabulary
-and current assignments.
+DepDigest, PyUnitWizard, MolSysMT and MolSysViewer. TopoMT, PharmacophoreMT, ElastNetMT,
+DockingMT and the support library Ackredit are incubating. Lindelint is an auxiliary
+developer tool created for ElastNetMT and the wider suite. Priority affects scheduling,
+not governance or whether contributors communicate valuable discoveries from any
+component. Consult the central `devguide/member_classification.md` and `suite.toml` for
+the complete vocabulary and current assignments.
 
 ## Before finishing component work
 
