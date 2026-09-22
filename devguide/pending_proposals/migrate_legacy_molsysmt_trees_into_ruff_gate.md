@@ -1,7 +1,7 @@
 ---
 summary: Migrate legacy MolSysMT trees into the full Ruff gate.
 issue: uibcdf/molsysmt#212
-status: open
+status: active
 opened: 2026-09-12
 closed:
 verification: measured
@@ -15,7 +15,7 @@ supersedes: []
 # Migrate legacy MolSysMT trees into the Ruff gate
 
 **Reported:** 2026-09-12, during the MolSysSuite policy rollout.
-**Status:** Open; the critical-rule gate remains active during migration.
+**Status:** Active; the critical-rule gate remains active during migration.
 
 ## What
 
@@ -110,3 +110,23 @@ the current `devguide/release_gate.md` says `ruff check molsysmt` must pass and 
 manual full-CI workflow runs that command. The release scheduling of this full
 migration should be reconciled explicitly; it does not prevent a small, reviewed
 slice from starting.
+
+## First migrated slice: attribute
+
+On 2026-09-22, the `molsysmt/attribute` package was linted and formatted. An
+unreviewed import sort first moved the `bonds_are_required_to_get_attribute`
+import before `get_argument_aliases` in `attribute/__init__.py`. Importing MolSysMT
+then failed because the decorator on the former loaded argument normalization
+while `get_argument_aliases` still resolved to its module rather than the exported
+function. The original dependency order was restored with a documented local
+`isort: skip` on that import. This is a measured example of why import sorting
+needs behavioral review in this repository.
+
+An explicit CI step now runs both `ruff check molsysmt/attribute` and
+`ruff format --check molsysmt/attribute`. The test
+`devtools/tests/test_ruff_clean.py::test_migrated_attribute_ruff_gate` compares
+Ruff's selected files with every Python file under the package and runs both
+checks, so a zero-file or partial selection cannot pass unnoticed. The 11
+`tests/attribute` cases, the three Ruff gate tests, and dependency validation
+passed after the import-order correction. The general `molsysmt` exclusion remains
+until more of the legacy package is migrated.

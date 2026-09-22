@@ -37,3 +37,8 @@ jobs:
       - name: Check critical rules across the legacy core
         # The full common baseline is migrated under uibcdf/molsysmt#212.
         run: ruff check --select F821,F822,F823,B006,B023 molsysmt
+
+      - name: Check migrated attribute package
+        run: |
+          ruff check molsysmt/attribute
+          ruff format --check molsysmt/attribute

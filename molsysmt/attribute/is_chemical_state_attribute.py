@@ -16,4 +16,4 @@ def is_chemical_state_attribute(attribute, skip_digestion=False):
 
     from . import attributes
 
-    return attributes[attribute]['chemical_state']
+    return attributes[attribute]["chemical_state"]

@@ -55,3 +55,31 @@ def test_core_critical_ruff_rules():
     assert res.returncode == 0, (
         f"Critical core Ruff check failed:\n{res.stdout}\n{res.stderr}"
     )
+
+
+def test_migrated_attribute_ruff_gate():
+    """Keep every Python file in the migrated attribute package under Ruff."""
+    repo_root = Path(__file__).resolve().parent.parent.parent
+    attribute_dir = repo_root / "molsysmt" / "attribute"
+    expected = {path.resolve() for path in attribute_dir.rglob("*.py")}
+    selected = subprocess.run(
+        ["ruff", "check", "--show-files", "molsysmt/attribute"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    )
+    assert selected.returncode == 0, selected.stderr
+    checked = {Path(filename).resolve() for filename in selected.stdout.splitlines()}
+    assert expected and checked == expected, (
+        f"Ruff selected {sorted(str(path) for path in checked)}; "
+        f"expected {sorted(str(path) for path in expected)}"
+    )
+
+    for command in (
+        ["ruff", "check", "--no-cache", "molsysmt/attribute"],
+        ["ruff", "format", "--check", "molsysmt/attribute"],
+    ):
+        result = subprocess.run(command, cwd=repo_root, capture_output=True, text=True)
+        assert result.returncode == 0, (
+            f"{' '.join(command)} failed:\n{result.stdout}\n{result.stderr}"
+        )
