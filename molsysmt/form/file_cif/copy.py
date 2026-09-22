@@ -1,7 +1,8 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='file:cif')
+
+@arg_digest(form="file:cif")
 def copy(item, output_filename=None, skip_digestion=False):
     """
     Creating a copy of an item of form file:cif.
@@ -29,4 +30,3 @@ def copy(item, output_filename=None, skip_digestion=False):
         output_filename = item
 
     raise NotImplementedMethodError()
-

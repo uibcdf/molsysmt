@@ -1,7 +1,7 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='openmm.GromacsGroFile')
+
+@arg_digest(form="openmm.GromacsGroFile")
 def copy(item, skip_digestion=True):
     """
     Creating a copy of an item of form openmm.GromacsGroFile.
@@ -24,7 +24,7 @@ def copy(item, skip_digestion=True):
     """
 
     from copy import deepcopy
+
     tmp_item = deepcopy(item)
 
     return tmp_item
-

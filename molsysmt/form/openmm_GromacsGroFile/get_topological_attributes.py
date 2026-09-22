@@ -2,14 +2,14 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.execfile import execfile
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
+import types
+
 import numpy as np
 
-form='openmm.GromacsGroFile'
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "openmm.GromacsGroFile"
 
 
 def _build_group_info(item):
@@ -32,9 +32,11 @@ def _build_group_info(item):
 
 ## atom
 
-@arg_digest(form=form)
-def get_atom_index_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_atom_index_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting atom index from atom in form openmm.GromacsGroFile.
 
@@ -64,9 +66,11 @@ def get_atom_index_from_atom(item, indices='all', structure_indices='all', skip_
         output = output[indices]
     return output
 
-@arg_digest(form=form)
-def get_atom_name_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_atom_name_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting atom name from atom in form openmm.GromacsGroFile.
 
@@ -95,9 +99,11 @@ def get_atom_name_from_atom(item, indices='all', structure_indices='all', skip_d
         output = output[indices]
     return output.tolist()
 
-@arg_digest(form=form)
-def get_group_index_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_index_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting group index from atom in form openmm.GromacsGroFile.
 
@@ -126,9 +132,11 @@ def get_group_index_from_atom(item, indices='all', structure_indices='all', skip
         group_index_per_atom = group_index_per_atom[indices]
     return group_index_per_atom.tolist()
 
-@arg_digest(form=form)
-def get_group_id_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_id_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting group id from atom in form openmm.GromacsGroFile.
 
@@ -157,9 +165,11 @@ def get_group_id_from_atom(item, indices='all', structure_indices='all', skip_di
         group_index_per_atom = group_index_per_atom[indices]
     return [group_ids[i] for i in group_index_per_atom]
 
-@arg_digest(form=form)
-def get_group_name_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_name_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting group name from atom in form openmm.GromacsGroFile.
 
@@ -188,9 +198,11 @@ def get_group_name_from_atom(item, indices='all', structure_indices='all', skip_
         group_index_per_atom = group_index_per_atom[indices]
     return [group_names[i] for i in group_index_per_atom]
 
-@arg_digest(form=form)
-def get_group_type_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_type_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting group type from atom in form openmm.GromacsGroFile.
 
@@ -215,17 +227,22 @@ def get_group_type_from_atom(item, indices='all', structure_indices='all', skip_
     .. versionadded:: 1.0.0
     """
     from molsysmt.element.group import get_group_type_from_group_name
+
     group_index_per_atom, _, group_names = _build_group_info(item)
     if not is_all(indices):
         group_index_per_atom = group_index_per_atom[indices]
-    return [get_group_type_from_group_name(group_names[i]) for i in group_index_per_atom]
+    return [
+        get_group_type_from_group_name(group_names[i]) for i in group_index_per_atom
+    ]
 
 
 ## group
 
-@arg_digest(form=form)
-def get_group_id_from_group(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_id_from_group(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting group id from group in form openmm.GromacsGroFile.
 
@@ -254,9 +271,11 @@ def get_group_id_from_group(item, indices='all', structure_indices='all', skip_d
         return [group_ids[i] for i in indices]
     return group_ids
 
-@arg_digest(form=form)
-def get_group_name_from_group(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_name_from_group(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting group name from group in form openmm.GromacsGroFile.
 
@@ -285,9 +304,11 @@ def get_group_name_from_group(item, indices='all', structure_indices='all', skip
         return [group_names[i] for i in indices]
     return group_names
 
-@arg_digest(form=form)
-def get_group_type_from_group(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_type_from_group(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting group type from group in form openmm.GromacsGroFile.
 
@@ -312,6 +333,7 @@ def get_group_type_from_group(item, indices='all', structure_indices='all', skip
     .. versionadded:: 1.0.0
     """
     from molsysmt.element.group import get_group_type_from_group_name
+
     _, _, group_names = _build_group_info(item)
     if not is_all(indices):
         group_names = [group_names[i] for i in indices]
@@ -320,9 +342,9 @@ def get_group_type_from_group(item, indices='all', structure_indices='all', skip
 
 ## system
 
-@arg_digest(form=form)
-def get_n_atoms_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_atoms_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n atoms from system in form openmm.GromacsGroFile.
 
@@ -346,9 +368,9 @@ def get_n_atoms_from_system(item, structure_indices='all', skip_digestion=False)
     """
     return len(item.atomNames)
 
-@arg_digest(form=form)
-def get_n_groups_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_groups_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n groups from system in form openmm.GromacsGroFile.
 
@@ -375,5 +397,8 @@ def get_n_groups_from_system(item, structure_indices='all', skip_digestion=False
 
 
 # List of functions to be imported
-import types
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

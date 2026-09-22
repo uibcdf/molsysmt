@@ -1,7 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
-from copy import copy
+from copy import copy as shallow_copy
 
-@arg_digest(form='string:amino_acids_3')
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="string:amino_acids_3")
 def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form string:amino_acids_3.
@@ -23,5 +25,4 @@ def copy(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    return copy(item)
-
+    return shallow_copy(item)

@@ -1,9 +1,11 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='parmed.Structure')
-@dep_digest('mdtraj')
-def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="parmed.Structure")
+@dep_digest("mdtraj")
+def to_mdtraj_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from parmed.Structure to mdtraj.Topology.
 
@@ -26,10 +28,10 @@ def to_mdtraj_Topology(item, atom_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from .to_openmm_Topology import to_openmm_Topology
     from ..openmm_Topology.to_mdtraj_Topology import (
         to_mdtraj_Topology as openmm_Topology_to_mdtraj_Topology,
     )
+    from .to_openmm_Topology import to_openmm_Topology
 
     tmp_item = to_openmm_Topology(
         item,

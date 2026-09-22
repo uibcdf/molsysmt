@@ -1,5 +1,6 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
+
+from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="openmm.Topology")
@@ -73,9 +74,10 @@ def to_openmm_Simulation(
     .. versionadded:: 1.0.0
     """
 
-    from .to_openmm_Topology import to_openmm_Topology
-    from .to_openmm_System import to_openmm_System
     from molsysmt.form.openmm_Simulation._build import build_simulation
+
+    from .to_openmm_System import to_openmm_System
+    from .to_openmm_Topology import to_openmm_Topology
 
     topology = to_openmm_Topology(
         item,

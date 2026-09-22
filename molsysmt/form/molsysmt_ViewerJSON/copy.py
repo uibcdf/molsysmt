@@ -1,8 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
 from copy import deepcopy
 
+from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.ViewerJSON')
+
+@arg_digest(form="molsysmt.ViewerJSON")
 def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form molsysmt.ViewerJSON.

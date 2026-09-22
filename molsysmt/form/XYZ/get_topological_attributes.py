@@ -2,19 +2,18 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-import numpy as np
 import types
 
-form='XYZ'
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "XYZ"
 
 ## From atom
 
-@arg_digest(form=form)
-def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_atom_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom index from atom in form XYZ.
 
@@ -44,6 +43,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     return output
 
+
 ## From group
 
 ## From component
@@ -56,9 +56,9 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
 ## From system
 
+
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting n atoms from system in form XYZ.
 
@@ -84,10 +84,13 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
     return tmp_coordinates.shape[1]
 
+
 ## From bond
 
 # List of functions to be imported
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-
-
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

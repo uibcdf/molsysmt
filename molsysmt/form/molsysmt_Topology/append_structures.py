@@ -1,8 +1,10 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.Topology')
-def append_structures(item, structure_id=None, time=None, coordinates=None, box=None, skip_digestion=False):
+
+@arg_digest(form="molsysmt.Topology")
+def append_structures(
+    item, structure_id=None, time=None, coordinates=None, box=None, skip_digestion=False
+):
     """
     Appending coordinate structures to an item of form molsysmt.Topology.
 
@@ -31,6 +33,4 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     .. versionadded:: 1.0.0
     """
 
-
     raise NotImplementedError
-

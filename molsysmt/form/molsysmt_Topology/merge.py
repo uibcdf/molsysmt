@@ -1,12 +1,12 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError, InternalAlgorithmError, FormatError
-from molsysmt._private.variables import is_all
 import pandas as pd
-import numpy as np
 
-@arg_digest(form='molsysmt.Topology')
-def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentError, StructuralInconsistencyError
+from molsysmt._private.variables import is_all
+
+
+@arg_digest(form="molsysmt.Topology")
+def merge(items, atom_indices="all", keep_ids=True, skip_digestion=False):
     """
     Merging multiple items into a single item of form molsysmt.Topology.
 
@@ -32,18 +32,22 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
     """
 
     from molsysmt.native import Topology
+
     from . import extract
 
     n_items = len(items)
 
     output = Topology()
 
-
     if is_all(atom_indices):
-        atom_indices = ['all' for ii in range(n_items)]
+        atom_indices = ["all" for ii in range(n_items)]
 
-    if len(atom_indices)!=n_items:
-        raise ArgumentError("atom_indices", value=atom_indices, caller="molsysmt.form.molsysmt_Topology.merge")
+    if len(atom_indices) != n_items:
+        raise ArgumentError(
+            "atom_indices",
+            value=atom_indices,
+            caller="molsysmt.form.molsysmt_Topology.merge",
+        )
 
     n_atoms = []
     n_groups = []
@@ -63,7 +67,6 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
     source_states = []
 
     for aux_item, aux_atom_indices in zip(items, atom_indices):
-
         if is_all(aux_atom_indices):
             tmp_item = aux_item
         else:
@@ -72,10 +75,10 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
         if len(tmp_item._chemical_states) != 1:
             raise StructuralInconsistencyError(
                 reason=(
-                    'Topology merge currently requires exactly one chemical state '
-                    'per input; explicit multi-state alignment is not yet defined.'
+                    "Topology merge currently requires exactly one chemical state "
+                    "per input; explicit multi-state alignment is not yet defined."
                 ),
-                caller='molsysmt.form.molsysmt_Topology.merge',
+                caller="molsysmt.form.molsysmt_Topology.merge",
             )
 
         bond_atom_offset = sum(n_atoms)
@@ -95,13 +98,13 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
         tmp_groups = tmp_item.groups.copy()
         tmp_molecules = tmp_item.molecules.copy()
         if group_offset:
-            tmp_atoms['group_index'] += group_offset
+            tmp_atoms["group_index"] += group_offset
         if chain_offset:
-            tmp_atoms['chain_index'] += chain_offset
+            tmp_atoms["chain_index"] += chain_offset
         if molecule_offset:
-            tmp_groups['molecule_index'] += molecule_offset
+            tmp_groups["molecule_index"] += molecule_offset
         if entity_offset:
-            tmp_molecules['entity_index'] += entity_offset
+            tmp_molecules["entity_index"] += entity_offset
 
         tmp_component_indices = tmp_item._get_component_indices().copy()
         known_components = tmp_component_indices.notna()
@@ -113,10 +116,7 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
         if tmp_bonds.shape[0] and bond_atom_offset:
             tmp_bonds = Topology._remap_bond_atom_indices(
                 tmp_bonds,
-                {
-                    index: index + bond_atom_offset
-                    for index in range(tmp_item.n_atoms)
-                },
+                {index: index + bond_atom_offset for index in range(tmp_item.n_atoms)},
             )
         atoms_dataframes.append(tmp_atoms)
         groups_dataframes.append(tmp_groups)
@@ -148,11 +148,11 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
     output._set_chemical_state_bonds(output._concatenate_bond_tables(*bonds_dataframes))
 
     def _combine_completeness(values):
-        if all(value == 'complete' for value in values):
-            return 'complete'
-        if all(value == 'unavailable' for value in values):
-            return 'unavailable'
-        return 'partial'
+        if all(value == "complete" for value in values):
+            return "complete"
+        if all(value == "unavailable" for value in values):
+            return "unavailable"
+        return "partial"
 
     output_state = output._chemical_states[0]
     output_state.state_id = (
@@ -172,21 +172,43 @@ def merge(items, atom_indices='all', keep_ids=True, skip_digestion=False):
             state.component_evidence == source_states[0].component_evidence
             for state in source_states
         )
-        else 'unknown'
+        else "unknown"
     )
     output_state.provenance_index = None
 
     if not keep_ids:
         output.rebuild_atoms(redefine_ids=True, redefine_types=False)
         output.rebuild_groups(redefine_ids=True, redefine_types=False)
-        output.rebuild_components(redefine_indices=False, redefine_ids=True, redefine_types=False,
-                                  redefine_names=False)
-        output.rebuild_molecules(redefine_indices=False, redefine_ids=True, redefine_types=False,
-                                  redefine_names=False)
-        output.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
+        output.rebuild_components(
+            redefine_indices=False,
+            redefine_ids=True,
+            redefine_types=False,
+            redefine_names=False,
+        )
+        output.rebuild_molecules(
+            redefine_indices=False,
+            redefine_ids=True,
+            redefine_types=False,
+            redefine_names=False,
+        )
+        output.rebuild_chains(
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_types=True,
+            redefine_names=False,
+        )
     else:
-        output.rebuild_chains(redefine_indices=False, redefine_ids=False, redefine_types=True, redefine_names=False)
-        output.rebuild_entities(redefine_indices=False, redefine_ids=False,
-                                redefine_types=True, redefine_names=False)
+        output.rebuild_chains(
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_types=True,
+            redefine_names=False,
+        )
+        output.rebuild_entities(
+            redefine_indices=False,
+            redefine_ids=False,
+            redefine_types=True,
+            redefine_names=False,
+        )
 
     return output

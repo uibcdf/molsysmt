@@ -1,8 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
 
-@arg_digest(form='biopython.PDBStructure')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="biopython.PDBStructure")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from biopython.PDBStructure to molsysmt.Structures.
 
@@ -27,9 +31,9 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native import Structures
     from molsysmt import pyunitwizard as puw
     from molsysmt._private.variables import is_all
+    from molsysmt.native import Structures
 
     models = list(item.get_models())
     n_models = len(models)
@@ -49,7 +53,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     output = np.array(coords)
     # BioPython uses Angstroms
-    output = puw.quantity(output, 'angstroms')
+    output = puw.quantity(output, "angstroms")
     output = puw.standardize(output)
 
     if not is_all(atom_indices):

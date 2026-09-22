@@ -1,8 +1,9 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='openmm.GromacsGroFile')
-def to_openmm_Topology(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="openmm.GromacsGroFile")
+def to_openmm_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from openmm.GromacsGroFile to openmm.Topology.
 

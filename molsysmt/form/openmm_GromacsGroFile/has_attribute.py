@@ -1,6 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='openmm.GromacsGroFile')
+
+@arg_digest(form="openmm.GromacsGroFile")
 def has_attribute(molecular_system, attribute, include_none=False, skip_digestion=True):
     """
     Checking if form openmm.GromacsGroFile supports a specific attribute.
@@ -34,4 +35,3 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
         pass
 
     return output
-

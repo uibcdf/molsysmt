@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-
 from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
@@ -19,15 +18,15 @@ def _pytraj_chain_id(item, chain_index):
     """Return the textual chain identifier required by PyTraj."""
 
     if pd.isna(chain_index):
-        return ''
+        return ""
     try:
         chain_index = int(chain_index)
     except (TypeError, ValueError, OverflowError):
-        return ''
+        return ""
     if chain_index < 0 or chain_index >= item.n_chains:
-        return ''
-    chain_id = item.chains.iloc[chain_index]['chain_id']
-    return '' if pd.isna(chain_id) else str(chain_id)
+        return ""
+    chain_id = item.chains.iloc[chain_index]["chain_id"]
+    return "" if pd.isna(chain_id) else str(chain_id)
 
 
 def _pytraj_chain_index(chain_index):
@@ -45,15 +44,15 @@ def _pytraj_uses_text_chain_id(residue_type):
     """Detect which incompatible PyTraj 2.0.6 residue ABI is installed."""
 
     try:
-        residue_type('UNK', resid=0, icode=0, chainID='')
+        residue_type("UNK", resid=0, icode=0, chainID="")
     except (AttributeError, TypeError):
         return False
     return True
 
 
-@arg_digest(form='molsysmt.Topology')
-@dep_digest('pytraj')
-def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
+@arg_digest(form="molsysmt.Topology")
+@dep_digest("pytraj")
+def to_pytraj_Topology(item, atom_indices="all", skip_digestion=False):
     """
     Converting from molsysmt.Topology to pytraj.Topology.
 
@@ -92,8 +91,8 @@ def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
     )
 
     masses = puw.get_value(
-        get_mass(item, element='atom', skip_digestion=True),
-        to_unit='Da',
+        get_mass(item, element="atom", skip_digestion=True),
+        to_unit="Da",
     )
     output = PyTrajTopology()
     uses_text_chain_id = _pytraj_uses_text_chain_id(PyTrajResidue)
@@ -102,10 +101,10 @@ def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
     for group_index, group in enumerate(item.groups.itertuples(index=False)):
         residue_number = _pytraj_residue_number(group.group_id, group_index)
         atom_indices_in_group = item.atoms.index[
-            item.atoms['group_index'] == group_index
+            item.atoms["group_index"] == group_index
         ]
         if len(atom_indices_in_group):
-            chain_index = item.atoms.loc[atom_indices_in_group[0], 'chain_index']
+            chain_index = item.atoms.loc[atom_indices_in_group[0], "chain_index"]
         else:
             chain_index = None
         residues[group_index] = PyTrajResidue(
@@ -123,7 +122,7 @@ def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
         group_index = int(atom.group_index)
         pytraj_atom = PyTrajAtom(
             name=str(atom.atom_name),
-            type='' if atom.atom_type is None else str(atom.atom_type),
+            type="" if atom.atom_type is None else str(atom.atom_type),
             resid=group_index,
             mass=float(masses[atom_index]),
             charge=0.0,
@@ -133,7 +132,7 @@ def to_pytraj_Topology(item, atom_indices='all', skip_digestion=False):
     bonds = item._get_chemical_state_bonds()
     if bonds.shape[0]:
         bonded_atom_pairs = np.ascontiguousarray(
-            bonds[['atom1_index', 'atom2_index']].to_numpy(dtype=np.int64)
+            bonds[["atom1_index", "atom2_index"]].to_numpy(dtype=np.int64)
         )
         output.add_bonds(bonded_atom_pairs)
 

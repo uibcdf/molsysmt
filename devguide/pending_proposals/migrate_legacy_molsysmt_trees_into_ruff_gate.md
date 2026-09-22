@@ -279,3 +279,24 @@ directories available for 30 of these adapters passed (with existing skips).
 The explicit CI checks and file-selection test now read one manifest,
 `devtools/ruff_migrated_paths.txt`, covering 70 migrated paths including
 earlier slices. The full-core count is 2,412 findings.
+
+## Ninth migrated slice: the complete form tree
+
+On 2026-09-22, the remaining 21 adapter directories and the form package
+modules were migrated. `ruff check --no-cache molsysmt/form` now passes, and
+`ruff format --check molsysmt/form` reports all 1,690 Python files formatted.
+The CI manifest now names the complete `molsysmt/form` subtree instead of
+individual adapters; its file-selection test verifies recursive coverage.
+The remaining full-core count is 1,361 findings, all outside `form`.
+
+The cleanup exposed three existing defects: the OpenMM PDBFile to MDTraj
+trajectory converter did not construct a valid trajectory from selected
+coordinates; the three-letter amino-acid string copy adapter recursed into
+itself; and the ViewerJSON export list named an absent `get` object. Focused
+tests cover these corrections. Adapter exports and conversion maps were
+compared with the pre-edit snapshot, with the absent ViewerJSON name as the
+intentional exception. The available adapter test suites passed except for
+four H5MSM tests that read the locally modified `181l.h5msm` fixture. The
+expected getter shapes were separately verified against the committed fixture
+extracted to a temporary file. The working fixture was not changed or staged.
+The form-adapter, dependency, and developer-guide validators passed.

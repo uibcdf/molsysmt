@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='file:pdb')
-def to_pytraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="file:pdb")
+def to_pytraj_Trajectory(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from file:pdb to pytraj.Trajectory.
 
@@ -26,10 +29,11 @@ def to_pytraj_Trajectory(item, atom_indices='all', structure_indices='all', skip
     .. versionadded:: 1.0.0
     """
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys.to_pytraj_Trajectory import (
         to_pytraj_Trajectory as molsysmt_MolSys_to_pytraj_Trajectory,
     )
+
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     tmp_item = to_molsysmt_MolSys(
         item,

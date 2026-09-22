@@ -1,6 +1,4 @@
-from molsysmt._private.argdigest import arg_digest
-
-def get_attributes(form, output_type='dictionary', skip_digestion=False):
+def get_attributes(form, output_type="dictionary", skip_digestion=False):
     """
     Getting the list of attributes of a molecular system's form.
 
@@ -72,20 +70,21 @@ def get_attributes(form, output_type='dictionary', skip_digestion=False):
        :ref:`User Guide > Tools > Form > Get attributes <UTF_Get_attributes>`.
     """
 
-    from . import _dict_modules
     from molsysmt.attribute.attributes import attributes as _all_attributes
+
+    from . import _dict_modules
 
     if not isinstance(form, (list, tuple)):
         form = [form]
 
-    output = {ii:False for ii in _all_attributes}
+    output = {ii: False for ii in _all_attributes}
 
     for aux_form in form:
-        for key, value in  _dict_modules[aux_form].attributes.items():
+        for key, value in _dict_modules[aux_form].attributes.items():
             if value:
-                output[key]=value
+                output[key] = value
 
-    if output_type=='dictionary':
+    if output_type == "dictionary":
         return output
-    elif output_type=='list':
+    elif output_type == "list":
         return [att for att in output if output[att]]

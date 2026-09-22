@@ -1,27 +1,27 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt import pyunitwizard as puw
-import numpy as np
-import pandas as pd
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 import types
-from networkx import Graph
 from collections import defaultdict
 from itertools import chain, compress
+
+import numpy as np
+import pandas as pd
+from networkx import Graph
+
+from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
-form = 'molsysmt.Topology'
+form = "molsysmt.Topology"
 
 _PUBLIC_TO_NATIVE_ATOM_STATE = {
-    'formal_charge': 'formal_charge',
-    'atom_is_aromatic': 'is_aromatic',
-    'n_unpaired_electrons': 'n_unpaired_electrons',
-    'n_implicit_hydrogens': 'n_implicit_hydrogens',
-    'allows_implicit_hydrogens': 'allows_implicit_hydrogens',
-    'atom_stereochemistry': 'stereochemistry',
+    "formal_charge": "formal_charge",
+    "atom_is_aromatic": "is_aromatic",
+    "n_unpaired_electrons": "n_unpaired_electrons",
+    "n_implicit_hydrogens": "n_implicit_hydrogens",
+    "allows_implicit_hydrogens": "allows_implicit_hydrogens",
+    "atom_stereochemistry": "stereochemistry",
 }
 
 
-def _get_atom_state_attribute(item, attribute, indices='all'):
+def _get_atom_state_attribute(item, attribute, indices="all"):
     values = item._get_chemical_state_atom_attribute(
         _PUBLIC_TO_NATIVE_ATOM_STATE[attribute]
     )
@@ -33,7 +33,7 @@ def _get_atom_state_attribute(item, attribute, indices='all'):
 
 
 @arg_digest(form=form)
-def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
+def get_formal_charge_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting formal charge from atom in form molsysmt.Topology.
 
@@ -56,7 +56,7 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    return _get_atom_state_attribute(item, 'formal_charge', indices=indices)
+    return _get_atom_state_attribute(item, "formal_charge", indices=indices)
 
 
 @arg_digest(form=form)
@@ -85,7 +85,7 @@ def get_formal_charge_from_system(item, skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_is_aromatic_from_atom(item, indices='all', skip_digestion=False):
+def get_atom_is_aromatic_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom is aromatic from atom in form molsysmt.Topology.
 
@@ -108,11 +108,11 @@ def get_atom_is_aromatic_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    return _get_atom_state_attribute(item, 'atom_is_aromatic', indices=indices)
+    return _get_atom_state_attribute(item, "atom_is_aromatic", indices=indices)
 
 
 @arg_digest(form=form)
-def get_n_unpaired_electrons_from_atom(item, indices='all', skip_digestion=False):
+def get_n_unpaired_electrons_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n unpaired electrons from atom in form molsysmt.Topology.
 
@@ -135,11 +135,11 @@ def get_n_unpaired_electrons_from_atom(item, indices='all', skip_digestion=False
     .. versionadded:: 1.0.0
     """
 
-    return _get_atom_state_attribute(item, 'n_unpaired_electrons', indices=indices)
+    return _get_atom_state_attribute(item, "n_unpaired_electrons", indices=indices)
 
 
 @arg_digest(form=form)
-def get_n_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+def get_n_implicit_hydrogens_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n implicit hydrogens from atom in form molsysmt.Topology.
 
@@ -162,11 +162,11 @@ def get_n_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False
     .. versionadded:: 1.0.0
     """
 
-    return _get_atom_state_attribute(item, 'n_implicit_hydrogens', indices=indices)
+    return _get_atom_state_attribute(item, "n_implicit_hydrogens", indices=indices)
 
 
 @arg_digest(form=form)
-def get_allows_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=False):
+def get_allows_implicit_hydrogens_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting allows implicit hydrogens from atom in form molsysmt.Topology.
 
@@ -189,11 +189,11 @@ def get_allows_implicit_hydrogens_from_atom(item, indices='all', skip_digestion=
     .. versionadded:: 1.0.0
     """
 
-    return _get_atom_state_attribute(item, 'allows_implicit_hydrogens', indices=indices)
+    return _get_atom_state_attribute(item, "allows_implicit_hydrogens", indices=indices)
 
 
 @arg_digest(form=form)
-def get_atom_stereochemistry_from_atom(item, indices='all', skip_digestion=False):
+def get_atom_stereochemistry_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom stereochemistry from atom in form molsysmt.Topology.
 
@@ -216,7 +216,7 @@ def get_atom_stereochemistry_from_atom(item, indices='all', skip_digestion=False
     .. versionadded:: 1.0.0
     """
 
-    return _get_atom_state_attribute(item, 'atom_stereochemistry', indices=indices)
+    return _get_atom_state_attribute(item, "atom_stereochemistry", indices=indices)
 
 
 @arg_digest(form=form)
@@ -404,8 +404,7 @@ def get_component_evidence_from_system(item, skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom index from atom in form molsysmt.Topology.
 
@@ -427,7 +426,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = list(range(item.atoms.shape[0]))
     else:
         output = indices
@@ -436,8 +435,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom id from atom in form molsysmt.Topology.
 
@@ -459,9 +457,9 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
+    atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = atom_id_from_atom.tolist()
     else:
         output = atom_id_from_atom[indices].tolist()
@@ -472,8 +470,7 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom name from atom in form molsysmt.Topology.
 
@@ -495,9 +492,9 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
+    atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = atom_name_from_atom.tolist()
     else:
         output = atom_name_from_atom[indices].tolist()
@@ -508,8 +505,7 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom type from atom in form molsysmt.Topology.
 
@@ -531,9 +527,9 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
+    atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = atom_type_from_atom.tolist()
     else:
         output = atom_type_from_atom[indices].tolist()
@@ -544,8 +540,7 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_isotope_from_atom(item, indices='all', skip_digestion=False):
-
+def get_isotope_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting isotope from atom in form molsysmt.Topology.
 
@@ -567,14 +562,13 @@ def get_isotope_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    values = item.atoms['isotope']
+    values = item.atoms["isotope"]
     values = values if is_all(indices) else values.iloc[indices]
     return values.to_list()
 
 
 @arg_digest(form=form)
-def get_group_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group index from atom in form molsysmt.Topology.
 
@@ -596,9 +590,9 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = group_index_from_atom.tolist()
     else:
         output = group_index_from_atom[indices].tolist()
@@ -609,8 +603,7 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group id from atom in form molsysmt.Topology.
 
@@ -632,10 +625,10 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_id_from_group = item.groups['group_id'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_id_from_group = item.groups["group_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = group_id_from_group[group_index_from_atom].tolist()
     else:
         aux = group_index_from_atom[indices]
@@ -647,8 +640,7 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group name from atom in form molsysmt.Topology.
 
@@ -670,10 +662,10 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_name_from_group = item.groups['group_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_name_from_group = item.groups["group_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = group_name_from_group[group_index_from_atom].tolist()
     else:
         aux = group_index_from_atom[indices]
@@ -685,8 +677,7 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group type from atom in form molsysmt.Topology.
 
@@ -708,10 +699,10 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_type_from_group = item.groups['group_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_type_from_group = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = group_type_from_group[group_index_from_atom].tolist()
     else:
         aux = group_index_from_atom[indices]
@@ -723,8 +714,7 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from atom in form molsysmt.Topology.
 
@@ -746,14 +736,14 @@ def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom].tolist()
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux].tolist()
+        output = molecule_index_from_group[aux].tolist()
         del aux
 
     del group_index_from_atom, molecule_index_from_group
@@ -762,8 +752,7 @@ def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from atom in form molsysmt.Topology.
 
@@ -785,15 +774,15 @@ def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
-    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom]
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux]
+        output = molecule_index_from_group[aux]
         del aux
 
     output = molecule_id_from_molecule[output].tolist()
@@ -804,8 +793,7 @@ def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from atom in form molsysmt.Topology.
 
@@ -827,15 +815,15 @@ def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
-    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom]
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux]
+        output = molecule_index_from_group[aux]
         del aux
 
     output = molecule_name_from_molecule[output].tolist()
@@ -846,8 +834,7 @@ def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from atom in form molsysmt.Topology.
 
@@ -869,15 +856,15 @@ def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
-    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom]
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux]
+        output = molecule_index_from_group[aux]
         del aux
 
     output = molecule_type_from_molecule[output].tolist()
@@ -888,8 +875,7 @@ def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity index from atom in form molsysmt.Topology.
 
@@ -911,15 +897,15 @@ def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom]
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux]
+        output = molecule_index_from_group[aux]
         del aux
 
     output = entity_index_from_molecule[output].tolist()
@@ -930,8 +916,7 @@ def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity id from atom in form molsysmt.Topology.
 
@@ -953,29 +938,33 @@ def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom]
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux]
+        output = molecule_index_from_group[aux]
         del aux
 
     output = entity_index_from_molecule[output]
     output = entity_id_from_entity[output].tolist()
 
-    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule, entity_id_from_entity
+    del (
+        group_index_from_atom,
+        molecule_index_from_group,
+        entity_index_from_molecule,
+        entity_id_from_entity,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity name from atom in form molsysmt.Topology.
 
@@ -997,29 +986,33 @@ def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom]
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux]
+        output = molecule_index_from_group[aux]
         del aux
 
     output = entity_index_from_molecule[output]
     output = entity_name_from_entity[output].tolist()
 
-    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule, entity_name_from_entity
+    del (
+        group_index_from_atom,
+        molecule_index_from_group,
+        entity_index_from_molecule,
+        entity_name_from_entity,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity type from atom in form molsysmt.Topology.
 
@@ -1041,29 +1034,33 @@ def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()       
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()  
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
-    if indices == 'all':
+    if indices == "all":
         output = molecule_index_from_group[group_index_from_atom]
     else:
         aux = group_index_from_atom[indices]
-        output  = molecule_index_from_group[aux]
+        output = molecule_index_from_group[aux]
         del aux
 
     output = entity_index_from_molecule[output]
     output = entity_type_from_entity[output].tolist()
 
-    del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule, entity_type_from_entity
+    del (
+        group_index_from_atom,
+        molecule_index_from_group,
+        entity_index_from_molecule,
+        entity_type_from_entity,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component index from atom in form molsysmt.Topology.
 
@@ -1087,7 +1084,7 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False):
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = component_index_from_atom.tolist()
     else:
         output = component_index_from_atom[indices].tolist()
@@ -1098,8 +1095,7 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component id from atom in form molsysmt.Topology.
 
@@ -1122,9 +1118,9 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_id_from_component = item.components['component_id'].to_numpy()
+    component_id_from_component = item.components["component_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = component_id_from_component[component_index_from_atom].tolist()
     else:
         aux = component_index_from_atom[indices]
@@ -1136,8 +1132,7 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component name from atom in form molsysmt.Topology.
 
@@ -1160,9 +1155,9 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_name_from_component = item.components['component_name'].to_numpy()
+    component_name_from_component = item.components["component_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = component_name_from_component[component_index_from_atom].tolist()
     else:
         aux = component_index_from_atom[indices]
@@ -1174,8 +1169,7 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component type from atom in form molsysmt.Topology.
 
@@ -1198,9 +1192,9 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_type_from_component = item.components['component_type'].to_numpy()
+    component_type_from_component = item.components["component_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = component_type_from_component[component_index_from_atom].tolist()
     else:
         aux = component_index_from_atom[indices]
@@ -1212,8 +1206,7 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain index from atom in form molsysmt.Topology.
 
@@ -1235,9 +1228,9 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = chain_index_from_atom.tolist()
     else:
         output = chain_index_from_atom[indices].tolist()
@@ -1248,8 +1241,7 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain id from atom in form molsysmt.Topology.
 
@@ -1271,10 +1263,10 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_id_from_chain = item.chains['chain_id'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = chain_id_from_chain[chain_index_from_atom].tolist()
     else:
         aux = chain_index_from_atom[indices]
@@ -1286,8 +1278,7 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain name from atom in form molsysmt.Topology.
 
@@ -1309,10 +1300,10 @@ def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_name_from_chain = item.chains['chain_name'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = chain_name_from_chain[chain_index_from_atom].tolist()
     else:
         aux = chain_index_from_atom[indices]
@@ -1324,8 +1315,7 @@ def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain type from atom in form molsysmt.Topology.
 
@@ -1347,10 +1337,10 @@ def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_type_from_chain = item.chains['chain_type'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = chain_type_from_chain[chain_index_from_atom].tolist()
     else:
         aux = chain_index_from_atom[indices]
@@ -1362,8 +1352,7 @@ def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bond index from atom in form molsysmt.Topology.
 
@@ -1390,18 +1379,19 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     n_bonds = len(edges)
-    edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
+    edge_indices = np.array([{"index": ii} for ii in range(n_bonds)]).reshape(
+        [n_bonds, 1]
+    )
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
-    if indices=='all':
-
+    if indices == "all":
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
     output = []
 
     for ii in indices:
         if ii in G:
-            output.append([n['index'] for n in G[ii].values()])
+            output.append([n["index"] for n in G[ii].values()])
         else:
             output.append([])
 
@@ -1411,8 +1401,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bond type from atom in form molsysmt.Topology.
 
@@ -1444,8 +1433,7 @@ def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bond order from atom in form molsysmt.Topology.
 
@@ -1477,8 +1465,7 @@ def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from atom in form molsysmt.Topology.
 
@@ -1504,11 +1491,10 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    
+
     G.add_edges_from(edges)
 
-    if indices=='all':
-
+    if indices == "all":
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
     output = []
@@ -1525,8 +1511,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from atom in form molsysmt.Topology.
 
@@ -1550,16 +1535,14 @@ def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
     """
     output = None
 
-    if indices=='all':
-
+    if indices == "all":
         output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-   
-    else:
 
+    else:
         pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
         pairs = np.array(pairs)
-        mask = np.isin(pairs[:,0], indices) | np.isin(pairs[:,1], indices)
-        output = pairs[mask,:].tolist()
+        mask = np.isin(pairs[:, 0], indices) | np.isin(pairs[:, 1], indices)
+        output = pairs[mask, :].tolist()
 
         del pairs, mask
 
@@ -1567,8 +1550,7 @@ def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from atom in form molsysmt.Topology.
 
@@ -1595,22 +1577,22 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     n_bonds = len(edges)
-    edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
+    edge_indices = np.array([{"index": ii} for ii in range(n_bonds)]).reshape(
+        [n_bonds, 1]
+    )
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
-    if indices=='all':
-
+    if indices == "all":
         indices = get_atom_index_from_atom(item)
 
     else:
-
         G = G.subgraph(indices)
 
     output = []
 
     for ii in indices:
         if ii in G:
-            output.append([n['index'] for n in G[ii].values()])
+            output.append([n["index"] for n in G[ii].values()])
         else:
             output.append([])
 
@@ -1620,8 +1602,7 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from atom in form molsysmt.Topology.
 
@@ -1647,11 +1628,10 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    
+
     G.add_edges_from(edges)
 
-    if not indices=='all':
-
+    if not indices == "all":
         G = G.subgraph(indices)
 
     output = []
@@ -1664,8 +1644,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from atom in form molsysmt.Topology.
 
@@ -1689,17 +1668,15 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
     """
     output = None
 
-    if indices=='all':
-
+    if indices == "all":
         output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-   
-    else:
 
+    else:
         pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
         if len(pairs):
             pairs = np.array(pairs)
-            mask = np.isin(pairs[:,0], indices) * np.isin(pairs[:,1], indices)
-            output = pairs[mask,:].tolist()
+            mask = np.isin(pairs[:, 0], indices) * np.isin(pairs[:, 1], indices)
+            output = pairs[mask, :].tolist()
             del mask
         else:
             output = []
@@ -1710,8 +1687,7 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from atom in form molsysmt.Topology.
 
@@ -1733,7 +1709,7 @@ def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.atoms.shape[0]
     else:
         output = len(indices)
@@ -1742,8 +1718,7 @@ def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from atom in form molsysmt.Topology.
 
@@ -1769,8 +1744,7 @@ def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n groups from atom in form molsysmt.Topology.
 
@@ -1792,10 +1766,10 @@ def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.groups.shape[0]
     else:
-        group_indices_from_atom = item.atoms['group_index'].to_numpy()
+        group_indices_from_atom = item.atoms["group_index"].to_numpy()
         output = np.unique(group_indices_from_atom[indices]).size
         del group_indices_from_atom
 
@@ -1803,8 +1777,7 @@ def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_groups_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from atom in form molsysmt.Topology.
 
@@ -1830,8 +1803,7 @@ def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from atom in form molsysmt.Topology.
 
@@ -1853,11 +1825,11 @@ def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.molecules.shape[0]
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
+        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
         aux = group_indices_from_atoms[indices]
         aux = molecule_indices_from_groups[aux]
         output = np.unique(aux).size
@@ -1867,8 +1839,7 @@ def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from atom in form molsysmt.Topology.
 
@@ -1894,8 +1865,7 @@ def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n entities from atom in form molsysmt.Topology.
 
@@ -1917,24 +1887,28 @@ def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.entities.shape[0]
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
-        entity_indices_from_molecules = item.molecules['entity_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
+        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
+        entity_indices_from_molecules = item.molecules["entity_index"].to_numpy()
         aux = group_indices_from_atoms[indices]
         aux = molecule_indices_from_groups[aux]
         aux = entity_indices_from_molecules[aux]
         output = np.unique(aux).size
-        del group_indices_from_atoms, molecule_indices_from_groups, entity_indices_from_molecules, aux
+        del (
+            group_indices_from_atoms,
+            molecule_indices_from_groups,
+            entity_indices_from_molecules,
+            aux,
+        )
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_entities_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from atom in form molsysmt.Topology.
 
@@ -1960,8 +1934,7 @@ def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n components from atom in form molsysmt.Topology.
 
@@ -1983,7 +1956,7 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.components.shape[0]
     else:
         component_indices_from_atoms = item._get_component_indices().to_numpy()
@@ -1994,8 +1967,7 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_components_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n components from atom in form molsysmt.Topology.
 
@@ -2021,8 +1993,7 @@ def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n chains from atom in form molsysmt.Topology.
 
@@ -2044,10 +2015,10 @@ def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.chains.shape[0]
     else:
-        chain_indices_from_atoms = item.atoms['chain_index'].to_numpy()
+        chain_indices_from_atoms = item.atoms["chain_index"].to_numpy()
         output = np.unique(chain_indices_from_atoms[indices]).size
         del chain_indices_from_atoms
 
@@ -2055,8 +2026,7 @@ def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_chains_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from atom in form molsysmt.Topology.
 
@@ -2082,8 +2052,7 @@ def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from atom in form molsysmt.Topology.
 
@@ -2113,8 +2082,7 @@ def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n bonds from atom in form molsysmt.Topology.
 
@@ -2136,12 +2104,10 @@ def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
         bond_indices = get_bond_index_from_atom(item, indices, skip_digestion=True)
         output = np.unique(np.concatenate(bond_indices)).shape[0]
         del bond_indices
@@ -2150,8 +2116,7 @@ def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from atom in form molsysmt.Topology.
 
@@ -2173,7 +2138,9 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    inner_bond_indices = get_inner_bond_index_from_atom(item, indices, skip_digestion=True)
+    inner_bond_indices = get_inner_bond_index_from_atom(
+        item, indices, skip_digestion=True
+    )
     output = [len(ii) for ii in inner_bond_indices]
     del inner_bond_indices
 
@@ -2181,8 +2148,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n inner bonds from atom in form molsysmt.Topology.
 
@@ -2204,13 +2170,13 @@ def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
-        bond_indices = get_inner_bond_index_from_atom(item, indices, skip_digestion=True)
+        bond_indices = get_inner_bond_index_from_atom(
+            item, indices, skip_digestion=True
+        )
         output = np.unique(np.concatenate(bond_indices)).size
         del bond_indices
 
@@ -2218,8 +2184,7 @@ def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from atom in form molsysmt.Topology.
 
@@ -2241,14 +2206,14 @@ def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups['group_type'].to_numpy()
+    group_type_from_groups = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(group_type_from_groups=='amino acid'))
+    if indices == "all":
+        output = int(np.count_nonzero(group_type_from_groups == "amino acid"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux]=='amino acid'))
+        output = int(np.count_nonzero(group_type_from_groups[aux] == "amino acid"))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2257,8 +2222,7 @@ def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_amino_acids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from atom in form molsysmt.Topology.
 
@@ -2284,8 +2248,7 @@ def get_total_n_amino_acids_from_atom(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from atom in form molsysmt.Topology.
 
@@ -2307,14 +2270,14 @@ def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups['group_type'].to_numpy()
+    group_type_from_groups = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(group_type_from_groups=='nucleotide'))
+    if indices == "all":
+        output = int(np.count_nonzero(group_type_from_groups == "nucleotide"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux]=='nucleotide'))
+        output = int(np.count_nonzero(group_type_from_groups[aux] == "nucleotide"))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2323,8 +2286,7 @@ def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_nucleotides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from atom in form molsysmt.Topology.
 
@@ -2350,8 +2312,7 @@ def get_total_n_nucleotides_from_atom(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n ions from atom in form molsysmt.Topology.
 
@@ -2373,14 +2334,14 @@ def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups['group_type'].to_numpy()
+    group_type_from_groups = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(group_type_from_groups=='ion'))
+    if indices == "all":
+        output = int(np.count_nonzero(group_type_from_groups == "ion"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux]=='ion'))
+        output = int(np.count_nonzero(group_type_from_groups[aux] == "ion"))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2389,8 +2350,7 @@ def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_ions_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_ions_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from atom in form molsysmt.Topology.
 
@@ -2416,8 +2376,7 @@ def get_total_n_ions_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n waters from atom in form molsysmt.Topology.
 
@@ -2439,14 +2398,14 @@ def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups['group_type'].to_numpy()
+    group_type_from_groups = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(group_type_from_groups=='water'))
+    if indices == "all":
+        output = int(np.count_nonzero(group_type_from_groups == "water"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux]=='water'))
+        output = int(np.count_nonzero(group_type_from_groups[aux] == "water"))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2455,8 +2414,7 @@ def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_waters_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_waters_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from atom in form molsysmt.Topology.
 
@@ -2482,8 +2440,7 @@ def get_total_n_waters_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from atom in form molsysmt.Topology.
 
@@ -2505,14 +2462,14 @@ def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups['group_type'].to_numpy()
+    group_type_from_groups = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(group_type_from_groups=='small molecule'))
+    if indices == "all":
+        output = int(np.count_nonzero(group_type_from_groups == "small molecule"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux]=='small molecule'))
+        output = int(np.count_nonzero(group_type_from_groups[aux] == "small molecule"))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2521,8 +2478,7 @@ def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_small_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n small molecules from atom in form molsysmt.Topology.
 
@@ -2548,8 +2504,7 @@ def get_total_n_small_molecules_from_atom(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from atom in form molsysmt.Topology.
 
@@ -2571,14 +2526,14 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups['group_type'].to_numpy()
+    group_type_from_groups = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(group_type_from_groups=='lipid'))
+    if indices == "all":
+        output = int(np.count_nonzero(group_type_from_groups == "lipid"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux]=='lipid'))
+        output = int(np.count_nonzero(group_type_from_groups[aux] == "lipid"))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2587,8 +2542,7 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_lipids_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_lipids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from atom in form molsysmt.Topology.
 
@@ -2614,8 +2568,7 @@ def get_total_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from atom in form molsysmt.Topology.
 
@@ -2637,14 +2590,14 @@ def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_groups = item.groups['group_type'].to_numpy()
+    group_type_from_groups = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(group_type_from_groups=='saccharide'))
+    if indices == "all":
+        output = int(np.count_nonzero(group_type_from_groups == "saccharide"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
-        output = int(np.count_nonzero(group_type_from_groups[aux]=='saccharide'))
+        output = int(np.count_nonzero(group_type_from_groups[aux] == "saccharide"))
         del group_indices_from_atoms, aux
 
     del group_type_from_groups
@@ -2653,8 +2606,7 @@ def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_saccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from atom in form molsysmt.Topology.
 
@@ -2680,8 +2632,7 @@ def get_total_n_saccharides_from_atom(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from atom in form molsysmt.Topology.
 
@@ -2703,16 +2654,16 @@ def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
+    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(molecule_type_from_molecules=='peptide'))
+    if indices == "all":
+        output = int(np.count_nonzero(molecule_type_from_molecules == "peptide"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
+        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='peptide'))
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "peptide"))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2721,8 +2672,7 @@ def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_peptides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_peptides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from atom in form molsysmt.Topology.
 
@@ -2748,8 +2698,7 @@ def get_total_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from atom in form molsysmt.Topology.
 
@@ -2771,16 +2720,16 @@ def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
+    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(molecule_type_from_molecules=='protein'))
+    if indices == "all":
+        output = int(np.count_nonzero(molecule_type_from_molecules == "protein"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
+        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='protein'))
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "protein"))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2789,8 +2738,7 @@ def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_proteins_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_proteins_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from atom in form molsysmt.Topology.
 
@@ -2816,8 +2764,7 @@ def get_total_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from atom in form molsysmt.Topology.
 
@@ -2839,16 +2786,16 @@ def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
+    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(molecule_type_from_molecules=='dna'))
+    if indices == "all":
+        output = int(np.count_nonzero(molecule_type_from_molecules == "dna"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
+        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='dna'))
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "dna"))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2857,8 +2804,7 @@ def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_dnas_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_dnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from atom in form molsysmt.Topology.
 
@@ -2884,8 +2830,7 @@ def get_total_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from atom in form molsysmt.Topology.
 
@@ -2907,16 +2852,16 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
+    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(molecule_type_from_molecules=='rna'))
+    if indices == "all":
+        output = int(np.count_nonzero(molecule_type_from_molecules == "rna"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
+        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='rna'))
+        output = int(np.count_nonzero(molecule_type_from_molecules[aux] == "rna"))
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2925,8 +2870,7 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_rnas_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_rnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from atom in form molsysmt.Topology.
 
@@ -2952,8 +2896,7 @@ def get_total_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from atom in form molsysmt.Topology.
 
@@ -2975,16 +2918,18 @@ def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecules = item.molecules['molecule_type'].to_numpy()
+    molecule_type_from_molecules = item.molecules["molecule_type"].to_numpy()
 
-    if indices=='all':
-        output = int(np.count_nonzero(molecule_type_from_molecules=='polysaccharide'))
+    if indices == "all":
+        output = int(np.count_nonzero(molecule_type_from_molecules == "polysaccharide"))
     else:
-        group_indices_from_atoms = item.atoms['group_index'].to_numpy()
-        molecule_indices_from_groups = item.groups['molecule_index'].to_numpy()
+        group_indices_from_atoms = item.atoms["group_index"].to_numpy()
+        molecule_indices_from_groups = item.groups["molecule_index"].to_numpy()
         aux = np.unique(group_indices_from_atoms[indices])
         aux = np.unique(molecule_indices_from_groups[aux])
-        output = int(np.count_nonzero(molecule_type_from_molecules[aux]=='polysaccharide'))
+        output = int(
+            np.count_nonzero(molecule_type_from_molecules[aux] == "polysaccharide")
+        )
         del group_indices_from_atoms, molecule_indices_from_groups, aux
 
     del molecule_type_from_molecules
@@ -2993,8 +2938,7 @@ def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_total_n_polysaccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from atom in form molsysmt.Topology.
 
@@ -3023,8 +2967,7 @@ def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_atom_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom index from group in form molsysmt.Topology.
 
@@ -3046,10 +2989,9 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].append(atom_index)
@@ -3057,7 +2999,6 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3071,8 +3012,7 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom id from group in form molsysmt.Topology.
 
@@ -3094,11 +3034,10 @@ def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].append(atom_id_from_atom[atom_index])
@@ -3106,7 +3045,6 @@ def get_atom_id_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3120,8 +3058,7 @@ def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom name from group in form molsysmt.Topology.
 
@@ -3143,11 +3080,10 @@ def get_atom_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].append(atom_name_from_atom[atom_index])
@@ -3155,7 +3091,6 @@ def get_atom_name_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3169,8 +3104,7 @@ def get_atom_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom type from group in form molsysmt.Topology.
 
@@ -3192,11 +3126,10 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].append(atom_type_from_atom[atom_index])
@@ -3204,7 +3137,6 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3218,8 +3150,7 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group index from group in form molsysmt.Topology.
 
@@ -3241,7 +3172,7 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = list(range(item.groups.shape[0]))
     else:
         output = indices
@@ -3250,8 +3181,7 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group id from group in form molsysmt.Topology.
 
@@ -3273,9 +3203,9 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_id_from_group = item.groups['group_id'].to_numpy()
+    group_id_from_group = item.groups["group_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = group_id_from_group.tolist()
     else:
         output = group_id_from_group[indices].tolist()
@@ -3286,8 +3216,7 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group name from group in form molsysmt.Topology.
 
@@ -3309,9 +3238,9 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_name_from_group = item.groups['group_name'].to_numpy()
+    group_name_from_group = item.groups["group_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = group_name_from_group.tolist()
     else:
         output = group_name_from_group[indices].tolist()
@@ -3322,8 +3251,7 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group type from group in form molsysmt.Topology.
 
@@ -3345,9 +3273,9 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_type_from_group = item.groups['group_type'].to_numpy()
+    group_type_from_group = item.groups["group_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = group_type_from_group.tolist()
     else:
         output = group_type_from_group[indices].tolist()
@@ -3358,8 +3286,7 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from group in form molsysmt.Topology.
 
@@ -3381,9 +3308,9 @@ def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group.tolist()
     else:
         output = molecule_index_from_group[indices].tolist()
@@ -3394,8 +3321,7 @@ def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from group in form molsysmt.Topology.
 
@@ -3417,10 +3343,10 @@ def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group
     else:
         output = molecule_index_from_group[indices]
@@ -3433,8 +3359,7 @@ def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from group in form molsysmt.Topology.
 
@@ -3456,10 +3381,10 @@ def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group
     else:
         output = molecule_index_from_group[indices]
@@ -3472,8 +3397,7 @@ def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from group in form molsysmt.Topology.
 
@@ -3495,10 +3419,10 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group
     else:
         output = molecule_index_from_group[indices]
@@ -3511,8 +3435,7 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity index from group in form molsysmt.Topology.
 
@@ -3534,10 +3457,10 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group
     else:
         output = molecule_index_from_group[indices]
@@ -3550,8 +3473,7 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity id from group in form molsysmt.Topology.
 
@@ -3573,11 +3495,11 @@ def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group
     else:
         output = molecule_index_from_group[indices]
@@ -3591,8 +3513,7 @@ def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity name from group in form molsysmt.Topology.
 
@@ -3614,11 +3535,11 @@ def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group
     else:
         output = molecule_index_from_group[indices]
@@ -3632,8 +3553,7 @@ def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity type from group in form molsysmt.Topology.
 
@@ -3655,11 +3575,11 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_index_from_group
     else:
         output = molecule_index_from_group[indices]
@@ -3673,8 +3593,7 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component index from group in form molsysmt.Topology.
 
@@ -3696,11 +3615,14 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
 
-    if indices =='all':
-        from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_groups_from_system
+    if indices == "all":
+        from molsysmt.form.molsysmt_Topology.get_topological_attributes import (
+            get_n_groups_from_system,
+        )
+
         n_groups = get_n_groups_from_system(item)
         indices = range(n_groups)
 
@@ -3722,8 +3644,7 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component id from group in form molsysmt.Topology.
 
@@ -3745,12 +3666,11 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_id_from_component = item.components['component_id'].to_numpy()
+    component_id_from_component = item.components["component_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].add(component_index_from_atom[atom_index])
@@ -3758,7 +3678,6 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3766,17 +3685,25 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ component_id_from_component[next(iter(ii))] if len(ii) == 1 else
-               component_id_from_component[list(ii)].tolist() for ii in output]
+    output = [
+        component_id_from_component[next(iter(ii))]
+        if len(ii) == 1
+        else component_id_from_component[list(ii)].tolist()
+        for ii in output
+    ]
 
-    del group_index_from_atom, component_index_from_atom, component_id_from_component, aux_dict
+    del (
+        group_index_from_atom,
+        component_index_from_atom,
+        component_id_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component name from group in form molsysmt.Topology.
 
@@ -3798,12 +3725,11 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_name_from_component = item.components['component_name'].to_numpy()
+    component_name_from_component = item.components["component_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].add(component_index_from_atom[atom_index])
@@ -3811,7 +3737,6 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3819,17 +3744,25 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ component_name_from_component[next(iter(ii))] if len(ii) == 1 else
-               component_name_from_component[list(ii)].tolist() for ii in output]
+    output = [
+        component_name_from_component[next(iter(ii))]
+        if len(ii) == 1
+        else component_name_from_component[list(ii)].tolist()
+        for ii in output
+    ]
 
-    del group_index_from_atom, component_index_from_atom, component_name_from_component, aux_dict
+    del (
+        group_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component type from group in form molsysmt.Topology.
 
@@ -3851,12 +3784,11 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_type_from_component = item.components['component_type'].to_numpy()
+    component_type_from_component = item.components["component_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].add(component_index_from_atom[atom_index])
@@ -3864,7 +3796,6 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3872,17 +3803,25 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ component_type_from_component[next(iter(ii))] if len(ii) == 1 else
-               component_type_from_component[list(ii)].tolist() for ii in output]
+    output = [
+        component_type_from_component[next(iter(ii))]
+        if len(ii) == 1
+        else component_type_from_component[list(ii)].tolist()
+        for ii in output
+    ]
 
-    del group_index_from_atom, component_index_from_atom, component_type_from_component, aux_dict
+    del (
+        group_index_from_atom,
+        component_index_from_atom,
+        component_type_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain index from group in form molsysmt.Topology.
 
@@ -3904,11 +3843,10 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].add(chain_index_from_atom[atom_index])
@@ -3916,7 +3854,6 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3926,14 +3863,13 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 
     del group_index_from_atom, chain_index_from_atom, aux_dict
 
-    output = [ next(iter(ii)) if len(ii) == 1 else list(ii) for ii in output]
+    output = [next(iter(ii)) if len(ii) == 1 else list(ii) for ii in output]
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain id from group in form molsysmt.Topology.
 
@@ -3955,12 +3891,11 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_id_from_chain = item.chains['chain_id'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].add(chain_index_from_atom[atom_index])
@@ -3968,7 +3903,6 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -3976,8 +3910,12 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ chain_id_from_chain[next(iter(ii))] if len(ii) == 1 else
-               chain_id_from_chain[list(ii)].tolist() for ii in output]
+    output = [
+        chain_id_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_id_from_chain[list(ii)].tolist()
+        for ii in output
+    ]
 
     del group_index_from_atom, chain_index_from_atom, chain_id_from_chain, aux_dict
 
@@ -3985,8 +3923,7 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain name from group in form molsysmt.Topology.
 
@@ -4008,12 +3945,11 @@ def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_name_from_chain = item.chains['chain_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].add(chain_index_from_atom[atom_index])
@@ -4021,7 +3957,6 @@ def get_chain_name_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -4029,8 +3964,12 @@ def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ chain_name_from_chain[next(iter(ii))] if len(ii) == 1 else
-               chain_name_from_chain[list(ii)].tolist() for ii in output]
+    output = [
+        chain_name_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_name_from_chain[list(ii)].tolist()
+        for ii in output
+    ]
 
     del group_index_from_atom, chain_index_from_atom, chain_name_from_chain, aux_dict
 
@@ -4038,8 +3977,7 @@ def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain type from group in form molsysmt.Topology.
 
@@ -4061,12 +3999,11 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_type_from_chain = item.chains['chain_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, group_index in enumerate(group_index_from_atom):
             aux_dict[group_index].add(chain_index_from_atom[atom_index])
@@ -4074,7 +4011,6 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, group_index in enumerate(group_index_from_atom):
             if group_index in aux_dict:
@@ -4082,8 +4018,12 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ chain_type_from_chain[next(iter(ii))] if len(ii) == 1 else
-               chain_type_from_chain[list(ii)].tolist() for ii in output]
+    output = [
+        chain_type_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_type_from_chain[list(ii)].tolist()
+        for ii in output
+    ]
 
     del group_index_from_atom, chain_index_from_atom, chain_type_from_chain, aux_dict
 
@@ -4091,8 +4031,7 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bond index from group in form molsysmt.Topology.
 
@@ -4114,13 +4053,21 @@ def get_bond_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_group = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    atom_indices_from_group = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_group:
         if len(jj):
-            output.append(sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))))
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
         else:
             output.append([])
 
@@ -4130,8 +4077,7 @@ def get_bond_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bond type from group in form molsysmt.Topology.
 
@@ -4167,8 +4113,7 @@ def get_bond_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_group(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bond order from group in form molsysmt.Topology.
 
@@ -4204,8 +4149,7 @@ def get_bond_order_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from group in form molsysmt.Topology.
 
@@ -4241,8 +4185,7 @@ def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from group in form molsysmt.Topology.
 
@@ -4278,8 +4221,7 @@ def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from group in form molsysmt.Topology.
 
@@ -4301,19 +4243,25 @@ def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_group = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+    atom_indices_from_group = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_group:
-        aux = sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj])))
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
         if len(aux):
             pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
-            mask = np.isin(pairs[:,0], jj) & np.isin(pairs[:,1], jj)
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
             aux = list(compress(aux, mask))
         else:
-            aux=[]
+            aux = []
         output.append(aux)
 
     del atom_indices_from_group, bonded_atom_pairs, bond_indices_from_atom, pairs
@@ -4322,8 +4270,7 @@ def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from group in form molsysmt.Topology.
 
@@ -4350,7 +4297,7 @@ def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False)
     atom_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
 
     output = []
-    for ii,jj in zip(bond_indices, atom_indices):
+    for ii, jj in zip(bond_indices, atom_indices):
         aux_vals = [bonded_atom_pairs[jj] for jj in ii]
         output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
 
@@ -4360,8 +4307,7 @@ def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from group in form molsysmt.Topology.
 
@@ -4383,32 +4329,33 @@ def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    bonded_atom_pairs = get_bonded_atom_pairs_from_group(item, indices=indices, skip_digestion=True)
+    bonded_atom_pairs = get_bonded_atom_pairs_from_group(
+        item, indices=indices, skip_digestion=True
+    )
 
-    if indices=='all':
-
+    if indices == "all":
         output = bonded_atom_pairs
-    
-    else:
 
-        atom_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
 
         output = []
 
-        for ii,jj in zip(atom_indices, bonded_atom_pairs):
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
             if len(jj) == 0:
                 output.append([])
             else:
                 jj = np.array(jj)
-                mask = np.isin(jj[:,0], ii) | np.isin(jj[:,1], ii)
-                output.append(jj[mask,:].tolist())
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from group in form molsysmt.Topology.
 
@@ -4437,8 +4384,7 @@ def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from group in form molsysmt.Topology.
 
@@ -4460,7 +4406,7 @@ def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
         aux = get_n_atoms_from_group(item, indices=indices, skip_digestion=True)
@@ -4471,8 +4417,7 @@ def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n groups from group in form molsysmt.Topology.
 
@@ -4494,7 +4439,7 @@ def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.groups.shape[0]
     else:
         output = len(indices)
@@ -4503,8 +4448,7 @@ def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_groups_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from group in form molsysmt.Topology.
 
@@ -4530,8 +4474,7 @@ def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from group in form molsysmt.Topology.
 
@@ -4553,18 +4496,19 @@ def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
-        output = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        output = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).size
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from group in form molsysmt.Topology.
 
@@ -4590,8 +4534,7 @@ def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_entities_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n entities from group in form molsysmt.Topology.
 
@@ -4613,7 +4556,7 @@ def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
         output = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
@@ -4623,8 +4566,7 @@ def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_entities_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_entities_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from group in form molsysmt.Topology.
 
@@ -4650,8 +4592,7 @@ def get_total_n_entities_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n components from group in form molsysmt.Topology.
 
@@ -4680,8 +4621,7 @@ def get_n_components_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_components_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_components_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n components from group in form molsysmt.Topology.
 
@@ -4703,7 +4643,7 @@ def get_total_n_components_from_group(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
         aux = get_component_index_from_group(item, indices, skip_digestion=True)
@@ -4717,9 +4657,9 @@ def get_total_n_components_from_group(item, indices='all', skip_digestion=False)
 
     return output
 
-@arg_digest(form=form)
-def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_chains_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n chains from group in form molsysmt.Topology.
 
@@ -4748,8 +4688,7 @@ def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_chains_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from group in form molsysmt.Topology.
 
@@ -4771,7 +4710,7 @@ def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
         aux = get_chain_index_from_group(item, indices, skip_digestion=True)
@@ -4787,8 +4726,7 @@ def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from group in form molsysmt.Topology.
 
@@ -4818,8 +4756,7 @@ def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_bonds_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_bonds_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n bonds from group in form molsysmt.Topology.
 
@@ -4841,23 +4778,24 @@ def get_total_n_bonds_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
-        atom_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+        atom_indices = get_atom_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         atom_indices = list(chain.from_iterable(atom_indices))
-        output = get_total_n_bonds_from_atom(item, indices=atom_indices, skip_digestion=True)
+        output = get_total_n_bonds_from_atom(
+            item, indices=atom_indices, skip_digestion=True
+        )
         del atom_indices
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from group in form molsysmt.Topology.
 
@@ -4879,7 +4817,9 @@ def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    inner_bond_indices = get_inner_bond_index_from_group(item, indices=indices, skip_digestion=True)
+    inner_bond_indices = get_inner_bond_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     output = [len(ii) for ii in inner_bond_indices]
     del inner_bond_indices
 
@@ -4887,8 +4827,7 @@ def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_inner_bonds_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n inner bonds from group in form molsysmt.Topology.
 
@@ -4910,23 +4849,24 @@ def get_total_n_inner_bonds_from_group(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
-        atom_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+        atom_indices = get_atom_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         atom_indices = list(chain.from_iterable(atom_indices))
-        output = get_total_n_inner_bonds_from_atom(item, indices=atom_indices, skip_digestion=True)
+        output = get_total_n_inner_bonds_from_atom(
+            item, indices=atom_indices, skip_digestion=True
+        )
         del atom_indices
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from group in form molsysmt.Topology.
 
@@ -4950,14 +4890,13 @@ def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
-    output = group_types.count('amino acid')
+    output = group_types.count("amino acid")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_amino_acids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from group in form molsysmt.Topology.
 
@@ -4983,8 +4922,7 @@ def get_total_n_amino_acids_from_group(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from group in form molsysmt.Topology.
 
@@ -5008,14 +4946,13 @@ def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
-    output = group_types.count('nucleotide')
+    output = group_types.count("nucleotide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_nucleotides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from group in form molsysmt.Topology.
 
@@ -5041,8 +4978,7 @@ def get_total_n_nucleotides_from_group(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_ions_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n ions from group in form molsysmt.Topology.
 
@@ -5066,14 +5002,13 @@ def get_n_ions_from_group(item, indices='all', skip_digestion=False):
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
-    output = group_types.count('ion')
+    output = group_types.count("ion")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_ions_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_ions_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from group in form molsysmt.Topology.
 
@@ -5099,8 +5034,7 @@ def get_total_n_ions_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_waters_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n waters from group in form molsysmt.Topology.
 
@@ -5124,14 +5058,13 @@ def get_n_waters_from_group(item, indices='all', skip_digestion=False):
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
-    output = group_types.count('water')
+    output = group_types.count("water")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_waters_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_waters_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from group in form molsysmt.Topology.
 
@@ -5157,8 +5090,7 @@ def get_total_n_waters_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from group in form molsysmt.Topology.
 
@@ -5182,14 +5114,13 @@ def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
-    output = group_types.count('small molecule')
+    output = group_types.count("small molecule")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_small_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n small molecules from group in form molsysmt.Topology.
 
@@ -5215,8 +5146,7 @@ def get_total_n_small_molecules_from_group(item, indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from group in form molsysmt.Topology.
 
@@ -5240,14 +5170,13 @@ def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
-    output = group_types.count('lipid')
+    output = group_types.count("lipid")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_lipids_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_lipids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from group in form molsysmt.Topology.
 
@@ -5273,8 +5202,7 @@ def get_total_n_lipids_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from group in form molsysmt.Topology.
 
@@ -5298,14 +5226,13 @@ def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
 
-    output = group_types.count('saccharide')
+    output = group_types.count("saccharide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_saccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from group in form molsysmt.Topology.
 
@@ -5331,8 +5258,7 @@ def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from group in form molsysmt.Topology.
 
@@ -5354,20 +5280,23 @@ def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_peptides_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('peptide')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("peptide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_peptides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from group in form molsysmt.Topology.
 
@@ -5393,8 +5322,7 @@ def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from group in form molsysmt.Topology.
 
@@ -5416,20 +5344,23 @@ def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_proteins_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('protein')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("protein")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_proteins_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from group in form molsysmt.Topology.
 
@@ -5455,8 +5386,7 @@ def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from group in form molsysmt.Topology.
 
@@ -5478,20 +5408,23 @@ def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_dnas_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('dna')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("dna")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_dnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from group in form molsysmt.Topology.
 
@@ -5517,8 +5450,7 @@ def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from group in form molsysmt.Topology.
 
@@ -5540,20 +5472,23 @@ def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_rnas_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('rna')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("rna")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_rnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from group in form molsysmt.Topology.
 
@@ -5579,8 +5514,7 @@ def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from group in form molsysmt.Topology.
 
@@ -5602,20 +5536,23 @@ def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('polysaccharide')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("polysaccharide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
-
+def get_total_n_polysaccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from group in form molsysmt.Topology.
 
@@ -5642,9 +5579,9 @@ def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=F
 
 # From molecule
 
-@arg_digest(form=form)
-def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_atom_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom index from molecule in form molsysmt.Topology.
 
@@ -5666,12 +5603,11 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(atom_index)
@@ -5679,7 +5615,6 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -5687,14 +5622,18 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    del group_index_from_atom, molecule_index_from_group, molecule_index_from_atom, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_group,
+        molecule_index_from_atom,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom id from molecule in form molsysmt.Topology.
 
@@ -5716,13 +5655,12 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
+    atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(atom_id_from_atom[atom_index])
@@ -5730,7 +5668,6 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
         output = [aux_dict[m] for m in sorted(aux_dict.keys())]
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -5744,8 +5681,7 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom name from molecule in form molsysmt.Topology.
 
@@ -5767,13 +5703,12 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
-    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(atom_name_from_atom[atom_index])
@@ -5781,7 +5716,6 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -5789,14 +5723,19 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict.get(m, []) for m in indices]
 
-    del group_index_from_atom, molecule_index_from_atom, molecule_index_from_group, atom_name_from_atom, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        molecule_index_from_group,
+        atom_name_from_atom,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom type from molecule in form molsysmt.Topology.
 
@@ -5818,13 +5757,12 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
+    atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(atom_type_from_atom[atom_index])
@@ -5832,7 +5770,6 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -5840,14 +5777,19 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict.get(m, []) for m in indices]
 
-    del group_index_from_atom, molecule_index_from_atom, molecule_index_from_group, atom_type_from_atom, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        molecule_index_from_group,
+        atom_type_from_atom,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group index from molecule in form molsysmt.Topology.
 
@@ -5869,10 +5811,9 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_index)
@@ -5880,7 +5821,6 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             if molecule_index in aux_dict:
@@ -5894,8 +5834,7 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group id from molecule in form molsysmt.Topology.
 
@@ -5917,11 +5856,10 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    group_id_from_group = item.groups['group_id'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    group_id_from_group = item.groups["group_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_id_from_group[group_index])
@@ -5929,7 +5867,6 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             if molecule_index in aux_dict:
@@ -5943,8 +5880,7 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group name from molecule in form molsysmt.Topology.
 
@@ -5966,11 +5902,10 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    group_name_from_group = item.groups['group_name'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    group_name_from_group = item.groups["group_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_name_from_group[group_index])
@@ -5978,7 +5913,6 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             if molecule_index in aux_dict:
@@ -5992,8 +5926,7 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group type from molecule in form molsysmt.Topology.
 
@@ -6015,11 +5948,10 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    group_type_from_group = item.groups['group_type'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    group_type_from_group = item.groups["group_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             aux_dict[molecule_index].append(group_type_from_group[group_index])
@@ -6027,7 +5959,6 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, molecule_index in enumerate(molecule_index_from_group):
             if molecule_index in aux_dict:
@@ -6041,8 +5972,7 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from molecule in form molsysmt.Topology.
 
@@ -6064,7 +5994,7 @@ def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = list(range(item.molecules.shape[0]))
     else:
         output = indices
@@ -6073,8 +6003,7 @@ def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from molecule in form molsysmt.Topology.
 
@@ -6096,9 +6025,9 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_id_from_molecule.tolist()
     else:
         output = molecule_id_from_molecule[indices].tolist()
@@ -6109,8 +6038,7 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from molecule in form molsysmt.Topology.
 
@@ -6132,9 +6060,9 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_name_from_molecule.tolist()
     else:
         output = molecule_name_from_molecule[indices].tolist()
@@ -6145,8 +6073,7 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from molecule in form molsysmt.Topology.
 
@@ -6168,9 +6095,9 @@ def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = molecule_type_from_molecule.tolist()
     else:
         output = molecule_type_from_molecule[indices].tolist()
@@ -6181,8 +6108,7 @@ def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity index from molecule in form molsysmt.Topology.
 
@@ -6204,9 +6130,9 @@ def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = entity_index_from_molecule.tolist()
     else:
         output = entity_index_from_molecule[indices].tolist()
@@ -6217,8 +6143,7 @@ def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity id from molecule in form molsysmt.Topology.
 
@@ -6240,10 +6165,10 @@ def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = entity_index_from_molecule
     else:
         output = entity_index_from_molecule[indices]
@@ -6256,8 +6181,7 @@ def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity name from molecule in form molsysmt.Topology.
 
@@ -6279,10 +6203,10 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = entity_index_from_molecule
     else:
         output = entity_index_from_molecule[indices]
@@ -6295,8 +6219,7 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity type from molecule in form molsysmt.Topology.
 
@@ -6318,10 +6241,10 @@ def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = entity_index_from_molecule
     else:
         output = entity_index_from_molecule[indices]
@@ -6334,8 +6257,7 @@ def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component index from molecule in form molsysmt.Topology.
 
@@ -6357,13 +6279,12 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(component_index_from_atom[atom_index])
@@ -6371,7 +6292,6 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6379,16 +6299,20 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
 
         output = [aux_dict[ii] for ii in indices]
 
-    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
 
-    output = [list(np.unique(ii)) for ii in output] 
+    output = [list(np.unique(ii)) for ii in output]
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component id from molecule in form molsysmt.Topology.
 
@@ -6410,14 +6334,13 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_id_from_component = item.components['component_id'].to_numpy()
+    component_id_from_component = item.components["component_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(component_index_from_atom[atom_index])
@@ -6425,7 +6348,6 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6433,16 +6355,21 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [component_id_from_component[np.unique(ii)].tolist() for ii in output] 
+    output = [component_id_from_component[np.unique(ii)].tolist() for ii in output]
 
-    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, component_id_from_component, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        component_id_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component name from molecule in form molsysmt.Topology.
 
@@ -6464,14 +6391,13 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_name_from_component = item.components['component_name'].to_numpy()
+    component_name_from_component = item.components["component_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(component_index_from_atom[atom_index])
@@ -6479,7 +6405,6 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6487,16 +6412,21 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output] 
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output]
 
-    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, component_name_from_component, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component type from molecule in form molsysmt.Topology.
 
@@ -6518,14 +6448,13 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_name_from_component = item.components['component_type'].to_numpy()
+    component_name_from_component = item.components["component_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(component_index_from_atom[atom_index])
@@ -6533,7 +6462,6 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6541,16 +6469,21 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output] 
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output]
 
-    del group_index_from_atom, molecule_index_from_atom, component_index_from_atom, component_name_from_component, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain index from molecule in form molsysmt.Topology.
 
@@ -6572,13 +6505,12 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(chain_index_from_atom[atom_index])
@@ -6586,7 +6518,6 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6597,16 +6528,14 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
     del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, aux_dict
 
     output = [
-        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
-        for ii in output
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii)) for ii in output
     ]
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain id from molecule in form molsysmt.Topology.
 
@@ -6628,14 +6557,13 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_id_from_chain = item.chains['chain_id'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(chain_index_from_atom[atom_index])
@@ -6643,7 +6571,6 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6651,21 +6578,25 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [chain_id_from_chain[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_id_from_chain[np.unique(ii)].tolist() for ii in output]
 
-    del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_id_from_chain, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        chain_index_from_atom,
+        chain_id_from_chain,
+        aux_dict,
+    )
 
     output = [
-        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
-        for ii in output
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii)) for ii in output
     ]
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain name from molecule in form molsysmt.Topology.
 
@@ -6687,14 +6618,13 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_name_from_chain = item.chains['chain_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(chain_index_from_atom[atom_index])
@@ -6702,7 +6632,6 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6710,21 +6639,25 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [chain_name_from_chain[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_name_from_chain[np.unique(ii)].tolist() for ii in output]
 
-    del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_name_from_chain, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        chain_index_from_atom,
+        chain_name_from_chain,
+        aux_dict,
+    )
 
     output = [
-        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
-        for ii in output
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii)) for ii in output
     ]
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain type from molecule in form molsysmt.Topology.
 
@@ -6746,14 +6679,13 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_type_from_chain = item.chains['chain_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             aux_dict[molecule_index].append(chain_index_from_atom[atom_index])
@@ -6761,7 +6693,6 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, molecule_index in enumerate(molecule_index_from_atom):
             if molecule_index in aux_dict:
@@ -6769,21 +6700,25 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [chain_type_from_chain[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_type_from_chain[np.unique(ii)].tolist() for ii in output]
 
-    del group_index_from_atom, molecule_index_from_atom, chain_index_from_atom, chain_type_from_chain, aux_dict
+    del (
+        group_index_from_atom,
+        molecule_index_from_atom,
+        chain_index_from_atom,
+        chain_type_from_chain,
+        aux_dict,
+    )
 
     output = [
-        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii))
-        for ii in output
+        (lambda u: u[0] if u.size == 1 else u.tolist())(np.unique(ii)) for ii in output
     ]
 
     return output
 
 
 @arg_digest(form=form)
-def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bond index from molecule in form molsysmt.Topology.
 
@@ -6805,13 +6740,21 @@ def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_molecule = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    atom_indices_from_molecule = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_molecule:
         if len(jj):
-            output.append(sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))))
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
         else:
             output.append([])
 
@@ -6821,8 +6764,7 @@ def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bond type from molecule in form molsysmt.Topology.
 
@@ -6845,7 +6787,9 @@ def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -6858,8 +6802,7 @@ def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bond order from molecule in form molsysmt.Topology.
 
@@ -6882,7 +6825,9 @@ def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -6895,8 +6840,7 @@ def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from molecule in form molsysmt.Topology.
 
@@ -6919,7 +6863,9 @@ def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -6932,8 +6878,7 @@ def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from molecule in form molsysmt.Topology.
 
@@ -6956,7 +6901,9 @@ def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=Fals
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -6969,8 +6916,7 @@ def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from molecule in form molsysmt.Topology.
 
@@ -6992,19 +6938,25 @@ def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_molecule = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
+    atom_indices_from_molecule = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_molecule:
-        aux = sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj])))
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
         if len(aux):
             pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
-            mask = np.isin(pairs[:,0], jj) & np.isin(pairs[:,1], jj)
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
             aux = list(compress(aux, mask))
         else:
-            aux=[]
+            aux = []
         output.append(aux)
 
     del atom_indices_from_molecule, bonded_atom_pairs, bond_indices_from_atom
@@ -7013,8 +6965,7 @@ def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from molecule in form molsysmt.Topology.
 
@@ -7037,11 +6988,15 @@ def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=Fal
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_molecule(item, indices=indices, skip_digestion=True)
-    atom_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    atom_indices = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
-    for ii,jj in zip(bond_indices, atom_indices):
+    for ii, jj in zip(bond_indices, atom_indices):
         aux_vals = [bonded_atom_pairs[jj] for jj in ii]
         output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
 
@@ -7051,8 +7006,9 @@ def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_molecule(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting inner bonded atom pairs from molecule in form molsysmt.Topology.
 
@@ -7074,32 +7030,33 @@ def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestio
 
     .. versionadded:: 1.0.0
     """
-    bonded_atom_pairs = get_bonded_atom_pairs_from_molecule(item, indices=indices, skip_digestion=True)
+    bonded_atom_pairs = get_bonded_atom_pairs_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
 
-    if indices=='all':
-
+    if indices == "all":
         output = bonded_atom_pairs
-    
-    else:
 
-        atom_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
 
         output = []
 
-        for ii,jj in zip(atom_indices, bonded_atom_pairs):
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
             if len(jj) == 0:
                 output.append([])
             else:
                 jj = np.array(jj)
-                mask = np.isin(jj[:,0], ii) | np.isin(jj[:,1], ii)
-                output.append(jj[mask,:].tolist())
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from molecule in form molsysmt.Topology.
 
@@ -7128,8 +7085,7 @@ def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from molecule in form molsysmt.Topology.
 
@@ -7151,7 +7107,7 @@ def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
         aux = get_n_atoms_from_molecule(item, indices=indices, skip_digestion=True)
@@ -7162,8 +7118,7 @@ def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n groups from molecule in form molsysmt.Topology.
 
@@ -7192,8 +7147,7 @@ def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_groups_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from molecule in form molsysmt.Topology.
 
@@ -7215,7 +7169,7 @@ def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
         aux = get_n_groups_from_molecule(item, indices=indices, skip_digestion=True)
@@ -7226,8 +7180,7 @@ def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from molecule in form molsysmt.Topology.
 
@@ -7249,7 +7202,7 @@ def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
@@ -7258,8 +7211,7 @@ def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_molecules_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from molecule in form molsysmt.Topology.
 
@@ -7285,8 +7237,7 @@ def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n entities from molecule in form molsysmt.Topology.
 
@@ -7308,18 +7259,19 @@ def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
-        output = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
+        output = get_entity_index_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).size
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_entities_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from molecule in form molsysmt.Topology.
 
@@ -7345,8 +7297,7 @@ def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n components from molecule in form molsysmt.Topology.
 
@@ -7375,8 +7326,7 @@ def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_components_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_components_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n components from molecule in form molsysmt.Topology.
 
@@ -7398,7 +7348,7 @@ def get_total_n_components_from_molecule(item, indices='all', skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
         aux = get_component_index_from_molecule(item, indices, skip_digestion=True)
@@ -7414,8 +7364,7 @@ def get_total_n_components_from_molecule(item, indices='all', skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n chains from molecule in form molsysmt.Topology.
 
@@ -7444,8 +7393,7 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_chains_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from molecule in form molsysmt.Topology.
 
@@ -7467,7 +7415,7 @@ def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
         aux = get_chain_index_from_molecule(item, indices, skip_digestion=True)
@@ -7483,8 +7431,7 @@ def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False): 
-
+def get_n_bonds_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from molecule in form molsysmt.Topology.
 
@@ -7513,8 +7460,7 @@ def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_bonds_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n bonds from molecule in form molsysmt.Topology.
 
@@ -7536,7 +7482,7 @@ def get_total_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
@@ -7547,8 +7493,7 @@ def get_total_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from molecule in form molsysmt.Topology.
 
@@ -7577,8 +7522,7 @@ def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_inner_bonds_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n inner bonds from molecule in form molsysmt.Topology.
 
@@ -7600,12 +7544,10 @@ def get_total_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
         atom_indices = get_atom_index_from_molecule(item, indices, skip_digestion=True)
         indices = np.concatenate(atom_indices).tolist()
         output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
@@ -7614,8 +7556,7 @@ def get_total_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from molecule in form molsysmt.Topology.
 
@@ -7637,15 +7578,16 @@ def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('amino acid') for ii in group_types ]
+    group_types = get_group_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("amino acid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_amino_acids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from molecule in form molsysmt.Topology.
 
@@ -7667,21 +7609,20 @@ def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_amino_acids_from_molecule(item, indices=indices, skip_digestion=True)
+        output = get_n_amino_acids_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from molecule in form molsysmt.Topology.
 
@@ -7703,15 +7644,16 @@ def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('nucleotide') for ii in group_types ]
+    group_types = get_group_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("nucleotide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_nucleotides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from molecule in form molsysmt.Topology.
 
@@ -7733,21 +7675,20 @@ def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_nucleotides_from_molecule(item, indices=indices, skip_digestion=True)
+        output = get_n_nucleotides_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n ions from molecule in form molsysmt.Topology.
 
@@ -7769,15 +7710,16 @@ def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('ion') for ii in group_types ]
+    group_types = get_group_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("ion") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_ions_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from molecule in form molsysmt.Topology.
 
@@ -7799,12 +7741,10 @@ def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_ions_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_ions_from_molecule(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -7812,8 +7752,7 @@ def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n waters from molecule in form molsysmt.Topology.
 
@@ -7835,15 +7774,16 @@ def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('water') for ii in group_types ]
+    group_types = get_group_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("water") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_waters_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from molecule in form molsysmt.Topology.
 
@@ -7865,12 +7805,10 @@ def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_waters_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_waters_from_molecule(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -7878,8 +7816,7 @@ def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from molecule in form molsysmt.Topology.
 
@@ -7901,15 +7838,18 @@ def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('small molecule') for ii in group_types ]
+    group_types = get_group_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("small molecule") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_small_molecules_from_molecule(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting total n small molecules from molecule in form molsysmt.Topology.
 
@@ -7931,21 +7871,20 @@ def get_total_n_small_molecules_from_molecule(item, indices='all', skip_digestio
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_small_molecules_from_molecule(item, indices=indices, skip_digestion=True)
+        output = get_n_small_molecules_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from molecule in form molsysmt.Topology.
 
@@ -7967,15 +7906,16 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('lipid') for ii in group_types ]
+    group_types = get_group_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("lipid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_lipids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from molecule in form molsysmt.Topology.
 
@@ -7997,12 +7937,10 @@ def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_lipids_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_lipids_from_molecule(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -8010,8 +7948,7 @@ def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from molecule in form molsysmt.Topology.
 
@@ -8033,15 +7970,16 @@ def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('saccharide') for ii in group_types ]
+    group_types = get_group_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("saccharide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_saccharides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from molecule in form molsysmt.Topology.
 
@@ -8063,21 +8001,20 @@ def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=Fa
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_saccharides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_saccharides_from_molecule(item, indices=indices, skip_digestion=True)
+        output = get_n_saccharides_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from molecule in form molsysmt.Topology.
 
@@ -8099,15 +8036,16 @@ def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = molecule_types.count('peptide')
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = molecule_types.count("peptide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_peptides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from molecule in form molsysmt.Topology.
 
@@ -8135,8 +8073,7 @@ def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from molecule in form molsysmt.Topology.
 
@@ -8158,15 +8095,16 @@ def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = molecule_types.count('protein')
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = molecule_types.count("protein")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_proteins_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from molecule in form molsysmt.Topology.
 
@@ -8194,8 +8132,7 @@ def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from molecule in form molsysmt.Topology.
 
@@ -8217,15 +8154,18 @@ def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = molecule_types.count('polysaccharide')
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = molecule_types.count("polysaccharide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_polysaccharides_from_molecule(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting total n polysaccharides from molecule in form molsysmt.Topology.
 
@@ -8247,14 +8187,15 @@ def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestio
 
     .. versionadded:: 1.0.0
     """
-    output = get_n_polysaccharides_from_molecule(item, indices=indices, skip_digestion=True)
+    output = get_n_polysaccharides_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from molecule in form molsysmt.Topology.
 
@@ -8276,15 +8217,16 @@ def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = molecule_types.count('dna')
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = molecule_types.count("dna")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_dnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from molecule in form molsysmt.Topology.
 
@@ -8312,8 +8254,7 @@ def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from molecule in form molsysmt.Topology.
 
@@ -8335,15 +8276,16 @@ def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = molecule_types.count('rna')
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = molecule_types.count("rna")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_total_n_rnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from molecule in form molsysmt.Topology.
 
@@ -8374,8 +8316,7 @@ def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom index from entity in form molsysmt.Topology.
 
@@ -8397,14 +8338,13 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(atom_index)
@@ -8412,7 +8352,6 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -8427,8 +8366,7 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom id from entity in form molsysmt.Topology.
 
@@ -8450,15 +8388,14 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
+    atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(atom_id_from_atom[atom_index])
@@ -8466,7 +8403,6 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -8481,8 +8417,7 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom name from entity in form molsysmt.Topology.
 
@@ -8504,15 +8439,14 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
+    atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(atom_name_from_atom[atom_index])
@@ -8520,7 +8454,6 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -8535,8 +8468,7 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom type from entity in form molsysmt.Topology.
 
@@ -8558,15 +8490,14 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
+    atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(atom_type_from_atom[atom_index])
@@ -8574,7 +8505,6 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -8589,8 +8519,7 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group index from entity in form molsysmt.Topology.
 
@@ -8612,12 +8541,11 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
-    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
 
-    if indices == 'all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, entity_index in enumerate(entity_index_from_group):
             aux_dict[entity_index].append(group_index)
@@ -8625,7 +8553,6 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, entity_index in enumerate(entity_index_from_group):
             if entity_index in aux_dict:
@@ -8633,14 +8560,18 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, aux_dict
+    del (
+        molecule_index_from_group,
+        entity_index_from_molecule,
+        entity_index_from_group,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_group_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group id from entity in form molsysmt.Topology.
 
@@ -8662,13 +8593,12 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
-    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
-    group_id_from_group = item.groups['group_id'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
+    group_id_from_group = item.groups["group_id"].to_numpy()
 
-    if indices == 'all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, entity_index in enumerate(entity_index_from_group):
             aux_dict[entity_index].append(group_id_from_group[group_index])
@@ -8676,7 +8606,6 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, entity_index in enumerate(entity_index_from_group):
             if entity_index in aux_dict:
@@ -8684,14 +8613,18 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, aux_dict
+    del (
+        molecule_index_from_group,
+        entity_index_from_molecule,
+        entity_index_from_group,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_group_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group name from entity in form molsysmt.Topology.
 
@@ -8713,13 +8646,12 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
-    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
-    group_name_from_group = item.groups['group_name'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
+    group_name_from_group = item.groups["group_name"].to_numpy()
 
-    if indices == 'all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, entity_index in enumerate(entity_index_from_group):
             aux_dict[entity_index].append(group_name_from_group[group_index])
@@ -8727,7 +8659,6 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, entity_index in enumerate(entity_index_from_group):
             if entity_index in aux_dict:
@@ -8735,14 +8666,18 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, aux_dict
+    del (
+        molecule_index_from_group,
+        entity_index_from_molecule,
+        entity_index_from_group,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_group_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group type from entity in form molsysmt.Topology.
 
@@ -8764,13 +8699,12 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_index_from_group     = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule     = item.molecules['entity_index'].to_numpy()
-    entity_index_from_group   = entity_index_from_molecule[molecule_index_from_group]
-    group_type_from_group = item.groups['group_type'].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    entity_index_from_group = entity_index_from_molecule[molecule_index_from_group]
+    group_type_from_group = item.groups["group_type"].to_numpy()
 
-    if indices == 'all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for group_index, entity_index in enumerate(entity_index_from_group):
             aux_dict[entity_index].append(group_type_from_group[group_index])
@@ -8778,7 +8712,6 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for group_index, entity_index in enumerate(entity_index_from_group):
             if entity_index in aux_dict:
@@ -8786,14 +8719,18 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    del molecule_index_from_group, entity_index_from_molecule, entity_index_from_group, aux_dict
+    del (
+        molecule_index_from_group,
+        entity_index_from_molecule,
+        entity_index_from_group,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from entity in form molsysmt.Topology.
 
@@ -8815,10 +8752,9 @@ def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             aux_dict[entity_index].append(molecule_index)
@@ -8826,7 +8762,6 @@ def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             if entity_index in aux_dict:
@@ -8840,8 +8775,7 @@ def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from entity in form molsysmt.Topology.
 
@@ -8863,11 +8797,10 @@ def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             aux_dict[entity_index].append(molecule_id_from_molecule[molecule_index])
@@ -8875,7 +8808,6 @@ def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             if entity_index in aux_dict:
@@ -8889,8 +8821,7 @@ def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from entity in form molsysmt.Topology.
 
@@ -8912,11 +8843,10 @@ def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             aux_dict[entity_index].append(molecule_name_from_molecule[molecule_index])
@@ -8924,11 +8854,12 @@ def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             if entity_index in aux_dict:
-                aux_dict[entity_index].append(molecule_name_from_molecule[molecule_index])
+                aux_dict[entity_index].append(
+                    molecule_name_from_molecule[molecule_index]
+                )
 
         output = [aux_dict[m] for m in indices]
 
@@ -8938,8 +8869,7 @@ def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from entity in form molsysmt.Topology.
 
@@ -8961,11 +8891,10 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             aux_dict[entity_index].append(molecule_type_from_molecule[molecule_index])
@@ -8973,11 +8902,12 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for molecule_index, entity_index in enumerate(entity_index_from_molecule):
             if entity_index in aux_dict:
-                aux_dict[entity_index].append(molecule_type_from_molecule[molecule_index])
+                aux_dict[entity_index].append(
+                    molecule_type_from_molecule[molecule_index]
+                )
 
         output = [aux_dict[m] for m in indices]
 
@@ -8987,8 +8917,7 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity index from entity in form molsysmt.Topology.
 
@@ -9010,7 +8939,7 @@ def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = list(range(item.entities.shape[0]))
     else:
         output = indices
@@ -9019,8 +8948,7 @@ def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity id from entity in form molsysmt.Topology.
 
@@ -9042,9 +8970,9 @@ def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = entity_id_from_entity.tolist()
     else:
         output = entity_id_from_entity[indices].tolist()
@@ -9055,8 +8983,7 @@ def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity name from entity in form molsysmt.Topology.
 
@@ -9078,9 +9005,9 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = entity_name_from_entity.tolist()
     else:
         output = entity_name_from_entity[indices].tolist()
@@ -9091,8 +9018,7 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity type from entity in form molsysmt.Topology.
 
@@ -9114,9 +9040,9 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = entity_type_from_entity.tolist()
     else:
         output = entity_type_from_entity[indices].tolist()
@@ -9127,8 +9053,7 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component index from entity in form molsysmt.Topology.
 
@@ -9150,15 +9075,14 @@ def get_component_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(component_index_from_atom[atom_index])
@@ -9166,7 +9090,6 @@ def get_component_index_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9175,16 +9098,20 @@ def get_component_index_from_entity(item, indices='all', skip_digestion=False):
         output = [aux_dict[ii] for ii in indices]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, component_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
 
-    output = [list(np.unique(ii)) for ii in output] 
+    output = [list(np.unique(ii)) for ii in output]
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component id from entity in form molsysmt.Topology.
 
@@ -9206,16 +9133,15 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_id_from_component = item.components['component_id'].to_numpy()
+    component_id_from_component = item.components["component_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(component_index_from_atom[atom_index])
@@ -9223,7 +9149,6 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9231,18 +9156,22 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [component_id_from_component[np.unique(ii)].tolist() for ii in output] 
+    output = [component_id_from_component[np.unique(ii)].tolist() for ii in output]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, component_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
     del component_id_from_component
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component name from entity in form molsysmt.Topology.
 
@@ -9264,16 +9193,15 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_name_from_component = item.components['component_name'].to_numpy()
+    component_name_from_component = item.components["component_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(component_index_from_atom[atom_index])
@@ -9281,7 +9209,6 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9289,18 +9216,22 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output] 
+    output = [component_name_from_component[np.unique(ii)].tolist() for ii in output]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, component_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
     del component_name_from_component
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component type from entity in form molsysmt.Topology.
 
@@ -9322,16 +9253,15 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_type_from_component = item.components['component_type'].to_numpy()
+    component_type_from_component = item.components["component_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(component_index_from_atom[atom_index])
@@ -9339,7 +9269,6 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9347,18 +9276,22 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [component_type_from_component[np.unique(ii)].tolist() for ii in output] 
+    output = [component_type_from_component[np.unique(ii)].tolist() for ii in output]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, component_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        component_index_from_atom,
+        aux_dict,
+    )
     del component_type_from_component
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain index from entity in form molsysmt.Topology.
 
@@ -9380,15 +9313,14 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(chain_index_from_atom[atom_index])
@@ -9396,7 +9328,6 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9405,16 +9336,20 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
         output = [aux_dict[ii] for ii in indices]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, chain_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        chain_index_from_atom,
+        aux_dict,
+    )
 
-    output = [list(np.unique(ii)) for ii in output] 
+    output = [list(np.unique(ii)) for ii in output]
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain id from entity in form molsysmt.Topology.
 
@@ -9436,16 +9371,15 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_id_from_chain = item.chains['chain_id'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(chain_index_from_atom[atom_index])
@@ -9453,7 +9387,6 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9461,18 +9394,22 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [chain_id_from_chain[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_id_from_chain[np.unique(ii)].tolist() for ii in output]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, chain_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        chain_index_from_atom,
+        aux_dict,
+    )
     del chain_id_from_chain
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain name from entity in form molsysmt.Topology.
 
@@ -9494,16 +9431,15 @@ def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_name_from_chain = item.chains['chain_name'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(chain_index_from_atom[atom_index])
@@ -9511,7 +9447,6 @@ def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9519,18 +9454,22 @@ def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [chain_name_from_chain[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_name_from_chain[np.unique(ii)].tolist() for ii in output]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, chain_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        chain_index_from_atom,
+        aux_dict,
+    )
     del chain_name_from_chain
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain type from entity in form molsysmt.Topology.
 
@@ -9552,16 +9491,15 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
-    molecule_index_from_atom     = molecule_index_from_group[group_index_from_atom]
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_type_from_chain = item.chains['chain_type'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             aux_dict[entity_index].append(chain_index_from_atom[atom_index])
@@ -9569,7 +9507,6 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, entity_index in enumerate(entity_index_from_atom):
             if entity_index in aux_dict:
@@ -9577,18 +9514,22 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[ii] for ii in indices]
 
-    output = [chain_type_from_chain[np.unique(ii)].tolist() for ii in output] 
+    output = [chain_type_from_chain[np.unique(ii)].tolist() for ii in output]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
-    del molecule_index_from_atom, entity_index_from_atom, chain_index_from_atom, aux_dict
+    del (
+        molecule_index_from_atom,
+        entity_index_from_atom,
+        chain_index_from_atom,
+        aux_dict,
+    )
     del chain_type_from_chain
 
     return output
 
 
 @arg_digest(form=form)
-def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bond index from entity in form molsysmt.Topology.
 
@@ -9610,13 +9551,21 @@ def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    atom_indices_from_entity = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_entity:
         if len(jj):
-            output.append(sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))))
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
         else:
             output.append([])
 
@@ -9626,8 +9575,7 @@ def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bond type from entity in form molsysmt.Topology.
 
@@ -9650,7 +9598,9 @@ def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -9663,8 +9613,7 @@ def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bond order from entity in form molsysmt.Topology.
 
@@ -9687,7 +9636,9 @@ def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -9700,8 +9651,7 @@ def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from entity in form molsysmt.Topology.
 
@@ -9724,7 +9674,9 @@ def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -9737,8 +9689,7 @@ def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from entity in form molsysmt.Topology.
 
@@ -9761,7 +9712,9 @@ def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False)
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -9774,8 +9727,7 @@ def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from entity in form molsysmt.Topology.
 
@@ -9797,19 +9749,25 @@ def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_entity = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
+    atom_indices_from_entity = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_entity:
-        aux = sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj])))
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
         if len(aux):
             pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
-            mask = np.isin(pairs[:,0], jj) & np.isin(pairs[:,1], jj)
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
             aux = list(compress(aux, mask))
         else:
-            aux=[]
+            aux = []
         output.append(aux)
 
     del atom_indices_from_entity, bonded_atom_pairs, bond_indices_from_atom
@@ -9818,8 +9776,7 @@ def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from entity in form molsysmt.Topology.
 
@@ -9842,11 +9799,15 @@ def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_entity(item, indices=indices, skip_digestion=True)
-    atom_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    atom_indices = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
-    for ii,jj in zip(bond_indices, atom_indices):
+    for ii, jj in zip(bond_indices, atom_indices):
         aux_vals = [bonded_atom_pairs[jj] for jj in ii]
         output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
 
@@ -9856,8 +9817,7 @@ def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from entity in form molsysmt.Topology.
 
@@ -9879,32 +9839,33 @@ def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    bonded_atom_pairs = get_bonded_atom_pairs_from_entity(item, indices=indices, skip_digestion=True)
+    bonded_atom_pairs = get_bonded_atom_pairs_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
 
-    if indices=='all':
-
+    if indices == "all":
         output = bonded_atom_pairs
-    
-    else:
 
-        atom_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_entity(
+            item, indices=indices, skip_digestion=True
+        )
 
         output = []
 
-        for ii,jj in zip(atom_indices, bonded_atom_pairs):
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
             if len(jj) == 0:
                 output.append([])
             else:
                 jj = np.array(jj)
-                mask = np.isin(jj[:,0], ii) | np.isin(jj[:,1], ii)
-                output.append(jj[mask,:].tolist())
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from entity in form molsysmt.Topology.
 
@@ -9933,8 +9894,7 @@ def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from entity in form molsysmt.Topology.
 
@@ -9956,7 +9916,7 @@ def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
         aux = get_n_atoms_from_molecule(item, indices=indices, skip_digestion=True)
@@ -9967,8 +9927,7 @@ def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n groups from entity in form molsysmt.Topology.
 
@@ -9997,8 +9956,7 @@ def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_groups_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from entity in form molsysmt.Topology.
 
@@ -10020,7 +9978,7 @@ def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
         aux = get_n_groups_from_entity(item, indices=indices, skip_digestion=True)
@@ -10031,8 +9989,7 @@ def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from entity in form molsysmt.Topology.
 
@@ -10061,8 +10018,7 @@ def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from entity in form molsysmt.Topology.
 
@@ -10084,7 +10040,7 @@ def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
         aux = get_n_molecules_from_entity(item, indices=indices, skip_digestion=True)
@@ -10095,8 +10051,7 @@ def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n entities from entity in form molsysmt.Topology.
 
@@ -10118,7 +10073,7 @@ def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_entities_from_system(item)
     else:
         output = len(indices)
@@ -10127,8 +10082,7 @@ def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_entities_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_entities_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from entity in form molsysmt.Topology.
 
@@ -10154,8 +10108,7 @@ def get_total_n_entities_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n components from entity in form molsysmt.Topology.
 
@@ -10184,8 +10137,7 @@ def get_n_components_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_components_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_components_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n components from entity in form molsysmt.Topology.
 
@@ -10207,7 +10159,7 @@ def get_total_n_components_from_entity(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
         aux = get_component_index_from_entity(item, indices, skip_digestion=True)
@@ -10223,8 +10175,7 @@ def get_total_n_components_from_entity(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n chains from entity in form molsysmt.Topology.
 
@@ -10253,8 +10204,7 @@ def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_chains_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from entity in form molsysmt.Topology.
 
@@ -10276,7 +10226,7 @@ def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
         aux = get_chain_index_from_entity(item, indices, skip_digestion=True)
@@ -10292,8 +10242,7 @@ def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from entity in form molsysmt.Topology.
 
@@ -10322,8 +10271,7 @@ def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_bonds_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_bonds_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n bonds from entity in form molsysmt.Topology.
 
@@ -10345,7 +10293,7 @@ def get_total_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         atom_indices = get_atom_index_from_entity(item, indices, skip_digestion=True)
@@ -10356,8 +10304,7 @@ def get_total_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from entity in form molsysmt.Topology.
 
@@ -10386,8 +10333,7 @@ def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_inner_bonds_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n inner bonds from entity in form molsysmt.Topology.
 
@@ -10409,12 +10355,10 @@ def get_total_n_inner_bonds_from_entity(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
         atom_indices = get_atom_index_from_entity(item, indices, skip_digestion=True)
         indices = np.concatenate(atom_indices).tolist()
         output = get_total_n_inner_bonds_from_atom(item, indices, skip_digestion=True)
@@ -10423,8 +10367,7 @@ def get_total_n_inner_bonds_from_entity(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from entity in form molsysmt.Topology.
 
@@ -10447,14 +10390,13 @@ def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('amino acid') for ii in group_types ]
+    output = [ii.count("amino acid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_amino_acids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from entity in form molsysmt.Topology.
 
@@ -10476,21 +10418,20 @@ def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_amino_acids_from_entity(item, indices=indices, skip_digestion=True)
+        output = get_n_amino_acids_from_entity(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from entity in form molsysmt.Topology.
 
@@ -10513,14 +10454,13 @@ def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('nucleotide') for ii in group_types ]
+    output = [ii.count("nucleotide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_nucleotides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from entity in form molsysmt.Topology.
 
@@ -10542,21 +10482,20 @@ def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_nucleotides_from_entity(item, indices=indices, skip_digestion=True)
+        output = get_n_nucleotides_from_entity(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n ions from entity in form molsysmt.Topology.
 
@@ -10579,14 +10518,13 @@ def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('ion') for ii in group_types ]
+    output = [ii.count("ion") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_ions_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from entity in form molsysmt.Topology.
 
@@ -10608,12 +10546,10 @@ def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_ions_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_ions_from_entity(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -10621,8 +10557,7 @@ def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n waters from entity in form molsysmt.Topology.
 
@@ -10645,14 +10580,13 @@ def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('water') for ii in group_types ]
+    output = [ii.count("water") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_waters_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from entity in form molsysmt.Topology.
 
@@ -10674,12 +10608,10 @@ def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_waters_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_waters_from_entity(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -10687,8 +10619,7 @@ def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from entity in form molsysmt.Topology.
 
@@ -10711,14 +10642,13 @@ def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False)
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('small molecule') for ii in group_types ]
+    output = [ii.count("small molecule") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_small_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n small molecules from entity in form molsysmt.Topology.
 
@@ -10740,21 +10670,20 @@ def get_total_n_small_molecules_from_entity(item, indices='all', skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_small_molecules_from_entity(item, indices=indices, skip_digestion=True)
+        output = get_n_small_molecules_from_entity(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from entity in form molsysmt.Topology.
 
@@ -10777,14 +10706,13 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('lipid') for ii in group_types ]
+    output = [ii.count("lipid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_lipids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from entity in form molsysmt.Topology.
 
@@ -10806,12 +10734,10 @@ def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_lipids_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_lipids_from_entity(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -10819,8 +10745,7 @@ def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from entity in form molsysmt.Topology.
 
@@ -10843,14 +10768,13 @@ def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('saccharide') for ii in group_types ]
+    output = [ii.count("saccharide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_saccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from entity in form molsysmt.Topology.
 
@@ -10872,21 +10796,20 @@ def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_saccharides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_saccharides_from_entity(item, indices=indices, skip_digestion=True)
+        output = get_n_saccharides_from_entity(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from entity in form molsysmt.Topology.
 
@@ -10908,15 +10831,16 @@ def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('peptide') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("peptide") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_peptides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from entity in form molsysmt.Topology.
 
@@ -10938,12 +10862,10 @@ def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_peptides_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_peptides_from_entity(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -10951,8 +10873,7 @@ def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from entity in form molsysmt.Topology.
 
@@ -10974,15 +10895,16 @@ def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('protein') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("protein") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_proteins_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from entity in form molsysmt.Topology.
 
@@ -11004,12 +10926,10 @@ def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_proteins_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_proteins_from_entity(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -11017,8 +10937,7 @@ def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from entity in form molsysmt.Topology.
 
@@ -11040,15 +10959,16 @@ def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('polysaccharide') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("polysaccharide") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_polysaccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from entity in form molsysmt.Topology.
 
@@ -11070,21 +10990,20 @@ def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_polysaccharides_from_entity(item, indices=indices, skip_digestion=True)
+        output = get_n_polysaccharides_from_entity(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from entity in form molsysmt.Topology.
 
@@ -11106,15 +11025,16 @@ def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('dna') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("dna") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_dnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from entity in form molsysmt.Topology.
 
@@ -11136,12 +11056,10 @@ def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_dnas_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_dnas_from_entity(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -11149,8 +11067,7 @@ def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from entity in form molsysmt.Topology.
 
@@ -11172,15 +11089,16 @@ def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_entity(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('rna') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("rna") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
-
+def get_total_n_rnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from entity in form molsysmt.Topology.
 
@@ -11202,12 +11120,10 @@ def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_rnas_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_rnas_from_entity(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -11218,8 +11134,7 @@ def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom index from component in form molsysmt.Topology.
 
@@ -11243,8 +11158,7 @@ def get_atom_index_from_component(item, indices='all', skip_digestion=False):
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].append(atom_index)
@@ -11252,7 +11166,6 @@ def get_atom_index_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11266,8 +11179,7 @@ def get_atom_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom id from component in form molsysmt.Topology.
 
@@ -11290,10 +11202,9 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
+    atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].append(atom_id_from_atom[atom_index])
@@ -11301,7 +11212,6 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11315,8 +11225,7 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom name from component in form molsysmt.Topology.
 
@@ -11339,10 +11248,9 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
+    atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].append(atom_name_from_atom[atom_index])
@@ -11350,7 +11258,6 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11364,8 +11271,7 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom type from component in form molsysmt.Topology.
 
@@ -11388,10 +11294,9 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
+    atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].append(atom_type_from_atom[atom_index])
@@ -11399,7 +11304,6 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11413,8 +11317,7 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group index from component in form molsysmt.Topology.
 
@@ -11437,10 +11340,9 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(group_index_from_atom[atom_index])
@@ -11448,7 +11350,6 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             component_index = component_index_from_atom[atom_index]
@@ -11465,8 +11366,7 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group id from component in form molsysmt.Topology.
 
@@ -11489,11 +11389,10 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_id_from_group = item.groups['group_id'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_id_from_group = item.groups["group_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(group_index_from_atom[atom_index])
@@ -11501,7 +11400,6 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11518,8 +11416,7 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group name from component in form molsysmt.Topology.
 
@@ -11542,11 +11439,10 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_name_from_group = item.groups['group_name'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_name_from_group = item.groups["group_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(group_index_from_atom[atom_index])
@@ -11554,7 +11450,6 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11571,8 +11466,7 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group type from component in form molsysmt.Topology.
 
@@ -11595,11 +11489,10 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_type_from_group = item.groups['group_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_type_from_group = item.groups["group_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(group_index_from_atom[atom_index])
@@ -11607,7 +11500,6 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11624,8 +11516,7 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from component in form molsysmt.Topology.
 
@@ -11648,12 +11539,11 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(molecule_index_from_atom[atom_index])
@@ -11661,7 +11551,6 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11669,7 +11558,7 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+    output = [next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
 
     del component_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, aux_dict
@@ -11678,8 +11567,7 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from component in form molsysmt.Topology.
 
@@ -11702,13 +11590,12 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(molecule_index_from_atom[atom_index])
@@ -11716,7 +11603,6 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11724,7 +11610,12 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ molecule_id_from_molecule[next(iter(ii))] if len(ii) == 1 else molecule_id_from_molecule[sorted(ii)].tolist() for ii in output]
+    output = [
+        molecule_id_from_molecule[next(iter(ii))]
+        if len(ii) == 1
+        else molecule_id_from_molecule[sorted(ii)].tolist()
+        for ii in output
+    ]
 
     del component_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, molecule_id_from_molecule, aux_dict
@@ -11733,8 +11624,7 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from component in form molsysmt.Topology.
 
@@ -11757,13 +11647,12 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(molecule_index_from_atom[atom_index])
@@ -11771,7 +11660,6 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11779,7 +11667,12 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ molecule_name_from_molecule[next(iter(ii))] if len(ii) == 1 else molecule_name_from_molecule[sorted(ii)].tolist() for ii in output]
+    output = [
+        molecule_name_from_molecule[next(iter(ii))]
+        if len(ii) == 1
+        else molecule_name_from_molecule[sorted(ii)].tolist()
+        for ii in output
+    ]
 
     del component_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, molecule_name_from_molecule, aux_dict
@@ -11788,8 +11681,7 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from component in form molsysmt.Topology.
 
@@ -11812,13 +11704,14 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom.astype(int)]
-    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[
+        group_index_from_atom.astype(int)
+    ]
+    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(molecule_index_from_atom[atom_index])
@@ -11826,7 +11719,6 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11834,7 +11726,12 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [molecule_type_from_molecule[next(iter(ii))] if len(ii) == 1 else molecule_type_from_molecule[sorted(ii)].tolist() for ii in output]
+    output = [
+        molecule_type_from_molecule[next(iter(ii))]
+        if len(ii) == 1
+        else molecule_type_from_molecule[sorted(ii)].tolist()
+        for ii in output
+    ]
 
     del component_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, molecule_type_from_molecule, aux_dict
@@ -11843,8 +11740,7 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity index from component in form molsysmt.Topology.
 
@@ -11867,16 +11763,15 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(entity_index_from_atom[atom_index])
@@ -11884,7 +11779,6 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11892,7 +11786,7 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+    output = [next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
 
     del component_index_from_atom, entity_index_from_atom, aux_dict
 
@@ -11900,8 +11794,7 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity id from component in form molsysmt.Topology.
 
@@ -11924,17 +11817,16 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(entity_index_from_atom[atom_index])
@@ -11942,7 +11834,6 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -11950,16 +11841,25 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ entity_id_from_entity[next(iter(ii))] if len(ii) == 1 else entity_id_from_entity[sorted(ii)].tolist() for ii in output]
+    output = [
+        entity_id_from_entity[next(iter(ii))]
+        if len(ii) == 1
+        else entity_id_from_entity[sorted(ii)].tolist()
+        for ii in output
+    ]
 
-    del component_index_from_atom, entity_index_from_atom, entity_id_from_entity, aux_dict
+    del (
+        component_index_from_atom,
+        entity_index_from_atom,
+        entity_id_from_entity,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_entity_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity name from component in form molsysmt.Topology.
 
@@ -11982,17 +11882,16 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(entity_index_from_atom[atom_index])
@@ -12000,7 +11899,6 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -12008,16 +11906,25 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ entity_name_from_entity[next(iter(ii))] if len(ii) == 1 else entity_name_from_entity[sorted(ii)].tolist() for ii in output]
+    output = [
+        entity_name_from_entity[next(iter(ii))]
+        if len(ii) == 1
+        else entity_name_from_entity[sorted(ii)].tolist()
+        for ii in output
+    ]
 
-    del component_index_from_atom, entity_index_from_atom, entity_name_from_entity, aux_dict
+    del (
+        component_index_from_atom,
+        entity_index_from_atom,
+        entity_name_from_entity,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_entity_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity type from component in form molsysmt.Topology.
 
@@ -12040,17 +11947,16 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(entity_index_from_atom[atom_index])
@@ -12058,7 +11964,6 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -12066,16 +11971,25 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ entity_type_from_entity[next(iter(ii))] if len(ii) == 1 else entity_type_from_entity[sorted(ii)].tolist() for ii in output]
+    output = [
+        entity_type_from_entity[next(iter(ii))]
+        if len(ii) == 1
+        else entity_type_from_entity[sorted(ii)].tolist()
+        for ii in output
+    ]
 
-    del component_index_from_atom, entity_index_from_atom, entity_type_from_entity, aux_dict
+    del (
+        component_index_from_atom,
+        entity_index_from_atom,
+        entity_type_from_entity,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component index from component in form molsysmt.Topology.
 
@@ -12097,7 +12011,7 @@ def get_component_index_from_component(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = list(range(item.components.shape[0]))
     else:
         output = indices
@@ -12106,8 +12020,7 @@ def get_component_index_from_component(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_component_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component id from component in form molsysmt.Topology.
 
@@ -12129,9 +12042,9 @@ def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    component_id_from_component = item.components['component_id'].to_numpy()
+    component_id_from_component = item.components["component_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = component_id_from_component.tolist()
     else:
         output = component_id_from_component[indices].tolist()
@@ -12142,8 +12055,7 @@ def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component name from component in form molsysmt.Topology.
 
@@ -12165,9 +12077,9 @@ def get_component_name_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    component_name_from_component = item.components['component_name'].to_numpy()
+    component_name_from_component = item.components["component_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = component_name_from_component.tolist()
     else:
         output = component_name_from_component[indices].tolist()
@@ -12178,8 +12090,7 @@ def get_component_name_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_component_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component type from component in form molsysmt.Topology.
 
@@ -12201,9 +12112,9 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    component_type_from_component = item.components['component_type'].to_numpy()
+    component_type_from_component = item.components["component_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = component_type_from_component.tolist()
     else:
         output = component_type_from_component[indices].tolist()
@@ -12214,8 +12125,7 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_chain_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain index from component in form molsysmt.Topology.
 
@@ -12238,10 +12148,9 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(chain_index_from_atom[atom_index])
@@ -12249,7 +12158,6 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -12257,7 +12165,7 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
+    output = [next(iter(ii)) if len(ii) == 1 else sorted(ii) for ii in output]
 
     del component_index_from_atom, chain_index_from_atom, aux_dict
 
@@ -12265,8 +12173,7 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain id from component in form molsysmt.Topology.
 
@@ -12289,11 +12196,10 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_id_from_chain = item.chains['chain_id'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(chain_index_from_atom[atom_index])
@@ -12301,7 +12207,6 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -12309,7 +12214,12 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ chain_id_from_chain[next(iter(ii))] if len(ii) == 1 else chain_id_from_chain[sorted(ii)].tolist() for ii in output]
+    output = [
+        chain_id_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_id_from_chain[sorted(ii)].tolist()
+        for ii in output
+    ]
 
     del component_index_from_atom, chain_index_from_atom, chain_id_from_chain, aux_dict
 
@@ -12317,8 +12227,7 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain name from component in form molsysmt.Topology.
 
@@ -12341,11 +12250,10 @@ def get_chain_name_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_name_from_chain = item.chains['chain_name'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(chain_index_from_atom[atom_index])
@@ -12353,7 +12261,6 @@ def get_chain_name_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -12361,16 +12268,25 @@ def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ chain_name_from_chain[next(iter(ii))] if len(ii) == 1 else chain_name_from_chain[sorted(ii)].tolist() for ii in output]
+    output = [
+        chain_name_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_name_from_chain[sorted(ii)].tolist()
+        for ii in output
+    ]
 
-    del component_index_from_atom, chain_index_from_atom, chain_name_from_chain, aux_dict
+    del (
+        component_index_from_atom,
+        chain_index_from_atom,
+        chain_name_from_chain,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain type from component in form molsysmt.Topology.
 
@@ -12393,11 +12309,10 @@ def get_chain_type_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     component_index_from_atom = item._get_component_indices().to_numpy()
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    chain_type_from_chain = item.chains['chain_type'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, component_index in enumerate(component_index_from_atom):
             aux_dict[component_index].add(chain_index_from_atom[atom_index])
@@ -12405,7 +12320,6 @@ def get_chain_type_from_component(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, component_index in enumerate(component_index_from_atom):
             if component_index in aux_dict:
@@ -12413,16 +12327,25 @@ def get_chain_type_from_component(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [chain_type_from_chain[next(iter(ii))] if len(ii) == 1 else chain_type_from_chain[sorted(ii)].tolist() for ii in output]
+    output = [
+        chain_type_from_chain[next(iter(ii))]
+        if len(ii) == 1
+        else chain_type_from_chain[sorted(ii)].tolist()
+        for ii in output
+    ]
 
-    del component_index_from_atom, chain_index_from_atom, chain_type_from_chain, aux_dict
+    del (
+        component_index_from_atom,
+        chain_index_from_atom,
+        chain_type_from_chain,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_bond_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bond index from component in form molsysmt.Topology.
 
@@ -12444,13 +12367,21 @@ def get_bond_index_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_component = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    atom_indices_from_component = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_component:
         if len(jj):
-            output.append(sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))))
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
         else:
             output.append([])
 
@@ -12460,8 +12391,7 @@ def get_bond_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bond type from component in form molsysmt.Topology.
 
@@ -12484,7 +12414,9 @@ def get_bond_type_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bond_type = get_bond_type_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -12497,8 +12429,7 @@ def get_bond_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_component(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bond order from component in form molsysmt.Topology.
 
@@ -12521,7 +12452,9 @@ def get_bond_order_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bond_order = get_bond_order_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -12534,8 +12467,7 @@ def get_bond_order_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from component in form molsysmt.Topology.
 
@@ -12558,7 +12490,9 @@ def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -12571,8 +12505,7 @@ def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from component in form molsysmt.Topology.
 
@@ -12595,7 +12528,9 @@ def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=Fal
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
     for ii in bond_indices:
@@ -12608,8 +12543,7 @@ def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from component in form molsysmt.Topology.
 
@@ -12631,19 +12565,25 @@ def get_inner_bond_index_from_component(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_component = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    atom_indices_from_component = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_component:
-        aux = sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj])))
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
         if len(aux):
             pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
-            mask = np.isin(pairs[:,0], jj) & np.isin(pairs[:,1], jj)
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
             aux = list(compress(aux, mask))
         else:
-            aux=[]
+            aux = []
         output.append(aux)
 
     del atom_indices_from_component, bonded_atom_pairs, bond_indices_from_atom
@@ -12652,8 +12592,7 @@ def get_inner_bond_index_from_component(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from component in form molsysmt.Topology.
 
@@ -12676,11 +12615,15 @@ def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=Fa
     .. versionadded:: 1.0.0
     """
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices = get_bond_index_from_component(item, indices=indices, skip_digestion=True)
-    atom_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    bond_indices = get_bond_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    atom_indices = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
     output = []
-    for ii,jj in zip(bond_indices, atom_indices):
+    for ii, jj in zip(bond_indices, atom_indices):
         aux_vals = [bonded_atom_pairs[jj] for jj in ii]
         output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
 
@@ -12690,8 +12633,9 @@ def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_component(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting inner bonded atom pairs from component in form molsysmt.Topology.
 
@@ -12713,32 +12657,33 @@ def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digesti
 
     .. versionadded:: 1.0.0
     """
-    bonded_atom_pairs = get_bonded_atom_pairs_from_component(item, indices=indices, skip_digestion=True)
+    bonded_atom_pairs = get_bonded_atom_pairs_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
-    if indices=='all':
-
+    if indices == "all":
         output = bonded_atom_pairs
-    
-    else:
 
-        atom_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
 
         output = []
 
-        for ii,jj in zip(atom_indices, bonded_atom_pairs):
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
             if len(jj) == 0:
                 output.append([])
             else:
                 jj = np.array(jj)
-                mask = np.isin(jj[:,0], ii) | np.isin(jj[:,1], ii)
-                output.append(jj[mask,:].tolist())
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from component in form molsysmt.Topology.
 
@@ -12767,8 +12712,7 @@ def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from component in form molsysmt.Topology.
 
@@ -12790,7 +12734,7 @@ def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
         aux = get_n_atoms_from_component(item, indices=indices, skip_digestion=True)
@@ -12801,8 +12745,7 @@ def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n groups from component in form molsysmt.Topology.
 
@@ -12831,8 +12774,7 @@ def get_n_groups_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_groups_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_groups_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from component in form molsysmt.Topology.
 
@@ -12854,7 +12796,7 @@ def get_total_n_groups_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
         aux = get_group_index_from_component(item, indices, skip_digestion=True)
@@ -12870,8 +12812,7 @@ def get_total_n_groups_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from component in form molsysmt.Topology.
 
@@ -12893,18 +12834,19 @@ def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
-        output = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+        output = get_molecule_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).size
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_molecules_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from component in form molsysmt.Topology.
 
@@ -12930,8 +12872,7 @@ def get_total_n_molecules_from_component(item, indices='all', skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def get_n_entities_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n entities from component in form molsysmt.Topology.
 
@@ -12953,18 +12894,19 @@ def get_n_entities_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
-        output = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
+        output = get_entity_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).size
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_entities_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_entities_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from component in form molsysmt.Topology.
 
@@ -12990,8 +12932,7 @@ def get_total_n_entities_from_component(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_n_components_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n components from component in form molsysmt.Topology.
 
@@ -13013,7 +12954,7 @@ def get_n_components_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.components.shape[0]
     else:
         output = len(indices)
@@ -13022,8 +12963,7 @@ def get_n_components_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_components_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_components_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n components from component in form molsysmt.Topology.
 
@@ -13049,8 +12989,7 @@ def get_total_n_components_from_component(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_n_chains_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n chains from component in form molsysmt.Topology.
 
@@ -13079,8 +13018,7 @@ def get_n_chains_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_chains_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_chains_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from component in form molsysmt.Topology.
 
@@ -13102,7 +13040,7 @@ def get_total_n_chains_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
         aux = get_chain_index_from_component(item, indices, skip_digestion=True)
@@ -13118,8 +13056,7 @@ def get_total_n_chains_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from component in form molsysmt.Topology.
 
@@ -13148,8 +13085,7 @@ def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_bonds_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_bonds_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n bonds from component in form molsysmt.Topology.
 
@@ -13171,7 +13107,7 @@ def get_total_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
@@ -13182,8 +13118,7 @@ def get_total_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from component in form molsysmt.Topology.
 
@@ -13212,8 +13147,7 @@ def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_inner_bonds_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n inner bonds from component in form molsysmt.Topology.
 
@@ -13235,7 +13169,7 @@ def get_total_n_inner_bonds_from_component(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         atom_indices = get_atom_index_from_component(item, indices, skip_digestion=True)
@@ -13246,8 +13180,7 @@ def get_total_n_inner_bonds_from_component(item, indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from component in form molsysmt.Topology.
 
@@ -13269,15 +13202,16 @@ def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('amino acid') for ii in group_types ]
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("amino acid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_amino_acids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from component in form molsysmt.Topology.
 
@@ -13299,21 +13233,20 @@ def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_amino_acids_from_component(item, indices=indices, skip_digestion=True)
+        output = get_n_amino_acids_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from component in form molsysmt.Topology.
 
@@ -13335,15 +13268,16 @@ def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('nucleotide') for ii in group_types ]
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("nucleotide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_nucleotides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from component in form molsysmt.Topology.
 
@@ -13365,21 +13299,20 @@ def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_nucleotides_from_component(item, indices=indices, skip_digestion=True)
+        output = get_n_nucleotides_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n ions from component in form molsysmt.Topology.
 
@@ -13401,15 +13334,16 @@ def get_n_ions_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('ion') for ii in group_types ]
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("ion") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_ions_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from component in form molsysmt.Topology.
 
@@ -13431,12 +13365,10 @@ def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_ions_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_ions_from_component(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -13444,8 +13376,7 @@ def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_waters_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n waters from component in form molsysmt.Topology.
 
@@ -13467,15 +13398,16 @@ def get_n_waters_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('water') for ii in group_types ]
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("water") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_waters_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_waters_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from component in form molsysmt.Topology.
 
@@ -13497,12 +13429,10 @@ def get_total_n_waters_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_waters_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_waters_from_component(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -13510,8 +13440,7 @@ def get_total_n_waters_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from component in form molsysmt.Topology.
 
@@ -13533,15 +13462,18 @@ def get_n_small_molecules_from_component(item, indices='all', skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('small molecule') for ii in group_types ]
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("small molecule") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_small_molecules_from_component(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting total n small molecules from component in form molsysmt.Topology.
 
@@ -13563,21 +13495,20 @@ def get_total_n_small_molecules_from_component(item, indices='all', skip_digesti
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_small_molecules_from_component(item, indices=indices, skip_digestion=True)
+        output = get_n_small_molecules_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from component in form molsysmt.Topology.
 
@@ -13599,15 +13530,16 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('lipid') for ii in group_types ]
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("lipid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_lipids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from component in form molsysmt.Topology.
 
@@ -13629,12 +13561,10 @@ def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_lipids_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_lipids_from_component(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -13642,8 +13572,7 @@ def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from component in form molsysmt.Topology.
 
@@ -13665,15 +13594,16 @@ def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_group_type_from_component(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('saccharide') for ii in group_types ]
+    group_types = get_group_type_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("saccharide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_saccharides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from component in form molsysmt.Topology.
 
@@ -13695,21 +13625,20 @@ def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_saccharides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_saccharides_from_component(item, indices=indices, skip_digestion=True)
+        output = get_n_saccharides_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from component in form molsysmt.Topology.
 
@@ -13731,20 +13660,25 @@ def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('polysaccharide')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("polysaccharide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_polysaccharides_from_component(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting total n polysaccharides from component in form molsysmt.Topology.
 
@@ -13766,12 +13700,13 @@ def get_total_n_polysaccharides_from_component(item, indices='all', skip_digesti
 
     .. versionadded:: 1.0.0
     """
-    return get_n_polysaccharides_from_component(item, indices=indices, skip_digestion=True)
+    return get_n_polysaccharides_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from component in form molsysmt.Topology.
 
@@ -13793,20 +13728,23 @@ def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_peptides_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('peptide')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("peptide")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_peptides_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_peptides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from component in form molsysmt.Topology.
 
@@ -13832,8 +13770,7 @@ def get_total_n_peptides_from_component(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from component in form molsysmt.Topology.
 
@@ -13855,20 +13792,23 @@ def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_proteins_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('protein')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("protein")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_proteins_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_proteins_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from component in form molsysmt.Topology.
 
@@ -13894,8 +13834,7 @@ def get_total_n_proteins_from_component(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from component in form molsysmt.Topology.
 
@@ -13917,20 +13856,23 @@ def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_dnas_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('dna')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("dna")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_dnas_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_dnas_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from component in form molsysmt.Topology.
 
@@ -13956,8 +13898,7 @@ def get_total_n_dnas_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from component in form molsysmt.Topology.
 
@@ -13979,20 +13920,23 @@ def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_rnas_from_system(item, skip_digestion=True)
     else:
-        molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        molecule_indices = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         molecule_indices = np.unique(molecule_indices).tolist()
-        molecule_type = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-        output = molecule_type.count('rna')
+        molecule_type = get_molecule_type_from_molecule(
+            item, indices=molecule_indices, skip_digestion=True
+        )
+        output = molecule_type.count("rna")
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_rnas_from_component(item, indices='all', skip_digestion=False):
-
+def get_total_n_rnas_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from component in form molsysmt.Topology.
 
@@ -14021,8 +13965,7 @@ def get_total_n_rnas_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom index from chain in form molsysmt.Topology.
 
@@ -14044,10 +13987,9 @@ def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].append(atom_index)
@@ -14055,7 +13997,6 @@ def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14069,8 +14010,7 @@ def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom id from chain in form molsysmt.Topology.
 
@@ -14092,11 +14032,10 @@ def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    atom_id_from_atom = item.atoms['atom_id'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    atom_id_from_atom = item.atoms["atom_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].append(atom_id_from_atom[atom_index])
@@ -14104,7 +14043,6 @@ def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14118,8 +14056,7 @@ def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom name from chain in form molsysmt.Topology.
 
@@ -14141,11 +14078,10 @@ def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    atom_name_from_atom = item.atoms['atom_name'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    atom_name_from_atom = item.atoms["atom_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].append(atom_name_from_atom[atom_index])
@@ -14153,7 +14089,6 @@ def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14167,8 +14102,7 @@ def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom type from chain in form molsysmt.Topology.
 
@@ -14190,11 +14124,10 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    atom_type_from_atom = item.atoms['atom_type'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    atom_type_from_atom = item.atoms["atom_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(list)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].append(atom_type_from_atom[atom_index])
@@ -14202,7 +14135,6 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: [] for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14216,8 +14148,7 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group index from chain in form molsysmt.Topology.
 
@@ -14239,11 +14170,10 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(group_index_from_atom[atom_index].tolist())
@@ -14251,7 +14181,6 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14267,8 +14196,7 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group id from chain in form molsysmt.Topology.
 
@@ -14290,12 +14218,11 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_id_from_group = item.groups['group_id'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_id_from_group = item.groups["group_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(group_index_from_atom[atom_index])
@@ -14303,7 +14230,6 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14320,8 +14246,7 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group name from chain in form molsysmt.Topology.
 
@@ -14343,12 +14268,11 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_name_from_group = item.groups['group_name'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_name_from_group = item.groups["group_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(group_index_from_atom[atom_index])
@@ -14356,7 +14280,6 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14373,8 +14296,7 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group type from chain in form molsysmt.Topology.
 
@@ -14396,12 +14318,11 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    group_type_from_group = item.groups['group_type'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    group_type_from_group = item.groups["group_type"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(group_index_from_atom[atom_index])
@@ -14409,7 +14330,6 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14426,8 +14346,7 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from chain in form molsysmt.Topology.
 
@@ -14449,13 +14368,16 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
 
-    if indices =='all':
-        from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_chains_from_system
+    if indices == "all":
+        from molsysmt.form.molsysmt_Topology.get_topological_attributes import (
+            get_n_chains_from_system,
+        )
+
         n_chains = get_n_chains_from_system(item)
         indices = range(n_chains)
 
@@ -14479,8 +14401,7 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from chain in form molsysmt.Topology.
 
@@ -14502,14 +14423,13 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    molecule_id_from_molecule = item.molecules['molecule_id'].to_numpy()
+    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(molecule_index_from_atom[atom_index])
@@ -14517,7 +14437,6 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14525,7 +14444,7 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ molecule_id_from_molecule[sorted(ii)].tolist() for ii in output]
+    output = [molecule_id_from_molecule[sorted(ii)].tolist() for ii in output]
 
     del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, molecule_id_from_molecule, aux_dict
@@ -14534,8 +14453,7 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from chain in form molsysmt.Topology.
 
@@ -14557,14 +14475,13 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
-    molecule_name_from_molecule = item.molecules['molecule_name'].to_numpy()
+    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(molecule_index_from_atom[atom_index])
@@ -14572,7 +14489,6 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14580,7 +14496,7 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ molecule_name_from_molecule[sorted(ii)].tolist() for ii in output]
+    output = [molecule_name_from_molecule[sorted(ii)].tolist() for ii in output]
 
     del chain_index_from_atom, group_index_from_atom, molecule_index_from_group
     del molecule_index_from_atom, molecule_name_from_molecule, aux_dict
@@ -14589,8 +14505,7 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from chain in form molsysmt.Topology.
 
@@ -14612,14 +14527,19 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    molecule_index_from_atom = molecule_index_from_group[group_index_from_atom.astype(int)]
-    molecule_type_from_molecule = item.molecules['molecule_type'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    molecule_index_from_atom = molecule_index_from_group[
+        group_index_from_atom.astype(int)
+    ]
+    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
 
-    if indices =='all':
-        from molsysmt.form.molsysmt_Topology.get_topological_attributes import get_n_chains_from_system
+    if indices == "all":
+        from molsysmt.form.molsysmt_Topology.get_topological_attributes import (
+            get_n_chains_from_system,
+        )
+
         n_chains = get_n_chains_from_system(item)
         indices = range(n_chains)
 
@@ -14646,8 +14566,7 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity index from chain in form molsysmt.Topology.
 
@@ -14669,17 +14588,16 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(entity_index_from_atom[atom_index].tolist())
@@ -14687,7 +14605,6 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14695,7 +14612,7 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
         output = [aux_dict[m] for m in indices]
 
-    output = [ sorted(ii) for ii in output]
+    output = [sorted(ii) for ii in output]
 
     del chain_index_from_atom, entity_index_from_atom, aux_dict
 
@@ -14703,8 +14620,7 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity id from chain in form molsysmt.Topology.
 
@@ -14726,18 +14642,17 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_id_from_entity = item.entities['entity_id'].to_numpy()
+    entity_id_from_entity = item.entities["entity_id"].to_numpy()
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(entity_index_from_atom[atom_index])
@@ -14745,7 +14660,6 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14761,8 +14675,7 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity name from chain in form molsysmt.Topology.
 
@@ -14784,18 +14697,17 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_name_from_entity = item.entities['entity_name'].to_numpy()
+    entity_name_from_entity = item.entities["entity_name"].to_numpy()
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(entity_index_from_atom[atom_index])
@@ -14803,7 +14715,6 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14819,8 +14730,7 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity type from chain in form molsysmt.Topology.
 
@@ -14842,18 +14752,17 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
-    group_index_from_atom = item.atoms['group_index'].to_numpy()
-    molecule_index_from_group = item.groups['molecule_index'].to_numpy()
-    entity_index_from_molecule = item.molecules['entity_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
+    group_index_from_atom = item.atoms["group_index"].to_numpy()
+    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
+    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
     molecule_index_from_atom = molecule_index_from_group[group_index_from_atom]
     entity_index_from_atom = entity_index_from_molecule[molecule_index_from_atom]
-    entity_type_from_entity = item.entities['entity_type'].to_numpy()
+    entity_type_from_entity = item.entities["entity_type"].to_numpy()
 
     del group_index_from_atom, molecule_index_from_group, entity_index_from_molecule
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(entity_index_from_atom[atom_index])
@@ -14861,7 +14770,6 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14877,8 +14785,7 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component index from chain in form molsysmt.Topology.
 
@@ -14900,11 +14807,10 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(component_index_from_atom[atom_index])
@@ -14912,7 +14818,6 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14928,8 +14833,7 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component id from chain in form molsysmt.Topology.
 
@@ -14951,12 +14855,11 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_id_from_component = item.components['component_id'].to_numpy()
+    component_id_from_component = item.components["component_id"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(component_index_from_atom[atom_index])
@@ -14964,7 +14867,6 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -14974,14 +14876,18 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
     output = [component_id_from_component[sorted(ii)].tolist() for ii in output]
 
-    del chain_index_from_atom, component_index_from_atom, component_id_from_component, aux_dict
+    del (
+        chain_index_from_atom,
+        component_index_from_atom,
+        component_id_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component name from chain in form molsysmt.Topology.
 
@@ -15003,12 +14909,11 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_name_from_component = item.components['component_name'].to_numpy()
+    component_name_from_component = item.components["component_name"].to_numpy()
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(component_index_from_atom[atom_index])
@@ -15016,7 +14921,6 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             chain_index = chain_index_from_atom[atom_index]
@@ -15027,14 +14931,18 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
     output = [component_name_from_component[sorted(ii)].tolist() for ii in output]
 
-    del chain_index_from_atom, component_index_from_atom, component_name_from_component, aux_dict
+    del (
+        chain_index_from_atom,
+        component_index_from_atom,
+        component_name_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component type from chain in form molsysmt.Topology.
 
@@ -15056,13 +14964,12 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_index_from_atom = item.atoms['chain_index'].to_numpy()
+    chain_index_from_atom = item.atoms["chain_index"].to_numpy()
     component_index_from_atom = item._get_component_indices().to_numpy()
-    component_type_from_component = item.components['component_type'].to_numpy()
-    n_atoms = item.atoms.shape[0]
+    component_type_from_component = item.components["component_type"].to_numpy()
+    item.atoms.shape[0]
 
-    if indices =='all':
-
+    if indices == "all":
         aux_dict = defaultdict(set)
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             aux_dict[chain_index].add(component_index_from_atom[atom_index])
@@ -15070,7 +14977,6 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
         output = list(aux_dict.values())
 
     else:
-
         aux_dict = {ii: set() for ii in indices}
         for atom_index, chain_index in enumerate(chain_index_from_atom):
             if chain_index in aux_dict:
@@ -15080,14 +14986,18 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
     output = [component_type_from_component[sorted(ii)].tolist() for ii in output]
 
-    del chain_index_from_atom, component_index_from_atom, component_type_from_component, aux_dict
+    del (
+        chain_index_from_atom,
+        component_index_from_atom,
+        component_type_from_component,
+        aux_dict,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain index from chain in form molsysmt.Topology.
 
@@ -15109,16 +15019,16 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = list(range(item.chains.shape[0]))
     else:
         output = indices
 
     return output
 
-@arg_digest(form=form)
-def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_chain_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain id from chain in form molsysmt.Topology.
 
@@ -15140,9 +15050,9 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_id_from_chain = item.chains['chain_id'].to_numpy()
+    chain_id_from_chain = item.chains["chain_id"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = chain_id_from_chain.tolist()
     else:
         output = chain_id_from_chain[indices].tolist()
@@ -15153,8 +15063,7 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain name from chain in form molsysmt.Topology.
 
@@ -15176,9 +15085,9 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_name_from_chain = item.chains['chain_name'].to_numpy()
+    chain_name_from_chain = item.chains["chain_name"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = chain_name_from_chain.tolist()
     else:
         output = chain_name_from_chain[indices].tolist()
@@ -15189,8 +15098,7 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain type from chain in form molsysmt.Topology.
 
@@ -15212,9 +15120,9 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chain_type_from_chain = item.chains['chain_type'].to_numpy()
+    chain_type_from_chain = item.chains["chain_type"].to_numpy()
 
-    if indices=='all':
+    if indices == "all":
         output = chain_type_from_chain.tolist()
     else:
         output = chain_type_from_chain[indices].tolist()
@@ -15225,8 +15133,7 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bond index from chain in form molsysmt.Topology.
 
@@ -15248,13 +15155,21 @@ def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_chain = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    atom_indices_from_chain = get_atom_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_chain:
         if len(jj):
-            output.append(sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))))
+            output.append(
+                sorted(
+                    set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+                )
+            )
         else:
             output.append([])
 
@@ -15264,8 +15179,7 @@ def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bond type from chain in form molsysmt.Topology.
 
@@ -15301,8 +15215,7 @@ def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bond order from chain in form molsysmt.Topology.
 
@@ -15338,8 +15251,7 @@ def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from chain in form molsysmt.Topology.
 
@@ -15375,8 +15287,7 @@ def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from chain in form molsysmt.Topology.
 
@@ -15412,8 +15323,7 @@ def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from chain in form molsysmt.Topology.
 
@@ -15435,19 +15345,25 @@ def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_indices_from_chain = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    atom_indices_from_chain = get_atom_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
     bonded_atom_pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    bond_indices_from_atom = get_bond_index_from_atom(item, indices='all', skip_digestion=True)
+    bond_indices_from_atom = get_bond_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     output = []
     for jj in atom_indices_from_chain:
-        aux = sorted(set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj])))
+        aux = sorted(
+            set(chain.from_iterable([bond_indices_from_atom[ii] for ii in jj]))
+        )
         if len(aux):
             pairs = np.array([bonded_atom_pairs[ii] for ii in aux])
-            mask = np.isin(pairs[:,0], jj) & np.isin(pairs[:,1], jj)
+            mask = np.isin(pairs[:, 0], jj) & np.isin(pairs[:, 1], jj)
             aux = list(compress(aux, mask))
         else:
-            aux=[]
+            aux = []
         output.append(aux)
 
     del atom_indices_from_chain, bonded_atom_pairs, bond_indices_from_atom
@@ -15456,8 +15372,7 @@ def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from chain in form molsysmt.Topology.
 
@@ -15484,7 +15399,7 @@ def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False)
     atom_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
 
     output = []
-    for ii,jj in zip(bond_indices, atom_indices):
+    for ii, jj in zip(bond_indices, atom_indices):
         aux_vals = [bonded_atom_pairs[jj] for jj in ii]
         output.append(sorted(set(chain.from_iterable(aux_vals)).intersection(set(jj))))
 
@@ -15494,8 +15409,7 @@ def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from chain in form molsysmt.Topology.
 
@@ -15517,32 +15431,33 @@ def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    bonded_atom_pairs = get_bonded_atom_pairs_from_chain(item, indices=indices, skip_digestion=True)
+    bonded_atom_pairs = get_bonded_atom_pairs_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
 
-    if indices=='all':
-
+    if indices == "all":
         output = bonded_atom_pairs
-    
-    else:
 
-        atom_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
+    else:
+        atom_indices = get_atom_index_from_chain(
+            item, indices=indices, skip_digestion=True
+        )
 
         output = []
 
-        for ii,jj in zip(atom_indices, bonded_atom_pairs):
+        for ii, jj in zip(atom_indices, bonded_atom_pairs):
             if len(jj) == 0:
                 output.append([])
             else:
                 jj = np.array(jj)
-                mask = np.isin(jj[:,0], ii) | np.isin(jj[:,1], ii)
-                output.append(jj[mask,:].tolist())
+                mask = np.isin(jj[:, 0], ii) | np.isin(jj[:, 1], ii)
+                output.append(jj[mask, :].tolist())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from chain in form molsysmt.Topology.
 
@@ -15571,8 +15486,7 @@ def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from chain in form molsysmt.Topology.
 
@@ -15594,7 +15508,7 @@ def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_atoms_from_system(item, skip_digestion=True)
     else:
         aux = get_n_atoms_from_chain(item, indices=indices, skip_digestion=True)
@@ -15605,8 +15519,7 @@ def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n groups from chain in form molsysmt.Topology.
 
@@ -15635,8 +15548,7 @@ def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_groups_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from chain in form molsysmt.Topology.
 
@@ -15658,7 +15570,7 @@ def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_groups_from_system(item, skip_digestion=True)
     else:
         aux = get_group_index_from_chain(item, indices, skip_digestion=True)
@@ -15674,8 +15586,7 @@ def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from chain in form molsysmt.Topology.
 
@@ -15704,8 +15615,7 @@ def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_molecules_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from chain in form molsysmt.Topology.
 
@@ -15727,7 +15637,7 @@ def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
         aux = get_molecule_index_from_chain(item, indices, skip_digestion=True)
@@ -15743,8 +15653,7 @@ def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n entities from chain in form molsysmt.Topology.
 
@@ -15773,8 +15682,7 @@ def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_entities_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from chain in form molsysmt.Topology.
 
@@ -15796,7 +15704,7 @@ def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
         aux = get_entity_index_from_chain(item, indices, skip_digestion=True)
@@ -15810,9 +15718,9 @@ def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
     return output
 
-@arg_digest(form=form)
-def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_components_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n components from chain in form molsysmt.Topology.
 
@@ -15846,8 +15754,7 @@ def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_components_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_components_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n components from chain in form molsysmt.Topology.
 
@@ -15869,7 +15776,7 @@ def get_total_n_components_from_chain(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
         aux = get_component_index_from_chain(item, indices, skip_digestion=True)
@@ -15885,8 +15792,7 @@ def get_total_n_components_from_chain(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n chains from chain in form molsysmt.Topology.
 
@@ -15908,7 +15814,7 @@ def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = item.chains.shape[0]
     else:
         output = len(indices)
@@ -15917,8 +15823,7 @@ def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_chains_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from chain in form molsysmt.Topology.
 
@@ -15944,8 +15849,7 @@ def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from chain in form molsysmt.Topology.
 
@@ -15974,8 +15878,7 @@ def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_bonds_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_bonds_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n bonds from chain in form molsysmt.Topology.
 
@@ -15997,7 +15900,7 @@ def get_total_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
@@ -16008,8 +15911,7 @@ def get_total_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from chain in form molsysmt.Topology.
 
@@ -16038,8 +15940,7 @@ def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_total_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_inner_bonds_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n inner bonds from chain in form molsysmt.Topology.
 
@@ -16061,7 +15962,7 @@ def get_total_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         atom_indices = get_atom_index_from_chain(item, indices, skip_digestion=True)
@@ -16072,8 +15973,7 @@ def get_total_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from chain in form molsysmt.Topology.
 
@@ -16096,14 +15996,13 @@ def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('amino acid') for ii in group_types ]
+    output = [ii.count("amino acid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_amino_acids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from chain in form molsysmt.Topology.
 
@@ -16125,21 +16024,20 @@ def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_amino_acids_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_amino_acids_from_chain(item, indices=indices, skip_digestion=True)
+        output = get_n_amino_acids_from_chain(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from chain in form molsysmt.Topology.
 
@@ -16162,14 +16060,13 @@ def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('nucleotide') for ii in group_types ]
+    output = [ii.count("nucleotide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_nucleotides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from chain in form molsysmt.Topology.
 
@@ -16191,21 +16088,20 @@ def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_nucleotides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_nucleotides_from_chain(item, indices=indices, skip_digestion=True)
+        output = get_n_nucleotides_from_chain(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n ions from chain in form molsysmt.Topology.
 
@@ -16228,14 +16124,13 @@ def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('ion') for ii in group_types ]
+    output = [ii.count("ion") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_ions_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from chain in form molsysmt.Topology.
 
@@ -16257,12 +16152,10 @@ def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_ions_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_ions_from_chain(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -16270,8 +16163,7 @@ def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n waters from chain in form molsysmt.Topology.
 
@@ -16294,14 +16186,13 @@ def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('water') for ii in group_types ]
+    output = [ii.count("water") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_waters_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from chain in form molsysmt.Topology.
 
@@ -16323,12 +16214,10 @@ def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_waters_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_waters_from_chain(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -16336,8 +16225,7 @@ def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from chain in form molsysmt.Topology.
 
@@ -16360,14 +16248,13 @@ def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('small molecule') for ii in group_types ]
+    output = [ii.count("small molecule") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_small_molecules_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n small molecules from chain in form molsysmt.Topology.
 
@@ -16389,21 +16276,20 @@ def get_total_n_small_molecules_from_chain(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_small_molecules_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_small_molecules_from_chain(item, indices=indices, skip_digestion=True)
+        output = get_n_small_molecules_from_chain(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from chain in form molsysmt.Topology.
 
@@ -16426,14 +16312,13 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('lipid') for ii in group_types ]
+    output = [ii.count("lipid") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_lipids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from chain in form molsysmt.Topology.
 
@@ -16455,12 +16340,10 @@ def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_lipids_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_lipids_from_chain(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -16468,8 +16351,7 @@ def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from chain in form molsysmt.Topology.
 
@@ -16492,14 +16374,13 @@ def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('saccharide') for ii in group_types ]
+    output = [ii.count("saccharide") for ii in group_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_saccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from chain in form molsysmt.Topology.
 
@@ -16521,21 +16402,20 @@ def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_saccharides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_saccharides_from_chain(item, indices=indices, skip_digestion=True)
+        output = get_n_saccharides_from_chain(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from chain in form molsysmt.Topology.
 
@@ -16557,15 +16437,16 @@ def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('polysaccharide') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("polysaccharide") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_polysaccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from chain in form molsysmt.Topology.
 
@@ -16587,21 +16468,20 @@ def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_polysaccharides_from_system(item, skip_digestion=True)
 
     else:
-
-        output = get_n_polysaccharides_from_chain(item, indices=indices, skip_digestion=True)
+        output = get_n_polysaccharides_from_chain(
+            item, indices=indices, skip_digestion=True
+        )
         output = sum(output)
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from chain in form molsysmt.Topology.
 
@@ -16623,15 +16503,16 @@ def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('peptide') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("peptide") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_peptides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_peptides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from chain in form molsysmt.Topology.
 
@@ -16653,12 +16534,10 @@ def get_total_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_peptides_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_peptides_from_chain(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -16666,8 +16545,7 @@ def get_total_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from chain in form molsysmt.Topology.
 
@@ -16689,15 +16567,16 @@ def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('protein') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("protein") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_proteins_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_proteins_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from chain in form molsysmt.Topology.
 
@@ -16719,12 +16598,10 @@ def get_total_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_proteins_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_proteins_from_chain(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -16732,8 +16609,7 @@ def get_total_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from chain in form molsysmt.Topology.
 
@@ -16755,15 +16631,16 @@ def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('dna') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("dna") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_dnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from chain in form molsysmt.Topology.
 
@@ -16785,12 +16662,10 @@ def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_dnas_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_dnas_from_chain(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -16798,8 +16673,7 @@ def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from chain in form molsysmt.Topology.
 
@@ -16821,15 +16695,16 @@ def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_types = get_molecule_type_from_chain(item, indices=indices, skip_digestion=True)
-    output = [ ii.count('rna') for ii in molecule_types ]
+    molecule_types = get_molecule_type_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    output = [ii.count("rna") for ii in molecule_types]
 
     return output
 
 
 @arg_digest(form=form)
-def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
-
+def get_total_n_rnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from chain in form molsysmt.Topology.
 
@@ -16851,12 +16726,10 @@ def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
-
+    if indices == "all":
         output = get_n_rnas_from_system(item, skip_digestion=True)
 
     else:
-
         output = get_n_rnas_from_chain(item, indices=indices, skip_digestion=True)
         output = sum(output)
 
@@ -16878,8 +16751,7 @@ def _get_optional_bond_attribute(item, column, indices):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond index from bond in form molsysmt.Topology.
 
@@ -16901,7 +16773,7 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         n_aux = get_n_bonds_from_system(item)
         output = np.arange(n_aux, dtype=int).tolist()
     else:
@@ -16911,8 +16783,7 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_id_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond id from bond in form molsysmt.Topology.
 
@@ -16934,12 +16805,11 @@ def get_bond_id_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'bond_id', indices)
+    return _get_optional_bond_attribute(item, "bond_id", indices)
 
 
 @arg_digest(form=form)
-def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond order from bond in form molsysmt.Topology.
 
@@ -16961,12 +16831,11 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'bond_order', indices)
+    return _get_optional_bond_attribute(item, "bond_order", indices)
 
 
 @arg_digest(form=form)
-def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond type from bond in form molsysmt.Topology.
 
@@ -16988,12 +16857,11 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'bond_type', indices)
+    return _get_optional_bond_attribute(item, "bond_type", indices)
 
 
 @arg_digest(form=form)
-def get_fractional_bond_order_from_bond(item, indices='all', skip_digestion=False):
-
+def get_fractional_bond_order_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting fractional bond order from bond in form molsysmt.Topology.
 
@@ -17015,12 +16883,11 @@ def get_fractional_bond_order_from_bond(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'fractional_bond_order', indices)
+    return _get_optional_bond_attribute(item, "fractional_bond_order", indices)
 
 
 @arg_digest(form=form)
-def get_bond_is_aromatic_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_is_aromatic_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond is aromatic from bond in form molsysmt.Topology.
 
@@ -17042,12 +16909,11 @@ def get_bond_is_aromatic_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'is_aromatic', indices)
+    return _get_optional_bond_attribute(item, "is_aromatic", indices)
 
 
 @arg_digest(form=form)
-def get_bond_is_conjugated_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_is_conjugated_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond is conjugated from bond in form molsysmt.Topology.
 
@@ -17069,12 +16935,11 @@ def get_bond_is_conjugated_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'is_conjugated', indices)
+    return _get_optional_bond_attribute(item, "is_conjugated", indices)
 
 
 @arg_digest(form=form)
-def get_bond_stereochemistry_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_stereochemistry_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond stereochemistry from bond in form molsysmt.Topology.
 
@@ -17096,12 +16961,11 @@ def get_bond_stereochemistry_from_bond(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'stereochemistry', indices)
+    return _get_optional_bond_attribute(item, "stereochemistry", indices)
 
 
 @arg_digest(form=form)
-def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_stereo_atom_indices_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond stereo atom indices from bond in form molsysmt.Topology.
 
@@ -17125,7 +16989,7 @@ def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=F
     """
     bonds = item._get_chemical_state_bonds()
     n_values = len(bonds) if is_all(indices) else len(indices)
-    columns = ('stereo_atom1_index', 'stereo_atom2_index')
+    columns = ("stereo_atom1_index", "stereo_atom2_index")
     if not set(columns) <= set(bonds.columns):
         return [[None, None] for _ in range(n_values)]
     values = bonds if is_all(indices) else bonds.iloc[indices]
@@ -17133,8 +16997,7 @@ def get_bond_stereo_atom_indices_from_bond(item, indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_bond_donor_atom_index_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_donor_atom_index_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond donor atom index from bond in form molsysmt.Topology.
 
@@ -17156,12 +17019,11 @@ def get_bond_donor_atom_index_from_bond(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'donor_atom_index', indices)
+    return _get_optional_bond_attribute(item, "donor_atom_index", indices)
 
 
 @arg_digest(form=form)
-def get_bond_acceptor_atom_index_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_acceptor_atom_index_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond acceptor atom index from bond in form molsysmt.Topology.
 
@@ -17183,12 +17045,11 @@ def get_bond_acceptor_atom_index_from_bond(item, indices='all', skip_digestion=F
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'acceptor_atom_index', indices)
+    return _get_optional_bond_attribute(item, "acceptor_atom_index", indices)
 
 
 @arg_digest(form=form)
-def get_bond_joins_components_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_joins_components_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond joins components from bond in form molsysmt.Topology.
 
@@ -17210,12 +17071,11 @@ def get_bond_joins_components_from_bond(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'joins_components', indices)
+    return _get_optional_bond_attribute(item, "joins_components", indices)
 
 
 @arg_digest(form=form)
-def get_bond_evidence_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_evidence_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond evidence from bond in form molsysmt.Topology.
 
@@ -17237,12 +17097,11 @@ def get_bond_evidence_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return _get_optional_bond_attribute(item, 'evidence', indices)
+    return _get_optional_bond_attribute(item, "evidence", indices)
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from bond in form molsysmt.Topology.
 
@@ -17266,21 +17125,18 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
     """
     bonds = item._get_chemical_state_bonds()
 
-    if indices=='all':
-
+    if indices == "all":
         output = np.unique([bonds.atom1_index, bonds.atom2_index]).tolist()
 
     else:
-
-        output = bonds.iloc[indices][['atom1_index', 'atom2_index']].to_numpy().tolist()
+        output = bonds.iloc[indices][["atom1_index", "atom2_index"]].to_numpy().tolist()
         output = np.unique(output).tolist()
 
     return output
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from bond in form molsysmt.Topology.
 
@@ -17304,20 +17160,17 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
     """
     bonds = item._get_chemical_state_bonds()
 
-    if indices=='all':
-
-        output = bonds[['atom1_index', 'atom2_index']].to_numpy().tolist()
+    if indices == "all":
+        output = bonds[["atom1_index", "atom2_index"]].to_numpy().tolist()
 
     else:
-
-        output = bonds.iloc[indices][['atom1_index', 'atom2_index']].to_numpy().tolist()
+        output = bonds.iloc[indices][["atom1_index", "atom2_index"]].to_numpy().tolist()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from bond in form molsysmt.Topology.
 
@@ -17339,7 +17192,7 @@ def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if indices=='all':
+    if indices == "all":
         output = get_n_bonds_from_system(item, skip_digestion=True)
     else:
         output = len(indices)
@@ -17352,7 +17205,6 @@ def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting n atoms from system in form molsysmt.Topology.
 
@@ -17377,7 +17229,6 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
-
     """
     Getting n groups from system in form molsysmt.Topology.
 
@@ -17402,7 +17253,6 @@ def get_n_groups_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
-
     """
     Getting n molecules from system in form molsysmt.Topology.
 
@@ -17422,7 +17272,7 @@ def get_n_molecules_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if item._molecules_dirty or item.groups['molecule_index'].isnull().any():
+    if item._molecules_dirty or item.groups["molecule_index"].isnull().any():
         item.rebuild_molecules(force=True)
 
     return item.molecules.shape[0]
@@ -17430,7 +17280,6 @@ def get_n_molecules_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
-
     """
     Getting n entities from system in form molsysmt.Topology.
 
@@ -17450,7 +17299,7 @@ def get_n_entities_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    if item._entities_dirty or item.molecules['entity_index'].isnull().any():
+    if item._entities_dirty or item.molecules["entity_index"].isnull().any():
         item.rebuild_entities(force=True)
 
     return item.entities.shape[0]
@@ -17458,7 +17307,6 @@ def get_n_entities_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
-
     """
     Getting n components from system in form molsysmt.Topology.
 
@@ -17486,7 +17334,6 @@ def get_n_components_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_chains_from_system(item, skip_digestion=False):
-
     """
     Getting n chains from system in form molsysmt.Topology.
 
@@ -17511,7 +17358,6 @@ def get_n_chains_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
-
     """
     Getting n bonds from system in form molsysmt.Topology.
 
@@ -17536,7 +17382,6 @@ def get_n_bonds_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_amino_acids_from_system(item, skip_digestion=False):
-
     """
     Getting n amino acids from system in form molsysmt.Topology.
 
@@ -17556,14 +17401,13 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.groups['group_type'].tolist().count('amino acid')
+    output = item.groups["group_type"].tolist().count("amino acid")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_nucleotides_from_system(item, skip_digestion=False):
-
     """
     Getting n nucleotides from system in form molsysmt.Topology.
 
@@ -17583,14 +17427,13 @@ def get_n_nucleotides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.groups['group_type'].tolist().count('nucleotide')
+    output = item.groups["group_type"].tolist().count("nucleotide")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_ions_from_system(item, skip_digestion=False):
-
     """
     Getting n ions from system in form molsysmt.Topology.
 
@@ -17610,14 +17453,13 @@ def get_n_ions_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.groups['group_type'].tolist().count('ion')
+    output = item.groups["group_type"].tolist().count("ion")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_waters_from_system(item, skip_digestion=False):
-
     """
     Getting n waters from system in form molsysmt.Topology.
 
@@ -17637,14 +17479,13 @@ def get_n_waters_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.groups['group_type'].tolist().count('water')
+    output = item.groups["group_type"].tolist().count("water")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_small_molecules_from_system(item, skip_digestion=False):
-
     """
     Getting n small molecules from system in form molsysmt.Topology.
 
@@ -17664,14 +17505,13 @@ def get_n_small_molecules_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.groups['group_type'].tolist().count('small molecule')
+    output = item.groups["group_type"].tolist().count("small molecule")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_lipids_from_system(item, skip_digestion=False):
-
     """
     Getting n lipids from system in form molsysmt.Topology.
 
@@ -17691,14 +17531,13 @@ def get_n_lipids_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.groups['group_type'].tolist().count('lipid')
+    output = item.groups["group_type"].tolist().count("lipid")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_saccharides_from_system(item, skip_digestion=False):
-
     """
     Getting n saccharides from system in form molsysmt.Topology.
 
@@ -17718,14 +17557,13 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.groups['group_type'].tolist().count('saccharide')
+    output = item.groups["group_type"].tolist().count("saccharide")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_peptides_from_system(item, skip_digestion=False):
-
     """
     Getting n peptides from system in form molsysmt.Topology.
 
@@ -17745,14 +17583,13 @@ def get_n_peptides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.molecules['molecule_type'].tolist().count('peptide')
+    output = item.molecules["molecule_type"].tolist().count("peptide")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_proteins_from_system(item, skip_digestion=False):
-
     """
     Getting n proteins from system in form molsysmt.Topology.
 
@@ -17772,14 +17609,13 @@ def get_n_proteins_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.molecules['molecule_type'].tolist().count('protein')
+    output = item.molecules["molecule_type"].tolist().count("protein")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_polysaccharides_from_system(item, skip_digestion=False):
-
     """
     Getting n polysaccharides from system in form molsysmt.Topology.
 
@@ -17799,14 +17635,13 @@ def get_n_polysaccharides_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.molecules['molecule_type'].tolist().count('polysaccharide')
+    output = item.molecules["molecule_type"].tolist().count("polysaccharide")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_dnas_from_system(item, skip_digestion=False):
-
     """
     Getting n dnas from system in form molsysmt.Topology.
 
@@ -17826,14 +17661,13 @@ def get_n_dnas_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.molecules['molecule_type'].tolist().count('dna')
+    output = item.molecules["molecule_type"].tolist().count("dna")
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_rnas_from_system(item, skip_digestion=False):
-
     """
     Getting n rnas from system in form molsysmt.Topology.
 
@@ -17853,14 +17687,13 @@ def get_n_rnas_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = item.molecules['molecule_type'].tolist().count('rna')
+    output = item.molecules["molecule_type"].tolist().count("rna")
 
     return output
 
 
 @arg_digest(form=form)
 def get_bond_index_from_system(item, skip_digestion=False):
-
     """
     Getting bond index from system in form molsysmt.Topology.
 
@@ -17885,7 +17718,6 @@ def get_bond_index_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_inner_bond_index_from_system(item, skip_digestion=False):
-
     """
     Getting inner bond index from system in form molsysmt.Topology.
 
@@ -17910,7 +17742,6 @@ def get_inner_bond_index_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting inner bonded atoms from system in form molsysmt.Topology.
 
@@ -17935,7 +17766,6 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
-
     """
     Getting inner bonded atom pairs from system in form molsysmt.Topology.
 
@@ -17960,7 +17790,6 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting bonded atoms from system in form molsysmt.Topology.
 
@@ -17985,7 +17814,6 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
-
     """
     Getting bonded atom pairs from system in form molsysmt.Topology.
 
@@ -18006,8 +17834,12 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     return get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-   
+
 
 # List of functions to be imported
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

@@ -1,5 +1,6 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
+
+from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="file:pdb")
@@ -73,10 +74,11 @@ def to_openmm_Simulation(
     .. versionadded:: 1.0.0
     """
 
-    from .to_openmm_Modeller import to_openmm_Modeller
     from molsysmt.form.openmm_Modeller.to_openmm_Simulation import (
         to_openmm_Simulation as openmm_Modeller_to_openmm_Simulation,
     )
+
+    from .to_openmm_Modeller import to_openmm_Modeller
 
     modeller = to_openmm_Modeller(
         item,

@@ -1,33 +1,42 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
+import types
+
 import numpy as np
 
-form = 'molsysmt.ViewerJSON'
+form = "molsysmt.ViewerJSON"
 
 
 def _atoms_dict(item):
-    return item.data.get('atoms', {}) or {}
+    return item.data.get("atoms", {}) or {}
 
 
 def _bonds_dict(item):
-    bonds = item.data.get('bonds', {}) or {}
-    if isinstance(bonds, dict) and 'sets' in bonds:
-        sets = bonds.get('sets', [])
+    bonds = item.data.get("bonds", {}) or {}
+    if isinstance(bonds, dict) and "sets" in bonds:
+        sets = bonds.get("sets", [])
         if sets:
             return sets[0] or {}
     return bonds
 
 
 def _structures_list(item):
-    frames = item.data.get('structures', item.data.get('estructures', item.data.get('frames', None)))
+    frames = item.data.get(
+        "structures", item.data.get("estructures", item.data.get("frames", None))
+    )
     if frames is None:
         return []
     return frames
 
 
 def _n_atoms_from_atoms(atoms):
-    for key in ('atom_id', 'atom_name', 'group_id', 'group_ig', 'group_name', 'chain_id', 'entity_id'):
+    for key in (
+        "atom_id",
+        "atom_name",
+        "group_id",
+        "group_ig",
+        "group_name",
+        "chain_id",
+        "entity_id",
+    ):
         values = atoms.get(key, None)
         if values is not None:
             return len(values)
@@ -49,7 +58,7 @@ def _reshape_coordinates(frames, n_atoms):
     coords = []
     structure_indices = []
     for idx, frame in enumerate(frames):
-        positions = frame.get('coordinates', None)
+        positions = frame.get("coordinates", None)
         if positions is None:
             continue
         arr = np.array(positions, dtype=float)
@@ -70,5 +79,8 @@ def _reshape_coordinates(frames, n_atoms):
 
 
 # List of functions to be imported
-import types
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

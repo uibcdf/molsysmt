@@ -32,9 +32,9 @@ def is_file(item_or_form):
     if isinstance(item_or_form, str):
         form = catalogue.forms_lowercase().get(item_or_form.lower())
         if form is not None:
-            return catalogue.form_type(form) == 'file'
+            return catalogue.form_type(form) == "file"
 
-        if item_or_form.startswith('file:'):
+        if item_or_form.startswith("file:"):
             return True
 
         if catalogue.form_of_extension(item_or_form) is not None:
@@ -43,6 +43,6 @@ def is_file(item_or_form):
     try:
         from molsysmt.basic import get_form
 
-        return catalogue.form_type(get_form(item_or_form)) == 'file'
+        return catalogue.form_type(get_form(item_or_form)) == "file"
     except Exception:
         return False

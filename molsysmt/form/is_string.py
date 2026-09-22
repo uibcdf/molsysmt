@@ -25,11 +25,11 @@ def is_string(item_or_form):
     if isinstance(item_or_form, str):
         form = catalogue.forms_lowercase().get(item_or_form.lower())
         if form is not None:
-            return catalogue.form_type(form) == 'string'
+            return catalogue.form_type(form) == "string"
 
     try:
         from molsysmt.basic import get_form
 
-        return catalogue.form_type(get_form(item_or_form)) == 'string'
+        return catalogue.form_type(get_form(item_or_form)) == "string"
     except Exception:
         return False

@@ -1,10 +1,12 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 import networkx as nx
 import numpy as np
 
-@arg_digest(form='openmm.Topology')
-def to_networkx_Graph(item, atom_indices='all', skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
+@arg_digest(form="openmm.Topology")
+def to_networkx_Graph(item, atom_indices="all", skip_digestion=False):
     """
     Converting from openmm.Topology to networkx.Graph.
 
@@ -30,15 +32,13 @@ def to_networkx_Graph(item, atom_indices='all', skip_digestion=False):
     g = nx.Graph()
 
     if is_all(atom_indices):
-
         g.add_nodes_from(range(item.getNumAtoms()))
 
-        output=[[bond.atom1.index, bond.atom2.index] for bond in item.bonds()]
+        output = [[bond.atom1.index, bond.atom2.index] for bond in item.bonds()]
         g.add_edges_from(np.array(output))
         del output
 
     else:
-
         raise NotImplementedError
 
     return g

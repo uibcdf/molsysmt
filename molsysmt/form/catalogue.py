@@ -35,38 +35,37 @@ def _load():
     by_form = {}
     with os.scandir(root) as entries:
         for entry in entries:
-            if not entry.is_dir() or entry.name == '__pycache__':
+            if not entry.is_dir() or entry.name == "__pycache__":
                 continue
             try:
-                with open(os.path.join(entry.path, 'form.json')) as handler:
+                with open(os.path.join(entry.path, "form.json")) as handler:
                     declaration = json.load(handler)
             except FileNotFoundError:
                 continue
-            declaration['plugin'] = entry.name
-            by_form[declaration['form_name']] = declaration
+            declaration["plugin"] = entry.name
+            by_form[declaration["form_name"]] = declaration
 
     forms_lowercase = {name.lower(): name for name in by_form}
     class_index = {}
     extension_index = {}
     for name, declaration in by_form.items():
-        keys = declaration.get('item_class_keys')
-        if keys is None and declaration.get('item_class_key') is not None:
-            keys = [declaration['item_class_key']]
+        keys = declaration.get("item_class_keys")
+        if keys is None and declaration.get("item_class_key") is not None:
+            keys = [declaration["item_class_key"]]
         if keys:
             for key in keys:
                 if key is not None:
                     class_index[(key[0], key[1])] = name
-        extension = declaration.get('extension')
+        extension = declaration.get("extension")
         if extension is not None:
             extension_index[extension.lower()] = name
 
-
     _catalogue = {
-        'by_form': by_form,
-        'forms_lowercase': forms_lowercase,
-        'class_index': class_index,
-        'extension_index': extension_index,
-        'extension_suffixes': tuple(sorted(extension_index, key=len, reverse=True)),
+        "by_form": by_form,
+        "forms_lowercase": forms_lowercase,
+        "class_index": class_index,
+        "extension_index": extension_index,
+        "extension_suffixes": tuple(sorted(extension_index, key=len, reverse=True)),
     }
     return _catalogue
 
@@ -76,7 +75,7 @@ def form_names():
     Every declared form name.
     """
 
-    return tuple(_load()['by_form'])
+    return tuple(_load()["by_form"])
 
 
 def forms_lowercase():
@@ -84,7 +83,7 @@ def forms_lowercase():
     Lowercased form name -> the canonical spelling.
     """
 
-    return _load()['forms_lowercase']
+    return _load()["forms_lowercase"]
 
 
 def form_type(form_name):
@@ -97,8 +96,8 @@ def form_type(form_name):
         Argument form_name.
     """
 
-    declaration = _load()['by_form'].get(form_name)
-    return None if declaration is None else declaration['form_type']
+    declaration = _load()["by_form"].get(form_name)
+    return None if declaration is None else declaration["form_type"]
 
 
 def plugin_of(form_name):
@@ -111,8 +110,8 @@ def plugin_of(form_name):
         Argument form_name.
     """
 
-    declaration = _load()['by_form'].get(form_name)
-    return None if declaration is None else declaration['plugin']
+    declaration = _load()["by_form"].get(form_name)
+    return None if declaration is None else declaration["plugin"]
 
 
 def form_of_class(item):
@@ -129,10 +128,10 @@ def form_of_class(item):
         Argument item.
     """
 
-    index = _load()['class_index']
+    index = _load()["class_index"]
     for klass in type(item).__mro__:
         module = klass.__module__
-        form = index.get((module.split('.', 1)[0], klass.__name__))
+        form = index.get((module.split(".", 1)[0], klass.__name__))
         if form is not None:
             return form
     return None
@@ -153,16 +152,16 @@ def form_of_extension(name):
         Argument name.
     """
 
-    index = _load()['extension_index']
-    if '\n' in name or '\r' in name:
+    index = _load()["extension_index"]
+    if "\n" in name or "\r" in name:
         return None
 
-    for extension in _load()['extension_suffixes']:
+    for extension in _load()["extension_suffixes"]:
         suffix_length = len(extension) + 1
         if len(name) < suffix_length:
             continue
         suffix = name[-suffix_length:]
-        if suffix[0] == '.' and suffix[1:].lower() == extension:
+        if suffix[0] == "." and suffix[1:].lower() == extension:
             return index[extension]
     return None
 
@@ -193,7 +192,7 @@ def module_of(form_name):
 
     from importlib import import_module
 
-    module = import_module(f'molsysmt.form.{plugin}')
+    module = import_module(f"molsysmt.form.{plugin}")
     _modules[form_name] = module
     return module
 
@@ -206,5 +205,8 @@ def forms_of_type(*form_types):
     the catalogue does not change while the process runs.
     """
 
-    return tuple(name for name, declaration in _load()['by_form'].items()
-                 if declaration['form_type'] in form_types)
+    return tuple(
+        name
+        for name, declaration in _load()["by_form"].items()
+        if declaration["form_type"] in form_types
+    )

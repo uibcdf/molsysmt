@@ -1,8 +1,15 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.Structures', to_form='molsysmt.Structures')
-def add(to_item, item, atom_indices='all', structure_indices='all',
-        attribute_policy='intersection', skip_digestion=False):
+
+@arg_digest(form="molsysmt.Structures", to_form="molsysmt.Structures")
+def add(
+    to_item,
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    attribute_policy="intersection",
+    skip_digestion=False,
+):
     """
     Adding elements from another item into an item of form molsysmt.Structures.
 

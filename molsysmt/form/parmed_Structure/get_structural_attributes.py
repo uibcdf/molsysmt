@@ -6,11 +6,11 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
-form = 'parmed.Structure'
+form = "parmed.Structure"
 
 
 def _selected_frame_indices(item, structure_indices):
-    coordinates = item.get_coordinates('all')
+    coordinates = item.get_coordinates("all")
     n_structures = 0 if coordinates is None else coordinates.shape[0]
     if is_all(structure_indices):
         return np.arange(n_structures, dtype=np.int64)
@@ -19,7 +19,7 @@ def _selected_frame_indices(item, structure_indices):
 
 @arg_digest(form=form)
 def get_coordinates_from_atom(
-    item, indices='all', structure_indices='all', skip_digestion=False
+    item, indices="all", structure_indices="all", skip_digestion=False
 ):
     """
     Getting coordinates from atom in form parmed.Structure.
@@ -45,20 +45,18 @@ def get_coordinates_from_atom(
     .. versionadded:: 1.0.0
     """
 
-    coordinates = item.get_coordinates('all')
+    coordinates = item.get_coordinates("all")
     if coordinates is None:
         return None
     frame_indices = _selected_frame_indices(item, structure_indices)
     coordinates = np.asarray(coordinates[frame_indices], dtype=np.float64)
     if not is_all(indices):
         coordinates = coordinates[:, indices, :]
-    return puw.standardize(puw.quantity(coordinates, 'angstrom'))
+    return puw.standardize(puw.quantity(coordinates, "angstrom"))
 
 
 @arg_digest(form=form)
-def get_structure_id_from_system(
-    item, structure_indices='all', skip_digestion=False
-):
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form parmed.Structure.
 
@@ -86,7 +84,7 @@ def get_structure_id_from_system(
 
 @arg_digest(form=form)
 def get_structure_index_from_system(
-    item, structure_indices='all', skip_digestion=False
+    item, structure_indices="all", skip_digestion=False
 ):
     """
     Getting structure index from system in form parmed.Structure.
@@ -114,9 +112,7 @@ def get_structure_index_from_system(
 
 
 @arg_digest(form=form)
-def get_n_structures_from_system(
-    item, structure_indices='all', skip_digestion=False
-):
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form parmed.Structure.
 
@@ -143,7 +139,7 @@ def get_n_structures_from_system(
 
 
 @arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form parmed.Structure.
 
@@ -170,7 +166,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form parmed.Structure.
 
@@ -193,7 +189,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    boxes = item.get_box('all')
+    boxes = item.get_box("all")
     if boxes is None:
         return None
     if is_all(structure_indices):
@@ -202,15 +198,15 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     from molsysmt.pbc import get_box_from_lengths_and_angles
 
     return get_box_from_lengths_and_angles(
-        puw.quantity(boxes[:, :3], 'angstrom'),
-        puw.quantity(boxes[:, 3:], 'degree'),
+        puw.quantity(boxes[:, :3], "angstrom"),
+        puw.quantity(boxes[:, 3:], "degree"),
         skip_digestion=True,
     )
 
 
 @arg_digest(form=form)
 def get_b_factor_from_atom(
-    item, indices='all', structure_indices='all', skip_digestion=False
+    item, indices="all", structure_indices="all", skip_digestion=False
 ):
     """
     Getting b factor from atom in form parmed.Structure.
@@ -245,4 +241,4 @@ def get_b_factor_from_atom(
     if not is_all(indices):
         values = values[indices]
     values = np.repeat(values[None, :], len(frame_indices), axis=0)
-    return puw.standardize(puw.quantity(values, 'angstrom**2'))
+    return puw.standardize(puw.quantity(values, "angstrom**2"))

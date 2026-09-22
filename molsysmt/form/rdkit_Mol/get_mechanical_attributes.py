@@ -2,16 +2,15 @@
 
 import numpy as np
 
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-
 
 _PARTIAL_CHARGE_PROPERTIES = (
-    '_MolSysMTPartialCharge',
-    'PartialCharge',
-    '_GasteigerCharge',
-    '_TriposPartialCharge',
+    "_MolSysMTPartialCharge",
+    "PartialCharge",
+    "_GasteigerCharge",
+    "_TriposPartialCharge",
 )
 
 
@@ -39,8 +38,8 @@ def _get_partial_charges(item):
     return None
 
 
-@arg_digest(form='rdkit.Mol')
-def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
+@arg_digest(form="rdkit.Mol")
+def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting partial charge from atom in form rdkit.Mol.
 
@@ -68,10 +67,10 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
         return None
     if not is_all(indices):
         values = values[indices]
-    return puw.quantity(values, 'elementary_charge', standardized=True)
+    return puw.quantity(values, "elementary_charge", standardized=True)
 
 
-@arg_digest(form='rdkit.Mol')
+@arg_digest(form="rdkit.Mol")
 def get_partial_charge_from_system(item, skip_digestion=False):
     """
     Getting partial charge from system in form rdkit.Mol.

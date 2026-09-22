@@ -70,14 +70,18 @@ def subset_universe(universe, atom_indices="all", structure_indices="all"):
     try:
         for frame_index in structure_indices:
             timestep = universe.trajectory[int(frame_index)]
-            coordinates.append(np.asarray(universe.atoms.positions[atom_indices], dtype=np.float32))
+            coordinates.append(
+                np.asarray(universe.atoms.positions[atom_indices], dtype=np.float32)
+            )
             if _timestep_has_time(timestep):
                 times.append(float(timestep.time))
             else:
                 time_is_available = False
             if getattr(timestep, "has_velocities", False):
                 velocities.append(
-                    np.asarray(universe.atoms.velocities[atom_indices], dtype=np.float32)
+                    np.asarray(
+                        universe.atoms.velocities[atom_indices], dtype=np.float32
+                    )
                 )
             else:
                 velocities_are_available = False
@@ -108,8 +112,8 @@ def subset_universe(universe, atom_indices="all", structure_indices="all"):
         time_step = float(time_steps[0])
         time_offset = float(times[0])
     elif time_is_available:
-        timestep_data = getattr(universe.trajectory.ts, 'data', {})
-        time_step = float(timestep_data.get('dt', 1.0))
+        timestep_data = getattr(universe.trajectory.ts, "data", {})
+        time_step = float(timestep_data.get("dt", 1.0))
         time_offset = float(times[0])
     else:
         time_step = 1.0

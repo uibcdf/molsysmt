@@ -1,6 +1,9 @@
-from molsysmt import pyunitwizard as puw
-import numpy as np
 from pathlib import PurePath
+
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
+
 
 def is_form(item):
     """
@@ -31,16 +34,14 @@ def is_form(item):
         return output
 
     if puw.is_quantity(item):
-        if  puw.are_compatible(item, puw.unit('nm')):
-
+        if puw.are_compatible(item, puw.unit("nm")):
             shape = np.shape(item)
 
-            if len(shape)==3 and shape[-1]==3:
+            if len(shape) == 3 and shape[-1] == 3:
                 output = True
-            elif len(shape)==2 and shape[-1]==3:
+            elif len(shape) == 2 and shape[-1] == 3:
                 output = True
-            elif len(shape)==1 and shape[-1]==3:
+            elif len(shape) == 1 and shape[-1] == 3:
                 output = True
 
     return output
-

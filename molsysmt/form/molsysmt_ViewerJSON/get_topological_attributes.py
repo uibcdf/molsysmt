@@ -1,33 +1,45 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
+import types
+
 import numpy as np
 
-form = 'molsysmt.ViewerJSON'
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "molsysmt.ViewerJSON"
 
 
 def _atoms_dict(item):
-    return item.data.get('atoms', {}) or {}
+    return item.data.get("atoms", {}) or {}
 
 
 def _bonds_dict(item):
-    bonds = item.data.get('bonds', {}) or {}
-    if isinstance(bonds, dict) and 'sets' in bonds:
-        sets = bonds.get('sets', [])
+    bonds = item.data.get("bonds", {}) or {}
+    if isinstance(bonds, dict) and "sets" in bonds:
+        sets = bonds.get("sets", [])
         if sets:
             return sets[0] or {}
     return bonds
 
 
 def _structures_list(item):
-    frames = item.data.get('structures', item.data.get('estructures', item.data.get('frames', None)))
+    frames = item.data.get(
+        "structures", item.data.get("estructures", item.data.get("frames", None))
+    )
     if frames is None:
         return []
     return frames
 
 
 def _n_atoms_from_atoms(atoms):
-    for key in ('atom_id', 'atom_name', 'group_id', 'group_ig', 'group_name', 'chain_id', 'entity_id'):
+    for key in (
+        "atom_id",
+        "atom_name",
+        "group_id",
+        "group_ig",
+        "group_name",
+        "chain_id",
+        "entity_id",
+    ):
         values = atoms.get(key, None)
         if values is not None:
             return len(values)
@@ -49,7 +61,7 @@ def _reshape_coordinates(frames, n_atoms):
     coords = []
     structure_indices = []
     for idx, frame in enumerate(frames):
-        positions = frame.get('coordinates', None)
+        positions = frame.get("coordinates", None)
         if positions is None:
             continue
         arr = np.array(positions, dtype=float)
@@ -71,7 +83,6 @@ def _reshape_coordinates(frames, n_atoms):
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting n atoms from system in form molsysmt.ViewerJSON.
 
@@ -96,7 +107,6 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
-
     """
     Getting n bonds from system in form molsysmt.ViewerJSON.
 
@@ -117,18 +127,17 @@ def get_n_bonds_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bonds = _bonds_dict(item)
-    pairs = bonds.get('atom_pairs', None)
+    pairs = bonds.get("atom_pairs", None)
     if pairs is not None:
         return len(pairs)
-    index_a = bonds.get('indexA', None)
+    index_a = bonds.get("indexA", None)
     if index_a is not None:
         return len(index_a)
     return 0
 
 
 @arg_digest(form=form)
-def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
-
+def get_formal_charge_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting formal charge from atom in form molsysmt.ViewerJSON.
 
@@ -151,15 +160,17 @@ def get_formal_charge_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     atoms = _atoms_dict(item)
-    values = _normalize_list(atoms.get('formal_charge', None), get_n_atoms_from_system(item, skip_digestion=True))
+    values = _normalize_list(
+        atoms.get("formal_charge", None),
+        get_n_atoms_from_system(item, skip_digestion=True),
+    )
     if is_all(indices):
         return values.tolist()
     return values[indices].tolist()
 
 
 @arg_digest(form=form)
-def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
-
+def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting partial charge from atom in form molsysmt.ViewerJSON.
 
@@ -182,7 +193,7 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     atoms = _atoms_dict(item)
-    values = atoms.get('partial_charge', None)
+    values = atoms.get("partial_charge", None)
     if values is None:
         return None
     values = _normalize_list(values, get_n_atoms_from_system(item, skip_digestion=True))
@@ -192,8 +203,7 @@ def get_partial_charge_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond index from bond in form molsysmt.ViewerJSON.
 
@@ -222,8 +232,7 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond order from bond in form molsysmt.ViewerJSON.
 
@@ -246,15 +255,16 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bonds = _bonds_dict(item)
-    values = _normalize_list(bonds.get('order', None), get_n_bonds_from_system(item, skip_digestion=True))
+    values = _normalize_list(
+        bonds.get("order", None), get_n_bonds_from_system(item, skip_digestion=True)
+    )
     if is_all(indices):
         return values.tolist()
     return values[indices].tolist()
 
 
 @arg_digest(form=form)
-def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond type from bond in form molsysmt.ViewerJSON.
 
@@ -277,7 +287,7 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     bonds = _bonds_dict(item)
-    values = bonds.get('type', None)
+    values = bonds.get("type", None)
     if values is None:
         return None
     values = _normalize_list(values, get_n_bonds_from_system(item, skip_digestion=True))
@@ -287,5 +297,8 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
 
 # List of functions to be imported
-import types
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

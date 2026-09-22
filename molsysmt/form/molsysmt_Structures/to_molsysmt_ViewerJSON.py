@@ -1,7 +1,8 @@
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt.native.viewer_json import ViewerJSON, _empty_structure_viewer_dict
-from molsysmt import pyunitwizard as puw
-import numpy as np
 
 
 def _box_vectors(box):
@@ -17,7 +18,7 @@ def _box_vectors(box):
     }
 
 
-@arg_digest(form='molsysmt.Structures')
+@arg_digest(form="molsysmt.Structures")
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     """
     Converting from molsysmt.Structures to molsysmt.ViewerJSON.
@@ -61,9 +62,15 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     times = item.time
     boxes = item.box
 
-    coords_values = puw.get_value(coords, to_unit='nanometer') if coords is not None else None
-    time_values = puw.get_value(times, to_unit='picosecond') if times is not None else None
-    box_values = puw.get_value(boxes, to_unit='nanometer') if boxes is not None else None
+    coords_values = (
+        puw.get_value(coords, to_unit="nanometer") if coords is not None else None
+    )
+    time_values = (
+        puw.get_value(times, to_unit="picosecond") if times is not None else None
+    )
+    box_values = (
+        puw.get_value(boxes, to_unit="nanometer") if boxes is not None else None
+    )
 
     structures = []
     if coords_values is not None:
@@ -72,7 +79,11 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
             structure["coordinates"] = np.asarray(positions, dtype=float).tolist()
             if time_values is not None and len(time_values) > ii:
                 structure["time"] = float(time_values[ii])
-            if box_values is not None and len(box_values) > ii and box_values[ii] is not None:
+            if (
+                box_values is not None
+                and len(box_values) > ii
+                and box_values[ii] is not None
+            ):
                 structure["box"] = _box_vectors(np.asarray(box_values[ii]))
             structures.append(structure)
 

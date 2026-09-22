@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.Structures')
-def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="molsysmt.Structures")
+def to_XYZ(item, atom_indices="all", structure_indices="all", skip_digestion=False):
     """
     Converting from molsysmt.Structures to XYZ.
 
@@ -27,8 +28,12 @@ def to_XYZ(item, atom_indices='all', structure_indices='all', skip_digestion=Fal
     """
 
     from . import get_coordinates_from_atom
-    tmp_item = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                         skip_digestion=True)
+
+    tmp_item = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
 
     return tmp_item
-

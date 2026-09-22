@@ -1,7 +1,7 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.Structures', to_form='molsysmt.Structures')
+
+@arg_digest(form="molsysmt.Structures", to_form="molsysmt.Structures")
 def append_structures(
     to_item,
     item=None,
@@ -16,7 +16,7 @@ def append_structures(
     b_factor=None,
     alternate_location=None,
     occupancy=None,
-    attribute_policy='intersection',
+    attribute_policy="intersection",
     skip_digestion=False,
 ):
     """

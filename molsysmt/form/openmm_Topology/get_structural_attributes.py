@@ -1,11 +1,12 @@
+import types
+
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
-import types
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
 
-form='openmm.Topology'
+form = "openmm.Topology"
 
 
 #######################################################################
@@ -14,9 +15,9 @@ form='openmm.Topology'
 
 ## From atom
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form openmm.Topology.
 
@@ -60,4 +61,8 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 # List of functions to be imported
 
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

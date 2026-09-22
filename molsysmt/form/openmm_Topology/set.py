@@ -1,12 +1,23 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.smonitor import StructuralInconsistencyError, InternalAlgorithmError, FormatError, ArgumentLengthError
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import (
+    ArgumentLengthError,
+)
+from molsysmt._private.smonitor import (
+    FormatError as FormatError,
+)
+from molsysmt._private.smonitor import (
+    InternalAlgorithmError as InternalAlgorithmError,
+)
+from molsysmt._private.smonitor import (
+    StructuralInconsistencyError as StructuralInconsistencyError,
+)
 
 ## System
 
-@arg_digest(form='openmm.Topology')
-def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=False):
 
+@arg_digest(form="openmm.Topology")
+def set_box_to_system(item, structure_indices="all", value=None, skip_digestion=False):
     """
     Setting box to system on form openmm.Topology.
 
@@ -25,24 +36,23 @@ def set_box_to_system(item, structure_indices='all', value=None, skip_digestion=
     .. versionadded:: 1.0.0
     """
     if value is None:
-
         item.setPeriodicBoxVectors(None)
 
     else:
-
-        box = puw.convert(value, to_unit='nanometers', to_form='openmm.unit')
+        box = puw.convert(value, to_unit="nanometers", to_form="openmm.unit")
 
         n_structures = box.shape[0]
 
         if n_structures == 1:
-
             item.setPeriodicBoxVectors(box[0])
 
         else:
-
-            raise ArgumentLengthError(argument='value (box frames)', expected=1, actual=n_structures,
-                                      caller='molsysmt.form.openmm_Topology.set.set_box_to_system',
-                                      message='openmm.Topology only accepts a single-frame box.')
+            raise ArgumentLengthError(
+                argument="value (box frames)",
+                expected=1,
+                actual=n_structures,
+                caller="molsysmt.form.openmm_Topology.set.set_box_to_system",
+                message="openmm.Topology only accepts a single-frame box.",
+            )
 
         pass
-

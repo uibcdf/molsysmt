@@ -1,28 +1,28 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-import numpy as np
 import types
 
-form = 'file:xyznpy'
+import numpy as np
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "file:xyznpy"
 
 
 def _read_shape(item):
-    with open(item, 'rb') as file:
+    with open(item, "rb") as file:
         return tuple(int(value) for value in np.load(file))
 
 
 def _read_coordinates(item):
-    with open(item, 'rb') as file:
+    with open(item, "rb") as file:
         np.load(file)
         coordinates = np.load(file)
-    return puw.standardize(coordinates * puw.unit('nm'))
+    return puw.standardize(coordinates * puw.unit("nm"))
 
 
 @arg_digest(form=form)
-def get_n_structures_from_system(
-    item, structure_indices='all', skip_digestion=False
-):
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form file:xyznpy.
 
@@ -51,7 +51,7 @@ def get_n_structures_from_system(
 
 @arg_digest(form=form)
 def get_structure_index_from_system(
-    item, structure_indices='all', skip_digestion=False
+    item, structure_indices="all", skip_digestion=False
 ):
     """
     Getting structure index from system in form file:xyznpy.
@@ -81,7 +81,9 @@ def get_structure_index_from_system(
 
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form file:xyznpy.
 
@@ -120,7 +122,7 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 
 @arg_digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+def get_coordinates_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting coordinates from system in form file:xyznpy.
 
@@ -151,4 +153,8 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
     return output
 
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

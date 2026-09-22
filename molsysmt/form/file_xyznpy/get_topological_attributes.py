@@ -5,12 +5,11 @@ import numpy as np
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
-
-form = 'file:xyznpy'
+form = "file:xyznpy"
 
 
 def _read_shape(item):
-    with open(item, 'rb') as file:
+    with open(item, "rb") as file:
         return tuple(int(value) for value in np.load(file))
 
 
@@ -40,7 +39,7 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_atom_index_from_atom(
-    item, indices='all', structure_indices='all', skip_digestion=False
+    item, indices="all", structure_indices="all", skip_digestion=False
 ):
     """
     Getting atom index from atom in form file:xyznpy.
@@ -74,5 +73,5 @@ def get_atom_index_from_atom(
 __all__ = [
     name
     for name, obj in globals().items()
-    if isinstance(obj, types.FunctionType) and name.startswith('get_')
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
 ]

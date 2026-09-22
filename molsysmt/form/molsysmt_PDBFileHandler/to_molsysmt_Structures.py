@@ -1,8 +1,12 @@
 import os
+
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.PDBFileHandler')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="molsysmt.PDBFileHandler")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from molsysmt.PDBFileHandler to molsysmt.Structures.
 
@@ -27,7 +31,10 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import to_molsysmt_PDBFileHandler
+    from molsysmt.form.molsysmt_PDBFileHandler.to_molsysmt_PDBFileHandler import (
+        to_molsysmt_PDBFileHandler,
+    )
+
     from .to_molsysmt_MolSys import _build_structures_from_content
 
     if isinstance(item, (str, os.PathLike)):
@@ -37,8 +44,12 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
         opened_here = False
 
     tmp_item = _build_structures_from_content(item)
-    tmp_item = tmp_item.extract(atom_indices=atom_indices, structure_indices=structure_indices,
-                                copy_if_all=False, skip_digestion=True)
+    tmp_item = tmp_item.extract(
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        copy_if_all=False,
+        skip_digestion=True,
+    )
 
     if opened_here:
         item.close()

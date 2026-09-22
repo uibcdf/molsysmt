@@ -1,4 +1,5 @@
 import os
+
 from depdigest import LazyRegistry
 
 # Initialize the generic LazyRegistry from depdigest
@@ -6,31 +7,35 @@ from depdigest import LazyRegistry
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 _dict_modules = LazyRegistry(
-    package_prefix='molsysmt.form',
-    directory=current_dir,
-    attr_name='form_name'
+    package_prefix="molsysmt.form", directory=current_dir, attr_name="form_name"
 )
 
+
 def __getattr__(name):
-    if name == '_dict_forms_lowercase':
+    if name == "_dict_forms_lowercase":
         return {ii.lower(): ii for ii in _dict_modules.keys()}
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-from .get_attributes import get_attributes
-from .has_attribute import has_attribute
-from .is_item import is_item
-from .is_file import is_file
-from .load_converter import load_converter
-from .is_string import is_string
+
+# The registry is initialized before these public helpers are imported.
+# isort: off
+from .get_attributes import get_attributes  # noqa: E402
+from .has_attribute import has_attribute  # noqa: E402
+from .is_item import is_item  # noqa: E402
+from .is_file import is_file  # noqa: E402
+from .load_converter import load_converter  # noqa: E402
+from .is_string import is_string  # noqa: E402
+# isort: on
 
 RESOURCE_FORMS = {
-    'mdtraj.HDF5TrajectoryFile',
-    'mdtraj.XTCTrajectoryFile',
-    'mdtraj.DCDTrajectoryFile',
-    'molsysmt.H5MSMFileHandler',
-    'molsysmt.GROFileHandler',
-    'molsysmt.PDBFileHandler',
+    "mdtraj.HDF5TrajectoryFile",
+    "mdtraj.XTCTrajectoryFile",
+    "mdtraj.DCDTrajectoryFile",
+    "molsysmt.H5MSMFileHandler",
+    "molsysmt.GROFileHandler",
+    "molsysmt.PDBFileHandler",
 }
+
 
 def close(item):
     """
@@ -49,12 +54,14 @@ def close(item):
     .. versionadded:: 1.0.0
     """
     from molsysmt.basic import get_form
+
     try:
         form = get_form(item)
         if form in RESOURCE_FORMS:
             item.close()
     except Exception:
         pass
+
 
 piped_topological_attribute = None
 piped_structural_attribute = None

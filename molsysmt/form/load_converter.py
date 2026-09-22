@@ -37,7 +37,7 @@ def load_converter(module, converter):
 
     from importlib import import_module
 
-    submodule = import_module(f'{module.__name__}.{converter}')
+    submodule = import_module(f"{module.__name__}.{converter}")
     function = getattr(submodule, converter)
     setattr(module, converter, function)
 

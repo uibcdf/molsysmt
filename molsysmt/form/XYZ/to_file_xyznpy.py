@@ -1,9 +1,17 @@
-from molsysmt._private.argdigest import arg_digest
 import numpy as np
-from molsysmt import pyunitwizard as puw
 
-@arg_digest(form='XYZ')
-def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_filename=None, skip_digestion=False):
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="XYZ")
+def to_file_xyznpy(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    output_filename=None,
+    skip_digestion=False,
+):
     """
     Converting from XYZ to file:xyznpy.
 
@@ -50,11 +58,11 @@ def to_file_xyznpy(item, atom_indices='all', structure_indices='all', output_fil
         )
     ]
 
-    with open(tmp_item, 'wb') as fff:
+    with open(tmp_item, "wb") as fff:
         np.save(fff, selected.shape, allow_pickle=True)
         np.save(
             fff,
-            puw.get_value(selected, to_unit='nm'),
+            puw.get_value(selected, to_unit="nm"),
             allow_pickle=True,
         )
 

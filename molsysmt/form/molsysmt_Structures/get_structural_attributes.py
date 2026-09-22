@@ -1,19 +1,21 @@
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
+import types
+from copy import copy
+
+import numpy as np
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-from copy import copy
-import numpy as np
-import types
 
-form='molsysmt.Structures'
+form = "molsysmt.Structures"
 
 
 ## atom
 
-@arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form molsysmt.Structures.
 
@@ -46,16 +48,18 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
         if not is_all(indices):
             tmp_coordinates = tmp_coordinates[np.ix_(structure_indices, indices)]
         else:
-            tmp_coordinates = tmp_coordinates[structure_indices,:,:]
+            tmp_coordinates = tmp_coordinates[structure_indices, :, :]
     else:
         if not is_all(indices):
-            tmp_coordinates = tmp_coordinates[:,indices,:]
+            tmp_coordinates = tmp_coordinates[:, indices, :]
 
     return tmp_coordinates
 
-@arg_digest(form=form)
-def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_velocities_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting velocities from atom in form molsysmt.Structures.
 
@@ -91,16 +95,18 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
         if not is_all(indices):
             tmp_velocities = tmp_velocities[np.ix_(structure_indices, indices)]
         else:
-            tmp_velocities = tmp_velocities[structure_indices,:,:]
+            tmp_velocities = tmp_velocities[structure_indices, :, :]
     else:
         if not is_all(indices):
-            tmp_velocities = tmp_velocities[:,indices,:]
+            tmp_velocities = tmp_velocities[:, indices, :]
 
     return tmp_velocities
 
-@arg_digest(form=form)
-def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_occupancy_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting occupancy from atom in form molsysmt.Structures.
 
@@ -127,25 +133,25 @@ def get_occupancy_from_atom(item, indices='all', structure_indices='all', skip_d
     if (indices is None) or (structure_indices is None):
         return None
 
-    if getattr(item, '_occupancy', None) is None:
+    if getattr(item, "_occupancy", None) is None:
         return None
 
     tmp_occupancy = copy(item.occupancy)
 
     if tmp_occupancy is not None:
-
         if not is_all(structure_indices):
-            tmp_occupancy = tmp_occupancy[structure_indices,:]
+            tmp_occupancy = tmp_occupancy[structure_indices, :]
 
         if not is_all(indices):
-            tmp_occupancy = tmp_occupancy[:,indices]
+            tmp_occupancy = tmp_occupancy[:, indices]
 
     return tmp_occupancy
 
 
 @arg_digest(form=form)
-def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
-
+def get_b_factor_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting b factor from atom in form molsysmt.Structures.
 
@@ -175,18 +181,19 @@ def get_b_factor_from_atom(item, indices='all', structure_indices='all', skip_di
     tmp_b_factor = copy(item.b_factor)
 
     if tmp_b_factor is not None:
-
         if not is_all(structure_indices):
-            tmp_b_factor = tmp_b_factor[structure_indices,:]
+            tmp_b_factor = tmp_b_factor[structure_indices, :]
 
         if not is_all(indices):
-            tmp_b_factor = tmp_b_factor[:,indices]
+            tmp_b_factor = tmp_b_factor[:, indices]
 
     return tmp_b_factor
 
-@arg_digest(form=form)
-def get_alternate_location_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_alternate_location_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting alternate location from atom in form molsysmt.Structures.
 
@@ -235,11 +242,12 @@ def get_alternate_location_from_atom(item, indices='all', structure_indices='all
 
     return tmp_output
 
+
 ## system
+
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting n atoms from system in form molsysmt.Structures.
 
@@ -259,13 +267,13 @@ def get_n_atoms_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output=item.coordinates.shape[1]
+    output = item.coordinates.shape[1]
 
     return output
 
-@arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form molsysmt.Structures.
 
@@ -294,8 +302,9 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_structure_index_from_system(item, structure_indices='all', skip_digestion=False):
-
+def get_structure_index_from_system(
+    item, structure_indices="all", skip_digestion=False
+):
     """
     Getting structure index from system in form molsysmt.Structures.
 
@@ -325,8 +334,7 @@ def get_structure_index_from_system(item, structure_indices='all', skip_digestio
 
 
 @arg_digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
-
+def get_coordinates_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting coordinates from system in form molsysmt.Structures.
 
@@ -352,14 +360,14 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
         return None
 
     if is_all(structure_indices):
-        output=copy(item.coordinates)
+        output = copy(item.coordinates)
     else:
-        output=item.coordinates[structure_indices,:,:]
+        output = item.coordinates[structure_indices, :, :]
     return output
 
-@arg_digest(form=form)
-def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_velocities_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting velocities from system in form molsysmt.Structures.
 
@@ -388,14 +396,14 @@ def get_velocities_from_system(item, structure_indices='all', skip_digestion=Fal
         return None
 
     if is_all(structure_indices):
-        output=copy(item.velocities)
+        output = copy(item.velocities)
     else:
-        output=item.velocities[structure_indices,:,:]
+        output = item.velocities[structure_indices, :, :]
     return output
 
-@arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form molsysmt.Structures.
 
@@ -420,17 +428,17 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
     if structure_indices is None:
         return None
 
-    output=None
+    output = None
     if item.box is not None:
         if is_all(structure_indices):
-            output=copy(item.box)
+            output = copy(item.box)
         else:
-            output=item.box[structure_indices,:,:]
+            output = item.box[structure_indices, :, :]
     return output
 
-@arg_digest(form=form)
-def get_box_shape_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_shape_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box shape from system in form molsysmt.Structures.
 
@@ -456,15 +464,18 @@ def get_box_shape_from_system(item, structure_indices='all', skip_digestion=Fals
         return None
 
     from molsysmt.pbc import get_shape_from_box
+
     output = None
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
     if box is not None:
         output = get_shape_from_box(box, skip_digestion=False)
     return output
 
-@arg_digest(form=form)
-def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_lengths_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box lengths from system in form molsysmt.Structures.
 
@@ -492,19 +503,21 @@ def get_box_lengths_from_system(item, structure_indices='all', skip_digestion=Fa
         return None
 
     if item.box is not None:
-        tmp_box_lengths, _ = get_lengths_and_angles_from_box(item.box, skip_digestion=True)
+        tmp_box_lengths, _ = get_lengths_and_angles_from_box(
+            item.box, skip_digestion=True
+        )
     else:
         tmp_box_lengths = None
 
     if is_all(structure_indices):
         output = tmp_box_lengths
     else:
-        output = tmp_box_lengths[structure_indices,:]
+        output = tmp_box_lengths[structure_indices, :]
     return output
 
-@arg_digest(form=form)
-def get_box_angles_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_angles_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box angles from system in form molsysmt.Structures.
 
@@ -532,19 +545,21 @@ def get_box_angles_from_system(item, structure_indices='all', skip_digestion=Fal
         return None
 
     if item.box is not None:
-        _, tmp_box_angles = get_lengths_and_angles_from_box(item.box, skip_digestion=True)
+        _, tmp_box_angles = get_lengths_and_angles_from_box(
+            item.box, skip_digestion=True
+        )
     else:
         tmp_box_angles = None
 
     if is_all(structure_indices):
         output = tmp_box_angles
     else:
-        output = tmp_box_angles[structure_indices,:]
+        output = tmp_box_angles[structure_indices, :]
     return output
 
-@arg_digest(form=form)
-def get_box_volume_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_box_volume_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box volume from system in form molsysmt.Structures.
 
@@ -570,15 +585,18 @@ def get_box_volume_from_system(item, structure_indices='all', skip_digestion=Fal
         return None
 
     from molsysmt.pbc import get_volume_from_box
+
     output = None
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
     if box is not None:
         output = get_volume_from_box(box)
     return output
 
-@arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form molsysmt.Structures.
 
@@ -622,7 +640,7 @@ def _get_structure_series(value, structure_indices):
 
 
 @arg_digest(form=form)
-def get_temperature_from_system(item, structure_indices='all', skip_digestion=False):
+def get_temperature_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting temperature from system in form molsysmt.Structures.
 
@@ -648,7 +666,9 @@ def get_temperature_from_system(item, structure_indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_potential_energy_from_system(item, structure_indices='all', skip_digestion=False):
+def get_potential_energy_from_system(
+    item, structure_indices="all", skip_digestion=False
+):
     """
     Getting potential energy from system in form molsysmt.Structures.
 
@@ -674,7 +694,7 @@ def get_potential_energy_from_system(item, structure_indices='all', skip_digesti
 
 
 @arg_digest(form=form)
-def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion=False):
+def get_kinetic_energy_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting kinetic energy from system in form molsysmt.Structures.
 
@@ -700,7 +720,7 @@ def get_kinetic_energy_from_system(item, structure_indices='all', skip_digestion
 
 
 @arg_digest(form=form)
-def get_total_energy_from_system(item, structure_indices='all', skip_digestion=False):
+def get_total_energy_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting total energy from system in form molsysmt.Structures.
 
@@ -736,9 +756,9 @@ def get_total_energy_from_system(item, structure_indices='all', skip_digestion=F
         return None
     return potential_energy + kinetic_energy
 
-@arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form molsysmt.Structures.
 
@@ -772,9 +792,9 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
         output = item.structure_id[structure_indices]
     return output
 
-@arg_digest(form=form)
-def get_occupancy_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_occupancy_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting occupancy from system in form molsysmt.Structures.
 
@@ -796,11 +816,13 @@ def get_occupancy_from_system(item, structure_indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return get_occupancy_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
+    return get_occupancy_from_atom(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+
 
 @arg_digest(form=form)
-def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False):
-
+def get_b_factor_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting b factor from system in form molsysmt.Structures.
 
@@ -822,11 +844,15 @@ def get_b_factor_from_system(item, structure_indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return get_b_factor_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
+    return get_b_factor_from_atom(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+
 
 @arg_digest(form=form)
-def get_alternate_location_from_system(item, structure_indices='all', skip_digestion=False):
-
+def get_alternate_location_from_system(
+    item, structure_indices="all", skip_digestion=False
+):
     """
     Getting alternate location from system in form molsysmt.Structures.
 
@@ -848,11 +874,13 @@ def get_alternate_location_from_system(item, structure_indices='all', skip_diges
 
     .. versionadded:: 1.0.0
     """
-    return get_alternate_location_from_atom(item, structure_indices=structure_indices, skip_digestion=True)
+    return get_alternate_location_from_atom(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+
 
 @arg_digest(form=form)
 def get_bioassembly_from_system(item, skip_digestion=False):
-
     """
     Getting bioassembly from system in form molsysmt.Structures.
 
@@ -876,9 +904,9 @@ def get_bioassembly_from_system(item, skip_digestion=False):
 
     return tmp_output
 
+
 @arg_digest(form=form)
 def get_n_bioassemblies_from_system(item, skip_digestion=False):
-
     """
     Getting n bioassemblies from system in form molsysmt.Structures.
 
@@ -902,6 +930,11 @@ def get_n_bioassemblies_from_system(item, skip_digestion=False):
         return 0
     return len(item.bioassembly)
 
+
 # List of functions to be imported
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

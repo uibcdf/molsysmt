@@ -1,8 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
 from copy import deepcopy
 
+from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.ViewerJSON')
+
+@arg_digest(form="molsysmt.ViewerJSON")
 def append_structures(item, items, skip_digestion=False):
     """
     Appending coordinate structures to an item of form molsysmt.ViewerJSON.
@@ -29,16 +30,21 @@ def append_structures(item, items, skip_digestion=False):
     if not isinstance(items, (list, tuple)):
         items = [items]
 
-    if 'structures' not in item.data:
-        if 'estructures' in item.data:
-            item.data['structures'] = item.data.pop('estructures')
+    if "structures" not in item.data:
+        if "estructures" in item.data:
+            item.data["structures"] = item.data.pop("estructures")
         else:
-            existing_frames = item.data.pop('frames', [])
-            item.data['structures'] = existing_frames if isinstance(existing_frames, list) else []
+            existing_frames = item.data.pop("frames", [])
+            item.data["structures"] = (
+                existing_frames if isinstance(existing_frames, list) else []
+            )
 
     for other in items:
         if hasattr(other, "data"):
-            other_structures = other.data.get('structures', other.data.get('estructures', other.data.get('frames', [])))
-            item.data['structures'].extend(deepcopy(other_structures))
+            other_structures = other.data.get(
+                "structures",
+                other.data.get("estructures", other.data.get("frames", [])),
+            )
+            item.data["structures"].extend(deepcopy(other_structures))
 
     return item

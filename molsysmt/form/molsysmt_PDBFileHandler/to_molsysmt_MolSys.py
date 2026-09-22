@@ -41,11 +41,13 @@ def _topology_rows(content):
         )
         if group_key not in group_indices:
             group_indices[group_key] = len(group_rows)
-            group_rows.append((
-                atom.group_id,
-                atom.group_name,
-                chain_indices[chain_key],
-            ))
+            group_rows.append(
+                (
+                    atom.group_id,
+                    atom.group_name,
+                    chain_indices[chain_key],
+                )
+            )
 
     atom_rows = []
     for atom in canonical_atoms:
@@ -57,13 +59,15 @@ def _topology_rows(content):
             atom.group_name,
         )
         chain_key = (atom.chain_segment, atom.chain_id)
-        atom_rows.append((
-            str(atom.serial),
-            atom.atom_name,
-            atom.element_symbol,
-            group_indices[group_key],
-            chain_indices[chain_key],
-        ))
+        atom_rows.append(
+            (
+                str(atom.serial),
+                atom.atom_name,
+                atom.element_symbol,
+                group_indices[group_key],
+                chain_indices[chain_key],
+            )
+        )
     return atom_rows, group_rows, chain_rows, canonical_atoms, variants
 
 
@@ -171,6 +175,7 @@ def _get_explicit_bonds(content, canonical_atoms, variants):
 
 def _get_bonded_atom_pairs_from_openmm_pdb(item):
     from io import StringIO
+
     from openmm.app import PDBFile
 
     item.file.seek(0)
@@ -198,10 +203,12 @@ def _get_bonded_atom_pairs_from_openmm_pdb(item):
             bond.atom1.index in openmm_to_site_index
             and bond.atom2.index in openmm_to_site_index
         ):
-            output.append((
-                openmm_to_site_index[bond.atom1.index],
-                openmm_to_site_index[bond.atom2.index],
-            ))
+            output.append(
+                (
+                    openmm_to_site_index[bond.atom1.index],
+                    openmm_to_site_index[bond.atom2.index],
+                )
+            )
     return output
 
 
@@ -231,9 +238,10 @@ def _build_topology_from_content(item, get_missing_bonds=True):
         )
         from molsysmt.element.atom import get_atom_type_from_atom_name
 
-        topology.atoms["atom_type"] = np.array([
-            row[2] or get_atom_type_from_atom_name(row[1]) for row in atom_rows
-        ], dtype=object)
+        topology.atoms["atom_type"] = np.array(
+            [row[2] or get_atom_type_from_atom_name(row[1]) for row in atom_rows],
+            dtype=object,
+        )
         topology.atoms["group_index"] = np.array(
             [row[3] for row in atom_rows], dtype=int
         )
@@ -264,9 +272,7 @@ def _build_topology_from_content(item, get_missing_bonds=True):
             "formal_charge", pd.array(formal_charges, dtype="Int16")
         )
 
-    explicit_pairs, _, _ = _get_explicit_bonds(
-        content, canonical_atoms, variants
-    )
+    explicit_pairs, _, _ = _get_explicit_bonds(content, canonical_atoms, variants)
     bond_evidence = {pair: "explicit" for pair in explicit_pairs}
     if get_missing_bonds:
         try:
@@ -275,10 +281,7 @@ def _build_topology_from_content(item, get_missing_bonds=True):
             inferred_pairs = []
         for pair in inferred_pairs:
             normalized = tuple(sorted((int(pair[0]), int(pair[1]))))
-            if (
-                normalized[0] != normalized[1]
-                and normalized[1] < len(canonical_atoms)
-            ):
+            if normalized[0] != normalized[1] and normalized[1] < len(canonical_atoms):
                 bond_evidence.setdefault(normalized, "inferred")
 
     if bond_evidence:
@@ -340,8 +343,8 @@ def _build_bioassemblies(content, chain_rows):
 
 def _build_structures_from_content(item):
     from molsysmt import pyunitwizard as puw
-    from molsysmt.native import Structures
     from molsysmt._private import rust_backend as _kernels
+    from molsysmt.native import Structures
 
     content = item.content
     atom_rows, _, chain_rows, canonical_atoms, _ = _topology_rows(content)
@@ -364,12 +367,12 @@ def _build_structures_from_content(item):
             )
         primary = [variants[key][0] for key in canonical_keys]
         coordinates.append([atom.coordinates for atom in primary])
-        occupancies.append([
-            np.nan if atom.occupancy is None else atom.occupancy for atom in primary
-        ])
-        b_factors.append([
-            np.nan if atom.b_factor is None else atom.b_factor for atom in primary
-        ])
+        occupancies.append(
+            [np.nan if atom.occupancy is None else atom.occupancy for atom in primary]
+        )
+        b_factors.append(
+            [np.nan if atom.b_factor is None else atom.b_factor for atom in primary]
+        )
         model_alternates = {}
         for atom_index, key in enumerate(canonical_keys):
             items = variants[key]
@@ -379,9 +382,7 @@ def _build_structures_from_content(item):
                 "location_id": np.array(
                     [atom.alternate_location for atom in items], dtype=object
                 ),
-                "atom_id": np.array(
-                    [str(atom.serial) for atom in items], dtype=object
-                ),
+                "atom_id": np.array([str(atom.serial) for atom in items], dtype=object),
                 "occupancy": np.array(
                     [
                         np.nan if atom.occupancy is None else atom.occupancy
@@ -542,9 +543,7 @@ def to_molsysmt_MolSys(
     else:
         opened_here = False
 
-    output = _build_molsys_from_pdb_handler(
-        item, get_missing_bonds=get_missing_bonds
-    )
+    output = _build_molsys_from_pdb_handler(item, get_missing_bonds=get_missing_bonds)
     output = output.extract(
         atom_indices=atom_indices,
         structure_indices=structure_indices,

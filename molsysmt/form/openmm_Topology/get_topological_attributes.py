@@ -1,21 +1,21 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-from molsysmt import pyunitwizard as puw
-from networkx import Graph
-import numpy as np
 import types
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-import pandas as pd
 
-form='openmm.Topology'
+import numpy as np
+import pandas as pd
+from networkx import Graph
+
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
+from molsysmt._private.variables import is_all
+
+form = "openmm.Topology"
 
 
 ## From atom
 
 
 @arg_digest(form=form)
-def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom index from atom in form openmm.Topology.
 
@@ -47,8 +47,7 @@ def get_atom_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom id from atom in form openmm.Topology.
 
@@ -71,16 +70,15 @@ def get_atom_id_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
-    atom=list(item.atoms())
-    output=[str(atom[ii].id) for ii in tmp_indices]
-    del(atom)
+    atom = list(item.atoms())
+    output = [str(atom[ii].id) for ii in tmp_indices]
+    del atom
 
     return output
 
 
 @arg_digest(form=form)
-def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom name from atom in form openmm.Topology.
 
@@ -103,16 +101,15 @@ def get_atom_name_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
-    atom=list(item.atoms())
-    output=[atom[ii].name for ii in tmp_indices]
-    del(atom)
+    atom = list(item.atoms())
+    output = [atom[ii].name for ii in tmp_indices]
+    del atom
 
     return output
 
 
 @arg_digest(form=form)
-def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting atom type from atom in form openmm.Topology.
 
@@ -135,16 +132,15 @@ def get_atom_type_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
-    atom=list(item.atoms())
-    output=[atom[ii].element.symbol for ii in tmp_indices]
-    del(atom)
+    atom = list(item.atoms())
+    output = [atom[ii].element.symbol for ii in tmp_indices]
+    del atom
 
     return output
 
 
 @arg_digest(form=form)
-def get_group_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group index from atom in form openmm.Topology.
 
@@ -167,16 +163,15 @@ def get_group_index_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
-    atom=list(item.atoms())
+    atom = list(item.atoms())
     output = [atom[ii].residue.index for ii in tmp_indices]
-    del(atom)
+    del atom
 
     return output
 
 
 @arg_digest(form=form)
-def get_group_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group id from atom in form openmm.Topology.
 
@@ -200,7 +195,9 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_group_id_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -209,8 +206,7 @@ def get_group_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group name from atom in form openmm.Topology.
 
@@ -234,7 +230,9 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_group_name_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -243,8 +241,7 @@ def get_group_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting group type from atom in form openmm.Topology.
 
@@ -268,7 +265,9 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_group_type_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -277,8 +276,7 @@ def get_group_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component index from atom in form openmm.Topology.
 
@@ -302,14 +300,19 @@ def get_component_index_from_atom(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.component import get_component_index as _get
 
-    output = _get(item, element='atom', selection=indices, redefine_indices=True, skip_digestion=True)
+    output = _get(
+        item,
+        element="atom",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component id from atom in form openmm.Topology.
 
@@ -331,9 +334,13 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
+    aux_indices = get_component_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_component_id_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -342,8 +349,7 @@ def get_component_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component name from atom in form openmm.Topology.
 
@@ -365,9 +371,13 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
+    aux_indices = get_component_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_component_name_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -376,8 +386,7 @@ def get_component_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting component type from atom in form openmm.Topology.
 
@@ -399,9 +408,13 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
+    aux_indices = get_component_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_component_type_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -410,8 +423,7 @@ def get_component_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from atom in form openmm.Topology.
 
@@ -439,8 +451,7 @@ def get_molecule_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from atom in form openmm.Topology.
 
@@ -462,9 +473,13 @@ def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_id_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -473,8 +488,7 @@ def get_molecule_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from atom in form openmm.Topology.
 
@@ -496,9 +510,13 @@ def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_name_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -507,8 +525,7 @@ def get_molecule_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from atom in form openmm.Topology.
 
@@ -530,18 +547,22 @@ def get_molecule_type_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_type_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
 
     return output.tolist()
 
-@arg_digest(form=form)
-def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_entity_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity index from atom in form openmm.Topology.
 
@@ -564,13 +585,18 @@ def get_entity_index_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     from molsysmt.element.entity import get_entity_index as _get
-    return _get(item, element='atom', selection=indices,
-            redefine_indices=True, skip_digestion=True)
+
+    return _get(
+        item,
+        element="atom",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity id from atom in form openmm.Topology.
 
@@ -594,7 +620,9 @@ def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_id_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -603,8 +631,7 @@ def get_entity_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity name from atom in form openmm.Topology.
 
@@ -628,7 +655,9 @@ def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_name_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -637,8 +666,7 @@ def get_entity_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting entity type from atom in form openmm.Topology.
 
@@ -662,7 +690,9 @@ def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_entity_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_type_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -671,8 +701,7 @@ def get_entity_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain index from atom in form openmm.Topology.
 
@@ -695,16 +724,15 @@ def get_chain_index_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     tmp_indices = get_atom_index_from_atom(item, indices=indices, skip_digestion=True)
-    atom=list(item.atoms())
+    atom = list(item.atoms())
     output = [atom[ii].residue.chain.index for ii in tmp_indices]
-    del(atom)
+    del atom
 
     return output
 
 
 @arg_digest(form=form)
-def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain id from atom in form openmm.Topology.
 
@@ -728,7 +756,9 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_chain_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_id_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -737,8 +767,7 @@ def get_chain_id_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain name from atom in form openmm.Topology.
 
@@ -764,8 +793,7 @@ def get_chain_name_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting chain type from atom in form openmm.Topology.
 
@@ -789,7 +817,9 @@ def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_chain_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_type_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -798,8 +828,7 @@ def get_chain_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bond index from atom in form openmm.Topology.
 
@@ -826,18 +855,19 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     n_bonds = len(edges)
-    edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
+    edge_indices = np.array([{"index": ii} for ii in range(n_bonds)]).reshape(
+        [n_bonds, 1]
+    )
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
     if is_all(indices):
-
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
     output = []
 
     for ii in indices:
         if ii in G:
-            output.append([n['index'] for n in G[ii].values()])
+            output.append([n["index"] for n in G[ii].values()])
         else:
             output.append([])
 
@@ -847,8 +877,7 @@ def get_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bond type from atom in form openmm.Topology.
 
@@ -872,7 +901,9 @@ def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_bond_type_from_bond(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_bond_type_from_bond(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -881,8 +912,7 @@ def get_bond_type_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bond order from atom in form openmm.Topology.
 
@@ -906,7 +936,9 @@ def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_bond_index_from_atom(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_bond_order_from_bond(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_bond_order_from_bond(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -915,8 +947,7 @@ def get_bond_order_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from atom in form openmm.Topology.
 
@@ -942,11 +973,10 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    
+
     G.add_edges_from(edges)
 
     if is_all(indices):
-
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
     output = []
@@ -963,8 +993,7 @@ def get_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from atom in form openmm.Topology.
 
@@ -989,15 +1018,13 @@ def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
     output = None
 
     if is_all(indices):
-
         output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-   
-    else:
 
+    else:
         pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
         pairs = np.array(pairs)
-        mask = np.isin(pairs[:,0], indices) | np.isin(pairs[:,1], indices)
-        output = pairs[mask,:].tolist()
+        mask = np.isin(pairs[:, 0], indices) | np.isin(pairs[:, 1], indices)
+        output = pairs[mask, :].tolist()
 
         del pairs, mask
 
@@ -1005,8 +1032,7 @@ def get_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from atom in form openmm.Topology.
 
@@ -1033,22 +1059,22 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
     n_bonds = len(edges)
-    edge_indices = np.array([{'index': ii} for ii in range(n_bonds)]).reshape([n_bonds, 1])
+    edge_indices = np.array([{"index": ii} for ii in range(n_bonds)]).reshape(
+        [n_bonds, 1]
+    )
     G.add_edges_from(np.hstack([edges, edge_indices]))
 
     if is_all(indices):
-
         indices = get_atom_index_from_atom(item, skip_digestion=True)
 
     else:
-
         G = G.subgraph(indices)
 
     output = []
 
     for ii in indices:
         if ii in G:
-            output.append([n['index'] for n in G[ii].values()])
+            output.append([n["index"] for n in G[ii].values()])
         else:
             output.append([])
 
@@ -1058,8 +1084,7 @@ def get_inner_bond_index_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from atom in form openmm.Topology.
 
@@ -1085,11 +1110,10 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    
+
     G.add_edges_from(edges)
 
     if not is_all(indices):
-
         G = G.subgraph(indices)
 
     output = []
@@ -1102,8 +1126,7 @@ def get_inner_bonded_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from atom in form openmm.Topology.
 
@@ -1128,15 +1151,13 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
     output = None
 
     if is_all(indices):
-
         output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-   
-    else:
 
+    else:
         pairs = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
         pairs = np.array(pairs)
-        mask = np.isin(pairs[:,0], indices) * np.isin(pairs[:,1], indices)
-        output = pairs[mask,:].tolist()
+        mask = np.isin(pairs[:, 0], indices) * np.isin(pairs[:, 1], indices)
+        output = pairs[mask, :].tolist()
 
         del pairs, mask
 
@@ -1144,8 +1165,7 @@ def get_inner_bonded_atom_pairs_from_atom(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from atom in form openmm.Topology.
 
@@ -1176,8 +1196,7 @@ def get_n_atoms_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n groups from atom in form openmm.Topology.
 
@@ -1209,8 +1228,7 @@ def get_n_groups_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n components from atom in form openmm.Topology.
 
@@ -1235,15 +1253,16 @@ def get_n_components_from_atom(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
-        output = get_component_index_from_atom(item, indices=indices, skip_digestion=True)
+        output = get_component_index_from_atom(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from atom in form openmm.Topology.
 
@@ -1268,15 +1287,16 @@ def get_n_molecules_from_atom(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
-        output = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+        output = get_molecule_index_from_atom(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n entities from atom in form openmm.Topology.
 
@@ -1308,8 +1328,7 @@ def get_n_entities_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n chains from atom in form openmm.Topology.
 
@@ -1341,8 +1360,7 @@ def get_n_chains_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from atom in form openmm.Topology.
 
@@ -1365,11 +1383,9 @@ def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     if is_all(indices):
-
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
         bond_indices = get_bond_index_from_atom(item, indices, skip_digestion=True)
         output = np.unique(np.concatenate(bond_indices)).shape[0]
         del bond_indices
@@ -1378,8 +1394,7 @@ def get_n_bonds_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from atom in form openmm.Topology.
 
@@ -1402,12 +1417,12 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     if is_all(indices):
-
         output = get_n_bonds_from_system(item, skip_digestion=True)
 
     else:
-
-        bond_indices = get_inner_bond_index_from_atom(item, indices, skip_digestion=True)
+        bond_indices = get_inner_bond_index_from_atom(
+            item, indices, skip_digestion=True
+        )
         output = np.unique(np.concatenate(bond_indices)).shape[0]
         del bond_indices
 
@@ -1415,8 +1430,7 @@ def get_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from atom in form openmm.Topology.
 
@@ -1438,17 +1452,20 @@ def get_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "amino acid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from atom in form openmm.Topology.
 
@@ -1470,17 +1487,20 @@ def get_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "nucleotide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n ions from atom in form openmm.Topology.
 
@@ -1502,17 +1522,20 @@ def get_n_ions_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "ion").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n waters from atom in form openmm.Topology.
 
@@ -1534,17 +1557,20 @@ def get_n_waters_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "water").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from atom in form openmm.Topology.
 
@@ -1566,17 +1592,20 @@ def get_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "small molecule").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from atom in form openmm.Topology.
 
@@ -1598,17 +1627,20 @@ def get_n_lipids_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "lipid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from atom in form openmm.Topology.
 
@@ -1630,17 +1662,20 @@ def get_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'olicosaccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "olicosaccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from atom in form openmm.Topology.
 
@@ -1662,17 +1697,20 @@ def get_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_atom(item, indices=indices, skip_digestion=True)
+    group_indices = get_group_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "saccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from atom in form openmm.Topology.
 
@@ -1694,17 +1732,20 @@ def get_n_peptides_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'peptide').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "peptide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from atom in form openmm.Topology.
 
@@ -1726,17 +1767,20 @@ def get_n_proteins_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'protein').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "protein").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from atom in form openmm.Topology.
 
@@ -1758,17 +1802,20 @@ def get_n_dnas_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'dna').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "dna").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from atom in form openmm.Topology.
 
@@ -1790,10 +1837,14 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_atom(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'rna').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "rna").sum()
 
     return output
 
@@ -1802,8 +1853,7 @@ def get_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom index from group in form openmm.Topology.
 
@@ -1838,8 +1888,7 @@ def get_atom_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom id from group in form openmm.Topology.
 
@@ -1861,14 +1910,20 @@ def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_id_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -1878,8 +1933,7 @@ def get_atom_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom name from group in form openmm.Topology.
 
@@ -1901,14 +1955,20 @@ def get_atom_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_name_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -1918,8 +1978,7 @@ def get_atom_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting atom type from group in form openmm.Topology.
 
@@ -1941,14 +2000,20 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_type_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -1958,8 +2023,7 @@ def get_atom_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group index from group in form openmm.Topology.
 
@@ -1991,8 +2055,7 @@ def get_group_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group id from group in form openmm.Topology.
 
@@ -2018,15 +2081,15 @@ def get_group_id_from_group(item, indices='all', skip_digestion=False):
         n_indices = get_n_groups_from_system(item, skip_digestion=True)
         indices = range(n_indices)
 
-    group=list(item.residues())
+    group = list(item.residues())
     output = [str(group[ii].id) for ii in indices]
-    del(group)
+    del group
 
     return output
 
-@arg_digest(form=form)
-def get_group_name_from_group(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group name from group in form openmm.Topology.
 
@@ -2052,15 +2115,15 @@ def get_group_name_from_group(item, indices='all', skip_digestion=False):
         n_indices = get_n_groups_from_system(item, skip_digestion=True)
         indices = range(n_indices)
 
-    group=list(item.residues())
+    group = list(item.residues())
     output = [group[ii].name for ii in indices]
-    del(group)
+    del group
 
     return output
 
-@arg_digest(form=form)
-def get_group_type_from_group(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_group_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting group type from group in form openmm.Topology.
 
@@ -2089,15 +2152,17 @@ def get_group_type_from_group(item, indices='all', skip_digestion=False):
         indices = range(n_indices)
 
     group = list(item.residues())
-    output = [get_group_type_from_group_name(group[ii].name, skip_digestion=True) for ii in indices]
-    del(group)
+    output = [
+        get_group_type_from_group_name(group[ii].name, skip_digestion=True)
+        for ii in indices
+    ]
+    del group
 
     return output
 
 
 @arg_digest(form=form)
-def get_component_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component index from group in form openmm.Topology.
 
@@ -2119,9 +2184,13 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_component_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_component_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -2129,8 +2198,7 @@ def get_component_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component id from group in form openmm.Topology.
 
@@ -2152,9 +2220,13 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_component_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_component_id_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2163,8 +2235,7 @@ def get_component_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component name from group in form openmm.Topology.
 
@@ -2186,9 +2257,13 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_component_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_component_name_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2197,8 +2272,7 @@ def get_component_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting component type from group in form openmm.Topology.
 
@@ -2220,9 +2294,13 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_component_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_component_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_component_type_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2231,8 +2309,7 @@ def get_component_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from group in form openmm.Topology.
 
@@ -2254,9 +2331,13 @@ def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_molecule_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -2264,8 +2345,7 @@ def get_molecule_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from group in form openmm.Topology.
 
@@ -2287,9 +2367,13 @@ def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_id_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2298,8 +2382,7 @@ def get_molecule_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from group in form openmm.Topology.
 
@@ -2321,9 +2404,13 @@ def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_name_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2332,8 +2419,7 @@ def get_molecule_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from group in form openmm.Topology.
 
@@ -2355,9 +2441,13 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_type_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2366,8 +2456,7 @@ def get_molecule_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity index from group in form openmm.Topology.
 
@@ -2389,9 +2478,13 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_entity_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -2399,8 +2492,7 @@ def get_entity_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity id from group in form openmm.Topology.
 
@@ -2422,9 +2514,13 @@ def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_id_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2433,8 +2529,7 @@ def get_entity_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity name from group in form openmm.Topology.
 
@@ -2456,9 +2551,13 @@ def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_name_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2467,8 +2566,7 @@ def get_entity_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting entity type from group in form openmm.Topology.
 
@@ -2490,9 +2588,13 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_group(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_type_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2501,8 +2603,7 @@ def get_entity_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain index from group in form openmm.Topology.
 
@@ -2524,9 +2625,13 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_group(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_chain_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -2534,8 +2639,7 @@ def get_chain_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_id_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain id from group in form openmm.Topology.
 
@@ -2559,7 +2663,9 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_id_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2568,8 +2674,7 @@ def get_chain_id_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain name from group in form openmm.Topology.
 
@@ -2595,8 +2700,7 @@ def get_chain_name_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting chain type from group in form openmm.Topology.
 
@@ -2620,7 +2724,9 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
     """
     aux_indices = get_chain_index_from_group(item, indices=indices, skip_digestion=True)
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_type_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -2629,8 +2735,7 @@ def get_chain_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bond index from group in form openmm.Topology.
 
@@ -2656,8 +2761,7 @@ def get_bond_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_group(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bond type from group in form openmm.Topology.
 
@@ -2683,8 +2787,7 @@ def get_bond_type_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_group(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bond order from group in form openmm.Topology.
 
@@ -2710,8 +2813,7 @@ def get_bond_order_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from group in form openmm.Topology.
 
@@ -2737,8 +2839,7 @@ def get_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from group in form openmm.Topology.
 
@@ -2764,8 +2865,7 @@ def get_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_group(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from group in form openmm.Topology.
 
@@ -2791,8 +2891,7 @@ def get_inner_bond_index_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from group in form openmm.Topology.
 
@@ -2818,8 +2917,7 @@ def get_inner_bonded_atoms_from_group(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_group(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from group in form openmm.Topology.
 
@@ -2844,10 +2942,8 @@ def get_inner_bonded_atom_pairs_from_group(item, indices='all', skip_digestion=F
     raise NotImplementedMethodError()
 
 
-
 @arg_digest(form=form)
-def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from group in form openmm.Topology.
 
@@ -2876,8 +2972,7 @@ def get_n_atoms_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n groups from group in form openmm.Topology.
 
@@ -2908,8 +3003,7 @@ def get_n_groups_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n components from group in form openmm.Topology.
 
@@ -2934,15 +3028,16 @@ def get_n_components_from_group(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_components_from_system(item, skip_digestion=True)
     else:
-        output = get_component_index_from_group(item, indices=indices, skip_digestion=True)
+        output = get_component_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from group in form openmm.Topology.
 
@@ -2967,15 +3062,16 @@ def get_n_molecules_from_group(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
-        output = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+        output = get_molecule_index_from_group(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_entities_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n entities from group in form openmm.Topology.
 
@@ -3007,8 +3103,7 @@ def get_n_entities_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_chains_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n chains from group in form openmm.Topology.
 
@@ -3040,8 +3135,7 @@ def get_n_chains_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from group in form openmm.Topology.
 
@@ -3067,8 +3161,7 @@ def get_n_bonds_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from group in form openmm.Topology.
 
@@ -3094,8 +3187,7 @@ def get_n_inner_bonds_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from group in form openmm.Topology.
 
@@ -3118,14 +3210,13 @@ def get_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    output = (np.array(group_types) == "amino acid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from group in form openmm.Topology.
 
@@ -3148,14 +3239,13 @@ def get_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    output = (np.array(group_types) == "nucleotide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n ions from group in form openmm.Topology.
 
@@ -3178,14 +3268,13 @@ def get_n_ions_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    output = (np.array(group_types) == "ion").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_waters_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n waters from group in form openmm.Topology.
 
@@ -3208,14 +3297,13 @@ def get_n_waters_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    output = (np.array(group_types) == "water").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from group in form openmm.Topology.
 
@@ -3238,14 +3326,13 @@ def get_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    output = (np.array(group_types) == "small molecule").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from group in form openmm.Topology.
 
@@ -3268,14 +3355,13 @@ def get_n_lipids_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    output = (np.array(group_types) == "lipid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from group in form openmm.Topology.
 
@@ -3298,14 +3384,13 @@ def get_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    output = (np.array(group_types) == "polysaccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from group in form openmm.Topology.
 
@@ -3328,14 +3413,13 @@ def get_n_saccharides_from_group(item, indices='all', skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    output = (np.array(group_types) == "saccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from group in form openmm.Topology.
 
@@ -3357,17 +3441,20 @@ def get_n_peptides_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'peptide').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "peptide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from group in form openmm.Topology.
 
@@ -3389,17 +3476,20 @@ def get_n_proteins_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'protein').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "protein").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from group in form openmm.Topology.
 
@@ -3421,17 +3511,20 @@ def get_n_dnas_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'dna').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "dna").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from group in form openmm.Topology.
 
@@ -3453,10 +3546,14 @@ def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_group(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_group(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'rna').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "rna").sum()
 
     return output
 
@@ -3465,8 +3562,7 @@ def get_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom index from component in form openmm.Topology.
 
@@ -3501,8 +3597,7 @@ def get_atom_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom id from component in form openmm.Topology.
 
@@ -3524,14 +3619,20 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_id_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -3541,8 +3642,7 @@ def get_atom_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom name from component in form openmm.Topology.
 
@@ -3564,14 +3664,20 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_name_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -3581,8 +3687,7 @@ def get_atom_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting atom type from component in form openmm.Topology.
 
@@ -3604,14 +3709,20 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_type_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -3621,8 +3732,7 @@ def get_atom_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group index from component in form openmm.Topology.
 
@@ -3657,8 +3767,7 @@ def get_group_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group id from component in form openmm.Topology.
 
@@ -3680,14 +3789,20 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_id_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -3697,8 +3812,7 @@ def get_group_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group name from component in form openmm.Topology.
 
@@ -3720,14 +3834,20 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_name_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -3737,8 +3857,7 @@ def get_group_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting group type from component in form openmm.Topology.
 
@@ -3760,14 +3879,20 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_type_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -3777,8 +3902,7 @@ def get_group_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component index from component in form openmm.Topology.
 
@@ -3808,9 +3932,9 @@ def get_component_index_from_component(item, indices='all', skip_digestion=False
 
     return output
 
-@arg_digest(form=form)
-def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_component_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component id from component in form openmm.Topology.
 
@@ -3832,13 +3956,15 @@ def get_component_id_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    output = get_component_index_from_component(item, indices=indices, skip_digestion=True)
+    output = get_component_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
     return output
 
-@arg_digest(form=form)
-def get_component_name_from_component(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_component_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component name from component in form openmm.Topology.
 
@@ -3860,13 +3986,15 @@ def get_component_name_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    output = get_component_index_from_component(item, indices=indices, skip_digestion=True)
+    output = get_component_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
 
     return output
 
-@arg_digest(form=form)
-def get_component_type_from_component(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_component_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting component type from component in form openmm.Topology.
 
@@ -3890,12 +4018,17 @@ def get_component_type_from_component(item, indices='all', skip_digestion=False)
     """
     from molsysmt.element.component import get_component_type as _get
 
-    return _get(item, element='component', selection=indices, redefine_indices=True, skip_digestion=True)
+    return _get(
+        item,
+        element="component",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from component in form openmm.Topology.
 
@@ -3917,9 +4050,13 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_molecule_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_molecule_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -3927,8 +4064,7 @@ def get_molecule_index_from_component(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from component in form openmm.Topology.
 
@@ -3950,9 +4086,13 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_id_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -3961,8 +4101,7 @@ def get_molecule_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from component in form openmm.Topology.
 
@@ -3984,9 +4123,13 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_name_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -3995,8 +4138,7 @@ def get_molecule_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from component in form openmm.Topology.
 
@@ -4018,9 +4160,13 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_molecule_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_molecule_type_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -4029,8 +4175,7 @@ def get_molecule_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity index from component in form openmm.Topology.
 
@@ -4052,9 +4197,13 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_entity_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -4062,8 +4211,7 @@ def get_entity_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity id from component in form openmm.Topology.
 
@@ -4085,9 +4233,13 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_id_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -4096,8 +4248,7 @@ def get_entity_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity name from component in form openmm.Topology.
 
@@ -4119,9 +4270,13 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_name_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -4130,8 +4285,7 @@ def get_entity_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting entity type from component in form openmm.Topology.
 
@@ -4153,9 +4307,13 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_type_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -4164,8 +4322,7 @@ def get_entity_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain index from component in form openmm.Topology.
 
@@ -4187,9 +4344,13 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_component(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_chain_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -4197,8 +4358,7 @@ def get_chain_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_id_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain id from component in form openmm.Topology.
 
@@ -4220,9 +4380,13 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_chain_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_id_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -4231,8 +4395,7 @@ def get_chain_id_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain name from component in form openmm.Topology.
 
@@ -4258,8 +4421,7 @@ def get_chain_name_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting chain type from component in form openmm.Topology.
 
@@ -4281,9 +4443,13 @@ def get_chain_type_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
+    aux_indices = get_chain_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_type_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -4292,8 +4458,7 @@ def get_chain_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bond index from component in form openmm.Topology.
 
@@ -4319,8 +4484,7 @@ def get_bond_index_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_component(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bond type from component in form openmm.Topology.
 
@@ -4346,8 +4510,7 @@ def get_bond_type_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_component(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bond order from component in form openmm.Topology.
 
@@ -4373,8 +4536,7 @@ def get_bond_order_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from component in form openmm.Topology.
 
@@ -4400,8 +4562,7 @@ def get_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_component(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from component in form openmm.Topology.
 
@@ -4427,8 +4588,7 @@ def get_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_component(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_component(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from component in form openmm.Topology.
 
@@ -4454,8 +4614,7 @@ def get_inner_bond_index_from_component(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from component in form openmm.Topology.
 
@@ -4481,8 +4640,9 @@ def get_inner_bonded_atoms_from_component(item, indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_component(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting inner bonded atom pairs from component in form openmm.Topology.
 
@@ -4508,8 +4668,7 @@ def get_inner_bonded_atom_pairs_from_component(item, indices='all', skip_digesti
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from component in form openmm.Topology.
 
@@ -4538,8 +4697,7 @@ def get_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n groups from component in form openmm.Topology.
 
@@ -4568,8 +4726,7 @@ def get_n_groups_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n components from component in form openmm.Topology.
 
@@ -4600,8 +4757,7 @@ def get_n_components_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from component in form openmm.Topology.
 
@@ -4626,15 +4782,16 @@ def get_n_molecules_from_component(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_molecules_from_system(item, skip_digestion=True)
     else:
-        output = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+        output = get_molecule_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_chains_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n chains from component in form openmm.Topology.
 
@@ -4659,15 +4816,16 @@ def get_n_chains_from_component(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
-        output = get_chain_index_from_component(item, indices=indices, skip_digestion=True)
+        output = get_chain_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_entities_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n entities from component in form openmm.Topology.
 
@@ -4692,15 +4850,16 @@ def get_n_entities_from_component(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
-        output = get_entity_index_from_component(item, indices=indices, skip_digestion=True)
+        output = get_entity_index_from_component(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from component in form openmm.Topology.
 
@@ -4726,8 +4885,7 @@ def get_n_bonds_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from component in form openmm.Topology.
 
@@ -4753,8 +4911,7 @@ def get_n_inner_bonds_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from component in form openmm.Topology.
 
@@ -4776,18 +4933,21 @@ def get_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "amino acid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from component in form openmm.Topology.
 
@@ -4809,18 +4969,21 @@ def get_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "nucleotide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n ions from component in form openmm.Topology.
 
@@ -4842,18 +5005,21 @@ def get_n_ions_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "ion").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_waters_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n waters from component in form openmm.Topology.
 
@@ -4875,18 +5041,21 @@ def get_n_waters_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "water").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from component in form openmm.Topology.
 
@@ -4908,18 +5077,21 @@ def get_n_small_molecules_from_component(item, indices='all', skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "small molecule").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from component in form openmm.Topology.
 
@@ -4941,18 +5113,21 @@ def get_n_lipids_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "lipid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from component in form openmm.Topology.
 
@@ -4974,18 +5149,21 @@ def get_n_polysaccharides_from_component(item, indices='all', skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "polysaccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from component in form openmm.Topology.
 
@@ -5007,18 +5185,21 @@ def get_n_saccharides_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_component(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "saccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from component in form openmm.Topology.
 
@@ -5040,17 +5221,20 @@ def get_n_peptides_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'peptide').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "peptide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from component in form openmm.Topology.
 
@@ -5072,17 +5256,20 @@ def get_n_proteins_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'protein').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "protein").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from component in form openmm.Topology.
 
@@ -5104,17 +5291,20 @@ def get_n_dnas_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'dna').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "dna").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_component(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from component in form openmm.Topology.
 
@@ -5136,10 +5326,14 @@ def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_component(item, indices=indices, skip_digestion=True)
+    molecule_indices = get_molecule_index_from_component(
+        item, indices=indices, skip_digestion=True
+    )
     molecule_indices = np.unique(molecule_indices)
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = (np.array(molecule_types) == 'rna').sum()
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = (np.array(molecule_types) == "rna").sum()
 
     return output
 
@@ -5148,8 +5342,7 @@ def get_n_rnas_from_component(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom index from molecule in form openmm.Topology.
 
@@ -5184,8 +5377,7 @@ def get_atom_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom id from molecule in form openmm.Topology.
 
@@ -5207,14 +5399,20 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_id_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5224,8 +5422,7 @@ def get_atom_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom name from molecule in form openmm.Topology.
 
@@ -5247,14 +5444,20 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_name_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5264,8 +5467,7 @@ def get_atom_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting atom type from molecule in form openmm.Topology.
 
@@ -5287,14 +5489,20 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_type_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5304,8 +5512,7 @@ def get_atom_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group index from molecule in form openmm.Topology.
 
@@ -5340,8 +5547,7 @@ def get_group_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group id from molecule in form openmm.Topology.
 
@@ -5363,14 +5569,20 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_id_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5380,8 +5592,7 @@ def get_group_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group name from molecule in form openmm.Topology.
 
@@ -5403,14 +5614,20 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_name_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5420,8 +5637,7 @@ def get_group_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting group type from molecule in form openmm.Topology.
 
@@ -5443,14 +5659,20 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_type_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5460,8 +5682,7 @@ def get_group_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component index from molecule in form openmm.Topology.
 
@@ -5496,8 +5717,7 @@ def get_component_index_from_molecule(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component id from molecule in form openmm.Topology.
 
@@ -5519,14 +5739,20 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_id_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5536,8 +5762,7 @@ def get_component_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component name from molecule in form openmm.Topology.
 
@@ -5559,14 +5784,20 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_name_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5576,8 +5807,7 @@ def get_component_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting component type from molecule in form openmm.Topology.
 
@@ -5599,14 +5829,20 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_molecule(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_type_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -5616,8 +5852,7 @@ def get_component_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from molecule in form openmm.Topology.
 
@@ -5649,8 +5884,7 @@ def get_molecule_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from molecule in form openmm.Topology.
 
@@ -5674,12 +5908,17 @@ def get_molecule_id_from_molecule(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.molecule import get_molecule_id as _get
 
-    return _get(item, element='molecule', selection=indices, redefine_indices=True, skip_digestion=True)
+    return _get(
+        item,
+        element="molecule",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from molecule in form openmm.Topology.
 
@@ -5703,12 +5942,17 @@ def get_molecule_name_from_molecule(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.molecule import get_molecule_name as _get
 
-    return _get(item, element='molecule', selection=indices, redefine_indices=True, skip_digestion=True)
+    return _get(
+        item,
+        element="molecule",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from molecule in form openmm.Topology.
 
@@ -5732,12 +5976,17 @@ def get_molecule_type_from_molecule(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.molecule import get_molecule_type as _get
 
-    return _get(item, element='molecule', selection=indices, redefine_indices=True, skip_digestion=True)
+    return _get(
+        item,
+        element="molecule",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity index from molecule in form openmm.Topology.
 
@@ -5759,9 +6008,13 @@ def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_entity_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_entity_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -5769,8 +6022,7 @@ def get_entity_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity id from molecule in form openmm.Topology.
 
@@ -5792,9 +6044,13 @@ def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_id_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -5803,8 +6059,7 @@ def get_entity_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity name from molecule in form openmm.Topology.
 
@@ -5826,9 +6081,13 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_name_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -5837,8 +6096,7 @@ def get_entity_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting entity type from molecule in form openmm.Topology.
 
@@ -5860,9 +6118,13 @@ def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
+    aux_indices = get_entity_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_entity_type_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -5871,8 +6133,7 @@ def get_entity_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain index from molecule in form openmm.Topology.
 
@@ -5894,9 +6155,13 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_molecule(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_chain_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -5904,8 +6169,7 @@ def get_chain_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain id from molecule in form openmm.Topology.
 
@@ -5927,9 +6191,13 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
+    aux_indices = get_chain_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_id_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -5938,8 +6206,7 @@ def get_chain_id_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain name from molecule in form openmm.Topology.
 
@@ -5965,8 +6232,7 @@ def get_chain_name_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting chain type from molecule in form openmm.Topology.
 
@@ -5988,9 +6254,13 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
+    aux_indices = get_chain_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_type_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -5999,8 +6269,7 @@ def get_chain_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bond index from molecule in form openmm.Topology.
 
@@ -6026,8 +6295,7 @@ def get_bond_index_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bond type from molecule in form openmm.Topology.
 
@@ -6053,8 +6321,7 @@ def get_bond_type_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bond order from molecule in form openmm.Topology.
 
@@ -6080,8 +6347,7 @@ def get_bond_order_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from molecule in form openmm.Topology.
 
@@ -6107,8 +6373,7 @@ def get_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from molecule in form openmm.Topology.
 
@@ -6134,8 +6399,7 @@ def get_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from molecule in form openmm.Topology.
 
@@ -6161,8 +6425,7 @@ def get_inner_bond_index_from_molecule(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from molecule in form openmm.Topology.
 
@@ -6188,8 +6451,9 @@ def get_inner_bonded_atoms_from_molecule(item, indices='all', skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_molecule(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting inner bonded atom pairs from molecule in form openmm.Topology.
 
@@ -6215,8 +6479,7 @@ def get_inner_bonded_atom_pairs_from_molecule(item, indices='all', skip_digestio
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from molecule in form openmm.Topology.
 
@@ -6245,8 +6508,7 @@ def get_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n groups from molecule in form openmm.Topology.
 
@@ -6275,8 +6537,7 @@ def get_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n components from molecule in form openmm.Topology.
 
@@ -6305,8 +6566,7 @@ def get_n_components_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from molecule in form openmm.Topology.
 
@@ -6337,8 +6597,7 @@ def get_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n entities from molecule in form openmm.Topology.
 
@@ -6363,15 +6622,16 @@ def get_n_entities_from_molecule(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_entities_from_system(item, skip_digestion=True)
     else:
-        output = get_entity_index_from_molecule(item, indices=indices, skip_digestion=True)
+        output = get_entity_index_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n chains from molecule in form openmm.Topology.
 
@@ -6396,15 +6656,16 @@ def get_n_chains_from_molecule(item, indices='all', skip_digestion=False):
     if is_all(indices):
         output = get_n_chains_from_system(item, skip_digestion=True)
     else:
-        output = get_chain_index_from_molecule(item, indices=indices, skip_digestion=True)
+        output = get_chain_index_from_molecule(
+            item, indices=indices, skip_digestion=True
+        )
         output = np.unique(output).shape[0]
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from molecule in form openmm.Topology.
 
@@ -6430,8 +6691,7 @@ def get_n_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from molecule in form openmm.Topology.
 
@@ -6457,8 +6717,7 @@ def get_n_inner_bonds_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from molecule in form openmm.Topology.
 
@@ -6480,18 +6739,21 @@ def get_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "amino acid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from molecule in form openmm.Topology.
 
@@ -6513,18 +6775,21 @@ def get_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "nucleotide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n ions from molecule in form openmm.Topology.
 
@@ -6546,18 +6811,21 @@ def get_n_ions_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "ion").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n waters from molecule in form openmm.Topology.
 
@@ -6579,18 +6847,21 @@ def get_n_waters_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "water").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from molecule in form openmm.Topology.
 
@@ -6612,18 +6883,21 @@ def get_n_small_molecules_from_molecule(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "small molecule").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from molecule in form openmm.Topology.
 
@@ -6645,18 +6919,21 @@ def get_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "lipid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from molecule in form openmm.Topology.
 
@@ -6678,18 +6955,21 @@ def get_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "polysaccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from molecule in form openmm.Topology.
 
@@ -6711,18 +6991,21 @@ def get_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_molecule(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "saccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from molecule in form openmm.Topology.
 
@@ -6744,15 +7027,16 @@ def get_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'peptide').sum()
+    group_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "peptide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from molecule in form openmm.Topology.
 
@@ -6774,15 +7058,16 @@ def get_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'protein').sum()
+    group_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "protein").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from molecule in form openmm.Topology.
 
@@ -6804,15 +7089,16 @@ def get_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'dna').sum()
+    group_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "dna").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from molecule in form openmm.Topology.
 
@@ -6834,8 +7120,10 @@ def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_types = get_molecule_type_from_molecule(item, indices=indices, skip_digestion=True)
-    output = (np.array(group_types) == 'dna').sum()
+    group_types = get_molecule_type_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "dna").sum()
 
     return output
 
@@ -6844,8 +7132,7 @@ def get_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom index from entity in form openmm.Topology.
 
@@ -6880,8 +7167,7 @@ def get_atom_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom id from entity in form openmm.Topology.
 
@@ -6903,14 +7189,20 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_id_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -6920,8 +7212,7 @@ def get_atom_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom name from entity in form openmm.Topology.
 
@@ -6943,14 +7234,20 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_name_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -6960,8 +7257,7 @@ def get_atom_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting atom type from entity in form openmm.Topology.
 
@@ -6983,14 +7279,20 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_type_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7000,8 +7302,7 @@ def get_atom_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group index from entity in form openmm.Topology.
 
@@ -7036,8 +7337,7 @@ def get_group_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group id from entity in form openmm.Topology.
 
@@ -7059,14 +7359,20 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_id_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7076,8 +7382,7 @@ def get_group_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group name from entity in form openmm.Topology.
 
@@ -7099,14 +7404,20 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_name_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7116,8 +7427,7 @@ def get_group_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting group type from entity in form openmm.Topology.
 
@@ -7139,14 +7449,20 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_type_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7156,8 +7472,7 @@ def get_group_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component index from entity in form openmm.Topology.
 
@@ -7192,8 +7507,7 @@ def get_component_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component id from entity in form openmm.Topology.
 
@@ -7215,14 +7529,20 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_id_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7232,8 +7552,7 @@ def get_component_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component name from entity in form openmm.Topology.
 
@@ -7255,14 +7574,20 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_name_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7272,8 +7597,7 @@ def get_component_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting component type from entity in form openmm.Topology.
 
@@ -7295,14 +7619,20 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_type_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7312,8 +7642,7 @@ def get_component_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from entity in form openmm.Topology.
 
@@ -7348,8 +7677,7 @@ def get_molecule_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from entity in form openmm.Topology.
 
@@ -7371,14 +7699,20 @@ def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_molecule_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_molecule_id_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7388,8 +7722,7 @@ def get_molecule_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from entity in form openmm.Topology.
 
@@ -7411,14 +7744,20 @@ def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_molecule_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_molecule_name_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7428,8 +7767,7 @@ def get_molecule_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from entity in form openmm.Topology.
 
@@ -7451,14 +7789,20 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_molecule_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_molecule_type_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -7468,8 +7812,7 @@ def get_molecule_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity index from entity in form openmm.Topology.
 
@@ -7501,8 +7844,7 @@ def get_entity_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity id from entity in form openmm.Topology.
 
@@ -7526,12 +7868,17 @@ def get_entity_id_from_entity(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.entity import get_entity_id as _get
 
-    return _get(item, element='entity', selection=indices, redefine_indices=True, skip_digestion=True)
+    return _get(
+        item,
+        element="entity",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity name from entity in form openmm.Topology.
 
@@ -7555,12 +7902,17 @@ def get_entity_name_from_entity(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.entity import get_entity_name as _get
 
-    return _get(item, element='entity', selection=indices, redefine_indices=True, skip_digestion=True)
+    return _get(
+        item,
+        element="entity",
+        selection=indices,
+        redefine_indices=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting entity type from entity in form openmm.Topology.
 
@@ -7584,12 +7936,17 @@ def get_entity_type_from_entity(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.entity import get_entity_type as _get
 
-    return _get(item, element='entity', selection=indices, redefine_types=True, skip_digestion=True)
+    return _get(
+        item,
+        element="entity",
+        selection=indices,
+        redefine_types=True,
+        skip_digestion=True,
+    )
 
 
 @arg_digest(form=form)
-def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain index from entity in form openmm.Topology.
 
@@ -7611,9 +7968,13 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    atom_index_from_target = get_atom_index_from_entity(item, indices=indices, skip_digestion=True)
+    atom_index_from_target = get_atom_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
     first_atom_index_from_target = np.array([ii[0] for ii in atom_index_from_target])
-    output = get_chain_index_from_atom(item, indices=first_atom_index_from_target, skip_digestion=True)
+    output = get_chain_index_from_atom(
+        item, indices=first_atom_index_from_target, skip_digestion=True
+    )
 
     del atom_index_from_target, first_atom_index_from_target
 
@@ -7621,8 +7982,7 @@ def get_chain_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_id_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain id from entity in form openmm.Topology.
 
@@ -7644,9 +8004,13 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
+    aux_indices = get_chain_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_id_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_id_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -7655,8 +8019,7 @@ def get_chain_id_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_name_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain name from entity in form openmm.Topology.
 
@@ -7682,8 +8045,7 @@ def get_chain_name_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_chain_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting chain type from entity in form openmm.Topology.
 
@@ -7705,9 +8067,13 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    aux_indices = get_chain_index_from_entity(item, indices=indices, skip_digestion=True)
+    aux_indices = get_chain_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
     aux_unique_indices, aux_new_indices = np.unique(aux_indices, return_inverse=True)
-    aux_vals = get_chain_type_from_chain(item, indices=aux_unique_indices, skip_digestion=True)
+    aux_vals = get_chain_type_from_chain(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     output = np.array(aux_vals)[aux_new_indices]
 
     del aux_indices, aux_unique_indices, aux_vals, aux_new_indices
@@ -7716,8 +8082,7 @@ def get_chain_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bond index from entity in form openmm.Topology.
 
@@ -7743,8 +8108,7 @@ def get_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bond type from entity in form openmm.Topology.
 
@@ -7770,8 +8134,7 @@ def get_bond_type_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bond order from entity in form openmm.Topology.
 
@@ -7797,8 +8160,7 @@ def get_bond_order_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from entity in form openmm.Topology.
 
@@ -7824,8 +8186,7 @@ def get_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from entity in form openmm.Topology.
 
@@ -7851,8 +8212,7 @@ def get_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from entity in form openmm.Topology.
 
@@ -7878,8 +8238,7 @@ def get_inner_bond_index_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from entity in form openmm.Topology.
 
@@ -7905,8 +8264,7 @@ def get_inner_bonded_atoms_from_entity(item, indices='all', skip_digestion=False
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from entity in form openmm.Topology.
 
@@ -7932,8 +8290,7 @@ def get_inner_bonded_atom_pairs_from_entity(item, indices='all', skip_digestion=
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from entity in form openmm.Topology.
 
@@ -7962,8 +8319,7 @@ def get_n_atoms_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n groups from entity in form openmm.Topology.
 
@@ -7992,8 +8348,7 @@ def get_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n components from entity in form openmm.Topology.
 
@@ -8022,8 +8377,7 @@ def get_n_components_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from entity in form openmm.Topology.
 
@@ -8052,8 +8406,7 @@ def get_n_molecules_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n entities from entity in form openmm.Topology.
 
@@ -8084,8 +8437,7 @@ def get_n_entities_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n chains from entity in form openmm.Topology.
 
@@ -8117,8 +8469,7 @@ def get_n_chains_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from entity in form openmm.Topology.
 
@@ -8144,8 +8495,7 @@ def get_n_bonds_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from entity in form openmm.Topology.
 
@@ -8171,8 +8521,7 @@ def get_n_inner_bonds_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from entity in form openmm.Topology.
 
@@ -8194,18 +8543,21 @@ def get_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "amino acid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from entity in form openmm.Topology.
 
@@ -8227,18 +8579,21 @@ def get_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "nucleotide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n ions from entity in form openmm.Topology.
 
@@ -8260,18 +8615,21 @@ def get_n_ions_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "ion").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n waters from entity in form openmm.Topology.
 
@@ -8293,18 +8651,21 @@ def get_n_waters_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "water").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from entity in form openmm.Topology.
 
@@ -8326,18 +8687,21 @@ def get_n_small_molecules_from_entity(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "small molecule").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from entity in form openmm.Topology.
 
@@ -8359,18 +8723,21 @@ def get_n_lipids_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "lipid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from entity in form openmm.Topology.
 
@@ -8392,18 +8759,21 @@ def get_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "polysaccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from entity in form openmm.Topology.
 
@@ -8425,18 +8795,21 @@ def get_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_entity(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "saccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from entity in form openmm.Topology.
 
@@ -8458,17 +8831,22 @@ def get_n_peptides_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'peptide').sum())
+    molecule_indices = get_molecule_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "peptide").sum())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from entity in form openmm.Topology.
 
@@ -8490,17 +8868,22 @@ def get_n_proteins_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'protein').sum())
+    molecule_indices = get_molecule_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "protein").sum())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from entity in form openmm.Topology.
 
@@ -8522,17 +8905,22 @@ def get_n_dnas_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'dna').sum())
+    molecule_indices = get_molecule_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "dna").sum())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from entity in form openmm.Topology.
 
@@ -8554,10 +8942,16 @@ def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_entity(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'rna').sum())
+    molecule_indices = get_molecule_index_from_entity(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "rna").sum())
 
     return output
 
@@ -8566,8 +8960,7 @@ def get_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom index from chain in form openmm.Topology.
 
@@ -8602,8 +8995,7 @@ def get_atom_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom id from chain in form openmm.Topology.
 
@@ -8625,14 +9017,20 @@ def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_id_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_id_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8642,8 +9040,7 @@ def get_atom_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom name from chain in form openmm.Topology.
 
@@ -8665,14 +9062,20 @@ def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_name_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_name_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8682,8 +9085,7 @@ def get_atom_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_atom_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting atom type from chain in form openmm.Topology.
 
@@ -8705,14 +9107,20 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_atom_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_atom_type_from_atom(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_atom_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_atom_type_from_atom(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8722,8 +9130,7 @@ def get_atom_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group index from chain in form openmm.Topology.
 
@@ -8758,8 +9165,7 @@ def get_group_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group id from chain in form openmm.Topology.
 
@@ -8781,14 +9187,20 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_id_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_id_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8798,8 +9210,7 @@ def get_group_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group name from chain in form openmm.Topology.
 
@@ -8821,14 +9232,20 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_name_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_name_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8838,8 +9255,7 @@ def get_group_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_group_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_group_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting group type from chain in form openmm.Topology.
 
@@ -8861,14 +9277,20 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_group_type_from_group(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_group_type_from_group(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8878,8 +9300,7 @@ def get_group_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component index from chain in form openmm.Topology.
 
@@ -8914,8 +9335,7 @@ def get_component_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component id from chain in form openmm.Topology.
 
@@ -8937,14 +9357,20 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_id_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_id_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8954,8 +9380,7 @@ def get_component_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component name from chain in form openmm.Topology.
 
@@ -8977,14 +9402,20 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_name_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_name_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -8994,8 +9425,7 @@ def get_component_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_component_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_component_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting component type from chain in form openmm.Topology.
 
@@ -9017,14 +9447,20 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_component_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_component_type_from_component(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_component_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_component_type_from_component(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -9034,8 +9470,7 @@ def get_component_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule index from chain in form openmm.Topology.
 
@@ -9070,8 +9505,7 @@ def get_molecule_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule id from chain in form openmm.Topology.
 
@@ -9093,14 +9527,20 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_molecule_id_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_molecule_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_molecule_id_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -9110,8 +9550,7 @@ def get_molecule_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule name from chain in form openmm.Topology.
 
@@ -9133,14 +9572,20 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_molecule_name_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_molecule_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_molecule_name_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -9150,8 +9595,7 @@ def get_molecule_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_molecule_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting molecule type from chain in form openmm.Topology.
 
@@ -9173,14 +9617,20 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_molecule_type_from_molecule(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_molecule_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_molecule_type_from_molecule(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -9190,8 +9640,7 @@ def get_molecule_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity index from chain in form openmm.Topology.
 
@@ -9226,8 +9675,7 @@ def get_entity_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity id from chain in form openmm.Topology.
 
@@ -9249,14 +9697,20 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_entity_id_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_entity_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_entity_id_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -9266,8 +9720,7 @@ def get_entity_id_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity name from chain in form openmm.Topology.
 
@@ -9289,14 +9742,20 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_entity_name_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_entity_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_entity_name_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -9306,8 +9765,7 @@ def get_entity_name_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_entity_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting entity type from chain in form openmm.Topology.
 
@@ -9329,14 +9787,20 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    target_indices = get_entity_index_from_chain(item, indices=indices, skip_digestion=True)
-    aux_unique_indices, aux_indices = np.unique(np.concatenate(target_indices), return_inverse=True)
-    aux_vals = get_entity_type_from_entity(item, indices=aux_unique_indices, skip_digestion=True)
+    target_indices = get_entity_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    aux_unique_indices, aux_indices = np.unique(
+        np.concatenate(target_indices), return_inverse=True
+    )
+    aux_vals = get_entity_type_from_entity(
+        item, indices=aux_unique_indices, skip_digestion=True
+    )
     aux_output = np.array(aux_vals)[aux_indices]
     output = []
     ii = 0
     for aux in target_indices:
-        jj = ii+len(aux)
+        jj = ii + len(aux)
         output.append(aux_output[ii:jj].tolist())
         ii = jj
 
@@ -9346,8 +9810,7 @@ def get_entity_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_chain_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain index from chain in form openmm.Topology.
 
@@ -9377,9 +9840,9 @@ def get_chain_index_from_chain(item, indices='all', skip_digestion=False):
 
     return output
 
-@arg_digest(form=form)
-def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_chain_id_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain id from chain in form openmm.Topology.
 
@@ -9401,18 +9864,18 @@ def get_chain_id_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    chains=list(item.chains())
+    chains = list(item.chains())
     if is_all(indices):
         output = [chain.id for chain in chains]
     else:
         output = [chains[ii].id for ii in indices]
-    del(chains)
+    del chains
 
     return output
 
-@arg_digest(form=form)
-def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_chain_name_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain name from chain in form openmm.Topology.
 
@@ -9436,9 +9899,9 @@ def get_chain_name_from_chain(item, indices='all', skip_digestion=False):
     """
     return None
 
-@arg_digest(form=form)
-def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_chain_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting chain type from chain in form openmm.Topology.
 
@@ -9462,14 +9925,15 @@ def get_chain_type_from_chain(item, indices='all', skip_digestion=False):
     """
     from molsysmt.element.chain import get_chain_type
 
-    output = get_chain_type(item, element='chain', selection=indices, redefine_types=True)
+    output = get_chain_type(
+        item, element="chain", selection=indices, redefine_types=True
+    )
 
     return output
 
 
 @arg_digest(form=form)
-def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bond index from chain in form openmm.Topology.
 
@@ -9495,8 +9959,7 @@ def get_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bond_type_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bond type from chain in form openmm.Topology.
 
@@ -9522,8 +9985,7 @@ def get_bond_type_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bond_order_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bond order from chain in form openmm.Topology.
 
@@ -9549,8 +10011,7 @@ def get_bond_order_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bonded_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from chain in form openmm.Topology.
 
@@ -9576,8 +10037,7 @@ def get_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from chain in form openmm.Topology.
 
@@ -9603,8 +10063,7 @@ def get_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
-
+def get_inner_bond_index_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting inner bond index from chain in form openmm.Topology.
 
@@ -9630,8 +10089,7 @@ def get_inner_bond_index_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atoms from chain in form openmm.Topology.
 
@@ -9657,8 +10115,7 @@ def get_inner_bonded_atoms_from_chain(item, indices='all', skip_digestion=False)
 
 
 @arg_digest(form=form)
-def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=False):
-
+def get_inner_bonded_atom_pairs_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting inner bonded atom pairs from chain in form openmm.Topology.
 
@@ -9684,8 +10141,7 @@ def get_inner_bonded_atom_pairs_from_chain(item, indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n atoms from chain in form openmm.Topology.
 
@@ -9714,8 +10170,7 @@ def get_n_atoms_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_groups_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n groups from chain in form openmm.Topology.
 
@@ -9744,8 +10199,7 @@ def get_n_groups_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_components_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_components_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n components from chain in form openmm.Topology.
 
@@ -9774,8 +10228,7 @@ def get_n_components_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_molecules_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n molecules from chain in form openmm.Topology.
 
@@ -9804,8 +10257,7 @@ def get_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_entities_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n entities from chain in form openmm.Topology.
 
@@ -9834,8 +10286,7 @@ def get_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_chains_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n chains from chain in form openmm.Topology.
 
@@ -9866,8 +10317,7 @@ def get_n_chains_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from chain in form openmm.Topology.
 
@@ -9893,8 +10343,7 @@ def get_n_bonds_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_inner_bonds_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n inner bonds from chain in form openmm.Topology.
 
@@ -9920,8 +10369,7 @@ def get_n_inner_bonds_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_amino_acids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n amino acids from chain in form openmm.Topology.
 
@@ -9943,18 +10391,21 @@ def get_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "amino acid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_nucleotides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n nucleotides from chain in form openmm.Topology.
 
@@ -9976,18 +10427,21 @@ def get_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "nucleotide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_ions_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n ions from chain in form openmm.Topology.
 
@@ -10009,18 +10463,21 @@ def get_n_ions_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "ion").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_waters_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n waters from chain in form openmm.Topology.
 
@@ -10042,18 +10499,21 @@ def get_n_waters_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "water").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_small_molecules_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n small molecules from chain in form openmm.Topology.
 
@@ -10075,18 +10535,21 @@ def get_n_small_molecules_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "small molecule").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_lipids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n lipids from chain in form openmm.Topology.
 
@@ -10108,18 +10571,21 @@ def get_n_lipids_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "lipid").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_polysaccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n polysaccharides from chain in form openmm.Topology.
 
@@ -10141,18 +10607,21 @@ def get_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "polysaccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_saccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n saccharides from chain in form openmm.Topology.
 
@@ -10174,18 +10643,21 @@ def get_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    group_indices = get_group_index_from_chain(item, indices=indices, skip_digestion=True)
-    group_indices=np.concatenate([np.array(ii) for ii in group_indices])
+    group_indices = get_group_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    group_indices = np.concatenate([np.array(ii) for ii in group_indices])
     group_indices = np.unique(group_indices)
-    group_types = get_group_type_from_group(item, indices=group_indices, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    group_types = get_group_type_from_group(
+        item, indices=group_indices, skip_digestion=True
+    )
+    output = (np.array(group_types) == "saccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_peptides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n peptides from chain in form openmm.Topology.
 
@@ -10207,17 +10679,22 @@ def get_n_peptides_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'peptide').sum())
+    molecule_indices = get_molecule_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "peptide").sum())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_proteins_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n proteins from chain in form openmm.Topology.
 
@@ -10239,17 +10716,22 @@ def get_n_proteins_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'protein').sum())
+    molecule_indices = get_molecule_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "protein").sum())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_dnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n dnas from chain in form openmm.Topology.
 
@@ -10271,17 +10753,22 @@ def get_n_dnas_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'dna').sum())
+    molecule_indices = get_molecule_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "dna").sum())
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
-
+def get_n_rnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting n rnas from chain in form openmm.Topology.
 
@@ -10303,10 +10790,16 @@ def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    molecule_indices = get_molecule_index_from_chain(item, indices=indices, skip_digestion=True)
-    molecule_indices = np.unique(np.concatenate([np.array(ii) for ii in molecule_indices]))
-    molecule_types = get_molecule_type_from_molecule(item, indices=molecule_indices, skip_digestion=True)
-    output = int((np.array(molecule_types) == 'rna').sum())
+    molecule_indices = get_molecule_index_from_chain(
+        item, indices=indices, skip_digestion=True
+    )
+    molecule_indices = np.unique(
+        np.concatenate([np.array(ii) for ii in molecule_indices])
+    )
+    molecule_types = get_molecule_type_from_molecule(
+        item, indices=molecule_indices, skip_digestion=True
+    )
+    output = int((np.array(molecule_types) == "rna").sum())
 
     return output
 
@@ -10315,8 +10808,7 @@ def get_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bond_index_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond index from bond in form openmm.Topology.
 
@@ -10345,11 +10837,13 @@ def get_bond_index_from_bond(item, indices='all', skip_digestion=False):
         output = indices.tolist()
 
     return output
+
+
 ## From bond
 
-@arg_digest(form=form)
-def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_bond_order_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond order from bond in form openmm.Topology.
 
@@ -10373,14 +10867,14 @@ def get_bond_order_from_bond(item, indices='all', skip_digestion=False):
     """
     tmp_indices = get_bond_index_from_bond(item, indices=indices, skip_digestion=True)
     bond = list(item.bonds())
-    output=[bond[ii].order for ii in tmp_indices]
-    del(bond)
+    output = [bond[ii].order for ii in tmp_indices]
+    del bond
 
     return output
 
-@arg_digest(form=form)
-def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_bond_type_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bond type from bond in form openmm.Topology.
 
@@ -10404,14 +10898,14 @@ def get_bond_type_from_bond(item, indices='all', skip_digestion=False):
     """
     tmp_indices = get_bond_index_from_bond(item, indices=indices, skip_digestion=True)
     bond = list(item.bonds())
-    output=[bond[ii].type for ii in tmp_indices]
-    del(bond)
+    output = [bond[ii].type for ii in tmp_indices]
+    del bond
 
     return output
 
-@arg_digest(form=form)
-def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_bonded_atoms_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bonded atoms from bond in form openmm.Topology.
 
@@ -10445,8 +10939,7 @@ def get_bonded_atoms_from_bond(item, indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
-
+def get_bonded_atom_pairs_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting bonded atom pairs from bond in form openmm.Topology.
 
@@ -10470,15 +10963,16 @@ def get_bonded_atom_pairs_from_bond(item, indices='all', skip_digestion=False):
     """
     tmp_indices = get_bond_index_from_bond(item, indices=indices, skip_digestion=True)
     bond = list(item.bonds())
-    output = [sorted([bond[ii].atom1.index, bond[ii].atom2.index]) for ii in tmp_indices]
+    output = [
+        sorted([bond[ii].atom1.index, bond[ii].atom2.index]) for ii in tmp_indices
+    ]
     del bond
 
     return output
 
 
 @arg_digest(form=form)
-def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
-
+def get_n_bonds_from_bond(item, indices="all", skip_digestion=False):
     """
     Getting n bonds from bond in form openmm.Topology.
 
@@ -10514,7 +11008,6 @@ def get_n_bonds_from_bond(item, indices='all', skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting n atoms from system in form openmm.Topology.
 
@@ -10536,9 +11029,9 @@ def get_n_atoms_from_system(item, skip_digestion=False):
     """
     return item.getNumAtoms()
 
+
 @arg_digest(form=form)
 def get_n_groups_from_system(item, skip_digestion=False):
-
     """
     Getting n groups from system in form openmm.Topology.
 
@@ -10560,9 +11053,9 @@ def get_n_groups_from_system(item, skip_digestion=False):
     """
     return item.getNumResidues()
 
+
 @arg_digest(form=form)
 def get_n_components_from_system(item, skip_digestion=False):
-
     """
     Getting n components from system in form openmm.Topology.
 
@@ -10582,7 +11075,9 @@ def get_n_components_from_system(item, skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    component_index_from_atom = get_component_index_from_atom(item, indices='all', skip_digestion=True)
+    component_index_from_atom = get_component_index_from_atom(
+        item, indices="all", skip_digestion=True
+    )
 
     if component_index_from_atom[0] is None:
         n_components = 0
@@ -10595,7 +11090,6 @@ def get_n_components_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
-
     """
     Getting n molecules from system in form openmm.Topology.
 
@@ -10626,7 +11120,6 @@ def get_n_molecules_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
-
     """
     Getting n entities from system in form openmm.Topology.
 
@@ -10657,7 +11150,6 @@ def get_n_entities_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_chains_from_system(item, skip_digestion=False):
-
     """
     Getting n chains from system in form openmm.Topology.
 
@@ -10682,7 +11174,6 @@ def get_n_chains_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_bonds_from_system(item, skip_digestion=False):
-
     """
     Getting n bonds from system in form openmm.Topology.
 
@@ -10707,7 +11198,6 @@ def get_n_bonds_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_amino_acids_from_system(item, skip_digestion=False):
-
     """
     Getting n amino acids from system in form openmm.Topology.
 
@@ -10728,14 +11218,13 @@ def get_n_amino_acids_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'amino acid').sum()
+    output = (np.array(group_types) == "amino acid").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_nucleotides_from_system(item, skip_digestion=False):
-
     """
     Getting n nucleotides from system in form openmm.Topology.
 
@@ -10756,14 +11245,13 @@ def get_n_nucleotides_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'nucleotide').sum()
+    output = (np.array(group_types) == "nucleotide").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_ions_from_system(item, skip_digestion=False):
-
     """
     Getting n ions from system in form openmm.Topology.
 
@@ -10784,14 +11272,13 @@ def get_n_ions_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'ion').sum()
+    output = (np.array(group_types) == "ion").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_waters_from_system(item, skip_digestion=False):
-
     """
     Getting n waters from system in form openmm.Topology.
 
@@ -10812,14 +11299,13 @@ def get_n_waters_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'water').sum()
+    output = (np.array(group_types) == "water").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_small_molecules_from_system(item, skip_digestion=False):
-
     """
     Getting n small molecules from system in form openmm.Topology.
 
@@ -10840,14 +11326,13 @@ def get_n_small_molecules_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'small molecule').sum()
+    output = (np.array(group_types) == "small molecule").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_lipids_from_system(item, skip_digestion=False):
-
     """
     Getting n lipids from system in form openmm.Topology.
 
@@ -10868,14 +11353,13 @@ def get_n_lipids_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'lipid').sum()
+    output = (np.array(group_types) == "lipid").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_polysaccharides_from_system(item, skip_digestion=False):
-
     """
     Getting n polysaccharides from system in form openmm.Topology.
 
@@ -10896,14 +11380,13 @@ def get_n_polysaccharides_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'polysaccharide').sum()
+    output = (np.array(group_types) == "polysaccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_saccharides_from_system(item, skip_digestion=False):
-
     """
     Getting n saccharides from system in form openmm.Topology.
 
@@ -10924,14 +11407,13 @@ def get_n_saccharides_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     group_types = get_group_type_from_group(item, skip_digestion=True)
-    output = (np.array(group_types) == 'saccharide').sum()
+    output = (np.array(group_types) == "saccharide").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_peptides_from_system(item, skip_digestion=False):
-
     """
     Getting n peptides from system in form openmm.Topology.
 
@@ -10952,14 +11434,13 @@ def get_n_peptides_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
-    output = (np.array(molecule_types) == 'peptide').sum()
+    output = (np.array(molecule_types) == "peptide").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_proteins_from_system(item, skip_digestion=False):
-
     """
     Getting n proteins from system in form openmm.Topology.
 
@@ -10980,14 +11461,13 @@ def get_n_proteins_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
-    output = (np.array(molecule_types) == 'protein').sum()
+    output = (np.array(molecule_types) == "protein").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_dnas_from_system(item, skip_digestion=False):
-
     """
     Getting n dnas from system in form openmm.Topology.
 
@@ -11008,14 +11488,13 @@ def get_n_dnas_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
-    output = (np.array(molecule_types) == 'dna').sum()
+    output = (np.array(molecule_types) == "dna").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_n_rnas_from_system(item, skip_digestion=False):
-
     """
     Getting n rnas from system in form openmm.Topology.
 
@@ -11036,14 +11515,13 @@ def get_n_rnas_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     molecule_types = get_molecule_type_from_molecule(item, skip_digestion=True)
-    output = (np.array(molecule_types) == 'rna').sum()
+    output = (np.array(molecule_types) == "rna").sum()
 
     return output
 
 
 @arg_digest(form=form)
 def get_bond_index_from_system(item, skip_digestion=False):
-
     """
     Getting bond index from system in form openmm.Topology.
 
@@ -11071,7 +11549,6 @@ def get_bond_index_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bonded_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting bonded atoms from system in form openmm.Topology.
 
@@ -11096,7 +11573,6 @@ def get_bonded_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
-
     """
     Getting bonded atom pairs from system in form openmm.Topology.
 
@@ -11117,13 +11593,12 @@ def get_bonded_atom_pairs_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     output = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-   
+
     return output
 
 
 @arg_digest(form=form)
 def get_inner_bond_index_from_system(item, skip_digestion=False):
-
     """
     Getting inner bond index from system in form openmm.Topology.
 
@@ -11151,7 +11626,6 @@ def get_inner_bond_index_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
-
     """
     Getting inner bonded atoms from system in form openmm.Topology.
 
@@ -11175,7 +11649,7 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
     G = Graph()
     edges = get_bonded_atom_pairs_from_bond(item, skip_digestion=True)
-    
+
     G.add_edges_from(edges)
 
     output = []
@@ -11189,7 +11663,6 @@ def get_inner_bonded_atoms_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
-
     """
     Getting inner bonded atom pairs from system in form openmm.Topology.
 
@@ -11210,7 +11683,7 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
     output = get_bonded_atom_pairs_from_bond(item)
-   
+
     return output
 
 
@@ -11221,8 +11694,9 @@ def get_inner_bonded_atom_pairs_from_system(item, skip_digestion=False):
 
 # --- From atom ---
 
+
 @arg_digest(form=form)
-def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_atoms_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from atom in form openmm.Topology.
 
@@ -11246,8 +11720,9 @@ def get_total_n_atoms_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_atoms_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_groups_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from atom in form openmm.Topology.
 
@@ -11271,8 +11746,9 @@ def get_total_n_groups_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_groups_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_components_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n components from atom in form openmm.Topology.
 
@@ -11296,8 +11772,9 @@ def get_total_n_components_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_components_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from atom in form openmm.Topology.
 
@@ -11321,8 +11798,9 @@ def get_total_n_molecules_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_molecules_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_entities_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from atom in form openmm.Topology.
 
@@ -11346,8 +11824,9 @@ def get_total_n_entities_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_entities_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_chains_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from atom in form openmm.Topology.
 
@@ -11371,8 +11850,9 @@ def get_total_n_chains_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_chains_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n bonds from atom in form openmm.Topology.
 
@@ -11400,8 +11880,9 @@ def get_total_n_bonds_from_atom(item, indices='all', skip_digestion=False):
         unique_bonds.update(bond_list)
     return len(unique_bonds)
 
+
 @arg_digest(form=form)
-def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_inner_bonds_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n inner bonds from atom in form openmm.Topology.
 
@@ -11423,14 +11904,17 @@ def get_total_n_inner_bonds_from_atom(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    per_atom = get_inner_bond_index_from_atom(item, indices=indices, skip_digestion=True)
+    per_atom = get_inner_bond_index_from_atom(
+        item, indices=indices, skip_digestion=True
+    )
     unique_bonds = set()
     for bond_list in per_atom:
         unique_bonds.update(bond_list)
     return len(unique_bonds)
 
+
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_amino_acids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from atom in form openmm.Topology.
 
@@ -11454,8 +11938,9 @@ def get_total_n_amino_acids_from_atom(item, indices='all', skip_digestion=False)
     """
     return get_n_amino_acids_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_nucleotides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from atom in form openmm.Topology.
 
@@ -11479,8 +11964,9 @@ def get_total_n_nucleotides_from_atom(item, indices='all', skip_digestion=False)
     """
     return get_n_nucleotides_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_ions_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_ions_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from atom in form openmm.Topology.
 
@@ -11504,8 +11990,9 @@ def get_total_n_ions_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_ions_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_waters_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_waters_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from atom in form openmm.Topology.
 
@@ -11529,8 +12016,9 @@ def get_total_n_waters_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_waters_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_small_molecules_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n small molecules from atom in form openmm.Topology.
 
@@ -11554,8 +12042,9 @@ def get_total_n_small_molecules_from_atom(item, indices='all', skip_digestion=Fa
     """
     return get_n_small_molecules_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_lipids_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_lipids_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from atom in form openmm.Topology.
 
@@ -11579,8 +12068,9 @@ def get_total_n_lipids_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_lipids_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_saccharides_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_saccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from atom in form openmm.Topology.
 
@@ -11604,8 +12094,9 @@ def get_total_n_saccharides_from_atom(item, indices='all', skip_digestion=False)
     """
     return get_n_saccharides_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_peptides_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_peptides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from atom in form openmm.Topology.
 
@@ -11629,8 +12120,9 @@ def get_total_n_peptides_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_peptides_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_proteins_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_proteins_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from atom in form openmm.Topology.
 
@@ -11654,8 +12146,9 @@ def get_total_n_proteins_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_proteins_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_polysaccharides_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from atom in form openmm.Topology.
 
@@ -11679,8 +12172,9 @@ def get_total_n_polysaccharides_from_atom(item, indices='all', skip_digestion=Fa
     """
     return get_n_polysaccharides_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_dnas_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_dnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from atom in form openmm.Topology.
 
@@ -11704,8 +12198,9 @@ def get_total_n_dnas_from_atom(item, indices='all', skip_digestion=False):
     """
     return get_n_dnas_from_atom(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_rnas_from_atom(item, indices='all', skip_digestion=False):
+def get_total_n_rnas_from_atom(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from atom in form openmm.Topology.
 
@@ -11734,8 +12229,9 @@ def get_total_n_rnas_from_atom(item, indices='all', skip_digestion=False):
 # Note: get_n_components_from_group and get_n_chains_from_group already return
 # scalar unique counts in openmm.Topology, so total_ delegates directly.
 
+
 @arg_digest(form=form)
-def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_atoms_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from group in form openmm.Topology.
 
@@ -11759,8 +12255,9 @@ def get_total_n_atoms_from_group(item, indices='all', skip_digestion=False):
     """
     return int(sum(get_n_atoms_from_group(item, indices=indices, skip_digestion=True)))
 
+
 @arg_digest(form=form)
-def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_groups_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from group in form openmm.Topology.
 
@@ -11784,8 +12281,9 @@ def get_total_n_groups_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_groups_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_components_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_components_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n components from group in form openmm.Topology.
 
@@ -11809,8 +12307,9 @@ def get_total_n_components_from_group(item, indices='all', skip_digestion=False)
     """
     return get_n_components_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from group in form openmm.Topology.
 
@@ -11834,8 +12333,9 @@ def get_total_n_molecules_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_molecules_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_entities_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_entities_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from group in form openmm.Topology.
 
@@ -11859,8 +12359,9 @@ def get_total_n_entities_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_entities_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_chains_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from group in form openmm.Topology.
 
@@ -11884,8 +12385,9 @@ def get_total_n_chains_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_chains_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_amino_acids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from group in form openmm.Topology.
 
@@ -11909,8 +12411,9 @@ def get_total_n_amino_acids_from_group(item, indices='all', skip_digestion=False
     """
     return get_n_amino_acids_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_nucleotides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from group in form openmm.Topology.
 
@@ -11934,8 +12437,9 @@ def get_total_n_nucleotides_from_group(item, indices='all', skip_digestion=False
     """
     return get_n_nucleotides_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_ions_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_ions_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from group in form openmm.Topology.
 
@@ -11959,8 +12463,9 @@ def get_total_n_ions_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_ions_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_waters_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_waters_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from group in form openmm.Topology.
 
@@ -11984,8 +12489,9 @@ def get_total_n_waters_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_waters_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_small_molecules_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_small_molecules_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n small molecules from group in form openmm.Topology.
 
@@ -12009,8 +12515,9 @@ def get_total_n_small_molecules_from_group(item, indices='all', skip_digestion=F
     """
     return get_n_small_molecules_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_lipids_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_lipids_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from group in form openmm.Topology.
 
@@ -12034,8 +12541,9 @@ def get_total_n_lipids_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_lipids_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_saccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from group in form openmm.Topology.
 
@@ -12059,8 +12567,9 @@ def get_total_n_saccharides_from_group(item, indices='all', skip_digestion=False
     """
     return get_n_saccharides_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_peptides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from group in form openmm.Topology.
 
@@ -12084,8 +12593,9 @@ def get_total_n_peptides_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_peptides_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_proteins_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from group in form openmm.Topology.
 
@@ -12109,8 +12619,9 @@ def get_total_n_proteins_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_proteins_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_polysaccharides_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from group in form openmm.Topology.
 
@@ -12134,8 +12645,9 @@ def get_total_n_polysaccharides_from_group(item, indices='all', skip_digestion=F
     """
     return get_n_polysaccharides_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_dnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from group in form openmm.Topology.
 
@@ -12159,8 +12671,9 @@ def get_total_n_dnas_from_group(item, indices='all', skip_digestion=False):
     """
     return get_n_dnas_from_group(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False):
+def get_total_n_rnas_from_group(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from group in form openmm.Topology.
 
@@ -12187,8 +12700,9 @@ def get_total_n_rnas_from_group(item, indices='all', skip_digestion=False):
 
 # --- From molecule ---
 
+
 @arg_digest(form=form)
-def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_atoms_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from molecule in form openmm.Topology.
 
@@ -12210,10 +12724,13 @@ def get_total_n_atoms_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_atoms_from_molecule(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_atoms_from_molecule(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_groups_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from molecule in form openmm.Topology.
 
@@ -12235,10 +12752,13 @@ def get_total_n_groups_from_molecule(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_groups_from_molecule(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_groups_from_molecule(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_components_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_components_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n components from molecule in form openmm.Topology.
 
@@ -12260,10 +12780,13 @@ def get_total_n_components_from_molecule(item, indices='all', skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_components_from_molecule(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_components_from_molecule(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_molecules_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from molecule in form openmm.Topology.
 
@@ -12287,8 +12810,9 @@ def get_total_n_molecules_from_molecule(item, indices='all', skip_digestion=Fals
     """
     return get_n_molecules_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_entities_from_molecule(item, indices="all", skip_digestion=False):
     # get_n_entities_from_molecule returns a scalar in openmm.Topology
     """
     Getting total n entities from molecule in form openmm.Topology.
@@ -12313,8 +12837,9 @@ def get_total_n_entities_from_molecule(item, indices='all', skip_digestion=False
     """
     return int(get_n_entities_from_molecule(item, indices=indices, skip_digestion=True))
 
+
 @arg_digest(form=form)
-def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_chains_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from molecule in form openmm.Topology.
 
@@ -12338,8 +12863,9 @@ def get_total_n_chains_from_molecule(item, indices='all', skip_digestion=False):
     """
     return get_n_chains_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_amino_acids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from molecule in form openmm.Topology.
 
@@ -12363,8 +12889,9 @@ def get_total_n_amino_acids_from_molecule(item, indices='all', skip_digestion=Fa
     """
     return get_n_amino_acids_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_nucleotides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from molecule in form openmm.Topology.
 
@@ -12388,8 +12915,9 @@ def get_total_n_nucleotides_from_molecule(item, indices='all', skip_digestion=Fa
     """
     return get_n_nucleotides_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_ions_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from molecule in form openmm.Topology.
 
@@ -12413,8 +12941,9 @@ def get_total_n_ions_from_molecule(item, indices='all', skip_digestion=False):
     """
     return get_n_ions_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_waters_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from molecule in form openmm.Topology.
 
@@ -12438,8 +12967,9 @@ def get_total_n_waters_from_molecule(item, indices='all', skip_digestion=False):
     """
     return get_n_waters_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_lipids_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from molecule in form openmm.Topology.
 
@@ -12463,8 +12993,9 @@ def get_total_n_lipids_from_molecule(item, indices='all', skip_digestion=False):
     """
     return get_n_lipids_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_saccharides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from molecule in form openmm.Topology.
 
@@ -12488,8 +13019,9 @@ def get_total_n_saccharides_from_molecule(item, indices='all', skip_digestion=Fa
     """
     return get_n_saccharides_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_peptides_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from molecule in form openmm.Topology.
 
@@ -12513,8 +13045,9 @@ def get_total_n_peptides_from_molecule(item, indices='all', skip_digestion=False
     """
     return get_n_peptides_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_proteins_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from molecule in form openmm.Topology.
 
@@ -12538,8 +13071,11 @@ def get_total_n_proteins_from_molecule(item, indices='all', skip_digestion=False
     """
     return get_n_proteins_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_polysaccharides_from_molecule(
+    item, indices="all", skip_digestion=False
+):
     """
     Getting total n polysaccharides from molecule in form openmm.Topology.
 
@@ -12561,10 +13097,13 @@ def get_total_n_polysaccharides_from_molecule(item, indices='all', skip_digestio
 
     .. versionadded:: 1.0.0
     """
-    return get_n_polysaccharides_from_molecule(item, indices=indices, skip_digestion=True)
+    return get_n_polysaccharides_from_molecule(
+        item, indices=indices, skip_digestion=True
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_dnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from molecule in form openmm.Topology.
 
@@ -12588,8 +13127,9 @@ def get_total_n_dnas_from_molecule(item, indices='all', skip_digestion=False):
     """
     return get_n_dnas_from_molecule(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
+def get_total_n_rnas_from_molecule(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from molecule in form openmm.Topology.
 
@@ -12616,8 +13156,9 @@ def get_total_n_rnas_from_molecule(item, indices='all', skip_digestion=False):
 
 # --- From entity ---
 
+
 @arg_digest(form=form)
-def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_atoms_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from entity in form openmm.Topology.
 
@@ -12641,8 +13182,9 @@ def get_total_n_atoms_from_entity(item, indices='all', skip_digestion=False):
     """
     return int(sum(get_n_atoms_from_entity(item, indices=indices, skip_digestion=True)))
 
+
 @arg_digest(form=form)
-def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_groups_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from entity in form openmm.Topology.
 
@@ -12664,10 +13206,13 @@ def get_total_n_groups_from_entity(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_groups_from_entity(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_groups_from_entity(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_components_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_components_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n components from entity in form openmm.Topology.
 
@@ -12689,10 +13234,13 @@ def get_total_n_components_from_entity(item, indices='all', skip_digestion=False
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_components_from_entity(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_components_from_entity(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_molecules_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from entity in form openmm.Topology.
 
@@ -12714,10 +13262,13 @@ def get_total_n_molecules_from_entity(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_molecules_from_entity(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_molecules_from_entity(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_entities_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_entities_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from entity in form openmm.Topology.
 
@@ -12741,8 +13292,9 @@ def get_total_n_entities_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_entities_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_chains_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from entity in form openmm.Topology.
 
@@ -12766,8 +13318,9 @@ def get_total_n_chains_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_chains_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_amino_acids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from entity in form openmm.Topology.
 
@@ -12791,8 +13344,9 @@ def get_total_n_amino_acids_from_entity(item, indices='all', skip_digestion=Fals
     """
     return get_n_amino_acids_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_nucleotides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from entity in form openmm.Topology.
 
@@ -12816,8 +13370,9 @@ def get_total_n_nucleotides_from_entity(item, indices='all', skip_digestion=Fals
     """
     return get_n_nucleotides_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_ions_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from entity in form openmm.Topology.
 
@@ -12841,8 +13396,9 @@ def get_total_n_ions_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_ions_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_waters_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from entity in form openmm.Topology.
 
@@ -12866,8 +13422,9 @@ def get_total_n_waters_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_waters_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_lipids_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from entity in form openmm.Topology.
 
@@ -12891,8 +13448,9 @@ def get_total_n_lipids_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_lipids_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_saccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from entity in form openmm.Topology.
 
@@ -12916,8 +13474,9 @@ def get_total_n_saccharides_from_entity(item, indices='all', skip_digestion=Fals
     """
     return get_n_saccharides_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_peptides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n peptides from entity in form openmm.Topology.
 
@@ -12941,8 +13500,9 @@ def get_total_n_peptides_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_peptides_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_proteins_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n proteins from entity in form openmm.Topology.
 
@@ -12966,8 +13526,9 @@ def get_total_n_proteins_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_proteins_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_polysaccharides_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from entity in form openmm.Topology.
 
@@ -12991,8 +13552,9 @@ def get_total_n_polysaccharides_from_entity(item, indices='all', skip_digestion=
     """
     return get_n_polysaccharides_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_dnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from entity in form openmm.Topology.
 
@@ -13016,8 +13578,9 @@ def get_total_n_dnas_from_entity(item, indices='all', skip_digestion=False):
     """
     return get_n_dnas_from_entity(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
+def get_total_n_rnas_from_entity(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from entity in form openmm.Topology.
 
@@ -13044,8 +13607,9 @@ def get_total_n_rnas_from_entity(item, indices='all', skip_digestion=False):
 
 # --- From component ---
 
+
 @arg_digest(form=form)
-def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_atoms_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from component in form openmm.Topology.
 
@@ -13067,10 +13631,13 @@ def get_total_n_atoms_from_component(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_atoms_from_component(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_atoms_from_component(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_groups_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_groups_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from component in form openmm.Topology.
 
@@ -13092,10 +13659,13 @@ def get_total_n_groups_from_component(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_groups_from_component(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_groups_from_component(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_components_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_components_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n components from component in form openmm.Topology.
 
@@ -13119,8 +13689,9 @@ def get_total_n_components_from_component(item, indices='all', skip_digestion=Fa
     """
     return get_n_components_from_component(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_molecules_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_molecules_from_component(item, indices="all", skip_digestion=False):
     # get_n_molecules_from_component returns a scalar in openmm.Topology
     """
     Getting total n molecules from component in form openmm.Topology.
@@ -13143,10 +13714,13 @@ def get_total_n_molecules_from_component(item, indices='all', skip_digestion=Fal
 
     .. versionadded:: 1.0.0
     """
-    return int(get_n_molecules_from_component(item, indices=indices, skip_digestion=True))
+    return int(
+        get_n_molecules_from_component(item, indices=indices, skip_digestion=True)
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_entities_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_entities_from_component(item, indices="all", skip_digestion=False):
     # get_n_entities_from_component returns a scalar in openmm.Topology
     """
     Getting total n entities from component in form openmm.Topology.
@@ -13169,10 +13743,13 @@ def get_total_n_entities_from_component(item, indices='all', skip_digestion=Fals
 
     .. versionadded:: 1.0.0
     """
-    return int(get_n_entities_from_component(item, indices=indices, skip_digestion=True))
+    return int(
+        get_n_entities_from_component(item, indices=indices, skip_digestion=True)
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_chains_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_chains_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from component in form openmm.Topology.
 
@@ -13196,8 +13773,9 @@ def get_total_n_chains_from_component(item, indices='all', skip_digestion=False)
     """
     return get_n_chains_from_component(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_amino_acids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from component in form openmm.Topology.
 
@@ -13221,8 +13799,9 @@ def get_total_n_amino_acids_from_component(item, indices='all', skip_digestion=F
     """
     return get_n_amino_acids_from_component(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_nucleotides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from component in form openmm.Topology.
 
@@ -13246,8 +13825,9 @@ def get_total_n_nucleotides_from_component(item, indices='all', skip_digestion=F
     """
     return get_n_nucleotides_from_component(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_ions_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from component in form openmm.Topology.
 
@@ -13271,8 +13851,9 @@ def get_total_n_ions_from_component(item, indices='all', skip_digestion=False):
     """
     return get_n_ions_from_component(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_waters_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_waters_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from component in form openmm.Topology.
 
@@ -13296,8 +13877,9 @@ def get_total_n_waters_from_component(item, indices='all', skip_digestion=False)
     """
     return get_n_waters_from_component(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_lipids_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from component in form openmm.Topology.
 
@@ -13321,8 +13903,9 @@ def get_total_n_lipids_from_component(item, indices='all', skip_digestion=False)
     """
     return get_n_lipids_from_component(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=False):
+def get_total_n_saccharides_from_component(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from component in form openmm.Topology.
 
@@ -13349,8 +13932,9 @@ def get_total_n_saccharides_from_component(item, indices='all', skip_digestion=F
 
 # --- From chain ---
 
+
 @arg_digest(form=form)
-def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_atoms_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n atoms from chain in form openmm.Topology.
 
@@ -13374,8 +13958,9 @@ def get_total_n_atoms_from_chain(item, indices='all', skip_digestion=False):
     """
     return int(sum(get_n_atoms_from_chain(item, indices=indices, skip_digestion=True)))
 
+
 @arg_digest(form=form)
-def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_groups_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n groups from chain in form openmm.Topology.
 
@@ -13399,8 +13984,9 @@ def get_total_n_groups_from_chain(item, indices='all', skip_digestion=False):
     """
     return int(sum(get_n_groups_from_chain(item, indices=indices, skip_digestion=True)))
 
+
 @arg_digest(form=form)
-def get_total_n_components_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_components_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n components from chain in form openmm.Topology.
 
@@ -13422,10 +14008,13 @@ def get_total_n_components_from_chain(item, indices='all', skip_digestion=False)
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_components_from_chain(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_components_from_chain(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_molecules_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n molecules from chain in form openmm.Topology.
 
@@ -13447,10 +14036,13 @@ def get_total_n_molecules_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_molecules_from_chain(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_molecules_from_chain(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_entities_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n entities from chain in form openmm.Topology.
 
@@ -13472,10 +14064,13 @@ def get_total_n_entities_from_chain(item, indices='all', skip_digestion=False):
 
     .. versionadded:: 1.0.0
     """
-    return int(sum(get_n_entities_from_chain(item, indices=indices, skip_digestion=True)))
+    return int(
+        sum(get_n_entities_from_chain(item, indices=indices, skip_digestion=True))
+    )
+
 
 @arg_digest(form=form)
-def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_chains_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n chains from chain in form openmm.Topology.
 
@@ -13499,8 +14094,9 @@ def get_total_n_chains_from_chain(item, indices='all', skip_digestion=False):
     """
     return get_n_chains_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_amino_acids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n amino acids from chain in form openmm.Topology.
 
@@ -13524,8 +14120,9 @@ def get_total_n_amino_acids_from_chain(item, indices='all', skip_digestion=False
     """
     return get_n_amino_acids_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_nucleotides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n nucleotides from chain in form openmm.Topology.
 
@@ -13549,8 +14146,9 @@ def get_total_n_nucleotides_from_chain(item, indices='all', skip_digestion=False
     """
     return get_n_nucleotides_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_ions_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n ions from chain in form openmm.Topology.
 
@@ -13574,8 +14172,9 @@ def get_total_n_ions_from_chain(item, indices='all', skip_digestion=False):
     """
     return get_n_ions_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_waters_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n waters from chain in form openmm.Topology.
 
@@ -13599,8 +14198,9 @@ def get_total_n_waters_from_chain(item, indices='all', skip_digestion=False):
     """
     return get_n_waters_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_lipids_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n lipids from chain in form openmm.Topology.
 
@@ -13624,8 +14224,9 @@ def get_total_n_lipids_from_chain(item, indices='all', skip_digestion=False):
     """
     return get_n_lipids_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_saccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n saccharides from chain in form openmm.Topology.
 
@@ -13649,8 +14250,9 @@ def get_total_n_saccharides_from_chain(item, indices='all', skip_digestion=False
     """
     return get_n_saccharides_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_polysaccharides_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n polysaccharides from chain in form openmm.Topology.
 
@@ -13674,8 +14276,9 @@ def get_total_n_polysaccharides_from_chain(item, indices='all', skip_digestion=F
     """
     return get_n_polysaccharides_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_dnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n dnas from chain in form openmm.Topology.
 
@@ -13699,8 +14302,9 @@ def get_total_n_dnas_from_chain(item, indices='all', skip_digestion=False):
     """
     return get_n_dnas_from_chain(item, indices=indices, skip_digestion=True)
 
+
 @arg_digest(form=form)
-def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
+def get_total_n_rnas_from_chain(item, indices="all", skip_digestion=False):
     """
     Getting total n rnas from chain in form openmm.Topology.
 
@@ -13728,5 +14332,8 @@ def get_total_n_rnas_from_chain(item, indices='all', skip_digestion=False):
 # List of functions to be imported
 
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

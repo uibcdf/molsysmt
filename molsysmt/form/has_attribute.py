@@ -1,5 +1,6 @@
 from molsysmt._private.argdigest import arg_digest
 
+
 @arg_digest()
 def has_attribute(form, attribute, skip_digestion=False):
     """

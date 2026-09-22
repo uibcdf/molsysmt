@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='XYZ')
-def to_molsysmt_MolecularMechanics(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="XYZ")
+def to_molsysmt_MolecularMechanics(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from XYZ to molsysmt.MolecularMechanics.
 
@@ -31,5 +34,3 @@ def to_molsysmt_MolecularMechanics(item, atom_indices='all', structure_indices='
     tmp_item = MolecularMechanics()
 
     return tmp_item
-
-

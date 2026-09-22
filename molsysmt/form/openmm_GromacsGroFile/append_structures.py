@@ -1,8 +1,11 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='openmm.GromacsGroFile')
-def append_structures(item, structure_id=None, time=None, coordinates=None, box=None, skip_digestion=True):
+
+@arg_digest(form="openmm.GromacsGroFile")
+def append_structures(
+    item, structure_id=None, time=None, coordinates=None, box=None, skip_digestion=True
+):
     """
     Appending coordinate structures to an item of form openmm.GromacsGroFile.
 
@@ -32,4 +35,3 @@ def append_structures(item, structure_id=None, time=None, coordinates=None, box=
     """
 
     raise NotImplementedMethodError()
-

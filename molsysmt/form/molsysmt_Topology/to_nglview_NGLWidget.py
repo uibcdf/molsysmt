@@ -1,5 +1,6 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
+
+from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="molsysmt.Topology")
@@ -47,10 +48,11 @@ def to_nglview_NGLWidget(
             caller="molsysmt.form.molsysmt_Topology.to_nglview_NGLWidget",
         )
 
-    from .to_molsysmt_MolSys import to_molsysmt_MolSys
     from molsysmt.form.molsysmt_MolSys.to_nglview_NGLWidget import (
         to_nglview_NGLWidget as molsysmt_MolSys_to_nglview_NGLWidget,
     )
+
+    from .to_molsysmt_MolSys import to_molsysmt_MolSys
 
     molsys = to_molsysmt_MolSys(
         item,

@@ -6,7 +6,7 @@ from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
-form = 'openmm.State'
+form = "openmm.State"
 
 
 def _as_rank_three(quantity):
@@ -16,7 +16,9 @@ def _as_rank_three(quantity):
 
 
 @arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form openmm.State.
 
@@ -52,7 +54,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 
 @arg_digest(form=form)
-def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
+def get_velocities_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting velocities from atom in form openmm.State.
 
@@ -88,7 +92,7 @@ def get_velocities_from_atom(item, indices='all', structure_indices='all', skip_
 
 
 @arg_digest(form=form)
-def get_coordinates_from_system(item, structure_indices='all', skip_digestion=False):
+def get_coordinates_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting coordinates from system in form openmm.State.
 
@@ -118,7 +122,7 @@ def get_coordinates_from_system(item, structure_indices='all', skip_digestion=Fa
 
 
 @arg_digest(form=form)
-def get_velocities_from_system(item, structure_indices='all', skip_digestion=False):
+def get_velocities_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting velocities from system in form openmm.State.
 
@@ -148,7 +152,7 @@ def get_velocities_from_system(item, structure_indices='all', skip_digestion=Fal
 
 
 @arg_digest(form=form)
-def get_box_from_system(item, structure_indices='all', skip_digestion=False):
+def get_box_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting box from system in form openmm.State.
 
@@ -180,7 +184,7 @@ def get_box_from_system(item, structure_indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_time_from_system(item, structure_indices='all', skip_digestion=False):
+def get_time_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting time from system in form openmm.State.
 
@@ -213,7 +217,7 @@ def get_time_from_system(item, structure_indices='all', skip_digestion=False):
 
 
 @arg_digest(form=form)
-def get_structure_id_from_system(item, structure_indices='all', skip_digestion=False):
+def get_structure_id_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting structure id from system in form openmm.State.
 
@@ -239,7 +243,7 @@ def get_structure_id_from_system(item, structure_indices='all', skip_digestion=F
 
 
 @arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form openmm.State.
 
@@ -268,4 +272,8 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     return len(structure_indices)
 
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

@@ -39,8 +39,16 @@ class BaseTopologyIterator:
 
 
 class StructuresIterator(BaseStructuresIterator):
-
-    def __init__(self, molecular_system, atom_indices='all', start=0, interval=1, stop=None, chunk=1, structure_indices=None):
+    def __init__(
+        self,
+        molecular_system,
+        atom_indices="all",
+        start=0,
+        interval=1,
+        stop=None,
+        chunk=1,
+        structure_indices=None,
+    ):
         pass
 
     def __next__(self):
@@ -48,12 +56,8 @@ class StructuresIterator(BaseStructuresIterator):
 
 
 class TopologyIterator(BaseTopologyIterator):
-
     def __init__(self, molecular_system):
         pass
 
     def __next__(self):
         raise NotImplementedIteratorError
-
-
-

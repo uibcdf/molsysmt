@@ -1,11 +1,15 @@
+import numpy as np
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-from depdigest import dep_digest
-import numpy as np
 
-@arg_digest(form='parmed.Structure')
-@dep_digest('mdtraj')
-def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="parmed.Structure")
+@dep_digest("mdtraj")
+def to_mdtraj_Trajectory(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from parmed.Structure to mdtraj.Trajectory.
 
@@ -30,15 +34,16 @@ def to_mdtraj_Trajectory(item, atom_indices='all', structure_indices='all', skip
     .. versionadded:: 1.0.0
     """
 
-    from .to_mdtraj_Topology import to_mdtraj_Topology
     from mdtraj import Trajectory
+
+    from .to_mdtraj_Topology import to_mdtraj_Topology
 
     topology = to_mdtraj_Topology(
         item,
         atom_indices=atom_indices,
         skip_digestion=True,
     )
-    coordinates = item.get_coordinates('all')
+    coordinates = item.get_coordinates("all")
     if not is_all(structure_indices):
         coordinates = coordinates[structure_indices]
     if not is_all(atom_indices):

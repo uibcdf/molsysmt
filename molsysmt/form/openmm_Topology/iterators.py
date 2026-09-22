@@ -1,7 +1,7 @@
 from molsysmt._private.smonitor import NotImplementedIteratorError
 
-class TopologyIterator():
 
+class TopologyIterator:
     def __init__(self, molecular_system):
         pass
 
@@ -10,5 +10,3 @@ class TopologyIterator():
 
     def __next__(self):
         raise NotImplementedIteratorError
-
-

@@ -1,8 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
 from depdigest import dep_digest
 
-@arg_digest(form='rdkit.Mol')
-@dep_digest('openff.toolkit')
+from molsysmt._private.argdigest import arg_digest
+
+
+@arg_digest(form="rdkit.Mol")
+@dep_digest("openff.toolkit")
 def to_openff_Molecule(item, skip_digestion=False):
     """
     Converting from rdkit.Mol to openff.Molecule.

@@ -1,8 +1,16 @@
 import os
+
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.PDBFileHandler')
-def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+
+@arg_digest(form="molsysmt.PDBFileHandler")
+def to_molsysmt_PDBFileHandler(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Converting from molsysmt.PDBFileHandler to molsysmt.PDBFileHandler.
 
@@ -29,8 +37,8 @@ def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all'
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.native.pdb_file_handler import PDBFileHandler
     from molsysmt._private.variables import is_all
+    from molsysmt.native.pdb_file_handler import PDBFileHandler
 
     if isinstance(item, str):
         is_file = False
@@ -40,11 +48,13 @@ def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all'
                     is_file = True
             except Exception:
                 pass
-        
+
         if is_file:
             tmp_item = PDBFileHandler(item)
         else:
-            tmp_item = PDBFileHandler(item) # PDBFileHandler will handle it as string text
+            tmp_item = PDBFileHandler(
+                item
+            )  # PDBFileHandler will handle it as string text
     elif isinstance(item, os.PathLike):
         tmp_item = PDBFileHandler(str(item))
     else:
@@ -52,7 +62,13 @@ def to_molsysmt_PDBFileHandler(item, atom_indices='all', structure_indices='all'
 
     if not (is_all(atom_indices) and is_all(structure_indices)):
         from .extract import extract
-        tmp_item = extract(tmp_item, atom_indices=atom_indices, structure_indices=structure_indices, 
-                           copy_if_all=copy_if_all, skip_digestion=True)
+
+        tmp_item = extract(
+            tmp_item,
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            copy_if_all=copy_if_all,
+            skip_digestion=True,
+        )
 
     return tmp_item

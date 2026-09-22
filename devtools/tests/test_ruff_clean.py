@@ -65,8 +65,10 @@ def test_core_critical_ruff_rules():
 
 
 def test_migrated_paths_manifest():
-    """Keep the migrated boundary explicit and monotonic during issue #212."""
-    assert len(MIGRATED_PATHS) >= 70
+    """Keep the migrated subtrees explicit during issue #212."""
+    assert {"molsysmt/attribute", "molsysmt/form", "molsysmt/lib"} <= set(
+        MIGRATED_PATHS
+    )
     assert len(MIGRATED_PATHS) == len(set(MIGRATED_PATHS))
     assert all(path.startswith("molsysmt/") for path in MIGRATED_PATHS)
     assert all((REPO_ROOT / path).is_dir() for path in MIGRATED_PATHS)

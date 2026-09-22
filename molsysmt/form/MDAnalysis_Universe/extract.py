@@ -1,10 +1,18 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 from depdigest import dep_digest
 
-@arg_digest(form='MDAnalysis.Universe')
-@dep_digest('MDAnalysis')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+
+@arg_digest(form="MDAnalysis.Universe")
+@dep_digest("MDAnalysis")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form MDAnalysis.Universe.
 

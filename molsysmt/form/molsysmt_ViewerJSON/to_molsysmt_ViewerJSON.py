@@ -1,8 +1,9 @@
-from molsysmt._private.argdigest import arg_digest
 from copy import deepcopy
 
+from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='molsysmt.ViewerJSON')
+
+@arg_digest(form="molsysmt.ViewerJSON")
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     """
     Converting from molsysmt.ViewerJSON to molsysmt.ViewerJSON.

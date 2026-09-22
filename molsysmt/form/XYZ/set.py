@@ -1,14 +1,17 @@
+import numpy as np
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
-import numpy as np
 
 ###### Set
 
 ## Atom
 
-@arg_digest(form='XYZ')
-def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
+@arg_digest(form="XYZ")
+def set_coordinates_to_atom(
+    item, indices="all", structure_indices="all", value=None, skip_digestion=False
+):
     """
     Setting coordinates to atom on form XYZ.
 
@@ -30,22 +33,25 @@ def set_coordinates_to_atom(item, indices='all', structure_indices='all', value=
     """
     if is_all(indices):
         if is_all(structure_indices):
-            item[:,:,:]=value[:,:,:]
+            item[:, :, :] = value[:, :, :]
         else:
-            item[structure_indices,:,:] = value[:,:,:]
+            item[structure_indices, :, :] = value[:, :, :]
     else:
         if is_all(structure_indices):
-            item[:,indices,:] = value[:,:,:]
+            item[:, indices, :] = value[:, :, :]
         else:
-            item[np.ix_(structure_indices, indices)]=value[:,:,:]
+            item[np.ix_(structure_indices, indices)] = value[:, :, :]
 
     pass
 
+
 ## System
 
-@arg_digest(form='XYZ')
-def set_coordinates_to_system(item, indices='all', structure_indices='all', value=None, skip_digestion=False):
 
+@arg_digest(form="XYZ")
+def set_coordinates_to_system(
+    item, indices="all", structure_indices="all", value=None, skip_digestion=False
+):
     """
     Setting coordinates to system on form XYZ.
 
@@ -65,7 +71,6 @@ def set_coordinates_to_system(item, indices='all', structure_indices='all', valu
 
     .. versionadded:: 1.0.0
     """
-    return set_coordinates_to_atom(item, indices='all', structure_indices=structure_indices,
-            value=value)
-
-
+    return set_coordinates_to_atom(
+        item, indices="all", structure_indices=structure_indices, value=value
+    )

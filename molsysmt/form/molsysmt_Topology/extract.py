@@ -1,8 +1,15 @@
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
-@arg_digest(form='molsysmt.Topology')
-def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True, skip_digestion=False):
+
+@arg_digest(form="molsysmt.Topology")
+def extract(
+    item,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
+):
     """
     Extracting a subset of elements or structures from form molsysmt.Topology.
 
@@ -30,9 +37,11 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
     """
 
     from molsysmt.native import Topology
+
     if not isinstance(item, Topology):
         from molsysmt.basic import convert
-        item = convert(item, to_form='molsysmt.Topology', skip_digestion=True)
+
+        item = convert(item, to_form="molsysmt.Topology", skip_digestion=True)
 
     if is_all(atom_indices):
         if copy_if_all:
@@ -43,4 +52,3 @@ def extract(item, atom_indices='all', structure_indices='all', copy_if_all=True,
         tmp_item = item.extract(atom_indices=atom_indices, skip_digestion=True)
 
     return tmp_item
-

@@ -1,7 +1,10 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='parmed.Structure')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+
+@arg_digest(form="parmed.Structure")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from parmed.Structure to molsysmt.Structures.
 
@@ -27,6 +30,7 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
     """
 
     from molsysmt.native.structures import Structures
+
     from . import (
         get_b_factor_from_atom,
         get_box_from_system,
@@ -37,11 +41,21 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     tmp_item = Structures()
 
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                            skip_digestion=True)
-    structure_id = get_structure_id_from_system(item, structure_indices=structure_indices, skip_digestion=True)
-    time = get_time_from_system(item, structure_indices=structure_indices, skip_digestion=True)
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    structure_id = get_structure_id_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    time = get_time_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
     b_factor = get_b_factor_from_atom(
         item,
         indices=atom_indices,

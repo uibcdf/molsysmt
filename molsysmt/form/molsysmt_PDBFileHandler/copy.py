@@ -1,8 +1,8 @@
-from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
+from molsysmt._private.smonitor import NotImplementedMethodError
 
-@arg_digest(form='molsysmt.PDBFileHandler')
+
+@arg_digest(form="molsysmt.PDBFileHandler")
 def copy(item, output_filename=None, skip_digestion=False):
     """
     Creating a copy of an item of form molsysmt.PDBFileHandler.

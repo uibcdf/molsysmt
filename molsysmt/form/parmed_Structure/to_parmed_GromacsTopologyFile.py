@@ -1,7 +1,8 @@
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='parmed.Structure')
-def to_parmed_GromacsTopologyFile(item, atom_indices='all', skip_digestion=False):
+
+@arg_digest(form="parmed.Structure")
+def to_parmed_GromacsTopologyFile(item, atom_indices="all", skip_digestion=False):
     """
     Converting from parmed.Structure to parmed.GromacsTopologyFile.
 
@@ -24,11 +25,13 @@ def to_parmed_GromacsTopologyFile(item, atom_indices='all', skip_digestion=False
     .. versionadded:: 1.0.0
     """
 
-    from . import extract
     from parmed.gromacs import GromacsTopologyFile as GromacsTopologyFile
 
-    tmp_item = extract(item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True)
+    from . import extract
+
+    tmp_item = extract(
+        item, atom_indices=atom_indices, copy_if_all=False, skip_digestion=True
+    )
     tmp_item = GromacsTopologyFile.from_structure(tmp_item)
 
     return tmp_item
-

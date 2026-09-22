@@ -1,9 +1,10 @@
-from molsysmt._private.argdigest import arg_digest
-from molsysmt.native import MolSys, Topology, Structures
-from molsysmt import pyunitwizard as puw
-from molsysmt.pbc import get_box_from_lengths_and_angles
 import numpy as np
 import pandas as pd
+
+from molsysmt import pyunitwizard as puw
+from molsysmt._private.argdigest import arg_digest
+from molsysmt.native import MolSys, Structures, Topology
+from molsysmt.pbc import get_box_from_lengths_and_angles
 
 
 def _safe_array(values, length, dtype=object):
@@ -40,13 +41,39 @@ def _box_dict_to_array(box_dict):
     """Convert box dictionary to 3x3 numpy array."""
     if box_dict is None:
         return None
-    if all(key in box_dict for key in ('v0', 'v1', 'v2')):
-        return np.array([box_dict['v0'], box_dict['v1'], box_dict['v2']], dtype=float)
-    if all(key in box_dict for key in ('length_v0', 'length_v1', 'length_v2', 'angle_v1_v2', 'angle_v0_v2', 'angle_v0_v1')):
-        lengths = puw.quantity(np.array([box_dict['length_v0'], box_dict['length_v1'], box_dict['length_v2']], dtype=float), 'nanometer')
-        angles = puw.quantity(np.array([box_dict['angle_v1_v2'], box_dict['angle_v0_v2'], box_dict['angle_v0_v1']], dtype=float), 'radian')
+    if all(key in box_dict for key in ("v0", "v1", "v2")):
+        return np.array([box_dict["v0"], box_dict["v1"], box_dict["v2"]], dtype=float)
+    if all(
+        key in box_dict
+        for key in (
+            "length_v0",
+            "length_v1",
+            "length_v2",
+            "angle_v1_v2",
+            "angle_v0_v2",
+            "angle_v0_v1",
+        )
+    ):
+        lengths = puw.quantity(
+            np.array(
+                [box_dict["length_v0"], box_dict["length_v1"], box_dict["length_v2"]],
+                dtype=float,
+            ),
+            "nanometer",
+        )
+        angles = puw.quantity(
+            np.array(
+                [
+                    box_dict["angle_v1_v2"],
+                    box_dict["angle_v0_v2"],
+                    box_dict["angle_v0_v1"],
+                ],
+                dtype=float,
+            ),
+            "radian",
+        )
         box = get_box_from_lengths_and_angles(lengths, angles, skip_digestion=True)
-        return np.asarray(puw.get_value(box, to_unit='nanometer'))
+        return np.asarray(puw.get_value(box, to_unit="nanometer"))
     return None
 
 
@@ -57,7 +84,7 @@ def _collect_coordinates(frames, n_atoms):
     times = []
     boxes = []
     for frame in frames:
-        positions = frame.get('coordinates', None)
+        positions = frame.get("coordinates", None)
         if positions is None:
             continue
         arr = np.array(positions, dtype=float)
@@ -68,8 +95,8 @@ def _collect_coordinates(frames, n_atoms):
             elif arr.shape[0] > n_atoms:
                 arr = arr[:n_atoms]
         coords.append(arr)
-        times.append(frame.get('time', None))
-        boxes.append(_box_dict_to_array(frame.get('box', None)))
+        times.append(frame.get("time", None))
+        boxes.append(_box_dict_to_array(frame.get("box", None)))
     if not coords:
         return None, None, None
     coords = np.stack(coords)
@@ -78,13 +105,13 @@ def _collect_coordinates(frames, n_atoms):
     if boxes and all(box is not None for box in boxes):
         box_array = np.stack(boxes)
     return (
-        puw.quantity(coords, 'nanometer'),
-        puw.quantity(times, 'picosecond'),
-        puw.quantity(box_array, 'nanometer') if box_array is not None else None,
+        puw.quantity(coords, "nanometer"),
+        puw.quantity(times, "picosecond"),
+        puw.quantity(box_array, "nanometer") if box_array is not None else None,
     )
 
 
-@arg_digest(form='molsysmt.ViewerJSON')
+@arg_digest(form="molsysmt.ViewerJSON")
 def to_molsysmt_MolSys(item, skip_digestion=False):
     """
     Converting from molsysmt.ViewerJSON to molsysmt.MolSys.
@@ -106,19 +133,40 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    atoms = item.data.get('atoms', {}) or {}
-    frames = item.data.get('structures', item.data.get('estructures', item.data.get('frames', []))) or []
-    bonds = item.data.get('bonds', {}) or {}
+    atoms = item.data.get("atoms", {}) or {}
+    frames = (
+        item.data.get(
+            "structures", item.data.get("estructures", item.data.get("frames", []))
+        )
+        or []
+    )
+    bonds = item.data.get("bonds", {}) or {}
 
     # Atom-level fields
-    atom_id = _safe_array(atoms.get('atom_id', None), None, dtype=object)
-    atom_name = _safe_array(atoms.get('atom_name', None), len(atom_id) or None, dtype=object)
-    group_id_raw = _safe_array(atoms.get('group_id', atoms.get('group_ig', None)), len(atom_name) or None, dtype=object)
-    group_name = _safe_array(atoms.get('group_name', None), len(atom_name) or None, dtype=object)
-    chain_id_raw = _safe_array(atoms.get('chain_id', None), len(atom_name) or None, dtype=object)
-    entity_id_raw = _safe_array(atoms.get('entity_id', None), len(atom_name) or None, dtype=object)
-    formal_charge = _safe_array(atoms.get('formal_charge', None), len(atom_name) or None, dtype=object)
-    partial_charge = _safe_array(atoms.get('partial_charge', None), len(atom_name) or None, dtype=object)
+    atom_id = _safe_array(atoms.get("atom_id", None), None, dtype=object)
+    atom_name = _safe_array(
+        atoms.get("atom_name", None), len(atom_id) or None, dtype=object
+    )
+    group_id_raw = _safe_array(
+        atoms.get("group_id", atoms.get("group_ig", None)),
+        len(atom_name) or None,
+        dtype=object,
+    )
+    group_name = _safe_array(
+        atoms.get("group_name", None), len(atom_name) or None, dtype=object
+    )
+    chain_id_raw = _safe_array(
+        atoms.get("chain_id", None), len(atom_name) or None, dtype=object
+    )
+    entity_id_raw = _safe_array(
+        atoms.get("entity_id", None), len(atom_name) or None, dtype=object
+    )
+    formal_charge = _safe_array(
+        atoms.get("formal_charge", None), len(atom_name) or None, dtype=object
+    )
+    partial_charge = _safe_array(
+        atoms.get("partial_charge", None), len(atom_name) or None, dtype=object
+    )
 
     n_atoms = len(atom_name) if atom_name is not None else len(atom_id)
     if n_atoms is None:
@@ -138,38 +186,50 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
         skip_digestion=True,
     )
 
-    topo.atoms['atom_id'] = pd.Series(atom_id, dtype='Int64')
-    topo.atoms['atom_name'] = pd.Series(atom_name, dtype=str)
-    topo.atoms['group_index'] = pd.Series(group_indices, dtype='Int64')
-    topo._set_component_indices(pd.Series(group_indices, dtype='Int64'))
-    topo.atoms['chain_index'] = pd.Series(chain_indices, dtype='Int64')
+    topo.atoms["atom_id"] = pd.Series(atom_id, dtype="Int64")
+    topo.atoms["atom_name"] = pd.Series(atom_name, dtype=str)
+    topo.atoms["group_index"] = pd.Series(group_indices, dtype="Int64")
+    topo._set_component_indices(pd.Series(group_indices, dtype="Int64"))
+    topo.atoms["chain_index"] = pd.Series(chain_indices, dtype="Int64")
 
-    topo.groups['group_id'] = pd.Series(unique_group_ids, dtype='Int64')
-    topo.groups['group_name'] = pd.Series(group_name[:len(unique_group_ids)], dtype=str)
-    topo.groups['group_type'] = pd.Series([''] * len(unique_group_ids), dtype=str)
-    topo.groups['molecule_index'] = pd.Series(np.zeros(len(unique_group_ids), dtype=int), dtype='Int64')
+    topo.groups["group_id"] = pd.Series(unique_group_ids, dtype="Int64")
+    topo.groups["group_name"] = pd.Series(
+        group_name[: len(unique_group_ids)], dtype=str
+    )
+    topo.groups["group_type"] = pd.Series([""] * len(unique_group_ids), dtype=str)
+    topo.groups["molecule_index"] = pd.Series(
+        np.zeros(len(unique_group_ids), dtype=int), dtype="Int64"
+    )
 
-    topo.components['component_id'] = pd.Series(unique_group_ids, dtype='Int64')
-    topo.components['component_name'] = pd.Series(group_name[:len(unique_group_ids)], dtype=str)
-    topo.components['component_type'] = pd.Series([''] * len(unique_group_ids), dtype=str)
+    topo.components["component_id"] = pd.Series(unique_group_ids, dtype="Int64")
+    topo.components["component_name"] = pd.Series(
+        group_name[: len(unique_group_ids)], dtype=str
+    )
+    topo.components["component_type"] = pd.Series(
+        [""] * len(unique_group_ids), dtype=str
+    )
 
-    topo.molecules['molecule_id'] = pd.Series(np.arange(len(unique_group_ids)), dtype='Int64')
-    topo.molecules['molecule_name'] = pd.Series([''] * len(unique_group_ids), dtype=str)
-    topo.molecules['molecule_type'] = pd.Series([''] * len(unique_group_ids), dtype=str)
-    topo.molecules['entity_index'] = pd.Series(np.zeros(len(unique_group_ids), dtype=int), dtype='Int64')
+    topo.molecules["molecule_id"] = pd.Series(
+        np.arange(len(unique_group_ids)), dtype="Int64"
+    )
+    topo.molecules["molecule_name"] = pd.Series([""] * len(unique_group_ids), dtype=str)
+    topo.molecules["molecule_type"] = pd.Series([""] * len(unique_group_ids), dtype=str)
+    topo.molecules["entity_index"] = pd.Series(
+        np.zeros(len(unique_group_ids), dtype=int), dtype="Int64"
+    )
 
-    topo.entities['entity_id'] = pd.Series(entity_id_raw, dtype='Int64')
-    topo.entities['entity_name'] = pd.Series([''] * len(topo.entities), dtype=str)
-    topo.entities['entity_type'] = pd.Series([''] * len(topo.entities), dtype=str)
+    topo.entities["entity_id"] = pd.Series(entity_id_raw, dtype="Int64")
+    topo.entities["entity_name"] = pd.Series([""] * len(topo.entities), dtype=str)
+    topo.entities["entity_type"] = pd.Series([""] * len(topo.entities), dtype=str)
 
-    topo.chains['chain_id'] = pd.Series(unique_chain_ids, dtype='Int64')
-    topo.chains['chain_name'] = pd.Series([''] * len(unique_chain_ids), dtype=str)
-    topo.chains['chain_type'] = pd.Series([''] * len(unique_chain_ids), dtype=str)
+    topo.chains["chain_id"] = pd.Series(unique_chain_ids, dtype="Int64")
+    topo.chains["chain_name"] = pd.Series([""] * len(unique_chain_ids), dtype=str)
+    topo.chains["chain_type"] = pd.Series([""] * len(unique_chain_ids), dtype=str)
 
     if bonds:
-        atom_pairs = bonds.get('atom_pairs', [])
-        bond_orders = bonds.get('order', None)
-        bond_types = bonds.get('type', None)
+        atom_pairs = bonds.get("atom_pairs", [])
+        bond_orders = bonds.get("order", None)
+        bond_types = bonds.get("type", None)
         if bond_orders is not None and len(bond_orders) == 0:
             bond_orders = None
         if bond_types is not None and len(bond_types) == 0:
@@ -181,7 +241,9 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
             sort=False,
         )
 
-    coordinates, times, boxes = _collect_coordinates(frames, n_atoms if n_atoms > 0 else None)
+    coordinates, times, boxes = _collect_coordinates(
+        frames, n_atoms if n_atoms > 0 else None
+    )
     structures = Structures(
         coordinates=coordinates,
         time=times,
@@ -194,11 +256,12 @@ def to_molsysmt_MolSys(item, skip_digestion=False):
     molsys.structures = structures
     if formal_charge is not None or partial_charge is not None:
         from molsysmt.native import MolecularMechanics
+
         kwargs = {}
         if formal_charge is not None:
-            kwargs['formal_charge'] = formal_charge.tolist()
+            kwargs["formal_charge"] = formal_charge.tolist()
         if partial_charge is not None:
-            kwargs['partial_charge'] = partial_charge.tolist()
+            kwargs["partial_charge"] = partial_charge.tolist()
         molsys.molecular_mechanics = MolecularMechanics(**kwargs)
     else:
         molsys.molecular_mechanics = molsys.molecular_mechanics.copy()

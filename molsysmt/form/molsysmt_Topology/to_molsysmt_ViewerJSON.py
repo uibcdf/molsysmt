@@ -1,13 +1,14 @@
+import pandas as pd
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt.native import ViewerJSON
-import pandas as pd
 
 
 def _series_to_list(series):
     return [None if pd.isna(ii) else ii for ii in series]
 
 
-@arg_digest(form='molsysmt.Topology')
+@arg_digest(form="molsysmt.Topology")
 def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     """
     Converting from molsysmt.Topology to molsysmt.ViewerJSON.
@@ -39,15 +40,23 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
     entities_df = topo.entities
     chains_df = topo.chains
 
-    group_id_map = dict(zip(groups_df.index, _series_to_list(groups_df['group_id'])))
-    group_name_map = dict(zip(groups_df.index, _series_to_list(groups_df['group_name'])))
-    chain_id_map = dict(zip(chains_df.index, _series_to_list(chains_df['chain_id'])))
-    mol_index_map = dict(zip(groups_df.index, _series_to_list(groups_df['molecule_index'])))
-    ent_index_map = dict(zip(molecules_df.index, _series_to_list(molecules_df['entity_index'])))
-    entity_id_map = dict(zip(entities_df.index, _series_to_list(entities_df['entity_id'])))
+    group_id_map = dict(zip(groups_df.index, _series_to_list(groups_df["group_id"])))
+    group_name_map = dict(
+        zip(groups_df.index, _series_to_list(groups_df["group_name"]))
+    )
+    chain_id_map = dict(zip(chains_df.index, _series_to_list(chains_df["chain_id"])))
+    mol_index_map = dict(
+        zip(groups_df.index, _series_to_list(groups_df["molecule_index"]))
+    )
+    ent_index_map = dict(
+        zip(molecules_df.index, _series_to_list(molecules_df["entity_index"]))
+    )
+    entity_id_map = dict(
+        zip(entities_df.index, _series_to_list(entities_df["entity_id"]))
+    )
 
-    atom_group_index = _series_to_list(atoms_df['group_index'])
-    atom_chain_index = _series_to_list(atoms_df['chain_index'])
+    atom_group_index = _series_to_list(atoms_df["group_index"])
+    atom_chain_index = _series_to_list(atoms_df["chain_index"])
 
     group_id = [group_id_map.get(ii, None) for ii in atom_group_index]
     group_name = [group_name_map.get(ii, None) for ii in atom_group_index]
@@ -66,32 +75,39 @@ def to_molsysmt_ViewerJSON(item, skip_digestion=False):
         entity_id.append(entity_id_map.get(ent_idx, None))
 
     atoms_block = data["atoms"]
-    atoms_block["atom_id"] = _series_to_list(atoms_df['atom_id'])
-    atoms_block["atom_name"] = _series_to_list(atoms_df['atom_name'])
+    atoms_block["atom_id"] = _series_to_list(atoms_df["atom_id"])
+    atoms_block["atom_name"] = _series_to_list(atoms_df["atom_name"])
     atoms_block["group_id"] = group_id
     atoms_block["group_name"] = group_name
     atoms_block["chain_id"] = chain_id
     atoms_block["entity_id"] = entity_id
-    atoms_block["element_symbol"] = _series_to_list(atoms_df['atom_type'])
-    formal_charge = topo._get_chemical_state_atom_attribute('formal_charge')
+    atoms_block["element_symbol"] = _series_to_list(atoms_df["atom_type"])
+    formal_charge = topo._get_chemical_state_atom_attribute("formal_charge")
     atoms_block["formal_charge"] = (
         [] if formal_charge is None else _series_to_list(formal_charge)
     )
 
     bonds_df = topo._get_chemical_state_bonds()
-    atom_pairs = list(zip(_series_to_list(bonds_df['atom1_index']), _series_to_list(bonds_df['atom2_index'])))
+    atom_pairs = list(
+        zip(
+            _series_to_list(bonds_df["atom1_index"]),
+            _series_to_list(bonds_df["atom2_index"]),
+        )
+    )
     bonds_block = data["bonds"]
     bonds_block["atom_pairs"] = [list(pair) for pair in atom_pairs]
-    if 'bond_order' in bonds_df:
-        bonds_block["order"] = _series_to_list(bonds_df['bond_order'])
-    elif 'is_aromatic' in bonds_df:
+    if "bond_order" in bonds_df:
+        bonds_block["order"] = _series_to_list(bonds_df["bond_order"])
+    elif "is_aromatic" in bonds_df:
         bonds_block["order"] = [
-            'aromatic' if value is not None and bool(value) else None
-            for value in _series_to_list(bonds_df['is_aromatic'])
+            "aromatic" if value is not None and bool(value) else None
+            for value in _series_to_list(bonds_df["is_aromatic"])
         ]
     else:
         bonds_block["order"] = []
-    bonds_block["type"] = _series_to_list(bonds_df['bond_type']) if 'bond_type' in bonds_df else []
+    bonds_block["type"] = (
+        _series_to_list(bonds_df["bond_type"]) if "bond_type" in bonds_df else []
+    )
     bonds_block["indexA"] = [pair[0] for pair in atom_pairs]
     bonds_block["indexB"] = [pair[1] for pair in atom_pairs]
 

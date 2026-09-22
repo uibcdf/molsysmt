@@ -1,7 +1,7 @@
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
 
-@arg_digest(form='openmm.Topology')
+
+@arg_digest(form="openmm.Topology")
 def copy(item, skip_digestion=False):
     """
     Creating a copy of an item of form openmm.Topology.
@@ -30,15 +30,16 @@ def copy(item, skip_digestion=False):
     for chain in item.chains():
         newChain = new_item.addChain(chain.id)
         for residue in chain.residues():
-            newResidue = new_item.addResidue(residue.name, newChain, residue.id, residue.insertionCode)
+            newResidue = new_item.addResidue(
+                residue.name, newChain, residue.id, residue.insertionCode
+            )
             for atom in residue.atoms():
                 newAtom = new_item.addAtom(atom.name, atom.element, newResidue, atom.id)
                 newAtoms[atom] = newAtom
     for bond in item.bonds():
         new_item.addBond(newAtoms[bond[0]], newAtoms[bond[1]])
-    del(newAtoms)
+    del newAtoms
     new_item.setPeriodicBoxVectors(item.getPeriodicBoxVectors())
     tmp_item = new_item
 
     return tmp_item
-

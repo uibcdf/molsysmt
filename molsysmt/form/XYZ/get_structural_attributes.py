@@ -2,20 +2,21 @@
 ########### THE FOLLOWING LINES NEED TO BE CUSTOMIZED FOR EVERY CLASS  ################
 #######################################################################################
 
-from molsysmt._private.smonitor import NotImplementedMethodError, NotWithThisFormError
-from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
-import numpy as np
 import types
 
-form='XYZ'
+from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.variables import is_all
+
+form = "XYZ"
 
 
 ## From atom
 
-@arg_digest(form=form)
-def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_coordinates_from_atom(
+    item, indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Getting coordinates from atom in form XYZ.
 
@@ -44,12 +45,13 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
     tmp_coordinates = get_rank_3_XYZ(item)
 
     if not is_all(indices):
-        tmp_coordinates = tmp_coordinates[:,indices,:]
+        tmp_coordinates = tmp_coordinates[:, indices, :]
 
     if not is_all(structure_indices):
-        tmp_coordinates = tmp_coordinates[structure_indices,:,:]
+        tmp_coordinates = tmp_coordinates[structure_indices, :, :]
 
     return tmp_coordinates
+
 
 ## From group
 
@@ -63,9 +65,9 @@ def get_coordinates_from_atom(item, indices='all', structure_indices='all', skip
 
 ## From system
 
-@arg_digest(form=form)
-def get_n_structures_from_system(item, structure_indices='all', skip_digestion=False):
 
+@arg_digest(form=form)
+def get_n_structures_from_system(item, structure_indices="all", skip_digestion=False):
     """
     Getting n structures from system in form XYZ.
 
@@ -88,7 +90,6 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
     .. versionadded:: 1.0.0
     """
     if is_all(structure_indices):
-
         from . import get_rank_3_XYZ
 
         tmp_coordinates = get_rank_3_XYZ(item)
@@ -96,13 +97,15 @@ def get_n_structures_from_system(item, structure_indices='all', skip_digestion=F
         return tmp_coordinates.shape[0]
 
     else:
-        
         return len(structure_indices)
+
 
 ## From bond
 
 # List of functions to be imported
 
-__all__ = [name for name, obj in globals().items() if isinstance(obj, types.FunctionType) and name.startswith('get_')]
-
-
+__all__ = [
+    name
+    for name, obj in globals().items()
+    if isinstance(obj, types.FunctionType) and name.startswith("get_")
+]

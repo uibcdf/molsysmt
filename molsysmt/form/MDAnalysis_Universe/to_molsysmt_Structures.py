@@ -1,10 +1,18 @@
-from .get_structural_attributes import *
-from .get_topological_attributes import *
-
 from molsysmt._private.argdigest import arg_digest
 
-@arg_digest(form='MDAnalysis.Universe')
-def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', skip_digestion=False):
+from .get_structural_attributes import (
+    get_box_from_system,
+    get_coordinates_from_atom,
+    get_structure_id_from_system,
+    get_time_from_system,
+    get_velocities_from_atom,
+)
+
+
+@arg_digest(form="MDAnalysis.Universe")
+def to_molsysmt_Structures(
+    item, atom_indices="all", structure_indices="all", skip_digestion=False
+):
     """
     Converting from MDAnalysis.Universe to molsysmt.Structures.
 
@@ -33,19 +41,38 @@ def to_molsysmt_Structures(item, atom_indices='all', structure_indices='all', sk
 
     tmp_item = Structures()
 
-    if not hasattr(item, 'trajectory') or item.trajectory is None:
+    if not hasattr(item, "trajectory") or item.trajectory is None:
         return tmp_item
 
-    coordinates = get_coordinates_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                            skip_digestion=True)
-    velocities = get_velocities_from_atom(item, indices=atom_indices, structure_indices=structure_indices,
-                                          skip_digestion=True)
-    structure_id = get_structure_id_from_system(item, structure_indices=structure_indices, skip_digestion=True)
-    time = get_time_from_system(item, structure_indices=structure_indices, skip_digestion=True)
-    box = get_box_from_system(item, structure_indices=structure_indices, skip_digestion=True)
+    coordinates = get_coordinates_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    velocities = get_velocities_from_atom(
+        item,
+        indices=atom_indices,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )
+    structure_id = get_structure_id_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    time = get_time_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
+    box = get_box_from_system(
+        item, structure_indices=structure_indices, skip_digestion=True
+    )
 
-    tmp_item.append(structure_id=structure_id, time=time, coordinates=coordinates,
-                    velocities=velocities, box=box,
-                               skip_digestion=True)
+    tmp_item.append(
+        structure_id=structure_id,
+        time=time,
+        coordinates=coordinates,
+        velocities=velocities,
+        box=box,
+        skip_digestion=True,
+    )
 
     return tmp_item
