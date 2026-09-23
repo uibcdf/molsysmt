@@ -20,6 +20,26 @@ uibcdf/molsysmt#193 against the live Conda channels.
 **Status:** active. MolSysViewer 0.23.1 is staged; a corrective MolSysMT build and the
 installed-pair matrix remain pending.
 
+## Clean-install PDB guard — 2026-09-23
+
+A local Linux/Python 3.14 clean-pair probe found an additional packaging hazard
+that is not specific to Python 3.14: an unprefixed amino-acid string detector
+imported optional Biopython while sweeping form candidates. When Bio was
+absent, `get_form(PDB_TEXT)` failed before reaching the PDB detector. The
+resolution and exact local artifacts are recorded under
+[`#238`](../archive/resolved_bugs/pdb_text_detection_imports_optional_biopython.md).
+
+The main-line detector now counts canonical amino-acid letters without Bio;
+its regression explicitly masks Bio and checks both an amino-acid sequence
+and PDB text. The exact-pair validator now also classifies, converts, and
+loads four-atom PDB text through Viewer. The focused source and validator
+selection passed 36 tests, and this validator passed against the corrected
+local Python 3.14 installed pair. The same validator fails against the
+uncorrected local pair at the absent-Bio import, proving the new gate detects
+this regression. These are **local** results, not evidence
+that the older staged `0.22.0`/`0.23.1` pair has passed. The planned MolSysMT
+build 3 must include this fix and then pass the full 15-cell staged-pair gate.
+
 ## Coordination checkpoint — 2026-09-20
 
 The missing Viewer coordinate is no longer the immediate blocker:
