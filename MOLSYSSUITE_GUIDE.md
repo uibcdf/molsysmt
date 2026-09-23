@@ -22,7 +22,7 @@ API, scientific evidence, releases, and local development tools. Local rules may
 stricter, but they must not silently contradict a common policy. A deviation needs a
 tracked exception with its reason and expiration condition.
 
-The wider platform architecture and shared engineering baseline belong to [MOLI](https://github.com/uibcdf/moli). MolSysSuite is a first-class MOLI component with delegated internal governance. MOLI describes MolSysSuite as
+The wider platform architecture belongs to [MOLI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md), and the shared engineering baseline belongs to [MOLI governance](https://github.com/uibcdf/moli). MolSysSuite is a first-class MOLI component with delegated internal governance. MOLI describes MolSysSuite as
 the molecular modeling ecosystem alongside Scientific Context and optional
 MOLI Agent reasoning.
 
