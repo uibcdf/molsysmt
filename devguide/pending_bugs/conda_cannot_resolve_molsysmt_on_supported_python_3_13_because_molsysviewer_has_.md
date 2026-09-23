@@ -17,8 +17,38 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. MolSysViewer 0.23.1 is staged; a corrective MolSysMT build and the
-installed-pair matrix remain pending.
+**Status:** active. MolSysMT 0.22.0 build 3 and MolSysViewer 0.23.1 build 1 are
+staged; a MolSysMT build containing the PDB fix and the installed-pair matrix
+remain pending.
+
+## Coordination checkpoint — 2026-09-23
+
+The 2026-09-20 plan below was overtaken by hosted work that day. MolSysMT run
+`35498945251` completed all five native ABI3 jobs and published build 3 to
+staging. MolSysViewer corrected its internal version mismatch in
+`uibcdf/molsysviewer#91`; run `35502257553` published additive noarch build
+`py_1`, and a clean Python 3.13 pair reported both Viewer version surfaces
+as exactly `0.23.1`. Neither package is a public release.
+
+The first 15-cell pair run, `35499866604`, failed in every cell. Its nine
+Linux x86-64 and macOS cells reached validation and rejected Viewer build 0:
+installed metadata reported `0.23.1+0.g736e8274.dirty`, not the requested
+`0.23.1`. Three Linux ARM and three Windows cells failed earlier in the
+Conda solver because support-library artifacts were unavailable; the
+subsequent micromamba cleanup errors were secondary. Do not weaken the
+version check or classify those six failures as action setup defects.
+
+On 2026-09-23, live-channel dry runs for Linux ARM and Windows/Python 3.11
+resolved MolSysMT build 3, Viewer build 1, and staged noarch SMonitor 0.16.0,
+DepDigest 0.11.0, ArgDigest 0.13.0, and PyUnitWizard 0.26.0. This removes
+the previously observed **solver** gap in those two cells; it does not yet
+prove installed behavior, other Python minors, or every native platform.
+
+Build 3 predates the PDB/Biopython fix below. The next non-overwriting
+staging coordinate is build 4; the release route is reserved as build 5.
+After build 4 is audited, rerun the exact 0.22.0/0.23.1 installed-pair matrix
+with Viewer build 1. The pair gate now checks PDB text as well as BCIF and
+package identity. Keep the staged and public labels separate.
 
 ## Clean-install PDB guard — 2026-09-23
 
@@ -38,7 +68,7 @@ local Python 3.14 installed pair. The same validator fails against the
 uncorrected local pair at the absent-Bio import, proving the new gate detects
 this regression. These are **local** results, not evidence
 that the older staged `0.22.0`/`0.23.1` pair has passed. The planned MolSysMT
-build 3 must include this fix and then pass the full 15-cell staged-pair gate.
+build 4 must include this fix and then pass the full 15-cell staged-pair gate.
 
 ## Coordination checkpoint — 2026-09-20
 
@@ -51,15 +81,15 @@ The missing Viewer coordinate is no longer the immediate blocker:
 - The existing five-platform MolSysMT 0.22.0 build-2 ABI3 set predates the fix for
   uibcdf/molsysmt#200 and does not declare `py-mmcif`. It is historical evidence, not a
   releasable candidate.
-- The next non-overwriting MolSysMT coordinate is build 3. The eventual release path is
-  reserved as build 4 so that it cannot overwrite or be confused with the corrective
-  staging set.
+- At this checkpoint, the next non-overwriting MolSysMT coordinate was build 3, and
+  the eventual release path was reserved as build 4. The 2026-09-23 checkpoint
+  above supersedes those numbers after the additional PDB fix.
 - The exact-pair gate now rejects a MolSysMT Conda record without `py-mmcif` and performs
   an offline conversion of the bundled HP35 BCIF file, checking its 596 atoms. This
   turns the clean-install defect into behavior exercised in every one of the 15
   platform/interpreter cells.
 
-The remaining sequence is therefore concrete: publish MolSysMT 0.22.0 build 3 from an
+At this checkpoint the remaining sequence was to publish MolSysMT 0.22.0 build 3 from an
 exact commit to `staging`, audit its five channel records independently, and run the
 exact 0.22.0/0.23.1 pair across five platforms and Python 3.11--3.13. Nothing from this
 sequence is promoted to the main channel.
@@ -236,8 +266,9 @@ tracked separately as uibcdf/molsysmt#193.
 
 ## Dependencies and risks
 
-MolSysViewer's separately owned staging step is complete for 0.23.1. Resolution now
-depends on the corrective MolSysMT build-3 publication and the exact-pair validation.
+MolSysViewer's separately owned staging step is complete for 0.23.1 build 1.
+Resolution now depends on a MolSysMT build 4 containing the PDB fix and the
+exact-pair validation.
 Each repository continues to publish only its own artefact.
 
 ## Provenance
