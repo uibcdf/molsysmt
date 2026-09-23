@@ -24,9 +24,14 @@ API, scientific evidence, releases, and local development tools. Local rules may
 stricter, but they must not silently contradict a common policy. A deviation needs a
 tracked exception with its reason and expiration condition.
 
+The wider platform architecture belongs to
+[MOLI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md),
+not to the MolSysSuite registry or developer guide. MOLI describes MolSysSuite as
+the molecular modeling ecosystem alongside Scientific Context and optional
+MOLI Agent reasoning.
+
 Start with these central documents:
 
-- [MolSysSuite Architecture 1.0](https://github.com/uibcdf/molsyssuite/blob/main/devguide/architecture/README.md);
 - [repository ownership contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_contract.md);
 - [issue and developer-guide reporting protocol](https://github.com/uibcdf/molsyssuite/blob/main/devguide/reporting_protocol.md);
 - [cross-component feedback policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md);
@@ -35,12 +40,10 @@ Start with these central documents:
 - [component release-version policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md);
 - [GH Run Receptor dogfooding policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md).
 
-Architecture 1.0 defines Knowledge, Modeling, Capabilities, and Discovery as conceptual
-scientific layers. MolSys-AI/MOLI is optional intelligence across them, not a required
-top level. Praxis and Nextia belong to this frozen architecture but are not registered
-members or implied repositories. `suite.toml` alone records admitted, governed
-components; its `role`, `membership`, `maturity`, `development-mode`, and `capabilities`
-fields classify real repositories rather than conceptual layers.
+MOLI's conceptual architecture does not admit repositories to MolSysSuite.
+`suite.toml` alone records governed members; its `role`, `membership`,
+`maturity`, `development-mode`, and `capabilities` fields classify real
+repositories rather than platform concepts.
 
 Consult the central repository before changing a shared dependency boundary, supported
 Python range, development baseline, issue vocabulary, reusable workflow, vendored guide,
