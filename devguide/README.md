@@ -112,6 +112,9 @@ Read these documents in order when first working on MolSysMT:
 
 ### Release operations
 
+- [Python 3.14 paired-support checkpoint](python_3_14_checkpoint.md) — dated
+  evidence, missing gates, and the next handoff for MolSysMT, MolSysViewer,
+  and their Qt-family dependency stack.
 - [release_1_0_status.md](release_1_0_status.md) — live phase/stage status and
   evidence ledger for the remaining 1.0 work.
 - [release_gate.md](release_gate.md) — exact-commit checklist required before

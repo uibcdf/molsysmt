@@ -16,9 +16,14 @@ supersedes: []
 
 **Reported:** 2026-09-22, after the public Python 3.14 admission of the
 SMonitor, DepDigest, ArgDigest, and PyUnitWizard dependency chain.
-**Status:** Active feasibility work. A locally built MolSysMT wheel and its
-native extension work on Linux/Python 3.14; the declared package and
-MolSysViewer contracts still stop at 3.13.
+**Status:** Active feasibility work. Candidate source metadata now includes
+Python 3.14, and a locally built MolSysMT wheel and its native extension
+work on Linux/Python 3.14. The staged 0.22.0/0.23.1 package pair still stops
+at 3.13; no public 3.14 support is claimed.
+
+The dated [paired-support checkpoint](../python_3_14_checkpoint.md) is the
+compact handoff for current evidence and the next gate. This proposal keeps
+the detailed analysis and acceptance criteria.
 
 ## What
 
@@ -52,10 +57,11 @@ candidate and package evidence.
 
 ## Why
 
-The public lower dependency chain resolves on Python 3.14. MolSysMT's
-`pyproject.toml` still declares `>=3.11.0,<3.14.0`, its ABI3 Conda recipe
-declares `>=3.11,<3.14`, and its required source and installed-package
-matrices stop at 3.13. MolSysViewer is a hard dependency in both Python and
+The public lower dependency chain resolves on Python 3.14. At the start of
+this work, MolSysMT's `pyproject.toml` declared `>=3.11.0,<3.14.0`; the
+`python-3.14-support` branch has widened candidate wheel metadata, but
+the existing ABI3 Conda recipe and required installed-package matrices
+still stop at 3.13. MolSysViewer is a hard dependency in both Python and
 Conda metadata. Its staged 0.23.1 noarch package also declares
 `python >=3.11,<3.14`, so the pair cannot resolve on 3.14 today.
 
