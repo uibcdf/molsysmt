@@ -99,6 +99,14 @@ channel query then observed `uibcdf/noarch::py-mmcif-1.1.1-py_0` with SHA-256
 `requests`, `msgpack-python`, and Python runtime requirements. A fresh environment
 resolved that public package with Python 3.14.7 and passed the CIF and BCIF probe.
 
+**Measured on 2026-09-22:** the MolSysMT distribution-manifest guard still failed
+because it compared the PyPI distribution name `mmcif` with the Conda distribution
+name `py-mmcif` literally. The guard now translates that one known provider name
+before comparing constraints, and a mutation test proves that removing
+`py-mmcif` from the recipe is still detected. All seven manifest tests passed
+locally on Python 3.13 and the focused Python 3.14 pair probe passed the same
+guard. This repairs the guard, not the still-pending corrective staging build.
+
 ## What was refuted
 
 - MolSysMT did not absorb the needed parser implementation. An earlier local

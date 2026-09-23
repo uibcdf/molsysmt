@@ -11,6 +11,7 @@ from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
 ROOT = Path(__file__).resolve().parents[1]
+CONDA_TO_PYTHON_NAMES = {"py-mmcif": "mmcif"}
 
 
 def _python_runtime_requirements(pyproject_text: str) -> dict[str, Requirement]:
@@ -31,7 +32,12 @@ def _conda_runtime_requirements(recipe_text: str) -> dict[str, Requirement]:
         item = line.strip().removeprefix("- ").split("#", 1)[0].strip()
         requirements.append(Requirement(item))
 
-    return {canonicalize_name(item.name): item for item in requirements}
+    return {
+        CONDA_TO_PYTHON_NAMES.get(
+            canonicalize_name(item.name), canonicalize_name(item.name)
+        ): item
+        for item in requirements
+    }
 
 
 def _manifest_mismatches(
@@ -60,6 +66,21 @@ def test_conda_runtime_requirements_match_pyproject():
     )
 
     assert _manifest_mismatches(pyproject_text, recipe_text) == {}
+
+
+def test_mmcif_conda_alias_is_required():
+    """The Conda distribution is py-mmcif, but its Python import is mmcif."""
+    pyproject_text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    recipe_text = (ROOT / "devtools" / "conda-build" / "meta.yaml").read_text(
+        encoding="utf-8"
+    )
+    assert "  - py-mmcif >=1.1.1\n" in recipe_text
+
+    without_mmcif = recipe_text.replace("  - py-mmcif >=1.1.1\n", "", 1)
+    assert _manifest_mismatches(pyproject_text, without_mmcif)["mmcif"] == (
+        ">=1.1.1",
+        None,
+    )
 
 
 @pytest.mark.parametrize(
