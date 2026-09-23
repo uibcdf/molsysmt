@@ -115,6 +115,10 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   source-pair workflow on Linux and macOS, not an inference from focused
   reruns. The optional UIBCDF Qt stack still resolves only through a
   Python 3.13 ABI dependency; see `uibcdf/molsysviewer#93`.
+- A further installed-wheel test selection across MolSysMT's native objects,
+  bundled BCIF adapters, and Rust boundaries passed 641 tests on Linux/
+  Python 3.14.7 with 12 workers. The command ran from outside the source
+  checkout so the installed ABI3 extension remained the import target.
 
 ## What was refuted
 
