@@ -119,6 +119,14 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   bundled BCIF adapters, and Rust boundaries passed 641 tests on Linux/
   Python 3.14.7 with 12 workers. The command ran from outside the source
   checkout so the installed ABI3 extension remained the import target.
+- The paired MolSysViewer full source suite passed remotely on both Linux
+  and macOS/Python 3.14 in `uibcdf/molsysviewer` run `35828199753` (2,090
+  tests collected per job). This is source-pair evidence, not a resolver-clean
+  Conda pair. An attempted full MolSysMT collection in the lean local 3.14
+  environment stopped at 20 collection errors, all from absent optional test
+  dependencies such as `nglview`, Biopython, OpenMM and OpenFF. It executed
+  no tests and therefore does not establish full-suite status; the curated
+  installed-wheel selection above remains valid independent evidence.
 
 ## What was refuted
 
