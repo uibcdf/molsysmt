@@ -1,3 +1,6 @@
+_STANDARD_AMINO_ACID_CODES = frozenset("ACDEFGHIKLMNPQRSTVWY")
+
+
 def is_form(item):
     """
     Checking whether an item is an instance of form string:amino_acids_1.
@@ -29,9 +32,11 @@ def is_form(item):
             )
 
             if not is_string_amino_acids_3(item):
-                from Bio.SeqUtils.ProtParam import ProteinAnalysis
-
-                analysed_seq = ProteinAnalysis(item)
-                output = sum(analysed_seq.amino_acids_percent.values()) > 99.0
+                sequence = item.upper()
+                if sequence:
+                    standard_count = sum(
+                        residue in _STANDARD_AMINO_ACID_CODES for residue in sequence
+                    )
+                    output = 100 * standard_count > 99 * len(sequence)
 
     return output

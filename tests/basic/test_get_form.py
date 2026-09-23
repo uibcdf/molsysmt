@@ -3,6 +3,8 @@ Unit and regression test for the get_form module of the molsysmt package.
 """
 
 # Import package, test suite, and other packages as needed
+import builtins
+
 import depdigest
 import numpy as np
 import pytest
@@ -87,6 +89,37 @@ def test_string_amino_acids_1_automatic_detection():
     molsys = "ALYDERRRT"
     output = msm.get_form(molsys)
     assert output == "string:amino_acids_1"
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [
+        ("ALYDERRRT", "string:amino_acids_1"),
+        (
+            "ATOM      1  N   MET A   1      11.104  13.207   8.551  1.00 20.00           N\n"
+            "END\n",
+            "string:pdb_text",
+        ),
+    ],
+)
+def test_string_detection_without_biopython(monkeypatch, value, expected):
+    original_import = builtins.__import__
+    original_is_installed = depdigest.is_installed
+
+    def import_without_biopython(name, *args, **kwargs):
+        if name == "Bio" or name.startswith("Bio."):
+            raise ModuleNotFoundError("No module named 'Bio'")
+        return original_import(name, *args, **kwargs)
+
+    def is_installed_without_biopython(library):
+        if library == "Bio":
+            return False
+        return original_is_installed(library)
+
+    monkeypatch.setattr(builtins, "__import__", import_without_biopython)
+    monkeypatch.setattr(depdigest, "is_installed", is_installed_without_biopython)
+
+    assert msm.get_form(value) == expected
 
 
 def test_string_pdb_text():
