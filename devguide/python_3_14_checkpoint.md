@@ -18,7 +18,7 @@ packages.
 | --- | --- | --- |
 | MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. | Full scientific/source suite with representative optional backends; exact Conda candidate and installed matrix. |
 | MolSysViewer core on 3.14 | The paired full Python source suite passed on hosted Linux and macOS, 2,090 tests collected per job; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. | Resolver-consistent, versioned Conda pair; installed-package gates on each claimed platform. |
-| UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes themselves now passed package tests and clean five-package installations on Python 3.12 and 3.13; Qt Positioning/WebEngine native packages were reused across minors. No canonical PySide6 was installed. | Build the revised recipes for 3.11 and 3.14; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
+| UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes now passed package tests and clean five-package installations on Python 3.12–3.14; Qt Positioning/WebEngine native packages were reused across minors. The 3.14 packages also passed real Viewer Qt integration and full-render tests. No canonical PySide6 was installed. | Build the revised recipes for 3.11; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
 | Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
 
 The three local binding variants are intentionally **per-interpreter** Conda
@@ -58,6 +58,24 @@ passed. The Xvfb smoke required running outside the restricted sandbox because
 the sandbox could not open its display. This is local-channel evidence only,
 not evidence for `uibcdf/label/staging` or the public channel.
 
+The revised Linux/Python 3.14 builds also passed Conda package tests with
+`CPU_COUNT=12`. Their SHA-256 values are
+`0db537f21bac4ef73e01ccfe34fc098f9e49c61f9cc71d858454c7d9747d0391`
+(Shiboken),
+`dee2b2dc0092c50ab1a7bbeba215b793d5c1a2d991b15efc3a0aafcb7f290c1c`
+(Essentials), and
+`a1d3a168f1fb39293d652be2979db6332abdc87d88f25dc01b86d809b8fcb8c2`
+(Addons). Their finalized package records require Python
+`>=3.14,<3.15.0a0` and `python_abi 3.14.* *_cp314`. A fresh offline
+environment installed all five exact artifacts from an indexed local
+channel, with matching installed-record hashes and no canonical PySide6.
+Ordinary Addons and Xvfb WebEngine smokes passed. In a separate environment
+with those same exact local artifacts, three real-Qt Viewer integration tests
+and the opt-in full molecular render passed under Xvfb. That second
+environment contains development source versions of MolSysMT and Viewer;
+the result is local Qt/application evidence, not a resolver-clean,
+versioned Conda pair or a staged-channel claim.
+
 ## Next gates in order
 
 1. Finish and verify the existing MolSysMT 0.22.0 / MolSysViewer 0.23.1
@@ -65,7 +83,7 @@ not evidence for `uibcdf/label/staging` or the public channel.
    branches can advance in parallel, but must not silently widen those
    pre-existing package coordinates.
 2. Finish the revised binding-recipe matrix for the remaining Python 3.11
-   and 3.14 Linux cells; the 3.12 and 3.13 cells passed. Retain
+   Linux cell; the 3.12–3.14 cells passed. Retain
    exact artifact hashes, package-test exits, clean-solve provenance, and
    UIBCDF-only WebEngine evidence. Replace the old direct-main upload route
    with a reviewed staging-first candidate route before any upload.
