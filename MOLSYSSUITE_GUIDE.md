@@ -118,34 +118,15 @@ condition. Do not silently fork sibling functionality.
 
 ## Common development baseline
 
-MolSysSuite inherits the MOLI engineering baseline and maintains a suite-specific adoption/enforcement profile for its members. Python libraries use the default Python `>=3.11,<3.14` contract; routine development uses
-Python 3.13 and CI covers 3.11, 3.12, and 3.13. During an accepted minor-version
-transition, `suite.toml` may authorize named components to adopt a wider target after
-component-specific evidence. Only components marked `admitted` may claim that wider
-support; all others retain the default. Ruff is the common formatter and linter, replacing Black,
-isort, and Flake8. The required shared lint core is `E4`, `E7`, `E9`, `F`, and `I`;
-repositories may add stricter rules. Pytest is the common test runner. Type checking and
-domain-specific scientific or UI gates remain repository-local.
+The [MOLI engineering governance](https://github.com/uibcdf/moli/blob/main/devguide/governance/policy_inheritance.md) owns the shared Python support, CI, Ruff and public-release rules. The pinned MOLI revision in `suite.toml` supplies their machine-readable values. Follow the [suite Python adoption profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md), [CI profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md), [tooling profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md) and [release profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md) for member-specific adoption, evidence and historical exceptions. Type checking and scientific or UI gates remain repository-local.
 
-Every root integration guide synchronized from another repository is generated,
-read-only content. List its exact path in Ruff's `extend-exclude`; do not reformat or edit
-it in a component. Propose changes at the canonical source and resynchronize the exact
-copy. The suite checks both the exclusion and byte-level drift.
+During an accepted Python transition, `suite.toml` may authorize named components after component-specific evidence. Only components marked `admitted` may claim the wider target support.
+
+Every root integration guide synchronized from another repository is generated, read-only content. List its exact path in Ruff `extend-exclude`; propose changes at the canonical source and resynchronize the exact copy. The suite checks the exclusion and byte-level drift.
 
 ## Public release versions
 
-The public version format is inherited from MOLI; MolSysSuite maintains member enforcement and historical exceptions. Every component release uses exactly `X.Y.Z`: three canonical non-negative integer
-components. The package or project version, Git tag and GitHub Release tag are the same
-string. Do not prefix the tag with `v` and do not publish `a`, `b`, `rc`, `.dev`, `.post`
-or `+local` suffixes. Candidate testing belongs in staging rather than a public
-prerelease.
-
-Development checkouts may carry truthful derived identities such as
-`1.2.3+4.gabc1234` or a `.dirty` suffix; those are development provenance, not public
-release versions. MolSysSuite policy tags (`policy-vX.Y.Z`), third-party Action refs,
-schema versions and Conda build numbers are separate namespaces. Follow the central
-release-version policy for the exact pattern, historical-tag treatment and exception
-process.
+MOLI defines public component release identity in its [release-version policy](https://github.com/uibcdf/moli/blob/main/devguide/policies/release_version_policy.md). MolSysSuite maintains member enforcement, the historical-tag inventory and the separate `policy-vX.Y.Z` governance-release namespace.
 
 ## Repository badges
 
