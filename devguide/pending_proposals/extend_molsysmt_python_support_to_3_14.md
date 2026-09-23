@@ -133,6 +133,18 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   dependencies such as `nglview`, Biopython, OpenMM and OpenFF. It executed
   no tests and therefore does not establish full-suite status; the curated
   installed-wheel selection above remains valid independent evidence.
+- On 2026-09-23, temporary local tags built MolSysMT ABI3 and MolSysViewer
+  noarch Conda packages. A fresh Linux/Python 3.14.7 environment resolved the
+  exact local `0.22.1`/`0.23.2` pair and passed the installed-pair validator,
+  but an installed PDB-text probe exposed `uibcdf/molsysmt#238`: the string
+  detector imported absent optional Biopython. After commit `639892a6f`, a
+  new local MolSysMT `0.22.2` package and the unchanged Viewer `0.23.2`
+  package resolved in a second fresh environment without Biopython. The
+  package validator, 99-export Rust validator, two-case installed regression,
+  and a four-atom PDB-text conversion and Viewer load passed. Exact archive
+  hashes and the installed-test-harness limitation are recorded in the
+  [paired-support checkpoint](../python_3_14_checkpoint.md). These are local
+  solver and package results, not remote staging or release candidates.
 
 ## What was refuted
 

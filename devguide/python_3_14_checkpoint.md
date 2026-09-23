@@ -16,8 +16,8 @@ packages.
 
 | Boundary | Evidence available | Still missing |
 | --- | --- | --- |
-| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. | Full scientific/source suite with representative optional backends; exact Conda candidate and installed matrix. |
-| MolSysViewer core on 3.14 | The paired full Python source suite passed on hosted Linux and macOS, 2,090 tests collected per job; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. | Resolver-consistent, versioned Conda pair; installed-package gates on each claimed platform. |
+| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. An exact local ABI3 Conda candidate also passes the clean installed-pair validator. | Full scientific/source suite with representative optional backends; staged and cross-platform installed matrices. |
+| MolSysViewer core on 3.14 | The paired full Python source suite passed on hosted Linux and macOS, 2,090 tests collected per job; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-pair and installed-package gates on each claimed platform; an installed-test harness that does not inject source packages. |
 | UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes now passed package tests and clean five-package installations on Python 3.12–3.14; Qt Positioning/WebEngine native packages were reused across minors. The 3.14 packages also passed real Viewer Qt integration and full-render tests. No canonical PySide6 was installed. | Build the revised recipes for 3.11; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
 | Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
 
@@ -76,6 +76,47 @@ environment contains development source versions of MolSysMT and Viewer;
 the result is local Qt/application evidence, not a resolver-clean,
 versioned Conda pair or a staged-channel claim.
 
+## Local Conda pair integration
+
+On 2026-09-23, temporary **local-only** tags `0.22.1`/`0.23.2` built an ABI3
+MolSysMT archive and a noarch MolSysViewer archive. A fresh Linux/Python
+3.14.7 environment resolved both exact versions from an indexed local channel
+with the `uibcdf/label/staging`, `uibcdf`, and `conda-forge` dependency
+channels. The installed-pair validator passed version identity, Conda records,
+the native extension, bundled BCIF conversion, and Viewer resources; the
+separate Rust validator checked all 99 exports. Both packages were built with
+`--no-test` to break the packaging cycle, so these post-install checks are
+the evidence, not recipe-test results.
+
+An additional installed Viewer PDB-text probe then exposed
+`uibcdf/molsysmt#238`: `get_form` imported optional Biopython from the
+one-letter amino-acid detector before reaching the PDB-text detector. The
+uncorrected pair's two Viewer integration tests failed without Bio. MolSysMT
+commit `639892a6f` removed that optional import using an equivalent
+standard-library count; the focused regression failed before the change and
+passed after it, and all 22 `test_get_form.py` cases passed.
+
+The corrected MolSysMT archive was built with another **local-only** tag,
+`0.22.2`, and has SHA-256
+`d7d421c831b92fba424c665f7adb209f41e9a4f175208acfc017172d132be353`.
+The unchanged MolSysViewer `0.23.2` archive has SHA-256
+`ea64e225001537b059791f610954f99d9d022b1221e6788e085469f992bad712`.
+The second fresh Linux/Python 3.14.7 environment resolved both exact local
+files; the two installed Conda records contain the same hashes and local
+channel URLs. Biopython was absent. The installed-pair and 99-export Rust
+validators passed, as did the two-case no-Biopython regression against the
+installed package. A direct four-atom PDB-text smoke classified the form,
+converted it to `molsysmt.MolSys`, and loaded it through `MolSysView` with
+the same atom count.
+
+The two existing Viewer integration test functions are not yet reusable as
+installed-package evidence: its `tests/conftest.py` inserts the Viewer
+checkout into `sys.path`, while disabling that conftest removes the
+`_test_message_log` fixture they require. The direct installed smoke above
+verifies the user behavior but does not substitute for an installed-test
+harness. These local tags and archives are not release-version decisions,
+remote staging artifacts, or a cross-platform support claim.
+
 ## Next gates in order
 
 1. Finish and verify the existing MolSysMT 0.22.0 / MolSysViewer 0.23.1
@@ -88,8 +129,8 @@ versioned Conda pair or a staged-channel claim.
    UIBCDF-only WebEngine evidence. Replace the old direct-main upload route
    with a reviewed staging-first candidate route before any upload.
 3. Run MolSysMT's full Python 3.14 test and scientific-evidence gates with
-   representative optional dependencies. Build an exact ABI3 Conda candidate
-   and verify its extension and BCIF path after clean installation.
+   representative optional dependencies. Repeat the now-proven local ABI3
+   and installed-pair checks on an immutable staging candidate.
 4. Build the aligned Qt family and exact MolSysMT/Viewer pair for every
    claimed native platform. Validate Python 3.11–3.14 clean installations,
    package provenance, Viewer resources, real Qt integration where claimed,
