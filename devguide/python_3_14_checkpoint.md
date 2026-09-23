@@ -18,7 +18,7 @@ packages.
 | --- | --- | --- |
 | MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. | Full scientific/source suite with representative optional backends; exact Conda candidate and installed matrix. |
 | MolSysViewer core on 3.14 | The paired full Python source suite passed on hosted Linux and macOS, 2,090 tests collected per job; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. | Resolver-consistent, versioned Conda pair; installed-package gates on each claimed platform. |
-| UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. On 2026-09-23, disposable Python 3.11, 3.12, and 3.13 Shiboken/Essentials/Addons variants each passed Conda package tests, an independent clean installation, imports, and local HTML loading in WebEngine under Xvfb. The revised variant-selected recipes then built and passed package tests for Python 3.12; their clean five-package installation loaded local HTML without canonical PySide6. Qt Positioning/WebEngine native packages were reused across minors. | Build the revised recipes for 3.11, 3.13, and 3.14; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
+| UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes themselves now passed package tests and clean five-package installations on Python 3.12 and 3.13; Qt Positioning/WebEngine native packages were reused across minors. No canonical PySide6 was installed. | Build the revised recipes for 3.11 and 3.14; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
 | Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
 
 The three local binding variants are intentionally **per-interpreter** Conda
@@ -40,14 +40,32 @@ local channel and Addons from its build directory; that archive is
 byte-identical to the copied channel artifact. This is local-artifact
 evidence, not a complete channel-provenance claim.
 
+On 2026-09-23, the revised Linux/Python 3.13 builds passed Conda package
+tests with `CPU_COUNT=12`. Their SHA-256 values are
+`8a944dd7c0fb74d2978d882fe64df519adaf047e17f4176bb24708ce25b183c5`
+(Shiboken),
+`6f63b866862098f8874609260afdc85682b2d93301bd6a44aaa59d916db481db`
+(Essentials), and
+`7cf4718bae6bb9e95f1815e50cab711b7a03ac848eff86230a2c4144fcd6ef00`
+(Addons). All three final package records require Python
+`>=3.13,<3.14.0a0` and `python_abi 3.13.* *_cp313`. A fresh offline
+environment selected Python 3.13.15, Qt 6.10.1 and all five local UIBCDF
+packages without canonical PySide6. The Addons package-cache record initially
+pointed at its local build directory; after an explicit reinstall from the
+byte-identical indexed-channel file, all five installed records named the
+local channel. The ordinary Addons and Xvfb local-HTML WebEngine smokes
+passed. The Xvfb smoke required running outside the restricted sandbox because
+the sandbox could not open its display. This is local-channel evidence only,
+not evidence for `uibcdf/label/staging` or the public channel.
+
 ## Next gates in order
 
 1. Finish and verify the existing MolSysMT 0.22.0 / MolSysViewer 0.23.1
    staging and public-installation path for Python 3.11–3.13. The 3.14 source
    branches can advance in parallel, but must not silently widen those
    pre-existing package coordinates.
-2. Finish the revised binding-recipe matrix for the remaining Python 3.11,
-   3.13, and 3.14 Linux cells; the 3.12 cell passed. Retain
+2. Finish the revised binding-recipe matrix for the remaining Python 3.11
+   and 3.14 Linux cells; the 3.12 and 3.13 cells passed. Retain
    exact artifact hashes, package-test exits, clean-solve provenance, and
    UIBCDF-only WebEngine evidence. Replace the old direct-main upload route
    with a reviewed staging-first candidate route before any upload.
