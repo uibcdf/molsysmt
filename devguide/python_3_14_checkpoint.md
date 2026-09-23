@@ -109,6 +109,12 @@ installed package. A direct four-atom PDB-text smoke classified the form,
 converted it to `molsysmt.MolSys`, and loaded it through `MolSysView` with
 the same atom count.
 
+The installed-pair validator now includes that PDB-text-to-Viewer smoke as a
+release gate. Its new unit tests pass, and running it against the uncorrected
+local `0.22.1` pair fails on the absent `Bio` import; running the identical
+validator against the corrected `0.22.2` pair passes. This is a tested gate
+for this regression, not a claim that the full Viewer test suite passes.
+
 The two existing Viewer integration test functions are not yet reusable as
 installed-package evidence: its `tests/conftest.py` inserts the Viewer
 checkout into `sys.path`, while disabling that conftest removes the

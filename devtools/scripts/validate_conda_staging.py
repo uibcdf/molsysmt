@@ -10,6 +10,14 @@ import json
 import pathlib
 import sys
 
+_PDB_TEXT = (
+    "ATOM      1  N   MET A   1      11.104  13.207   8.551  1.00 20.00           N\n"
+    "ATOM      2  CA  MET A   1      12.560  13.329   8.276  1.00 20.00           C\n"
+    "ATOM      3  C   MET A   1      13.189  11.956   8.001  1.00 20.00           C\n"
+    "ATOM      4  O   MET A   1      12.589  10.935   8.353  1.00 20.00           O\n"
+    "END\n"
+)
+
 
 def _require_conda_install(
     distribution_name: str,
@@ -93,6 +101,35 @@ def _require_bundled_bcif_conversion(molsysmt) -> None:
         )
 
 
+def _require_pdb_text_viewer_load(molsysmt, molsysviewer) -> None:
+    """Exercise PDB-text discovery and Viewer loading without a file path."""
+
+    try:
+        form = molsysmt.get_form(_PDB_TEXT)
+        if form != "string:pdb_text":
+            raise RuntimeError(f"PDB text was classified as {form!r}")
+
+        item = molsysmt.convert(_PDB_TEXT, to_form="molsysmt.MolSys")
+        if item.topology.n_atoms != 4:
+            raise RuntimeError(
+                f"PDB-text conversion returned {item.topology.n_atoms} atoms, expected 4"
+            )
+
+        view = molsysviewer.MolSysView(debug_js=True)
+        try:
+            view.load(_PDB_TEXT)
+            loaded = getattr(view, "_molsys", None)
+            if loaded is None:
+                raise RuntimeError("Viewer did not retain the loaded molecular system")
+            n_atoms = molsysmt.get(loaded, element="atom", n_atoms=True)
+            if n_atoms != 4:
+                raise RuntimeError(f"Viewer retained {n_atoms} atoms, expected 4")
+        finally:
+            view.close()
+    except Exception as exception:
+        raise RuntimeError("PDB-text Viewer integration failed") from exception
+
+
 def validate(molsysmt_version: str, molsysviewer_version: str) -> None:
     """Validate the installed package pair and its native/runtime resources."""
 
@@ -115,6 +152,7 @@ def validate(molsysmt_version: str, molsysviewer_version: str) -> None:
         )
 
     _require_bundled_bcif_conversion(molsysmt)
+    _require_pdb_text_viewer_load(molsysmt, molsysviewer)
 
     prefix = pathlib.Path(sys.prefix).resolve()
     rust_path = pathlib.Path(rust.__file__).resolve()

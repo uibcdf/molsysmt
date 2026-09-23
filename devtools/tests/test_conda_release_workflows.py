@@ -174,7 +174,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
 
     validation = _step(
         validate,
-        "Validate versions, provenance, native code, BCIF, and viewer resources",
+        "Validate versions, provenance, native code, BCIF, PDB text, and viewer resources",
     )["run"]
     assert "validate_conda_staging.py" in validation
     assert "--molsysmt-version" in validation
@@ -184,6 +184,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
         REPO / "devtools" / "scripts" / "validate_conda_staging.py"
     ).read_text(encoding="utf-8")
     assert "_require_bundled_bcif_conversion(molsysmt)" in validation_script
+    assert "_require_pdb_text_viewer_load(molsysmt, molsysviewer)" in validation_script
     assert '"py-mmcif"' in validation_script
 
     environment_record = _step(validate, "Record the exact environment")["run"]

@@ -173,3 +173,73 @@ def test_bundled_bcif_conversion_wraps_reader_failure():
 
     with pytest.raises(RuntimeError, match="Bundled BCIF conversion failed"):
         validate_conda_staging._require_bundled_bcif_conversion(BrokenMolsysmt())
+
+
+class _PDBMolSys:
+    topology = type("Topology", (), {"n_atoms": 4})()
+
+
+class _PDBMolsysmt:
+    @staticmethod
+    def get_form(value):
+        assert value.startswith("ATOM")
+        return "string:pdb_text"
+
+    @staticmethod
+    def convert(value, *, to_form):
+        assert value.startswith("ATOM")
+        assert to_form == "molsysmt.MolSys"
+        return _PDBMolSys()
+
+    @staticmethod
+    def get(value, *, element, n_atoms):
+        assert isinstance(value, _PDBMolSys)
+        assert element == "atom"
+        assert n_atoms is True
+        return value.topology.n_atoms
+
+
+class _PDBView:
+    def __init__(self, *, debug_js):
+        assert debug_js is True
+        self._molsys = None
+        self.closed = False
+
+    def load(self, value):
+        assert value.startswith("ATOM")
+        self._molsys = _PDBMolSys()
+
+    def close(self):
+        self.closed = True
+
+
+def test_pdb_text_viewer_load_is_required():
+    views = []
+
+    class ViewerPackage:
+        @staticmethod
+        def MolSysView(**kwargs):
+            view = _PDBView(**kwargs)
+            views.append(view)
+            return view
+
+    validate_conda_staging._require_pdb_text_viewer_load(
+        _PDBMolsysmt(), ViewerPackage()
+    )
+
+    assert len(views) == 1
+    assert views[0].closed
+
+
+def test_pdb_text_viewer_load_rejects_missing_molecule():
+    class BrokenView(_PDBView):
+        def load(self, value):
+            assert value.startswith("ATOM")
+
+    class BrokenViewerPackage:
+        MolSysView = BrokenView
+
+    with pytest.raises(RuntimeError, match="PDB-text Viewer integration failed"):
+        validate_conda_staging._require_pdb_text_viewer_load(
+            _PDBMolsysmt(), BrokenViewerPackage()
+        )
