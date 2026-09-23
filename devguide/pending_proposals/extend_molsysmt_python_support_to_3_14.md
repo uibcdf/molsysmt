@@ -87,6 +87,26 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   Its own dependency is `molsysmt >=0.22.0`; the pair must be
   coordinated. The full MolSysMT suite and installed pair have not
   been tested on 3.14.
+- A paired Linux/Python 3.14.7 source probe from MolSysMT `fe0be24b8`
+  and MolSysViewer `251f7759` built both wheels. With the current Python
+  bounds bypassed, both imported, the installed extension passed 99 exports,
+  the BCIF conversion produced 596 atoms, and MolSysViewer loaded the native
+  result. Its MolSysMT/runtime integration selection passed 19 tests.
+  MolSysMT's BCIF, Rust-threading, and distribution-manifest selection passed
+  18 tests with 12 workers. These tests were run against the installed wheel
+  from outside the source tree with `--import-mode=importlib` so the source
+  package did not shadow its installed `_rust.abi3.so`.
+- The source probe revealed a pre-existing distribution guard mismatch:
+  PyPI names the dependency `mmcif`, whereas Conda names the same provider
+  `py-mmcif`. The `python-3.14-support` worktree now maps that one known
+  name and tests that deleting the Conda dependency is still caught.
+  This is part of the remaining `uibcdf/molsysmt#200` gate.
+- Candidate wheels from the isolated worktrees now declare Python
+  `>=3.11,<3.15` and install on 3.14 without bypassing their Python bound.
+  They are not resolver-consistent: `pip check` rejects MolSysViewer's
+  `molsysmt>=0.22.0` floor because the source tree still has a 0.21.x
+  development identity. CI matrices, full suites, exact candidates, and
+  public packages are still outstanding.
 
 ## What was refuted
 
