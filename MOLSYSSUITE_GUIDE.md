@@ -13,9 +13,7 @@ from the canonical file above; changes belong in the MolSysSuite repository.
 
 ## Where suite governance lives
 
-Use [the MolSysSuite repository](https://github.com/uibcdf/molsyssuite) for policies,
-compatibility contracts, common tooling, cross-component proposals, coordinated
-rollouts, and decisions affecting two or more members. Its `suite.toml` is the
+Use [the MolSysSuite repository](https://github.com/uibcdf/molsyssuite) for MolSysSuite-specific compatibility contracts, member governance, domain extensions, common suite tooling, cross-component proposals, coordinated rollouts, and decisions affecting two or more suite members. Its `suite.toml` is the
 machine-readable registry of members, classification fields, initiatives, and accepted
 policies. Its `devguide/` contains the full normative texts and decision history.
 
@@ -24,9 +22,7 @@ API, scientific evidence, releases, and local development tools. Local rules may
 stricter, but they must not silently contradict a common policy. A deviation needs a
 tracked exception with its reason and expiration condition.
 
-The wider platform architecture belongs to
-[MOLI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md),
-not to the MolSysSuite registry or developer guide. MOLI describes MolSysSuite as
+The wider platform architecture and shared engineering baseline belong to [MOLI](https://github.com/uibcdf/moli). MolSysSuite is a first-class MOLI component with delegated internal governance. MOLI describes MolSysSuite as
 the molecular modeling ecosystem alongside Scientific Context and optional
 MOLI Agent reasoning.
 
@@ -45,9 +41,7 @@ MOLI's conceptual architecture does not admit repositories to MolSysSuite.
 `maturity`, `development-mode`, and `capabilities` fields classify real
 repositories rather than platform concepts.
 
-Consult the central repository before changing a shared dependency boundary, supported
-Python range, development baseline, issue vocabulary, reusable workflow, vendored guide,
-or behavior expected across components.
+Consult MOLI governance before changing an inherited platform engineering baseline. Consult MolSysSuite governance before changing a suite-member contract, dependency boundary, domain extension, reusable suite workflow, vendored integration guide, or behavior expected across MolSysSuite components.
 
 Canonical-guide publication and versioned policy adoption are independent. A guide-only
 change does not require a policy caller bump, and a caller bump does not prove that guide
@@ -120,7 +114,7 @@ condition. Do not silently fork sibling functionality.
 
 ## Common development baseline
 
-Python libraries use the default Python `>=3.11,<3.14` contract; routine development uses
+MolSysSuite inherits the MOLI engineering baseline and maintains a suite-specific adoption/enforcement profile for its members. Python libraries use the default Python `>=3.11,<3.14` contract; routine development uses
 Python 3.13 and CI covers 3.11, 3.12, and 3.13. During an accepted minor-version
 transition, `suite.toml` may authorize named components to adopt a wider target after
 component-specific evidence. Only components marked `admitted` may claim that wider
@@ -136,7 +130,7 @@ copy. The suite checks both the exclusion and byte-level drift.
 
 ## Public release versions
 
-Every component release uses exactly `X.Y.Z`: three canonical non-negative integer
+The public version format is inherited from MOLI; MolSysSuite maintains member enforcement and historical exceptions. Every component release uses exactly `X.Y.Z`: three canonical non-negative integer
 components. The package or project version, Git tag and GitHub Release tag are the same
 string. Do not prefix the tag with `v` and do not publish `a`, `b`, `rc`, `.dev`, `.post`
 or `+local` suffixes. Candidate testing belongs in staging rather than a public
@@ -151,7 +145,7 @@ process.
 
 ## Repository badges
 
-Every member README carries the centrally generated MolSysSuite identity baseline in
+MOLI owns the general evidence principle; MolSysSuite owns its member-role taxonomy and generated suite identity baseline. Every member README carries the centrally generated MolSysSuite identity baseline in
 this order: role, live policy workflow, supported Python versions when applicable, and
 license. Generate or verify that row from the MolSysSuite checkout with
 `devtools/scripts/repository_badges.py`; do not copy another component's Markdown.
@@ -181,8 +175,7 @@ exception process live in the central dogfooding policy linked above.
 
 ## Release archival and DOI claims
 
-MolSysSuite centrally governs Zenodo applicability, DOI meaning, evidence states and
-exceptions; each component still owns its metadata, release gates, artifacts and release
+MOLI owns the platform DOI/archival principles. MolSysSuite governs its member-level applicability, evidence inventory, rollout and domain-specific exceptions; each component still owns its metadata, release gates, artifacts and release
 decision. A successful GitHub Release, metadata file, reported account toggle or observed
 webhook is not proof of archival. Only an independently verified public Zenodo record and
 exact file inventory permit an archival claim.
