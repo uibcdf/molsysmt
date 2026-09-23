@@ -107,6 +107,14 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   `molsysmt>=0.22.0` floor because the source tree still has a 0.21.x
   development identity. CI matrices, full suites, exact candidates, and
   public packages are still outstanding.
+- MolSysViewer's candidate source suite on Linux/Python 3.14 executed 2,090
+  tests in one 12-worker run: 2,069 passed, five failed, and 16 skipped.
+  Its three affected test files passed 208 tests after adding missing
+  `jinja2` and `mdtraj` to the probe environment and regenerating a stale
+  capability audit. The next gate is a clean full run in the exact pinned
+  source-pair workflow on Linux and macOS, not an inference from focused
+  reruns. The optional UIBCDF Qt stack still resolves only through a
+  Python 3.13 ABI dependency; see `uibcdf/molsysviewer#93`.
 
 ## What was refuted
 
