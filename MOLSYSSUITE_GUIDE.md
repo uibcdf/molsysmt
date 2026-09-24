@@ -77,6 +77,14 @@ offline snapshot and repeatable `--repository` selectors for a bounded inspectio
 
 ## Reporting bugs and proposals
 
+Everyone who uses, develops, maintains or operates a suite component or UIBCDF support
+tool must report actionable bugs, missing capabilities, improvements and new feature
+proposals in the owning repository. Open an issue or add evidence to an existing one;
+if you cannot file it, ask a maintainer to record it. Do not leave the finding only
+in a chat, workaround or downstream issue. Reporting does not promise immediate
+implementation. Use private reporting first for exploitable or confidential findings.
+This adopts [MOLI's universal issue-feedback commitment](https://github.com/uibcdf/moli/blob/main/devguide/governance/reporting_protocol.md#universal-issue-feedback-commitment).
+
 Decide ownership before filing:
 
 - one-component behavior is tracked in that component;
@@ -121,6 +129,34 @@ issue; the limitation must not remain hidden only in MolSysViewer. Provider main
 own triage and priority, while the discovering contributor owns a clear evidence handoff.
 A local workaround may unblock work, but it must name the provider issue and its removal
 condition. Do not silently fork sibling functionality.
+
+## UIBCDF development support
+
+MOLI [catalogs four UIBCDF-owned support resources](https://github.com/uibcdf/moli/blob/main/devguide/governance/support_infrastructure.md):
+[Pytest Receptor](https://github.com/uibcdf/pytest-receptor) for Python test reporting,
+[GH Run Receptor](https://github.com/uibcdf/gh-run-receptor) for Actions inspection,
+[the Conda build/upload action](https://github.com/uibcdf/action-build-and-upload-conda-packages)
+for applicable Conda releases, and
+[the Sphinx-to-Pages action](https://github.com/uibcdf/action-sphinx-docs-to-gh-pages)
+for applicable Sphinx documentation publication. Use the applicable resource and report
+tool defects or improvements in its own issue board. MolSysSuite governs member adoption;
+MOLI owns the shared usage contract. The receptors remain suite auxiliary members.
+
+## Physical quantities and units
+
+A quantity must retain its value, unit and scientific meaning across computations,
+storage and component boundaries. Serialized values carry their negotiated unit in
+the same object; readers verify the record and explicitly name the expected field and
+unit or dimension. Never infer a unit from a bare number, field name or session default.
+Use an explicit target unit for boundary conversions and test under a non-default
+session policy. A wrong but internally consistent source also needs domain checks.
+Follow [MOLI's quantity integrity policy](https://github.com/uibcdf/moli/blob/main/devguide/policies/quantity_integrity_policy.md).
+
+PyUnitWizard owns the [serialization design](https://github.com/uibcdf/pyunitwizard/issues/83)
+and [QuantityRecord codec](https://github.com/uibcdf/pyunitwizard/issues/82); take
+format questions there. [MolSysSuite #46](https://github.com/uibcdf/molsyssuite/issues/46)
+tracks member adoption and migrations. The effective versioned policy snapshot remains
+the commit pinned in `suite.toml` until a separate policy rollout changes it.
 
 ## Common development baseline
 
