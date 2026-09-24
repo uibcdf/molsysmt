@@ -671,6 +671,19 @@ for the 1.0 source/tag, scientific validation, or manuscript:
    packages without a dependency-cycle exception; verify fresh installations
    from the **public** channel and the resulting release/archival records.
 
+The separate MolSysViewer 3.11–3.13 staging-enabled hosted gates advanced on
+2026-09-24. Its Documentation notebooks run `36016496850` passed every
+notebook on Viewer source commit `7c4e0cd9` against the staged MolSysMT
+0.22.0 dependency. The Qt pipeline passed in `CI` run `36017021764`, but all
+six Python matrix jobs failed on missing test-environment requirements after
+resolving the dependency pair; the Viewer branch has local fixes awaiting a
+hosted rerun. `CI_e2e` run `36016496630` never entered the browser tests:
+Playwright's redundant Chromium archive extraction timed out, and the Viewer
+workflow now selects the Chrome already used by its E2E harness. These results
+are neither a green Viewer release gate nor a test of the newer 20-cell
+3.14 package matrix. The diagnosis and next run belong to
+`uibcdf/molsysviewer#88`.
+
 The 20-cell result does not promote the technical `0.22.3`/`0.23.3` coordinates
 into a release decision or alter the independent F6 sign-off. Windows passed
 the core installation gate but remains experimental as a product-support
