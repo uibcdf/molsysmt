@@ -53,10 +53,20 @@ def test_file_h5msm():
     assert output == "file:h5msm"
 
 
-def test_bundled_path_is_detected_and_converted_on_native_platform():
-    file_path = systems["benzamidine"]["benzamidine.pdb"]
+@pytest.mark.parametrize(
+    ("system_name", "filename", "form"),
+    [
+        ("benzamidine", "benzamidine.pdb", "file:pdb"),
+        ("alanine dipeptide", "alanine_dipeptide.h5msm", "file:h5msm"),
+        ("chicken villin HP35", "1vii.bcif.gz", "file:bcif.gz"),
+    ],
+)
+def test_bundled_path_is_detected_and_converted_on_native_platform(
+    system_name, filename, form
+):
+    file_path = systems[system_name][filename]
     assert isinstance(file_path, Path)
-    assert msm.get_form(file_path) == "file:pdb"
+    assert msm.get_form(file_path) == form
     molsys = msm.convert(file_path, to_form="molsysmt.MolSys")
     assert msm.get(molsys, n_atoms=True) > 0
 

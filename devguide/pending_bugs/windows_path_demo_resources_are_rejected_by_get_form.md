@@ -58,8 +58,9 @@ optional viewer backend mandatory.
   collected the Viewer suite, then reported `NotSupportedFormError` for
   `pathlib.WindowsPath` from `molsysmt/basic/get_form.py:198` across grouped
   setup and call failures.
-- Measured: the focused native-path detection/conversion test passes on
-  Linux/Python 3.14.7 after the source change.
+- Measured: the focused native-path detection/conversion guard passes for
+  PDB, H5MSM, and compressed BCIF on Linux/Python 3.14.7 after the source
+  change.
 - Not yet measured: the fix running on Windows. The result must come from
   a workflow that pins the corrected MolSysMT commit.
 
