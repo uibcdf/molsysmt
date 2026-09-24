@@ -36,6 +36,15 @@ The record step now uses the action-provided `MAMBA_EXE` to export the
 named environment explicitly. The validator can now select one native
 platform for a focused three-interpreter rerun before allocating the full
 15-cell gate; the default remains all five platforms.
+Focused ARM run `35963306739` then passed its preparation and all three
+Python jobs. Its three environment artifacts were uploaded. A downloaded
+Python 3.13 record contains `@EXPLICIT`, `# platform: linux-aarch64`,
+Viewer `0.23.1-py_1` and MolSysMT `0.22.0-pyabi3*_4` URLs from the staging
+label. GH Run Receptor currently reports that successful targeted run as
+failed because the repository rule still expects all five platforms; this
+tool limitation is tracked as uibcdf/gh-run-receptor#54. The GitHub run
+conclusion and job conclusions are all successful. Keep the five-platform
+expectation for the final full-matrix gate.
 
 The three Windows cells reached validation but failed importing
 `molsysmt.configure` because `os.sysconf` is unavailable. This source defect
@@ -44,6 +53,14 @@ covering both POSIX and Windows memory discovery. No Windows functional
 success is claimed from run `35961600369`. The source fix requires an
 additive ABI3 build 5; the public release path is reserved as build 6.
 Neither the old build nor Viewer build 1 is to be overwritten.
+Targeted producer run `35963198451` subsequently succeeded from exact
+candidate `ec5cbd41bf121f595fbb88e16f9aa9f3728581ea`. An independent
+Anaconda inventory found `win-64/molsysmt-0.22.0-pyabi3h2d2bc06_5.conda`
+with the `staging` label. Windows installed-pair run `35964451004` passed
+all three Python 3.11--3.13 jobs against Viewer build 1, including BCIF,
+PDB-text, Viewer and explicit-environment checks. The Windows import defect
+is resolved as uibcdf/molsysmt#239. The remaining task is to publish build
+5 on the other four native platforms and repeat the full 15-cell gate.
 
 ## Coordination checkpoint — 2026-09-23
 

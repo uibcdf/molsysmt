@@ -1,13 +1,13 @@
 ---
 summary: Windows import of molsysmt.configure fails because os.sysconf is unavailable
 issue: uibcdf/molsysmt#239
-status: active
+status: resolved
 opened: 2026-09-24
-closed:
+closed: 2026-09-24
 severity: high
 verification: reproduced
 area: [config, build]
-guard:
+guard: tests/test_configure.py::TestConfigVariables::test_physical_memory_uses_windows_api_without_sysconf
 normative:
 blocked_by: []
 supersedes: []
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-09-24, during the exact staged-pair gate for
 uibcdf/molsysmt#195.
-**Status:** active. The source correction and local regression tests pass;
-the corrected staged Windows artifact has not yet passed the installed-pair gate.
+**Status:** resolved. The source correction, local regression tests and the
+corrected staged Windows installed-pair gate all pass.
 
 ## What
 
@@ -56,8 +56,12 @@ Python 3.13 traceback names `configure/__init__.py` and `os.sysconf`.
 The local regression tests simulate both the POSIX and Windows branches
 without depending on host OS.
 
-**Pending:** hosted verification that the new native Windows package
-contains this correction and passes BCIF, PDB-text and Viewer checks.
+**Measured:** targeted producer run `35963198451` published the additive
+Windows ABI3 build 5 from commit `ec5cbd41bf121f595fbb88e16f9aa9f3728581ea`.
+An independent channel inventory confirmed its staging label. Exact-pair
+run `35964451004` then passed all three Windows Python jobs, including BCIF,
+PDB-text, Viewer and explicit-environment checks; each job uploaded its
+environment record.
 
 ## What was refuted
 
@@ -78,6 +82,11 @@ uibcdf/molsysmt#195.
 2. POSIX retains the existing physical-memory budget semantics.
 3. Regression tests cover both paths and the Windows API failure.
 4. A clean installed staged pair passes the Windows cells of the exact-pair gate.
+
+All four criteria are met. The guard named in front matter simulates the
+Windows API without `os.sysconf` and fails if the POSIX-only import path
+returns. The complementary POSIX and failure-path tests live in the same
+module.
 
 ## Provenance
 
