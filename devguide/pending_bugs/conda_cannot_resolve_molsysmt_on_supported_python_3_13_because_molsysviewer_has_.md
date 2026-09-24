@@ -86,6 +86,18 @@ all three Python 3.11--3.13 jobs against Viewer build 1, including BCIF,
 PDB-text, Viewer and explicit-environment checks. The Windows import defect
 is resolved as uibcdf/molsysmt#239. The remaining task is to publish build
 5 on the other four native platforms and repeat the full 15-cell gate.
+Four targeted producer runs from the same exact candidate have been
+dispatched without overwriting Windows: Linux x86-64 `35965011123`, Linux
+ARM `35965011690`, macOS Intel `35965011548`, and macOS ARM `35965011458`.
+All four concluded successfully, and GH Run Receptor found one successful
+producer upload and one artifact in each. An independent Anaconda inventory
+found exactly the five expected ABI3 build-5 archives, one per native
+platform, all labeled `staging`. Full exact-pair run `35967239820` then
+passed its preparation and all 15 installation/validation jobs. GH Run
+Receptor reports `PASS`, five of five native platforms, 16 of 16 jobs and
+15 environment artifacts. This completes the staged-pair acceptance gate
+for 3.11--3.13, but is not evidence of publication on the main channel or
+of Python 3.14 support.
 
 ## Coordination checkpoint — 2026-09-23
 
