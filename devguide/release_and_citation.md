@@ -87,8 +87,10 @@ After the exact candidate passes every gate:
 
 1. create and push the version tag on that exact commit;
 2. publish the GitHub Release for that tag;
-3. allow the enabled Zenodo integration to ingest it;
-4. verify the new record:
+3. complete the selected Conda route: a staged version promotes the exact
+   SHA-256-verified ABI3 files instead of rebuilding them, while a direct
+   release is allowed only after an empty-version registry preflight;
+4. allow the enabled Zenodo integration to ingest it and verify the new record:
 
    ```bash
    python devtools/scripts/verify_zenodo_release.py 1.0.0

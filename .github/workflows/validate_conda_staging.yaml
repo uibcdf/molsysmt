@@ -1,4 +1,5 @@
 name: Validate conda staging
+run-name: MT ${{ inputs.molsysmt_version }} build ${{ inputs.molsysmt_build_number }} + Viewer ${{ inputs.molsysviewer_version }} build ${{ inputs.molsysviewer_build_number }} | Python ${{ inputs.python_max }} | ${{ inputs.target }}
 
 on:
   workflow_dispatch:
@@ -6,26 +7,27 @@ on:
       molsysmt_version:
         description: MolSysMT version already present in the staging label
         required: true
-        default: 0.22.0
+        default: 0.22.4
         type: string
       molsysviewer_version:
         description: MolSysViewer version already present in the staging label
         required: true
+        default: 0.23.4
         type: string
       molsysmt_build_number:
         description: Exact MolSysMT ABI3 staging build number
         required: true
-        default: 5
+        default: 0
         type: number
       molsysviewer_build_number:
         description: Exact MolSysViewer noarch staging build number
         required: true
-        default: 1
+        default: 0
         type: number
       python_max:
         description: Highest Python minor to validate
         required: true
-        default: '3.13'
+        default: '3.14'
         type: choice
         options:
           - '3.13'

@@ -724,6 +724,24 @@ into a release decision or alter the independent F6 sign-off. Windows passed
 the core installation gate but remains experimental as a product-support
 platform; optional Qt-host coverage has its own boundary.
 
+### Next immutable candidate — 2026-09-24
+
+The `python-3.14-support` branches now include the latest `main` commits of
+both repositories. Select fresh coordinates MolSysMT `0.22.4` ABI3 build 0
+and MolSysViewer `0.23.4` noarch build 0: neither version existed in the
+Anaconda release registry (HTTP 404 for both), so the older technical staged
+files are not repurposed. The committed route plans select staging. Release
+events for these versions will not rebuild the files; exact SHA-256 promotion
+to `main` has its own workflow and requires a successful full 20-cell pair
+run. The five-platform promotion has not yet been exercised on GitHub.
+
+MolSysViewer's prior 7/7 staged CI run pinned MolSysMT `0.22.0`, not the
+newer technical `0.22.3` or this planned `0.22.4` candidate. Its three
+manual hosted gates now take an explicit MolSysMT version input; they must be
+rerun against `0.22.4` after its staging build. No package for `0.22.4` or
+`0.23.4` has been uploaded yet, and the hosted E2E PNG timeout remains a
+separate release-policy question under uibcdf/molsysviewer#100.
+
 ## Segment F — Lifecycle and Release Candidate
 
 | Stage | Weight | Status | Earned |

@@ -8,6 +8,11 @@ name: CI full
 
 on:
   workflow_dispatch:
+    inputs:
+      molsysviewer_sha:
+        description: Full MolSysViewer candidate commit SHA to test against
+        required: true
+        type: string
 
 jobs:
   controlled-molsysviewer:
@@ -20,10 +25,19 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Require an exact MolSysViewer commit
+        shell: bash
+        env:
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha }}
+        run: |
+          [[ "$MOLSYSVIEWER_SHA" =~ ^[0-9a-f]{40}$ ]]
+
       - name: Build the exact portable MolSysViewer dependency
+        env:
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha }}
         run: >-
           python -m pip wheel --no-deps
-          git+https://github.com/uibcdf/molsysviewer@7a1522662e30575caf580a9447e3e6d80b628e07
+          git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA
           --wheel-dir controlled-wheelhouse
 
       - name: Require one platform-independent wheel

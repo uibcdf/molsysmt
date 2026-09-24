@@ -12,7 +12,7 @@ on:
       version:
         description: Candidate version (for example, 0.22.0)
         required: true
-        default: 0.22.0
+        default: 0.22.4
         type: string
       target:
         description: Native platform to build, or all platforms
@@ -29,7 +29,7 @@ on:
       build_number:
         description: Staging build number; increment only to supersede a defective artifact
         required: true
-        default: 5
+        default: 0
         type: number
 
 permissions:
@@ -41,6 +41,7 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.candidate.outputs.matrix }}
+      route: ${{ steps.route.outputs.route }}
     steps:
       - name: Validate staging inputs or the release tag
         id: candidate
@@ -81,6 +82,21 @@ jobs:
           persist-credentials: false
           ref: ${{ inputs.candidate_sha || github.event.release.tag_name }}
 
+      - name: Set up Python for route validation
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Select the committed Conda release route
+        id: route
+        shell: bash
+        env:
+          RELEASE_VERSION: ${{ inputs.version || github.event.release.tag_name }}
+        run: |
+          python devtools/conda-build/release_route.py \
+            --version "$RELEASE_VERSION" --event "$GITHUB_EVENT_NAME" \
+            --github-output "$GITHUB_OUTPUT"
+
   build-and-publish:
     name: ${{ matrix.target.platform }} · one ABI3 artifact
     needs: prepare
@@ -108,7 +124,8 @@ jobs:
           test "$(git rev-parse HEAD)" = "$CANDIDATE_SHA"
           git tag "$RELEASE_VERSION" HEAD
 
-      - name: Set up the conda build environment
+      - name: Set up the staging build environment
+        if: github.event_name == 'workflow_dispatch'
         uses: mamba-org/setup-micromamba@v3.2.1
         with:
           environment-file: devtools/conda-envs/build_env.yaml
@@ -123,7 +140,23 @@ jobs:
           create-args: >-
             python=3.13
 
+      - name: Set up the direct public build environment
+        if: github.event_name == 'release' && needs.prepare.outputs.route == 'direct'
+        uses: mamba-org/setup-micromamba@v3.2.1
+        with:
+          environment-file: devtools/conda-envs/build_env.yaml
+          environment-name: build
+          condarc: |
+            channels:
+              - uibcdf
+              - conda-forge
+              - ambermd
+            channel_priority: strict
+          create-args: >-
+            python=3.13
+
       - name: Verify the derived package version
+        if: github.event_name == 'workflow_dispatch' || needs.prepare.outputs.route == 'direct'
         shell: bash -el {0}
         env:
           EXPECTED_VERSION: ${{ inputs.version || github.event.release.tag_name }}
@@ -148,13 +181,13 @@ jobs:
             --no-test
             --exclusive-config-file conda_build_config_abi3.yaml
 
-      - name: Build, test, and publish the release platform
+      - name: Build, test, and publish an unstaged release platform
         id: conda_release
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && needs.prepare.outputs.route == 'direct'
         uses: uibcdf/action-build-and-upload-conda-packages@v2.1.0
         env:
           MOLSYSMT_CONDA_ABI3: "true"
-          MOLSYSMT_CONDA_BUILD_NUMBER: 6
+          MOLSYSMT_CONDA_BUILD_NUMBER: 0
         with:
           meta_yaml_dir: devtools/conda-build
           user: uibcdf
@@ -164,6 +197,13 @@ jobs:
           conda_build_args: >-
             --package-format .conda
             --exclusive-config-file conda_build_config_abi3.yaml
+
+      - name: Report the staged-release promotion boundary
+        if: github.event_name == 'release' && needs.prepare.outputs.route == 'staged'
+        shell: bash
+        run: |
+          echo '::notice::This version was staged; no package is rebuilt or uploaded by the Release event.'
+          echo 'Promote the exact five digest-verified ABI3 files through the separate promotion route.' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload staging producer evidence
         if: ${{ always() && steps.conda_staging.outputs.evidence_path != '' }}

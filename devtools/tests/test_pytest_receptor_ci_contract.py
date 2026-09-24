@@ -52,7 +52,11 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
         assert "python -m pip install --editable . --no-deps" in text
         assert "from argdigest import Domain, UnknownArgumentError" in text
         assert "PYTHONPATH" not in text
-        assert "7a1522662e30575caf580a9447e3e6d80b628e07" in text
+        if workflow.name == "ci-full.yaml":
+            assert "inputs.molsysviewer_sha" in text
+            assert "^[0-9a-f]{40}$" in text
+        else:
+            assert "7a1522662e30575caf580a9447e3e6d80b628e07" in text
 
     full_text = WORKFLOWS[0].read_text(encoding="utf-8")
     assert "controlled-molsysviewer-wheel" in full_text

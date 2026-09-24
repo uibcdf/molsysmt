@@ -97,16 +97,22 @@ Do not substitute a partial or single-platform run.
   installable. Query the published channel records and inspect the runtime constraints
   for the one ABI3 artifact on every native platform. Each artifact must use the
   `pyabi3` build string, retain its native subdirectory with CEP 20's `noarch: python`
-  relocation marker, declare `python >=3.11,<3.14`, and carry the `cpython >=3.11` and
+  relocation marker, declare `python >=3.11,<3.15`, and carry the `cpython >=3.11` and
   `_python_abi3_support` requirements without an exact `python_abi` constraint.
 - `validate_conda_staging.yaml` must install the exact coordinated MolSysMT/MolSysViewer
   versions with normal CPython on all five native platforms crossed with Python
-  3.11--3.13. All three runtime cells for a platform must resolve the same MolSysMT
+  3.11--3.14 for the Python 3.14 candidate. All four runtime cells for a platform
+  must resolve the same MolSysMT
   artifact. The installed version, provenance, native extension, declared py-mmcif
   runtime, offline bundled-BCIF conversion and Viewer resources must pass before the
   release artifacts are published to `main`.
 - A corrective staging build must increment the build number instead of overwriting the
-  defective coordinate. The final release uses a distinct later build number.
+  defective coordinate. A staged release promotes those exact digest-verified bytes to
+  `main`; the GitHub Release event must not rebuild or upload another file for that
+  version. The committed `devtools/conda-build/release_plan.toml` selects the route;
+  a direct release is permitted only when the registry confirms the version is absent
+  under every label. The manual promotion workflow retains a receipt for each native
+  artifact and verifies the public record independently.
 
 ## 5. Documentation build
 
@@ -121,12 +127,17 @@ Do not substitute a partial or single-platform run.
 - [ ] Registered scientific evidence execution → every cited node passes with zero
       skips and its JSON certificate identifies the tag candidate.
 - [ ] `ruff check molsysmt` → clean.
-- [ ] `ci-full.yaml` (or candidate-pinned `ci-weekly.yaml`) → green on all 6 combos.
+- [ ] `ci-full.yaml` → green on all six Python 3.11--3.13 Linux/macOS
+      combinations, with its manual input naming the exact MolSysViewer
+      candidate SHA. The separate Python 3.14 source-pair gate and the 20-cell
+      installed Conda pair must also pass before claiming 3.14 support.
 - [ ] `ci-rust-wheels.yaml` → supported Linux/macOS jobs green; Windows result recorded
       as experimental evidence and not treated as a release blocker.
 - [ ] Native Conda channel metadata contains exactly one intended ABI3 artifact per
       platform, and those five exact artifacts install with the staged
-      MolSysMT/MolSysViewer pair in all 15 runtime cells.
+      MolSysMT/MolSysViewer pair in all 20 Python 3.11--3.14 runtime cells when
+      3.14 is claimed. Retain the full-matrix run ID and SHA-256 coordinates for
+      exact-file promotion.
 - [ ] Docs build → green, course toctree warning-clean.
 - [ ] No open **blocker** in `pending_bugs/`; open items are accepted debt or post-1.0.
 - [ ] **Citation metadata prepared for the tag.** `CITATION.cff` carries the stable
