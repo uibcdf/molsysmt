@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-09-19
+**Last updated:** 2026-09-24
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -86,9 +86,10 @@ and do not merge it across an unmet integration dependency.
   then require the post-release Zenodo verifier to find a distinct 1.0.0 DOI inside
   concept family `10.5281/zenodo.1298752`. A tag alone does not close F6
 - **Parallel packaging action:** Segment C is closed, and installed-wheel
-  validation with it, so the only packaging work left is the Conda delivery
-  track — coordinate sibling and MolSysMT Conda publication during manuscript
-  writing or review
+  validation with it. The Conda delivery track has now passed a separate
+  20-cell, five-platform staging installed-pair milestone with MolSysViewer
+  across Python 3.11–3.14; final release-candidate and public-channel gates
+  remain. This does not recertify F5/F6 or change the 99% weighted measure
 - **Parallel documentation and paper action:** with A–E and F1–F5 closed, the
   presentation surface, the documentation and the methods paper are a principal
   parallel workstream rather than a finishing touch. The framing and factual
@@ -651,10 +652,29 @@ This track is required before claiming a validated package is available from
 the `uibcdf` Conda channel, but it is not part of the technical critical path
 for the 1.0 source/tag, scientific validation, or manuscript:
 
-1. publish compatible sibling versions for Python 3.11–3.13;
-2. update and test the MolSysMT recipe with the Rust toolchain and runtime pins;
-3. build MolSysMT for the supported Conda platform/Python matrix;
-4. verify a clean channel-only installation with no checkout leakage.
+1. Resolve the lower dependency chain for Python 3.11–3.14: demonstrated for
+   the technical staging candidates, not yet a final release freeze.
+2. Build and test an exact MolSysMT ABI3 package on each of five native Conda
+   platforms, alongside the MolSysViewer noarch package: **done in staging**
+   for technical coordinates MolSysMT `0.22.3` build 0 and MolSysViewer
+   `0.23.3` build 0, from pinned source commits.
+3. Install that exact pair from staging in fresh Python 3.11–3.14 environments
+   without checkout leakage: **20/20 cells passed** on 2026-09-24 in five
+   platform-targeted runs. Each cell verified package versions, staging
+   URL/SHA-256 provenance, native code, BCIF/PDB-text conversion, and Viewer
+   loading/resources. See [the Python 3.14 paired checkpoint](python_3_14_checkpoint.md)
+   for the source/artifact hashes and run IDs. This is a major intermediate
+   1.0 distribution milestone, not a public release or a full product gate.
+4. Still open: choose final coordinated release coordinates and resolve the
+   earlier 3.11–3.13 candidate path explicitly; run the exact-commit scientific,
+   Viewer, documentation, Qt-where-claimed, and release gates; publish both
+   packages without a dependency-cycle exception; verify fresh installations
+   from the **public** channel and the resulting release/archival records.
+
+The 20-cell result does not promote the technical `0.22.3`/`0.23.3` coordinates
+into a release decision or alter the independent F6 sign-off. Windows passed
+the core installation gate but remains experimental as a product-support
+platform; optional Qt-host coverage has its own boundary.
 
 ## Segment F — Lifecycle and Release Candidate
 
