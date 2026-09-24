@@ -16,7 +16,7 @@ packages.
 
 | Boundary | Evidence available | Still missing |
 | --- | --- | --- |
-| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. An exact local ABI3 Conda candidate also passes the clean installed-pair validator. | Full scientific/source suite with representative optional backends; staged and cross-platform installed matrices. |
+| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. A dependency-rich source-pair environment additionally passed 99 scientific-truth cases, 865 basic cases, 475 focused form/validation cases, and 39 OpenMM cases; these selections overlap and must not be summed. An exact local ABI3 Conda candidate also passes the clean installed-pair validator. | Complete source suite in a metadata-consistent environment; staged and cross-platform installed matrices. |
 | MolSysViewer core on 3.14 | The paired full Python source suite and installed MolSysMT native-path guard passed on hosted Linux, macOS, and Windows in run `35975122014`; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-pair and installed-package gates on each claimed platform; an installed-test harness that does not inject source packages. |
 | UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes now passed package tests and clean five-package installations on Python 3.12–3.14; Qt Positioning/WebEngine native packages were reused across minors. The 3.14 packages also passed real Viewer Qt integration and full-render tests. No canonical PySide6 was installed. | Build the revised recipes for 3.11; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
 | Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
@@ -50,6 +50,86 @@ MolSysMT `86dcb5d078d8cbb45c38500e452944811fc5a5bc` and MolSysViewer
 guard and full Viewer Python suite. This closes the source-pair Windows
 compatibility defect, but it is not a staged-channel installation or an
 optional Qt-host test on Windows.
+
+## Dependency-rich Python 3.14 source checks
+
+On 2026-09-24, a bounded 12-worker `tests/` attempt in the lean Python 3.14
+environment stopped after 307 seconds with 1,795 passed, 138 failed, 28
+errors, and 19 skipped. It executed only 1,980 of 10,058 selected cases;
+pytest-xdist overshot `--maxfail=20` while workers were active. The largest
+groups involved absent optional MDAnalysis, OpenMM, Biopython, NGLView,
+PDBFixer, or OpenFF, and PDB-ID downloads failed because that sandbox had no
+network. This diagnostic run is not a MolSysMT full-suite result and must not
+be cited as a Python 3.14 regression count.
+
+A separate disposable environment under `build/py314-scientific-test` resolved
+Python 3.14.7 with conda-forge AmberTools 26.0, OpenMM 8.6.1, MDAnalysis
+2.10.0, Biopython 1.88, OpenFF Toolkit, NGLView, PDBFixer, and py-mmcif 1.1.1.
+ArgDigest 0.13.0, DepDigest 0.11.0, PyUnitWizard 0.26.0, and SMonitor 0.16.0
+came from `uibcdf`. The exact source branches built and installed as wheel
+versions MolSysMT `0.21.0+724.gf26727c63` and MolSysViewer
+`0.23.0+107.g0693bfd4`; the former's installed Rust validator passed all 99
+exports. With 12 pytest workers and `--receptor=llm`, 39 OpenMM-dependent
+focused cases, 475 form/validation cases, 865 `tests/basic` cases excluding
+PDB-ID names, and 99 `tests/scientific_truth` cases excluding the `heavy`
+marker passed. The groups overlap. This supports source compatibility on
+Linux; it neither completes the full suite nor establishes a resolver-clean
+Conda release pair.
+
+The environment is not yet metadata-consistent: `pip check` reports the known
+development-version mismatch (Viewer requires `molsysmt>=0.22.0`) and
+requirements embedded in AmberTools' bundled Python packages. Specifically,
+`ndfes`, `fetkutils`, and `edgembar` 3.6.5 require NumPy `<2`; `proprep`
+1.0.0 requires NumPy `<2`, Biopython `<1.86`, and `pdb2pqr`, while
+`packmol-memgen` also requires absent `pdb2pqr`. The Conda AmberTools 26.0
+record itself allows NumPy `<3` and owns those bundled `egg-info` files,
+so the Conda solve alone does not detect their narrower Python metadata.
+The actual `tleap` executable accepted a minimal `quit` script and exited
+with zero errors and warnings. More importantly, the installed MolSysMT wheel
+called `build_peptide("GG")` through its default LEaP engine, using this exact
+environment's `tleap` executable, and returned 14 atoms in two groups. This
+validates that user path for a small peptide on Linux/Python 3.14, not every
+AmberTools subprogram or a clean `pip check`.
+
+AmberTools is **not a hard MolSysMT runtime dependency**: the package's Python
+and Conda runtime requirements do not contain it. It is an optional external
+tool used by the `tLeap` path and is included in development/test environment
+specifications. However, public `build_peptide()` still defaults to
+`engine="LEaP"`; without the optional executable that default path raises
+an actionable `RuntimeError`. The explicit `engine="MolSysMT"` alternative
+also built `"GG"` successfully with `TLEAP_BIN` pointing to a nonexistent
+executable; it avoids AmberTools but still needs Biopython for this sequence
+conversion. Do not claim that LEaP is broken on Python 3.14 or
+change the default engine without separate behavioral and scientific review.
+On 2026-09-24, [conda-forge AmberTools
+files](https://anaconda.org/conda-forge/ambertools/files) showed 26.0 builds
+for Python 3.14 on Linux and macOS, but not Windows. The
+[feedstock recipe](https://github.com/conda-forge/ambertools-feedstock/blob/main/recipe/meta.yaml)
+documents its Python 3.14 patches and the lack of a Windows build. An
+optional AmberTools lane must remain separate from claims about the
+MolSysMT core on Windows.
+
+## Developer environment and storage follow-up
+
+`devtools/conda-envs/development_env.yaml` still pins Python 3.13 and asks for
+the published MolSysViewer package, whose current release metadata excludes
+3.14. Therefore a named `molsyssuite@uibcdf_3.14` environment should not be
+created by merely changing that one Python pin: it needs an explicit decision
+between an exact source-pair development installation and a future published
+3.14 pair. Do not downgrade NumPy or Biopython merely to satisfy metadata of
+AmberTools' bundled ancillary tools. Prefer a metadata-consistent default
+development environment without AmberTools, with an opt-in LEaP/AmberTools
+test lane and a dated compatibility note. If LEaP itself becomes unusable on
+3.14, report that specific capability as unavailable without blocking core
+MolSysMT support; its present small-peptide smoke passes.
+The disposable scientific environment occupies about 3.7 GiB. The home
+filesystem has sufficient space, so there is no reason to delete shared Conda
+caches merely to make room for this test. `conda clean --tarballs --dry-run`,
+`--packages --dry-run`, and `--index-cache --dry-run` reported no candidates
+for the active Conda installation. Do not use `--force-pkgs-dirs`: it can break
+environments linked to a package cache. Inventory named environments and
+cache ownership before any targeted cleanup; no Conda packages or environments
+were deleted during this checkpoint.
 
 The revised Linux/Python 3.12 binding artifacts have SHA-256 values
 `1faa8deecc53c65b0275c4716e27e50286f6ab5e6ca69f740e979085af8a5887`

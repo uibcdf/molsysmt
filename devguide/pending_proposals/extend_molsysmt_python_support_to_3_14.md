@@ -173,6 +173,24 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   hashes and the installed-test-harness limitation are recorded in the
   [paired-support checkpoint](../python_3_14_checkpoint.md). These are local
   solver and package results, not remote staging or release candidates.
+- On 2026-09-24, a bounded 12-worker lean-environment run of `tests/`
+  executed only 1,980 of 10,058 selected cases before stopping after 307
+  seconds (1,795 passed, 138 failed, 28 errors, 19 skipped). Most grouped
+  failures involved absent optional scientific backends or blocked PDB-ID
+  downloads; these counts are diagnostic, not a Python 3.14 regression
+  baseline. A dependency-rich Linux/Python 3.14.7 source-pair environment
+  then passed 39 focused OpenMM cases, 475 form/validation cases, 865 basic
+  cases excluding PDB-ID names, and 99 scientific-truth cases excluding the
+  `heavy` marker, all with 12 workers and pytest-receptor. These overlapping
+  selections do not replace the complete source suite. Its installed
+  MolSysMT wheel passed the 99-export Rust validator. AmberTools 26.0 also
+  ran the default `build_peptide("GG")` LEaP route successfully, but bundled
+  ancillary package metadata conflicts with NumPy 2.4.6 and Biopython 1.88.
+  `pip check` additionally reports the known source-version mismatch between
+  Viewer and MolSysMT. The [paired-support
+  checkpoint](../python_3_14_checkpoint.md) records the failure
+  classification and the plan for a default 3.14 developer environment
+  without AmberTools rather than downgrading scientific dependencies.
 
 ## What was refuted
 
