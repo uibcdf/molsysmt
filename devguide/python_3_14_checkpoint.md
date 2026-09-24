@@ -274,8 +274,9 @@ Its build and recipe test passed; the channel reports
 `7b24b77b5bdd3dfa6cb8a7691bc23680056039dc92f05ddb8f43a60edc6993c9`.
 These are technical staging candidates, not Git tags, public releases, or
 release-version decisions. An exact Linux/Python 3.14 dry-run resolved both
-coordinates from `uibcdf/label/staging`, but no fresh installed-pair cell has
-passed yet and MolSysMT has not been staged on the other native platforms.
+coordinates from `uibcdf/label/staging`. At that initial point, no fresh
+installed-pair cell had passed and MolSysMT had not been staged on the other
+native platforms.
 
 The hosted installed-pair workflow now offers a separate `python_max=3.14`
 selection while retaining 3.13 as the historical default. Its validator
@@ -326,6 +327,21 @@ reports only that the other four platforms were not included in that run.
 The staging candidate now has 16 successful installed cells across four
 native platforms. macOS Intel's ABI3 build and its installed matrix remain
 unverified; this is not yet the five-platform gate.
+
+macOS Intel producer run `35992423543` subsequently succeeded from the same
+pinned MolSysMT source. The staging channel independently reports
+`osx-64/molsysmt-0.22.3-pyabi3h3d50071_0.conda` with SHA-256
+`61c0b2868ebfda386224c2afba8ef28be35da4f01429fecf1d597053b36b88da`.
+Targeted installed-pair run `35995465959` passed Python 3.11–3.14 in all
+four jobs and retained four explicit environment records. Thus the exact
+staging pair has passed 20/20 installed cells across all five native
+platforms, in five platform-targeted runs. Each cell checked package version
+and staging URL/hash provenance, MolSysMT's ABI3 path, BCIF and PDB-text
+conversion, and Viewer loading/resources. This is a staging installed-pair
+gate, not a single combined workflow run, a public-channel installation,
+or a full Qt/scientific test-suite claim. GH Run Receptor's current
+all-platform profile does not aggregate the five targeted successes
+(`uibcdf/gh-run-receptor#54`); GitHub reports each run successful.
 
 ## Next gates in order
 
