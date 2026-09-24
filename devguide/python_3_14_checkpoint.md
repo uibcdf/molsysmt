@@ -28,12 +28,16 @@ cell therefore needs its own tested Shiboken, Essentials, and Addons artifact
 unless a separately validated ABI3 packaging contract replaces this one.
 
 On 2026-09-24, a lean Python 3.14 source-tree collection was advanced past
-NGLView, Biopython, and OpenFF-only tests by making their optional-backend
-skips explicit. A new distribution test protects NGLView's soft-only status;
-MolSysViewer's own runtime manifest guard protects the same boundary. The
-source-tree Rust extension built locally. Collection still reaches tests that
-need optional OpenMM, so no full MolSysMT suite result is claimed from this
-minimal environment.
+NGLView, Biopython, OpenFF, and OpenMM-only tests by making their
+optional-backend skips explicit. A new distribution test protects NGLView's
+soft-only status; MolSysViewer's runtime manifest guard protects the same
+boundary. The source-tree Rust extension built locally. Full `tests/`
+collection now exits successfully with pytest-receptor reporting 10,084
+collected cases and 40 deselections. Focused non-OpenMM mass/charge cases
+passed with 12 workers (2 passed, 5 function-level skips); the OpenMM-only
+modules skip when that backend is absent. The real imports still run when
+OpenMM is installed, so a broken installed backend is not hidden. This is
+collection hygiene, not a full MolSysMT suite or scientific result.
 
 The first hosted three-platform Viewer source-pair attempt passed Linux and
 macOS but exposed `uibcdf/molsysmt#241` on Windows: native `WindowsPath`

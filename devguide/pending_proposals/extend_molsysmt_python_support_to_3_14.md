@@ -140,8 +140,13 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   backend-specific cases when that backend is absent. Manifest guards confirm
   that NGLView remains in the `soft` extra, not in either Python or Conda
   runtime requirements; MolSysViewer also does not require it. The local
-  Python 3.14 source extension builds, but the lean suite still reaches an
-  OpenMM-dependent test without OpenMM installed. This is collection hygiene,
+  Python 3.14 source extension builds. A follow-up isolated OpenMM-dependent
+  test modules and preserved the non-OpenMM mass/charge tests in mixed modules.
+  Full `tests/` collection now exits 0 in the lean Python 3.14 environment;
+  pytest-receptor reports 10,084 collected cases and 40 deselections. Focused
+  execution with 12 workers yielded 2 passed and 5 OpenMM-only function skips.
+  The real OpenMM import remains active when the backend is installed, so a
+  broken installation is not silently skipped. This is collection hygiene,
   not full scientific coverage or a reason to make optional backends hard
   dependencies.
 - MolSysViewer's later three-platform source-pair run `35970837689` passed

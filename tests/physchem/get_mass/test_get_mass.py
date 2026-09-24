@@ -1,10 +1,16 @@
 """ """
 
 # Import package, test suite, and other packages as needed
-from openmm import app
+from importlib.util import find_spec
+
+import pytest
 
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
+
+openmm_only = pytest.mark.skipif(
+    find_spec("openmm") is None, reason="OpenMM is an optional backend"
+)
 
 # Distance between atoms in space and time
 
@@ -51,6 +57,7 @@ def test_get_mass_1():
     assert puw.are_close(mass_system, puw.quantity(19463.62, "dalton"))
 
 
+@openmm_only
 def test_get_mass_2():
 
     molsys = msm.systems["Trp-Cage"]["1l2y.h5msm"]
@@ -107,7 +114,10 @@ def test_get_mass_2():
     assert puw.are_close(mass_system, puw.quantity(2170.4134, "dalton"))
 
 
+@openmm_only
 def test_get_mass_3():
+
+    from openmm import app
 
     molsys = msm.systems["Trp-Cage"]["1l2y.h5msm"]
     openmm_topology = msm.convert(molsys, to_form="openmm.Topology")

@@ -1,12 +1,17 @@
 """ """
 
 # Import package, test suite, and other packages as needed
+from importlib.util import find_spec
+
 import numpy as np
-import openmm as mm
-from openmm import app, unit
+import pytest
 
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
+
+openmm_only = pytest.mark.skipif(
+    find_spec("openmm") is None, reason="OpenMM is an optional backend"
+)
 
 
 def test_get_charge_from_molsysmt_MolSys_1():
@@ -194,6 +199,7 @@ def test_get_charge_from_molsysmt_MolSys_1():
     assert np.allclose(charge_system, good_charge_system)
 
 
+@openmm_only
 def test_get_charge_from_molsysmt_MolSys_2():
 
     molsys = msm.systems["Trp-Cage"]["1l2y.h5msm"]
@@ -256,7 +262,10 @@ def test_get_charge_from_molsysmt_MolSys_2():
     assert np.allclose(charge_system, good_charge_system)
 
 
+@openmm_only
 def test_get_charge_from_molsysmt_MolSys_3():
+
+    from openmm import app
 
     molsys = msm.systems["Trp-Cage"]["1l2y.h5msm"]
     openmm_topology = msm.convert(molsys, to_form="openmm.Topology")
@@ -295,7 +304,11 @@ def test_get_charge_from_molsysmt_MolSys_3():
     assert np.allclose(charge_system, good_charge_system)
 
 
+@openmm_only
 def test_get_charge_from_molsysmt_MolSys_4():
+
+    import openmm as mm
+    from openmm import app, unit
 
     molsys = msm.systems["Trp-Cage"]["1l2y.h5msm"]
     openmm_topology = msm.convert(molsys, to_form="openmm.Topology")
