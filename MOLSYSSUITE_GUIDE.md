@@ -28,7 +28,7 @@ A MolSysSuite member therefore follows, as applicable: **MOLI engineering govern
 
 The effective engineering-governance snapshot is MOLI
 `6a91433bd38582980d0781474be6a80c58f48886` plus MolSysSuite
-`policy-v1.4.10`, as recorded in `suite.toml`. Links to MOLI `main` show
+`policy-v1.4.11`, as recorded in `suite.toml`. Links to MOLI `main` show
 the latest upstream work, not the effective normative text.
 
 The wider platform architecture belongs to [MOLI Architecture 1.0](https://github.com/uibcdf/moli/blob/main/architecture_1.0/README.md), and the shared engineering baseline belongs to [MOLI governance](https://github.com/uibcdf/moli). MolSysSuite is a first-class MOLI component with delegated internal governance. MOLI describes MolSysSuite as
