@@ -18,8 +18,32 @@ supersedes: []
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
 **Status:** active. MolSysMT 0.22.0 build 4 and MolSysViewer 0.23.1 build 1
-are staged. One clean Linux/Python 3.13 installed-pair check passed; the full
-platform/interpreter matrix remains pending.
+are staged. The first exact 15-cell hosted gate exposed a Windows import
+defect and an environment-recording command unavailable on micromamba-only
+runners; a corrected build 5 and second gate are pending.
+
+## Coordination checkpoint — 2026-09-24
+
+Hosted exact-pair run `35961600369` pinned MolSysMT ABI3 build 4 and
+MolSysViewer noarch build 1 on all five platforms and Python 3.11--3.13.
+All 15 package installation steps succeeded. All Linux, ARM and macOS
+installed-pair validation steps succeeded (12 cells). Linux x86-64 then
+recorded all three explicit environment artifacts. On Linux ARM and both
+macOS architectures (nine cells), only the subsequent record step failed:
+`conda: command not found`. The workflow used `conda list --explicit`
+although `setup-micromamba` supplies micromamba, not Conda, on those runners.
+The record step now uses the action-provided `MAMBA_EXE` to export the
+named environment explicitly. The validator can now select one native
+platform for a focused three-interpreter rerun before allocating the full
+15-cell gate; the default remains all five platforms.
+
+The three Windows cells reached validation but failed importing
+`molsysmt.configure` because `os.sysconf` is unavailable. This source defect
+is tracked separately as uibcdf/molsysmt#239 and has a local regression
+covering both POSIX and Windows memory discovery. No Windows functional
+success is claimed from run `35961600369`. The source fix requires an
+additive ABI3 build 5; the public release path is reserved as build 6.
+Neither the old build nor Viewer build 1 is to be overwritten.
 
 ## Coordination checkpoint — 2026-09-23
 
@@ -281,8 +305,10 @@ tracked separately as uibcdf/molsysmt#193.
 ## Dependencies and risks
 
 MolSysViewer's separately owned staging step is complete for 0.23.1 build 1,
-and MolSysMT build 4 now contains the PDB fix. Resolution depends on the
-exact-pair validation across all claimed platform/interpreter cells.
+and MolSysMT build 4 contains the PDB fix. Windows additionally needs the
+portable memory-budget correction in build 5 (uibcdf/molsysmt#239).
+Resolution depends on exact-pair validation across all claimed
+platform/interpreter cells.
 Each repository continues to publish only its own artefact.
 
 ## Provenance

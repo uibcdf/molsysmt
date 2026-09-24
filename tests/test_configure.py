@@ -6,7 +6,12 @@ Coverage target: molsysmt/configure/__init__.py
                  molsysmt/configure/logging_setup.py (partially)
 """
 
+from types import SimpleNamespace
+
+import pytest
+
 import molsysmt.configure as config
+from molsysmt.configure import _memory
 
 # ---------------------------------------------------------------------------
 # Module-level variables — basic smoke checks
@@ -28,6 +33,47 @@ class TestConfigVariables:
 
     def test_max_ram_usage_positive(self):
         assert config.max_ram_usage > 0
+
+    def test_physical_memory_uses_sysconf_on_posix(self, monkeypatch):
+        monkeypatch.setattr(
+            _memory,
+            "os",
+            SimpleNamespace(
+                name="posix",
+                sysconf=lambda key: {"SC_PAGE_SIZE": 4096, "SC_PHYS_PAGES": 1000}[key],
+            ),
+        )
+        assert _memory.total_physical_memory_bytes() == 4_096_000
+
+    def test_physical_memory_uses_windows_api_without_sysconf(self, monkeypatch):
+        def global_memory_status_ex(pointer):
+            assert pointer._obj.dwLength == _memory.ctypes.sizeof(pointer._obj)
+            pointer._obj.ullTotalPhys = 8_000_000_000
+            return 1
+
+        monkeypatch.setattr(_memory, "os", SimpleNamespace(name="nt"))
+        monkeypatch.setattr(
+            _memory.ctypes,
+            "windll",
+            SimpleNamespace(
+                kernel32=SimpleNamespace(GlobalMemoryStatusEx=global_memory_status_ex)
+            ),
+            raising=False,
+        )
+        assert _memory.total_physical_memory_bytes() == 8_000_000_000
+
+    def test_physical_memory_reports_windows_api_failure(self, monkeypatch):
+        monkeypatch.setattr(_memory, "os", SimpleNamespace(name="nt"))
+        monkeypatch.setattr(
+            _memory.ctypes,
+            "windll",
+            SimpleNamespace(
+                kernel32=SimpleNamespace(GlobalMemoryStatusEx=lambda pointer: 0)
+            ),
+            raising=False,
+        )
+        with pytest.raises(OSError, match="GlobalMemoryStatusEx failed"):
+            _memory.total_physical_memory_bytes()
 
     def test_large_list_length_positive(self):
         assert config.large_list_length > 0
