@@ -309,6 +309,26 @@ Fast tracks do not make a user-facing boundary trusted. Preserve dimensionality,
 shape, dtype, and local exception validation unless the caller has already established
 those invariants.
 
+## Storing and exchanging quantities (provisional)
+
+When a quantity leaves your library, whether written to a file or database, sent to
+another tool, or passed to a frontend, its unit must leave with it, and the receiver
+must not have to assume one. Use the `"record"` form (`QuantityRecord`):
+
+```python
+record = puw.convert(q, to_form="record")                    # or QuantityRecord.from_quantity(q, field=...)
+data = record.to_dict()                                      # sealed, JSON-ready
+q = QuantityRecord.from_dict(data).to_quantity(field="...", unit="nm")   # verified, then handshake
+```
+
+- A record carries the unit's canonical name and its SI description, both covered by a
+  digest. Any change made outside PyUnitWizard fails on read, and there is no default unit.
+- Readers declare what they expect (field, unit, dimensionality, kind); a mismatch is an
+  error.
+- For many small values in one document, use `QuantityRecordBundle`.
+- Questions about serializing quantities belong in uibcdf/pyunitwizard#83 (design record),
+  not in each consumer. The API is provisional until the 1.0 checklist promotes it.
+
 ## Consumer anti-patterns
 
 Avoid these patterns in new code:
@@ -319,7 +339,11 @@ Avoid these patterns in new code:
   `has_unit()` for that exact question.
 - direct access to backend attributes such as Pint's `.units` in scientific logic.
 - identity registries, passports, or mutable-object caches whose only purpose is to
-  remember that a quantity was canonical.
+  remember that a quantity was canonical. (`QuantityRecord` is not one: it remembers
+  nothing about live objects and is verified, never trusted, every time it is read.)
+- stripping a standardized quantity with `get_value()` and handing the bare number to
+  another tool, file or frontend. Standard units belong to the user's session, so the
+  number's unit is not what the receiver assumes; use `to_unit=` or a `QuantityRecord`.
 - unconditional `standardize()` or conversion of a quantity constructed locally in an
   already-canonical unit.
 - adding `has_unit()` to an unmeasured cold path. The general API is clearer and its
