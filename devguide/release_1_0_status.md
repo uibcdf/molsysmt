@@ -705,6 +705,12 @@ was reverted. This is tracked by uibcdf/molsysviewer#100 and deferred until
 after the coordinated pre-1.0 MolSysMT/MolSysViewer package publication. Do
 not convert 36/36 portable into a full 37/37 or a 1.0 sign-off.
 
+The next staging-enabled Viewer `CI` run `36034111547` passed Qt but its
+six Python jobs stopped at one stale repository test that selected the
+old E2E workflow step name. Viewer corrected the guard to select the actual
+portable command, with 24 focused local tests passing; a hosted rerun is
+still needed. This does not change the installed-pair 20/20 evidence.
+
 The 20-cell result does not promote the technical `0.22.3`/`0.23.3` coordinates
 into a release decision or alter the independent F6 sign-off. Windows passed
 the core installation gate but remains experimental as a product-support

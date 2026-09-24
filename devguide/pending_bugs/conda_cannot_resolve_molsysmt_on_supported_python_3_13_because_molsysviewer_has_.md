@@ -23,6 +23,12 @@ platform/Python 3.11--3.13 cells. Public-channel publication and its own
 release gates remain pending; the staged result must not be called a public
 Conda installation.
 
+The separate newer 0.22.3/0.23.3 technical staging pair passed 20/20
+installed cells across the same five platforms and Python 3.11–3.14 on
+2026-09-24, with explicit channel URL and SHA-256 provenance. This is not a
+retroactive upgrade of the 0.22.0/0.23.1 candidate or a public release; see
+[`python_3_14_checkpoint.md`](../python_3_14_checkpoint.md) for its runs.
+
 ## Coordination checkpoint — 2026-09-24, full matrix
 
 MolSysMT producer runs `35965011690`, `35965011548`, `35965011458`, and

@@ -19,9 +19,21 @@ supersedes: []
 through MolSysViewer in a clean Conda environment.
 **Status:** Active; the missing declaration and the provider's platform coverage are
 corrected. Local package and integration checks, the hosted cross-platform provider
-matrix, and independent installation from the public channel pass. MolSysViewer 0.23.1
-is now staged; the coordinated installation still awaits corrective MolSysMT build 3
-because build 2 predates this dependency fix.
+matrix, and independent installation of public py-mmcif pass. The corrected
+MolSysMT 0.22.0/MolSysViewer 0.23.1 staging pair passed 15/15 installed cells;
+the separate 0.22.3/0.23.3 technical staging pair passed 20/20 including
+Python 3.14. Neither pair has been published to the public channel.
+
+## Updated package boundary — 2026-09-24
+
+The old statement below that the coordinated installation awaited MolSysMT
+build 3 is historical: build 5 of 0.22.0 passed the 15-cell exact-pair
+staging matrix (`35967239820`). The later 0.22.3/0.23.3 technical pair passed
+20/20 installed cells on the five native platforms and Python 3.11–3.14,
+including bundled BCIF conversion, the staged package provenance guard, and
+MolSysViewer resources. See [`python_3_14_checkpoint.md`](../python_3_14_checkpoint.md).
+The original missing-`mmcif` path is therefore guarded in staging, but this
+does not prove a public-channel MolSysMT release or close this issue yet.
 
 ## What
 
