@@ -17,7 +17,7 @@ packages.
 | Boundary | Evidence available | Still missing |
 | --- | --- | --- |
 | MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. A dependency-rich source-pair environment additionally passed 99 scientific-truth cases, 865 basic cases, 475 focused form/validation cases, 39 OpenMM cases, and 371 offline-safe build cases; these selections overlap and must not be summed. The native peptide default also passed 40 extended LEaP-parity cases. An exact local ABI3 Conda candidate passes the clean installed-pair validator. | Complete source suite in a metadata-consistent environment; staged and cross-platform installed matrices. |
-| MolSysViewer core on 3.14 | The paired full Python source suite and installed MolSysMT native-path guard passed on hosted Linux, macOS, and Windows in run `35975122014`; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-pair and installed-package gates on each claimed platform; an installed-test harness that does not inject source packages. |
+| MolSysViewer core on 3.14 | The paired full Python source suite and installed MolSysMT native-path guard passed on hosted Linux, macOS, and Windows in run `35975122014`. Newer source-built pip installations passed the Viewer installed-pair integration step and full Python suite on the same three hosted platforms in run `35988170629`. Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-Conda-pair and channel-provenance gates on each claimed platform. |
 | UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes now passed package tests and clean five-package installations on Python 3.12–3.14; Qt Positioning/WebEngine native packages were reused across minors. The 3.14 packages also passed real Viewer Qt integration and full-render tests. No canonical PySide6 was installed. | Build the revised recipes for 3.11; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
 | Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
 
@@ -245,9 +245,14 @@ interpreter's `site-packages`. Both existing MolSysMT integration tests passed
 against the earlier exact local Conda pair (`0.22.2`/`0.23.2`) from outside
 both checkouts. The negative control, run from the Viewer checkout, exited 4
 with a source-contamination error. This closes the **local test-harness**
-gap; it does not test the newer MolSysMT source commit as a package, and the
-updated three-platform hosted source-pair workflow has not yet run. The
-Viewer source suite passed locally outside the sandbox with 12 workers:
+gap; by itself it did not test the newer MolSysMT source commit as a package.
+Hosted run `35988170629` checked out MolSysMT
+`8ab42b58520892d54a05222b91c116b9e9114314` and MolSysViewer
+`b9a8c4c9c1672d6fca6fe6c5cb71cf41f8b5b845`. Its Ubuntu, macOS, and
+Windows jobs each passed the installed-pair integration step and the full
+Viewer Python suite. Those packages were built from the pinned sources with
+pip, not resolved from immutable Conda staging coordinates. The Viewer
+source suite passed locally outside the sandbox with 12 workers:
 2,082 passed, 17 skipped. An initial sandboxed attempt had 18 failures from
 blocked sockets or Chromium startup; those disappeared without code changes.
 These local tags and archives are not release-version decisions, remote
