@@ -17,9 +17,9 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. MolSysMT 0.22.0 build 3 and MolSysViewer 0.23.1 build 1 are
-staged; a MolSysMT build containing the PDB fix and the installed-pair matrix
-remain pending.
+**Status:** active. MolSysMT 0.22.0 build 4 and MolSysViewer 0.23.1 build 1
+are staged. One clean Linux/Python 3.13 installed-pair check passed; the full
+platform/interpreter matrix remains pending.
 
 ## Coordination checkpoint — 2026-09-23
 
@@ -44,11 +44,25 @@ DepDigest 0.11.0, ArgDigest 0.13.0, and PyUnitWizard 0.26.0. This removes
 the previously observed **solver** gap in those two cells; it does not yet
 prove installed behavior, other Python minors, or every native platform.
 
-Build 3 predates the PDB/Biopython fix below. The next non-overwriting
-staging coordinate is build 4; the release route is reserved as build 5.
-After build 4 is audited, rerun the exact 0.22.0/0.23.1 installed-pair matrix
-with Viewer build 1. The pair gate now checks PDB text as well as BCIF and
-package identity. Keep the staged and public labels separate.
+Build 3 predates the PDB/Biopython fix below. MolSysMT run `35932403014`
+completed all five native jobs from exact commit
+`432e039ad7e9ee7c9a1f803ddbdc824d2a743435`. GH Run Receptor reported
+five successful producer uploads; an independent Anaconda package inventory
+found exactly one new build-4 ABI3 archive on each of the five native
+platforms, all with the `staging` label. The release route is reserved as
+build 5; neither channel was overwritten or promoted.
+
+A fresh Linux/Python 3.13 environment installed staged MolSysMT build 4 and
+Viewer build 1. Both Conda records name the staging channel; Biopython is
+absent. The installed-pair validator passed version identity, native import,
+BCIF conversion, four-atom PDB-text conversion and Viewer load, and Viewer
+resources. This is **one local installed cell**, not the 15-cell hosted gate.
+An initial solve using older repodata selected MolSysMT build 3 despite build
+4 already being present; updating the local environment to build 4 exposed
+the need to pin both exact build numbers in the workflow. A Conda dry run
+confirmed that `pyabi3*_4` and `py_1` select the intended pair, and the
+hosted validation workflow now requests those build identities explicitly.
+Keep the staged and public labels separate.
 
 ## Clean-install PDB guard — 2026-09-23
 
@@ -67,8 +81,8 @@ selection passed 36 tests, and this validator passed against the corrected
 local Python 3.14 installed pair. The same validator fails against the
 uncorrected local pair at the absent-Bio import, proving the new gate detects
 this regression. These are **local** results, not evidence
-that the older staged `0.22.0`/`0.23.1` pair has passed. The planned MolSysMT
-build 4 must include this fix and then pass the full 15-cell staged-pair gate.
+that the older staged `0.22.0`/`0.23.1` pair has passed. MolSysMT build 4
+contains this fix; it still must pass the full 15-cell staged-pair gate.
 
 ## Coordination checkpoint — 2026-09-20
 
@@ -266,9 +280,9 @@ tracked separately as uibcdf/molsysmt#193.
 
 ## Dependencies and risks
 
-MolSysViewer's separately owned staging step is complete for 0.23.1 build 1.
-Resolution now depends on a MolSysMT build 4 containing the PDB fix and the
-exact-pair validation.
+MolSysViewer's separately owned staging step is complete for 0.23.1 build 1,
+and MolSysMT build 4 now contains the PDB fix. Resolution depends on the
+exact-pair validation across all claimed platform/interpreter cells.
 Each repository continues to publish only its own artefact.
 
 ## Provenance

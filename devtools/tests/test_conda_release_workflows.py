@@ -156,10 +156,18 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     prepare = workflow["jobs"]["prepare"]
     validate = workflow["jobs"]["validate"]
     viewer_input = workflow[True]["workflow_dispatch"]["inputs"]["molsysviewer_version"]
+    mt_build_input = workflow[True]["workflow_dispatch"]["inputs"][
+        "molsysmt_build_number"
+    ]
+    viewer_build_input = workflow[True]["workflow_dispatch"]["inputs"][
+        "molsysviewer_build_number"
+    ]
 
     assert validate["needs"] == "prepare"
     assert viewer_input["required"] is True
     assert "default" not in viewer_input
+    assert mt_build_input["default"] == 4
+    assert viewer_build_input["default"] == 1
     assert _targets(validate) == EXPECTED_TARGETS
     assert validate["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
 
@@ -169,8 +177,14 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
 
     install = _step(validate, "Install the staged package pair")["with"]
     assert "uibcdf/label/staging" in install["condarc"]
-    assert "molsysmt=${{ inputs.molsysmt_version }}" in install["create-args"]
-    assert "molsysviewer=${{ inputs.molsysviewer_version }}" in install["create-args"]
+    assert (
+        "molsysmt=${{ inputs.molsysmt_version }}=pyabi3*_${{ inputs.molsysmt_build_number }}"
+        in install["create-args"]
+    )
+    assert (
+        "molsysviewer=${{ inputs.molsysviewer_version }}=py_${{ inputs.molsysviewer_build_number }}"
+        in install["create-args"]
+    )
 
     validation = _step(
         validate,

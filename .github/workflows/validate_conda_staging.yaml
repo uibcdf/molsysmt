@@ -12,6 +12,16 @@ on:
         description: MolSysViewer version already present in the staging label
         required: true
         type: string
+      molsysmt_build_number:
+        description: Exact MolSysMT ABI3 staging build number
+        required: true
+        default: 4
+        type: number
+      molsysviewer_build_number:
+        description: Exact MolSysViewer noarch staging build number
+        required: true
+        default: 1
+        type: number
 
 permissions:
   contents: read
@@ -26,9 +36,13 @@ jobs:
         env:
           MOLSYS_MT_VERSION: ${{ inputs.molsysmt_version }}
           MOLSYS_VIEWER_VERSION: ${{ inputs.molsysviewer_version }}
+          MOLSYS_MT_BUILD: ${{ inputs.molsysmt_build_number }}
+          MOLSYS_VIEWER_BUILD: ${{ inputs.molsysviewer_build_number }}
         run: |
           [[ "$MOLSYS_MT_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
           [[ "$MOLSYS_VIEWER_VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]
+          [[ "$MOLSYS_MT_BUILD" =~ ^[0-9]+$ ]]
+          [[ "$MOLSYS_VIEWER_BUILD" =~ ^[0-9]+$ ]]
 
   validate:
     name: ${{ matrix.target.platform }} · Python ${{ matrix.python }}
@@ -65,8 +79,8 @@ jobs:
             channel_priority: strict
           create-args: >-
             python=${{ matrix.python }}
-            molsysmt=${{ inputs.molsysmt_version }}
-            molsysviewer=${{ inputs.molsysviewer_version }}
+            molsysmt=${{ inputs.molsysmt_version }}=pyabi3*_${{ inputs.molsysmt_build_number }}
+            molsysviewer=${{ inputs.molsysviewer_version }}=py_${{ inputs.molsysviewer_build_number }}
 
       - name: Validate versions, provenance, native code, BCIF, PDB text, and viewer resources
         shell: bash -el {0}
