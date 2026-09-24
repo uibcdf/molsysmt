@@ -16,10 +16,10 @@ packages.
 
 | Boundary | Evidence available | Still missing |
 | --- | --- | --- |
-| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. A dependency-rich source-pair environment additionally passed 99 scientific-truth cases, 865 basic cases, 475 focused form/validation cases, 39 OpenMM cases, and 371 offline-safe build cases; these selections overlap and must not be summed. The native peptide default also passed 40 extended LEaP-parity cases. An exact local ABI3 Conda candidate passes the clean installed-pair validator. | Complete source suite in a metadata-consistent environment; staged and cross-platform installed matrices. |
-| MolSysViewer core on 3.14 | The paired full Python source suite and installed MolSysMT native-path guard passed on hosted Linux, macOS, and Windows in run `35975122014`. Newer source-built pip installations passed the Viewer installed-pair integration step and full Python suite on the same three hosted platforms in run `35988170629`. Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-Conda-pair and channel-provenance gates on each claimed platform. |
+| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. A dependency-rich source-pair environment additionally passed 99 scientific-truth cases, 865 basic cases, 475 focused form/validation cases, 39 OpenMM cases, and 371 offline-safe build cases; these selections overlap and must not be summed. The native peptide default also passed 40 extended LEaP-parity cases. The exact staged ABI3 package passed the installed-pair validator in 20/20 cells across five native platforms and Python 3.11–3.14. | Complete source suite in a metadata-consistent environment; broader staged-package scientific gates. |
+| MolSysViewer core on 3.14 | The paired full Python source suite and installed MolSysMT native-path guard passed on hosted Linux, macOS, and Windows in run `35975122014`. Newer source-built pip installations passed the Viewer installed-pair integration step and full Python suite on the same three hosted platforms in run `35988170629`. Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. The exact staged noarch package passed the installed-pair and channel-provenance gate in all 20 cells with MolSysMT. | Broader staged-package Viewer suite and supported-platform Qt integration; coordinated release gate. |
 | UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes now passed package tests and clean five-package installations on Python 3.12–3.14; Qt Positioning/WebEngine native packages were reused across minors. The 3.14 packages also passed real Viewer Qt integration and full-render tests. No canonical PySide6 was installed. | Build the revised recipes for 3.11; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
-| Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
+| Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the new immutable pair passed 20/20 staging installed cells. The existing 3.11–3.13 staging campaign has separate gates. | Scientific and Qt coverage where claimed, coordinated public-channel release and verification, and suite-level `admitted` decision before changing any public badge. |
 
 The three local binding variants are intentionally **per-interpreter** Conda
 artifacts. Their `.abi3.so` filenames do not make the packages universal:
@@ -357,13 +357,15 @@ all-platform profile does not aggregate the five targeted successes
    UIBCDF-only WebEngine evidence. Replace the old direct-main upload route
    with a reviewed staging-first candidate route before any upload.
 3. Run MolSysMT's full Python 3.14 test and scientific-evidence gates with
-   representative optional dependencies. Repeat the now-proven local ABI3
-   and installed-pair checks on an immutable staging candidate.
-4. Build the aligned Qt family and exact MolSysMT/Viewer pair for every
-   claimed native platform. Validate Python 3.11–3.14 clean installations,
-   package provenance, Viewer resources, real Qt integration where claimed,
-   and the older Python lanes. Linux/macOS are supported-platform targets;
-   Windows remains experimental until it earns comparable evidence.
+   representative optional dependencies. The immutable pair has already
+   passed the bounded 20-cell staged installed-pair gate; extend coverage
+   beyond that smoke before a public support claim.
+4. Build the aligned Qt family for every claimed platform and test Viewer
+   with exact staged Qt packages where that host is supported. The MT/Viewer
+   pair already passed Python 3.11–3.14 clean installations, package
+   provenance and resource checks on five native platforms; preserve the
+   separate older-release gates. Linux/macOS are supported-platform targets;
+   Windows remains experimental until it earns comparable product evidence.
 5. Publish only after the exact-commit and channel gates pass. Verify the
    released coordinates independently, then request the MolSysSuite Python
    support status transition. Standard GIL-enabled CPython 3.14 is in scope;
