@@ -1,4 +1,3 @@
-import nglview as nv
 import pytest
 
 from molsysmt import MolSysBuilder
@@ -49,6 +48,7 @@ def test_keep_and_wrap_digesters_use_caller_sensitive_semantics():
 
 
 def test_view_digester_accepts_supported_view_objects():
+    nv = pytest.importorskip("nglview", reason="nglview is an optional viewer backend")
     builder = MolSysBuilder()
     builder.add_atom(atom_name="Ar", atom_type="Ar")
     molsys = builder.build()

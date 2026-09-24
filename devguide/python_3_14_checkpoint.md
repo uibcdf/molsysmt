@@ -27,6 +27,14 @@ their metadata includes the selected `python_abi` minor. Each Python 3.11–3.14
 cell therefore needs its own tested Shiboken, Essentials, and Addons artifact
 unless a separately validated ABI3 packaging contract replaces this one.
 
+On 2026-09-24, a lean Python 3.14 source-tree collection was advanced past
+NGLView, Biopython, and OpenFF-only tests by making their optional-backend
+skips explicit. A new distribution test protects NGLView's soft-only status;
+MolSysViewer's own runtime manifest guard protects the same boundary. The
+source-tree Rust extension built locally. Collection still reaches tests that
+need optional OpenMM, so no full MolSysMT suite result is claimed from this
+minimal environment.
+
 The revised Linux/Python 3.12 binding artifacts have SHA-256 values
 `1faa8deecc53c65b0275c4716e27e50286f6ab5e6ca69f740e979085af8a5887`
 (Shiboken),

@@ -2,12 +2,13 @@
 Unit and regression test for the copy module of the molsysmt package.
 """
 
-# Import package, test suite, and other packages as needed
-import nglview as nv
 import numpy as np
+import pytest
 
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
+
+nv = pytest.importorskip("nglview", reason="nglview is an optional viewer backend")
 
 
 def test_add_cylinders_1():

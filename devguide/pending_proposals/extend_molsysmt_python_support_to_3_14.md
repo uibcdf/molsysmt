@@ -133,6 +133,17 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   dependencies such as `nglview`, Biopython, OpenMM and OpenFF. It executed
   no tests and therefore does not establish full-suite status; the curated
   installed-wheel selection above remains valid independent evidence.
+- On 2026-09-24, a lean source-tree collection exposed tests that imported
+  optional backends at module scope, including NGLView and Biopython, and
+  OpenFF checks that called `find_spec("openff.toolkit")` without first
+  checking the parent namespace. The affected tests now skip only their
+  backend-specific cases when that backend is absent. Manifest guards confirm
+  that NGLView remains in the `soft` extra, not in either Python or Conda
+  runtime requirements; MolSysViewer also does not require it. The local
+  Python 3.14 source extension builds, but the lean suite still reaches an
+  OpenMM-dependent test without OpenMM installed. This is collection hygiene,
+  not full scientific coverage or a reason to make optional backends hard
+  dependencies.
 - On 2026-09-23, temporary local tags built MolSysMT ABI3 and MolSysViewer
   noarch Conda packages. A fresh Linux/Python 3.14.7 environment resolved the
   exact local `0.22.1`/`0.23.2` pair and passed the installed-pair validator,

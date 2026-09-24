@@ -13,6 +13,8 @@ Expected:
 """
 
 import pytest
+
+pytest.importorskip("Bio", reason="Biopython is an optional PIR backend")
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord

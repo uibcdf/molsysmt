@@ -5,7 +5,7 @@ from importlib.util import find_spec
 import numpy as np
 import pytest
 
-if find_spec("openff.toolkit") is None:
+if find_spec("openff") is None or find_spec("openff.toolkit") is None:
     pytest.skip("openff-toolkit is not installed", allow_module_level=True)
 
 import openff.toolkit.topology as openff_topology
