@@ -239,13 +239,19 @@ local `0.22.1` pair fails on the absent `Bio` import; running the identical
 validator against the corrected `0.22.2` pair passes. This is a tested gate
 for this regression, not a claim that the full Viewer test suite passes.
 
-The two existing Viewer integration test functions are not yet reusable as
-installed-package evidence: its `tests/conftest.py` inserts the Viewer
-checkout into `sys.path`, while disabling that conftest removes the
-`_test_message_log` fixture they require. The direct installed smoke above
-verifies the user behavior but does not substitute for an installed-test
-harness. These local tags and archives are not release-version decisions,
-remote staging artifacts, or a cross-platform support claim.
+On 2026-09-24, the Viewer branch gained an opt-in installed-package pytest
+mode that retains its fixtures while refusing imports outside the active
+interpreter's `site-packages`. Both existing MolSysMT integration tests passed
+against the earlier exact local Conda pair (`0.22.2`/`0.23.2`) from outside
+both checkouts. The negative control, run from the Viewer checkout, exited 4
+with a source-contamination error. This closes the **local test-harness**
+gap; it does not test the newer MolSysMT source commit as a package, and the
+updated three-platform hosted source-pair workflow has not yet run. The
+Viewer source suite passed locally outside the sandbox with 12 workers:
+2,082 passed, 17 skipped. An initial sandboxed attempt had 18 failures from
+blocked sockets or Chromium startup; those disappeared without code changes.
+These local tags and archives are not release-version decisions, remote
+staging artifacts, or a cross-platform support claim.
 
 ## Next gates in order
 
