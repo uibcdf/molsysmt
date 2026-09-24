@@ -684,6 +684,17 @@ are neither a green Viewer release gate nor a test of the newer 20-cell
 3.14 package matrix. The diagnosis and next run belong to
 `uibcdf/molsysviewer#88`.
 
+The next Viewer runs narrowed, but did not close, this gap: `CI`
+`36019810641` passed Qt and four of six Python matrix jobs; the other two
+exposed a Node 26 JS-tool incompatibility and a fast-close WebSocket test
+race. `CI_e2e` `36019810581` ran real Chrome and passed its first 22
+scenarios before a PNG-download timeout. That scenario passed locally on the
+source pair, but the local aggregate then stopped at scenario 25 because
+this host cannot navigate command-line Chrome to the render-worker localhost
+page. Thus neither hosted nor local E2E is 37/37. The proposed evidence-lane
+redesign is uibcdf/molsysviewer#100; it does not waive the Viewer release
+gate or change the 20-cell installed-pair result.
+
 The 20-cell result does not promote the technical `0.22.3`/`0.23.3` coordinates
 into a release decision or alter the independent F6 sign-off. Windows passed
 the core installation gate but remains experimental as a product-support
