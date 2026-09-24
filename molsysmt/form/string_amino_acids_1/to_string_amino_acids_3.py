@@ -1,10 +1,8 @@
-from depdigest import dep_digest
-
 from molsysmt._private.argdigest import arg_digest
+from molsysmt.element.group.amino_acid.codes import aa1_to_aa3
 
 
 @arg_digest(form="string:amino_acids_1")
-@dep_digest("Bio")
 def to_string_amino_acids_3(item, group_indices="all", skip_digestion=False):
     """
     Converting from string:amino_acids_1 to string:amino_acids_3.
@@ -28,8 +26,8 @@ def to_string_amino_acids_3(item, group_indices="all", skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from Bio.SeqUtils import seq3
-
-    tmp_item = seq3(item)
-
-    return tmp_item
+    sequence = item.removeprefix("amino_acids_1:")
+    return "".join(
+        ("TER" if code == "*" else aa1_to_aa3.get(code.upper(), "XAA")).title()
+        for code in sequence
+    )

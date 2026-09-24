@@ -900,7 +900,7 @@ def _optimize_backbone_torsions(
 
 
 @arg_digest()
-def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="LEaP"):
+def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="MolSysMT"):
     """
     Building a peptide from a sequence.
 
@@ -916,8 +916,9 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="LEaP"):
         Molecular system in any supported MolSysMT format.
     to_form : object, default='molsysmt.MolSys'
         Argument to_form.
-    engine : object, default='LEaP'
-        Argument engine.
+    engine : str, default='MolSysMT'
+        Peptide-building engine. Use ``'LEaP'`` explicitly to build with the
+        optional AmberTools executable.
 
     Returns
     -------
@@ -941,6 +942,8 @@ def build_peptide(molecular_system, to_form="molsysmt.MolSys", engine="LEaP"):
     Notes
     -----
     - The sequence must contain amino acid and/or capping group codes recognized by the selected engine.
+    - One- and three-letter peptide sequences are handled natively. Biopython
+      is not needed for these string inputs.
     - String inputs are interpreted as peptide sequences in this context, even
       when the same characters are also valid SMILES.
     - Terminal caps can be specified explicitly by using residue names such as 'ACE' (N-terminus) and 'NME' (C-terminus).

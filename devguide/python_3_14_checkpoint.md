@@ -16,7 +16,7 @@ packages.
 
 | Boundary | Evidence available | Still missing |
 | --- | --- | --- |
-| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. A dependency-rich source-pair environment additionally passed 99 scientific-truth cases, 865 basic cases, 475 focused form/validation cases, and 39 OpenMM cases; these selections overlap and must not be summed. An exact local ABI3 Conda candidate also passes the clean installed-pair validator. | Complete source suite in a metadata-consistent environment; staged and cross-platform installed matrices. |
+| MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. A dependency-rich source-pair environment additionally passed 99 scientific-truth cases, 865 basic cases, 475 focused form/validation cases, 39 OpenMM cases, and 371 offline-safe build cases; these selections overlap and must not be summed. The native peptide default also passed 40 extended LEaP-parity cases. An exact local ABI3 Conda candidate passes the clean installed-pair validator. | Complete source suite in a metadata-consistent environment; staged and cross-platform installed matrices. |
 | MolSysViewer core on 3.14 | The paired full Python source suite and installed MolSysMT native-path guard passed on hosted Linux, macOS, and Windows in run `35975122014`; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-pair and installed-package gates on each claimed platform; an installed-test harness that does not inject source packages. |
 | UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes now passed package tests and clean five-package installations on Python 3.12–3.14; Qt Positioning/WebEngine native packages were reused across minors. The 3.14 packages also passed real Viewer Qt integration and full-render tests. No canonical PySide6 was installed. | Build the revised recipes for 3.11; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
 | Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
@@ -85,22 +85,42 @@ requirements embedded in AmberTools' bundled Python packages. Specifically,
 record itself allows NumPy `<3` and owns those bundled `egg-info` files,
 so the Conda solve alone does not detect their narrower Python metadata.
 The actual `tleap` executable accepted a minimal `quit` script and exited
-with zero errors and warnings. More importantly, the installed MolSysMT wheel
-called `build_peptide("GG")` through its default LEaP engine, using this exact
-environment's `tleap` executable, and returned 14 atoms in two groups. This
-validates that user path for a small peptide on Linux/Python 3.14, not every
-AmberTools subprogram or a clean `pip check`.
+with zero errors and warnings. Before the default-engine change below, the
+installed MolSysMT wheel called `build_peptide("GG")` through its then-default
+LEaP engine, using this exact environment's `tleap` executable, and returned
+14 atoms in two groups. This validates that user path for a small peptide on
+Linux/Python 3.14, not every AmberTools subprogram or a clean `pip check`.
 
 AmberTools is **not a hard MolSysMT runtime dependency**: the package's Python
 and Conda runtime requirements do not contain it. It is an optional external
 tool used by the `tLeap` path and is included in development/test environment
-specifications. However, public `build_peptide()` still defaults to
-`engine="LEaP"`; without the optional executable that default path raises
-an actionable `RuntimeError`. The explicit `engine="MolSysMT"` alternative
-also built `"GG"` successfully with `TLEAP_BIN` pointing to a nonexistent
-executable; it avoids AmberTools but still needs Biopython for this sequence
-conversion. Do not claim that LEaP is broken on Python 3.14 or
-change the default engine without separate behavioral and scientific review.
+specifications. On 2026-09-24, the public `build_peptide()` default was changed
+to `engine="MolSysMT"` after focused native/LEaP parity tests. The native path
+built `"GG"` successfully with `TLEAP_BIN` pointing to a nonexistent
+executable. A separate native one-to-three-letter converter then removed the
+Biopython requirement for that one-letter input; the lean 3.14 environment
+passed its conversion/default-builder tests with Biopython absent. Users
+can still select `engine="LEaP"` explicitly; without the executable that path
+raises an actionable `RuntimeError`. The engines have separate coordinate
+implementations, so the default change does not assert universal scientific
+equivalence. Do not claim that LEaP is broken on Python 3.14.
+The new converter has one MolSysMT-owned code table under
+`molsysmt/element/group/amino_acid/codes.py`; FASTA/PIR attribute getters and
+the FASTA topology adapter reuse it. The amino-acid database continues to
+hold topology templates, not this code table. Seven focused conversion cases
+passed with Biopython present, and the lean environment passed the native
+cases while skipping only the three Biopython-comparison cases. The
+dependency-rich environment also passed 38 targeted amino-acid-code,
+sequence/FASTA/PIR cases,
+371 `tests/build/` cases after excluding four directories with PDB-ID
+downloads, and 40 opt-in LEaP-parity cases (all at 12 workers). The broader
+`tests/build/` run reached 375 passes but stopped on ten network-download
+failures in those four directories; this is not evidence of a native-builder
+regression. The `build_peptide` docstring passed `python -m doctest`, five
+representative course sequences built with the new default, the focused User
+Guide notebook executed, and its two static MolSysViewer assets were
+regenerated. The PDB-ID-dependent course notebooks were reviewed for API
+wording but could not be re-executed in the offline sandbox.
 On 2026-09-24, [conda-forge AmberTools
 files](https://anaconda.org/conda-forge/ambertools/files) showed 26.0 builds
 for Python 3.14 on Linux and macOS, but not Windows. The

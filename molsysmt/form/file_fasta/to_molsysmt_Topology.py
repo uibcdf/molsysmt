@@ -30,37 +30,8 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
 
     from Bio import SeqIO
 
+    from molsysmt.element.group.amino_acid.codes import aa1_to_aa3
     from molsysmt.native import MolSysBuilder
-
-    # aa1 -> aa3 mapping (canonical 20 + ambiguous codes)
-    _aa1_to_aa3 = {
-        "A": "ALA",
-        "R": "ARG",
-        "N": "ASN",
-        "D": "ASP",
-        "C": "CYS",
-        "E": "GLU",
-        "Q": "GLN",
-        "G": "GLY",
-        "H": "HIS",
-        "I": "ILE",
-        "L": "LEU",
-        "K": "LYS",
-        "M": "MET",
-        "F": "PHE",
-        "P": "PRO",
-        "S": "SER",
-        "T": "THR",
-        "W": "TRP",
-        "Y": "TYR",
-        "V": "VAL",
-        "O": "PYL",
-        "U": "SEC",
-        "B": "ASX",
-        "Z": "GLX",
-        "X": "XAA",
-        "J": "XLE",
-    }
 
     records = list(SeqIO.parse(item, "fasta"))
 
@@ -74,7 +45,7 @@ def to_molsysmt_Topology(item, atom_indices="all", skip_digestion=False):
         group_indices_in_chain = []
 
         for aa1 in seq:
-            aa3 = _aa1_to_aa3.get(aa1.upper(), "XAA")
+            aa3 = aa1_to_aa3.get(aa1.upper(), "XAA")
 
             # Add one representative atom (CA) per residue
             atom_index = builder.add_atom(atom_name="CA", skip_digestion=True)

@@ -6,7 +6,7 @@ opened: 2026-09-24
 closed:
 severity: high
 verification: reproduced
-area: [basic, forms, windows]
+area: [basic, form]
 guard:
 normative:
 blocked_by: []

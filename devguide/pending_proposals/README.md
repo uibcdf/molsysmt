@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (23)
+### Open (24)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
@@ -49,6 +49,7 @@ Entries carrying front matter under
 - [`classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md`](classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md) — [#224](https://github.com/uibcdf/molsysmt/issues/224) — Classify rotatable bonds and derive rigid molecular fragments *(inspected)*
 - [`define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md`](define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md) — [#220](https://github.com/uibcdf/molsysmt/issues/220) — Define small-molecule chemical-state enumeration with atom correspondence *(inspected)*
 - [`diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md`](diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md) — [#217](https://github.com/uibcdf/molsysmt/issues/217) — Diagnose ligand chemical readiness for a selected molecular state *(inspected)*
+- [`evaluate_a_native_aminoacidsequence_value_object.md`](evaluate_a_native_aminoacidsequence_value_object.md) — [#242](https://github.com/uibcdf/molsysmt/issues/242) — Evaluate a native AminoAcidSequence value object *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
 - [`execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md`](execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md) — [#181](https://github.com/uibcdf/molsysmt/issues/181) — Execute every declared conversion edge in the test suite, not only audit it statically. *(measured)*
 - [`generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md`](generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md) — [#219](https://github.com/uibcdf/molsysmt/issues/219) — Generate 3D conformers for a fixed small-molecule chemical state *(inspected)*
@@ -76,6 +77,10 @@ Entries carrying front matter under
   Blocked by uibcdf/molsysmt#220.
 - [`repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md`](repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md) — [#228](https://github.com/uibcdf/molsysmt/issues/228) — Repair selected nonstandard receptor residues with residue-specific templates *(inspected)*
   Blocked by uibcdf/molsysmt#227.
+
+### Partially resolved (1)
+
+- [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
 
 <!-- /generated -->
 

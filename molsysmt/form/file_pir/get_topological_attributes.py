@@ -3,38 +3,9 @@ import types
 from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt.element.group.amino_acid.codes import aa1_to_aa3 as _aa1_to_aa3
 
 form = "file:pir"
-
-# aa1 → aa3 mapping (canonical 20 + ambiguous codes)
-_aa1_to_aa3 = {
-    "A": "ALA",
-    "R": "ARG",
-    "N": "ASN",
-    "D": "ASP",
-    "C": "CYS",
-    "E": "GLU",
-    "Q": "GLN",
-    "G": "GLY",
-    "H": "HIS",
-    "I": "ILE",
-    "L": "LEU",
-    "K": "LYS",
-    "M": "MET",
-    "F": "PHE",
-    "P": "PRO",
-    "S": "SER",
-    "T": "THR",
-    "W": "TRP",
-    "Y": "TYR",
-    "V": "VAL",
-    "O": "PYL",
-    "U": "SEC",
-    "B": "ASX",
-    "Z": "GLX",
-    "X": "XAA",
-    "J": "XLE",
-}
 
 
 def _parse_pir(item):

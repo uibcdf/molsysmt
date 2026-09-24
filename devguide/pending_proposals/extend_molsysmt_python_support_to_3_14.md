@@ -184,13 +184,18 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   `heavy` marker, all with 12 workers and pytest-receptor. These overlapping
   selections do not replace the complete source suite. Its installed
   MolSysMT wheel passed the 99-export Rust validator. AmberTools 26.0 also
-  ran the default `build_peptide("GG")` LEaP route successfully, but bundled
+  ran the then-default `build_peptide("GG")` LEaP route successfully, but bundled
   ancillary package metadata conflicts with NumPy 2.4.6 and Biopython 1.88.
   `pip check` additionally reports the known source-version mismatch between
   Viewer and MolSysMT. The [paired-support
   checkpoint](../python_3_14_checkpoint.md) records the failure
   classification and the plan for a default 3.14 developer environment
   without AmberTools rather than downgrading scientific dependencies.
+  On 2026-09-24, `build_peptide()` switched its default to the native MolSysMT
+  engine; the explicit LEaP option remains available. The elementary
+  one-to-three-letter converter was also made native, so the default builder
+  accepts both sequence notations without Biopython in a lean installation.
+  The broader optional Biopython audit remains open as `uibcdf/molsysmt#243`.
 
 ## What was refuted
 
