@@ -37,15 +37,10 @@ def test_conversion_and_default_builder_work_when_biopython_is_unavailable(monke
 
 def test_conversion_normalizes_lowercase_and_accepts_explicit_prefix():
     assert msm.convert("gg", to_form="string:amino_acids_3") == "GlyGly"
-    assert (
-        msm.convert("amino_acids_1:GG", to_form="string:amino_acids_3")
-        == "GlyGly"
-    )
+    assert msm.convert("amino_acids_1:GG", to_form="string:amino_acids_3") == "GlyGly"
 
 
-@pytest.mark.parametrize(
-    "sequence", ["ACDEFGHIKLMNPQRSTVWY", "BZXJUO*", "GG"]
-)
+@pytest.mark.parametrize("sequence", ["ACDEFGHIKLMNPQRSTVWY", "BZXJUO*", "GG"])
 def test_conversion_matches_biopython_on_uppercase_codes(sequence):
     seq_utils = pytest.importorskip("Bio.SeqUtils")
 
@@ -55,7 +50,4 @@ def test_conversion_matches_biopython_on_uppercase_codes(sequence):
 
 
 def test_unknown_code_preserves_xaa_conversion_policy():
-    assert (
-        msm.convert("amino_acids_1:A?", to_form="string:amino_acids_3")
-        == "AlaXaa"
-    )
+    assert msm.convert("amino_acids_1:A?", to_form="string:amino_acids_3") == "AlaXaa"

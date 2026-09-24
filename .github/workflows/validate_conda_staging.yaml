@@ -22,6 +22,14 @@ on:
         required: true
         default: 1
         type: number
+      python_max:
+        description: Highest Python minor to validate
+        required: true
+        default: '3.13'
+        type: choice
+        options:
+          - '3.13'
+          - '3.14'
       target:
         description: Native platform to validate, or all platforms
         required: true
@@ -44,6 +52,7 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       target_matrix: ${{ steps.targets.outputs.target_matrix }}
+      python_matrix: ${{ steps.python.outputs.python_matrix }}
     steps:
       - name: Require stable package versions
         shell: bash
@@ -75,6 +84,19 @@ jobs:
           esac
           echo "target_matrix=$matrix" >> "$GITHUB_OUTPUT"
 
+      - name: Select the Python matrix
+        id: python
+        shell: bash
+        env:
+          PYTHON_MAX: ${{ inputs.python_max }}
+        run: |
+          case "$PYTHON_MAX" in
+            3.13) matrix='["3.11","3.12","3.13"]' ;;
+            3.14) matrix='["3.11","3.12","3.13","3.14"]' ;;
+            *) exit 1 ;;
+          esac
+          echo "python_matrix=$matrix" >> "$GITHUB_OUTPUT"
+
   validate:
     name: ${{ matrix.target.platform }} · Python ${{ matrix.python }}
     needs: prepare
@@ -84,7 +106,7 @@ jobs:
       fail-fast: false
       matrix:
         target: ${{ fromJSON(needs.prepare.outputs.target_matrix) }}
-        python: ['3.11', '3.12', '3.13']
+        python: ${{ fromJSON(needs.prepare.outputs.python_matrix) }}
 
     steps:
       - name: Check out validation tooling
@@ -114,6 +136,7 @@ jobs:
           python devtools/scripts/validate_conda_staging.py
           --molsysmt-version "${{ inputs.molsysmt_version }}"
           --molsysviewer-version "${{ inputs.molsysviewer_version }}"
+          --require-staging-provenance
 
       - name: Record the exact environment
         shell: bash -el {0}

@@ -162,6 +162,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     viewer_build_input = workflow[True]["workflow_dispatch"]["inputs"][
         "molsysviewer_build_number"
     ]
+    python_max_input = workflow[True]["workflow_dispatch"]["inputs"]["python_max"]
     target_input = workflow[True]["workflow_dispatch"]["inputs"]["target"]
 
     assert validate["needs"] == "prepare"
@@ -169,6 +170,8 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     assert "default" not in viewer_input
     assert mt_build_input["default"] == 5
     assert viewer_build_input["default"] == 1
+    assert python_max_input["default"] == "3.13"
+    assert python_max_input["options"] == ["3.13", "3.14"]
     assert target_input["options"] == [
         "all",
         *(platform for platform, _ in sorted(EXPECTED_TARGETS)),
@@ -182,11 +185,21 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
         prepare["outputs"]["target_matrix"]
         == "${{ steps.targets.outputs.target_matrix }}"
     )
+    assert (
+        prepare["outputs"]["python_matrix"]
+        == "${{ steps.python.outputs.python_matrix }}"
+    )
     select_targets = _step(prepare, "Select native platforms")["run"]
     for platform, runner in EXPECTED_TARGETS:
         assert f'"platform":"{platform}","runner":"{runner}"' in select_targets
     assert 'echo "target_matrix=$matrix" >> "$GITHUB_OUTPUT"' in select_targets
-    assert validate["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
+    select_python = _step(prepare, "Select the Python matrix")["run"]
+    assert '["3.11","3.12","3.13"]' in select_python
+    assert '["3.11","3.12","3.13","3.14"]' in select_python
+    assert (
+        validate["strategy"]["matrix"]["python"]
+        == "${{ fromJSON(needs.prepare.outputs.python_matrix) }}"
+    )
 
     version_gate = _step(prepare, "Require stable package versions")["run"]
     exact_version = "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
@@ -210,6 +223,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     assert "validate_conda_staging.py" in validation
     assert "--molsysmt-version" in validation
     assert "--molsysviewer-version" in validation
+    assert "--require-staging-provenance" in validation
 
     validation_script = (
         REPO / "devtools" / "scripts" / "validate_conda_staging.py"

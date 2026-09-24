@@ -17,10 +17,29 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. MolSysMT 0.22.0 build 4 and MolSysViewer 0.23.1 build 1
-are staged. The first exact 15-cell hosted gate exposed a Windows import
-defect and an environment-recording command unavailable on micromamba-only
-runners; a corrected build 5 and second gate are pending.
+**Status:** active. MolSysMT 0.22.0 ABI3 build 5 and MolSysViewer 0.23.1
+noarch build 1 are staged. The corrected exact-pair gate passed all 15
+platform/Python 3.11--3.13 cells. Public-channel publication and its own
+release gates remain pending; the staged result must not be called a public
+Conda installation.
+
+## Coordination checkpoint — 2026-09-24, full matrix
+
+MolSysMT producer runs `35965011690`, `35965011548`, `35965011458`, and
+`35965011123` completed the four remaining native build-5 artifacts after
+the focused Windows build. Exact-pair run `35967239820` passed its preparation
+job and all 15 native-platform/Python 3.11--3.13 validation jobs, retaining
+15 explicit environment artifacts. GH Run Receptor reported 5/5 platforms,
+16/16 jobs and 15 artifacts. This supersedes the earlier "build 5 pending"
+and "second gate pending" statements below, which document the earlier
+sequence rather than current state.
+
+The run predated an explicit Conda-record channel/URL/hash assertion in
+`validate_conda_staging.py`. That assertion now has focused positive and
+negative tests and passed against a real staged Linux/Python 3.13 installation
+of the earlier build-4 pair. The historical 15-cell run is not retroactively
+credited with this stricter provenance check. A new immutable pair will use
+it; the public 0.22.0/0.23.1 release still needs its own final decision.
 
 ## Coordination checkpoint — 2026-09-24
 

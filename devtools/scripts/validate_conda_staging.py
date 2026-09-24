@@ -8,6 +8,7 @@ import importlib
 import importlib.metadata
 import json
 import pathlib
+import re
 import sys
 
 _PDB_TEXT = (
@@ -17,6 +18,41 @@ _PDB_TEXT = (
     "ATOM      4  O   MET A   1      12.589  10.935   8.353  1.00 20.00           O\n"
     "END\n"
 )
+_STAGING_CHANNEL_ROOT = "https://conda.anaconda.org/uibcdf/label/staging"
+_CONDA_SUBDIRS = {
+    "linux-64",
+    "linux-aarch64",
+    "osx-64",
+    "osx-arm64",
+    "win-64",
+    "noarch",
+}
+
+
+def _require_staging_provenance(record: dict, distribution_name: str) -> None:
+    """Reject a Conda record that did not come from the exact staging label."""
+
+    channel = record.get("channel")
+    url = record.get("url")
+    filename = record.get("fn")
+    digest = record.get("sha256")
+    if not isinstance(channel, str) or not isinstance(url, str):
+        raise RuntimeError(f"{distribution_name} Conda record lacks staging provenance")
+    channel_root = f"{_STAGING_CHANNEL_ROOT}/"
+    subdir = channel.removeprefix(channel_root)
+    if not channel.startswith(channel_root) or subdir not in _CONDA_SUBDIRS:
+        raise RuntimeError(
+            f"{distribution_name} came from a non-staging channel: {channel}"
+        )
+    if (
+        not isinstance(filename, str)
+        or url != f"{channel}/{filename}"
+        or not isinstance(digest, str)
+        or re.fullmatch(r"[0-9a-f]{64}", digest) is None
+    ):
+        raise RuntimeError(
+            f"{distribution_name} Conda record has incomplete staging artifact identity"
+        )
 
 
 def _require_conda_install(
@@ -24,6 +60,7 @@ def _require_conda_install(
     expected_version: str,
     *,
     require_abi3: bool = False,
+    require_staging_provenance: bool = False,
 ) -> None:
     distribution = importlib.metadata.distribution(distribution_name)
     direct_url = distribution.read_text("direct_url.json")
@@ -49,8 +86,10 @@ def _require_conda_install(
             f"Expected one Conda record for {distribution_name} {expected_version}, "
             f"found {len(conda_records)}"
         )
+    record = json.loads(conda_records[0].read_text(encoding="utf-8"))
+    if require_staging_provenance:
+        _require_staging_provenance(record, distribution_name)
     if require_abi3:
-        record = json.loads(conda_records[0].read_text(encoding="utf-8"))
         build = str(record.get("build", ""))
         if not build.startswith("pyabi3h"):
             raise RuntimeError(f"MolSysMT resolved non-ABI3 Conda build {build!r}")
@@ -130,11 +169,25 @@ def _require_pdb_text_viewer_load(molsysmt, molsysviewer) -> None:
         raise RuntimeError("PDB-text Viewer integration failed") from exception
 
 
-def validate(molsysmt_version: str, molsysviewer_version: str) -> None:
+def validate(
+    molsysmt_version: str,
+    molsysviewer_version: str,
+    *,
+    require_staging_provenance: bool = False,
+) -> None:
     """Validate the installed package pair and its native/runtime resources."""
 
-    _require_conda_install("molsysmt", molsysmt_version, require_abi3=True)
-    _require_conda_install("molsysviewer", molsysviewer_version)
+    _require_conda_install(
+        "molsysmt",
+        molsysmt_version,
+        require_abi3=True,
+        require_staging_provenance=require_staging_provenance,
+    )
+    _require_conda_install(
+        "molsysviewer",
+        molsysviewer_version,
+        require_staging_provenance=require_staging_provenance,
+    )
 
     _require_version("molsysmt", molsysmt_version)
     _require_version("molsysviewer", molsysviewer_version)
@@ -174,8 +227,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--molsysmt-version", required=True)
     parser.add_argument("--molsysviewer-version", required=True)
+    parser.add_argument("--require-staging-provenance", action="store_true")
     args = parser.parse_args()
-    validate(args.molsysmt_version, args.molsysviewer_version)
+    validate(
+        args.molsysmt_version,
+        args.molsysviewer_version,
+        require_staging_provenance=args.require_staging_provenance,
+    )
 
 
 if __name__ == "__main__":

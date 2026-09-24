@@ -258,10 +258,42 @@ blocked sockets or Chromium startup; those disappeared without code changes.
 These local tags and archives are not release-version decisions, remote
 staging artifacts, or a cross-platform support claim.
 
+## First remote Python 3.14 staging slice
+
+On 2026-09-24, new **staging-only** coordinates were selected without moving
+or widening the older 0.22.0/0.23.1 pair. MolSysMT source
+`6bc7136093be1bcfff86d8600d00d630738ebd90` produced
+`linux-64/molsysmt-0.22.3-pyabi3h03bb3b7_0.conda` in run `35990161344`.
+The producer passed; an independent channel query found the exact staging URL,
+`python >=3.11,<3.15`, and SHA-256
+`ff86eeb73bc22440b3e805c0ad41707529a7d744f44959a195b66cde8b94a7d9`.
+MolSysViewer source `0152781987219846e5cfd0250b3e160324f9b6c5`
+produced `noarch/molsysviewer-0.23.3-py_0.tar.bz2` in run `35990850975`.
+Its build and recipe test passed; the channel reports
+`python >=3.11,<3.15` and SHA-256
+`7b24b77b5bdd3dfa6cb8a7691bc23680056039dc92f05ddb8f43a60edc6993c9`.
+These are technical staging candidates, not Git tags, public releases, or
+release-version decisions. An exact Linux/Python 3.14 dry-run resolved both
+coordinates from `uibcdf/label/staging`, but no fresh installed-pair cell has
+passed yet and MolSysMT has not been staged on the other native platforms.
+
+The hosted installed-pair workflow now offers a separate `python_max=3.14`
+selection while retaining 3.13 as the historical default. Its validator
+requires each package's Conda record to carry the exact UIBCDF staging
+channel, artifact URL and SHA-256. Seventeen focused workflow/validator tests
+passed, including non-staging and mismatched-URL rejection; the stricter
+validator also passed against a real previously staged Linux/Python 3.13
+environment. Run `35967239820` predates this guard and is not retroactively
+credited with it. The complete `devtools/tests/` selection passed 176 tests
+with 12 workers after aligning the experimental ABI3/Rattler checks with
+`<3.15`; repository-wide Ruff checking and formatting passed.
+
 ## Next gates in order
 
-1. Finish and verify the existing MolSysMT 0.22.0 / MolSysViewer 0.23.1
-   staging and public-installation path for Python 3.11–3.13. The 3.14 source
+1. The existing MolSysMT 0.22.0 build-5 / MolSysViewer 0.23.1 build-1
+   staging pair passed all 15 platform/Python 3.11–3.13 cells in run
+   `35967239820`. Finish its separate public-release and installation gates;
+   that run predated the new explicit channel/URL/hash guard. The 3.14 source
    branches can advance in parallel, but must not silently widen those
    pre-existing package coordinates.
 2. Finish the revised binding-recipe matrix for the remaining Python 3.11

@@ -39,6 +39,7 @@ def _write_conda_record(
     *,
     build: str = "pyabi3h1234567_2",
     dependencies: list[str] | None = None,
+    channel: str | None = None,
 ) -> None:
     conda_meta = prefix / "conda-meta"
     conda_meta.mkdir()
@@ -52,6 +53,14 @@ def _write_conda_record(
             "py-mmcif >=1.1.1",
         ],
     }
+    if channel is not None:
+        filename = f"molsysmt-0.22.0-{build}.conda"
+        payload.update(
+            channel=channel,
+            url=f"{channel}/{filename}",
+            fn=filename,
+            sha256="a" * 64,
+        )
     (conda_meta / f"molsysmt-0.22.0-{build}.json").write_text(
         json.dumps(payload), encoding="utf-8"
     )
@@ -66,6 +75,48 @@ def test_noneditable_build_metadata_is_accepted_with_a_conda_record(
     validate_conda_staging._require_conda_install(
         "molsysmt", "0.22.0", require_abi3=True
     )
+
+
+def test_exact_staging_record_is_accepted(monkeypatch, tmp_path):
+    _set_distribution(monkeypatch, tmp_path, editable=False)
+    _write_conda_record(
+        tmp_path,
+        channel="https://conda.anaconda.org/uibcdf/label/staging/linux-64",
+    )
+
+    validate_conda_staging._require_conda_install(
+        "molsysmt", "0.22.0", require_staging_provenance=True
+    )
+
+
+def test_public_channel_record_is_rejected_from_staging_gate(monkeypatch, tmp_path):
+    _set_distribution(monkeypatch, tmp_path, editable=False)
+    _write_conda_record(
+        tmp_path,
+        channel="https://conda.anaconda.org/uibcdf/linux-64",
+    )
+
+    with pytest.raises(RuntimeError, match="non-staging channel"):
+        validate_conda_staging._require_conda_install(
+            "molsysmt", "0.22.0", require_staging_provenance=True
+        )
+
+
+def test_staging_channel_with_wrong_artifact_url_is_rejected(monkeypatch, tmp_path):
+    _set_distribution(monkeypatch, tmp_path, editable=False)
+    _write_conda_record(
+        tmp_path,
+        channel="https://conda.anaconda.org/uibcdf/label/staging/linux-64",
+    )
+    record_path = next((tmp_path / "conda-meta").glob("molsysmt-*.json"))
+    record = json.loads(record_path.read_text(encoding="utf-8"))
+    record["url"] = record["url"].replace("/label/staging", "")
+    record_path.write_text(json.dumps(record), encoding="utf-8")
+
+    with pytest.raises(RuntimeError, match="incomplete staging artifact identity"):
+        validate_conda_staging._require_conda_install(
+            "molsysmt", "0.22.0", require_staging_provenance=True
+        )
 
 
 def test_editable_install_is_rejected_even_with_a_conda_record(monkeypatch, tmp_path):

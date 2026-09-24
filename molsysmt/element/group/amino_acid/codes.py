@@ -32,4 +32,6 @@ aa3_to_aa1 = {
     "XLE": "J",
 }
 
-aa1_to_aa3 = {one_letter: three_letter for three_letter, one_letter in aa3_to_aa1.items()}
+aa1_to_aa3 = {
+    one_letter: three_letter for three_letter, one_letter in aa3_to_aa1.items()
+}
