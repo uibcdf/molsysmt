@@ -41,7 +41,7 @@ dependencies = [
     "mmcif>=1.1.1",
     "argdigest>=0.12.1",
     "depdigest>=0.10.0",
-    "smonitor>=0.13.0",
+    "smonitor>=0.16.0",
 ]
 keywords = ["molecular-dynamics", "structural-biology", "chemistry", "trajectory", "conversion"]
 

@@ -3,17 +3,9 @@ Unit and regression test for the is solvate module of the molsysmt package on mo
 systems.
 """
 
-# Import package, test suite, and other packages as needed
-import shutil
-
 import numpy as np
-import pytest
 
 import molsysmt as msm
-
-pytestmark = pytest.mark.skipif(
-    shutil.which("tleap") is None, reason="tleap is not available in PATH"
-)
 
 
 def test_remove_overlapping_molecules_MolSys_1():
@@ -32,6 +24,14 @@ def test_remove_overlapping_molecules_MolSys_1():
     molsys = msm.merge([water_box, peptide])
 
     n_waters_before = msm.get(molsys, n_waters=True)
+    contact_map_before = msm.structure.get_contacts(
+        molsys,
+        selection='atom_type!="H" and molecule_type=="water"',
+        selection_2='atom_type!="H" and molecule_type=="peptide"',
+        threshold="3 angstroms",
+        pbc=True,
+    )
+    n_overlapping_waters = np.count_nonzero(np.any(contact_map_before[0], axis=1))
 
     new_molsys = msm.build.remove_overlapping_molecules(
         molsys,
@@ -51,5 +51,7 @@ def test_remove_overlapping_molecules_MolSys_1():
     )
 
     assert n_waters_before == 899
-    assert n_waters_after == 881
+    assert contact_map_before.shape[1] == n_waters_before
+    assert n_overlapping_waters > 0
+    assert n_waters_after == n_waters_before - n_overlapping_waters
     assert not np.any(contact_map)

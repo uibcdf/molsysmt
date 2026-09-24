@@ -739,8 +739,35 @@ MolSysViewer's prior 7/7 staged CI run pinned MolSysMT `0.22.0`, not the
 newer technical `0.22.3` or this planned `0.22.4` candidate. Its three
 manual hosted gates now take an explicit MolSysMT version input; they must be
 rerun against `0.22.4` after its staging build. No package for `0.22.4` or
-`0.23.4` has been uploaded yet, and the hosted E2E PNG timeout remains a
-separate release-policy question under uibcdf/molsysviewer#100.
+`0.23.4` has been uploaded yet, and the hosted E2E PNG timeout remains an
+open defect under uibcdf/molsysviewer#100.
+
+The maintainers now accept a narrowly scoped pre-1.0 exception for that
+`0.22.4`/`0.23.4` package candidate: Viewer hosted portable E2E run
+`36038233512` failed at scenario 23/36, while local portable E2E passed
+36/36 and the separate server-GPU lane is unvalidated. This is permission to
+advance the paired package publication once its other exact-commit gates
+pass, **not** a hosted E2E pass, a full 37/37 result, or a 1.0 sign-off.
+uibcdf/molsysviewer#100 stays open and the 1.0 release gate is unchanged.
+
+The local MolSysMT source-pair suite now passes **10,225 tests with 11 known
+skips**, using 12 workers and explicit paths for this MolSysMT branch, this
+MolSysViewer branch and the released SMonitor `0.16.0` tag. The first attempt
+accidentally imported the editable main checkout and was discarded as invalid
+evidence. The corrected run exposed the already-tracked warning round-trip
+defect in uibcdf/molsysmt#236; a consumer-side args-only path and
+`smonitor>=0.16.0` floor close it locally while uibcdf/smonitor#21 remains
+open. The suite also exposed an obsolete fixed water count in the native
+peptide overlap test; it now checks the initial contact count against the
+removed waters and that no contacts remain, without requiring optional
+`tleap`. The release metadata has been prepared for `0.22.4` with the
+intended 2026-09-24 date. Neither package has a frozen final commit or a new
+staging artifact yet; if publication moves to another date, update citation
+metadata and revalidate the resulting candidate before tagging.
+The candidate README and documentation badge now name Python 3.14 alongside
+3.11–3.13. This claim remains on the candidate branch until its exact 20-cell
+installed-pair and remaining release gates pass; it is not yet a public-channel
+admission or a suite-wide declaration.
 
 ## Segment F — Lifecycle and Release Candidate
 

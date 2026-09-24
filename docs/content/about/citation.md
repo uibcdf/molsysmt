@@ -17,7 +17,7 @@ Coming soon...
 ```{tab} Software
 
 Diego Prada-Gracia & Liliana M. Moreno-Vargas. (2026). MolSysMT (Version
-1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.1298752
+0.22.4) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.1298752
 
 [BibTeX](../../_bibtex/software.bib)
 

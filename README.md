@@ -9,7 +9,7 @@ through one uniform API.**
 
 [![MolSysSuite: Scientific Component](https://img.shields.io/badge/MolSysSuite-scientific%20component-0b7285?labelColor=24292f)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_badges.md#scientific-component)
 [![MolSysSuite policy](https://github.com/uibcdf/molsysmt/actions/workflows/molsyssuite-policy.yml/badge.svg?branch=main)](https://github.com/uibcdf/molsysmt/actions/workflows/molsyssuite-policy.yml)
-[![Python 3.11 | 3.12 | 3.13](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-3776AB?logo=python&logoColor=white)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md)
+[![Python 3.11 | 3.12 | 3.13 | 3.14](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-3776AB?logo=python&logoColor=white)](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md)
 [![License](https://img.shields.io/github/license/uibcdf/molsysmt)](https://github.com/uibcdf/molsysmt/blob/main/LICENSE)
 [![Tests](https://github.com/uibcdf/molsysmt/actions/workflows/ci-smoke.yaml/badge.svg?branch=main)](https://github.com/uibcdf/molsysmt/actions/workflows/ci-smoke.yaml)
 [![Documentation](https://github.com/uibcdf/molsysmt/actions/workflows/sphinx_docs_to_gh_pages.yaml/badge.svg)](https://www.uibcdf.org/molsysmt/)
@@ -76,7 +76,7 @@ handoff because you asked for one.
 conda install -c uibcdf -c conda-forge molsysmt
 ```
 
-Requires Python 3.11, 3.12 or 3.13. Compute kernels ship precompiled, so no
+Requires Python 3.11, 3.12, 3.13 or 3.14. Compute kernels ship precompiled, so no
 compiler or Rust toolchain is needed to install.
 
 Several integrations are optional — `openmm`, `mdtraj`, `MDAnalysis`, `parmed`,

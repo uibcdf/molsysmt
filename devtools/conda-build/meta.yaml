@@ -30,7 +30,7 @@ requirements:
   - numpy >=1.26,<3
   - argdigest >=0.12.1
   - depdigest >=0.10.0
-  - smonitor >=0.13.0
+  - smonitor >=0.16.0
   - pyunitwizard >=0.24.0
   - pandas
   - molsysviewer

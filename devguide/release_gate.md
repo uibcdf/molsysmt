@@ -21,7 +21,7 @@ tagged**. Green gates on an earlier commit or a dirty tree do not count.
   workflows are silently skipped and nothing is validated. Trigger CI explicitly if
   needed.
 - **Version metadata is consistent** with the intended tag (versioningit derives it from
-  the tag; `pyproject.toml` `requires-python` and classifiers already list 3.11–3.13).
+  the tag; `pyproject.toml` `requires-python` and classifiers list 3.11–3.14).
 
 ## 1. Fast gates — `devtools/scripts/release_gate.py`
 
