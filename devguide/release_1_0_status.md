@@ -708,8 +708,16 @@ not convert 36/36 portable into a full 37/37 or a 1.0 sign-off.
 The next staging-enabled Viewer `CI` run `36034111547` passed Qt but its
 six Python jobs stopped at one stale repository test that selected the
 old E2E workflow step name. Viewer corrected the guard to select the actual
-portable command, with 24 focused local tests passing; a hosted rerun is
-still needed. This does not change the installed-pair 20/20 evidence.
+portable command, with 24 focused local tests passing. The staging-enabled
+Viewer rerun `36036802158` on commit `2594f1a2` passed all seven jobs (six
+Python matrix cells and Qt), confirming branch CI with staged MolSysMT. The
+hosted portable `CI_e2e` rerun `36038233512` repeated the prior failure at
+scenario 23/36: `remote-client-rendering` timed out waiting for the PNG
+download, although it passed in the local 36/36 portable run. Do not count
+this as hosted E2E success or rerun the unchanged test; #100 tracks the
+deferred evidence-lane decision. The public-channel `main` gate and managed
+server-GPU lane remain separate. This does not change the installed-pair
+20/20 evidence.
 
 The 20-cell result does not promote the technical `0.22.3`/`0.23.3` coordinates
 into a release decision or alter the independent F6 sign-off. Windows passed
