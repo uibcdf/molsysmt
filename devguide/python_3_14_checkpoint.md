@@ -1,7 +1,7 @@
 # Python 3.14 paired-support checkpoint
 
 **Role:** dated operational checkpoint, not a support declaration or release gate.
-**Observed:** 2026-09-23 on Linux x86-64 unless another platform is named.
+**Observed:** 2026-09-24 on Linux x86-64 unless another platform is named.
 **Owning work:** [MolSysMT Python 3.14 proposal](pending_proposals/extend_molsysmt_python_support_to_3_14.md), `uibcdf/molsysviewer#93`, and the coordinated Conda release in `uibcdf/molsysmt#195` / `uibcdf/molsysviewer#82`.
 
 ## Where we stand
@@ -17,7 +17,7 @@ packages.
 | Boundary | Evidence available | Still missing |
 | --- | --- | --- |
 | MolSysMT core on 3.14 | Linux installed wheel, 99 Rust exports, bundled BCIF conversion, and 641 selected installed-wheel tests with 12 workers passed. An exact local ABI3 Conda candidate also passes the clean installed-pair validator. | Full scientific/source suite with representative optional backends; staged and cross-platform installed matrices. |
-| MolSysViewer core on 3.14 | The paired full Python source suite passed on hosted Linux and macOS, 2,090 tests collected per job; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-pair and installed-package gates on each claimed platform; an installed-test harness that does not inject source packages. |
+| MolSysViewer core on 3.14 | The paired full Python source suite and installed MolSysMT native-path guard passed on hosted Linux, macOS, and Windows in run `35975122014`; its Linux real Qt integration and opt-in full molecular render passed with the local UIBCDF-only Qt family. An exact local noarch candidate resolves and installs alongside the MolSysMT candidate on Linux/Python 3.14. | Remote staged-pair and installed-package gates on each claimed platform; an installed-test harness that does not inject source packages. |
 | UIBCDF Qt 6.10.1 family | Five aligned local Linux packages work together on Python 3.14. Disposable Python 3.11–3.13 binding variants passed Conda package tests and clean-install WebEngine smokes. The revised variant-selected recipes now passed package tests and clean five-package installations on Python 3.12–3.14; Qt Positioning/WebEngine native packages were reused across minors. The 3.14 packages also passed real Viewer Qt integration and full-render tests. No canonical PySide6 was installed. | Build the revised recipes for 3.11; establish a staging matrix, cross-platform builds, and exact staged-channel Viewer Qt tests. Local variants are not uploaded release artifacts. |
 | Public support claim | The lower public dependency chain, including py-mmcif, resolves on Python 3.14; the existing 3.11–3.13 staging campaign has separate gates. | New immutable pair, clean channel installations, and suite-level `admitted` decision before changing any public badge. |
 
@@ -37,10 +37,15 @@ minimal environment.
 
 The first hosted three-platform Viewer source-pair attempt passed Linux and
 macOS but exposed `uibcdf/molsysmt#241` on Windows: native `WindowsPath`
-demo resources were rejected by `get_form()`. A `Path`-base-class fix and
-native-path conversion guard now pass on Linux; the exact corrected pair
-still needs a Windows rerun. Several Viewer-local Windows failures are
-separate from this MolSysMT boundary.
+demo resources were rejected by `get_form()`. The `Path`-base-class fix and
+native-path guard now pass on the exact installed sources on all three hosted
+platforms. MolSysViewer also corrected its own `PathLike` digestion boundary
+and separate Windows portability failures. Run `35975122014` checked out
+MolSysMT `86dcb5d078d8cbb45c38500e452944811fc5a5bc` and MolSysViewer
+`88a6c75a08c3e3660b626c697183ef53c7297852`; all three jobs passed the
+guard and full Viewer Python suite. This closes the source-pair Windows
+compatibility defect, but it is not a staged-channel installation or an
+optional Qt-host test on Windows.
 
 The revised Linux/Python 3.12 binding artifacts have SHA-256 values
 `1faa8deecc53c65b0275c4716e27e50286f6ab5e6ca69f740e979085af8a5887`

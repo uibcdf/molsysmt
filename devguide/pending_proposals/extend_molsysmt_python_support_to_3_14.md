@@ -149,8 +149,13 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   The principal boundary is `uibcdf/molsysmt#241`: bundled demo resources
   are `pathlib.WindowsPath`, while `get_form()` only normalized `PosixPath`.
   The local fix accepts the native `Path` base class and has a focused
-  detection/conversion guard. Its Windows hosted result is still pending;
-  other independent Viewer Windows failures remain distinct.
+  detection/conversion guard. Run `35975122014` then passed this installed
+  guard and the full Viewer Python suite on Linux, macOS, and Windows/Python
+  3.14 against exact source commits MolSysMT `86dcb5d078d8cbb45c38500e452944811fc5a5bc`
+  and Viewer `88a6c75a08c3e3660b626c697183ef53c7297852`. Viewer also
+  corrected its own `PathLike` delegation and other Windows portability
+  failures. This is source-pair evidence, not a clean staged Conda pair or
+  Windows Qt-host support.
 - On 2026-09-23, temporary local tags built MolSysMT ABI3 and MolSysViewer
   noarch Conda packages. A fresh Linux/Python 3.14.7 environment resolved the
   exact local `0.22.1`/`0.23.2` pair and passed the installed-pair validator,
