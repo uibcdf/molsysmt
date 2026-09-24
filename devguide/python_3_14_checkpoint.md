@@ -35,6 +35,13 @@ source-tree Rust extension built locally. Collection still reaches tests that
 need optional OpenMM, so no full MolSysMT suite result is claimed from this
 minimal environment.
 
+The first hosted three-platform Viewer source-pair attempt passed Linux and
+macOS but exposed `uibcdf/molsysmt#241` on Windows: native `WindowsPath`
+demo resources were rejected by `get_form()`. A `Path`-base-class fix and
+native-path conversion guard now pass on Linux; the exact corrected pair
+still needs a Windows rerun. Several Viewer-local Windows failures are
+separate from this MolSysMT boundary.
+
 The revised Linux/Python 3.12 binding artifacts have SHA-256 values
 `1faa8deecc53c65b0275c4716e27e50286f6ab5e6ca69f740e979085af8a5887`
 (Shiboken),

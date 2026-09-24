@@ -4,6 +4,7 @@ Unit and regression test for the get_form module of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import builtins
+from pathlib import Path
 
 import depdigest
 import numpy as np
@@ -50,6 +51,14 @@ def test_file_h5msm():
     molsys = systems["chicken villin HP35"]["chicken_villin_HP35.h5msm"]
     output = msm.get_form(molsys)
     assert output == "file:h5msm"
+
+
+def test_bundled_path_is_detected_and_converted_on_native_platform():
+    file_path = systems["benzamidine"]["benzamidine.pdb"]
+    assert isinstance(file_path, Path)
+    assert msm.get_form(file_path) == "file:pdb"
+    molsys = msm.convert(file_path, to_form="molsysmt.MolSys")
+    assert msm.get(molsys, n_atoms=True) > 0
 
 
 ## Strings

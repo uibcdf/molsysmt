@@ -1,4 +1,4 @@
-from pathlib import PosixPath
+from pathlib import Path
 
 import depdigest
 
@@ -189,7 +189,7 @@ def get_form(molecular_system):
         output = [get_form(ii) for ii in molecular_system]
         return output
 
-    if isinstance(molecular_system, PosixPath):
+    if isinstance(molecular_system, Path):
         molecular_system = molecular_system.absolute().__str__()
 
     output = _detect(molecular_system)

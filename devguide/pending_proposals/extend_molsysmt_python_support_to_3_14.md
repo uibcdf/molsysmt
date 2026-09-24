@@ -144,6 +144,13 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   OpenMM-dependent test without OpenMM installed. This is collection hygiene,
   not full scientific coverage or a reason to make optional backends hard
   dependencies.
+- MolSysViewer's later three-platform source-pair run `35970837689` passed
+  Linux and macOS/Python 3.14 but failed broadly on Windows after collection.
+  The principal boundary is `uibcdf/molsysmt#241`: bundled demo resources
+  are `pathlib.WindowsPath`, while `get_form()` only normalized `PosixPath`.
+  The local fix accepts the native `Path` base class and has a focused
+  detection/conversion guard. Its Windows hosted result is still pending;
+  other independent Viewer Windows failures remain distinct.
 - On 2026-09-23, temporary local tags built MolSysMT ABI3 and MolSysViewer
   noarch Conda packages. A fresh Linux/Python 3.14.7 environment resolved the
   exact local `0.22.1`/`0.23.2` pair and passed the installed-pair validator,

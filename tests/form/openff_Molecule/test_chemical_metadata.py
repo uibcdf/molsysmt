@@ -1,13 +1,15 @@
 """Testing canonical chemical-state conversion from OpenFF Molecule."""
 
+from importlib.util import find_spec
+
 import pandas as pd
 import pytest
 
 import molsysmt as msm
 
-Molecule = pytest.importorskip(
-    "openff.toolkit.topology", reason="OpenFF Toolkit is an optional backend"
-).Molecule
+if find_spec("openff") is None or find_spec("openff.toolkit") is None:
+    pytest.skip("OpenFF Toolkit is an optional backend", allow_module_level=True)
+from openff.toolkit.topology import Molecule  # noqa: E402
 
 
 def test_openff_preserves_atom_charge_aromaticity_and_stereochemistry():
