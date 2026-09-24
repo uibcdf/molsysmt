@@ -280,13 +280,24 @@ passed yet and MolSysMT has not been staged on the other native platforms.
 The hosted installed-pair workflow now offers a separate `python_max=3.14`
 selection while retaining 3.13 as the historical default. Its validator
 requires each package's Conda record to carry the exact UIBCDF staging
-channel, artifact URL and SHA-256. Seventeen focused workflow/validator tests
+channel, artifact URL and SHA-256. Eighteen focused workflow/validator tests
 passed, including non-staging and mismatched-URL rejection; the stricter
 validator also passed against a real previously staged Linux/Python 3.13
 environment. Run `35967239820` predates this guard and is not retroactively
-credited with it. The complete `devtools/tests/` selection passed 176 tests
+credited with it. The complete `devtools/tests/` selection passed 177 tests
 with 12 workers after aligning the experimental ABI3/Rattler checks with
 `<3.15`; repository-wide Ruff checking and formatting passed.
+
+The first hosted four-interpreter Linux validation, run `35991792969`,
+installed the exact new pair in every cell but stopped at the new provenance
+guard before the functional checks. Micromamba writes `channel` as the
+abbreviated `uibcdf/label/staging`, whereas the older local Conda record
+used the full channel URL. The guard now accepts both representations only
+when the artifact URL, filename and SHA-256 still identify the exact staging
+record. A new positive test covers the micromamba form; the public-channel
+and mismatched-URL negative tests remain. This is a validator compatibility
+fix, not evidence that the four installed-pair cells have passed; a focused
+hosted rerun is required.
 
 ## Next gates in order
 

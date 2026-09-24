@@ -89,12 +89,32 @@ def test_exact_staging_record_is_accepted(monkeypatch, tmp_path):
     )
 
 
+def test_micromamba_staging_channel_alias_is_accepted(monkeypatch, tmp_path):
+    _set_distribution(monkeypatch, tmp_path, editable=False)
+    _write_conda_record(
+        tmp_path,
+        channel="https://conda.anaconda.org/uibcdf/label/staging/linux-64",
+    )
+    record_path = next((tmp_path / "conda-meta").glob("molsysmt-*.json"))
+    record = json.loads(record_path.read_text(encoding="utf-8"))
+    record["channel"] = "uibcdf/label/staging"
+    record_path.write_text(json.dumps(record), encoding="utf-8")
+
+    validate_conda_staging._require_conda_install(
+        "molsysmt", "0.22.0", require_staging_provenance=True
+    )
+
+
 def test_public_channel_record_is_rejected_from_staging_gate(monkeypatch, tmp_path):
     _set_distribution(monkeypatch, tmp_path, editable=False)
     _write_conda_record(
         tmp_path,
-        channel="https://conda.anaconda.org/uibcdf/linux-64",
+        channel="https://conda.anaconda.org/uibcdf/label/staging/linux-64",
     )
+    record_path = next((tmp_path / "conda-meta").glob("molsysmt-*.json"))
+    record = json.loads(record_path.read_text(encoding="utf-8"))
+    record["channel"] = "uibcdf"
+    record_path.write_text(json.dumps(record), encoding="utf-8")
 
     with pytest.raises(RuntimeError, match="non-staging channel"):
         validate_conda_staging._require_conda_install(

@@ -38,20 +38,31 @@ def _require_staging_provenance(record: dict, distribution_name: str) -> None:
     digest = record.get("sha256")
     if not isinstance(channel, str) or not isinstance(url, str):
         raise RuntimeError(f"{distribution_name} Conda record lacks staging provenance")
-    channel_root = f"{_STAGING_CHANNEL_ROOT}/"
-    subdir = channel.removeprefix(channel_root)
-    if not channel.startswith(channel_root) or subdir not in _CONDA_SUBDIRS:
-        raise RuntimeError(
-            f"{distribution_name} came from a non-staging channel: {channel}"
-        )
+    url_root = f"{_STAGING_CHANNEL_ROOT}/"
+    url_parts = (
+        url.removeprefix(url_root).split("/") if url.startswith(url_root) else []
+    )
     if (
-        not isinstance(filename, str)
-        or url != f"{channel}/{filename}"
+        len(url_parts) != 2
+        or url_parts[0] not in _CONDA_SUBDIRS
+        or not isinstance(filename, str)
+        or url_parts[1] != filename
         or not isinstance(digest, str)
         or re.fullmatch(r"[0-9a-f]{64}", digest) is None
     ):
         raise RuntimeError(
             f"{distribution_name} Conda record has incomplete staging artifact identity"
+        )
+    subdir = url_parts[0]
+    allowed_channels = {
+        _STAGING_CHANNEL_ROOT,
+        f"{_STAGING_CHANNEL_ROOT}/{subdir}",
+        "uibcdf/label/staging",
+        f"uibcdf/label/staging/{subdir}",
+    }
+    if channel not in allowed_channels:
+        raise RuntimeError(
+            f"{distribution_name} came from a non-staging channel: {channel}"
         )
 
 
