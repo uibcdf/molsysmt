@@ -299,6 +299,34 @@ and mismatched-URL negative tests remain. This is a validator compatibility
 fix, not evidence that the four installed-pair cells have passed; a focused
 hosted rerun is required.
 
+The corrected targeted Linux x86-64 run `35992241212` then passed all four
+Python 3.11–3.14 installed-pair jobs and retained four explicit environment
+records. Linux ARM producer run `35992422489` published its exact build-0
+artifact (SHA-256
+`ad948e50744e96cdc01182d911604733032a09d8dfe9963fcf634ff4ca8c8ffd`);
+targeted installed-pair run `35993063086` likewise passed all four Python
+jobs with four environment records. Both GitHub conclusions are `success`.
+GH Run Receptor marks each targeted run `FAIL` only because its repository
+rule expects all five platforms in one run; `uibcdf/gh-run-receptor#54` tracks
+that profile limitation. These runs are two complete native-platform slices,
+not the five-platform gate. macOS ARM and Windows build-0 artifacts were also
+published in producer runs `35992422933` and `35992422896`; their installation
+matrices and macOS Intel's build were still pending at that point.
+
+Windows installed-pair run `35993616429` subsequently passed Python
+3.11–3.14 in all four jobs and retained four environment records. GitHub's
+conclusion is `success`; GH Run Receptor again marks only its all-platform
+expectation unmet. That makes 12 installed cells across three native
+platforms, without implying macOS or public-channel support.
+
+macOS ARM installed-pair run `35993242687` then passed Python 3.11–3.14
+in all four jobs and retained four environment records. Its authoritative
+GitHub conclusion is `success`; the targeted-run receptor profile again
+reports only that the other four platforms were not included in that run.
+The staging candidate now has 16 successful installed cells across four
+native platforms. macOS Intel's ABI3 build and its installed matrix remain
+unverified; this is not yet the five-platform gate.
+
 ## Next gates in order
 
 1. The existing MolSysMT 0.22.0 build-5 / MolSysViewer 0.23.1 build-1
