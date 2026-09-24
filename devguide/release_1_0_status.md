@@ -781,6 +781,13 @@ the Conda release route and its tests; they were formatted without changing
 behavior. Repository-wide Ruff lint and format checks now pass, the two
 focused release-route test modules pass 8/8, and the fast release gate remains
 13/13.
+The earlier exact-source-pair run `36061167557` passed Linux and macOS/Python
+3.14 but failed Windows in Viewer's release-route test: Windows resolved
+`bash -n` to the WSL launcher, although the promoted script is hosted only on
+Ubuntu. Both repositories now retain the promotion identity assertions on
+Windows and check Bash syntax on POSIX, with an explicit Ubuntu-runner guard.
+This test correction still requires an exact-new-commit hosted Windows rerun;
+the failed run is not counted as a passing 3.14 gate.
 
 ## Segment F — Lifecycle and Release Candidate
 

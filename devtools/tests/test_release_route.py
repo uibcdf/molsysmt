@@ -114,6 +114,7 @@ def test_promotion_requires_exact_release_and_installed_pair_evidence():
     ):
         assert inputs[name]["required"] is True
     job = workflow["jobs"]["promote"]
+    assert job["runs-on"] == "ubuntu-latest"
     steps = job["steps"]
     identity = next(
         step
@@ -139,9 +140,12 @@ def test_promotion_requires_exact_release_and_installed_pair_evidence():
     assert promotion["with"]["to-label"] == "main"
     assert promotion["with"]["expected-sha256"] == "${{ inputs.sha256 }}"
     assert receipt["with"]["path"] == "${{ steps.promotion.outputs.receipt }}"
-    for step in steps:
-        if "run" in step:
-            syntax = subprocess.run(
-                ["bash", "-n"], input=step["run"], text=True, capture_output=True
-            )
-            assert syntax.returncode == 0, f"{step['name']}: {syntax.stderr}"
+    # The promotion script runs on Ubuntu. Windows may resolve `bash` to the
+    # WSL launcher, which cannot validate these Linux-hosted steps.
+    if sys.platform != "win32":
+        for step in steps:
+            if "run" in step:
+                syntax = subprocess.run(
+                    ["bash", "-n"], input=step["run"], text=True, capture_output=True
+                )
+                assert syntax.returncode == 0, f"{step['name']}: {syntax.stderr}"
