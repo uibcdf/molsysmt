@@ -695,6 +695,16 @@ page. Thus neither hosted nor local E2E is 37/37. The proposed evidence-lane
 redesign is uibcdf/molsysviewer#100; it does not waive the Viewer release
 gate or change the 20-cell installed-pair result.
 
+The next local source-pair pass separated browser evidence from the managed
+server-GPU worker: MolSysViewer's 36 portable E2E scenarios all passed with
+Chrome 149 and WebGL2. Hosted `CI_e2e` is configured to run that explicit
+portable lane but has not yet been rerun. The independent `remote-session`
+GPU lane remains failing locally because its Chrome process does not navigate
+to the worker's loopback page; a CDP-navigation attempt also timed out and
+was reverted. This is tracked by uibcdf/molsysviewer#100 and deferred until
+after the coordinated pre-1.0 MolSysMT/MolSysViewer package publication. Do
+not convert 36/36 portable into a full 37/37 or a 1.0 sign-off.
+
 The 20-cell result does not promote the technical `0.22.3`/`0.23.3` coordinates
 into a release decision or alter the independent F6 sign-off. Windows passed
 the core installation gate but remains experimental as a product-support
