@@ -761,13 +761,26 @@ open. The suite also exposed an obsolete fixed water count in the native
 peptide overlap test; it now checks the initial contact count against the
 removed waters and that no contacts remain, without requiring optional
 `tleap`. The release metadata has been prepared for `0.22.4` with the
-intended 2026-09-24 date. Neither package has a frozen final commit or a new
-staging artifact yet; if publication moves to another date, update citation
-metadata and revalidate the resulting candidate before tagging.
-The candidate README and documentation badge now name Python 3.14 alongside
-3.11–3.13. This claim remains on the candidate branch until its exact 20-cell
-installed-pair and remaining release gates pass; it is not yet a public-channel
-admission or a suite-wide declaration.
+intended 2026-09-24 date. Neither package has passed its final exact-commit
+gates or produced a new staging artifact yet; if publication moves to another
+date, update citation metadata and revalidate the resulting candidate before
+tagging.
+MolSysSuite authorized the two transition issues (`uibcdf/molsysmt#237` and
+`uibcdf/molsysviewer#93`) in `policy-v1.4.11` on 2026-09-24. Both candidate
+callers now pin that release, their synchronized suite guides identify the
+same effective snapshot, and the exact central repository checker passes
+locally for both. `authorized` requires Python 3.14 metadata and CI, but the
+canonical README badge remains at the publicly admitted 3.11–3.13 range until
+the coordinated release and independent channel installations permit central
+`admitted` status. The 3.14 package contract remains in the candidates; no
+public-channel or suite-wide 3.14 claim follows from authorization alone.
+The previous source-pair SHAs must be replaced by new exact commits after this
+policy update, and the final installed-pair and other release gates remain open.
+The new policy's Ruff 0.16.5 formatting gate exposed three older files in
+the Conda release route and its tests; they were formatted without changing
+behavior. Repository-wide Ruff lint and format checks now pass, the two
+focused release-route test modules pass 8/8, and the fast release gate remains
+13/13.
 
 ## Segment F — Lifecycle and Release Candidate
 

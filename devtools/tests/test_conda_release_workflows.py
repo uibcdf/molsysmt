@@ -83,7 +83,7 @@ def test_publish_workflow_is_atomic_per_native_platform():
     assert prepare["outputs"]["route"] == "${{ steps.route.outputs.route }}"
     route = _step(prepare, "Select the committed Conda release route")
     assert "release_route.py" in route["run"]
-    assert "--event \"$GITHUB_EVENT_NAME\"" in route["run"]
+    assert '--event "$GITHUB_EVENT_NAME"' in route["run"]
 
     validate_identity = _step(prepare, "Validate staging inputs or the release tag")[
         "run"
@@ -125,7 +125,10 @@ def test_publish_workflow_is_atomic_per_native_platform():
         "--exclusive-config-file conda_build_config_abi3.yaml"
         in staging_build["with"]["conda_build_args"]
     )
-    assert release_build["if"] == "github.event_name == 'release' && needs.prepare.outputs.route == 'direct'"
+    assert (
+        release_build["if"]
+        == "github.event_name == 'release' && needs.prepare.outputs.route == 'direct'"
+    )
     assert release_build["env"]["MOLSYSMT_CONDA_BUILD_NUMBER"] == 0
     assert release_build["env"]["MOLSYSMT_CONDA_ABI3"] == "true"
     assert release_build["uses"] == (
@@ -141,8 +144,13 @@ def test_publish_workflow_is_atomic_per_native_platform():
         "--exclusive-config-file conda_build_config_abi3.yaml"
         in release_build["with"]["conda_build_args"]
     )
-    staged_notice = _step(build_and_publish, "Report the staged-release promotion boundary")
-    assert staged_notice["if"] == "github.event_name == 'release' && needs.prepare.outputs.route == 'staged'"
+    staged_notice = _step(
+        build_and_publish, "Report the staged-release promotion boundary"
+    )
+    assert (
+        staged_notice["if"]
+        == "github.event_name == 'release' && needs.prepare.outputs.route == 'staged'"
+    )
     direct_env = _step(build_and_publish, "Set up the direct public build environment")
     assert "uibcdf/label/staging" not in direct_env["with"]["condarc"]
 
@@ -161,7 +169,9 @@ def test_publish_workflow_is_atomic_per_native_platform():
 
 def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     workflow = _workflow(STAGING_WORKFLOW)
-    assert "Python ${{ inputs.python_max }} | ${{ inputs.target }}" in workflow["run-name"]
+    assert (
+        "Python ${{ inputs.python_max }} | ${{ inputs.target }}" in workflow["run-name"]
+    )
     prepare = workflow["jobs"]["prepare"]
     validate = workflow["jobs"]["validate"]
     viewer_input = workflow[True]["workflow_dispatch"]["inputs"]["molsysviewer_version"]

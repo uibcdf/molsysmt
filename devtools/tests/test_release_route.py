@@ -36,8 +36,16 @@ def test_staged_plan_is_bound_to_the_new_version():
 def test_dispatch_command_emits_the_selected_route(tmp_path):
     output = tmp_path / "route-output"
     subprocess.run(
-        [sys.executable, str(ROUTE_FILE), "--version", "0.22.4", "--event", "workflow_dispatch",
-         "--github-output", str(output)],
+        [
+            sys.executable,
+            str(ROUTE_FILE),
+            "--version",
+            "0.22.4",
+            "--event",
+            "workflow_dispatch",
+            "--github-output",
+            str(output),
+        ],
         check=True,
         capture_output=True,
         text=True,
@@ -45,9 +53,13 @@ def test_dispatch_command_emits_the_selected_route(tmp_path):
     assert output.read_text() == "route=staged\n"
 
 
-def test_direct_route_fails_closed_if_any_label_contains_the_version(tmp_path, monkeypatch):
+def test_direct_route_fails_closed_if_any_label_contains_the_version(
+    tmp_path, monkeypatch
+):
     plan = tmp_path / "release_plan.toml"
-    plan.write_text('version = "9.9.9"\nroute = "direct"\nreason = "Independent patch"\n')
+    plan.write_text(
+        'version = "9.9.9"\nroute = "direct"\nreason = "Independent patch"\n'
+    )
     with pytest.raises(ValueError, match="requires a staged plan"):
         route.select_route("9.9.9", "workflow_dispatch", plan)
 
@@ -90,26 +102,46 @@ def test_promotion_requires_exact_release_and_installed_pair_evidence():
     workflow = yaml.safe_load(PROMOTION.read_text(encoding="utf-8"))
     inputs = workflow[True]["workflow_dispatch"]["inputs"]
     for name in (
-        "candidate_sha", "version", "target", "filename", "build_number", "sha256",
-        "pair_run_id", "molsysviewer_version", "molsysviewer_build_number",
+        "candidate_sha",
+        "version",
+        "target",
+        "filename",
+        "build_number",
+        "sha256",
+        "pair_run_id",
+        "molsysviewer_version",
+        "molsysviewer_build_number",
     ):
         assert inputs[name]["required"] is True
     job = workflow["jobs"]["promote"]
     steps = job["steps"]
-    identity = next(step for step in steps if step.get("name") == "Validate release identity and installed-pair gate")
+    identity = next(
+        step
+        for step in steps
+        if step.get("name") == "Validate release identity and installed-pair gate"
+    )
     promotion = next(step for step in steps if step.get("id") == "promotion")
-    receipt = next(step for step in steps if step.get("name") == "Retain the bounded promotion receipt")
+    receipt = next(
+        step
+        for step in steps
+        if step.get("name") == "Retain the bounded promotion receipt"
+    )
     assert "git rev-list -n 1" in identity["run"]
     assert "release_route.py" in identity["run"]
     assert "validate_conda_staging.yaml" in identity["run"]
     assert "--jq .total_count" in identity["run"]
     assert "--jq .display_title" in identity["run"]
-    assert promotion["uses"] == "uibcdf/action-build-and-upload-conda-packages/promote@v2.2.2"
+    assert (
+        promotion["uses"]
+        == "uibcdf/action-build-and-upload-conda-packages/promote@v2.2.2"
+    )
     assert promotion["with"]["from-label"] == "staging"
     assert promotion["with"]["to-label"] == "main"
     assert promotion["with"]["expected-sha256"] == "${{ inputs.sha256 }}"
     assert receipt["with"]["path"] == "${{ steps.promotion.outputs.receipt }}"
     for step in steps:
         if "run" in step:
-            syntax = subprocess.run(["bash", "-n"], input=step["run"], text=True, capture_output=True)
+            syntax = subprocess.run(
+                ["bash", "-n"], input=step["run"], text=True, capture_output=True
+            )
             assert syntax.returncode == 0, f"{step['name']}: {syntax.stderr}"

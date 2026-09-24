@@ -36,7 +36,13 @@ def read_plan(path: Path = PLAN) -> dict:
 def assert_version_unoccupied(version: str) -> None:
     """Allow a direct build only after an explicit absent-version response."""
     url = f"https://api.anaconda.org/release/uibcdf/{PACKAGE}/{quote(version, safe='')}"
-    request = Request(url, headers={"Accept": "application/json", "User-Agent": f"{PACKAGE}-release-route"})
+    request = Request(
+        url,
+        headers={
+            "Accept": "application/json",
+            "User-Agent": f"{PACKAGE}-release-route",
+        },
+    )
     try:
         with urlopen(request, timeout=20) as response:
             json.load(response)
@@ -72,7 +78,9 @@ def select_route(version: str, event: str, path: Path = PLAN) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", required=True)
-    parser.add_argument("--event", choices=("workflow_dispatch", "release"), required=True)
+    parser.add_argument(
+        "--event", choices=("workflow_dispatch", "release"), required=True
+    )
     parser.add_argument("--github-output", type=Path, required=True)
     args = parser.parse_args()
     route = select_route(args.version, args.event)
