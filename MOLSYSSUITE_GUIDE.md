@@ -27,7 +27,7 @@ MolSysSuite is a first-class MOLI component with delegated internal governance. 
 A MolSysSuite member therefore follows, as applicable: **MOLI engineering governance + MolSysSuite domain governance + repository-local rules**.
 
 The effective engineering-governance snapshot is MOLI
-`888902eb2ccc482c62c6f75da9d8f0bf9bb56442` plus MolSysSuite
+`6a91433bd38582980d0781474be6a80c58f48886` plus MolSysSuite
 `policy-v1.4.10`, as recorded in `suite.toml`. Links to MOLI `main` show
 the latest upstream work, not the effective normative text.
 
@@ -40,10 +40,11 @@ Start with these central documents:
 - [repository ownership contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/repository_contract.md);
 - [issue and developer-guide reporting protocol](https://github.com/uibcdf/molsyssuite/blob/main/devguide/reporting_protocol.md);
 - [cross-component feedback policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/cross_component_feedback.md);
-- [effective MOLI Python support policy](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/policies/python_policy.md) and the [MolSysSuite adoption profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md);
-- [effective MOLI Python tooling policy](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/policies/python_tooling_policy.md) and the [MolSysSuite tooling profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md);
-- [effective MOLI support-library policy](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/policies/python_support_libraries_policy.md) and [developer-tools policy](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/policies/python_developer_tools_policy.md), with the [MolSysSuite member review profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md);
-- [effective MOLI release-version policy](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/policies/release_version_policy.md) and the [MolSysSuite release profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md);
+- [effective MOLI Python support policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/python_policy.md) and the [MolSysSuite adoption profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md);
+- [effective MOLI Python tooling policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/python_tooling_policy.md) and the [MolSysSuite tooling profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md);
+- [effective MOLI support-library policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/python_support_libraries_policy.md) and [developer-tools policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/python_developer_tools_policy.md), with the [MolSysSuite member review profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md);
+- [effective MOLI release-version policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/release_version_policy.md) and the [MolSysSuite release profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md);
+- [effective MOLI Python distribution policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/python_distribution_policy.md) and the [MolSysSuite member adoption profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md);
 - [GH Run Receptor dogfooding policy](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md).
 
 MOLI's conceptual architecture does not admit repositories to MolSysSuite.
@@ -162,7 +163,7 @@ the commit pinned in `suite.toml` until a separate policy rollout changes it.
 
 ## Common development baseline
 
-The [effective MOLI engineering governance](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/governance/policy_inheritance.md) owns the shared Python support, CI, Ruff, support-library, developer-tool and public-release rules. The pinned MOLI revision in `suite.toml` supplies their machine-readable values. Follow the [suite Python adoption profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md), [CI profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md), [tooling profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md), [ecosystem review profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md) and [release profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md) for member-specific adoption, evidence and historical exceptions. Type checking and scientific or UI gates remain repository-local.
+The [effective MOLI engineering governance](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/governance/policy_inheritance.md) owns the shared Python support, CI, Ruff, support-library, developer-tool, distribution and public-release rules. The pinned MOLI revision in `suite.toml` supplies their machine-readable values. Follow the [suite Python adoption profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md), [CI profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md), [tooling profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md), [ecosystem review profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md), [distribution profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_distribution_policy.md) and [release profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/release_version_policy.md) for member-specific adoption, evidence and historical exceptions. Type checking and scientific or UI gates remain repository-local.
 
 The new support-library and developer-tool policies require member-specific review.
 Their publication does not establish adoption by a member. `suite.toml` records
@@ -175,7 +176,7 @@ Every root integration guide synchronized from another repository is generated, 
 
 ## Public release versions
 
-MOLI defines public component release identity in its [effective release-version policy](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/policies/release_version_policy.md). MolSysSuite maintains member enforcement, the historical-tag inventory and the separate `policy-vX.Y.Z` governance-release namespace.
+MOLI defines public component release identity in its [effective release-version policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/release_version_policy.md). MolSysSuite maintains member enforcement, the historical-tag inventory and the separate `policy-vX.Y.Z` governance-release namespace.
 
 ## Repository badges
 
@@ -194,7 +195,7 @@ requires a separate networked audit under `devguide/repository_badges.md`.
 
 ## GitHub Actions inspection
 
-Follow the [effective MOLI developer-tools policy](https://github.com/uibcdf/moli/blob/888902eb2ccc482c62c6f75da9d8f0bf9bb56442/devguide/policies/python_developer_tools_policy.md)
+Follow the [effective MOLI developer-tools policy](https://github.com/uibcdf/moli/blob/6a91433bd38582980d0781474be6a80c58f48886/devguide/policies/python_developer_tools_policy.md)
 and the repository's `GH_RUN_RECEPTOR_GUIDE.md` where present. The suite's
 [dogfooding profile](https://github.com/uibcdf/molsyssuite/blob/main/devguide/gh_run_receptor_policy.md)
 tracks readiness and actual operator use, provider feedback, and any bounded
