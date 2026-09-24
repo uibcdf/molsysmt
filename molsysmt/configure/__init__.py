@@ -1,11 +1,11 @@
 # Configuration file for MolSysMT
 
-import os as _os
 from contextvars import ContextVar as _ContextVar
 
 # Preserve configuration setup before argument digestion.
 # isort: off
 from .logging_setup import setup_logging
+from ._memory import total_physical_memory_bytes as _total_physical_memory_bytes
 from molsysmt._private.argdigest import arg_digest
 # isort: on
 
@@ -79,9 +79,7 @@ show_all_capabilities = True
 silence_backend_stdout = True
 
 # Heavy trajectory processing
-max_ram_usage = int(
-    0.5 * _os.sysconf("SC_PAGE_SIZE") * _os.sysconf("SC_PHYS_PAGES")
-)  # 50% of total RAM in bytes
+max_ram_usage = _total_physical_memory_bytes() // 2  # 50% of total RAM in bytes
 heavy_mode = "auto"  # 'auto' | 'force' | 'off'
 chunk_size = 100  # default number of frames per chunk
 emit_heavy_telemetry = True
@@ -89,7 +87,7 @@ memory_pressure_threshold = 0.80  # warn when RSS exceeds this fraction of max_r
 chunk_memory_fraction = (
     0.10  # maximum safe fraction of max_ram_usage allocated to a single chunk
 )
-del _os
+del _total_physical_memory_bytes
 
 # Topology
 min_length_protein = 50

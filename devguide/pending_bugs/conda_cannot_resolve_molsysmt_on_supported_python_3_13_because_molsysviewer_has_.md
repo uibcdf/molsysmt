@@ -17,8 +17,113 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. MolSysViewer 0.23.1 is staged; a corrective MolSysMT build and the
-installed-pair matrix remain pending.
+**Status:** active. MolSysMT 0.22.0 build 4 and MolSysViewer 0.23.1 build 1
+are staged. The first exact 15-cell hosted gate exposed a Windows import
+defect and an environment-recording command unavailable on micromamba-only
+runners; a corrected build 5 and second gate are pending.
+
+## Coordination checkpoint — 2026-09-24
+
+Hosted exact-pair run `35961600369` pinned MolSysMT ABI3 build 4 and
+MolSysViewer noarch build 1 on all five platforms and Python 3.11--3.13.
+All 15 package installation steps succeeded. All Linux, ARM and macOS
+installed-pair validation steps succeeded (12 cells). Linux x86-64 then
+recorded all three explicit environment artifacts. On Linux ARM and both
+macOS architectures (nine cells), only the subsequent record step failed:
+`conda: command not found`. The workflow used `conda list --explicit`
+although `setup-micromamba` supplies micromamba, not Conda, on those runners.
+The record step now uses the action-provided `MAMBA_EXE` to export the
+named environment explicitly. The validator can now select one native
+platform for a focused three-interpreter rerun before allocating the full
+15-cell gate; the default remains all five platforms.
+Focused ARM run `35963306739` then passed its preparation and all three
+Python jobs. Its three environment artifacts were uploaded. A downloaded
+Python 3.13 record contains `@EXPLICIT`, `# platform: linux-aarch64`,
+Viewer `0.23.1-py_1` and MolSysMT `0.22.0-pyabi3*_4` URLs from the staging
+label. GH Run Receptor currently reports that successful targeted run as
+failed because the repository rule still expects all five platforms; this
+tool limitation is tracked as uibcdf/gh-run-receptor#54. The GitHub run
+conclusion and job conclusions are all successful. Keep the five-platform
+expectation for the final full-matrix gate.
+
+The three Windows cells reached validation but failed importing
+`molsysmt.configure` because `os.sysconf` is unavailable. This source defect
+is tracked separately as uibcdf/molsysmt#239 and has a local regression
+covering both POSIX and Windows memory discovery. No Windows functional
+success is claimed from run `35961600369`. The source fix requires an
+additive ABI3 build 5; the public release path is reserved as build 6.
+Neither the old build nor Viewer build 1 is to be overwritten.
+Targeted producer run `35963198451` subsequently succeeded from exact
+candidate `ec5cbd41bf121f595fbb88e16f9aa9f3728581ea`. An independent
+Anaconda inventory found `win-64/molsysmt-0.22.0-pyabi3h2d2bc06_5.conda`
+with the `staging` label. Windows installed-pair run `35964451004` passed
+all three Python 3.11--3.13 jobs against Viewer build 1, including BCIF,
+PDB-text, Viewer and explicit-environment checks. The Windows import defect
+is resolved as uibcdf/molsysmt#239. The remaining task is to publish build
+5 on the other four native platforms and repeat the full 15-cell gate.
+
+## Coordination checkpoint — 2026-09-23
+
+The 2026-09-20 plan below was overtaken by hosted work that day. MolSysMT run
+`35498945251` completed all five native ABI3 jobs and published build 3 to
+staging. MolSysViewer corrected its internal version mismatch in
+`uibcdf/molsysviewer#91`; run `35502257553` published additive noarch build
+`py_1`, and a clean Python 3.13 pair reported both Viewer version surfaces
+as exactly `0.23.1`. Neither package is a public release.
+
+The first 15-cell pair run, `35499866604`, failed in every cell. Its nine
+Linux x86-64 and macOS cells reached validation and rejected Viewer build 0:
+installed metadata reported `0.23.1+0.g736e8274.dirty`, not the requested
+`0.23.1`. Three Linux ARM and three Windows cells failed earlier in the
+Conda solver because support-library artifacts were unavailable; the
+subsequent micromamba cleanup errors were secondary. Do not weaken the
+version check or classify those six failures as action setup defects.
+
+On 2026-09-23, live-channel dry runs for Linux ARM and Windows/Python 3.11
+resolved MolSysMT build 3, Viewer build 1, and staged noarch SMonitor 0.16.0,
+DepDigest 0.11.0, ArgDigest 0.13.0, and PyUnitWizard 0.26.0. This removes
+the previously observed **solver** gap in those two cells; it does not yet
+prove installed behavior, other Python minors, or every native platform.
+
+Build 3 predates the PDB/Biopython fix below. MolSysMT run `35932403014`
+completed all five native jobs from exact commit
+`432e039ad7e9ee7c9a1f803ddbdc824d2a743435`. GH Run Receptor reported
+five successful producer uploads; an independent Anaconda package inventory
+found exactly one new build-4 ABI3 archive on each of the five native
+platforms, all with the `staging` label. The release route is reserved as
+build 5; neither channel was overwritten or promoted.
+
+A fresh Linux/Python 3.13 environment installed staged MolSysMT build 4 and
+Viewer build 1. Both Conda records name the staging channel; Biopython is
+absent. The installed-pair validator passed version identity, native import,
+BCIF conversion, four-atom PDB-text conversion and Viewer load, and Viewer
+resources. This is **one local installed cell**, not the 15-cell hosted gate.
+An initial solve using older repodata selected MolSysMT build 3 despite build
+4 already being present; updating the local environment to build 4 exposed
+the need to pin both exact build numbers in the workflow. A Conda dry run
+confirmed that `pyabi3*_4` and `py_1` select the intended pair, and the
+hosted validation workflow now requests those build identities explicitly.
+Keep the staged and public labels separate.
+
+## Clean-install PDB guard — 2026-09-23
+
+A local Linux/Python 3.14 clean-pair probe found an additional packaging hazard
+that is not specific to Python 3.14: an unprefixed amino-acid string detector
+imported optional Biopython while sweeping form candidates. When Bio was
+absent, `get_form(PDB_TEXT)` failed before reaching the PDB detector. The
+resolution and exact local artifacts are recorded under
+[`#238`](../archive/resolved_bugs/pdb_text_detection_imports_optional_biopython.md).
+
+The main-line detector now counts canonical amino-acid letters without Bio;
+its regression explicitly masks Bio and checks both an amino-acid sequence
+and PDB text. The exact-pair validator now also classifies, converts, and
+loads four-atom PDB text through Viewer. The focused source and validator
+selection passed 36 tests, and this validator passed against the corrected
+local Python 3.14 installed pair. The same validator fails against the
+uncorrected local pair at the absent-Bio import, proving the new gate detects
+this regression. These are **local** results, not evidence
+that the older staged `0.22.0`/`0.23.1` pair has passed. MolSysMT build 4
+contains this fix; it still must pass the full 15-cell staged-pair gate.
 
 ## Coordination checkpoint — 2026-09-20
 
@@ -31,15 +136,15 @@ The missing Viewer coordinate is no longer the immediate blocker:
 - The existing five-platform MolSysMT 0.22.0 build-2 ABI3 set predates the fix for
   uibcdf/molsysmt#200 and does not declare `py-mmcif`. It is historical evidence, not a
   releasable candidate.
-- The next non-overwriting MolSysMT coordinate is build 3. The eventual release path is
-  reserved as build 4 so that it cannot overwrite or be confused with the corrective
-  staging set.
+- At this checkpoint, the next non-overwriting MolSysMT coordinate was build 3, and
+  the eventual release path was reserved as build 4. The 2026-09-23 checkpoint
+  above supersedes those numbers after the additional PDB fix.
 - The exact-pair gate now rejects a MolSysMT Conda record without `py-mmcif` and performs
   an offline conversion of the bundled HP35 BCIF file, checking its 596 atoms. This
   turns the clean-install defect into behavior exercised in every one of the 15
   platform/interpreter cells.
 
-The remaining sequence is therefore concrete: publish MolSysMT 0.22.0 build 3 from an
+At this checkpoint the remaining sequence was to publish MolSysMT 0.22.0 build 3 from an
 exact commit to `staging`, audit its five channel records independently, and run the
 exact 0.22.0/0.23.1 pair across five platforms and Python 3.11--3.13. Nothing from this
 sequence is promoted to the main channel.
@@ -216,8 +321,11 @@ tracked separately as uibcdf/molsysmt#193.
 
 ## Dependencies and risks
 
-MolSysViewer's separately owned staging step is complete for 0.23.1. Resolution now
-depends on the corrective MolSysMT build-3 publication and the exact-pair validation.
+MolSysViewer's separately owned staging step is complete for 0.23.1 build 1,
+and MolSysMT build 4 contains the PDB fix. Windows additionally needs the
+portable memory-budget correction in build 5 (uibcdf/molsysmt#239).
+Resolution depends on exact-pair validation across all claimed
+platform/interpreter cells.
 Each repository continues to publish only its own artefact.
 
 ## Provenance
