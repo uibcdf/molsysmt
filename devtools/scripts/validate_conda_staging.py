@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Validate a clean installation of the coordinated Conda staging pair."""
+"""Validate a clean installation of the coordinated Conda package pair."""
 
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ _PDB_TEXT = (
     "END\n"
 )
 _STAGING_CHANNEL_ROOT = "https://conda.anaconda.org/uibcdf/label/staging"
+_PUBLIC_CHANNEL_ROOT = "https://conda.anaconda.org/uibcdf"
 _CONDA_SUBDIRS = {
     "linux-64",
     "linux-aarch64",
@@ -29,16 +30,24 @@ _CONDA_SUBDIRS = {
 }
 
 
-def _require_staging_provenance(record: dict, distribution_name: str) -> None:
-    """Reject a Conda record that did not come from the exact staging label."""
+def _require_channel_provenance(
+    record: dict, distribution_name: str, *, source: str
+) -> None:
+    """Reject a Conda record outside the selected exact artifact channel."""
+
+    if source not in {"staging", "public"}:
+        raise ValueError(f"Unsupported Conda package source: {source}")
+    channel_root = (
+        _STAGING_CHANNEL_ROOT if source == "staging" else _PUBLIC_CHANNEL_ROOT
+    )
 
     channel = record.get("channel")
     url = record.get("url")
     filename = record.get("fn")
     digest = record.get("sha256")
     if not isinstance(channel, str) or not isinstance(url, str):
-        raise RuntimeError(f"{distribution_name} Conda record lacks staging provenance")
-    url_root = f"{_STAGING_CHANNEL_ROOT}/"
+        raise RuntimeError(f"{distribution_name} Conda record lacks {source} provenance")
+    url_root = f"{channel_root}/"
     url_parts = (
         url.removeprefix(url_root).split("/") if url.startswith(url_root) else []
     )
@@ -51,19 +60,32 @@ def _require_staging_provenance(record: dict, distribution_name: str) -> None:
         or re.fullmatch(r"[0-9a-f]{64}", digest) is None
     ):
         raise RuntimeError(
-            f"{distribution_name} Conda record has incomplete staging artifact identity"
+            f"{distribution_name} Conda record has incomplete {source} artifact identity"
         )
     subdir = url_parts[0]
+    short_channel = "uibcdf/label/staging" if source == "staging" else "uibcdf"
     allowed_channels = {
-        _STAGING_CHANNEL_ROOT,
-        f"{_STAGING_CHANNEL_ROOT}/{subdir}",
-        "uibcdf/label/staging",
-        f"uibcdf/label/staging/{subdir}",
+        channel_root,
+        f"{channel_root}/{subdir}",
+        short_channel,
+        f"{short_channel}/{subdir}",
     }
     if channel not in allowed_channels:
         raise RuntimeError(
-            f"{distribution_name} came from a non-staging channel: {channel}"
+            f"{distribution_name} came from a non-{source} channel: {channel}"
         )
+
+
+def _require_staging_provenance(record: dict, distribution_name: str) -> None:
+    """Reject a Conda record that did not come from the exact staging label."""
+
+    _require_channel_provenance(record, distribution_name, source="staging")
+
+
+def _require_public_provenance(record: dict, distribution_name: str) -> None:
+    """Reject a Conda record that did not come from the public UIBCDF channel."""
+
+    _require_channel_provenance(record, distribution_name, source="public")
 
 
 def _require_conda_install(
@@ -72,7 +94,10 @@ def _require_conda_install(
     *,
     require_abi3: bool = False,
     require_staging_provenance: bool = False,
+    require_public_provenance: bool = False,
 ) -> None:
+    if require_staging_provenance and require_public_provenance:
+        raise ValueError("A Conda install cannot require two package sources")
     distribution = importlib.metadata.distribution(distribution_name)
     direct_url = distribution.read_text("direct_url.json")
     if direct_url is not None:
@@ -100,6 +125,8 @@ def _require_conda_install(
     record = json.loads(conda_records[0].read_text(encoding="utf-8"))
     if require_staging_provenance:
         _require_staging_provenance(record, distribution_name)
+    if require_public_provenance:
+        _require_public_provenance(record, distribution_name)
     if require_abi3:
         build = str(record.get("build", ""))
         if not build.startswith("pyabi3h"):
@@ -185,6 +212,7 @@ def validate(
     molsysviewer_version: str,
     *,
     require_staging_provenance: bool = False,
+    require_public_provenance: bool = False,
 ) -> None:
     """Validate the installed package pair and its native/runtime resources."""
 
@@ -193,11 +221,13 @@ def validate(
         molsysmt_version,
         require_abi3=True,
         require_staging_provenance=require_staging_provenance,
+        require_public_provenance=require_public_provenance,
     )
     _require_conda_install(
         "molsysviewer",
         molsysviewer_version,
         require_staging_provenance=require_staging_provenance,
+        require_public_provenance=require_public_provenance,
     )
 
     _require_version("molsysmt", molsysmt_version)
@@ -238,12 +268,15 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--molsysmt-version", required=True)
     parser.add_argument("--molsysviewer-version", required=True)
-    parser.add_argument("--require-staging-provenance", action="store_true")
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument("--require-staging-provenance", action="store_true")
+    source.add_argument("--require-public-provenance", action="store_true")
     args = parser.parse_args()
     validate(
         args.molsysmt_version,
         args.molsysviewer_version,
         require_staging_provenance=args.require_staging_provenance,
+        require_public_provenance=args.require_public_provenance,
     )
 
 

@@ -183,6 +183,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     ]
     python_max_input = workflow[True]["workflow_dispatch"]["inputs"]["python_max"]
     target_input = workflow[True]["workflow_dispatch"]["inputs"]["target"]
+    source_input = workflow[True]["workflow_dispatch"]["inputs"]["package_source"]
 
     assert validate["needs"] == "prepare"
     assert viewer_input["required"] is True
@@ -196,6 +197,9 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
         *(platform for platform, _ in sorted(EXPECTED_TARGETS)),
     ]
     assert target_input["default"] == "all"
+    assert source_input["default"] == "staging"
+    assert source_input["options"] == ["staging", "public"]
+    assert "| public" in workflow["run-name"]
     assert (
         validate["strategy"]["matrix"]["target"]
         == "${{ fromJSON(needs.prepare.outputs.target_matrix) }}"
@@ -224,8 +228,9 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     exact_version = "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
     assert version_gate.count(exact_version) == 2
 
-    install = _step(validate, "Install the staged package pair")["with"]
+    install = _step(validate, "Install the selected package pair")["with"]
     assert "uibcdf/label/staging" in install["condarc"]
+    assert "inputs.package_source == 'staging'" in install["condarc"]
     assert (
         "molsysmt=${{ inputs.molsysmt_version }}=pyabi3*_${{ inputs.molsysmt_build_number }}"
         in install["create-args"]
@@ -243,6 +248,7 @@ def test_staging_workflow_installs_the_pair_on_the_native_matrix():
     assert "--molsysmt-version" in validation
     assert "--molsysviewer-version" in validation
     assert "--require-staging-provenance" in validation
+    assert "--require-public-provenance" in validation
 
     validation_script = (
         REPO / "devtools" / "scripts" / "validate_conda_staging.py"
