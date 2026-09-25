@@ -35,12 +35,13 @@ requirements:
     - argdigest >=0.13.0
     - depdigest >=0.10.0
     - smonitor >=0.16.0
-    - pyunitwizard >=0.24.0
+    - pyunitwizard >=0.25.0
     - pandas
     - molsysviewer
     - networkx
     - tqdm
     - matplotlib
+    - py-mmcif >=1.1.1
 
 tests:
   - python:

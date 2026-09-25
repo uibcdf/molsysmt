@@ -2,6 +2,11 @@ name: Rust abi3 wheels
 
 on:
   workflow_dispatch:
+    inputs:
+      molsysviewer_sha:
+        description: Full MolSysViewer candidate commit SHA for the installed public smoke
+        required: true
+        type: string
   pull_request:
     branches:
       - "main"
@@ -340,41 +345,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: actions/checkout@v7
-        with:
-          repository: uibcdf/depdigest
-          ref: 4fccafda4aa37b4c152d6b7d887ee665c7adc443
-          path: controlled-sources/depdigest
-          persist-credentials: false
-
-      - uses: actions/checkout@v7
-        with:
-          repository: uibcdf/smonitor
-          ref: df86d5d33de23724a819c2cb883198522a0c0c47
-          path: controlled-sources/smonitor
-          persist-credentials: false
-
-      - uses: actions/checkout@v7
-        with:
-          repository: uibcdf/pyunitwizard
-          ref: b9be32d4b17a1b8f1d51c4aa734c56d679fb75db
-          path: controlled-sources/pyunitwizard
-          persist-credentials: false
-
-      - uses: actions/checkout@v7
-        with:
-          repository: uibcdf/argdigest
-          ref: 7d44bd1d8bbf7f482feb00ce24210bab171747b4
-          path: controlled-sources/argdigest
-          persist-credentials: false
-
-      - uses: actions/checkout@v7
-        with:
-          repository: uibcdf/molsysviewer
-          ref: 7a1522662e30575caf580a9447e3e6d80b628e07
-          path: controlled-sources/molsysviewer
-          persist-credentials: false
-
       - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
@@ -385,16 +355,17 @@ jobs:
           path: wheelhouse
 
       - name: Install controlled hard dependencies
+        env:
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha }}
         run: |
+          [[ "$MOLSYSVIEWER_SHA" =~ ^[0-9a-f]{40}$ ]]
           python -m pip install \
             numpy pint "anywidget>=0.9.15" "packaging>=23" "traitlets>=5" \
             h5py pandas networkx tqdm matplotlib
           python -m pip install --no-deps \
-            controlled-sources/smonitor \
-            controlled-sources/depdigest \
-            controlled-sources/pyunitwizard \
-            controlled-sources/argdigest \
-            controlled-sources/molsysviewer
+            -r devtools/controlled_sources.txt \
+            "git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA"
+          python devtools/scripts/validate_controlled_dependencies.py
           python -c "from argdigest import Domain, UnknownArgumentError"
 
       - name: Install the MolSysMT wheel without dependency resolution

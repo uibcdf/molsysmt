@@ -40,6 +40,7 @@ VALIDATORS = [
         "validate_scientific_evidence.py",
         "Scientific evidence registry structure",
     ),
+    ("audit_dependency_contract.py", "Dependency contract and source routes"),
     ("validate_dependencies.py", "No top-level soft-dependency imports"),
     ("validate_devguide.py", "Developer-guide integrity"),
     ("validate_course.py", "Four Paths course structure"),

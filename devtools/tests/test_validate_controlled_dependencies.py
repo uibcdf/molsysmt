@@ -21,6 +21,16 @@ def test_released_argdigest_floor_rejects_the_old_smonitor_incompatible_source()
     assert find_violations(requirements, list(versions), versions.__getitem__) == []
 
 
+def test_pyunitwizard_floor_rejects_a_version_without_active_policy_api():
+    requirements = ["pyunitwizard>=0.25.0"]
+    versions = {"pyunitwizard": "0.24.0"}
+    assert find_violations(requirements, list(versions), versions.__getitem__) == [
+        "pyunitwizard: installed 0.24.0 violates pyunitwizard>=0.25.0"
+    ]
+    versions["pyunitwizard"] = "0.25.0"
+    assert find_violations(requirements, list(versions), versions.__getitem__) == []
+
+
 def test_controlled_source_pins_must_be_full_unique_commit_references():
     valid = "git+https://github.com/uibcdf/argdigest@" + "a" * 40
     assert controlled_names(valid) == ["argdigest"]

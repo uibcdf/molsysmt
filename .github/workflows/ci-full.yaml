@@ -110,7 +110,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --no-deps \
-            -r devtools/requirements/controlled_hard_dependencies.txt \
+            -r devtools/controlled_sources.txt \
             controlled-wheelhouse/*.whl
           python -m pip install --editable . --no-deps
 

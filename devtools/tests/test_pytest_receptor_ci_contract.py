@@ -12,9 +12,7 @@ WORKFLOWS = (
     REPO / ".github" / "workflows" / "ci-smoke.yaml",
     REPO / ".github" / "workflows" / "ci-weekly.yaml",
 )
-CONTROLLED_HARD_DEPENDENCIES = (
-    REPO / "devtools" / "requirements" / "controlled_hard_dependencies.txt"
-)
+CONTROLLED_HARD_DEPENDENCIES = REPO / "devtools" / "controlled_sources.txt"
 
 
 def test_ci_test_environment_pins_pytest_receptor():
@@ -48,7 +46,7 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
 
     for workflow in WORKFLOWS:
         text = workflow.read_text(encoding="utf-8")
-        assert "-r devtools/requirements/controlled_hard_dependencies.txt" in text
+        assert "-r devtools/controlled_sources.txt" in text
         assert "python -m pip install --editable . --no-deps" in text
         assert "from argdigest import Domain, UnknownArgumentError" in text
         assert "PYTHONPATH" not in text
@@ -72,7 +70,7 @@ def test_ci_validates_controlled_runtime_versions_before_pytest():
             source_installs = [
                 index
                 for index, run in enumerate(steps)
-                if "-r devtools/requirements/controlled_hard_dependencies.txt" in run
+                if "-r devtools/controlled_sources.txt" in run
             ]
             if not source_installs:
                 continue

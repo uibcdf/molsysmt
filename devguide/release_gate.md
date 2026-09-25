@@ -40,6 +40,7 @@ It aggregates every cheap, deterministic gate into one PASS/FAIL verdict:
 | Form adapter delivery contracts | `validate_form_adapters.py` |
 | Tier 1 conversion fidelity (accepted-debt baseline) | `audit_conversion_fidelity.py` |
 | Scientific evidence registry structure (does not execute tests) | `validate_scientific_evidence.py` |
+| Runtime dependency floors, Conda/environment copies and CI source routes | `audit_dependency_contract.py` |
 | No top-level soft-dependency imports | `validate_dependencies.py` |
 | Developer-guide integrity | `validate_devguide.py` |
 | Four Paths course structure | `validate_course.py` |

@@ -1,4 +1,4 @@
-# Exact released source revisions used by CI while the coordinated Conda pair is staged.
+# Exact released sibling sources used by CI while the coordinated Conda pair is staged.
 # Runtime dependencies of these projects belong in the calling Conda environment;
 # workflows install this file with --no-deps so the solver cannot silently substitute
 # stale MolSysSuite packages from the uibcdf channel.

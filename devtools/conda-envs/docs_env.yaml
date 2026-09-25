@@ -35,7 +35,8 @@ dependencies:
   - argdigest >=0.13.0
   - depdigest >=0.10.0
   - smonitor >=0.16.0
-  - pyunitwizard >=0.22.0
+  - pyunitwizard >=0.25.0
+  - py-mmcif >=1.1.1
   - sphinx
   - pydata-sphinx-theme
   - myst-nb

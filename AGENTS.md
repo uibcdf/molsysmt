@@ -44,12 +44,11 @@ cross-component feedback, and issue ownership.
 - Respect the invariants described in `dev_guide.md` for `Get`, `Iterator`, `Form`, and `Native` behavior.
 
 ## Dependency Management
-
-## Dependency Management
 - **Hard vs Soft Dependencies:** MolSysMT distinguishes between essential libraries (Hard) and optional feature-enabling ones (Soft). This status is centrally managed in `molsysmt/_depdigest.py`.
 - **Lazy Imports:** Never import a soft dependency (e.g., `mdtraj`, `openmm`, `MDAnalysis`, `parmed`, `pytraj`, `nglview`, `pdbfixer`, `biopython`, `plotly`) at the module's top level. Always perform imports inside functions or methods.
 - **Enforcement:** Use the `@dep_digest(library, when=None)` decorator from the `depdigest` package (configured by `molsysmt/_depdigest.py`) to enforce dependency availability and provide metadata for introspection.
 - **Validation:** Run `devtools/scripts/validate_dependencies.py` to ensure no top-level imports of soft dependencies leak into the codebase. Exempt zones (tests, dev tools) are defined in the script and documented in `SPEC_DEPENDENCIES.md`.
+- **Runtime-contract audit:** Treat `pyproject.toml` as the authority for public dependency floors. Run `python devtools/scripts/audit_dependency_contract.py` after changing dependencies or CI source pins; it checks the Conda recipes, runtime-bearing environments, and controlled-source routes without rewriting them. Follow `devguide/dependency_contract_audit.md` for ownership and release checks.
 
 ## Forms and conversions
 

@@ -134,16 +134,19 @@ def test_workflow_runs_installed_public_smoke_with_pinned_siblings():
     smoke = workflow["jobs"]["test-public-smoke"]
     assert smoke["strategy"]["matrix"]["python"] == ["3.11", "3.12", "3.13"]
     assert smoke["needs"] == "build-linux"
-
+    install = next(
+        step
+        for step in smoke["steps"]
+        if step.get("name") == "Install controlled hard dependencies"
+    )
+    assert "-r devtools/controlled_sources.txt" in install["run"]
+    assert "validate_controlled_dependencies.py" in install["run"]
+    assert (
+        "git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA" in install["run"]
+    )
+    assert all("controlled-sources/" not in str(step) for step in smoke["steps"])
     text = WORKFLOW.read_text(encoding="utf-8")
-    for commit in (
-        "4fccafda4aa37b4c152d6b7d887ee665c7adc443",
-        "df86d5d33de23724a819c2cb883198522a0c0c47",
-        "b9be32d4b17a1b8f1d51c4aa734c56d679fb75db",
-        "7d44bd1d8bbf7f482feb00ce24210bab171747b4",
-        "7a1522662e30575caf580a9447e3e6d80b628e07",
-    ):
-        assert commit in text
+    assert "molsysviewer_sha:" in text
     assert "validate_installed_molsysmt.py" in text
     assert "from argdigest import Domain, UnknownArgumentError" in text
     assert "python -m pip install --no-deps" in text
@@ -161,7 +164,7 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert cibw["macos"]["environment"]["MACOSX_DEPLOYMENT_TARGET"] == "11.0"
     assert config["tool"]["distutils"]["bdist_wheel"]["py-limited-api"] == ("cp311")
     assert "numpy>=1.26,<3" in config["project"]["dependencies"]
-    assert "pyunitwizard>=0.24.0" in config["project"]["dependencies"]
+    assert "pyunitwizard>=0.25.0" in config["project"]["dependencies"]
     assert "argdigest>=0.13.0" in config["project"]["dependencies"]
     assert config["tool"]["setuptools"]["packages"]["find"]["include"] == [
         "molsysmt*",

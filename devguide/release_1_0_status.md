@@ -135,7 +135,7 @@ commits behind that project's `main`. The pinned revision predates `a80270a2`,
 `tests/cross_repo/test_unit_policy_authority.py` fails — 3 tests, identically on
 ubuntu and macOS across Python 3.11, 3.12 and 3.13, with 9 980+ passing around them.
 
-Note that the Conda channel is irrelevant here: `devtools/requirements/controlled_hard_dependencies.txt`
+Note that the Conda channel is irrelevant here: `devtools/controlled_sources.txt`
 installs the suite projects from pinned Git revisions with `--no-deps`, precisely so
 the solver cannot substitute them. Publishing a package does not move this pin.
 
@@ -814,6 +814,28 @@ Sphinx build on the source pair completed without missing-toctree warnings;
 it still reported 744 unrelated/baselined warnings. The hosted Pages workflow
 was not dispatched from the candidate branch because it would deploy public
 documentation and currently pins an older Viewer source.
+The build-1 Conda producers (`36102277287`, five of five ABI3 platforms;
+`36102277047`, one noarch package) passed, and the corrected Python 3.14
+source-pair workflow `36102309036` passed all three operating systems. The
+exact-commit Rust-wheel gate `36102309653` built its artifacts but failed its
+three installed-public-smoke cells: that job independently checked out old
+PyUnitWizard and other sibling SHAs, then crashed on the missing
+`configure.has_active_policy()` API. The function is present in PyUnitWizard
+0.25.0 but not 0.24.0. Both component metadata floors and their Conda recipes
+now require 0.25.0, and the wheel smoke consumes the single controlled-source
+manifest plus an exact Viewer SHA input. The build-1 full CI `36102308805`
+passed 7/7, and the exact installed-pair run `36105020606` passed 20/20;
+they are diagnostic evidence only because the metadata floor and wheel
+workflow changed afterward. Build 2 and all exact-commit gates must be rerun
+before promotion. Local dependency-contract experiment
+`uibcdf/molsysmt#245` now audits `pyproject.toml` against both recipes,
+runtime environments, the hard/soft form registry, and source-consuming CI
+jobs. Its first pass found the missing `py-mmcif` Rattler dependency,
+unbounded environment floors, and a benchmark job without its controlled
+siblings; these were corrected. Nine mutation/integration tests and the
+expanded local fast gate 14/14 pass. The obsolete requirements broadcaster
+and its inventory were retired; the active source manifest was relocated to
+`devtools/controlled_sources.txt` with every workflow consumer updated.
 
 ## Segment F — Lifecycle and Release Candidate
 

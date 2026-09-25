@@ -12,7 +12,7 @@ from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 
 ROOT = Path(__file__).resolve().parents[2]
-PINS = ROOT / "devtools" / "requirements" / "controlled_hard_dependencies.txt"
+PINS = ROOT / "devtools" / "controlled_sources.txt"
 PIN_PATTERN = re.compile(
     r"git\+https://github\.com/uibcdf/(?P<name>[A-Za-z0-9_.-]+)@(?P<sha>[0-9a-f]{40})"
 )
