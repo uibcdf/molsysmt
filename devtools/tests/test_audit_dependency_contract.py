@@ -6,6 +6,7 @@ import shutil
 from pathlib import Path
 
 import pytest
+import yaml
 
 from devtools.scripts.audit_dependency_contract import audit
 
@@ -41,6 +42,32 @@ def _replace(path: Path, old: str, new: str) -> None:
 
 def test_current_dependency_routes_are_coherent():
     assert audit(ROOT) == []
+
+
+def test_hosted_audit_covers_dependency_only_changes():
+    workflow = yaml.safe_load(
+        (ROOT / ".github/workflows/ci-dependency-contract.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    triggers = workflow.get("on", workflow.get(True))
+    required_paths = {
+        "pyproject.toml",
+        "molsysmt/_depdigest.py",
+        "devtools/controlled_sources.txt",
+        "devtools/dependency_contract.toml",
+        "devtools/conda-build/**",
+        "devtools/rattler-build/**",
+        "devtools/conda-envs/**",
+        "devtools/scripts/audit_dependency_contract.py",
+        ".github/workflows/**",
+    }
+    for event in ("push", "pull_request"):
+        assert required_paths <= set(triggers[event]["paths"])
+    assert any(
+        step.get("run") == "python devtools/scripts/audit_dependency_contract.py"
+        for step in workflow["jobs"]["audit"]["steps"]
+    )
 
 
 def test_conda_recipe_cannot_omit_a_public_runtime_dependency(contract_tree):

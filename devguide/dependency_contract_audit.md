@@ -41,6 +41,10 @@ copies from silently passing. `--root PATH` supports isolated fixture tests.
 Its findings name the file and the missing or conflicting contract. It rejects
 unclassified environments, a second hard-coded controlled SHA in a workflow,
 and a missing source route for an environment that installs with `--no-deps`.
+The lightweight `ci-dependency-contract.yaml` workflow triggers on dependency
+metadata, recipes, environments and workflow changes, including YAML-only
+pull requests that the ordinary smoke workflow ignores. It also supports
+manual dispatch on a candidate branch.
 
 ## Limits and retirement of the old broadcaster
 

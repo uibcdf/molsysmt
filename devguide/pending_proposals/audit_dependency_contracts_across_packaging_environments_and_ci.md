@@ -39,6 +39,8 @@ environment must be classified or explicitly excluded. Findings identify the
 file and its missing or conflicting requirement. The fast release gate runs
 the auditor. Focused mutation tests remove a floor, package, source install,
 workflow pin, or inventory entry and require failure.
+The dedicated `ci-dependency-contract.yaml` workflow runs this check for
+YAML-only PRs that would not trigger the ordinary smoke workflow.
 
 ## Why
 

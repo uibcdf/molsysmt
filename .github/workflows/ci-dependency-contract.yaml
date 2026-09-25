@@ -1,0 +1,50 @@
+name: Dependency contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - pyproject.toml
+      - molsysmt/_depdigest.py
+      - devtools/controlled_sources.txt
+      - devtools/dependency_contract.toml
+      - devtools/conda-build/**
+      - devtools/rattler-build/**
+      - devtools/conda-envs/**
+      - devtools/scripts/audit_dependency_contract.py
+      - .github/workflows/**
+  pull_request:
+    branches: [main]
+    paths:
+      - pyproject.toml
+      - molsysmt/_depdigest.py
+      - devtools/controlled_sources.txt
+      - devtools/dependency_contract.toml
+      - devtools/conda-build/**
+      - devtools/rattler-build/**
+      - devtools/conda-envs/**
+      - devtools/scripts/audit_dependency_contract.py
+      - .github/workflows/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install audit parser dependencies
+        run: python -m pip install "packaging>=23,<27" "PyYAML>=6,<7"
+
+      - name: Audit runtime dependency routes
+        run: python devtools/scripts/audit_dependency_contract.py
