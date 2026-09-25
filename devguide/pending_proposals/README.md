@@ -63,11 +63,10 @@ Entries carrying front matter under
 - [`supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md`](supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md) — [#188](https://github.com/uibcdf/molsysmt/issues/188) — supported.forms() and info() return only styled tables, with no programmatic result. *(measured)*
 - [`the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md) — [#190](https://github.com/uibcdf/molsysmt/issues/190) — The evidence matrix cannot show the surfaces the manuscript will lead with. *(measured)*
 
-### In progress (3)
+### In progress (2)
 
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`extend_molsysmt_python_support_to_3_14.md`](extend_molsysmt_python_support_to_3_14.md) — [#237](https://github.com/uibcdf/molsysmt/issues/237) — Extend MolSysMT Python support to 3.14. *(measured)*
-- [`review_python_ecosystem_policy_adoption.md`](review_python_ecosystem_policy_adoption.md) — [#244](https://github.com/uibcdf/molsysmt/issues/244) — Review inherited Python ecosystem policy in MolSysMT. *(inspected)*
 
 ### Blocked (3)
 
@@ -77,6 +76,10 @@ Entries carrying front matter under
   Blocked by uibcdf/molsysmt#220.
 - [`repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md`](repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md) — [#228](https://github.com/uibcdf/molsysmt/issues/228) — Repair selected nonstandard receptor residues with residue-specific templates *(inspected)*
   Blocked by uibcdf/molsysmt#227.
+
+### Partially resolved (1)
+
+- [`review_python_ecosystem_policy_adoption.md`](review_python_ecosystem_policy_adoption.md) — [#244](https://github.com/uibcdf/molsysmt/issues/244) — Review inherited Python ecosystem policy in MolSysMT. *(inspected)*
 
 <!-- /generated -->
 

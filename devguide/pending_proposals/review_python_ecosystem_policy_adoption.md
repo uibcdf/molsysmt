@@ -1,7 +1,7 @@
 ---
 summary: Review inherited Python ecosystem policy in MolSysMT.
 issue: uibcdf/molsysmt#244
-status: active
+status: partial
 opened: 2026-09-25
 closed:
 verification: inspected
@@ -16,8 +16,7 @@ supersedes: []
 
 **Reported:** 2026-09-25, from the MolSysSuite member rollout under
 `uibcdf/molsyssuite#6`.
-**Status:** The developer-tool adoption is being validated; support-library
-applicability remains under review.
+**Status:** Developer tools and support libraries are both partially reviewed.
 
 ## What
 
@@ -89,3 +88,36 @@ metadata, the MolSysViewer dependency, or the release gates of
 `uibcdf/molsysmt#237` separately owns the Python 3.14 transition. Its active
 CI and packaging work can affect broad hosted gates, so receptor adoption
 must be judged on its own evidence as well as the full workflow conclusion.
+
+## Support-library applicability checkpoint
+
+All four inherited boundaries are present in MolSysMT. Public argument
+digesters live in `molsysmt/_argdigest.py` and the private digester modules;
+optional backend declarations and checks live in `molsysmt/_depdigest.py` and
+form adapters; coded diagnostics live in `molsysmt/_smonitor.py` and the
+SMonitor integration; unit policy and quantity conversion use
+`molsysmt/_pyunitwizard.py` and PyUnitWizard at public physical-quantity
+boundaries. The runtime metadata declares all four libraries. Local focused
+receptor tests passed 82 cases across quantity digesters, SMonitor contracts,
+and diagnostic exceptions, in addition to the nine dependency and unit-policy
+cases above.
+
+This is a `partial` support-library review. Existing targeted tests show active
+integration, but `uibcdf/molsysmt#155` still tracks the PyUnitWizard fast-path
+audit, and `uibcdf/molsysmt#236` tracks warning reconstruction against SMonitor
+0.16. The Python 3.14 published-installation claim belongs to
+`uibcdf/molsysmt#237`. These open boundaries need explicit decisions or tests
+before calling the member review adopted; the dependency list alone is not
+enough.
+
+## Hosted checkpoint for source commit de9e9c9
+
+The [bundled data integrity run](https://github.com/uibcdf/molsysmt/actions/runs/36105299656)
+passed. Its native log confirms published PyPI `pytest-receptor==1.1.0` and
+the curated `--receptor=ci` command, with one test passed. The
+[developer-guide run](https://github.com/uibcdf/molsysmt/actions/runs/36105299549)
+passed. GH Run Receptor inspected both. The smoke run `36105275404` was
+cancelled during the test step, so it supplies no successful test conclusion.
+The weekly run `36105275495` and six-cell full matrix `36105299602` were
+still running at this checkpoint. Developer tools remain `partial` until
+their exact-commit outcomes and exact Conda receptor package are confirmed.
