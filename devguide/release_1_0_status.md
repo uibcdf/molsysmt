@@ -836,6 +836,19 @@ siblings; these were corrected. Nine mutation/integration tests and the
 expanded local fast gate 14/14 pass. The obsolete requirements broadcaster
 and its inventory were retired; the active source manifest was relocated to
 `devtools/controlled_sources.txt` with every workflow consumer updated.
+The next exact-source attempt produced all five MolSysMT staging build-2
+artifacts (`36111977722`) and the MolSysViewer noarch build-2 artifact
+(`36111980483`); the Viewer Python 3.14 source pair passed three operating
+systems (`36112007408`). MolSysMT full CI (`36112007337`) and the installed
+Rust-wheel smoke (`36112007478`) correctly rejected the controlled
+PyUnitWizard source pin: although commit `c69192ec` has the needed API, it
+builds as `0.24.0+35`, below the new runtime floor `>=0.25.0`. The source
+manifest now pins exact PyUnitWizard `0.26.0` tag commit `026be28d`, which
+contains the API and declares Python 3.14 support. The dependency auditor,
+23 focused tests, and the fast release gate 14/14 pass locally after this
+correction. Build-2 artifacts and their earlier gates remain diagnostic;
+the corrected commit still requires fresh exact-source gates and a new
+staging build number before promotion.
 
 ## Segment F — Lifecycle and Release Candidate
 
