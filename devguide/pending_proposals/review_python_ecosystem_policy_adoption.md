@@ -5,7 +5,7 @@ status: partial
 opened: 2026-09-25
 closed:
 verification: inspected
-area: [ci, deps, governance]
+area: [ci, deps]
 guard:
 normative:
 blocked_by: []
@@ -118,6 +118,42 @@ the curated `--receptor=ci` command, with one test passed. The
 [developer-guide run](https://github.com/uibcdf/molsysmt/actions/runs/36105299549)
 passed. GH Run Receptor inspected both. The smoke run `36105275404` was
 cancelled during the test step, so it supplies no successful test conclusion.
-The weekly run `36105275495` and six-cell full matrix `36105299602` were
-still running at this checkpoint. Developer tools remain `partial` until
-their exact-commit outcomes and exact Conda receptor package are confirmed.
+The [weekly run](https://github.com/uibcdf/molsysmt/actions/runs/36105275495)
+failed in all three Python cells, and the
+[six-cell full matrix](https://github.com/uibcdf/molsysmt/actions/runs/36105299602)
+failed in all six cells. Each failing job reached its full pytest step.
+The Python 3.12 Ubuntu matrix log confirms `pytest-receptor 1.1.0 py_1` from
+`uibcdf` and a native pytest exit status of 1, preserved in receptor's
+`FAIL exit=1` report. In both workflows, three assertions in
+`tests/cross_repo/test_unit_policy_authority.py` fail: import order does not
+produce one shared unit policy, and importing MolSysViewer resets a user's
+chosen unit. The receptor did not report a rendering error. The same full
+matrix passed on separate source revision `8d58581` with newer controlled
+SMonitor, ArgDigest, and MolSysViewer revisions; this comparison suggests an
+outdated controlled source set at `de9e9c9`, but does not isolate one
+package as the sole cause. This member review keeps developer tools `partial`
+until the ordinary test gate passes on the exact integrated revision. The
+controlled-source update also had to coordinate with the Python 3.14 transition in
+`uibcdf/molsysmt#237` and `uibcdf/molsyssuite#29`.
+
+## Later main integration
+
+After the failed `de9e9c9` runs, MolSysMT merged candidate `89ceda0ad` into
+`main`. This merge contains the later controlled source revisions and the
+authorized Python 3.14 metadata; the earlier failing runs remain evidence
+about `de9e9c9`, not a conclusion about the merged `main`. On the merged
+checkout, the MolSysSuite repository checker passed, and the focused
+`tests/cross_repo/test_unit_policy_authority.py` selector passed six tests
+locally with `--receptor=llm`. The developer-guide validator and Ruff check
+also passed. The earlier candidate `e28ceb9ea` passed the six-cell full
+matrix in run `36120923064` with controlled MolSysViewer commit
+`cf427942d0b08a1c5c60f262c6a6b33f248d6f8b`, but that branch had not yet
+merged this review's receptor 1.1.0 pins. The merged `main` advanced to
+`6a334cc3e` with a Conda validation change. Its exact-commit full matrix was
+dispatched as run `36132035176` using the same controlled Viewer commit. In
+its first attempt, the macOS/Python 3.11 cell stopped while building the
+editable MolSysMT package: rustup reported that `rustc` was absent from the
+runner's `1.97.1-aarch64-apple-darwin` toolchain. That cell did not reach
+pytest, so it provides no evidence about the receptor or the unit policy.
+The other five test cells were still running at this checkpoint. The
+developer-tools review remains `partial` until an integrated full gate passes.
