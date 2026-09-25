@@ -1,15 +1,15 @@
 ---
 summary: Catalog warning reconstruction duplicates hints with SMonitor 0.16
 issue: uibcdf/molsysmt#236
-status: blocked
+status: resolved
 opened: 2026-09-22
-closed:
+closed: 2026-09-24
 severity: medium
 verification: measured
 area: [tests, diagnostics]
-guard:
+guard: tests/_private/smonitor/test_xdist_warning_reconstruction.py::test_catalog_warnings_are_not_re_rendered
 normative:
-blocked_by: [uibcdf/smonitor#21]
+blocked_by: []
 supersedes: []
 ---
 
@@ -17,8 +17,9 @@ supersedes: []
 
 **Reported:** 2026-09-22, after the Ruff migration while reviewing 15 failures in
 the private SMonitor integration tests.
-**Status:** Blocked on `uibcdf/smonitor#21`, which owns the catalog-warning rebuild
-behavior. The local tests already guard the visible text.
+**Status:** Resolved in MolSysMT through a consumer-side args-only path and a
+`smonitor>=0.16.0` floor. `uibcdf/smonitor#21` remains open for a general
+provider-side correction; the local tests guard the visible text.
 
 ## What
 
@@ -107,9 +108,36 @@ weakening the existing warning assertions.
 
 ## Dependencies and risks
 
-Blocked by `uibcdf/smonitor#21`. A consumer-side workaround, if chosen before a
-provider release, must preserve catalog resolution for new warnings and exact text
-for args-only rebuilds.
+`uibcdf/smonitor#21` remains open. The consumer-side correction must preserve
+catalog resolution for new warnings and exact text for args-only rebuilds.
+
+## 2026-09-24 consumer-side correction
+
+The provider issue remains open, but it does not have to block MolSysMT's release.
+The MolSysMT base warning now forwards a nonempty, args-only `message` to
+`CatalogWarning` **without** reattaching `catalog` and `meta`; first-time
+structured warnings still receive both. This invokes SMonitor's existing
+args-only wire-text branch without guessing whether a sentence already
+contains a hint. The 29 warning-construction and xdist round-trip tests pass
+against the exact `0.16.0` tag source (`7daac74c6641e6003df8bbcc6cca91709ec891b9`),
+with 12 workers and the candidate MolSysMT source on `PYTHONPATH`.
+
+This contract needs the SMonitor `0.16.0` warning-wire behavior: its older
+controlled source pin put only the message body in `args`, so an args-only
+rebuild could not preserve the full hint without re-resolving it. MolSysMT's
+wheel and both Conda recipes now require `smonitor>=0.16.0`, and the controlled
+CI pin names that release commit. The public `uibcdf/noarch` channel contains
+`smonitor-0.16.0-py_1.tar.bz2` with `python >=3.11,<3.15`. The existing
+round-trip tests are the regression guard; no assertion was relaxed.
+
+## Resolution
+
+The wrapper supplies catalog context only for first-time structured warnings.
+An args-only rebuild preserves the already rendered text by delegating without
+catalog context. The guard compares the complete text, including the hint, for
+every discovered warning class; it would fail again if a second hint were
+appended. The exact supported SMonitor release was measured. Older releases
+are excluded by the new dependency floor rather than assumed compatible.
 
 ## Provenance
 

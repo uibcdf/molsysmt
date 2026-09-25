@@ -37,7 +37,7 @@ def test_experiment_builds_all_native_release_platforms():
     assert "continue-on-error" not in job
 
 
-def test_experiment_builds_once_and_tests_one_artifact_three_times():
+def test_experiment_builds_once_and_tests_one_artifact_four_times():
     text = WORKFLOW.read_text(encoding="utf-8")
     workflow = _workflow()
     lto_input = workflow[True]["workflow_dispatch"]["inputs"]["lto"]
@@ -48,7 +48,7 @@ def test_experiment_builds_once_and_tests_one_artifact_three_times():
     assert 'MOLSYSMT_CONDA_ABI3: "true"' in text
     assert "--exclusive-config-file conda_build_config_abi3.yaml" in text
     assert '[[ "${#built_paths[@]}" -ne 1 ]]' in text
-    assert "for python_version in 3.11 3.12 3.13" in text
+    assert "for python_version in 3.11 3.12 3.13 3.14" in text
     assert "validate_conda_abi3_artifact.py" in text
     assert "validate_installed_rust_extension.py" in text
     assert 'cp "$package_path" "$evidence_dir/"' in text
@@ -70,6 +70,6 @@ def test_recipe_uses_the_cep20_abi3_contract_conditionally():
     assert "python_version_independent: true" in text
     assert 'string: "pyabi3h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"' in text
     assert "python-abi3 3.11.*" in text
-    assert "python >=3.11,<3.14" in text
+    assert "python >=3.11,<3.15" in text
     assert "MOLSYSMT_CONDA_ABI3" in text
     assert "python 3.12.14 *_1_cpython" in text

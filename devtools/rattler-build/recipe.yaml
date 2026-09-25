@@ -29,18 +29,19 @@ requirements:
     - setuptools-rust >=1.10
     - versioningit >=3.0
   run:
-    - python >=3.11,<3.14
+    - python >=3.11,<3.15
     - h5py
     - numpy >=1.26,<3
-    - argdigest >=0.12.1
+    - argdigest >=0.13.0
     - depdigest >=0.10.0
-    - smonitor >=0.13.0
-    - pyunitwizard >=0.24.0
+    - smonitor >=0.16.0
+    - pyunitwizard >=0.25.0
     - pandas
     - molsysviewer
     - networkx
     - tqdm
     - matplotlib
+    - py-mmcif >=1.1.1
 
 tests:
   - python:

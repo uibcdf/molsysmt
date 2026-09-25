@@ -21,6 +21,11 @@ class MolSysMTCatalogWarning(CatalogWarning):
     """
 
     def __init__(self, message=None, **kwargs):
+        if message is not None and not kwargs:
+            # An args-only rebuild already carries the complete visible text.
+            # Passing the catalog again would append its hint a second time.
+            super().__init__(message)
+            return
         from . import CATALOG, META
 
         super().__init__(message, catalog=CATALOG, meta=META, **kwargs)

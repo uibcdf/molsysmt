@@ -68,6 +68,21 @@ def test_conda_runtime_requirements_match_pyproject():
     assert _manifest_mismatches(pyproject_text, recipe_text) == {}
 
 
+def test_nglview_remains_an_optional_backend():
+    pyproject_text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    recipe_text = (ROOT / "devtools" / "conda-build" / "meta.yaml").read_text(
+        encoding="utf-8"
+    )
+    pyproject = tomllib.loads(pyproject_text)
+
+    assert "nglview" not in _python_runtime_requirements(pyproject_text)
+    assert "nglview" not in _conda_runtime_requirements(recipe_text)
+    assert "nglview" in {
+        canonicalize_name(Requirement(item).name)
+        for item in pyproject["project"]["optional-dependencies"]["soft"]
+    }
+
+
 def test_mmcif_conda_alias_is_required():
     """The Conda distribution is py-mmcif, but its Python import is mmcif."""
     pyproject_text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")

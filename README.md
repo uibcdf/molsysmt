@@ -76,7 +76,8 @@ handoff because you asked for one.
 conda install -c uibcdf -c conda-forge molsysmt
 ```
 
-Requires Python 3.11, 3.12 or 3.13. Compute kernels ship precompiled, so no
+Package metadata permits Python 3.11, 3.12, 3.13 or 3.14; the badge lists only
+versions admitted for public release. Compute kernels ship precompiled, so no
 compiler or Rust toolchain is needed to install.
 
 Several integrations are optional — `openmm`, `mdtraj`, `MDAnalysis`, `parmed`,

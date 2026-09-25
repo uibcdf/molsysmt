@@ -4,6 +4,7 @@ Unit and regression test for the build peptide of the molsysmt package.
 
 # Import package, test suite, and other packages as needed
 import shutil
+from unittest.mock import patch
 
 import numpy as np
 import pytest
@@ -85,14 +86,21 @@ def _get_build_metrics(molsys):
     }
 
 
+def test_build_peptide_molsysmt_MolSys_1():
+    seq = "TyrGlyGlyPheMet"
+    with patch("molsysmt.third_party.tleap.TLeap") as tleap:
+        molsys = msm.build.build_peptide(seq, to_form="molsysmt.MolSys")
+    tleap.assert_not_called()
+    seq_2 = msm.convert(molsys, to_form="string:amino_acids_3")
+    assert seq.lower() == seq_2.lower()
+
+
 @pytest.mark.skipif(
     shutil.which("tleap") is None, reason="tleap is not available in PATH"
 )
-def test_build_peptide_molsysmt_MolSys_1():
-    seq = "TyrGlyGlyPheMet"
-    molsys = msm.build.build_peptide(seq, to_form="molsysmt.MolSys")
-    seq_2 = msm.convert(molsys, to_form="string:amino_acids_3")
-    assert seq.lower() == seq_2.lower()
+def test_build_peptide_explicit_leap_engine():
+    molsys = msm.build.build_peptide("GG", engine="LEaP")
+    assert msm.get(molsys, n_groups=True) == 2
 
 
 def test_build_peptide_molsysmt_MolSys_2():

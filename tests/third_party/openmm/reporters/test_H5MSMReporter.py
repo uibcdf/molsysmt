@@ -2,12 +2,18 @@
 Unit and regression test for the copy module of the molsysmt package.
 """
 
+from importlib.util import find_spec
+
 import numpy as np
-import openmm as mm
 import pytest
-from openmm import app, unit
 
 import molsysmt as msm
+
+if find_spec("openmm") is None:
+    pytest.skip("OpenMM is an optional backend", allow_module_level=True)
+
+import openmm as mm  # noqa: E402
+from openmm import app, unit  # noqa: E402
 
 
 @pytest.mark.parametrize(

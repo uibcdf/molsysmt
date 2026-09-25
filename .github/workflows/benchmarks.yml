@@ -57,7 +57,13 @@ jobs:
 
       - name: Install package
         shell: bash -l {0}
-        run: python -m pip install . --no-deps
+        run: |
+          set -euo pipefail
+          python -m pip install --no-deps \
+            -r devtools/controlled_sources.txt \
+            git+https://github.com/uibcdf/molsysviewer@7a1522662e30575caf580a9447e3e6d80b628e07
+          python -m pip install . --no-deps
+          python devtools/scripts/validate_controlled_dependencies.py
 
       - name: Extract Reference Baseline
         shell: bash -l {0}

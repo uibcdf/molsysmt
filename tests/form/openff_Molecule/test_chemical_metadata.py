@@ -5,12 +5,11 @@ from importlib.util import find_spec
 import pandas as pd
 import pytest
 
-if find_spec("openff.toolkit") is None:
-    pytest.skip("openff-toolkit is not installed", allow_module_level=True)
-
-from openff.toolkit.topology import Molecule
-
 import molsysmt as msm
+
+if find_spec("openff") is None or find_spec("openff.toolkit") is None:
+    pytest.skip("OpenFF Toolkit is an optional backend", allow_module_level=True)
+from openff.toolkit.topology import Molecule  # noqa: E402
 
 
 def test_openff_preserves_atom_charge_aromaticity_and_stereochemistry():

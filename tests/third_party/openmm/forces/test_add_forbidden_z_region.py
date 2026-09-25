@@ -2,11 +2,18 @@
 Unit and regression test for the add_forbidden_z_region function of the molsysmt module thirds.openmm.forces
 """
 
+from importlib.util import find_spec
+
 import numpy as np
-import openmm as mm
-from openmm import app, unit
+import pytest
 
 import molsysmt as msm
+
+if find_spec("openmm") is None:
+    pytest.skip("OpenMM is an optional backend", allow_module_level=True)
+
+import openmm as mm  # noqa: E402
+from openmm import app, unit  # noqa: E402
 
 topology = app.Topology()
 chain = topology.addChain("A")

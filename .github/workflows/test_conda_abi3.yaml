@@ -129,7 +129,7 @@ jobs:
           python "$GITHUB_WORKSPACE/devtools/scripts/validate_conda_abi3_artifact.py" \
             "$package_path" --expected-subdir "$EXPECTED_SUBDIR"
 
-          for python_version in 3.11 3.12 3.13; do
+          for python_version in 3.11 3.12 3.13 3.14; do
             test_prefix="$RUNNER_TEMP/conda-abi3-py${python_version/./}"
             conda create --yes --prefix "$test_prefix" \
               "python=$python_version" "numpy>=1.26,<3"

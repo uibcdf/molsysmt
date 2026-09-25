@@ -50,6 +50,10 @@ MolSysMT dependency floor for the schema it understands and tests both that meta
 and its public calls. Canonical and alias keywords are alternatives. ArgDigest 0.12.1
 and later reject simultaneous use with `ArgumentConsistencyError`, naming the caller,
 canonical target and conflicting sources; consumers must not invent a precedence rule.
+The package minimum is now ArgDigest 0.13.0: 0.12.1 introduced this alias
+contract, but its catalog exception initializer is incompatible with the
+read-only `hint` property in SMonitor 0.16.0. The newer release preserves the
+alias contract and reconstructs those errors correctly.
 
 ### Explicit trusted delegation
 
@@ -155,6 +159,12 @@ The current ecosystem split after the March 2026 audit is:
 This is why MolSysMT now depends on PyUnitWizard's expanded extraction API
 (`value_type`, `dtype`) while still keeping its own shape and pairing helpers
 for structure kernels.
+The runtime minimum is PyUnitWizard 0.25.0: both MolSysMT and MolSysViewer
+call `configure.has_active_policy()` while initializing their shared unit
+policy, and that API is absent from the 0.24.0 release. Keep the wheel,
+Conda, controlled-source and no-dependency test environments aligned with
+this minimum. The installed-wheel smoke must use the same controlled sibling
+revisions as the full CI rather than maintaining a second set of older SHAs.
 
 The adoption inventory and measured migration of remaining legacy quantity
 boundaries is tracked in

@@ -16,9 +16,14 @@ supersedes: []
 
 **Reported:** 2026-09-22, after the public Python 3.14 admission of the
 SMonitor, DepDigest, ArgDigest, and PyUnitWizard dependency chain.
-**Status:** Active feasibility work. A locally built MolSysMT wheel and its
-native extension work on Linux/Python 3.14; the declared package and
-MolSysViewer contracts still stop at 3.13.
+**Status:** Active feasibility work. Candidate source metadata now includes
+Python 3.14, and a locally built MolSysMT wheel and its native extension
+work on Linux/Python 3.14. The staged 0.22.0/0.23.1 package pair still stops
+at 3.13; no public 3.14 support is claimed.
+
+The dated [paired-support checkpoint](../python_3_14_checkpoint.md) is the
+compact handoff for current evidence and the next gate. This proposal keeps
+the detailed analysis and acceptance criteria.
 
 ## What
 
@@ -52,10 +57,11 @@ candidate and package evidence.
 
 ## Why
 
-The public lower dependency chain resolves on Python 3.14. MolSysMT's
-`pyproject.toml` still declares `>=3.11.0,<3.14.0`, its ABI3 Conda recipe
-declares `>=3.11,<3.14`, and its required source and installed-package
-matrices stop at 3.13. MolSysViewer is a hard dependency in both Python and
+The public lower dependency chain resolves on Python 3.14. At the start of
+this work, MolSysMT's `pyproject.toml` declared `>=3.11.0,<3.14.0`; the
+`python-3.14-support` branch has widened candidate wheel metadata, but
+the existing ABI3 Conda recipe and required installed-package matrices
+still stop at 3.13. MolSysViewer is a hard dependency in both Python and
 Conda metadata. Its staged 0.23.1 noarch package also declares
 `python >=3.11,<3.14`, so the pair cannot resolve on 3.14 today.
 
@@ -87,6 +93,109 @@ Conda metadata. Its staged 0.23.1 noarch package also declares
   Its own dependency is `molsysmt >=0.22.0`; the pair must be
   coordinated. The full MolSysMT suite and installed pair have not
   been tested on 3.14.
+- A paired Linux/Python 3.14.7 source probe from MolSysMT `fe0be24b8`
+  and MolSysViewer `251f7759` built both wheels. With the current Python
+  bounds bypassed, both imported, the installed extension passed 99 exports,
+  the BCIF conversion produced 596 atoms, and MolSysViewer loaded the native
+  result. Its MolSysMT/runtime integration selection passed 19 tests.
+  MolSysMT's BCIF, Rust-threading, and distribution-manifest selection passed
+  18 tests with 12 workers. These tests were run against the installed wheel
+  from outside the source tree with `--import-mode=importlib` so the source
+  package did not shadow its installed `_rust.abi3.so`.
+- The source probe revealed a pre-existing distribution guard mismatch:
+  PyPI names the dependency `mmcif`, whereas Conda names the same provider
+  `py-mmcif`. The `python-3.14-support` worktree now maps that one known
+  name and tests that deleting the Conda dependency is still caught.
+  This is part of the remaining `uibcdf/molsysmt#200` gate.
+- Candidate wheels from the isolated worktrees now declare Python
+  `>=3.11,<3.15` and install on 3.14 without bypassing their Python bound.
+  They are not resolver-consistent: `pip check` rejects MolSysViewer's
+  `molsysmt>=0.22.0` floor because the source tree still has a 0.21.x
+  development identity. CI matrices, full suites, exact candidates, and
+  public packages are still outstanding.
+- MolSysViewer's candidate source suite on Linux/Python 3.14 executed 2,090
+  tests in one 12-worker run: 2,069 passed, five failed, and 16 skipped.
+  Its three affected test files passed 208 tests after adding missing
+  `jinja2` and `mdtraj` to the probe environment and regenerating a stale
+  capability audit. The next gate is a clean full run in the exact pinned
+  source-pair workflow on Linux and macOS, not an inference from focused
+  reruns. The optional UIBCDF Qt stack still resolves only through a
+  Python 3.13 ABI dependency; see `uibcdf/molsysviewer#93`.
+- A further installed-wheel test selection across MolSysMT's native objects,
+  bundled BCIF adapters, and Rust boundaries passed 641 tests on Linux/
+  Python 3.14.7 with 12 workers. The command ran from outside the source
+  checkout so the installed ABI3 extension remained the import target.
+- The paired MolSysViewer full source suite passed remotely on both Linux
+  and macOS/Python 3.14 in `uibcdf/molsysviewer` run `35828199753` (2,090
+  tests collected per job). This is source-pair evidence, not a resolver-clean
+  Conda pair. An attempted full MolSysMT collection in the lean local 3.14
+  environment stopped at 20 collection errors, all from absent optional test
+  dependencies such as `nglview`, Biopython, OpenMM and OpenFF. It executed
+  no tests and therefore does not establish full-suite status; the curated
+  installed-wheel selection above remains valid independent evidence.
+- On 2026-09-24, a lean source-tree collection exposed tests that imported
+  optional backends at module scope, including NGLView and Biopython, and
+  OpenFF checks that called `find_spec("openff.toolkit")` without first
+  checking the parent namespace. The affected tests now skip only their
+  backend-specific cases when that backend is absent. Manifest guards confirm
+  that NGLView remains in the `soft` extra, not in either Python or Conda
+  runtime requirements; MolSysViewer also does not require it. The local
+  Python 3.14 source extension builds. A follow-up isolated OpenMM-dependent
+  test modules and preserved the non-OpenMM mass/charge tests in mixed modules.
+  Full `tests/` collection now exits 0 in the lean Python 3.14 environment;
+  pytest-receptor reports 10,084 collected cases and 40 deselections. Focused
+  execution with 12 workers yielded 2 passed and 5 OpenMM-only function skips.
+  The real OpenMM import remains active when the backend is installed, so a
+  broken installation is not silently skipped. This is collection hygiene,
+  not full scientific coverage or a reason to make optional backends hard
+  dependencies.
+- MolSysViewer's later three-platform source-pair run `35970837689` passed
+  Linux and macOS/Python 3.14 but failed broadly on Windows after collection.
+  The principal boundary is `uibcdf/molsysmt#241`: bundled demo resources
+  are `pathlib.WindowsPath`, while `get_form()` only normalized `PosixPath`.
+  The local fix accepts the native `Path` base class and has a focused
+  detection/conversion guard. Run `35975122014` then passed this installed
+  guard and the full Viewer Python suite on Linux, macOS, and Windows/Python
+  3.14 against exact source commits MolSysMT `86dcb5d078d8cbb45c38500e452944811fc5a5bc`
+  and Viewer `88a6c75a08c3e3660b626c697183ef53c7297852`. Viewer also
+  corrected its own `PathLike` delegation and other Windows portability
+  failures. This is source-pair evidence, not a clean staged Conda pair or
+  Windows Qt-host support.
+- On 2026-09-23, temporary local tags built MolSysMT ABI3 and MolSysViewer
+  noarch Conda packages. A fresh Linux/Python 3.14.7 environment resolved the
+  exact local `0.22.1`/`0.23.2` pair and passed the installed-pair validator,
+  but an installed PDB-text probe exposed `uibcdf/molsysmt#238`: the string
+  detector imported absent optional Biopython. After commit `639892a6f`, a
+  new local MolSysMT `0.22.2` package and the unchanged Viewer `0.23.2`
+  package resolved in a second fresh environment without Biopython. The
+  package validator, 99-export Rust validator, two-case installed regression,
+  and a four-atom PDB-text conversion and Viewer load passed. Exact archive
+  hashes and the installed-test-harness limitation are recorded in the
+  [paired-support checkpoint](../python_3_14_checkpoint.md). These are local
+  solver and package results, not remote staging or release candidates.
+- On 2026-09-24, a bounded 12-worker lean-environment run of `tests/`
+  executed only 1,980 of 10,058 selected cases before stopping after 307
+  seconds (1,795 passed, 138 failed, 28 errors, 19 skipped). Most grouped
+  failures involved absent optional scientific backends or blocked PDB-ID
+  downloads; these counts are diagnostic, not a Python 3.14 regression
+  baseline. A dependency-rich Linux/Python 3.14.7 source-pair environment
+  then passed 39 focused OpenMM cases, 475 form/validation cases, 865 basic
+  cases excluding PDB-ID names, and 99 scientific-truth cases excluding the
+  `heavy` marker, all with 12 workers and pytest-receptor. These overlapping
+  selections do not replace the complete source suite. Its installed
+  MolSysMT wheel passed the 99-export Rust validator. AmberTools 26.0 also
+  ran the then-default `build_peptide("GG")` LEaP route successfully, but bundled
+  ancillary package metadata conflicts with NumPy 2.4.6 and Biopython 1.88.
+  `pip check` additionally reports the known source-version mismatch between
+  Viewer and MolSysMT. The [paired-support
+  checkpoint](../python_3_14_checkpoint.md) records the failure
+  classification and the plan for a default 3.14 developer environment
+  without AmberTools rather than downgrading scientific dependencies.
+  On 2026-09-24, `build_peptide()` switched its default to the native MolSysMT
+  engine; the explicit LEaP option remains available. The elementary
+  one-to-three-letter converter was also made native, so the default builder
+  accepts both sequence notations without Biopython in a lean installation.
+  The broader optional Biopython audit remains open as `uibcdf/molsysmt#243`.
 
 ## What was refuted
 

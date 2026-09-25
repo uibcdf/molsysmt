@@ -40,6 +40,7 @@ VALIDATORS = [
         "validate_scientific_evidence.py",
         "Scientific evidence registry structure",
     ),
+    ("audit_dependency_contract.py", "Dependency contract and source routes"),
     ("validate_dependencies.py", "No top-level soft-dependency imports"),
     ("validate_devguide.py", "Developer-guide integrity"),
     ("validate_course.py", "Four Paths course structure"),
@@ -84,8 +85,9 @@ def main() -> int:
         print("  - Public-API smoke (import + convert + get + select + get_center)")
         print(
             "\nHeavy gates (NOT run here): the zero-skip registered scientific "
-            "evidence execution and ci-full.yaml's full pytest matrix on "
-            "ubuntu+macos x {3.11,3.12,3.13}."
+            "evidence execution; ci-full.yaml on ubuntu+macos x "
+            "{3.11,3.12,3.13} with the exact Viewer candidate; the 3.14 "
+            "source-pair gate; and the 20-cell installed Conda pair."
         )
         return 0
 
@@ -116,9 +118,10 @@ def main() -> int:
     print(f"Fast gates: {passed}/{total} passed.")
     print(
         "Heavy gates still required before tagging: zero-skip execution of every "
-        "registered scientific evidence node and a green ci-full.yaml run "
-        "(full pytest matrix, ubuntu+macos x {3.11,3.12,3.13}) on the exact "
-        "committed tag candidate. See devguide/release_gate.md."
+        "registered scientific evidence node, a green ci-full.yaml run "
+        "(ubuntu+macos x {3.11,3.12,3.13}) against the exact Viewer SHA, "
+        "the 3.14 source-pair gate and the 20-cell installed Conda pair. "
+        "See devguide/release_gate.md."
     )
 
     if passed != total:

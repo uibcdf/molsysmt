@@ -12,7 +12,12 @@ Expected:
   n_amino_acids = 16
 """
 
+from importlib.util import find_spec
+
 import pytest
+
+if find_spec("Bio") is None:
+    pytest.skip("Biopython is an optional PIR backend", allow_module_level=True)
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord

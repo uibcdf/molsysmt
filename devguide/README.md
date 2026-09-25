@@ -89,6 +89,8 @@ Read these documents in order when first working on MolSysMT:
 - [error_policy.md](error_policy.md)
 - [deprecation_policy.md](deprecation_policy.md)
 - [digestion_and_dependencies.md](digestion_and_dependencies.md)
+- [dependency_contract_audit.md](dependency_contract_audit.md) — authoritative
+  runtime floors, secondary-route audit, and the dependency-change procedure.
 - [support_tier_protocol.md](support_tier_protocol.md)
 - [support_tiers.ipynb](support_tiers.ipynb) — executable report, not a second
   tier registry.
@@ -112,6 +114,9 @@ Read these documents in order when first working on MolSysMT:
 
 ### Release operations
 
+- [Python 3.14 paired-support checkpoint](python_3_14_checkpoint.md) — dated
+  evidence, missing gates, and the next handoff for MolSysMT, MolSysViewer,
+  and their Qt-family dependency stack.
 - [release_1_0_status.md](release_1_0_status.md) — live phase/stage status and
   evidence ledger for the remaining 1.0 work.
 - [release_gate.md](release_gate.md) — exact-commit checklist required before

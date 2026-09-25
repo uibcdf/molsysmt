@@ -56,9 +56,13 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --no-deps \
-            -r devtools/requirements/controlled_hard_dependencies.txt \
+            -r devtools/controlled_sources.txt \
             git+https://github.com/uibcdf/molsysviewer@7a1522662e30575caf580a9447e3e6d80b628e07
           python -m pip install --editable . --no-deps
+
+      - name: Validate controlled dependency versions
+        shell: bash -l {0}
+        run: python devtools/scripts/validate_controlled_dependencies.py
 
       - name: Test import
         shell: bash -l {0}

@@ -523,6 +523,18 @@ scientific equivalence.
 
 ---
 
+## Amino-acid code authority
+
+`molsysmt/element/group/amino_acid/codes.py` is the single in-code authority
+for one- and three-letter residue codes. Sequence converters, FASTA/PIR
+attribute getters, and the FASTA topology adapter import its mappings instead
+of maintaining separate tables. `group_types.py` maps variant residue names to
+canonical names; the compressed files under
+`molsysmt/data/databases/amino_acids/` hold topology templates. Those are
+different responsibilities and must not be conflated. Biopython remains an
+optional interoperability and independent comparison dependency, not the
+authority for MolSysMT's elementary string-code conversion.
+
 ## `amino_acids/` database: AMBER force-field variants (added March 2026)
 
 The per-residue topology databases (`A.pkl.gz` … `Y.pkl.gz`) store a list of

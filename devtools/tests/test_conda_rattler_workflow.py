@@ -43,7 +43,7 @@ def test_rattler_experiment_builds_and_tests_one_exact_artifact():
     assert "--compression-threads 4" in text
     assert "--package-format conda" in text
     assert '[[ "${#packages[@]}" -ne 1 ]]' in text
-    assert "for python_version in 3.11 3.12 3.13" in text
+    assert "for python_version in 3.11 3.12 3.13 3.14" in text
     assert "validate_conda_abi3_artifact.py" in text
     assert "validate_installed_rust_extension.py" in text
     assert "--no-deps" in text
@@ -55,6 +55,6 @@ def test_rattler_recipe_declares_one_platform_abi3_artifact():
     assert "version_independent: true" in text
     assert "string: pyabi3h${{ hash }}_${{ build_number }}" in text
     assert "python-abi3 3.11.*" in text
-    assert "python >=3.11,<3.14" in text
+    assert "python >=3.11,<3.15" in text
     assert "use_gitignore: true" in text
     assert "python_abi" not in text

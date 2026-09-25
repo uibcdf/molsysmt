@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (23)
+### Open (24)
 
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
@@ -49,6 +49,7 @@ Entries carrying front matter under
 - [`classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md`](classify_rotatable_bonds_and_derive_rigid_molecular_fragments.md) — [#224](https://github.com/uibcdf/molsysmt/issues/224) — Classify rotatable bonds and derive rigid molecular fragments *(inspected)*
 - [`define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md`](define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md) — [#220](https://github.com/uibcdf/molsysmt/issues/220) — Define small-molecule chemical-state enumeration with atom correspondence *(inspected)*
 - [`diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md`](diagnose_ligand_chemical_readiness_for_a_selected_molecular_state.md) — [#217](https://github.com/uibcdf/molsysmt/issues/217) — Diagnose ligand chemical readiness for a selected molecular state *(inspected)*
+- [`evaluate_a_native_aminoacidsequence_value_object.md`](evaluate_a_native_aminoacidsequence_value_object.md) — [#242](https://github.com/uibcdf/molsysmt/issues/242) — Evaluate a native AminoAcidSequence value object *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
 - [`execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md`](execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md) — [#181](https://github.com/uibcdf/molsysmt/issues/181) — Execute every declared conversion edge in the test suite, not only audit it statically. *(measured)*
 - [`generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md`](generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md) — [#219](https://github.com/uibcdf/molsysmt/issues/219) — Generate 3D conformers for a fixed small-molecule chemical state *(inspected)*
@@ -63,8 +64,9 @@ Entries carrying front matter under
 - [`supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md`](supported_forms_and_info_return_only_styled_tables_with_no_programmatic_result.md) — [#188](https://github.com/uibcdf/molsysmt/issues/188) — supported.forms() and info() return only styled tables, with no programmatic result. *(measured)*
 - [`the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md`](the_evidence_matrix_cannot_show_the_surfaces_the_manuscript_will_lead_with.md) — [#190](https://github.com/uibcdf/molsysmt/issues/190) — The evidence matrix cannot show the surfaces the manuscript will lead with. *(measured)*
 
-### In progress (2)
+### In progress (3)
 
+- [`audit_dependency_contracts_across_packaging_environments_and_ci.md`](audit_dependency_contracts_across_packaging_environments_and_ci.md) — [#245](https://github.com/uibcdf/molsysmt/issues/245) — Audit dependency contracts across packaging, environments, and CI *(reproduced)*
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`extend_molsysmt_python_support_to_3_14.md`](extend_molsysmt_python_support_to_3_14.md) — [#237](https://github.com/uibcdf/molsysmt/issues/237) — Extend MolSysMT Python support to 3.14. *(measured)*
 
@@ -77,8 +79,9 @@ Entries carrying front matter under
 - [`repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md`](repair_selected_nonstandard_receptor_residues_with_residue_specific_templates.md) — [#228](https://github.com/uibcdf/molsysmt/issues/228) — Repair selected nonstandard receptor residues with residue-specific templates *(inspected)*
   Blocked by uibcdf/molsysmt#227.
 
-### Partially resolved (1)
+### Partially resolved (2)
 
+- [`remove_avoidable_biopython_dependencies_from_core_sequence_operations.md`](remove_avoidable_biopython_dependencies_from_core_sequence_operations.md) — [#243](https://github.com/uibcdf/molsysmt/issues/243) — Remove avoidable Biopython dependencies from core sequence operations *(reproduced)*
 - [`review_python_ecosystem_policy_adoption.md`](review_python_ecosystem_policy_adoption.md) — [#244](https://github.com/uibcdf/molsysmt/issues/244) — Review inherited Python ecosystem policy in MolSysMT. *(inspected)*
 
 <!-- /generated -->

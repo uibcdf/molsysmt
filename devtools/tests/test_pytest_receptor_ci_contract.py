@@ -12,14 +12,12 @@ WORKFLOWS = (
     REPO / ".github" / "workflows" / "ci-smoke.yaml",
     REPO / ".github" / "workflows" / "ci-weekly.yaml",
 )
-CONTROLLED_HARD_DEPENDENCIES = (
-    REPO / "devtools" / "requirements" / "controlled_hard_dependencies.txt"
-)
+CONTROLLED_HARD_DEPENDENCIES = REPO / "devtools" / "controlled_sources.txt"
 
 
 def test_ci_test_environment_pins_pytest_receptor():
     payload = yaml.safe_load(TEST_ENV.read_text(encoding="utf-8"))
-    assert "pytest-receptor=0.6.0" in payload["dependencies"]
+    assert "pytest-receptor=1.1.0" in payload["dependencies"]
     assert "ruff=0.16.5" in payload["dependencies"]
 
 
@@ -48,15 +46,49 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
 
     for workflow in WORKFLOWS:
         text = workflow.read_text(encoding="utf-8")
-        assert "-r devtools/requirements/controlled_hard_dependencies.txt" in text
+        assert "-r devtools/controlled_sources.txt" in text
         assert "python -m pip install --editable . --no-deps" in text
         assert "from argdigest import Domain, UnknownArgumentError" in text
         assert "PYTHONPATH" not in text
-        assert "7a1522662e30575caf580a9447e3e6d80b628e07" in text
+        if workflow.name == "ci-full.yaml":
+            assert "inputs.molsysviewer_sha" in text
+            assert "^[0-9a-f]{40}$" in text
+        else:
+            assert "7a1522662e30575caf580a9447e3e6d80b628e07" in text
 
     full_text = WORKFLOWS[0].read_text(encoding="utf-8")
     assert "controlled-molsysviewer-wheel" in full_text
     assert "-py3-none-any.whl" in full_text
+
+
+def test_ci_validates_controlled_runtime_versions_before_pytest():
+    for path in WORKFLOWS:
+        workflow = yaml.safe_load(path.read_text(encoding="utf-8"))
+        guarded_jobs = 0
+        for job in workflow["jobs"].values():
+            steps = [step.get("run", "") for step in job["steps"]]
+            source_installs = [
+                index
+                for index, run in enumerate(steps)
+                if "-r devtools/controlled_sources.txt" in run
+            ]
+            if not source_installs:
+                continue
+            guarded_jobs += 1
+            checks = [
+                index
+                for index, run in enumerate(steps)
+                if "python devtools/scripts/validate_controlled_dependencies.py" in run
+            ]
+            pytest_steps = [
+                index
+                for index, run in enumerate(steps)
+                if "pytest --receptor=ci" in run
+            ]
+            assert len(source_installs) == len(checks) == 1
+            assert pytest_steps
+            assert source_installs[0] < checks[0] < min(pytest_steps)
+        assert guarded_jobs
 
 
 def test_ci_pytest_commands_use_the_ci_receptor():

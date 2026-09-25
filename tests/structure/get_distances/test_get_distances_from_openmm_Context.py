@@ -3,7 +3,14 @@ Unit and regression test for the get_distances function over an openmm.Context o
 """
 
 # Import package, test suite, and other packages as needed
-from openmm import app
+from importlib.util import find_spec
+
+import pytest
+
+if find_spec("openmm") is None:
+    pytest.skip("OpenMM is an optional backend", allow_module_level=True)
+
+from openmm import app  # noqa: E402
 
 topology = app.Topology()
 chain = topology.addChain("A")
