@@ -1,8 +1,0 @@
-{
-    "form_name": "molsysmt.MolecularMechanicsDict",
-    "form_type": "class",
-    "item_class_key": [
-        "molsysmt",
-        "MolecularMechanicsDict"
-    ]
-}

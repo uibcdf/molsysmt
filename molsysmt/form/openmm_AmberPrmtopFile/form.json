@@ -1,8 +1,0 @@
-{
-    "form_name": "openmm.AmberPrmtopFile",
-    "form_type": "class",
-    "item_class_key": [
-        "openmm",
-        "AmberPrmtopFile"
-    ]
-}

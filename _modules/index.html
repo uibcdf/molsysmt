@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>Overview: module code – MolSysMT 0.22.4</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../_static/documentation_options.js?v=aaf7ef78"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/index';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.22.4" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.22.4 documentation - Home"/>
+    <img src="../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.22.4 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Overview: module code</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>All modules for which code is available</h1>
+<ul><li><a href="molsysmt/basic/add.html">molsysmt.basic.add</a></li>
+<li><a href="molsysmt/basic/append_structures.html">molsysmt.basic.append_structures</a></li>
+<li><a href="molsysmt/basic/are_multiple_molecular_systems.html">molsysmt.basic.are_multiple_molecular_systems</a></li>
+<li><a href="molsysmt/basic/compare.html">molsysmt.basic.compare</a></li>
+<li><a href="molsysmt/basic/concatenate_structures.html">molsysmt.basic.concatenate_structures</a></li>
+<li><a href="molsysmt/basic/contains.html">molsysmt.basic.contains</a></li>
+<li><a href="molsysmt/basic/conversion_report.html">molsysmt.basic.conversion_report</a></li>
+<li><a href="molsysmt/basic/convert.html">molsysmt.basic.convert</a></li>
+<li><a href="molsysmt/basic/copy.html">molsysmt.basic.copy</a></li>
+<li><a href="molsysmt/basic/extract.html">molsysmt.basic.extract</a></li>
+<li><a href="molsysmt/basic/get.html">molsysmt.basic.get</a></li>
+<li><a href="molsysmt/basic/get_attributes.html">molsysmt.basic.get_attributes</a></li>
+<li><a href="molsysmt/basic/get_form.html">molsysmt.basic.get_form</a></li>
+<li><a href="molsysmt/basic/get_label.html">molsysmt.basic.get_label</a></li>
+<li><a href="molsysmt/basic/has_attribute.html">molsysmt.basic.has_attribute</a></li>
+<li><a href="molsysmt/basic/info.html">molsysmt.basic.info</a></li>
+<li><a href="molsysmt/basic/is_a_molecular_system.html">molsysmt.basic.is_a_molecular_system</a></li>
+<li><a href="molsysmt/basic/is_composed_of.html">molsysmt.basic.is_composed_of</a></li>
+<li><a href="molsysmt/basic/iterator.html">molsysmt.basic.iterator</a></li>
+<li><a href="molsysmt/basic/merge.html">molsysmt.basic.merge</a></li>
+<li><a href="molsysmt/basic/remove.html">molsysmt.basic.remove</a></li>
+<li><a href="molsysmt/basic/select.html">molsysmt.basic.select</a></li>
+<li><a href="molsysmt/basic/set.html">molsysmt.basic.set</a></li>
+<li><a href="molsysmt/basic/view.html">molsysmt.basic.view</a></li>
+<li><a href="molsysmt/basic/where_is_attribute.html">molsysmt.basic.where_is_attribute</a></li>
+<li><a href="molsysmt/build/add_missing_bonds.html">molsysmt.build.add_missing_bonds</a></li>
+<li><a href="molsysmt/build/add_missing_heavy_atoms.html">molsysmt.build.add_missing_heavy_atoms</a></li>
+<li><a href="molsysmt/build/add_missing_hydrogens.html">molsysmt.build.add_missing_hydrogens</a></li>
+<li><a href="molsysmt/build/add_missing_terminal_cappings.html">molsysmt.build.add_missing_terminal_cappings</a></li>
+<li><a href="molsysmt/build/build_peptide.html">molsysmt.build.build_peptide</a></li>
+<li><a href="molsysmt/build/editable.html">molsysmt.build.editable</a></li>
+<li><a href="molsysmt/build/get_disulfide_bonds.html">molsysmt.build.get_disulfide_bonds</a></li>
+<li><a href="molsysmt/build/get_missing_bonds.html">molsysmt.build.get_missing_bonds</a></li>
+<li><a href="molsysmt/build/get_missing_heavy_atoms.html">molsysmt.build.get_missing_heavy_atoms</a></li>
+<li><a href="molsysmt/build/get_missing_residues.html">molsysmt.build.get_missing_residues</a></li>
+<li><a href="molsysmt/build/get_missing_terminal_cappings.html">molsysmt.build.get_missing_terminal_cappings</a></li>
+<li><a href="molsysmt/build/get_non_standard_residues.html">molsysmt.build.get_non_standard_residues</a></li>
+<li><a href="molsysmt/build/has_hydrogens.html">molsysmt.build.has_hydrogens</a></li>
+<li><a href="molsysmt/build/is_solvated.html">molsysmt.build.is_solvated</a></li>
+<li><a href="molsysmt/build/make_bioassembly.html">molsysmt.build.make_bioassembly</a></li>
+<li><a href="molsysmt/build/make_water_box.html">molsysmt.build.make_water_box</a></li>
+<li><a href="molsysmt/build/mutate.html">molsysmt.build.mutate</a></li>
+<li><a href="molsysmt/build/remove_overlapping_molecules.html">molsysmt.build.remove_overlapping_molecules</a></li>
+<li><a href="molsysmt/build/solvate.html">molsysmt.build.solvate</a></li>
+<li><a href="molsysmt/build/solve_atoms_with_alternate_location.html">molsysmt.build.solve_atoms_with_alternate_location</a></li>
+<li><a href="molsysmt/element/atom/get_atom_type_from_atom_name.html">molsysmt.element.atom.get_atom_type_from_atom_name</a></li>
+<li><a href="molsysmt/element/chain/get_chain_id.html">molsysmt.element.chain.get_chain_id</a></li>
+<li><a href="molsysmt/element/chain/get_chain_index.html">molsysmt.element.chain.get_chain_index</a></li>
+<li><a href="molsysmt/element/chain/get_chain_name.html">molsysmt.element.chain.get_chain_name</a></li>
+<li><a href="molsysmt/element/chain/get_chain_type.html">molsysmt.element.chain.get_chain_type</a></li>
+<li><a href="molsysmt/element/component/get_component_id.html">molsysmt.element.component.get_component_id</a></li>
+<li><a href="molsysmt/element/component/get_component_index.html">molsysmt.element.component.get_component_index</a></li>
+<li><a href="molsysmt/element/component/get_component_name.html">molsysmt.element.component.get_component_name</a></li>
+<li><a href="molsysmt/element/component/get_component_type.html">molsysmt.element.component.get_component_type</a></li>
+<li><a href="molsysmt/element/component/get_n_components.html">molsysmt.element.component.get_n_components</a></li>
+<li><a href="molsysmt/element/component/is_component_type.html">molsysmt.element.component.is_component_type</a></li>
+<li><a href="molsysmt/element/entity/get_entity_id.html">molsysmt.element.entity.get_entity_id</a></li>
+<li><a href="molsysmt/element/entity/get_entity_index.html">molsysmt.element.entity.get_entity_index</a></li>
+<li><a href="molsysmt/element/entity/get_entity_name.html">molsysmt.element.entity.get_entity_name</a></li>
+<li><a href="molsysmt/element/entity/get_entity_type.html">molsysmt.element.entity.get_entity_type</a></li>
+<li><a href="molsysmt/element/entity/get_n_entities.html">molsysmt.element.entity.get_n_entities</a></li>
+<li><a href="molsysmt/element/group/amino_acid/get_1_letter_code_from_name.html">molsysmt.element.group.amino_acid.get_1_letter_code_from_name</a></li>
+<li><a href="molsysmt/element/group/amino_acid/get_bonded_atom_pairs.html">molsysmt.element.group.amino_acid.get_bonded_atom_pairs</a></li>
+<li><a href="molsysmt/element/group/amino_acid/get_expected_heavy_atoms.html">molsysmt.element.group.amino_acid.get_expected_heavy_atoms</a></li>
+<li><a href="molsysmt/element/group/amino_acid/get_expected_hydrogens.html">molsysmt.element.group.amino_acid.get_expected_hydrogens</a></li>
+<li><a href="molsysmt/element/group/amino_acid/get_group_db.html">molsysmt.element.group.amino_acid.get_group_db</a></li>
+<li><a href="molsysmt/element/group/amino_acid/get_standard_name.html">molsysmt.element.group.amino_acid.get_standard_name</a></li>
+<li><a href="molsysmt/element/group/amino_acid/is_amino_acid.html">molsysmt.element.group.amino_acid.is_amino_acid</a></li>
+<li><a href="molsysmt/element/group/get_bonded_atom_pairs.html">molsysmt.element.group.get_bonded_atom_pairs</a></li>
+<li><a href="molsysmt/element/group/get_group_type.html">molsysmt.element.group.get_group_type</a></li>
+<li><a href="molsysmt/element/group/ion/get_bonded_atom_pairs.html">molsysmt.element.group.ion.get_bonded_atom_pairs</a></li>
+<li><a href="molsysmt/element/group/ion/get_group_db.html">molsysmt.element.group.ion.get_group_db</a></li>
+<li><a href="molsysmt/element/group/ion/is_ion.html">molsysmt.element.group.ion.is_ion</a></li>
+<li><a href="molsysmt/element/group/is_group_type.html">molsysmt.element.group.is_group_type</a></li>
+<li><a href="molsysmt/element/group/lipid/is_lipid.html">molsysmt.element.group.lipid.is_lipid</a></li>
+<li><a href="molsysmt/element/group/nucleotide/is_nucleotide.html">molsysmt.element.group.nucleotide.is_nucleotide</a></li>
+<li><a href="molsysmt/element/group/saccharide/get_bonded_atom_pairs.html">molsysmt.element.group.saccharide.get_bonded_atom_pairs</a></li>
+<li><a href="molsysmt/element/group/saccharide/get_group_db.html">molsysmt.element.group.saccharide.get_group_db</a></li>
+<li><a href="molsysmt/element/group/saccharide/is_saccharide.html">molsysmt.element.group.saccharide.is_saccharide</a></li>
+<li><a href="molsysmt/element/group/small_molecule/get_bonded_atom_pairs.html">molsysmt.element.group.small_molecule.get_bonded_atom_pairs</a></li>
+<li><a href="molsysmt/element/group/small_molecule/get_group_db.html">molsysmt.element.group.small_molecule.get_group_db</a></li>
+<li><a href="molsysmt/element/group/small_molecule/is_small_molecule.html">molsysmt.element.group.small_molecule.is_small_molecule</a></li>
+<li><a href="molsysmt/element/group/small_molecule/small_molecule_is_amino_acid.html">molsysmt.element.group.small_molecule.small_molecule_is_amino_acid</a></li>
+<li><a href="molsysmt/element/group/terminal_capping/get_bonded_atom_pairs.html">molsysmt.element.group.terminal_capping.get_bonded_atom_pairs</a></li>
+<li><a href="molsysmt/element/group/terminal_capping/get_group_db.html">molsysmt.element.group.terminal_capping.get_group_db</a></li>
+<li><a href="molsysmt/element/group/terminal_capping/is_terminal_capping.html">molsysmt.element.group.terminal_capping.is_terminal_capping</a></li>
+<li><a href="molsysmt/element/group/water/get_bonded_atom_pairs.html">molsysmt.element.group.water.get_bonded_atom_pairs</a></li>
+<li><a href="molsysmt/element/group/water/is_water.html">molsysmt.element.group.water.is_water</a></li>
+<li><a href="molsysmt/element/is_composed_of.html">molsysmt.element.is_composed_of</a></li>
+<li><a href="molsysmt/element/is_element.html">molsysmt.element.is_element</a></li>
+<li><a href="molsysmt/element/molecule/get_molecule_id.html">molsysmt.element.molecule.get_molecule_id</a></li>
+<li><a href="molsysmt/element/molecule/get_molecule_index.html">molsysmt.element.molecule.get_molecule_index</a></li>
+<li><a href="molsysmt/element/molecule/get_molecule_name.html">molsysmt.element.molecule.get_molecule_name</a></li>
+<li><a href="molsysmt/element/molecule/get_molecule_type.html">molsysmt.element.molecule.get_molecule_type</a></li>
+<li><a href="molsysmt/element/molecule/get_n_molecules.html">molsysmt.element.molecule.get_n_molecules</a></li>
+<li><a href="molsysmt/element/molecule/is_molecule_type.html">molsysmt.element.molecule.is_molecule_type</a></li>
+<li><a href="molsysmt/form.html">molsysmt.form</a></li>
+<ul><li><a href="molsysmt/form/get_attributes.html">molsysmt.form.get_attributes</a></li>
+<li><a href="molsysmt/form/has_attribute.html">molsysmt.form.has_attribute</a></li>
+<li><a href="molsysmt/form/is_file.html">molsysmt.form.is_file</a></li>
+<li><a href="molsysmt/form/is_item.html">molsysmt.form.is_item</a></li>
+<li><a href="molsysmt/form/is_string.html">molsysmt.form.is_string</a></li>
+<li><a href="molsysmt/form/load_converter.html">molsysmt.form.load_converter</a></li>
+</ul><li><a href="molsysmt/hbonds/get_acceptor_atoms.html">molsysmt.hbonds.get_acceptor_atoms</a></li>
+<li><a href="molsysmt/hbonds/get_buch_hbonds.html">molsysmt.hbonds.get_buch_hbonds</a></li>
+<li><a href="molsysmt/hbonds/get_donor_atoms.html">molsysmt.hbonds.get_donor_atoms</a></li>
+<li><a href="molsysmt/hbonds/get_luzard_chandler_hbonds.html">molsysmt.hbonds.get_luzard_chandler_hbonds</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_degrees_of_freedom.html">molsysmt.molecular_mechanics.get_degrees_of_freedom</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_engine_forcefield.html">molsysmt.molecular_mechanics.get_engine_forcefield</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_forces.html">molsysmt.molecular_mechanics.get_forces</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_non_bonded_potential_energy.html">molsysmt.molecular_mechanics.get_non_bonded_potential_energy</a></li>
+<li><a href="molsysmt/molecular_mechanics/get_potential_energy.html">molsysmt.molecular_mechanics.get_potential_energy</a></li>
+<li><a href="molsysmt/molecular_mechanics/potential_energy_minimization.html">molsysmt.molecular_mechanics.potential_energy_minimization</a></li>
+<li><a href="molsysmt/pbc/get_angles_from_box.html">molsysmt.pbc.get_angles_from_box</a></li>
+<li><a href="molsysmt/pbc/get_box_from_lengths_and_angles.html">molsysmt.pbc.get_box_from_lengths_and_angles</a></li>
+<li><a href="molsysmt/pbc/get_box_with_shape.html">molsysmt.pbc.get_box_with_shape</a></li>
+<li><a href="molsysmt/pbc/get_lengths_and_angles_from_box.html">molsysmt.pbc.get_lengths_and_angles_from_box</a></li>
+<li><a href="molsysmt/pbc/get_lengths_from_box.html">molsysmt.pbc.get_lengths_from_box</a></li>
+<li><a href="molsysmt/pbc/get_shape_from_angles.html">molsysmt.pbc.get_shape_from_angles</a></li>
+<li><a href="molsysmt/pbc/get_shape_from_box.html">molsysmt.pbc.get_shape_from_box</a></li>
+<li><a href="molsysmt/pbc/get_volume_from_box.html">molsysmt.pbc.get_volume_from_box</a></li>
+<li><a href="molsysmt/pbc/get_volume_from_lengths_and_angles.html">molsysmt.pbc.get_volume_from_lengths_and_angles</a></li>
+<li><a href="molsysmt/pbc/has_pbc.html">molsysmt.pbc.has_pbc</a></li>
+<li><a href="molsysmt/pbc/unwrap.html">molsysmt.pbc.unwrap</a></li>
+<li><a href="molsysmt/pbc/wrap_to_mic.html">molsysmt.pbc.wrap_to_mic</a></li>
+<li><a href="molsysmt/pbc/wrap_to_pbc.html">molsysmt.pbc.wrap_to_pbc</a></li>
+<li><a href="molsysmt/physchem/atoms/protor.html">molsysmt.physchem.atoms.protor</a></li>
+<li><a href="molsysmt/physchem/get_area_buried.html">molsysmt.physchem.get_area_buried</a></li>
+<li><a href="molsysmt/physchem/get_atomic_radius.html">molsysmt.physchem.get_atomic_radius</a></li>
+<li><a href="molsysmt/physchem/get_buried_fraction.html">molsysmt.physchem.get_buried_fraction</a></li>
+<li><a href="molsysmt/physchem/get_charge.html">molsysmt.physchem.get_charge</a></li>
+<li><a href="molsysmt/physchem/get_electronegativity.html">molsysmt.physchem.get_electronegativity</a></li>
+<li><a href="molsysmt/physchem/get_hydrophobicity.html">molsysmt.physchem.get_hydrophobicity</a></li>
+<li><a href="molsysmt/physchem/get_mass.html">molsysmt.physchem.get_mass</a></li>
+<li><a href="molsysmt/physchem/get_polarity.html">molsysmt.physchem.get_polarity</a></li>
+<li><a href="molsysmt/physchem/get_sasa.html">molsysmt.physchem.get_sasa</a></li>
+<li><a href="molsysmt/physchem/get_surface_area.html">molsysmt.physchem.get_surface_area</a></li>
+<li><a href="molsysmt/physchem/get_transmembrane_tendency.html">molsysmt.physchem.get_transmembrane_tendency</a></li>
+<li><a href="molsysmt/physchem/get_volume.html">molsysmt.physchem.get_volume</a></li>
+<li><a href="molsysmt/structure/align_principal_axes.html">molsysmt.structure.align_principal_axes</a></li>
+<li><a href="molsysmt/structure/center.html">molsysmt.structure.center</a></li>
+<li><a href="molsysmt/structure/flip.html">molsysmt.structure.flip</a></li>
+<li><a href="molsysmt/structure/get_angles.html">molsysmt.structure.get_angles</a></li>
+<li><a href="molsysmt/structure/get_center.html">molsysmt.structure.get_center</a></li>
+<li><a href="molsysmt/structure/get_contacts.html">molsysmt.structure.get_contacts</a></li>
+<li><a href="molsysmt/structure/get_dihedral_angles.html">molsysmt.structure.get_dihedral_angles</a></li>
+<li><a href="molsysmt/structure/get_distances.html">molsysmt.structure.get_distances</a></li>
+<li><a href="molsysmt/structure/get_least_rmsd.html">molsysmt.structure.get_least_rmsd</a></li>
+<li><a href="molsysmt/structure/get_maximum_distances.html">molsysmt.structure.get_maximum_distances</a></li>
+<li><a href="molsysmt/structure/get_minimum_distances.html">molsysmt.structure.get_minimum_distances</a></li>
+<li><a href="molsysmt/structure/get_neighbors.html">molsysmt.structure.get_neighbors</a></li>
+<li><a href="molsysmt/structure/get_principal_axes.html">molsysmt.structure.get_principal_axes</a></li>
+<li><a href="molsysmt/structure/get_radius_of_gyration.html">molsysmt.structure.get_radius_of_gyration</a></li>
+<li><a href="molsysmt/structure/get_rmsd.html">molsysmt.structure.get_rmsd</a></li>
+<li><a href="molsysmt/structure/get_rmsf.html">molsysmt.structure.get_rmsf</a></li>
+<li><a href="molsysmt/structure/get_secondary_structure.html">molsysmt.structure.get_secondary_structure</a></li>
+<li><a href="molsysmt/structure/least_rmsd_align.html">molsysmt.structure.least_rmsd_align</a></li>
+<li><a href="molsysmt/structure/least_rmsd_fit.html">molsysmt.structure.least_rmsd_fit</a></li>
+<li><a href="molsysmt/structure/move_away.html">molsysmt.structure.move_away</a></li>
+<li><a href="molsysmt/structure/principal_component_analysis.html">molsysmt.structure.principal_component_analysis</a></li>
+<li><a href="molsysmt/structure/rotate.html">molsysmt.structure.rotate</a></li>
+<li><a href="molsysmt/structure/set_dihedral_angles.html">molsysmt.structure.set_dihedral_angles</a></li>
+<li><a href="molsysmt/structure/shift_dihedral_angles.html">molsysmt.structure.shift_dihedral_angles</a></li>
+<li><a href="molsysmt/structure/translate.html">molsysmt.structure.translate</a></li>
+<li><a href="molsysmt/third_party/nglview/add_arrows.html">molsysmt.third_party.nglview.add_arrows</a></li>
+<li><a href="molsysmt/third_party/nglview/add_contacts.html">molsysmt.third_party.nglview.add_contacts</a></li>
+<li><a href="molsysmt/third_party/nglview/add_cylinders.html">molsysmt.third_party.nglview.add_cylinders</a></li>
+<li><a href="molsysmt/third_party/nglview/add_hbonds.html">molsysmt.third_party.nglview.add_hbonds</a></li>
+<li><a href="molsysmt/third_party/nglview/clear.html">molsysmt.third_party.nglview.clear</a></li>
+<li><a href="molsysmt/third_party/nglview/load_html_in_jupyter_notebook.html">molsysmt.third_party.nglview.load_html_in_jupyter_notebook</a></li>
+<li><a href="molsysmt/third_party/nglview/set_color.html">molsysmt.third_party.nglview.set_color</a></li>
+<li><a href="molsysmt/third_party/nglview/set_color_by_value.html">molsysmt.third_party.nglview.set_color_by_value</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_balls_and_sticks.html">molsysmt.third_party.nglview.show_as_balls_and_sticks</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_cartoon.html">molsysmt.third_party.nglview.show_as_cartoon</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_licorice.html">molsysmt.third_party.nglview.show_as_licorice</a></li>
+<li><a href="molsysmt/third_party/nglview/show_as_surface.html">molsysmt.third_party.nglview.show_as_surface</a></li>
+<li><a href="molsysmt/third_party/nglview/show_gui.html">molsysmt.third_party.nglview.show_gui</a></li>
+<li><a href="molsysmt/third_party/nglview/standardize_view.html">molsysmt.third_party.nglview.standardize_view</a></li>
+<li><a href="molsysmt/third_party/nglview/write_html.html">molsysmt.third_party.nglview.write_html</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_allowed_plane_region.html">molsysmt.third_party.openmm.forces.add_allowed_plane_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_allowed_z_region.html">molsysmt.third_party.openmm.forces.add_allowed_z_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_constant_force.html">molsysmt.third_party.openmm.forces.add_constant_force</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_forbidden_plane_region.html">molsysmt.third_party.openmm.forces.add_forbidden_plane_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_forbidden_z_region.html">molsysmt.third_party.openmm.forces.add_forbidden_z_region</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_harmonic_bond_force.html">molsysmt.third_party.openmm.forces.add_harmonic_bond_force</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_plane_harmonic_restraint.html">molsysmt.third_party.openmm.forces.add_plane_harmonic_restraint</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/add_point_harmonic_restraint.html">molsysmt.third_party.openmm.forces.add_point_harmonic_restraint</a></li>
+<li><a href="molsysmt/third_party/openmm/forces/pin_atoms.html">molsysmt.third_party.openmm.forces.pin_atoms</a></li>
+<li><a href="molsysmt/third_party/openmm/platforms/platforms.html">molsysmt.third_party.openmm.platforms.platforms</a></li>
+<li><a href="molsysmt/third_party/openmm/reporters/StructuresDict.html">molsysmt.third_party.openmm.reporters.StructuresDict</a></li>
+<li><a href="molsysmt/third_party/openmm/reporters/h5msm.html">molsysmt.third_party.openmm.reporters.h5msm</a></li>
+<li><a href="molsysmt/third_party/openmm/reporters/tqdm.html">molsysmt.third_party.openmm.reporters.tqdm</a></li>
+<li><a href="molsysmt/topology/get_bondgraph.html">molsysmt.topology.get_bondgraph</a></li>
+<li><a href="molsysmt/topology/get_covalent_blocks.html">molsysmt.topology.get_covalent_blocks</a></li>
+<li><a href="molsysmt/topology/get_covalent_paths.html">molsysmt.topology.get_covalent_paths</a></li>
+<li><a href="molsysmt/topology/get_dihedral_quartets.html">molsysmt.topology.get_dihedral_quartets</a></li>
+<li><a href="molsysmt/topology/get_sequence_alignment.html">molsysmt.topology.get_sequence_alignment</a></li>
+<li><a href="molsysmt/topology/get_sequence_identity.html">molsysmt.topology.get_sequence_identity</a></li>
+</ul>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

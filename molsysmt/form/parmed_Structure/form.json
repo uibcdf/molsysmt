@@ -1,8 +1,0 @@
-{
-    "form_name": "parmed.Structure",
-    "form_type": "class",
-    "item_class_key": [
-        "parmed",
-        "Structure"
-    ]
-}

@@ -1,8 +1,0 @@
-{
-    "form_name": "molsysmt.PDBFileHandler",
-    "form_type": "class",
-    "item_class_key": [
-        "molsysmt",
-        "PDBFileHandler"
-    ]
-}

@@ -1,8 +1,0 @@
-{
-    "form_name": "pytraj.Topology",
-    "form_type": "class",
-    "item_class_key": [
-        "pytraj",
-        "Topology"
-    ]
-}

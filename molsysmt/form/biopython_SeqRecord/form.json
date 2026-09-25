@@ -1,8 +1,0 @@
-{
-    "form_name": "biopython.SeqRecord",
-    "form_type": "class",
-    "item_class_key": [
-        "biopython",
-        "SeqRecord"
-    ]
-}

@@ -1,8 +1,0 @@
-{
-    "form_name": "openmm.CharmmCrdFile",
-    "form_type": "class",
-    "item_class_key": [
-        "openmm",
-        "CharmmCrdFile"
-    ]
-}

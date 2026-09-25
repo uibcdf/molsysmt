@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <title>molsysmt.element.group.amino_acid.get_expected_hydrogens – MolSysMT 0.22.4</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../../../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../../../../../_static/documentation_options.js?v=aaf7ef78"></script>
+    <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/molsysmt/element/group/amino_acid/get_expected_hydrogens';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.22.4" />
+  
+    
+    <script src="../../../../../_static/searchtools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script src="../../../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.22.4 documentation - Home"/>
+    <img src="../../../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.22.4 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/developer/index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../content/ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">molsysmt.element.group.amino_acid.get_expected_hydrogens</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for molsysmt.element.group.amino_acid.get_expected_hydrogens</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.get_group_db</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_group_db</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.get_standard_name</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_standard_name</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.group_names</span><span class="w"> </span><span class="kn">import</span> <span class="n">group_names</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_hydrogen</span><span class="p">(</span><span class="n">atom_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return True if atom_name follows PDB hydrogen naming conventions."""</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">atom_name</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">atom_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"H"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atom_name</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">atom_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="n">atom_name</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"H"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="get_expected_hydrogens">
+<a class="viewcode-back" href="../../../../../api/element/group/amino_acid/autosummary/molsysmt.element.group.amino_acid.get_expected_hydrogens.html#molsysmt.element.group.amino_acid.get_expected_hydrogens">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_expected_hydrogens</span><span class="p">(</span>
+    <span class="n">group_name</span><span class="p">,</span>
+    <span class="n">present_atom_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">pH</span><span class="o">=</span><span class="mf">7.4</span><span class="p">,</span>
+    <span class="n">is_n_terminal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">is_c_terminal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">is_disulfide</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Return the list of expected hydrogen atom names for a residue.</span>
+
+<span class="sd">    Selects the best-matching topology variant from the amino-acid database,</span>
+<span class="sd">    then applies pH-dependent protonation rules to decide which H atoms should</span>
+<span class="sd">    be present.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    group_name : str</span>
+<span class="sd">        Name of the chemical group (residue).</span>
+<span class="sd">    present_atom_names : object, default=None</span>
+<span class="sd">        Argument present_atom_names.</span>
+<span class="sd">    pH : object, default=7.4</span>
+<span class="sd">        Argument pH.</span>
+<span class="sd">    is_n_terminal : object, default=False</span>
+<span class="sd">        Argument is_n_terminal.</span>
+<span class="sd">    is_c_terminal : object, default=False</span>
+<span class="sd">        Argument is_c_terminal.</span>
+<span class="sd">    is_disulfide : object, default=False</span>
+<span class="sd">        Argument is_disulfide.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of str or None</span>
+<span class="sd">        Hydrogen atom names to be present, or ``None`` if the residue is not</span>
+<span class="sd">        in the amino-acid database.</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    pH rules applied:</span>
+
+<span class="sd">    * **ASP**: deprotonated (no HD2) when pH ≥ 4.4</span>
+<span class="sd">    * **GLU**: deprotonated (no HE2) when pH ≥ 4.4</span>
+<span class="sd">    * **HIS**: HIP (HD1+HE2) when pH &lt; 6.5; HIE (HE2 only) otherwise</span>
+<span class="sd">    * **LYS**: deprotonated NZ (no HZ3) when pH ≥ 10.5</span>
+<span class="sd">    * **CYS**: no HG when *is_disulfide* is True</span>
+<span class="sd">    * **C-terminus**: carboxylate (no HXT/HO2) when pH ≥ 3.2</span>
+<span class="sd">    * **N-terminus**: neutral amine (no H3) when pH ≥ 9.6</span>
+
+<span class="sd">    These are fixed thresholds taken from free-amino-acid pKa values. They do not</span>
+<span class="sd">    model the pKa shifts a residue's environment produces, which is what a</span>
+<span class="sd">    PROPKA-style calculation would do; see `devguide/structure_preparation_pipeline.md`.</span>
+
+
+<span class="sd">    .. versionadded:: 1.0.0</span>
+<span class="sd">    """</span>
+
+    <span class="n">canonical</span> <span class="o">=</span> <span class="n">get_standard_name</span><span class="p">(</span><span class="n">group_name</span><span class="p">)</span>
+    <span class="n">lookup_name</span> <span class="o">=</span> <span class="n">canonical</span> <span class="k">if</span> <span class="n">canonical</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">group_name</span>
+
+    <span class="k">if</span> <span class="n">lookup_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">group_names</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">db</span> <span class="o">=</span> <span class="n">get_group_db</span><span class="p">(</span><span class="n">lookup_name</span><span class="p">)</span>
+
+    <span class="c1"># --- Select the best variant ---</span>
+    <span class="c1"># Strategy: choose the variant whose heavy-atom set is a superset of the</span>
+    <span class="c1"># present heavy atoms, with the fewest extra atoms (tightest fit).</span>
+    <span class="c1"># Prefer variants that match terminal status.</span>
+    <span class="k">if</span> <span class="n">present_atom_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">present_heavy</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">present_atom_names</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_hydrogen</span><span class="p">(</span><span class="n">a</span><span class="p">)}</span>
+        <span class="n">present_h</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">present_atom_names</span> <span class="k">if</span> <span class="n">_is_hydrogen</span><span class="p">(</span><span class="n">a</span><span class="p">)}</span>
+        <span class="n">best_variant</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">best_h_overlap</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">best_extra</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">variant</span> <span class="ow">in</span> <span class="n">db</span><span class="p">[</span><span class="s2">"topology"</span><span class="p">]:</span>
+            <span class="n">variant_heavy</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">variant</span><span class="p">[</span><span class="s2">"atoms"</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_hydrogen</span><span class="p">(</span><span class="n">a</span><span class="p">)}</span>
+            <span class="k">if</span> <span class="n">present_heavy</span> <span class="o">&lt;=</span> <span class="n">variant_heavy</span><span class="p">:</span>
+                <span class="n">extra</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">variant_heavy</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">present_heavy</span><span class="p">)</span>
+                <span class="n">variant_hs</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">variant</span><span class="p">[</span><span class="s2">"atoms"</span><span class="p">]</span> <span class="k">if</span> <span class="n">_is_hydrogen</span><span class="p">(</span><span class="n">a</span><span class="p">)}</span>
+                <span class="n">h_overlap</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">present_h</span> <span class="o">&amp;</span> <span class="n">variant_hs</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">best_extra</span> <span class="ow">is</span> <span class="kc">None</span>
+                    <span class="ow">or</span> <span class="n">h_overlap</span> <span class="o">&gt;</span> <span class="n">best_h_overlap</span>
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">h_overlap</span> <span class="o">==</span> <span class="n">best_h_overlap</span> <span class="ow">and</span> <span class="n">extra</span> <span class="o">&lt;</span> <span class="n">best_extra</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="n">best_extra</span> <span class="o">=</span> <span class="n">extra</span>
+                    <span class="n">best_h_overlap</span> <span class="o">=</span> <span class="n">h_overlap</span>
+                    <span class="n">best_variant</span> <span class="o">=</span> <span class="n">variant</span>
+        <span class="k">if</span> <span class="n">best_variant</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">best_variant</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s2">"topology"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">best_variant</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s2">"topology"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># All H names from the chosen variant</span>
+    <span class="n">all_hs</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">best_variant</span><span class="p">[</span><span class="s2">"atoms"</span><span class="p">]</span> <span class="k">if</span> <span class="n">_is_hydrogen</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span>
+    <span class="n">all_hs_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">all_hs</span><span class="p">)</span>
+
+    <span class="c1"># --- pH / context rules ---</span>
+    <span class="n">remove_hs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="c1"># ASP: OD2 is protonated only at low pH (HD2)</span>
+    <span class="k">if</span> <span class="n">lookup_name</span> <span class="o">==</span> <span class="s2">"ASP"</span> <span class="ow">and</span> <span class="n">pH</span> <span class="o">&gt;=</span> <span class="mf">4.4</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HD2"</span><span class="p">,))</span>
+
+    <span class="c1"># GLU: OE2 is protonated only at low pH (HE2)</span>
+    <span class="k">if</span> <span class="n">lookup_name</span> <span class="o">==</span> <span class="s2">"GLU"</span> <span class="ow">and</span> <span class="n">pH</span> <span class="o">&gt;=</span> <span class="mf">4.4</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HE2"</span><span class="p">,))</span>
+
+    <span class="c1"># HIS: at pH &gt;= 6.5 use HIE (NE2-H only), remove HD1</span>
+    <span class="k">if</span> <span class="n">lookup_name</span> <span class="o">==</span> <span class="s2">"HIS"</span> <span class="ow">and</span> <span class="n">pH</span> <span class="o">&gt;=</span> <span class="mf">6.5</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HD1"</span><span class="p">,))</span>
+
+    <span class="c1"># LYS: NZ deprotonated (LYN) at very high pH – remove the third NZ hydrogen</span>
+    <span class="k">if</span> <span class="n">lookup_name</span> <span class="o">==</span> <span class="s2">"LYS"</span> <span class="ow">and</span> <span class="n">pH</span> <span class="o">&gt;=</span> <span class="mf">10.5</span><span class="p">:</span>
+        <span class="c1"># Identify the third H on NZ.  Common names: HZ3, 3HZ</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HZ3"</span><span class="p">,</span> <span class="s2">"3HZ"</span><span class="p">))</span>
+
+    <span class="c1"># CYS in disulfide: remove HG / HG1</span>
+    <span class="k">if</span> <span class="n">lookup_name</span> <span class="o">==</span> <span class="s2">"CYS"</span> <span class="ow">and</span> <span class="n">is_disulfide</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HG"</span><span class="p">,</span> <span class="s2">"HG1"</span><span class="p">))</span>
+
+    <span class="c1"># C-terminal carboxylate: pKa is 2.0-3.5 across the residues, so above the</span>
+    <span class="c1"># threshold the group is a carboxylate and carries no proton. The rule below asks</span>
+    <span class="c1"># only whether OXT exists, which is a topology question; this one asks whether it</span>
+    <span class="c1"># should be protonated, which is the chemistry question, and both are needed.</span>
+    <span class="c1"># Without this the terminus stays COOH at every pH and no standard force field has</span>
+    <span class="c1"># a template for it (uibcdf/molsysmt#176).</span>
+    <span class="k">if</span> <span class="n">is_c_terminal</span> <span class="ow">and</span> <span class="n">pH</span> <span class="o">&gt;=</span> <span class="mf">3.2</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HXT"</span><span class="p">,</span> <span class="s2">"HO2"</span><span class="p">))</span>
+
+    <span class="c1"># N-terminal amine: pKa around 9.6. Above it the amine is neutral and loses its</span>
+    <span class="c1"># third proton. This one never raises downstream, since NH3+ has a template</span>
+    <span class="c1"># everywhere, so it has to be asserted directly rather than through a force field.</span>
+    <span class="k">if</span> <span class="n">is_n_terminal</span> <span class="ow">and</span> <span class="n">pH</span> <span class="o">&gt;=</span> <span class="mf">9.6</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"H3"</span><span class="p">,))</span>
+
+    <span class="c1"># Non-terminal residues: remove OXT-bound hydrogen (HXT) if OXT is absent.</span>
+    <span class="c1"># If present_atom_names is given and OXT is absent, remove HXT.</span>
+    <span class="k">if</span> <span class="n">present_atom_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">present_heavy_for_oxt</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">present_atom_names</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_hydrogen</span><span class="p">(</span><span class="n">a</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="s2">"OXT"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">present_heavy_for_oxt</span><span class="p">:</span>
+            <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HXT"</span><span class="p">,))</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">is_c_terminal</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"HXT"</span><span class="p">,))</span>
+
+    <span class="c1"># Non-N-terminal: remove extra N-terminal Hs (H2, H3, HN2, HT2, HT3, etc.)</span>
+    <span class="c1"># N-terminal has H + H2 (+H3 in some force fields); mid-chain has only H.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_n_terminal</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"H2"</span><span class="p">,</span> <span class="s2">"H3"</span><span class="p">,</span> <span class="s2">"HN2"</span><span class="p">,</span> <span class="s2">"HT2"</span><span class="p">,</span> <span class="s2">"HT3"</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># PRO: when not N-terminal, the ring N is tertiary (bonded to C(i-1), CA, CD)</span>
+    <span class="c1"># — there is no room for a backbone NH.  Remove any H on N that is only</span>
+    <span class="c1"># present in N-terminal or free-amino PRO variants.</span>
+    <span class="k">if</span> <span class="n">lookup_name</span> <span class="o">==</span> <span class="s2">"PRO"</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_n_terminal</span><span class="p">:</span>
+        <span class="n">remove_hs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs_set</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"H"</span><span class="p">,</span> <span class="s2">"HT1"</span><span class="p">))</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">all_hs</span> <span class="k">if</span> <span class="n">h</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_hs</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

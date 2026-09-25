@@ -1,3 +1,0 @@
-version = "0.22.4"
-route = "staged"
-reason = "The MolSysMT/MolSysViewer hard-dependency cycle and Python 3.14 expansion require an exact installed-pair gate before either package is public."

@@ -1,1 +1,0 @@
-from .get_atom_type_from_atom_name import get_atom_type_from_atom_name

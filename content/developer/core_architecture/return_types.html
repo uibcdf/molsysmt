@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../../_static/favicon-16x16.png" sizes="16x16" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-124x124.png" sizes="124x124" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-128x128.png" sizes="128x128" rel="icon" type="image/png">
+    <link href="../../../_static/favicon-192x192.png" sizes="192x192" rel="icon" type="image/png">
+    <link href="../../../_static/icon.svg" rel="icon" type="image/svg+xml">
+  
+    <title>Return Types: what the datum is decides how it comes back – MolSysMT 0.22.4</title>
+  
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=4ed5ca54" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="../../../_static/documentation_options.js?v=aaf7ef78"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/developer/core_architecture/return_types';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Performance and Scalability" href="../performance_and_scalability/index.html" />
+    <link rel="prev" title="Implementing a New Form Adapter" href="new_form.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.22.4" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.svg" class="logo__image only-light" alt="MolSysMT 0.22.4 documentation - Home"/>
+    <img src="../../../_static/logo_dark.svg" class="logo__image only-dark pst-js-only" alt="MolSysMT 0.22.4 documentation - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../about/index.html">
+    About
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../showcase/index.html">
+    Showcase
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user/index.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Developer Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API documentation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../ai_assistant.html">
+    MolSys-AI
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/uibcdf/molsysmt" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar">
+  <svg class="pst-icon" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../getting_started/index.html">Getting Started</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/introduction.html">Developer Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/fork.html">Fork and Workspace Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/start_dev_env_usage.html">Development Environment Setup Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/devcontainer.html">Contributing: Development Environment with Devcontainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/reporting.html">Reporting bugs and proposals</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Core Architecture</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dependencies.html">Dependency Management Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="argdigest.html">Argument Digestion Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyunitwizard.html">Physical Units Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="element_and_native_rebuild.html">Element Queries and Native Rebuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="molsys_builder.html">MolSysBuilder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="declarative_serialization_forms.html">Declarative Serialization Forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new_form.html">Implementing a New Form Adapter</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Return Types: what the datum is decides how it comes back</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../performance_and_scalability/index.html">Performance and Scalability</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../performance_and_scalability/heavy_trajectories.html">Heavy trajectory infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance_and_scalability/benchmarks.html">Performance and Benchmarking</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../diagnostics_and_telemetry/index.html">Diagnostics and Telemetry</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics_and_telemetry/smonitor.html">SMonitor integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics_and_telemetry/warnings.html">MolSysMT Warning Catalog (via smonitor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../diagnostics_and_telemetry/logging.html">MolSysMT Diagnostics and Logging (via smonitor)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../testing/index.html">Testing and Quality Assurance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../testing/unit_tests.html">Unit Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/code_coverage.html">Code Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/ci.html">Continuous Integration</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../documentation/index.html">Documentation Standards</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../documentation/api/index.html">API documentation guidelines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation/api/docstrings.html">Docstrings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation/api/doctests.html">Doctests</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../documentation/web/index.html">Documentation for the web</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../documentation/web/references.html">References and Cross-links in Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation/web/myst.html">MyST in MolSysMT documentation</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link"><strong>Developer Guide</strong></a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Core Architecture</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Return Types: what the datum is decides how it comes back</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="return-types-what-the-datum-is-decides-how-it-comes-back">
+<span id="developer-return-types"></span><h1>Return Types: what the datum is decides how it comes back<a class="headerlink" href="#return-types-what-the-datum-is-decides-how-it-comes-back" title="Link to this heading">#</a></h1>
+<p>MolSysMT returns two kinds of thing, and which one you are holding is decided by <strong>what the datum is</strong>, not by what shape it happens to have.</p>
+<div class="tip admonition">
+<p class="admonition-title">The rule</p>
+<ul class="simple">
+<li><p><strong>Numeric physical magnitudes</strong> — the things you compute on — come back as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> with an explicit <code class="docutils literal notranslate"><span class="pre">dtype</span></code>, or as a PyUnitWizard <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> when they carry units.</p></li>
+<li><p><strong>Identifiers, labels, categories and relations</strong> come back in Python containers, holding <strong>native Python scalars</strong>: <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p></li>
+<li><p><strong>A single count or measure</strong> comes back as a native scalar, or a <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> if it has units.</p></li>
+</ul>
+</div>
+<p>The normative statement lives in <code class="docutils literal notranslate"><span class="pre">devguide/INTERFACES.md</span></code>, section <em>Scalar types in returned values</em>. This page explains the reasoning, because the reasoning is what settles a case the rule does not name.</p>
+<hr class="docutils" />
+<section id="shape-decides-nothing">
+<h2>1. Shape decides nothing<a class="headerlink" href="#shape-decides-nothing" title="Link to this heading">#</a></h2>
+<p>This is the tempting mistake: to look at <code class="docutils literal notranslate"><span class="pre">bonded_atom_pairs</span></code>, see <em>n</em> rows of exactly two integers, and conclude that something so rectangular ought to be an array.</p>
+<p>It ought not. <code class="docutils literal notranslate"><span class="pre">bonded_atom_pairs</span></code> is a <strong>relation between atoms</strong> — a list of bonds. Nobody multiplies it by a rotation matrix or takes its mean. It is a collection of discrete items you iterate and inspect, and a <code class="docutils literal notranslate"><span class="pre">list</span></code> is the honest container for that. <code class="docutils literal notranslate"><span class="pre">coordinates</span></code> is the opposite case: a numeric magnitude that exists to be computed on, so it is a <code class="docutils literal notranslate"><span class="pre">Quantity</span></code> wrapping a <code class="docutils literal notranslate"><span class="pre">float64</span></code> array.</p>
+<p>The library already draws that line consistently:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Returned as <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> / <code class="docutils literal notranslate"><span class="pre">Quantity</span></code></p></th>
+<th class="head text-left"><p>Returned as a Python container</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">coordinates</span></code>, <code class="docutils literal notranslate"><span class="pre">box</span></code>, <code class="docutils literal notranslate"><span class="pre">b_factor</span></code>, <code class="docutils literal notranslate"><span class="pre">occupancy</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">atom_index</span></code>, <code class="docutils literal notranslate"><span class="pre">atom_name</span></code>, <code class="docutils literal notranslate"><span class="pre">atom_id</span></code>, <code class="docutils literal notranslate"><span class="pre">atom_type</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>numeric magnitudes, <code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">group_name</span></code>, <code class="docutils literal notranslate"><span class="pre">chain_id</span></code>, <code class="docutils literal notranslate"><span class="pre">bond_order</span></code>, <code class="docutils literal notranslate"><span class="pre">bond_type</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bonded_atom_pairs</span></code> — rectangular, and correctly a list</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>There is a second reason not to reason from shape: <strong>shape is a property of the data, not of the attribute</strong>. <code class="docutils literal notranslate"><span class="pre">component_index</span></code> per molecule is rectangular in every system where each molecule has one component, and ragged the moment one does not. An attribute cannot switch container between one molecular system and the next without becoming impossible to program against.</p>
+</section>
+<section id="why-the-scalars-inside-must-be-native">
+<h2>2. Why the scalars inside must be native<a class="headerlink" href="#why-the-scalars-inside-must-be-native" title="Link to this heading">#</a></h2>
+<p>Whatever the container, a NumPy scalar inside a Python one is not a middle ground between list and array. NumPy’s advantages come from the <strong>array</strong>: contiguous memory and vectorised operations over a typed buffer. A scalar extracted into a Python container has left that buffer behind and carries only NumPy’s object overhead.</p>
+<p>Measured over 200 000 integers:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Container</p></th>
+<th class="head text-right"><p>Memory</p></th>
+<th class="head text-right"><p><code class="docutils literal notranslate"><span class="pre">sum()</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">np.int64</span></code></p></td>
+<td class="text-right"><p>8.02 MB</p></td>
+<td class="text-right"><p>7.7 ms</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td class="text-right"><p>7.22 MB</p></td>
+<td class="text-right"><p>2.5 ms</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ndarray</span></code> of <code class="docutils literal notranslate"><span class="pre">int64</span></code></p></td>
+<td class="text-right"><p><strong>3.20 MB</strong></p></td>
+<td class="text-right"><p><strong>0.2 ms</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">np.int64</span></code> is worse than a <code class="docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">int</span></code> on both axes, and far worse than the array on both. It is not a middle option; it is the worst of the three.</p>
+</section>
+<section id="three-consequences-that-make-this-a-contract">
+<h2>3. Three consequences that make this a contract<a class="headerlink" href="#three-consequences-that-make-this-a-contract" title="Link to this heading">#</a></h2>
+<p><strong>Serialisation.</strong> <code class="docutils literal notranslate"><span class="pre">json.dumps</span></code> and <code class="docutils literal notranslate"><span class="pre">yaml.safe_dump</span></code> raise on a NumPy scalar. A user who dumps what a public function returned gets an exception:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">molsys</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="s1">'system'</span><span class="p">,</span> <span class="n">bonded_atom_pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="c1"># TypeError: Object of type int64 is not JSON serializable</span>
+</pre></div>
+</div>
+<p><strong>Type identity.</strong> Under NumPy 2.x, <code class="docutils literal notranslate"><span class="pre">isinstance(np.int64(1),</span> <span class="pre">int)</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>. Downstream code that validates with <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> — in a user’s script, or in a sister library such as TopoMT or PharmacophoreMT — rejects values that MolSysMT’s own docstrings call integers.</p>
+<p><strong>Range.</strong> Python’s <code class="docutils literal notranslate"><span class="pre">int</span></code> has arbitrary precision. <code class="docutils literal notranslate"><span class="pre">np.int64</span></code> overflows silently.</p>
+<p>Nothing is lost in exchange. <code class="docutils literal notranslate"><span class="pre">np.array</span></code> over a list of Python <code class="docutils literal notranslate"><span class="pre">int</span></code> infers <code class="docutils literal notranslate"><span class="pre">int64</span></code>, and both types index an array identically; there is no <code class="docutils literal notranslate"><span class="pre">dtype</span></code> to preserve in a container that holds one Python object per element.</p>
+</section>
+<section id="how-to-comply">
+<h2>4. How to comply<a class="headerlink" href="#how-to-comply" title="Link to this heading">#</a></h2>
+<p>Prefer <code class="docutils literal notranslate"><span class="pre">ndarray.tolist()</span></code> over iterating an array in Python, and <code class="docutils literal notranslate"><span class="pre">.item()</span></code> over indexing out a single element. <code class="docutils literal notranslate"><span class="pre">tolist()</span></code> converts NumPy scalars to native types recursively in C, in one pass, and never materialises the boxed scalars — which is why it is roughly six times faster than building the list and converting it afterwards. It is also how the flat attribute paths already produce <code class="docutils literal notranslate"><span class="pre">list[int]</span></code> today.</p>
+<p>This is a rule for code being written, not a licence to rewrite code that works. Where a getter mixes iterating one array, indexing another element by element, and using a third for fancy indexing, the conversion has to be decided per variable: converting an array that is used as <code class="docutils literal notranslate"><span class="pre">other[indices]</span></code> raises <code class="docutils literal notranslate"><span class="pre">only</span> <span class="pre">integer</span> <span class="pre">scalar</span> <span class="pre">arrays</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">converted</span> <span class="pre">to</span> <span class="pre">a</span> <span class="pre">scalar</span> <span class="pre">index</span></code>. <code class="docutils literal notranslate"><span class="pre">devguide/form_adapter_implementation.md</span></code> carries the detail, including why a pandas nullable column does not convert the way it looks.</p>
+<p>Do not normalise at the return boundary instead. Walking every returned structure in Python to find out whether anything needs fixing costs more than doing the conversion at the source even when there is nothing to fix. The correctness net belongs in the test suite, where it costs nothing at run time.</p>
+<p>The failure mode this rule prevents is a <strong>mixed container</strong>: some elements <code class="docutils literal notranslate"><span class="pre">int</span></code>, others <code class="docutils literal notranslate"><span class="pre">np.int64</span></code>. It appears when a structure is assembled element by element from arrays instead of through <code class="docutils literal notranslate"><span class="pre">tolist()</span></code>, and it is not cosmetic — the elements of one collection then answer <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> differently from one another.</p>
+<div class="dropdown admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Related</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="declarative_serialization_forms.html"><span class="doc">Declarative Serialization Forms</span></a>: the YAML formats that require natively serialisable values.</p></li>
+<li><p><a class="reference internal" href="pyunitwizard.html"><span class="doc">Physical Units Architecture</span></a>: how physical magnitudes are returned as <code class="docutils literal notranslate"><span class="pre">Quantity</span></code>, the other half of the return contract.</p></li>
+<li><p><a class="reference internal" href="../../../api/basic/autosummary/molsysmt.basic.get.html#molsysmt.basic.get" title="molsysmt.basic.get"><code class="xref py py-func docutils literal notranslate"><span class="pre">molsysmt.basic.get()</span></code></a>: the public entry point where most of these values are delivered.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="new_form.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Implementing a New Form Adapter</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../performance_and_scalability/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Performance and Scalability</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shape-decides-nothing">1. Shape decides nothing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-scalars-inside-must-be-native">2. Why the scalars inside must be native</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#three-consequences-that-make-this-a-contract">3. Three consequences that make this a contract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-comply">4. How to comply</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item"><div>
+	&copy; 2026, <a href=contents/about/who.html>Liliana M. Moreno Vargas, Diego Prada Gracia
+		and contributors</a> | <a href="https://www.uibcdf.org/">UIBCDF Lab</a> 
+	at the <a href="http://himfg.com.mx">Federico Gómez Children’s Hospital of Mexico</a><br />
+	<a href="https://github.com/uibcdf/molsysmt">MolSysMT is an open source project</a> shared
+	under <a href="https://github.com/uibcdf/molsysmt/blob/main/LICENSE">an MIT license</a>
+</div></div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0
+     | 
+    Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0
+    <br/>
+  </p>
+
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><a href= "mailto:uibcdf@gmail.com">Contact us</a><br /></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

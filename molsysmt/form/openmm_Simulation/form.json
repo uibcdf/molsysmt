@@ -1,8 +1,0 @@
-{
-    "form_name": "openmm.Simulation",
-    "form_type": "class",
-    "item_class_key": [
-        "openmm",
-        "Simulation"
-    ]
-}
