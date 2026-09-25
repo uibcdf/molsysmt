@@ -39,7 +39,7 @@ dependencies = [
     "tqdm",
     "matplotlib",
     "mmcif>=1.1.1",
-    "argdigest>=0.12.1",
+    "argdigest>=0.13.0",
     "depdigest>=0.10.0",
     "smonitor>=0.16.0",
 ]

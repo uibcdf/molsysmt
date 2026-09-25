@@ -114,6 +114,10 @@ jobs:
             controlled-wheelhouse/*.whl
           python -m pip install --editable . --no-deps
 
+      - name: Validate controlled dependency versions
+        shell: bash -l {0}
+        run: python devtools/scripts/validate_controlled_dependencies.py
+
       - name: Test import
         shell: bash -l {0}
         run: |

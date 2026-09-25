@@ -63,6 +63,36 @@ def test_ci_installs_molsyssuite_hard_dependencies_from_exact_source_revisions()
     assert "-py3-none-any.whl" in full_text
 
 
+def test_ci_validates_controlled_runtime_versions_before_pytest():
+    for path in WORKFLOWS:
+        workflow = yaml.safe_load(path.read_text(encoding="utf-8"))
+        guarded_jobs = 0
+        for job in workflow["jobs"].values():
+            steps = [step.get("run", "") for step in job["steps"]]
+            source_installs = [
+                index
+                for index, run in enumerate(steps)
+                if "-r devtools/requirements/controlled_hard_dependencies.txt" in run
+            ]
+            if not source_installs:
+                continue
+            guarded_jobs += 1
+            checks = [
+                index
+                for index, run in enumerate(steps)
+                if "python devtools/scripts/validate_controlled_dependencies.py" in run
+            ]
+            pytest_steps = [
+                index
+                for index, run in enumerate(steps)
+                if "pytest --receptor=ci" in run
+            ]
+            assert len(source_installs) == len(checks) == 1
+            assert pytest_steps
+            assert source_installs[0] < checks[0] < min(pytest_steps)
+        assert guarded_jobs
+
+
 def test_ci_pytest_commands_use_the_ci_receptor():
     commands = []
     for path in WORKFLOWS:

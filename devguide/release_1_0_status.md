@@ -738,9 +738,9 @@ run. The five-platform promotion has not yet been exercised on GitHub.
 MolSysViewer's prior 7/7 staged CI run pinned MolSysMT `0.22.0`, not the
 newer technical `0.22.3` or this planned `0.22.4` candidate. Its three
 manual hosted gates now take an explicit MolSysMT version input; they must be
-rerun against `0.22.4` after its staging build. No package for `0.22.4` or
-`0.23.4` has been uploaded yet, and the hosted E2E PNG timeout remains an
-open defect under uibcdf/molsysviewer#100.
+rerun against `0.22.4` after its staging build. At candidate selection,
+neither new version had been uploaded; build-0 staging is recorded below. The
+hosted E2E PNG timeout remains an open defect under uibcdf/molsysviewer#100.
 
 The maintainers now accept a narrowly scoped pre-1.0 exception for that
 `0.22.4`/`0.23.4` package candidate: Viewer hosted portable E2E run
@@ -760,11 +760,11 @@ defect in uibcdf/molsysmt#236; a consumer-side args-only path and
 open. The suite also exposed an obsolete fixed water count in the native
 peptide overlap test; it now checks the initial contact count against the
 removed waters and that no contacts remain, without requiring optional
-`tleap`. The release metadata has been prepared for `0.22.4` with the
-intended 2026-09-24 date. Neither package has passed its final exact-commit
-gates or produced a new staging artifact yet; if publication moves to another
-date, update citation metadata and revalidate the resulting candidate before
-tagging.
+`tleap`. The release metadata was first prepared for `0.22.4` on 2026-09-24
+and refreshed to the intended 2026-09-25 publication date after the local
+date changed. The build-0 artifacts recorded below have not
+passed the final exact-commit gates; if publication moves to another date,
+update citation metadata and revalidate the resulting candidate before tagging.
 MolSysSuite authorized the two transition issues (`uibcdf/molsysmt#237` and
 `uibcdf/molsysviewer#93`) in `policy-v1.4.11` on 2026-09-24. Both candidate
 callers now pin that release, their synchronized suite guides identify the
@@ -774,8 +774,8 @@ canonical README badge remains at the publicly admitted 3.11–3.13 range until
 the coordinated release and independent channel installations permit central
 `admitted` status. The 3.14 package contract remains in the candidates; no
 public-channel or suite-wide 3.14 claim follows from authorization alone.
-The previous source-pair SHAs must be replaced by new exact commits after this
-policy update, and the final installed-pair and other release gates remain open.
+Any later source change requires new exact-commit gates; the final
+installed-pair and other release gates remain open.
 The new policy's Ruff 0.16.5 formatting gate exposed three older files in
 the Conda release route and its tests; they were formatted without changing
 behavior. Repository-wide Ruff lint and format checks now pass, the two
@@ -788,6 +788,32 @@ Ubuntu. Both repositories now retain the promotion identity assertions on
 Windows and check Bash syntax on POSIX, with an explicit Ubuntu-runner guard.
 This test correction still requires an exact-new-commit hosted Windows rerun;
 the failed run is not counted as a passing 3.14 gate.
+The corrected source-pair run `36062983964` subsequently passed Linux,
+macOS and Windows/Python 3.14. Technical staging build 0 produced all five
+native MolSysMT ABI3 files (`36063170604`) and the paired Viewer noarch file
+(`36064255601`); the installed-pair run `36065287565` passed all 20 cells
+(five platforms times Python 3.11–3.14). Viewer CI against staged MolSysMT
+passed all seven jobs in `36064424260`, and its notebooks passed in
+`36064424563`. The first MolSysMT full-CI run `36063386092` exposed a
+different dependency floor error: its controlled ArgDigest commit predates
+the catalog exception fix needed with SMonitor 0.16.0, so the same ten
+error-contract tests failed in each of its six cells. Published ArgDigest
+0.13.0 (exact tag commit
+`9880fa7b990fd0987ff0de715b665eb9e11c11b2`) has that fix and passes
+the 27 affected local contract tests with the released SMonitor 0.16.0 tag.
+The complete local MolSysMT suite with those exact dependency sources passed
+10,225 tests with 11 skips; the matching Viewer suite passed 2,112 tests
+with 14 skips, both using 12 workers.
+Both component candidates now require ArgDigest 0.13.0 and the controlled CI
+pin names its exact release source. A new early CI check rejects controlled
+source pins whose installed versions violate the declared runtime floor.
+Build-0 staging and its passing 20-cell run are diagnostic only for this
+corrected contract; build 1 must supersede each staged file and receive fresh
+exact-commit gates before promotion. A local
+Sphinx build on the source pair completed without missing-toctree warnings;
+it still reported 744 unrelated/baselined warnings. The hosted Pages workflow
+was not dispatched from the candidate branch because it would deploy public
+documentation and currently pins an older Viewer source.
 
 ## Segment F — Lifecycle and Release Candidate
 

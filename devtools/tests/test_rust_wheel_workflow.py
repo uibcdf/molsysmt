@@ -162,7 +162,7 @@ def test_cibuildwheel_contract_is_single_cp311_abi3_build():
     assert config["tool"]["distutils"]["bdist_wheel"]["py-limited-api"] == ("cp311")
     assert "numpy>=1.26,<3" in config["project"]["dependencies"]
     assert "pyunitwizard>=0.24.0" in config["project"]["dependencies"]
-    assert "argdigest>=0.12.1" in config["project"]["dependencies"]
+    assert "argdigest>=0.13.0" in config["project"]["dependencies"]
     assert config["tool"]["setuptools"]["packages"]["find"]["include"] == [
         "molsysmt*",
         "molsysviewer_molsysmt*",
