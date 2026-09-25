@@ -1,10 +1,50 @@
 # Python 3.14 paired-support checkpoint
 
 **Role:** dated operational checkpoint, not a support declaration or release gate.
-**Observed:** 2026-09-24 on Linux x86-64 unless another platform is named.
+**Observed:** 2026-09-25 for the public release milestone; older sections retain their dated, narrower observations.
 **Owning work:** [MolSysMT Python 3.14 proposal](pending_proposals/extend_molsysmt_python_support_to_3_14.md), `uibcdf/molsysviewer#93`, and the coordinated Conda release in `uibcdf/molsysmt#195` / `uibcdf/molsysviewer#82`.
 
-## Where we stand
+## Public pair release — 2026-09-25
+
+MolSysMT [0.22.4](https://github.com/uibcdf/molsysmt/releases/tag/0.22.4)
+and MolSysViewer [0.23.4](https://github.com/uibcdf/molsysviewer/releases/tag/0.23.4)
+are published GitHub Releases on exact tested source commits
+`e28ceb9ea0de0cc86bc370e5aff1e96c4cc71c69` and
+`cf427942d0b08a1c5c60f262c6a6b33f248d6f8b`. Their candidate branches
+were merged into `main` only after the tags. The five MolSysMT ABI3 build-3
+files and the one Viewer noarch build-5 file were promoted from staging;
+their promotion actions verified the exact source and public-label SHA-256
+and retained receipts. Each workflow's subsequent duplicated Conda-search
+step falsely exited 1 after printing the correct public URL. Independent
+queries found all six files in `uibcdf`; the defect is tracked by
+`uibcdf/molsysmt#246`, `uibcdf/molsysviewer#105` and
+`uibcdf/molsyssuite#48`. Do not represent those red job conclusions as green.
+
+The decisive clean-install check is the [public-channel pair matrix](https://github.com/uibcdf/molsysmt/actions/runs/36129993869):
+21/21 jobs and 20/20 installations passed across Linux x86-64/ARM, macOS
+Intel/ARM, Windows x86-64 and Python 3.11–3.14. Every cell selected the exact
+build numbers, checked `uibcdf` public-channel provenance and digest-bearing
+Conda records, version identity, the Rust extension, bundled BCIF conversion,
+PDB-text-to-Viewer integration and packaged Viewer resources. The staging
+matrix remains separately green in run `36121427459` (20/20). This closes
+the public *pair-installation* milestone; it does not make every optional
+backend, standalone Qt platform or scientific workflow a supported 3.14
+claim. MolSysSuite-wide admission remains the separate decision in
+`uibcdf/molsyssuite#29`.
+
+The Viewer npm runtime is published at 0.23.4 and its CDN asset is reachable.
+The Viewer publication has an explicitly bounded pre-1.0 exception for a
+visible-window Qt observation and complete hosted E2E certification
+(`uibcdf/molsysviewer#100`); these are not 1.0 passes. The Zenodo post-release
+verifiers have not yet found the two public records, so no exact-version DOI
+or completed archival claim is made. Recheck the public records before
+signing off the citation lifecycle; do not create a manual duplicate deposit.
+
+## Earlier source and staging checkpoint — 2026-09-24
+
+The table and measurements below describe the earlier source/staging state.
+They remain evidence for how this release was reached, not the current public
+channel status.
 
 The MolSysMT and MolSysViewer `python-3.14-support` branches declare
 `>=3.11,<3.15` in their wheel metadata. That is **candidate source metadata**, not

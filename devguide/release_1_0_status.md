@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-09-24
+**Last updated:** 2026-09-25
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -34,7 +34,32 @@ Only one top-level segment should normally be `IN PROGRESS`. If independent
 packaging work runs in parallel, record the responsible branch or collaborator
 and do not merge it across an unmet integration dependency.
 
-## Current Release Snapshot
+## Pre-1.0 public distribution milestone — 2026-09-25
+
+MolSysMT 0.22.4 and MolSysViewer 0.23.4 are published GitHub Releases on
+their exact tested commits. Their ABI3/noarch Conda artifacts were promoted
+as six immutable files; independent public-channel queries verified each
+filename and SHA-256. The [public installed-pair matrix](https://github.com/uibcdf/molsysmt/actions/runs/36129993869)
+passed 20/20 across five platforms and Python 3.11–3.14, with public
+provenance and runtime/BCIF/PDB-text/Viewer-resource checks. The prior
+staging matrix passed 20/20 in run `36121427459`. This closes the coordinated
+package-availability milestone that had blocked normal Viewer CI.
+
+The promotion action steps and receipt uploads passed, but the final
+duplicated post-promotion verifiers falsely ended red after printing each
+correct public URL (`uibcdf/molsysmt#246`, `uibcdf/molsysviewer#105`,
+`uibcdf/molsyssuite#48`). The public matrix is independent evidence; do not
+claim those promotion jobs passed. Both Zenodo version records remain
+unverified. Viewer visible-window Qt and complete hosted E2E are explicit
+pre-1.0 exceptions, not 1.0 sign-off (`uibcdf/molsysviewer#100`). The
+MolSysSuite-wide 3.14 admission decision is separate (`uibcdf/molsyssuite#29`).
+
+## 1.0 certification baseline — not replaced by the 0.22.4 release
+
+The F5/F6 evidence below records the earlier 1.0 workstream and its weighted
+closure. Its older commit coordinates are historical 1.0-gate evidence, not
+the current `main` head or the 0.22.4 tag. Publication of a pre-1.0 pair does
+not close F6 or change the 99% weighted 1.0 measure.
 
 - **Active segment:** F — lifecycle and release candidate
 - **Active stage:** F6 release sign-off and 1.0 tag
