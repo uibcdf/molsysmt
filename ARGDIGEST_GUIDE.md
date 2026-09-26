@@ -350,7 +350,7 @@ default.
 
 1.  **Lazy Digestion**: Digestion only happens when the function is called.
 2.  **No Top-Level Imports**: Guard optional dependencies (like Pydantic or Beartype) inside your pipelines or use ArgDigest's native support.
-3.  **Support skip_digestion**: All decorated functions should allow bypassing digestion via a `skip_digestion` parameter for internal performance-critical calls.
+3.  **Support skip_digestion**: All decorated functions should allow bypassing digestion via a `skip_digestion` parameter for internal performance-critical calls. Only the literal boolean `True` enables the bypass, by name or position. Other values pass through normal digestion; register a digester for `skip_digestion` to reject non-booleans at a public boundary.
 4.  **Argument Dependencies**: Digesters can request other (already digested) arguments by simply adding them to their signature. ArgDigest handles the topological sort and cycle detection.
 5.  **Caller-aware Optionality**: Downstream libraries may accept `None` or otherwise relaxed values for specific public callables. These semantics belong in digesters, not in bypasses around `@arg_digest`.
 6.  **Do not re-digest what you already digested**: pass `skip_digestion=True` on internal calls carrying values your library just built. It is the only mechanism for this, and it never belongs on a public API boundary. See §6.
