@@ -81,6 +81,11 @@ ArgDigest requires:
 - `smonitor` for diagnostics and telemetry.
 - `depdigest` for conditional dependency checks via `@dep_digest`.
 
+The next ArgDigest release makes NumPy optional. Basic argument contracts and `std`
+pipelines neither install nor import it. Consumers using `data` or `sci` NumPy pipelines
+should install `argdigest[science]`; the `pyunitwizard` extra includes NumPy as well.
+Scientific pipelines raise a clear missing-dependency error if NumPy is absent.
+
 Do not replace `depdigest` integration with local no-op fallbacks in runtime code.
 If dependency checks are disabled silently, behavior diverges across environments and
 diagnostic quality degrades.
