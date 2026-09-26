@@ -16,7 +16,7 @@ supersedes: []
 # Five public ABI3 promotions succeed but final verifiers exit one
 
 **Reported:** 2026-09-25, during MolSysMT 0.22.4 build-3 promotion.
-**Status:** Active; public files verified independently, workflow defect open.
+**Status:** Active; a read-only replacement passes local and live public-record checks, but hosted workflow verification is pending.
 
 ## What
 
@@ -54,6 +54,23 @@ mechanism remains a hypothesis, not a diagnosed root cause.
 No ABI3 file is missing from the public channel. The failed final step alone
 does not negate the action's target-label check or the independent solver and
 installed-pair evidence.
+
+## 2026-09-26 correction in progress
+
+The original exit-1 mechanism remains undiagnosed: its log prints the right URL
+and then records status 1, with no intermediate traceback. A successful URL
+alone therefore does not prove the original shell step returned success. The
+replacement `devtools/conda-build/verify_public_package.py` checks the public
+Anaconda release API for the exact basename, SHA-256 and `main` label, then
+checks the matching public `repodata.json` entry for solver visibility. It
+retries bounded propagation but rejects a wrong digest without retrying.
+
+The promotion workflow now calls that script; a separate
+`verify_public_conda_package.yaml` dispatch calls the same script with no
+publication token or promotion action. Its positive and negative fixture
+tests pass locally, and a live read-only call passed for the published
+`linux-64` build-3 file. This is not yet a hosted check of the new workflow
+or a claim that the earlier failed run changed conclusion.
 
 ## Scope and exclusions
 

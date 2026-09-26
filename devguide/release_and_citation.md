@@ -90,6 +90,11 @@ After the exact candidate passes every gate:
 3. complete the selected Conda route: a staged version promotes the exact
    SHA-256-verified ABI3 files instead of rebuilding them, while a direct
    release is allowed only after an empty-version registry preflight;
+   if post-promotion verification fails, inspect the promotion receipt and
+   rerun `.github/workflows/verify_public_conda_package.yaml` with the exact
+   version, platform, filename and SHA-256. This workflow checks the public
+   `main` label and solver-visible index without credentials or another
+   promotion; never rerun a mutating upload merely to change a red verifier;
 4. allow the enabled Zenodo integration to ingest it and verify the new record:
 
    ```bash

@@ -140,7 +140,7 @@ jobs:
           retention-days: 30
 
       - name: Independently verify the public package record
-        shell: bash -l {0}
+        shell: bash
         env:
           RELEASE_VERSION: ${{ inputs.version }}
           TARGET: ${{ inputs.target }}
@@ -148,27 +148,9 @@ jobs:
           EXPECTED_SHA256: ${{ inputs.sha256 }}
         run: |
           set -euo pipefail
-          for attempt in 1 2 3 4 5 6; do
-            if conda search --json --override-channels --platform "$TARGET" -c uibcdf \
-              "molsysmt=$RELEASE_VERSION" > "$RUNNER_TEMP/public-conda.json" && \
-              python - "$RUNNER_TEMP/public-conda.json" <<'PY'
-          import json
-          import os
-          import pathlib
-          import sys
-
-          records = json.loads(pathlib.Path(sys.argv[1]).read_text())["molsysmt"]
-          matches = [record for record in records if
-                     record.get("fn") == os.environ["FILENAME"] and
-                     record.get("sha256") == os.environ["EXPECTED_SHA256"] and
-                     record.get("channel") == f"https://conda.anaconda.org/uibcdf/{os.environ['TARGET']}"]
-          if len(matches) != 1:
-              raise SystemExit(f"expected one public native file with this SHA-256, got {len(matches)}")
-          print(matches[0]["url"])
-          PY
-            then
-              exit 0
-            fi
-            sleep 15
-          done
-          exit 1
+          python3 devtools/conda-build/verify_public_package.py \
+            --package molsysmt \
+            --version "$RELEASE_VERSION" \
+            --subdir "$TARGET" \
+            --filename "$FILENAME" \
+            --sha256 "$EXPECTED_SHA256"

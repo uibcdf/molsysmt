@@ -1,0 +1,49 @@
+name: Verify one public conda package (read-only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Published three-part version
+        required: true
+        type: string
+      target:
+        description: Native platform of the exact ABI3 artifact
+        required: true
+        type: choice
+        options: [linux-64, linux-aarch64, osx-64, osx-arm64, win-64]
+      filename:
+        description: Exact public Conda filename
+        required: true
+        type: string
+      sha256:
+        description: Expected immutable SHA-256 digest
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify public label and solver-visible index
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify exact public file without promotion
+        shell: bash
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          TARGET: ${{ inputs.target }}
+          FILENAME: ${{ inputs.filename }}
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+        run: |
+          set -euo pipefail
+          python3 devtools/conda-build/verify_public_package.py \
+            --package molsysmt \
+            --version "$RELEASE_VERSION" \
+            --subdir "$TARGET" \
+            --filename "$FILENAME" \
+            --sha256 "$EXPECTED_SHA256"
