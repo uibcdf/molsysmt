@@ -116,6 +116,16 @@ only a conservative safety net. Tests can emit arbitrary sensitive values. Choos
 path, upload policy, visibility, and retention accordingly; Pytest Receptor performs no
 network upload and no cleanup.
 
+Third-party producers may call `pytest_receptor.extensions.emit(config, namespace,
+payload)` with a versioned namespace such as `org.example.timer@1`. This service is active
+only with a compact profile and `--receptor-events=PATH`; it returns `None` when inactive
+or when a bounded event is rejected. `current_context()` exposes the active test phase,
+worker, and attempt without a mutable global. The receptor preserves accepted events as
+`extension` records in its canonical artifact and reports dropped or incomplete extension
+evidence separately from pytest's outcome. Producer payloads are untrusted and receive
+conservative pattern redaction before worker transport; producers must omit opaque secrets.
+See the provider's `docs/artifacts.md` for exact limits and record fields.
+
 An absent or incomplete `session_finish` means incomplete evidence, not a failed or passed
 session. Preserve the command's exit status and use native CI records such as JUnit when
 they are part of the repository's required gate.
