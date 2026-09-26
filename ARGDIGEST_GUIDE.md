@@ -242,6 +242,27 @@ Caller-keyed digesters remain the right tool for **value** semantics that depend
 callable. What does *not* belong there is which arguments a function accepts at all: that
 is axis 1, and it has its own place since `0.10.0`. See section 4.5.
 
+For methods, the `caller` passed to a digester remains the contract key
+`<owner module>.<method>`; changing it would break registered function contracts and
+standardizers. A digester may also declare an optional `qualname` parameter. ArgDigest
+then passes `<runtime class module>.<runtime class>.<method>`, including the class for
+inherited and mixin-assembled methods. Use `caller` for contract decisions and
+`qualname` for user-facing refusal messages:
+
+```python
+from argdigest import argument_digest
+
+
+@argument_digest("policy")
+def digest_policy(policy, caller=None, qualname=None):
+    if policy not in {"strict", "permissive"}:
+        raise ValueError(f"{qualname} cannot take policy={policy!r}")
+    return policy
+```
+
+Free functions receive their normal qualified function name. Digesters that do not
+declare `qualname` keep their existing call signature and behavior.
+
 ## 4.5 The function argument contract (axis 1)
 
 ### Why the default is strict
