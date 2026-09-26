@@ -103,6 +103,22 @@ from argdigest import arg_digest
 def my_function(molecular_system, selection="all"): ...
 ```
 
+#### Warning attribution inside decorated functions
+
+A `warnings.warn(..., stacklevel=2)` call inside a digested function can point to
+`argdigest/core/decorator.py` instead of the user's call site. The current normal path
+adds `_invoke`, `_run_digestion`, and `wrapper` frames; other decorators, including
+SMonitor's `@signal`, add their own frames. The count is an implementation detail and is
+not a stable `stacklevel` contract.
+
+On Python 3.12 or newer, a warning emitted by the consumer can use
+[`skip_file_prefixes`](https://docs.python.org/3/library/warnings.html#warnings.warn)
+to skip ArgDigest's package directory, plus any other decorator
+packages in the call chain. On Python 3.11, consumers that require user-call attribution
+must calculate the stack level from the active frames. Do not hand-count a fixed level
+across decorator compositions. ArgDigest's own warnings remain separate from warnings
+raised by the decorated function.
+
 ### 2.2 Explicit Mapping (`arg_digest.map`)
 Use this when you need specific pipelines for specific arguments. Global `kind` and `rules` will apply to any argument not explicitly mapped.
 
