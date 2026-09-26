@@ -20,9 +20,10 @@ For the next 1.0 session, start with
 [the 1.0 execution ledger](release_1_0_status.md) and
 [the exact-commit release gate](release_gate.md). Recertify an actual 1.0
 candidate against today's published dependency floors; do not reuse an old
-0.22.x staging plan as a current blocker. In parallel, resolve the
-[false-red Conda promotion verification](pending_bugs/five_public_abi3_promotions_succeed_but_final_verifiers_exit_one.md)
-without re-uploading the already public files. The multi-hour Zenodo delay
+0.22.x staging plan as a current blocker. The
+[false-red Conda promotion verification](archive/resolved_bugs/five_public_abi3_promotions_succeed_but_final_verifiers_exit_one.md)
+was replaced by a read-only checker and passed on GitHub without re-uploading
+the already public files. The multi-hour Zenodo delay
 and its false-red verifier are recorded under `uibcdf/molsyssuite#49` and
 `uibcdf/molsysmt#247`; the paired-release procedure and lessons are in
 [release and citation](release_and_citation.md).

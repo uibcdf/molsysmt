@@ -402,10 +402,12 @@ all-platform profile does not aggregate the five targeted successes
 
 ## Next gates after the public pair
 
-1. Correct the duplicated promotion verifier so a future successful upload
-   cannot finish with a false-red job (`uibcdf/molsyssuite#48`,
-   `uibcdf/molsysmt#246`, `uibcdf/molsysviewer#105`). Do not mutate or
-   re-upload the six already verified public artifacts to repair a badge.
+1. Keep the replacement read-only promotion verifier as the future release
+   guard (`uibcdf/molsyssuite#48`, `uibcdf/molsysmt#246`,
+   `uibcdf/molsysviewer#105`). It passed hosted reruns `36227235698` and
+   `36227243079` for the exact public files. The old promotion jobs remain
+   red; do not mutate or re-upload the six already verified artifacts to
+   repair their historical conclusions.
 2. Extend Python 3.14 evidence beyond the 20-cell *core installed-pair*
    smoke: full scientific/source gates, representative optional backends,
    supported Qt-host observations, and the separate MolSysSuite admission

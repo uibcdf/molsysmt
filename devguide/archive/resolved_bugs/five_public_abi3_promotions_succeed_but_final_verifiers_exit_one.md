@@ -1,13 +1,13 @@
 ---
 summary: Five public ABI3 promotions succeed but final verifiers exit one
 issue: uibcdf/molsysmt#246
-status: active
+status: resolved
 opened: 2026-09-25
-closed:
+closed: 2026-09-26
 severity: medium
 verification: reproduced
 area: [release, conda, ci]
-guard:
+guard: devtools/tests/test_verify_public_package.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Five public ABI3 promotions succeed but final verifiers exit one
 
 **Reported:** 2026-09-25, during MolSysMT 0.22.4 build-3 promotion.
-**Status:** Active; a read-only replacement passes local and live public-record checks, but hosted workflow verification is pending.
+**Status:** Resolved; the read-only replacement passed locally and on GitHub.
 
 ## What
 
@@ -55,7 +55,7 @@ No ABI3 file is missing from the public channel. The failed final step alone
 does not negate the action's target-label check or the independent solver and
 installed-pair evidence.
 
-## 2026-09-26 correction in progress
+## Resolution — 2026-09-26
 
 The original exit-1 mechanism remains undiagnosed: its log prints the right URL
 and then records status 1, with no intermediate traceback. A successful URL
@@ -69,8 +69,12 @@ The promotion workflow now calls that script; a separate
 `verify_public_conda_package.yaml` dispatch calls the same script with no
 publication token or promotion action. Its positive and negative fixture
 tests pass locally, and a live read-only call passed for the published
-`linux-64` build-3 file. This is not yet a hosted check of the new workflow
-or a claim that the earlier failed run changed conclusion.
+`linux-64` build-3 file. The hosted read-only run `36227235698` passed on
+the committed `main` verifier. The earlier failed promotion runs remain red
+historical evidence; none was repeated, and no package bytes were changed.
+The guard `devtools/tests/test_verify_public_package.py` checks the success
+path, digest mismatches, missing labels and index entries, bounded retry and
+absence of a promotion action in the standalone workflow.
 
 ## Scope and exclusions
 

@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-09-25
+**Last updated:** 2026-09-26
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -49,7 +49,13 @@ The promotion action steps and receipt uploads passed, but the final
 duplicated post-promotion verifiers falsely ended red after printing each
 correct public URL (`uibcdf/molsysmt#246`, `uibcdf/molsysviewer#105`,
 `uibcdf/molsyssuite#48`). The public matrix is independent evidence; do not
-claim those promotion jobs passed. Both Zenodo version records are now
+claim those promotion jobs passed. A replacement read-only verifier passed
+on GitHub for the exact public MolSysMT file in
+[run 36227235698](https://github.com/uibcdf/molsysmt/actions/runs/36227235698)
+and for Viewer in
+[run 36227243079](https://github.com/uibcdf/molsysviewer/actions/runs/36227243079).
+The original verifier's exit-1 mechanism remains unknown; the old runs remain
+red and were not rerun. Both Zenodo version records are now
 published and independently verified: MolSysMT 0.22.4 has version DOI
 `10.5281/zenodo.22959294`, and Viewer 0.23.4 has version DOI
 `10.5281/zenodo.22959304`. They arrived after the initial 900-second
