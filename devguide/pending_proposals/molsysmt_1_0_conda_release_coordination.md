@@ -1,7 +1,9 @@
 # MolSysMT 1.0 — Conda release coordination
 
-**Status:** active delivery track. The MolSysMT staging implementation exists in source;
-native publication and coordinated pair validation remain pending.
+**Status (2026-09-25):** The pre-1.0 0.22.4/0.23.4 pair is public and passed
+20/20 clean installed-pair checks from the `uibcdf` channel. This closes the
+package-availability milestone, not the later exact-coordinate 1.0 release
+gate. The older 0.22.0/0.23.1 plans below are dated candidate history.
 **Segment:** independent Conda publication coordination for the
 [MolSysMT 1.0 Execution Plan](release_1_0_execution_plan.md); status in
 [release_1_0_status.md](../release_1_0_status.md).

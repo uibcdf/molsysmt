@@ -49,8 +49,15 @@ The promotion action steps and receipt uploads passed, but the final
 duplicated post-promotion verifiers falsely ended red after printing each
 correct public URL (`uibcdf/molsysmt#246`, `uibcdf/molsysviewer#105`,
 `uibcdf/molsyssuite#48`). The public matrix is independent evidence; do not
-claim those promotion jobs passed. Both Zenodo version records remain
-unverified. Viewer visible-window Qt and complete hosted E2E are explicit
+claim those promotion jobs passed. Both Zenodo version records are now
+published and independently verified: MolSysMT 0.22.4 has version DOI
+`10.5281/zenodo.22959294`, and Viewer 0.23.4 has version DOI
+`10.5281/zenodo.22959304`. They arrived after the initial 900-second
+polling window; MolSysMT's verifier also required a tree-tag identifier
+absent from the valid record and was corrected under `uibcdf/molsysmt#247`.
+This does not imply that Conda/npm artifacts were archived by Zenodo;
+the records contain source ZIPs only (`uibcdf/molsyssuite#49`). Viewer
+visible-window Qt and complete hosted E2E are explicit
 pre-1.0 exceptions, not 1.0 sign-off (`uibcdf/molsysviewer#100`). The
 MolSysSuite-wide 3.14 admission decision is separate (`uibcdf/molsyssuite#29`).
 
@@ -68,34 +75,35 @@ not close F6 or change the 99% weighted 1.0 measure.
   the final exact-commit campaign passed the bounded two-backend oracle,
   independent scientific evidence, and all 9,774 effective application tests
   with Rust forced
-- **Current repository state:** F1–F5 are closed. The recertified F5 candidate
-  `38ab61f6e` passes the complete fast, smoke, documentation, wheel, and
+- **Historical F5 repository state:** F1–F5 were closed in the earlier
+  certification campaign. The recertified F5 candidate
+  `38ab61f6e` passed the complete fast, smoke, documentation, wheel, and
   Linux/macOS Python 3.11--3.13 gates after the bounded pre-1.0 corrections.
   That candidate used the published ArgDigest `0.12.0`; a subsequently found
   silent alias collision is fixed upstream and raises the source dependency
-  floor to the planned `0.12.1` patch release. PyUnitWizard remains at
-  `0.24.0`. The exact release candidate must be recertified after ArgDigest
-  `0.12.1` reaches the controlled workflows and Conda channel.
+  floor to the then-planned `0.12.1` patch release. PyUnitWizard was at
+  `0.24.0`. Those coordinates are historical; a new 1.0 candidate must use
+  and verify current published dependency floors.
   The remaining Common Core
   exception was removed in `c87a14036`: all 20 modules now use their permanent
   semantic manifest identities and the validator pins the 1–20 contract. The
   PyTraj, OpenFF, OpenMM construction, and missing-converter work that followed
   the 2026-08-07 snapshot is landed through `929d4363e`
-- **Current exact Rust campaign commit:** `6485a0c08`; this is verified
-  migration evidence but is not itself a release candidate, because Segment F
-  lifecycle work is still open and no candidate has been tagged
-- **Current exact Rust packaging commit:** `17be9ea50`; C2 is verified by a
+- **Historical exact Rust campaign commit:** `6485a0c08`; this is verified
+  migration evidence but was not itself a release candidate; Segment F
+  lifecycle work was still open at that checkpoint
+- **Historical exact Rust packaging commit:** `17be9ea50`; C2 was verified by a
   clean exact-commit `cp311-abi3` wheel and installed-extension smoke
-- **Current C3 exact evidence commit:** `f79ccb4f0`; all five native abi3
+- **Historical C3 exact evidence commit:** `f79ccb4f0`; all five native abi3
   wheels build, audit, install, execute the private-extension smoke, and upload
   successfully in GitHub Actions run `30346103646`
-- **Current C4–C7/E4 exact evidence commit:** `c4d8e9074`; five native wheels,
+- **Historical C4–C7/E4 exact evidence commit:** `c4d8e9074`; five native wheels,
   15 platform/Python installed checks, three NumPy floors, three public smokes,
   the sdist round trip, and Rust quality/security gates pass in GitHub Actions
   run `30394881487`
-- **Current E3 exact evidence commit:** `692479097`; 9,585 tests pass, two are
+- **Historical E3 exact evidence commit:** `692479097`; 9,585 tests passed, two were
   accepted skips, and the fast release gate passes 12/12
-- **Current F5 exact candidate:** `38ab61f6e`; fast gates passed 12/12 locally,
+- **Historical F5 exact candidate:** `38ab61f6e`; fast gates passed 12/12 locally,
   full matrix run `31781216880` passed on Ubuntu and macOS with Python
   3.11--3.13, wheel run `31781218931` passed the supported Linux/macOS build
   and installed-runtime matrix (with Windows green as experimental evidence
@@ -106,15 +114,16 @@ not close F6 or change the 99% weighted 1.0 measure.
 - **Normal pytest:** the authority for test results
 - **pytest-receptor:** the systematic compact reporter; disagreements must be
   reported upstream immediately
-- **Next action:** land the F6 citation/governance candidate, run every release gate on
-  that exact commit, and tag only that verified commit. Publish its GitHub Release and
-  then require the post-release Zenodo verifier to find a distinct 1.0.0 DOI inside
-  concept family `10.5281/zenodo.1298752`. A tag alone does not close F6
-- **Parallel packaging action:** Segment C is closed, and installed-wheel
-  validation with it. The Conda delivery track has now passed a separate
-  20-cell, five-platform staging installed-pair milestone with MolSysViewer
-  across Python 3.11–3.14; final release-candidate and public-channel gates
-  remain. This does not recertify F5/F6 or change the 99% weighted measure
+- **Next action:** take the published 0.22.4/0.23.4 pair as an installation
+  baseline, audit the remaining F6 checks against current code and dependency
+  floors, then run every 1.0 release gate on one new exact candidate before
+  any 1.0 tag. Its own GitHub Release and distinct Zenodo version DOI still
+  need post-publication verification; the pre-1.0 pair does not close F6
+- **Parallel packaging action:** Segment C and installed-wheel validation are
+  closed. The separate Conda delivery track has passed staging **and public**
+  20-cell, five-platform installed-pair matrices across Python 3.11–3.14.
+  Future 1.0 coordinates still need their own exact-candidate gates, but
+  public availability of the 0.22.4/0.23.4 pair is no longer pending
 - **Parallel documentation and paper action:** with A–E and F1–F5 closed, the
   presentation surface, the documentation and the methods paper are a principal
   parallel workstream rather than a finishing touch. The framing and factual
@@ -143,7 +152,11 @@ The 99% figure measures only the newly defined remaining-plan exit gates. It
 does not attempt to restate the much larger body of MolSysMT development,
 consolidation, or Rust kernel work completed before this ledger was created.
 
-## F6 blockers deferred by decision — 2026-08-19
+## Historical F6 blocker assessment — 2026-08-19
+
+The following assessment describes the 2026-08-19 candidate, not the newly
+published 0.22.4/0.23.4 pair. Recheck its source pins and workflow triggers
+against current `main` before carrying either item into a new 1.0 candidate.
 
 Both are recorded here rather than tracked elsewhere because they block the tag
 itself, and a release blocker with no home is how the 2026-08-17 weekly failure went

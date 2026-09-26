@@ -41,7 +41,7 @@ def _citation_tree(tmp_path: Path) -> Path:
 
 def test_repository_citation_metadata_is_coherent():
     validator = _load("validate_citation")
-    assert validator.validate_repository(REPO, "1.0.0") == []
+    assert validator.validate_repository(REPO) == []
 
 
 def test_validator_rejects_a_historical_doi_on_a_public_surface(tmp_path):
@@ -54,7 +54,7 @@ def test_validator_rejects_a_historical_doi_on_a_public_surface(tmp_path):
         ),
         encoding="utf-8",
     )
-    errors = validator.validate_repository(repo, "1.0.0")
+    errors = validator.validate_repository(repo)
     assert any("MolModMT" not in error and "2530946" in error for error in errors)
 
 
@@ -79,7 +79,7 @@ def test_prepare_release_updates_every_versioned_surface(tmp_path):
     assert validator.validate_repository(repo, "1.2.3") == []
 
 
-def test_zenodo_record_requires_the_exact_tag_and_distinct_version_doi():
+def test_zenodo_record_accepts_repository_and_exact_archive_without_tree_url():
     verifier = _load("verify_zenodo_release")
     record = {
         "conceptdoi": "10.5281/zenodo.1298752",
@@ -89,8 +89,9 @@ def test_zenodo_record_requires_the_exact_tag_and_distinct_version_doi():
         "metadata": {
             "version": "1.0.0",
             "related_identifiers": [
-                {"identifier": "https://github.com/uibcdf/molsysmt/tree/1.0.0"}
+                {"identifier": "https://github.com/uibcdf/molsysmt"}
             ],
+            "custom": {"code:codeRepository": "https://github.com/uibcdf/molsysmt"},
         },
     }
     assert (
@@ -103,15 +104,45 @@ def test_zenodo_record_requires_the_exact_tag_and_distinct_version_doi():
         == []
     )
 
-    wrong = json.loads(json.dumps(record))
-    wrong["metadata"]["version"] = "0.12.0"
-    errors = verifier.validate_record(
-        wrong,
+    tag_style = json.loads(json.dumps(record))
+    tag_style["metadata"]["related_identifiers"] = [
+        {"identifier": "https://github.com/uibcdf/molsysmt/tree/1.0.0"}
+    ]
+    tag_style["metadata"]["custom"] = {}
+    assert verifier.validate_record(
+        tag_style,
         "1.0.0",
         "10.5281/zenodo.1298752",
         "https://github.com/uibcdf/molsysmt",
-    )
-    assert any("metadata.version" in error for error in errors)
+    ) == []
+
+    for mutate, expected_error in (
+        (lambda item: item["metadata"].update(version="0.12.0"), "metadata.version"),
+        (lambda item: item.update(conceptdoi="10.5281/zenodo.1"), "concept DOI"),
+        (lambda item: item.update(doi="10.5281/zenodo.1298752"), "distinct version DOI"),
+        (lambda item: item.update(status="draft"), "record status"),
+        (
+            lambda item: item["metadata"].update(
+                related_identifiers=[{"identifier": "https://github.com/other/repo"}],
+                custom={"code:codeRepository": "https://github.com/other/repo"},
+            ),
+            "does not identify repository",
+        ),
+        (
+            lambda item: item.update(files=[{"key": "uibcdf/molsysmt-0.12.0.zip"}]),
+            "has no archive named",
+        ),
+        (lambda item: item.update(files=[]), "no archived files"),
+    ):
+        wrong = json.loads(json.dumps(record))
+        mutate(wrong)
+        errors = verifier.validate_record(
+            wrong,
+            "1.0.0",
+            "10.5281/zenodo.1298752",
+            "https://github.com/uibcdf/molsysmt",
+        )
+        assert any(expected_error in error for error in errors)
 
 
 def test_release_gate_and_workflow_enforce_the_two_citation_phases():

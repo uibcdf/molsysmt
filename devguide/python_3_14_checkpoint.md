@@ -35,10 +35,21 @@ claim. MolSysSuite-wide admission remains the separate decision in
 The Viewer npm runtime is published at 0.23.4 and its CDN asset is reachable.
 The Viewer publication has an explicitly bounded pre-1.0 exception for a
 visible-window Qt observation and complete hosted E2E certification
-(`uibcdf/molsysviewer#100`); these are not 1.0 passes. The Zenodo post-release
-verifiers have not yet found the two public records, so no exact-version DOI
-or completed archival claim is made. Recheck the public records before
-signing off the citation lifecycle; do not create a manual duplicate deposit.
+(`uibcdf/molsysviewer#100`); these are not 1.0 passes. The two Zenodo
+records are now public and independently verified. MolSysMT 0.22.4 is
+[version DOI 10.5281/zenodo.22959294](https://doi.org/10.5281/zenodo.22959294)
+in concept family `10.5281/zenodo.1298752`; its archived file is
+`uibcdf/molsysmt-0.22.4.zip` (150,833,579 bytes,
+`md5:9927d9511e5946eb708254d89d427d0d`). Viewer 0.23.4 is
+[version DOI 10.5281/zenodo.22959304](https://doi.org/10.5281/zenodo.22959304)
+in concept family `10.5281/zenodo.18072956`; its archived file is
+`uibcdf/molsysviewer-0.23.4.zip` (23,694,420 bytes,
+`md5:2cfe76a5ea9ec2894964926db81c2609`). Both records are published
+and identify the correct GitHub repository. These inventories are source
+archives, not Conda or npm artifact inventories. The first 900-second
+workflows expired before ingestion finished; the MolSysMT verifier also
+had an overly strict tree-tag predicate corrected under
+`uibcdf/molsysmt#247`.
 
 ## Earlier source and staging checkpoint — 2026-09-24
 
@@ -383,33 +394,23 @@ or a full Qt/scientific test-suite claim. GH Run Receptor's current
 all-platform profile does not aggregate the five targeted successes
 (`uibcdf/gh-run-receptor#54`); GitHub reports each run successful.
 
-## Next gates in order
+## Next gates after the public pair
 
-1. The existing MolSysMT 0.22.0 build-5 / MolSysViewer 0.23.1 build-1
-   staging pair passed all 15 platform/Python 3.11–3.13 cells in run
-   `35967239820`. Finish its separate public-release and installation gates;
-   that run predated the new explicit channel/URL/hash guard. The 3.14 source
-   branches can advance in parallel, but must not silently widen those
-   pre-existing package coordinates.
-2. Finish the revised binding-recipe matrix for the remaining Python 3.11
-   Linux cell; the 3.12–3.14 cells passed. Retain
-   exact artifact hashes, package-test exits, clean-solve provenance, and
-   UIBCDF-only WebEngine evidence. Replace the old direct-main upload route
-   with a reviewed staging-first candidate route before any upload.
-3. Run MolSysMT's full Python 3.14 test and scientific-evidence gates with
-   representative optional dependencies. The immutable pair has already
-   passed the bounded 20-cell staged installed-pair gate; extend coverage
-   beyond that smoke before a public support claim.
-4. Build the aligned Qt family for every claimed platform and test Viewer
-   with exact staged Qt packages where that host is supported. The MT/Viewer
-   pair already passed Python 3.11–3.14 clean installations, package
-   provenance and resource checks on five native platforms; preserve the
-   separate older-release gates. Linux/macOS are supported-platform targets;
-   Windows remains experimental until it earns comparable product evidence.
-5. Publish only after the exact-commit and channel gates pass. Verify the
-   released coordinates independently, then request the MolSysSuite Python
-   support status transition. Standard GIL-enabled CPython 3.14 is in scope;
-   free-threaded 3.14t is not.
+1. Correct the duplicated promotion verifier so a future successful upload
+   cannot finish with a false-red job (`uibcdf/molsyssuite#48`,
+   `uibcdf/molsysmt#246`, `uibcdf/molsysviewer#105`). Do not mutate or
+   re-upload the six already verified public artifacts to repair a badge.
+2. Extend Python 3.14 evidence beyond the 20-cell *core installed-pair*
+   smoke: full scientific/source gates, representative optional backends,
+   supported Qt-host observations, and the separate MolSysSuite admission
+   decision (`uibcdf/molsyssuite#29`). Windows core-package installation
+   passed; Windows standalone Qt support is not implied. Standard
+   GIL-enabled CPython 3.14 is in scope, not free-threaded 3.14t.
+3. Resume the independent 1.0 tracks from
+   [the MolSysMT execution ledger](release_1_0_status.md) and
+   `uibcdf/molsysviewer#82`: visible-window Qt, complete hosted E2E,
+   dogfooding, documentation and a new exact-commit 1.0 gate. Do not
+   recertify 1.0 from the 0.22.4/0.23.4 pre-1.0 exception.
 
 ## Handoff discipline
 

@@ -9,7 +9,7 @@ import re
 import sys
 import time
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 REPO = Path(__file__).resolve().parents[2]
@@ -51,13 +51,31 @@ def validate_record(
     if record.get("doi") == concept_doi or not record.get("doi"):
         errors.append("record has no distinct version DOI")
 
-    expected_tree = f"{repository.rstrip('/')}/tree/{version}".lower()
+    expected_repository = repository.rstrip("/").lower()
+    expected_tree = f"{expected_repository}/tree/{version}".lower()
     related = {
         str(item.get("identifier", "")).rstrip("/").lower()
         for item in metadata.get("related_identifiers", [])
     }
-    if expected_tree not in related:
-        errors.append(f"record does not identify GitHub tag {expected_tree}")
+    code_repository = (
+        str(metadata.get("custom", {}).get("code:codeRepository", ""))
+        .rstrip("/")
+        .lower()
+    )
+    if not (
+        expected_tree in related
+        or expected_repository in related
+        or code_repository == expected_repository
+    ):
+        errors.append(f"record does not identify repository {expected_repository}")
+
+    repository_path = urlsplit(expected_repository).path.strip("/")
+    expected_archive = f"{repository_path}-{version}.zip".lower()
+    if record.get("files") and not any(
+        str(item.get("key", "")).strip("/").lower() == expected_archive
+        for item in record["files"]
+    ):
+        errors.append(f"record has no archive named {expected_archive}")
     return errors
 
 

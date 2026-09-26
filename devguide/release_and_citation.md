@@ -127,6 +127,57 @@ For every sibling repository:
 The workflow is shared; project identity, authorship, and concept DOI remain local to
 each repository.
 
+## Repeatable release practice learned from 0.22.4/0.23.4
+
+The 2026-09-25 paired release is evidence for the following operational order,
+not a rule that every later patch must use staging. The common staging and
+promotion contract is proposed in `uibcdf/molsyssuite#27`; do not let two
+component checklists become independent policy authorities.
+
+1. Decide **paired versus independent** and **staged versus direct** before
+   freezing a version. A hard dependency floor that has no public candidate,
+   a mutual publication cycle, or a changed release recipe requires a
+   coordinated staging plan. A compatible independent patch can use the
+   guarded direct route after its registry preflight. Record the decision
+   and the exact version, tag candidate, channel, build number and owner.
+2. Preflight dependency resolution and source/package version identity before
+   expensive native builds. For a paired candidate, preserve the source SHA,
+   Conda build coordinates and SHA-256 receipts; a correction gets a new
+   build number, never replacement bytes at a tested coordinate. Check the
+   Viewer Python wheel's packaged JS runtime before tagging, not only the
+   Conda/npm rebuilds (`uibcdf/molsysviewer#102`).
+3. Run the **staged exact-pair** clean-install matrix before tags. Evaluate
+   failures by layer (solver, package metadata, code, resources, hosted test
+   infrastructure) and retain a narrow explicit exception only for evidence
+   that the maintainers have accepted for a pre-1.0 release. The 0.22.4/0.23.4
+   exception does not weaken either 1.0 gate (`uibcdf/molsysviewer#100`).
+4. Publish immutable tags/Releases, promote only the verified staged files,
+   then rerun the **public-channel** installed-pair matrix. A successful
+   upload action and a green workflow conclusion are different observations:
+   the 0.22.4/0.23.4 uploads succeeded while duplicated final verification
+   steps made those jobs red (`uibcdf/molsyssuite#48`). Never re-upload a
+   public artifact just to repair that diagnostic; use independent read-only
+   package and installation checks.
+5. Verify npm/CDN when Viewer is involved and treat Zenodo as a separate
+   asynchronous archival gate. The 0.22.4/0.23.4 records arrived after the
+   existing 900-second polling window; that timeout was not a failed
+   ingestion (`uibcdf/molsyssuite#49`). Recheck public records before any
+   account-side recovery. Validate the repository identity, exact version,
+   concept/version DOIs, published state and source ZIP inventory. Do not
+   require a `/tree/<tag>` related identifier when Zenodo supplies the exact
+   repository and versioned archive instead (`uibcdf/molsysmt#247`).
+
+Evergreen citation tests must compare derived surfaces with the current
+`CITATION.cff`, not a hard-coded future release number. The exact candidate
+gate is the place to assert its intended version (`uibcdf/molsysmt#248`).
+
+The five-platform ABI3 build (one artifact per native platform) and Viewer
+noarch build kept the expensive stage to six files, while both staging and
+public installed-pair matrices exercised all 20 Python/platform cells. Reuse
+those distinct evidence layers instead of rebuilding per Python minor or
+repeating a mutation workflow to change its status. Use GH Run Receptor for
+compact run triage, escalating to targeted native logs only when needed.
+
 ## Recovery rules
 
 - If metadata validation fails before tagging, correct the candidate and rerun its

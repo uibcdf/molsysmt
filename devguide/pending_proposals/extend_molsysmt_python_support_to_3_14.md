@@ -16,10 +16,11 @@ supersedes: []
 
 **Reported:** 2026-09-22, after the public Python 3.14 admission of the
 SMonitor, DepDigest, ArgDigest, and PyUnitWizard dependency chain.
-**Status:** Active feasibility work. Candidate source metadata now includes
-Python 3.14, and a locally built MolSysMT wheel and its native extension
-work on Linux/Python 3.14. The staged 0.22.0/0.23.1 package pair still stops
-at 3.13; no public 3.14 support is claimed.
+**Status (2026-09-25):** The MolSysMT 0.22.4 / Viewer 0.23.4 core pair is
+public and passed 20/20 clean Conda installations across five platforms and
+Python 3.11–3.14. The remaining active scope is broader scientific and
+optional-backend evidence and the separate MolSysSuite admission decision;
+the earlier source-only/staged observations below remain dated history.
 
 The dated [paired-support checkpoint](../python_3_14_checkpoint.md) is the
 compact handoff for current evidence and the next gate. This proposal keeps
@@ -28,14 +29,14 @@ the detailed analysis and acceptance criteria.
 ## What
 
 Extend the supported Python range from 3.11–3.13 to 3.11–3.14 under
-`uibcdf/molsyssuite#29`. The target includes MolSysMT's Rust extension,
-source and installed-package tests, Conda metadata, the hard MolSysViewer
-dependency, and public documentation. The current 0.22.0 MolSysMT /
-0.23.1 MolSysViewer staging campaign under `uibcdf/molsysmt#195` remains
-the 3.11–3.13 release path; a Python 3.14 claim needs its own later exact
-candidate and package evidence.
+`uibcdf/molsyssuite#29`. The installed core-pair and Conda metadata portion
+has passed for the published 0.22.4/0.23.4 coordinates. The remaining target
+includes full source/scientific tests with representative optional backends
+and an explicit suite-wide support-status decision. Do not treat core-package
+installation as evidence for every optional integration or Qt standalone
+platform.
 
-## How
+## How — original plan, with core-pair publication completed
 
 1. Finish the existing coordinated 0.22.0/0.23.1 installed-pair gate without
    silently expanding either candidate's Python range.
