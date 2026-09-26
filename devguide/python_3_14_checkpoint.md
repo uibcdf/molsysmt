@@ -50,6 +50,12 @@ archives, not Conda or npm artifact inventories. The first 900-second
 workflows expired before ingestion finished; the MolSysMT verifier also
 had an overly strict tree-tag predicate corrected under
 `uibcdf/molsysmt#247`.
+The read-only reruns on 2026-09-26 passed on current `main`:
+[MolSysMT run 36220716162](https://github.com/uibcdf/molsysmt/actions/runs/36220716162)
+reported 0.22.4 and its DOI, and
+[Viewer run 36220722008](https://github.com/uibcdf/molsysviewer/actions/runs/36220722008)
+reported 0.23.4 and its DOI. These manual dispatches verify public
+archives; they do not change either immutable release tag.
 
 ## Earlier source and staging checkpoint — 2026-09-24
 
