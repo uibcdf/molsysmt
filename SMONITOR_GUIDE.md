@@ -10,8 +10,8 @@ Source of truth for integrating and using **SMonitor** in this library.
 Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
-- Source version: `smonitor@0.15.0`
-- Last synced: 2026-09-08
+- Source version: `smonitor@0.17.0`
+- Last synced: 2026-09-26
 
 ## What is SMonitor
 
@@ -291,6 +291,14 @@ A filter that suppresses the warning for the user does **not** suppress the
 SMonitor event: filters govern the console, not your telemetry. And when
 `simplefilter("error")` promotes the warning to an exception, the event has
 already been recorded before it is raised.
+
+`DiagnosticBundle.warn()` and `warn_once()` count application frames for
+`stacklevel`, skipping their own frames and `@signal` wrappers. With the default
+`stacklevel=2`, a warning raised in a library function is attributed to its
+caller even when that function has `@signal`. A plain `warnings.warn(...)`
+inside an `@signal` function still counts the decorator frame: increase its
+`stacklevel` by one for each `@signal` wrapper on that call path, or route a
+catalogued diagnostic through `DiagnosticBundle.warn()`.
 
 ### 3.4 Emission Failures Must Not Be Silenced
 
@@ -657,6 +665,11 @@ A catalog entry carries `code`, `source`, `category` and `level`; the wording
 lives in `CODES`. A code present in one and absent from the other emits an event
 with an empty message, and nothing complains.
 
+Catalogs may be grouped under `exceptions`, `warnings`, `info` or `errors`, or
+flat with entries keyed directly by class/key. The check must read both shapes
+and must fail if it finds no coded entries; otherwise an empty or flat catalog
+can pass without checking a single code.
+
 ### Check 3 — every code renders in every profile
 
 A profile reads its own field and falls back to the others (section 1.2), so one
@@ -710,14 +723,22 @@ PROFILES = ["user", "dev", "qa", "agent", "debug"]
 
 
 def _catalog_codes(catalog):
-    for group in ("exceptions", "warnings", "info"):
-        for entry in (catalog.get(group) or {}).values():
-            if isinstance(entry, dict) and entry.get("code"):
-                yield entry["code"]
+    for key, entry in catalog.items():
+        if key in ("exceptions", "warnings", "info", "errors") and isinstance(
+            entry, dict
+        ):
+            entries = entry.values()
+        else:
+            entries = (entry,)
+        for item in entries:
+            if isinstance(item, dict) and item.get("code"):
+                yield item["code"]
 
 
 def test_every_catalog_code_has_a_template():
-    orphans = sorted(set(_catalog_codes(CATALOG)) - set(CODES))
+    emitted_codes = set(_catalog_codes(CATALOG))
+    assert emitted_codes, "no catalog codes found"
+    orphans = sorted(emitted_codes - set(CODES))
     assert not orphans, f"emitted with no template in CODES: {orphans}"
 
 
