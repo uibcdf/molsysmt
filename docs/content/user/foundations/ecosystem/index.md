@@ -8,7 +8,7 @@ Welcome to **The Ecosystem**, the foundational module introducing MolSysSuite—
 ## Contents
 
 - **{doc}`molsyssuite`**  
-  Overview of MolSysSuite, its biophysics tools (MolSysMT, MolSysViewer, TopoMT, PharmacophoreMT, ElastNetMT, Sabueso), and core infrastructure libraries (PyUnitWizard, ArgDigest, DepDigest, SMonitor, Pytest-Receptor).
+  Overview of MolSysSuite, its scientific components (MolSysMT, MolSysViewer, TopoMT, PharmacophoreMT, ElastNetMT, DockingMT), its specialist AI subsystem (MolSys-AI), and shared infrastructure libraries (PyUnitWizard, ArgDigest, DepDigest, SMonitor, Pytest-Receptor).
 
 ```{toctree}
 :maxdepth: 2

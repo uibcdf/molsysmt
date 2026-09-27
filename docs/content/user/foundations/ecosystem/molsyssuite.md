@@ -1,7 +1,9 @@
 (user-foundations-ecosystem-molsyssuite)=
 # MolSysSuite
 
-MolSysSuite is an integrated open-source collection of computational biophysics software packages developed at UIBCDF. Designed to cover structural molecular modeling, trajectory manipulation, 3D visualization, AI-assisted workflows, topological analysis, pharmacophore identification, elastic network dynamics, and database query management, MolSysSuite provides a unified ecosystem for molecular simulations and structural bioinformatics.
+MolSysSuite is an integrated open-source collection of computational biophysics software packages developed at UIBCDF. It covers structural molecular modeling, molecular docking, trajectory manipulation, 3D visualization, AI-assisted workflows, topological analysis, pharmacophore identification, and elastic network dynamics.
+
+Sabueso belongs to MOLI's Scientific Context and can provide knowledge to MolSysSuite workflows.
 
 ---
 
@@ -21,7 +23,7 @@ MolSysViewer is the native 3D WebGL visualization widget of the suite. Engineere
 
 *(Under development)*
 
-MolSys-AI is the AI-assisted agentic assistant and workflow automation package of the suite. It enables natural language query interpretation, automated simulation protocol assembly, intelligent trajectory diagnostics, and agent-driven biophysical analysis.
+MolSys-AI is the specialist AI subsystem for MolSysSuite. It is being developed to assist with scientific workflows, interpretation, and use of the suite's tools.
 
 ---
 
@@ -49,11 +51,11 @@ ElastNetMT is the elastic network modeling and normal mode analysis package of t
 
 ---
 
-## Sabueso
+## DockingMT
 
 *(Under development)*
 
-Sabueso is the biological database query and metadata parser agent of the suite. It automates information retrieval, sequence-structure mapping, entity identification, and metadata synchronization across major structural repositories (PDB, UniProt, AlphaFold DB).
+DockingMT is the molecular docking component of the suite. It provides reproducible, inspectable docking workflows and integrates molecular inputs from MolSysMT with docking engines.
 
 ---
 
