@@ -24,7 +24,7 @@ checkouts.
 > appear on the `uibcdf` channel. This report remains the acceptance plan for
 > the eventual Conda delivery.
 
-> **Current checkpoint — 2026-09-02**
+> **Historical checkpoint — 2026-09-02; superseded by the public pair above**
 >
 > The July inventory in §§1--13 is retained as the measured baseline, not as current
 > channel state. ArgDigest 0.12.1 and SMonitor 0.13.0 are now available for Python

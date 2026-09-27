@@ -16,11 +16,14 @@ supersedes: []
 
 **Reported:** 2026-09-22, after the public Python 3.14 admission of the
 SMonitor, DepDigest, ArgDigest, and PyUnitWizard dependency chain.
-**Status (2026-09-25):** The MolSysMT 0.22.4 / Viewer 0.23.4 core pair is
+**Status (2026-09-27):** The MolSysMT 0.22.4 / Viewer 0.23.4 core pair is
 public and passed 20/20 clean Conda installations across five platforms and
 Python 3.11–3.14. The remaining active scope is broader scientific and
 optional-backend evidence and the separate MolSysSuite admission decision;
 the earlier source-only/staged observations below remain dated history.
+The current shared Linux development environment uses official
+conda-forge PySide6/Qt 6.11.2; Viewer will review the newest compatible
+Qt family before its 1.0 candidate (`uibcdf/molsysviewer#112`).
 
 The dated [paired-support checkpoint](../python_3_14_checkpoint.md) is the
 compact handoff for current evidence and the next gate. This proposal keeps
@@ -58,13 +61,13 @@ platform.
 
 ## Why
 
-The public lower dependency chain resolves on Python 3.14. At the start of
-this work, MolSysMT's `pyproject.toml` declared `>=3.11.0,<3.14.0`; the
-`python-3.14-support` branch has widened candidate wheel metadata, but
-the existing ABI3 Conda recipe and required installed-package matrices
-still stop at 3.13. MolSysViewer is a hard dependency in both Python and
-Conda metadata. Its staged 0.23.1 noarch package also declares
-`python >=3.11,<3.14`, so the pair cannot resolve on 3.14 today.
+The public lower dependency chain resolves on Python 3.14. At the start
+of this work, MolSysMT's `pyproject.toml` declared `>=3.11.0,<3.14.0`;
+the initial candidate metadata and installed-package matrices stopped
+at 3.13. MolSysViewer is a hard dependency in both Python and Conda
+metadata. Its then-staged 0.23.1 noarch package also declared
+`python >=3.11,<3.14`, so that historical pair could not resolve on
+3.14. The public 0.22.4/0.23.4 pair now does.
 
 ## What is measured and what is assumed
 

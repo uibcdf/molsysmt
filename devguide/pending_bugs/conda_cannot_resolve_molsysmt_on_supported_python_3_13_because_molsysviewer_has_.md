@@ -17,11 +17,18 @@ supersedes: []
 
 **Reported:** 2026-09-01, while verifying the corrected dependency contract for
 uibcdf/molsysmt#193 against the live Conda channels.
-**Status:** active. MolSysMT 0.22.0 ABI3 build 5 and MolSysViewer 0.23.1
-noarch build 1 are staged. The corrected exact-pair gate passed all 15
-platform/Python 3.11--3.13 cells. Public-channel publication and its own
-release gates remain pending; the staged result must not be called a public
-Conda installation.
+**Status (2026-09-27):** The original Python 3.13 public-channel solver
+failure is no longer the active release blocker. Public MolSysMT 0.22.4
+and MolSysViewer 0.23.4 passed 20/20 clean installed-pair cells across
+Python 3.11–3.14, including all five platforms then in scope. The
+issue and this report remain open pending their formal closure with a
+mechanically addressable regression guard; do not repeat the older
+0.22.0/0.23.1 staging route as if public packages were still missing.
+Future 1.0 candidates require fresh exact-coordinate gates, now without
+macOS Intel. See [the current release status](../release_1_0_status.md).
+
+The 0.22.0/0.23.1 staging steps below are historical evidence for how
+the original defect was diagnosed, not instructions for a new release.
 
 The separate newer 0.22.3/0.23.3 technical staging pair passed 20/20
 installed cells across the same five platforms and Python 3.11–3.14 on

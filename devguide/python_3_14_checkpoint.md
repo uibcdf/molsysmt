@@ -1,8 +1,33 @@
 # Python 3.14 paired-support checkpoint
 
 **Role:** dated operational checkpoint, not a support declaration or release gate.
-**Observed:** 2026-09-25 for the public release milestone; older sections retain their dated, narrower observations.
+**Observed:** 2026-09-25 for the public release milestone and 2026-09-27
+for the current Linux development environment; older sections retain
+their dated, narrower observations.
 **Owning work:** [MolSysMT Python 3.14 proposal](pending_proposals/extend_molsysmt_python_support_to_3_14.md), `uibcdf/molsysviewer#93`, and the coordinated Conda release in `uibcdf/molsysmt#195` / `uibcdf/molsysviewer#82`.
+
+## Current Linux development route — 2026-09-27
+
+The shared `molsyssuite@uibcdf_3.14` environment now has Python
+3.14.7 and official `pyside6`, `qt6-main`,
+`qt6-webengine` and `qt6-positioning` 6.11.2 from conda-forge.
+The five local UIBCDF Qt/PySide 6.10.1 packages were removed from
+that prefix; their artifacts remain available as a separate rollback
+option. A fresh Linux prefix from the Qt-pinned central YAML and the
+migrated shared prefix passed targeted Viewer and MolSysMT–Viewer
+integration checks. The shared prefix also passed Xvfb window and
+SwiftShader-render smokes. The initial full Viewer suite in the fresh
+prefix had three failures from missing test dependencies and a stale
+macOS runner assertion; the affected tests passed after correction,
+but the complete suite was not repeated. Do not claim a green full
+suite or a native macOS/Windows standalone Qt pass from this evidence.
+
+The portable development recipe and its maintenance issue belong to
+`uibcdf/molsyssuite#52`; canonical-host implementation belongs to
+`uibcdf/molsysviewer#109`. The pre-1.0 review of the newest
+compatible conda-forge Qt family belongs to
+`uibcdf/molsysviewer#112`. The older local UIBCDF-only observations
+below remain dated evidence, not the current development recipe.
 
 ## Public pair release — 2026-09-25
 
@@ -416,8 +441,11 @@ all-platform profile does not aggregate the five targeted successes
    GIL-enabled CPython 3.14 is in scope, not free-threaded 3.14t.
 3. Resume the independent 1.0 tracks from
    [the MolSysMT execution ledger](release_1_0_status.md) and
-   `uibcdf/molsysviewer#82`: visible-window Qt, complete hosted E2E,
-   dogfooding, documentation and a new exact-commit 1.0 gate. Do not
+   the Viewer pre-1.0 plan: visible-window Qt, the core non-remote
+   hosted E2E lane, dogfooding, documentation, the latest-compatible
+   Qt review (`uibcdf/molsysviewer#112`) and a new exact-commit
+   1.0 gate. Remote-session E2E is post-1.0
+   (`uibcdf/molsysviewer#100`). Do not
    recertify 1.0 from the 0.22.4/0.23.4 pre-1.0 exception.
 
 ## Handoff discipline

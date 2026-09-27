@@ -20,6 +20,47 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Resume from here
+
+As of 2026-09-27, F6 is the active 1.0 stage. The public MolSysMT
+0.22.4 / MolSysViewer 0.23.4 pair is an independently verified
+pre-1.0 installation baseline, including Python 3.14. Future native
+Conda candidates use four supported platforms and 16 Python 3.11–3.14
+installed-pair cells; the earlier five-platform/20-cell campaign is
+historical evidence, not a new macOS Intel obligation.
+
+The shared Linux `molsyssuite@uibcdf_3.14` development environment now
+uses official conda-forge PySide6/Qt 6.11.2; the former UIBCDF family is
+a separate rollback lane. Its targeted Viewer and MolSysMT–Viewer
+checks passed, but the Viewer full suite was not rerun after three
+test-environment/assertion corrections. This is development evidence,
+not final 1.0 certification. See
+[the paired-support checkpoint](python_3_14_checkpoint.md),
+`uibcdf/molsyssuite#52`, and `uibcdf/molsysviewer#109`.
+
+For the next session:
+
+1. Audit F6 against current code, published dependency floors, open
+   release issues and the [exact-commit gate](release_gate.md). Do not
+   reuse the old 0.22.x staging candidates or August source pins as
+   instructions.
+2. Coordinate Viewer-owned work: scientific dogfooding, first-contact
+   onboarding, visible-window Qt observations, the core non-remote
+   browser gate and the latest-compatible Qt review before candidate
+   freeze (`uibcdf/molsysviewer#112`). Remote-session certification
+   is post-1.0 (`uibcdf/molsysviewer#100`); Xvfb is not a substitute
+   for a visible-window observation.
+3. Freeze new exact 1.0 candidates, run all required source, wheel,
+   Conda, documentation and installed-pair gates on those commits,
+   then decide on tags and releases. Verify public artifacts and
+   Zenodo records after publication. No pre-1.0 exception rolls
+   forward automatically.
+
+Use at most 12 pytest workers with `--receptor=llm` for compact local
+diagnostics; normal pytest verdicts remain authoritative. Use
+[the GH Run Receptor guide](../GH_RUN_RECEPTOR_GUIDE.md) for hosted-run
+inspection.
+
 ## Status Vocabulary
 
 | Status | Meaning |
@@ -210,9 +251,14 @@ correctness: the fast gate is 13/13 and the full suite passes locally.
 | F — lifecycle and release candidate | 10% | `IN PROGRESS` | 9% | F1–F5 are done; only F6 sign-off and the verified tag remain |
 | **Total** | **100%** | **`IN PROGRESS`** | **99%** | A–E use complete segment gates; F uses the explicit stage weights below |
 
-### B4 Pause Checkpoint — Transactional Structural Growth
+The detailed A–E notes below preserve the earlier certification campaign.
+Their dated uses of "current" and "next" refer to that campaign, not the
+present F6 handoff at the top of this file.
 
-The active uncommitted vertical defines one structural-axis contract for
+### Historical B4 Pause Checkpoint — Transactional Structural Growth
+
+At the time of this pause, the uncommitted vertical defined one
+structural-axis contract for
 `Structures`, `StructuresDict`, `MolSys`, `append_structures()`, and
 `concatenate_structures()`:
 
@@ -234,11 +280,10 @@ Evidence before pausing:
 - both edited User Guide notebooks parse as valid JSON;
 - pytest-receptor agreed with pytest on every verdict and exit code.
 
-This checkpoint is landed in the current structural-growth commit. Resume with
-the remaining NGL adapter causes, then rebuild the exact-commit Rust wheel and
-repeat the forced-Rust release gate. Do not absorb the independent
-release-plan, conversion, Rust, or archive WIP already present in the working
-tree.
+That checkpoint subsequently landed. Its then-next work was the remaining
+NGL adapter causes and an exact-commit Rust wheel and forced-Rust release
+gate; it is not the present instruction to resume or a claim that today's
+worktree contains that WIP.
 
 The H5MSM 0.5 independent-layer design discovered during this vertical is
 recorded separately in

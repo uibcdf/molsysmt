@@ -17,12 +17,15 @@ supersedes: []
 
 **Reported:** 2026-09-02, while exercising the staged MolSysMT 0.22.0 candidate
 through MolSysViewer in a clean Conda environment.
-**Status:** Active; the missing declaration and the provider's platform coverage are
-corrected. Local package and integration checks, the hosted cross-platform provider
-matrix, and independent installation of public py-mmcif pass. The corrected
-MolSysMT 0.22.0/MolSysViewer 0.23.1 staging pair passed 15/15 installed cells;
-the separate 0.22.3/0.23.3 technical staging pair passed 20/20 including
-Python 3.14. Neither pair has been published to the public channel.
+**Status (2026-09-27):** The missing dependency declaration and py-mmcif
+provider coverage are corrected, and public MolSysMT 0.22.4 /
+MolSysViewer 0.23.4 passed the clean 20-cell installed-pair matrix on
+Python 3.11–3.14. That matrix exercised bundled BCIF and PDB-text
+conversion, not necessarily the original remote-PDB-ID request below.
+Before closing this issue, verify that exact path from a clean public
+installation or name an existing guard that does so. The older
+0.22.0/0.23.1 and 0.22.3/0.23.3 staging results below are history, not
+unpublished current candidates.
 
 ## Updated package boundary — 2026-09-24
 

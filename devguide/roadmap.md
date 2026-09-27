@@ -16,6 +16,14 @@ visible-window/hosted-E2E gates, MolSysSuite-wide 3.14 admission, or either
 project's 1.0 release. Both Zenodo version records are now independently
 verified, with distinct version DOIs; see the paired-support checkpoint.
 
+The Linux Python 3.14 development environment now uses official
+conda-forge PySide6/Qt 6.11.2 rather than the local UIBCDF Qt family
+(`uibcdf/molsyssuite#52`). This is a development baseline, not a final
+1.0 Qt release gate. Viewer will reassess the newest compatible
+conda-forge family during pre-1.0 dogfooding
+(`uibcdf/molsysviewer#112`); the version may remain 6.11.2 if a newer
+family does not pass.
+
 For the next 1.0 session, start with
 [the 1.0 execution ledger](release_1_0_status.md) and
 [the exact-commit release gate](release_gate.md). Recertify an actual 1.0

@@ -32,6 +32,17 @@ See [DOCUMENT_POLICY.md](DOCUMENT_POLICY.md) for maintenance and status rules.
 
 ## Start here
 
+For a new session focused on the path to 1.0, first read the
+[current execution status](release_1_0_status.md#resume-from-here),
+the [Python 3.14 paired-support checkpoint](python_3_14_checkpoint.md)
+and the [exact-commit release gate](release_gate.md). Then consult the
+active issue and proposal for the chosen work item. The published pre-1.0
+pair is an installation baseline, not a substitute for those 1.0 gates.
+For Viewer-owned Qt and user-workflow gates, use `uibcdf/molsysviewer#109`,
+`uibcdf/molsysviewer#112`, and that repository's current checkpoint.
+Historical sections in the two checkpoints preserve evidence but are not
+instructions to repeat staging.
+
 Read these documents in order when first working on MolSysMT:
 
 1. [Core specification](CORE_SPECIFICATION.md) — native model, hierarchy, and
